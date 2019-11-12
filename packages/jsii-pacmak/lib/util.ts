@@ -154,3 +154,10 @@ export function nextMajorVersion(version: string): string {
   }
   return v.inc('patch').version;
 }
+
+
+export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
+  for (const el of els) {
+    xs.add(el);
+  }
+}

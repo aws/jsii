@@ -50,23 +50,27 @@ export interface BuildOptions {
  * Building can happen one target at a time, or multiple targets at a time.
  */
 export interface TargetBuilder {
-  buildModules(modules: JsiiModule[], options: BuildOptions): Promise<void>;
+  buildModules(): Promise<void>;
 }
 
 /**
  * Builds the targets for the given language sequentially
  */
 export class OneByOneBuilder implements TargetBuilder {
-  public constructor(private readonly targetName: string, private readonly targetConstructor: TargetConstructor) {
+  public constructor(
+    private readonly targetName: string,
+    private readonly targetConstructor: TargetConstructor,
+    private readonly modules: JsiiModule[],
+    private readonly options: BuildOptions) {
 
   }
 
-  public async buildModules(modules: JsiiModule[], options: BuildOptions): Promise<void> {
-    for (const module of modules) {
-      if (options.codeOnly) {
-        await this.generateModuleCode(module, options);
+  public async buildModules(): Promise<void> {
+    for (const module of this.modules) {
+      if (this.options.codeOnly) {
+        await this.generateModuleCode(module, this.options);
       } else {
-        await this.buildModule(module, options);
+        await this.buildModule(module, this.options);
       }
     }
   }

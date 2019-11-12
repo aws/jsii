@@ -1,19 +1,22 @@
-import { OneByOneBuilder, TargetBuilder } from '../builder';
+import { OneByOneBuilder, TargetBuilder, BuildOptions } from '../builder';
 
 import { DotnetBuilder } from './dotnet';
 import { JavaBuilder } from './java';
 import JavaScript from './js';
 import Python from './python';
 import Ruby from './ruby';
+import { JsiiModule } from '../packaging';
 
 export type TargetName = 'dotnet' | 'java' | 'js' | 'python' | 'ruby';
+export type BuilderFactory = (modules: JsiiModule[], options: BuildOptions) => TargetBuilder;
 
-export const ALL_BUILDERS: {[key in TargetName]: TargetBuilder} = {
-  dotnet: new DotnetBuilder(),
-  java: new JavaBuilder(),
-  js: new OneByOneBuilder('js', JavaScript),
-  python: new OneByOneBuilder('python', Python),
-  ruby: new OneByOneBuilder('ruby', Ruby),
+
+export const ALL_BUILDERS: {[key in TargetName]: BuilderFactory} = {
+  dotnet: (ms, o) => new DotnetBuilder(ms, o),
+  java: (ms, o) => new JavaBuilder(ms, o),
+  js: (ms, o) => new OneByOneBuilder('js', JavaScript, ms, o),
+  python: (ms, o) => new OneByOneBuilder('python', Python, ms, o),
+  ruby: (ms, o) => new OneByOneBuilder('ruby', Ruby, ms, o),
 };
 
 

@@ -8,8 +8,8 @@ import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';
 import logging = require('../logging');
 import { md2html } from '../markdown';
-import { PackageInfo, Target } from '../target';
-import { shell, Scratch, slugify } from '../util';
+import { PackageInfo, Target, findLocalBuildDirs } from '../target';
+import { shell, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
@@ -32,13 +32,16 @@ const BUILDER_CLASS_NAME = 'Builder';
 export class JavaBuilder implements TargetBuilder {
   private readonly targetName = 'java';
 
-  public async buildModules(modules: JsiiModule[], options: BuildOptions): Promise<void> {
-    if (modules.length === 0) { return; }
+  public constructor(private readonly modules: JsiiModule[], private readonly options: BuildOptions) {
+  }
 
-    if (options.codeOnly) {
+  public async buildModules(): Promise<void> {
+    if (this.modules.length === 0) { return; }
+
+    if (this.options.codeOnly) {
       // Simple, just generate code to respective output dirs
-      for (const module of modules) {
-        await this.generateModuleCode(module, options, module.outputDirectory);
+      for (const module of this.modules) {
+        await this.generateModuleCode(module, this.options, module.outputDirectory);
       }
       return;
     }
@@ -46,24 +49,26 @@ export class JavaBuilder implements TargetBuilder {
     // Otherwise make a single tempdir to hold all sources, build them together and copy them back out
     const scratchDirs: Array<Scratch<any>> = [];
     try {
-      const tempSourceDir = await this.generateAggregateSourceDir(modules, options);
+      const tempSourceDir = await this.generateAggregateSourceDir(this.modules, this.options);
       scratchDirs.push(tempSourceDir);
 
       // Need any old module object to make a target to be able to invoke build, though none of its settings
       // will be used.
-      const target = this.makeTarget(modules[0], options);
+      const target = this.makeTarget(this.modules[0], this.options);
       const tempOutputDir = await Scratch.make(async dir => {
         logging.debug(`Building Java code to ${dir}`);
         await target.build(tempSourceDir.directory, dir);
       });
       scratchDirs.push(tempOutputDir);
 
-      await this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object, options);
+      await this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object, this.options);
 
-    } finally {
-      if (options.clean) {
+      if (this.options.clean) {
         await Scratch.cleanupAll(scratchDirs);
       }
+    } catch(e) {
+      logging.warn(`Exception occurred, not cleaning up ${scratchDirs.map(s => s.directory)}`);
+      throw e;
     }
   }
 
@@ -90,6 +95,7 @@ export class JavaBuilder implements TargetBuilder {
       }
 
       await this.generateAggregatePom(tmpDir, ret.map(m => m.relativeSourceDir));
+      await this.generateMavenSettingsForLocalDeps(tmpDir);
 
       return ret;
     });
@@ -140,6 +146,70 @@ export class JavaBuilder implements TargetBuilder {
       await fs.mkdirp(artifactsDest);
       await fs.copy(artifactsSource, artifactsDest, { recursive: true });
     }
+  }
+
+  /**
+   * Generates maven settings file for this build.
+   * @param where The generated sources directory. This is where user.xml will be placed.
+   * @param currentOutputDirectory The current output directory. Will be added as a local maven repo.
+   */
+  private async generateMavenSettingsForLocalDeps(where: string) {
+    const filePath = path.join(where, 'user.xml');
+
+    // traverse the dep graph of this module and find all modules that have
+    // an <outdir>/java directory. we will add those as local maven
+    // repositories which will resolve instead of Maven Central for those
+    // module. this enables building against local modules (i.e. in lerna
+    // repositories or linked modules).
+    const allDepsOutputDirs = new Set<string>();
+    for (const module of this.modules) {
+      setExtend(allDepsOutputDirs, await findLocalBuildDirs(module.moduleDirectory, this.targetName));
+
+      // Also include output directory where we're building to, in case we build multiple packages into
+      // the same output directory.
+      allDepsOutputDirs.add(path.join(module.outputDirectory, this.options.languageSubdirectory ? this.targetName : ''));
+    }
+
+    const localRepos = Array.from(allDepsOutputDirs);
+
+    // if java-runtime is checked-out and we can find a local repository,
+    // add it to the list.
+    const localJavaRuntime = await findJavaRuntimeLocalRepository();
+    if (localJavaRuntime) {
+      localRepos.push(localJavaRuntime);
+    }
+
+    logging.debug('local maven repos:', localRepos);
+
+    const profileName = 'local-jsii-modules';
+    const settings = xmlbuilder.create({
+      settings: {
+        '@xmlns': 'http://maven.apache.org/POM/4.0.0',
+        '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+        '@xsi:schemaLocation': 'http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd',
+        '#comment': [
+          `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
+        ],
+        'profiles': {
+          profile: {
+            id: profileName,
+            repositories: {
+              repository: localRepos.map((repo, index) => ({
+                id: `local${index}`,
+                url: `file://${repo}`
+              }))
+            }
+          }
+        },
+        'activeProfiles': {
+          activeProfile: profileName
+        }
+      }
+    }, { encoding: 'UTF-8' }).end({ pretty: true });
+
+    logging.debug(`Generated ${filePath}`);
+    await fs.writeFile(filePath, settings);
+    return filePath;
   }
 
   private makeTarget(module: JsiiModule, options: BuildOptions): Target {
@@ -227,10 +297,9 @@ export default class Java extends Target {
       mvnArguments.push(this.arguments[arg].toString());
     }
 
-    const userXml = await this.generateMavenSettingsForLocalDeps(sourceDir, outDir);
     await shell(
       'mvn',
-      [...mvnArguments, 'deploy', `-D=altDeploymentRepository=local::default::${url}`, `--settings=${userXml}`],
+      [...mvnArguments, 'deploy', `-D=altDeploymentRepository=local::default::${url}`, `--settings=user.xml`],
       {
         cwd: sourceDir,
         env: {
@@ -241,66 +310,6 @@ export default class Java extends Target {
       }
     );
   }
-
-  /**
-     * Generates maven settings file for this build.
-     * @param sourceDir The generated sources directory. This is where user.xml will be placed.
-     * @param currentOutputDirectory The current output directory. Will be added as a local maven repo.
-     */
-  private async generateMavenSettingsForLocalDeps(sourceDir: string, currentOutputDirectory: string) {
-    const filePath = path.join(sourceDir, 'user.xml');
-
-    // traverse the dep graph of this module and find all modules that have
-    // an <outdir>/java directory. we will add those as local maven
-    // repositories which will resolve instead of Maven Central for those
-    // module. this enables building against local modules (i.e. in lerna
-    // repositories or linked modules).
-    const localRepos = await this.findLocalDepsOutput(this.packageDir);
-
-    // add the current output directory as a local repo as well for the case
-    // where we build multiple packages into the same output.
-    localRepos.push(currentOutputDirectory);
-
-    // if java-runtime is checked-out and we can find a local repository,
-    // add it to the list.
-    const localJavaRuntime = await findJavaRuntimeLocalRepository();
-    if (localJavaRuntime) {
-      localRepos.push(localJavaRuntime);
-    }
-
-    logging.debug('local maven repos:', localRepos);
-
-    const profileName = 'local-jsii-modules';
-    const settings = xmlbuilder.create({
-      settings: {
-        '@xmlns': 'http://maven.apache.org/POM/4.0.0',
-        '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-        '@xsi:schemaLocation': 'http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd',
-        '#comment': [
-          `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
-        ],
-        'profiles': {
-          profile: {
-            id: profileName,
-            repositories: {
-              repository: localRepos.map((repo, index) => ({
-                id: `local${index}`,
-                url: `file://${repo}`
-              }))
-            }
-          }
-        },
-        'activeProfiles': {
-          activeProfile: profileName
-        }
-      }
-    }, { encoding: 'UTF-8' }).end({ pretty: true });
-
-    logging.debug(`Generated ${filePath}`);
-    await fs.writeFile(filePath, settings);
-    return filePath;
-  }
-
 }
 
 // ##################

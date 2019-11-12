@@ -173,12 +173,12 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
   async function buildTargetsForLanguage(targetLanguage: string, modules: JsiiModule[], perLanguageDirectory: boolean) {
     // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
-    const builder = ALL_BUILDERS[targetLanguage as TargetName];
-    if (!builder) {
+    const factory = ALL_BUILDERS[targetLanguage as TargetName];
+    if (!factory) {
       throw new Error(`Unsupported target: '${targetLanguage}'`);
     }
 
-    await builder.buildModules(modules, {
+    await factory(modules, {
       clean: argv.clean,
       codeOnly: argv['code-only'],
       rosetta,
@@ -186,7 +186,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
       fingerprint: argv.fingerprint,
       arguments: argv,
       languageSubdirectory: perLanguageDirectory,
-    });
+    }).buildModules();
   }
 })().catch(err => {
   process.stderr.write(`${err.stack}\n`);

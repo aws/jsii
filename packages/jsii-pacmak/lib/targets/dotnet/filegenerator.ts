@@ -8,16 +8,12 @@ import { nextMajorVersion } from '../../util';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
-  public namespace: string;
-  public packageId: string;
-  public fqn: string;
-  public version: string;
-
-  public constructor(namespace: string, packageId: string, fqn: string, version: string) {
-    this.namespace = namespace;
-    this.packageId = packageId;
-    this.fqn = fqn;
-    this.version = version;
+  public constructor(
+    public readonly namespace: string,
+    public readonly packageId: string,
+    public readonly fqn: string,
+    public readonly version: string,
+    public readonly partOfCompilation: boolean) {
   }
 }
 
@@ -106,10 +102,14 @@ export class FileGenerator {
     packageReference.att('Version', `[${jsiiVersion},${jsiiVersionNextMajor})`);
 
     dependencies.forEach((value: DotNetDependency) => {
-      const dependencyReference = itemGroup2.ele('ProjectReference');
-      // dependencyReference.att('Include', value.packageId);
-      // dependencyReference.att('Version', value.version);
-      dependencyReference.att('Include', `../${value.packageId}/${value.packageId}.csproj`);
+      if (value.partOfCompilation) {
+        const dependencyReference = itemGroup2.ele('ProjectReference');
+        dependencyReference.att('Include', `../${value.packageId}/${value.packageId}.csproj`);
+      } else {
+        const dependencyReference = itemGroup2.ele('PackageReference');
+        dependencyReference.att('Include', value.packageId);
+        dependencyReference.att('Version', value.version);
+      }
     });
 
     const xml = rootNode.end({ pretty: true, spaceBeforeSlash: true });
