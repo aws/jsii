@@ -1126,6 +1126,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ privateImplementation property (experimental)
  │   │     ├── immutable
  │   │     └── type: jsii-calc.IPrivatelyImplemented
+ │   ├─┬ class RootStructValidator (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ static validate(struct) method (experimental)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ struct
+ │   │     │   └── type: jsii-calc.RootStruct
+ │   │     └── returns: void
  │   ├─┬ class RuntimeTypeChecking (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1886,6 +1894,12 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<boolean>
+ │   ├─┬ interface NestedStruct (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ numberProp property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ interface NullShouldBeTreatedAsUndefinedData (experimental)
  │   │ └─┬ members
  │   │   ├─┬ arrayWithThreeElementsAndUndefinedAsSecondArgument property (experimental)
@@ -1902,6 +1916,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface RootStruct (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ stringProp property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ nestedStruct property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<jsii-calc.NestedStruct>
  │   ├─┬ interface SecondLevelStruct (experimental)
  │   │ └─┬ members
  │   │   ├─┬ deeperRequiredProp property (experimental)
@@ -2255,6 +2279,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
+ │   ├── class RootStructValidator
  │   ├── class RuntimeTypeChecking
  │   ├── class SingleInstanceTwoTypes
  │   ├── class SingletonInt
@@ -2354,8 +2379,10 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface Hello
  │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
+ │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
  │   ├── interface StructA
@@ -2914,6 +2941,9 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── privateImplementation property
+ │   ├─┬ class RootStructValidator
+ │   │ └─┬ members
+ │   │   └── static validate(struct) method
  │   ├─┬ class RuntimeTypeChecking
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3219,6 +3249,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── memoryMiB property
  │   │   ├── publicLoadBalancer property
  │   │   └── publicTasks property
+ │   ├─┬ interface NestedStruct
+ │   │ └─┬ members
+ │   │   └── numberProp property
  │   ├─┬ interface NullShouldBeTreatedAsUndefinedData
  │   │ └─┬ members
  │   │   ├── arrayWithThreeElementsAndUndefinedAsSecondArgument property
@@ -3226,6 +3259,10 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface OptionalStruct
  │   │ └─┬ members
  │   │   └── field property
+ │   ├─┬ interface RootStruct
+ │   │ └─┬ members
+ │   │   ├── stringProp property
+ │   │   └── nestedStruct property
  │   ├─┬ interface SecondLevelStruct
  │   │ └─┬ members
  │   │   ├── deeperRequiredProp property
@@ -3439,6 +3476,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
+ │   ├── class RootStructValidator
  │   ├── class RuntimeTypeChecking
  │   ├── class SingleInstanceTwoTypes
  │   ├── class SingletonInt
@@ -3510,8 +3548,10 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface Hello
  │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
+ │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
  │   ├── interface StructA

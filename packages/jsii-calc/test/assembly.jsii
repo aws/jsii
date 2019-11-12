@@ -6799,6 +6799,38 @@
         }
       ]
     },
+    "jsii-calc.NestedStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.NestedStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2191
+      },
+      "name": "NestedStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "When provided, must be > 0."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2195
+          },
+          "name": "numberProp",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.NodeStandardLibrary": {
       "assembly": "jsii-calc",
       "docs": {
@@ -8214,6 +8246,90 @@
           }
         }
       ]
+    },
+    "jsii-calc.RootStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "remarks": "This is cheating with the declared types, but Python people don't play by\nthe rules much apparently.",
+        "stability": "experimental",
+        "summary": "This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary."
+      },
+      "fqn": "jsii-calc.RootStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2184
+      },
+      "name": "RootStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "May not be empty."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2188
+          },
+          "name": "stringProp",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2189
+          },
+          "name": "nestedStruct",
+          "optional": true,
+          "type": {
+            "fqn": "jsii-calc.NestedStruct"
+          }
+        }
+      ]
+    },
+    "jsii-calc.RootStructValidator": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.RootStructValidator",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2197
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2198
+          },
+          "name": "validate",
+          "parameters": [
+            {
+              "name": "struct",
+              "type": {
+                "fqn": "jsii-calc.RootStruct"
+              }
+            }
+          ],
+          "static": true
+        }
+      ],
+      "name": "RootStructValidator"
     },
     "jsii-calc.RuntimeTypeChecking": {
       "assembly": "jsii-calc",
@@ -10797,5 +10913,5 @@
     }
   },
   "version": "0.20.3",
-  "fingerprint": "r/K0k7ocrPmzUuFsCAvxLY2UdNEi6r/ruaoO3PnHiCA="
+  "fingerprint": "1F+uskR3++T5mjRcWge9oG3H/jJvXm1C3IhR1AwsBTE="
 }

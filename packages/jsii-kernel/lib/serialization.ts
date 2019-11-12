@@ -360,6 +360,11 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         value = data;
       }
 
+      // Python, for example, allows using plain mapping objects instead of Structs (dyanmic typing, YOLO!)
+      if (api.isWireMap(value)) {
+        value = value[api.TOKEN_MAP];
+      }
+
       value = validateRequiredProps(value as any, namedType.fqn, props);
 
       // Return a dict COPY, we have by-value semantics anyway.
