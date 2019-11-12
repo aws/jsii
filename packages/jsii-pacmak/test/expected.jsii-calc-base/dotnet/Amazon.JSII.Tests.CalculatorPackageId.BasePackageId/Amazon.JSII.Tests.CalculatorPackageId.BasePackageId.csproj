@@ -21,7 +21,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scope-jsii-calc-base-0.20.3.tgz" />
+    <EmbeddedResource Include="scope-jsii-calc-base-0.20.4.tgz" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Runtime" Version="[0.20.4,0.21.0)" />

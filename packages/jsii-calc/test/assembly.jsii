@@ -184,7 +184,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.20.3",
+  "jsiiVersion": "0.20.4",
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -10912,6 +10912,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.20.3",
-  "fingerprint": "iY4nrLDqMLt9tFuu2vdVRDn8zbHcXs/0hP8sA/k+BtI="
+  "version": "0.20.4",
+  "fingerprint": "W488rNm7uNRgskzcZWXGa1rupuH/JY0/L/ShKdrCw1k="
 }
