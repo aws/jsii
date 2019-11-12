@@ -20,7 +20,7 @@ export class KernelHost {
     this.processRequest(req, () => {
       // Schedule the call to run on the next event loop iteration to
       // avoid recursion.
-      setImmediate(() => this.run())
+      setImmediate(() => this.run());
     });
   }
 

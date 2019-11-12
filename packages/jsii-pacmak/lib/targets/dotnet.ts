@@ -32,18 +32,18 @@ export class DotnetBuilder implements TargetBuilder {
       scratchDirs.push(tempSourceDir);
 
       // Build solution
-      logging.debug(`Building .NET`);
+      logging.debug('Building .NET');
       await shell('dotnet', ['build', '-c', 'Release'], { cwd: tempSourceDir.directory });
 
       await this.copyOutArtifacts(tempSourceDir.object, options);
     } finally {
       if (options.clean) {
-        Scratch.cleanupAll(scratchDirs);
+        await Scratch.cleanupAll(scratchDirs);
       }
     }
   }
 
-  private async generateAggregateSourceDir(modules: JsiiModule[], options: BuildOptions): Promise<Scratch<Array<TemporaryDotnetPackage>>> {
+  private async generateAggregateSourceDir(modules: JsiiModule[], options: BuildOptions): Promise<Scratch<TemporaryDotnetPackage[]>> {
     return Scratch.make(async (tmpDir: string) => {
       logging.debug(`Generating aggregate .NET source dir at ${tmpDir}`);
 
@@ -70,7 +70,7 @@ export class DotnetBuilder implements TargetBuilder {
   }
 
   private async copyOutArtifacts(packages: TemporaryDotnetPackage[], options: BuildOptions) {
-    logging.debug(`Copying out .NET artifacts`);
+    logging.debug('Copying out .NET artifacts');
     for (const pkg of packages) {
       const targetDirectory = path.join(pkg.outputTargetDirectory, options.languageSubdirectory ? this.targetName : '');
 
@@ -154,7 +154,9 @@ export default class Dotnet extends Target {
 
   protected readonly generator = new DotNetGenerator();
 
+  /* eslint-disable @typescript-eslint/require-await */
   public async build(_sourceDir: string, _outDir: string): Promise<void> {
     throw new Error('Should not be called; use builder instead');
   }
+  /* eslint-enable @typescript-eslint/require-await */
 }

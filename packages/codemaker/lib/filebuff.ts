@@ -1,5 +1,5 @@
-import * as fs from 'fs-extra'
-import * as path from 'path'
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
 /**
  * Buffers the text of a file for later saving.

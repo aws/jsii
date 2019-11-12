@@ -1,4 +1,4 @@
-import * as fs from 'fs'
+import * as fs from 'fs';
 
 const STDIN_FD = 0;
 const STDOUT_FD = 1;

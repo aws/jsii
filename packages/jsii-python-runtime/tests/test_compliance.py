@@ -48,6 +48,8 @@ from jsii_calc import (
     EraseUndefinedHashValues,
     EraseUndefinedHashValuesOptions,
     VariadicMethod,
+    RootStruct,
+    RootStructValidator,
     StructPassing,
     TopLevelStruct,
     SecondLevelStruct,
@@ -193,8 +195,8 @@ def test_primitiveTypes():
     assert types.date_property == datetime.fromtimestamp(123 / 1000.0, tz=timezone.utc)
 
     # json
-    types.json_property = {"Foo": 123}
-    assert types.json_property.get("Foo") == 123
+    types.json_property = { "Foo": { "bar": 123  } }
+    assert types.json_property.get("Foo") == { "bar": 123 }
 
 
 def test_dates():
@@ -1000,6 +1002,16 @@ def test_consumer_calls_method_privateclass():
 def test_consumer_calls_method_typed_as_class():
     assert ConsumerCanRingBell().when_typed_as_class(PythonConcreteBellRinger())
 
+def test_can_pass_nested_struct_as_dict():
+    # Those shouldn't raise:
+    RootStructValidator.validate(string_prop= 'Pickle Rick!!!')
+    RootStructValidator.validate(string_prop= 'Pickle Rick!!!', nested_struct= None)
+    RootStructValidator.validate(
+        string_prop= 'Pickle Rick!!!',
+        nested_struct= {
+            'number_prop': 1337
+        }
+    )
 
 @jsii.implements(IBellRinger)
 class PythonBellRinger:

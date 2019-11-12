@@ -191,7 +191,9 @@ function markdownify(lines: string[], codeBlockAnnotations: string[]): string[] 
    */
   function flushTS() {
     if (typescriptLines.length !== 0) {
+      /* eslint-disable prefer-template */
       ret.push('```ts' + (codeBlockAnnotations.length > 0 ? ' ' + codeBlockAnnotations.join(' ') : ''), ...typescriptLines, '```');
+      /* eslint-enable prefer-template */
       typescriptLines.splice(0); // Clear
     }
   }

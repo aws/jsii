@@ -62,7 +62,7 @@ export class JavaBuilder implements TargetBuilder {
 
     } finally {
       if (options.clean) {
-        Scratch.cleanupAll(scratchDirs);
+        await Scratch.cleanupAll(scratchDirs);
       }
     }
   }
@@ -73,7 +73,7 @@ export class JavaBuilder implements TargetBuilder {
     await target.generateCode(where, module.tarball);
   }
 
-  private async generateAggregateSourceDir(modules: JsiiModule[], options: BuildOptions): Promise<Scratch<Array<TemporaryJavaPackage>>> {
+  private async generateAggregateSourceDir(modules: JsiiModule[], options: BuildOptions): Promise<Scratch<TemporaryJavaPackage[]>> {
     return Scratch.make(async (tmpDir: string) => {
       logging.debug(`Generating aggregate Java source dir at ${tmpDir}`);
       const ret: TemporaryJavaPackage[] = [];
@@ -82,7 +82,6 @@ export class JavaBuilder implements TargetBuilder {
         const sourceDir = path.join(tmpDir, relativeName);
         await this.generateModuleCode(module, options, sourceDir);
 
-        module.assembly
         ret.push({
           relativeSourceDir: relativeName,
           relativeArtifactsDir: moduleArtifactsSubdir(module),
@@ -124,7 +123,7 @@ export class JavaBuilder implements TargetBuilder {
   }
 
   private async copyOutArtifacts(artifactsRoot: string, packages: TemporaryJavaPackage[], options: BuildOptions) {
-    logging.debug(`Copying out Java artifacts`);
+    logging.debug('Copying out Java artifacts');
     // The artifacts directory looks like this:
     //  /tmp/XXX/software/amazon/awscdk/something/v1.2.3
     //                                 /else/v1.2.3

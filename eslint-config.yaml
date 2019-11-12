@@ -105,6 +105,10 @@ rules:
   '@typescript-eslint/require-await':
     - error
 
+  '@typescript-eslint/semi':
+    - error
+    - 'always'
+
   '@typescript-eslint/type-annotation-spacing':
     - error
 

@@ -44,7 +44,7 @@ function defineTest(name: string, method: (sandbox: Kernel) => Promise<any> | an
 
 defineTest.skip = function (name: string, method: (sandbox: Kernel) => Promise<any> | any) {
   return defineTest(name, method, test.skip);
-}
+};
 
 defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({ });
@@ -146,6 +146,24 @@ defineTest('in/out enum values', (sandbox) => {
   sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/THIS_IS_GREAT' } });
   expect(sandbox.get({ objref: alltypes, property: 'enumPropertyValue' }).value).toBe(101);
   expect(sandbox.get({ objref: alltypes, property: 'enumProperty' }).value).toEqual({ '$jsii.enum': 'jsii-calc.AllTypesEnum/THIS_IS_GREAT' });
+});
+
+describe('in/out json values', () => {
+  defineTest('with a plain object', (sandbox) => {
+    const allTypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
+    sandbox.set({ objref: allTypes, property: 'jsonProperty', value: { foo: 'bar', baz: 1337 } });
+    expect(sandbox.get({ objref: allTypes, property: 'jsonProperty' }).value).toEqual({ foo: 'bar', baz: 1337 });
+  });
+  defineTest('with a simple mapping', (sandbox) => {
+    const allTypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
+    sandbox.set({ objref: allTypes, property: 'jsonProperty', value: { [api.TOKEN_MAP]: { foo: 'bar', baz: 1337 } } });
+    expect(sandbox.get({ objref: allTypes, property: 'jsonProperty' }).value).toEqual({ foo: 'bar', baz: 1337 });
+  });
+  defineTest('with a nested mapping', (sandbox) => {
+    const allTypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
+    sandbox.set({ objref: allTypes, property: 'jsonProperty', value: { [api.TOKEN_MAP]: { foo: 'bar', baz: { [api.TOKEN_MAP]: { bazinga: [null, 'Pickle Rick'] } } } } });
+    expect(sandbox.get({ objref: allTypes, property: 'jsonProperty' }).value).toEqual({ foo: 'bar', baz: { bazinga: [null, 'Pickle Rick'] } });
+  });
 });
 
 defineTest('enum values from @scoped packages awslabs/jsii#138', (sandbox) => {
@@ -824,7 +842,7 @@ defineTest('loading a module twice idepotently succeeds', async (sandbox) => {
 defineTest('fails if trying to load two different versions of the same module', async (sandbox) => {
   const tarball = await preparePackage('jsii-calc', false);
   return expect(() => sandbox.load({ tarball, name: 'jsii-calc', version: '99.999.9' }))
-    .toThrow(/Multiple versions .+ and .+ of the package 'jsii-calc' cannot be loaded together/)
+    .toThrow(/Multiple versions .+ and .+ of the package 'jsii-calc' cannot be loaded together/);
 });
 
 defineTest('node.js standard library', async (sandbox) => {
