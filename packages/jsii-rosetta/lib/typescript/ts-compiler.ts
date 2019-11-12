@@ -7,14 +7,14 @@ export class TypeScriptCompiler {
     this.realHost = ts.createCompilerHost(STANDARD_COMPILER_OPTIONS, true);
   }
 
-  public createInMemoryCompilerHost(sourcePath: string, sourceContents: string): ts.CompilerHost {
+  public createInMemoryCompilerHost(sourcePath: string, sourceContents: string, currentDirectory?: string): ts.CompilerHost {
     const realHost = this.realHost;
     const sourceFile = ts.createSourceFile(sourcePath, sourceContents, ts.ScriptTarget.Latest);
 
     return {
       fileExists: filePath => filePath === sourcePath || realHost.fileExists(filePath),
       directoryExists: realHost.directoryExists && realHost.directoryExists.bind(realHost),
-      getCurrentDirectory: realHost.getCurrentDirectory.bind(realHost),
+      getCurrentDirectory: () => currentDirectory || realHost.getCurrentDirectory(),
       getDirectories: realHost.getDirectories && realHost.getDirectories.bind(realHost),
       getCanonicalFileName: fileName => realHost.getCanonicalFileName(fileName),
       getNewLine: realHost.getNewLine.bind(realHost),
@@ -30,7 +30,7 @@ export class TypeScriptCompiler {
     };
   }
 
-  public compileInMemory(filename: string, contents: string): CompilationResult {
+  public compileInMemory(filename: string, contents: string, currentDirectory?: string): CompilationResult {
     if (!filename.endsWith('.ts')) {
       // Necessary or the TypeScript compiler won't compile the file.
       filename += '.ts';
@@ -39,7 +39,7 @@ export class TypeScriptCompiler {
     const program = ts.createProgram({
       rootNames: [filename],
       options: STANDARD_COMPILER_OPTIONS,
-      host: this.createInMemoryCompilerHost(filename, contents),
+      host: this.createInMemoryCompilerHost(filename, contents, currentDirectory),
     });
 
     const rootFiles = program.getSourceFiles().filter(f => f.fileName === filename);

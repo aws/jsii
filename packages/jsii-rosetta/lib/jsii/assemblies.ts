@@ -46,7 +46,7 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
   const ret: AssemblySnippetSource[] = [];
 
   if (assembly.readme) {
-    ret.push({ type: 'markdown', markdown: assembly.readme.markdown, where: `${assembly.name}-README` });
+    ret.push({ type: 'markdown', markdown: assembly.readme.markdown, where: removeSlashes(`${assembly.name}-README`) });
   }
 
   if (assembly.types) {
@@ -68,11 +68,19 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
   function emitDocs(docs: spec.Docs | undefined, where: string) {
     if (!docs) { return; }
 
-    if (docs.remarks) { ret.push({ 'type': 'markdown', markdown: docs.remarks, where }); }
+    if (docs.remarks) { ret.push({ 'type': 'markdown', markdown: docs.remarks, where: removeSlashes(where) }); }
     if (docs.example && exampleLooksLikeSource(docs.example)) {
-      ret.push({ 'type': 'literal', source: docs.example, where: `${where}-example` });
+      ret.push({ 'type': 'literal', source: docs.example, where: removeSlashes(`${where}-example`) });
     }
   }
+}
+
+/**
+ * Remove slashes from a "where" description, as the TS compiler will interpret it as a directory
+ * and we can't have that for compiling literate files
+ */
+function removeSlashes(x: string) {
+  return x.replace(/\//g, '.');
 }
 
 export function* allTypeScriptSnippets(assemblies: Array<{ assembly: spec.Assembly, directory: string }>): IterableIterator<TypeScriptSnippet> {

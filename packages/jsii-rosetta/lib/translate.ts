@@ -7,7 +7,7 @@ import { TranslatedSnippet } from './tablets/tablets';
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';
 import { calculateVisibleSpans } from './typescript/ast-utils';
 import { File } from './util';
-import { TypeScriptSnippet, completeSource } from './snippet';
+import { TypeScriptSnippet, completeSource, SnippetParameters } from './snippet';
 import { snippetKey } from './tablets/key';
 
 export function translateTypeScript(source: File, visitor: AstHandler<any>, options: SnippetTranslatorOptions = {}): TranslateResult {
@@ -35,7 +35,7 @@ export class Translator {
   }
 
   public translate(snip: TypeScriptSnippet, languages = Object.keys(TARGET_LANGUAGES) as TargetLanguage[]) {
-    logging.debug(`Translating ${snippetKey(snip)}`);
+    logging.debug(`Translating ${snippetKey(snip)} ${Object.entries(snip.parameters || {})}`);
     const translator = this.translatorFor(snip);
     const snippet = TranslatedSnippet.fromSnippet(snip, this.includeCompilerDiagnostics ? translator.compileDiagnostics.length === 0 : undefined);
 
@@ -98,7 +98,9 @@ export class SnippetTranslator {
   constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
     const compiler = options.compiler || new TypeScriptCompiler();
     const source = completeSource(snippet);
-    this.compilation = compiler.compileInMemory(snippet.where, source);
+
+    const fakeCurrentDirectory = snippet.parameters && snippet.parameters[SnippetParameters.$COMPILATION_DIRECTORY];
+    this.compilation = compiler.compileInMemory(snippet.where, source, fakeCurrentDirectory);
 
     // Respect '/// !hide' and '/// !show' directives
     this.visibleSpans = calculateVisibleSpans(source);

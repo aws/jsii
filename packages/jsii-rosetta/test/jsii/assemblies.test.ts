@@ -1,6 +1,8 @@
+import mockfs = require('mock-fs');
 import spec = require('jsii-spec');
 import { allTypeScriptSnippets } from '../../lib/jsii/assemblies';
 import path = require('path');
+import { SnippetParameters } from '../../lib/snippet';
 
 test('Extract snippet from README', () => {
   const snippets = Array.from(allTypeScriptSnippets([{
@@ -102,6 +104,36 @@ test('Use fixture from example', () => {
     'someExample();',
     '/// !hide',
   ].join('\n'));
+});
+
+
+test('Backwards compatibility with literate integ tests', () => {
+  mockfs({
+    '/package/test/integ.example.lit.ts': '# Some literate source file'
+  });
+
+  try {
+    const snippets = Array.from(allTypeScriptSnippets([{
+      assembly: fakeAssembly({
+        readme: {
+          markdown: [
+            'Before the example.',
+            '```ts lit=test/integ.example.lit.ts',
+            'someExample();',
+            '```',
+            'After the example.'
+          ].join('\n')
+        }
+      }),
+      directory: '/package'
+    }]));
+
+    expect(snippets[0].visibleSource).toEqual('someExample();');
+    expect(snippets[0].completeSource).toEqual('# Some literate source file');
+    expect(snippets[0].parameters && snippets[0].parameters[SnippetParameters.$COMPILATION_DIRECTORY]).toEqual('/package/test');
+  } finally {
+    mockfs.restore();
+  }
 });
 
 export function fakeAssembly(parts: Partial<spec.Assembly>): spec.Assembly {

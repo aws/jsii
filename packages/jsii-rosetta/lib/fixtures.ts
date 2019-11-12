@@ -12,14 +12,31 @@ export function fixturize(snippet: TypeScriptSnippet): TypeScriptSnippet {
   const directory = parameters[SnippetParameters.$PROJECT_DIRECTORY];
   if (!directory) { return snippet; }
 
-  if (parameters[SnippetParameters.FIXTURE]) {
+  const literateSource = parameters[SnippetParameters.LITERATE_SOURCE];
+  if (literateSource) {
+    // Compatibility with the "old school" example inclusion mechanism.
+    // Completely load this file and attach a parameter with its directory.
+    source = loadLiterateSource(directory, literateSource);
+    parameters[SnippetParameters.$COMPILATION_DIRECTORY] = path.join(directory, path.dirname(literateSource));
+  } else if (parameters[SnippetParameters.FIXTURE]) {
     // Explicitly request a fixture
     source = loadAndSubFixture(directory, parameters.fixture, source, true);
   } else if (parameters[SnippetParameters.NO_FIXTURE] === undefined) {
+    // Don't explicitly request no fixture
     source = loadAndSubFixture(directory, 'default', source, false);
   }
 
   return { visibleSource: snippet.visibleSource, completeSource: source, where: snippet.where, parameters };
+}
+
+function loadLiterateSource(directory: string, literateFileName: string) {
+  const fullPath = path.join(directory, literateFileName);
+  const exists = fs.existsSync(fullPath);
+  if (!exists) {
+    // This couldn't really happen in practice, but do the check anyway
+    throw new Error(`Sample uses literate source ${literateFileName}, but not found: ${fullPath}`);
+  }
+  return fs.readFileSync(fullPath, { encoding: 'utf-8' });
 }
 
 function loadAndSubFixture(directory: string, fixtureName: string, source: string, mustExist: boolean) {

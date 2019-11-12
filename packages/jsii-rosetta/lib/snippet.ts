@@ -98,9 +98,25 @@ export enum SnippetParameters {
   NO_FIXTURE = 'nofixture',
 
   /**
+   * Snippet was extracted from this literate file (backwards compatibility)
+   *
+   * Parameter attached by 'jsii'; load the given file instead of any fixture,
+   * process as usual.
+   */
+  LITERATE_SOURCE = 'lit',
+
+  /**
    * What directory to resolve fixtures in for this snippet (system parameter)
    *
    * Attached during processing, should not be used by authors.
    */
   $PROJECT_DIRECTORY = '$directory',
+
+  /**
+   * What directory to pretend the file is in (system parameter)
+   *
+   * Attached when compiling a literate file, as they compile in
+   * the location where they are stored.
+   */
+  $COMPILATION_DIRECTORY = '$compilation',
 };
