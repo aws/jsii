@@ -306,7 +306,7 @@ export default class Java extends Target {
 
     await shell(
       'mvn',
-      [...mvnArguments, 'deploy', `-D=altDeploymentRepository=local::default::${url}`, `--settings=user.xml`],
+      [...mvnArguments, 'deploy', `-D=altDeploymentRepository=local::default::${url}`, '--settings=user.xml'],
       {
         cwd: sourceDir,
         env: {
