@@ -1,5 +1,5 @@
-import { SyncStdio } from './sync-stdio'
-import { api } from 'jsii-kernel'
+import { SyncStdio } from './sync-stdio';
+import { api } from 'jsii-kernel';
 
 export type Output =
     { hello: string } |
@@ -13,7 +13,7 @@ export type Input =
     { complete: api.CompleteRequest };
 
 export class InputOutput {
-  public debug = false
+  public debug = false;
 
   private readonly stdio = new SyncStdio();
 

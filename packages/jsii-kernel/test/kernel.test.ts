@@ -44,7 +44,7 @@ function defineTest(name: string, method: (sandbox: Kernel) => Promise<any> | an
 
 defineTest.skip = function (name: string, method: (sandbox: Kernel) => Promise<any> | any) {
   return defineTest(name, method, test.skip);
-}
+};
 
 defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({ });
@@ -842,7 +842,7 @@ defineTest('loading a module twice idepotently succeeds', async (sandbox) => {
 defineTest('fails if trying to load two different versions of the same module', async (sandbox) => {
   const tarball = await preparePackage('jsii-calc', false);
   return expect(() => sandbox.load({ tarball, name: 'jsii-calc', version: '99.999.9' }))
-    .toThrow(/Multiple versions .+ and .+ of the package 'jsii-calc' cannot be loaded together/)
+    .toThrow(/Multiple versions .+ and .+ of the package 'jsii-calc' cannot be loaded together/);
 });
 
 defineTest('node.js standard library', async (sandbox) => {
