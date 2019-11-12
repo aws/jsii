@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-lib",
-  "version": "0.20.2",
+  "version": "0.20.3",
   "private": true,
   "description": "A simple calcuator library built on JSII.",
   "deprecated": "Really just deprecated for shows...",
@@ -31,14 +31,14 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
-    "@scope/jsii-calc-base": "^0.20.2"
+    "@scope/jsii-calc-base": "^0.20.3"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base": "^0.20.2"
+    "@scope/jsii-calc-base": "^0.20.3"
   },
   "devDependencies": {
-    "jsii": "^0.20.2",
-    "jsii-build-tools": "^0.20.2"
+    "jsii": "^0.20.3",
+    "jsii-build-tools": "^0.20.3"
   },
   "jsii": {
     "outdir": "dist",

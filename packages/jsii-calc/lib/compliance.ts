@@ -2175,3 +2175,36 @@ class PrivateBell implements IBell {
         this.rung = true;
     }
 }
+
+/**
+ * This is here to check that we can pass a nested struct into a kwargs by specifying it as an
+ * in-line dictionary. This is cheating with the declared types, but Python people don't play by
+ * the rules much apparently.
+ */
+export interface RootStruct {
+    /**
+     * May not be empty.
+     */
+    readonly stringProp: string;
+    readonly nestedStruct?: NestedStruct;
+}
+export interface NestedStruct {
+    /**
+     * When provided, must be > 0.
+     */
+    readonly numberProp: number;
+}
+export class RootStructValidator {
+    public static validate(struct: RootStruct): void {
+        if (!struct.stringProp) {
+            throw new Error('Missing required field: stringProp');
+        }
+        if (struct.nestedStruct) {
+            if (struct.nestedStruct.numberProp <= 0) {
+                throw new Error('numberProp must be > 0');
+            }
+        }
+    }
+
+    private constructor() { }
+}

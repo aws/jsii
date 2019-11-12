@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("@scope/jsii-calc-lib", "0.20.2", $Module.class, "jsii-calc-lib@0.20.2.jsii.tgz");
+        super("@scope/jsii-calc-lib", "0.20.3", $Module.class, "jsii-calc-lib@0.20.3.jsii.tgz");
     }
 
     @Override

@@ -60,8 +60,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(UnixEpoch.AddMilliseconds(123), types.DateProperty);
 
             // json
-            types.JsonProperty = JObject.Parse(@"{ ""Foo"": 123 }");
-            Assert.Equal(123d, types.JsonProperty["Foo"].Value<double>());
+            types.JsonProperty = JObject.Parse(@"{ ""Foo"": { ""Bar"": 123 } }");
+            Assert.Equal(123d, types.JsonProperty["Foo"]["Bar"].Value<double>());
         }
 
         [Fact(DisplayName = Prefix + nameof(Dates))]
@@ -137,7 +137,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                         new Dictionary<string, object>
                         {
                             { "World", 123 }
-                        }             
+                        }
                     }
                 }
             };
@@ -1011,12 +1011,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             var a1 = new StructA { RequiredString = "Present!", OptionalNumber = 1337 };
             var b0 = new StructB { RequiredString = "Present!", OptionalBoolean = true };
             var b1 = new StructB { RequiredString = "Present!", OptionalStructA = a1 };
-            
+
             Assert.True(StructUnionConsumer.IsStructA(a0));
             Assert.True(StructUnionConsumer.IsStructA(a1));
             Assert.False(StructUnionConsumer.IsStructA(b0));
             Assert.False(StructUnionConsumer.IsStructA(b1));
-            
+
             Assert.False(StructUnionConsumer.IsStructB(a0));
             Assert.False(StructUnionConsumer.IsStructB(a1));
             Assert.True(StructUnionConsumer.IsStructB(b0));
@@ -1032,7 +1032,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(new double[]{2d, 3d}, invoker.AsArray(1, 2));
             Assert.Equal(new double[]{2d, 3d, 4d}, invoker.AsArray(1, 2, 3));
         }
-        
+
         private sealed class OverrideVariadicMethod : VariadicMethod
         {
             public override double[] AsArray(double first, params double[] others)
@@ -1047,7 +1047,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             var noOption = new InterfaceWithOptionalMethodArguments();
             new OptionalArgumentInvoker(noOption).InvokeWithoutOptional();
             Assert.True(noOption.Invoked);
-            
+
             var option = new InterfaceWithOptionalMethodArguments(1337);
             new OptionalArgumentInvoker(option).InvokeWithOptional();
             Assert.True(option.Invoked);

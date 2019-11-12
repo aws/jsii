@@ -665,6 +665,13 @@ class Struct extends BasePythonClassType {
     code.openBlock(`def __init__(${constructorArguments.join(', ')})`);
     this.emitConstructorDocstring(code);
 
+    // Re-type struct arguments that were passed as "dict"
+    for (const member of members.filter(m => m.isStruct(this.generator))) {
+      // Note that "None" is NOT an instance of dict (that's convenient!)
+      const typeName = resolver.resolve(member.type, { ignoreOptional: true });
+      code.line(`if isinstance(${member.pythonName}, dict): ${member.pythonName} = ${typeName}(**${member.pythonName})`);
+    }
+
     // Required properties, those will always be put into the dict
     code.line('self._values = {');
     for (const member of members.filter(m => !m.optional)) {
@@ -723,7 +730,7 @@ class StructField implements PythonBase {
   public readonly pythonName: string;
   public readonly jsiiName: string;
   public readonly docs?: spec.Docs;
-  private readonly type: spec.OptionalValue;
+  public readonly type: spec.OptionalValue;
 
   public constructor(public readonly prop: spec.Property) {
     this.pythonName = toPythonPropertyName(prop.name);
