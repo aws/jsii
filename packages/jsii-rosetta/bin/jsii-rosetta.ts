@@ -61,7 +61,7 @@ async function main() {
       printDiagnostics(result.diagnostics, process.stderr);
 
       if (result.diagnostics.length > 0) {
-        logging.warn(`${result.diagnostics.length} diagnostics encountered`);
+        logging.warn(`${result.diagnostics.length} diagnostics encountered in ${result.tablet.count} snippets`);
       }
 
       if (result.diagnostics.some(isErrorDiagnostic) && args.fail) {

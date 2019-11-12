@@ -106,9 +106,10 @@ export class FileGenerator {
     packageReference.att('Version', `[${jsiiVersion},${jsiiVersionNextMajor})`);
 
     dependencies.forEach((value: DotNetDependency) => {
-      const dependencyReference = itemGroup2.ele('PackageReference');
-      dependencyReference.att('Include', value.packageId);
-      dependencyReference.att('Version', value.version);
+      const dependencyReference = itemGroup2.ele('ProjectReference');
+      // dependencyReference.att('Include', value.packageId);
+      // dependencyReference.att('Version', value.version);
+      dependencyReference.att('Include', `../${value.packageId}/${value.packageId}.csproj`);
     });
 
     const xml = rootNode.end({ pretty: true, spaceBeforeSlash: true });

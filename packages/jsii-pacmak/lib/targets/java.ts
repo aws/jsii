@@ -9,9 +9,9 @@ import { Generator } from '../generator';
 import logging = require('../logging');
 import { md2html } from '../markdown';
 import { PackageInfo, Target } from '../target';
-import { shell, Scratch } from '../util';
+import { shell, Scratch, slugify } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
-import { TargetBuilder, BuildOptions, allOutputDirectoriesTheSame, OneByOneBuilder } from '../builder';
+import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -21,7 +21,13 @@ const spdxLicenseList = require('spdx-license-list');
 const BUILDER_CLASS_NAME = 'Builder';
 
 /**
- * Build Java packages in parallel, by generating an aggregate POM
+ * Build Java packages all together, by generating an aggregate POM
+ *
+ * This will make the Java build a lot more efficient (~300%).
+ *
+ * Do this by copying the code into a temporary directory, generating an aggregate
+ * POM there, and then copying the artifacts back into the respective output
+ * directories.
  */
 export class JavaBuilder implements TargetBuilder {
   private readonly targetName = 'java';
@@ -29,51 +35,68 @@ export class JavaBuilder implements TargetBuilder {
   public async buildModules(modules: JsiiModule[], options: BuildOptions): Promise<void> {
     if (modules.length === 0) { return; }
 
-    // We can only do the optimized build if '-o' was specified, which we will notice
-    // as all module outputdirectories being the same. (Maybe we can build to per-package
-    // dist dirs as well, but this is the smallest delta from what we had and we will
-    // always specify the output dir anyway).
-    if (!allOutputDirectoriesTheSame(modules)) {
-      logging.warn('Single output directory not specified, doing (slower) one-by-one build for Java');
-      await new OneByOneBuilder(this.targetName, Java).buildModules(modules, options);
+    if (options.codeOnly) {
+      // Simple, just generate code to respective output dirs
+      for (const module of modules) {
+        await this.generateModuleCode(module, options, module.outputDirectory);
+      }
       return;
     }
 
-    const singleOutputDir = this.finalOutputDir(modules[0], options);
+    // Otherwise make a single tempdir to hold all sources, build them together and copy them back out
+    const scratchDirs: Array<Scratch<any>> = [];
+    try {
+      const tempSourceDir = await this.generateAggregateSourceDir(modules, options);
+      scratchDirs.push(tempSourceDir);
 
-    const moduleDirectories = [];
-
-    for (const module of modules) {
-      moduleDirectories.push(await this.generateModuleCode(module, options, options.codeOnly));
-    }
-
-    if (!options.codeOnly && modules.length > 0) {
-      // Need a module to get a target
-      const pomDirectory = modules.length > 1
-        ? await this.generateAggregatePom(moduleDirectories)
-        : moduleDirectories[0].directory;
+      // Need any old module object to make a target to be able to invoke build, though none of its settings
+      // will be used.
       const target = this.makeTarget(modules[0], options);
+      const tempOutputDir = await Scratch.make(async dir => {
+        logging.debug(`Building Java code to ${dir}`);
+        await target.build(tempSourceDir.directory, dir);
+      });
+      scratchDirs.push(tempOutputDir);
 
-      await target.build(pomDirectory, singleOutputDir);
+      await this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object, options);
+
+    } finally {
+      if (options.clean) {
+        Scratch.cleanupAll(scratchDirs);
+      }
     }
   }
 
-  private async generateModuleCode(module: JsiiModule, options: BuildOptions, finalDirectory?: boolean): Promise<Scratch<void>> {
+  private async generateModuleCode(module: JsiiModule, options: BuildOptions, where: string): Promise<void> {
     const target = this.makeTarget(module, options);
-
-    const srcDir = finalDirectory
-      ? Scratch.fake(this.finalOutputDir(module, options), undefined)
-      : await Scratch.make(_ => undefined);
-
-    logging.debug(`Generating ${this.targetName} code into ${srcDir.directory}`);
-    await target.generateCode(srcDir.directory, module.tarball);
-
-    return srcDir;
+    logging.debug(`Generating Java code into ${where}`);
+    await target.generateCode(where, module.tarball);
   }
 
-  private async generateAggregatePom(sourceDirectories: Array<Scratch<void>>) {
-    const parentDir = this.findSharedParentDirectory(sourceDirectories.map(s => s.directory));
+  private async generateAggregateSourceDir(modules: JsiiModule[], options: BuildOptions): Promise<Scratch<Array<TemporaryJavaPackage>>> {
+    return Scratch.make(async (tmpDir: string) => {
+      logging.debug(`Generating aggregate Java source dir at ${tmpDir}`);
+      const ret: TemporaryJavaPackage[] = [];
+      for (const module of modules) {
+        const relativeName = slugify(module.name);
+        const sourceDir = path.join(tmpDir, relativeName);
+        await this.generateModuleCode(module, options, sourceDir);
 
+        module.assembly
+        ret.push({
+          relativeSourceDir: relativeName,
+          relativeArtifactsDir: moduleArtifactsSubdir(module),
+          outputTargetDirectory: module.outputDirectory
+        });
+      }
+
+      await this.generateAggregatePom(tmpDir, ret.map(m => m.relativeSourceDir));
+
+      return ret;
+    });
+  }
+
+  private async generateAggregatePom(where: string, moduleNames: string[]) {
     const aggregatePom = xmlbuilder.create({
       project: {
         '@xmlns': 'http://maven.apache.org/POM/4.0.0',
@@ -91,32 +114,32 @@ export class JavaBuilder implements TargetBuilder {
         'version': '1.0.0',
 
         'modules': {
-          module: sourceDirectories.map(s => path.relative(parentDir, s.directory))
+          module: moduleNames,
         }
       }
     }, { encoding: 'UTF-8' }).end({ pretty: true });
 
-    logging.debug(`Generated ${parentDir}/pom.xml`);
-    await fs.writeFile(path.join(parentDir, 'pom.xml'), aggregatePom);
-    return parentDir;
+    logging.debug(`Generated ${where}/pom.xml`);
+    await fs.writeFile(path.join(where, 'pom.xml'), aggregatePom);
   }
 
-  /**
-   * Find the longest shared given a set of directories
-   */
-  private findSharedParentDirectory(dirs: string[]) {
-    if (dirs.length === 0) { return ''; }
-    const dirParts = dirs.map(dir => dir.split(path.sep));
+  private async copyOutArtifacts(artifactsRoot: string, packages: TemporaryJavaPackage[], options: BuildOptions) {
+    logging.debug(`Copying out Java artifacts`);
+    // The artifacts directory looks like this:
+    //  /tmp/XXX/software/amazon/awscdk/something/v1.2.3
+    //                                 /else/v1.2.3
+    //                                 /entirely/v1.2.3
+    //
+    // We get the 'software/amazon/awscdk/something' path from the package, identifying
+    // the files we need to copy, including Maven metadata. But we need to recreate
+    // the whole path in the target directory.
 
-    return dirParts.reduce(longestPrefix).join(path.sep);
+    for (const pkg of packages) {
+      const artifactsSource = path.join(artifactsRoot, pkg.relativeArtifactsDir);
+      const artifactsDest = path.join(pkg.outputTargetDirectory, options.languageSubdirectory ? this.targetName : '', pkg.relativeArtifactsDir);
 
-    function longestPrefix(accumulator: string[], current: string[]) {
-      const len = Math.min(accumulator.length, current.length);
-      let i = 0;
-      while (i < len && accumulator[i] === current[i]) {
-        i++;
-      }
-      return accumulator.slice(0, i);
+      await fs.mkdirp(artifactsDest);
+      await fs.copy(artifactsSource, artifactsDest, { recursive: true });
     }
   }
 
@@ -131,13 +154,32 @@ export class JavaBuilder implements TargetBuilder {
       rosetta: options.rosetta,
     });
   }
+}
 
-  private finalOutputDir(module: JsiiModule, options: BuildOptions): string {
-    if (options.languageSubdirectory) {
-      return path.join(module.outputDirectory, this.targetName);
-    }
-    return module.outputDirectory;
-  }
+interface TemporaryJavaPackage {
+  /**
+   * Where the sources are (relative to the source root)
+   */
+  relativeSourceDir: string;
+
+  /**
+   * Where the artifacts will be stored after build (relative to build dir)
+   */
+  relativeArtifactsDir: string;
+
+  /**
+   * Where the artifacts ought to go for this particular module
+   */
+  outputTargetDirectory: string;
+}
+
+/**
+ * Return the subdirectory of the output directory where the artifacts for this particular package are produced
+ */
+function moduleArtifactsSubdir(module: JsiiModule) {
+  const groupId = module.assembly.targets!.java!.maven.groupId;
+  const artifactId = module.assembly.targets!.java!.maven.artifactId;
+  return `${groupId.replace(/\./g, '/')}/${artifactId}`;
 }
 
 export default class Java extends Target {

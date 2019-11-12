@@ -97,6 +97,13 @@ export async function loadAssembly(modulePath: string): Promise<spec.Assembly> {
 }
 
 /**
+ * Strip filesystem unsafe characters from a string
+ */
+export function slugify(x: string) {
+  return x.replace(/[^a-zA-Z0-9_-]/g, '_');
+}
+
+/**
  * Class that makes a temporary directory and holds on to an operation object
  */
 export class Scratch<A> {

@@ -10,6 +10,7 @@ import { divideEvenly } from '../util';
 
 export interface ExtractResult {
   diagnostics: ts.Diagnostic[];
+  tablet: LanguageTablet;
 }
 
 /**
@@ -37,7 +38,7 @@ export async function extractSnippets(assemblyLocations: string[], outputFile: s
   logging.info(`Saving language tablet to ${outputFile}`);
   await tablet.save(outputFile);
 
-  return { diagnostics: result.diagnostics };
+  return { diagnostics: result.diagnostics, tablet };
 }
 
 interface TranslateAllResult {

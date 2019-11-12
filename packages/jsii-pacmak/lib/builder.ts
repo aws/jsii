@@ -54,15 +54,6 @@ export interface TargetBuilder {
 }
 
 /**
- * Return the output directory if all modules have the same directory
- */
-export function allOutputDirectoriesTheSame(modules: JsiiModule[]): boolean {
-  if (modules.length === 0) { return true; }
-  const ret = modules[0].outputDirectory;
-  return modules.every(m => m.outputDirectory === ret);
-}
-
-/**
  * Builds the targets for the given language sequentially
  */
 export class OneByOneBuilder implements TargetBuilder {
