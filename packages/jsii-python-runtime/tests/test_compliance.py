@@ -1005,6 +1005,7 @@ def test_consumer_calls_method_typed_as_class():
 def test_can_pass_nested_struct_as_dict():
     # Those shouldn't raise:
     RootStructValidator.validate(string_prop= 'Pickle Rick!!!')
+    RootStructValidator.validate(string_prop= 'Pickle Rick!!!', nested_struct= None)
     RootStructValidator.validate(
         string_prop= 'Pickle Rick!!!',
         nested_struct= {
