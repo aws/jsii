@@ -55,7 +55,8 @@ from jsii_calc import (
     SecondLevelStruct,
     StructA,
     StructB,
-    StructUnionConsumer
+    StructUnionConsumer,
+    SomeTypeJsii976
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
@@ -1012,6 +1013,11 @@ def test_can_pass_nested_struct_as_dict():
             'number_prop': 1337
         }
     )
+
+# https://github.com/aws/jsii/issues/976
+def test_return_subclass_that_implements_interface_976():
+    obj = SomeTypeJsii976.return_return()
+    assert obj.foo == 333
 
 @jsii.implements(IBellRinger)
 class PythonBellRinger:

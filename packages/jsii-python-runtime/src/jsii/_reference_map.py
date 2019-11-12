@@ -46,6 +46,10 @@ class _ReferenceMap:
         self._refs[inst.__jsii_ref__.ref] = inst
 
     def resolve(self, kernel, ref):
+        raise Exception("nuke")
+        import sys
+        print(">>>> resolve %s" % ref, file=sys.stderr)
+
         # First we need to check our reference map to see if we have any instance that
         # already matches this reference.
         try:
