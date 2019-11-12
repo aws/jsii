@@ -90,6 +90,7 @@ Array [
   "PythonReservedWords",
   "ReferenceEnumFromScopedPackage",
   "ReturnsPrivateImplementationOfInterface",
+  "RootStructValidator",
   "RuntimeTypeChecking",
   "SingleInstanceTwoTypes",
   "SingletonInt",
