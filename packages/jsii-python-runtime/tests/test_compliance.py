@@ -48,7 +48,6 @@ from jsii_calc import (
     EraseUndefinedHashValues,
     EraseUndefinedHashValuesOptions,
     VariadicMethod,
-    RootStruct,
     RootStructValidator,
     StructPassing,
     TopLevelStruct,
@@ -1018,6 +1017,19 @@ def test_can_pass_nested_struct_as_dict():
 def test_return_subclass_that_implements_interface_976():
     obj = SomeTypeJsii976.return_return()
     assert obj.foo == 333
+
+def test_return_subclass_that_implements_interface_976_raises_attributeerror_when_using_non_existent_method():
+    obj = SomeTypeJsii976.return_return()
+    try:
+        print(obj.not_a_real_method_I_swear)
+        failed = False
+    except AttributeError as err:
+        failed = True
+        assert err.args[0] == "'<class 'jsii_calc.BaseJsii976'>+<class 'jsii_calc._IReturnJsii976Proxy'>' object has no attribute 'not_a_real_method_I_swear'"
+    assert failed
+
+def test_return_anonymous_implementation_of_interface():
+    assert SomeTypeJsii976.return_anonymous() is not None
 
 @jsii.implements(IBellRinger)
 class PythonBellRinger:

@@ -2219,11 +2219,19 @@ export interface IReturnJsii976 {
 export class BaseJsii976 { }
 
 export class SomeTypeJsii976 {
-    
+
     static returnReturn(): IReturnJsii976 {
         class Derived extends BaseJsii976 implements IReturnJsii976 {
             public readonly foo = 333
-        }   
+        }
+
+        return new Derived();
+    }
+
+    static returnAnonymous(): any {
+        class Derived implements IReturnJsii976 {
+            public readonly foo = 1337;
+        }
 
         return new Derived();
     }
