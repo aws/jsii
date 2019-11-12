@@ -41,7 +41,7 @@ export class JavaBuilder implements TargetBuilder {
     if (this.options.codeOnly) {
       // Simple, just generate code to respective output dirs
       for (const module of this.modules) {
-        await this.generateModuleCode(module, this.options, module.outputDirectory);
+        await this.generateModuleCode(module, this.options, this.outputDir(module.outputDirectory));
       }
       return;
     }
@@ -61,7 +61,7 @@ export class JavaBuilder implements TargetBuilder {
       });
       scratchDirs.push(tempOutputDir);
 
-      await this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object, this.options);
+      await this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object);
 
       if (this.options.clean) {
         await Scratch.cleanupAll(scratchDirs);
@@ -128,7 +128,7 @@ export class JavaBuilder implements TargetBuilder {
     await fs.writeFile(path.join(where, 'pom.xml'), aggregatePom);
   }
 
-  private async copyOutArtifacts(artifactsRoot: string, packages: TemporaryJavaPackage[], options: BuildOptions) {
+  private async copyOutArtifacts(artifactsRoot: string, packages: TemporaryJavaPackage[]) {
     logging.debug('Copying out Java artifacts');
     // The artifacts directory looks like this:
     //  /tmp/XXX/software/amazon/awscdk/something/v1.2.3
@@ -141,11 +141,18 @@ export class JavaBuilder implements TargetBuilder {
 
     for (const pkg of packages) {
       const artifactsSource = path.join(artifactsRoot, pkg.relativeArtifactsDir);
-      const artifactsDest = path.join(pkg.outputTargetDirectory, options.languageSubdirectory ? this.targetName : '', pkg.relativeArtifactsDir);
+      const artifactsDest = path.join(this.outputDir(pkg.outputTargetDirectory), pkg.relativeArtifactsDir);
 
       await fs.mkdirp(artifactsDest);
       await fs.copy(artifactsSource, artifactsDest, { recursive: true });
     }
+  }
+
+  /**
+   * Decide whether or not to append 'java' to the given output directory
+   */
+  private outputDir(declaredDir: string) {
+    return this.options.languageSubdirectory ? path.join(declaredDir, this.targetName) : declaredDir;
   }
 
   /**

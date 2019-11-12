@@ -24,7 +24,7 @@ export class DotnetBuilder implements TargetBuilder {
     if (this.options.codeOnly) {
       // Simple, just generate code to respective output dirs
       for (const module of this.modules) {
-        await this.generateModuleCode(module, module.outputDirectory);
+        await this.generateModuleCode(module, this.outputDir(module.outputDirectory));
       }
       return;
     }
@@ -80,7 +80,7 @@ export class DotnetBuilder implements TargetBuilder {
   private async copyOutArtifacts(packages: TemporaryDotnetPackage[]) {
     logging.debug('Copying out .NET artifacts');
     for (const pkg of packages) {
-      const targetDirectory = path.join(pkg.outputTargetDirectory, this.options.languageSubdirectory ? this.targetName : '');
+      const targetDirectory = this.outputDir(pkg.outputTargetDirectory);
 
       await fs.mkdirp(targetDirectory);
       await fs.copy(pkg.artifactsDir, targetDirectory, { recursive: true });
@@ -97,6 +97,13 @@ export class DotnetBuilder implements TargetBuilder {
   }
 
   /**
+   * Decide whether or not to append 'dotnet' to the given output directory
+   */
+  private outputDir(declaredDir: string) {
+    return this.options.languageSubdirectory ? path.join(declaredDir, this.targetName) : declaredDir;
+  }
+
+  /**
    * Write a NuGet.config that will include build directories for local packages not in the current build
    *
    */
@@ -110,7 +117,7 @@ export class DotnetBuilder implements TargetBuilder {
 
       // Also include output directory where we're building to, in case we build multiple packages into
       // the same output directory.
-      allDepsOutputDirs.add(path.join(module.outputDirectory, this.options.languageSubdirectory ? this.targetName : ''));
+      allDepsOutputDirs.add(this.outputDir(module.outputDirectory));
     }
 
     const localRepos = Array.from(allDepsOutputDirs);
