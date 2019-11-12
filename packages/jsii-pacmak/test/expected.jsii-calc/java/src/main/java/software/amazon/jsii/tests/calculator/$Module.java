@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("jsii-calc", "0.20.3", $Module.class, "jsii-calc@0.20.3.jsii.tgz");
+        super("jsii-calc", "0.20.4", $Module.class, "jsii-calc@0.20.4.jsii.tgz");
     }
 
     @Override
@@ -125,6 +125,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.LoadBalancedFargateServiceProps": return software.amazon.jsii.tests.calculator.LoadBalancedFargateServiceProps.class;
             case "jsii-calc.Multiply": return software.amazon.jsii.tests.calculator.Multiply.class;
             case "jsii-calc.Negate": return software.amazon.jsii.tests.calculator.Negate.class;
+            case "jsii-calc.NestedStruct": return software.amazon.jsii.tests.calculator.NestedStruct.class;
             case "jsii-calc.NodeStandardLibrary": return software.amazon.jsii.tests.calculator.NodeStandardLibrary.class;
             case "jsii-calc.NullShouldBeTreatedAsUndefined": return software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined.class;
             case "jsii-calc.NullShouldBeTreatedAsUndefinedData": return software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData.class;
@@ -144,6 +145,8 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.PythonReservedWords": return software.amazon.jsii.tests.calculator.PythonReservedWords.class;
             case "jsii-calc.ReferenceEnumFromScopedPackage": return software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage.class;
             case "jsii-calc.ReturnsPrivateImplementationOfInterface": return software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface.class;
+            case "jsii-calc.RootStruct": return software.amazon.jsii.tests.calculator.RootStruct.class;
+            case "jsii-calc.RootStructValidator": return software.amazon.jsii.tests.calculator.RootStructValidator.class;
             case "jsii-calc.RuntimeTypeChecking": return software.amazon.jsii.tests.calculator.RuntimeTypeChecking.class;
             case "jsii-calc.SecondLevelStruct": return software.amazon.jsii.tests.calculator.SecondLevelStruct.class;
             case "jsii-calc.SingleInstanceTwoTypes": return software.amazon.jsii.tests.calculator.SingleInstanceTwoTypes.class;
