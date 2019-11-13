@@ -183,7 +183,7 @@ export class OTreeSink {
 
   public renderingForSpan(span?: Span): boolean {
     if (span && this.options.visibleSpans) {
-      this.rendering = this.options.visibleSpans.some(v => inside(span, v));
+      this.rendering = this.options.visibleSpans.some(v => spanInside(span, v));
     }
     return this.rendering;
   }
@@ -247,6 +247,10 @@ export interface Span {
   end: number
 }
 
-function inside(a: Span, b: Span) {
+export function spanInside(a: Span, b: Span) {
   return b.start <= a.start && a.end <= b.end;
+}
+
+export function spanContains(a: Span, position: number) {
+  return a.start <= position && position < a.end;
 }

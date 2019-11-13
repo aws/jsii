@@ -105,7 +105,9 @@ export class AstRenderer<C> {
 
   public report(node: ts.Node, messageText: string, category: ts.DiagnosticCategory = ts.DiagnosticCategory.Error) {
     this.diagnostics.push({
-      category, code: 0,
+      category,
+      code: 0,
+      source: 'rosetta',
       messageText,
       file: this.sourceFile,
       start: node.getStart(this.sourceFile),

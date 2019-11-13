@@ -1,7 +1,7 @@
 import logging = require('./logging');
 import ts = require('typescript');
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
-import { renderTree, Span } from './o-tree';
+import { renderTree, Span, spanContains } from './o-tree';
 import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';
 import { TranslatedSnippet } from './tablets/tablets';
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';
@@ -115,11 +115,18 @@ export class SnippetTranslator {
   public renderUsing(visitor: AstHandler<any>) {
     const converter = new AstRenderer(this.compilation.rootFile, this.compilation.program.getTypeChecker(), visitor, this.options);
     const converted = converter.convert(this.compilation.rootFile);
-    this.translateDiagnostics.push(...converter.diagnostics);
+    this.translateDiagnostics.push(...filterVisibleDiagnostics(converter.diagnostics, this.visibleSpans));
     return renderTree(converted, { visibleSpans: this.visibleSpans });
   }
 
   public get diagnostics() {
     return [...this.compileDiagnostics, ...this.translateDiagnostics];
   }
+}
+
+/**
+ * Hide diagnostics that are rosetta-sourced if they are reported against a non-visible span
+ */
+function filterVisibleDiagnostics(diags: ts.Diagnostic[], visibleSpans: Span[]): ts.Diagnostic[] {
+  return diags.filter(d => d.source !== 'rosetta' || d.start === undefined || visibleSpans.some(s => spanContains(s, d.start!)));
 }
