@@ -42,7 +42,7 @@
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.20.5",
     "@types/fs-extra": "^8.0.1",
-    "@types/jest": "^24.0.22",
+    "@types/jest": "^24.0.23",
     "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
