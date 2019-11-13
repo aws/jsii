@@ -33,7 +33,7 @@ from jsii.python import classproperty
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.20.3", __name__, "jsii-calc@0.20.3.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.20.4", __name__, "jsii-calc@0.20.4.jsii.tgz")
 class AbstractClassBase(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"):
     """
     stability
@@ -5971,8 +5971,8 @@ class RootStruct():
     def __init__(self, *, string_prop: str, nested_struct: typing.Optional["NestedStruct"]=None):
         """This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
 
-        This is cheating with the declared types, but Python people don't play by
-        the rules much apparently.
+        This is cheating with the (current) declared types, but this is the "more
+        idiomatic" way for Pythonists.
 
         :param string_prop: May not be empty.
         :param nested_struct: 
