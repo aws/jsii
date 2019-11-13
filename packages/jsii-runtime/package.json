@@ -39,7 +39,7 @@
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.20.5",
     "@scope/jsii-calc-lib": "^0.20.5",
-    "@types/jest": "^24.0.22",
+    "@types/jest": "^24.0.23",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
