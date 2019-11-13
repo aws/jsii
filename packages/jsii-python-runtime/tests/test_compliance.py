@@ -1042,7 +1042,7 @@ def test_return_anonymous_implementation_of_interface():
 
 def test_structs_can_be_downcasted_to_parent_type():
     assert Demonstrate982.take_this() is not None
-    assert Demonstrate985.take_this_too() is not None
+    assert Demonstrate982.take_this_too() is not None
 
 @jsii.implements(IBellRinger)
 class PythonBellRinger:
