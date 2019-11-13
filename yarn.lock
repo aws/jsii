@@ -2635,6 +2635,11 @@ date-format@^2.1.0:
   resolved "https://registry.yarnpkg.com/date-format/-/date-format-2.1.0.tgz#31d5b5ea211cf5fd764cd38baf9d033df7e125cf"
   integrity sha512-bYQuGLeFxhkxNOF3rcMtiZxvCBAquGzZm6oWA1oZ0g2THUzivaRhv8uOhdr19LmoobSOLoIAxeUK2RdbM8IFTA==
 
+date-format@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/date-format/-/date-format-3.0.0.tgz#eb8780365c7d2b1511078fb491e6479780f3ad95"
+  integrity sha512-eyTcpKOcamdhWJXj56DpQMo1ylSQpcGtGKXcU0Tb97+K56/CF5amAqqqNj0+KvA0iw2ynxtHWFsPDSClCxe48w==
+
 dateformat@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
@@ -5058,16 +5063,16 @@ lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.2.
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
-log4js@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/log4js/-/log4js-5.3.0.tgz#7e43fa49f516c2d11c71ae28eddffd508eef2ba8"
-  integrity sha512-PZHXaXJKMKEscvQxSnTjM4UosQalSDlNpMw63eCKW+/DiAFKIZPW1jGyIPXZDjiEYFusMfiI7zzvnxeGozUcAw==
+log4js@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/log4js/-/log4js-6.0.0.tgz#9fa6576d4507ac8bf816e15bbbc38e384a6bb022"
+  integrity sha512-Iwc/OWOE6bjQOTRoV3JOnXLiG9naU0gWUYhvFfXQ4FQRGnwZbc+67kFGeYwmrO1GO+n1UmX0QCDRiTzRkeYgeQ==
   dependencies:
-    date-format "^2.1.0"
+    date-format "^3.0.0"
     debug "^4.1.1"
     flatted "^2.0.1"
     rfdc "^1.1.4"
-    streamroller "^2.2.2"
+    streamroller "^2.2.3"
 
 long@^3.2.0:
   version "3.2.0"
@@ -7137,10 +7142,10 @@ stream-shift@^1.0.0:
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.0.tgz#d5c752825e5367e786f78e18e445ea223a155952"
   integrity sha1-1cdSgl5TZ+eG944Y5EXqIjoVWVI=
 
-streamroller@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/streamroller/-/streamroller-2.2.2.tgz#26bea90567f80d8438d251e5603643fe617b7090"
-  integrity sha512-wizmZ8NNiqeNIYHv8MqBBbSIeNNcsXyoKxbGYBpiFHCjTGlNHqGNGElwrSM3Awg+0j6U96/eFrSnjW+h3aRo0Q==
+streamroller@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/streamroller/-/streamroller-2.2.3.tgz#b95c9fad44e2e89005d242141486b3b4962c2d28"
+  integrity sha512-AegmvQsscTRhHVO46PhCDerjIpxi7E+d2GxgUDu+nzw/HuLnUdxHWr6WQ+mVn/4iJgMKKFFdiUwFcFRDvcjCtw==
   dependencies:
     date-format "^2.1.0"
     debug "^4.1.1"
