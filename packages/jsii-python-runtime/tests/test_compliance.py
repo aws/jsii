@@ -55,7 +55,9 @@ from jsii_calc import (
     StructA,
     StructB,
     StructUnionConsumer,
-    SomeTypeJsii976
+    SomeTypeJsii976,
+    AnonymousImplementationProvider,
+    IAnonymousImplementationProvider
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
@@ -1012,6 +1014,12 @@ def test_can_pass_nested_struct_as_dict():
             'number_prop': 1337
         }
     )
+
+def test_can_leverage_indirect_interface_polymorphism():
+    provider = AnonymousImplementationProvider()
+    assert provider.provide_as_class().value == 1337
+    assert provider.provide_as_interface().value == 1337
+    assert provider.provide_as_interface().verb() == "to implement"
 
 # https://github.com/aws/jsii/issues/976
 def test_return_subclass_that_implements_interface_976():
