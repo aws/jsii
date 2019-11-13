@@ -1,5 +1,6 @@
 export * from './translate';
 export { renderTree } from './o-tree';
+export { JavaVisitor } from './languages/java';
 export { PythonVisitor } from './languages/python';
 export * from './tablets/tablets'
 export * from './rosetta';
