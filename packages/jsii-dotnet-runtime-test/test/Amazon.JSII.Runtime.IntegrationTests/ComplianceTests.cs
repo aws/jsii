@@ -1033,6 +1033,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(new double[]{2d, 3d, 4d}, invoker.AsArray(1, 2, 3));
         }
 
+        [Fact(DisplayName = Prefix + nameof(ReturnSubclassThatImplementsInterface976))]
+        public void ReturnSubclassThatImplementsInterface976() 
+        {
+            var obj = SomeTypeJsii976.ReturnReturn();
+            Assert.Equal(obj.Foo, 333);
+        }
+
         private sealed class OverrideVariadicMethod : VariadicMethod
         {
             public override double[] AsArray(double first, params double[] others)
