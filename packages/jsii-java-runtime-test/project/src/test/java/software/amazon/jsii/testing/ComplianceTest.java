@@ -1397,6 +1397,12 @@ public class ComplianceTest {
         assertEquals(obj.getFoo(), 333);
     }
 
+    @Test
+    public void testStructsCanBeDowncastedToParentType() {
+        assertNotNull(Demonstrate982.takeThis());
+        assertNotNull(Demonstrate982.takeThisToo());
+    }
+
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {
         @Override
         public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj,

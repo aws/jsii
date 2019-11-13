@@ -455,12 +455,12 @@ namespace Amazon.JSII.Runtime.Deputy
         
         private IDictionary<System.Type, object> Proxies { get; } = new Dictionary<System.Type, object>();
         
-        public TypeCode GetTypeCode()
+        TypeCode IConvertible.GetTypeCode()
         {
             return TypeCode.Object;
         }
         
-        public object ToType(System.Type conversionType, IFormatProvider provider)
+        object IConvertible.ToType(System.Type conversionType, IFormatProvider provider)
         {
             if (Proxies.ContainsKey(conversionType))
             {
@@ -498,14 +498,15 @@ namespace Amazon.JSII.Runtime.Deputy
                     return false;
                 }
 
-                if (!Reference.Interfaces.Contains(interfaceAttribute.FullyQualifiedName))
+                var types = ServiceContainer.ServiceProvider.GetRequiredService<ITypeCache>();
+                
+                if (!TryFindSupportedInterface(interfaceAttribute.FullyQualifiedName, Reference.Interfaces, types, out var adequateFqn))
                 {
                     // We can only convert to interfaces declared by this Reference
                     result = null;
                     return false;
                 }
-
-                var types = ServiceContainer.ServiceProvider.GetRequiredService<ITypeCache>();
+                
                 var proxyType = types.GetProxyType(interfaceAttribute.FullyQualifiedName);
                 var constructorInfo = proxyType.GetConstructor(
                     BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
@@ -520,82 +521,100 @@ namespace Amazon.JSII.Runtime.Deputy
 
                 result = constructorInfo.Invoke(new object[]{ Reference.ForProxy() });
                 return true;
+
+                bool TryFindSupportedInterface(string declaredFqn, string[] availableFqns, ITypeCache types, out string foundFqn)
+                {
+                    var declaredType = types.GetInterfaceType(declaredFqn);
+
+                    foreach (var candidate in availableFqns)
+                    {
+                        var candidateType = types.GetInterfaceType(candidate);
+                        if (declaredType.IsAssignableFrom(candidateType))
+                        {
+                            foundFqn = candidate;
+                            return true;
+                        }
+                    }
+                    
+                    foundFqn = null;
+                    return false;
+                }
             }
         }
 
         #region Impossible Conversions
         
-        public bool ToBoolean(IFormatProvider provider)
+        bool IConvertible.ToBoolean(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public byte ToByte(IFormatProvider provider)
+        byte IConvertible.ToByte(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
         
-        public char ToChar(IFormatProvider provider)
+        char IConvertible.ToChar(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
         
-        public DateTime ToDateTime(IFormatProvider provider)
+        DateTime IConvertible.ToDateTime(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
         
-        public decimal ToDecimal(IFormatProvider provider)
+        decimal IConvertible.ToDecimal(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public double ToDouble(IFormatProvider provider)
+        double IConvertible.ToDouble(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public short ToInt16(IFormatProvider provider)
+        short IConvertible.ToInt16(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public int ToInt32(IFormatProvider provider)
+        int IConvertible.ToInt32(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public long ToInt64(IFormatProvider provider)
+        long IConvertible.ToInt64(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public sbyte ToSByte(IFormatProvider provider)
+        sbyte IConvertible.ToSByte(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public float ToSingle(IFormatProvider provider)
+        float IConvertible.ToSingle(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public string ToString(IFormatProvider provider)
+        string IConvertible.ToString(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public ushort ToUInt16(IFormatProvider provider)
+        ushort IConvertible.ToUInt16(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public uint ToUInt32(IFormatProvider provider)
+        uint IConvertible.ToUInt32(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
 
-        public ulong ToUInt64(IFormatProvider provider)
+        ulong IConvertible.ToUInt64(IFormatProvider provider)
         {
             throw new InvalidCastException();
         }
