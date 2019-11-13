@@ -336,18 +336,18 @@ test('stability is inherited from parent type', async () => {
 
 // ----------------------------------------------------------------------
 test('@example can contain @ sign', async () => {
-const assembly = await compile(`
-  /**
-   * An IAM role to associate with the instance profile assigned to this Auto Scaling Group.
-   *
-   * @example
-   *
-   * import x = require('\@banana');
-   */
-  export class Foo {
-  }
-`);
+  const assembly = await compile(`
+    /**
+     * An IAM role to associate with the instance profile assigned to this Auto Scaling Group.
+     *
+     * @example
+     *
+     * import x = require('@banana');
+     */
+    export class Foo {
+    }
+  `);
 
-const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
-expect(classType.docs!.example).toBe('import x = require(\'@banana\');');
+  const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
+  expect(classType.docs!.example).toBe('import x = require(\'@banana\');');
 });
