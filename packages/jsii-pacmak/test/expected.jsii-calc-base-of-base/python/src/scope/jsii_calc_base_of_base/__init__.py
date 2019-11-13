@@ -8,7 +8,7 @@ import jsii.compat
 import publication
 
 from jsii.python import classproperty
-__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base-of-base", "0.20.4", __name__, "jsii-calc-base-of-base@0.20.4.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base-of-base", "0.20.5", __name__, "jsii-calc-base-of-base@0.20.5.jsii.tgz")
 @jsii.interface(jsii_type="@scope/jsii-calc-base-of-base.IVeryBaseInterface")
 class IVeryBaseInterface(jsii.compat.Protocol):
     @staticmethod
