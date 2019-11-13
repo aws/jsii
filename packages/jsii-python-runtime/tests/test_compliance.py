@@ -17,6 +17,7 @@ from jsii_calc import (
     ConsumerCanRingBell,
     ConstructorPassesThisOut,
     DataRenderer,
+    Demonstrate982,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
@@ -1038,6 +1039,10 @@ def test_return_subclass_that_implements_interface_976_raises_attributeerror_whe
 
 def test_return_anonymous_implementation_of_interface():
     assert SomeTypeJsii976.return_anonymous() is not None
+
+def test_structs_can_be_downcasted_to_parent_type():
+    assert Demonstrate982.take_this() is not None
+    assert Demonstrate985.take_this_too() is not None
 
 @jsii.implements(IBellRinger)
 class PythonBellRinger:
