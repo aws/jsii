@@ -1251,5 +1251,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 return next;
             }
         }
+
+        [Fact(DisplayName = Prefix + nameof(StructsCanBeDowncastedToParentType))]
+        public void StructsCanBeDowncastedToParentType()
+        {
+            Assert.NotNull(Demonstrate982.TakeThis());
+            Assert.NotNull(Demonstrate982.TakeThisToo());
+        }
     }
 }

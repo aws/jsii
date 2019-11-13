@@ -19,4 +19,8 @@
         <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\jsii-dotnet-runtime\src\Amazon.JSII.Runtime\Amazon.JSII.Runtime.csproj" />
+    </ItemGroup>
+
 </Project>

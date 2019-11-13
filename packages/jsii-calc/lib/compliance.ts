@@ -2208,3 +2208,33 @@ export class RootStructValidator {
 
     private constructor() { }
 }
+
+/** https://github.com/aws/jsii/issues/982 */
+export interface ParentStruct982 {
+    readonly foo: string;
+}
+export interface ChildStruct982 extends ParentStruct982 {
+    readonly bar: number;
+}
+/**
+ * 1. call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)
+ * 2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type
+ */
+export class Demonstrate982 {
+    private static readonly value = {
+        foo: 'foo',
+        bar: 1337,
+    };
+
+    /** It's dangerous to go alone! */
+    public static takeThis(): ChildStruct982 {
+        return this.value;
+    }
+
+    /** It's dangerous to go alone! */
+    public static takeThisToo(): ParentStruct982 {
+        return this.value;
+    }
+
+    public constructor() { }
+}
