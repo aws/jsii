@@ -1236,6 +1236,20 @@
       ],
       "name": "AugmentableClass"
     },
+    "jsii-calc.BaseJsii976": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.BaseJsii976",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2219
+      },
+      "name": "BaseJsii976"
+    },
     "jsii-calc.Bell": {
       "assembly": "jsii-calc",
       "docs": {
@@ -5140,6 +5154,37 @@
       ],
       "name": "IRandomNumberGenerator"
     },
+    "jsii-calc.IReturnJsii976": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Returns a subclass of a known class which implements an interface."
+      },
+      "fqn": "jsii-calc.IReturnJsii976",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2215
+      },
+      "name": "IReturnJsii976",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2216
+          },
+          "name": "foo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.IReturnsNumber": {
       "assembly": "jsii-calc",
       "docs": {
@@ -8654,6 +8699,54 @@
       ],
       "name": "SingletonStringEnum"
     },
+    "jsii-calc.SomeTypeJsii976": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.SomeTypeJsii976",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2221
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2231
+          },
+          "name": "returnAnonymous",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2223
+          },
+          "name": "returnReturn",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IReturnJsii976"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "SomeTypeJsii976"
+    },
     "jsii-calc.StableClass": {
       "assembly": "jsii-calc",
       "docs": {
@@ -10913,5 +11006,5 @@
     }
   },
   "version": "0.20.3",
-  "fingerprint": "1F+uskR3++T5mjRcWge9oG3H/jJvXm1C3IhR1AwsBTE="
+  "fingerprint": "umMeNAH41pX11GUAjHkw6RTyAwGCeTqRNJ2vPv5aeM0="
 }

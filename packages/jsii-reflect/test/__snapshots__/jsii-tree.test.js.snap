@@ -173,6 +173,9 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: void
  │   │   └─┬ methodTwo() method (experimental)
  │   │     └── returns: void
+ │   ├─┬ class BaseJsii976 (experimental)
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer (experimental)
  │   ├─┬ class Bell (experimental)
  │   │ ├── interfaces: IBell
  │   │ └─┬ members
@@ -1181,6 +1184,15 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ value
  │   │     │   └── type: string
  │   │     └── returns: boolean
+ │   ├─┬ class SomeTypeJsii976 (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static returnAnonymous() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   └─┬ static returnReturn() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: jsii-calc.IReturnJsii976
  │   ├─┬ class StableClass (stable)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (stable)
@@ -1835,6 +1847,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ next() method (experimental)
  │   │     ├── abstract
  │   │     └── returns: number
+ │   ├─┬ interface IReturnJsii976 (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ foo property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ interface IReturnsNumber (experimental)
  │   │ └─┬ members
  │   │   ├─┬ obtainNumber() method (experimental)
@@ -2192,6 +2210,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IAnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
+ │   ├── class BaseJsii976
  │   ├─┬ class Bell
  │   │ └── interfaces: IBell
  │   ├─┬ class BinaryOperation
@@ -2284,6 +2303,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SingleInstanceTwoTypes
  │   ├── class SingletonInt
  │   ├── class SingletonString
+ │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
  │   ├── class Statics
@@ -2371,6 +2391,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator
+ │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
  │   ├─┬ interface ImplictBaseOfBase
@@ -2509,6 +2530,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── methodOne() method
  │   │   └── methodTwo() method
+ │   ├─┬ class BaseJsii976
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class Bell
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2961,6 +2985,11 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class SingletonString
  │   │ └─┬ members
  │   │   └── isSingletonString(value) method
+ │   ├─┬ class SomeTypeJsii976
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static returnAnonymous() method
+ │   │   └── static returnReturn() method
  │   ├─┬ class StableClass
  │   │ └─┬ members
  │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
@@ -3225,6 +3254,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface IRandomNumberGenerator
  │   │ └─┬ members
  │   │   └── next() method
+ │   ├─┬ interface IReturnJsii976
+ │   │ └─┬ members
+ │   │   └── foo property
  │   ├─┬ interface IReturnsNumber
  │   │ └─┬ members
  │   │   ├── obtainNumber() method
@@ -3410,6 +3442,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class AnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
+ │   ├── class BaseJsii976
  │   ├── class Bell
  │   ├── class BinaryOperation
  │   ├── class Calculator
@@ -3481,6 +3514,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SingleInstanceTwoTypes
  │   ├── class SingletonInt
  │   ├── class SingletonString
+ │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
  │   ├── class Statics
@@ -3542,6 +3576,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator
+ │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
  │   ├── interface ImplictBaseOfBase
