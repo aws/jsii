@@ -456,6 +456,15 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ arg2 property (experimental)
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ class Demonstrate982 (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static takeThis() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.ChildStruct982
+ │   │   └─┬ static takeThisToo() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: jsii-calc.ParentStruct982
  │   ├─┬ class DeprecatedClass (deprecated)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (deprecated)
@@ -1548,6 +1557,14 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<number>
+ │   ├─┬ interface ChildStruct982 (experimental)
+ │   │ ├─┬ interfaces
+ │   │ │ └── ParentStruct982
+ │   │ └─┬ members
+ │   │   └─┬ bar property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ interface DeprecatedStruct (deprecated)
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property (deprecated)
@@ -1934,6 +1951,12 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface ParentStruct982 (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ foo property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface RootStruct (experimental)
  │   │ └─┬ members
  │   │   ├─┬ stringProp property (experimental)
@@ -2234,6 +2257,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
+ │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
  │   ├── class Base
  │   ├─┬ class Derived
@@ -2330,6 +2354,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class CompositeOperation
  │   │ └── base: Operation
  │   ├── interface CalculatorProps
+ │   ├─┬ interface ChildStruct982
+ │   │ └─┬ interfaces
+ │   │   └── ParentStruct982
  │   ├── interface DeprecatedStruct
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
@@ -2403,6 +2430,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
@@ -2639,6 +2667,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── arg1 property
  │   │   ├── arg3 property
  │   │   └── arg2 property
+ │   ├─┬ class Demonstrate982
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static takeThis() method
+ │   │   └── static takeThisToo() method
  │   ├─┬ class DeprecatedClass
  │   │ └─┬ members
  │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
@@ -3122,6 +3155,9 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── initialValue property
  │   │   └── maximumValue property
+ │   ├─┬ interface ChildStruct982
+ │   │ └─┬ members
+ │   │   └── bar property
  │   ├─┬ interface DeprecatedStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
@@ -3291,6 +3327,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface OptionalStruct
  │   │ └─┬ members
  │   │   └── field property
+ │   ├─┬ interface ParentStruct982
+ │   │ └─┬ members
+ │   │   └── foo property
  │   ├─┬ interface RootStruct
  │   │ └─┬ members
  │   │   ├── stringProp property
@@ -3459,6 +3498,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
+ │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
  │   ├── class Base
  │   ├── class Derived
@@ -3537,6 +3577,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class WithPrivatePropertyInConstructor
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
+ │   ├── interface ChildStruct982
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
  │   ├── interface DiamondInheritanceBaseLevelStruct
@@ -3586,6 +3627,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct

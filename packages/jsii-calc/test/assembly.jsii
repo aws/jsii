@@ -1678,6 +1678,40 @@
         }
       ]
     },
+    "jsii-calc.ChildStruct982": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ChildStruct982",
+      "interfaces": [
+        "jsii-calc.ParentStruct982"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2244
+      },
+      "name": "ChildStruct982",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2245
+          },
+          "name": "bar",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.ClassThatImplementsTheInternalInterface": {
       "assembly": "jsii-calc",
       "docs": {
@@ -2824,6 +2858,62 @@
           }
         }
       ]
+    },
+    "jsii-calc.Demonstrate982": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)\n2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type",
+        "stability": "experimental",
+        "summary": "1."
+      },
+      "fqn": "jsii-calc.Demonstrate982",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2251
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's dangerous to go alone!"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2258
+          },
+          "name": "takeThis",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ChildStruct982"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's dangerous to go alone!"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2263
+          },
+          "name": "takeThisToo",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ParentStruct982"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "Demonstrate982"
     },
     "jsii-calc.DeprecatedClass": {
       "assembly": "jsii-calc",
@@ -7649,6 +7739,38 @@
       ],
       "name": "OverrideReturnsObject"
     },
+    "jsii-calc.ParentStruct982": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental",
+        "summary": "https://github.com/aws/jsii/issues/982."
+      },
+      "fqn": "jsii-calc.ParentStruct982",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2241
+      },
+      "name": "ParentStruct982",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2242
+          },
+          "name": "foo",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.PartiallyInitializedThisConsumer": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -11006,5 +11128,5 @@
     }
   },
   "version": "0.20.3",
-  "fingerprint": "umMeNAH41pX11GUAjHkw6RTyAwGCeTqRNJ2vPv5aeM0="
+  "fingerprint": "cb2xJuwu7eu9+ulwYnbZUyzYyE3IkL5fCM4b8Gqr7Vo="
 }
