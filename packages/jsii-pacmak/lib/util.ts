@@ -97,6 +97,13 @@ export async function loadAssembly(modulePath: string): Promise<spec.Assembly> {
 }
 
 /**
+ * Strip filesystem unsafe characters from a string
+ */
+export function slugify(x: string) {
+  return x.replace(/[^a-zA-Z0-9_-]/g, '_');
+}
+
+/**
  * Class that makes a temporary directory and holds on to an operation object
  */
 export class Scratch<A> {
@@ -146,4 +153,21 @@ export function nextMajorVersion(version: string): string {
     return v.inc('minor').version;
   }
   return v.inc('patch').version;
+}
+
+
+export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
+  for (const el of els) {
+    xs.add(el);
+  }
+}
+
+export async function filterAsync<A>(xs: A[], pred: (x: A) => Promise<boolean>): Promise<A[]> {
+  const ret = new Array<A>();
+  for (const x of xs) {
+    if (await pred(x)) {
+      ret.push(x);
+    }
+  }
+  return ret;
 }

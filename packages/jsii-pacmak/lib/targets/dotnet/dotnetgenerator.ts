@@ -28,7 +28,7 @@ export class DotNetGenerator extends Generator {
 
   private dotnetDocGenerator!: DotNetDocGenerator;
 
-  public constructor() {
+  public constructor(private readonly assembliesCurrentlyBeingCompiled: string[]) {
     super();
 
     // Override the openBlock to get a correct C# looking code block with the curly brace after the line
@@ -50,6 +50,7 @@ export class DotNetGenerator extends Generator {
     this.typeresolver = new DotNetTypeResolver(this.assembly,
       (fqn: string) => this.findModule(fqn),
       (fqn: string) => this.findType(fqn),
+      this.assembliesCurrentlyBeingCompiled
     );
 
     this.dotnetRuntimeGenerator = new DotNetRuntimeGenerator(this.code, this.typeresolver);

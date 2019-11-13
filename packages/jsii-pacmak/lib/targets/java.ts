@@ -8,10 +8,10 @@ import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';
 import logging = require('../logging');
 import { md2html } from '../markdown';
-import { PackageInfo, Target } from '../target';
-import { shell, Scratch } from '../util';
+import { PackageInfo, Target, findLocalBuildDirs } from '../target';
+import { shell, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
-import { TargetBuilder, BuildOptions, allOutputDirectoriesTheSame, OneByOneBuilder } from '../builder';
+import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -21,59 +21,87 @@ const spdxLicenseList = require('spdx-license-list');
 const BUILDER_CLASS_NAME = 'Builder';
 
 /**
- * Build Java packages in parallel, by generating an aggregate POM
+ * Build Java packages all together, by generating an aggregate POM
+ *
+ * This will make the Java build a lot more efficient (~300%).
+ *
+ * Do this by copying the code into a temporary directory, generating an aggregate
+ * POM there, and then copying the artifacts back into the respective output
+ * directories.
  */
 export class JavaBuilder implements TargetBuilder {
   private readonly targetName = 'java';
 
-  public async buildModules(modules: JsiiModule[], options: BuildOptions): Promise<void> {
-    if (modules.length === 0) { return; }
+  public constructor(private readonly modules: JsiiModule[], private readonly options: BuildOptions) {
+  }
 
-    // We can only do the optimized build if '-o' was specified, which we will notice
-    // as all module outputdirectories being the same. (Maybe we can build to per-package
-    // dist dirs as well, but this is the smallest delta from what we had and we will
-    // always specify the output dir anyway).
-    if (!allOutputDirectoriesTheSame(modules)) {
-      logging.warn('Single output directory not specified, doing (slower) one-by-one build for Java');
-      await new OneByOneBuilder(this.targetName, Java).buildModules(modules, options);
+  public async buildModules(): Promise<void> {
+    if (this.modules.length === 0) { return; }
+
+    if (this.options.codeOnly) {
+      // Simple, just generate code to respective output dirs
+      for (const module of this.modules) {
+        await this.generateModuleCode(module, this.options, this.outputDir(module.outputDirectory));
+      }
       return;
     }
 
-    const singleOutputDir = this.finalOutputDir(modules[0], options);
+    // Otherwise make a single tempdir to hold all sources, build them together and copy them back out
+    const scratchDirs: Array<Scratch<any>> = [];
+    try {
+      const tempSourceDir = await this.generateAggregateSourceDir(this.modules, this.options);
+      scratchDirs.push(tempSourceDir);
 
-    const moduleDirectories = [];
+      // Need any old module object to make a target to be able to invoke build, though none of its settings
+      // will be used.
+      const target = this.makeTarget(this.modules[0], this.options);
+      const tempOutputDir = await Scratch.make(async dir => {
+        logging.debug(`Building Java code to ${dir}`);
+        await target.build(tempSourceDir.directory, dir);
+      });
+      scratchDirs.push(tempOutputDir);
 
-    for (const module of modules) {
-      moduleDirectories.push(await this.generateModuleCode(module, options, options.codeOnly));
-    }
+      await this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object);
 
-    if (!options.codeOnly && modules.length > 0) {
-      // Need a module to get a target
-      const pomDirectory = modules.length > 1
-        ? await this.generateAggregatePom(moduleDirectories)
-        : moduleDirectories[0].directory;
-      const target = this.makeTarget(modules[0], options);
-
-      await target.build(pomDirectory, singleOutputDir);
+      if (this.options.clean) {
+        await Scratch.cleanupAll(scratchDirs);
+      }
+    } catch(e) {
+      logging.warn(`Exception occurred, not cleaning up ${scratchDirs.map(s => s.directory)}`);
+      throw e;
     }
   }
 
-  private async generateModuleCode(module: JsiiModule, options: BuildOptions, finalDirectory?: boolean): Promise<Scratch<void>> {
+  private async generateModuleCode(module: JsiiModule, options: BuildOptions, where: string): Promise<void> {
     const target = this.makeTarget(module, options);
-
-    const srcDir = finalDirectory
-      ? Scratch.fake(this.finalOutputDir(module, options), undefined)
-      : await Scratch.make(_ => undefined);
-
-    logging.debug(`Generating ${this.targetName} code into ${srcDir.directory}`);
-    await target.generateCode(srcDir.directory, module.tarball);
-
-    return srcDir;
+    logging.debug(`Generating Java code into ${where}`);
+    await target.generateCode(where, module.tarball);
   }
 
-  private async generateAggregatePom(sourceDirectories: Array<Scratch<void>>) {
-    const parentDir = this.findSharedParentDirectory(sourceDirectories.map(s => s.directory));
+  private async generateAggregateSourceDir(modules: JsiiModule[], options: BuildOptions): Promise<Scratch<TemporaryJavaPackage[]>> {
+    return Scratch.make(async (tmpDir: string) => {
+      logging.debug(`Generating aggregate Java source dir at ${tmpDir}`);
+      const ret: TemporaryJavaPackage[] = [];
+      for (const module of modules) {
+        const relativeName = slugify(module.name);
+        const sourceDir = path.join(tmpDir, relativeName);
+        await this.generateModuleCode(module, options, sourceDir);
 
+        ret.push({
+          relativeSourceDir: relativeName,
+          relativeArtifactsDir: moduleArtifactsSubdir(module),
+          outputTargetDirectory: module.outputDirectory
+        });
+      }
+
+      await this.generateAggregatePom(tmpDir, ret.map(m => m.relativeSourceDir));
+      await this.generateMavenSettingsForLocalDeps(tmpDir);
+
+      return ret;
+    });
+  }
+
+  private async generateAggregatePom(where: string, moduleNames: string[]) {
     const aggregatePom = xmlbuilder.create({
       project: {
         '@xmlns': 'http://maven.apache.org/POM/4.0.0',
@@ -91,33 +119,104 @@ export class JavaBuilder implements TargetBuilder {
         'version': '1.0.0',
 
         'modules': {
-          module: sourceDirectories.map(s => path.relative(parentDir, s.directory))
+          module: moduleNames,
         }
       }
     }, { encoding: 'UTF-8' }).end({ pretty: true });
 
-    logging.debug(`Generated ${parentDir}/pom.xml`);
-    await fs.writeFile(path.join(parentDir, 'pom.xml'), aggregatePom);
-    return parentDir;
+    logging.debug(`Generated ${where}/pom.xml`);
+    await fs.writeFile(path.join(where, 'pom.xml'), aggregatePom);
+  }
+
+  private async copyOutArtifacts(artifactsRoot: string, packages: TemporaryJavaPackage[]) {
+    logging.debug('Copying out Java artifacts');
+    // The artifacts directory looks like this:
+    //  /tmp/XXX/software/amazon/awscdk/something/v1.2.3
+    //                                 /else/v1.2.3
+    //                                 /entirely/v1.2.3
+    //
+    // We get the 'software/amazon/awscdk/something' path from the package, identifying
+    // the files we need to copy, including Maven metadata. But we need to recreate
+    // the whole path in the target directory.
+
+    for (const pkg of packages) {
+      const artifactsSource = path.join(artifactsRoot, pkg.relativeArtifactsDir);
+      const artifactsDest = path.join(this.outputDir(pkg.outputTargetDirectory), pkg.relativeArtifactsDir);
+
+      await fs.mkdirp(artifactsDest);
+      await fs.copy(artifactsSource, artifactsDest, { recursive: true });
+    }
   }
 
   /**
-   * Find the longest shared given a set of directories
+   * Decide whether or not to append 'java' to the given output directory
    */
-  private findSharedParentDirectory(dirs: string[]) {
-    if (dirs.length === 0) { return ''; }
-    const dirParts = dirs.map(dir => dir.split(path.sep));
+  private outputDir(declaredDir: string) {
+    return this.options.languageSubdirectory ? path.join(declaredDir, this.targetName) : declaredDir;
+  }
 
-    return dirParts.reduce(longestPrefix).join(path.sep);
+  /**
+   * Generates maven settings file for this build.
+   * @param where The generated sources directory. This is where user.xml will be placed.
+   * @param currentOutputDirectory The current output directory. Will be added as a local maven repo.
+   */
+  private async generateMavenSettingsForLocalDeps(where: string) {
+    const filePath = path.join(where, 'user.xml');
 
-    function longestPrefix(accumulator: string[], current: string[]) {
-      const len = Math.min(accumulator.length, current.length);
-      let i = 0;
-      while (i < len && accumulator[i] === current[i]) {
-        i++;
-      }
-      return accumulator.slice(0, i);
+    // traverse the dep graph of this module and find all modules that have
+    // an <outdir>/java directory. we will add those as local maven
+    // repositories which will resolve instead of Maven Central for those
+    // module. this enables building against local modules (i.e. in lerna
+    // repositories or linked modules).
+    const allDepsOutputDirs = new Set<string>();
+    for (const module of this.modules) {
+      setExtend(allDepsOutputDirs, await findLocalBuildDirs(module.moduleDirectory, this.targetName));
+
+      // Also include output directory where we're building to, in case we build multiple packages into
+      // the same output directory.
+      allDepsOutputDirs.add(path.join(module.outputDirectory, this.options.languageSubdirectory ? this.targetName : ''));
     }
+
+    const localRepos = Array.from(allDepsOutputDirs);
+
+    // if java-runtime is checked-out and we can find a local repository,
+    // add it to the list.
+    const localJavaRuntime = await findJavaRuntimeLocalRepository();
+    if (localJavaRuntime) {
+      localRepos.push(localJavaRuntime);
+    }
+
+    logging.debug('local maven repos:', localRepos);
+
+    const profileName = 'local-jsii-modules';
+    const settings = xmlbuilder.create({
+      settings: {
+        '@xmlns': 'http://maven.apache.org/POM/4.0.0',
+        '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+        '@xsi:schemaLocation': 'http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd',
+        '#comment': [
+          `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
+        ],
+        'profiles': {
+          profile: {
+            id: profileName,
+            repositories: {
+              repository: localRepos.map((repo, index) => ({
+                id: `local${index}`,
+                url: `file://${repo}`
+              }))
+            }
+          }
+        },
+        'activeProfiles': {
+          activeProfile: profileName
+        }
+      }
+    }, { encoding: 'UTF-8' }).end({ pretty: true });
+
+    logging.debug(`Generated ${filePath}`);
+    await fs.writeFile(filePath, settings);
+    return filePath;
   }
 
   private makeTarget(module: JsiiModule, options: BuildOptions): Target {
@@ -127,16 +226,36 @@ export class JavaBuilder implements TargetBuilder {
       assembly: module.assembly,
       fingerprint: options.fingerprint,
       force: options.force,
-      arguments: options.arguments
+      arguments: options.arguments,
+      rosetta: options.rosetta,
     });
   }
+}
 
-  private finalOutputDir(module: JsiiModule, options: BuildOptions): string {
-    if (options.languageSubdirectory) {
-      return path.join(module.outputDirectory, this.targetName);
-    }
-    return module.outputDirectory;
-  }
+interface TemporaryJavaPackage {
+  /**
+   * Where the sources are (relative to the source root)
+   */
+  relativeSourceDir: string;
+
+  /**
+   * Where the artifacts will be stored after build (relative to build dir)
+   */
+  relativeArtifactsDir: string;
+
+  /**
+   * Where the artifacts ought to go for this particular module
+   */
+  outputTargetDirectory: string;
+}
+
+/**
+ * Return the subdirectory of the output directory where the artifacts for this particular package are produced
+ */
+function moduleArtifactsSubdir(module: JsiiModule) {
+  const groupId = module.assembly.targets!.java!.maven.groupId;
+  const artifactId = module.assembly.targets!.java!.maven.artifactId;
+  return `${groupId.replace(/\./g, '/')}/${artifactId}`;
 }
 
 export default class Java extends Target {
@@ -185,10 +304,9 @@ export default class Java extends Target {
       mvnArguments.push(this.arguments[arg].toString());
     }
 
-    const userXml = await this.generateMavenSettingsForLocalDeps(sourceDir, outDir);
     await shell(
       'mvn',
-      [...mvnArguments, 'deploy', `-D=altDeploymentRepository=local::default::${url}`, `--settings=${userXml}`],
+      [...mvnArguments, 'deploy', `-D=altDeploymentRepository=local::default::${url}`, '--settings=user.xml'],
       {
         cwd: sourceDir,
         env: {
@@ -199,66 +317,6 @@ export default class Java extends Target {
       }
     );
   }
-
-  /**
-     * Generates maven settings file for this build.
-     * @param sourceDir The generated sources directory. This is where user.xml will be placed.
-     * @param currentOutputDirectory The current output directory. Will be added as a local maven repo.
-     */
-  private async generateMavenSettingsForLocalDeps(sourceDir: string, currentOutputDirectory: string) {
-    const filePath = path.join(sourceDir, 'user.xml');
-
-    // traverse the dep graph of this module and find all modules that have
-    // an <outdir>/java directory. we will add those as local maven
-    // repositories which will resolve instead of Maven Central for those
-    // module. this enables building against local modules (i.e. in lerna
-    // repositories or linked modules).
-    const localRepos = await this.findLocalDepsOutput(this.packageDir);
-
-    // add the current output directory as a local repo as well for the case
-    // where we build multiple packages into the same output.
-    localRepos.push(currentOutputDirectory);
-
-    // if java-runtime is checked-out and we can find a local repository,
-    // add it to the list.
-    const localJavaRuntime = await findJavaRuntimeLocalRepository();
-    if (localJavaRuntime) {
-      localRepos.push(localJavaRuntime);
-    }
-
-    logging.debug('local maven repos:', localRepos);
-
-    const profileName = 'local-jsii-modules';
-    const settings = xmlbuilder.create({
-      settings: {
-        '@xmlns': 'http://maven.apache.org/POM/4.0.0',
-        '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-        '@xsi:schemaLocation': 'http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd',
-        '#comment': [
-          `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
-        ],
-        'profiles': {
-          profile: {
-            id: profileName,
-            repositories: {
-              repository: localRepos.map((repo, index) => ({
-                id: `local${index}`,
-                url: `file://${repo}`
-              }))
-            }
-          }
-        },
-        'activeProfiles': {
-          activeProfile: profileName
-        }
-      }
-    }, { encoding: 'UTF-8' }).end({ pretty: true });
-
-    logging.debug(`Generated ${filePath}`);
-    await fs.writeFile(filePath, settings);
-    return filePath;
-  }
-
 }
 
 // ##################

@@ -195,7 +195,7 @@
   },
   "name": "jsii-calc",
   "readme": {
-    "markdown": "# jsii Calculator\n\nThis library is used to demonstrate and test the features of JSII\n\n## Sphinx\n\nThis file will be incorporated into the sphinx documentation.\n\nIf this file starts with an \"H1\" line (in our case `# jsii Calculator`), this\nheading will be used as the Sphinx topic name. Otherwise, the name of the module\n(`jsii-calc`) will be used instead.\n\n## Code Samples\n\n```ts\n/* This is totes a magic comment in here, just you wait! */\nconst foo = 'bar';\n```\n"
+    "markdown": "# jsii Calculator\n\nThis library is used to demonstrate and test the features of JSII\n\n## How to use running sum API:\n\nFirst, create a calculator:\n\n```ts\nconst calculator = new calc.Calculator();\n```\n\nThen call some operations:\n\n\n```ts fixture=with-calculator\ncalculator.add(10);\n```\n\n## Code Samples\n\n```ts\n/* This is totes a magic comment in here, just you wait! */\nconst foo = 'bar';\n```\n"
   },
   "repository": {
     "directory": "packages/jsii-calc",
@@ -11128,5 +11128,5 @@
     }
   },
   "version": "0.20.5",
-  "fingerprint": "g9C1lL8c+vgxBjOWVBFMMPlcwkF3Z81xxTAGfc73x9o="
+  "fingerprint": "/MRTbTnRC1UWxsPIrca+9Yo1IBKsEueT75P22pQoV1o="
 }

@@ -2,13 +2,20 @@
 
 This library is used to demonstrate and test the features of JSII
 
-## Sphinx
+## How to use running sum API:
 
-This file will be incorporated into the sphinx documentation.
+First, create a calculator:
 
-If this file starts with an "H1" line (in our case `# jsii Calculator`), this
-heading will be used as the Sphinx topic name. Otherwise, the name of the module
-(`jsii-calc`) will be used instead.
+```ts
+const calculator = new calc.Calculator();
+```
+
+Then call some operations:
+
+
+```ts fixture=with-calculator
+calculator.add(10);
+```
 
 ## Code Samples
 

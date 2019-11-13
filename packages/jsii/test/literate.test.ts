@@ -115,11 +115,11 @@ test('can do example inclusion', async () => {
 
   expect(rendered).toEqual([
     'This is a preamble',
-    '```ts',
+    '```ts lit=test/something.lit.ts',
     'const x = 1;',
     '```',
     'This is how we print x',
-    '```ts',
+    '```ts lit=test/something.lit.ts',
     'console.log(x);',
     '```',
     'This is a postamble'
@@ -127,6 +127,6 @@ test('can do example inclusion', async () => {
 });
 
 function assertRendersTo(source: string[], expected: string[]) {
-  const rendered = typescriptSourceToMarkdown(source);
+  const rendered = typescriptSourceToMarkdown(source, []);
   expect(expected).toEqual(rendered);
 }

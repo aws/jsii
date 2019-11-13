@@ -62,9 +62,9 @@ import path = require('path');
 /**
  * Convert an annotated TypeScript source file to MarkDown
  */
-export function typescriptSourceToMarkdown(lines: string[]): string[] {
+export function typescriptSourceToMarkdown(lines: string[], codeBlockAnnotations: string[]): string[] {
   const relevantLines = findRelevantLines(lines);
-  const markdownLines = markdownify(relevantLines);
+  const markdownLines = markdownify(relevantLines, codeBlockAnnotations);
   return markdownLines;
 }
 
@@ -87,9 +87,11 @@ export async function includeAndRenderExamples(lines: string[], loader: FileLoad
     if (m) {
       // Found an include
       /* eslint-disable no-await-in-loop */
-      const source = await loader(m[2]);
+      const filename = m[2];
+      const source = await loader(filename);
       /* eslint-enable no-await-in-loop */
-      const imported = typescriptSourceToMarkdown(source);
+      // 'lit' source attribute will make snippet compiler know to extract the same source
+      const imported = typescriptSourceToMarkdown(source, [`lit=${filename}`]);
       ret.push(...imported);
     } else {
       ret.push(line);
@@ -165,7 +167,7 @@ function stripCommonIndent(lines: string[]): string[] {
 /**
  * Turn source lines into Markdown, starting in TypeScript mode
  */
-function markdownify(lines: string[]): string[] {
+function markdownify(lines: string[], codeBlockAnnotations: string[]): string[] {
   const typescriptLines: string[] = [];
   const ret: string[] = [];
 
@@ -185,11 +187,13 @@ function markdownify(lines: string[]): string[] {
   return ret;
 
   /**
-     * Flush typescript lines with a triple-backtick-ts block around it.
-     */
+   * Flush typescript lines with a triple-backtick-ts block around it.
+   */
   function flushTS() {
     if (typescriptLines.length !== 0) {
-      ret.push('```ts', ...typescriptLines, '```');
+      /* eslint-disable prefer-template */
+      ret.push('```ts' + (codeBlockAnnotations.length > 0 ? ' ' + codeBlockAnnotations.join(' ') : ''), ...typescriptLines, '```');
+      /* eslint-enable prefer-template */
       typescriptLines.splice(0); // Clear
     }
   }

@@ -40,7 +40,7 @@
     "escape-string-regexp": "^2.0.0",
     "fs-extra": "^8.1.0",
     "jsii-reflect": "^0.20.5",
-    "jsii-sampiler": "^0.20.5",
+    "jsii-rosetta": "^0.20.5",
     "jsii-spec": "^0.20.5",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",

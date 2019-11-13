@@ -1,0 +1,67 @@
+{
+  "name": "jsii-rosetta",
+  "version": "0.20.5",
+  "description": "Translate TypeScript code snippets to other languages",
+  "main": "lib/index.js",
+  "bin": {
+    "jsii-rosetta": "bin/jsii-rosetta"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "watch": "tsc --build -w",
+    "test": "jest",
+    "test:update": "jest -u",
+    "package": "package-js"
+  },
+  "devDependencies": {
+    "@types/commonmark": "^0.27.4",
+    "@types/fs-extra": "^8.0.1",
+    "@types/jest": "^24.0.22",
+    "@types/node": "^10.17.4",
+    "@types/yargs": "^13.0.3",
+    "jest": "^24.9.0",
+    "jsii-build-tools": "^0.20.5",
+    "jsii": "^0.20.5",
+    "memory-streams": "^0.1.3",
+    "mock-fs": "^4.10.2",
+    "@types/mock-fs": "^4.10.0"
+  },
+  "dependencies": {
+    "commonmark": "^0.29.0",
+    "fs-extra": "^8.1.0",
+    "typescript": "~3.6.4",
+    "jsii-spec": "^0.20.0",
+    "yargs": "^14.2.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "collectCoverageFrom": [
+      "lib/**/*.js"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": ["json", "lcov", "text", "clover", "html"],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "statements": 70
+      }
+    }
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "organization": true
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-rosetta"
+  },
+  "engines": {
+    "node": ">= 10.5.0"
+  }
+}

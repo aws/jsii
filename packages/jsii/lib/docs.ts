@@ -33,9 +33,27 @@
 import spec = require('jsii-spec');
 import ts = require('typescript');
 
+/**
+ * Tags that we recognize
+ */
+enum DocTag {
+  PARAM = 'param',
+  DEFAULT = 'default',
+  DEFAULT_VALUE = 'defaultValue',
+  DEPRECATED = 'deprecated',
+  RETURNS = 'returns',
+  RETURN = 'return',
+  STABLE = 'stable',
+  EXPERIMENTAL = 'experimental',
+  SEE = 'see',
+  SUBCLASSABLE = 'subclassable',
+  EXAMPLE = 'example',
+  STABILITY = 'stability',
+}
+
 export function parseSymbolDocumentation(sym: ts.Symbol, typeChecker: ts.TypeChecker): DocsParsingResult {
   const comment = ts.displayPartsToString(sym.getDocumentationComment(typeChecker)).trim();
-  const tags = sym.getJsDocTags();
+  const tags = reabsorbExampleTags(sym.getJsDocTags());
 
   // Right here we'll just guess that the first declaration site is the most important one.
   return parseDocParts(comment, tags);
@@ -47,7 +65,7 @@ export function parseSymbolDocumentation(sym: ts.Symbol, typeChecker: ts.TypeChe
 export function getReferencedDocParams(sym: ts.Symbol): string[] {
   const ret = new Array<string>();
   for (const tag of sym.getJsDocTags()) {
-    if (tag.name === 'param') {
+    if (tag.name === DocTag.PARAM) {
       const parts = (tag.text || '').split(' ');
       ret.push(parts[0]);
     }
@@ -64,7 +82,7 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
   const tagNames = new Map<string, string | undefined>();
   for (const tag of tags) {
     // 'param' gets parsed as a tag and as a comment for a method
-    if (tag.name !== 'param') { tagNames.set(tag.name, tag.text); }
+    if (tag.name !== DocTag.PARAM) { tagNames.set(tag.name, tag.text); }
   }
 
   function eatTag(...names: string[]): string | undefined {
@@ -78,17 +96,17 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
     return undefined;
   }
 
-  docs.default = eatTag('default', 'defaultValue');
-  docs.deprecated = eatTag('deprecated');
-  docs.example = eatTag('example');
-  docs.returns = eatTag('returns', 'return');
-  docs.see = eatTag('see');
-  docs.subclassable = eatTag('subclassable') !== undefined ? true : undefined;
+  docs.default = eatTag(DocTag.DEFAULT, DocTag.DEFAULT_VALUE);
+  docs.deprecated = eatTag(DocTag.DEPRECATED);
+  docs.example = eatTag(DocTag.EXAMPLE);
+  docs.returns = eatTag(DocTag.RETURNS, DocTag.RETURN);
+  docs.see = eatTag(DocTag.SEE);
+  docs.subclassable = eatTag(DocTag.SUBCLASSABLE) !== undefined ? true : undefined;
 
-  docs.stability = parseStability(eatTag('stability'), diagnostics);
+  docs.stability = parseStability(eatTag(DocTag.STABILITY), diagnostics);
   //  @experimental is a shorthand for '@stability experimental', same for '@stable'
-  const experimental = eatTag('experimental') !== undefined;
-  const stable = eatTag('stable') !== undefined;
+  const experimental = eatTag(DocTag.EXPERIMENTAL) !== undefined;
+  const stable = eatTag(DocTag.STABLE) !== undefined;
   // Can't combine them
   if (countBools(docs.stability !== undefined, experimental, stable) > 1) {
     diagnostics.push('Use only one of @stability, @experimental or @stable');
@@ -204,4 +222,31 @@ function parseStability(s: string | undefined, diagnostics: string[]): spec.Stab
   }
   diagnostics.push(`Unrecognized @stability: '${s}'`);
   return undefined;
+}
+
+
+/**
+ * Unrecognized tags that follow an '@ example' tag will be absorbed back into the example value
+ *
+ * The TypeScript parser by itself is naive and will start parsing a new tag there.
+ *
+ * We do this until we encounter a supported @ keyword.
+ */
+function reabsorbExampleTags(tags: ts.JSDocTagInfo[]): ts.JSDocTagInfo[] {
+  const recognizedTags: string[] = Object.values(DocTag);
+  const ret = [...tags];
+
+  let i = 0;
+  while (i < ret.length) {
+    if (ret[i].name === 'example') {
+      while (i + 1 < ret.length && !recognizedTags.includes(ret[i + 1].name)) {
+        // Incorrectly classified as @tag, absorb back into example
+        ret[i].text += `@${ret[i + 1].name}${ret[i + 1].text}`;
+        ret.splice(i + 1, 1);
+      }
+    }
+    i++;
+  }
+
+  return ret;
 }

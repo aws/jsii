@@ -17,7 +17,9 @@ export class DotNetTypeResolver {
 
   public constructor(assembly: spec.Assembly,
     findModule: FindModuleCallback,
-    findType: FindTypeCallback) {
+    findType: FindTypeCallback,
+    private readonly assembliesCurrentlyBeingCompiled: string[]
+  ) {
     this.assembly = assembly;
     this.findModule = findModule;
     this.findType = findType;
@@ -58,10 +60,10 @@ export class DotNetTypeResolver {
         return `${actualNamespace}.${typeName}`;
       }
       return `${dotnetNamespace}.${type.namespace}.${typeName}`;
-    } 
+    }
     // When undefined, the type is located at the root of the assembly
     return `${dotnetNamespace}.${typeName}`;
-    
+
 
   }
 
@@ -82,7 +84,12 @@ export class DotNetTypeResolver {
           // suffix is guaranteed to start with a leading `-`
           version = `${depInfo.version}${suffix}`;
         }
-        this.namespaceDependencies.set(depName, new DotNetDependency(namespace, packageId, depName, version));
+        this.namespaceDependencies.set(depName, new DotNetDependency(
+          namespace,
+          packageId,
+          depName,
+          version,
+          this.assembliesCurrentlyBeingCompiled.includes(depName)));
       }
     }
   }
@@ -115,9 +122,9 @@ export class DotNetTypeResolver {
       return this.toNativeFqn(typeref.fqn);
     } else if (typeref.union) {
       return 'object';
-    } 
+    }
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
-    
+
   }
 
   /**

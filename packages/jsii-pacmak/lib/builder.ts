@@ -3,6 +3,7 @@ import logging = require('./logging');
 import { JsiiModule } from './packaging';
 import { TargetConstructor, Target } from './target';
 import { Scratch } from './util';
+import { Rosetta } from 'jsii-rosetta';
 
 export interface BuildOptions {
   /**
@@ -36,6 +37,11 @@ export interface BuildOptions {
    * Whether to add an additional subdirectory for the target language
    */
   languageSubdirectory?: boolean;
+
+  /**
+   * The Rosetta instance to load examples from
+   */
+  rosetta: Rosetta;
 }
 
 /**
@@ -44,32 +50,27 @@ export interface BuildOptions {
  * Building can happen one target at a time, or multiple targets at a time.
  */
 export interface TargetBuilder {
-  buildModules(modules: JsiiModule[], options: BuildOptions): Promise<void>;
-}
-
-/**
- * Return the output directory if all modules have the same directory
- */
-export function allOutputDirectoriesTheSame(modules: JsiiModule[]): boolean {
-  if (modules.length === 0) { return true; }
-  const ret = modules[0].outputDirectory;
-  return modules.every(m => m.outputDirectory === ret);
+  buildModules(): Promise<void>;
 }
 
 /**
  * Builds the targets for the given language sequentially
  */
 export class OneByOneBuilder implements TargetBuilder {
-  public constructor(private readonly targetName: string, private readonly targetConstructor: TargetConstructor) {
+  public constructor(
+    private readonly targetName: string,
+    private readonly targetConstructor: TargetConstructor,
+    private readonly modules: JsiiModule[],
+    private readonly options: BuildOptions) {
 
   }
 
-  public async buildModules(modules: JsiiModule[], options: BuildOptions): Promise<void> {
-    for (const module of modules) {
-      if (options.codeOnly) {
-        await this.generateModuleCode(module, options);
+  public async buildModules(): Promise<void> {
+    for (const module of this.modules) {
+      if (this.options.codeOnly) {
+        await this.generateModuleCode(module, this.options);
       } else {
-        await this.buildModule(module, options);
+        await this.buildModule(module, this.options);
       }
     }
   }
@@ -110,7 +111,8 @@ export class OneByOneBuilder implements TargetBuilder {
       assembly: module.assembly,
       fingerprint: options.fingerprint,
       force: options.force,
-      arguments: options.arguments
+      arguments: options.arguments,
+      rosetta: options.rosetta,
     });
   }
 
