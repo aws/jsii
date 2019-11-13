@@ -161,3 +161,13 @@ export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
     xs.add(el);
   }
 }
+
+export async function filterAsync<A>(xs: Array<A>, pred: (x: A) => Promise<boolean>): Promise<Array<A>> {
+  const ret = new Array<A>();
+  for (const x of xs) {
+    if (await pred(x)) {
+      ret.push(x);
+    }
+  }
+  return ret;
+}

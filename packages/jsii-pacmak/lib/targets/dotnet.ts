@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as logging from '../logging';
 import xmlbuilder = require('xmlbuilder');
 import { PackageInfo, Target, TargetOptions, findLocalBuildDirs } from '../target';
-import { shell, Scratch, setExtend } from '../util';
+import { shell, Scratch, setExtend, filterAsync } from '../util';
 import { DotNetGenerator } from './dotnet/dotnetgenerator';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
@@ -127,10 +127,7 @@ export class DotnetBuilder implements TargetBuilder {
       /* eslint-disable @typescript-eslint/no-var-requires */
       const jsiiDotNetJsonModel = require('jsii-dotnet-jsonmodel');
       /* eslint-enable @typescript-eslint/no-var-requires */
-      const localDotNetJsonModel = jsiiDotNetJsonModel.repository;
-      if (await fs.pathExists(localDotNetJsonModel)) {
-        localRepos.push(localDotNetJsonModel);
-      }
+      localRepos.push(jsiiDotNetJsonModel.repository);
     } catch {
       // Couldn't locate jsii-dotnet-jsonmodel, which is owkay!
     }
@@ -140,15 +137,15 @@ export class DotnetBuilder implements TargetBuilder {
       /* eslint-disable @typescript-eslint/no-var-requires */
       const jsiiDotNetRuntime = require('jsii-dotnet-runtime');
       /* eslint-enable @typescript-eslint/no-var-requires */
-      const localDotNetRuntime = jsiiDotNetRuntime.repository;
-      if (await fs.pathExists(localDotNetRuntime)) {
-        localRepos.push(localDotNetRuntime);
-      }
+      localRepos.push(jsiiDotNetRuntime.repository);
     } catch {
       // Couldn't locate jsii-dotnet-runtime, which is owkay!
     }
 
-    logging.debug('local NuGet repos:', localRepos);
+    // Filter out nonexistant directories, .NET will be unhappy if paths don't exist
+    const existingLocalRepos = await filterAsync(localRepos, fs.pathExists);
+
+    logging.debug('local NuGet repos:', existingLocalRepos);
 
     // Construct XML content.
     const configuration = xmlbuilder.create('configuration', { encoding: 'UTF-8' });
@@ -159,7 +156,7 @@ export class DotnetBuilder implements TargetBuilder {
     nugetOrgAdd.att('value', 'https://api.nuget.org/v3/index.json');
     nugetOrgAdd.att('protocolVersion', '3');
 
-    localRepos.forEach((repo, index) => {
+    existingLocalRepos.forEach((repo, index) => {
       const add = packageSources.ele('add');
       add.att('key', `local-${index}`);
       add.att('value', path.join(repo));
