@@ -28,6 +28,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.AnonymousImplementationProvider": return software.amazon.jsii.tests.calculator.AnonymousImplementationProvider.class;
             case "jsii-calc.AsyncVirtualMethods": return software.amazon.jsii.tests.calculator.AsyncVirtualMethods.class;
             case "jsii-calc.AugmentableClass": return software.amazon.jsii.tests.calculator.AugmentableClass.class;
+            case "jsii-calc.BaseJsii976": return software.amazon.jsii.tests.calculator.BaseJsii976.class;
             case "jsii-calc.Bell": return software.amazon.jsii.tests.calculator.Bell.class;
             case "jsii-calc.BinaryOperation": return software.amazon.jsii.tests.calculator.BinaryOperation.class;
             case "jsii-calc.Calculator": return software.amazon.jsii.tests.calculator.Calculator.class;
@@ -100,6 +101,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IPublicInterface": return software.amazon.jsii.tests.calculator.IPublicInterface.class;
             case "jsii-calc.IPublicInterface2": return software.amazon.jsii.tests.calculator.IPublicInterface2.class;
             case "jsii-calc.IRandomNumberGenerator": return software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class;
+            case "jsii-calc.IReturnJsii976": return software.amazon.jsii.tests.calculator.IReturnJsii976.class;
             case "jsii-calc.IReturnsNumber": return software.amazon.jsii.tests.calculator.IReturnsNumber.class;
             case "jsii-calc.IStableInterface": return software.amazon.jsii.tests.calculator.IStableInterface.class;
             case "jsii-calc.ImplementInternalInterface": return software.amazon.jsii.tests.calculator.ImplementInternalInterface.class;
@@ -154,6 +156,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.SingletonIntEnum": return software.amazon.jsii.tests.calculator.SingletonIntEnum.class;
             case "jsii-calc.SingletonString": return software.amazon.jsii.tests.calculator.SingletonString.class;
             case "jsii-calc.SingletonStringEnum": return software.amazon.jsii.tests.calculator.SingletonStringEnum.class;
+            case "jsii-calc.SomeTypeJsii976": return software.amazon.jsii.tests.calculator.SomeTypeJsii976.class;
             case "jsii-calc.StableClass": return software.amazon.jsii.tests.calculator.StableClass.class;
             case "jsii-calc.StableEnum": return software.amazon.jsii.tests.calculator.StableEnum.class;
             case "jsii-calc.StableStruct": return software.amazon.jsii.tests.calculator.StableStruct.class;
