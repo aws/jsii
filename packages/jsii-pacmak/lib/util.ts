@@ -162,7 +162,7 @@ export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
   }
 }
 
-export async function filterAsync<A>(xs: Array<A>, pred: (x: A) => Promise<boolean>): Promise<Array<A>> {
+export async function filterAsync<A>(xs: A[], pred: (x: A) => Promise<boolean>): Promise<A[]> {
   const ret = new Array<A>();
   for (const x of xs) {
     if (await pred(x)) {
