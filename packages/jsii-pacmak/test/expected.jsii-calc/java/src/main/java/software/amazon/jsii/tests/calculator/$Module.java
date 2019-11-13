@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("jsii-calc", "0.20.3", $Module.class, "jsii-calc@0.20.3.jsii.tgz");
+        super("jsii-calc", "0.20.4", $Module.class, "jsii-calc@0.20.4.jsii.tgz");
     }
 
     @Override
@@ -28,10 +28,12 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.AnonymousImplementationProvider": return software.amazon.jsii.tests.calculator.AnonymousImplementationProvider.class;
             case "jsii-calc.AsyncVirtualMethods": return software.amazon.jsii.tests.calculator.AsyncVirtualMethods.class;
             case "jsii-calc.AugmentableClass": return software.amazon.jsii.tests.calculator.AugmentableClass.class;
+            case "jsii-calc.BaseJsii976": return software.amazon.jsii.tests.calculator.BaseJsii976.class;
             case "jsii-calc.Bell": return software.amazon.jsii.tests.calculator.Bell.class;
             case "jsii-calc.BinaryOperation": return software.amazon.jsii.tests.calculator.BinaryOperation.class;
             case "jsii-calc.Calculator": return software.amazon.jsii.tests.calculator.Calculator.class;
             case "jsii-calc.CalculatorProps": return software.amazon.jsii.tests.calculator.CalculatorProps.class;
+            case "jsii-calc.ChildStruct982": return software.amazon.jsii.tests.calculator.ChildStruct982.class;
             case "jsii-calc.ClassThatImplementsTheInternalInterface": return software.amazon.jsii.tests.calculator.ClassThatImplementsTheInternalInterface.class;
             case "jsii-calc.ClassThatImplementsThePrivateInterface": return software.amazon.jsii.tests.calculator.ClassThatImplementsThePrivateInterface.class;
             case "jsii-calc.ClassWithCollections": return software.amazon.jsii.tests.calculator.ClassWithCollections.class;
@@ -45,6 +47,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ConsumersOfThisCrazyTypeSystem": return software.amazon.jsii.tests.calculator.ConsumersOfThisCrazyTypeSystem.class;
             case "jsii-calc.DataRenderer": return software.amazon.jsii.tests.calculator.DataRenderer.class;
             case "jsii-calc.DefaultedConstructorArgument": return software.amazon.jsii.tests.calculator.DefaultedConstructorArgument.class;
+            case "jsii-calc.Demonstrate982": return software.amazon.jsii.tests.calculator.Demonstrate982.class;
             case "jsii-calc.DeprecatedClass": return software.amazon.jsii.tests.calculator.DeprecatedClass.class;
             case "jsii-calc.DeprecatedEnum": return software.amazon.jsii.tests.calculator.DeprecatedEnum.class;
             case "jsii-calc.DeprecatedStruct": return software.amazon.jsii.tests.calculator.DeprecatedStruct.class;
@@ -100,6 +103,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IPublicInterface": return software.amazon.jsii.tests.calculator.IPublicInterface.class;
             case "jsii-calc.IPublicInterface2": return software.amazon.jsii.tests.calculator.IPublicInterface2.class;
             case "jsii-calc.IRandomNumberGenerator": return software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class;
+            case "jsii-calc.IReturnJsii976": return software.amazon.jsii.tests.calculator.IReturnJsii976.class;
             case "jsii-calc.IReturnsNumber": return software.amazon.jsii.tests.calculator.IReturnsNumber.class;
             case "jsii-calc.IStableInterface": return software.amazon.jsii.tests.calculator.IStableInterface.class;
             case "jsii-calc.ImplementInternalInterface": return software.amazon.jsii.tests.calculator.ImplementInternalInterface.class;
@@ -138,6 +142,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.OptionalStructConsumer": return software.amazon.jsii.tests.calculator.OptionalStructConsumer.class;
             case "jsii-calc.OverridableProtectedMember": return software.amazon.jsii.tests.calculator.OverridableProtectedMember.class;
             case "jsii-calc.OverrideReturnsObject": return software.amazon.jsii.tests.calculator.OverrideReturnsObject.class;
+            case "jsii-calc.ParentStruct982": return software.amazon.jsii.tests.calculator.ParentStruct982.class;
             case "jsii-calc.PartiallyInitializedThisConsumer": return software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer.class;
             case "jsii-calc.Polymorphism": return software.amazon.jsii.tests.calculator.Polymorphism.class;
             case "jsii-calc.Power": return software.amazon.jsii.tests.calculator.Power.class;
@@ -154,6 +159,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.SingletonIntEnum": return software.amazon.jsii.tests.calculator.SingletonIntEnum.class;
             case "jsii-calc.SingletonString": return software.amazon.jsii.tests.calculator.SingletonString.class;
             case "jsii-calc.SingletonStringEnum": return software.amazon.jsii.tests.calculator.SingletonStringEnum.class;
+            case "jsii-calc.SomeTypeJsii976": return software.amazon.jsii.tests.calculator.SomeTypeJsii976.class;
             case "jsii-calc.StableClass": return software.amazon.jsii.tests.calculator.StableClass.class;
             case "jsii-calc.StableEnum": return software.amazon.jsii.tests.calculator.StableEnum.class;
             case "jsii-calc.StableStruct": return software.amazon.jsii.tests.calculator.StableStruct.class;

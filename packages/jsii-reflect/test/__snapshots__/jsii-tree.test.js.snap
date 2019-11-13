@@ -173,6 +173,9 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: void
  │   │   └─┬ methodTwo() method (experimental)
  │   │     └── returns: void
+ │   ├─┬ class BaseJsii976 (experimental)
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer (experimental)
  │   ├─┬ class Bell (experimental)
  │   │ ├── interfaces: IBell
  │   │ └─┬ members
@@ -453,6 +456,15 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ arg2 property (experimental)
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ class Demonstrate982 (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static takeThis() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.ChildStruct982
+ │   │   └─┬ static takeThisToo() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: jsii-calc.ParentStruct982
  │   ├─┬ class DeprecatedClass (deprecated)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (deprecated)
@@ -1181,6 +1193,15 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ value
  │   │     │   └── type: string
  │   │     └── returns: boolean
+ │   ├─┬ class SomeTypeJsii976 (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static returnAnonymous() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   └─┬ static returnReturn() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: jsii-calc.IReturnJsii976
  │   ├─┬ class StableClass (stable)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (stable)
@@ -1536,6 +1557,14 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<number>
+ │   ├─┬ interface ChildStruct982 (experimental)
+ │   │ ├─┬ interfaces
+ │   │ │ └── ParentStruct982
+ │   │ └─┬ members
+ │   │   └─┬ bar property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ interface DeprecatedStruct (deprecated)
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property (deprecated)
@@ -1835,6 +1864,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ next() method (experimental)
  │   │     ├── abstract
  │   │     └── returns: number
+ │   ├─┬ interface IReturnJsii976 (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ foo property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ interface IReturnsNumber (experimental)
  │   │ └─┬ members
  │   │   ├─┬ obtainNumber() method (experimental)
@@ -1916,6 +1951,12 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface ParentStruct982 (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ foo property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface RootStruct (experimental)
  │   │ └─┬ members
  │   │   ├─┬ stringProp property (experimental)
@@ -2192,6 +2233,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IAnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
+ │   ├── class BaseJsii976
  │   ├─┬ class Bell
  │   │ └── interfaces: IBell
  │   ├─┬ class BinaryOperation
@@ -2215,6 +2257,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
+ │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
  │   ├── class Base
  │   ├─┬ class Derived
@@ -2284,6 +2327,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SingleInstanceTwoTypes
  │   ├── class SingletonInt
  │   ├── class SingletonString
+ │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
  │   ├── class Statics
@@ -2310,6 +2354,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class CompositeOperation
  │   │ └── base: Operation
  │   ├── interface CalculatorProps
+ │   ├─┬ interface ChildStruct982
+ │   │ └─┬ interfaces
+ │   │   └── ParentStruct982
  │   ├── interface DeprecatedStruct
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
@@ -2371,6 +2418,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator
+ │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
  │   ├─┬ interface ImplictBaseOfBase
@@ -2382,6 +2430,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
@@ -2509,6 +2558,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── methodOne() method
  │   │   └── methodTwo() method
+ │   ├─┬ class BaseJsii976
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class Bell
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2615,6 +2667,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── arg1 property
  │   │   ├── arg3 property
  │   │   └── arg2 property
+ │   ├─┬ class Demonstrate982
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static takeThis() method
+ │   │   └── static takeThisToo() method
  │   ├─┬ class DeprecatedClass
  │   │ └─┬ members
  │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
@@ -2961,6 +3018,11 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class SingletonString
  │   │ └─┬ members
  │   │   └── isSingletonString(value) method
+ │   ├─┬ class SomeTypeJsii976
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static returnAnonymous() method
+ │   │   └── static returnReturn() method
  │   ├─┬ class StableClass
  │   │ └─┬ members
  │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
@@ -3093,6 +3155,9 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── initialValue property
  │   │   └── maximumValue property
+ │   ├─┬ interface ChildStruct982
+ │   │ └─┬ members
+ │   │   └── bar property
  │   ├─┬ interface DeprecatedStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
@@ -3225,6 +3290,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface IRandomNumberGenerator
  │   │ └─┬ members
  │   │   └── next() method
+ │   ├─┬ interface IReturnJsii976
+ │   │ └─┬ members
+ │   │   └── foo property
  │   ├─┬ interface IReturnsNumber
  │   │ └─┬ members
  │   │   ├── obtainNumber() method
@@ -3259,6 +3327,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface OptionalStruct
  │   │ └─┬ members
  │   │   └── field property
+ │   ├─┬ interface ParentStruct982
+ │   │ └─┬ members
+ │   │   └── foo property
  │   ├─┬ interface RootStruct
  │   │ └─┬ members
  │   │   ├── stringProp property
@@ -3410,6 +3481,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class AnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
+ │   ├── class BaseJsii976
  │   ├── class Bell
  │   ├── class BinaryOperation
  │   ├── class Calculator
@@ -3426,6 +3498,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
+ │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
  │   ├── class Base
  │   ├── class Derived
@@ -3481,6 +3554,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SingleInstanceTwoTypes
  │   ├── class SingletonInt
  │   ├── class SingletonString
+ │   ├── class SomeTypeJsii976
  │   ├── class StableClass
  │   ├── class StaticContext
  │   ├── class Statics
@@ -3503,6 +3577,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class WithPrivatePropertyInConstructor
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
+ │   ├── interface ChildStruct982
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
  │   ├── interface DiamondInheritanceBaseLevelStruct
@@ -3542,6 +3617,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator
+ │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
  │   ├── interface ImplictBaseOfBase
@@ -3551,6 +3627,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct

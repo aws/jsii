@@ -55,7 +55,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.3"
+      "version": "0.20.4"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -78,7 +78,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.3"
+      "version": "0.20.4"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -103,7 +103,7 @@
           "module": "scope.jsii_calc_lib"
         }
       },
-      "version": "0.20.3"
+      "version": "0.20.4"
     }
   },
   "dependencyClosure": {
@@ -128,7 +128,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.3"
+      "version": "0.20.4"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -151,7 +151,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.3"
+      "version": "0.20.4"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -176,7 +176,7 @@
           "module": "scope.jsii_calc_lib"
         }
       },
-      "version": "0.20.3"
+      "version": "0.20.4"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -184,7 +184,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.20.3",
+  "jsiiVersion": "0.20.4",
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -1236,6 +1236,20 @@
       ],
       "name": "AugmentableClass"
     },
+    "jsii-calc.BaseJsii976": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.BaseJsii976",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2219
+      },
+      "name": "BaseJsii976"
+    },
     "jsii-calc.Bell": {
       "assembly": "jsii-calc",
       "docs": {
@@ -1658,6 +1672,40 @@
           },
           "name": "maximumValue",
           "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ChildStruct982": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ChildStruct982",
+      "interfaces": [
+        "jsii-calc.ParentStruct982"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2244
+      },
+      "name": "ChildStruct982",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2245
+          },
+          "name": "bar",
           "type": {
             "primitive": "number"
           }
@@ -2810,6 +2858,62 @@
           }
         }
       ]
+    },
+    "jsii-calc.Demonstrate982": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)\n2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type",
+        "stability": "experimental",
+        "summary": "1."
+      },
+      "fqn": "jsii-calc.Demonstrate982",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2251
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's dangerous to go alone!"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2258
+          },
+          "name": "takeThis",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ChildStruct982"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's dangerous to go alone!"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2263
+          },
+          "name": "takeThisToo",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ParentStruct982"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "Demonstrate982"
     },
     "jsii-calc.DeprecatedClass": {
       "assembly": "jsii-calc",
@@ -5139,6 +5243,37 @@
         }
       ],
       "name": "IRandomNumberGenerator"
+    },
+    "jsii-calc.IReturnJsii976": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Returns a subclass of a known class which implements an interface."
+      },
+      "fqn": "jsii-calc.IReturnJsii976",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2215
+      },
+      "name": "IReturnJsii976",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2216
+          },
+          "name": "foo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
     },
     "jsii-calc.IReturnsNumber": {
       "assembly": "jsii-calc",
@@ -7604,6 +7739,38 @@
       ],
       "name": "OverrideReturnsObject"
     },
+    "jsii-calc.ParentStruct982": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental",
+        "summary": "https://github.com/aws/jsii/issues/982."
+      },
+      "fqn": "jsii-calc.ParentStruct982",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2241
+      },
+      "name": "ParentStruct982",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2242
+          },
+          "name": "foo",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.PartiallyInitializedThisConsumer": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -8251,7 +8418,7 @@
       "assembly": "jsii-calc",
       "datatype": true,
       "docs": {
-        "remarks": "This is cheating with the declared types, but Python people don't play by\nthe rules much apparently.",
+        "remarks": "This is cheating with the (current) declared types, but this is the \"more\nidiomatic\" way for Pythonists.",
         "stability": "experimental",
         "summary": "This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary."
       },
@@ -8653,6 +8820,54 @@
         }
       ],
       "name": "SingletonStringEnum"
+    },
+    "jsii-calc.SomeTypeJsii976": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.SomeTypeJsii976",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2221
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2231
+          },
+          "name": "returnAnonymous",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2223
+          },
+          "name": "returnReturn",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IReturnJsii976"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "SomeTypeJsii976"
     },
     "jsii-calc.StableClass": {
       "assembly": "jsii-calc",
@@ -10912,6 +11127,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.20.3",
-  "fingerprint": "BNhgAwuQfsvttsEliEal3aNXXFY0yeCY6npreFwNwpg="
+  "version": "0.20.4",
+  "fingerprint": "tstuqQAthpZwWhUE2vVhUOPHqmlfL3UkynWznknz3gY="
 }

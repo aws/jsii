@@ -2178,8 +2178,8 @@ class PrivateBell implements IBell {
 
 /**
  * This is here to check that we can pass a nested struct into a kwargs by specifying it as an
- * in-line dictionary. This is cheating with the declared types, but Python people don't play by
- * the rules much apparently.
+ * in-line dictionary. This is cheating with the (current) declared types, but this is the "more
+ * idiomatic" way for Pythonists.
  */
 export interface RootStruct {
     /**
@@ -2207,4 +2207,62 @@ export class RootStructValidator {
     }
 
     private constructor() { }
+}
+
+/**
+ * Returns a subclass of a known class which implements an interface.
+ */
+export interface IReturnJsii976 {
+    readonly foo: number;
+}
+
+export class BaseJsii976 { }
+
+export class SomeTypeJsii976 {
+
+    static returnReturn(): IReturnJsii976 {
+        class Derived extends BaseJsii976 implements IReturnJsii976 {
+            public readonly foo = 333
+        }
+
+        return new Derived();
+    }
+
+    static returnAnonymous(): any {
+        class Derived implements IReturnJsii976 {
+            public readonly foo = 1337;
+        }
+
+        return new Derived();
+    }
+}
+
+/** https://github.com/aws/jsii/issues/982 */
+export interface ParentStruct982 {
+    readonly foo: string;
+}
+export interface ChildStruct982 extends ParentStruct982 {
+    readonly bar: number;
+}
+/**
+ * 1. call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)
+ * 2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type
+ */
+export class Demonstrate982 {
+    private static readonly value = {
+        foo: 'foo',
+        bar: 1337,
+    };
+
+    /** It's dangerous to go alone! */
+    public static takeThis(): ChildStruct982 {
+        return this.value;
+    }
+
+    /** It's dangerous to go alone! */
+    public static takeThisToo(): ParentStruct982 {
+        return this.value;
+    }
+
+    public constructor() { }
 }

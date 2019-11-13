@@ -1391,6 +1391,18 @@ public class ComplianceTest {
         assertTrue(StructUnionConsumer.isStructB(b1));
     }
 
+    @Test
+    public void returnSubclassThatImplementsInterface976() {
+        IReturnJsii976 obj = SomeTypeJsii976.returnReturn();
+        assertEquals(obj.getFoo(), 333);
+    }
+
+    @Test
+    public void testStructsCanBeDowncastedToParentType() {
+        assertNotNull(Demonstrate982.takeThis());
+        assertNotNull(Demonstrate982.takeThisToo());
+    }
+
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {
         @Override
         public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj,
