@@ -49,6 +49,7 @@ class _ReferenceMap:
         # First we need to check our reference map to see if we have any instance that
         # already matches this reference.
         try:
+            # TODO: Handle discovery of possible new interfaces on the ObjRef
             return self._refs[ref.ref]
         except KeyError:
             pass
@@ -69,6 +70,13 @@ class _ReferenceMap:
             # then assign our reference to __jsii_ref__
             inst = klass.__new__(klass)
             inst.__jsii_ref__ = ref
+
+            if ref.interfaces is not None:
+                return InterfaceDynamicProxy([inst] + self.build_interface_proxies_for_ref(ref))
+            else:
+                return inst
+
+        # Legacy code path - Kernel invariant ought to guarantee that class_fqn can't be Struct (they're interfaces)
         elif class_fqn in _data_types:
             # Data types have been serialized by-reference (see aws/jsii#400).
             # We retrieve all of its properties right now and then construct a value
@@ -86,8 +94,9 @@ class _ReferenceMap:
 
             return data_type(**python_props)
         elif class_fqn in _enums:
-            inst = _enums[class_fqn]
+            return _enums[class_fqn]
         elif class_fqn == "Object" and ref.interfaces is not None:
+            # If any one interface is a struct, all of them are guaranteed to be (Kernel invariant)
             if any(fqn in _data_types for fqn in ref.interfaces):
                 # Ugly delayed import here because I can't solve the cyclic
                 # package dependency right now :(.
@@ -100,19 +109,22 @@ class _ReferenceMap:
                     }) for struct in structs]
                 return StructDynamicProxy(insts)
             else:
-                ifaces = [_interfaces[fqn] for fqn in ref.interfaces]
-                classes = [iface.__jsii_proxy_class__() for iface in ifaces]
-                insts = [klass.__new__(klass) for klass in classes]
-                for inst in insts:
-                    inst.__jsii_ref__ = ref
-                return InterfaceDynamicProxy(insts)
+                return InterfaceDynamicProxy(self.build_interface_proxies_for_ref(ref))
         else:
             raise ValueError(f"Unknown type: {class_fqn}")
 
-        return inst
-
     def resolve_id(self, id):
         return self._refs[id]
+
+    def build_interface_proxies_for_ref(self, ref):
+        if ref.interfaces is None:
+            raise AssertionError("Attempted to create interface proxies for ObjectRef without interfaces!")
+        ifaces = [_interfaces[fqn] for fqn in ref.interfaces]
+        classes = [iface.__jsii_proxy_class__() for iface in ifaces]
+        insts = [klass.__new__(klass) for klass in classes]
+        for inst in insts:
+            inst.__jsii_ref__ = ref
+        return insts
 
 
 class InterfaceDynamicProxy(object):
@@ -121,11 +133,10 @@ class InterfaceDynamicProxy(object):
 
     def __getattr__(self, name):
         for delegate in self._delegates:
-            try:
+            if hasattr(delegate, name):
                 return getattr(delegate, name)
-            except NameError:
-                pass
-        return None
+        type_info = "+".join([str(delegate.__class__) for delegate in self._delegates])
+        raise AttributeError(f"'%s' object has no attribute '%s'" % (type_info, name))
 
 
 class StructDynamicProxy(object):
@@ -134,11 +145,10 @@ class StructDynamicProxy(object):
 
     def __getattr__(self, name):
         for delegate in self._delegates:
-            try:
+            if hasattr(delegate, name):
                 return getattr(delegate, name)
-            except NameError:
-                pass
-        return None
+        type_info = "+".join([str(delegate.__class__) for delegate in self._delegates])
+        raise AttributeError("'%s' object has no attribute '%s'" % (type_info, name))
 
     def __eq__(self, rhs) -> bool:
         if len(self._delegates) == 1:
