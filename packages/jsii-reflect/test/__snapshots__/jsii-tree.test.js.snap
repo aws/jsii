@@ -329,6 +329,13 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ readWriteString property (experimental)
  │   │     └── type: string
+ │   ├─┬ class ConfusingToJackson (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ static makeInstance() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.ConfusingToJackson
+ │   │   └─┬ unionProperty property (experimental)
+ │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
  │   ├─┬ class ConstructorPassesThisOut (experimental)
  │   │ └─┬ members
  │   │   └─┬ <initializer>(consumer) initializer (experimental)
@@ -2251,6 +2258,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: IInterfaceWithProperties
+ │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumerCanRingBell
@@ -2626,6 +2634,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static create(readOnlyString,readWriteString) method
  │   │   ├── readOnlyString property
  │   │   └── readWriteString property
+ │   ├─┬ class ConfusingToJackson
+ │   │ └─┬ members
+ │   │   ├── static makeInstance() method
+ │   │   └── unionProperty property
  │   ├─┬ class ConstructorPassesThisOut
  │   │ └─┬ members
  │   │   └── <initializer>(consumer) initializer
@@ -3492,6 +3504,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
+ │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumerCanRingBell

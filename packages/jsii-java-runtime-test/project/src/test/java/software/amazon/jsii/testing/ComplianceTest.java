@@ -1553,4 +1553,9 @@ public class ComplianceTest {
             return next;
         }
     }
+
+    @Test
+    public void canObtainReferenceWithOverloadedSetter() {
+        assertNotNull(ConfusingToJackson.makeInstance());
+    }
 }

@@ -2219,6 +2219,78 @@
         }
       ]
     },
+    "jsii-calc.ConfusingToJackson": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/aws-cdk/issues/4080",
+        "stability": "experimental",
+        "summary": "This tries to confuse Jackson by having overloaded property setters."
+      },
+      "fqn": "jsii-calc.ConfusingToJackson",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2275
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2276
+          },
+          "name": "makeInstance",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ConfusingToJackson"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "ConfusingToJackson",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2280
+          },
+          "name": "unionProperty",
+          "optional": true,
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                },
+                {
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "@scope/jsii-calc-lib.IFriendly"
+                          },
+                          {
+                            "fqn": "jsii-calc.AbstractClass"
+                          }
+                        ]
+                      }
+                    },
+                    "kind": "array"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.ConstructorPassesThisOut": {
       "assembly": "jsii-calc",
       "docs": {
@@ -11128,5 +11200,5 @@
     }
   },
   "version": "0.20.5",
-  "fingerprint": "/MRTbTnRC1UWxsPIrca+9Yo1IBKsEueT75P22pQoV1o="
+  "fingerprint": "kNXJGfAFmb/4Oq+2ojg9+ZxZhpMdb/y55go8OZWy/kE="
 }

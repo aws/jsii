@@ -1034,7 +1034,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         }
 
         [Fact(DisplayName = Prefix + nameof(ReturnSubclassThatImplementsInterface976))]
-        public void ReturnSubclassThatImplementsInterface976() 
+        public void ReturnSubclassThatImplementsInterface976()
         {
             var obj = SomeTypeJsii976.ReturnReturn();
             Assert.Equal(obj.Foo, 333);
@@ -1264,6 +1264,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             Assert.NotNull(Demonstrate982.TakeThis());
             Assert.NotNull(Demonstrate982.TakeThisToo());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanObtainReferenceWithOverloadedSetters))]
+        public void CanObtainReferenceWithOverloadedSetters()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeInstance());
         }
     }
 }

@@ -14,6 +14,7 @@ from jsii_calc import (
     AsyncVirtualMethods,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
+    ConfusingToJackson,
     ConsumerCanRingBell,
     ConstructorPassesThisOut,
     DataRenderer,
@@ -1053,3 +1054,6 @@ class PythonBellRinger:
 class PythonConcreteBellRinger:
     def your_turn(self, bell):
         bell.ring()
+
+def test_can_obtain_reference_with_overloaded_setter():
+    assert ConfusingToJackson.make_instance() is not None
