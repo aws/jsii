@@ -1,5 +1,4 @@
 Foo(25, new Struct {
-  Foo = 3,
+    Foo = 3,
 
-  Banana = "hello"
-});
+    Banana = "hello" });

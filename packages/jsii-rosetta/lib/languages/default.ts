@@ -2,6 +2,8 @@ import ts = require('typescript');
 import { AstRenderer, AstHandler, nimpl } from "../renderer";
 import { OTree } from '../o-tree';
 import { ImportStatement } from '../typescript/imports';
+import { isStructInterface, isStructType } from '../jsii/jsii-utils';
+import { mapElementType } from '../typescript/types';
 
 /**
  * A basic visitor that applies for most curly-braces-based languages
@@ -73,7 +75,6 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public prefixUnaryExpression(node: ts.PrefixUnaryExpression, context: AstRenderer<C>): OTree {
-
     return new OTree([
       UNARY_OPS[node.operator],
       context.convert(node.operand)
@@ -88,11 +89,29 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return new OTree([context.convert(node.expression), '.', context.convert(node.name)]);
   }
 
+  /**
+   * Do some work on property accesses to translate common JavaScript-isms to language-specific idioms
+   */
   public callExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree {
+    const functionText = context.textOf(node.expression);
+    if (functionText === 'console.log' || functionText === 'console.error') { return this.printStatement(node.arguments, context); }
+
+    return this.regularCallExpression(node, context);
+  }
+
+  public regularCallExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree {
     return new OTree([
       context.convert(node.expression),
       '(',
       new OTree([], context.convertAll(node.arguments), { separator: ', ' }),
+      ')']);
+  }
+
+  public printStatement(args: ts.NodeArray<ts.Expression>, context: AstRenderer<C>) {
+    return new OTree([
+      '<PRINT>',
+      '(',
+      new OTree([], context.convertAll(args), { separator: ', ' }),
       ')']);
   }
 
@@ -104,12 +123,43 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return new OTree([context.textOf(node)]);
   }
 
+  /**
+   * An object literal can render as one of three things:
+   *
+   * - Don't know the type (render as an unknown struct)
+   * - Know the type:
+   *     - It's a struct (render as known struct)
+   *     - It's not a struct (render as key-value map)
+   */
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
+    const type = context.typeOfExpression(node);
+
+    const isUnknownType = !type || !type.symbol;
+    const isKnownStruct = type && isStructType(type);
+
+    if (isUnknownType) {
+      return this.unknownTypeObjectLiteralExpression(node, context);
+    }
+    if (isKnownStruct) {
+      return this.knownStructObjectLiteralExpression(node, type!, context);
+    }
+    return this.keyValueObjectLiteralExpression(node, type && mapElementType(type), context);
+  }
+
+  public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
+    return this.notImplemented(node, context);
+  }
+
+  public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, _structType: ts.Type, context: AstRenderer<C>): OTree {
+    return this.notImplemented(node, context);
+  }
+
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, _valueType: ts.Type | undefined, context: AstRenderer<C>): OTree {
     return this.notImplemented(node, context);
   }
 
   public newExpression(node: ts.NewExpression, context: AstRenderer<C>): OTree {
-    return this.notImplemented(node, context);
+    return new OTree(['new ', context.convert(node.expression)]);
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, context: AstRenderer<C>): OTree {
@@ -160,6 +210,18 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public interfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
+    if (isStructInterface(context.textOf(node.name))) {
+      return this.structInterfaceDeclaration(node, context);
+    } else {
+      return this.regularInterfaceDeclaration(node, context);
+    }
+  }
+
+  public structInterfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
+    return this.notImplemented(node, context);
+  }
+
+  public regularInterfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
     return this.notImplemented(node, context);
   }
 

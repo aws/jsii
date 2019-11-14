@@ -12,7 +12,7 @@ type JavaVisitorContext = AstRenderer<JavaLanguageContext>;
 export class JavaVisitor extends DefaultVisitor<JavaLanguageContext> {
   readonly defaultContext = {};
 
-  public mergeContext(old: JavaLanguageContext, update: JavaLanguageContext): JavaLanguageContext {
+  public mergeContext(old: JavaLanguageContext, update: Partial<JavaLanguageContext>): JavaLanguageContext {
     return Object.assign({}, old, update);
   }
 

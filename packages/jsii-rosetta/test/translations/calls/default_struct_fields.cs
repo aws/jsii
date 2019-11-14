@@ -1,9 +1,9 @@
-interface Struct {
-  public string x;
-  public string? y;
-}
-
-public void foo(Struct s)
+class Struct
 {
-  Console.WriteLine($"{s.x} {s.y}")
+    public string? X;
+    public string? Y;
+}
+public void Foo(Struct s)
+{
+    Console.WriteLine($"{s.X} {s.Y}");
 }

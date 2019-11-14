@@ -1,12 +1,13 @@
 import ts = require('typescript');
 import { AstRenderer, nimpl } from "../renderer";
-import { isStructType, parameterAcceptsUndefined, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
+import { isStructType, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
 import { NO_SYNTAX, OTree, renderTree } from "../o-tree";
 import { matchAst, nodeOfType, stripCommentMarkers, voidExpressionString } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { startsWithUppercase } from "../util";
+import { startsWithUppercase, flat } from "../util";
 import { DefaultVisitor } from './default';
 import { jsiiTargetParam } from '../jsii/packages';
+import { parameterAcceptsUndefined } from '../typescript/types';
 
 interface StructVar {
   variableName: string;
@@ -74,7 +75,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     super();
   }
 
-  public mergeContext(old: PythonLanguageContext, update: PythonLanguageContext) {
+  public mergeContext(old: PythonLanguageContext, update: Partial<PythonLanguageContext>) {
     return Object.assign({}, old, update);
   }
 
@@ -197,7 +198,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     });
   }
 
-  public callExpression(node: ts.CallExpression, context: PythonVisitorContext): OTree {
+  public regularCallExpression(node: ts.CallExpression, context: PythonVisitorContext): OTree {
     let expressionText: OTree | string = context.convert(node.expression);
 
     if (matchAst(node.expression, nodeOfType(ts.SyntaxKind.SuperKeyword)) && context.currentContext.currentMethodName) {
@@ -267,33 +268,29 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     }) : ifStmt;
   }
 
-  public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
-    const type = context.typeOfExpression(node);
-
-    // We render in one of three modes:
-    //
-    // - If we're in tail position, we render as keyword arguments if we don't know
-    //   the type, OR we know the type and the type is a struct.
-    // - Otherwise, if we know the type AND it's a struct we render a class constructor
-    //   (with keyword arguments for the literal members)
-    // - Otherwise, we render as a dict literal, using dict literal members.
-    let prefix = '{';
-    let suffix = '}';
-    let renderObjectLiteralAsKeywords = false;
-
-    const isUnknownType = !type || !type.symbol;
-    const isKnownStruct = type && isStructType(type);
-
-    if (context.currentContext.tailPositionArgument && (isUnknownType || isKnownStruct)) {
-      prefix = '';
-      suffix = '';
-      renderObjectLiteralAsKeywords = true;
-    } else if (type && isKnownStruct) {
-      prefix = type.symbol.name + '(';
-      suffix = ')';
-      renderObjectLiteralAsKeywords = true;
+  public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
+    if (context.currentContext.tailPositionArgument) {
+      // Guess that it's a struct we can probably inline the kwargs for
+      return this.renderObjectLiteralExpression('', '', true, node, context);
+    } else {
+      return this.renderObjectLiteralExpression('{', '}', false, node, context);
     }
+  }
 
+  public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, structType: ts.Type, context: PythonVisitorContext): OTree {
+    if (context.currentContext.tailPositionArgument) {
+      // We know it's a struct we can DEFINITELY inline the args for
+      return this.renderObjectLiteralExpression('', '', true, node, context);
+    } else {
+      return this.renderObjectLiteralExpression(`${structType.symbol.name}(`, ')', true, node, context);
+    }
+  }
+
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, _valueType: ts.Type | undefined, context: PythonVisitorContext): OTree {
+    return this.renderObjectLiteralExpression('{', '}', false, node, context);
+  }
+
+  public renderObjectLiteralExpression(prefix: string, suffix: string, renderObjectLiteralAsKeywords: boolean, node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
     return new OTree([prefix], context.updateContext({ renderObjectLiteralAsKeywords }).convertAll(node.properties), {
       suffix: context.mirrorNewlineBefore(node.properties[0], suffix),
       separator: ', ',
@@ -415,6 +412,14 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return ret;
   }
 
+  public printStatement(args: ts.NodeArray<ts.Expression>, context: PythonVisitorContext) {
+    return new OTree([
+      'print',
+      '(',
+      new OTree([], context.convertAll(args), { separator: ', ' }),
+      ')']);
+  }
+
   public propertyDeclaration(_node: ts.PropertyDeclaration, _context: PythonVisitorContext): OTree {
     return new OTree([]);
   }
@@ -532,10 +537,6 @@ const TOKEN_REWRITES: {[key: string]: string} = {
   true: 'True',
   false: 'False'
 };
-
-function flat<A>(xs: A[][]): A[] {
-  return Array.prototype.concat.apply([], xs);
-}
 
 function last<A>(xs: ReadonlyArray<A>): A {
   return xs[xs.length - 1];

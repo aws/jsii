@@ -41,3 +41,7 @@ export function divideEvenly<A>(groups: number, xs: A[]): A[][] {
 
   return ret;
 }
+
+export function flat<A>(xs: A[][]): A[] {
+  return Array.prototype.concat.apply([], xs);
+}

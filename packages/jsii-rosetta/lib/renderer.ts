@@ -28,7 +28,7 @@ export class AstRenderer<C> {
   /**
    * Merge the new context with the current context and create a new Converter from it
    */
-  public updateContext(contextUpdate: C): AstRenderer<C> {
+  public updateContext(contextUpdate: Partial<C>): AstRenderer<C> {
     const newContext = this.handler.mergeContext(this.currentContext, contextUpdate);
 
     // Use prototypal inheritance to create a version of 'this' in which only
@@ -269,7 +269,7 @@ export class AstRenderer<C> {
  */
 export interface AstHandler<C> {
   readonly defaultContext: C;
-  mergeContext(old: C, update: C): C;
+  mergeContext(old: C, update: Partial<C>): C;
 
   sourceFile(node: ts.SourceFile, context: AstRenderer<C>): OTree;
   commentRange(node: ts.CommentRange, context: AstRenderer<C>): OTree;

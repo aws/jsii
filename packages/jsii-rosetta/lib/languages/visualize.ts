@@ -9,7 +9,7 @@ export class VisualizeAstVisitor implements AstHandler<void> {
   constructor(private readonly includeHandlerNames?: boolean) {
   }
 
-  public mergeContext(_old: void, _update: void): void {
+  public mergeContext(_old: any, _update: any): any {
     return undefined;
   }
 
