@@ -499,6 +499,18 @@ exports[`jsii-tree --all 1`] = `
  │   │ ├── base: Base
  │   │ └─┬ members
  │   │   └── <initializer>() initializer (experimental)
+ │   ├─┬ class DisappointingCollectionSource (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ static maybeList property (experimental)
+ │   │   │ ├── const
+ │   │   │ ├── immutable
+ │   │   │ ├── static
+ │   │   │ └── type: Optional<Array<string>>
+ │   │   └─┬ static maybeMap property (experimental)
+ │   │     ├── const
+ │   │     ├── immutable
+ │   │     ├── static
+ │   │     └── type: Optional<Map<string => number>>
  │   ├─┬ class DoNotOverridePrivates (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -2279,6 +2291,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class Base
  │   ├─┬ class Derived
  │   │ └── base: Base
+ │   ├── class DisappointingCollectionSource
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
  │   ├── class DocumentedClass
@@ -2708,6 +2721,10 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class Derived
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
+ │   ├─┬ class DisappointingCollectionSource
+ │   │ └─┬ members
+ │   │   ├── static maybeList property
+ │   │   └── static maybeMap property
  │   ├─┬ class DoNotOverridePrivates
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3529,6 +3546,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class DeprecatedClass
  │   ├── class Base
  │   ├── class Derived
+ │   ├── class DisappointingCollectionSource
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
  │   ├── class DocumentedClass

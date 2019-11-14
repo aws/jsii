@@ -1,11 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * This tries to confuse Jackson by having overloaded property setters.
- * 
  * EXPERIMENTAL
- * 
- * @see https://github.com/aws/aws-cdk/issues/4080
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

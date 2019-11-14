@@ -1403,6 +1403,16 @@ public class ComplianceTest {
         assertNotNull(Demonstrate982.takeThisToo());
     }
 
+    @Test
+    public void testNullIsAValidOptionalList() {
+        assertNull(DisappointingCollectionSource.MAYBE_LIST);
+    }
+
+    @Test
+    public void testNullIsAValidOptionalMap() {
+        assertNull(DisappointingCollectionSource.MAYBE_MAP);
+    }
+
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {
         @Override
         public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj,

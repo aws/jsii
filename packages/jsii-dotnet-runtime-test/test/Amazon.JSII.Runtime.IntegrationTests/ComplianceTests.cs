@@ -1037,7 +1037,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void ReturnSubclassThatImplementsInterface976()
         {
             var obj = SomeTypeJsii976.ReturnReturn();
-            Assert.Equal(obj.Foo, 333);
+            Assert.Equal(333, obj.Foo);
         }
 
         private sealed class OverrideVariadicMethod : VariadicMethod
@@ -1276,6 +1276,18 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void CanObtainStructReferenceWithOverloadedSetters()
         {
             Assert.NotNull(ConfusingToJackson.MakeStructInstance());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(NullIsAValidOptionalList))]
+        public void NullIsAValidOptionalList()
+        {
+            Assert.Null(DisappointingCollectionSource.MaybeList);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(NullIsAValidOptionalMap))]
+        public void NullIsAValidOptionalMap()
+        {
+            Assert.Null(DisappointingCollectionSource.MaybeMap);
         }
     }
 }

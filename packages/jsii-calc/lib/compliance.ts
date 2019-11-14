@@ -2267,7 +2267,7 @@ export class Demonstrate982 {
     public constructor() { }
 }
 
-/**
+/*
  * This tries to confuse Jackson by having overloaded property setters.
  *
  * @see https://github.com/aws/aws-cdk/issues/4080
@@ -2287,4 +2287,17 @@ export class ConfusingToJackson {
 }
 export interface ConfusingToJacksonStruct {
     readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+}
+
+/**
+ * Verifies that null/undefined can be returned for optional collections.
+ *
+ * This source of collections is disappointing - it'll always give you nothing :(
+ */
+export class DisappointingCollectionSource {
+    /** Some List of strings, maybe? (Nah, just a billion dollars mistake!) */
+    public static readonly maybeList?: string[] = undefined;
+    /** Some Map of strings to numbers, maybe? (Nah, just a billion dollars mistake!) */
+    public static readonly maybeMap?: { [key: string]: number } = undefined;
+    private constructor() { }
 }

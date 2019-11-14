@@ -19,6 +19,7 @@ from jsii_calc import (
     ConstructorPassesThisOut,
     DataRenderer,
     Demonstrate982,
+    DisappointingCollectionSource,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
@@ -1060,3 +1061,9 @@ def test_can_obtain_reference_with_overloaded_setter():
 
 def test_can_obtain_struct_reference_with_overloaded_setter():
     assert ConfusingToJackson.make_struct_instance() is not None
+
+def test_null_is_a_valid_optional_list():
+    assert DisappointingCollectionSource.MAYBE_LIST is None
+
+def test_null_is_a_valid_optional_map():
+    assert DisappointingCollectionSource.MAYBE_MAP is None

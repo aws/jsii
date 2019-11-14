@@ -60,6 +60,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.DiamondInheritanceFirstMidLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct.class;
             case "jsii-calc.DiamondInheritanceSecondMidLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceSecondMidLevelStruct.class;
             case "jsii-calc.DiamondInheritanceTopLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceTopLevelStruct.class;
+            case "jsii-calc.DisappointingCollectionSource": return software.amazon.jsii.tests.calculator.DisappointingCollectionSource.class;
             case "jsii-calc.DoNotOverridePrivates": return software.amazon.jsii.tests.calculator.DoNotOverridePrivates.class;
             case "jsii-calc.DoNotRecognizeAnyAsOptional": return software.amazon.jsii.tests.calculator.DoNotRecognizeAnyAsOptional.class;
             case "jsii-calc.DocumentedClass": return software.amazon.jsii.tests.calculator.DocumentedClass.class;

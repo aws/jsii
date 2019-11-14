@@ -2222,9 +2222,7 @@
     "jsii-calc.ConfusingToJackson": {
       "assembly": "jsii-calc",
       "docs": {
-        "see": "https://github.com/aws/aws-cdk/issues/4080",
-        "stability": "experimental",
-        "summary": "This tries to confuse Jackson by having overloaded property setters."
+        "stability": "experimental"
       },
       "fqn": "jsii-calc.ConfusingToJackson",
       "kind": "class",
@@ -3502,6 +3500,71 @@
           "name": "topLevelProperty",
           "type": {
             "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.DisappointingCollectionSource": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "This source of collections is disappointing - it'll always give you nothing :(",
+        "stability": "experimental",
+        "summary": "Verifies that null/undefined can be returned for optional collections."
+      },
+      "fqn": "jsii-calc.DisappointingCollectionSource",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2297
+      },
+      "name": "DisappointingCollectionSource",
+      "properties": [
+        {
+          "const": true,
+          "docs": {
+            "remarks": "(Nah, just a billion dollars mistake!)",
+            "stability": "experimental",
+            "summary": "Some List of strings, maybe?"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2299
+          },
+          "name": "maybeList",
+          "optional": true,
+          "static": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "const": true,
+          "docs": {
+            "remarks": "(Nah, just a billion dollars mistake!)",
+            "stability": "experimental",
+            "summary": "Some Map of strings to numbers, maybe?"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2301
+          },
+          "name": "maybeMap",
+          "optional": true,
+          "static": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "number"
+              },
+              "kind": "map"
+            }
           }
         }
       ]
@@ -11271,5 +11334,5 @@
     }
   },
   "version": "0.20.5",
-  "fingerprint": "vKeZwjjLC1e84B6FiOQCH8JDNoINrldYfdEWYKqCFSQ="
+  "fingerprint": "SpqWbp4sQfTLiw/Oogb9KSxfoPs7Uf0h6C3oQonjvYg="
 }
