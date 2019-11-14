@@ -24,7 +24,8 @@
       "packages/*"
     ],
     "nohoist": [
-      "**/jsii-calc-bundled"
+      "**/jsii-calc-bundled",
+      "**/jsii-calc-bundled/**"
     ]
   }
 }
