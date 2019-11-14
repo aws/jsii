@@ -132,7 +132,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
    *     - It's not a struct (render as key-value map)
    */
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
-    const type = context.typeOfExpression(node);
+    const type = context.inferredTypeOfExpression(node);
 
     const isUnknownType = !type || !type.symbol;
     const isKnownStruct = type && isStructType(type);

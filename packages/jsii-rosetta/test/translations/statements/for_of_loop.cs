@@ -1,4 +1,4 @@
 for (var x in xs)
 {
-    Console.WriteLine($"{x}");
+    Console.WriteLine(x);
 }

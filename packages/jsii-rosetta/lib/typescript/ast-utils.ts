@@ -368,3 +368,7 @@ export function extractVoidExpression(node: ts.Node): ts.VoidExpression  | undef
   if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.CommaToken) { return extractVoidExpression(node.left); }
   return undefined;
 }
+
+export function quoteStringLiteral(x: string) {
+  return x.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}

@@ -18,7 +18,7 @@ export class AstRenderer<C> {
 
   constructor(
     private readonly sourceFile: ts.SourceFile,
-    private readonly typeChecker: ts.TypeChecker,
+    public readonly typeChecker: ts.TypeChecker,
     private readonly handler: AstHandler<C>,
     private readonly options: AstRendererOptions = {}) {
 
@@ -95,8 +95,22 @@ export class AstRenderer<C> {
     return this.sourceFile.text.substring(pos, end);
   }
 
-  public typeOfExpression(node: ts.Expression) {
+  /**
+   * Infer type of expression by the argument it is assigned to
+   *
+   * (Will return undefined for object literals not unified with a declared type)
+   */
+  public inferredTypeOfExpression(node: ts.Expression) {
     return this.typeChecker.getContextualType(node);
+  }
+
+  /**
+   * Type of expression from the text of the expression
+   *
+   * (Will return a map type for object literals)
+   */
+  public typeOfExpression(node: ts.Expression) {
+    return this.typeChecker.getContextualType(node) || this.typeChecker.getTypeAtLocation(node);
   }
 
   public typeOfType(node: ts.TypeNode): ts.Type {

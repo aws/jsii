@@ -2,9 +2,9 @@ import ts = require('typescript');
 import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
-import { getNonUndefinedTypeFromUnion, builtInTypeName, typeContainsUndefined, parameterAcceptsUndefined, mapElementType } from '../typescript/types';
+import { getNonUndefinedTypeFromUnion, builtInTypeName, typeContainsUndefined, parameterAcceptsUndefined, mapElementType, inferMapElementType } from '../typescript/types';
 import { flat } from '../util';
-import { matchAst, nodeOfType } from '../typescript/ast-utils';
+import { matchAst, nodeOfType, quoteStringLiteral } from '../typescript/ast-utils';
 
 interface CSharpLanguageContext {
   /**
@@ -26,19 +26,45 @@ interface CSharpLanguageContext {
    * So we know how to render property assignments
    */
   readonly inKeyValueList: boolean;
+
+  /**
+   * Whether a string literal is currently in the position of having to render as an identifier (LHS in property assignment)
+   */
+  readonly stringAsIdentifier: boolean;
+
+  /**
+   * Whether an identifier literal is currently in the position of having to render as a string (LHS in property assignment)
+   */
+  readonly identifierAsString: boolean;
+
+  /**
+   * When parsing an object literal and no type information is available, prefer parsing it as a struct to parsing it as a map
+   */
+  readonly preferObjectLiteralAsStruct: boolean;
 }
 
 type CSharpRenderer = AstRenderer<CSharpLanguageContext>;
 
 export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
-  readonly defaultContext = { propertyOrMethod: false, inStructInterface: false, inKeyValueList: false };
+  readonly defaultContext = {
+    propertyOrMethod: false,
+    inStructInterface: false,
+    inKeyValueList: false,
+    stringAsIdentifier: false,
+    identifierAsString: false,
+    preferObjectLiteralAsStruct: true
+  };
 
   public mergeContext(old: CSharpLanguageContext, update: Partial<CSharpLanguageContext>): CSharpLanguageContext {
     return Object.assign({}, old, update);
   }
 
-  public identifier(node: ts.Identifier, renderer: CSharpRenderer) {
+  public identifier(node: ts.Identifier | ts.StringLiteral, renderer: CSharpRenderer) {
     let text = node.text;
+
+    if (renderer.currentContext.identifierAsString) {
+      return new OTree([JSON.stringify(text)]);
+    }
 
     // Uppercase methods and properties, leave the rest as-is
     if (renderer.currentContext.propertyOrMethod) {
@@ -81,7 +107,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: CSharpRenderer) {
-    const renderedArgs = args.length === 1 && ts.isStringLiteral(args[0])
+    const renderedArgs = args.length === 1
       ? renderer.convertAll(args)
       : ['$"',
         new OTree([], args.map(a => new OTree(['{', renderer.convert(a), '}'])), { separator: ' ' }),
@@ -92,6 +118,14 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       ...renderedArgs,
       ')'
     ]);
+  }
+
+  public stringLiteral(node: ts.StringLiteral, renderer: CSharpRenderer): OTree {
+    if (renderer.currentContext.stringAsIdentifier) {
+      return this.identifier(node, renderer);
+    } else {
+      return new OTree([JSON.stringify(node.text)]);
+    }
   }
 
   public expressionStatement(node: ts.ExpressionStatement, renderer: CSharpRenderer): OTree {
@@ -188,7 +222,13 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: CSharpRenderer): OTree {
-    return new OTree(['new Struct { '], renderer.convertAll(node.properties), { suffix: ' }', separator: ', ', indent: 4 });
+    if (renderer.currentContext.preferObjectLiteralAsStruct) {
+      // Type information missing and from context we prefer a struct
+      return new OTree(['new Struct { '], renderer.convertAll(node.properties), { suffix: ' }', separator: ', ', indent: 4 });
+    } else {
+      // Type information missing and from context we prefer a map
+      return this.keyValueObjectLiteralExpression(node, undefined, renderer);
+    }
   }
 
   public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, structType: ts.Type, renderer: CSharpRenderer): OTree {
@@ -196,6 +236,11 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, valueType: ts.Type | undefined, renderer: CSharpRenderer): OTree {
+    // Try to infer an element type from the elements
+    if (valueType === undefined) {
+      valueType = inferMapElementType(node.properties, renderer);
+    }
+
     return new OTree([
       'new Dictionary<string, ',
       valueType ? this.renderType(node, valueType, false, renderer) : 'object',
@@ -212,9 +257,9 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   public renderPropertyAssignment(key: ts.Node, value: ts.Node, renderer: CSharpRenderer): OTree {
     if (renderer.currentContext.inKeyValueList) {
-      return new OTree(['{ "', renderer.updateContext({ propertyOrMethod: false }).convert(key), '", ', renderer.updateContext({ inKeyValueList: false }).convert(value), ' }'], [], { canBreakLine: true });
+      return new OTree(['{ ', renderer.updateContext({ propertyOrMethod: false, identifierAsString: true }).convert(key), ', ', renderer.updateContext({ inKeyValueList: false }).convert(value), ' }'], [], { canBreakLine: true });
     } else {
-      return new OTree([renderer.updateContext({ propertyOrMethod: true }).convert(key), ' = ', renderer.convert(value)], [], { canBreakLine: true });
+      return new OTree([renderer.updateContext({ propertyOrMethod: true, stringAsIdentifier: true }).convert(key), ' = ', renderer.convert(value)], [], { canBreakLine: true });
     }
   }
 
@@ -256,6 +301,39 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       renderer.convert(node.expression),
       ') '
     ], [renderer.convert(node.statement)], { canBreakLine: true });
+  }
+
+  public asExpression(node: ts.AsExpression, context: CSharpRenderer): OTree {
+    return new OTree(['(', this.renderTypeNode(node.type, false, context), ')', context.convert(node.expression)]);
+  }
+
+  public variableDeclaration(node: ts.VariableDeclaration, renderer: CSharpRenderer): OTree {
+    const type = (node.type && renderer.typeOfType(node.type))
+        || (node.initializer && renderer.typeOfExpression(node.initializer));
+
+    let renderedType = type ? this.renderType(node, type, false, renderer) : 'var';
+    if (renderedType === 'object') { renderedType = 'var'; }
+
+    return new OTree([
+      renderedType,
+      ' ',
+      renderer.convert(node.name),
+      ' = ',
+      renderer.updateContext({ preferObjectLiteralAsStruct: false }).convert(node.initializer),
+      ';'
+    ], [], { canBreakLine: true });
+  }
+
+  public templateExpression(node: ts.TemplateExpression, context: CSharpRenderer): OTree {
+    const parts = ['$"'];
+    if (node.head.rawText) { parts.push(quoteStringLiteral(node.head.rawText)); }
+    for (const span of node.templateSpans) {
+      parts.push('{' + context.textOf(span.expression) + '}');
+      if (span.literal.rawText) { parts.push(quoteStringLiteral(span.literal.rawText)); }
+    }
+    parts.push('"');
+
+    return new OTree([parts.join('')]);
   }
 
   private renderTypeNode(typeNode: ts.TypeNode | undefined, questionMark: boolean, renderer: CSharpRenderer): string {

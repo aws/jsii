@@ -1,4 +1,5 @@
 import ts = require('typescript');
+import { AstRenderer } from '../renderer';
 
 /**
  * Return the OTHER type from undefined from a union, returns undefined if there is more than one
@@ -16,6 +17,9 @@ export function builtInTypeName(type: ts.Type): string | undefined {
     [ts.TypeFlags.Boolean]: 'boolean',
     [ts.TypeFlags.Number]: 'number',
     [ts.TypeFlags.String]: 'string',
+    [ts.TypeFlags.StringLiteral]: 'string',
+    [ts.TypeFlags.NumberLiteral]: 'number',
+    [ts.TypeFlags.BooleanLiteral]: 'boolean',
   };
   return map[type.flags];
 }

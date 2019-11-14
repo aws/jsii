@@ -2,7 +2,7 @@ import ts = require('typescript');
 import { AstRenderer, nimpl } from "../renderer";
 import { isStructType, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
 import { NO_SYNTAX, OTree, renderTree } from "../o-tree";
-import { matchAst, nodeOfType, stripCommentMarkers, voidExpressionString } from '../typescript/ast-utils';
+import { matchAst, nodeOfType, stripCommentMarkers, voidExpressionString, quoteStringLiteral } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { startsWithUppercase, flat } from "../util";
 import { DefaultVisitor } from './default';
@@ -82,7 +82,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public commentRange(node: ts.CommentRange, context: PythonVisitorContext): OTree {
     const commentText = stripCommentMarkers(context.textAt(node.pos, node.end), node.kind === ts.SyntaxKind.MultiLineCommentTrivia);
     const hashLines = commentText.split('\n').map(l => `# ${l}`).join('\n');
-    const needsAdditionalTrailer = node.kind !== ts.SyntaxKind.MultiLineCommentTrivia || !node.hasTrailingNewLine;
+    const needsAdditionalTrailer = node.hasTrailingNewLine;
 
     return new OTree([hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
       // Make sure comment is rendered exactly once in the output tree, no
@@ -540,8 +540,4 @@ const TOKEN_REWRITES: {[key: string]: string} = {
 
 function last<A>(xs: ReadonlyArray<A>): A {
   return xs[xs.length - 1];
-}
-
-function quoteStringLiteral(x: string) {
-  return x.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
