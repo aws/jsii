@@ -1266,6 +1266,18 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.NotNull(Demonstrate982.TakeThisToo());
         }
 
+        [Fact(DisplayName = Prefix + nameof(CanObtainReferenceWithOverloadedSetters))]
+        public void CanObtainReferenceWithOverloadedSetters()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeInstance());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanObtainStructReferenceWithOverloadedSetters))]
+        public void CanObtainStructReferenceWithOverloadedSetters()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeStructInstance());
+        }
+
         [Fact(DisplayName = Prefix + nameof(NullIsAValidOptionalList))]
         public void NullIsAValidOptionalList()
         {

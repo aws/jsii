@@ -2219,6 +2219,147 @@
         }
       ]
     },
+    "jsii-calc.ConfusingToJackson": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ConfusingToJackson",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2275
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2276
+          },
+          "name": "makeInstance",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ConfusingToJackson"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2280
+          },
+          "name": "makeStructInstance",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ConfusingToJacksonStruct"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "ConfusingToJackson",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2284
+          },
+          "name": "unionProperty",
+          "optional": true,
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                },
+                {
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "@scope/jsii-calc-lib.IFriendly"
+                          },
+                          {
+                            "fqn": "jsii-calc.AbstractClass"
+                          }
+                        ]
+                      }
+                    },
+                    "kind": "array"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "jsii-calc.ConfusingToJacksonStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ConfusingToJacksonStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2288
+      },
+      "name": "ConfusingToJacksonStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2289
+          },
+          "name": "unionProperty",
+          "optional": true,
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                },
+                {
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "@scope/jsii-calc-lib.IFriendly"
+                          },
+                          {
+                            "fqn": "jsii-calc.AbstractClass"
+                          }
+                        ]
+                      }
+                    },
+                    "kind": "array"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.ConstructorPassesThisOut": {
       "assembly": "jsii-calc",
       "docs": {
@@ -3374,7 +3515,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2275
+        "line": 2297
       },
       "name": "DisappointingCollectionSource",
       "properties": [
@@ -3388,7 +3529,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2277
+            "line": 2299
           },
           "name": "maybeList",
           "optional": true,
@@ -3412,7 +3553,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2279
+            "line": 2301
           },
           "name": "maybeMap",
           "optional": true,
@@ -11193,5 +11334,5 @@
     }
   },
   "version": "0.20.5",
-  "fingerprint": "3awLO8TqVlq/Xfg73Q3//agPHBaBPDNBMSYYR7nXlu8="
+  "fingerprint": "SpqWbp4sQfTLiw/Oogb9KSxfoPs7Uf0h6C3oQonjvYg="
 }

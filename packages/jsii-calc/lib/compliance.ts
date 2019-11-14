@@ -2267,6 +2267,28 @@ export class Demonstrate982 {
     public constructor() { }
 }
 
+/*
+ * This tries to confuse Jackson by having overloaded property setters.
+ *
+ * @see https://github.com/aws/aws-cdk/issues/4080
+ */
+export class ConfusingToJackson {
+    public static makeInstance(): ConfusingToJackson {
+        return new ConfusingToJackson();
+    }
+
+    public static makeStructInstance(): ConfusingToJacksonStruct {
+        return {};
+    }
+
+    public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+
+    private constructor() { }
+}
+export interface ConfusingToJacksonStruct {
+    readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+}
+
 /**
  * Verifies that null/undefined can be returned for optional collections.
  *

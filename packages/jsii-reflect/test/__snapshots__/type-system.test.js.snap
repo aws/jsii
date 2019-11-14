@@ -34,6 +34,7 @@ Array [
   "ClassWithMutableObjectLiteralProperty",
   "ClassWithPrivateConstructorAndAutomaticProperties",
   "CompositeOperation",
+  "ConfusingToJackson",
   "ConstructorPassesThisOut",
   "Constructors",
   "ConsumerCanRingBell",
