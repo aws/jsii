@@ -1,6 +1,4 @@
-import { VisualizeAstVisitor } from './languages/visualize';
 import ts = require('typescript');
-import { translateTypeScript } from './translate';
 
 export function startsWithUppercase(x: string) {
   return x.match(/^[A-Z]/);
@@ -9,13 +7,6 @@ export function startsWithUppercase(x: string) {
 export interface File {
   readonly contents: string;
   readonly fileName: string;
-}
-
-export function visualizeTypeScriptAst(source: File) {
-  const vis = translateTypeScript(source, new VisualizeAstVisitor(true), {
-    bestEffort: false
-  });
-  return vis.translation + '\n';
 }
 
 export function printDiagnostics(diags: ts.Diagnostic[], stream: NodeJS.WritableStream) {

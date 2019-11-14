@@ -2,6 +2,7 @@ import fs = require('fs-extra');
 import path = require('path');
 import { JavaVisitor, PythonVisitor, SnippetTranslator } from '../lib';
 import { AstHandler } from '../lib/renderer';
+import { VisualizeAstVisitor } from '../lib/languages/visualize';
 
 // This iterates through all subdirectories of this directory,
 // and creates a Jest test for each, by translating the TypeScript file it finds there,
@@ -44,6 +45,7 @@ function makeTests() {
       const typeScriptSource = fs.readFileSync(typeScriptTest, { encoding: 'utf-8' });
 
       let translator: SnippetTranslator;
+      let anyFailed = false;
       beforeAll(() => {
         translator = new SnippetTranslator({
           visibleSource: typeScriptSource,
@@ -51,6 +53,11 @@ function makeTests() {
         });
       });
       afterAll(() => {
+        // Print the AST for tests that failed (to help debugging)
+        if (anyFailed) {
+          const vis = translator.renderUsing(new VisualizeAstVisitor(true));
+          console.log(vis + '\n');
+        }
         (translator as any) = undefined; // Need this to properly release memory
       });
 
@@ -63,7 +70,13 @@ function makeTests() {
         testConstructor(supportedLanguage.name, () => {
           const expected = fs.readFileSync(languageFile, { encoding: 'utf-8' });
           const translation = translator.renderUsing(supportedLanguage.visitor);
-          expect(stripEmptyLines(translation)).toEqual(stripEmptyLines(stripCommonWhitespace(expected)));
+
+          try {
+            expect(stripEmptyLines(translation)).toEqual(stripEmptyLines(stripCommonWhitespace(expected)));
+          } catch(e) {
+            anyFailed = true;
+            throw e;
+          }
         });
       });
     });
