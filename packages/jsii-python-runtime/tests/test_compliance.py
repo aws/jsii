@@ -35,6 +35,7 @@ from jsii_calc import (
     NodeStandardLibrary,
     NullShouldBeTreatedAsUndefined,
     NumberGenerator,
+    ObjectWithPropertyProvider,
     PartiallyInitializedThisConsumer,
     Polymorphism,
     Power,
@@ -1053,3 +1054,8 @@ class PythonBellRinger:
 class PythonConcreteBellRinger:
     def your_turn(self, bell):
         bell.ring()
+
+def test_can_use_interface_setters():
+    obj = ObjectWithPropertyProvider.provide()
+    obj.property = 'New Value'
+    assert obj.was_set()

@@ -5118,6 +5118,54 @@
         }
       ]
     },
+    "jsii-calc.IObjectWithProperty": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Make sure that setters are properly called on objects with interfaces."
+      },
+      "fqn": "jsii-calc.IObjectWithProperty",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2273
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2275
+          },
+          "name": "wasSet",
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        }
+      ],
+      "name": "IObjectWithProperty",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2274
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.IPrivatelyImplemented": {
       "assembly": "jsii-calc",
       "docs": {
@@ -7359,6 +7407,37 @@
         }
       ],
       "name": "ObjectRefsInCollections"
+    },
+    "jsii-calc.ObjectWithPropertyProvider": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ObjectWithPropertyProvider",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2277
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2278
+          },
+          "name": "provide",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IObjectWithProperty"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "ObjectWithPropertyProvider"
     },
     "jsii-calc.Old": {
       "assembly": "jsii-calc",
@@ -11128,5 +11207,5 @@
     }
   },
   "version": "0.20.5",
-  "fingerprint": "g9C1lL8c+vgxBjOWVBFMMPlcwkF3Z81xxTAGfc73x9o="
+  "fingerprint": "0rO96JPKRUt2x4hOyoCkj3VQvwUDmrvfFTBOkOvT86M="
 }

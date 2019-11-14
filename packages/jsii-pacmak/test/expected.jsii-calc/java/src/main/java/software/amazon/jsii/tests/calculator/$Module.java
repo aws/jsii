@@ -99,6 +99,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IJsii496": return software.amazon.jsii.tests.calculator.IJsii496.class;
             case "jsii-calc.IMutableObjectLiteral": return software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class;
             case "jsii-calc.INonInternalInterface": return software.amazon.jsii.tests.calculator.INonInternalInterface.class;
+            case "jsii-calc.IObjectWithProperty": return software.amazon.jsii.tests.calculator.IObjectWithProperty.class;
             case "jsii-calc.IPrivatelyImplemented": return software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class;
             case "jsii-calc.IPublicInterface": return software.amazon.jsii.tests.calculator.IPublicInterface.class;
             case "jsii-calc.IPublicInterface2": return software.amazon.jsii.tests.calculator.IPublicInterface2.class;
@@ -135,6 +136,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.NullShouldBeTreatedAsUndefinedData": return software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData.class;
             case "jsii-calc.NumberGenerator": return software.amazon.jsii.tests.calculator.NumberGenerator.class;
             case "jsii-calc.ObjectRefsInCollections": return software.amazon.jsii.tests.calculator.ObjectRefsInCollections.class;
+            case "jsii-calc.ObjectWithPropertyProvider": return software.amazon.jsii.tests.calculator.ObjectWithPropertyProvider.class;
             case "jsii-calc.Old": return software.amazon.jsii.tests.calculator.Old.class;
             case "jsii-calc.OptionalArgumentInvoker": return software.amazon.jsii.tests.calculator.OptionalArgumentInvoker.class;
             case "jsii-calc.OptionalConstructorArgument": return software.amazon.jsii.tests.calculator.OptionalConstructorArgument.class;
