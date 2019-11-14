@@ -4,6 +4,7 @@ import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
 import { getNonUndefinedTypeFromUnion, builtInTypeName, typeContainsUndefined, parameterAcceptsUndefined, mapElementType } from '../typescript/types';
 import { flat } from '../util';
+import { matchAst, nodeOfType } from '../typescript/ast-utils';
 
 interface CSharpLanguageContext {
   readonly currentClassName?: string;
@@ -65,11 +66,17 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: CSharpRenderer) {
+    const renderedArgs = args.length === 1 && ts.isStringLiteral(args[0])
+      ? renderer.convertAll(args)
+      : ['$"',
+        new OTree([], args.map(a => new OTree(['{', renderer.convert(a), '}'])), { separator: ' ' }),
+        '"']
+
     return new OTree([
-      'Console.WriteLine',
-      '($"',
-      new OTree([], args.map(a => new OTree(['{', renderer.convert(a), '}'])), { separator: ' ' }),
-      '")']);
+      'Console.WriteLine(',
+      ...renderedArgs,
+      ')'
+    ]);
   }
 
   public expressionStatement(node: ts.ExpressionStatement, renderer: CSharpRenderer): OTree {
@@ -104,9 +111,6 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
    * Do some work on property accesses to translate common JavaScript-isms to language-specific idioms
    */
   public regularCallExpression(node: ts.CallExpression, renderer: CSharpRenderer): OTree {
-    const functionText = renderer.textOf(node.expression);
-    if (functionText === 'console.log' || functionText === 'console.error') { return this.printStatement(node.arguments, renderer); }
-
     return new OTree([
       renderer.updateContext({ propertyOrMethod: true }).convert(node.expression),
       '(',
@@ -205,6 +209,38 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       suffix: ' }',
       indent: 4,
     });
+  }
+
+  public ifStatement(node: ts.IfStatement, renderer: CSharpRenderer): OTree {
+    const ifStmt = new OTree(
+      ['if (', renderer.convert(node.expression), ') '],
+      [renderer.convert(node.thenStatement)], { canBreakLine: true });
+    const elseStmt = node.elseStatement ? new OTree([`else `], [renderer.convert(node.elseStatement)], { canBreakLine: true }) : undefined;
+
+    return elseStmt ? new OTree([], [ifStmt, elseStmt], {
+      separator: '\n',
+      canBreakLine: true
+    }) : ifStmt;
+  }
+
+  public forOfStatement(node: ts.ForOfStatement, renderer: CSharpRenderer): OTree {
+    // This is what a "for (const x of ...)" looks like in the AST
+    let variableName = '???';
+
+    matchAst(node.initializer,
+      nodeOfType(ts.SyntaxKind.VariableDeclarationList,
+        nodeOfType('var', ts.SyntaxKind.VariableDeclaration)),
+      bindings => {
+        variableName = renderer.textOf(bindings.var.name);
+      });
+
+    return new OTree([
+      'for (var ',
+      variableName,
+      ' in ',
+      renderer.convert(node.expression),
+      ') '
+    ], [renderer.convert(node.statement)], { canBreakLine: true });
   }
 
   private renderTypeNode(typeNode: ts.TypeNode | undefined, questionMark: boolean, renderer: CSharpRenderer): string {
