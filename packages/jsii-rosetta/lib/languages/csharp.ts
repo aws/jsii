@@ -230,7 +230,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   private classHeritage(node: ts.ClassDeclaration | ts.InterfaceDeclaration, renderer: CSharpRenderer) {
     const heritage = flat(Array.from(node.heritageClauses || []).map(h => Array.from(h.types))).map(t => renderer.convert(t.expression));
 
-    return heritage.length > 0 ? [':', new OTree([], heritage, { separator: ', ' })] : [];
+    return heritage.length > 0 ? [' : ', new OTree([], heritage, { separator: ', ' })] : [];
   }
 }
 
