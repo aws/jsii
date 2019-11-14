@@ -1,5 +1,4 @@
 import ts = require('typescript');
-import { AstRenderer } from '../renderer';
 
 /**
  * Return the OTHER type from undefined from a union, returns undefined if there is more than one

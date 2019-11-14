@@ -2,7 +2,7 @@ import ts = require('typescript');
 import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
-import { getNonUndefinedTypeFromUnion, builtInTypeName, typeContainsUndefined, parameterAcceptsUndefined, mapElementType, inferMapElementType } from '../typescript/types';
+import { getNonUndefinedTypeFromUnion, builtInTypeName, typeContainsUndefined, parameterAcceptsUndefined, mapElementType } from '../typescript/types';
 import { flat } from '../util';
 import { matchAst, nodeOfType, quoteStringLiteral } from '../typescript/ast-utils';
 
@@ -237,9 +237,10 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, valueType: ts.Type | undefined, renderer: CSharpRenderer): OTree {
     // Try to infer an element type from the elements
-    if (valueType === undefined) {
-      valueType = inferMapElementType(node.properties, renderer);
-    }
+    // Adam: commenting out because it doesn't compile (no inferMapElement function exists)
+    // if (valueType === undefined) {
+    //   valueType = inferMapElementType(node.properties, renderer);
+    // }
 
     return new OTree([
       'new Dictionary<string, ',
