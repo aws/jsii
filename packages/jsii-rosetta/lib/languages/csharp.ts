@@ -16,6 +16,10 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return Object.assign({}, old, update);
   }
 
+  public identifier(node: ts.Identifier, _context: CSharpVisitorContext) {
+    return new OTree([mangleIdentifier(node.text)]);
+  }
+
   public classDeclaration(node: ts.ClassDeclaration, context: CSharpVisitorContext): OTree {
     return new OTree(
       [
@@ -25,9 +29,9 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
         // hasHeritage ? '(' : '',
         // ...heritage,
         // hasHeritage ? ')' : '',
-        ' {',
+        '\n{',
       ],
-      [],
+      context.convertAll(node.members),
       {
         indent: 4,
         canBreakLine: true,
@@ -35,4 +39,9 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       },
     );
   }
+}
+
+function mangleIdentifier(originalIdentifier: string) {
+  // In C#, we uppercase everything
+  return originalIdentifier.substr(0, 1).toUpperCase() + originalIdentifier.substr(1);
 }

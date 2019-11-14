@@ -1,1 +1,1 @@
-foo(25, { foo: 3, banana: "hello"  });
+foo(25, { foo: 3, banana: "hello" });
