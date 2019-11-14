@@ -3,6 +3,7 @@ import path = require('path');
 import { JavaVisitor, PythonVisitor, SnippetTranslator } from '../lib';
 import { AstHandler } from '../lib/renderer';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
+import { CSharpVisitor } from '../lib/languages/csharp';
 
 // This iterates through all subdirectories of this directory,
 // and creates a Jest test for each, by translating the TypeScript file it finds there,
@@ -10,6 +11,15 @@ import { VisualizeAstVisitor } from '../lib/languages/visualize';
 // with the same base name (but a different extension, of course).
 // To add a new language to the tests,
 // add an element to the SUPPORTED_LANGUAGES constant
+//
+// To run only the tests for a certain language you're working on, do this:
+//
+//    yarn test test/translations.test.js -t 'Translating .* to Python'
+//    yarn test test/translations.test.js -t 'Translating .* to Java'
+//    yarn test test/translations.test.js -t 'Translating .* to C#'
+//
+// To narrow it down even more you can of course replace the '.*' regex with
+// whatever file indication you desire.
 
 interface SupportedLanguage {
   readonly name: string;
@@ -30,18 +40,24 @@ const SUPPORTED_LANGUAGES = new Array<SupportedLanguage>(
       extension: '.java',
       visitor: new JavaVisitor(),
     },
+    {
+      name: 'C#',
+      extension: '.cs',
+      visitor: new CSharpVisitor(),
+    },
 );
 
 /**
  * Automatically setup tests from source files found in the directory
  */
 function makeTests() {
-  const typeScriptTests = allFiles(path.join(__dirname, 'translations'))
+  const translationsRoot = path.join(__dirname, 'translations');
+  const typeScriptTests = allFiles(translationsRoot)
     .filter(f => f.endsWith('.ts') && !f.endsWith('.d.ts'))
     .filter(f => !f.endsWith('.test.ts')); // Exclude self and other jest tests in this dir
 
   typeScriptTests.forEach(typeScriptTest => {
-    describe(`Translating: ${path.basename(typeScriptTest)}`, () => {
+    describe(`Translating ${path.relative(translationsRoot, typeScriptTest)}`, () => {
       const typeScriptSource = fs.readFileSync(typeScriptTest, { encoding: 'utf-8' });
 
       let translator: SnippetTranslator;
@@ -67,7 +83,7 @@ function makeTests() {
         // Use 'test.skip' if the file doesn't exist so that we can clearly see it's missing.
         const testConstructor = fs.existsSync(languageFile) ? test : test.skip;
 
-        testConstructor(supportedLanguage.name, () => {
+        testConstructor(`to ${supportedLanguage.name}`, () => {
           const expected = fs.readFileSync(languageFile, { encoding: 'utf-8' });
           const translation = translator.renderUsing(supportedLanguage.visitor);
 
