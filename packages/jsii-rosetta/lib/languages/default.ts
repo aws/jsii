@@ -159,7 +159,13 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public newExpression(node: ts.NewExpression, context: AstRenderer<C>): OTree {
-    return new OTree(['new ', context.convert(node.expression)]);
+    return new OTree([
+      'new ',
+      context.convert(node.expression),
+      '(',
+      new OTree([], node.arguments ? context.convertAll(node.arguments) : [], { separator: ', ' }),
+      ')'
+    ], [], { canBreakLine: true });
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, context: AstRenderer<C>): OTree {

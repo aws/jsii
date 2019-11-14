@@ -222,7 +222,7 @@ export function commentRangeFromTextRange(rng: TextRange): ts.CommentRange {
     kind: rng.type === 'blockcomment' ? ts.SyntaxKind.MultiLineCommentTrivia : ts.SyntaxKind.SingleLineCommentTrivia,
     pos: rng.pos,
     end: rng.end,
-    hasTrailingNewLine: rng.hasTrailingNewLine
+    hasTrailingNewLine: rng.type !== 'blockcomment' && rng.hasTrailingNewLine
   };
 }
 

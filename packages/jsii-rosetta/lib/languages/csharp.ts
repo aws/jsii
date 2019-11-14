@@ -7,9 +7,24 @@ import { flat } from '../util';
 import { matchAst, nodeOfType } from '../typescript/ast-utils';
 
 interface CSharpLanguageContext {
+  /**
+   * Used to render the constructor's name
+   */
   readonly currentClassName?: string;
+
+  /**
+   * Used to capitalize member accesses
+   */
   readonly propertyOrMethod: boolean;
+
+  /**
+   * So we know how to render property signatures
+   */
   readonly inStructInterface: boolean;
+
+  /**
+   * So we know how to render property assignments
+   */
   readonly inKeyValueList: boolean;
 }
 
