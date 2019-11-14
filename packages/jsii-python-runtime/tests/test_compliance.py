@@ -16,6 +16,7 @@ from jsii_calc import (
     AsyncVirtualMethods,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
+    ConfusingToJackson,
     ConsumerCanRingBell,
     ConstructorPassesThisOut,
     DataRenderer,
@@ -1073,3 +1074,9 @@ def test_can_use_interface_setters():
 def test_structs_are_undecorated_on_the_way_to_kernel():
     json = JsonFormatter.stringify(StructB(required_string='Bazinga!', optional_boolean=False))
     assert loads(json) == {'requiredString': 'Bazinga!', 'optionalBoolean': False}
+
+def test_can_obtain_reference_with_overloaded_setter():
+    assert ConfusingToJackson.make_instance() is not None
+
+def test_can_obtain_struct_reference_with_overloaded_setter():
+    assert ConfusingToJackson.make_struct_instance() is not None
