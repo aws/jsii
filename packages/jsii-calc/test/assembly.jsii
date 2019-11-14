@@ -3363,6 +3363,71 @@
         }
       ]
     },
+    "jsii-calc.DisappointingCollectionSource": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "This source of collections is disappointing - it'll always give you nothing :(",
+        "stability": "experimental",
+        "summary": "Verifies that null/undefined can be returned for optional collections."
+      },
+      "fqn": "jsii-calc.DisappointingCollectionSource",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2275
+      },
+      "name": "DisappointingCollectionSource",
+      "properties": [
+        {
+          "const": true,
+          "docs": {
+            "remarks": "(Nah, just a billion dollars mistake!)",
+            "stability": "experimental",
+            "summary": "Some List of strings, maybe?"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2277
+          },
+          "name": "maybeList",
+          "optional": true,
+          "static": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "const": true,
+          "docs": {
+            "remarks": "(Nah, just a billion dollars mistake!)",
+            "stability": "experimental",
+            "summary": "Some Map of strings to numbers, maybe?"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2279
+          },
+          "name": "maybeMap",
+          "optional": true,
+          "static": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "number"
+              },
+              "kind": "map"
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.DoNotOverridePrivates": {
       "assembly": "jsii-calc",
       "docs": {
@@ -11128,5 +11193,5 @@
     }
   },
   "version": "0.20.5",
-  "fingerprint": "/MRTbTnRC1UWxsPIrca+9Yo1IBKsEueT75P22pQoV1o="
+  "fingerprint": "3awLO8TqVlq/Xfg73Q3//agPHBaBPDNBMSYYR7nXlu8="
 }

@@ -859,7 +859,8 @@ class JavaGenerator extends Generator {
     for (const prop of consts) {
       const constName = this.renderConstName(prop);
       const propClass = this.toJavaType(prop.type, true);
-      this.code.line(`${constName} = software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class);`);
+      const statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class)`;
+      this.code.line(`${constName} = ${this.wrapCollection(statement, prop.type, prop.optional)};`);
     }
 
     this.code.closeBlock();
@@ -905,7 +906,7 @@ class JavaGenerator extends Generator {
 
       statement += `"${prop.name}", ${propClass}.class)`;
 
-      this.code.line(`return ${this.wrapCollection(statement, prop.type)};`);
+      this.code.line(`return ${this.wrapCollection(statement, prop.type, prop.optional)};`);
       this.code.closeBlock();
     }
 
@@ -1644,7 +1645,7 @@ class JavaGenerator extends Generator {
     statement += `${this.renderMethodCallArguments(method)})`;
 
     if (method.returns) {
-      statement = this.wrapCollection(statement, method.returns.type);
+      statement = this.wrapCollection(statement, method.returns.type, method.returns.optional);
     }
 
     if (method.returns) {
@@ -1658,19 +1659,26 @@ class JavaGenerator extends Generator {
      * Wraps a collection into an unmodifiable collection else returns the existing statement.
      * @param statement The statement to wrap if necessary.
      * @param type The type of the object to wrap.
+     * @param optional Whether the value is optional (can be null/undefined) or not.
      * @returns The modified or original statement.
      */
-  private wrapCollection(statement: string, type: spec.TypeReference): string {
+  private wrapCollection(statement: string, type: spec.TypeReference, optional?: boolean): string {
     if (spec.isCollectionTypeReference(type)) {
-      const ref = type;
-      switch (ref.collection.kind) {
+      let wrapper: string;
+      switch (type.collection.kind) {
         case spec.CollectionKind.Array:
-          return `java.util.Collections.unmodifiableList(${statement})`;
+          wrapper = 'unmodifiableList';
+          break;
         case spec.CollectionKind.Map:
-          return `java.util.Collections.unmodifiableMap(${statement})`;
+          wrapper = 'unmodifiableMap';
+          break;
         default:
-          throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
+          throw new Error(`Unsupported collection kind: ${type.collection.kind}`);
       }
+      // In the case of "optional", the value needs ot be explicitly cast to allow for cases where the raw type was returned.
+      return optional
+        ? `java.util.Optional.ofNullable((${this.toJavaType(type)})(${statement})).map(java.util.Collections::${wrapper}).orElse(null)`
+        : `java.util.Collections.${wrapper}(${statement})`;
     }
 
     return statement;

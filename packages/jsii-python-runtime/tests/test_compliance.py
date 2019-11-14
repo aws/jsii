@@ -18,6 +18,7 @@ from jsii_calc import (
     ConstructorPassesThisOut,
     DataRenderer,
     Demonstrate982,
+    DisappointingCollectionSource,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
@@ -1053,3 +1054,9 @@ class PythonBellRinger:
 class PythonConcreteBellRinger:
     def your_turn(self, bell):
         bell.ring()
+
+def test_null_is_a_valid_optional_list():
+    assert DisappointingCollectionSource.MAYBE_LIST is None
+
+def test_null_is_a_valid_optional_map():
+    assert DisappointingCollectionSource.MAYBE_MAP is None

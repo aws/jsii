@@ -43,6 +43,7 @@ Array [
   "Demonstrate982",
   "DeprecatedClass",
   "Derived",
+  "DisappointingCollectionSource",
   "DoNotOverridePrivates",
   "DoNotRecognizeAnyAsOptional",
   "DocumentedClass",
