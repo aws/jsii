@@ -40,7 +40,7 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
           const ret = old.value.apply(this, args);
 
           // if this is an async function, wait for the promised value.
-          if (ret && ret.then && typeof ret.then === 'function') {
+          if (typeof ret?.then === 'function') {
             return new Promise((ok, fail) => {
               return ret.then((value: any) => {
                 logOutput({ ok: value });

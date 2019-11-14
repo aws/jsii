@@ -33,8 +33,8 @@ describe('loadProjectInfo', () => {
     expect(info.main).toBe(BASE_PROJECT.main);
     expect(info.types).toBe(BASE_PROJECT.types);
     expect(info.homepage).toBe(undefined);
-    expect(info.repository && info.repository.type).toBe('git');
-    expect(info.repository && info.repository.url).toBe(BASE_PROJECT.repository.url);
+    expect(info.repository?.type).toBe('git');
+    expect(info.repository?.url).toBe(BASE_PROJECT.repository.url);
     expect(info.targets).toEqual({ ...BASE_PROJECT.jsii.targets, js: { npm: BASE_PROJECT.name } });
     expect(info.dependencies).toEqual([TEST_DEP_ASSEMBLY]);
     expect(info.transitiveDependencies).toEqual([TEST_DEP_ASSEMBLY, TEST_DEP_DEP_ASSEMBLY]);
@@ -42,7 +42,7 @@ describe('loadProjectInfo', () => {
 
   test('loads valid project (UNLICENSED)', () => _withTestProject(async projectRoot => {
     const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
-    expect(info && info.license).toBe('UNLICENSED');
+    expect(info?.license).toBe('UNLICENSED');
   }, info => {
     info.license = 'UNLICENSED';
   })
@@ -70,7 +70,7 @@ describe('loadProjectInfo', () => {
     const contributors = [{ name: 'foo', email: 'nobody@amazon.com' }];
     return _withTestProject(async projectRoot => {
       const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
-      expect(info && info.contributors && info.contributors.map(_stripUndefined))
+      expect(info?.contributors?.map(_stripUndefined))
         .toEqual(contributors.map(c => ({ ...c, roles: ['contributor'] })));
     }, info => info.contributors = contributors);
   });

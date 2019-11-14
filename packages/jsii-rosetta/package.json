@@ -17,7 +17,7 @@
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.23",
-    "@types/node": "^10.17.4",
+    "@types/node": "^10.17.5",
     "@types/yargs": "^13.0.3",
     "jest": "^24.9.0",
     "jsii-build-tools": "^0.20.5",
@@ -29,7 +29,7 @@
   "dependencies": {
     "commonmark": "^0.29.0",
     "fs-extra": "^8.1.0",
-    "typescript": "~3.6.4",
+    "typescript": "~3.7.2",
     "jsii-spec": "^0.20.0",
     "yargs": "^14.2.0"
   },

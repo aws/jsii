@@ -40,7 +40,7 @@ export function typeScriptSnippetFromSource(typeScriptSource: string, where: str
 export function updateParameters(snippet: TypeScriptSnippet, params: Record<string, string>): TypeScriptSnippet {
   return {
     ...snippet,
-    parameters: Object.assign({}, snippet.parameters || {}, params)
+    parameters: Object.assign({}, snippet.parameters ?? {}, params)
   };
 }
 

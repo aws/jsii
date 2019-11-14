@@ -321,7 +321,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       return host.objects.registerObject(value, 'Object', [(optionalValue.type as spec.NamedTypeReference).fqn]);
     },
     deserialize(value, optionalValue, host) {
-      if (typeof value === 'object' && Object.keys(value || {}).length === 0) {
+      if (typeof value === 'object' && Object.keys(value ?? {}).length === 0) {
         // Treat empty structs as `undefined` (see https://github.com/aws/jsii/issues/411)
         value = undefined;
       }
@@ -665,7 +665,7 @@ function propertiesOf(t: spec.Type, lookup: TypeLookup): {[name: string]: spec.P
     ret = { ...ret, ...propertiesOf(lookup(t.base), lookup) };
   }
 
-  for (const prop of t.properties || []) {
+  for (const prop of t.properties ?? []) {
     ret[prop.name] = prop;
   }
 

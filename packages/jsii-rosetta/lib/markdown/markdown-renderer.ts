@@ -14,11 +14,11 @@ export class MarkdownRenderer implements CommonMarkRenderer {
   }
 
   public code_block(node: cm.Node, _context: RendererContext) {
-    return para('```' + (node.info || '') + '\n' + node.literal + '```');
+    return para('```' + (node.info ?? '') + '\n' + node.literal + '```');
   }
 
   public text(node: cm.Node, _context: RendererContext) {
-    return node.literal || '';
+    return node.literal ?? '';
   }
 
   public softbreak(_node: cm.Node, _context: RendererContext) {
@@ -38,19 +38,19 @@ export class MarkdownRenderer implements CommonMarkRenderer {
   }
 
   public html_inline(node: cm.Node, _context: RendererContext) {
-    return node.literal || '';
+    return node.literal ?? '';
   }
 
   public html_block(node: cm.Node, _context: RendererContext) {
-    return node.literal || '';
+    return node.literal ?? '';
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `[${context.content()}](${node.destination || ''})`;
+    return `[${context.content()}](${node.destination ?? ''})`;
   }
 
   public image(node: cm.Node, context: RendererContext) {
-    return `![${context.content()}](${node.destination || ''})`;
+    return `![${context.content()}](${node.destination ?? ''})`;
   }
 
   public document(_node: cm.Node, context: RendererContext) {

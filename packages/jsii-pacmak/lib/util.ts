@@ -34,7 +34,7 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
       const child = spawn(cmd, args, {
         ...options,
         shell: true,
-        env: { ...process.env, ...options.env || {} },
+        env: { ...process.env, ...options.env ?? {} },
         stdio: ['ignore', 'pipe', 'pipe']
       });
       const stdout = new Array<Buffer>();

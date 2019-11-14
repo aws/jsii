@@ -29,7 +29,7 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
     visited.add(realPath);
 
     const pkg = await fs.readJson(path.join(realPath, 'package.json'));
-    if (!pkg.jsii || !pkg.jsii.outdir || !pkg.jsii.targets) {
+    if (!pkg.jsii?.outdir || !pkg.jsii?.targets) {
       if (isRoot) {
         throw new Error(`Invalid "jsii" section in ${realPath}. Expecting "outdir" and "targets"`);
       } else {
@@ -41,7 +41,7 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
       throw new Error(`package.json does not have a 'name' field: ${JSON.stringify(pkg, undefined, 2)}`);
     }
 
-    const dependencyNames = Object.keys(pkg.dependencies || {});
+    const dependencyNames = Object.keys(pkg.dependencies ?? {});
 
     // if --recurse is set, find dependency dirs and build them.
     if (recurse) {

@@ -22,7 +22,7 @@ export function translateMarkdown(markdown: File, visitor: AstHandler<any>, opti
       new ReplaceTypeScriptTransform(markdown.fileName, tsSnippet => {
         const translated = translator.translatorFor(tsSnippet).renderUsing(visitor);
         return {
-          language: options.languageIdentifier || '',
+          language: options.languageIdentifier ?? '',
           source: translated,
         };
       })

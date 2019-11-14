@@ -7,7 +7,7 @@ import { TypeScriptSnippet, SnippetParameters } from './snippet';
  */
 export function fixturize(snippet: TypeScriptSnippet): TypeScriptSnippet {
   let source = snippet.visibleSource;
-  const parameters = snippet.parameters || {};
+  const parameters = snippet.parameters ?? {};
 
   const directory = parameters[SnippetParameters.$PROJECT_DIRECTORY];
   if (!directory) { return snippet; }

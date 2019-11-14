@@ -74,7 +74,7 @@ export function parseRepository(value: string): { url: string } {
     return { url: value };
   }
   const [, host, slug] = match;
-  switch (host || 'github') {
+  switch (host ?? 'github') {
     case 'github':
       return { url: `https://github.com/${slug}.git` };
     case 'gist':

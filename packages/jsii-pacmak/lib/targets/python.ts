@@ -309,7 +309,7 @@ abstract class BaseMethod implements PythonBase {
   }
 
   public emit(code: CodeMaker, resolver: TypeResolver, opts?: BaseMethodEmitOpts) {
-    const { renderAbstract = true, forceEmitBody = false } = opts || {};
+    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
 
     let returnType: string;
     if (this.returns !== undefined) {
@@ -324,10 +324,8 @@ abstract class BaseMethod implements PythonBase {
     // resolved, so build up a list of all of the prop names so we can check against
     // them later.
     const liftedPropNames: Set<string> = new Set();
-    if (this.liftedProp !== undefined
-                && this.liftedProp.properties !== undefined
-                && this.liftedProp.properties.length >= 1) {
-      for (const prop of this.liftedProp.properties) {
+    if (this.liftedProp?.properties?.length ?? 0 >= 1) {
+      for (const prop of this.liftedProp!.properties!) {
         liftedPropNames.add(toPythonParameterName(prop.name));
       }
     }
@@ -529,7 +527,7 @@ abstract class BaseProperty implements PythonBase {
   }
 
   public emit(code: CodeMaker, resolver: TypeResolver, opts?: BasePropertyEmitOpts) {
-    const { renderAbstract = true, forceEmitBody = false } = opts || {};
+    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
     const pythonType = resolver.resolve(this.type, { forwardReferences: false });
 
     code.line(`@${this.decorator}`);
@@ -1071,7 +1069,7 @@ class Module implements PythonType {
   private emitDependencyImports(code: CodeMaker, _resolver: TypeResolver) {
     const deps = Array.from(
       new Set([
-        ...Object.values(this.assembly.dependencies || {}).map(d => {
+        ...Object.values(this.assembly.dependencies ?? {}).map(d => {
           return d.targets!.python!.module;
         }),
       ])
@@ -1160,7 +1158,7 @@ class Package {
 
     // Compute our list of dependencies
     const dependencies: string[] = [];
-    const expectedDeps = this.metadata.dependencies || {};
+    const expectedDeps = this.metadata.dependencies ?? {};
     for (const depName of Object.keys(expectedDeps)) {
       const depInfo = expectedDeps[depName];
       // We need to figure out what our version range is.
@@ -1211,7 +1209,7 @@ class Package {
     };
     /* eslint-enable @typescript-eslint/camelcase */
 
-    switch (this.metadata.docs && this.metadata.docs.stability) {
+    switch (this.metadata.docs?.stability) {
       case spec.Stability.Experimental:
         setupKwargs.classifiers.push('Development Status :: 4 - Beta');
         break;
@@ -1225,7 +1223,7 @@ class Package {
         // No 'Development Status' trove classifier for you!
     }
 
-    if (spdxLicenseList[this.metadata.license] && spdxLicenseList[this.metadata.license].osiApproved) {
+    if (spdxLicenseList[this.metadata.license]?.osiApproved) {
       setupKwargs.classifiers.push('License :: OSI Approved');
     }
 
@@ -1537,13 +1535,13 @@ class PythonGenerator extends Generator {
 
     if (docs.remarks) {
       brk();
-      lines.push(...md2rst(this.convertMarkdown(docs.remarks || '')).split('\n'));
+      lines.push(...md2rst(this.convertMarkdown(docs.remarks ?? '')).split('\n'));
       brk();
     }
 
-    if (options.arguments && options.arguments.length > 0) {
+    if (options.arguments?.length ?? 0 > 0) {
       brk();
-      for (const param of options.arguments) {
+      for (const param of options.arguments!) {
         // Add a line for every argument. Even if there is no description, we need
         // the docstring so that the Sphinx extension can add the type annotations.
         lines.push(`:param ${toPythonParameterName(param.name)}: ${onelineDescription(param.docs)}`);
@@ -1558,7 +1556,7 @@ class PythonGenerator extends Generator {
     if (docs.stability && shouldMentionStability(docs.stability)) { block('stability', docs.stability, false); }
     if (docs.subclassable) { block('subclassable', 'Yes'); }
 
-    for (const [k, v] of Object.entries(docs.custom || {})) {
+    for (const [k, v] of Object.entries(docs.custom ?? {})) {
       block(`${k}:`, v, false);
     }
 
@@ -1703,8 +1701,8 @@ class PythonGenerator extends Generator {
       cls.fqn,
       {
         abstract,
-        bases: (cls.base && [this.findType(cls.base)]) || [],
-        interfaces: cls.interfaces && cls.interfaces.map(base => this.findType(base)),
+        bases: cls.base ? [this.findType(cls.base)] : undefined,
+        interfaces: cls.interfaces?.map(base => this.findType(base)),
         abstractBases: abstract ? this.getAbstractBases(cls) : [],
       },
       cls.docs,
@@ -1813,7 +1811,7 @@ class PythonGenerator extends Generator {
         this,
         toPythonIdentifier(ifc.name),
         ifc.fqn,
-        { bases: ifc.interfaces && ifc.interfaces.map(base => this.findType(base)) },
+        { bases: ifc.interfaces?.map(base => this.findType(base)) },
         ifc.docs,
       );
     } else {
@@ -1821,7 +1819,7 @@ class PythonGenerator extends Generator {
         this,
         toPythonIdentifier(ifc.name),
         ifc.fqn,
-        { bases: ifc.interfaces && ifc.interfaces.map(base => this.findType(base)) },
+        { bases: ifc.interfaces?.map(base => this.findType(base)) },
         ifc.docs,
       );
     }
@@ -1924,8 +1922,8 @@ class PythonGenerator extends Generator {
     // If there are parameters to this method, and if the last parameter's type is
     // a datatype interface, then we want to lift the members of that last paramter
     // as keyword arguments to this function.
-    if (method.parameters !== undefined && method.parameters.length >= 1) {
-      const lastParameter = method.parameters.slice(-1)[0];
+    if (method.parameters?.length ?? 0 >= 1) {
+      const lastParameter = method.parameters!.slice(-1)[0];
       if (!lastParameter.variadic && spec.isNamedTypeReference(lastParameter.type)) {
         const lastParameterType = this.findType(lastParameter.type.fqn);
         if (spec.isInterfaceType(lastParameterType) && lastParameterType.datatype) {
@@ -1985,5 +1983,5 @@ function shouldMentionStability(s: Stability) {
 function isStruct(typeSystem: reflect.TypeSystem, ref: spec.TypeReference): boolean {
   if (!spec.isNamedTypeReference(ref)) { return false; }
   const type = typeSystem.tryFindFqn(ref.fqn);
-  return type !== undefined && type.isInterfaceType() && type.isDataType();
+  return !!(type?.isInterfaceType() && type?.isDataType());
 }

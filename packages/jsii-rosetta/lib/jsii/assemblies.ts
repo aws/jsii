@@ -57,8 +57,8 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
         type.members.forEach(m => emitDocs(m.docs, `${assembly.name}.${type.name}.${m.name}`));
       }
       if (spec.isClassOrInterfaceType(type)) {
-        (type.methods || []).forEach(m => emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`));
-        (type.properties || []).forEach(m => emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`));
+        (type.methods ?? []).forEach(m => emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`));
+        (type.properties ?? []).forEach(m => emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`));
       }
     });
   }

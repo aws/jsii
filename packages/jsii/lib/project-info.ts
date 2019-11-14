@@ -57,8 +57,8 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
   /* eslint-enable @typescript-eslint/no-var-requires */
 
   let bundleDependencies: { [name: string]: string } | undefined;
-  for (const name of pkg.bundleDependencies || pkg.bundledDependencies || []) {
-    const version = pkg.dependencies && pkg.dependencies[name];
+  for (const name of pkg.bundleDependencies ?? pkg.bundledDependencies ?? []) {
+    const version = pkg.dependencies?.[name];
     if (!version) {
       throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
     }
@@ -67,17 +67,17 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
       throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", and also in "peerDependencies"`);
     }
 
-    bundleDependencies = bundleDependencies || {};
+    bundleDependencies = bundleDependencies ?? {};
     bundleDependencies[name] = _resolveVersion(version, projectRoot).version!;
   }
 
   let addedPeerDependency = false;
-  Object.entries(pkg.dependencies || {}).forEach(([name, version]) => {
-    if (name in (bundleDependencies || {})) {
+  Object.entries(pkg.dependencies ?? {}).forEach(([name, version]) => {
+    if (name in (bundleDependencies ?? {})) {
       return;
     }
     version = _resolveVersion(version as any, projectRoot).version;
-    pkg.peerDependencies = pkg.peerDependencies || {};
+    pkg.peerDependencies = pkg.peerDependencies ?? {};
     const peerVersion = _resolveVersion(pkg.peerDependencies[name], projectRoot).version;
     if (peerVersion === version) {
       return;
@@ -104,7 +104,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 
   const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
   const dependencies =
-        await _loadDependencies(pkg.dependencies, projectRoot, transitiveAssemblies, new Set<string>(Object.keys(bundleDependencies || {})));
+        await _loadDependencies(pkg.dependencies, projectRoot, transitiveAssemblies, new Set<string>(Object.keys(bundleDependencies ?? {})));
   const peerDependencies =
         await _loadDependencies(pkg.peerDependencies, projectRoot, transitiveAssemblies);
 
@@ -133,19 +133,18 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
       ..._required(pkg.jsii, 'The "package.json" file must specify the "jsii" attribute').targets,
       js: { npm: pkg.name }
     },
-    metadata: pkg.jsii && pkg.jsii.metadata,
-    jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat || 'full'),
+    metadata: pkg.jsii?.metadata,
+    jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat ?? 'full'),
 
     description: pkg.description,
     homepage: pkg.homepage,
-    contributors: pkg.contributors
-            && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
+    contributors: (pkg.contributors as any[])?.map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
 
-    excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
-    projectReferences: pkg.jsii && pkg.jsii.projectReferences,
+    excludeTypescript: pkg.jsii?.excludeTypescript ?? [],
+    projectReferences: pkg.jsii?.projectReferences,
     tsc: {
-      outDir: pkg.jsii && pkg.jsii.tsc && pkg.jsii.tsc.outDir,
-      rootDir: pkg.jsii && pkg.jsii.tsc && pkg.jsii.tsc.rootDir,
+      outDir: pkg.jsii?.tsc?.outDir,
+      rootDir: pkg.jsii?.tsc?.rootDir,
     }
   };
 }
@@ -153,8 +152,8 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 function _guessRepositoryType(url: string): string {
   if (url.endsWith('.git')) { return 'git'; }
   const parts = /^([^:]+):\/\//.exec(url);
-  if (parts && parts[1] !== 'http' && parts[1] !== 'https') {
-    return parts[1];
+  if (parts?.[1] !== 'http' && parts?.[1] !== 'https') {
+    return parts![1];
   }
   throw new Error(`The "package.json" file must specify the "repository.type" attribute (could not guess from ${url})`);
 }
@@ -283,7 +282,7 @@ function _validateStability(stability: string | undefined, deprecated: string | 
 
 function _resolveVersion(dep: spec.PackageVersion | string | undefined, searchPath: string): { version: string | undefined, localPackage?: string } {
   if (typeof dep !== 'string') {
-    return { version: dep && dep.version };
+    return { version: dep?.version };
   }
 
   const matches = /^file:(.+)$/.exec(dep);

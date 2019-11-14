@@ -51,7 +51,7 @@
     "jsii": "^0.20.5",
     "jsii-build-tools": "^0.20.5",
     "jsii-calc": "^0.20.5",
-    "typescript": "~3.6.4"
+    "typescript": "~3.7.2"
   },
   "jest": {
     "collectCoverage": true,

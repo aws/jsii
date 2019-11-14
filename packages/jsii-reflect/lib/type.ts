@@ -48,7 +48,7 @@ export abstract class Type implements Documentable, SourceLocatable {
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs || {});
+    return new Docs(this.system, this, this.spec.docs ?? {});
   }
 
   /**
