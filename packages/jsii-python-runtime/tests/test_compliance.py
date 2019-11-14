@@ -37,6 +37,7 @@ from jsii_calc import (
     NodeStandardLibrary,
     NullShouldBeTreatedAsUndefined,
     NumberGenerator,
+    ObjectWithPropertyProvider,
     PartiallyInitializedThisConsumer,
     Polymorphism,
     Power,
@@ -1067,3 +1068,8 @@ def test_null_is_a_valid_optional_list():
 
 def test_null_is_a_valid_optional_map():
     assert DisappointingCollectionSource.MAYBE_MAP is None
+
+def test_can_use_interface_setters():
+    obj = ObjectWithPropertyProvider.provide()
+    obj.property = 'New Value'
+    assert obj.was_set()

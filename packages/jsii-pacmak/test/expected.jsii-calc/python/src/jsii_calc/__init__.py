@@ -38,7 +38,7 @@ from jsii.python import classproperty
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.20.5", __name__, "jsii-calc@0.20.5.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.20.6", __name__, "jsii-calc@0.20.6.jsii.tgz")
 class AbstractClassBase(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"):
     """
     stability
@@ -3698,6 +3698,68 @@ class ClassThatImplementsThePrivateInterface(metaclass=jsii.JSIIMeta, jsii_type=
         return jsii.set(self, "e", value)
 
 
+@jsii.interface(jsii_type="jsii-calc.IObjectWithProperty")
+class IObjectWithProperty(jsii.compat.Protocol):
+    """Make sure that setters are properly called on objects with interfaces.
+
+    stability
+    :stability: experimental
+    """
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IObjectWithPropertyProxy
+
+    @property
+    @jsii.member(jsii_name="property")
+    def property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        ...
+
+    @property.setter
+    def property(self, value: str):
+        ...
+
+    @jsii.member(jsii_name="wasSet")
+    def was_set(self) -> bool:
+        """
+        stability
+        :stability: experimental
+        """
+        ...
+
+
+class _IObjectWithPropertyProxy():
+    """Make sure that setters are properly called on objects with interfaces.
+
+    stability
+    :stability: experimental
+    """
+    __jsii_type__ = "jsii-calc.IObjectWithProperty"
+    @property
+    @jsii.member(jsii_name="property")
+    def property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "property")
+
+    @property.setter
+    def property(self, value: str):
+        return jsii.set(self, "property", value)
+
+    @jsii.member(jsii_name="wasSet")
+    def was_set(self) -> bool:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "wasSet", [])
+
+
 @jsii.interface(jsii_type="jsii-calc.IPrivatelyImplemented")
 class IPrivatelyImplemented(jsii.compat.Protocol):
     """
@@ -5332,6 +5394,21 @@ class ObjectRefsInCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Obje
         :stability: experimental
         """
         return jsii.invoke(self, "sumFromMap", [values])
+
+
+class ObjectWithPropertyProvider(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ObjectWithPropertyProvider"):
+    """
+    stability
+    :stability: experimental
+    """
+    @jsii.member(jsii_name="provide")
+    @classmethod
+    def provide(cls) -> "IObjectWithProperty":
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "provide", [])
 
 
 class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
@@ -7948,6 +8025,6 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.set(self, "parts", value)
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AnonymousImplementationProvider", "AsyncVirtualMethods", "AugmentableClass", "BaseJsii976", "Bell", "BinaryOperation", "Calculator", "CalculatorProps", "ChildStruct982", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithCollections", "ClassWithDocs", "ClassWithJavaReservedWords", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConfusingToJackson", "ConfusingToJacksonStruct", "ConstructorPassesThisOut", "Constructors", "ConsumerCanRingBell", "ConsumersOfThisCrazyTypeSystem", "DataRenderer", "DefaultedConstructorArgument", "Demonstrate982", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedClassHasNoProperties", "DerivedStruct", "DiamondInheritanceBaseLevelStruct", "DiamondInheritanceFirstMidLevelStruct", "DiamondInheritanceSecondMidLevelStruct", "DiamondInheritanceTopLevelStruct", "DisappointingCollectionSource", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EnumDispenser", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnonymousImplementationProvider", "IAnonymouslyImplementMe", "IAnotherPublicInterface", "IBell", "IBellRinger", "IConcreteBellRinger", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnJsii976", "IReturnsNumber", "IStableInterface", "ImplementInternalInterface", "Implementation", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "InterfacesMaker", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NestedStruct", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalArgumentInvoker", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverridableProtectedMember", "OverrideReturnsObject", "ParentStruct982", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RootStruct", "RootStructValidator", "RuntimeTypeChecking", "SecondLevelStruct", "SingleInstanceTwoTypes", "SingletonInt", "SingletonIntEnum", "SingletonString", "SingletonStringEnum", "SomeTypeJsii976", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "StructA", "StructB", "StructPassing", "StructUnionConsumer", "StructWithJavaReservedWords", "Sum", "SupportsNiceJavaBuilder", "SupportsNiceJavaBuilderProps", "SupportsNiceJavaBuilderWithRequiredProps", "SyncVirtualMethods", "Thrower", "TopLevelStruct", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicInvoker", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "WithPrivatePropertyInConstructor", "__jsii_assembly__", "composition"]
+__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AnonymousImplementationProvider", "AsyncVirtualMethods", "AugmentableClass", "BaseJsii976", "Bell", "BinaryOperation", "Calculator", "CalculatorProps", "ChildStruct982", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithCollections", "ClassWithDocs", "ClassWithJavaReservedWords", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConfusingToJackson", "ConfusingToJacksonStruct", "ConstructorPassesThisOut", "Constructors", "ConsumerCanRingBell", "ConsumersOfThisCrazyTypeSystem", "DataRenderer", "DefaultedConstructorArgument", "Demonstrate982", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedClassHasNoProperties", "DerivedStruct", "DiamondInheritanceBaseLevelStruct", "DiamondInheritanceFirstMidLevelStruct", "DiamondInheritanceSecondMidLevelStruct", "DiamondInheritanceTopLevelStruct", "DisappointingCollectionSource", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EnumDispenser", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnonymousImplementationProvider", "IAnonymouslyImplementMe", "IAnotherPublicInterface", "IBell", "IBellRinger", "IConcreteBellRinger", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IObjectWithProperty", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnJsii976", "IReturnsNumber", "IStableInterface", "ImplementInternalInterface", "Implementation", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "InterfacesMaker", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NestedStruct", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "ObjectWithPropertyProvider", "Old", "OptionalArgumentInvoker", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverridableProtectedMember", "OverrideReturnsObject", "ParentStruct982", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RootStruct", "RootStructValidator", "RuntimeTypeChecking", "SecondLevelStruct", "SingleInstanceTwoTypes", "SingletonInt", "SingletonIntEnum", "SingletonString", "SingletonStringEnum", "SomeTypeJsii976", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "StructA", "StructB", "StructPassing", "StructUnionConsumer", "StructWithJavaReservedWords", "Sum", "SupportsNiceJavaBuilder", "SupportsNiceJavaBuilderProps", "SupportsNiceJavaBuilderWithRequiredProps", "SyncVirtualMethods", "Thrower", "TopLevelStruct", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicInvoker", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "WithPrivatePropertyInConstructor", "__jsii_assembly__", "composition"]
 
 publication.publish()
