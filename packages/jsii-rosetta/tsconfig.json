@@ -20,7 +20,8 @@
     "**/*.ts"
   ],
   "exclude": [
-    "examples"
+    "examples",
+    "test/translations/**/*.ts"
   ],
   "references": [
       { "path": "../jsii-spec" }

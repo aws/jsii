@@ -1,0 +1,1 @@
+import mod = require('@scope/some-module');
