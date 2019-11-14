@@ -1057,3 +1057,6 @@ class PythonConcreteBellRinger:
 
 def test_can_obtain_reference_with_overloaded_setter():
     assert ConfusingToJackson.make_instance() is not None
+
+def test_can_obtain_struct_reference_with_overloaded_setter():
+    assert ConfusingToJackson.make_struct_instance() is not None

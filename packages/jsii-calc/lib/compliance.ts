@@ -2277,7 +2277,14 @@ export class ConfusingToJackson {
         return new ConfusingToJackson();
     }
 
+    public static makeStructInstance(): ConfusingToJacksonStruct {
+        return {};
+    }
+
     public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
 
     private constructor() { }
+}
+export interface ConfusingToJacksonStruct {
+    readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
 }

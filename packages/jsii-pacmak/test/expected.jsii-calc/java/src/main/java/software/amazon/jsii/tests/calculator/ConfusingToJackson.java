@@ -32,6 +32,14 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public static software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct makeStructInstance() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConfusingToJackson.class, "makeStructInstance", software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object getUnionProperty() {
         return this.jsiiGet("unionProperty", java.lang.Object.class);
     }

@@ -31,6 +31,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
+        [JsiiMethod(name: "makeStructInstance", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.ConfusingToJacksonStruct\"}}")]
+        public static Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct MakeStructInstance()
+        {
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConfusingToJackson), new System.Type[]{}, new object[]{});
+        }
+
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "unionProperty", typeJson: "{\"union\":{\"types\":[{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"},{\"collection\":{\"elementtype\":{\"union\":{\"types\":[{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"},{\"fqn\":\"jsii-calc.AbstractClass\"}]}},\"kind\":\"array\"}}]}}", isOptional: true)]
         public virtual object UnionProperty

@@ -2248,6 +2248,22 @@
             }
           },
           "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2280
+          },
+          "name": "makeStructInstance",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ConfusingToJacksonStruct"
+            }
+          },
+          "static": true
         }
       ],
       "name": "ConfusingToJackson",
@@ -2258,7 +2274,62 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2280
+            "line": 2284
+          },
+          "name": "unionProperty",
+          "optional": true,
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                },
+                {
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "@scope/jsii-calc-lib.IFriendly"
+                          },
+                          {
+                            "fqn": "jsii-calc.AbstractClass"
+                          }
+                        ]
+                      }
+                    },
+                    "kind": "array"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "jsii-calc.ConfusingToJacksonStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ConfusingToJacksonStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2288
+      },
+      "name": "ConfusingToJacksonStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2289
           },
           "name": "unionProperty",
           "optional": true,
@@ -11200,5 +11271,5 @@
     }
   },
   "version": "0.20.5",
-  "fingerprint": "kNXJGfAFmb/4Oq+2ojg9+ZxZhpMdb/y55go8OZWy/kE="
+  "fingerprint": "vKeZwjjLC1e84B6FiOQCH8JDNoINrldYfdEWYKqCFSQ="
 }
