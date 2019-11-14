@@ -1573,4 +1573,11 @@ public class ComplianceTest {
     public void canObtainStructReferenceWithOverloadedSetter() {
         assertNotNull(ConfusingToJackson.makeStructInstance());
     }
+
+    @Test
+    public void canUseInterfaceSetters() {
+        final IObjectWithProperty obj = ObjectWithPropertyProvider.provide();
+        obj.setProperty("New Value");
+        assertTrue(obj.wasSet());
+    }
 }

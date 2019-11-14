@@ -80,6 +80,7 @@ Array [
   "Number",
   "NumberGenerator",
   "ObjectRefsInCollections",
+  "ObjectWithPropertyProvider",
   "Old",
   "Operation",
   "OptionalArgumentInvoker",

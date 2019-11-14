@@ -1289,5 +1289,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             Assert.Null(DisappointingCollectionSource.MaybeMap);
         }
+
+        [Fact(DisplayName = Prefix + nameof(CanUseInterfaceSetters))]
+        public void CanUseInterfaceSetters()
+        {
+            var obj = ObjectWithPropertyProvider.Provide();
+            obj.Property = "New Value";
+            Assert.True(obj.WasSet());
+        }
     }
 }

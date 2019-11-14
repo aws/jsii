@@ -2299,5 +2299,35 @@ export class DisappointingCollectionSource {
     public static readonly maybeList?: string[] = undefined;
     /** Some Map of strings to numbers, maybe? (Nah, just a billion dollars mistake!) */
     public static readonly maybeMap?: { [key: string]: number } = undefined;
+
+    private constructor() { }
+}
+
+/**
+ * Make sure that setters are properly called on objects with interfaces
+ */
+export interface IObjectWithProperty {
+    property: string;
+    wasSet(): boolean;
+}
+export class ObjectWithPropertyProvider {
+    public static provide(): IObjectWithProperty {
+        class Impl implements IObjectWithProperty {
+            private _property: string = '';
+            private _wasSet = false;
+
+            public get property() { return this._property; }
+            public set property(value: string) {
+                this._property = value;
+                this._wasSet = true;
+            }
+
+            public wasSet() {
+                return this._wasSet;
+            }
+        }
+        return new Impl();
+    }
+
     private constructor() { }
 }

@@ -960,6 +960,11 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ values
  │   │     │   └── type: Map<string => @scope/jsii-calc-lib.Value>
  │   │     └── returns: number
+ │   ├─┬ class ObjectWithPropertyProvider (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ static provide() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: jsii-calc.IObjectWithProperty
  │   ├─┬ class Old (deprecated)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (deprecated)
@@ -1871,6 +1876,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ c property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
+ │   ├─┬ interface IObjectWithProperty (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ wasSet() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: boolean
+ │   │   └─┬ property property (experimental)
+ │   │     ├── abstract
+ │   │     └── type: string
  │   ├─┬ interface IPrivatelyImplemented (experimental)
  │   │ └─┬ members
  │   │   └─┬ success property (experimental)
@@ -2338,6 +2351,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
+ │   ├── class ObjectWithPropertyProvider
  │   ├── class Old
  │   ├── class OptionalArgumentInvoker
  │   ├── class OptionalConstructorArgument
@@ -2445,6 +2459,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ interface INonInternalInterface
  │   │ └─┬ interfaces
  │   │   └── IAnotherPublicInterface
+ │   ├── interface IObjectWithProperty
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
@@ -2943,6 +2958,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── sumFromArray(values) method
  │   │   └── sumFromMap(values) method
+ │   ├─┬ class ObjectWithPropertyProvider
+ │   │ └─┬ members
+ │   │   └── static provide() method
  │   ├─┬ class Old
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3321,6 +3339,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── b property
  │   │   └── c property
+ │   ├─┬ interface IObjectWithProperty
+ │   │ └─┬ members
+ │   │   ├── wasSet() method
+ │   │   └── property property
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └── success property
@@ -3581,6 +3603,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
+ │   ├── class ObjectWithPropertyProvider
  │   ├── class Old
  │   ├── class OptionalArgumentInvoker
  │   ├── class OptionalConstructorArgument
@@ -3659,6 +3682,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IJsii496
  │   ├── interface IMutableObjectLiteral
  │   ├── interface INonInternalInterface
+ │   ├── interface IObjectWithProperty
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2

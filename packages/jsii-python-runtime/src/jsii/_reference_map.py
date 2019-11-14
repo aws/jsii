@@ -138,6 +138,15 @@ class InterfaceDynamicProxy(object):
         type_info = "+".join([str(delegate.__class__) for delegate in self._delegates])
         raise AttributeError(f"'%s' object has no attribute '%s'" % (type_info, name))
 
+    def __setattr__(self, name, value):
+        if name == '_delegates':
+            return super.__setattr__(self, name, value)
+        for delegate in self._delegates:
+            if hasattr(delegate, name):
+                return setattr(delegate, name, value)
+        type_info = "+".join([str(delegate.__class__) for delegate in self._delegates])
+        raise AttributeError(f"'%s' object has no attribute '%s'" % (type_info, name))
+
 
 class StructDynamicProxy(object):
     def __init__(self, delegates):
@@ -149,6 +158,15 @@ class StructDynamicProxy(object):
                 return getattr(delegate, name)
         type_info = "+".join([str(delegate.__class__) for delegate in self._delegates])
         raise AttributeError("'%s' object has no attribute '%s'" % (type_info, name))
+
+    def __setattr__(self, name, value):
+        if name == '_delegates':
+            return super.__setattr__(self, name, value)
+        for delegate in self._delegates:
+            if hasattr(delegate, name):
+                return setattr(delegate, name, value)
+        type_info = "+".join([str(delegate.__class__) for delegate in self._delegates])
+        raise AttributeError(f"'%s' object has no attribute '%s'" % (type_info, name))
 
     def __eq__(self, rhs) -> bool:
         if len(self._delegates) == 1:
