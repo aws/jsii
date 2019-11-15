@@ -1,1 +1,1 @@
-__object x = new Dictionary<string, object> { { "key", "value" } };
+IDictionary<string, string> x = new Dictionary<string, string> { { "key", "value" } };

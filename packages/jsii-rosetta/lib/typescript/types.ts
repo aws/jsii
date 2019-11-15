@@ -1,4 +1,5 @@
 import ts = require('typescript');
+import { AstRenderer } from '../renderer';
 
 /**
  * Return the OTHER type from undefined from a union, returns undefined if there is more than one
@@ -42,11 +43,47 @@ export function typeContainsUndefined(type: ts.Type): boolean {
 /**
  * If this is a map type, return the type mapped *to* (key must always be `string` anyway).
  */
-export function mapElementType(type: ts.Type): ts.Type | undefined {
-  if (type.flags & ts.TypeFlags.Object && type.symbol && type.symbol.name === '__type') {
-    return type.getStringIndexType();
+export function mapElementType(type: ts.Type, renderer: AstRenderer<any>): ts.Type | undefined {
+  if ((type.flags & ts.TypeFlags.Object) && type.symbol) {
+    if (type.symbol.name === '__type') {
+      // Declared map type: {[k: string]: A}
+      return type.getStringIndexType();
+    }
+
+    if (type.symbol.name === '__object') {
+      // Derived map type from object literal: typeof({ k: "value" })
+      // For every property, get the node that created it (PropertyAssignment), and get the type of the initializer of that node
+      const initializerTypes = type.getProperties().map(p => {
+        if (ts.isPropertyAssignment(p.valueDeclaration)) {
+          return renderer.typeOfExpression(p.valueDeclaration.initializer);
+        }
+        return undefined;
+      });
+      return typeIfSame(initializerTypes);
+    }
   }
+
   return undefined;
+}
+
+/**
+ * Try to infer the map element type from the properties if they're all the same
+ */
+export function inferMapElementType(elements: ts.NodeArray<ts.ObjectLiteralElementLike>, renderer: AstRenderer<any>): ts.Type | undefined {
+  return typeIfSame(elements.map(el => ts.isPropertyAssignment(el) ? renderer.typeOfExpression(el.initializer) : undefined));
+}
+
+function typeIfSame(types: Array<ts.Type | undefined>): ts.Type | undefined {
+  let ret: ts.Type | undefined;
+  for (const type of types) {
+    if (ret === undefined) {
+      ret = type;
+    } else {
+      // Not all the same
+      if (type !== undefined && ret.flags !== type.flags) { return undefined; }
+    }
+  }
+  return ret;
 }
 
 /**

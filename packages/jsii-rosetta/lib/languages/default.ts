@@ -143,7 +143,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     if (isKnownStruct) {
       return this.knownStructObjectLiteralExpression(node, type!, context);
     }
-    return this.keyValueObjectLiteralExpression(node, type && mapElementType(type), context);
+    return this.keyValueObjectLiteralExpression(node, type && mapElementType(type, context), context);
   }
 
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
