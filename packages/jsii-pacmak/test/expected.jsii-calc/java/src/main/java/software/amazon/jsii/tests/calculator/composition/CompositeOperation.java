@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator.composition;
 
 /**
  * Abstract operation composed from an expression of other operations.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -25,7 +25,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     /**
      * String representation of the value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -36,7 +36,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     /**
      * The expression that this operation consists of. Must be implemented by derived classes.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -46,7 +46,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     /**
      * The value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @Override
@@ -57,7 +57,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     /**
      * A set of postfixes to include in a decorated .toString().
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -67,7 +67,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     /**
      * A set of postfixes to include in a decorated .toString().
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -77,7 +77,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     /**
      * A set of prefixes to include in a decorated .toString().
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -87,7 +87,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     /**
      * A set of prefixes to include in a decorated .toString().
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -97,7 +97,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     /**
      * The .toString() style.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -107,7 +107,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     /**
      * The .toString() style.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -116,7 +116,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
     /**
      * Style of .toString() output for CompositeOperation.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -124,14 +124,14 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     public enum CompositionStringStyle {
         /**
          * Normal string expression.
-         * 
+         * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         NORMAL,
         /**
          * Decorated string expression.
-         * 
+         * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -148,7 +148,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
         /**
          * The expression that this operation consists of. Must be implemented by derived classes.
-         * 
+         * <p>
          * EXPERIMENTAL
          */
         @Override

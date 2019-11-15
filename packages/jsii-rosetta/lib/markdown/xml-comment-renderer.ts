@@ -18,7 +18,7 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
   }
 
   public code_block(node: cm.Node, _context: RendererContext) {
-    return para(`<code>\n${escapeAngleBrackets(node.literal)}</code>`);
+    return para(`<code><![CDATA[\n${node.literal}]]></code>`);
   }
 
   public text(node: cm.Node, _context: RendererContext) {

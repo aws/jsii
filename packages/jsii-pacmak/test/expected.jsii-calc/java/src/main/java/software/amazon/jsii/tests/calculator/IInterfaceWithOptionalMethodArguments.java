@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -13,7 +13,7 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1 This parameter is required.
      * @param arg2
      */
@@ -22,7 +22,7 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1 This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -38,7 +38,7 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @param arg1 This parameter is required.
          * @param arg2
          */
@@ -50,7 +50,7 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @param arg1 This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

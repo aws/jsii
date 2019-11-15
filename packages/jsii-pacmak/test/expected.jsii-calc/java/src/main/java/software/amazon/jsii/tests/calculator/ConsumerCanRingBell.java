@@ -2,10 +2,10 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Test calling back to consumers that implement interfaces.
- * 
+ * <p>
  * Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
  * the method on the argument that they're passed...
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -28,11 +28,11 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
 
     /**
      * ...if the interface is implemented using an object literal.
-     * 
+     * <p>
      * Returns whether the bell was rung.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -42,11 +42,11 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
 
     /**
      * ...if the interface is implemented using a private class.
-     * 
+     * <p>
      * Return whether the bell was rung.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -56,11 +56,11 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
 
     /**
      * ...if the interface is implemented using a public class.
-     * 
+     * <p>
      * Return whether the bell was rung.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -70,11 +70,11 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
 
     /**
      * If the parameter is a concrete class instead of an interface.
-     * 
+     * <p>
      * Return whether the bell was rung.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -84,11 +84,11 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
 
     /**
      * ...if the interface is implemented using an object literal.
-     * 
+     * <p>
      * Returns whether the bell was rung.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -98,11 +98,11 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
 
     /**
      * ...if the interface is implemented using a private class.
-     * 
+     * <p>
      * Return whether the bell was rung.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -112,11 +112,11 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
 
     /**
      * ...if the interface is implemented using a public class.
-     * 
+     * <p>
      * Return whether the bell was rung.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -126,11 +126,11 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
 
     /**
      * If the parameter is a concrete class instead of an interface.
-     * 
+     * <p>
      * Return whether the bell was rung.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

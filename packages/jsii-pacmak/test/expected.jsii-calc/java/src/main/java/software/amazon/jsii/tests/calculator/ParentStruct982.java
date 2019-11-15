@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * https://github.com/aws/jsii/issues/982.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

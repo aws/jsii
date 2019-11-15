@@ -11,7 +11,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * When provided, must be > 0.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

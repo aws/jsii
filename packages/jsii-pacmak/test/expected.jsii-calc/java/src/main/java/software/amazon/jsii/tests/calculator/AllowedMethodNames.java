@@ -23,7 +23,7 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param _p1 This parameter is required.
      * @param _p2 This parameter is required.
      */
@@ -34,9 +34,9 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
 
     /**
      * getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param withParam This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -46,7 +46,7 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param _x This parameter is required.
      * @param _y This parameter is required.
      * @param _z This parameter is required.
@@ -58,9 +58,9 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
 
     /**
      * setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param _x This parameter is required.
      * @param _y This parameter is required.
      */

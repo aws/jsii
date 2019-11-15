@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator.lib;
 
 /**
  * Interface that inherits from packages 2 levels up the tree.
- * 
+ * <p>
  * Their presence validates that .NET/Java/jsii-reflect can track all fields
  * far enough up the tree.
  */

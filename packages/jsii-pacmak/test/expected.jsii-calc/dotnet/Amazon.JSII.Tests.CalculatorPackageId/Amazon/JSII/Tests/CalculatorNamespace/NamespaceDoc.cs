@@ -9,25 +9,25 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// 
     /// First, create a calculator:
     /// 
-    /// <code>
+    /// <code><![CDATA[
     /// // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
     /// var calculator = new calc.Calculator();
-    /// </code>
+    /// ]]></code>
     /// 
     /// Then call some operations:
     /// 
-    /// <code>
+    /// <code><![CDATA[
     /// // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
     /// calculator.Add(10);
-    /// </code>
+    /// ]]></code>
     /// 
     /// ## Code Samples
     /// 
-    /// <code>
+    /// <code><![CDATA[
     /// // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
     /// /* This is totes a magic comment in here, just you wait! */
     /// string foo = "bar";
-    /// </code>
+    /// ]]></code>
     /// </remarks>
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class NamespaceDoc

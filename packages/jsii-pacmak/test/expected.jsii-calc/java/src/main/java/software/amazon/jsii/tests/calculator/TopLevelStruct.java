@@ -11,7 +11,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * This is a required field.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -19,7 +19,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * A union to really stress test our serialization.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -27,7 +27,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * You don't have to pass this.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

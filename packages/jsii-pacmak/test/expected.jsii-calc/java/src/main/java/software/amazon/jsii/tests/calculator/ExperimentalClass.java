@@ -18,7 +18,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param readonlyString This parameter is required.
      * @param mutableNumber
      */
@@ -30,7 +30,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param readonlyString This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

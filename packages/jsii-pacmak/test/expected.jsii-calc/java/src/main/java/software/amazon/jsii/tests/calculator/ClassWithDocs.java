@@ -2,14 +2,19 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This class has docs.
- * 
+ * <p>
  * The docs are great. They're a bunch of tags.
- * 
+ * <p>
  * Example:
- * 
- * function anExample() {
+ * <p>
+ * <blockquote><pre>{@code
+ * // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+ * (FunctionDeclaration function anExample() {
  * }
- * 
+ *   anExample
+ *   {
+ *   })}</pre></blockquote>
+ * <p>
  * @see https://aws.amazon.com/
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

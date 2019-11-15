@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * A struct which derives from another struct.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -25,7 +25,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
     /**
      * An example of a non primitive property.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -33,7 +33,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
     /**
      * This is optional.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

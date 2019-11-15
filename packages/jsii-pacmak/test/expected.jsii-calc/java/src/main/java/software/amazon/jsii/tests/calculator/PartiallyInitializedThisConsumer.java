@@ -23,7 +23,7 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param obj This parameter is required.
      * @param dt This parameter is required.
      * @param ev This parameter is required.
@@ -41,7 +41,7 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @param obj This parameter is required.
          * @param dt This parameter is required.
          * @param ev This parameter is required.

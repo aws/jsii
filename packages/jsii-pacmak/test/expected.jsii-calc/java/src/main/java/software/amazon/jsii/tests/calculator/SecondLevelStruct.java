@@ -11,7 +11,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
 
     /**
      * It's long and required.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -19,7 +19,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
 
     /**
      * It's long, but you'll almost never pass it.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

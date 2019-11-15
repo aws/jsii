@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * These are some arguments you can pass to a method.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -13,9 +13,9 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * The name of the greetee.
-     * 
+     * <p>
      * Default: world
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

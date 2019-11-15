@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Represents an operation with two operands.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,9 +20,9 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
     /**
      * Creates a BinaryOperation.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param lhs Left-hand side operand. This parameter is required.
      * @param rhs Right-hand side operand. This parameter is required.
      */
@@ -34,7 +34,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
     /**
      * Say hello!
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -45,7 +45,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
     /**
      * Left-hand side operand.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -55,7 +55,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
     /**
      * Right-hand side operand.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

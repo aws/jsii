@@ -2,10 +2,10 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Here's the first line of the TSDoc comment.
- * 
+ * <p>
  * This is the meat of the TSDoc comment. It may contain
  * multiple lines and multiple paragraphs.
- * 
+ * <p>
  * Multiple paragraphs are separated by an empty line.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -28,10 +28,10 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
 
     /**
      * Greet the indicated person.
-     * 
+     * <p>
      * This will print out a friendly greeting intended for
      * the indicated person.
-     * 
+     * <p>
      * @return A number that everyone knows very well
      * @param greetee The person to be greeted.
      */
@@ -42,10 +42,10 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
 
     /**
      * Greet the indicated person.
-     * 
+     * <p>
      * This will print out a friendly greeting intended for
      * the indicated person.
-     * 
+     * <p>
      * @return A number that everyone knows very well
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -55,7 +55,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
 
     /**
      * Say ¡Hola!
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

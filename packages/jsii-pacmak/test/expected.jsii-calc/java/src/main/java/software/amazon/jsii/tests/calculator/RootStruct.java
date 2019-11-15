@@ -2,10 +2,10 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
- * 
+ * <p>
  * This is cheating with the (current) declared types, but this is the "more
  * idiomatic" way for Pythonists.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -16,7 +16,7 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * May not be empty.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

@@ -18,7 +18,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param id some identifier. This parameter is required.
      * @param defaultBar the default value of `bar`.
      * @param props some props once can provide.
@@ -32,7 +32,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
 
     /**
      * some identifier.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @Override
@@ -56,7 +56,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
     public static final class Builder {
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return a new instance of {@link Builder}.
          * @param id some identifier. This parameter is required.
          * @param defaultBar the default value of `bar`.
@@ -68,7 +68,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         }
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return a new instance of {@link Builder}.
          * @param id some identifier. This parameter is required.
          */
@@ -90,7 +90,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return {@code this}
          * @param bar Some number, like 42. This parameter is required.
          */
@@ -102,7 +102,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return {@code this}
          * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. This parameter is required.
          */

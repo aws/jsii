@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * An operation that sums multiple values.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -29,7 +29,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
 
     /**
      * The expression that this operation consists of. Must be implemented by derived classes.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @Override
@@ -40,7 +40,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
 
     /**
      * The parts to sum.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -50,7 +50,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
 
     /**
      * The parts to sum.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

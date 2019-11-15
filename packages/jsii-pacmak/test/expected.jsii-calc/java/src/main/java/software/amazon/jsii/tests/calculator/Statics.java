@@ -25,7 +25,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -36,9 +36,9 @@ public class Statics extends software.amazon.jsii.JsiiObject {
 
     /**
      * Jsdocs for static method.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param name The name of the person to say hello to. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -56,7 +56,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
 
     /**
      * Constants may also use all-caps.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -70,7 +70,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
 
     /**
      * Jsdocs for static property.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -78,7 +78,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
 
     /**
      * Constants can also use camelCase.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -86,7 +86,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
 
     /**
      * Jsdocs for static getter. Jsdocs for static setter.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -96,7 +96,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
 
     /**
      * Jsdocs for static getter. Jsdocs for static setter.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

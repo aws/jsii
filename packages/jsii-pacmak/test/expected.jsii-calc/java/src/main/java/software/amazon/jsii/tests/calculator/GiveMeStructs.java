@@ -23,9 +23,9 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
 
     /**
      * Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param derived This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -35,9 +35,9 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
 
     /**
      * Returns the boolean from a DerivedStruct struct.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param derived This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,9 +47,9 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
 
     /**
      * Returns the "anumber" from a MyFirstStruct struct;
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param first This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

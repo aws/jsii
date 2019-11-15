@@ -7,12 +7,13 @@ import path = require('path');
 import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';
 import logging = require('../logging');
-import { md2html } from '../markdown';
-import { PackageInfo, Target, findLocalBuildDirs } from '../target';
+import { PackageInfo, Target, findLocalBuildDirs, TargetOptions } from '../target';
 import { shell, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
+import { Rosetta, typeScriptSnippetFromSource, Translation, JavaDocRenderer, transformMarkdown } from 'jsii-rosetta';
+import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const spdxLicenseList = require('spdx-license-list');
@@ -293,7 +294,13 @@ export default class Java extends Target {
     return { java: `import ${[options.package, ...name].join('.')};` };
   }
 
-  protected readonly generator = new JavaGenerator();
+  protected readonly generator: JavaGenerator;
+
+  public constructor(options: TargetOptions) {
+    super(options);
+
+    this.generator = new JavaGenerator(options.rosetta);
+  }
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
     const url = `file://${outDir}`;
@@ -419,7 +426,7 @@ class JavaGenerator extends Generator {
      */
   private readonly referencedModules: { [name: string]: spec.PackageVersion } = { };
 
-  public constructor() {
+  public constructor(private readonly rosetta: Rosetta) {
     super({ generateOverloadsForMethodWithOptionals: true });
   }
 
@@ -637,7 +644,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of md2html(mod.readme.markdown).split('\n')) {
+      for (const line of this.markDownToXml(this.convertSamplesInMarkdown(mod.readme.markdown)).split('\n')) {
         this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
       }
     }
@@ -1483,7 +1490,7 @@ class JavaGenerator extends Generator {
     }
 
     if (docs.remarks) {
-      paras.push(docs.remarks);
+      paras.push(this.markDownToXml(this.convertSamplesInMarkdown(docs.remarks)));
     }
 
     if (docs.default) {
@@ -1492,8 +1499,7 @@ class JavaGenerator extends Generator {
 
     if (docs.example) {
       paras.push('Example:');
-      // FIXME: Have to parse the MarkDown and convert fenced code blocks to <pre>{@code\n....\n}</pre>.
-      paras.push(docs.example);
+      paras.push(`<blockquote><pre>{@code\n${this.convertExample(docs.example)}}</pre></blockquote>`);
     }
 
     if (docs.stability === spec.Stability.Experimental) {
@@ -1522,8 +1528,9 @@ class JavaGenerator extends Generator {
     }
 
     const lines = new Array<string>();
-    for (const para of interleave('', paras)) {
-      lines.push(...para.split('\n'));
+    for (const para of paras) {
+      if (lines.length > 0) { lines.push('<p>'); }
+      lines.push(...para.split('\n').filter(l => l !== ''));
     }
 
     this.code.line('/**');
@@ -1810,6 +1817,37 @@ class JavaGenerator extends Generator {
       : 'jsii-pacmak';
     this.code.line(`@javax.annotation.Generated(value = "${generator}"${date})`);
   }
+
+  private convertExample(example: string): string {
+    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const translated = this.rosetta.translateSnippet(snippet, 'java');
+    if (!translated) { return example; }
+    return this.prefixDisclaimer(translated);
+  }
+
+  private convertSamplesInMarkdown(markdown: string): string {
+    return this.rosetta.translateSnippetsInMarkdown(markdown, 'java', trans => ({
+      language: trans.language,
+      source: this.prefixDisclaimer(trans)
+    }));
+  }
+
+  /**
+   * Convert MarkDown to XML using routines that we have available in Rosetta anyway
+   */
+  private markDownToXml(md: string) {
+    return transformMarkdown(md, new JavaDocRenderer());
+  }
+
+  private prefixDisclaimer(translated: Translation) {
+    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
+      return `// ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
+    }
+    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
+      return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
+    }
+    return translated.source;
+  }
 }
 
 /**
@@ -1841,15 +1879,6 @@ function findJavaRuntimeLocalRepository() {
     return javaRuntime.repository;
   } catch {
     return undefined;
-  }
-}
-
-function* interleave<T>(sep: T, xs: Iterable<T>) {
-  let first = true;
-  for (const x of xs) {
-    if (!first) { yield sep; }
-    first = false;
-    yield x;
   }
 }
 

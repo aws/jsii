@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
