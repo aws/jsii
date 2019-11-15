@@ -1,41 +1,43 @@
 import * as fs from 'fs';
 import * as inquirer from 'inquirer';
 import buildQuestions from '../lib/questions';
-import main from '../lib';
+import jsiiConfig from '../lib';
 import { packageJsonObject, findQuestions, findQuestion } from './util';
 
 describe('jsii-config', () => {
   const promptMock = jest.fn();
   const readJsonMock = jest.fn();
-  const writeJsonMock = jest.fn();
 
   beforeEach(() => {
     Object.defineProperty(fs, 'readFile', { value: readJsonMock });
     Object.defineProperty(inquirer, 'prompt', { value: promptMock });
-    Object.defineProperty(fs, 'writeFile', { value: writeJsonMock });
   });
 
   afterEach(() => {
     promptMock.mockClear();
     readJsonMock.mockClear();
-    writeJsonMock.mockClear();
   });
 
   afterAll(() => {
     promptMock.mockRestore();
     readJsonMock.mockRestore();
-    writeJsonMock.mockClear();
   });
 
   describe('errors', () => {
-    const readJsonMock = jest.fn();
+    it('throws when no readFile fails', async () => {
+      const message = 'Err Message';
+      readJsonMock.mockImplementation((_path, cb) => {
+        cb(new Error(message));
+      });
+      await expect(jsiiConfig('unknown.json')).rejects.toThrow(message);
+    });
+
     it('throws when package.json is invalid', async () => {
       readJsonMock.mockImplementation((_path, cb) => {
         cb(null, Buffer.from('INVALID JSON STRING'));
       });
-      Object.defineProperty(fs, 'readFile', { value: readJsonMock });
 
-      await expect(main()).rejects.toThrow('Unexpected token I in JSON at position 0');
+      await expect(jsiiConfig('package.json')).rejects.toThrow('Unexpected token I in JSON at position 0');
     });
   });
 
@@ -58,7 +60,7 @@ describe('jsii-config', () => {
     requiredNpmFields.forEach(field => {
       it(`warns user on missing ${field} in package.json and exits`, async () => {
         mockMissingField(field);
-        await expect(main()).rejects.toThrow(
+        await expect(jsiiConfig('./package.json')).rejects.toThrow(
           `package.json is missing required fields:${'\n'
           }- ${field}${'\n'
           }run "npm init" or configure manually and retry jsii-config`
@@ -89,14 +91,10 @@ describe('jsii-config', () => {
       readJsonMock.mockImplementation((_path, cb) => {
         cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
       });
-
-      writeJsonMock.mockImplementation((_path, _data, cb) => {
-        cb(null);
-      });
     });
 
     it('prompts user for top level jsii config and language targets', async () => {
-      await main();
+      await jsiiConfig('./package.json');
       const questions = promptMock.mock.calls[0][0];
       const [
         stability,
@@ -112,7 +110,7 @@ describe('jsii-config', () => {
         'jsiiTargets'
       ], questions);
       expect(stability).toHaveProperty('type', 'list');
-      expect(stability).toHaveProperty('choices', ['experimental', 'stable', 'deprecated', 'external']);
+      expect(stability).toHaveProperty('choices', ['deprecated', 'experimental', 'stable', 'external']);
       expect(stability).toHaveProperty('default', 'experimental');
 
       expect(types).toHaveProperty('type', 'input');
@@ -129,7 +127,7 @@ describe('jsii-config', () => {
     });
 
     it('prompts for java specific values when only target enabled', async () => {
-      await main();
+      await jsiiConfig('./package.json');
       const enabled = { jsiiTargets: ['java'] };
       const disabled = { jsiiTargets: [] };
       const questions = promptMock.mock.calls[0][0];
@@ -150,7 +148,7 @@ describe('jsii-config', () => {
     });
 
     it('prompts for python specific values only when target enabled', async () => {
-      await main();
+      await jsiiConfig('./package.json');
       const enabled = { jsiiTargets: ['python'] };
       const disabled = { jsiiTargets: [] };
       const questions = promptMock.mock.calls[0][0];
@@ -169,7 +167,7 @@ describe('jsii-config', () => {
     });
 
     it('prompts for dotnet specific values only when target enabled', async () => {
-      await main();
+      await jsiiConfig('./package.json');
       const enabled = { jsiiTargets: ['dotnet'] };
       const disabled = { jsiiTargets: [] };
       const questions = promptMock.mock.calls[0][0];
@@ -191,7 +189,7 @@ describe('jsii-config', () => {
     });
 
     it('prompts for dotnet assembly originator file when target and signAssembly are enabled', async () => {
-      await main();
+      await jsiiConfig('./package.json');
       const questions = promptMock.mock.calls[0][0];
       const subject = findQuestion('jsii.targets.dotnet.assemblyOriginatorKeyFile', questions);
       const enabled = {
@@ -220,13 +218,13 @@ describe('jsii-config', () => {
       expect(subject.when(disabled)).toBe(false);
     });
 
-    it('writes new config to package.json passed', async () => {
-      await main();
+    it('returns new config', async () => {
+      const subject = await jsiiConfig('./package.json');
 
-      expect(writeJsonMock).toHaveBeenCalledWith('./package.json', JSON.stringify({
+      expect(subject).toEqual({
         ...packageJsonObject,
         ...configAnswers
-      }, null, 2), expect.anything());
+      });
     });
 
     [
@@ -242,7 +240,7 @@ describe('jsii-config', () => {
       'jsii.targets.dotnet.assemblyOriginatorKeyFile'
     ].forEach(field => {
       it(`shows error message when empty ${field} is submitted`, async () => {
-        await main();
+        await jsiiConfig('./package.json');
         const questions = promptMock.mock.calls[0][0];
         const subject = findQuestion(field, questions);
 
@@ -252,7 +250,7 @@ describe('jsii-config', () => {
     });
 
     it('shows error message when dotnet version suffix is submitted empty or without a "-"', async () => {
-      await main();
+      await jsiiConfig('./package.json');
       const questions = promptMock.mock.calls[0][0];
       const subject = findQuestion('jsii.targets.dotnet.versionSuffix', questions);
 
@@ -317,14 +315,10 @@ describe('jsii-config', () => {
           ...existingConfig
         })));
       });
-
-      writeJsonMock.mockImplementation((_path, _data, cb) => {
-        cb(null);
-      });
     });
 
     it('uses existing values as prompt defaults', async () => {
-      await main();
+      await jsiiConfig('./package.json');
       const defaultMap: { [key: string]: any } = {
         jsiiTargets: ['java', 'dotnet', 'python'],
         stability: 'experimental',
@@ -351,8 +345,8 @@ describe('jsii-config', () => {
     });
 
     it('preserves existing jsii metadata fields', async () => {
-      await main();
-      expect(writeJsonMock).toHaveBeenCalledWith('./package.json', JSON.stringify({
+      const subject = await jsiiConfig('./package.json');
+      expect(subject).toEqual({
         ...packageJsonObject,
         ...configAnswers,
         jsii: {
@@ -362,7 +356,7 @@ describe('jsii-config', () => {
             'jsii:number': 1337
           }
         }
-      }, null, 2), expect.anything());
+      });
     });
   });
 
@@ -395,14 +389,10 @@ describe('jsii-config', () => {
       readJsonMock.mockImplementation((_path, cb) => {
         cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
       });
-
-      writeJsonMock.mockImplementation((_path, _data, cb) => {
-        cb(null);
-      });
     });
 
     it('prompts user again with previous answers if confirmation is declined', async () => {
-      await main();
+      await jsiiConfig('./package.json');
       const defaultMap: { [key: string]: any } = {
         jsiiTargets: ['python'],
         ['jsii.outdir']: 'OUTDIR',

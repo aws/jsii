@@ -1,9 +1,10 @@
 import * as inquirer from 'inquirer';
+import { PackageJson } from 'jsii-spec';
 import getQuestions from './questions';
-import { BasePackageJson, JsiiPackageJson } from './schema';
+import { BasePackageJson } from './schema';
 import { getNestedValue } from './util';
 
-interface PromptAnswers extends JsiiPackageJson {
+interface PromptAnswers extends PackageJson {
   jsiiTargets: string[];
 }
 
@@ -19,7 +20,7 @@ function getPassThroughValues(current: BasePackageJson): object {
  *
  * Uses any values already present as defaults for the prompt
  */
-export default async function getAnswers(current: BasePackageJson): Promise<JsiiPackageJson> {
+export default async function getAnswers(current: BasePackageJson): Promise<PackageJson> {
   const answers = await inquirer.prompt(getQuestions(current)) as PromptAnswers;
   const { jsiiTargets: _, ...config } = answers;
   const confirmInput = await inquirer.prompt({

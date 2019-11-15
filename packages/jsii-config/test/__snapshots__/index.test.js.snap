@@ -19,9 +19,9 @@ Array [
   },
   Object {
     "choices": Array [
+      "deprecated",
       "experimental",
       "stable",
-      "deprecated",
       "external",
     ],
     "default": "experimental",
@@ -164,9 +164,9 @@ Array [
   },
   Object {
     "choices": Array [
+      "deprecated",
       "experimental",
       "stable",
-      "deprecated",
       "external",
     ],
     "default": "experimental",

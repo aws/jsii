@@ -1,80 +1,14 @@
-/*
- * Structure of jsii configuration in package.json
- */
-export interface JsiiConfig {
-  outdir: string;
-  versionFormat: 'full' | 'short';
-  targets: {
-    java?: {
-      package: string;
-      maven: {
-        groupId: string;
-        artifactId: string;
-        versionSuffix?: string;
-      };
-    };
-    python?: {
-      module: string;
-      distName: string;
-    };
-    dotnet?: {
-      namespace: string;
-      packageId: string;
-      iconUrl?: string;
-      versionSuffix?: string;
-      signAssembly?: boolean;
-      assemblyOriginatorFile?: string;
-    };
-  };
-  metadata?: {
-    [key: string]: any;
-  };
-}
-
-/*
- * Jsii module stability
- */
-export enum Stability {
-  experimental = 'experimental',
-  stable = 'stable',
-  deprecated = 'deprecated',
-  external = 'external'
-}
+import { Config, PackageJson, Stability } from 'jsii-spec';
 
 /*
  * Structure of package.json accepted by jsii-config
  *
  * Exits with error message if input is missing required fields.
  */
-export interface BasePackageJson {
-  name: string;
-  version: string;
-  repository: string | {
-    url: string;
-    type?: string;
-    directory?: string;
-  };
-  main: string;
-  author: string | {
-    name: string;
-    email?: string;
-    url?: string;
-    organization?: boolean;
-  };
-  jsii?: JsiiConfig;
+export interface BasePackageJson extends Omit<PackageJson, 'jsii' | 'types' | 'stability'> {
+  jsii?: Config;
   types?: string;
   stability?: Stability;
-}
-
-/*
- * Jsii module package.json format
- *
- * This is structure of package.json after a succesful run of jsii-config
- */
-export interface JsiiPackageJson extends BasePackageJson {
-  stability: Stability;
-  types: string;
-  jsii: JsiiConfig;
 }
 
 /*
@@ -146,8 +80,8 @@ const schema: ConfigPromptsSchema = {
   stability: {
     type: 'list',
     message: 'Jsii Stability - stability of compiled module apis',
-    default: Stability.experimental,
-    choices: Object.keys(Stability)
+    default: Stability.Experimental,
+    choices: Object.values(Stability)
   },
   types: {
     type: 'input',

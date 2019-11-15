@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'fs';
+import { readFile } from 'fs';
 
 /* 
  * Look for existing nested values in config, return undefined if not found
@@ -21,6 +21,11 @@ export function flattenKeys(parent: string, fields: any) {
   }), {});
 }
 
+/**
+ * utility for for fs.readFile as a promise
+ *
+ * TODO: use util.promisify without breaking test stub
+ */
 export async function readFilePromise(path: string): Promise<Buffer> {
   const result: Buffer = await new Promise((resolve, reject) => {
     readFile(path, (err, data) => {
@@ -28,18 +33,6 @@ export async function readFilePromise(path: string): Promise<Buffer> {
         return reject(err);
       }
       return resolve(data);
-    });
-  });
-  return result;
-}
-
-export async function writeFilePromise(path: string, config: string): Promise<void> {
-  const result: void = await new Promise((resolve, reject) => {
-    writeFile(path, config, err => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve();
     });
   });
   return result;

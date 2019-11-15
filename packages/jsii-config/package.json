@@ -19,14 +19,15 @@
   },
   "devDependencies": {
     "@types/inquirer": "^6.5.0",
-    "@types/jest": "^24.0.22",
+    "@types/jest": "^24.0.23",
     "@types/jest-expect-message": "^1.0.1",
     "@types/yargs": "^13.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.6.0",
-    "@typescript-eslint/parser": "^2.6.0",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
+    "jsii-spec": "0.20.6",
     "typescript": "~3.6.4"
   },
   "dependencies": {
