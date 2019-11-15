@@ -35,7 +35,7 @@ function validatePackageJson(packageJson: any): BasePackageJson {
 export default async function main() {
   const argv = yargs
     .command('$0 [args]', 'configure jsii compilation options in package.json')
-    .option('package-manifest', {
+    .option('package-json', {
       alias: 'p',
       type: 'string',
       description: 'location of module\'s package.json file',
@@ -50,7 +50,7 @@ export default async function main() {
     .help()
     .argv;
 
-  const manifestLocation = argv.packageManifest as string;
+  const manifestLocation = argv.packageJson as string;
   const manifest = await readFilePromise(manifestLocation);
   const packageJson = validatePackageJson(JSON.parse(manifest.toString()));
 

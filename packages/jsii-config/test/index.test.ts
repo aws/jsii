@@ -225,8 +225,41 @@ describe('jsii-config', () => {
 
       expect(writeJsonMock).toHaveBeenCalledWith('./package.json', JSON.stringify({
         ...packageJsonObject,
-        ...configAnswers,
+        ...configAnswers
       }, null, 2), expect.anything());
+    });
+
+    [
+      'types',
+      'jsii.outdir',
+      'jsii.targets.java.package',
+      'jsii.targets.java.maven.groupId',
+      'jsii.targets.java.maven.artifactId',
+      'jsii.targets.python.distName',
+      'jsii.targets.python.module',
+      'jsii.targets.dotnet.namespace',
+      'jsii.targets.dotnet.packageId',
+      'jsii.targets.dotnet.assemblyOriginatorKeyFile'
+    ].forEach(field => {
+      it(`shows error message when empty ${field} is submitted`, async () => {
+        await main();
+        const questions = promptMock.mock.calls[0][0];
+        const subject = findQuestion(field, questions);
+
+        expect(subject.validate()).toEqual('Please enter a value');
+        expect(subject.validate('')).toEqual('Please enter a value');
+      });
+    });
+
+    it('shows error message when dotnet version suffix is submitted empty or without a "-"', async () => {
+      await main();
+      const questions = promptMock.mock.calls[0][0];
+      const subject = findQuestion('jsii.targets.dotnet.versionSuffix', questions);
+
+      expect(subject.validate()).toEqual('Please enter a value');
+      expect(subject.validate('')).toEqual('Please enter a value');
+      expect(subject.validate('xxx')).toEqual('versionSuffix must begin with "-"');
+      expect(subject.validate('-xxx')).toEqual(true);
     });
   });
 

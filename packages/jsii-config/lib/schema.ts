@@ -151,13 +151,13 @@ const schema: ConfigPromptsSchema = {
   },
   types: {
     type: 'input',
-    message: 'Jsii Type Definitions - compiled typescript definitions file for module (ex: xxx.d.ts)',
+    message: 'Jsii Type Definitions - compiled typescript definitions file for module (e.g. index.d.ts)',
     validate: hasLength
   },
   jsii: {
     outdir: {
       type: 'input',
-      message: 'Output directory for typescript compiler',
+      message: 'Output directory for typescript compiler (e.g. dist)',
       default: 'dist',
       validate: hasLength
     },
@@ -171,41 +171,41 @@ const schema: ConfigPromptsSchema = {
       java: {
         package: {
           type: 'input',
-          message: 'Java Package - root Java package name under which the types will be declared',
+          message: 'Java Package - root java package name under which the types will be declared (e.g. software.amazon.module.core)',
           when: targetEnabled('java'),
           validate: hasLength
         },
         maven: {
           groupId: {
             type: 'input',
-            message: 'Maven GroupID - package group id',
+            message: 'Maven GroupID - package group id (e.g. software.amazon.module)',
             when: targetEnabled('java'),
             validate: hasLength
           },
           artifactId: {
             type: 'input',
-            message: 'Maven ArtifactID - package artifact id',
+            message: 'Maven ArtifactID - package artifact id (e.g. core)',
             when: targetEnabled('java'),
             validate: hasLength
           },
           versionSuffix: {
             type: 'input',
-            message: 'Maven Version Suffix - optional suffix appended to the end of the maven package\'s version field',
+            message: 'Maven Version Suffix - optional suffix appended to the end of the maven package\'s version field (e.g. .DEVPREVIEW)',
             when: targetEnabled('java'),
             filter: filterEmpty
           }
         }
       },
       python: {
-        module: {
+        distName: {
           type: 'input',
-          message: 'Python Module - name of the generated Python module',
+          message: 'Python Distname - PyPI distribution name for the package (e.g. module-name.core)',
           when: targetEnabled('python'),
           validate: hasLength
         },
-        distName: {
+        module: {
           type: 'input',
-          message: 'Python Distname - PyPI distribution name for the package',
+          message: 'Python Module - name of the generated Python module (e.g. module_name.core)',
           when: targetEnabled('python'),
           validate: hasLength
         }
@@ -213,27 +213,37 @@ const schema: ConfigPromptsSchema = {
       dotnet: {
         namespace: {
           type: 'input',
-          message: '.NET Namespace - root namespace under which types will be declared',
+          message: '.NET Namespace - root namespace under which types will be declared (e.g. Amazon.Module)',
           when: targetEnabled('dotnet'),
           validate: hasLength
         },
         packageId: {
           type: 'input',
-          message: '.NET Package Id - identifier of the package in the NuGet registry',
+          message: '.NET Package Id - identifier of the package in the NuGet registry (e.g. Amazon.Module)',
           when: targetEnabled('dotnet'),
           validate: hasLength
         },
         iconUrl: {
           type: 'input',
-          message: '.NET Icon Url - Url of the icon to be shown in the NuGet gallery',
+          message: '.NET Icon Url - optional url of the icon to be shown in the NuGet gallery (e.g. https://raw.githubusercontent.com/module-icon.png)',
           when: targetEnabled('dotnet'),
-          validate: hasLength
+          filter: filterEmpty
         },
         versionSuffix: {
           type: 'input',
           default: '',
-          message: '.NET Version Suffix - optional suffix that will be appended at the end of the NuGet package\'s version field, must begin with a -',
+          message: '.NET Version Suffix - optional suffix that will be appended at the end of the NuGet package\'s version field, must begin with a "-" (e.g. -devpreview)',
           when: targetEnabled('dotnet'),
+          validate: (val: string): true | string => {
+            const hasLengthResult = hasLength(val);
+            if (typeof hasLengthResult === 'string') {
+              return hasLengthResult;
+            } else if (!val.startsWith('-')) {
+              return 'versionSuffix must begin with "-"';
+            }
+
+            return true;
+          },
           filter: filterEmpty
         },
         signAssembly: {
@@ -245,7 +255,7 @@ const schema: ConfigPromptsSchema = {
         assemblyOriginatorKeyFile: {
           type: 'input',
           default: '',
-          message: '.NET Assembly Originator Key File - path to the strong-name signing key to be used',
+          message: '.NET Assembly Originator Key File - path to the strong-name signing key to be used (e.g. ../../key.snk)',
           when: (answers: any ) => {
             return targetEnabled('dotnet')(answers) && Boolean(answers.jsii.targets.dotnet.signAssembly);
           },
