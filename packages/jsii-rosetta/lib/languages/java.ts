@@ -2,6 +2,7 @@ import ts = require('typescript');
 import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
+import { builtInTypeName } from '../typescript/types';
 
 interface JavaContext {
   readonly dummy?: boolean;
@@ -25,13 +26,59 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         ...this.typeHeritage(node, renderer),
         ' {',
       ],
-      [],
+      renderer.convertAll(node.members),
       {
         indent: 4,
         canBreakLine: true,
         suffix: '\n}',
       },
     );
+  }
+
+  public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
+    const methodName = renderer.convert(node.name);
+    const returnType = this.renderTypeNode(node.type, renderer);
+
+    return new OTree(
+      [
+        'public ',
+        returnType,
+        ' ',
+        methodName,
+        '(',
+        new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
+        ') ',
+      ],
+      [
+        renderer.convert(node.body)
+      ],
+      {
+        canBreakLine: true
+      },
+    );
+  }
+
+  public parameterDeclaration(node: ts.ParameterDeclaration, renderer: JavaRenderer): OTree {
+    return new OTree([
+      this.renderTypeNode(node.type, renderer),
+      ' ',
+      renderer.convert(node.name),
+    ]);
+  }
+
+  public block(node: ts.Block, renderer: JavaRenderer): OTree {
+    return new OTree(['{'], renderer.convertAll(node.statements), {
+      indent: 4,
+      suffix: '\n}',
+    });
+  }
+
+  public printStatement(args: ts.NodeArray<ts.Expression>, renderer: JavaRenderer) {
+    return new OTree([
+      'System.out.println(',
+      ...(renderer.convertAll(args)),
+      ');',
+    ]);
   }
 
   public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
@@ -57,5 +104,23 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
           new OTree([], superTypes, { separator: ', ' }),
         ]
         : [];
+  }
+
+  private renderTypeNode(typeNode: ts.TypeNode | undefined, renderer: JavaRenderer): string {
+    if (!typeNode) {
+      return 'void';
+    }
+
+    const type = renderer.typeOfType(typeNode);
+
+    const typeScriptBuiltInType = builtInTypeName(type);
+    if (!typeScriptBuiltInType) {
+      return '???';
+    }
+
+    switch (typeScriptBuiltInType) {
+      case 'string': return 'String';
+      default: return typeScriptBuiltInType;
+    }
   }
 }
