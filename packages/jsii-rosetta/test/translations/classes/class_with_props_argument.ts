@@ -7,6 +7,6 @@ class MyClass extends cdk.SomeOtherClass {
   constructor(scope: cdk.Construct, id: string, props: MyClassProps) {
     super(scope, id, props);
 
-    print(props.prop1);
+    console.log(props.prop1);
   }
 }
