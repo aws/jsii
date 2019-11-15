@@ -1,5 +1,5 @@
 import ts = require('typescript');
-import { AstRenderer, nimpl } from "../renderer";
+import { AstRenderer, nimpl, CommentSyntax } from "../renderer";
 import { isStructType, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
 import { NO_SYNTAX, OTree, renderTree } from "../o-tree";
 import { matchAst, nodeOfType, stripCommentMarkers, voidExpressionString, quoteStringLiteral } from '../typescript/ast-utils';
@@ -79,15 +79,15 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     return Object.assign({}, old, update);
   }
 
-  public commentRange(node: ts.CommentRange, context: PythonVisitorContext): OTree {
-    const commentText = stripCommentMarkers(context.textAt(node.pos, node.end), node.kind === ts.SyntaxKind.MultiLineCommentTrivia);
+  public commentRange(comment: CommentSyntax, _context: PythonVisitorContext): OTree {
+    const commentText = stripCommentMarkers(comment.text, comment.kind === ts.SyntaxKind.MultiLineCommentTrivia);
     const hashLines = commentText.split('\n').map(l => `# ${l}`).join('\n');
-    const needsAdditionalTrailer = node.hasTrailingNewLine;
+    const needsAdditionalTrailer = comment.hasTrailingNewLine;
 
     return new OTree([hashLines, needsAdditionalTrailer ? '\n' : ''], [], {
       // Make sure comment is rendered exactly once in the output tree, no
       // matter how many source nodes it is attached to.
-      renderOnce: `comment-${node.pos}`
+      renderOnce: `comment-${comment.pos}`
     });
   }
 

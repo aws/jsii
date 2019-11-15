@@ -1,10 +1,12 @@
 import ts = require('typescript');
 import { DefaultVisitor } from './default';
-import { AstRenderer } from '../renderer';
-import { OTree } from '../o-tree';
+import { AstRenderer, nimpl } from '../renderer';
+import { OTree, NO_SYNTAX } from '../o-tree';
 import { getNonUndefinedTypeFromUnion, builtInTypeName, typeContainsUndefined, parameterAcceptsUndefined, mapElementType, inferMapElementType } from '../typescript/types';
-import { flat } from '../util';
-import { matchAst, nodeOfType, quoteStringLiteral } from '../typescript/ast-utils';
+import { flat, partition, setExtend } from '../util';
+import { matchAst, nodeOfType, quoteStringLiteral, visibility, isReadOnly, findSuperCall, privatePropertyNames } from '../typescript/ast-utils';
+import { ImportStatement } from '../typescript/imports';
+import { jsiiTargetParam } from '../jsii/packages';
 
 interface CSharpLanguageContext {
   /**
@@ -41,19 +43,39 @@ interface CSharpLanguageContext {
    * When parsing an object literal and no type information is available, prefer parsing it as a struct to parsing it as a map
    */
   readonly preferObjectLiteralAsStruct: boolean;
+
+  /**
+   * When encountering these properties, render them as lowercase instead of uppercase
+   */
+  readonly privatePropertyNames: string[];
 }
 
 type CSharpRenderer = AstRenderer<CSharpLanguageContext>;
 
 export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
-  readonly defaultContext = {
+  public readonly defaultContext = {
     propertyOrMethod: false,
     inStructInterface: false,
     inKeyValueList: false,
     stringAsIdentifier: false,
     identifierAsString: false,
-    preferObjectLiteralAsStruct: true
+    preferObjectLiteralAsStruct: true,
+    privatePropertyNames: [],
   };
+
+  /**
+   * Aliases for modules
+   *
+   * If these are encountered in the LHS of a property access, they will be dropped.
+   */
+  private readonly importedModuleAliases = new Set<string>();
+
+  /**
+   * Elements imported into current namespace
+   *
+   * All namespace elements that can be imported need to be uppercased.
+   */
+  private readonly importedModuleSymbols = new Set<string>();
 
   public mergeContext(old: CSharpLanguageContext, update: Partial<CSharpLanguageContext>): CSharpLanguageContext {
     return Object.assign({}, old, update);
@@ -67,11 +89,39 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     }
 
     // Uppercase methods and properties, leave the rest as-is
-    if (renderer.currentContext.propertyOrMethod) {
-      text = text.substr(0, 1).toUpperCase() + text.substr(1);
+    if (renderer.currentContext.propertyOrMethod && !renderer.currentContext.privatePropertyNames.includes(text)) {
+      text = ucFirst(text);
     }
 
     return new OTree([text]);
+  }
+
+  public importStatement(importStatement: ImportStatement, context: CSharpRenderer): OTree {
+    const namespace = this.lookupModuleNamespace(importStatement.packageName);
+    if (importStatement.imports.import === 'full') {
+      this.importedModuleAliases.add(importStatement.imports.alias);
+      return new OTree([`using ${namespace};`], [], { canBreakLine: true });
+    }
+    if (importStatement.imports.import === 'selective') {
+      const statements = [];
+      const [withoutAlias, withAlias] = partition(importStatement.imports.elements, im => im.alias === undefined);
+
+      // If there's at least one import without an alias, emit a namespace import.
+      if (withoutAlias) {
+        statements.push(`using ${namespace};`);
+        setExtend(this.importedModuleSymbols, withoutAlias.map(w => w.sourceName));
+      }
+
+      // For every aliased import, emit an aliasing 'using' statement
+      for (const aliasedImport of withAlias) {
+        statements.push(`using ${ucFirst(aliasedImport.alias!)} = ${namespace}.${ucFirst(aliasedImport.sourceName)};`);
+        this.importedModuleSymbols.add(aliasedImport.alias!);
+      }
+
+      return new OTree([], statements, { canBreakLine: true, separator: '\n' });
+    }
+
+    return nimpl(importStatement.node, context);
   }
 
   public functionDeclaration(node: ts.FunctionDeclaration, renderer: CSharpRenderer): OTree {
@@ -91,19 +141,59 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     const methodName = opts.isConstructor ? renderer.currentContext.currentClassName || 'MyClass' : renderer.updateContext({ propertyOrMethod: true }).convert(node.name);
     const returnType = opts.isConstructor ? '' : this.renderTypeNode(node.type, false, renderer);
 
+    const baseConstructorCall = new Array<string | OTree>();
+    if (opts.isConstructor) {
+      const superCall = findSuperCall(node.body, renderer);
+      if (superCall) {
+        baseConstructorCall.push(': base(', new OTree([], renderer.convertAll(superCall.arguments), { separator: ', ' }), ') ');
+      }
+    }
+
     const ret = new OTree([
-      'public ',
-      returnType,
+      visibility(node),
       ' ',
+      returnType,
+      returnType ? ' ' : '',
       methodName,
       '(',
       new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
       ') ',
+      ...baseConstructorCall,
     ], [renderer.convert(node.body)], {
       canBreakLine: true
     });
 
     return ret;
+  }
+
+  public propertyDeclaration(node: ts.PropertyDeclaration, renderer: CSharpRenderer): OTree {
+    const vis = visibility(node);
+    const propertyOrMethod = vis !== 'private';  // Capitalize non-private fields
+
+    if (vis === 'private' || node.initializer) {
+      // Emit member field
+      return new OTree([
+        vis,
+        isReadOnly(node) ? ' readonly' : '',
+        ' ',
+        this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
+        ' ',
+        renderer.updateContext({ propertyOrMethod }).convert(node.name),
+        ...(node.initializer ? [' = ', renderer.convert(node.initializer)] : []),
+        ';',
+      ], [], { canBreakLine: true });
+    } else {
+      // Emit property. No functional difference but slightly more idiomatic
+      return new OTree([
+        vis,
+        ' ',
+        this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
+        ' ',
+        renderer.updateContext({ propertyOrMethod }).convert(node.name),
+        ' ',
+        isReadOnly(node) ? '{ get; }' : '{ get; set; }',
+      ], [], { canBreakLine: true });
+    }
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: CSharpRenderer) {
@@ -120,6 +210,11 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     ]);
   }
 
+  public superCallExpression(_node: ts.CallExpression, _renderer: CSharpRenderer): OTree {
+    // super() call rendered as part of the constructor already
+    return NO_SYNTAX;
+  }
+
   public stringLiteral(node: ts.StringLiteral, renderer: CSharpRenderer): OTree {
     if (renderer.currentContext.stringAsIdentifier) {
       return this.identifier(node, renderer);
@@ -129,11 +224,18 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public expressionStatement(node: ts.ExpressionStatement, renderer: CSharpRenderer): OTree {
-    return new OTree([renderer.convert(node.expression), ';'], [], { canBreakLine: true });
+    const inner = renderer.convert(node.expression);
+    if (inner.isEmpty) { return inner; }
+    return new OTree([inner, ';'], [], { canBreakLine: true });
   }
 
   public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: CSharpRenderer): OTree {
-    const objectExpression = renderer.textOf(node.expression) === 'this' ? [] : [renderer.updateContext({ propertyOrMethod: false }).convert(node.expression), '.'];
+    const lhs = renderer.textOf(node.expression);
+
+    // Suppress the LHS of the dot operator if it's "this." (not necessary in C#)
+    // or if it's an imported module reference (C# has namespace-wide imports).
+    const objectExpression = lhs === 'this' || this.importedModuleAliases.has(lhs) ? [] : [renderer.updateContext({ propertyOrMethod: false }).convert(node.expression), '.'];
+
     return new OTree([...objectExpression, renderer.updateContext({ propertyOrMethod: true }).convert(node.name)]);
   }
 
@@ -148,7 +250,8 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   public propertySignature(node: ts.PropertySignature, renderer: CSharpRenderer): OTree {
     return new OTree([
-      'public ',
+      visibility(node),
+      ' ',
       this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
       ' ',
       renderer.updateContext({ propertyOrMethod: true }).convert(node.name),
@@ -175,7 +278,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
         ...this.classHeritage(node, renderer),
         '\n{',
       ],
-      renderer.convertAll(node.members),
+      renderer.updateContext({ privatePropertyNames: privatePropertyNames(node.members, renderer) }).convertAll(node.members),
       {
         indent: 4,
         canBreakLine: true,
@@ -243,7 +346,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
     return new OTree([
       'new Dictionary<string, ',
-      valueType ? this.renderType(node, valueType, false, renderer) : 'object',
+      this.renderType(node, valueType, false, 'object', renderer),
       '> { '], renderer.updateContext({ inKeyValueList: true }).convertAll(node.properties), { suffix: ' }', separator: ', ', indent: 4, });
   }
 
@@ -311,7 +414,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     const type = (node.type && renderer.typeOfType(node.type))
         || (node.initializer && renderer.typeOfExpression(node.initializer));
 
-    let renderedType = type ? this.renderType(node, type, false, renderer) : 'var';
+    let renderedType = this.renderType(node, type, false, 'var', renderer);
     if (renderedType === 'object') { renderedType = 'var'; }
 
     return new OTree([
@@ -336,12 +439,24 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return new OTree([parts.join('')]);
   }
 
-  private renderTypeNode(typeNode: ts.TypeNode | undefined, questionMark: boolean, renderer: CSharpRenderer): string {
-    if (!typeNode) { return 'void'; }
-    return this.renderType(typeNode, renderer.typeOfType(typeNode), questionMark, renderer);
+  protected lookupModuleNamespace(ref: string) {
+    // Get the .NET namespace from the referenced package (if available)
+    const resolvedNamespace = jsiiTargetParam(ref, 'dotnet.namespace');
+
+    // Return that or some default-derived module name representation
+    return resolvedNamespace || ref.split(/[^a-zA-Z0-9]+/g).filter(s => s !== '').map(ucFirst).join('.');
   }
 
-  private renderType(typeNode: ts.Node, type: ts.Type, questionMark: boolean, renderer: CSharpRenderer): string {
+  private renderTypeNode(typeNode: ts.TypeNode | undefined, questionMark: boolean, renderer: CSharpRenderer): string {
+    if (!typeNode) { return 'void'; }
+    return this.renderType(typeNode, renderer.typeOfType(typeNode), questionMark, renderer.textOf(typeNode), renderer);
+  }
+
+  private renderType(typeNode: ts.Node, type: ts.Type | undefined, questionMark: boolean, fallback: string, renderer: CSharpRenderer): string {
+    if (type === undefined) {
+      return fallback;
+    }
+
     const nonUnionType = getNonUndefinedTypeFromUnion(type);
     if (!nonUnionType) {
       renderer.report(typeNode, 'Type unions in examples are not supported');
@@ -350,10 +465,10 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
     const mappedTo = mapElementType(nonUnionType, renderer);
     if (mappedTo) {
-      return `IDictionary<string, ${this.renderType(typeNode, mappedTo, questionMark, renderer)}>`;
+      return `IDictionary<string, ${this.renderType(typeNode, mappedTo, questionMark, 'object', renderer)}>`;
     }
 
-    return typeNameFromType(nonUnionType) + (typeContainsUndefined(type) || questionMark ? '?' : '');
+    return typeNameFromType(nonUnionType, fallback) + (typeContainsUndefined(type) || questionMark ? '?' : '');
   }
 
   private classHeritage(node: ts.ClassDeclaration | ts.InterfaceDeclaration, renderer: CSharpRenderer) {
@@ -363,13 +478,16 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 }
 
-function typeNameFromType(type: ts.Type): string {
+function typeNameFromType(type: ts.Type, fallback: string): string {
   // User-defined or aliased type
   if (type.aliasSymbol) { return type.aliasSymbol.name; }
   if (type.symbol) { return type.symbol.name; }
 
-  // Built-in type (?)
-  return csharpTypeName(builtInTypeName(type));
+  const builtIn = builtInTypeName(type);
+  // *really* any OR we don't know what type it is
+  if (builtIn === 'any') { return fallback; }
+
+  return csharpTypeName(builtIn);
 }
 
 function csharpTypeName(jsTypeName: string | undefined): string {
@@ -379,4 +497,11 @@ function csharpTypeName(jsTypeName: string | undefined): string {
     case 'any': return 'object';
   }
   return jsTypeName;
+}
+
+/**
+ * Uppercase the first letter
+ */
+function ucFirst(x: string) {
+  return x.substr(0, 1).toUpperCase() + x.substr(1);
 }

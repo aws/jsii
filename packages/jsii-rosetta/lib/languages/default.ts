@@ -1,9 +1,10 @@
 import ts = require('typescript');
-import { AstRenderer, AstHandler, nimpl } from "../renderer";
-import { OTree } from '../o-tree';
+import { AstRenderer, AstHandler, nimpl, CommentSyntax } from "../renderer";
+import { OTree, NO_SYNTAX } from '../o-tree';
 import { ImportStatement } from '../typescript/imports';
 import { isStructInterface, isStructType } from '../jsii/jsii-utils';
 import { mapElementType } from '../typescript/types';
+import { voidExpressionString } from '../typescript/ast-utils';
 
 /**
  * A basic visitor that applies for most curly-braces-based languages
@@ -13,10 +14,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
 
   public abstract mergeContext(old: C, update: C): C;
 
-  public commentRange(node: ts.CommentRange, context: AstRenderer<C>): OTree {
+  public commentRange(comment: CommentSyntax, _context: AstRenderer<C>): OTree {
     return new OTree([
-      context.textAt(node.pos, node.end),
-      node.hasTrailingNewLine ? '\n' : ''
+      comment.text,
+      comment.hasTrailingNewLine ? '\n' : ''
     ]);
   }
 
@@ -95,6 +96,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   public callExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree {
     const functionText = context.textOf(node.expression);
     if (functionText === 'console.log' || functionText === 'console.error') { return this.printStatement(node.arguments, context); }
+    if (functionText === 'super') { return this.superCallExpression(node, context); }
 
     return this.regularCallExpression(node, context);
   }
@@ -105,6 +107,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
       '(',
       new OTree([], context.convertAll(node.arguments), { separator: ', ' }),
       ')']);
+  }
+
+  public superCallExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree {
+    return this.regularCallExpression(node, context);
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, context: AstRenderer<C>) {
@@ -264,9 +270,14 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return new OTree(['(', context.convert(node.expression), ')']);
   }
 
-  public maskingVoidExpression(_node: ts.VoidExpression, _context: AstRenderer<C>): OTree {
+  public maskingVoidExpression(node: ts.VoidExpression, context: AstRenderer<C>): OTree {
     // Don't render anything by default when nodes are masked
-    return new OTree([]);
+    const arg = voidExpressionString(node);
+    if (arg === 'block') {
+      return this.commentRange({ pos: context.getPosition(node).start, text: '\n// ...', kind: ts.SyntaxKind.SingleLineCommentTrivia, hasTrailingNewLine: false }, context);
+    }
+    if (arg === '...') { return new OTree(['...']); }
+    return NO_SYNTAX;
   }
 
   private notImplemented(node: ts.Node, context: AstRenderer<C>) {

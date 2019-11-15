@@ -45,3 +45,29 @@ export function divideEvenly<A>(groups: number, xs: A[]): A[][] {
 export function flat<A>(xs: A[][]): A[] {
   return Array.prototype.concat.apply([], xs);
 }
+
+/**
+ * Partition a list in twain using a predicate
+ *
+ * Returns [elements-matching-predicate, elements-not-matching-predicate];
+ */
+export function partition<A>(xs: A[], pred: (x: A) => boolean): [A[], A[]] {
+  const truthy = new Array<A>();
+  const falsy = new Array<A>();
+
+  for (const x of xs) {
+    if (pred(x)) {
+      truthy.push(x);
+    } else {
+      falsy.push(x);
+    }
+  }
+
+  return [truthy, falsy];
+}
+
+export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
+  for (const el of els) {
+    xs.add(el);
+  }
+}

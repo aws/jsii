@@ -1,5 +1,5 @@
 import ts = require('typescript');
-import { AstRenderer, AstHandler, nimpl } from "../renderer";
+import { AstRenderer, AstHandler, nimpl, CommentSyntax } from "../renderer";
 import { OTree } from '../o-tree';
 import { ImportStatement } from '../typescript/imports';
 
@@ -13,8 +13,8 @@ export class VisualizeAstVisitor implements AstHandler<void> {
     return undefined;
   }
 
-  public commentRange(node: ts.CommentRange, context: AstRenderer<void>): OTree {
-    return new OTree(['(Comment', context.textAt(node.pos, node.end)], [], { suffix: ')' });
+  public commentRange(node: CommentSyntax, _context: AstRenderer<void>): OTree {
+    return new OTree(['(Comment', node.text], [], { suffix: ')' });
   }
 
   public jsDoc(_node: ts.JSDoc, _context: AstRenderer<void>): OTree {
