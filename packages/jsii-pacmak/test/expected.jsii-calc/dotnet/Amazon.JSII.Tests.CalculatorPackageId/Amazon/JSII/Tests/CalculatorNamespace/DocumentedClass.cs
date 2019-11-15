@@ -8,6 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// multiple lines and multiple paragraphs.
     /// 
     /// Multiple paragraphs are separated by an empty line.
+    /// 
     /// stability: Stable
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
@@ -33,6 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// This will print out a friendly greeting intended for
         /// the indicated person.
+        /// 
         /// stability: Stable
         /// </remarks>
         [JsiiMethod(name: "greet", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"docs\":{\"summary\":\"The person to be greeted.\"},\"name\":\"greetee\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.Greetee\"}}]")]

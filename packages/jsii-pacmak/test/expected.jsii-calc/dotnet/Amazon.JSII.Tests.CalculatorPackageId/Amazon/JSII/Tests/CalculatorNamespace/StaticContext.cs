@@ -5,6 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>This is used to validate the ability to use `this` from within a static context.</summary>
     /// <remarks>
     /// https://github.com/awslabs/aws-cdk/issues/2304
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticContext), fullyQualifiedName: "jsii-calc.StaticContext")]

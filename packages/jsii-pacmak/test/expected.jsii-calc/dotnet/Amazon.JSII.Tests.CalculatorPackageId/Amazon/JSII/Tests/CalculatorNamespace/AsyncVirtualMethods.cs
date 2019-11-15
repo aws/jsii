@@ -44,6 +44,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// This is a "double promise" situation, which
         /// means that callbacks are not going to be available immediate, but only
         /// after an "immediates" cycle.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "callMeDoublePromise", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isAsync: true)]

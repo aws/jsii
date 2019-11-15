@@ -11,8 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         /// <summary>The name of the greetee.</summary>
         /// <remarks>
-        /// default:
-        /// world
+        /// default: world
         /// stability: Experimental
         /// </remarks>
         [JsiiOptional]

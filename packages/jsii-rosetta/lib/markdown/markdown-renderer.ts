@@ -113,14 +113,14 @@ function trimEmptyLines(x: string) {
 
 const PARA_BREAK = '\u001d';
 
-function para(x: string) {
+export function para(x: string) {
   return `${PARA_BREAK}${x}${PARA_BREAK}`;
 }
 
 /**
  * Collapse paragraph markers
  */
-function collapsePara(x: string, brk: string = '\n\n') {
+export function collapsePara(x: string, brk: string = '\n\n') {
   return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '').replace(/\u001d+/g, brk);
 }
 

@@ -6,6 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
     /// the method on the argument that they're passed...
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), fullyQualifiedName: "jsii-calc.ConsumerCanRingBell")]
@@ -26,6 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>...if the interface is implemented using an object literal.</summary>
         /// <remarks>
         /// Returns whether the bell was rung.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "staticImplementedByObjectLiteral", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"ringer\",\"type\":{\"fqn\":\"jsii-calc.IBellRinger\"}}]")]
@@ -37,6 +39,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>...if the interface is implemented using a private class.</summary>
         /// <remarks>
         /// Return whether the bell was rung.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "staticImplementedByPrivateClass", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"ringer\",\"type\":{\"fqn\":\"jsii-calc.IBellRinger\"}}]")]
@@ -48,6 +51,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>...if the interface is implemented using a public class.</summary>
         /// <remarks>
         /// Return whether the bell was rung.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "staticImplementedByPublicClass", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"ringer\",\"type\":{\"fqn\":\"jsii-calc.IBellRinger\"}}]")]
@@ -59,6 +63,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>If the parameter is a concrete class instead of an interface.</summary>
         /// <remarks>
         /// Return whether the bell was rung.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "staticWhenTypedAsClass", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"ringer\",\"type\":{\"fqn\":\"jsii-calc.IConcreteBellRinger\"}}]")]
@@ -70,6 +75,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>...if the interface is implemented using an object literal.</summary>
         /// <remarks>
         /// Returns whether the bell was rung.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "implementedByObjectLiteral", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"ringer\",\"type\":{\"fqn\":\"jsii-calc.IBellRinger\"}}]")]
@@ -81,6 +87,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>...if the interface is implemented using a private class.</summary>
         /// <remarks>
         /// Return whether the bell was rung.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "implementedByPrivateClass", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"ringer\",\"type\":{\"fqn\":\"jsii-calc.IBellRinger\"}}]")]
@@ -92,6 +99,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>...if the interface is implemented using a public class.</summary>
         /// <remarks>
         /// Return whether the bell was rung.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "implementedByPublicClass", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"ringer\",\"type\":{\"fqn\":\"jsii-calc.IBellRinger\"}}]")]
@@ -103,6 +111,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>If the parameter is a concrete class instead of an interface.</summary>
         /// <remarks>
         /// Return whether the bell was rung.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "whenTypedAsClass", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"ringer\",\"type\":{\"fqn\":\"jsii-calc.IConcreteBellRinger\"}}]")]

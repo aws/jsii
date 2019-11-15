@@ -9,6 +9,7 @@ import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
 import { DotNetDependency, FileGenerator } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
+import { Rosetta } from 'jsii-rosetta';
 
 /**
  * CODE GENERATOR V2
@@ -28,7 +29,7 @@ export class DotNetGenerator extends Generator {
 
   private dotnetDocGenerator!: DotNetDocGenerator;
 
-  public constructor(private readonly assembliesCurrentlyBeingCompiled: string[]) {
+  public constructor(private readonly assembliesCurrentlyBeingCompiled: string[], private readonly rosetta: Rosetta) {
     super();
 
     // Override the openBlock to get a correct C# looking code block with the curly brace after the line
@@ -54,7 +55,9 @@ export class DotNetGenerator extends Generator {
     );
 
     this.dotnetRuntimeGenerator = new DotNetRuntimeGenerator(this.code, this.typeresolver);
-    this.dotnetDocGenerator = new DotNetDocGenerator(this.code);
+    this.dotnetDocGenerator = new DotNetDocGenerator(this.code, this.rosetta);
+
+    this.emitNamespaceDocs();
 
     // We need to resolve the dependency tree
     this.typeresolver.resolveNamespacesDependencies();
@@ -794,5 +797,31 @@ export class DotNetGenerator extends Generator {
     } else {
       this.firstMemberWritten = false;
     }
+  }
+
+  /**
+   * Emit an unused, empty class called `NamespaceDoc` to attach the module README to
+   *
+   * There is no way to attach doc comments to a namespace in C#, and this trick has been
+   * semi-standardized by NDoc and Sandcastle Help File Builder.
+   *
+   * DocFX doesn't support it out of the box, but we should be able to get there with a
+   * bit of hackery.
+   *
+   * In any case, we need a place to attach the docs where they can be transported around,
+   * might as well be this method.
+   */
+  private emitNamespaceDocs() {
+    if (!this.assembly.readme) { return; }
+
+    const namespace = this.assembly.targets!.dotnet!.namespace;
+    const className = 'NamespaceDoc';
+    this.openFileIfNeeded(className, namespace, false, false);
+
+    this.dotnetDocGenerator.emitMarkdownAsRemarks(this.assembly.readme.markdown);
+    this.code.line('[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]');
+    this.code.openBlock(`internal class ${className}`);
+    this.code.closeBlock();
+    this.closeFileIfNeeded(className, namespace, false);
   }
 }

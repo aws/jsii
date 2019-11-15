@@ -239,7 +239,7 @@ export default class Dotnet extends Target {
   public constructor(options: TargetOptions, assembliesCurrentlyBeingCompiled: string[]) {
     super(options);
 
-    this.generator = new DotNetGenerator(assembliesCurrentlyBeingCompiled);
+    this.generator = new DotNetGenerator(assembliesCurrentlyBeingCompiled, options.rosetta);
   }
 
   /* eslint-disable @typescript-eslint/require-await */

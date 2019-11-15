@@ -8,8 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// </returns>
     /// <remarks>
     /// stability: Experimental
-    /// see:
-    /// https://github.com/aws/jsii/issues/320
+    /// see: https://github.com/aws/jsii/issues/320
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ReturnsPrivateImplementationOfInterface), fullyQualifiedName: "jsii-calc.ReturnsPrivateImplementationOfInterface")]
     public class ReturnsPrivateImplementationOfInterface : DeputyBase

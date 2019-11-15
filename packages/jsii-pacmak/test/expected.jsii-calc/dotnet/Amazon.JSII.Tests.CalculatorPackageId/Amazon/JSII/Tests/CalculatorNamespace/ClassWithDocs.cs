@@ -5,16 +5,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>This class has docs.</summary>
     /// <remarks>
     /// The docs are great. They're a bunch of tags.
+    /// 
     /// stability: Stable
-    /// example:
-    /// <code>
-    /// function anExample() {
-    /// }
-    /// </code>
-    /// see:
-    /// https://aws.amazon.com/
+    /// see: https://aws.amazon.com/
     /// customAttribute: hasAValue
     /// </remarks>
+    /// <example>
+    /// <code>
+    /// // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+    /// public void AnExample()
+    /// {
+    /// }
+    /// </code>
+    /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithDocs), fullyQualifiedName: "jsii-calc.ClassWithDocs")]
     public class ClassWithDocs : DeputyBase
     {

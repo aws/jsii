@@ -5,3 +5,4 @@ export { PythonVisitor } from './languages/python';
 export * from './tablets/tablets'
 export * from './rosetta';
 export * from './snippet';
+export * from './markdown';

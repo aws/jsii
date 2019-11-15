@@ -4,9 +4,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>This test is used to validate the runtimes can return correctly from a void callback.</summary>
     /// <remarks>
-    /// - Implement `overrideMe` (method does not have to do anything).
-    /// - Invoke `callMe`
-    /// - Verify that `methodWasCalled` is `true`.
+    /// * Implement <c>overrideMe</c> (method does not have to do anything).
+    /// * Invoke <c>callMe</c>
+    /// * Verify that <c>methodWasCalled</c> is <c>true</c>.
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]

@@ -4,8 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
     /// stability: Experimental
-    /// see:
-    /// https://github.com/aws/jsii/issues/903
+    /// see: https://github.com/aws/jsii/issues/903
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OverridableProtectedMember), fullyQualifiedName: "jsii-calc.OverridableProtectedMember")]
     public class OverridableProtectedMember : DeputyBase

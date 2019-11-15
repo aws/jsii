@@ -24,6 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Used to check that undefined/null hash values
         /// are being erased when sending values from native code to JS.
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "doesKeyExist", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"opts\",\"type\":{\"fqn\":\"jsii-calc.EraseUndefinedHashValuesOptions\"}},{\"name\":\"key\",\"type\":{\"primitive\":\"string\"}}]")]

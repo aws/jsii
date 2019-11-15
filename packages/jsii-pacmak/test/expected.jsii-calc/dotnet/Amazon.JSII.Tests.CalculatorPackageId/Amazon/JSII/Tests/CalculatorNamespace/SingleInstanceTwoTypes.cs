@@ -7,6 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// JSII clients can instantiate 2 different strongly-typed wrappers for the same
     /// object. Unfortunately, this will break object equality, but if we didn't do
     /// this it would break runtime type checks in the JVM or CLR.
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SingleInstanceTwoTypes), fullyQualifiedName: "jsii-calc.SingleInstanceTwoTypes")]

@@ -4,8 +4,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>1.</summary>
     /// <remarks>
-    /// call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)
-    /// 2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type
+    /// call #takeThis() -&gt; An ObjectRef will be provisioned for the value (it'll be re-used!)
+    /// 2. call #takeThisToo() -&gt; The ObjectRef from before will need to be down-cased to the ParentStruct982 type
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Demonstrate982), fullyQualifiedName: "jsii-calc.Demonstrate982")]

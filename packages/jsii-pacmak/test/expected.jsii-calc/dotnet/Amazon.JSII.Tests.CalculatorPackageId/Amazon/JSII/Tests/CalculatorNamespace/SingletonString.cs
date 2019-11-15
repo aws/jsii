@@ -5,6 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>Verifies that singleton enums are handled correctly.</summary>
     /// <remarks>
     /// https://github.com/aws/jsii/issues/231
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SingletonString), fullyQualifiedName: "jsii-calc.SingletonString")]

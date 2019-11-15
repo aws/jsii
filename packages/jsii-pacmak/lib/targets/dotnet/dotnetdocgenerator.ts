@@ -1,6 +1,8 @@
 import { CodeMaker } from 'codemaker';
 import * as spec from 'jsii-spec';
 import { DotNetNameUtils } from './nameutils';
+import { Rosetta, Translation, transformMarkdown, typeScriptSnippetFromSource, CSharpXmlCommentRenderer } from 'jsii-rosetta';
+import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
@@ -11,7 +13,7 @@ export class DotNetDocGenerator {
   private readonly code: CodeMaker;
   private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  public constructor(code: CodeMaker) {
+  public constructor(code: CodeMaker, private readonly rosetta: Rosetta) {
     this.code = code;
   }
 
@@ -25,7 +27,7 @@ export class DotNetDocGenerator {
      * Returns
      * Remarks (includes examples, links, deprecated)
      */
-  public emitDocs(obj: spec.Method | spec.InterfaceType | spec.ClassType | spec.Property | spec.EnumType | spec.Initializer): void {
+  public emitDocs(obj: spec.Documentable): void {
     const docs = obj.docs;
 
     // The docs may be undefined at the method level but not the parameters level
@@ -48,7 +50,7 @@ export class DotNetDocGenerator {
       });
     }
 
-    // At this point we only need a valid instance of docs
+    // At this pdocfx namespacedocd a valid instance of docs
     if (!docs) {
       return;
     }
@@ -60,61 +62,107 @@ export class DotNetDocGenerator {
       this.code.line('/// </returns>');
     }
 
-    const remarks: string[] = [];
-    let remarksOpen = false;
-    if (docs.remarks) {
+    const remarks = this.renderRemarks(docs);
+    if (remarks.length > 0) {
       this.code.line('/// <remarks>');
-      remarksOpen = true;
-      const remarkLines = docs.remarks.split('\n');
-      remarkLines.forEach( line => this.code.line(`/// ${line}`));
-    }
-
-    if (docs.default) {
-      const defaultLines = docs.default.split('\n');
-      remarks.push('default:');
-      defaultLines.forEach( line => remarks.push(`${line}`));
-    }
-
-    if (docs.stability) {
-      remarks.push(`stability: ${this.nameutils.capitalizeWord(docs.stability)}`);
+      remarks.forEach(r => this.code.line(`/// ${r}`));
+      this.code.line('/// </remarks>');
     }
 
     if (docs.example) {
-      const remarkLines = docs.example.split('\n');
-      remarks.push('example:');
-      remarks.push('<code>');
-      remarkLines.forEach( line => remarks.push(`${line}`));
-      remarks.push('</code>');
+      const exampleLines = this.convertExample(docs.example).split('\n');
+      this.code.line('/// <example>');
+      this.code.line('/// <code>');
+      exampleLines.forEach( line => this.code.line(`/// ${line}`));
+      this.code.line('/// </code>');
+      this.code.line('/// </example>');
+    }
+  }
+
+  public emitMarkdownAsRemarks(markdown: string | undefined) {
+    if (!markdown) { return; }
+
+    const translated = this.markDownToXml(this.convertSamplesInMarkdown(markdown));
+    const lines = translated.split('\n');
+
+    this.code.line('/// <remarks>');
+    for (const line of lines) {
+      this.code.line(`/// ${line}`);
+    }
+    this.code.line('/// </remarks>');
+  }
+
+  /**
+   * Returns the lines that should go into the <remarks> section
+   */
+  private renderRemarks(docs: spec.Docs): string[] {
+    const ret: string[] = [];
+
+    if (docs.remarks) {
+      const translated = this.markDownToXml(this.convertSamplesInMarkdown(docs.remarks));
+      ret.push(...translated.split('\n'));
+      ret.push('');
+    }
+
+    if (docs.default) {
+      const ls = docs.default.split('\n');
+      ret.push(`default: ${ls[0]}`);
+      ret.push(...ls.slice(1));
+    }
+
+    if (docs.stability) {
+      ret.push(`stability: ${this.nameutils.capitalizeWord(docs.stability)}`);
     }
 
     if (docs.see) {
-      const seeLines = docs.see.split('\n');
-      remarks.push('see:');
-      seeLines.forEach( line => remarks.push(`${line}`));
+      const ls = docs.see.split('\n');
+      ret.push(`see: ${ls[0]}`);
+      ret.push(...ls.slice(1));
     }
 
     if (docs.subclassable) {
-      remarks.push('subclassable');
+      ret.push('subclassable');
     }
 
-    if (docs.custom) {
-      for (const [k, v] of Object.entries(docs.custom || {})) {
-        const custom = k === 'link' ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
-        const customLines = custom.split('\n');
-        customLines.forEach( line => remarks.push(`${line}`));
-      }
+    for (const [k, v] of Object.entries(docs.custom || {})) {
+      const custom = k === 'link' ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
+      ret.push(...custom.split('\n'));
     }
 
-    if (remarks.length > 0) {
-      if (!remarksOpen) {
-        this.code.line('/// <remarks>');
-        remarksOpen = true;
-      }
-      remarks.forEach( line => this.code.line(`/// ${line}`));
-    }
+    while (ret.length > 0 && ret[0] === '') { ret.shift(); }
+    while (ret.length > 0 && ret[ret.length - 1] === '') { ret.pop(); }
 
-    if (remarksOpen) {
-      this.code.line('/// </remarks>');
+    return ret;
+  }
+
+  private convertExample(example: string): string {
+    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const translated = this.rosetta.translateSnippet(snippet, 'csharp');
+    if (!translated) { return example; }
+    return this.prefixDisclaimer(translated);
+  }
+
+  private convertSamplesInMarkdown(markdown: string): string {
+    return this.rosetta.translateSnippetsInMarkdown(markdown, 'csharp', trans => ({
+      language: trans.language,
+      source: this.prefixDisclaimer(trans)
+    }));
+  }
+
+  /**
+   * Convert MarkDown to XML using routines that we have available in Rosetta anyway
+   */
+  private markDownToXml(md: string) {
+    return transformMarkdown(md, new CSharpXmlCommentRenderer());
+  }
+
+  private prefixDisclaimer(translated: Translation) {
+    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
+      return `// ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
     }
+    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
+      return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
+    }
+    return translated.source;
   }
 }
