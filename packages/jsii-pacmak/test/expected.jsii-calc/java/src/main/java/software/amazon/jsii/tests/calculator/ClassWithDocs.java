@@ -8,7 +8,7 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * <p>
  * <blockquote><pre>{@code
- * // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+ * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * (FunctionDeclaration function anExample() {
  * }
  *   anExample

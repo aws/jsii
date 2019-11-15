@@ -10,21 +10,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// First, create a calculator:
     /// 
     /// <code><![CDATA[
-    /// // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
-    /// var calculator = new calc.Calculator();
+    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
+    /// Calculator calculator = new Calculator();
     /// ]]></code>
     /// 
     /// Then call some operations:
     /// 
     /// <code><![CDATA[
-    /// // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// calculator.Add(10);
     /// ]]></code>
     /// 
     /// ## Code Samples
     /// 
     /// <code><![CDATA[
-    /// // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// /* This is totes a magic comment in here, just you wait! */
     /// string foo = "bar";
     /// ]]></code>

@@ -8,7 +8,7 @@
  * First, create a calculator:
  * <p>
  * <blockquote><pre>{@code
- * // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+ * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * (VariableDeclaration calculator = new calc.Calculator()
  *   calculator
  *   new Calculator())
@@ -17,14 +17,14 @@
  * Then call some operations:
  * <p>
  * <blockquote><pre>{@code
- * // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+ * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * add(10)
  * }</pre></blockquote>
  * <p>
  * <h2>Code Samples</h2>
  * <p>
  * <blockquote><pre>{@code
- * // Example automatically generated without compilation. See https://github.com/aws/jsii/issues/826
+ * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * /* This is totes a magic comment in here, just you wait! *{@literal /}
  * (VariableDeclaration foo = 'bar'
  *   foo
