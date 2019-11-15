@@ -1,5 +1,6 @@
 import ts = require('typescript');
 import { Span } from '../o-tree';
+import { AstRenderer } from '../renderer';
 
 export interface MarkedSpan {
   start: number;
@@ -371,4 +372,52 @@ export function extractVoidExpression(node: ts.Node): ts.VoidExpression  | undef
 
 export function quoteStringLiteral(x: string) {
   return x.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+export function visibility(x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclarationBase) {
+  const flags = ts.getCombinedModifierFlags(x);
+  if (flags & ts.ModifierFlags.Private) {
+    return 'private';
+  }
+  if (flags & ts.ModifierFlags.Protected) {
+    return 'protected';
+  }
+  return 'public';
+}
+
+export function isReadOnly(x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclarationBase) {
+  const flags = ts.getCombinedModifierFlags(x);
+  return (flags & ts.ModifierFlags.Readonly) !== 0;
+}
+
+/**
+ * Return the super() call from a method body if found
+ */
+export function findSuperCall(node: ts.Block | ts.Expression | undefined, renderer: AstRenderer<any>): ts.SuperCall | undefined {
+  if (node === undefined) { return undefined; }
+  if (ts.isCallExpression(node)) {
+    if (renderer.textOf(node.expression) === 'super') {
+      return node as unknown as ts.SuperCall;
+    }
+  }
+  if (ts.isExpressionStatement(node)) {
+    return findSuperCall(node.expression, renderer);
+  }
+  if (ts.isBlock(node)) {
+    for (const statement of node.statements) {
+      if (ts.isExpressionStatement(statement)) {
+        const s = findSuperCall(statement.expression, renderer);
+        if (s) { return s; }
+      }
+    }
+  }
+  return undefined;
+}
+
+/**
+ * Return the names of all private property declarations
+ */
+export function privatePropertyNames(members: ReadonlyArray<ts.ClassElement>, renderer: AstRenderer<any>): string[] {
+  const props = members.filter(m => ts.isPropertyDeclaration(m)) as ts.PropertyDeclaration[];
+  return props.filter(m =>  visibility(m) === 'private').map(m => renderer.textOf(m.name));
 }
