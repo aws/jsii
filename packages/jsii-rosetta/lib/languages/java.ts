@@ -2,6 +2,7 @@ import ts = require('typescript');
 import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
+import { flat } from '../util';
 
 interface JavaContext {
   readonly dummy?: boolean;
@@ -21,10 +22,8 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       [
         'public ',
         'class ',
-        node.name ? renderer.textOf(node.name) : '???',
-        // hasHeritage ? '(' : '',
-        // ...heritage,
-        // hasHeritage ? ')' : '',
+        renderer.convert(node.name),
+        ...this.typeHeritage(node, renderer),
         ' {',
       ],
       [],
@@ -34,5 +33,28 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         suffix: '\n}',
       },
     );
+  }
+
+  private typeHeritage(node: ts.ClassDeclaration, renderer: JavaRenderer): Array<OTree | string | undefined> {
+    const supertypes = flat(
+        Array.from(node.heritageClauses || []).map(h => Array.from(h.types))
+    ).map(t => renderer.convert(t.expression));
+
+    return supertypes.length > 0
+        ? [
+            ' extends ',
+            new OTree(
+                [],
+                supertypes,
+                {
+                  separator: ', ',
+                },
+            ),
+        ]
+        : [];
+  }
+
+  public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
+    return renderer.convert(node.name);
   }
 }
