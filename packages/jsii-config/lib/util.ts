@@ -1,5 +1,16 @@
 import { readFile, writeFile } from 'fs';
 
+/* 
+ * Look for existing nested values in config, return undefined if not found
+ */
+export function getNestedValue(keys: string[], current: object): any {
+  try {
+    return keys.reduce((val: any, key: string) => val[key], current);
+  } catch (_err) {
+    return undefined;
+  }
+}
+
 /*
  * recursively flatten nested object
  */

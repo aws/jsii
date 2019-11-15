@@ -32,6 +32,52 @@ export interface JsiiConfig {
 }
 
 /*
+ * Jsii module stability
+ */
+export enum Stability {
+  experimental = 'experimental',
+  stable = 'stable',
+  deprecated = 'deprecated',
+  external = 'external'
+}
+
+/*
+ * Structure of package.json accepted by jsii-config
+ *
+ * Exits with error message if input is missing required fields.
+ */
+export interface BasePackageJson {
+  name: string;
+  version: string;
+  repository: string | {
+    url: string;
+    type?: string;
+    directory?: string;
+  };
+  main: string;
+  author: string | {
+    name: string;
+    email?: string;
+    url?: string;
+    organization?: boolean;
+  };
+  jsii?: JsiiConfig;
+  types?: string;
+  stability?: Stability;
+}
+
+/*
+ * Jsii module package.json format
+ *
+ * This is structure of package.json after a succesful run of jsii-config
+ */
+export interface JsiiPackageJson extends BasePackageJson {
+  stability: Stability;
+  types: string;
+  jsii: JsiiConfig;
+}
+
+/*
  * Type of fields used in schema to prompt users.
  */
 interface Field {
@@ -55,9 +101,12 @@ type SchemaField = Field | NestedField;
  * 
  * Requires 'targets' key with available Jsii language targets.
  */
-export interface ConfigSchema {
+export interface ConfigPromptsSchema {
+  jsii: {
+    targets: SchemaField;
+    [key: string]: SchemaField;
+  };
   [key: string]: SchemaField;
-  targets: SchemaField;
 }
 
 /*
@@ -93,102 +142,115 @@ function filterEmpty(val: string): string | void {
  *
  * Name values for questions are built from parent keys.
  */
-const schema: ConfigSchema = {
-  outdir: {
+const schema: ConfigPromptsSchema = {
+  stability: {
+    type: 'list',
+    message: 'Jsii Stability - stability of compiled module apis',
+    default: Stability.experimental,
+    choices: Object.keys(Stability)
+  },
+  types: {
     type: 'input',
-    message: 'Output directory for typescript compiler',
-    default: 'dist',
+    message: 'Jsii Type Definitions - compiled typescript definitions file for module (ex: xxx.d.ts)',
     validate: hasLength
   },
-  versionFormat: {
-    type: 'list',
-    message: 'Version format, default is full',
-    default: 'full',
-    choices: ['full', 'short']
-  },
-  targets: {
-    java: {
-      package: {
-        type: 'input',
-        message: 'Java Package - root Java package name under which the types will be declared',
-        when: targetEnabled('java'),
-        validate: hasLength
-      },
-      maven: {
-        groupId: {
+  jsii: {
+    outdir: {
+      type: 'input',
+      message: 'Output directory for typescript compiler',
+      default: 'dist',
+      validate: hasLength
+    },
+    versionFormat: {
+      type: 'list',
+      message: 'Version format, default is full',
+      default: 'full',
+      choices: ['full', 'short']
+    },
+    targets: {
+      java: {
+        package: {
           type: 'input',
-          message: 'Maven GroupID - package group id',
+          message: 'Java Package - root Java package name under which the types will be declared',
           when: targetEnabled('java'),
           validate: hasLength
         },
-        artifactId: {
+        maven: {
+          groupId: {
+            type: 'input',
+            message: 'Maven GroupID - package group id',
+            when: targetEnabled('java'),
+            validate: hasLength
+          },
+          artifactId: {
+            type: 'input',
+            message: 'Maven ArtifactID - package artifact id',
+            when: targetEnabled('java'),
+            validate: hasLength
+          },
+          versionSuffix: {
+            type: 'input',
+            message: 'Maven Version Suffix - optional suffix appended to the end of the maven package\'s version field',
+            when: targetEnabled('java'),
+            filter: filterEmpty
+          }
+        }
+      },
+      python: {
+        module: {
           type: 'input',
-          message: 'Maven ArtifactID - package artifact id',
-          when: targetEnabled('java'),
+          message: 'Python Module - name of the generated Python module',
+          when: targetEnabled('python'),
+          validate: hasLength
+        },
+        distName: {
+          type: 'input',
+          message: 'Python Distname - PyPI distribution name for the package',
+          when: targetEnabled('python'),
+          validate: hasLength
+        }
+      },
+      dotnet: {
+        namespace: {
+          type: 'input',
+          message: '.NET Namespace - root namespace under which types will be declared',
+          when: targetEnabled('dotnet'),
+          validate: hasLength
+        },
+        packageId: {
+          type: 'input',
+          message: '.NET Package Id - identifier of the package in the NuGet registry',
+          when: targetEnabled('dotnet'),
+          validate: hasLength
+        },
+        iconUrl: {
+          type: 'input',
+          message: '.NET Icon Url - Url of the icon to be shown in the NuGet gallery',
+          when: targetEnabled('dotnet'),
           validate: hasLength
         },
         versionSuffix: {
           type: 'input',
-          message: 'Maven Version Suffix - optional suffix appended to the end of the maven package\'s version field',
-          when: targetEnabled('java'),
+          default: '',
+          message: '.NET Version Suffix - optional suffix that will be appended at the end of the NuGet package\'s version field, must begin with a -',
+          when: targetEnabled('dotnet'),
           filter: filterEmpty
-        }
-      }
-    },
-    python: {
-      module: {
-        type: 'input',
-        message: 'Python Module - name of the generated Python module',
-        when: targetEnabled('python'),
-        validate: hasLength
-      },
-      distName: {
-        type: 'input',
-        message: 'Python Distname - PyPI distribution name for the package',
-        when: targetEnabled('python'),
-        validate: hasLength
-      }
-    },
-    dotnet: {
-      namespace: {
-        type: 'input',
-        message: '.NET Namespace - root namespace under which types will be declared',
-        when: targetEnabled('dotnet'),
-        validate: hasLength
-      },
-      packageId: {
-        type: 'input',
-        message: '.NET Package Id - identifier of the package in the NuGet registry',
-        when: targetEnabled('dotnet'),
-        validate: hasLength
-      },
-      iconUrl: {
-        type: 'input',
-        message: '.NET Icon Url - Url of the icon to be shown in the NuGet gallery',
-        when: targetEnabled('dotnet'),
-        validate: hasLength
-      },
-      versionSuffix: {
-        type: 'input',
-        default: '',
-        message: '.NET Version Suffix - optional suffix that will be appended at the end of the NuGet package\'s version field, must begin with a -',
-        when: targetEnabled('dotnet'),
-        filter: filterEmpty
-      },
-      signAssembly: {
-        type: 'confirm',
-        default: false,
-        message: '.NET Sign Assembly - whether the assembly should be strong-name signed. Defaults to false when not specified',
-        when: targetEnabled('dotnet')
-      },
-      assemblyOriginatorKeyFile: {
-        type: 'input',
-        default: '',
-        message: '.NET Assembly Originator Key File - path to the strong-name signing key to be used',
-        when: (answers: any ) => {
-          return targetEnabled('dotnet')(answers) && Boolean(answers.targets.dotnet.signAssembly);
         },
-        validate: hasLength
+        signAssembly: {
+          type: 'confirm',
+          default: false,
+          message: '.NET Sign Assembly - whether the assembly should be strong-name signed. Defaults to false when not specified',
+          when: targetEnabled('dotnet')
+        },
+        assemblyOriginatorKeyFile: {
+          type: 'input',
+          default: '',
+          message: '.NET Assembly Originator Key File - path to the strong-name signing key to be used',
+          when: (answers: any ) => {
+            return targetEnabled('dotnet')(answers) && Boolean(answers.jsii.targets.dotnet.signAssembly);
+          },
+          validate: hasLength
+        }
       }
     }
   }

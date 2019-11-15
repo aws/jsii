@@ -1,22 +1,11 @@
 import { QuestionCollection } from 'inquirer';
-import schema, { ConfigSchema, JsiiConfig } from './schema';
-import { flattenKeys } from './util';
-
-/* 
- * Look for existing nested values in config, return undefined if not found
- */
-function getNestedValue(keys: string[], current: JsiiConfig): any {
-  try {
-    return keys.reduce((val: any, key: string) => val[key], current);
-  } catch (_err) {
-    return undefined;
-  }
-}
+import schema, { ConfigPromptsSchema, BasePackageJson } from './schema';
+import { getNestedValue, flattenKeys } from './util';
 
 /*
  * Get current value of field to be used as default
  */
-function getCurrentValue(name: string, current?: JsiiConfig): any {
+function getCurrentValue(name: string, current: BasePackageJson): any {
   if (current) {
     return getNestedValue(name.split('.'), current);
   }
@@ -28,7 +17,7 @@ function getCurrentValue(name: string, current?: JsiiConfig): any {
  *
  * Pull defaults from current values in package.json or previous answers
  */
-function flattenNestedQuestions(fields: ConfigSchema, current?: JsiiConfig): QuestionCollection[] {
+function flattenNestedQuestions(fields: ConfigPromptsSchema, current: BasePackageJson): QuestionCollection[] {
   return Object.entries(fields).reduce((accum: QuestionCollection[], [name, question]: [string, any]) => {
     if (question.type && question.message) {
       const currentValue = getCurrentValue(name, current) || question.default;
@@ -44,17 +33,17 @@ function flattenNestedQuestions(fields: ConfigSchema, current?: JsiiConfig): Que
   }, []);
 }
 
-function buildQuestions(fields: ConfigSchema, current?: JsiiConfig): QuestionCollection[] {
-  const currentTargets = current && current.targets ? current.targets : {};
+function buildQuestions(schema: ConfigPromptsSchema, current: BasePackageJson): QuestionCollection[] {
+  const currentTargets = getNestedValue(['jsii', 'targets'], current) || {};
   const targetsPrompt: QuestionCollection = {
     name: 'jsiiTargets',
     message: 'Target Languages',
     type: 'checkbox',
-    choices: Object.keys(fields.targets),
+    choices: Object.keys(schema.jsii.targets),
     default: Object.keys(currentTargets)
   };
 
-  return [targetsPrompt, ...flattenNestedQuestions(fields, current)];
+  return [targetsPrompt, ...flattenNestedQuestions(schema, current)];
 }
 
-export default (current?: JsiiConfig) => buildQuestions(schema, current);
+export default (current: BasePackageJson) => buildQuestions(schema, current);

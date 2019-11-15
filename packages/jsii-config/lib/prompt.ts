@@ -1,9 +1,17 @@
 import * as inquirer from 'inquirer';
 import getQuestions from './questions';
-import { JsiiConfig } from './schema';
+import { BasePackageJson, JsiiPackageJson } from './schema';
+import { getNestedValue } from './util';
 
-interface PromptAnswers extends JsiiConfig {
+interface PromptAnswers extends JsiiPackageJson {
   jsiiTargets: string[];
+}
+
+function getPassThroughValues(current: BasePackageJson): object {
+  const metadata = getNestedValue(['jsii', 'metadata'], current);
+  return {
+    ...metadata ? { metadata } : {}
+  };
 }
 
 /*
@@ -11,7 +19,7 @@ interface PromptAnswers extends JsiiConfig {
  *
  * Uses any values already present as defaults for the prompt
  */
-export default async function getAnswers(current?: JsiiConfig): Promise<JsiiConfig> {
+export default async function getAnswers(current: BasePackageJson): Promise<JsiiPackageJson> {
   const answers = await inquirer.prompt(getQuestions(current)) as PromptAnswers;
   const { jsiiTargets: _, ...config } = answers;
   const confirmInput = await inquirer.prompt({
@@ -20,16 +28,12 @@ export default async function getAnswers(current?: JsiiConfig): Promise<JsiiConf
     name: 'confirm'
   });
 
-  // Values that may be present on pre-existing config that are not prompted for
-  const passThroughFields = {
-    ...current && current.metadata ? {
-      metadata: current.metadata
-    }: {}
-  };
-
   const newConfig = {
     ...config,
-    ...passThroughFields
+    jsii: {
+      ...config.jsii,
+      ...getPassThroughValues(current)
+    }
   };
 
   if (confirmInput.confirm) {
