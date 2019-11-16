@@ -96,6 +96,22 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         : new OTree([inner, ';'], [], { canBreakLine: true });
   }
 
+  public ifStatement(node: ts.IfStatement, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [
+        'if (',
+        renderer.convert(node.expression),
+        ') ',
+      ],
+      [
+        renderer.convert(node.thenStatement),
+      ],
+      {
+        canBreakLine: true,
+      },
+    );
+  }
+
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: JavaRenderer) {
     return new OTree([
       'System.out.println(',
