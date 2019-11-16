@@ -3,6 +3,7 @@ import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
 import { builtInTypeName } from '../typescript/types';
+import { isReadOnly, visibility } from '../typescript/ast-utils';
 
 interface JavaContext {
   readonly insideTypeDeclaration?: InsideTypeDeclaration;
@@ -37,6 +38,26 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         indent: 4,
         canBreakLine: true,
         suffix: '\n}',
+      },
+    );
+  }
+
+  public propertyDeclaration(node: ts.PropertyDeclaration, renderer: JavaRenderer): OTree {
+    const vis = visibility(node);
+
+    return new OTree(
+      [
+        vis,
+        isReadOnly(node) ? ' final' : '',
+        ' ',
+        this.renderTypeNode(node.type, renderer),
+        ' ',
+        renderer.convert(node.name),
+        ';',
+      ],
+      [],
+      {
+        canBreakLine: true,
       },
     );
   }
@@ -84,7 +105,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
-    return renderer.convert(node.name);
+    const expressionText = renderer.textOf(node.expression);
+    return new OTree(
+      [
+        ...(expressionText === 'this' ? ['this', '.'] : []),
+        renderer.convert(node.name),
+      ]
+    );
   }
 
   private typeHeritage(node: ts.ClassDeclaration, renderer: JavaRenderer): Array<OTree | string | undefined> {
