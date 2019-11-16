@@ -44,7 +44,7 @@
     "jsii-spec": "^0.20.6",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.1"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.20.6",
