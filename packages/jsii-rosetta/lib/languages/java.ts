@@ -5,7 +5,11 @@ import { OTree } from '../o-tree';
 import { builtInTypeName } from '../typescript/types';
 
 interface JavaContext {
-  readonly dummy?: boolean;
+  readonly insideTypeDeclaration?: InsideTypeDeclaration;
+}
+
+interface InsideTypeDeclaration {
+  readonly typeName: ts.Node | undefined;
 }
 
 type JavaRenderer = AstRenderer<JavaContext>;
@@ -26,7 +30,9 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         ...this.typeHeritage(node, renderer),
         ' {',
       ],
-      renderer.convertAll(node.members),
+      renderer
+        .updateContext({ insideTypeDeclaration: { typeName: node.name } })
+        .convertAll(node.members),
       {
         indent: 4,
         canBreakLine: true,
@@ -35,27 +41,16 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     );
   }
 
-  public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
-    const methodName = renderer.convert(node.name);
-    const returnType = this.renderTypeNode(node.type, renderer);
+  public constructorDeclaration(node: ts.ConstructorDeclaration, renderer: JavaRenderer): OTree {
+    return this.methodOrConstructor(node, renderer,
+        renderer.currentContext.insideTypeDeclaration!.typeName,
+        undefined);
+  }
 
-    return new OTree(
-      [
-        'public ',
-        returnType,
-        ' ',
-        methodName,
-        '(',
-        new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
-        ') ',
-      ],
-      [
-        renderer.convert(node.body)
-      ],
-      {
-        canBreakLine: true
-      },
-    );
+  public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
+    return this.methodOrConstructor(node, renderer,
+        node.name,
+        this.renderTypeNode(node.type, renderer));
   }
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: JavaRenderer): OTree {
@@ -73,11 +68,18 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     });
   }
 
+  public expressionStatement(node: ts.ExpressionStatement, renderer: JavaRenderer): OTree {
+    const inner = renderer.convert(node.expression);
+    return inner.isEmpty
+        ? inner
+        : new OTree([inner, ';'], [], { canBreakLine: true });
+  }
+
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: JavaRenderer) {
     return new OTree([
       'System.out.println(',
-      ...(renderer.convertAll(args)),
-      ');',
+      ...renderer.convertAll(args),
+      ')',
     ]);
   }
 
@@ -122,5 +124,25 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       case 'string': return 'String';
       default: return typeScriptBuiltInType;
     }
+  }
+
+  private methodOrConstructor(node: ts.ConstructorDeclaration | ts.MethodDeclaration, renderer: JavaRenderer,
+                              methodOrConstructorName: ts.Node | undefined, returnType: string | undefined): OTree {
+    return new OTree(
+      [
+        'public ',
+        returnType ? `${returnType} ` : undefined,
+        renderer.convert(methodOrConstructorName),
+        '(',
+        new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
+        ') ',
+      ],
+      [
+        renderer.convert(node.body)
+      ],
+      {
+        canBreakLine: true
+      },
+    );
   }
 }
