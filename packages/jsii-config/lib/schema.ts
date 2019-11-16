@@ -1,3 +1,4 @@
+import { Question, Separator } from 'inquirer';
 import { Config, PackageJson, Stability } from 'jsii-spec';
 
 /*
@@ -14,15 +15,7 @@ export interface BasePackageJson extends Omit<PackageJson, 'jsii' | 'types' | 's
 /*
  * Type of fields used in schema to prompt users.
  */
-interface Field {
-  type: string;
-  message: string;
-  default?: any;
-  choices?: string[];
-  when?: (answers: any) => boolean;
-  validate?: (val: any, answers: any) => boolean | string;
-  filter?: (val: any) => any | void;
-}
+type Field = Omit<Question, 'name'>;
 
 interface NestedField {
   [key: string]: SchemaField;
@@ -85,46 +78,52 @@ const schema: ConfigPromptsSchema = {
   },
   types: {
     type: 'input',
-    message: 'Jsii Type Definitions - compiled typescript definitions file for module (e.g. index.d.ts)',
+    message: 'Jsii Type Definitions - compiled typescript definitions file for module (e.g. "index.d.ts")',
     validate: hasLength
   },
   jsii: {
     outdir: {
       type: 'input',
-      message: 'Output directory for typescript compiler (e.g. dist)',
+      message: 'Output Directory - Location for typescript compiler output (e.g. "dist")',
       default: 'dist',
       validate: hasLength
     },
     versionFormat: {
       type: 'list',
-      message: 'Version format, default is full',
+      message: 'Version Format - determines the format of the jsii toolchain version string that is included in the.jsii assembly file\'s jsiiVersion attribute',
       default: 'full',
-      choices: ['full', 'short']
+      choices: [
+        'full',
+        new Separator('version number including a commit hash (e.g. "0.14.3 will be used"'),
+        new Separator(),
+        'short',
+        new Separator('only the version number of jsii will be used (e.g. "0.14.3"')
+      ]
     },
     targets: {
       java: {
         package: {
           type: 'input',
-          message: 'Java Package - root java package name under which the types will be declared (e.g. software.amazon.module.core)',
+          message: 'Java Package - root java package name under which the types will be declared (e.g. "software.amazon.module.core")',
           when: targetEnabled('java'),
           validate: hasLength
         },
         maven: {
           groupId: {
             type: 'input',
-            message: 'Maven GroupID - package group id (e.g. software.amazon.module)',
+            message: 'Maven GroupID - package group id (e.g. "software.amazon.module")',
             when: targetEnabled('java'),
             validate: hasLength
           },
           artifactId: {
             type: 'input',
-            message: 'Maven ArtifactID - package artifact id (e.g. core)',
+            message: 'Maven ArtifactID - package artifact id (e.g. "core")',
             when: targetEnabled('java'),
             validate: hasLength
           },
           versionSuffix: {
             type: 'input',
-            message: 'Maven Version Suffix - optional suffix appended to the end of the maven package\'s version field (e.g. .DEVPREVIEW)',
+            message: 'Maven Version Suffix - optional suffix appended to the end of the maven package\'s version field (e.g. ".DEVPREVIEW")',
             when: targetEnabled('java'),
             filter: filterEmpty
           }
@@ -133,13 +132,13 @@ const schema: ConfigPromptsSchema = {
       python: {
         distName: {
           type: 'input',
-          message: 'Python Distname - PyPI distribution name for the package (e.g. module-name.core)',
+          message: 'Python Distname - PyPI distribution name for the package (e.g. "module-name.core")',
           when: targetEnabled('python'),
           validate: hasLength
         },
         module: {
           type: 'input',
-          message: 'Python Module - name of the generated Python module (e.g. module_name.core)',
+          message: 'Python Module - name of the generated Python module (e.g. "module_name.core")',
           when: targetEnabled('python'),
           validate: hasLength
         }
@@ -147,26 +146,26 @@ const schema: ConfigPromptsSchema = {
       dotnet: {
         namespace: {
           type: 'input',
-          message: '.NET Namespace - root namespace under which types will be declared (e.g. Amazon.Module)',
+          message: '.NET Namespace - root namespace under which types will be declared (e.g. "Amazon.Module")',
           when: targetEnabled('dotnet'),
           validate: hasLength
         },
         packageId: {
           type: 'input',
-          message: '.NET Package Id - identifier of the package in the NuGet registry (e.g. Amazon.Module)',
+          message: '.NET Package Id - identifier of the package in the NuGet registry (e.g. "Amazon.Module")',
           when: targetEnabled('dotnet'),
           validate: hasLength
         },
         iconUrl: {
           type: 'input',
-          message: '.NET Icon Url - optional url of the icon to be shown in the NuGet gallery (e.g. https://raw.githubusercontent.com/module-icon.png)',
+          message: '.NET Icon Url - optional url of the icon to be shown in the NuGet gallery (e.g. "https://raw.githubusercontent.com/module-icon.png")',
           when: targetEnabled('dotnet'),
           filter: filterEmpty
         },
         versionSuffix: {
           type: 'input',
           default: '',
-          message: '.NET Version Suffix - optional suffix that will be appended at the end of the NuGet package\'s version field, must begin with a "-" (e.g. -devpreview)',
+          message: '.NET Version Suffix - optional suffix that will be appended at the end of the NuGet package\'s version field, must begin with a "-" (e.g. "-devpreview")',
           when: targetEnabled('dotnet'),
           validate: (val: string): true | string => {
             const hasLengthResult = hasLength(val);
@@ -189,7 +188,7 @@ const schema: ConfigPromptsSchema = {
         assemblyOriginatorKeyFile: {
           type: 'input',
           default: '',
-          message: '.NET Assembly Originator Key File - path to the strong-name signing key to be used (e.g. ../../key.snk)',
+          message: '.NET Assembly Originator Key File - path to the strong-name signing key to be used (e.g. "../../key.snk")',
           when: (answers: any ) => {
             return targetEnabled('dotnet')(answers) && Boolean(answers.jsii.targets.dotnet.signAssembly);
           },

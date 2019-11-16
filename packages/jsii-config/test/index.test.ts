@@ -120,7 +120,8 @@ describe('jsii-config', () => {
       expect(outdir).toHaveProperty('default', 'dist');
 
       expect(versionFormat).toHaveProperty('type', 'list');
-      expect(versionFormat).toHaveProperty('choices', ['full', 'short']);
+      expect(versionFormat.choices).toContain('full');
+      expect(versionFormat.choices).toContain('short');
 
       expect(targets).toHaveProperty('type', 'checkbox');
       expect(targets).toHaveProperty('choices', ['java', 'python', 'dotnet']);
