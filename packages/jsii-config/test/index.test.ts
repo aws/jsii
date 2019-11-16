@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as inquirer from 'inquirer';
-import buildQuestions from '../lib/questions';
 import jsiiConfig from '../lib';
 import { packageJsonObject, findQuestions, findQuestion } from './util';
 
@@ -409,41 +408,6 @@ describe('jsii-config', () => {
 
         expect(subject).toHaveProperty('default', defaultVal);
       });
-    });
-  });
-
-  describe('snapshots', () => {
-    it('builds prompt questions with no current jsii config', () => {
-      const subject = buildQuestions(packageJsonObject);
-      expect(subject).toMatchSnapshot();
-    });
-
-    it('builds prompt questions with current config values as defaults', () => {
-      const subject = buildQuestions({
-        ...packageJsonObject,
-        jsii: {
-          outdir: 'dist',
-          targets: {
-            java: {
-              package: 'software.amazon.jsii.tests.calculator.base',
-              maven: {
-                groupId: 'software.amazon.jsii.tests',
-                artifactId: 'calculator-base'
-              }
-            },
-            dotnet: {
-              namespace: 'Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace',
-              packageId: 'Amazon.JSII.Tests.CalculatorPackageId.BasePackageId'
-            },
-            python: {
-              distName: 'scope.jsii-calc-base',
-              module: 'scope.jsii_calc_base'
-            }
-          },
-          versionFormat: 'short'
-        }
-      });
-      expect(subject).toMatchSnapshot();
     });
   });
 });
