@@ -97,7 +97,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public ifStatement(node: ts.IfStatement, renderer: JavaRenderer): OTree {
-    return new OTree(
+    const ifStmt = new OTree(
       [
         'if (',
         renderer.convert(node.expression),
@@ -110,6 +110,20 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         canBreakLine: true,
       },
     );
+    const elseStmt = node.elseStatement
+        ? new OTree(['else '], [renderer.convert(node.elseStatement)], { canBreakLine: true })
+        : undefined;
+
+    return elseStmt
+        ? new OTree(
+          [],
+          [ifStmt, elseStmt],
+          {
+            separator: ' ',
+            canBreakLine: true,
+          },
+        )
+        : ifStmt;
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: JavaRenderer) {
