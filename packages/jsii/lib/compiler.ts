@@ -20,7 +20,7 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
   module: ts.ModuleKind.CommonJS,
   noEmitOnError: true,
   noFallthroughCasesInSwitch: true,
-  noImplicitAny: true,
+  noImplicitAny: false, // temporarily "false" until we upgrade typescript in order to solve #994
   noImplicitReturns: true,
   noImplicitThis: true,
   noUnusedLocals: true,
