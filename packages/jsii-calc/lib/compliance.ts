@@ -2338,8 +2338,60 @@ export class ObjectWithPropertyProvider {
  * @see https://github.com/aws/aws-cdk/issues/5066
  */
 export class JsonFormatter {
-    public static stringify(value: any): string {
+    public static stringify(value?: any): string | undefined {
         return JSON.stringify(value, null, 2);
+    }
+
+    public static anyNull(): any {
+        return null;
+    }
+
+    public static anyUndefined(): any {
+        return undefined;
+    }
+
+    public static anyFunction(): any {
+        return () => 'boom';
+    }
+
+    public static anyDate(): any { 
+        return new Date('2019-11-18T13:01:20.515Z');
+    }
+    
+    public static anyNumber(): any {
+        return 123;
+    }
+
+    public static anyZero(): any {
+        return 0;
+    }
+
+    public static anyString(): any {
+        return 'foo';
+    }
+
+    public static anyEmptyString(): any {
+        return '';
+    }
+
+    public static anyBooleanTrue(): any {
+        return true;
+    }
+
+    public static anyBooleanFalse(): any {
+        return false;
+    }
+
+    public static anyArray(): any {
+        return [ 1, 2, 3, new Number(123), { foo: 'bar' } ];
+    }
+
+    public static anyHash(): any {
+        return { hello: 1234, world: new Number(122) };
+    }
+
+    public static anyRef(): any {
+        return new Number(444);
     }
 
     private constructor() { }
