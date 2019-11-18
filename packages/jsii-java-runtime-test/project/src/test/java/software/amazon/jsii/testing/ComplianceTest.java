@@ -1566,16 +1566,6 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canObtainReferenceWithOverloadedSetter() {
-        assertNotNull(ConfusingToJackson.makeInstance());
-    }
-
-    @Test
-    public void canObtainStructReferenceWithOverloadedSetter() {
-        assertNotNull(ConfusingToJackson.makeStructInstance());
-    }
-
-    @Test
     public void canUseInterfaceSetters() {
         final IObjectWithProperty obj = ObjectWithPropertyProvider.provide();
         obj.setProperty("New Value");

@@ -41,8 +41,6 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ClassWithJavaReservedWords": return software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords.class;
             case "jsii-calc.ClassWithMutableObjectLiteralProperty": return software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty.class;
             case "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": return software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class;
-            case "jsii-calc.ConfusingToJackson": return software.amazon.jsii.tests.calculator.ConfusingToJackson.class;
-            case "jsii-calc.ConfusingToJacksonStruct": return software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct.class;
             case "jsii-calc.ConstructorPassesThisOut": return software.amazon.jsii.tests.calculator.ConstructorPassesThisOut.class;
             case "jsii-calc.Constructors": return software.amazon.jsii.tests.calculator.Constructors.class;
             case "jsii-calc.ConsumerCanRingBell": return software.amazon.jsii.tests.calculator.ConsumerCanRingBell.class;
