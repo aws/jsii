@@ -2,7 +2,7 @@ import ts = require('typescript');
 import { DefaultVisitor } from './default';
 import { AstRenderer, nimpl } from '../renderer';
 import { OTree, NO_SYNTAX } from '../o-tree';
-import { getNonUndefinedTypeFromUnion, builtInTypeName, typeContainsUndefined, parameterAcceptsUndefined, mapElementType, inferMapElementType } from '../typescript/types';
+import { typeWithoutUndefinedUnion, builtInTypeName, typeContainsUndefined, parameterAcceptsUndefined, mapElementType, inferMapElementType } from '../typescript/types';
 import { flat, partition, setExtend } from '../util';
 import { matchAst, nodeOfType, quoteStringLiteral, visibility, isReadOnly, findSuperCall, privatePropertyNames } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
@@ -461,7 +461,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       return fallback;
     }
 
-    const nonUnionType = getNonUndefinedTypeFromUnion(type);
+    const nonUnionType = typeWithoutUndefinedUnion(type);
     if (!nonUnionType) {
       renderer.report(typeNode, 'Type unions in examples are not supported');
       return '...';

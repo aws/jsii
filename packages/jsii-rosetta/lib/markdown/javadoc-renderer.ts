@@ -26,7 +26,7 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `<a href="${node.destination || ''}>${context.content()}</a>`;
+    return `<a href="${node.destination || ''}">${context.content()}</a>`;
   }
 
   public document(_node: cm.Node, context: RendererContext) {

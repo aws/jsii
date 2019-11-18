@@ -106,34 +106,13 @@ export class DotNetDocGenerator {
 
     // All the "tags" need to be rendered with empyt lines between them or they'll be word wrapped.
 
-    if (docs.default) {
-      const ls = docs.default.split('\n');
-      ret.push(`default: ${ls[0]}`);
-      ret.push(...ls.slice(1));
-      ret.push('');
-    }
-
-    if (docs.stability) {
-      ret.push(`stability: ${this.nameutils.capitalizeWord(docs.stability)}`);
-      ret.push('');
-    }
-
-    if (docs.see) {
-      const ls = docs.see.split('\n');
-      ret.push(`see: ${ls[0]}`);
-      ret.push(...ls.slice(1));
-      ret.push('');
-    }
-
-    if (docs.subclassable) {
-      ret.push('subclassable');
-      ret.push('');
-    }
-
+    if (docs.default) { emitDocAttribute('default', docs.default); }
+    if (docs.stability) { emitDocAttribute('stability', this.nameutils.capitalizeWord(docs.stability)); }
+    if (docs.see) { emitDocAttribute('see', docs.see); }
+    if (docs.subclassable) { emitDocAttribute('subclassable', ''); }
     for (const [k, v] of Object.entries(docs.custom || {})) {
-      const custom = k === 'link' ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
-      ret.push(...custom.split('\n'));
-      ret.push('');
+      const extraSpace = k === 'link' ? ' ' : ''; // Extra space for '@link' to keep unit tests happy
+      emitDocAttribute(k, v + extraSpace);
     }
 
     // Remove leading and trailing empty lines
@@ -141,6 +120,13 @@ export class DotNetDocGenerator {
     while (ret.length > 0 && ret[ret.length - 1] === '') { ret.pop(); }
 
     return ret;
+
+    function emitDocAttribute(name: string, contents: string) {
+      const ls = contents.split('\n');
+      ret.push(`<strong>${ucFirst(name)}</strong>: ${ls[0]}`);
+      ret.push(...ls.slice(1));
+      ret.push('');
+    }
   }
 
   private convertExample(example: string): string {
@@ -173,4 +159,11 @@ export class DotNetDocGenerator {
     }
     return translated.source;
   }
+}
+
+/**
+ * Uppercase the first letter
+ */
+function ucFirst(x: string) {
+  return x.substr(0, 1).toUpperCase() + x.substr(1);
 }

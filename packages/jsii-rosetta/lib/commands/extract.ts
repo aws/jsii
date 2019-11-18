@@ -7,27 +7,39 @@ import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { Translator } from '../translate';
 import { TypeScriptSnippet } from '../snippet';
 import { divideEvenly } from '../util';
+import { snippetKey } from '../tablets/key';
 
 export interface ExtractResult {
   diagnostics: ts.Diagnostic[];
   tablet: LanguageTablet;
 }
 
+export interface ExtractOptions {
+  outputFile: string;
+  includeCompilerDiagnostics: boolean;
+  only?: string[];
+}
+
 /**
  * Extract all samples from the given assemblies into a tablet
  */
-export async function extractSnippets(assemblyLocations: string[], outputFile: string, includeCompilerDiagnostics: boolean): Promise<ExtractResult> {
+export async function extractSnippets(assemblyLocations: string[], options: ExtractOptions): Promise<ExtractResult> {
+  const only = options.only || [];
+
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(assemblyLocations);
 
-  const snippets = allTypeScriptSnippets(assemblies);
+  let snippets = allTypeScriptSnippets(assemblies);
+  if (only.length > 0) {
+    snippets = filterSnippets(snippets, only);
+  }
 
   const tablet = new LanguageTablet();
 
   logging.info(`Translating`);
   const startTime = Date.now();
 
-  const result = await translateAll(snippets, includeCompilerDiagnostics);
+  const result = await translateAll(snippets, options.includeCompilerDiagnostics);
 
   for (const snippet of result.translatedSnippets) {
     tablet.addSnippet(snippet);
@@ -35,8 +47,8 @@ export async function extractSnippets(assemblyLocations: string[], outputFile: s
 
   const delta =  (Date.now() - startTime) / 1000;
   logging.info(`Converted ${tablet.count} snippets in ${delta} seconds (${(delta / tablet.count).toPrecision(3)}s/snippet)`);
-  logging.info(`Saving language tablet to ${outputFile}`);
-  await tablet.save(outputFile);
+  logging.info(`Saving language tablet to ${options.outputFile}`);
+  await tablet.save(options.outputFile);
 
   return { diagnostics: result.diagnostics, tablet };
 }
@@ -44,6 +56,17 @@ export async function extractSnippets(assemblyLocations: string[], outputFile: s
 interface TranslateAllResult {
   translatedSnippets: TranslatedSnippet[];
   diagnostics: ts.Diagnostic[];
+}
+
+/**
+ * Only yield the snippets whose id exists in a whitelist
+ */
+function* filterSnippets(ts: IterableIterator<TypeScriptSnippet>, includeIds: string[]) {
+  for (const t of ts) {
+    if (includeIds.includes(snippetKey(t))) {
+      yield t;
+    }
+  }
 }
 
 /**

@@ -4,8 +4,8 @@ import { AstRenderer } from '../renderer';
 /**
  * Return the OTHER type from undefined from a union, returns undefined if there is more than one
  */
-export function getNonUndefinedTypeFromUnion(type: ts.Type): ts.Type | undefined {
-  if (!type.isUnion()) { return type; }
+export function typeWithoutUndefinedUnion(type: ts.Type | undefined): ts.Type | undefined {
+  if (!type || !type.isUnion()) { return type; }
   const remaining = type.types.filter(t => t.flags !== ts.TypeFlags.Undefined);
   if (remaining.length > 1) { return undefined; }
   return remaining[0];
