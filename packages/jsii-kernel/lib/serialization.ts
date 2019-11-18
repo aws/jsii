@@ -527,7 +527,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       if (isWireStruct(value)) {
         const { fqn, data } = value[TOKEN_STRUCT];
         host.debug(`ANY is a struct of type ${fqn}`);
-        return SERIALIZERS[SerializationClass.Any].deserialize(data, _type, host);
+        return SERIALIZERS[SerializationClass.Struct].deserialize(data, { type: { fqn } }, host);
       }
 
       // At this point again, deserialize by-value.
