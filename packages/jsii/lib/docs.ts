@@ -152,6 +152,11 @@ export interface DocsParsingResult {
 
 /**
  * Split the doc comment into summary and remarks
+ *
+ * Normally, we'd expect people to split into a summary line and detail lines using paragraph
+ * markers. However, a LOT of people do not do this, and just paste a giant comment block into
+ * the docstring. If we detect that situation, we will try and extract the first sentence (using
+ * a period) as the summary.
  */
 export function splitSummary(docBlock: string | undefined): [string | undefined, string | undefined] {
   if (!docBlock) { return [undefined, undefined]; }
@@ -201,7 +206,7 @@ function summaryLine(str: string) {
 
 const PUNCTUATION = ['!', '?', '.', ';'].map(s => `\\${s}`).join('');
 const ENDS_WITH_PUNCTUATION_REGEX = new RegExp(`[${PUNCTUATION}]$`);
-const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+[${PUNCTUATION}] )`); // literal space at the end
+const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+[${PUNCTUATION}][ \n\r])`); // Needs a whitespace after the punctuation.
 
 function intBool(x: boolean): number {
   return x ? 1 : 0;
