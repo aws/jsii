@@ -7,9 +7,9 @@ namespace Amazon.JSII.Runtime.Deputy
     {
         public JsiiByValueAttribute(string fqn)
         {
-            Fqn = fqn ?? throw new ArgumentNullException(nameof(fqn));
+            FullyQualifiedName = fqn ?? throw new ArgumentNullException(nameof(fqn));
         }
         
-        public string Fqn { get; } 
+        public string FullyQualifiedName { get; } 
     }
 }

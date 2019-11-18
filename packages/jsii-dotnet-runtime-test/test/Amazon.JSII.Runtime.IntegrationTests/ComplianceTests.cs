@@ -1297,5 +1297,18 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.Property = "New Value";
             Assert.True(obj.WasSet());
         }
+
+        [Fact(DisplayName = Prefix + nameof(StructsAreUndecoratedOntheWayToKernel))]
+        public void StructsAreUndecoratedOntheWayToKernel()
+        {
+            var json = JsonFormatter.Stringify(new StructB {RequiredString = "Bazinga!", OptionalBoolean = false});
+            var actual = JObject.Parse(json);
+            
+            var expected = new JObject();
+            expected.Add("RequiredString", "Bazinga!");
+            expected.Add("OptionalBoolean", false);
+
+            Assert.Equal(expected, actual);
+        }
     }
 }

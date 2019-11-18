@@ -6826,6 +6826,257 @@
         }
       ]
     },
+    "jsii-calc.JsonFormatter": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/aws-cdk/issues/5066",
+        "stability": "experimental",
+        "summary": "Make sure structs are un-decorated on the way in."
+      },
+      "fqn": "jsii-calc.JsonFormatter",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2340
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2385
+          },
+          "name": "anyArray",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2381
+          },
+          "name": "anyBooleanFalse",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2377
+          },
+          "name": "anyBooleanTrue",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2357
+          },
+          "name": "anyDate",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2373
+          },
+          "name": "anyEmptyString",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2353
+          },
+          "name": "anyFunction",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2389
+          },
+          "name": "anyHash",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2345
+          },
+          "name": "anyNull",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2361
+          },
+          "name": "anyNumber",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2393
+          },
+          "name": "anyRef",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2369
+          },
+          "name": "anyString",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2349
+          },
+          "name": "anyUndefined",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2365
+          },
+          "name": "anyZero",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2341
+          },
+          "name": "stringify",
+          "parameters": [
+            {
+              "name": "value",
+              "optional": true,
+              "type": {
+                "primitive": "any"
+              }
+            }
+          ],
+          "returns": {
+            "optional": true,
+            "type": {
+              "primitive": "string"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "JsonFormatter"
+    },
     "jsii-calc.LoadBalancedFargateServiceProps": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -11413,5 +11664,5 @@
     }
   },
   "version": "0.20.6",
-  "fingerprint": "veHd1Q/376CoMR3O/DjjAiH9aVD/jcwnPEg88barg9I="
+  "fingerprint": "xRnF3HrD87xlfIYG262JFu5WEdrC0eQelRBEzyQyARo="
 }

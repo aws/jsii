@@ -73,6 +73,7 @@ Array [
   "Jsii487Derived",
   "Jsii496Derived",
   "JsiiAgent",
+  "JsonFormatter",
   "Multiply",
   "Negate",
   "NodeStandardLibrary",
