@@ -1218,6 +1218,13 @@ defineTest('correctly deserializes struct unions', (sandbox) => {
   }
 });
 
+defineTest('structs are undecorated on the way to kernel', sandbox => {
+  const input = { '$jsii.struct': { 'fqn': 'jsii-calc.StructB', 'data': { 'requiredString': 'Bazinga!', 'optionalBoolean': false } } };
+  const ret = sandbox.sinvoke({ fqn: 'jsii-calc.JsonFormatter', method: 'stringify', args: [input] });
+  const json = JSON.parse(ret.result);
+  expect(json).toStrictEqual({ 'requiredString': 'Bazinga!', 'optionalBoolean': false });
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };

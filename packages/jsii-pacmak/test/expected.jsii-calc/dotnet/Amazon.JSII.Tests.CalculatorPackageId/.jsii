@@ -6826,6 +6826,47 @@
         }
       ]
     },
+    "jsii-calc.JsonFormatter": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/aws-cdk/issues/5066",
+        "stability": "experimental",
+        "summary": "Make sure structs are un-decorated on the way in."
+      },
+      "fqn": "jsii-calc.JsonFormatter",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2340
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2341
+          },
+          "name": "stringify",
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "primitive": "any"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "JsonFormatter"
+    },
     "jsii-calc.LoadBalancedFargateServiceProps": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -11413,5 +11454,5 @@
     }
   },
   "version": "0.20.6",
-  "fingerprint": "veHd1Q/376CoMR3O/DjjAiH9aVD/jcwnPEg88barg9I="
+  "fingerprint": "xXC7/htdFP0Ns+aNf856G/K6PBPRJjPlsg5KtO3bEXY="
 }

@@ -130,6 +130,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.Jsii487Derived": return software.amazon.jsii.tests.calculator.Jsii487Derived.class;
             case "jsii-calc.Jsii496Derived": return software.amazon.jsii.tests.calculator.Jsii496Derived.class;
             case "jsii-calc.JsiiAgent": return software.amazon.jsii.tests.calculator.JsiiAgent.class;
+            case "jsii-calc.JsonFormatter": return software.amazon.jsii.tests.calculator.JsonFormatter.class;
             case "jsii-calc.LoadBalancedFargateServiceProps": return software.amazon.jsii.tests.calculator.LoadBalancedFargateServiceProps.class;
             case "jsii-calc.Multiply": return software.amazon.jsii.tests.calculator.Multiply.class;
             case "jsii-calc.Negate": return software.amazon.jsii.tests.calculator.Negate.class;

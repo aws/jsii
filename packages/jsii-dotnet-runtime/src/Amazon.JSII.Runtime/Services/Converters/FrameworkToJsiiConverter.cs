@@ -72,7 +72,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 }
 
                 var structInfo = new JObject();
-                structInfo.Add(new JProperty("fqn", byValueAttribute.Fqn));
+                structInfo.Add(new JProperty("fqn", byValueAttribute.FullyQualifiedName));
                 structInfo.Add(new JProperty("data", data));
                 
                 var resultObject = new JObject();
@@ -351,6 +351,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
             if (enumAttribute != null)
             {
                 return new TypeReference(enumAttribute.FullyQualifiedName);
+            }
+
+            JsiiByValueAttribute structAttribute = type.GetCustomAttribute<JsiiByValueAttribute>();
+            if (structAttribute != null)
+            {
+                return new TypeReference(structAttribute.FullyQualifiedName);
             }
 
             if (typeof(string).IsAssignableFrom(type))

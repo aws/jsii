@@ -2331,3 +2331,16 @@ export class ObjectWithPropertyProvider {
 
     private constructor() { }
 }
+
+/**
+ * Make sure structs are un-decorated on the way in.
+ *
+ * @see https://github.com/aws/aws-cdk/issues/5066
+ */
+export class JsonFormatter {
+    public static stringify(value: any): string {
+        return JSON.stringify(value, null, 2);
+    }
+
+    private constructor() { }
+}

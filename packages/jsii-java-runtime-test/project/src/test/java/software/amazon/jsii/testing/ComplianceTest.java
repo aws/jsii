@@ -1,5 +1,6 @@
 package software.amazon.jsii.testing;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.Test;
@@ -1579,5 +1580,18 @@ public class ComplianceTest {
         final IObjectWithProperty obj = ObjectWithPropertyProvider.provide();
         obj.setProperty("New Value");
         assertTrue(obj.wasSet());
+    }
+
+    @Test
+    public void structsAreUndecoratedOntheWayToKernel() throws IOException {
+        final ObjectMapper om = new ObjectMapper();
+        final String json = JsonFormatter.stringify(StructB.builder().requiredString("Bazinga!").optionalBoolean(false).build());
+        final JsonNode actual = om.readTree(json);
+
+        final ObjectNode expected = om.createObjectNode();
+        expected.put("requiredString", "Bazinga!");
+        expected.put("optionalBoolean", Boolean.FALSE);
+
+        assertEquals(expected, actual);
     }
 }

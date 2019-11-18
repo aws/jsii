@@ -27,7 +27,7 @@
  */
 
 import * as spec from 'jsii-spec';
-import { isObjRef, isWireDate, isWireEnum, isWireMap, ObjRef, TOKEN_DATE, TOKEN_ENUM, TOKEN_MAP, WireDate, WireEnum } from './api';
+import { isObjRef, isWireDate, isWireEnum, isWireMap, ObjRef, TOKEN_DATE, TOKEN_ENUM, TOKEN_MAP, WireDate, WireEnum, isWireStruct, TOKEN_STRUCT } from './api';
 import { jsiiTypeFqn, objectReference, ObjectTable } from './objects';
 import { api } from '.';
 
@@ -519,6 +519,15 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       if (isObjRef(value)) {
         host.debug('ANY is a Ref');
         return host.objects.findObject(value).instance;
+      }
+    
+      // if the value has a struct token, it was serialized by a typed jsii
+      // struct, but since the deserialization target is ANY, all we can do is
+      // strip the data from $jsii.struct and continue to deserialize as ANY.
+      if (isWireStruct(value)) {
+        const { fqn, data } = value[TOKEN_STRUCT];
+        host.debug(`ANY is a struct of type ${fqn}`);
+        return SERIALIZERS[SerializationClass.Any].deserialize(data, _type, host);
       }
 
       // At this point again, deserialize by-value.
