@@ -1,6 +1,6 @@
 {
   "name": "codemaker",
-  "version": "0.20.6",
+  "version": "0.20.7",
   "description": "A tiny utility for generating source code",
   "license": "Apache-2.0",
   "author": {
