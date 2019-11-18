@@ -1231,7 +1231,7 @@ defineTest('ANY deserializer: primitives', sandbox => {
 });
 
 defineTest('ANY deserializer: array', sandbox => {
-  expect(deserializeAny(sandbox, [ 1, 2, 3, 'four' ])).toStrictEqual([ 1, 2, 3, 'four' ]);
+  expect(deserializeAny(sandbox, [1, 2, 3, 'four'])).toStrictEqual([1, 2, 3, 'four']);
 });
 
 defineTest('ANY deserializer: undefined/null', sandbox => {
@@ -1324,7 +1324,7 @@ defineTest('ANY serializer: ref', sandbox => {
     '$jsii.byref': '@scope/jsii-calc-lib.Number@10000',
     '$jsii.interfaces': undefined
   });
-})
+});
 
 // =================================================================================================
 
@@ -1466,7 +1466,7 @@ function get(kernel: Kernel, objref: ObjRef) {
  * stringified version that the JavaScript code saw.
  */
 function deserializeAny(sandbox: Kernel, input: any) {
-  const ret = sandbox.sinvoke({ fqn: 'jsii-calc.JsonFormatter', method: 'stringify', args: [ input ] });
+  const ret = sandbox.sinvoke({ fqn: 'jsii-calc.JsonFormatter', method: 'stringify', args: [input] });
   if (ret.result === undefined) { return undefined; }
   const json = JSON.parse(ret.result);
   return json;
