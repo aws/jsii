@@ -4958,9 +4958,126 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     stability
     :stability: experimental
     """
+    @jsii.member(jsii_name="anyArray")
+    @classmethod
+    def any_array(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyArray", [])
+
+    @jsii.member(jsii_name="anyBooleanFalse")
+    @classmethod
+    def any_boolean_false(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyBooleanFalse", [])
+
+    @jsii.member(jsii_name="anyBooleanTrue")
+    @classmethod
+    def any_boolean_true(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyBooleanTrue", [])
+
+    @jsii.member(jsii_name="anyDate")
+    @classmethod
+    def any_date(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyDate", [])
+
+    @jsii.member(jsii_name="anyEmptyString")
+    @classmethod
+    def any_empty_string(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyEmptyString", [])
+
+    @jsii.member(jsii_name="anyFunction")
+    @classmethod
+    def any_function(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyFunction", [])
+
+    @jsii.member(jsii_name="anyHash")
+    @classmethod
+    def any_hash(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyHash", [])
+
+    @jsii.member(jsii_name="anyNull")
+    @classmethod
+    def any_null(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyNull", [])
+
+    @jsii.member(jsii_name="anyNumber")
+    @classmethod
+    def any_number(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyNumber", [])
+
+    @jsii.member(jsii_name="anyRef")
+    @classmethod
+    def any_ref(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyRef", [])
+
+    @jsii.member(jsii_name="anyString")
+    @classmethod
+    def any_string(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyString", [])
+
+    @jsii.member(jsii_name="anyUndefined")
+    @classmethod
+    def any_undefined(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyUndefined", [])
+
+    @jsii.member(jsii_name="anyZero")
+    @classmethod
+    def any_zero(cls) -> typing.Any:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "anyZero", [])
+
     @jsii.member(jsii_name="stringify")
     @classmethod
-    def stringify(cls, value: typing.Any) -> str:
+    def stringify(cls, value: typing.Any=None) -> typing.Optional[str]:
         """
         :param value: -
 
