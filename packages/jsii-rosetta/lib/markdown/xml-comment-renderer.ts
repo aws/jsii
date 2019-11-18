@@ -1,6 +1,6 @@
 import cm = require('commonmark');
 import { prefixLines, RendererContext } from './markdown';
-import { MarkdownRenderer, collapsePara, para } from './markdown-renderer';
+import { MarkdownRenderer, collapsePara, para, stripPara } from './markdown-renderer';
 
 /**
  * A renderer that will render a CommonMark tree to .NET XML comments
@@ -10,7 +10,7 @@ import { MarkdownRenderer, collapsePara, para } from './markdown-renderer';
  */
 export class CSharpXmlCommentRenderer extends MarkdownRenderer {
   public block_quote(_node: cm.Node, context: RendererContext) {
-    return para(prefixLines('    ', collapsePara(context.content())));
+    return para(prefixLines('    ', stripPara(context.content())));
   }
 
   public code(node: cm.Node, _context: RendererContext) {
@@ -27,6 +27,28 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
 
   public link(node: cm.Node, context: RendererContext) {
     return `${context.content()} (${node.destination || ''})`;
+  }
+
+  public emph(_node: cm.Node, context: RendererContext) {
+    return `<em>${context.content()}</em>`;
+  }
+
+  public strong(_node: cm.Node, context: RendererContext) {
+    return `<strong>${context.content()}</strong>`;
+  }
+
+  public heading(node: cm.Node, context: RendererContext) {
+    return para(`<h${node.level}>${context.content()}</h${node.level}>`);
+  }
+
+  public list(node: cm.Node, context: RendererContext) {
+    const listType = node.listType === 'bullet' ? 'bullet' : 'number';
+
+    return para(`<list type="${listType}">\n${context.content()}</list>`);
+  }
+
+  public item(_node: cm.Node, context: RendererContext) {
+    return `<description>${stripPara(context.content())}</description>\n`;
   }
 }
 

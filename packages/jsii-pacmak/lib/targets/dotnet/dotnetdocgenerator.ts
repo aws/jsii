@@ -104,31 +104,39 @@ export class DotNetDocGenerator {
       ret.push('');
     }
 
+    // All the "tags" need to be rendered with empyt lines between them or they'll be word wrapped.
+
     if (docs.default) {
       const ls = docs.default.split('\n');
       ret.push(`default: ${ls[0]}`);
       ret.push(...ls.slice(1));
+      ret.push('');
     }
 
     if (docs.stability) {
       ret.push(`stability: ${this.nameutils.capitalizeWord(docs.stability)}`);
+      ret.push('');
     }
 
     if (docs.see) {
       const ls = docs.see.split('\n');
       ret.push(`see: ${ls[0]}`);
       ret.push(...ls.slice(1));
+      ret.push('');
     }
 
     if (docs.subclassable) {
       ret.push('subclassable');
+      ret.push('');
     }
 
     for (const [k, v] of Object.entries(docs.custom || {})) {
       const custom = k === 'link' ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
       ret.push(...custom.split('\n'));
+      ret.push('');
     }
 
+    // Remove leading and trailing empty lines
     while (ret.length > 0 && ret[0] === '') { ret.shift(); }
     while (ret.length > 0 && ret[ret.length - 1] === '') { ret.pop(); }
 

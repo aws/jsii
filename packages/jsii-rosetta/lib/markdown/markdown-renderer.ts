@@ -54,8 +54,7 @@ export class MarkdownRenderer implements CommonMarkRenderer {
   }
 
   public document(_node: cm.Node, context: RendererContext) {
-    // Remove trailing whitespace on every line
-    return collapsePara(context.content()).replace(/[ \t]+$/gm, '');
+    return stripTrailingWhitespace(collapsePara(context.content()));
   }
 
   public paragraph(_node: cm.Node, context: RendererContext) {
@@ -124,9 +123,20 @@ export function collapsePara(x: string, brk: string = '\n\n') {
   return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '').replace(/\u001d+/g, brk);
 }
 
+/**
+ * Strip paragraph markers from start and end
+ */
+export function stripPara(x: string) {
+  return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '');
+}
+
 function determineItemPrefix(listNode: cm.Node, index: number) {
   if (listNode.listType === 'bullet') {
     return '* ';
   }
   return `${index}${listNode.listDelimiter} `;
+}
+
+export function stripTrailingWhitespace(x: string) {
+  return x.replace(/[ \t]+$/gm, '');
 }

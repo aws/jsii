@@ -1,6 +1,6 @@
 import cm = require('commonmark');
-import { prefixLines, RendererContext } from './markdown';
-import { MarkdownRenderer, collapsePara, para } from './markdown-renderer';
+import { RendererContext } from './markdown';
+import { MarkdownRenderer, collapsePara, para, stripTrailingWhitespace, stripPara } from './markdown-renderer';
 
 /**
  * A renderer that will render a CommonMark tree to JavaDoc comments
@@ -10,7 +10,7 @@ import { MarkdownRenderer, collapsePara, para } from './markdown-renderer';
  */
 export class JavaDocRenderer extends MarkdownRenderer {
   public block_quote(_node: cm.Node, context: RendererContext) {
-    return para(prefixLines('    ', collapsePara(context.content())));
+    return `<blockquote>${context.content()}</blockquote>`;
   }
 
   public code(node: cm.Node, _context: RendererContext) {
@@ -26,12 +26,11 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `${context.content()} {@link ${node.destination || ''}}`;
+    return `<a href="${node.destination || ''}>${context.content()}</a>`;
   }
 
   public document(_node: cm.Node, context: RendererContext) {
-    // Remove trailing whitespace on every line, then replace empty lines with <p>
-    return collapsePara(context.content()).replace(/[ \t]+$/gm, '').replace(/\n\n+/g, '\n<p>\n');
+    return stripTrailingWhitespace(collapseParaJava(context.content()));
   }
 
   public heading(node: cm.Node, context: RendererContext) {
@@ -41,11 +40,23 @@ export class JavaDocRenderer extends MarkdownRenderer {
   public list(node: cm.Node, context: RendererContext) {
     const tag = node.listType === 'bullet' ? 'ul': 'ol';
 
-    return para(`<${tag}>\n${context.content()}\n</${tag}>`);
+    return para(`<${tag}>\n${context.content()}</${tag}>`);
   }
 
   public item(_node: cm.Node, context: RendererContext) {
-    return collapsePara(`<li>${collapsePara(context.content())}</li>\n`);
+    return `<li>${stripPara(context.content())}</li>\n`;
+  }
+
+  public image(node: cm.Node, context: RendererContext) {
+    return `<img alt="${context.content()}" src="${node.destination || ''}">`;
+  }
+
+  public emph(_node: cm.Node, context: RendererContext) {
+    return `<em>${context.content()}</em>`;
+  }
+
+  public strong(_node: cm.Node, context: RendererContext) {
+    return `<strong>${context.content()}</strong>`;
   }
 }
 
@@ -53,3 +64,6 @@ function escapeAngleBrackets(x: string | null): string {
   return x ? x.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
 }
 
+function collapseParaJava(x: string) {
+  return collapsePara(x, '\n<p>\n');
+}
