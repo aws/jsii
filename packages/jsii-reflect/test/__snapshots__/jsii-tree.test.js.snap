@@ -858,6 +858,53 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: Optional<string>
+ │   ├─┬ class JsonFormatter (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ static anyArray() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyBooleanFalse() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyBooleanTrue() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyDate() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyEmptyString() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyFunction() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyHash() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyNull() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyNumber() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyRef() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyString() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyUndefined() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyZero() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   └─┬ static stringify(value) method (experimental)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ value
+ │   │     │   └── type: any
+ │   │     └── returns: Optional<string>
  │   ├─┬ class Multiply (experimental)
  │   │ ├── base: BinaryOperation
  │   │ ├── interfaces: IFriendlier,IRandomNumberGenerator
@@ -2341,6 +2388,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class Jsii496Derived
  │   │ └── interfaces: IJsii496
  │   ├── class JsiiAgent
+ │   ├── class JsonFormatter
  │   ├─┬ class Multiply
  │   │ ├── base: BinaryOperation
  │   │ └── interfaces: IFriendlier,IRandomNumberGenerator
@@ -2917,6 +2965,22 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── static jsiiAgent property
+ │   ├─┬ class JsonFormatter
+ │   │ └─┬ members
+ │   │   ├── static anyArray() method
+ │   │   ├── static anyBooleanFalse() method
+ │   │   ├── static anyBooleanTrue() method
+ │   │   ├── static anyDate() method
+ │   │   ├── static anyEmptyString() method
+ │   │   ├── static anyFunction() method
+ │   │   ├── static anyHash() method
+ │   │   ├── static anyNull() method
+ │   │   ├── static anyNumber() method
+ │   │   ├── static anyRef() method
+ │   │   ├── static anyString() method
+ │   │   ├── static anyUndefined() method
+ │   │   ├── static anyZero() method
+ │   │   └── static stringify(value) method
  │   ├─┬ class Multiply
  │   │ └─┬ members
  │   │   ├── <initializer>(lhs,rhs) initializer
@@ -3597,6 +3661,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class Jsii487Derived
  │   ├── class Jsii496Derived
  │   ├── class JsiiAgent
+ │   ├── class JsonFormatter
  │   ├── class Multiply
  │   ├── class Negate
  │   ├── class NodeStandardLibrary

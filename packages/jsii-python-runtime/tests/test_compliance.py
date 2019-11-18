@@ -6,6 +6,8 @@ import pytest
 
 import jsii
 
+from json import loads
+
 from jsii_calc import (
     AbstractClassReturner,
     Add,
@@ -32,6 +34,7 @@ from jsii_calc import (
     JsiiAgent,
     JSObjectLiteralForInterface,
     JSObjectLiteralToNative,
+    JsonFormatter,
     Multiply,
     Negate,
     NodeStandardLibrary,
@@ -1073,3 +1076,7 @@ def test_can_use_interface_setters():
     obj = ObjectWithPropertyProvider.provide()
     obj.property = 'New Value'
     assert obj.was_set()
+
+def test_structs_are_undecorated_on_the_way_to_kernel():
+    json = JsonFormatter.stringify(StructB(required_string='Bazinga!', optional_boolean=False))
+    assert loads(json) == {'requiredString': 'Bazinga!', 'optionalBoolean': False}
