@@ -58,6 +58,10 @@ export class JavaDocRenderer extends MarkdownRenderer {
   public strong(_node: cm.Node, context: RendererContext) {
     return `<strong>${context.content()}</strong>`;
   }
+
+  public thematic_break(_node: cm.Node, _context: RendererContext) {
+    return para(`<hr>`);
+  }
 }
 
 function escapeAngleBrackets(x: string | null): string {

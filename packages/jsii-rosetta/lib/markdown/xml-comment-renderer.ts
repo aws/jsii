@@ -1,6 +1,6 @@
 import cm = require('commonmark');
 import { prefixLines, RendererContext } from './markdown';
-import { MarkdownRenderer, collapsePara, para, stripPara } from './markdown-renderer';
+import { MarkdownRenderer, para, stripPara } from './markdown-renderer';
 
 /**
  * A renderer that will render a CommonMark tree to .NET XML comments
@@ -49,6 +49,10 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
 
   public item(_node: cm.Node, context: RendererContext) {
     return `<description>${stripPara(context.content())}</description>\n`;
+  }
+
+  public image(node: cm.Node, context: RendererContext) {
+    return `<img alt="${context.content()}" src="${node.destination || ''}">`;
   }
 }
 
