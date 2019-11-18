@@ -273,11 +273,13 @@ export class DotNetGenerator extends Generator {
     }
 
     this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
+    this.emitHideAttribute();
     this.code.openBlock(`protected ${className}(ByRefValue reference): base(reference)`);
     this.code.closeBlock();
     this.code.line();
 
     this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
+    this.emitHideAttribute();
     this.code.openBlock(`protected ${className}(DeputyProps props): base(props)`);
     this.code.closeBlock();
 
@@ -819,9 +821,19 @@ export class DotNetGenerator extends Generator {
     this.openFileIfNeeded(className, namespace, false, false);
 
     this.dotnetDocGenerator.emitMarkdownAsRemarks(this.assembly.readme.markdown);
-    this.code.line('[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]');
-    this.code.openBlock(`internal class ${className}`);
+    this.emitHideAttribute();
+    // Traditionally this class is made 'internal', but that interacts poorly with DocFX's default filters
+    // which aren't overridable. So we make it public, but use attributes to hide it from users' IntelliSense,
+    // so that we can access the class in DocFX.
+    this.code.openBlock(`public class ${className}`);
     this.code.closeBlock();
     this.closeFileIfNeeded(className, namespace, false);
+  }
+
+  /**
+   * Emit an attribute that will hide the subsequent API element from users
+   */
+  private emitHideAttribute() {
+    this.code.line('[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]');
   }
 }
