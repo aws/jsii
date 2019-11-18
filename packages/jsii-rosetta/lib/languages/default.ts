@@ -105,7 +105,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return new OTree([
       context.convert(node.expression),
       '(',
-      new OTree([], context.convertAll(node.arguments), { separator: ', ' }),
+      this.argumentList(node.arguments, context),
       ')']);
   }
 
@@ -117,7 +117,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return new OTree([
       '<PRINT>',
       '(',
-      new OTree([], context.convertAll(args), { separator: ', ' }),
+      this.argumentList(args, context),
       ')']);
   }
 
@@ -169,7 +169,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
       'new ',
       context.convert(node.expression),
       '(',
-      new OTree([], node.arguments ? context.convertAll(node.arguments) : [], { separator: ', ' }),
+      this.argumentList(node.arguments, context),
       ')'
     ], [], { canBreakLine: true });
   }
@@ -278,6 +278,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     }
     if (arg === '...') { return new OTree(['...']); }
     return NO_SYNTAX;
+  }
+
+  protected argumentList(args: ReadonlyArray<ts.Node> | undefined, context: AstRenderer<C>): OTree {
+    return  new OTree([], args ? context.convertAll(args) : [], { separator: ', ' });0
   }
 
   private notImplemented(node: ts.Node, context: AstRenderer<C>) {

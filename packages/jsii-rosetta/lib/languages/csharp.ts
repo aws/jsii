@@ -145,7 +145,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     if (opts.isConstructor) {
       const superCall = findSuperCall(node.body, renderer);
       if (superCall) {
-        baseConstructorCall.push(': base(', new OTree([], renderer.convertAll(superCall.arguments), { separator: ', ' }), ') ');
+        baseConstructorCall.push(': base(', this.argumentList(superCall.arguments, renderer), ') ');
       }
     }
 
@@ -266,7 +266,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return new OTree([
       renderer.updateContext({ propertyOrMethod: true }).convert(node.expression),
       '(',
-      new OTree([], renderer.convertAll(node.arguments), { separator: ', ' }),
+      this.argumentList(node.arguments, renderer),
       ')']);
   }
 
@@ -437,6 +437,10 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     parts.push('"');
 
     return new OTree([parts.join('')]);
+  }
+
+  protected argumentList(args: ReadonlyArray<ts.Node> | undefined, renderer: CSharpRenderer): OTree {
+    return  new OTree([], args ? renderer.updateContext({ preferObjectLiteralAsStruct: true }).convertAll(args) : [], { separator: ', ' });
   }
 
   protected lookupModuleNamespace(ref: string) {
