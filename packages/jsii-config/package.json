@@ -27,11 +27,11 @@
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
-    "jsii-spec": "^0.20.7",
     "typescript": "~3.6.4"
   },
   "dependencies": {
     "inquirer": "^7.0.0",
+    "jsii-spec": "^0.20.7",
     "yargs": "^14.2.0"
   },
   "jest": {
