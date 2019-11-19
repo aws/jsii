@@ -8,7 +8,7 @@ import { Translator } from './translate';
 import { isError } from 'util';
 import { transformMarkdown } from './markdown/markdown';
 import { MarkdownRenderer } from './markdown/markdown-renderer';
-import { CodeBlock } from './markdown/replace-code-renderer';
+import { CodeBlock } from './markdown/types';
 import { TypeScriptSnippet } from './snippet';
 import { printDiagnostics } from './util';
 import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
