@@ -1,5 +1,6 @@
-import { ReplaceCodeTransform, CodeBlock } from "./replace-code-renderer";
+import { ReplaceCodeTransform } from "./replace-code-renderer";
 import { TypeScriptSnippet, typeScriptSnippetFromSource, parseKeyValueList } from "../snippet";
+import { CodeBlock } from "./types";
 
 export type TypeScriptReplacer = (code: TypeScriptSnippet) => CodeBlock | undefined;
 
