@@ -14,7 +14,7 @@ mkdir -p ${distdir}
 lerna run package --stream
 
 # collect all "dist" directories into "pack"
-for dist in $(lerna exec "[ -d ./dist ] && echo \${PWD}/dist || true"); do
+for dist in $(lerna exec --ignore=jsii-calc --ignore=@scope/\* "[ -d ./dist ] && echo \${PWD}/dist || true"); do
   echo "collecting ${dist}..."
   rsync -av ${dist}/ ${distdir}/
 done
