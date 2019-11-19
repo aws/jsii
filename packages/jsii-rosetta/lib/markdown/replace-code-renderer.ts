@@ -1,12 +1,8 @@
 import cm = require('commonmark');
 import { CommonMarkVisitor } from './markdown';
+import { CodeBlock } from './types';
 
 export type CodeReplacer = (code: CodeBlock) => CodeBlock;
-
-export interface CodeBlock {
-  source: string;
-  language: string;
-}
 
 /**
  * Renderer that replaces code blocks in a MarkDown document
