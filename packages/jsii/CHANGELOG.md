@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.7](https://github.com/aws/jsii/compare/v0.20.5...v0.20.7) (2019-11-18)
+
+
+### Bug Fixes
+
+* **jsii:** unable to depend on modules with private declarations ([#995](https://github.com/aws/jsii/issues/995)) ([08c4294](https://github.com/aws/jsii/commit/08c4294f270da1c0b1271ab8d119057d9626c03a)), closes [#994](https://github.com/aws/jsii/issues/994)
+
+
+### Features
+
+* **rosetta:** extract and compile samples into "tablets" ([#925](https://github.com/aws/jsii/issues/925)) ([eec44e1](https://github.com/aws/jsii/commit/eec44e106ee1e3d2e3d03f70e4d87a4d7ee0bbba))
+
+
+
+
+
 ## [0.20.6](https://github.com/aws/jsii/compare/v0.20.5...v0.20.6) (2019-11-14)
 
 **Note:** Version bump only for package jsii
