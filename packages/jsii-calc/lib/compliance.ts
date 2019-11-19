@@ -2332,10 +2332,10 @@ export class JsonFormatter {
         return () => 'boom';
     }
 
-    public static anyDate(): any { 
+    public static anyDate(): any {
         return new Date('2019-11-18T13:01:20.515Z');
     }
-    
+
     public static anyNumber(): any {
         return 123;
     }
@@ -2373,4 +2373,18 @@ export class JsonFormatter {
     }
 
     private constructor() { }
+}
+
+/**
+ * Verifies that a "pure" implementation of an interface works correctly
+ */
+export interface IStructReturningDelegate {
+    returnStruct(): StructB;
+}
+export class ConsumePureInterface {
+    constructor(private readonly delegate: IStructReturningDelegate) { }
+
+    public workItBaby() {
+        return this.delegate.returnStruct();
+    }
 }

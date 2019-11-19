@@ -43,6 +43,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": return software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class;
             case "jsii-calc.ConstructorPassesThisOut": return software.amazon.jsii.tests.calculator.ConstructorPassesThisOut.class;
             case "jsii-calc.Constructors": return software.amazon.jsii.tests.calculator.Constructors.class;
+            case "jsii-calc.ConsumePureInterface": return software.amazon.jsii.tests.calculator.ConsumePureInterface.class;
             case "jsii-calc.ConsumerCanRingBell": return software.amazon.jsii.tests.calculator.ConsumerCanRingBell.class;
             case "jsii-calc.ConsumersOfThisCrazyTypeSystem": return software.amazon.jsii.tests.calculator.ConsumersOfThisCrazyTypeSystem.class;
             case "jsii-calc.DataRenderer": return software.amazon.jsii.tests.calculator.DataRenderer.class;
@@ -108,6 +109,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IReturnJsii976": return software.amazon.jsii.tests.calculator.IReturnJsii976.class;
             case "jsii-calc.IReturnsNumber": return software.amazon.jsii.tests.calculator.IReturnsNumber.class;
             case "jsii-calc.IStableInterface": return software.amazon.jsii.tests.calculator.IStableInterface.class;
+            case "jsii-calc.IStructReturningDelegate": return software.amazon.jsii.tests.calculator.IStructReturningDelegate.class;
             case "jsii-calc.ImplementInternalInterface": return software.amazon.jsii.tests.calculator.ImplementInternalInterface.class;
             case "jsii-calc.Implementation": return software.amazon.jsii.tests.calculator.Implementation.class;
             case "jsii-calc.ImplementsInterfaceWithInternal": return software.amazon.jsii.tests.calculator.ImplementsInterfaceWithInternal.class;

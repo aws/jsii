@@ -17,6 +17,7 @@ from jsii_calc import (
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
     ConsumerCanRingBell,
+    ConsumePureInterface,
     ConstructorPassesThisOut,
     DataRenderer,
     Demonstrate982,
@@ -30,6 +31,7 @@ from jsii_calc import (
     IFriendlyRandomGenerator,
     IRandomNumberGenerator,
     IInterfaceWithProperties,
+    IStructReturningDelegate,
     JsiiAgent,
     JSObjectLiteralForInterface,
     JSObjectLiteralToNative,
@@ -1073,3 +1075,15 @@ def test_can_use_interface_setters():
 def test_structs_are_undecorated_on_the_way_to_kernel():
     json = JsonFormatter.stringify(StructB(required_string='Bazinga!', optional_boolean=False))
     assert loads(json) == {'requiredString': 'Bazinga!', 'optionalBoolean': False}
+
+def test_pure_interfaces_can_be_used_transparently():
+    expected = StructB(required_string="It's Britney b**ch!")
+
+    @jsii.implements(IStructReturningDelegate)
+    class StructReturningDelegate:
+        def return_struct(self):
+            return expected
+
+    delegate = StructReturningDelegate()
+    consumer = ConsumePureInterface(delegate)
+    assert consumer.work_it_baby() == expected

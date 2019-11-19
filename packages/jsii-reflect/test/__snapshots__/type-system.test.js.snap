@@ -36,6 +36,7 @@ Array [
   "CompositeOperation",
   "ConstructorPassesThisOut",
   "Constructors",
+  "ConsumePureInterface",
   "ConsumerCanRingBell",
   "ConsumersOfThisCrazyTypeSystem",
   "DataRenderer",

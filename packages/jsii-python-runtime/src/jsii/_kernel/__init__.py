@@ -314,7 +314,7 @@ class Kernel(metaclass=Singleton):
             CompleteRequest(
                 cbid=cbid,
                 err=err,
-                result=result
+                result=_make_reference_for_native(self, result)
             )
         )
 
@@ -325,7 +325,7 @@ class Kernel(metaclass=Singleton):
             CompleteRequest(
                 cbid=cbid,
                 err=err,
-                result=result),
+                result=_make_reference_for_native(self, result)),
             response_type=response_type
         )
 

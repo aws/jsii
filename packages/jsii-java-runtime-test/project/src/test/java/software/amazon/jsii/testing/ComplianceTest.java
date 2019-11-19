@@ -1584,4 +1584,18 @@ public class ComplianceTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void pureInterfacesCanBeUsedTransparently() {
+        final StructB expected = StructB.builder()
+            .requiredString("It's Britney b**ch!")
+            .build();
+        final IStructReturningDelegate delegate = new IStructReturningDelegate() {
+            public StructB returnStruct() {
+                return expected;
+            }
+        };
+        final ConsumePureInterface consumer = new ConsumePureInterface(delegate);
+        assertEquals(expected, consumer.workItBaby());
+    }
 }

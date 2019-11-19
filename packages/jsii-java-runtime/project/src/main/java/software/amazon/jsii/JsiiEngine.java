@@ -14,11 +14,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static software.amazon.jsii.Util.isJavaPropertyMethod;
 import static software.amazon.jsii.Util.javaPropertyToJSProperty;
@@ -509,8 +505,9 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         }
 
         Collection<JsiiOverride> overrides = discoverOverrides(klass);
+        Collection<String> interfaces = discoverInterfaces(klass);
 
-        JsiiObjectRef objRef = this.getClient().createObject(fqn, Arrays.asList(args), overrides);
+        JsiiObjectRef objRef = this.getClient().createObject(fqn, Arrays.asList(args), overrides, interfaces);
         registerObject(objRef, uninitializedNativeObject);
 
         if (uninitializedNativeObject instanceof JsiiObject) {
@@ -534,7 +531,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         // all the rest of the hierarchy is generated all the way up to JsiiObject and java.lang.Object.
         while (klass != null
                 && klass.getDeclaredAnnotationsByType(Jsii.class).length == 0
-                && klass != Object.class) {
+                && klass != Object.class
+                && klass != JsiiObject.class) {
 
             // add all the methods in the current class
             for (Method method : klass.getDeclaredMethods()) {
@@ -576,6 +574,21 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         }
 
         return overrides.values();
+    }
+
+    private Collection<String> discoverInterfaces(final Class<?> classToInspect) {
+        final Set<String> interfaces = new HashSet<>();
+        if (classToInspect.isAnnotationPresent(Jsii.class)) {
+            if (classToInspect.isInterface()) {
+                final Jsii jsii = classToInspect.getAnnotation(Jsii.class);
+                interfaces.add(jsii.fqn());
+            }
+            return interfaces;
+        }
+        for (final Class<?> iface : classToInspect.getInterfaces()) {
+            interfaces.addAll(discoverInterfaces(iface));
+        }
+        return interfaces;
     }
 
     private void log(final String format, final Object... args) {
