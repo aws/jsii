@@ -1565,6 +1565,7 @@ class PythonGenerator extends Generator {
     if (docs.example) {
       brk();
       lines.push('Example::');
+      lines.push('');
       const exampleText = this.convertExample(docs.example);
 
       for (const line of exampleText.split('\n')) {

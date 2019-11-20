@@ -3,8 +3,8 @@ package software.amazon.jsii.tests.calculator;
 /**
  * Test calling back to consumers that implement interfaces.
  * 
- * Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
- * the method on the argument that they're passed...
+ * <p>Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
+ * the method on the argument that they're passed...</p>
  * 
  * EXPERIMENTAL
  */
@@ -29,7 +29,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
     /**
      * ...if the interface is implemented using an object literal.
      * 
-     * Returns whether the bell was rung.
+     * <p>Returns whether the bell was rung.</p>
      * 
      * EXPERIMENTAL
      * 
@@ -43,7 +43,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
     /**
      * ...if the interface is implemented using a private class.
      * 
-     * Return whether the bell was rung.
+     * <p>Return whether the bell was rung.</p>
      * 
      * EXPERIMENTAL
      * 
@@ -57,7 +57,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
     /**
      * ...if the interface is implemented using a public class.
      * 
-     * Return whether the bell was rung.
+     * <p>Return whether the bell was rung.</p>
      * 
      * EXPERIMENTAL
      * 
@@ -71,7 +71,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
     /**
      * If the parameter is a concrete class instead of an interface.
      * 
-     * Return whether the bell was rung.
+     * <p>Return whether the bell was rung.</p>
      * 
      * EXPERIMENTAL
      * 
@@ -85,7 +85,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
     /**
      * ...if the interface is implemented using an object literal.
      * 
-     * Returns whether the bell was rung.
+     * <p>Returns whether the bell was rung.</p>
      * 
      * EXPERIMENTAL
      * 
@@ -99,7 +99,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
     /**
      * ...if the interface is implemented using a private class.
      * 
-     * Return whether the bell was rung.
+     * <p>Return whether the bell was rung.</p>
      * 
      * EXPERIMENTAL
      * 
@@ -113,7 +113,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
     /**
      * ...if the interface is implemented using a public class.
      * 
-     * Return whether the bell was rung.
+     * <p>Return whether the bell was rung.</p>
      * 
      * EXPERIMENTAL
      * 
@@ -127,7 +127,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
     /**
      * If the parameter is a concrete class instead of an interface.
      * 
-     * Return whether the bell was rung.
+     * <p>Return whether the bell was rung.</p>
      * 
      * EXPERIMENTAL
      * 

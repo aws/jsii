@@ -3,6 +3,25 @@ package software.amazon.jsii.tests.calculator;
 /**
  * A calculator which maintains a current value and allows adding operations.
  * 
+ * <p>Here's how you use it:</p>
+ * <pre><code class="language-ts">// Examples in Java are coming soon.
+ * const calculator = new calc.Calculator();
+ * calculator.add(5);
+ * calculator.mul(3);
+ * console.log(calculator.expression.value);
+ * </code></pre>
+ * <p>I will repeat this example again, but in an @example tag.</p>
+ * 
+ * Example:
+ * 
+ * <blockquote><pre>{@code
+ * // Examples in Java are coming soon.
+ * const calculator = new calc.Calculator();
+ * calculator.add(5);
+ * calculator.mul(3);
+ * console.log(calculator.expression.value);
+ * }</pre></blockquote>
+ * 
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

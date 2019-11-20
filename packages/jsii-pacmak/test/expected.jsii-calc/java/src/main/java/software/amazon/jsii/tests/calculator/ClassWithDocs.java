@@ -3,12 +3,15 @@ package software.amazon.jsii.tests.calculator;
 /**
  * This class has docs.
  * 
- * The docs are great. They're a bunch of tags.
+ * <p>The docs are great. They're a bunch of tags.</p>
  * 
  * Example:
  * 
+ * <blockquote><pre>{@code
+ * // Examples in Java are coming soon.
  * function anExample() {
  * }
+ * }</pre></blockquote>
  * 
  * @see https://aws.amazon.com/
  */
