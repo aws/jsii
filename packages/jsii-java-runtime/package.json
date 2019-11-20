@@ -1,6 +1,6 @@
 {
   "name": "jsii-java-runtime",
-  "version": "0.20.7",
+  "version": "0.20.8",
   "private": true,
   "description": "Java client for jsii runtime",
   "license": "Apache-2.0",
@@ -31,8 +31,8 @@
     "package": "package-java"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.20.7",
-    "jsii-runtime": "^0.20.7",
+    "jsii-build-tools": "^0.20.8",
+    "jsii-runtime": "^0.20.8",
     "typescript": "~3.6.4"
   }
 }
