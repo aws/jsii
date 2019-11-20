@@ -1843,9 +1843,9 @@ interface MavenDependency {
  */
 function findJavaRuntimeLocalRepository() {
   try {
-    /* eslint-disable @typescript-eslint/no-var-requires */
+    /* eslint-disable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
     const javaRuntime = require('jsii-java-runtime');
-    /* eslint-enable @typescript-eslint/no-var-requires */
+    /* eslint-enable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
     return javaRuntime.repository;
   } catch {
     return undefined;

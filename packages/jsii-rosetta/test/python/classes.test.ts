@@ -1,6 +1,6 @@
-import { expectPython } from "./python";
+import { expectPython } from './python';
 
-test('class declaration with fields and constructor', async () => {
+test('class declaration with fields and constructor', () =>
   // FIXME: This whitespace is not entirely correct, but it's not horrible
   // and I don't know how to fix it for now.
   expectPython(`
@@ -16,10 +16,10 @@ test('class declaration with fields and constructor', async () => {
 
       def __init__(self, y):
           self.x = y
-  `);
-});
+  `)
+);
 
-test('whitespace between multiple members', () => {
+test('whitespace between multiple members', () =>
   expectPython(`
   class MyClass {
     constructor(y: string) {
@@ -44,10 +44,10 @@ test('whitespace between multiple members', () => {
 
       def bye(self):
           print("bye")
-  `);
-});
+  `)
+);
 
-test('whitespace between multiple empty members', () => {
+test('whitespace between multiple empty members', () =>
   expectPython(`
   class MyClass {
     constructor(y: string) {
@@ -70,10 +70,10 @@ test('whitespace between multiple empty members', () => {
 
       def bye(self):
           pass
-  `);
-});
+  `)
+);
 
-test('invisible interfaces do not affect whitespace', async () => {
+test('invisible interfaces do not affect whitespace', () =>
   expectPython(`
   class MyClass1 {
   }
@@ -89,10 +89,10 @@ test('invisible interfaces do not affect whitespace', async () => {
 
   class MyClass2:
       pass
-  `);
-});
+  `)
+);
 
-test.skip('class with implicit declaration', async () => {
+test.skip('class with implicit declaration', () =>
   expectPython(`
   class MyClass {
     private readonly x = 'bloep';
@@ -101,20 +101,20 @@ test.skip('class with implicit declaration', async () => {
   class MyClass:
       def __init__(self):
           self.x = 'bloep'
-  `);
-});
+  `)
+);
 
-test('class with inheritance', async () => {
+test('class with inheritance', () =>
   expectPython(`
   class MyClass extends cdk.SomeOtherClass {
   }
   `, `
   class MyClass(cdk.SomeOtherClass):
       pass
-  `);
-});
+  `)
+);
 
-test('class with inheritance and super class', async () => {
+test('class with inheritance and super class', () =>
   expectPython(`
   class MyClass extends cdk.SomeOtherClass {
     constructor(x: string, y: string) {
@@ -125,10 +125,10 @@ test('class with inheritance and super class', async () => {
   class MyClass(cdk.SomeOtherClass):
       def __init__(self, x, y):
           super().__init__(x)
-  `);
-});
+  `)
+);
 
-test('class with method', async () => {
+test('class with method', () =>
   expectPython(`
   class MyClass extends cdk.SomeOtherClass {
     public someMethod(x: string) {
@@ -139,10 +139,10 @@ test('class with method', async () => {
   class MyClass(cdk.SomeOtherClass):
       def some_method(self, x):
           print(x)
-  `);
-});
+  `)
+);
 
-test('class with props argument', async () => {
+test('class with props argument', () =>
   expectPython(`
   interface MyClassProps {
     readonly prop1: string;
@@ -162,5 +162,5 @@ test('class with props argument', async () => {
           super().__init__(scope, id, prop1=prop1, prop2=prop2)
 
           print(prop1)
-  `);
-});
+  `)
+);

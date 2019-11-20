@@ -12,16 +12,16 @@ test('Rosetta object can do live translation', () => {
   // GIVEN
   const rosetta = new Rosetta({
     liveConversion: true,
-    targetLanguages: ["python"]
+    targetLanguages: ['python']
   });
 
   // WHEN
-  const translated = rosetta.translateSnippet(SAMPLE_CODE, "python");
+  const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
 
   // THEN
   expect(translated).toMatchObject({
-    source: "call_this_function()",
-    language: "python"
+    source: 'call_this_function()',
+    language: 'python'
   });
 });
 
@@ -36,12 +36,12 @@ test('Can use preloaded tablet', () => {
   rosetta.addTablet(tablet);
 
   // WHEN
-  const translated = rosetta.translateSnippet(SAMPLE_CODE, "python");
+  const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
 
   // THEN
   expect(translated).toMatchObject({
-    source: "Not Really Translated",
-    language: "python"
+    source: 'Not Really Translated',
+    language: 'python'
   });
 });
 
@@ -49,16 +49,16 @@ test('Rosetta object can do live translation', () => {
   // GIVEN
   const rosetta = new Rosetta({
     liveConversion: true,
-    targetLanguages: ["python"]
+    targetLanguages: ['python']
   });
 
   // WHEN
-  const translated = rosetta.translateSnippet(SAMPLE_CODE, "python");
+  const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
 
   // THEN
   expect(translated).toMatchObject({
-    source: "call_this_function()",
-    language: "python"
+    source: 'call_this_function()',
+    language: 'python'
   });
 });
 
@@ -67,7 +67,7 @@ test('Rosetta object can do translation and annotation of snippets in MarkDown',
   // GIVEN
   const rosetta = new Rosetta({
     liveConversion: true,
-    targetLanguages: ["python"]
+    targetLanguages: ['python']
   });
 
   // WHEN
@@ -80,7 +80,7 @@ test('Rosetta object can do translation and annotation of snippets in MarkDown',
     '```',
     'That was it, thank you for your attention.'
   ].join('\n'), 'python', trans => {
-    return { ...trans, source: '# We translated something!\n' + trans.source };
+    return { ...trans, source: `# We translated something!\n${trans.source}` };
   });
 
   // THEN
@@ -114,28 +114,28 @@ describe('with mocked filesystem', () => {
     // WHEN
     const rosetta = new Rosetta();
     await rosetta.loadTabletFromFile('/test.tablet');
-    const translated = rosetta.translateSnippet(SAMPLE_CODE, "python");
+    const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
 
     // THEN
     expect(translated).toMatchObject({
-      source: "My Stored Translation",
-      language: "python"
+      source: 'My Stored Translation',
+      language: 'python'
     });
   });
 
   test('Rosetta class automatically loads default-named tablets in same directory as assembly', async () => {
     // GIVEN
-    await tablet.save('/' + DEFAULT_TABLET_NAME);
+    await tablet.save(`/${DEFAULT_TABLET_NAME}`);
 
     // WHEN
     const rosetta = new Rosetta();
     await rosetta.addAssembly(fakeAssembly({}), '/');
-    const translated = rosetta.translateSnippet(SAMPLE_CODE, "python");
+    const translated = rosetta.translateSnippet(SAMPLE_CODE, 'python');
 
     // THEN
     expect(translated).toMatchObject({
-      source: "My Stored Translation",
-      language: "python"
+      source: 'My Stored Translation',
+      language: 'python'
     });
   });
 

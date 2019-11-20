@@ -1,5 +1,5 @@
 import ts = require('typescript');
-import { AstRenderer, AstHandler, nimpl } from "../renderer";
+import { AstRenderer, AstHandler, nimpl } from '../renderer';
 import { OTree } from '../o-tree';
 import { ImportStatement } from '../typescript/imports';
 

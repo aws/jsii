@@ -1,4 +1,4 @@
-import { OTree, renderTree } from "../lib/o-tree";
+import { OTree, renderTree } from '../lib/o-tree';
 
 test('test indentation', () => {
   const tree = new OTree(['{'],

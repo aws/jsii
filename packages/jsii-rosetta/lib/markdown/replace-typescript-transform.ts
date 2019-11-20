@@ -1,6 +1,6 @@
-import { ReplaceCodeTransform } from "./replace-code-renderer";
-import { TypeScriptSnippet, typeScriptSnippetFromSource, parseKeyValueList } from "../snippet";
-import { CodeBlock } from "./types";
+import { ReplaceCodeTransform } from './replace-code-renderer';
+import { TypeScriptSnippet, typeScriptSnippetFromSource, parseKeyValueList } from '../snippet';
+import { CodeBlock } from './types';
 
 export type TypeScriptReplacer = (code: TypeScriptSnippet) => CodeBlock | undefined;
 
@@ -10,7 +10,7 @@ export type TypeScriptReplacer = (code: TypeScriptSnippet) => CodeBlock | undefi
 export class ReplaceTypeScriptTransform extends ReplaceCodeTransform {
   private readonly wherePrefix: string;
 
-  constructor(wherePrefix: string, replacer: TypeScriptReplacer) {
+  public constructor(wherePrefix: string, replacer: TypeScriptReplacer) {
     let count = 0;
     super(block => {
       const languageParts = block.language ? block.language.split(' ') : [];

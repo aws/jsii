@@ -1,5 +1,5 @@
-import { PythonVisitor } from "./python";
-import { AstHandler } from "../renderer";
+import { PythonVisitor } from './python';
+import { AstHandler } from '../renderer';
 
 export type TargetLanguage = 'python';
 export type VisitorFactory = () => AstHandler<any>;
