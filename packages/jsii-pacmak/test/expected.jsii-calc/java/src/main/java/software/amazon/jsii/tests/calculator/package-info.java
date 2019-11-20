@@ -3,7 +3,7 @@
  * <p>This library is used to demonstrate and test the features of JSII</p>
  * <h2>How to use running sum API:</h2>
  * <p>First, create a calculator:</p>
- * <pre><code class="language-ts">// Examples in Java are coming soon.
+ * <pre><code class="language-ts">// This example is in TypeScript, examples in Java are coming soon.
  * const calculator = new calc.Calculator();
  * </code></pre>
  * <p>Then call some operations:</p>

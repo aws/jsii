@@ -4,7 +4,7 @@ package software.amazon.jsii.tests.calculator;
  * A calculator which maintains a current value and allows adding operations.
  * 
  * <p>Here's how you use it:</p>
- * <pre><code class="language-ts">// Examples in Java are coming soon.
+ * <pre><code class="language-ts">// This example is in TypeScript, examples in Java are coming soon.
  * const calculator = new calc.Calculator();
  * calculator.add(5);
  * calculator.mul(3);
@@ -15,7 +15,7 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * 
  * <blockquote><pre>{@code
- * // Examples in Java are coming soon.
+ * // This example is in TypeScript, examples in Java are coming soon.
  * const calculator = new calc.Calculator();
  * calculator.add(5);
  * calculator.mul(3);

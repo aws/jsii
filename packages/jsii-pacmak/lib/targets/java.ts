@@ -19,7 +19,7 @@ const spdxLicenseList = require('spdx-license-list');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILDER_CLASS_NAME = 'Builder';
-const SAMPLES_DISCLAIMER = '// Examples in Java are coming soon.';
+const SAMPLES_DISCLAIMER = '// This example is in TypeScript, examples in Java are coming soon.';
 
 /**
  * Build Java packages all together, by generating an aggregate POM

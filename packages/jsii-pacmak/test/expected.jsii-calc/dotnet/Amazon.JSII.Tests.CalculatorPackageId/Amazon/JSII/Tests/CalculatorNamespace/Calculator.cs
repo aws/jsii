@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Here's how you use it:
     /// 
     /// ```ts
-    /// // Examples in C# are coming soon.
+    /// // This example is in TypeScript, examples in C# are coming soon.
     /// const calculator = new calc.Calculator();
     /// calculator.add(5);
     /// calculator.mul(3);

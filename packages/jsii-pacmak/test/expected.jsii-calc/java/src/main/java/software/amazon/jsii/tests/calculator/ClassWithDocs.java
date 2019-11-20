@@ -8,7 +8,7 @@ package software.amazon.jsii.tests.calculator;
  * Example:
  * 
  * <blockquote><pre>{@code
- * // Examples in Java are coming soon.
+ * // This example is in TypeScript, examples in Java are coming soon.
  * function anExample() {
  * }
  * }</pre></blockquote>

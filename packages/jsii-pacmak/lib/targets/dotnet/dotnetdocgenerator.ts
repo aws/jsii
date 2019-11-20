@@ -4,7 +4,7 @@ import { DotNetNameUtils } from './nameutils';
 import { prefixMarkdownTsCodeBlocks } from '../../util';
 
 
-const SAMPLES_DISCLAIMER = '// Examples in C# are coming soon.';
+const SAMPLES_DISCLAIMER = '// This example is in TypeScript, examples in C# are coming soon.';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
