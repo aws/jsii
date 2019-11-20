@@ -3,7 +3,7 @@ package software.amazon.jsii.tests.calculator;
 /**
  * Verifies that null/undefined can be returned for optional collections.
  * 
- * This source of collections is disappointing - it'll always give you nothing :(
+ * <p>This source of collections is disappointing - it'll always give you nothing :(</p>
  * 
  * EXPERIMENTAL
  */
@@ -28,7 +28,7 @@ public class DisappointingCollectionSource extends software.amazon.jsii.JsiiObje
     /**
      * Some List of strings, maybe?
      * 
-     * (Nah, just a billion dollars mistake!)
+     * <p>(Nah, just a billion dollars mistake!)</p>
      * 
      * EXPERIMENTAL
      */
@@ -38,7 +38,7 @@ public class DisappointingCollectionSource extends software.amazon.jsii.JsiiObje
     /**
      * Some Map of strings to numbers, maybe?
      * 
-     * (Nah, just a billion dollars mistake!)
+     * <p>(Nah, just a billion dollars mistake!)</p>
      * 
      * EXPERIMENTAL
      */

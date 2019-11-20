@@ -24,8 +24,8 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     /**
      * Returns `true` if `key` is defined in `opts`.
      * 
-     * Used to check that undefined/null hash values
-     * are being erased when sending values from native code to JS.
+     * <p>Used to check that undefined/null hash values
+     * are being erased when sending values from native code to JS.</p>
      * 
      * EXPERIMENTAL
      * 

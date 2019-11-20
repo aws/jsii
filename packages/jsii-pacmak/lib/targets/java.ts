@@ -9,7 +9,7 @@ import { Generator } from '../generator';
 import logging = require('../logging');
 import { md2html } from '../markdown';
 import { PackageInfo, Target, findLocalBuildDirs } from '../target';
-import { shell, Scratch, slugify, setExtend } from '../util';
+import { shell, Scratch, slugify, setExtend, prefixMarkdownTsCodeBlocks } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
@@ -19,6 +19,7 @@ const spdxLicenseList = require('spdx-license-list');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILDER_CLASS_NAME = 'Builder';
+const SAMPLES_DISCLAIMER = '// This example is in TypeScript, examples in Java are coming soon.';
 
 /**
  * Build Java packages all together, by generating an aggregate POM
@@ -637,7 +638,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of md2html(mod.readme.markdown).split('\n')) {
+      for (const line of md2html(prefixMarkdownTsCodeBlocks(mod.readme.markdown, SAMPLES_DISCLAIMER)).split('\n')) {
         this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
       }
     }
@@ -1484,7 +1485,7 @@ class JavaGenerator extends Generator {
     }
 
     if (docs.remarks) {
-      paras.push(docs.remarks);
+      paras.push(md2html(prefixMarkdownTsCodeBlocks(docs.remarks, SAMPLES_DISCLAIMER)).trimRight());
     }
 
     if (docs.default) {
@@ -1493,8 +1494,7 @@ class JavaGenerator extends Generator {
 
     if (docs.example) {
       paras.push('Example:');
-      // FIXME: Have to parse the MarkDown and convert fenced code blocks to <pre>{@code\n....\n}</pre>.
-      paras.push(docs.example);
+      paras.push(`<blockquote><pre>{@code\n${SAMPLES_DISCLAIMER}\n${docs.example}\n}</pre></blockquote>`);
     }
 
     if (docs.stability === spec.Stability.Experimental) {
