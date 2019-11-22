@@ -55,16 +55,6 @@ function hasLength(val: string): true | string {
 }
 
 /*
- * filter out values from answers that are allowed to be undefined
- */
-function filterEmpty(val: string): string | void {
-  if (typeof val === 'string' && val.length === 0) {
-    return undefined;
-  }
-  return val;
-}
-
-/*
  * Schema that questions are built from.
  *
  * Name values for questions are built from parent keys.
@@ -124,8 +114,7 @@ const schema: ConfigPromptsSchema = {
           versionSuffix: {
             type: 'input',
             message: 'Maven Version Suffix - optional suffix appended to the end of the maven package\'s version field (e.g. ".DEVPREVIEW")',
-            when: targetEnabled('java'),
-            filter: filterEmpty
+            when: targetEnabled('java')
           }
         }
       },
@@ -160,24 +149,18 @@ const schema: ConfigPromptsSchema = {
           type: 'input',
           message: '.NET Icon Url - optional url of the icon to be shown in the NuGet gallery (e.g. "https://raw.githubusercontent.com/module-icon.png")',
           when: targetEnabled('dotnet'),
-          filter: filterEmpty
         },
         versionSuffix: {
           type: 'input',
-          default: '',
           message: '.NET Version Suffix - optional suffix that will be appended at the end of the NuGet package\'s version field, must begin with a "-" (e.g. "-devpreview")',
           when: targetEnabled('dotnet'),
           validate: (val: string): true | string => {
-            const hasLengthResult = hasLength(val);
-            if (typeof hasLengthResult === 'string') {
-              return hasLengthResult;
-            } else if (!val.startsWith('-')) {
+            if (val && val.length && !val.startsWith('-')) {
               return 'versionSuffix must begin with "-"';
             }
 
             return true;
-          },
-          filter: filterEmpty
+          }
         },
         signAssembly: {
           type: 'confirm',
