@@ -32,7 +32,7 @@
   "dependencies": {
     "inquirer": "^7.0.0",
     "jsii-spec": "^0.20.7",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.2"
   },
   "jest": {
     "collectCoverage": true,
