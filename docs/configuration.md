@@ -8,7 +8,7 @@ constraints and extensions `jsii` adds to the [package.json schema].
 
 ## jsii-config
 
-Use [jsii-config](https://github.com/aws/jsii/blob/master/jsii-config) to aid in configuring a new jsii module.
+Use [jsii-config](../packages/jsii-config) to aid in configuring a new jsii module.
 
 ## Additional Requirements & Extensions
 

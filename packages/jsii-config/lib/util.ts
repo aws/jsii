@@ -12,6 +12,27 @@ export function getNestedValue(keys: string[], current: object): any {
 }
 
 /*
+ * recursively remove keys from object whose value empty.
+ */
+export function removeEmptyValues<T>(fields: T): T {
+  return Object.entries(fields).reduce((accum: any, [key, val]: [string, any]) => {
+    if (typeof val === 'object') {
+      return {
+        ...accum,
+        [key]: removeEmptyValues(val)
+      };
+    }
+
+    return {
+      ...accum,
+      ...!val ? {} : {
+        [key]: val
+      }
+    };
+  }, {});
+}
+
+/*
  * recursively flatten nested object
  */
 export function flattenKeys(parent: string, fields: any) {

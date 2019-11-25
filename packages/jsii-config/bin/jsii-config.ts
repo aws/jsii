@@ -26,12 +26,13 @@ async function main() {
     .argv;
 
   const packageJsonLocation = argv.packageJson as string;
-  const output = await jsiiConfig(packageJsonLocation);
+  const config = await jsiiConfig(packageJsonLocation);
+  const output = JSON.stringify(config, null, 2);
 
   if (argv.dryRun) {
     console.log(output);
   } else {
-    await writeFilePromise(packageJsonLocation, JSON.stringify(output, null, 2));
+    await writeFilePromise(packageJsonLocation, output);
   }
 }
 

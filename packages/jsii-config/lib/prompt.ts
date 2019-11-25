@@ -2,7 +2,7 @@ import * as inquirer from 'inquirer';
 import { PackageJson } from 'jsii-spec';
 import getQuestions from './questions';
 import { BasePackageJson } from './schema';
-import { getNestedValue } from './util';
+import { getNestedValue, removeEmptyValues } from './util';
 
 interface PromptAnswers extends PackageJson {
   jsiiTargets: string[];
@@ -22,7 +22,7 @@ function getPassThroughValues(current: BasePackageJson): object {
  */
 export default async function getAnswers(current: BasePackageJson): Promise<PackageJson> {
   const answers = await inquirer.prompt(getQuestions(current)) as PromptAnswers;
-  const { jsiiTargets: _, ...config } = answers;
+  const { jsiiTargets: _, ...config } = removeEmptyValues(answers);
   const confirmInput = await inquirer.prompt({
     type: 'confirm',
     message: `Confirm Jsii Config\n${JSON.stringify(config, null, 2)}\nSelect no to revise`,

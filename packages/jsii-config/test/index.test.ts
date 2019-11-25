@@ -76,6 +76,23 @@ describe('jsii-config', () => {
       jsii: {
         outdir: 'dist',
         versionFormat: 'short',
+        targets: {
+          java: {
+            package: 'software.amazon.module.core',
+            maven: {
+              groupId: 'software.amazon.module',
+              artifactId: 'core',
+              versionSuffix: ''
+            }
+          },
+          dotnet: {
+            namespace: 'Amazon.Module',
+            packageId: 'Amazon.Module',
+            iconUrl: undefined,
+            versionSuffix: '',
+            signAssembly: false
+          }
+        }
       }
     };
 
@@ -218,12 +235,17 @@ describe('jsii-config', () => {
       expect(subject.when(disabled)).toBe(false);
     });
 
-    it('returns new config', async () => {
+    it('returns new config with empty values removed', async () => {
       const subject = await jsiiConfig('./package.json');
+      const expected = { ...configAnswers };
+      delete expected.jsii.targets.dotnet.iconUrl;
+      delete expected.jsii.targets.dotnet.signAssembly;
+      delete expected.jsii.targets.dotnet.versionSuffix;
+      delete expected.jsii.targets.java.maven.versionSuffix;
 
       expect(subject).toEqual({
         ...packageJsonObject,
-        ...configAnswers
+        ...expected
       });
     });
 
@@ -254,8 +276,6 @@ describe('jsii-config', () => {
       const questions = promptMock.mock.calls[0][0];
       const subject = findQuestion('jsii.targets.dotnet.versionSuffix', questions);
 
-      expect(subject.validate()).toEqual('Please enter a value');
-      expect(subject.validate('')).toEqual('Please enter a value');
       expect(subject.validate('xxx')).toEqual('versionSuffix must begin with "-"');
       expect(subject.validate('-xxx')).toEqual(true);
     });
