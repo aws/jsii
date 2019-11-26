@@ -35,7 +35,7 @@ export class Translator {
   }
 
   public translate(snip: TypeScriptSnippet, languages = Object.keys(TARGET_LANGUAGES) as TargetLanguage[]) {
-    logging.debug(`Translating ${snippetKey(snip)} ${Object.entries(snip.parameters || {})}`);
+    logging.debug(`Translating ${snippetKey(snip)} ${Object.entries(snip.parameters ?? {})}`);
     const translator = this.translatorFor(snip);
     const snippet = TranslatedSnippet.fromSnippet(snip, this.includeCompilerDiagnostics ? translator.compileDiagnostics.length === 0 : undefined);
 
@@ -99,7 +99,7 @@ export class SnippetTranslator {
     const compiler = options.compiler || new TypeScriptCompiler();
     const source = completeSource(snippet);
 
-    const fakeCurrentDirectory = snippet.parameters && snippet.parameters[SnippetParameters.$COMPILATION_DIRECTORY];
+    const fakeCurrentDirectory = snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY];
     this.compilation = compiler.compileInMemory(snippet.where, source, fakeCurrentDirectory);
 
     // Respect '/// !hide' and '/// !show' directives

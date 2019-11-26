@@ -46,14 +46,14 @@ export class DotNetTypeResolver {
     }
     const [mod] = fqn.split('.');
     const depMod = this.findModule(mod);
-    const dotnetNamespace = depMod.targets && depMod.targets.dotnet && depMod.targets.dotnet.namespace;
+    const dotnetNamespace = depMod.targets?.dotnet?.namespace;
     if (!dotnetNamespace) {
       throw new Error('The module does not have a dotnet.namespace setting');
     }
     if (type.namespace) {
       // If the type is declared in an additional namespace.
       const namespaceFqn = `${this.assembly.name}.${type.namespace}`;
-      const associatedNamespace = this.assembly.types && this.assembly.types[namespaceFqn];
+      const associatedNamespace = this.assembly.types?.[namespaceFqn];
       if (associatedNamespace) {
         // Checking if there is a C# type associated with this namespace, in case we need to slugify it
         const actualNamespace = this.toDotNetType(this.findType(namespaceFqn));
@@ -71,7 +71,7 @@ export class DotNetTypeResolver {
      * Resolves the namespaces dependencies by looking at the .jsii model
      */
   public resolveNamespacesDependencies(): void {
-    const assmDependencies = this.assembly.dependencies || {};
+    const assmDependencies = this.assembly.dependencies ?? {};
     for (const depName of Object.keys(assmDependencies)) {
       const depInfo = assmDependencies[depName];
       if (!this.namespaceDependencies.has(depName)) {
@@ -99,7 +99,7 @@ export class DotNetTypeResolver {
      *
      */
   public resolveImplementedInterfaces(ifc: spec.InterfaceType | spec.ClassType): string[] {
-    const interfaces = ifc.interfaces || [];
+    const interfaces = ifc.interfaces ?? [];
     const baseTypeNames: string[] = [];
 
     // For all base members

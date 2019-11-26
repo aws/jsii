@@ -44,7 +44,7 @@
     "jsii-spec": "^0.20.8",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.2"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.20.8",
@@ -53,11 +53,11 @@
     "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.23",
     "@types/mock-fs": "^4.10.0",
-    "@types/node": "^10.17.4",
+    "@types/node": "^10.17.6",
     "@types/yargs": "^13.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.6.1",
-    "@typescript-eslint/parser": "^2.6.1",
-    "eslint": "^6.6.0",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
+    "eslint": "^6.7.1",
     "jest": "^24.9.0",
     "jsii-build-tools": "^0.20.8",
     "jsii-calc": "^0.20.8",
@@ -65,7 +65,7 @@
     "jsii-dotnet-runtime": "^0.20.8",
     "jsii-java-runtime": "^0.20.8",
     "mock-fs": "^4.10.4",
-    "typescript": "~3.6.4"
+    "typescript": "~3.7.2"
   },
   "keywords": [
     "jsii",

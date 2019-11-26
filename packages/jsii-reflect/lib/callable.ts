@@ -24,7 +24,7 @@ export abstract class Callable implements Documentable, Overridable, TypeMember,
    * The parameters of the method/initializer
    */
   public get parameters(): Parameter[] {
-    return (this.spec.parameters || []).map(p => new Parameter(this.system, this.parentType, this, p));
+    return (this.spec.parameters ?? []).map(p => new Parameter(this.system, this.parentType, this, p));
   }
 
   /**
@@ -51,7 +51,7 @@ export abstract class Callable implements Documentable, Overridable, TypeMember,
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs || {}, this.parentType.docs);
+    return new Docs(this.system, this, this.spec.docs ?? {}, this.parentType.docs);
   }
 
   /**

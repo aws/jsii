@@ -66,7 +66,7 @@ export class OTree implements OTree {
     private readonly options: OTreeOptions = {}) {
 
     this.prefix = OTree.simplify(prefix);
-    this.children = OTree.simplify(children || []);
+    this.children = OTree.simplify(children ?? []);
     this.attachComment = !!options.canBreakLine;
   }
 
@@ -88,7 +88,7 @@ export class OTree implements OTree {
 
     const popIndent = sink.requestIndentChange(meVisible ? this.options.indent || 0 : 0);
     let mark = sink.mark();
-    for (const child of this.children || []) {
+    for (const child of this.children ?? []) {
       if (this.options.separator && mark.wroteNonWhitespaceSinceMark) {
         sink.write(this.options.separator);
       }

@@ -20,7 +20,7 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
   module: ts.ModuleKind.CommonJS,
   noEmitOnError: true,
   noFallthroughCasesInSwitch: true,
-  noImplicitAny: false, // temporarily "false" until we upgrade typescript in order to solve #994
+  noImplicitAny: true,
   noImplicitReturns: true,
   noImplicitThis: true,
   noUnusedLocals: true,
@@ -106,7 +106,7 @@ export class Compiler implements Emitter {
       rootNames: this.rootFiles.concat(_pathOfLibraries(this.compilerHost)),
       options: { ...pi.tsc, ...COMPILER_OPTIONS },
       // Make the references absolute for the compiler
-      projectReferences: tsconf.references && tsconf.references.map(ref => ({ path: path.resolve(ref.path) })),
+      projectReferences: tsconf.references?.map(ref => ({ path: path.resolve(ref.path) })),
       host: this.compilerHost
     });
 
@@ -195,19 +195,19 @@ export class Compiler implements Emitter {
         ...COMPILER_OPTIONS,
         composite,
         // Need to stip the `lib.` prefix and `.d.ts` suffix
-        lib: COMPILER_OPTIONS.lib && COMPILER_OPTIONS.lib.map(name => name.slice(4, name.length - 5)),
+        lib: COMPILER_OPTIONS.lib?.map(name => name.slice(4, name.length - 5)),
         // Those int-enums, we need to output the names instead
         module: COMPILER_OPTIONS.module && ts.ModuleKind[COMPILER_OPTIONS.module],
         target: COMPILER_OPTIONS.target && ts.ScriptTarget[COMPILER_OPTIONS.target],
         jsx: COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
       },
-      include: [pi.tsc && pi.tsc.rootDir ? `${pi.tsc.rootDir}/**/*.ts` : '**/*.ts'],
+      include: [pi.tsc?.rootDir ? `${pi.tsc.rootDir}/**/*.ts` : '**/*.ts'],
       exclude: ['node_modules'].concat(pi.excludeTypescript),
       // Change the references a little. We write 'originalpath' to the
       // file under the 'path' key, which is the same as what the
       // TypeScript compiler does. Make it relative so that the files are
       // movable. Not strictly required but looks better.
-      references: references && references.map(p => ({ path: p })),
+      references: references?.map(p => ({ path: p })),
     } as any;
   }
 
@@ -262,7 +262,7 @@ export class Compiler implements Emitter {
 
       // Add references to any TypeScript package we find that is 'composite' enabled.
       // Make it relative.
-      if (tsconfig.compilerOptions && tsconfig.compilerOptions.composite) {
+      if (tsconfig.compilerOptions?.composite) {
         ret.push(path.relative(this.options.projectInfo.projectRoot, path.dirname(tsconfigFile)));
       } else {
         // Not a composite package--if this package is in a node_modules directory, that is most
@@ -332,7 +332,7 @@ export class Compiler implements Emitter {
 
 function _pathOfLibraries(host: ts.CompilerHost | ts.WatchCompilerHost<any>): string[] {
   if (!COMPILER_OPTIONS.lib || COMPILER_OPTIONS.lib.length === 0) { return []; }
-  const lib = host.getDefaultLibLocation && host.getDefaultLibLocation();
+  const lib = host.getDefaultLibLocation?.();
   if (!lib) {
     throw new Error(`Compiler host doesn't have a default library directory available for ${COMPILER_OPTIONS.lib.join(', ')}`);
   }

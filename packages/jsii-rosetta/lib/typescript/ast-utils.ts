@@ -114,7 +114,7 @@ export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>
   const realSyntaxKind = capturing ? nodeTypeOrChildren : syntaxKindOrCaptureName;
 
   return (nodes) => {
-    for (const node of nodes || []) {
+    for (const node of nodes ?? []) {
       if (node.kind === realSyntaxKind) {
         const ret = realNext(nodeChildren(node));
         if (!ret) { continue; }
@@ -134,7 +134,7 @@ export function anyNode<A>(children: AstMatcher<A>): AstMatcher<A>;
 export function anyNode<A>(children?: AstMatcher<A>): AstMatcher<A> | AstMatcher<{}> {
   const realNext = children || DONE;
   return nodes => {
-    for (const node of nodes || []) {
+    for (const node of nodes ?? []) {
       const m = realNext(nodeChildren(node));
       if (m) { return m; }
     }
@@ -151,7 +151,7 @@ export function allOfType<S extends keyof CapturableNodes, N extends string, A>(
 
   return nodes => {
     let ret: ReturnType | undefined;
-    for (const node of nodes || []) {
+    for (const node of nodes ?? []) {
       if (node.kind === s) {
         if (realNext(nodeChildren(node))) {
           if (!ret) { ret = { [name]: new Array<CapturableNodes[S]>() } as ReturnType; }

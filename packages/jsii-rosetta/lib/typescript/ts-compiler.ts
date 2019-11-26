@@ -13,9 +13,9 @@ export class TypeScriptCompiler {
 
     return {
       fileExists: filePath => filePath === sourcePath || realHost.fileExists(filePath),
-      directoryExists: realHost.directoryExists && realHost.directoryExists.bind(realHost),
+      directoryExists: realHost.directoryExists?.bind(realHost),
       getCurrentDirectory: () => currentDirectory || realHost.getCurrentDirectory(),
-      getDirectories: realHost.getDirectories && realHost.getDirectories.bind(realHost),
+      getDirectories: realHost.getDirectories?.bind(realHost),
       getCanonicalFileName: fileName => realHost.getCanonicalFileName(fileName),
       getNewLine: realHost.getNewLine.bind(realHost),
       getDefaultLibFileName: realHost.getDefaultLibFileName.bind(realHost),

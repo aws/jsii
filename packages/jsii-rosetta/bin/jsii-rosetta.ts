@@ -25,7 +25,7 @@ async function main() {
         .option('python', { alias: 'p', boolean: true, description: 'Translate snippets to Python' })
     , wrapHandler(async args => {
       const result = translateTypeScript(
-        await makeFileSource(args.file || '-', 'stdin.ts'),
+        await makeFileSource(args.file ?? '-', 'stdin.ts'),
         makeVisitor(args));
       renderResult(result);
     }))
@@ -34,7 +34,7 @@ async function main() {
         .option('python', { alias: 'p', boolean: true, description: 'Translate snippets to Python' })
     , wrapHandler(async args => {
       const result = translateMarkdown(
-        await makeFileSource(args.file || '-', 'stdin.md'),
+        await makeFileSource(args.file ?? '-', 'stdin.md'),
         makeVisitor(args));
       renderResult(result);
     }))

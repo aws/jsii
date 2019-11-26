@@ -66,7 +66,7 @@ export function getReferencedDocParams(sym: ts.Symbol): string[] {
   const ret = new Array<string>();
   for (const tag of sym.getJsDocTags()) {
     if (tag.name === DocTag.PARAM) {
-      const parts = (tag.text || '').split(' ');
+      const parts = (tag.text ?? '').split(' ');
       ret.push(parts[0]);
     }
   }
@@ -90,7 +90,7 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
       if (tagNames.has(name)) {
         const ret = tagNames.get(name);
         tagNames.delete(name);
-        return ret || '';
+        return ret ?? '';
       }
     }
     return undefined;
@@ -122,7 +122,7 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
     docs.stability = spec.Stability.Deprecated;
   }
 
-  if (docs.example && docs.example.includes('```')) {
+  if (docs.example?.includes('```')) {
     // This is currently what the JSDoc standard expects, and VSCode highlights it in
     // this way as well. TSDoc disagrees and says that examples start in text mode
     // which I tend to agree with, but that hasn't become a widely used standard yet.
@@ -131,14 +131,14 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
     diagnostics.push('@example must be code only, no code block fences allowed.');
   }
 
-  if (docs.deprecated !== undefined && docs.deprecated.trim() === '') {
+  if (docs.deprecated?.trim() === '') {
     diagnostics.push('@deprecated tag needs a reason and/or suggested alternatives.');
   }
 
   if (tagNames.size > 0) {
     docs.custom = {};
     for (const [key, value] of tagNames.entries()) {
-      docs.custom[key] = value || 'true';  // Key must have a value or it will be stripped from the assembly
+      docs.custom[key] = value ?? 'true';  // Key must have a value or it will be stripped from the assembly
     }
   }
 
