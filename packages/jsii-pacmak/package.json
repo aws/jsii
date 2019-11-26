@@ -57,7 +57,7 @@
     "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.1",
     "jest": "^24.9.0",
     "jsii-build-tools": "^0.20.8",
     "jsii-calc": "^0.20.8",

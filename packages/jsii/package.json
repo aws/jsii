@@ -56,7 +56,7 @@
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
     "clone": "^2.1.2",
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.1",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.20.8"
