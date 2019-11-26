@@ -50,7 +50,14 @@ public final class JsiiObjectMapper {
       return null;
     }
     try {
-      final T result = INSTANCE.treeToValue(tree, valueType);
+      // If the needed type is a sub-class of JsiiObject, we'll be receiving it by-reference, so we can ask Jackson to
+      // de-serialize a JsiiObject instead of the actual type; and we'll still get the correct instance type. This
+      // avoids running into problems because of Jackson not liking the structure of a particular class (it will
+      // validate that before attempting any deserialization operation, and I don't know how to mute this behavior).
+      final Class<?> deserType = JsiiObject.class.isAssignableFrom(valueType)
+              ? JsiiObject.class
+              : valueType;
+      final Object result = INSTANCE.treeToValue(tree, deserType);
       if (result != null && valueType.isInterface() && result instanceof JsiiObject) {
         // The result type does not implement the interface, returning the proxy instead!
         if (!valueType.isAssignableFrom(result.getClass()) && valueType.isAnnotationPresent(Jsii.Proxy.class)) {
@@ -58,7 +65,7 @@ public final class JsiiObjectMapper {
           return (T)((JsiiObject) result).asInterfaceProxy(proxyAnnotation.value());
         }
       }
-      return result;
+      return (T)result;
     } catch (final JsonProcessingException jpe) {
       throw new JsiiException(jpe);
     }

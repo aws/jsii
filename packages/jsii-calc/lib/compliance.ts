@@ -2332,10 +2332,10 @@ export class JsonFormatter {
         return () => 'boom';
     }
 
-    public static anyDate(): any { 
+    public static anyDate(): any {
         return new Date('2019-11-18T13:01:20.515Z');
     }
-    
+
     public static anyNumber(): any {
         return 123;
     }
@@ -2373,4 +2373,26 @@ export class JsonFormatter {
     }
 
     private constructor() { }
+}
+
+/**
+ * This tries to confuse Jackson by having overloaded property setters.
+ *
+ * @see https://github.com/aws/aws-cdk/issues/4080
+ */
+export class ConfusingToJackson {
+    public static makeInstance(): ConfusingToJackson {
+        return new ConfusingToJackson();
+    }
+
+    public static makeStructInstance(): ConfusingToJacksonStruct {
+        return {};
+    }
+
+    public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+
+    private constructor() { }
+}
+export interface ConfusingToJacksonStruct {
+    readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
 }

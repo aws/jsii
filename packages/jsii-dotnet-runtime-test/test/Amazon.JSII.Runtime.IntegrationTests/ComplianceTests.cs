@@ -1034,7 +1034,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         }
 
         [Fact(DisplayName = Prefix + nameof(ReturnSubclassThatImplementsInterface976))]
-        public void ReturnSubclassThatImplementsInterface976() 
+        public void ReturnSubclassThatImplementsInterface976()
         {
             var obj = SomeTypeJsii976.ReturnReturn();
             Assert.Equal(333, obj.Foo);
@@ -1291,12 +1291,24 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             var json = JsonFormatter.Stringify(new StructB {RequiredString = "Bazinga!", OptionalBoolean = false});
             var actual = JObject.Parse(json);
-            
+
             var expected = new JObject();
             expected.Add("RequiredString", "Bazinga!");
             expected.Add("OptionalBoolean", false);
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanObtainReferenceWithOverloadedSetters))]
+        public void CanObtainReferenceWithOverloadedSetters()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeInstance());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanObtainStructReferenceWithOverloadedSetters))]
+        public void CanObtainStructReferenceWithOverloadedSetters()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeStructInstance());
         }
     }
 }

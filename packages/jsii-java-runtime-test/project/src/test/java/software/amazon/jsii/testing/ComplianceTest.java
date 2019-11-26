@@ -1584,4 +1584,14 @@ public class ComplianceTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void canObtainReferenceWithOverloadedSetter() {
+        assertNotNull(ConfusingToJackson.makeInstance());
+    }
+
+    @Test
+    public void canObtainStructReferenceWithOverloadedSetter() {
+        assertNotNull(ConfusingToJackson.makeStructInstance());
+    }
 }
