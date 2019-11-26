@@ -36,7 +36,7 @@
     "jsii-spec": "^0.20.8",
     "log4js": "^6.0.0",
     "typescript": "~3.6.4",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.0.1",
