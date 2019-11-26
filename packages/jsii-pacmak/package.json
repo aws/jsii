@@ -64,7 +64,7 @@
     "jsii-dotnet-jsonmodel": "^0.20.8",
     "jsii-dotnet-runtime": "^0.20.8",
     "jsii-java-runtime": "^0.20.8",
-    "mock-fs": "^4.10.2",
+    "mock-fs": "^4.10.4",
     "typescript": "~3.6.4"
   },
   "keywords": [
