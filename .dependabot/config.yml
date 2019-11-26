@@ -10,49 +10,28 @@ update_configs:
     default_labels:
       - dependencies
 
-  - directory: /packages/jsii-dotnet-analyzers/src/Amazon.JSII.Analyzers
+  - directory: /packages/jsii-dotnet-analyzers/src
     package_manager: dotnet:nuget
     update_schedule: daily
     default_labels:
       - dependencies
       - language/dotnet
 
-  - directory: /packages/jsii-dotnet-analyzers/src/Amazon.JSII.Analyzers.UnitTests
+  - directory: /packages/jsii-dotnet-jsonmodel/src
     package_manager: dotnet:nuget
     update_schedule: daily
     default_labels:
       - dependencies
       - language/dotnet
 
-  - directory: /packages/jsii-dotnet-jsonmodel/src/Amazon.JSII.JsonModel
+  - directory: /packages/jsii-dotnet-runtime/src
     package_manager: dotnet:nuget
     update_schedule: daily
     default_labels:
       - dependencies
       - language/dotnet
 
-  - directory: /packages/jsii-dotnet-jsonmodel/src/Amazon.JSII.JsonModel.UnitTests
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/jsii-dotnet-runtime/src/Amazon.JSII.Runtime
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/jsii-dotnet-runtime/src/Amazon.JSII.Runtime.UnitTests
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/jsii-dotnet-runtime-test/test/Amazon.JSII.Runtime.IntegrationTests
+  - directory: /packages/jsii-dotnet-runtime-test/test
     package_manager: dotnet:nuget
     update_schedule: daily
     default_labels:
