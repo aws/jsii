@@ -1,5 +1,6 @@
 package software.amazon.jsii.testing;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.Test;
@@ -1403,6 +1404,16 @@ public class ComplianceTest {
         assertNotNull(Demonstrate982.takeThisToo());
     }
 
+    @Test
+    public void testNullIsAValidOptionalList() {
+        assertNull(DisappointingCollectionSource.MAYBE_LIST);
+    }
+
+    @Test
+    public void testNullIsAValidOptionalMap() {
+        assertNull(DisappointingCollectionSource.MAYBE_MAP);
+    }
+
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {
         @Override
         public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj,
@@ -1555,12 +1566,22 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canObtainReferenceWithOverloadedSetter() {
-        assertNotNull(ConfusingToJackson.makeInstance());
+    public void canUseInterfaceSetters() {
+        final IObjectWithProperty obj = ObjectWithPropertyProvider.provide();
+        obj.setProperty("New Value");
+        assertTrue(obj.wasSet());
     }
 
     @Test
-    public void canObtainStructReferenceWithOverloadedSetter() {
-        assertNotNull(ConfusingToJackson.makeStructInstance());
+    public void structsAreUndecoratedOntheWayToKernel() throws IOException {
+        final ObjectMapper om = new ObjectMapper();
+        final String json = JsonFormatter.stringify(StructB.builder().requiredString("Bazinga!").optionalBoolean(false).build());
+        final JsonNode actual = om.readTree(json);
+
+        final ObjectNode expected = om.createObjectNode();
+        expected.put("requiredString", "Bazinga!");
+        expected.put("optionalBoolean", Boolean.FALSE);
+
+        assertEquals(expected, actual);
     }
 }

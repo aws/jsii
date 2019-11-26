@@ -9,7 +9,7 @@ import { Generator } from '../generator';
 import logging = require('../logging');
 import { md2html } from '../markdown';
 import { PackageInfo, Target, findLocalBuildDirs } from '../target';
-import { shell, Scratch, slugify, setExtend } from '../util';
+import { shell, Scratch, slugify, setExtend, prefixMarkdownTsCodeBlocks } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
@@ -19,6 +19,7 @@ const spdxLicenseList = require('spdx-license-list');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILDER_CLASS_NAME = 'Builder';
+const SAMPLES_DISCLAIMER = '// This example is in TypeScript, examples in Java are coming soon.';
 
 /**
  * Build Java packages all together, by generating an aggregate POM
@@ -637,7 +638,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of md2html(mod.readme.markdown).split('\n')) {
+      for (const line of md2html(prefixMarkdownTsCodeBlocks(mod.readme.markdown, SAMPLES_DISCLAIMER)).split('\n')) {
         this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
       }
     }
@@ -859,7 +860,8 @@ class JavaGenerator extends Generator {
     for (const prop of consts) {
       const constName = this.renderConstName(prop);
       const propClass = this.toJavaType(prop.type, true);
-      this.code.line(`${constName} = software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class);`);
+      const statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class)`;
+      this.code.line(`${constName} = ${this.wrapCollection(statement, prop.type, prop.optional)};`);
     }
 
     this.code.closeBlock();
@@ -905,7 +907,7 @@ class JavaGenerator extends Generator {
 
       statement += `"${prop.name}", ${propClass}.class)`;
 
-      this.code.line(`return ${this.wrapCollection(statement, prop.type)};`);
+      this.code.line(`return ${this.wrapCollection(statement, prop.type, prop.optional)};`);
       this.code.closeBlock();
     }
 
@@ -1483,7 +1485,7 @@ class JavaGenerator extends Generator {
     }
 
     if (docs.remarks) {
-      paras.push(docs.remarks);
+      paras.push(md2html(prefixMarkdownTsCodeBlocks(docs.remarks, SAMPLES_DISCLAIMER)).trimRight());
     }
 
     if (docs.default) {
@@ -1492,8 +1494,7 @@ class JavaGenerator extends Generator {
 
     if (docs.example) {
       paras.push('Example:');
-      // FIXME: Have to parse the MarkDown and convert fenced code blocks to <pre>{@code\n....\n}</pre>.
-      paras.push(docs.example);
+      paras.push(`<blockquote><pre>{@code\n${SAMPLES_DISCLAIMER}\n${docs.example}\n}</pre></blockquote>`);
     }
 
     if (docs.stability === spec.Stability.Experimental) {
@@ -1644,7 +1645,7 @@ class JavaGenerator extends Generator {
     statement += `${this.renderMethodCallArguments(method)})`;
 
     if (method.returns) {
-      statement = this.wrapCollection(statement, method.returns.type);
+      statement = this.wrapCollection(statement, method.returns.type, method.returns.optional);
     }
 
     if (method.returns) {
@@ -1658,19 +1659,26 @@ class JavaGenerator extends Generator {
      * Wraps a collection into an unmodifiable collection else returns the existing statement.
      * @param statement The statement to wrap if necessary.
      * @param type The type of the object to wrap.
+     * @param optional Whether the value is optional (can be null/undefined) or not.
      * @returns The modified or original statement.
      */
-  private wrapCollection(statement: string, type: spec.TypeReference): string {
+  private wrapCollection(statement: string, type: spec.TypeReference, optional?: boolean): string {
     if (spec.isCollectionTypeReference(type)) {
-      const ref = type;
-      switch (ref.collection.kind) {
+      let wrapper: string;
+      switch (type.collection.kind) {
         case spec.CollectionKind.Array:
-          return `java.util.Collections.unmodifiableList(${statement})`;
+          wrapper = 'unmodifiableList';
+          break;
         case spec.CollectionKind.Map:
-          return `java.util.Collections.unmodifiableMap(${statement})`;
+          wrapper = 'unmodifiableMap';
+          break;
         default:
-          throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
+          throw new Error(`Unsupported collection kind: ${type.collection.kind}`);
       }
+      // In the case of "optional", the value needs ot be explicitly cast to allow for cases where the raw type was returned.
+      return optional
+        ? `java.util.Optional.ofNullable((${this.toJavaType(type)})(${statement})).map(java.util.Collections::${wrapper}).orElse(null)`
+        : `java.util.Collections.${wrapper}(${statement})`;
     }
 
     return statement;

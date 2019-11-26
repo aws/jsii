@@ -329,16 +329,6 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ readWriteString property (experimental)
  │   │     └── type: string
- │   ├─┬ class ConfusingToJackson (experimental)
- │   │ └─┬ members
- │   │   ├─┬ static makeInstance() method (experimental)
- │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.ConfusingToJackson
- │   │   ├─┬ static makeStructInstance() method (experimental)
- │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.ConfusingToJacksonStruct
- │   │   └─┬ unionProperty property (experimental)
- │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
  │   ├─┬ class ConstructorPassesThisOut (experimental)
  │   │ └─┬ members
  │   │   └─┬ <initializer>(consumer) initializer (experimental)
@@ -499,6 +489,18 @@ exports[`jsii-tree --all 1`] = `
  │   │ ├── base: Base
  │   │ └─┬ members
  │   │   └── <initializer>() initializer (experimental)
+ │   ├─┬ class DisappointingCollectionSource (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ static maybeList property (experimental)
+ │   │   │ ├── const
+ │   │   │ ├── immutable
+ │   │   │ ├── static
+ │   │   │ └── type: Optional<Array<string>>
+ │   │   └─┬ static maybeMap property (experimental)
+ │   │     ├── const
+ │   │     ├── immutable
+ │   │     ├── static
+ │   │     └── type: Optional<Map<string => number>>
  │   ├─┬ class DoNotOverridePrivates (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -846,6 +848,53 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: Optional<string>
+ │   ├─┬ class JsonFormatter (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ static anyArray() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyBooleanFalse() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyBooleanTrue() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyDate() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyEmptyString() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyFunction() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyHash() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyNull() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyNumber() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyRef() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyString() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyUndefined() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   ├─┬ static anyZero() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: any
+ │   │   └─┬ static stringify(value) method (experimental)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ value
+ │   │     │   └── type: any
+ │   │     └── returns: Optional<string>
  │   ├─┬ class Multiply (experimental)
  │   │ ├── base: BinaryOperation
  │   │ ├── interfaces: IFriendlier,IRandomNumberGenerator
@@ -948,6 +997,11 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ values
  │   │     │   └── type: Map<string => @scope/jsii-calc-lib.Value>
  │   │     └── returns: number
+ │   ├─┬ class ObjectWithPropertyProvider (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ static provide() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: jsii-calc.IObjectWithProperty
  │   ├─┬ class Old (deprecated)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (deprecated)
@@ -1575,12 +1629,6 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: number
- │   ├─┬ interface ConfusingToJacksonStruct (experimental)
- │   │ └─┬ members
- │   │   └─┬ unionProperty property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
  │   ├─┬ interface DeprecatedStruct (deprecated)
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property (deprecated)
@@ -1857,6 +1905,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ ├── abstract
  │   │   │ └── type: string
  │   │   └─┬ c property (experimental)
+ │   │     ├── abstract
+ │   │     └── type: string
+ │   ├─┬ interface IObjectWithProperty (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ wasSet() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: boolean
+ │   │   └─┬ property property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
  │   ├─┬ interface IPrivatelyImplemented (experimental)
@@ -2267,7 +2323,6 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: IInterfaceWithProperties
- │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumerCanRingBell
@@ -2279,6 +2334,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class Base
  │   ├─┬ class Derived
  │   │ └── base: Base
+ │   ├── class DisappointingCollectionSource
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
  │   ├── class DocumentedClass
@@ -2315,6 +2371,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class Jsii496Derived
  │   │ └── interfaces: IJsii496
  │   ├── class JsiiAgent
+ │   ├── class JsonFormatter
  │   ├─┬ class Multiply
  │   │ ├── base: BinaryOperation
  │   │ └── interfaces: IFriendlier,IRandomNumberGenerator
@@ -2325,6 +2382,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
+ │   ├── class ObjectWithPropertyProvider
  │   ├── class Old
  │   ├── class OptionalArgumentInvoker
  │   ├── class OptionalConstructorArgument
@@ -2374,7 +2432,6 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ interface ChildStruct982
  │   │ └─┬ interfaces
  │   │   └── ParentStruct982
- │   ├── interface ConfusingToJacksonStruct
  │   ├── interface DeprecatedStruct
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
@@ -2432,6 +2489,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ interface INonInternalInterface
  │   │ └─┬ interfaces
  │   │   └── IAnotherPublicInterface
+ │   ├── interface IObjectWithProperty
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
@@ -2644,11 +2702,6 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static create(readOnlyString,readWriteString) method
  │   │   ├── readOnlyString property
  │   │   └── readWriteString property
- │   ├─┬ class ConfusingToJackson
- │   │ └─┬ members
- │   │   ├── static makeInstance() method
- │   │   ├── static makeStructInstance() method
- │   │   └── unionProperty property
  │   ├─┬ class ConstructorPassesThisOut
  │   │ └─┬ members
  │   │   └── <initializer>(consumer) initializer
@@ -2708,6 +2761,10 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class Derived
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
+ │   ├─┬ class DisappointingCollectionSource
+ │   │ └─┬ members
+ │   │   ├── static maybeList property
+ │   │   └── static maybeMap property
  │   ├─┬ class DoNotOverridePrivates
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2885,6 +2942,22 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── static jsiiAgent property
+ │   ├─┬ class JsonFormatter
+ │   │ └─┬ members
+ │   │   ├── static anyArray() method
+ │   │   ├── static anyBooleanFalse() method
+ │   │   ├── static anyBooleanTrue() method
+ │   │   ├── static anyDate() method
+ │   │   ├── static anyEmptyString() method
+ │   │   ├── static anyFunction() method
+ │   │   ├── static anyHash() method
+ │   │   ├── static anyNull() method
+ │   │   ├── static anyNumber() method
+ │   │   ├── static anyRef() method
+ │   │   ├── static anyString() method
+ │   │   ├── static anyUndefined() method
+ │   │   ├── static anyZero() method
+ │   │   └── static stringify(value) method
  │   ├─┬ class Multiply
  │   │ └─┬ members
  │   │   ├── <initializer>(lhs,rhs) initializer
@@ -2926,6 +2999,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── sumFromArray(values) method
  │   │   └── sumFromMap(values) method
+ │   ├─┬ class ObjectWithPropertyProvider
+ │   │ └─┬ members
+ │   │   └── static provide() method
  │   ├─┬ class Old
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3181,9 +3257,6 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface ChildStruct982
  │   │ └─┬ members
  │   │   └── bar property
- │   ├─┬ interface ConfusingToJacksonStruct
- │   │ └─┬ members
- │   │   └── unionProperty property
  │   ├─┬ interface DeprecatedStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
@@ -3304,6 +3377,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── b property
  │   │   └── c property
+ │   ├─┬ interface IObjectWithProperty
+ │   │ └─┬ members
+ │   │   ├── wasSet() method
+ │   │   └── property property
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └── success property
@@ -3518,7 +3595,6 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
- │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumerCanRingBell
@@ -3529,6 +3605,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class DeprecatedClass
  │   ├── class Base
  │   ├── class Derived
+ │   ├── class DisappointingCollectionSource
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
  │   ├── class DocumentedClass
@@ -3557,12 +3634,14 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class Jsii487Derived
  │   ├── class Jsii496Derived
  │   ├── class JsiiAgent
+ │   ├── class JsonFormatter
  │   ├── class Multiply
  │   ├── class Negate
  │   ├── class NodeStandardLibrary
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
+ │   ├── class ObjectWithPropertyProvider
  │   ├── class Old
  │   ├── class OptionalArgumentInvoker
  │   ├── class OptionalConstructorArgument
@@ -3605,7 +3684,6 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
  │   ├── interface ChildStruct982
- │   ├── interface ConfusingToJacksonStruct
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
  │   ├── interface DiamondInheritanceBaseLevelStruct
@@ -3641,6 +3719,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IJsii496
  │   ├── interface IMutableObjectLiteral
  │   ├── interface INonInternalInterface
+ │   ├── interface IObjectWithProperty
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2

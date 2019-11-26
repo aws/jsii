@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("jsii-calc", "0.20.5", $Module.class, "jsii-calc@0.20.5.jsii.tgz");
+        super("jsii-calc", "0.20.8", $Module.class, "jsii-calc@0.20.8.jsii.tgz");
     }
 
     @Override
@@ -41,8 +41,6 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ClassWithJavaReservedWords": return software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords.class;
             case "jsii-calc.ClassWithMutableObjectLiteralProperty": return software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty.class;
             case "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": return software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class;
-            case "jsii-calc.ConfusingToJackson": return software.amazon.jsii.tests.calculator.ConfusingToJackson.class;
-            case "jsii-calc.ConfusingToJacksonStruct": return software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct.class;
             case "jsii-calc.ConstructorPassesThisOut": return software.amazon.jsii.tests.calculator.ConstructorPassesThisOut.class;
             case "jsii-calc.Constructors": return software.amazon.jsii.tests.calculator.Constructors.class;
             case "jsii-calc.ConsumerCanRingBell": return software.amazon.jsii.tests.calculator.ConsumerCanRingBell.class;
@@ -60,6 +58,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.DiamondInheritanceFirstMidLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct.class;
             case "jsii-calc.DiamondInheritanceSecondMidLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceSecondMidLevelStruct.class;
             case "jsii-calc.DiamondInheritanceTopLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceTopLevelStruct.class;
+            case "jsii-calc.DisappointingCollectionSource": return software.amazon.jsii.tests.calculator.DisappointingCollectionSource.class;
             case "jsii-calc.DoNotOverridePrivates": return software.amazon.jsii.tests.calculator.DoNotOverridePrivates.class;
             case "jsii-calc.DoNotRecognizeAnyAsOptional": return software.amazon.jsii.tests.calculator.DoNotRecognizeAnyAsOptional.class;
             case "jsii-calc.DocumentedClass": return software.amazon.jsii.tests.calculator.DocumentedClass.class;
@@ -101,6 +100,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IJsii496": return software.amazon.jsii.tests.calculator.IJsii496.class;
             case "jsii-calc.IMutableObjectLiteral": return software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class;
             case "jsii-calc.INonInternalInterface": return software.amazon.jsii.tests.calculator.INonInternalInterface.class;
+            case "jsii-calc.IObjectWithProperty": return software.amazon.jsii.tests.calculator.IObjectWithProperty.class;
             case "jsii-calc.IPrivatelyImplemented": return software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class;
             case "jsii-calc.IPublicInterface": return software.amazon.jsii.tests.calculator.IPublicInterface.class;
             case "jsii-calc.IPublicInterface2": return software.amazon.jsii.tests.calculator.IPublicInterface2.class;
@@ -128,6 +128,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.Jsii487Derived": return software.amazon.jsii.tests.calculator.Jsii487Derived.class;
             case "jsii-calc.Jsii496Derived": return software.amazon.jsii.tests.calculator.Jsii496Derived.class;
             case "jsii-calc.JsiiAgent": return software.amazon.jsii.tests.calculator.JsiiAgent.class;
+            case "jsii-calc.JsonFormatter": return software.amazon.jsii.tests.calculator.JsonFormatter.class;
             case "jsii-calc.LoadBalancedFargateServiceProps": return software.amazon.jsii.tests.calculator.LoadBalancedFargateServiceProps.class;
             case "jsii-calc.Multiply": return software.amazon.jsii.tests.calculator.Multiply.class;
             case "jsii-calc.Negate": return software.amazon.jsii.tests.calculator.Negate.class;
@@ -137,6 +138,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.NullShouldBeTreatedAsUndefinedData": return software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData.class;
             case "jsii-calc.NumberGenerator": return software.amazon.jsii.tests.calculator.NumberGenerator.class;
             case "jsii-calc.ObjectRefsInCollections": return software.amazon.jsii.tests.calculator.ObjectRefsInCollections.class;
+            case "jsii-calc.ObjectWithPropertyProvider": return software.amazon.jsii.tests.calculator.ObjectWithPropertyProvider.class;
             case "jsii-calc.Old": return software.amazon.jsii.tests.calculator.Old.class;
             case "jsii-calc.OptionalArgumentInvoker": return software.amazon.jsii.tests.calculator.OptionalArgumentInvoker.class;
             case "jsii-calc.OptionalConstructorArgument": return software.amazon.jsii.tests.calculator.OptionalConstructorArgument.class;

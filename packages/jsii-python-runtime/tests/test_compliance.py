@@ -6,6 +6,8 @@ import pytest
 
 import jsii
 
+from json import loads
+
 from jsii_calc import (
     AbstractClassReturner,
     Add,
@@ -14,11 +16,11 @@ from jsii_calc import (
     AsyncVirtualMethods,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
-    ConfusingToJackson,
     ConsumerCanRingBell,
     ConstructorPassesThisOut,
     DataRenderer,
     Demonstrate982,
+    DisappointingCollectionSource,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
@@ -31,11 +33,13 @@ from jsii_calc import (
     JsiiAgent,
     JSObjectLiteralForInterface,
     JSObjectLiteralToNative,
+    JsonFormatter,
     Multiply,
     Negate,
     NodeStandardLibrary,
     NullShouldBeTreatedAsUndefined,
     NumberGenerator,
+    ObjectWithPropertyProvider,
     PartiallyInitializedThisConsumer,
     Polymorphism,
     Power,
@@ -1055,8 +1059,17 @@ class PythonConcreteBellRinger:
     def your_turn(self, bell):
         bell.ring()
 
-def test_can_obtain_reference_with_overloaded_setter():
-    assert ConfusingToJackson.make_instance() is not None
+def test_null_is_a_valid_optional_list():
+    assert DisappointingCollectionSource.MAYBE_LIST is None
 
-def test_can_obtain_struct_reference_with_overloaded_setter():
-    assert ConfusingToJackson.make_struct_instance() is not None
+def test_null_is_a_valid_optional_map():
+    assert DisappointingCollectionSource.MAYBE_MAP is None
+
+def test_can_use_interface_setters():
+    obj = ObjectWithPropertyProvider.provide()
+    obj.property = 'New Value'
+    assert obj.was_set()
+
+def test_structs_are_undecorated_on_the_way_to_kernel():
+    json = JsonFormatter.stringify(StructB(required_string='Bazinga!', optional_boolean=False))
+    assert loads(json) == {'requiredString': 'Bazinga!', 'optionalBoolean': False}

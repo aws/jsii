@@ -8,6 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Stable
     /// example:
     /// <code>
+    /// // Examples in C# are coming soon.
     /// function anExample() {
     /// }
     /// </code>

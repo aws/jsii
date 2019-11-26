@@ -1,8 +1,8 @@
 import cm = require('commonmark');
 import { visitCommonMarkTree } from '../markdown/markdown';
-import { CodeBlock } from '../markdown/replace-code-renderer';
 import { TypeScriptSnippet } from '../snippet';
 import { ReplaceTypeScriptTransform } from './replace-typescript-transform';
+import { CodeBlock } from './types';
 
 export type TypeScriptReplacer = (code: TypeScriptSnippet) => CodeBlock | undefined;
 

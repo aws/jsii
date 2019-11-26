@@ -1,6 +1,6 @@
 {
   "name": "jsii-spec",
-  "version": "0.20.5",
+  "version": "0.20.8",
   "description": "Specification for jsii assemblies",
   "license": "Apache-2.0",
   "author": {
@@ -38,7 +38,7 @@
     "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
-    "jsii-build-tools": "^0.20.5",
+    "jsii-build-tools": "^0.20.8",
     "typescript": "~3.7.2",
     "typescript-json-schema": "^0.40.0"
   },

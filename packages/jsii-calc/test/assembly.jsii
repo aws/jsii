@@ -55,7 +55,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.5"
+      "version": "0.20.8"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -78,7 +78,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.5"
+      "version": "0.20.8"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -103,7 +103,7 @@
           "module": "scope.jsii_calc_lib"
         }
       },
-      "version": "0.20.5"
+      "version": "0.20.8"
     }
   },
   "dependencyClosure": {
@@ -128,7 +128,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.5"
+      "version": "0.20.8"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -151,7 +151,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.5"
+      "version": "0.20.8"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -176,7 +176,7 @@
           "module": "scope.jsii_calc_lib"
         }
       },
-      "version": "0.20.5"
+      "version": "0.20.8"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -184,7 +184,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.20.5",
+  "jsiiVersion": "0.20.8",
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -1395,6 +1395,8 @@
       "assembly": "jsii-calc",
       "base": "jsii-calc.composition.CompositeOperation",
       "docs": {
+        "example": "const calculator = new calc.Calculator();\ncalculator.add(5);\ncalculator.mul(3);\nconsole.log(calculator.expression.value);",
+        "remarks": "Here's how you use it:\n\n```ts\nconst calculator = new calc.Calculator();\ncalculator.add(5);\ncalculator.mul(3);\nconsole.log(calculator.expression.value);\n```\n\nI will repeat this example again, but in an @example tag.",
         "stability": "experimental",
         "summary": "A calculator which maintains a current value and allows adding operations."
       },
@@ -1420,7 +1422,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/calculator.ts",
-        "line": 242
+        "line": 260
       },
       "methods": [
         {
@@ -1430,7 +1432,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 281
+            "line": 299
           },
           "name": "add",
           "parameters": [
@@ -1449,7 +1451,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 288
+            "line": 306
           },
           "name": "mul",
           "parameters": [
@@ -1468,7 +1470,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 302
+            "line": 320
           },
           "name": "neg"
         },
@@ -1479,7 +1481,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 295
+            "line": 313
           },
           "name": "pow",
           "parameters": [
@@ -1498,7 +1500,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 321
+            "line": 339
           },
           "name": "readUnionValue",
           "returns": {
@@ -1518,7 +1520,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 309
+            "line": 327
           },
           "name": "expression",
           "overrides": "jsii-calc.composition.CompositeOperation",
@@ -1534,7 +1536,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 271
+            "line": 289
           },
           "name": "operationsLog",
           "type": {
@@ -1554,7 +1556,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 266
+            "line": 284
           },
           "name": "operationsMap",
           "type": {
@@ -1578,7 +1580,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 261
+            "line": 279
           },
           "name": "curr",
           "type": {
@@ -1592,7 +1594,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 276
+            "line": 294
           },
           "name": "maxValue",
           "optional": true,
@@ -1607,7 +1609,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 316
+            "line": 334
           },
           "name": "unionProperty",
           "optional": true,
@@ -2215,149 +2217,6 @@
           "overrides": "jsii-calc.IInterfaceWithProperties",
           "type": {
             "primitive": "string"
-          }
-        }
-      ]
-    },
-    "jsii-calc.ConfusingToJackson": {
-      "assembly": "jsii-calc",
-      "docs": {
-        "see": "https://github.com/aws/aws-cdk/issues/4080",
-        "stability": "experimental",
-        "summary": "This tries to confuse Jackson by having overloaded property setters."
-      },
-      "fqn": "jsii-calc.ConfusingToJackson",
-      "kind": "class",
-      "locationInModule": {
-        "filename": "lib/compliance.ts",
-        "line": 2275
-      },
-      "methods": [
-        {
-          "docs": {
-            "stability": "experimental"
-          },
-          "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 2276
-          },
-          "name": "makeInstance",
-          "returns": {
-            "type": {
-              "fqn": "jsii-calc.ConfusingToJackson"
-            }
-          },
-          "static": true
-        },
-        {
-          "docs": {
-            "stability": "experimental"
-          },
-          "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 2280
-          },
-          "name": "makeStructInstance",
-          "returns": {
-            "type": {
-              "fqn": "jsii-calc.ConfusingToJacksonStruct"
-            }
-          },
-          "static": true
-        }
-      ],
-      "name": "ConfusingToJackson",
-      "properties": [
-        {
-          "docs": {
-            "stability": "experimental"
-          },
-          "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 2284
-          },
-          "name": "unionProperty",
-          "optional": true,
-          "type": {
-            "union": {
-              "types": [
-                {
-                  "fqn": "@scope/jsii-calc-lib.IFriendly"
-                },
-                {
-                  "collection": {
-                    "elementtype": {
-                      "union": {
-                        "types": [
-                          {
-                            "fqn": "@scope/jsii-calc-lib.IFriendly"
-                          },
-                          {
-                            "fqn": "jsii-calc.AbstractClass"
-                          }
-                        ]
-                      }
-                    },
-                    "kind": "array"
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ]
-    },
-    "jsii-calc.ConfusingToJacksonStruct": {
-      "assembly": "jsii-calc",
-      "datatype": true,
-      "docs": {
-        "stability": "experimental"
-      },
-      "fqn": "jsii-calc.ConfusingToJacksonStruct",
-      "kind": "interface",
-      "locationInModule": {
-        "filename": "lib/compliance.ts",
-        "line": 2288
-      },
-      "name": "ConfusingToJacksonStruct",
-      "properties": [
-        {
-          "abstract": true,
-          "docs": {
-            "stability": "experimental"
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 2289
-          },
-          "name": "unionProperty",
-          "optional": true,
-          "type": {
-            "union": {
-              "types": [
-                {
-                  "fqn": "@scope/jsii-calc-lib.IFriendly"
-                },
-                {
-                  "collection": {
-                    "elementtype": {
-                      "union": {
-                        "types": [
-                          {
-                            "fqn": "@scope/jsii-calc-lib.IFriendly"
-                          },
-                          {
-                            "fqn": "jsii-calc.AbstractClass"
-                          }
-                        ]
-                      }
-                    },
-                    "kind": "array"
-                  }
-                }
-              ]
-            }
           }
         }
       ]
@@ -3502,6 +3361,71 @@
           "name": "topLevelProperty",
           "type": {
             "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.DisappointingCollectionSource": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "This source of collections is disappointing - it'll always give you nothing :(",
+        "stability": "experimental",
+        "summary": "Verifies that null/undefined can be returned for optional collections."
+      },
+      "fqn": "jsii-calc.DisappointingCollectionSource",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2275
+      },
+      "name": "DisappointingCollectionSource",
+      "properties": [
+        {
+          "const": true,
+          "docs": {
+            "remarks": "(Nah, just a billion dollars mistake!)",
+            "stability": "experimental",
+            "summary": "Some List of strings, maybe?"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2277
+          },
+          "name": "maybeList",
+          "optional": true,
+          "static": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "const": true,
+          "docs": {
+            "remarks": "(Nah, just a billion dollars mistake!)",
+            "stability": "experimental",
+            "summary": "Some Map of strings to numbers, maybe?"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2279
+          },
+          "name": "maybeMap",
+          "optional": true,
+          "static": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "number"
+              },
+              "kind": "map"
+            }
           }
         }
       ]
@@ -5261,6 +5185,54 @@
         }
       ]
     },
+    "jsii-calc.IObjectWithProperty": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Make sure that setters are properly called on objects with interfaces."
+      },
+      "fqn": "jsii-calc.IObjectWithProperty",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2287
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2289
+          },
+          "name": "wasSet",
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        }
+      ],
+      "name": "IObjectWithProperty",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2288
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.IPrivatelyImplemented": {
       "assembly": "jsii-calc",
       "docs": {
@@ -6715,6 +6687,257 @@
         }
       ]
     },
+    "jsii-calc.JsonFormatter": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/aws-cdk/issues/5066",
+        "stability": "experimental",
+        "summary": "Make sure structs are un-decorated on the way in."
+      },
+      "fqn": "jsii-calc.JsonFormatter",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2318
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2363
+          },
+          "name": "anyArray",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2359
+          },
+          "name": "anyBooleanFalse",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2355
+          },
+          "name": "anyBooleanTrue",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2335
+          },
+          "name": "anyDate",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2351
+          },
+          "name": "anyEmptyString",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2331
+          },
+          "name": "anyFunction",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2367
+          },
+          "name": "anyHash",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2323
+          },
+          "name": "anyNull",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2339
+          },
+          "name": "anyNumber",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2371
+          },
+          "name": "anyRef",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2347
+          },
+          "name": "anyString",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2327
+          },
+          "name": "anyUndefined",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2343
+          },
+          "name": "anyZero",
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2319
+          },
+          "name": "stringify",
+          "parameters": [
+            {
+              "name": "value",
+              "optional": true,
+              "type": {
+                "primitive": "any"
+              }
+            }
+          ],
+          "returns": {
+            "optional": true,
+            "type": {
+              "primitive": "string"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "JsonFormatter"
+    },
     "jsii-calc.LoadBalancedFargateServiceProps": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -7502,6 +7725,37 @@
         }
       ],
       "name": "ObjectRefsInCollections"
+    },
+    "jsii-calc.ObjectWithPropertyProvider": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ObjectWithPropertyProvider",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2291
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2292
+          },
+          "name": "provide",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IObjectWithProperty"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "ObjectWithPropertyProvider"
     },
     "jsii-calc.Old": {
       "assembly": "jsii-calc",
@@ -11270,6 +11524,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.20.5",
-  "fingerprint": "vKeZwjjLC1e84B6FiOQCH8JDNoINrldYfdEWYKqCFSQ="
+  "version": "0.20.8",
+  "fingerprint": "N6rN2lItGrVvvguYWKJffMgN+NaFLr5GQp2a1fmrbx0="
 }
