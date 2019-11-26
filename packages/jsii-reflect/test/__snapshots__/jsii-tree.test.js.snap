@@ -329,6 +329,16 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ readWriteString property (experimental)
  │   │     └── type: string
+ │   ├─┬ class ConfusingToJackson (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ static makeInstance() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.ConfusingToJackson
+ │   │   ├─┬ static makeStructInstance() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.ConfusingToJacksonStruct
+ │   │   └─┬ unionProperty property (experimental)
+ │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
  │   ├─┬ class ConstructorPassesThisOut (experimental)
  │   │ └─┬ members
  │   │   └─┬ <initializer>(consumer) initializer (experimental)
@@ -1637,6 +1647,12 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: number
+ │   ├─┬ interface ConfusingToJacksonStruct (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ unionProperty property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
  │   ├─┬ interface DeprecatedStruct (deprecated)
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property (deprecated)
@@ -2336,6 +2352,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: IInterfaceWithProperties
+ │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumePureInterface
@@ -2446,6 +2463,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ interface ChildStruct982
  │   │ └─┬ interfaces
  │   │   └── ParentStruct982
+ │   ├── interface ConfusingToJacksonStruct
  │   ├── interface DeprecatedStruct
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
@@ -2717,6 +2735,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static create(readOnlyString,readWriteString) method
  │   │   ├── readOnlyString property
  │   │   └── readWriteString property
+ │   ├─┬ class ConfusingToJackson
+ │   │ └─┬ members
+ │   │   ├── static makeInstance() method
+ │   │   ├── static makeStructInstance() method
+ │   │   └── unionProperty property
  │   ├─┬ class ConstructorPassesThisOut
  │   │ └─┬ members
  │   │   └── <initializer>(consumer) initializer
@@ -3276,6 +3299,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface ChildStruct982
  │   │ └─┬ members
  │   │   └── bar property
+ │   ├─┬ interface ConfusingToJacksonStruct
+ │   │ └─┬ members
+ │   │   └── unionProperty property
  │   ├─┬ interface DeprecatedStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
@@ -3617,6 +3643,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
+ │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumePureInterface
@@ -3707,6 +3734,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
  │   ├── interface ChildStruct982
+ │   ├── interface ConfusingToJacksonStruct
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
  │   ├── interface DiamondInheritanceBaseLevelStruct

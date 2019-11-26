@@ -1299,6 +1299,18 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact(DisplayName = Prefix + nameof(CanObtainReferenceWithOverloadedSetters))]
+        public void CanObtainReferenceWithOverloadedSetters()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeInstance());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanObtainStructReferenceWithOverloadedSetters))]
+        public void CanObtainStructReferenceWithOverloadedSetters()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeStructInstance());
+        }
+
         [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently))]
         public void PureInterfacesCanBeUsedTransparently()
         {
@@ -1321,6 +1333,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             {
                 return Expected;
             }
-    }
+        }
     }
 }

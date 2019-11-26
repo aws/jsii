@@ -1586,6 +1586,16 @@ public class ComplianceTest {
     }
 
     @Test
+    public void canObtainReferenceWithOverloadedSetter() {
+        assertNotNull(ConfusingToJackson.makeInstance());
+    }
+
+    @Test
+    public void canObtainStructReferenceWithOverloadedSetter() {
+        assertNotNull(ConfusingToJackson.makeStructInstance());
+    }
+
+    @Test
     public void pureInterfacesCanBeUsedTransparently() {
         final StructB expected = StructB.builder()
             .requiredString("It's Britney b**ch!")

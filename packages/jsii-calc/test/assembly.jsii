@@ -2221,6 +2221,149 @@
         }
       ]
     },
+    "jsii-calc.ConfusingToJackson": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/aws-cdk/issues/4080",
+        "stability": "experimental",
+        "summary": "This tries to confuse Jackson by having overloaded property setters."
+      },
+      "fqn": "jsii-calc.ConfusingToJackson",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2383
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2384
+          },
+          "name": "makeInstance",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ConfusingToJackson"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2388
+          },
+          "name": "makeStructInstance",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ConfusingToJacksonStruct"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "ConfusingToJackson",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2392
+          },
+          "name": "unionProperty",
+          "optional": true,
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                },
+                {
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "@scope/jsii-calc-lib.IFriendly"
+                          },
+                          {
+                            "fqn": "jsii-calc.AbstractClass"
+                          }
+                        ]
+                      }
+                    },
+                    "kind": "array"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "jsii-calc.ConfusingToJacksonStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ConfusingToJacksonStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2396
+      },
+      "name": "ConfusingToJacksonStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2397
+          },
+          "name": "unionProperty",
+          "optional": true,
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                },
+                {
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "@scope/jsii-calc-lib.IFriendly"
+                          },
+                          {
+                            "fqn": "jsii-calc.AbstractClass"
+                          }
+                        ]
+                      }
+                    },
+                    "kind": "array"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.ConstructorPassesThisOut": {
       "assembly": "jsii-calc",
       "docs": {
@@ -2412,7 +2555,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2384
+        "line": 2406
       },
       "methods": [
         {
@@ -2421,7 +2564,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2387
+            "line": 2409
           },
           "name": "workItBaby",
           "returns": {
@@ -5534,7 +5677,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2381
+        "line": 2403
       },
       "methods": [
         {
@@ -5544,7 +5687,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2382
+            "line": 2404
           },
           "name": "returnStruct",
           "returns": {
@@ -11600,5 +11743,5 @@
     }
   },
   "version": "0.20.8",
-  "fingerprint": "+RP1SeCfWPdg28sHAcZDni6RTbEUwSieZsbQ7eni6jk="
+  "fingerprint": "R5DFMiv/0riWRnreyHs899X53BbbVd5NTXmswDeF4/8="
 }
