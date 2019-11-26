@@ -1608,4 +1608,54 @@ public class ComplianceTest {
         final ConsumePureInterface consumer = new ConsumePureInterface(delegate);
         assertEquals(expected, consumer.workItBaby());
     }
+
+    @Test
+    public void pureInterfacesCanBeUsedTransparently_WhenTransitivelyImplementing() {
+        final StructB expected = StructB.builder()
+            .requiredString("It's Britney b**ch!")
+            .build();
+        final IStructReturningDelegate delegate = new IndirectlyImplementsStructReturningDelegate(expected);
+        final ConsumePureInterface consumer = new ConsumePureInterface(delegate);
+        assertEquals(expected, consumer.workItBaby());
+    }
+
+    private static final class IndirectlyImplementsStructReturningDelegate extends ImplementsStructReturningDelegate {
+        public IndirectlyImplementsStructReturningDelegate(final StructB struct) {
+            super(struct);
+        }
+    }
+
+    private static final class ImplementsStructReturningDelegate implements IStructReturningDelegate {
+        private final StructB struct;
+
+        protected ImplementsStructReturningDelegate(final StructB struct) {
+            this.struct = struct;
+        }
+
+        public StructB returnStruct() {
+            return this.struct;
+        }
+    }
+
+    @Test
+    public void interfacesCanBeUsedTransparently_WhenAddedToJsiiType() {
+        final StructB expected = StructB.builder()
+            .requiredString("It's Britney b**ch!")
+            .build();
+        final IStructReturningDelegate delegate = new ImplementsAdditionalInterface(expected);
+        final ConsumePureInterface consumer = new ConsumePureInterface(delegate);
+        assertEquals(expected, consumer.workItBaby());
+    }
+
+    private static final class ImplementsAdditionalInterface extends AllTypes implements IStructReturningDelegate {
+        private final StructB struct;
+
+        public ImplementsStructReturningDelegate(final StructB struct) {
+            this.struct = struct;
+        }
+
+        public StructB returnStruct() {
+            return this.struct;
+        }
+    }
 }

@@ -576,6 +576,20 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         return overrides.values();
     }
 
+    /**
+     * Crawls up the inheritance tree of {@code classToInspect} in order to determine the jsii-visible
+     * interfaces that are implemented, using a procedure akin to:
+     *
+     * <ol>
+     *  <li>If {@code classToInspect} is annotated with @Jsii and is an interface, return a singleton set with the FQN</li>
+     *  <li>If {@code classToInspect} is annotated with @Jsii and is NOT an interface, return an empty set</li>
+     *  <li>Collect all interfaces from {@classToInspect}'s interfaces</li>
+     * </ol>
+     *
+     * @param classToInspect the class for which interfaces are needed
+     *
+     * @return the list of jsii FQNs of interfaces implemented by {@code classToInspect}
+     */
     private Collection<String> discoverInterfaces(final Class<?> classToInspect) {
         final Set<String> interfaces = new HashSet<>();
         if (classToInspect.isAnnotationPresent(Jsii.class)) {

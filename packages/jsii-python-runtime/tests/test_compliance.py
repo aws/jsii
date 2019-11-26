@@ -1094,3 +1094,30 @@ def test_pure_interfaces_can_be_used_transparently():
     delegate = StructReturningDelegate()
     consumer = ConsumePureInterface(delegate)
     assert consumer.work_it_baby() == expected
+
+def test_pure_interfaces_can_be_used_transparently_when_transitively_implementing():
+    expected = StructB(required_string="It's Britney b**ch!")
+
+    @jsii.implements(IStructReturningDelegate)
+    class ImplementsStructReturningDelegate:
+        def return_struct(self):
+            return expected
+
+    class IndirectlyImplementsStructReturningDelegate(ImplementsStructReturningDelegate):
+        ...
+
+    delegate = IndirectlyImplementsStructReturningDelegate()
+    consumer = ConsumePureInterface(delegate)
+    assert consumer.work_it_baby() == expected
+
+def test_pure_interfaces_can_be_used_transparently_when_added_to_jsii_type():
+    expected = StructB(required_string="It's Britney b**ch!")
+
+    @jsii.implements(IStructReturningDelegate)
+    class ImplementsAdditionalInterface(AllTypes):
+        def return_struct(self):
+            return expected
+
+    delegate = ImplementsAdditionalInterface()
+    consumer = ConsumePureInterface(delegate)
+    assert consumer.work_it_baby() == expected

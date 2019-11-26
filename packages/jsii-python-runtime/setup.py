@@ -38,7 +38,7 @@ setuptools.setup(
     python_requires=">=3.6",
 
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
 
         "Intended Audience :: Developers",
 
@@ -50,7 +50,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
 
-        "Topic :: Software Development :: Code Generators",
+        "Topic :: Software Development :: Libraries",
         "Topic :: Utilities",
 
         "Typing :: Typed",

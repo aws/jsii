@@ -75,12 +75,18 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                 original = getattr(jsii_class, name, _nothing)
                 if original is not _nothing:
                     if inspect.isfunction(item) and hasattr(original, "__jsii_name__"):
+                        if any(entry.method == original.__jsii_name__ for entry in overrides):
+                            # Don't re-register an override we already discovered through a previous type
+                            continue
                         overrides.append(
                             Override(method=original.__jsii_name__, cookie=name)
                         )
                     elif inspect.isdatadescriptor(item) and hasattr(
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
+                        if any(entry.property == original.__jsii_name__ for entry in overrides):
+                            # Don't re-register an override we already discovered through a previous type
+                            continue
                         overrides.append(
                             Override(property=original.fget.__jsii_name__, cookie=name)
                         )
