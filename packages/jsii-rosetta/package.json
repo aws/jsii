@@ -24,7 +24,7 @@
     "jsii": "^0.20.8",
     "jsii-build-tools": "^0.20.8",
     "memory-streams": "^0.1.3",
-    "mock-fs": "^4.10.2"
+    "mock-fs": "^4.10.4"
   },
   "dependencies": {
     "commonmark": "^0.29.0",
