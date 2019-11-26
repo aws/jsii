@@ -680,11 +680,11 @@ defineTest('sync overrides: properties - verify keys are enumerable', (sandbox) 
   const reader = sandbox.create({ fqn: 'jsii-calc.UsesInterfaceWithProperties', args: [obj] });
 
   sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
-    if (callback.get && callback.get.property === 'foo') {
+    if (callback.get?.property === 'foo') {
       return 999;
     }
 
-    if (callback.get && callback.get.property === 'readOnlyString') {
+    if (callback.get?.property === 'readOnlyString') {
       return 'STR';
     }
 
@@ -704,11 +704,11 @@ defineTest('sync overrides: returns an object', (sandbox) => {
   const number500 = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [500] });
 
   sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
-    if (callback.invoke && callback.invoke.method === 'obtainNumber') {
+    if (callback.invoke?.method === 'obtainNumber') {
       return number100;
     }
 
-    if (callback.get && callback.get.property === 'numberProp') {
+    if (callback.get?.property === 'numberProp') {
       return number500;
     }
 
@@ -856,7 +856,7 @@ defineTest('node.js standard library', async (sandbox) => {
     .toEqual({ result: 'Hello, resource! SYNC!' });
 
   const platform = sandbox.get({ objref, property: 'osPlatform' }).value;
-  expect(platform && platform.length).toBeGreaterThan(0);
+  expect(platform?.length).toBeGreaterThan(0);
 
   expect(sandbox.invoke({ objref, method: 'cryptoSha256' }))
     .toEqual({ result: '6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50' });
@@ -1097,8 +1097,8 @@ defineTest('notice when an array is passed instead of varargs', (sandbox) => {
 
 defineTest('Object ID does not get re-allocated when the constructor passes "this" out', (sandbox) => {
   sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
-    expect(callback.invoke && callback.invoke.method).toBe('consumePartiallyInitializedThis');
-    expect(callback.invoke && callback.invoke.args && callback.invoke.args).toEqual([{
+    expect(callback.invoke?.method).toBe('consumePartiallyInitializedThis');
+    expect(callback.invoke?.args).toEqual([{
       [api.TOKEN_REF]: 'jsii-calc.ConstructorPassesThisOut@10001'
     }, {
       [api.TOKEN_DATE]: '1970-01-01T00:00:00.000Z'
@@ -1160,8 +1160,8 @@ defineTest('registers interfaces requested', (sandbox) => {
 
 defineTest('retains the type of object literals', (sandbox) => {
   sandbox.callbackHandler = makeSyncCallbackHandler((cb) => {
-    expect(cb.invoke && cb.invoke.method).toBe('provideAsInterface');
-    expect(cb.invoke && cb.invoke.objref).toMatchObject({ [TOKEN_REF]: 'Object@10000' });
+    expect(cb.invoke?.method).toBe('provideAsInterface');
+    expect(cb.invoke?.objref).toMatchObject({ [TOKEN_REF]: 'Object@10000' });
     const realObject = sandbox.create({ fqn: 'jsii-calc.AnonymousImplementationProvider' });
     const { result } = sandbox.invoke({ objref: realObject, method: 'provideAsInterface' });
     sandbox.del({ objref: realObject });

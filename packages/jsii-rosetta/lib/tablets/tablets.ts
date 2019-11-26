@@ -29,7 +29,7 @@ export class LanguageTablet {
 
   public lookup(typeScriptSource: TypeScriptSnippet, language: TargetLanguage): Translation | undefined {
     const snippet = this.snippets[snippetKey(typeScriptSource)];
-    return snippet && snippet.get(language);
+    return snippet?.get(language);
 }
 
   public async load(filename: string) {

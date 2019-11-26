@@ -9,7 +9,7 @@ import { Generator } from '../generator';
 import logging = require('../logging');
 import { md2html } from '../markdown';
 import { PackageInfo, Target, findLocalBuildDirs } from '../target';
-import { shell, Scratch, slugify, setExtend } from '../util';
+import { shell, Scratch, slugify, setExtend, prefixMarkdownTsCodeBlocks } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
@@ -19,6 +19,7 @@ const spdxLicenseList = require('spdx-license-list');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILDER_CLASS_NAME = 'Builder';
+const SAMPLES_DISCLAIMER = '// This example is in TypeScript, examples in Java are coming soon.';
 
 /**
  * Build Java packages all together, by generating an aggregate POM
@@ -312,7 +313,7 @@ export default class Java extends Target {
         env: {
           // Twiddle the JVM settings a little for Maven. Delaying JIT compilation
           // brings down Maven execution time by about 1/3rd (15->10s, 30->20s)
-          MAVEN_OPTS: `${process.env.MAVEN_OPTS || ''} -XX:+TieredCompilation -XX:TieredStopAtLevel=1`
+          MAVEN_OPTS: `${process.env.MAVEN_OPTS ?? ''} -XX:+TieredCompilation -XX:TieredStopAtLevel=1`
         }
       }
     );
@@ -448,8 +449,8 @@ class JavaGenerator extends Generator {
     const extendsExpression = classBase ? ` extends ${classBase}` : '';
 
     let implementsExpr = '';
-    if (cls.interfaces && cls.interfaces.length > 0) {
-      implementsExpr = ` implements ${cls.interfaces.map(x => this.toNativeFqn(x))}`;
+    if (cls.interfaces?.length ?? 0 > 0) {
+      implementsExpr = ` implements ${cls.interfaces!.map(x => this.toNativeFqn(x))}`;
     }
 
     const nested = this.isNested(cls);
@@ -561,7 +562,7 @@ class JavaGenerator extends Generator {
     this.addJavaDocs(ifc);
 
     // all interfaces always extend JsiiInterface so we can identify that it is a jsii interface.
-    const interfaces = ifc.interfaces || [];
+    const interfaces = ifc.interfaces ?? [];
     const bases = ['software.amazon.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x))].join(', ');
 
     const nested = this.isNested(ifc);
@@ -637,7 +638,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of md2html(mod.readme.markdown).split('\n')) {
+      for (const line of md2html(prefixMarkdownTsCodeBlocks(mod.readme.markdown, SAMPLES_DISCLAIMER)).split('\n')) {
         this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
       }
     }
@@ -653,7 +654,7 @@ class JavaGenerator extends Generator {
   }
 
   private emitMavenPom(assm: spec.Assembly, fingerprint: boolean) {
-    if (!(assm.targets && assm.targets.java)) {
+    if (!assm.targets?.java) {
       throw new Error(`Assembly ${assm.name} does not declare a java target`);
     }
 
@@ -782,10 +783,10 @@ class JavaGenerator extends Generator {
 
     function mavenDependencies(this: JavaGenerator) {
       const dependencies = new Array<MavenDependency>();
-      const allDeps = { ...assm.dependencies || {}, ...this.referencedModules };
+      const allDeps = { ...assm.dependencies ?? {}, ...this.referencedModules };
       for (const depName of Object.keys(allDeps)) {
         const dep = allDeps[depName];
-        if (!(dep.targets && dep.targets.java)) {
+        if (!dep.targets?.java) {
           throw new Error(`Assembly ${assm.name} depends on ${depName}, which does not declare a java target`);
         }
         dependencies.push({
@@ -812,7 +813,7 @@ class JavaGenerator extends Generator {
     }
 
     function mavenDevelopers() {
-      return [assm.author, ...assm.contributors || []].map(toDeveloper);
+      return [assm.author, ...assm.contributors ?? []].map(toDeveloper);
 
       function toDeveloper(person: spec.Person) {
         const developer: any = {
@@ -846,7 +847,7 @@ class JavaGenerator extends Generator {
   }
 
   private emitStaticInitializer(cls: spec.ClassType) {
-    const consts = (cls.properties || []).filter(x => x.const);
+    const consts = (cls.properties ?? []).filter(x => x.const);
     if (consts.length === 0) {
       return;
     }
@@ -983,19 +984,19 @@ class JavaGenerator extends Generator {
     const methods: { [name: string]: spec.Method } = {};
     const properties: { [name: string]: spec.Property } = {};
     const collectAbstractMembers = (currentType: spec.InterfaceType | spec.ClassType) => {
-      for (const prop of currentType.properties || []) {
+      for (const prop of currentType.properties ?? []) {
         if (prop.abstract) {
           properties[prop.name] = prop;
         }
       }
-      for (const method of currentType.methods || []) {
+      for (const method of currentType.methods ?? []) {
         if (method.abstract) {
           methods[method.name] = method;
         }
       }
 
       const bases = new Array<spec.NamedTypeReference>();
-      bases.push(...(currentType.interfaces || []).map(iface => this.findType(iface)));
+      bases.push(...(currentType.interfaces ?? []).map(iface => this.findType(iface)));
       if (currentType.kind === spec.TypeKind.Class && currentType.base) {
         bases.push(this.findType(currentType.base));
       }
@@ -1087,7 +1088,7 @@ class JavaGenerator extends Generator {
     const firstStruct = cls.initializer.parameters.find(param => {
       if (!spec.isNamedTypeReference(param.type)) { return false; }
       const paramType = this.reflectAssembly.tryFindType(param.type.fqn);
-      return paramType && paramType.isDataType();
+      return paramType?.isDataType();
     });
 
     // Not rendering if there is no struct parameter
@@ -1117,7 +1118,7 @@ class JavaGenerator extends Generator {
     for (const params of computeOverrides(positionalParams)) {
       const dummyMethod: spec.Method = {
         docs: {
-          stability: cls.initializer.docs && cls.initializer.docs.stability || (cls.docs && cls.docs.stability),
+          stability: cls.initializer.docs?.stability ?? cls.docs?.stability,
           returns: `a new instance of {@link ${BUILDER_CLASS_NAME}}.`,
         },
         name: 'create',
@@ -1155,7 +1156,7 @@ class JavaGenerator extends Generator {
       const setter: spec.Method = {
         name: fieldName,
         docs: {
-          stability: prop.spec.docs && prop.spec.docs.stability,
+          stability: prop.spec.docs?.stability,
           returns: '{@code this}',
         },
         parameters: [{
@@ -1211,10 +1212,10 @@ class JavaGenerator extends Generator {
       this.code.line();
       this.code.line('/**');
       this.code.line(` * Sets the value of ${prop.propName}`);
-      const summary = (prop.docs && prop.docs.summary) || 'the value to be set';
+      const summary = prop.docs?.summary ?? 'the value to be set';
       this.code.line(` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`);
       this.code.line(' * @return {@code this}');
-      if (prop.docs && prop.docs.deprecated) {
+      if (prop.docs?.deprecated) {
         this.code.line(` * @deprecated ${prop.docs.deprecated}`);
       }
       this.code.line(' */');
@@ -1275,13 +1276,13 @@ class JavaGenerator extends Generator {
     const propsByName: { [name: string]: JavaProp } = {};
 
     function collectProps(this: JavaGenerator, currentIfc: spec.InterfaceType, isBaseClass = false) {
-      for (const property of currentIfc.properties || []) {
+      for (const property of currentIfc.properties ?? []) {
         const javaProp = this.toJavaProp(property, isBaseClass);
         propsByName[javaProp.propName] = javaProp;
       }
 
       // add props of base struct
-      for (const base of currentIfc.interfaces || []) {
+      for (const base of currentIfc.interfaces ?? []) {
         collectProps.call(this, this.findType(base) as spec.InterfaceType, true);
       }
     }
@@ -1468,12 +1469,12 @@ class JavaGenerator extends Generator {
   }
 
   private addJavaDocs(doc: spec.Documentable, defaultText?: string) {
-    if (!defaultText && Object.keys(doc.docs || {}).length === 0
-                         && !((doc as spec.Method).parameters || []).some(p => Object.keys(p.docs || {}).length !== 0)) {
+    if (!defaultText && Object.keys(doc.docs ?? {}).length === 0
+                         && !((doc as spec.Method).parameters ?? []).some(p => Object.keys(p.docs ?? {}).length !== 0)) {
       return;
     }
 
-    const docs = doc.docs = doc.docs || { };
+    const docs = doc.docs = doc.docs ?? {};
 
     const paras = [];
 
@@ -1484,7 +1485,7 @@ class JavaGenerator extends Generator {
     }
 
     if (docs.remarks) {
-      paras.push(docs.remarks);
+      paras.push(md2html(prefixMarkdownTsCodeBlocks(docs.remarks, SAMPLES_DISCLAIMER)).trimRight());
     }
 
     if (docs.default) {
@@ -1493,8 +1494,7 @@ class JavaGenerator extends Generator {
 
     if (docs.example) {
       paras.push('Example:');
-      // FIXME: Have to parse the MarkDown and convert fenced code blocks to <pre>{@code\n....\n}</pre>.
-      paras.push(docs.example);
+      paras.push(`<blockquote><pre>{@code\n${SAMPLES_DISCLAIMER}\n${docs.example}\n}</pre></blockquote>`);
     }
 
     if (docs.stability === spec.Stability.Experimental) {
@@ -1512,7 +1512,7 @@ class JavaGenerator extends Generator {
       const method = doc as spec.Method;
       if (method.parameters) {
         for (const param of method.parameters) {
-          const summary = (param.docs && param.docs.summary) || undefined;
+          const summary = param.docs?.summary || undefined;
           tagLines.push(paramJavadoc(param.name, param.optional, summary));
         }
       }
@@ -1713,7 +1713,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(moduleFile);
     this.code.line(`package ${this.toNativeFqn(moduleName)};`);
     this.code.line();
-    if (Object.keys(mod.dependencies || {}).length > 0) {
+    if (Object.keys(mod.dependencies ?? {}).length > 0) {
       this.code.line('import static java.util.Arrays.asList;');
       this.code.line();
       this.code.line('import java.util.List;');
@@ -1746,7 +1746,7 @@ class JavaGenerator extends Generator {
     this.code.line('@Override');
     this.code.openBlock('protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException');
     this.code.openBlock('switch (fqn)');
-    for (const type of Object.keys(this.assembly.types || {})) {
+    for (const type of Object.keys(this.assembly.types ?? {})) {
       this.code.line(`case "${type}": return ${this.toNativeFqn(type)}.class;`);
     }
     this.code.line('default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);');
@@ -1801,7 +1801,7 @@ class JavaGenerator extends Generator {
   private getNativeName(assm: spec.Assembly | spec.PackageVersion,
     name: string | undefined,
     assmName: string = (assm as spec.Assembly).name): string {
-    const javaPackage = assm.targets && assm.targets.java && assm.targets.java.package;
+    const javaPackage = assm.targets?.java?.package;
     if (!javaPackage) { throw new Error(`The module ${assmName} does not have a java.package setting`); }
     return `${javaPackage}${name ? `.${name}` : ''}`;
   }

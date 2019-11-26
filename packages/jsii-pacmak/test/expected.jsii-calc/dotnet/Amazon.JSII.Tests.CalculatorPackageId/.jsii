@@ -55,7 +55,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.7"
+      "version": "0.20.8"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -78,7 +78,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.7"
+      "version": "0.20.8"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -103,7 +103,7 @@
           "module": "scope.jsii_calc_lib"
         }
       },
-      "version": "0.20.7"
+      "version": "0.20.8"
     }
   },
   "dependencyClosure": {
@@ -128,7 +128,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.7"
+      "version": "0.20.8"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -151,7 +151,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.7"
+      "version": "0.20.8"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -176,7 +176,7 @@
           "module": "scope.jsii_calc_lib"
         }
       },
-      "version": "0.20.7"
+      "version": "0.20.8"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -184,7 +184,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.20.7",
+  "jsiiVersion": "0.20.8",
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -1395,6 +1395,8 @@
       "assembly": "jsii-calc",
       "base": "jsii-calc.composition.CompositeOperation",
       "docs": {
+        "example": "const calculator = new calc.Calculator();\ncalculator.add(5);\ncalculator.mul(3);\nconsole.log(calculator.expression.value);",
+        "remarks": "Here's how you use it:\n\n```ts\nconst calculator = new calc.Calculator();\ncalculator.add(5);\ncalculator.mul(3);\nconsole.log(calculator.expression.value);\n```\n\nI will repeat this example again, but in an @example tag.",
         "stability": "experimental",
         "summary": "A calculator which maintains a current value and allows adding operations."
       },
@@ -1420,7 +1422,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/calculator.ts",
-        "line": 242
+        "line": 260
       },
       "methods": [
         {
@@ -1430,7 +1432,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 281
+            "line": 299
           },
           "name": "add",
           "parameters": [
@@ -1449,7 +1451,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 288
+            "line": 306
           },
           "name": "mul",
           "parameters": [
@@ -1468,7 +1470,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 302
+            "line": 320
           },
           "name": "neg"
         },
@@ -1479,7 +1481,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 295
+            "line": 313
           },
           "name": "pow",
           "parameters": [
@@ -1498,7 +1500,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 321
+            "line": 339
           },
           "name": "readUnionValue",
           "returns": {
@@ -1518,7 +1520,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 309
+            "line": 327
           },
           "name": "expression",
           "overrides": "jsii-calc.composition.CompositeOperation",
@@ -1534,7 +1536,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 271
+            "line": 289
           },
           "name": "operationsLog",
           "type": {
@@ -1554,7 +1556,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 266
+            "line": 284
           },
           "name": "operationsMap",
           "type": {
@@ -1578,7 +1580,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 261
+            "line": 279
           },
           "name": "curr",
           "type": {
@@ -1592,7 +1594,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 276
+            "line": 294
           },
           "name": "maxValue",
           "optional": true,
@@ -1607,7 +1609,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 316
+            "line": 334
           },
           "name": "unionProperty",
           "optional": true,
@@ -11597,6 +11599,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.20.7",
-  "fingerprint": "5IZTdZ+fWujWPOWpX+u4qOOSGTOoVo0HESpzf024KRE="
+  "version": "0.20.8",
+  "fingerprint": "+RP1SeCfWPdg28sHAcZDni6RTbEUwSieZsbQ7eni6jk="
 }

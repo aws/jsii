@@ -25,7 +25,7 @@ async function main() {
     await typesys.loadNpmDependencies(options.closure, { validate: options.validate });
   }
 
-  await Promise.all((options.jsiiFile as string[] || []).map(fileOrDirectory => typesys.load(fileOrDirectory, { validate: options.validate })));
+  await Promise.all((options.jsiiFile as string[] ?? []).map(fileOrDirectory => typesys.load(fileOrDirectory, { validate: options.validate })));
 
   const tst = new TypeSystemTree(typesys, {
     dependencies: options.dependencies || options.all,

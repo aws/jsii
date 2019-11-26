@@ -12,7 +12,7 @@ export class ReplaceCodeTransform implements CommonMarkVisitor {
   }
 
   public code_block(node: cm.Node) {
-    const ret = this.replacer({ language: node.info || '', source: node.literal || '' });
+    const ret = this.replacer({ language: node.info ?? '', source: node.literal ?? '' });
     node.info = ret.language;
     node.literal = ret.source + (!ret.source || ret.source.endsWith('\n') ? '' : '\n');
   }

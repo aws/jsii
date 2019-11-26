@@ -392,7 +392,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public classDeclaration(node: ts.ClassDeclaration, context: PythonVisitorContext): OTree {
-    const heritage = flat(Array.from(node.heritageClauses || []).map(h => Array.from(h.types))).map(t => context.convert(t.expression));
+    const heritage = flat(Array.from(node.heritageClauses ?? []).map(h => Array.from(h.types))).map(t => context.convert(t.expression));
     const hasHeritage = heritage.length > 0;
 
     const members = context.updateContext({ inClass: true }).convertAll(node.members);

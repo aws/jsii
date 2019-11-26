@@ -244,7 +244,7 @@ export abstract class Generator implements IGenerator {
     };
 
     if (node.fqn) {
-      const type = this.assembly.types && this.assembly.types[node.fqn];
+      const type = this.assembly.types?.[node.fqn];
       if (!type) {
         throw new Error(`Malformed jsii file. Cannot find type: ${node.fqn}`);
       }
@@ -335,7 +335,7 @@ export abstract class Generator implements IGenerator {
 
     next = remaining.pop();
     // Parameter is optional if it's type is optional, and all subsequent parameters are optional/variadic
-    while (next && next.optional) {
+    while (next?.optional) {
       // clone the method but set the parameter list based on the remaining set of parameters
       const cloned: T = clone(method);
       cloned.parameters = clone(remaining);
@@ -461,10 +461,6 @@ export abstract class Generator implements IGenerator {
         return true;
       }
 
-      // if (t.collection && t.collection.elementtype.primitive) {
-      //     return true;
-      // }
-
       return false;
     });
   }
@@ -513,7 +509,7 @@ export abstract class Generator implements IGenerator {
       return this.assembly;
     }
 
-    const found = (this.assembly.dependencyClosure || {})[name];
+    const found = (this.assembly.dependencyClosure ?? {})[name];
 
     if (found) {
       return found;

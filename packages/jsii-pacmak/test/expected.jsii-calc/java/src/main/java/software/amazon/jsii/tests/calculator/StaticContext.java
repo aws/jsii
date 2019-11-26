@@ -3,7 +3,7 @@ package software.amazon.jsii.tests.calculator;
 /**
  * This is used to validate the ability to use `this` from within a static context.
  * 
- * https://github.com/awslabs/aws-cdk/issues/2304
+ * <p>https://github.com/awslabs/aws-cdk/issues/2304</p>
  * 
  * EXPERIMENTAL
  */

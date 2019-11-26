@@ -3,9 +3,11 @@ package software.amazon.jsii.tests.calculator;
 /**
  * This test is used to validate the runtimes can return correctly from a void callback.
  * 
- * - Implement `overrideMe` (method does not have to do anything).
- * - Invoke `callMe`
- * - Verify that `methodWasCalled` is `true`.
+ * <ul>
+ * <li>Implement <code>overrideMe</code> (method does not have to do anything).</li>
+ * <li>Invoke <code>callMe</code></li>
+ * <li>Verify that <code>methodWasCalled</code> is <code>true</code>.</li>
+ * </ul>
  * 
  * EXPERIMENTAL
  */

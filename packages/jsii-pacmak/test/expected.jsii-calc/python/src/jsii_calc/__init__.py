@@ -38,7 +38,7 @@ from jsii.python import classproperty
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.20.7", __name__, "jsii-calc@0.20.7.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.20.8", __name__, "jsii-calc@0.20.8.jsii.tgz")
 class AbstractClassBase(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"):
     """
     stability
@@ -798,6 +798,7 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
     :customAttribute:: hasAValue
 
     Example::
+
         def an_example():
             pass
     """
@@ -7926,8 +7927,24 @@ class composition:
 class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
     """A calculator which maintains a current value and allows adding operations.
 
+    Here's how you use it::
+
+       calculator = calc.Calculator()
+       calculator.add(5)
+       calculator.mul(3)
+       print(calculator.expression.value)
+
+    I will repeat this example again, but in an @example tag.
+
     stability
     :stability: experimental
+
+    Example::
+
+        calculator = calc.Calculator()
+        calculator.add(5)
+        calculator.mul(3)
+        print(calculator.expression.value)
     """
     def __init__(self, *, initial_value: typing.Optional[jsii.Number]=None, maximum_value: typing.Optional[jsii.Number]=None) -> None:
         """Creates a Calculator object.

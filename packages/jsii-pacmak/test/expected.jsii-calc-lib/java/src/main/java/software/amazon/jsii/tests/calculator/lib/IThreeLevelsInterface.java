@@ -3,8 +3,8 @@ package software.amazon.jsii.tests.calculator.lib;
 /**
  * Interface that inherits from packages 2 levels up the tree.
  * 
- * Their presence validates that .NET/Java/jsii-reflect can track all fields
- * far enough up the tree.
+ * <p>Their presence validates that .NET/Java/jsii-reflect can track all fields
+ * far enough up the tree.</p>
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.IThreeLevelsInterface")

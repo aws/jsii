@@ -20,7 +20,7 @@ export class DocumentedClass {
    * @returns A number that everyone knows very well
    */
   public greet(greetee: Greetee = {}) {
-    process.stdout.write(`Hello, ${greetee.name || 'world'}\n`);
+    process.stdout.write(`Hello, ${greetee.name ?? 'world'}\n`);
     return 42;
   }
 

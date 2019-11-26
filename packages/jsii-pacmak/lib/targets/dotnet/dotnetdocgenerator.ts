@@ -1,6 +1,10 @@
 import { CodeMaker } from 'codemaker';
 import * as spec from 'jsii-spec';
 import { DotNetNameUtils } from './nameutils';
+import { prefixMarkdownTsCodeBlocks } from '../../util';
+
+
+const SAMPLES_DISCLAIMER = '// This example is in TypeScript, examples in C# are coming soon.';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
@@ -65,7 +69,7 @@ export class DotNetDocGenerator {
     if (docs.remarks) {
       this.code.line('/// <remarks>');
       remarksOpen = true;
-      const remarkLines = docs.remarks.split('\n');
+      const remarkLines = prefixMarkdownTsCodeBlocks(docs.remarks, SAMPLES_DISCLAIMER).split('\n');
       remarkLines.forEach( line => this.code.line(`/// ${line}`));
     }
 
@@ -83,6 +87,7 @@ export class DotNetDocGenerator {
       const remarkLines = docs.example.split('\n');
       remarks.push('example:');
       remarks.push('<code>');
+      remarks.push('// Examples in C# are coming soon.');
       remarkLines.forEach( line => remarks.push(`${line}`));
       remarks.push('</code>');
     }
@@ -98,7 +103,7 @@ export class DotNetDocGenerator {
     }
 
     if (docs.custom) {
-      for (const [k, v] of Object.entries(docs.custom || {})) {
+      for (const [k, v] of Object.entries(docs.custom ?? {})) {
         const custom = k === 'link' ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
         const customLines = custom.split('\n');
         customLines.forEach( line => remarks.push(`${line}`));

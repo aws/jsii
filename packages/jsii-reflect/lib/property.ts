@@ -77,7 +77,7 @@ export class Property extends OptionalValue implements Documentable, Overridable
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs || {}, this.parentType.docs);
+    return new Docs(this.system, this, this.spec.docs ?? {}, this.parentType.docs);
   }
 
   /**

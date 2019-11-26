@@ -96,7 +96,7 @@ export class Kernel {
 
       return {
         assembly: assm.metadata.name,
-        types: Object.keys(assm.metadata.types || {}).length,
+        types: Object.keys(assm.metadata.types ?? {}).length,
       };
     }
     // untar the archive to a staging directory, read the jsii spec from it
@@ -122,7 +122,7 @@ export class Kernel {
 
       return {
         assembly: assmSpec.name,
-        types: Object.keys(assmSpec.types || {}).length,
+        types: Object.keys(assmSpec.types ?? {}).length,
       };
     } finally {
       this._debug('removing staging directory:', staging);
@@ -231,7 +231,7 @@ export class Kernel {
 
   public invoke(req: api.InvokeRequest): api.InvokeResponse {
     const { objref, method } = req;
-    const args = req.args || [];
+    const args = req.args ?? [];
 
     this._debug('invoke', objref, method, args);
     const { ti, obj, fn } = this._findInvokeTarget(objref, method, args);
@@ -245,7 +245,7 @@ export class Kernel {
       return this._wrapSandboxCode(() => fn.apply(obj, this._toSandboxValues(args, ti.parameters)));
     });
 
-    const result = this._fromSandbox(ret, ti.returns || 'void');
+    const result = this._fromSandbox(ret, ti.returns ?? 'void');
     this._debug('invoke result', result);
 
     return { result };
@@ -253,7 +253,7 @@ export class Kernel {
 
   public sinvoke(req: api.StaticInvokeRequest): api.InvokeResponse {
     const { fqn, method } = req;
-    const args = req.args || [];
+    const args = req.args ?? [];
 
     this._debug('sinvoke', fqn, method, args);
 
@@ -276,12 +276,12 @@ export class Kernel {
     });
 
     this._debug('method returned:', ret);
-    return { result: this._fromSandbox(ret, ti.returns || 'void') };
+    return { result: this._fromSandbox(ret, ti.returns ?? 'void') };
   }
 
   public begin(req: api.BeginRequest): api.BeginResponse {
     const { objref, method } = req;
-    const args = req.args || [];
+    const args = req.args ?? [];
 
     this._debug('begin', objref, method, args);
 
@@ -331,7 +331,7 @@ export class Kernel {
       throw mapSource(e, this.sourceMaps);
     }
 
-    return { result: this._fromSandbox(result, method.returns || 'void') };
+    return { result: this._fromSandbox(result, method.returns ?? 'void') };
   }
 
   public callbacks(_req?: api.CallbacksRequest): api.CallbacksResponse {
@@ -370,7 +370,7 @@ export class Kernel {
       this._debug('completed with error:', err);
       cb.fail(new Error(err));
     } else {
-      const sandoxResult = this._toSandbox(result, cb.expectedReturnType || 'void');
+      const sandoxResult = this._toSandbox(result, cb.expectedReturnType ?? 'void');
       this._debug('completed with result:', sandoxResult);
       cb.succeed(sandoxResult);
     }
@@ -409,7 +409,7 @@ export class Kernel {
 
     // add the __jsii__.fqn property on every constructor. this allows
     // traversing between the javascript and jsii worlds given any object.
-    for (const fqn of Object.keys(assm.metadata.types || {})) {
+    for (const fqn of Object.keys(assm.metadata.types ?? {})) {
       const typedef = assm.metadata.types![fqn];
       switch (typedef.kind) {
         case spec.TypeKind.Interface:
@@ -450,12 +450,12 @@ export class Kernel {
     this._debug('create', req);
     const { fqn, interfaces, overrides } = req;
 
-    const requestArgs = req.args || [];
+    const requestArgs = req.args ?? [];
 
     const ctorResult = this._findCtor(fqn, requestArgs);
     const ctor = ctorResult.ctor;
     const obj = this._wrapSandboxCode(() => new ctor(...this._toSandboxValues(requestArgs, ctorResult.parameters)));
-    const objref = this.objects.registerObject(obj, fqn, req.interfaces || []);
+    const objref = this.objects.registerObject(obj, fqn, req.interfaces ?? []);
 
     // overrides: for each one of the override method names, installs a
     // method on the newly created object which represents the remote "reverse proxy".
@@ -529,7 +529,7 @@ export class Kernel {
 
     // save the old property under $jsii$super$<prop>$ so that property overrides
     // can still access it via `super.<prop>`.
-    const prev = Object.getOwnPropertyDescriptor(obj, propertyName) || {
+    const prev = Object.getOwnPropertyDescriptor(obj, propertyName) ?? {
       value: undefined,
       writable: true,
       enumerable: true,
@@ -620,7 +620,7 @@ export class Kernel {
               objref,
               override,
               args,
-              expectedReturnType: methodInfo.returns || 'void',
+              expectedReturnType: methodInfo.returns ?? 'void',
               succeed,
               fail
             };
@@ -648,7 +648,7 @@ export class Kernel {
             }
           });
           this._debug('Result', result);
-          return this._toSandbox(result, methodInfo.returns || 'void');
+          return this._toSandbox(result, methodInfo.returns ?? 'void');
         }
       });
     }
@@ -677,7 +677,7 @@ export class Kernel {
   }
 
   private _validateMethodArguments(method: spec.Callable | undefined, args: any[]) {
-    const params: spec.Parameter[] = method && method.parameters || [];
+    const params: spec.Parameter[] = method?.parameters ?? [];
 
     // error if args > params
     if (args.length > params.length && !(method && method.variadic)) {
@@ -737,7 +737,7 @@ export class Kernel {
       throw new Error(`Module '${moduleName}' not found`);
     }
 
-    const types = assembly.metadata.types || {};
+    const types = assembly.metadata.types ?? {};
     const fqnInfo = types[fqn];
     if (!fqnInfo) {
       throw new Error(`Type '${fqn}' not found`);
@@ -762,7 +762,7 @@ export class Kernel {
       if (fqn === 'Object') { continue; }
       const typeinfo = this._typeInfoForFqn(fqn);
 
-      const methods = (typeinfo as (spec.ClassType | spec.InterfaceType)).methods || [];
+      const methods = (typeinfo as (spec.ClassType | spec.InterfaceType)).methods ?? [];
 
       for (const m of methods) {
         if (m.name === methodName) {
@@ -771,7 +771,7 @@ export class Kernel {
       }
 
       // recursion to parent type (if exists)
-      const bases = [(typeinfo as spec.ClassType).base, ...(typeinfo as spec.InterfaceType).interfaces || []];
+      const bases = [(typeinfo as spec.ClassType).base, ...(typeinfo as spec.InterfaceType).interfaces ?? []];
       for (const base of bases) {
         if (!base) { continue; }
 
@@ -800,12 +800,12 @@ export class Kernel {
       } else if (spec.isInterfaceType(typeInfo)) {
         const interfaceTypeInfo = typeInfo as spec.InterfaceType;
         properties = interfaceTypeInfo.properties;
-        bases = interfaceTypeInfo.interfaces || [];
+        bases = interfaceTypeInfo.interfaces ?? [];
       } else {
         throw new Error(`Type of kind ${typeInfo.kind} does not have properties`);
       }
 
-      for (const p of properties || []) {
+      for (const p of properties ?? []) {
         if (p.name === property) {
           return p;
         }
@@ -895,7 +895,7 @@ export class Kernel {
   }
 
   private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: wire.OptionalValueOrVoid) => any) {
-    parameters = [...parameters || []];
+    parameters = [...parameters ?? []];
     const variadic = parameters.length > 0 && !!parameters[parameters.length - 1].variadic;
     // Repeat the last (variadic) type to match the number of actual arguments
     while (variadic && parameters.length < xs.length) {

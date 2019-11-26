@@ -28,12 +28,12 @@ import { VERSION } from '../lib/version';
       desc: 'Treat warnings as errors'
     })
     .help()
-    .version(VERSION)
+    .version(`${VERSION}, typescript ${require('typescript/package.json').version}`)
     .argv;
 
   _configureLog4js(argv.verbose);
 
-  const projectRoot = path.normalize(path.resolve(process.cwd(), argv._[0] || '.'));
+  const projectRoot = path.normalize(path.resolve(process.cwd(), argv._[0] ?? '.'));
 
   const projectInfo = await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] });
 
