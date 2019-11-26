@@ -103,7 +103,7 @@ export class DotNetDocGenerator {
     }
 
     if (docs.custom) {
-      for (const [k, v] of Object.entries(docs.custom || {})) {
+      for (const [k, v] of Object.entries(docs.custom ?? {})) {
         const custom = k === 'link' ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
         const customLines = custom.split('\n');
         customLines.forEach( line => remarks.push(`${line}`));

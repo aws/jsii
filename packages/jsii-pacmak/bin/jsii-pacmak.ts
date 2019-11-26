@@ -138,7 +138,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
   });
 
   try {
-    const requestedTargets = argv.targets && argv.targets.map(t => `${t}`);
+    const requestedTargets = argv.targets?.map(t => `${t}`);
     const targetSets = sliceTargets(modulesToPackage, requestedTargets, argv['force-target']);
 
     if (targetSets.every(s => s.modules.length === 0)) {

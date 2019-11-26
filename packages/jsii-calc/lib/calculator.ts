@@ -266,7 +266,7 @@ export class Calculator extends composition.CompositeOperation {
     constructor(props?: CalculatorProps) {
         super();
 
-        props = props || { };
+        props = props ?? { };
 
         const initialValue = props.initialValue ? props.initialValue : 0;
         this.curr = new Number(initialValue);

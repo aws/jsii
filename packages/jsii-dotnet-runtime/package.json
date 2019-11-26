@@ -35,6 +35,6 @@
     "jsii-dotnet-jsonmodel": "^0.20.8",
     "jsii-runtime": "^0.20.8",
     "semver": "^6.3.0",
-    "typescript": "~3.6.4"
+    "typescript": "~3.7.2"
   }
 }

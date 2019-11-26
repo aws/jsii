@@ -35,7 +35,7 @@
     "jsii-reflect": "^0.20.8",
     "jsii-spec": "^0.20.8",
     "log4js": "^6.1.0",
-    "typescript": "~3.6.4",
+    "typescript": "~3.7.2",
     "yargs": "^15.0.2"
   },
   "devDependencies": {

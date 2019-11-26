@@ -39,7 +39,7 @@
     "eslint": "^6.7.1",
     "jest": "^24.9.0",
     "jsii-build-tools": "^0.20.8",
-    "typescript": "~3.6.4",
+    "typescript": "~3.7.2",
     "typescript-json-schema": "^0.40.0"
   },
   "jest": {
@@ -54,7 +54,7 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 35,
+        "branches": 25,
         "statements": 60
       }
     },

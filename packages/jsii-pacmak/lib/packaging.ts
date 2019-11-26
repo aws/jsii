@@ -47,7 +47,7 @@ export class JsiiModule {
     this.moduleDirectory = options.moduleDirectory;
     this.availableTargets = options.availableTargets;
     this.outputDirectory = options.defaultOutputDirectory;
-    this.dependencyNames = options.dependencyNames || [];
+    this.dependencyNames = options.dependencyNames ?? [];
   }
 
   /**

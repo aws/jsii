@@ -27,7 +27,7 @@ const JSII_SYMBOL = Symbol.for('__jsii__');
  */
 export function jsiiTypeFqn(obj: any): string | undefined {
   const jsii = obj.constructor[JSII_SYMBOL];
-  return jsii && jsii.fqn;
+  return jsii?.fqn;
 }
 
 /**
@@ -96,7 +96,7 @@ export class ObjectTable {
     if (existingRef) {
       if (interfaces) {
         const allIfaces = new Set(interfaces);
-        for (const iface of existingRef[api.TOKEN_INTERFACES] || []) {
+        for (const iface of existingRef[api.TOKEN_INTERFACES] ?? []) {
           allIfaces.add(iface);
         }
         this.objects[existingRef[api.TOKEN_REF]].interfaces =

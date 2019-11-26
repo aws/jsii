@@ -172,7 +172,7 @@ export class KernelHost {
      * Returns true if the value is a promise.
      */
   private isPromise(v: any): v is Promise<any> {
-    return v && v.then && typeof v.then === 'function';
+    return typeof v?.then === 'function';
   }
 
   /**

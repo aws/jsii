@@ -114,7 +114,7 @@ function _defaultValidations(): ValidationFunction[] {
       if (snakeName.startsWith('get_') && _isEmpty((member as spec.Method).parameters)) {
         diagnostic(ts.DiagnosticCategory.Error,
           'Methods and properties cannot have names like getXxx() - those conflict with Java property getters by the same name');
-      } else if (snakeName.startsWith('set_') && ((member as spec.Method).parameters || []).length === 1) {
+      } else if (snakeName.startsWith('set_') && ((member as spec.Method).parameters ?? []).length === 1) {
         diagnostic(ts.DiagnosticCategory.Error,
           'Methods and properties cannot have names like setXxx() - those conflict with Java property setters by the same name');
       }
@@ -125,7 +125,7 @@ function _defaultValidations(): ValidationFunction[] {
     for (const typeRef of _allTypeReferences(assembly)) {
       const [assm,] = typeRef.fqn.split('.');
       if (assembly.name === assm) {
-        if (!(typeRef.fqn in (assembly.types || {}))) {
+        if (!(typeRef.fqn in (assembly.types ?? {}))) {
           diagnostic(ts.DiagnosticCategory.Error,
             `Exported APIs cannot use un-exported type ${typeRef.fqn}`);
         }
@@ -137,7 +137,7 @@ function _defaultValidations(): ValidationFunction[] {
           `Type reference is rooted in unknown module: ${assm}`);
         continue;
       }
-      if (!(typeRef.fqn in (foreignAssm.types || {}))) {
+      if (!(typeRef.fqn in (foreignAssm.types ?? {}))) {
         diagnostic(ts.DiagnosticCategory.Error,
           `Type reference not found in ${assm}: ${typeRef.fqn}`);
       }
@@ -147,20 +147,20 @@ function _defaultValidations(): ValidationFunction[] {
   function _inehritanceDoesNotChangeContracts(validator: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
     for (const type of _allTypes(assembly)) {
       if (spec.isClassType(type)) {
-        for (const method of type.methods || []) {
+        for (const method of type.methods ?? []) {
           _validateMethodOverride(method, type);
         }
-        for (const property of type.properties || []) {
+        for (const property of type.properties ?? []) {
           _validatePropertyOverride(property, type);
         }
       }
-      if (spec.isClassOrInterfaceType(type) && type.interfaces && type.interfaces.length > 0) {
-        for (const method of type.methods || []) {
+      if (spec.isClassOrInterfaceType(type) && (type.interfaces?.length ?? 0) > 0) {
+        for (const method of type.methods ?? []) {
           // Overrides "win" over implementations
           if (method.overrides) { continue; }
           _validateMethodImplementation(method, type);
         }
-        for (const property of type.properties || []) {
+        for (const property of type.properties ?? []) {
           _validatePropertyImplementation(property, type);
         }
       }
@@ -170,7 +170,7 @@ function _defaultValidations(): ValidationFunction[] {
       if (!type.base) { return false; }
       const baseType = _dereference(type.base, assembly, validator) as spec.ClassType;
       if (!baseType) { return false; }
-      const overridden = (baseType.methods || []).find(m => m.name === method.name);
+      const overridden = (baseType.methods ?? []).find(m => m.name === method.name);
       if (!overridden) {
         return _validateMethodOverride(method, baseType);
       }
@@ -183,7 +183,7 @@ function _defaultValidations(): ValidationFunction[] {
       if (!type.base) { return false; }
       const baseType = _dereference(type.base, assembly, validator) as spec.ClassType;
       if (!baseType) { return false; }
-      const overridden = (baseType.properties || []).find(p => p.name === property.name);
+      const overridden = (baseType.properties ?? []).find(p => p.name === property.name);
       if (!overridden) {
         return _validatePropertyOverride(property, baseType);
       }
@@ -202,7 +202,7 @@ function _defaultValidations(): ValidationFunction[] {
       }
       for (const iface of type.interfaces) {
         const ifaceType = _dereference(iface, assembly, validator) as spec.InterfaceType;
-        const implemented = (ifaceType.methods || []).find(m => m.name === method.name);
+        const implemented = (ifaceType.methods ?? []).find(m => m.name === method.name);
         if (implemented) {
           _assertSignaturesMatch(implemented, method, `${type.fqn}#${method.name}`, `implementing ${ifaceType.fqn}`);
           method.overrides = iface;
@@ -225,7 +225,7 @@ function _defaultValidations(): ValidationFunction[] {
       }
       for (const iface of type.interfaces) {
         const ifaceType = _dereference(iface, assembly, validator) as spec.InterfaceType;
-        const implemented = (ifaceType.properties || []).find(p => p.name === property.name);
+        const implemented = (ifaceType.properties ?? []).find(p => p.name === property.name);
         if (implemented) {
           _assertPropertiesMatch(implemented, property, `${type.fqn}#${property.name}`, `implementing ${ifaceType.fqn}`);
           property.overrides = ifaceType.fqn;
@@ -240,13 +240,13 @@ function _defaultValidations(): ValidationFunction[] {
 
     function _assertSignaturesMatch(expected: spec.Method, actual: spec.Method, label: string, action: string) {
       if (!deepEqual(actual.returns, expected.returns)) {
-        const expType = spec.describeTypeReference(expected.returns && expected.returns.type);
-        const actType = spec.describeTypeReference(actual.returns && actual.returns.type);
+        const expType = spec.describeTypeReference(expected.returns?.type);
+        const actType = spec.describeTypeReference(actual.returns?.type);
         diagnostic(ts.DiagnosticCategory.Error,
           `${label} changes the return type when ${action} (expected ${expType}, found ${actType})`);
       }
-      const expectedParams = expected.parameters || [];
-      const actualParams = actual.parameters || [];
+      const expectedParams = expected.parameters ?? [];
+      const actualParams = actual.parameters ?? [];
       if (expectedParams.length !== actualParams.length) {
         diagnostic(ts.DiagnosticCategory.Error,
           `${label} changes argument count when ${action} (expected ${expectedParams.length}, found ${actualParams.length})`);
@@ -293,7 +293,7 @@ function _defaultValidations(): ValidationFunction[] {
 }
 
 function _allTypes(assm: spec.Assembly): spec.Type[] {
-  return Object.values(assm.types || {});
+  return Object.values(assm.types ?? {});
 }
 
 function _allMethods(assm: spec.Assembly): spec.Method[] {
@@ -338,7 +338,7 @@ function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
     if (meth.returns) {
       _collectTypeReferences(meth.returns.type);
     }
-    for (const param of meth.parameters || []) {
+    for (const param of meth.parameters ?? []) {
       _collectTypeReferences(param.type);
     }
   }
@@ -361,10 +361,10 @@ function _dereference(typeRef: string | spec.NamedTypeReference, assembly: spec.
   }
   const [assm,] = typeRef.split('.');
   if (assembly.name === assm) {
-    return assembly.types && assembly.types[typeRef];
+    return assembly.types?.[typeRef];
   }
   const foreignAssm = validator.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
-  return foreignAssm && foreignAssm.types && foreignAssm.types[typeRef];
+  return foreignAssm?.types?.[typeRef];
 }
 
 function _isEmpty(array: undefined | any[]): array is undefined {

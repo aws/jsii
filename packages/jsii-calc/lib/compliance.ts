@@ -1948,7 +1948,7 @@ export class SupportsNiceJavaBuilder extends SupportsNiceJavaBuilderWithRequired
      * @param rest       a variadic continuation
      */
     public constructor(public readonly id: number, defaultBar = 1337, props?: SupportsNiceJavaBuilderProps, ...rest: string[]) {
-        super(id, props || { bar: defaultBar });
+        super(id, props ?? { bar: defaultBar });
         this.rest = rest;
     }
 }

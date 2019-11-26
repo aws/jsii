@@ -20,7 +20,7 @@ export function md2rst(text: string) {
   }
 
   function textOf(node: commonmark.Node) {
-    return node.literal || '';
+    return node.literal ?? '';
   }
 
   // let lastParaLine: number; // Where the last paragraph ended, in order to add ::
@@ -32,7 +32,7 @@ export function md2rst(text: string) {
     },
 
     heading(node, _entering) {
-      doc.appendLine(node.literal || '');
+      doc.appendLine(node.literal ?? '');
       doc.appendLine(headings[node.level - 1].repeat(textOf(node).length));
     },
 
@@ -44,7 +44,7 @@ export function md2rst(text: string) {
 
       // If we're coming out of a paragraph that's being followed by
       // a code block, make sure the current line ends in '::':
-      if (!entering && node.next && node.next.type === 'code_block') {
+      if (!entering && node.next && node.next?.type === 'code_block') {
         doc.transformLastLine(lastLine => {
           const appended = lastLine.replace(/[\W]$/, '::');
           if (appended !== lastLine) { return appended; }
@@ -75,7 +75,7 @@ export function md2rst(text: string) {
       if (entering) {
         doc.append('`');
       } else {
-        doc.append(` <${node.destination || ''}>\`_`);
+        doc.append(` <${node.destination ?? ''}>\`_`);
       }
     },
 
