@@ -10,56 +10,14 @@ update_configs:
     default_labels:
       - dependencies
 
-  - directory: /packages/jsii-dotnet-analyzers/src/Amazon.JSII.Analyzers
+  - directory: /
     package_manager: dotnet:nuget
     update_schedule: daily
     default_labels:
       - dependencies
       - language/dotnet
 
-  - directory: /packages/jsii-dotnet-analyzers/src/Amazon.JSII.Analyzers.UnitTests
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/jsii-dotnet-jsonmodel/src/Amazon.JSII.JsonModel
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/jsii-dotnet-jsonmodel/src/Amazon.JSII.JsonModel.UnitTests
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/jsii-dotnet-runtime/src/Amazon.JSII.Runtime
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/jsii-dotnet-runtime/src/Amazon.JSII.Runtime.UnitTests
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/jsii-dotnet-runtime-test/test/Amazon.JSII.Runtime.IntegrationTests
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/jsii-python-runtime
+  - directory: /
     package_manager: python
     update_schedule: live
     version_requirement_updates: auto
@@ -67,7 +25,7 @@ update_configs:
       - dependencies
       - language/python
 
-  - directory: /packages/jsii-ruby-runtime/project
+  - directory: /
     package_manager: ruby:bundler
     update_schedule: live
     version_requirement_updates: increase_versions
