@@ -6610,9 +6610,9 @@
           "abstract": true,
           "docs": {
             "default": "256",
-            "remarks": "This default is set in the underlying FargateTaskDefinition construct.",
+            "remarks": "Valid values, which determines your range of valid values for the memory parameter:\n256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB\n512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB\n1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB\n2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments\n4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments\n\nThis default is set in the underlying FargateTaskDefinition construct.",
             "stability": "experimental",
-            "summary": "The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments."
+            "summary": "The number of cpu units used by the task."
           },
           "immutable": true,
           "locationInModule": {
@@ -7921,8 +7921,9 @@
         },
         {
           "docs": {
+            "remarks": "Must be implemented by derived classes.",
             "stability": "experimental",
-            "summary": "The expression that this operation consists of. Must be implemented by derived classes."
+            "summary": "The expression that this operation consists of."
           },
           "immutable": true,
           "locationInModule": {
@@ -9196,8 +9197,9 @@
         },
         {
           "docs": {
+            "remarks": "Jsdocs for static setter.",
             "stability": "experimental",
-            "summary": "Jsdocs for static getter. Jsdocs for static setter."
+            "summary": "Jsdocs for static getter."
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
@@ -9690,8 +9692,9 @@
       "properties": [
         {
           "docs": {
+            "remarks": "Must be implemented by derived classes.",
             "stability": "experimental",
-            "summary": "The expression that this operation consists of. Must be implemented by derived classes."
+            "summary": "The expression that this operation consists of."
           },
           "immutable": true,
           "locationInModule": {
@@ -11012,8 +11015,9 @@
         {
           "abstract": true,
           "docs": {
+            "remarks": "Must be implemented by derived classes.",
             "stability": "experimental",
-            "summary": "The expression that this operation consists of. Must be implemented by derived classes."
+            "summary": "The expression that this operation consists of."
           },
           "immutable": true,
           "locationInModule": {
@@ -11128,5 +11132,5 @@
     }
   },
   "version": "0.20.5",
-  "fingerprint": "/MRTbTnRC1UWxsPIrca+9Yo1IBKsEueT75P22pQoV1o="
+  "fingerprint": "Wmoat54jE57cCAPZ7FlPOhByiYuXMbX2nkD/Rcqlej4="
 }
