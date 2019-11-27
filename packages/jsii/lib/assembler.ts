@@ -22,6 +22,14 @@ const sortJson = require('sort-json');
 
 const LOG = log4js.getLogger('jsii/assembler');
 
+export interface AssemblerOptions {
+  /**
+   * Do not emit warnings for reserved words.
+   * @default false (warnings are emitted)
+   */
+  readonly reservedWordsWarningsDisabled?: boolean;
+}
+
 /**
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
  */
@@ -29,6 +37,7 @@ export class Assembler implements Emitter {
   private _diagnostics = new Array<Diagnostic>();
   private _deferred = new Array<DeferredRecord>();
   private _types: { [fqn: string]: spec.Type } = {};
+  private readonly _reservedWordsWarningsDisabled: boolean = false;
 
   /**
    * @param projectInfo information about the package being assembled
@@ -38,7 +47,11 @@ export class Assembler implements Emitter {
   public constructor(
     public readonly projectInfo: ProjectInfo,
     public readonly program: ts.Program,
-    public readonly stdlib: string) { }
+    public readonly stdlib: string,
+    options: AssemblerOptions) {
+
+    this._reservedWordsWarningsDisabled = !!options.reservedWordsWarningsDisabled;
+  }
 
   private get _typeChecker(): ts.TypeChecker {
     return this.program.getTypeChecker();
@@ -1026,6 +1039,9 @@ export class Assembler implements Emitter {
   }
 
   private _warnAboutReservedWords(symbol: ts.Symbol) {
+    if (this._reservedWordsWarningsDisabled) {
+      return;
+    }
     const reservingLanguages = isReservedName(symbol.name);
     if (reservingLanguages) {
       this._diagnostic(ts.getNameOfDeclaration(symbol.valueDeclaration) || symbol.valueDeclaration,

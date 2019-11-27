@@ -27,6 +27,10 @@ import { VERSION } from '../lib/version';
       type: 'boolean',
       desc: 'Treat warnings as errors'
     })
+    .option('disable-reserved-words-warnings', {
+      type: 'boolean',
+      desc: 'Do not emit warnings for symbols that are reserved words in one of the supported languages',
+    })
     .help()
     .version(`${VERSION}, typescript ${require('typescript/package.json').version}`)
     .argv;
@@ -41,7 +45,8 @@ import { VERSION } from '../lib/version';
     projectInfo,
     watch: argv.watch,
     projectReferences: argv['project-references'],
-    failOnWarnings: argv['fail-on-warnings']
+    failOnWarnings: argv['fail-on-warnings'],
+    reservedWordsWarningsDisabled: argv['disable-reserved-words-warnings']
   });
 
   return { projectRoot, emitResult: await compiler.emit() };
