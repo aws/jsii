@@ -1625,7 +1625,7 @@ public class ComplianceTest {
         }
     }
 
-    private static final class ImplementsStructReturningDelegate implements IStructReturningDelegate {
+    private static class ImplementsStructReturningDelegate implements IStructReturningDelegate {
         private final StructB struct;
 
         protected ImplementsStructReturningDelegate(final StructB struct) {
