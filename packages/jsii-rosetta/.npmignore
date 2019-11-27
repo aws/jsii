@@ -15,4 +15,5 @@ dist
 
 *.snk
 
+tsconfig.json
 *.tsbuildinfo
