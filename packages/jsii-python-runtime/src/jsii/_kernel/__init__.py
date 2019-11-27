@@ -52,7 +52,7 @@ class Object:
 
 
 def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
-    overrides = []
+    overrides: List[Override] = []
 
     # We need to inspect each item in the MRO, until we get to our JSClass, at that
     # point we'll bail, because those methods are not the overriden methods, but the
