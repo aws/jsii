@@ -3,7 +3,7 @@ import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
 import { builtInTypeName } from '../typescript/types';
-import { isReadOnly, visibility } from '../typescript/ast-utils';
+import { isReadOnly, matchAst, nodeOfType, visibility } from '../typescript/ast-utils';
 
 interface JavaContext {
   readonly insideTypeDeclaration?: InsideTypeDeclaration;
@@ -124,6 +124,34 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
           },
         )
         : ifStmt;
+  }
+
+  public forOfStatement(node: ts.ForOfStatement, renderer: JavaRenderer): OTree {
+    // This is what a "for (const x of ...)" looks like in the AST
+    let variableName = '???';
+
+    matchAst(node.initializer,
+        nodeOfType(ts.SyntaxKind.VariableDeclarationList,
+            nodeOfType('var', ts.SyntaxKind.VariableDeclaration)),
+        bindings => {
+          variableName = renderer.textOf(bindings.var.name);
+        });
+
+    return new OTree(
+      [
+        'for (Object ',
+        variableName,
+        ' : ',
+        renderer.convert(node.expression),
+        ') ',
+      ],
+      [
+        renderer.convert(node.statement),
+      ],
+      {
+        canBreakLine: true,
+      },
+    );
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: JavaRenderer) {
