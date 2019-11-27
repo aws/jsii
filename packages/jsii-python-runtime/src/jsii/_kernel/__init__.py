@@ -84,7 +84,7 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                     elif inspect.isdatadescriptor(item) and hasattr(
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
-                        if any(entry.property == original.__jsii_name__ for entry in overrides):
+                        if any(entry.property == original.fget.__jsii_name__ for entry in overrides):
                             # Don't re-register an override we already discovered through a previous type
                             continue
                         overrides.append(
