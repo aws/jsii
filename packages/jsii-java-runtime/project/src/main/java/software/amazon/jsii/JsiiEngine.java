@@ -578,13 +578,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
 
     /**
      * Crawls up the inheritance tree of {@code classToInspect} in order to determine the jsii-visible
-     * interfaces that are implemented, using a procedure akin to:
-     *
-     * <ol>
-     *  <li>If {@code classToInspect} is annotated with @Jsii and is an interface, return a singleton set with the FQN</li>
-     *  <li>If {@code classToInspect} is annotated with @Jsii and is NOT an interface, return an empty set</li>
-     *  <li>Collect all interfaces from {@classToInspect}'s interfaces</li>
-     * </ol>
+     * interfaces that are implemented.
      *
      * @param classToInspect the class for which interfaces are needed
      *
@@ -592,13 +586,17 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      */
     private Collection<String> discoverInterfaces(final Class<?> classToInspect) {
         final Set<String> interfaces = new HashSet<>();
+        // If {@classToInspect} has the @Jsii annotation, it's a jsii well-known type
         if (classToInspect.isAnnotationPresent(Jsii.class)) {
+            // If it's an interface, then we can return a singleton set with that!
             if (classToInspect.isInterface()) {
                 final Jsii jsii = classToInspect.getAnnotation(Jsii.class);
                 interfaces.add(jsii.fqn());
             }
+            // If it was NOT an interface, then this type already "implies" all interfaces -- nothing to declare.
             return interfaces;
         }
+        // If this wasn't an @Jsii well-known type, browse up the interface declarations, and collect results
         for (final Class<?> iface : classToInspect.getInterfaces()) {
             interfaces.addAll(discoverInterfaces(iface));
         }
