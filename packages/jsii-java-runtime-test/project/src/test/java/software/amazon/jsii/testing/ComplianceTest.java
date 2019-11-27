@@ -1650,7 +1650,7 @@ public class ComplianceTest {
     private static final class ImplementsAdditionalInterface extends AllTypes implements IStructReturningDelegate {
         private final StructB struct;
 
-        public ImplementsStructReturningDelegate(final StructB struct) {
+        public ImplementsAdditionalInterface(final StructB struct) {
             this.struct = struct;
         }
 
