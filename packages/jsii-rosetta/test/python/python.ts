@@ -1,6 +1,6 @@
-import { translateTypeScript } from "../../lib";
-import { PythonVisitor } from "../../lib/languages/python";
-import { visualizeTypeScriptAst } from "../../lib/util";
+import { translateTypeScript } from '../../lib';
+import { PythonVisitor } from '../../lib/languages/python';
+import { visualizeTypeScriptAst } from '../../lib/util';
 
 const DEBUG = false;
 
@@ -15,16 +15,16 @@ export function ts2python(source: string): string {
 
   // Very debug. Much print.
   // console.log(JSON.stringify(result.tree, undefined, 2));
-  return result.translation + '\n';
+  return `${result.translation}\n`;
 }
 
-export function expectPython(source: string, expected: string) {
+export function expectPython(source: string, expected: string): void {
   expect(stripEmptyLines(ts2python(source))).toEqual(stripEmptyLines(stripCommonWhitespace(expected)));
 }
 
 function stripCommonWhitespace(x: string) {
   const lines = x.split('\n');
-  const whitespaces = lines.filter(l => !emptyLine(l.trim())).map(l => l.match(/(\s*)/)![1].length);
+  const whitespaces = lines.filter(l => !emptyLine(l.trim())).map(l => /(\s*)/.exec(l)![1].length);
   const minWS = Math.min(...whitespaces);
   return lines.map(l => l.substr(minWS)).join('\n');
 }

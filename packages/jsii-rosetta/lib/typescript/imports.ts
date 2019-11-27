@@ -1,6 +1,6 @@
 import ts = require('typescript');
 import { AstRenderer } from '../renderer';
-import { allOfType, matchAst, nodeOfType, stringFromLiteral } from "./ast-utils";
+import { allOfType, matchAst, nodeOfType, stringFromLiteral } from './ast-utils';
 
 /**
  * Our own unification of import statements
@@ -11,8 +11,8 @@ export interface ImportStatement {
   imports: FullImport | SelectiveImport;
 }
 
-export type FullImport =  { import: 'full', alias: string };
-export type SelectiveImport =  { import: 'selective', elements: ImportBinding[] };
+export type FullImport = { import: 'full', alias: string };
+export type SelectiveImport = { import: 'selective', elements: ImportBinding[] };
 
 export interface ImportBinding {
   sourceName: string;
@@ -58,14 +58,14 @@ export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: As
 
   const elements: ImportBinding[] = [];
   if (namedBindings) {
-    elements.push(...namedBindings.specifiers.map(spec => (
+    elements.push(...namedBindings.specifiers.map(spec => 
     // regular import { name }, renamed import { propertyName, name }
-    spec.propertyName ? {
-      sourceName: context.textOf(spec.propertyName),
-      alias: spec.name ? context.textOf(spec.name) : '???'
-    } : {
-      sourceName: spec.name ? context.textOf(spec.name) : '???'
-    })));
+      spec.propertyName ? {
+        sourceName: context.textOf(spec.propertyName),
+        alias: spec.name ? context.textOf(spec.name) : '???'
+      } : {
+        sourceName: spec.name ? context.textOf(spec.name) : '???'
+      }));
   }
 
   return {

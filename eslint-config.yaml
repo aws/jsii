@@ -5,18 +5,20 @@ env:
 
 plugins:
   - '@typescript-eslint'
+  - import
 
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
-  project: tsconfig.json
+  project: ./**/tsconfig.json
 
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/eslint-recommended
   - plugin:@typescript-eslint/recommended
   - plugin:@typescript-eslint/recommended-requiring-type-checking
+  - plugin:import/typescript
 
 rules:
   # Custom Configurations
@@ -138,6 +140,12 @@ rules:
     - error
     - always
     - null: ignore
+
+  'import/no-extraneous-dependencies':
+    - error
+    - devDependencies: ['**/test/**'] # Only allow importing devDependencies from tests
+      optionalDependencies: false     # Disallow importing optional dependencies (those shouldn't be used here)
+      peerDependencies: false         # Disallow importing peer dependencies (those shouldn't be used here)
 
   'max-len':
     - error

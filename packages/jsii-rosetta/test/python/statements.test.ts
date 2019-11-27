@@ -1,5 +1,5 @@
-import { expectPython } from "./python";
-import { PythonVisitor, translateTypeScript } from "../../lib";
+import { expectPython } from './python';
+import { PythonVisitor, translateTypeScript } from '../../lib';
 
 test('if', () => {
   expectPython(`
@@ -108,6 +108,6 @@ test('prepend disclaimer', () => {
   }));
 
   expect(result.translation).toEqual(
-`# Do not write this code
+    `# Do not write this code
 print("hello")`);
 });

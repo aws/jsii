@@ -30,7 +30,7 @@ export class LanguageTablet {
   public lookup(typeScriptSource: TypeScriptSnippet, language: TargetLanguage): Translation | undefined {
     const snippet = this.snippets[snippetKey(typeScriptSource)];
     return snippet?.get(language);
-}
+  }
 
   public async load(filename: string) {
     const obj = await fs.readJson(filename, { encoding: 'utf-8' });
@@ -73,7 +73,7 @@ export class TranslatedSnippet {
 
   public static fromSnippet(original: TypeScriptSnippet, didCompile?: boolean) {
     const ret = new TranslatedSnippet();
-    Object.assign(ret.translations, { [ORIGINAL_SNIPPET_KEY]: { source: original.visibleSource }});
+    Object.assign(ret.translations, { [ORIGINAL_SNIPPET_KEY]: { source: original.visibleSource } });
     ret._didCompile = didCompile;
     ret._where = original.where;
     return ret;
@@ -82,7 +82,7 @@ export class TranslatedSnippet {
   private readonly translations: Record<string, TranslationSchema> = {};
   private _key?: string;
   private _didCompile?: boolean;
-  private _where: string = '';
+  private _where = '';
 
   private constructor() {
   }
@@ -156,7 +156,7 @@ export class TranslatedSnippet {
       translations: this.translations,
       didCompile: this.didCompile,
       where: this.where
-    }
+    };
   }
 }
 

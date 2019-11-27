@@ -10,3 +10,6 @@
 
 # Exclude jsii outdir
 dist
+
+tsconfig.json
+*.tsbuildinfo

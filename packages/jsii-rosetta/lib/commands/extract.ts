@@ -24,7 +24,7 @@ export async function extractSnippets(assemblyLocations: string[], outputFile: s
 
   const tablet = new LanguageTablet();
 
-  logging.info(`Translating`);
+  logging.info('Translating');
   const startTime = Date.now();
 
   const result = await translateAll(snippets, includeCompilerDiagnostics);
@@ -33,7 +33,7 @@ export async function extractSnippets(assemblyLocations: string[], outputFile: s
     tablet.addSnippet(snippet);
   }
 
-  const delta =  (Date.now() - startTime) / 1000;
+  const delta = (Date.now() - startTime) / 1000;
   logging.info(`Converted ${tablet.count} snippets in ${delta} seconds (${(delta / tablet.count).toPrecision(3)}s/snippet)`);
   logging.info(`Saving language tablet to ${outputFile}`);
   await tablet.save(outputFile);
@@ -106,14 +106,14 @@ async function workerBasedTranslateAll(worker: typeof import('worker_threads'), 
     acc.translatedSnippetSchemas.push(...current.translatedSnippetSchemas);
     acc.diagnostics.push(...current.diagnostics);
     return acc;
-  }, { translatedSnippetSchemas: [], diagnostics: [] })
+  }, { translatedSnippetSchemas: [], diagnostics: [] });
   // Hydrate TranslatedSnippets from data back to objects
   return { diagnostics: x.diagnostics, translatedSnippets: x.translatedSnippetSchemas.map(s => TranslatedSnippet.fromSchema(s)) };
 
   /**
    * Turn running the worker into a nice Promise.
    */
-  function runWorker(request: import('./extract_worker').TranslateRequest): Promise<import('./extract_worker').TranslateResponse> {
+  async function runWorker(request: import('./extract_worker').TranslateRequest): Promise<import('./extract_worker').TranslateResponse> {
     return new Promise((resolve, reject) => {
       const wrk = new worker.Worker(path.join(__dirname, 'extract_worker.js'), { workerData: request });
       wrk.on('message', resolve);

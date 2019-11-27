@@ -51,10 +51,10 @@ export function stripCommentMarkers(comment: string, multiline: boolean) {
       .replace(/^[ \t]+/g, '')  // Strip all leading whitepace
       .replace(/[ \t]+$/g, '')  // Strip all trailing whitepace
       .replace(/^[ \t]*\*[ \t]?/gm, ''); // Strip "* " from start of line
-  } else {
-    // The text *must* start with '//'
-    return comment.replace(/^\/\/[ \t]?/gm, '');
   }
+  // The text *must* start with '//'
+  return comment.replace(/^\/\/[ \t]?/gm, '');
+
 }
 
 export function stringFromLiteral(expr: ts.Expression) {
@@ -68,13 +68,13 @@ export function stringFromLiteral(expr: ts.Expression) {
  * All types of nodes that can be captured using `nodeOfType`, and the type of Node they map to
  */
 export type CapturableNodes = {
-  [ts.SyntaxKind.ImportDeclaration]: ts.ImportDeclaration,
-  [ts.SyntaxKind.VariableDeclaration]: ts.VariableDeclaration,
-  [ts.SyntaxKind.ExternalModuleReference]: ts.ExternalModuleReference,
-  [ts.SyntaxKind.NamespaceImport]: ts.NamespaceImport,
-  [ts.SyntaxKind.NamedImports]: ts.NamedImports,
-  [ts.SyntaxKind.ImportSpecifier]: ts.ImportSpecifier,
-  [ts.SyntaxKind.StringLiteral]: ts.StringLiteral,
+  [ts.SyntaxKind.ImportDeclaration]: ts.ImportDeclaration;
+  [ts.SyntaxKind.VariableDeclaration]: ts.VariableDeclaration;
+  [ts.SyntaxKind.ExternalModuleReference]: ts.ExternalModuleReference;
+  [ts.SyntaxKind.NamespaceImport]: ts.NamespaceImport;
+  [ts.SyntaxKind.NamedImports]: ts.NamedImports;
+  [ts.SyntaxKind.ImportSpecifier]: ts.ImportSpecifier;
+  [ts.SyntaxKind.StringLiteral]: ts.StringLiteral;
 };
 
 export type AstMatcher<A> = (nodes?: ts.Node[]) => A | undefined;
@@ -103,10 +103,10 @@ export function nodeChildren(node: ts.Node): ts.Node[] {
  * Looks like SyntaxList nodes appear in the printed AST, but they don't actually appear
  */
 export function nodeOfType<A>(syntaxKind: ts.SyntaxKind, children?: AstMatcher<A>): AstMatcher<A>;
-// tslint:disable-next-line:max-line-length
+/* eslint-disable max-len */
 export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>(capture: N, capturableNodeType: S, children?: AstMatcher<A>): AstMatcher<Omit<A, N> & {[key in N]: CapturableNodes[S]}>;
-// tslint:disable-next-line:max-line-length
-export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>(syntaxKindOrCaptureName: ts.SyntaxKind | N, nodeTypeOrChildren?: S | AstMatcher<A>, children?: AstMatcher<A>): AstMatcher<A> | AstMatcher<A & {[key in N]: CapturableNodes[S]}> {
+export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>(syntaxKindOrCaptureName: ts.SyntaxKind | N, nodeTypeOrChildren?: S | AstMatcher<A>, children?: AstMatcher<A>): AstMatcher<A> | AstMatcher<A & { [key in N]: CapturableNodes[S] }> {
+/* eslint-enable max-len */
   const capturing = typeof syntaxKindOrCaptureName === 'string';  // Determine which overload we're in (SyntaxKind is a number)
 
   const realNext = (capturing ? children : nodeTypeOrChildren as AstMatcher<A>) || DONE;
@@ -143,8 +143,11 @@ export function anyNode<A>(children?: AstMatcher<A>): AstMatcher<A> | AstMatcher
 }
 
 // Does not capture deeper because how would we even represent that?
-// tslint:disable-next-line:max-line-length
-export function allOfType<S extends keyof CapturableNodes, N extends string, A>(s: S, name: N, children?: AstMatcher<A>): AstMatcher<{[key in N]: Array<CapturableNodes[S]>}> {
+export function allOfType<S extends keyof CapturableNodes, N extends string, A>(
+  s: S,
+  name: N,
+  children?: AstMatcher<A>
+): AstMatcher<{ [key in N]: Array<CapturableNodes[S]> }> {
   type ArrayType = Array<CapturableNodes[S]>;
   type ReturnType = {[key in N]: ArrayType};
   const realNext = children || DONE;
@@ -185,18 +188,18 @@ export function matchAst<A>(node: ts.Node, matcher: AstMatcher<A>, cb?: (binding
 export function countNakedNewlines(str: string) {
   let ret = 0;
   scanText(str, 0, str.length)
-      .filter(s => s.type === 'other' || s.type === 'blockcomment')
-      .forEach(s => {
-        if (s.type === 'other') {
-          // Count newlines in non-comments
-          for (let i = s.pos; i < s.end; i++) {
-            if (str[i] === '\n') { ret++; }
-          }
-        } else {
-          // Discount newlines at the end of block comments
-          if (s.hasTrailingNewLine) { ret--; }
+    .filter(s => s.type === 'other' || s.type === 'blockcomment')
+    .forEach(s => {
+      if (s.type === 'other') {
+        // Count newlines in non-comments
+        for (let i = s.pos; i < s.end; i++) {
+          if (str[i] === '\n') { ret++; }
         }
-      });
+      } else {
+        // Discount newlines at the end of block comments
+        if (s.hasTrailingNewLine) { ret--; }
+      }
+    });
   return ret;
 }
 
@@ -213,8 +216,8 @@ const WHITESPACE = [' ', '\t', '\r', '\n'];
  */
 export function extractComments(text: string, start: number): ts.CommentRange[] {
   return scanText(text, start)
-      .filter(s => s.type === 'blockcomment' || s.type === 'linecomment')
-      .map(commentRangeFromTextRange);
+    .filter(s => s.type === 'blockcomment' || s.type === 'linecomment')
+    .map(commentRangeFromTextRange);
 }
 
 export function commentRangeFromTextRange(rng: TextRange): ts.CommentRange {
@@ -361,7 +364,7 @@ export function voidExpressionString(node: ts.VoidExpression): string | undefine
 /**
  * We use void directives as pragmas. Extract the void directives here
  */
-export function extractVoidExpression(node: ts.Node): ts.VoidExpression  | undefined {
+export function extractVoidExpression(node: ts.Node): ts.VoidExpression | undefined {
   if (ts.isVoidExpression(node)) { return node; }
   if (ts.isExpressionStatement(node)) { return extractVoidExpression(node.expression); }
   if (ts.isParenthesizedExpression(node)) { return extractVoidExpression(node.expression); }
