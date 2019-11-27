@@ -1,4 +1,4 @@
-import { expectPython } from "./python";
+import { expectPython } from './python';
 
 test('as-expression', () => {
   expectPython(`
@@ -26,9 +26,9 @@ test('ellipsis at a random place', () => {
 
 test('string interpolation', () => {
   expectPython([
-  'const x = "world";',
-  'const y = "well";',
-  'console.log(`Hello, ${x}, it works ${y}!`);',
+    'const x = "world";',
+    'const y = "well";',
+    'console.log(`Hello, ${x}, it works ${y}!`);',
   ].join('\n'), `
   x = "world"
   y = "well"
@@ -38,7 +38,7 @@ test('string interpolation', () => {
 
 test('non-null expression', () => {
   expectPython([
-  'const x = someObject!.someAttribute;',
+    'const x = someObject!.someAttribute;',
   ].join('\n'), `
   x = some_object.some_attribute
   `);
@@ -46,7 +46,7 @@ test('non-null expression', () => {
 
 test('double-quoted dict keys', () => {
   expectPython([
-  'const x = { "key": "value" }',
+    'const x = { "key": "value" }',
   ].join('\n'), `
   x = {"key": "value"}
   `);
@@ -54,7 +54,7 @@ test('double-quoted dict keys', () => {
 
 test('backtick string w/o substitutions', () => {
   expectPython([
-  'const x = `some string`',
+    'const x = `some string`',
   ].join('\n'), `
   x = "some string"
   `);

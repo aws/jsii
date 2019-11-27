@@ -31,7 +31,7 @@ export class Translator {
   private readonly compiler = new TypeScriptCompiler();
   public readonly diagnostics: ts.Diagnostic[] = [];
 
-  constructor(private readonly includeCompilerDiagnostics: boolean) {
+  public constructor(private readonly includeCompilerDiagnostics: boolean) {
   }
 
   public translate(snip: TypeScriptSnippet, languages = Object.keys(TARGET_LANGUAGES) as TargetLanguage[]) {
@@ -93,9 +93,9 @@ export class SnippetTranslator {
   public readonly translateDiagnostics: ts.Diagnostic[] = [];
   public readonly compileDiagnostics: ts.Diagnostic[] = [];
   private readonly visibleSpans: Span[];
-  private compilation!: CompilationResult;
+  private readonly compilation!: CompilationResult;
 
-  constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
+  public constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
     const compiler = options.compiler || new TypeScriptCompiler();
     const source = completeSource(snippet);
 
@@ -108,7 +108,12 @@ export class SnippetTranslator {
     // This makes it about 5x slower, so only do it on demand
     if (options.includeCompilerDiagnostics) {
       const program = this.compilation.program;
-      this.compileDiagnostics.push(...program.getGlobalDiagnostics(), ...program.getSyntacticDiagnostics(), ...program.getDeclarationDiagnostics(), ...program.getSemanticDiagnostics());
+      this.compileDiagnostics.push(
+        ...program.getGlobalDiagnostics(),
+        ...program.getSyntacticDiagnostics(),
+        ...program.getDeclarationDiagnostics(),
+        ...program.getSemanticDiagnostics()
+      );
     }
   }
 

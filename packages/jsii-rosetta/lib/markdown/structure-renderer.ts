@@ -1,6 +1,7 @@
 import cm = require('commonmark');
 import { CommonMarkRenderer, prefixLines, RendererContext } from './markdown';
 
+/* eslint-disable @typescript-eslint/camelcase */
 /**
  * A renderer that will render a CommonMark tree to show its structure
  */
@@ -33,11 +34,12 @@ export class StructureRenderer implements CommonMarkRenderer {
 
     if (contents) {
       return `(${enterText}\n${prefixLines('  ', contents)})\n`;
-    } else {
-      return `(${enterText})\n`;
     }
+    return `(${enterText})\n`;
+
   }
 }
+/* eslint-enable @typescript-eslint/camelcase */
 
 function inspectNode(n: cm.Node): string {
   const INTERESTING_KEYS = [

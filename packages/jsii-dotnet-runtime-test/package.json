@@ -30,6 +30,7 @@
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
+    "@types/node": "^10.17.6",
     "jsii-calc": "^0.20.8",
     "jsii-dotnet-runtime": "^0.20.8",
     "jsii-pacmak": "^0.20.8",

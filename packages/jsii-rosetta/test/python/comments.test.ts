@@ -1,4 +1,4 @@
-import { expectPython } from "./python";
+import { expectPython } from './python';
 
 test('interleave single line comments with function call', () => {
   expectPython(`

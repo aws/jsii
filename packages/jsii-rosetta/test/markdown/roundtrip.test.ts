@@ -1,6 +1,6 @@
-import { transformMarkdown } from "../../lib/markdown/markdown";
-import { MarkdownRenderer } from "../../lib/markdown/markdown-renderer";
-import { StructureRenderer } from "../../lib/markdown/structure-renderer";
+import { transformMarkdown } from '../../lib/markdown/markdown';
+import { MarkdownRenderer } from '../../lib/markdown/markdown-renderer';
+import { StructureRenderer } from '../../lib/markdown/structure-renderer';
 
 const DEBUG = false;
 
@@ -63,13 +63,13 @@ This is a [hyperlink](https://amazonaws.com).
 
 ![Image though](fun.gif).
 
-This is a [` + '`' + `monospace hyperlink` + '`' + `](https://amazonaws.com).
+This is a [` + '`' + 'monospace hyperlink' + '`' + `](https://amazonaws.com).
   `, `
 This is a [hyperlink](https://amazonaws.com).
 
 ![Image though](fun.gif).
 
-This is a [` + '`' + `monospace hyperlink` + '`' + `](https://amazonaws.com).
+This is a [` + '`' + 'monospace hyperlink' + '`' + `](https://amazonaws.com).
   `);
 });
 

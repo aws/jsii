@@ -70,7 +70,7 @@ function parametersFromSourceDirectives(source: string): [string, Record<string,
  * Parse a set of 'param param=value' directives into an object
  */
 export function parseKeyValueList(parameters: string[]): Record<string, string> {
-  const ret: Record<string, string>  = {};
+  const ret: Record<string, string> = {};
   for (const param of parameters) {
     const parts = param.split('=', 2);
     if (parts.length === 2) {
@@ -119,4 +119,4 @@ export enum SnippetParameters {
    * the location where they are stored.
    */
   $COMPILATION_DIRECTORY = '$compilation',
-};
+}
