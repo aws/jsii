@@ -29,7 +29,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     if (importStatement.imports.import === 'full') {
       return new OTree([`import ${namespace}.*;`], [], { canBreakLine: true });
     } else {
-      throw new Error('We do not handle selective imports yet');
+      return new OTree(
+          [],
+          importStatement.imports.elements.map(importEl => `import ${namespace}.${importEl.sourceName};`),
+          { canBreakLine: true, separator: '\n' },
+      );
     }
   }
 
