@@ -42,6 +42,7 @@
     "jsii-reflect": "^0.20.8",
     "jsii-rosetta": "^0.20.8",
     "jsii-spec": "^0.20.8",
+    "semver": "^6.3.0",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
     "yargs": "^15.0.2"
@@ -54,6 +55,7 @@
     "@types/jest": "^24.0.23",
     "@types/mock-fs": "^4.10.0",
     "@types/node": "^10.17.6",
+    "@types/semver": "^6.2.0",
     "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",

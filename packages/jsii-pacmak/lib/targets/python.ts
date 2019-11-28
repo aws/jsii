@@ -1,5 +1,5 @@
-import path = require('path');
-
+import * as path from 'path';
+import * as semver from 'semver';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
@@ -1161,17 +1161,21 @@ class Package {
     const expectedDeps = this.metadata.dependencies ?? {};
     for (const depName of Object.keys(expectedDeps)) {
       const depInfo = expectedDeps[depName];
-      // We need to figure out what our version range is.
-      // Basically, if it starts with Zero we want to restrict things to
-      // ~=X.Y.Z. If it does not start with zero, then we want to do ~=X.Y,>=X.Y.Z.
-      const versionParts = depInfo.version.split('.');
-      let versionSpecifier: string;
-      if (versionParts[0] === '0') {
-        versionSpecifier = `~=${versionParts.slice(0, 3).join('.')}`;
-      } else {
-        versionSpecifier = `~=${versionParts.slice(0, 2).join('.')},>=${versionParts.slice(0, 3).join('.')}`;
-      }
+      const { version } = depInfo;
 
+      // Parse either a single version or version range.
+      const parsedVersion = semver.valid(version);
+      const parsedVersionRange = semver.validRange(version);
+      let versionSpecifier;
+
+      // Convert parsed version info to expected format
+      if (parsedVersion) {
+        versionSpecifier = `==${version}`;
+      } else if (parsedVersionRange) {
+        versionSpecifier = parsedVersionRange.replace(' ', ', ');
+      } else {
+        throw new Error(`Unexpected version format '${version}' for dependency: 'depName'`);
+      }
       dependencies.push(`${depInfo.targets!.python!.distName}${versionSpecifier}`);
     }
 
