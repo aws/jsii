@@ -4,6 +4,8 @@ import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
 import { builtInTypeName } from '../typescript/types';
 import { isReadOnly, matchAst, nodeOfType, visibility } from '../typescript/ast-utils';
+import { ImportStatement } from '../typescript/imports';
+import { jsiiTargetParam } from '../jsii/packages';
 
 interface JavaContext {
   readonly insideTypeDeclaration?: InsideTypeDeclaration;
@@ -20,6 +22,15 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
   public mergeContext(old: JavaContext, update: Partial<JavaContext>): JavaContext {
     return Object.assign({}, old, update);
+  }
+
+  public importStatement(importStatement: ImportStatement): OTree {
+    const namespace = this.lookupModuleNamespace(importStatement.packageName);
+    if (importStatement.imports.import === 'full') {
+      return new OTree([`import ${namespace}.*;`], [], { canBreakLine: true });
+    } else {
+      throw new Error('We do not handle selective imports yet');
+    }
   }
 
   public classDeclaration(node: ts.ClassDeclaration, renderer: JavaRenderer): OTree {
@@ -170,6 +181,17 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         renderer.convert(node.name),
       ]
     );
+  }
+
+  private lookupModuleNamespace(packageName: string): string {
+    // get the Java package name from the referenced package (if available)
+    const resolvedNamespace = jsiiTargetParam(packageName, 'java.package');
+
+    // return that or some default-derived module name representation
+    return resolvedNamespace ||
+        packageName.split(/[^a-zA-Z0-9]+/g)
+        .filter(s => s !== '')
+        .join('.');
   }
 
   private typeHeritage(node: ts.ClassDeclaration, renderer: JavaRenderer): Array<OTree | string | undefined> {
