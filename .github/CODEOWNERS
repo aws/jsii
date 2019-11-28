@@ -8,12 +8,3 @@
 # @See https://help.github.com/articles/about-codeowners/
 
 *                               @aws/aws-cdk-team
-
-# DotNet Code
-*.cs                            @aws/aws-cdk-team @aws/aws-sdk-dotnet-team
-*.csproj                        @aws/aws-cdk-team @aws/aws-sdk-dotnet-team
-*.sln                           @aws/aws-cdk-team @aws/aws-sdk-dotnet-team
-
-# Java Code
-*.java                          @aws/aws-cdk-team @bmaizels
-pom.xml                         @aws/aws-cdk-team @bmaizels
