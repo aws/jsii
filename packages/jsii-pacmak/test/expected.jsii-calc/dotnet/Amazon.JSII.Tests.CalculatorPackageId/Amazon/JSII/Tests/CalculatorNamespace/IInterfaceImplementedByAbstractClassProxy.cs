@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>awslabs/jsii#220 Abstract return type.</summary>
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IInterfaceImplementedByAbstractClass), fullyQualifiedName: "jsii-calc.IInterfaceImplementedByAbstractClass")]
     internal sealed class IInterfaceImplementedByAbstractClassProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceImplementedByAbstractClass
@@ -14,7 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "propFromInterface", typeJson: "{\"primitive\":\"string\"}")]
         public string PropFromInterface

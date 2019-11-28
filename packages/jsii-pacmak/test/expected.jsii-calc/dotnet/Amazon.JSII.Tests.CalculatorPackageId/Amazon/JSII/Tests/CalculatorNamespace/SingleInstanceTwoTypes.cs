@@ -8,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// object. Unfortunately, this will break object equality, but if we didn't do
     /// this it would break runtime type checks in the JVM or CLR.
     /// 
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SingleInstanceTwoTypes), fullyQualifiedName: "jsii-calc.SingleInstanceTwoTypes")]
     public class SingleInstanceTwoTypes : DeputyBase
@@ -17,16 +17,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected SingleInstanceTwoTypes(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected SingleInstanceTwoTypes(DeputyProps props): base(props)
         {
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "interface1", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.InbetweenClass\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.InbetweenClass Interface1()
@@ -35,7 +37,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "interface2", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface Interface2()

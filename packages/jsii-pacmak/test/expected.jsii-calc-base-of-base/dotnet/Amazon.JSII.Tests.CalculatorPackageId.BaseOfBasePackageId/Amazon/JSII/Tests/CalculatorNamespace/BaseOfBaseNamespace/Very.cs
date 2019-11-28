@@ -9,10 +9,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Very(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Very(DeputyProps props): base(props)
         {
         }

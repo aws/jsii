@@ -3,14 +3,14 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(ISupportsNiceJavaBuilderProps), fullyQualifiedName: "jsii-calc.SupportsNiceJavaBuilderProps")]
     public interface ISupportsNiceJavaBuilderProps
     {
         /// <summary>Some number, like 42.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"number\"}")]
         double Bar
@@ -22,7 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// But here we are, doing it like we didn't care.
         /// 
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "id", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]

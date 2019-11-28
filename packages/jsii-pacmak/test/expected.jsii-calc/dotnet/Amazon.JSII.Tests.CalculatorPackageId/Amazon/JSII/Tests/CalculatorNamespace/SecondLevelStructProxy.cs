@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(ISecondLevelStruct), fullyQualifiedName: "jsii-calc.SecondLevelStruct")]
     internal sealed class SecondLevelStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct
@@ -14,7 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>It's long and required.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "deeperRequiredProp", typeJson: "{\"primitive\":\"string\"}")]
         public string DeeperRequiredProp
@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>It's long, but you'll almost never pass it.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "deeperOptionalProp", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]

@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 {
     /// <summary>Abstract operation composed from an expression of other operations.</summary>
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
     public abstract class CompositeOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
@@ -13,17 +13,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected CompositeOperation(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected CompositeOperation(DeputyProps props): base(props)
         {
         }
 
         /// <summary>String representation of the value.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public override string ToString()
@@ -31,9 +33,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
+        /// <summary>The expression that this operation consists of.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// Must be implemented by derived classes.
+        /// 
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
@@ -43,7 +47,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>The value.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         public override double Value
@@ -53,7 +57,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>A set of postfixes to include in a decorated .toString().</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "decorationPostfixes", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}")]
         public virtual string[] DecorationPostfixes
@@ -64,7 +68,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>A set of prefixes to include in a decorated .toString().</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "decorationPrefixes", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}")]
         public virtual string[] DecorationPrefixes
@@ -75,7 +79,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>The .toString() style.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "stringStyle", typeJson: "{\"fqn\":\"jsii-calc.composition.CompositeOperation.CompositionStringStyle\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation.CompositionStringStyle StringStyle
@@ -86,20 +90,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>Style of .toString() output for CompositeOperation.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiEnum(nativeType: typeof(CompositionStringStyle), fullyQualifiedName: "jsii-calc.composition.CompositeOperation.CompositionStringStyle")]
         public enum CompositionStringStyle
         {
             /// <summary>Normal string expression.</summary>
             /// <remarks>
-            /// stability: Experimental
+            /// <strong>Stability</strong>: Experimental
             /// </remarks>
             [JsiiEnumMember(name: "NORMAL")]
             NORMAL,
             /// <summary>Decorated string expression.</summary>
             /// <remarks>
-            /// stability: Experimental
+            /// <strong>Stability</strong>: Experimental
             /// </remarks>
             [JsiiEnumMember(name: "DECORATED")]
             DECORATED

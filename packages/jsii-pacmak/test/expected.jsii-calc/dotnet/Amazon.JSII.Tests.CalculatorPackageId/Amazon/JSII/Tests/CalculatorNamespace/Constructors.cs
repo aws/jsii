@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), fullyQualifiedName: "jsii-calc.Constructors")]
     public class Constructors : DeputyBase
@@ -12,16 +12,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Constructors(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Constructors(DeputyProps props): base(props)
         {
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "hiddenInterface", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface HiddenInterface()
@@ -30,7 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "hiddenInterfaces", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"fqn\":\"jsii-calc.IPublicInterface\"},\"kind\":\"array\"}}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface[] HiddenInterfaces()
@@ -39,7 +41,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "hiddenSubInterfaces", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"fqn\":\"jsii-calc.IPublicInterface\"},\"kind\":\"array\"}}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface[] HiddenSubInterfaces()
@@ -48,7 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "makeClass", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.PublicClass\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.PublicClass MakeClass()
@@ -57,7 +59,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "makeInterface", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface MakeInterface()
@@ -66,7 +68,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "makeInterface2", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface2\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface2 MakeInterface2()
@@ -75,7 +77,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "makeInterfaces", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"fqn\":\"jsii-calc.IPublicInterface\"},\"kind\":\"array\"}}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface[] MakeInterfaces()

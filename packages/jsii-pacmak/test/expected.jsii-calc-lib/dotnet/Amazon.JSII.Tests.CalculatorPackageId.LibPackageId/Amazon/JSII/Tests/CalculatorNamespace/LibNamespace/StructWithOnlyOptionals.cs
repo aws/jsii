@@ -4,14 +4,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>This is a struct with only optional properties.</summary>
     /// <remarks>
-    /// stability: Deprecated
+    /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiByValue(fqn: "@scope/jsii-calc-lib.StructWithOnlyOptionals")]
     public class StructWithOnlyOptionals : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IStructWithOnlyOptionals
     {
         /// <summary>The first optional!</summary>
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optional1", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optional2", typeJson: "{\"primitive\":\"number\"}", isOptional: true, isOverride: true)]
@@ -35,7 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optional3", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]

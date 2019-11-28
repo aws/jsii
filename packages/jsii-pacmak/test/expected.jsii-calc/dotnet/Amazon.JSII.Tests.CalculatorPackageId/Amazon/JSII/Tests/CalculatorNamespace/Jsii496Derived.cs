@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii496Derived), fullyQualifiedName: "jsii-calc.Jsii496Derived")]
     public class Jsii496Derived : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJsii496
@@ -12,10 +12,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Jsii496Derived(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Jsii496Derived(DeputyProps props): base(props)
         {
         }

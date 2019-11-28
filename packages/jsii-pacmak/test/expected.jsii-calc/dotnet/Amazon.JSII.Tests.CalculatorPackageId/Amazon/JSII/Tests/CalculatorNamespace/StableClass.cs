@@ -3,28 +3,30 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: Stable
+    /// <strong>Stability</strong>: Stable
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StableClass), fullyQualifiedName: "jsii-calc.StableClass", parametersJson: "[{\"name\":\"readonlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"mutableNumber\",\"optional\":true,\"type\":{\"primitive\":\"number\"}}]")]
     public class StableClass : DeputyBase
     {
         /// <remarks>
-        /// stability: Stable
+        /// <strong>Stability</strong>: Stable
         /// </remarks>
         public StableClass(string readonlyString, double? mutableNumber = null): base(new DeputyProps(new object[]{readonlyString, mutableNumber}))
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected StableClass(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected StableClass(DeputyProps props): base(props)
         {
         }
 
         /// <remarks>
-        /// stability: Stable
+        /// <strong>Stability</strong>: Stable
         /// </remarks>
         [JsiiMethod(name: "method")]
         public virtual void Method()
@@ -33,7 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Stable
+        /// <strong>Stability</strong>: Stable
         /// </remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string ReadonlyProperty
@@ -42,7 +44,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Stable
+        /// <strong>Stability</strong>: Stable
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]

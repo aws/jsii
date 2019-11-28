@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// The setters will validate
     /// that the value set is of the expected type and throw otherwise.
     /// 
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes), fullyQualifiedName: "jsii-calc.AllTypes")]
     public class AllTypes : DeputyBase
@@ -16,16 +16,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected AllTypes(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected AllTypes(DeputyProps props): base(props)
         {
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyIn", parametersJson: "[{\"name\":\"inp\",\"type\":{\"primitive\":\"any\"}}]")]
         public virtual void AnyIn(object inp)
@@ -34,7 +36,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyOut", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public virtual object AnyOut()
@@ -43,7 +45,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "enumMethod", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}]")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum EnumMethod(Amazon.JSII.Tests.CalculatorNamespace.StringEnum @value)
@@ -52,7 +54,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "enumPropertyValue", typeJson: "{\"primitive\":\"number\"}")]
         public virtual double EnumPropertyValue
@@ -61,7 +63,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "anyArrayProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"array\"}}")]
         public virtual object[] AnyArrayProperty
@@ -71,7 +73,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "anyMapProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}")]
         public virtual System.Collections.Generic.IDictionary<string, object> AnyMapProperty
@@ -81,7 +83,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "anyProperty", typeJson: "{\"primitive\":\"any\"}")]
         public virtual object AnyProperty
@@ -91,7 +93,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "arrayProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}")]
         public virtual string[] ArrayProperty
@@ -101,7 +103,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "booleanProperty", typeJson: "{\"primitive\":\"boolean\"}")]
         public virtual bool BooleanProperty
@@ -111,7 +113,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "dateProperty", typeJson: "{\"primitive\":\"date\"}")]
         public virtual System.DateTime DateProperty
@@ -121,7 +123,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "enumProperty", typeJson: "{\"fqn\":\"jsii-calc.AllTypesEnum\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum EnumProperty
@@ -131,7 +133,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "jsonProperty", typeJson: "{\"primitive\":\"json\"}")]
         public virtual Newtonsoft.Json.Linq.JObject JsonProperty
@@ -141,7 +143,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "mapProperty", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Number\"},\"kind\":\"map\"}}")]
         public virtual System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number> MapProperty
@@ -151,7 +153,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "numberProperty", typeJson: "{\"primitive\":\"number\"}")]
         public virtual double NumberProperty
@@ -161,7 +163,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "stringProperty", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string StringProperty
@@ -171,7 +173,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "unionArrayProperty", typeJson: "{\"collection\":{\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"number\"},{\"fqn\":\"@scope/jsii-calc-lib.Value\"}]}},\"kind\":\"array\"}}")]
         public virtual object[] UnionArrayProperty
@@ -181,7 +183,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "unionMapProperty", typeJson: "{\"collection\":{\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"@scope/jsii-calc-lib.Number\"}]}},\"kind\":\"map\"}}")]
         public virtual System.Collections.Generic.IDictionary<string, object> UnionMapProperty
@@ -191,7 +193,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "unionProperty", typeJson: "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.Multiply\"},{\"fqn\":\"@scope/jsii-calc-lib.Number\"}]}}")]
         public virtual object UnionProperty
@@ -201,7 +203,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "unknownArrayProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"array\"}}")]
         public virtual object[] UnknownArrayProperty
@@ -211,7 +213,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "unknownMapProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}")]
         public virtual System.Collections.Generic.IDictionary<string, object> UnknownMapProperty
@@ -221,7 +223,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "unknownProperty", typeJson: "{\"primitive\":\"any\"}")]
         public virtual object UnknownProperty
@@ -231,7 +233,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalEnumValue", typeJson: "{\"fqn\":\"jsii-calc.StringEnum\"}", isOptional: true)]

@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Old class.</summary>
     /// <remarks>
-    /// stability: Deprecated
+    /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Old), fullyQualifiedName: "jsii-calc.Old")]
     [System.Obsolete("Use the new class")]
@@ -14,17 +14,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Old(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Old(DeputyProps props): base(props)
         {
         }
 
         /// <summary>Doo wop that thing.</summary>
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiMethod(name: "doAThing")]
         [System.Obsolete()]

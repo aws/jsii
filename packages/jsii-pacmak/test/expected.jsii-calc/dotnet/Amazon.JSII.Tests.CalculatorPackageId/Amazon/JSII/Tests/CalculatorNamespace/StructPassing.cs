@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Just because we can.</summary>
     /// <remarks>
-    /// stability: External
+    /// <strong>Stability</strong>: External
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), fullyQualifiedName: "jsii-calc.StructPassing")]
     public class StructPassing : DeputyBase
@@ -13,16 +13,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected StructPassing(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected StructPassing(DeputyProps props): base(props)
         {
         }
 
         /// <remarks>
-        /// stability: External
+        /// <strong>Stability</strong>: External
         /// </remarks>
         [JsiiMethod(name: "howManyVarArgsDidIPass", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"_positional\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"inputs\",\"type\":{\"fqn\":\"jsii-calc.TopLevelStruct\"},\"variadic\":true}]")]
         public static double HowManyVarArgsDidIPass(double positional, params Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct[] inputs)
@@ -31,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: External
+        /// <strong>Stability</strong>: External
         /// </remarks>
         [JsiiMethod(name: "roundTrip", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.TopLevelStruct\"}}", parametersJson: "[{\"name\":\"_positional\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"input\",\"type\":{\"fqn\":\"jsii-calc.TopLevelStruct\"}}]")]
         public static Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct RoundTrip(double positional, Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct input)

@@ -1,7 +1,9 @@
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Check that enums from \@scoped packages can be references. See awslabs/jsii#138.
+ * Check that enums from \@scoped packages can be references.
+ * <p>
+ * See awslabs/jsii#138
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

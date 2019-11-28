@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Represents an operation with two operands.</summary>
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation", parametersJson: "[{\"docs\":{\"summary\":\"Left-hand side operand.\"},\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"Right-hand side operand.\"},\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public abstract class BinaryOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly
@@ -13,23 +13,25 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <param name = "lhs">Left-hand side operand.</param>
         /// <param name = "rhs">Right-hand side operand.</param>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         protected BinaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected BinaryOperation(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected BinaryOperation(DeputyProps props): base(props)
         {
         }
 
         /// <summary>Say hello!</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Hello()
@@ -39,7 +41,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Left-hand side operand.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "lhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Lhs
@@ -49,7 +51,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Right-hand side operand.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "rhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Rhs

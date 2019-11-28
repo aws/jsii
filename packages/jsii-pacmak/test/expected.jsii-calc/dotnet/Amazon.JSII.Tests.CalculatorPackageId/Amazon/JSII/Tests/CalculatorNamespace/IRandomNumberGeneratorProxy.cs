@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Generates random numbers.</summary>
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IRandomNumberGenerator), fullyQualifiedName: "jsii-calc.IRandomNumberGenerator")]
     internal sealed class IRandomNumberGeneratorProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator
@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// A random number.
         /// </returns>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public double Next()

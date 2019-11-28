@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"docs\":{\"summary\":\"Initialization properties.\"},\"name\":\"props\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
     public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
@@ -12,23 +12,25 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Creates a Calculator object.</summary>
         /// <param name = "props">Initialization properties.</param>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         public Calculator(Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps props = null): base(new DeputyProps(new object[]{props}))
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Calculator(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Calculator(DeputyProps props): base(props)
         {
         }
 
         /// <summary>Adds a number to the current value.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "add", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Add(double @value)
@@ -38,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Multiplies the current value by a number.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "mul", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Mul(double @value)
@@ -48,7 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Negates the current value.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "neg")]
         public virtual void Neg()
@@ -58,7 +60,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Raises the current value by a power.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "pow", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Pow(double @value)
@@ -68,7 +70,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Returns teh value of the union property (if defined).</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "readUnionValue", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double ReadUnionValue()
@@ -78,7 +80,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Returns the expression.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
@@ -88,7 +90,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>A log of all operations.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "operationsLog", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"array\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[] OperationsLog
@@ -98,7 +100,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>A map of per operation name of all operations performed.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "operationsMap", typeJson: "{\"collection\":{\"elementtype\":{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"array\"}},\"kind\":\"map\"}}")]
         public virtual System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[]> OperationsMap
@@ -108,7 +110,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>The current value.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "curr", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Curr
@@ -119,7 +121,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>The maximum value allows in this calculator.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "maxValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
@@ -131,7 +133,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Example of a property that accepts a union of types.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "unionProperty", typeJson: "{\"union\":{\"types\":[{\"fqn\":\"jsii-calc.Add\"},{\"fqn\":\"jsii-calc.Multiply\"},{\"fqn\":\"jsii-calc.Power\"}]}}", isOptional: true)]

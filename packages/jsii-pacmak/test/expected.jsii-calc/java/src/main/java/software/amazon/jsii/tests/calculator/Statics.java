@@ -85,7 +85,9 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     public final static java.util.Map<java.lang.String, java.lang.String> ZOO_BAR;
 
     /**
-     * Jsdocs for static getter. Jsdocs for static setter.
+     * Jsdocs for static getter.
+     * <p>
+     * Jsdocs for static setter.
      * <p>
      * EXPERIMENTAL
      */
@@ -95,7 +97,9 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Jsdocs for static getter. Jsdocs for static setter.
+     * Jsdocs for static getter.
+     * <p>
+     * Jsdocs for static setter.
      * <p>
      * EXPERIMENTAL
      */

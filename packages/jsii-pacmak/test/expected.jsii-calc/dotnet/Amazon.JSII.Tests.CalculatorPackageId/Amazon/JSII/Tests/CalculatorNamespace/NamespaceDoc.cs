@@ -1,11 +1,11 @@
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// # jsii Calculator
+    /// <h1>jsii Calculator</h1>
     /// 
     /// This library is used to demonstrate and test the features of JSII
     /// 
-    /// ## How to use running sum API:
+    /// <h2>How to use running sum API:</h2>
     /// 
     /// First, create a calculator:
     /// 
@@ -21,7 +21,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// calculator.Add(10);
     /// ]]></code>
     /// 
-    /// ## Code Samples
+    /// <h2>Code Samples</h2>
     /// 
     /// <code><![CDATA[
     /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
@@ -29,8 +29,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// string foo = "bar";
     /// ]]></code>
     /// </remarks>
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class NamespaceDoc
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    public class NamespaceDoc
     {
     }
 }

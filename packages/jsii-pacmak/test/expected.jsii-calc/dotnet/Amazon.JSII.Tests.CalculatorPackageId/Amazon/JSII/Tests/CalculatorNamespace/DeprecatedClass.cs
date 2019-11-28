@@ -3,14 +3,14 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: Deprecated
+    /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DeprecatedClass), fullyQualifiedName: "jsii-calc.DeprecatedClass", parametersJson: "[{\"name\":\"readonlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"mutableNumber\",\"optional\":true,\"type\":{\"primitive\":\"number\"}}]")]
     [System.Obsolete("a pretty boring class")]
     public class DeprecatedClass : DeputyBase
     {
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete("this constructor is \"just\" okay")]
         public DeprecatedClass(string readonlyString, double? mutableNumber = null): base(new DeputyProps(new object[]{readonlyString, mutableNumber}))
@@ -18,17 +18,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [System.Obsolete("this constructor is \"just\" okay")]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected DeprecatedClass(ByRefValue reference): base(reference)
         {
         }
 
         [System.Obsolete("this constructor is \"just\" okay")]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected DeprecatedClass(DeputyProps props): base(props)
         {
         }
 
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiMethod(name: "method")]
         [System.Obsolete("it was a bad idea")]
@@ -38,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}")]
         [System.Obsolete("this is not always \"wazoo\", be ready to be disappointed")]
@@ -48,7 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]

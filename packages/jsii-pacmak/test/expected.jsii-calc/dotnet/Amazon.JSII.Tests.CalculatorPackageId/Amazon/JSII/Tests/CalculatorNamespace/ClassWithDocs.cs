@@ -6,9 +6,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// The docs are great. They're a bunch of tags.
     /// 
-    /// stability: Stable
-    /// see: https://aws.amazon.com/
-    /// customAttribute: hasAValue
+    /// <strong>Stability</strong>: Stable
+    /// 
+    /// <strong>See</strong>: https://aws.amazon.com/
+    /// 
+    /// <strong>CustomAttribute</strong>: hasAValue
     /// </remarks>
     /// <example>
     /// <code>
@@ -25,10 +27,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected ClassWithDocs(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected ClassWithDocs(DeputyProps props): base(props)
         {
         }

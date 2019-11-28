@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A struct which derives from another struct.</summary>
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IDerivedStruct), fullyQualifiedName: "jsii-calc.DerivedStruct")]
     internal sealed class DerivedStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct
@@ -14,7 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "anotherRequired", typeJson: "{\"primitive\":\"date\"}")]
         public System.DateTime AnotherRequired
@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "bool", typeJson: "{\"primitive\":\"boolean\"}")]
         public bool Bool
@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>An example of a non primitive property.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "nonPrimitive", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble NonPrimitive
@@ -43,7 +43,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>This is optional.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"map\"}}", isOptional: true)]
@@ -53,7 +53,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalAny", typeJson: "{\"primitive\":\"any\"}", isOptional: true)]
@@ -63,7 +63,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
@@ -74,7 +74,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>An awesome number value.</summary>
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiProperty(name: "anumber", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]
@@ -85,7 +85,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>A string value.</summary>
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiProperty(name: "astring", typeJson: "{\"primitive\":\"string\"}")]
         [System.Obsolete()]
@@ -95,7 +95,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]

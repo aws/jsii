@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: Stable
+    /// <strong>Stability</strong>: Stable
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IStableInterface), fullyQualifiedName: "jsii-calc.IStableInterface")]
     internal sealed class IStableInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStableInterface
@@ -13,7 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Stable
+        /// <strong>Stability</strong>: Stable
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Stable
+        /// <strong>Stability</strong>: Stable
         /// </remarks>
         [JsiiMethod(name: "method")]
         public void Method()

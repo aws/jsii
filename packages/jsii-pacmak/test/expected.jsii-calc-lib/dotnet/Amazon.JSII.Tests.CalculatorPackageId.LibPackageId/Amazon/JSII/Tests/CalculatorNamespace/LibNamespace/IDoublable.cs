@@ -4,14 +4,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>The general contract for a concrete number.</summary>
     /// <remarks>
-    /// stability: Deprecated
+    /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IDoublable), fullyQualifiedName: "@scope/jsii-calc-lib.IDoublable")]
     [System.Obsolete()]
     public interface IDoublable
     {
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiProperty(name: "doubleValue", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]

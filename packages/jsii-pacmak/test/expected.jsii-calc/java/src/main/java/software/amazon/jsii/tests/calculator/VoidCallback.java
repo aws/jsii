@@ -7,7 +7,6 @@ package software.amazon.jsii.tests.calculator;
  * <li>Implement <code>overrideMe</code> (method does not have to do anything).</li>
  * <li>Invoke <code>callMe</code></li>
  * <li>Verify that <code>methodWasCalled</code> is <code>true</code>.</li>
- * <p>
  * </ul>
  * <p>
  * EXPERIMENTAL
