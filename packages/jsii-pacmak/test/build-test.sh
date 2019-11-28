@@ -8,9 +8,9 @@ cd $(dirname $0)
 # The following list of packages must be toposorted, like a monorepo
 # manager would order the individual builds.
 packagedirs="\
-    ../../jsii-calc-base-of-base \
-    ../../jsii-calc-base \
-    ../../jsii-calc-lib \
+    ../../@scope/jsii-calc-base-of-base \
+    ../../@scope/jsii-calc-base \
+    ../../@scope/jsii-calc-lib \
     ../../jsii-calc \
     "
 clean_dists() {

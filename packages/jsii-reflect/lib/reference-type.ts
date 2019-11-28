@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import jsii = require('@jsii/spec');
 import { Assembly } from './assembly';
 import { InterfaceType } from './interface';
 import { Method } from './method';

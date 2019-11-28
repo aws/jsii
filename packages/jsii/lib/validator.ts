@@ -1,5 +1,5 @@
 import Case = require('case');
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import ts = require('typescript');
 import { Diagnostic, EmitResult, Emitter } from './emitter';
 import { ProjectInfo } from './project-info';

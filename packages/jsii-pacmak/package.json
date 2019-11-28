@@ -42,12 +42,15 @@
     "fs-extra": "^8.1.0",
     "jsii-reflect": "^0.20.8",
     "jsii-rosetta": "^0.20.8",
-    "jsii-spec": "^0.20.8",
+    "@jsii/spec": "^0.20.8",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
     "yargs": "^15.0.2"
   },
   "devDependencies": {
+    "@jsii/dotnet-jsonmodel": "^0.20.8",
+    "@jsii/dotnet-runtime": "^0.20.8",
+    "@jsii/java-runtime": "^0.20.8",
     "@scope/jsii-calc-lib": "^0.20.8",
     "@types/clone": "^0.1.30",
     "@types/commonmark": "^0.27.4",
@@ -60,9 +63,6 @@
     "jest": "^24.9.0",
     "jsii-build-tools": "^0.20.8",
     "jsii-calc": "^0.20.8",
-    "jsii-dotnet-jsonmodel": "^0.20.8",
-    "jsii-dotnet-runtime": "^0.20.8",
-    "jsii-java-runtime": "^0.20.8",
     "mock-fs": "^4.10.4",
     "typescript": "~3.7.2"
   },

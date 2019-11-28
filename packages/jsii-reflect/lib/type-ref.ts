@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import jsii = require('@jsii/spec');
 import { Type } from './type';
 import { TypeSystem } from './type-system';
 

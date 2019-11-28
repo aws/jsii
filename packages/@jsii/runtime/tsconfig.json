@@ -1,0 +1,11 @@
+{
+  "extends": "../../../tsconfig-base",
+  "include": [
+    "**/*.ts",
+    "package.json"
+  ],
+  "exclude": ["./package.d.ts"],
+  "references": [
+    { "path": "../kernel" }
+  ]
+}

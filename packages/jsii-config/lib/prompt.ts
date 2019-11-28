@@ -1,5 +1,5 @@
 import * as inquirer from 'inquirer';
-import { PackageJson } from 'jsii-spec';
+import { PackageJson } from '@jsii/spec';
 import getQuestions from './questions';
 import { BasePackageJson } from './schema';
 import { getNestedValue, removeEmptyValues } from './util';
@@ -40,6 +40,6 @@ export default async function getAnswers(current: BasePackageJson): Promise<Pack
   if (confirmInput.confirm) {
     return newConfig;
   }
-  
+
   return getAnswers(newConfig);
 }
