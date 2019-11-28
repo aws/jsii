@@ -2533,6 +2533,49 @@
       ],
       "name": "Constructors"
     },
+    "jsii-calc.ConsumePureInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ConsumePureInterface",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "delegate",
+            "type": {
+              "fqn": "jsii-calc.IStructReturningDelegate"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2406
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2409
+          },
+          "name": "workItBaby",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.StructB"
+            }
+          }
+        }
+      ],
+      "name": "ConsumePureInterface"
+    },
     "jsii-calc.ConsumerCanRingBell": {
       "assembly": "jsii-calc",
       "docs": {
@@ -5623,6 +5666,38 @@
           }
         }
       ]
+    },
+    "jsii-calc.IStructReturningDelegate": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Verifies that a \"pure\" implementation of an interface works correctly."
+      },
+      "fqn": "jsii-calc.IStructReturningDelegate",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2403
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2404
+          },
+          "name": "returnStruct",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.StructB"
+            }
+          }
+        }
+      ],
+      "name": "IStructReturningDelegate"
     },
     "jsii-calc.ImplementInternalInterface": {
       "assembly": "jsii-calc",
@@ -11668,5 +11743,5 @@
     }
   },
   "version": "0.20.8",
-  "fingerprint": "s++IK3929zHRbg2MXmnn2A+PdvZnMVvPwaarJuUeBNM="
+  "fingerprint": "R5DFMiv/0riWRnreyHs899X53BbbVd5NTXmswDeF4/8="
 }

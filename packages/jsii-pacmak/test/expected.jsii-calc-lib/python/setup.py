@@ -37,7 +37,12 @@ kwargs = json.loads("""
     "classifiers": [
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3",
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Typing :: Typed",
         "Development Status :: 7 - Inactive",
         "License :: OSI Approved"
     ]

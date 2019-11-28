@@ -369,6 +369,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ static makeInterfaces() method (experimental)
  │   │     ├── static
  │   │     └── returns: Array<jsii-calc.IPublicInterface>
+ │   ├─┬ class ConsumePureInterface (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(delegate) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ delegate
+ │   │   │     └── type: jsii-calc.IStructReturningDelegate
+ │   │   └─┬ workItBaby() method (experimental)
+ │   │     └── returns: jsii-calc.StructB
  │   ├─┬ class ConsumerCanRingBell (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1975,6 +1983,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ mutableProperty property (stable)
  │   │     ├── abstract
  │   │     └── type: Optional<number>
+ │   ├─┬ interface IStructReturningDelegate (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ returnStruct() method (experimental)
+ │   │     ├── abstract
+ │   │     └── returns: jsii-calc.StructB
  │   ├─┬ interface ImplictBaseOfBase (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── BaseProps
@@ -2342,6 +2355,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
+ │   ├── class ConsumePureInterface
  │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
@@ -2515,6 +2529,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
+ │   ├── interface IStructReturningDelegate
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ interfaces
  │   │   └── BaseProps
@@ -2738,6 +2753,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static makeInterface() method
  │   │   ├── static makeInterface2() method
  │   │   └── static makeInterfaces() method
+ │   ├─┬ class ConsumePureInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>(delegate) initializer
+ │   │   └── workItBaby() method
  │   ├─┬ class ConsumerCanRingBell
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3430,6 +3449,9 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── method() method
  │   │   └── mutableProperty property
+ │   ├─┬ interface IStructReturningDelegate
+ │   │ └─┬ members
+ │   │   └── returnStruct() method
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ members
  │   │   └── goo property
@@ -3624,6 +3646,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ConfusingToJackson
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
+ │   ├── class ConsumePureInterface
  │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
@@ -3755,6 +3778,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
+ │   ├── interface IStructReturningDelegate
  │   ├── interface ImplictBaseOfBase
  │   ├── interface Hello
  │   ├── interface Hello

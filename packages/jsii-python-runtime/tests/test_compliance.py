@@ -18,6 +18,7 @@ from jsii_calc import (
     ClassWithPrivateConstructorAndAutomaticProperties,
     ConfusingToJackson,
     ConsumerCanRingBell,
+    ConsumePureInterface,
     ConstructorPassesThisOut,
     DataRenderer,
     Demonstrate982,
@@ -31,6 +32,7 @@ from jsii_calc import (
     IFriendlyRandomGenerator,
     IRandomNumberGenerator,
     IInterfaceWithProperties,
+    IStructReturningDelegate,
     JsiiAgent,
     JSObjectLiteralForInterface,
     JSObjectLiteralToNative,
@@ -1080,3 +1082,42 @@ def test_can_obtain_reference_with_overloaded_setter():
 
 def test_can_obtain_struct_reference_with_overloaded_setter():
     assert ConfusingToJackson.make_struct_instance() is not None
+
+def test_pure_interfaces_can_be_used_transparently():
+    expected = StructB(required_string="It's Britney b**ch!")
+
+    @jsii.implements(IStructReturningDelegate)
+    class StructReturningDelegate:
+        def return_struct(self):
+            return expected
+
+    delegate = StructReturningDelegate()
+    consumer = ConsumePureInterface(delegate)
+    assert consumer.work_it_baby() == expected
+
+def test_pure_interfaces_can_be_used_transparently_when_transitively_implementing():
+    expected = StructB(required_string="It's Britney b**ch!")
+
+    @jsii.implements(IStructReturningDelegate)
+    class ImplementsStructReturningDelegate:
+        def return_struct(self):
+            return expected
+
+    class IndirectlyImplementsStructReturningDelegate(ImplementsStructReturningDelegate):
+        ...
+
+    delegate = IndirectlyImplementsStructReturningDelegate()
+    consumer = ConsumePureInterface(delegate)
+    assert consumer.work_it_baby() == expected
+
+def test_pure_interfaces_can_be_used_transparently_when_added_to_jsii_type():
+    expected = StructB(required_string="It's Britney b**ch!")
+
+    @jsii.implements(IStructReturningDelegate)
+    class ImplementsAdditionalInterface(AllTypes):
+        def return_struct(self):
+            return expected
+
+    delegate = ImplementsAdditionalInterface()
+    consumer = ConsumePureInterface(delegate)
+    assert consumer.work_it_baby() == expected

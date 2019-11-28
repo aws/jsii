@@ -2396,3 +2396,17 @@ export class ConfusingToJackson {
 export interface ConfusingToJacksonStruct {
     readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
 }
+
+/**
+ * Verifies that a "pure" implementation of an interface works correctly
+ */
+export interface IStructReturningDelegate {
+    returnStruct(): StructB;
+}
+export class ConsumePureInterface {
+    constructor(private readonly delegate: IStructReturningDelegate) { }
+
+    public workItBaby() {
+        return this.delegate.returnStruct();
+    }
+}

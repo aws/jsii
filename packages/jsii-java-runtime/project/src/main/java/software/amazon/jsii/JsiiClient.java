@@ -60,16 +60,6 @@ public final class JsiiClient {
      * Creates a remote jsii object.
      * @param fqn The fully-qualified-name of the class.
      * @param initializerArgs Constructor arguments.
-     * @return A jsii object reference.
-     */
-    public JsiiObjectRef createObject(final String fqn, final List<Object> initializerArgs) {
-        return createObject(fqn, initializerArgs, Collections.emptyList());
-    }
-
-    /**
-     * Creates a remote jsii object.
-     * @param fqn The fully-qualified-name of the class.
-     * @param initializerArgs Constructor arguments.
      * @param overrides A list of async methods to override. If a method is defined as an override, a callback
      *                  will be scheduled when it is called, and the promise it returns will only be fulfilled
      *                  when the callback is completed.
@@ -77,12 +67,14 @@ public final class JsiiClient {
      */
     public JsiiObjectRef createObject(final String fqn,
                                       final Collection<Object> initializerArgs,
-                                      final Collection<JsiiOverride> overrides) {
+                                      final Collection<JsiiOverride> overrides,
+                                      final Collection<String> interfaces) {
 
         CreateRequest request = new CreateRequest();
         request.setFqn(fqn);
         request.setArgs(initializerArgs);
         request.setOverrides(overrides);
+        request.setInterfaces(interfaces);
 
         ObjectNode req = JsiiObjectMapper.valueToTree(request);
         req.put("api", "create");

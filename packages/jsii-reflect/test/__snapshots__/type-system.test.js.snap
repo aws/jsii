@@ -37,6 +37,7 @@ Array [
   "ConfusingToJackson",
   "ConstructorPassesThisOut",
   "Constructors",
+  "ConsumePureInterface",
   "ConsumerCanRingBell",
   "ConsumersOfThisCrazyTypeSystem",
   "DataRenderer",

@@ -1310,5 +1310,82 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             Assert.NotNull(ConfusingToJackson.MakeStructInstance());
         }
+
+        [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently))]
+        public void PureInterfacesCanBeUsedTransparently()
+        {
+            var expected = new StructB { RequiredString = "It's Britney b**ch!" };
+            var del = new StructReturningDelegate(expected);
+            var consumer = new ConsumePureInterface(del);
+            Assert.Equal(expected.RequiredString, consumer.WorkItBaby().RequiredString);
+        }
+
+        private sealed class StructReturningDelegate: DeputyBase, IStructReturningDelegate
+        {
+            internal StructReturningDelegate(StructB expected)
+            {
+                Expected = expected;
+            }
+
+            private IStructB Expected { get; }
+
+            public IStructB ReturnStruct()
+            {
+                return Expected;
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently_WhenTransitivelyImplemented))]
+        public void PureInterfacesCanBeUsedTransparently_WhenTransitivelyImplemented()
+        {
+            var expected = new StructB { RequiredString = "It's Britney b**ch!" };
+            var del = new IndirectlyImplementsStructReturningDelegate(expected);
+            var consumer = new ConsumePureInterface(del);
+            Assert.Equal(expected.RequiredString, consumer.WorkItBaby().RequiredString);
+        }
+
+        private sealed class IndirectlyImplementsStructReturningDelegate : ImplementsStructReturningDelegate
+        {
+            internal IndirectlyImplementsStructReturningDelegate(StructB @struct) : base(@struct) {}
+        }
+
+        private class ImplementsStructReturningDelegate : DeputyBase, IStructReturningDelegate
+        {
+            private StructB Struct;
+
+            protected ImplementsStructReturningDelegate(StructB @struct)
+            {
+                this.Struct = @struct;
+            }
+
+            public IStructB ReturnStruct()
+            {
+                return Struct;
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently_WhenAddedToJsiiType))]
+        public void PureInterfacesCanBeUsedTransparently_WhenAddedToJsiiType()
+        {
+            var expected = new StructB { RequiredString = "It's Britney b**ch!" };
+            var del = new ImplementsAdditionalInterface(expected);
+            var consumer = new ConsumePureInterface(del);
+            Assert.Equal(expected.RequiredString, consumer.WorkItBaby().RequiredString);
+        }
+
+        private sealed class ImplementsAdditionalInterface : AllTypes, IStructReturningDelegate
+        {
+            private StructB Struct;
+
+            internal ImplementsAdditionalInterface(StructB @struct)
+            {
+                this.Struct = @struct;
+            }
+
+            public IStructB ReturnStruct()
+            {
+                return Struct;
+            }
+        }
     }
 }
