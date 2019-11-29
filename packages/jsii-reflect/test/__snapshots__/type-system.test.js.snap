@@ -17,6 +17,7 @@ Array [
   "Add",
   "AllTypes",
   "AllowedMethodNames",
+  "AmbiguousParameters",
   "AnonymousImplementationProvider",
   "AsyncVirtualMethods",
   "AugmentableClass",

@@ -13,7 +13,9 @@ from jsii_calc import (
     Add,
     AllTypes,
     AllTypesEnum,
+    AmbiguousParameters,
     AsyncVirtualMethods,
+    Bell,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
     ConfusingToJackson,
@@ -65,6 +67,7 @@ from jsii_calc import (
     StructB,
     StructUnionConsumer,
     SomeTypeJsii976,
+    StructParameterType,
     AnonymousImplementationProvider,
     IAnonymousImplementationProvider
 )
@@ -1121,3 +1124,10 @@ def test_pure_interfaces_can_be_used_transparently_when_added_to_jsii_type():
     delegate = ImplementsAdditionalInterface()
     consumer = ConsumePureInterface(delegate)
     assert consumer.work_it_baby() == expected
+
+def test_lifted_kwarg_with_same_name_as_positional_arg():
+    bell = Bell()
+    amb = AmbiguousParameters(bell, scope='Driiiing!')
+
+    assert amb.scope == bell
+    assert amb.props == StructParameterType(scope='Driiiing!')
