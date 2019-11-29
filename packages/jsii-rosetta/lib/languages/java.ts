@@ -8,6 +8,12 @@ import { ImportStatement } from '../typescript/imports';
 import { jsiiTargetParam } from '../jsii/packages';
 
 interface JavaContext {
+  /** @default false */
+  readonly ignorePropertyPrefix?: boolean;
+
+  /** @default true */
+  readonly convertPropertyToGetter?: boolean;
+
   readonly insideTypeDeclaration?: InsideTypeDeclaration;
 }
 
@@ -42,7 +48,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         'public ',
         'class ',
         renderer.convert(node.name),
-        ...this.typeHeritage(node, renderer),
+        ...this.typeHeritage(node, renderer.updateContext({ ignorePropertyPrefix: true })),
         ' {',
       ],
       renderer
@@ -218,14 +224,51 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(result);
   }
 
-  public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
-    const expressionText = renderer.textOf(node.expression);
+  public newExpression(node: ts.NewExpression, renderer: JavaRenderer): OTree {
     return new OTree(
       [
-        ...expressionText === 'this' ? ['this', '.'] : [],
-        renderer.convert(node.name),
-      ]
+        'new ',
+        renderer.updateContext({
+          ignorePropertyPrefix: true,
+          convertPropertyToGetter: false,
+        }).convert(node.expression),
+        '(',
+        this.argumentList(node.arguments, renderer),
+        ')',
+      ],
+      [],
+      {
+        canBreakLine: true,
+      },
     );
+  }
+
+  public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
+    const rightHandSide = renderer.convert(node.name);
+    let parts: Array<OTree | string | undefined>;
+
+    if (renderer.currentContext.ignorePropertyPrefix) {
+      // ignore al prefixes when resolving properties
+      // only used for type names, in things like
+      // 'MyClass extends cdk.Construct'
+      // and 'new' expressions
+      parts = [rightHandSide];
+    } else {
+      const leftHandSide = renderer.textOf(node.expression);
+      if (leftHandSide === 'this') {
+        // for 'this', assume this is a field, and access it directly
+        parts = ['this', '.', rightHandSide];
+      } else {
+        // add a 'get' prefix to the property name, and change the access to a method call, if required
+        const renderedRightHandSide = renderer.currentContext.convertPropertyToGetter === false
+            ? rightHandSide
+            : `get${capitalize(node.name.text)}()`;
+        // strip any trailing ! from the left-hand side, as they're not meaningful in Java
+        parts = [stripTrailingBang(leftHandSide), '.', renderedRightHandSide];
+      }
+    }
+
+    return new OTree(parts);
   }
 
   private lookupModuleNamespace(packageName: string): string {
@@ -281,6 +324,8 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     switch (typeScriptBuiltInType) {
       case 'string':
         return 'String';
+      case 'any':
+        return 'Object';
       default:
         return typeScriptBuiltInType;
     }
@@ -308,4 +353,12 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       },
     );
   }
+}
+
+function stripTrailingBang(str: string): string {
+  return str.replace(/!+$/, '');
+}
+
+function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
