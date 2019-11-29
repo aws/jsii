@@ -233,7 +233,7 @@ export class Assembler implements Emitter {
       type = this._types[ref];
     } else {
       const assembly = this.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
-      type = assembly && assembly.types && assembly.types[ref];
+      type = assembly?.types?.[ref];
 
       // since we are exposing a type of this assembly in this module's public API,
       // we expect it to appear as a peer dependency instead of a normal dependency.
@@ -463,7 +463,7 @@ export class Assembler implements Emitter {
     }
 
     const erasedBases = new Array<ts.BaseType>();
-    for (let base of type.getBaseTypes() || []) {
+    for (let base of type.getBaseTypes() ?? []) {
       if (jsiiType.base) {
         this._diagnostic(base.symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Found multiple base types for ${jsiiType.fqn}`);
         continue;
@@ -477,7 +477,7 @@ export class Assembler implements Emitter {
       while (base && this._isPrivateOrInternal(base.symbol)) {
         LOG.debug(`Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(base.symbol.name)} is not exported, erasing it...`);
         erasedBases.push(base);
-        base = (base.getBaseTypes() || [])[0];
+        base = (base.getBaseTypes() ?? [])[0];
       }
       if (!base) {
         // There is no exported base class to be found, pretend this class has no base class.
@@ -510,7 +510,7 @@ export class Assembler implements Emitter {
     // collect all "implements" declarations from the current type and all
     // erased base types (because otherwise we lose them, see jsii#487)
     const implementsClauses = new Array<ts.HeritageClause>();
-    for (const heritage of [type, ...erasedBases].map(t => (t.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses || [])) {
+    for (const heritage of [type, ...erasedBases].map(t => (t.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses ?? [])) {
       for (const clause of heritage) {
         if (clause.token === ts.SyntaxKind.ExtendsKeyword) {
           // Handled by `getBaseTypes`
@@ -528,7 +528,7 @@ export class Assembler implements Emitter {
     const allInterfaces = new Set<string>();
     const baseInterfaces = implementsClauses.map(clause => this._processBaseInterfaces(fqn, clause.types.map(t => this._getTypeFromTypeNode(t))));
     for (const { interfaces } of await Promise.all(baseInterfaces)) {
-      for (const ifc of interfaces || []) {
+      for (const ifc of interfaces ?? []) {
         allInterfaces.add(ifc.fqn);
       }
       if (interfaces) {
@@ -567,7 +567,7 @@ export class Assembler implements Emitter {
       for (const memberDecl of classDecl.members) {
         const member: ts.Symbol = (memberDecl as any).symbol;
 
-        if (!(declaringType.symbol.getDeclarations() || []).find(d => d === memberDecl.parent)) {
+        if (!(declaringType.symbol.getDeclarations() ?? []).find(d => d === memberDecl.parent)) {
           continue;
         }
 
@@ -582,11 +582,11 @@ export class Assembler implements Emitter {
 
         /* eslint-disable no-await-in-loop */
         if (ts.isMethodDeclaration(memberDecl) || ts.isMethodSignature(memberDecl)) {
-          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
+          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else if (ts.isPropertyDeclaration(memberDecl)
           || ts.isPropertySignature(memberDecl)
           || ts.isAccessor(memberDecl)) {
-          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
+          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else {
           this._diagnostic(memberDecl,
             ts.DiagnosticCategory.Warning,
@@ -608,13 +608,11 @@ export class Assembler implements Emitter {
         jsiiType.initializer = {};
         if (signature) {
           for (const param of signature.getParameters()) {
-            jsiiType.initializer.parameters = jsiiType.initializer.parameters || [];
+            jsiiType.initializer.parameters = jsiiType.initializer.parameters ?? [];
             /* eslint-disable no-await-in-loop */
-            jsiiType.initializer.parameters.push(await this._toParameter(param, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability)));
+            jsiiType.initializer.parameters.push(await this._toParameter(param, ctx.replaceStability(jsiiType.docs?.stability)));
             /* eslint-enable no-await-in-loop */
-            jsiiType.initializer.variadic =
-              (jsiiType.initializer.parameters && jsiiType.initializer.parameters.some(p => !!p.variadic))
-              || undefined;
+            jsiiType.initializer.variadic = jsiiType.initializer?.parameters?.some(p => !!p.variadic) || undefined;
             jsiiType.initializer.protected = (ts.getCombinedModifierFlags(ctorDeclaration) & ts.ModifierFlags.Protected) !== 0
               || undefined;
           }
@@ -672,8 +670,8 @@ export class Assembler implements Emitter {
     }
 
     // Check class itself--may have two methods/props with the same name, so check the arrays
-    const statics = new Set((klass.methods || []).concat(klass.properties || []).filter(x => x.static).map(x => x.name));
-    const nonStatics = new Set((klass.methods || []).concat(klass.properties || []).filter(x => !x.static).map(x => x.name));
+    const statics = new Set((klass.methods ?? []).concat(klass.properties ?? []).filter(x => x.static).map(x => x.name));
+    const nonStatics = new Set((klass.methods ?? []).concat(klass.properties ?? []).filter(x => !x.static).map(x => x.name));
     // Intersect
     for (const member of intersect(statics, nonStatics)) {
       this._diagnostic(decl, ts.DiagnosticCategory.Error,
@@ -774,7 +772,7 @@ export class Assembler implements Emitter {
 
     const docs = this._visitDocumentation(symbol, ctx);
 
-    const typeContext = ctx.replaceStability(docs && docs.stability);
+    const typeContext = ctx.replaceStability(docs?.stability);
     const members = type.isUnion() ? type.types : [type];
 
     const jsiiType: spec.EnumType = {
@@ -799,7 +797,7 @@ export class Assembler implements Emitter {
   private _visitDocumentation(sym: ts.Symbol, context: EmitContext): spec.Docs | undefined {
     const result = parseSymbolDocumentation(sym, this._typeChecker);
 
-    for (const diag of result.diagnostics || []) {
+    for (const diag of result.diagnostics ?? []) {
       this._diagnostic(sym.declarations[0],
         ts.DiagnosticCategory.Error,
         diag
@@ -820,7 +818,7 @@ export class Assembler implements Emitter {
    */
   private _validateReferencedDocParams(method: spec.Method, methodSym: ts.Symbol) {
     const params = getReferencedDocParams(methodSym);
-    const actualNames = new Set((method.parameters || []).map(p => p.name));
+    const actualNames = new Set((method.parameters ?? []).map(p => p.name));
     for (const param of params) {
       if (!actualNames.has(param)) {
         this._diagnostic(methodSym.valueDeclaration, ts.DiagnosticCategory.Warning,
@@ -856,7 +854,7 @@ export class Assembler implements Emitter {
 
     for (const declaringType of [type, ...erasedBases]) {
       for (const member of declaringType.getProperties()) {
-        if (!(declaringType.symbol.getDeclarations() || []).find(decl => decl === member.valueDeclaration.parent)) { continue; }
+        if (!(declaringType.symbol.getDeclarations() ?? []).find(decl => decl === member.valueDeclaration.parent)) { continue; }
 
         if (this._isPrivateOrInternal(member, member.valueDeclaration)) {
           continue;
@@ -864,11 +862,11 @@ export class Assembler implements Emitter {
 
         /* eslint-disable no-await-in-loop */
         if (ts.isMethodDeclaration(member.valueDeclaration) || ts.isMethodSignature(member.valueDeclaration)) {
-          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
+          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else if (ts.isPropertyDeclaration(member.valueDeclaration)
           || ts.isPropertySignature(member.valueDeclaration)
           || ts.isAccessor(member.valueDeclaration)) {
-          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
+          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else {
           this._diagnostic(member.valueDeclaration,
             ts.DiagnosticCategory.Warning,
@@ -880,8 +878,8 @@ export class Assembler implements Emitter {
 
     // Calculate datatype based on the datatypeness of this interface and all of its parents
     // To keep the spec minimal the actual values of the attribute are "true" or "undefined" (to represent "false").
-    this._deferUntilTypesAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, (...bases: spec.Type[]) => {
-      if ((jsiiType.methods || []).length === 0) {
+    this._deferUntilTypesAvailable(fqn, jsiiType.interfaces ?? [], type.symbol.valueDeclaration, (...bases: spec.Type[]) => {
+      if ((jsiiType.methods ?? []).length === 0) {
         jsiiType.datatype = true;
       }
 
@@ -907,7 +905,7 @@ export class Assembler implements Emitter {
 
       // Okay, this is a data type, check that all properties are readonly
       if (jsiiType.datatype) {
-        for (const prop of jsiiType.properties || []) {
+        for (const prop of jsiiType.properties ?? []) {
           if (!prop.immutable) {
             const p = type.getProperty(prop.name)!;
             this._diagnostic(p.valueDeclaration,
@@ -950,10 +948,10 @@ export class Assembler implements Emitter {
           }
         }
         // Recurse upwards
-        this._deferUntilTypesAvailable(fqn, base.interfaces || [], type.symbol.valueDeclaration, checkNoIntersection);
+        this._deferUntilTypesAvailable(fqn, base.interfaces ?? [], type.symbol.valueDeclaration, checkNoIntersection);
       }
     };
-    this._deferUntilTypesAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, checkNoIntersection);
+    this._deferUntilTypesAvailable(fqn, jsiiType.interfaces ?? [], type.symbol.valueDeclaration, checkNoIntersection);
 
     return _sortMembers(jsiiType);
   }
@@ -988,7 +986,7 @@ export class Assembler implements Emitter {
       static: _isStatic(symbol) || undefined,
       locationInModule: this.declarationLocation(declaration),
     };
-    method.variadic = (method.parameters && method.parameters.some(p => !!p.variadic)) || undefined;
+    method.variadic = method.parameters?.some(p => !!p.variadic) || undefined;
 
     this._verifyConsecutiveOptionals(declaration, method.parameters);
 
@@ -1019,7 +1017,7 @@ export class Assembler implements Emitter {
 
     this._validateReferencedDocParams(method, symbol);
 
-    type.methods = type.methods || [];
+    type.methods = type.methods ?? [];
     if (type.methods.find(m => m.name === method.name && m.static === method.static) != null) {
       LOG.trace(`Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(method.name)}`);
       return;
@@ -1038,7 +1036,7 @@ export class Assembler implements Emitter {
   }
 
   private async _visitProperty(symbol: ts.Symbol, type: spec.ClassType | spec.InterfaceType, ctx: EmitContext) {
-    if (type.properties && type.properties.find(p => p.name === symbol.name)) {
+    if (type.properties?.find(p => p.name === symbol.name)) {
       /*
        * Second declaration of the same property. For example, if code specifies a getter & setter signature,
        * there will be one pass for each of the signatures, but we can process only the first encountered. The
@@ -1071,7 +1069,7 @@ export class Assembler implements Emitter {
     };
 
     if (ts.isGetAccessor(signature)) {
-      const decls = symbol.getDeclarations() || [];
+      const decls = symbol.getDeclarations() ?? [];
       property.immutable = !decls.some(decl => ts.isSetAccessor(decl)) || undefined;
     } else {
       property.immutable = ((ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !== 0) || undefined;
@@ -1087,7 +1085,7 @@ export class Assembler implements Emitter {
 
     property.docs = this._visitDocumentation(symbol, ctx);
 
-    type.properties = type.properties || [];
+    type.properties = type.properties ?? [];
     if (type.properties.find(prop => prop.name === property.name && prop.static === property.static) != null) {
       LOG.trace(`Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(property.name)}`);
       return;
@@ -1177,7 +1175,7 @@ export class Assembler implements Emitter {
       const typeRef = type as ts.TypeReference;
       let elementtype: spec.TypeReference;
 
-      if (typeRef.typeArguments && typeRef.typeArguments.length === 1) {
+      if (typeRef.typeArguments?.length === 1) {
         elementtype = await this._typeReference(typeRef.typeArguments[0], declaration);
       } else {
         const count = typeRef.typeArguments ? typeRef.typeArguments.length : 'none';
@@ -1311,11 +1309,11 @@ export class Assembler implements Emitter {
     return ret;
 
     function recurse(this: Assembler, int: spec.InterfaceType) {
-      for (const property of int.properties || []) {
+      for (const property of int.properties ?? []) {
         ret.add(property.name);
       }
 
-      for (const baseRef of int.interfaces || []) {
+      for (const baseRef of int.interfaces ?? []) {
         const base = this._dereference(baseRef, null);
         if (!base) { throw new Error('Impossible to have unresolvable base in allProperties()'); }
         if (!spec.isInterfaceType(base)) { throw new Error('Impossible to have non-interface base in allProperties()'); }
@@ -1357,7 +1355,7 @@ export class Assembler implements Emitter {
     // There should not be version conflicts between them but we guard against it anyway.
 
     // Get an array of dependency maps
-    const dependencyBags = flatten(assemblies.map(a => [assemblyToPackageVersionMap(a), a.dependencies || {}]));
+    const dependencyBags = flatten(assemblies.map(a => [assemblyToPackageVersionMap(a), a.dependencies ?? {}]));
 
     const warned = new Set<string>();
     const result: { [name: string]: spec.PackageVersion } = {};
@@ -1483,7 +1481,7 @@ function _isVoid(type: ts.Type): boolean {
 }
 
 function _isPromise(type: ts.Type): boolean {
-  return type.symbol && type.symbol.escapedName === 'Promise';
+  return type.symbol?.escapedName === 'Promise';
 }
 
 function _sortMembers(type: spec.ClassType): spec.ClassType;
@@ -1591,12 +1589,12 @@ function memberNames(jsiiType: spec.InterfaceType | spec.ClassType): string[] {
 function typeMembers(jsiiType: spec.InterfaceType | spec.ClassType): {[key: string]: spec.Property | spec.Method} {
   const ret: {[key: string]: spec.Property | spec.Method} = {};
 
-  for (const prop of jsiiType.properties || []) {
+  for (const prop of jsiiType.properties ?? []) {
     ret[prop.name] = prop;
   }
 
-  for (const method of jsiiType.methods || []) {
-    ret[method.name || ''] = method;
+  for (const method of jsiiType.methods ?? []) {
+    ret[method.name ?? ''] = method;
   }
 
   return ret;
@@ -1613,8 +1611,7 @@ function isInterfaceName(name: string) {
 }
 
 function getConstructor(type: ts.Type): ts.Symbol | undefined {
-  return type.symbol.members
-      && type.symbol.members.get(ts.InternalSymbolName.Constructor);
+  return type.symbol.members?.get(ts.InternalSymbolName.Constructor);
 }
 
 function* intersect<T>(xs: Set<T>, ys: Set<T>) {

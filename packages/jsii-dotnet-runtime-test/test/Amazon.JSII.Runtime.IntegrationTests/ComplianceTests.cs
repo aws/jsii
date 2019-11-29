@@ -1034,10 +1034,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         }
 
         [Fact(DisplayName = Prefix + nameof(ReturnSubclassThatImplementsInterface976))]
-        public void ReturnSubclassThatImplementsInterface976() 
+        public void ReturnSubclassThatImplementsInterface976()
         {
             var obj = SomeTypeJsii976.ReturnReturn();
-            Assert.Equal(obj.Foo, 333);
+            Assert.Equal(333, obj.Foo);
         }
 
         private sealed class OverrideVariadicMethod : VariadicMethod
@@ -1264,6 +1264,128 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             Assert.NotNull(Demonstrate982.TakeThis());
             Assert.NotNull(Demonstrate982.TakeThisToo());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(NullIsAValidOptionalList))]
+        public void NullIsAValidOptionalList()
+        {
+            Assert.Null(DisappointingCollectionSource.MaybeList);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(NullIsAValidOptionalMap))]
+        public void NullIsAValidOptionalMap()
+        {
+            Assert.Null(DisappointingCollectionSource.MaybeMap);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanUseInterfaceSetters))]
+        public void CanUseInterfaceSetters()
+        {
+            var obj = ObjectWithPropertyProvider.Provide();
+            obj.Property = "New Value";
+            Assert.True(obj.WasSet());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(StructsAreUndecoratedOntheWayToKernel))]
+        public void StructsAreUndecoratedOntheWayToKernel()
+        {
+            var json = JsonFormatter.Stringify(new StructB {RequiredString = "Bazinga!", OptionalBoolean = false});
+            var actual = JObject.Parse(json);
+
+            var expected = new JObject();
+            expected.Add("RequiredString", "Bazinga!");
+            expected.Add("OptionalBoolean", false);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanObtainReferenceWithOverloadedSetters))]
+        public void CanObtainReferenceWithOverloadedSetters()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeInstance());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CanObtainStructReferenceWithOverloadedSetters))]
+        public void CanObtainStructReferenceWithOverloadedSetters()
+        {
+            Assert.NotNull(ConfusingToJackson.MakeStructInstance());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently))]
+        public void PureInterfacesCanBeUsedTransparently()
+        {
+            var expected = new StructB { RequiredString = "It's Britney b**ch!" };
+            var del = new StructReturningDelegate(expected);
+            var consumer = new ConsumePureInterface(del);
+            Assert.Equal(expected.RequiredString, consumer.WorkItBaby().RequiredString);
+        }
+
+        private sealed class StructReturningDelegate: DeputyBase, IStructReturningDelegate
+        {
+            internal StructReturningDelegate(StructB expected)
+            {
+                Expected = expected;
+            }
+
+            private IStructB Expected { get; }
+
+            public IStructB ReturnStruct()
+            {
+                return Expected;
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently_WhenTransitivelyImplemented))]
+        public void PureInterfacesCanBeUsedTransparently_WhenTransitivelyImplemented()
+        {
+            var expected = new StructB { RequiredString = "It's Britney b**ch!" };
+            var del = new IndirectlyImplementsStructReturningDelegate(expected);
+            var consumer = new ConsumePureInterface(del);
+            Assert.Equal(expected.RequiredString, consumer.WorkItBaby().RequiredString);
+        }
+
+        private sealed class IndirectlyImplementsStructReturningDelegate : ImplementsStructReturningDelegate
+        {
+            internal IndirectlyImplementsStructReturningDelegate(StructB @struct) : base(@struct) {}
+        }
+
+        private class ImplementsStructReturningDelegate : DeputyBase, IStructReturningDelegate
+        {
+            private StructB Struct;
+
+            protected ImplementsStructReturningDelegate(StructB @struct)
+            {
+                this.Struct = @struct;
+            }
+
+            public IStructB ReturnStruct()
+            {
+                return Struct;
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(PureInterfacesCanBeUsedTransparently_WhenAddedToJsiiType))]
+        public void PureInterfacesCanBeUsedTransparently_WhenAddedToJsiiType()
+        {
+            var expected = new StructB { RequiredString = "It's Britney b**ch!" };
+            var del = new ImplementsAdditionalInterface(expected);
+            var consumer = new ConsumePureInterface(del);
+            Assert.Equal(expected.RequiredString, consumer.WorkItBaby().RequiredString);
+        }
+
+        private sealed class ImplementsAdditionalInterface : AllTypes, IStructReturningDelegate
+        {
+            private StructB Struct;
+
+            internal ImplementsAdditionalInterface(StructB @struct)
+            {
+                this.Struct = @struct;
+            }
+
+            public IStructB ReturnStruct()
+            {
+                return Struct;
+            }
         }
     }
 }

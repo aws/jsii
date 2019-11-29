@@ -9,7 +9,7 @@ export function resolvePackage(packageName: string) {
   try {
     const resolved = require.resolve(`${packageName}/package.json`, { paths: [process.cwd()] });
     return require(resolved);
-  } catch(e) {
+  } catch {
     return undefined;
   }
 }

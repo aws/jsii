@@ -586,7 +586,7 @@ export class DotNetGenerator extends Generator {
     const excludedProperties: string[] = []; // Keeps track of the properties we already ran into and don't want to emit
     const properties: { [name: string]: spec.Property } = {};
     const collectAbstractMembers = (currentType: spec.InterfaceType | spec.ClassType) => {
-      for (const prop of currentType.properties || []) {
+      for (const prop of currentType.properties ?? []) {
         if (!excludedProperties.includes(prop.name)) {
           // If we have never run into this property before and it is abstract, we keep it
           if (prop.abstract) {
@@ -596,7 +596,7 @@ export class DotNetGenerator extends Generator {
         }
       }
 
-      for (const method of currentType.methods || []) {
+      for (const method of currentType.methods ?? []) {
         let methodParameters = '';
         if (method.parameters) {
           method.parameters.forEach(param => { methodParameters += `;${this.typeresolver.toDotNetType(param.type)}`; });
@@ -611,7 +611,7 @@ export class DotNetGenerator extends Generator {
       }
 
       const bases = new Array<spec.NamedTypeReference>();
-      bases.push(...(currentType.interfaces || []).map(iface => this.findType(iface)));
+      bases.push(...(currentType.interfaces ?? []).map(iface => this.findType(iface)));
       if (currentType.kind === spec.TypeKind.Class && currentType.base) {
         bases.push(this.findType(currentType.base));
       }
@@ -755,7 +755,7 @@ export class DotNetGenerator extends Generator {
       return;
     }
 
-    const dotnetPackageId = this.assembly.targets && this.assembly.targets.dotnet && this.assembly.targets.dotnet.packageId;
+    const dotnetPackageId = this.assembly.targets?.dotnet?.packageId;
     if (!dotnetPackageId) { throw new Error(`The module ${this.assembly.name} does not have a dotnet.packageId setting`); }
     const filePath = namespace.replace(/[.]/g, '/');
     this.code.openFile(path.join(dotnetPackageId, filePath, this.toCSharpFilePath(typeName)));
@@ -772,7 +772,7 @@ export class DotNetGenerator extends Generator {
     }
     this.code.closeBlock();
 
-    const dotnetPackageId = this.assembly.targets && this.assembly.targets.dotnet && this.assembly.targets.dotnet.packageId;
+    const dotnetPackageId = this.assembly.targets?.dotnet?.packageId;
     if (!dotnetPackageId) { throw new Error(`The module ${this.assembly.name} does not have a dotnet.packageId setting`); }
     const filePath = namespace.replace(/[.]/g, '/');
     this.code.closeFile(path.join(dotnetPackageId, filePath, this.toCSharpFilePath(typeName)));

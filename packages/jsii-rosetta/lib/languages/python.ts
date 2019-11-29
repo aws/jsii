@@ -1,10 +1,10 @@
 import ts = require('typescript');
-import { AstRenderer, nimpl, CommentSyntax } from "../renderer";
+import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
 import { isStructType, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
-import { NO_SYNTAX, OTree, renderTree } from "../o-tree";
+import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
 import { matchAst, nodeOfType, stripCommentMarkers, voidExpressionString, quoteStringLiteral } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { startsWithUppercase, flat } from "../util";
+import { startsWithUppercase, flat } from '../util';
 import { DefaultVisitor } from './default';
 import { jsiiTargetParam } from '../jsii/packages';
 import { parameterAcceptsUndefined } from '../typescript/types';
@@ -14,7 +14,7 @@ interface StructVar {
   type: ts.Type | undefined;
 }
 
-type ReturnFromTree<A> = { value?: A; };
+type ReturnFromTree<A> = { value?: A };
 
 interface PythonLanguageContext {
   /**
@@ -71,7 +71,7 @@ export interface PythonVisitorOptions {
 export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public readonly defaultContext = {};
 
-  constructor(private readonly options: PythonVisitorOptions = {}) {
+  public constructor(private readonly options: PythonVisitorOptions = {}) {
     super();
   }
 
@@ -94,7 +94,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public sourceFile(node: ts.SourceFile, context: PythonVisitorContext): OTree {
     const rendered = super.sourceFile(node, context);
     if (this.options.disclaimer) {
-      return new OTree(['# ' + this.options.disclaimer + '\n', rendered]);
+      return new OTree([`# ${this.options.disclaimer}\n`, rendered]);
     }
     return rendered;
   }
@@ -108,7 +108,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     }
     if (node.imports.import === 'selective') {
       const imports = node.imports.elements.map(im =>
-          im.alias
+        im.alias
           ? `${mangleIdentifier(im.sourceName)} as ${mangleIdentifier(im.alias)}`
           : mangleIdentifier(im.sourceName));
 
@@ -130,10 +130,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public identifier(node: ts.Identifier, context: PythonVisitorContext) {
     const originalIdentifier = node.text;
 
-    // tslint:disable-next-line:max-line-length
     const explodedParameter = context.currentContext.explodedParameter;
-    // tslint:disable-next-line:max-line-length
+    /* eslint-disable max-len */
     if (context.currentContext.tailPositionArgument && explodedParameter && explodedParameter.type && explodedParameter.variableName === originalIdentifier) {
+    /* eslint-enable max-len */
       return new OTree([],
         propertiesOfStruct(explodedParameter.type, context).map(prop => new OTree([prop.name, '=', prop.name])),
         { separator: ', ' });
@@ -202,7 +202,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     let expressionText: OTree | string = context.convert(node.expression);
 
     if (matchAst(node.expression, nodeOfType(ts.SyntaxKind.SuperKeyword)) && context.currentContext.currentMethodName) {
-      expressionText = 'super().' + context.currentContext.currentMethodName;
+      expressionText = `super().${context.currentContext.currentMethodName}`;
     }
 
     return new OTree([
@@ -260,7 +260,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     const ifStmt = new OTree(
       ['if ', context.convert(node.expression), ': '],
       [context.convert(node.thenStatement)], { canBreakLine: true });
-    const elseStmt = node.elseStatement ? new OTree([`else: `], [context.convert(node.elseStatement)], { canBreakLine: true }) : undefined;
+    const elseStmt = node.elseStatement ? new OTree(['else: '], [context.convert(node.elseStatement)], { canBreakLine: true }) : undefined;
 
     return elseStmt ? new OTree([], [ifStmt, elseStmt], {
       separator: '\n',
@@ -272,25 +272,28 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     if (context.currentContext.tailPositionArgument) {
       // Guess that it's a struct we can probably inline the kwargs for
       return this.renderObjectLiteralExpression('', '', true, node, context);
-    } else {
-      return this.renderObjectLiteralExpression('{', '}', false, node, context);
     }
+    return this.renderObjectLiteralExpression('{', '}', false, node, context);
   }
 
   public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, structType: ts.Type, context: PythonVisitorContext): OTree {
     if (context.currentContext.tailPositionArgument) {
       // We know it's a struct we can DEFINITELY inline the args for
       return this.renderObjectLiteralExpression('', '', true, node, context);
-    } else {
-      return this.renderObjectLiteralExpression(`${structType.symbol.name}(`, ')', true, node, context);
     }
+    return this.renderObjectLiteralExpression(`${structType.symbol.name}(`, ')', true, node, context);
   }
 
   public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, _valueType: ts.Type | undefined, context: PythonVisitorContext): OTree {
     return this.renderObjectLiteralExpression('{', '}', false, node, context);
   }
 
-  public renderObjectLiteralExpression(prefix: string, suffix: string, renderObjectLiteralAsKeywords: boolean, node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
+  public renderObjectLiteralExpression(
+    prefix: string,
+    suffix: string,
+    renderObjectLiteralAsKeywords: boolean,
+    node: ts.ObjectLiteralExpression,
+    context: PythonVisitorContext): OTree {
     return new OTree([prefix], context.updateContext({ renderObjectLiteralAsKeywords }).convertAll(node.properties), {
       suffix: context.mirrorNewlineBefore(node.properties[0], suffix),
       separator: ', ',
@@ -389,7 +392,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public classDeclaration(node: ts.ClassDeclaration, context: PythonVisitorContext): OTree {
-    const heritage = flat(Array.from(node.heritageClauses || []).map(h => Array.from(h.types))).map(t => context.convert(t.expression));
+    const heritage = flat(Array.from(node.heritageClauses ?? []).map(h => Array.from(h.types))).map(t => context.convert(t.expression));
     const hasHeritage = heritage.length > 0;
 
     const members = context.updateContext({ inClass: true }).convertAll(node.members);
@@ -448,7 +451,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     const parts = ['f"'];
     if (node.head.rawText) { parts.push(quoteStringLiteral(node.head.rawText)); }
     for (const span of node.templateSpans) {
-      parts.push('{' + context.textOf(span.expression) + '}');
+      parts.push(`{${context.textOf(span.expression)}}`);
       if (span.literal.rawText) { parts.push(quoteStringLiteral(span.literal.rawText)); }
     }
     parts.push('"');
@@ -480,7 +483,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
    * Returns a pair of [decls, excploded-var-name].
    */
   // tslint:disable-next-line:max-line-length
-  private convertFunctionCallParameters(params: ts.NodeArray<ts.ParameterDeclaration> | undefined, context: PythonVisitorContext): [Array<string | OTree>, StructVar | undefined] {
+  private convertFunctionCallParameters(
+    params: ts.NodeArray<ts.ParameterDeclaration> | undefined,
+    context: PythonVisitorContext
+  ): [Array<string | OTree>, StructVar | undefined] {
     if (!params || params.length === 0) { return [[], undefined]; }
 
     const returnExplodedParameter: ReturnFromTree<StructVar> = {};
@@ -494,7 +500,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       }).convert(last(params))
     ] : [];
 
-    return [ converted, returnExplodedParameter.value ];
+    return [converted, returnExplodedParameter.value];
   }
 
   /**
@@ -520,10 +526,10 @@ function mangleIdentifier(originalIdentifier: string) {
   if (startsWithUppercase(originalIdentifier)) {
     // Probably a class, leave as-is
     return originalIdentifier;
-  } else {
-    // Turn into snake-case
-    return originalIdentifier.replace(/[^A-Z][A-Z]/g, m => m[0].substr(0, 1) + '_' + m.substr(1).toLowerCase());
   }
+  // Turn into snake-case
+  return originalIdentifier.replace(/[^A-Z][A-Z]/g, m => `${m[0].substr(0, 1)}_${m.substr(1).toLowerCase()}`);
+
 }
 
 const BUILTIN_FUNCTIONS: {[key: string]: string} = {
@@ -538,6 +544,6 @@ const TOKEN_REWRITES: {[key: string]: string} = {
   false: 'False'
 };
 
-function last<A>(xs: ReadonlyArray<A>): A {
+function last<A>(xs: readonly A[]): A {
   return xs[xs.length - 1];
 }

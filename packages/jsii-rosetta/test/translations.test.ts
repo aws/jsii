@@ -30,21 +30,21 @@ interface SupportedLanguage {
 }
 
 const SUPPORTED_LANGUAGES = new Array<SupportedLanguage>(
-    {
-      name: 'Python',
-      extension: '.py',
-      visitor: new PythonVisitor(),
-    },
-    {
-      name: 'Java',
-      extension: '.java',
-      visitor: new JavaVisitor(),
-    },
-    {
-      name: 'C#',
-      extension: '.cs',
-      visitor: new CSharpVisitor(),
-    },
+  {
+    name: 'Python',
+    extension: '.py',
+    visitor: new PythonVisitor(),
+  },
+  {
+    name: 'Java',
+    extension: '.java',
+    visitor: new JavaVisitor(),
+  },
+  {
+    name: 'C#',
+    extension: '.cs',
+    visitor: new CSharpVisitor(),
+  },
 );
 
 /**
@@ -72,7 +72,7 @@ function makeTests() {
         // Print the AST for tests that failed (to help debugging)
         if (anyFailed) {
           const vis = translator.renderUsing(new VisualizeAstVisitor(true));
-          console.log(vis + '\n');
+          console.log(`${vis}\n`);
         }
         (translator as any) = undefined; // Need this to properly release memory
       });
@@ -126,6 +126,7 @@ function replaceExtension(x: string, newExtension: string) {
 
 function stripCommonWhitespace(x: string) {
   const lines = x.split('\n');
+  /* eslint-disable-next-line @typescript-eslint/prefer-regexp-exec */
   const whitespaces = lines.filter(l => !emptyLine(l.trim())).map(l => l.match(/(\s*)/)![1].length);
   const minWS = Math.min(...whitespaces);
   return lines.map(l => l.substr(minWS)).join('\n');

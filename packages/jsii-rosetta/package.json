@@ -1,14 +1,15 @@
 {
   "name": "jsii-rosetta",
-  "version": "0.20.5",
+  "version": "0.20.8",
   "description": "Translate TypeScript code snippets to other languages",
   "main": "lib/index.js",
   "bin": {
     "jsii-rosetta": "bin/jsii-rosetta"
   },
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc --build && npm run lint",
     "watch": "tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=examples/* --ignore-pattern=test/translations/*",
     "test": "jest",
     "test:update": "jest -u",
     "package": "package-js"
@@ -17,21 +18,23 @@
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.23",
-    "@types/node": "^10.17.4",
+    "@types/mock-fs": "^4.10.0",
+    "@types/node": "^10.17.6",
     "@types/yargs": "^13.0.3",
+    "eslint": "^6.7.1",
     "jest": "^24.9.0",
-    "jsii-build-tools": "^0.20.5",
-    "jsii": "^0.20.5",
+    "jsii": "^0.20.8",
+    "jsii-build-tools": "^0.20.8",
     "memory-streams": "^0.1.3",
-    "mock-fs": "^4.10.2",
-    "@types/mock-fs": "^4.10.0"
+    "mock-fs": "^4.10.4",
+    "typescript": "~3.7.2"
   },
   "dependencies": {
     "commonmark": "^0.29.0",
     "fs-extra": "^8.1.0",
-    "typescript": "~3.6.4",
-    "jsii-spec": "^0.20.0",
-    "yargs": "^14.2.0"
+    "jsii-spec": "^0.20.8",
+    "typescript": "~3.7.2",
+    "yargs": "^15.0.2"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -41,7 +44,13 @@
       "lib/**/*.js"
     ],
     "collectCoverage": true,
-    "coverageReporters": ["json", "lcov", "text", "clover", "html"],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "clover",
+      "html"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 70,

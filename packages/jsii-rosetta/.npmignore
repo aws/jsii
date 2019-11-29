@@ -1,5 +1,6 @@
 *.ts
 !*.d.ts
+.eslintrc.*
 coverage
 .nyc_output
 *.tgz
@@ -14,4 +15,5 @@ dist
 
 *.snk
 
+tsconfig.json
 *.tsbuildinfo

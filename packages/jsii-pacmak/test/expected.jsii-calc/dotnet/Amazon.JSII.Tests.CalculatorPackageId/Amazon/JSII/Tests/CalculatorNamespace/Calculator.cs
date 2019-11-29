@@ -4,8 +4,29 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
     /// <remarks>
+    /// Here's how you use it:
+    /// 
+    /// <code><![CDATA[
+    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
+    /// Calculator calculator = new Calculator();
+    /// calculator.Add(5);
+    /// calculator.Mul(3);
+    /// Console.WriteLine(calculator.Expression.Value);
+    /// ]]></code>
+    /// 
+    /// I will repeat this example again, but in an @example tag.
+    /// 
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
+    /// <example>
+    /// <code>
+    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
+    /// Calculator calculator = new Calculator();
+    /// calculator.Add(5);
+    /// calculator.Mul(3);
+    /// Console.WriteLine(calculator.Expression.Value);
+    /// </code>
+    /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"docs\":{\"summary\":\"Initialization properties.\"},\"name\":\"props\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
     public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     {

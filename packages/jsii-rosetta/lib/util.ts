@@ -1,7 +1,7 @@
 import ts = require('typescript');
 
-export function startsWithUppercase(x: string) {
-  return x.match(/^[A-Z]/);
+export function startsWithUppercase(x: string): boolean {
+  return /^[A-Z]/.exec(x) != null;
 }
 
 export interface File {

@@ -46,14 +46,14 @@ public class JsiiClientTest {
 
     @Test
     public void initialTest() {
-        JsiiObjectRef obj = client.createObject("@scope/jsii-calc-lib.Number", Collections.singletonList(42));
+        JsiiObjectRef obj = client.createObject("@scope/jsii-calc-lib.Number", Collections.singletonList(42), Arrays.asList(), Arrays.asList());
         assertEquals(84, fromSandbox(client.getPropertyValue(obj, "doubleValue")));
         assertEquals("Number", fromSandbox(client.callMethod(obj, "typeName", toSandboxArray())));
 
         ObjectNode calculatorProps = JSON.objectNode();
         calculatorProps.set("initialValue", JSON.numberNode(100));
 
-        JsiiObjectRef calculator = client.createObject("jsii-calc.Calculator", Collections.singletonList(calculatorProps));
+        JsiiObjectRef calculator = client.createObject("jsii-calc.Calculator", Collections.singletonList(calculatorProps), Arrays.asList(), Arrays.asList());
         assertNull(fromSandbox(client.callMethod(calculator, "add", toSandboxArray(50))));
 
         JsiiObjectRef add = JsiiObjectRef.parse(client.getPropertyValue(calculator, "curr"));
@@ -79,7 +79,7 @@ public class JsiiClientTest {
 
     @Test
     public void asyncMethods() {
-        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods", Arrays.asList());
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods", Arrays.asList(), Arrays.asList(), Arrays.asList());
 
         // begin will return a promise
         JsiiPromise promise = client.beginAsyncMethod(obj, "callMe", toSandboxArray());
@@ -99,8 +99,7 @@ public class JsiiClientTest {
 
     @Test
     public void asyncMethodOverrides() {
-        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods",
-                Arrays.asList(), methodOverride("overrideMe", "myCookie"));
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods", Arrays.asList(), methodOverride("overrideMe", "myCookie"), Arrays.asList());
 
         // begin will return a promise
         JsiiPromise promise = client.beginAsyncMethod(obj, "callMe", toSandboxArray());
@@ -129,8 +128,7 @@ public class JsiiClientTest {
 
     @Test
     public void asyncMethodOverridesThrow() {
-        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods",
-                Arrays.asList(), methodOverride("overrideMe", "myCookie"));
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods", Arrays.asList(), methodOverride("overrideMe", "myCookie"), Arrays.asList());
 
         // begin will return a promise
         JsiiPromise promise = client.beginAsyncMethod(obj, "callMe", toSandboxArray());
@@ -165,8 +163,7 @@ public class JsiiClientTest {
 
     @Test
     public void syncVirtualMethods() {
-        JsiiObjectRef obj = client.createObject("jsii-calc.SyncVirtualMethods",
-                Arrays.asList(), methodOverride("virtualMethod","myCookie"));
+        JsiiObjectRef obj = client.createObject("jsii-calc.SyncVirtualMethods", Arrays.asList(), methodOverride("virtualMethod","myCookie"), Arrays.asList());
 
         jsiiRuntime.setCallbackHandler(callback -> {
             assertEquals(obj.getObjId(), JsiiObjectRef.parse(callback.getInvoke().getObjref()).getObjId());
@@ -175,7 +172,7 @@ public class JsiiClientTest {
             assertEquals("myCookie", callback.getCookie());
 
             // interact with jsii from inside the callback
-            JsiiObjectRef num = client.createObject("@scope/jsii-calc-lib.Number", Arrays.asList(42));
+            JsiiObjectRef num = client.createObject("@scope/jsii-calc-lib.Number", Arrays.asList(42), Arrays.asList(), Arrays.asList());
             assertEquals(84, fromSandbox(client.getPropertyValue(num, "doubleValue")));
 
             return JSON.numberNode(898);
@@ -206,7 +203,7 @@ public class JsiiClientTest {
         JsonNode defaultInstance = client.getStaticPropertyValue(fqn, "instance");
         assertEquals("default", client.getPropertyValue(JsiiObjectRef.parse(defaultInstance), "value").textValue());
 
-        JsiiObjectRef newValue = client.createObject(fqn, Arrays.asList("NewValue"));
+        JsiiObjectRef newValue = client.createObject(fqn, Arrays.asList("NewValue"), Arrays.asList(), Arrays.asList());
         client.setStaticPropertyValue(fqn, "instance", newValue.toJson());
 
         JsonNode newInstance = client.getStaticPropertyValue(fqn, "instance");

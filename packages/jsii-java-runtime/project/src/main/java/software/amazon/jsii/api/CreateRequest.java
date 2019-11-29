@@ -22,6 +22,11 @@ public class CreateRequest {
     private Collection<JsiiOverride> overrides;
 
     /**
+     * A collection of interfaces implemented by this object.
+     */
+    private Collection<String> interfaces;
+
+    /**
      * @return The class's FQN.
      */
     public String getFqn() {
@@ -64,5 +69,20 @@ public class CreateRequest {
      */
     public void setOverrides(final Collection<JsiiOverride> overrides) {
         this.overrides = overrides;
+    }
+
+    /**
+     * @return Interfaces
+     */
+    public Collection<String> getInterfaces() {
+        return interfaces;
+    }
+
+    /**
+     * Sets the interfaces
+     * @param interfaces Interfaces
+     */
+    public void setInterfaces(Collection<String> interfaces) {
+        this.interfaces = interfaces;
     }
 }

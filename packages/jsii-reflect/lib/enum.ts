@@ -29,7 +29,7 @@ export class EnumMember implements Documentable {
     public readonly enumType: EnumType, memberSpec: jsii.EnumMember) {
 
     this.name = memberSpec.name;
-    this.docs = new Docs(this.system, this, memberSpec.docs || {}, this.enumType.docs);
+    this.docs = new Docs(this.system, this, memberSpec.docs ?? {}, this.enumType.docs);
   }
 
   public get system(): TypeSystem { return this.enumType.system; }

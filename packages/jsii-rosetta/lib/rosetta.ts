@@ -1,14 +1,14 @@
 import fs = require('fs-extra');
 import path = require('path');
 import spec = require('jsii-spec');
-import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from "./tablets/tablets";
+import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { allTypeScriptSnippets } from './jsii/assemblies';
 import { TargetLanguage } from './languages';
 import { Translator } from './translate';
 import { isError } from 'util';
 import { transformMarkdown } from './markdown/markdown';
 import { MarkdownRenderer } from './markdown/markdown-renderer';
-import { CodeBlock } from './markdown/replace-code-renderer';
+import { CodeBlock } from './markdown/types';
 import { TypeScriptSnippet } from './snippet';
 import { printDiagnostics } from './util';
 import { ReplaceTypeScriptTransform } from './markdown/replace-typescript-transform';
@@ -47,7 +47,7 @@ export class Rosetta {
   private readonly extractedSnippets: Record<string, TypeScriptSnippet> = {};
   private readonly translator = new Translator(false);
 
-  constructor(private readonly options: RosettaOptions = {}) {
+  public constructor(private readonly options: RosettaOptions = {}) {
   }
 
   /**
@@ -109,7 +109,7 @@ export class Rosetta {
     }
 
     if (!this.options.liveConversion) { return undefined; }
-    if (this.options.targetLanguages && !this.options.targetLanguages.includes(targetLang)) {
+    if (!this.options.targetLanguages?.includes(targetLang)) {
       throw new Error(`Rosetta configured for live conversion to ${this.options.targetLanguages}, but requested ${targetLang}`);
     }
 
@@ -126,7 +126,11 @@ export class Rosetta {
     return snippet.get(targetLang);
   }
 
-  public translateSnippetsInMarkdown(markdown: string, targetLang: TargetLanguage, translationToCodeBlock: (x: Translation) => CodeBlock = id): string {
+  public translateSnippetsInMarkdown(
+    markdown: string,
+    targetLang: TargetLanguage,
+    translationToCodeBlock: (x: Translation) => CodeBlock = id
+  ): string {
     return transformMarkdown(markdown, new MarkdownRenderer(), new ReplaceTypeScriptTransform('markdown', tsSnip => {
       const translated = this.translateSnippet(tsSnip, targetLang);
       if (!translated) { return undefined; }
@@ -141,9 +145,9 @@ export class Rosetta {
 
   public get hasErrors() {
     return this.diagnostics.some(isError);
-  };
+  }
 
-  private get allTablets(): LanguageTablet[]  {
+  private get allTablets(): LanguageTablet[] {
     return [...this.loadedTablets, this.liveTablet];
   }
 }

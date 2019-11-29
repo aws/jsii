@@ -20,10 +20,10 @@ export class OptionalValue {
   }
 
   public get type(): TypeReference {
-    return new TypeReference(this.system, this.spec && this.spec.type);
+    return new TypeReference(this.system, this.spec?.type);
   }
 
   public get optional(): boolean {
-    return this.spec != null && !!this.spec.optional;
+    return !!this.spec?.optional;
   }
 }

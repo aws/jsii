@@ -6,6 +6,10 @@ constraints and extensions `jsii` adds to the [package.json schema].
 
 [package.json schema]: https://docs.npmjs.com/files/package.json
 
+## jsii-config
+
+Use [jsii-config](../packages/jsii-config) to aid in configuring a new jsii module.
+
 ## Additional Requirements & Extensions
 
 In order to be able to generate valid packages for all the supported target

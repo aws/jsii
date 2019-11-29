@@ -1,5 +1,5 @@
-import { LanguageTablet, TranslatedSnippet, Translation } from "../tablets/tablets";
-import { TargetLanguage } from "../languages";
+import { LanguageTablet, TranslatedSnippet, Translation } from '../tablets/tablets';
+import { TargetLanguage } from '../languages';
 
 export async function readTablet(tabletFile: string, key?: string, lang?: string) {
   const tab = new LanguageTablet();
@@ -17,7 +17,7 @@ export async function readTablet(tabletFile: string, key?: string, lang?: string
 
   function listSnippets() {
     for (const key of tab.snippetKeys) {
-      process.stdout.write(snippetHeader(key) + '\n');
+      process.stdout.write(`${snippetHeader(key)}\n`);
       displaySnippet(tab.tryGetSnippet(key)!);
       process.stdout.write('\n');
     }
@@ -46,13 +46,13 @@ export async function readTablet(tabletFile: string, key?: string, lang?: string
     }
 
     for (const lang of snippet.languages) {
-      process.stdout.write(languageHeader(lang) + '\n');
+      process.stdout.write(`${languageHeader(lang)}\n`);
       displayTranslation(snippet.get(lang)!);
     }
   }
 
   function displayTranslation(translation: Translation) {
-    process.stdout.write(translation.source + '\n');
+    process.stdout.write(`${translation.source}\n`);
   }
 }
 

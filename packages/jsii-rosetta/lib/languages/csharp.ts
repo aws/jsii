@@ -179,21 +179,21 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
         this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
         ' ',
         renderer.updateContext({ propertyOrMethod }).convert(node.name),
-        ...(node.initializer ? [' = ', renderer.convert(node.initializer)] : []),
+        ...node.initializer ? [' = ', renderer.convert(node.initializer)] : [],
         ';',
       ], [], { canBreakLine: true });
-    } else {
-      // Emit property. No functional difference but slightly more idiomatic
-      return new OTree([
-        vis,
-        ' ',
-        this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
-        ' ',
-        renderer.updateContext({ propertyOrMethod }).convert(node.name),
-        ' ',
-        isReadOnly(node) ? '{ get; }' : '{ get; set; }',
-      ], [], { canBreakLine: true });
     }
+
+    // Emit property. No functional difference but slightly more idiomatic
+    return new OTree([
+      vis,
+      ' ',
+      this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
+      ' ',
+      renderer.updateContext({ propertyOrMethod }).convert(node.name),
+      ' ',
+      isReadOnly(node) ? '{ get; }' : '{ get; set; }',
+    ], [], { canBreakLine: true });
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: CSharpRenderer) {
@@ -201,7 +201,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       ? renderer.convertAll(args)
       : ['$"',
         new OTree([], args.map(a => new OTree(['{', renderer.convert(a), '}'])), { separator: ' ' }),
-        '"']
+        '"'];
 
     return new OTree([
       'Console.WriteLine(',
@@ -218,9 +218,8 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   public stringLiteral(node: ts.StringLiteral, renderer: CSharpRenderer): OTree {
     if (renderer.currentContext.stringAsIdentifier) {
       return this.identifier(node, renderer);
-    } else {
-      return new OTree([JSON.stringify(node.text)]);
     }
+    return new OTree([JSON.stringify(node.text)]);
   }
 
   public expressionStatement(node: ts.ExpressionStatement, renderer: CSharpRenderer): OTree {
@@ -328,10 +327,9 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     if (renderer.currentContext.preferObjectLiteralAsStruct) {
       // Type information missing and from context we prefer a struct
       return new OTree(['new Struct { '], renderer.convertAll(node.properties), { suffix: ' }', separator: ', ', indent: 4 });
-    } else {
-      // Type information missing and from context we prefer a map
-      return this.keyValueObjectLiteralExpression(node, undefined, renderer);
     }
+    // Type information missing and from context we prefer a map
+    return this.keyValueObjectLiteralExpression(node, undefined, renderer);
   }
 
   public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, structType: ts.Type, renderer: CSharpRenderer): OTree {
@@ -361,9 +359,8 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   public renderPropertyAssignment(key: ts.Node, value: ts.Node, renderer: CSharpRenderer): OTree {
     if (renderer.currentContext.inKeyValueList) {
       return new OTree(['{ ', renderer.updateContext({ propertyOrMethod: false, identifierAsString: true }).convert(key), ', ', renderer.updateContext({ inKeyValueList: false }).convert(value), ' }'], [], { canBreakLine: true });
-    } else {
-      return new OTree([renderer.updateContext({ propertyOrMethod: true, stringAsIdentifier: true }).convert(key), ' = ', renderer.convert(value)], [], { canBreakLine: true });
     }
+    return new OTree([renderer.updateContext({ propertyOrMethod: true, stringAsIdentifier: true }).convert(key), ' = ', renderer.convert(value)], [], { canBreakLine: true });
   }
 
   public arrayLiteralExpression(node: ts.ArrayLiteralExpression, renderer: CSharpRenderer): OTree {
@@ -378,7 +375,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     const ifStmt = new OTree(
       ['if (', renderer.convert(node.expression), ') '],
       [renderer.convert(node.thenStatement)], { canBreakLine: true });
-    const elseStmt = node.elseStatement ? new OTree([`else `], [renderer.convert(node.elseStatement)], { canBreakLine: true }) : undefined;
+    const elseStmt = node.elseStatement ? new OTree(['else '], [renderer.convert(node.elseStatement)], { canBreakLine: true }) : undefined;
 
     return elseStmt ? new OTree([], [ifStmt, elseStmt], {
       separator: '\n',
@@ -431,7 +428,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     const parts = ['$"'];
     if (node.head.rawText) { parts.push(quoteStringLiteral(node.head.rawText)); }
     for (const span of node.templateSpans) {
-      parts.push('{' + context.textOf(span.expression) + '}');
+      parts.push(`{${context.textOf(span.expression)}}`);
       if (span.literal.rawText) { parts.push(quoteStringLiteral(span.literal.rawText)); }
     }
     parts.push('"');
@@ -439,8 +436,8 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return new OTree([parts.join('')]);
   }
 
-  protected argumentList(args: ReadonlyArray<ts.Node> | undefined, renderer: CSharpRenderer): OTree {
-    return  new OTree([], args ? renderer.updateContext({ preferObjectLiteralAsStruct: true }).convertAll(args) : [], { separator: ', ' });
+  protected argumentList(args: readonly ts.Node[] | undefined, renderer: CSharpRenderer): OTree {
+    return new OTree([], args ? renderer.updateContext({ preferObjectLiteralAsStruct: true }).convertAll(args) : [], { separator: ', ' });
   }
 
   protected lookupModuleNamespace(ref: string) {

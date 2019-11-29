@@ -108,7 +108,7 @@ export class TypeSystem {
       }
 
       const root = this.addAssembly(asm, { isRoot });
-      const bundled: string[] = pkg.bundledDependencies || pkg.bundleDependencies || [];
+      const bundled: string[] = pkg.bundledDependencies ?? pkg.bundleDependencies ?? [];
 
       for (const name of dependenciesOf(pkg)) {
         if (bundled.includes(name)) { continue; }
@@ -181,7 +181,7 @@ export class TypeSystem {
   public tryFindFqn(fqn: string): Type | undefined {
     const [assembly] = fqn.split('.');
     const asm = this.tryFindAssembly(assembly);
-    return asm && asm.tryFindType(fqn);
+    return asm?.tryFindType(fqn);
   }
 
   public findClass(fqn: string): ClassType {
@@ -273,7 +273,7 @@ export class TypeSystem {
 
 function dependenciesOf(packageJson: any) {
   const deps = new Set<string>();
-  Object.keys(packageJson.dependencies || {}).forEach(deps.add.bind(deps));
-  Object.keys(packageJson.peerDependencies || {}).forEach(deps.add.bind(deps));
+  Object.keys(packageJson.dependencies ?? {}).forEach(deps.add.bind(deps));
+  Object.keys(packageJson.peerDependencies ?? {}).forEach(deps.add.bind(deps));
   return Array.from(deps);
 }

@@ -2,6 +2,8 @@ import cm = require('commonmark');
 import { RendererContext } from './markdown';
 import { MarkdownRenderer, collapsePara, para, stripTrailingWhitespace, stripPara } from './markdown-renderer';
 
+/* eslint-disable @typescript-eslint/camelcase */
+
 /**
  * A renderer that will render a CommonMark tree to JavaDoc comments
  *
@@ -14,9 +16,10 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public code(node: cm.Node, _context: RendererContext) {
-    return '<code>' + escapeAngleBrackets(node.literal) + '</code>';
+    return `<code>${escapeAngleBrackets(node.literal)}</code>`;
   }
 
+  /* eslint-disable-next-line @typescript-eslint/camelcase */
   public code_block(node: cm.Node, _context: RendererContext) {
     return para(`<blockquote><pre>{@code\n${node.literal}}</pre></blockquote>`);
   }
@@ -59,8 +62,9 @@ export class JavaDocRenderer extends MarkdownRenderer {
     return `<strong>${context.content()}</strong>`;
   }
 
+  /* eslint-disable-next-line @typescript-eslint/camelcase */
   public thematic_break(_node: cm.Node, _context: RendererContext) {
-    return para(`<hr>`);
+    return para('<hr>');
   }
 }
 

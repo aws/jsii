@@ -15,6 +15,7 @@ export interface RendererContext {
   content(): string;
 }
 
+/* eslint-disable @typescript-eslint/camelcase */
 export interface CommonMarkRenderer {
   block_quote(node: cm.Node, context: RendererContext): string;
   code(node: cm.Node, context: RendererContext): string;
@@ -37,6 +38,7 @@ export interface CommonMarkRenderer {
   custom_block(node: cm.Node, context: RendererContext): string;
   custom_inline(node: cm.Node, context: RendererContext): string;
 }
+/* eslint-enable @typescript-eslint/camelcase */
 
 export function renderCommonMarkTree(node: cm.Node, renderer: CommonMarkRenderer) {
   const context: RendererContext = {
@@ -57,11 +59,11 @@ export function renderCommonMarkTree(node: cm.Node, renderer: CommonMarkRenderer
     }
   };
 
-  return renderer[node.type].call(renderer, node, context);
+  return renderer[node.type](node, context);
 }
 
 export function visitCommonMarkTree(node: cm.Node, visitor: CommonMarkVisitor) {
-  visitor[node.type].call(visitor, node);
+  visitor[node.type](node);
   for (const child of cmNodeChildren(node)) {
     visitCommonMarkTree(child, visitor);
   }
@@ -77,6 +79,7 @@ export function* cmNodeChildren(node: cm.Node): IterableIterator<cm.Node> {
   }
 }
 
+/* eslint-disable @typescript-eslint/camelcase */
 export interface CommonMarkVisitor {
   block_quote(node: cm.Node): void;
   code(node: cm.Node): void;
@@ -99,3 +102,4 @@ export interface CommonMarkVisitor {
   custom_block(node: cm.Node): void;
   custom_inline(node: cm.Node): void;
 }
+/* eslint-enable @typescript-eslint/camelcase */

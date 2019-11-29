@@ -1,22 +1,19 @@
 import cm = require('commonmark');
 import { CommonMarkVisitor } from './markdown';
+import { CodeBlock } from './types';
 
 export type CodeReplacer = (code: CodeBlock) => CodeBlock;
 
-export interface CodeBlock {
-  source: string;
-  language: string;
-}
-
+/* eslint-disable @typescript-eslint/camelcase */
 /**
  * Renderer that replaces code blocks in a MarkDown document
  */
 export class ReplaceCodeTransform implements CommonMarkVisitor {
-  constructor(private readonly replacer: CodeReplacer) {
+  public constructor(private readonly replacer: CodeReplacer) {
   }
 
   public code_block(node: cm.Node) {
-    const ret = this.replacer({ language: node.info || '', source: node.literal || '' });
+    const ret = this.replacer({ language: node.info ?? '', source: node.literal ?? '' });
     node.info = ret.language;
     node.literal = ret.source + (!ret.source || ret.source.endsWith('\n') ? '' : '\n');
   }
@@ -41,3 +38,4 @@ export class ReplaceCodeTransform implements CommonMarkVisitor {
   public custom_block(): void { /* nothing */ }
   public custom_inline(): void { /* nothing */ }
 }
+/* eslint-enable @typescript-eslint/camelcase */

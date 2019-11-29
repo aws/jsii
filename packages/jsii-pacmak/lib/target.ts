@@ -24,8 +24,8 @@ export abstract class Target {
     this.packageDir = options.packageDir;
     this.assembly = options.assembly;
     this.rosetta = options.rosetta;
-    this.fingerprint = options.fingerprint != null ? options.fingerprint : true;
-    this.force = options.force != null ? options.force : false;
+    this.fingerprint = options.fingerprint ?? true;
+    this.force = options.force ?? false;
     this.arguments = options.arguments;
     this.targetName = options.targetName;
   }
@@ -107,7 +107,7 @@ export async function findLocalBuildDirs(rootPackageDir: string, targetName: str
     }
 
     // now descend to dependencies
-    await Promise.all(Object.keys(pkg.dependencies || {}).map(dependencyName => {
+    await Promise.all(Object.keys(pkg.dependencies ?? {}).map(dependencyName => {
       const dependencyDir = resolveDependencyDirectory(packageDir, dependencyName);
       return recurse(dependencyDir, false);
     }));

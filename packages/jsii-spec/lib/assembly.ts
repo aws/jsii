@@ -485,7 +485,7 @@ export interface NamedTypeReference {
   fqn: FQN;
 }
 export function isNamedTypeReference(ref: TypeReference | undefined): ref is NamedTypeReference {
-  return ref != null && !!(ref as NamedTypeReference).fqn;
+  return !!(ref as NamedTypeReference)?.fqn;
 }
 
 /**
@@ -499,7 +499,7 @@ export interface PrimitiveTypeReference {
   primitive: PrimitiveType;
 }
 export function isPrimitiveTypeReference(ref: TypeReference | undefined): ref is PrimitiveTypeReference {
-  return ref != null && !!(ref as PrimitiveTypeReference).primitive;
+  return !!(ref as PrimitiveTypeReference)?.primitive;
 }
 
 /**
@@ -519,7 +519,7 @@ export interface CollectionTypeReference {
   };
 }
 export function isCollectionTypeReference(ref: TypeReference | undefined): ref is CollectionTypeReference {
-  return ref != null && !!(ref as CollectionTypeReference).collection;
+  return !!(ref as CollectionTypeReference)?.collection;
 }
 
 /**
@@ -540,7 +540,7 @@ export interface UnionTypeReference {
   };
 }
 export function isUnionTypeReference(ref: TypeReference | undefined): ref is UnionTypeReference {
-  return ref != null && !!(ref as UnionTypeReference).union;
+  return !!(ref as UnionTypeReference)?.union;
 }
 
 /**
@@ -815,7 +815,7 @@ export interface ClassType extends TypeBase {
 }
 
 export function isClassType(type: Type | undefined): type is ClassType {
-  return type != null && type.kind === TypeKind.Class;
+  return type?.kind === TypeKind.Class;
 }
 
 export interface InterfaceType extends TypeBase {
@@ -856,7 +856,7 @@ export interface InterfaceType extends TypeBase {
 }
 
 export function isInterfaceType(type: Type | undefined): type is InterfaceType {
-  return type != null && type.kind === TypeKind.Interface;
+  return type?.kind === TypeKind.Interface;
 }
 
 /**
@@ -882,7 +882,7 @@ export interface EnumType extends TypeBase {
 }
 
 export function isEnumType(type: Type | undefined): type is EnumType {
-  return type != null && type.kind === TypeKind.Enum;
+  return type?.kind === TypeKind.Enum;
 }
 
 /**
@@ -926,5 +926,5 @@ export function describeTypeReference(type?: TypeReference): string {
  * @returns true if the entity is marked as deprecated.
  */
 export function isDeprecated(entity: Documentable): boolean {
-  return entity.docs != null && entity.docs.stability === Stability.Deprecated;
+  return entity?.docs?.stability === Stability.Deprecated;
 }
