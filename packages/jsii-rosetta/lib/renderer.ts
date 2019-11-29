@@ -116,7 +116,7 @@ export class AstRenderer<C> {
    *
    * (Will return a map type for object literals)
    */
-  public typeOfExpression(node: ts.Expression) {
+  public typeOfExpression(node: ts.Expression): ts.Type {
     return this.typeChecker.getContextualType(node) || this.typeChecker.getTypeAtLocation(node);
   }
 
