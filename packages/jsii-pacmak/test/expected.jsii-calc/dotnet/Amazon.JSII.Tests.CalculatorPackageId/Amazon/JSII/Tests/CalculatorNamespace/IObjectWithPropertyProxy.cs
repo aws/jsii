@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Make sure that setters are properly called on objects with interfaces.</summary>
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IObjectWithProperty), fullyQualifiedName: "jsii-calc.IObjectWithProperty")]
     internal sealed class IObjectWithPropertyProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IObjectWithProperty
@@ -14,7 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
         public string Property
@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "wasSet", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}")]
         public bool WasSet()

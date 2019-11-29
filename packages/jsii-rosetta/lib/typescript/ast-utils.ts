@@ -420,7 +420,7 @@ export function findSuperCall(node: ts.Block | ts.Expression | undefined, render
 /**
  * Return the names of all private property declarations
  */
-export function privatePropertyNames(members: ReadonlyArray<ts.ClassElement>, renderer: AstRenderer<any>): string[] {
+export function privatePropertyNames(members: readonly ts.ClassElement[], renderer: AstRenderer<any>): string[] {
   const props = members.filter(m => ts.isPropertyDeclaration(m)) as ts.PropertyDeclaration[];
-  return props.filter(m =>  visibility(m) === 'private').map(m => renderer.textOf(m.name));
+  return props.filter(m => visibility(m) === 'private').map(m => renderer.textOf(m.name));
 }

@@ -115,15 +115,16 @@ export function para(x: string) {
 /**
  * Collapse paragraph markers
  */
-export function collapsePara(x: string, brk: string = '\n\n') {
+export function collapsePara(x: string, brk = '\n\n') {
+  /* eslint-disable-next-line no-control-regex */
   return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '').replace(/\u001d+/g, brk);
-  /* eslint-enable no-control-regex */
 }
 
 /**
  * Strip paragraph markers from start and end
  */
 export function stripPara(x: string) {
+  /* eslint-disable-next-line no-control-regex */
   return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '');
 }
 

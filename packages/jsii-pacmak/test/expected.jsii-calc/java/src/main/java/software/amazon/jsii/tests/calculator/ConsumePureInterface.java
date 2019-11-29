@@ -18,7 +18,7 @@ public class ConsumePureInterface extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param delegate This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

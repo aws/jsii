@@ -801,11 +801,8 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
     :customAttribute:: hasAValue
 
     Example::
-<<<<<<< HEAD
-        # Example automatically generated. See https://github.com/aws/jsii/issues/826
-=======
 
->>>>>>> origin/master
+        # Example automatically generated. See https://github.com/aws/jsii/issues/826
         def an_example():
             pass
     """
@@ -8020,6 +8017,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
 
     Here's how you use it::
 
+       # Example automatically generated. See https://github.com/aws/jsii/issues/826
        calculator = calc.Calculator()
        calculator.add(5)
        calculator.mul(3)
@@ -8032,6 +8030,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
 
     Example::
 
+        # Example automatically generated. See https://github.com/aws/jsii/issues/826
         calculator = calc.Calculator()
         calculator.add(5)
         calculator.mul(3)

@@ -14,14 +14,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// </remarks>
     /// <example>
     /// <code>
-<<<<<<< HEAD
     /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// public void AnExample()
     /// {
-=======
-    /// // Examples in C# are coming soon.
-    /// function anExample() {
->>>>>>> origin/master
     /// }
     /// </code>
     /// </example>

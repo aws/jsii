@@ -2,6 +2,8 @@ import cm = require('commonmark');
 import { prefixLines, RendererContext } from './markdown';
 import { MarkdownRenderer, para, stripPara } from './markdown-renderer';
 
+/* eslint-disable @typescript-eslint/camelcase */
+
 /**
  * A renderer that will render a CommonMark tree to .NET XML comments
  *
@@ -14,7 +16,7 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
   }
 
   public code(node: cm.Node, _context: RendererContext) {
-    return '<c>' + escapeAngleBrackets(node.literal) + '</c>';
+    return `<c>${escapeAngleBrackets(node.literal)}</c>`;
   }
 
   public code_block(node: cm.Node, _context: RendererContext) {

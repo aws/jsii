@@ -1,10 +1,10 @@
 import ts = require('typescript');
-import { AstRenderer, nimpl, CommentSyntax } from "../renderer";
+import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
 import { isStructType, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
-import { NO_SYNTAX, OTree, renderTree } from "../o-tree";
+import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
 import { matchAst, nodeOfType, stripCommentMarkers, voidExpressionString, quoteStringLiteral } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { startsWithUppercase, flat } from "../util";
+import { startsWithUppercase, flat } from '../util';
 import { DefaultVisitor } from './default';
 import { jsiiTargetParam } from '../jsii/packages';
 import { parameterAcceptsUndefined } from '../typescript/types';
@@ -272,25 +272,28 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     if (context.currentContext.tailPositionArgument) {
       // Guess that it's a struct we can probably inline the kwargs for
       return this.renderObjectLiteralExpression('', '', true, node, context);
-    } else {
-      return this.renderObjectLiteralExpression('{', '}', false, node, context);
     }
+    return this.renderObjectLiteralExpression('{', '}', false, node, context);
   }
 
   public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, structType: ts.Type, context: PythonVisitorContext): OTree {
     if (context.currentContext.tailPositionArgument) {
       // We know it's a struct we can DEFINITELY inline the args for
       return this.renderObjectLiteralExpression('', '', true, node, context);
-    } else {
-      return this.renderObjectLiteralExpression(`${structType.symbol.name}(`, ')', true, node, context);
     }
+    return this.renderObjectLiteralExpression(`${structType.symbol.name}(`, ')', true, node, context);
   }
 
   public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, _valueType: ts.Type | undefined, context: PythonVisitorContext): OTree {
     return this.renderObjectLiteralExpression('{', '}', false, node, context);
   }
 
-  public renderObjectLiteralExpression(prefix: string, suffix: string, renderObjectLiteralAsKeywords: boolean, node: ts.ObjectLiteralExpression, context: PythonVisitorContext): OTree {
+  public renderObjectLiteralExpression(
+    prefix: string,
+    suffix: string,
+    renderObjectLiteralAsKeywords: boolean,
+    node: ts.ObjectLiteralExpression,
+    context: PythonVisitorContext): OTree {
     return new OTree([prefix], context.updateContext({ renderObjectLiteralAsKeywords }).convertAll(node.properties), {
       suffix: context.mirrorNewlineBefore(node.properties[0], suffix),
       separator: ', ',

@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verifies that a "pure" implementation of an interface works correctly.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

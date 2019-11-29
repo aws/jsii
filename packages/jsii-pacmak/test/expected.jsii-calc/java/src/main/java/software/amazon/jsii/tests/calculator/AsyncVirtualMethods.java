@@ -41,19 +41,11 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * This method calls the "callMe" async method indirectly, which will then invoke a virtual method.
-<<<<<<< HEAD
      * <p>
      * This is a "double promise" situation, which
      * means that callbacks are not going to be available immediate, but only
      * after an "immediates" cycle.
      * <p>
-=======
-     * 
-     * <p>This is a &quot;double promise&quot; situation, which
-     * means that callbacks are not going to be available immediate, but only
-     * after an &quot;immediates&quot; cycle.</p>
-     * 
->>>>>>> origin/master
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

@@ -180,7 +180,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const expressionText = renderer.textOf(node.expression);
     return new OTree(
       [
-        ...(expressionText === 'this' ? ['this', '.'] : []),
+        ...expressionText === 'this' ? ['this', '.'] : [],
         renderer.convert(node.name),
       ]
     );
@@ -193,8 +193,8 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     // return that or some default-derived module name representation
     return resolvedNamespace ||
       packageName.split(/[^a-zA-Z0-9]+/g)
-      .filter(s => s !== '')
-      .join('.');
+        .filter(s => s !== '')
+        .join('.');
   }
 
   private typeHeritage(node: ts.ClassDeclaration, renderer: JavaRenderer): Array<OTree | string | undefined> {
@@ -204,7 +204,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     ];
   }
 
-  private extractSuperTypes(node: ts.ClassDeclaration, renderer: JavaRenderer, heritageKeyword: ts.SyntaxKind, outputKeyword: string): Array<OTree | string | undefined> {
+  private extractSuperTypes(
+    node: ts.ClassDeclaration,
+    renderer: JavaRenderer,
+    heritageKeyword: ts.SyntaxKind,
+    outputKeyword: string): Array<OTree | string | undefined> {
     const heritageClause = (node.heritageClauses || [])
       .find(hc => hc.token === heritageKeyword);
     const superTypes = heritageClause
@@ -236,8 +240,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     }
   }
 
-  private methodOrConstructor(node: ts.ConstructorDeclaration | ts.MethodDeclaration, renderer: JavaRenderer,
-                              methodOrConstructorName: ts.Node | undefined, returnType: string | undefined): OTree {
+  private methodOrConstructor(
+    node: ts.ConstructorDeclaration | ts.MethodDeclaration,
+    renderer: JavaRenderer,
+    methodOrConstructorName: ts.Node | undefined,
+    returnType: string | undefined): OTree {
     return new OTree(
       [
         'public ',

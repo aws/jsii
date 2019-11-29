@@ -126,6 +126,7 @@ function replaceExtension(x: string, newExtension: string) {
 
 function stripCommonWhitespace(x: string) {
   const lines = x.split('\n');
+  /* eslint-disable-next-line @typescript-eslint/prefer-regexp-exec */
   const whitespaces = lines.filter(l => !emptyLine(l.trim())).map(l => l.match(/(\s*)/)![1].length);
   const minWS = Math.min(...whitespaces);
   return lines.map(l => l.substr(minWS)).join('\n');

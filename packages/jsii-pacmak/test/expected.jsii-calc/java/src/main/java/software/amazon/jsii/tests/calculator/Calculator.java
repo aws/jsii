@@ -2,30 +2,32 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * A calculator which maintains a current value and allows adding operations.
-<<<<<<< HEAD
  * <p>
-=======
- * 
- * <p>Here's how you use it:</p>
- * <pre><code class="language-ts">// This example is in TypeScript, examples in Java are coming soon.
- * const calculator = new calc.Calculator();
- * calculator.add(5);
- * calculator.mul(3);
- * console.log(calculator.expression.value);
- * </code></pre>
- * <p>I will repeat this example again, but in an @example tag.</p>
- * 
- * Example:
- * 
+ * Here's how you use it:
+ * <p>
  * <blockquote><pre>{@code
- * // This example is in TypeScript, examples in Java are coming soon.
- * const calculator = new calc.Calculator();
- * calculator.add(5);
- * calculator.mul(3);
- * console.log(calculator.expression.value);
+ * // Example automatically generated. See https://github.com/aws/jsii/issues/826
+ * (VariableDeclaration calculator = new calc.Calculator()
+ *   calculator
+ *   new Calculator())
+ * add(5);
+ * mul(3);
+ * System.out.println(value);
  * }</pre></blockquote>
- * 
->>>>>>> origin/master
+ * <p>
+ * I will repeat this example again, but in an @example tag.
+ * <p>
+ * Example:
+ * <p>
+ * <blockquote><pre>{@code
+ * // Example automatically generated. See https://github.com/aws/jsii/issues/826
+ * (VariableDeclaration calculator = new calc.Calculator()
+ *   calculator
+ *   new Calculator())
+ * add(5);
+ * mul(3);
+ * System.out.println(value);}</pre></blockquote>
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

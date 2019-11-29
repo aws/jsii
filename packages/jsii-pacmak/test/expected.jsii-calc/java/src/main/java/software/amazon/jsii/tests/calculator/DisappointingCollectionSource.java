@@ -2,9 +2,9 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verifies that null/undefined can be returned for optional collections.
- * 
- * <p>This source of collections is disappointing - it'll always give you nothing :(</p>
- * 
+ * <p>
+ * This source of collections is disappointing - it'll always give you nothing :(
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -27,9 +27,9 @@ public class DisappointingCollectionSource extends software.amazon.jsii.JsiiObje
 
     /**
      * Some List of strings, maybe?
-     * 
-     * <p>(Nah, just a billion dollars mistake!)</p>
-     * 
+     * <p>
+     * (Nah, just a billion dollars mistake!)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -37,9 +37,9 @@ public class DisappointingCollectionSource extends software.amazon.jsii.JsiiObje
 
     /**
      * Some Map of strings to numbers, maybe?
-     * 
-     * <p>(Nah, just a billion dollars mistake!)</p>
-     * 
+     * <p>
+     * (Nah, just a billion dollars mistake!)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

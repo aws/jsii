@@ -2,17 +2,10 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This class includes property for all types supported by jsii.
-<<<<<<< HEAD
  * <p>
  * The setters will validate
  * that the value set is of the expected type and throw otherwise.
  * <p>
-=======
- * 
- * <p>The setters will validate
- * that the value set is of the expected type and throw otherwise.</p>
- * 
->>>>>>> origin/master
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

@@ -2,15 +2,9 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This is used to validate the ability to use `this` from within a static context.
-<<<<<<< HEAD
  * <p>
  * https://github.com/awslabs/aws-cdk/issues/2304
  * <p>
-=======
- * 
- * <p>https://github.com/awslabs/aws-cdk/issues/2304</p>
- * 
->>>>>>> origin/master
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

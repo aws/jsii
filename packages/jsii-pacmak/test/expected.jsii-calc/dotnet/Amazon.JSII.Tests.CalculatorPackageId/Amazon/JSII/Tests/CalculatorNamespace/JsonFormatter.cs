@@ -4,23 +4,25 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Make sure structs are un-decorated on the way in.</summary>
     /// <remarks>
-    /// stability: Experimental
-    /// see:
-    /// https://github.com/aws/aws-cdk/issues/5066
+    /// <strong>Stability</strong>: Experimental
+    /// 
+    /// <strong>See</strong>: https://github.com/aws/aws-cdk/issues/5066
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), fullyQualifiedName: "jsii-calc.JsonFormatter")]
     public class JsonFormatter : DeputyBase
     {
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected JsonFormatter(ByRefValue reference): base(reference)
         {
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected JsonFormatter(DeputyProps props): base(props)
         {
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyArray", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyArray()
@@ -29,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyBooleanFalse", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyBooleanFalse()
@@ -38,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyBooleanTrue", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyBooleanTrue()
@@ -47,7 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyDate", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyDate()
@@ -56,7 +58,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyEmptyString", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyEmptyString()
@@ -65,7 +67,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyFunction", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyFunction()
@@ -74,7 +76,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyHash", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyHash()
@@ -83,7 +85,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyNull", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyNull()
@@ -92,7 +94,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyNumber", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyNumber()
@@ -101,7 +103,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyRef", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyRef()
@@ -110,7 +112,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyString", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyString()
@@ -119,7 +121,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyUndefined", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyUndefined()
@@ -128,7 +130,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "anyZero", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object AnyZero()
@@ -137,7 +139,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "stringify", returnsJson: "{\"optional\":true,\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"value\",\"optional\":true,\"type\":{\"primitive\":\"any\"}}]")]
         public static string Stringify(object @value = null)

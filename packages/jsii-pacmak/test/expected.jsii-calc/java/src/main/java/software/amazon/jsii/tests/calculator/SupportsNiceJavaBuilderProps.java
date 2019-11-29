@@ -19,15 +19,9 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
 
     /**
      * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
-<<<<<<< HEAD
      * <p>
      * But here we are, doing it like we didn't care.
      * <p>
-=======
-     * 
-     * <p>But here we are, doing it like we didn't care.</p>
-     * 
->>>>>>> origin/master
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

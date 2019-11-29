@@ -1,6 +1,6 @@
-import { transformMarkdown } from "../../lib/markdown/markdown";
-import { StructureRenderer } from "../../lib/markdown/structure-renderer";
-import { JavaDocRenderer } from "../../lib";
+import { transformMarkdown } from '../../lib/markdown/markdown';
+import { StructureRenderer } from '../../lib/markdown/structure-renderer';
+import { JavaDocRenderer } from '../../lib';
 
 const DEBUG = false;
 

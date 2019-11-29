@@ -2,17 +2,10 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
-<<<<<<< HEAD
  * <p>
  * This is cheating with the (current) declared types, but this is the "more
  * idiomatic" way for Pythonists.
  * <p>
-=======
- * 
- * <p>This is cheating with the (current) declared types, but this is the &quot;more
- * idiomatic&quot; way for Pythonists.</p>
- * 
->>>>>>> origin/master
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
