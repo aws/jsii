@@ -1,5 +1,5 @@
 import fs = require('fs');
-import jsii = require('jsii-spec');
+import jsii = require('@jsii/spec');
 import path = require('path');
 import { promisify } from 'util';
 import { Assembly } from './assembly';

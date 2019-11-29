@@ -9,7 +9,7 @@ needs to be available in order to execute code that depends on *jsii* libraries.
 The generated libraries have a dependency on a *Runtime client* library for the
 language, which contains the necessary logic to start a child `node` process
 with the `jsii-runtime`. The `jsii-runtime` manages JSON-based inter-process
-communication over it's `STDIN` and `STDOUT`, and manages a `jsii-kernel`
+communication over it's `STDIN` and `STDOUT`, and manages a `@jsii/kernel`
 instance that acts as a container for the **Javascript** code that backs the
 *jsii* libraries.
 
@@ -19,27 +19,27 @@ A simplified representation of the execution environment of an application using
 *jsii* libraries from a different language follows:
 
 ```
-┌────────────────────────┐             ┌───────────┬────┬────┬───┐
-│                        │             │           │    │    │   │
-│   User's Application   │             │jsii-kernel│LibA│LibB│...│
-│                        │             │           │    │    │   │
-│     ┌──────────────────┤             ├───────────┴────┴────┴───┤
-│     │                  │             │                         │
-│     │Generated Bindings│             │      jsii-runtime       │
-│     │                  │             │                         │
-│     ├──────────────────┤             ├───────┬─────────────────┤
-│     │                  ├────────────▶│ SDTIN │                 │
-│     │Host jsii Runtime │    JSON     ├───────┤                 │
-│     │                  │◀────────────┤STDOUT │  node           │
-├─────┴──────────────────┤             ├───────┘                 │
-│                        │             │     (Child Process)     │
-│    JVM / .NET / ...    │             │                         │
-│                        │             │                         │
-├────────────────────────┴─────────────┴─────────────────────────┤
-│                                                                │
-│                        Operating System                        │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘
+┌────────────────────────┐             ┌────────────┬────┬────┬───┐
+│                        │             │            │    │    │   │
+│   User's Application   │             │@jsii/kernel│LibA│LibB│...│
+│                        │             │            │    │    │   │
+│     ┌──────────────────┤             ├────────────┴────┴────┴───┤
+│     │                  │             │                          │
+│     │Generated Bindings│             │      @jsii/runtime       │
+│     │                  │             │                          │
+│     ├──────────────────┤             ├────────┬─────────────────┤
+│     │                  ├────────────▶│ SDTIN  │                 │
+│     │Host jsii Runtime │    JSON     ├────────┤                 │
+│     │                  │◀────────────┤ STDOUT │   node          │
+├─────┴──────────────────┤             ├────────┘                 │
+│                        │             │     (Child Process)      │
+│    JVM / .NET / ...    │             │                          │
+│                        │             │                          │
+├────────────────────────┴─────────────┴──────────────────────────┤
+│                                                                 │
+│                        Operating System                         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 The initialization workflow can be described as:

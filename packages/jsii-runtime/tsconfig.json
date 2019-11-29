@@ -2,6 +2,5 @@
   "extends": "../../tsconfig-base",
   "include": [
     "**/*.ts",
-    "package.json"
   ]
 }

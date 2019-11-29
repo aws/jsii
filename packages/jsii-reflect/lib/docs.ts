@@ -1,5 +1,5 @@
-import jsii = require('jsii-spec');
-import { Stability } from 'jsii-spec';
+import jsii = require('@jsii/spec');
+import { Stability } from '@jsii/spec';
 import { TypeSystem } from './type-system';
 
 export interface Documentable {

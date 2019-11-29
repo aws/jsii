@@ -14,7 +14,7 @@ import * as crypto from 'crypto';
 import { promisify } from 'util';
 import { IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
 
-const bundled = require('jsii-calc-bundled');
+const bundled = require('@fixtures/jsii-calc-bundled');
 import base = require('@scope/jsii-calc-base');
 
 const readFile = promisify(fs.readFile);

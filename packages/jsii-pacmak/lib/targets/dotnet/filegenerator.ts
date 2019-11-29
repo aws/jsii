@@ -1,5 +1,5 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly } from 'jsii-spec';
+import { Assembly } from '@jsii/spec';
 import path = require('path');
 import xmlbuilder = require('xmlbuilder');
 import { DotNetNameUtils } from './nameutils';

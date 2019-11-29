@@ -1,5 +1,5 @@
 import { Question, Separator } from 'inquirer';
-import { Config, PackageJson, Stability } from 'jsii-spec';
+import { Config, PackageJson, Stability } from '@jsii/spec';
 
 /*
  * Structure of package.json accepted by jsii-config
@@ -25,7 +25,7 @@ type SchemaField = Field | NestedField;
 
 /*
  * ConfigSchema
- * 
+ *
  * Requires 'targets' key with available Jsii language targets.
  */
 export interface ConfigPromptsSchema {

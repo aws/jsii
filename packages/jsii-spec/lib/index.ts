@@ -1,4 +1,1 @@
-export * from './assembly';
-export * from './name-tree';
-export * from './validate-assembly';
-export * from './configuration';
+export * from '@jsii/spec';

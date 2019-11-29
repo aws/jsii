@@ -7,6 +7,6 @@
     "test/negatives/*"
   ],
   "references": [{
-    "path": "../jsii-spec"
+    "path": "../@jsii/spec"
   }]
 }

@@ -1,6 +1,6 @@
 import fs = require('fs-extra');
 import reflect = require('jsii-reflect');
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import log4js = require('log4js');
 import yargs = require('yargs');
 import { compareAssemblies } from '../lib';

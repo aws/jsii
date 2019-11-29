@@ -1,6 +1,6 @@
 import { spawn, SpawnOptions } from 'child_process';
 import fs = require('fs-extra');
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import os = require('os');
 import path = require('path');
 import semver = require('semver');

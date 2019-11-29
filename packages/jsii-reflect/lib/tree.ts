@@ -1,5 +1,5 @@
 import colors = require('colors/safe');
-import { Stability } from 'jsii-spec';
+import { Stability } from '@jsii/spec';
 import { AsciiTree } from 'oo-ascii-tree';
 import { Assembly } from './assembly';
 import { ClassType } from './class';

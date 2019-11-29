@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import jsii = require('@jsii/spec');
 import { Assembly } from './assembly';
 import { Docs, Documentable } from './docs';
 import { OptionalValue } from './optional-value';

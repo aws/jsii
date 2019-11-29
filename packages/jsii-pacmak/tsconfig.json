@@ -4,7 +4,7 @@
     "**/*.ts"
   ],
   "references": [
-    { "path": "../jsii-spec" },
+    { "path": "../@jsii/spec" },
     { "path": "../codemaker" },
     { "path": "../jsii-rosetta" },
     { "path": "../jsii-reflect" }

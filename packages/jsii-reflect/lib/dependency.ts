@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import jsii = require('@jsii/spec');
 import { TypeSystem } from './type-system';
 
 export class Dependency {

@@ -1,4 +1,4 @@
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import fs = require('fs-extra');
 import path = require('path');
 import { TypeScriptSnippet, typeScriptSnippetFromSource, updateParameters, SnippetParameters } from '../snippet';
