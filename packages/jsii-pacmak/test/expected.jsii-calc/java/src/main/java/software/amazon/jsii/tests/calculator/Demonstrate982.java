@@ -2,10 +2,17 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * 1.
+<<<<<<< HEAD
  * <p>
  * call #takeThis() -&gt; An ObjectRef will be provisioned for the value (it'll be re-used!)
  * 2. call #takeThisToo() -&gt; The ObjectRef from before will need to be down-cased to the ParentStruct982 type
  * <p>
+=======
+ * 
+ * <p>call #takeThis() -&gt; An ObjectRef will be provisioned for the value (it'll be re-used!)
+ * 2. call #takeThisToo() -&gt; The ObjectRef from before will need to be down-cased to the ParentStruct982 type</p>
+ * 
+>>>>>>> origin/master
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

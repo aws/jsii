@@ -6,7 +6,7 @@ import { ImportStatement } from '../typescript/imports';
 export class VisualizeAstVisitor implements AstHandler<void> {
   public readonly defaultContext: void = undefined;
 
-  constructor(private readonly includeHandlerNames?: boolean) {
+  public constructor(private readonly includeHandlerNames?: boolean) {
   }
 
   public mergeContext(_old: any, _update: any): any {

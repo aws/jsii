@@ -124,9 +124,9 @@ export class DotnetBuilder implements TargetBuilder {
 
     // If dotnet-jsonmodel is checked-out and we can find a local repository, add it to the list.
     try {
-      /* eslint-disable @typescript-eslint/no-var-requires */
+      /* eslint-disable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
       const jsiiDotNetJsonModel = require('jsii-dotnet-jsonmodel');
-      /* eslint-enable @typescript-eslint/no-var-requires */
+      /* eslint-enable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
       localRepos.push(jsiiDotNetJsonModel.repository);
     } catch {
       // Couldn't locate jsii-dotnet-jsonmodel, which is owkay!
@@ -134,9 +134,9 @@ export class DotnetBuilder implements TargetBuilder {
 
     // If dotnet-runtime is checked-out and we can find a local repository, add it to the list.
     try {
-      /* eslint-disable @typescript-eslint/no-var-requires */
+      /* eslint-disable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
       const jsiiDotNetRuntime = require('jsii-dotnet-runtime');
-      /* eslint-enable @typescript-eslint/no-var-requires */
+      /* eslint-enable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
       localRepos.push(jsiiDotNetRuntime.repository);
     } catch {
       // Couldn't locate jsii-dotnet-runtime, which is owkay!

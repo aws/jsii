@@ -2,9 +2,15 @@ package software.amazon.jsii.tests.calculator.lib;
 
 /**
  * Applies to classes that are considered friendly.
+<<<<<<< HEAD
  * <p>
  * These classes can be greeted with
  * a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
+=======
+ * 
+ * <p>These classes can be greeted with
+ * a &quot;hello&quot; or &quot;goodbye&quot; blessing and they will respond back in a fun and friendly manner.</p>
+>>>>>>> origin/master
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.IFriendly")

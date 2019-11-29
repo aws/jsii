@@ -1,5 +1,5 @@
 import ts = require('typescript');
-import { AstRenderer, AstHandler, nimpl, CommentSyntax } from "../renderer";
+import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { ImportStatement } from '../typescript/imports';
 import { isStructInterface, isStructType } from '../jsii/jsii-utils';
@@ -224,9 +224,8 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   public interfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
     if (isStructInterface(context.textOf(node.name))) {
       return this.structInterfaceDeclaration(node, context);
-    } else {
-      return this.regularInterfaceDeclaration(node, context);
     }
+    return this.regularInterfaceDeclaration(node, context);
   }
 
   public structInterfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
@@ -280,8 +279,8 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return NO_SYNTAX;
   }
 
-  protected argumentList(args: ReadonlyArray<ts.Node> | undefined, context: AstRenderer<C>): OTree {
-    return  new OTree([], args ? context.convertAll(args) : [], { separator: ', ' });0
+  protected argumentList(args: readonly ts.Node[] | undefined, context: AstRenderer<C>): OTree {
+    return new OTree([], args ? context.convertAll(args) : [], { separator: ', ' });
   }
 
   private notImplemented(node: ts.Node, context: AstRenderer<C>) {

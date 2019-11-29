@@ -1,4 +1,4 @@
-import { calculateVisibleSpans } from "../../lib/typescript/ast-utils";
+import { calculateVisibleSpans } from '../../lib/typescript/ast-utils';
 
 test('full text visible by default', () => {
   expect(calculateVisibleSpans('asdf')).toEqual([

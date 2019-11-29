@@ -1,6 +1,6 @@
 {
   "name": "jsii-python-runtime",
-  "version": "0.20.5",
+  "version": "0.20.8",
   "private": true,
   "description": "Python client for jsii runtime",
   "license": "Apache-2.0",
@@ -30,9 +30,9 @@
     "test:update": "UPDATE_DIFF=1 .env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
   },
   "dependencies": {
-    "jsii-build-tools": "^0.20.5",
-    "jsii-calc": "^0.20.5",
-    "jsii-pacmak": "^0.20.5",
-    "jsii-runtime": "^0.20.5"
+    "jsii-build-tools": "^0.20.8",
+    "jsii-calc": "^0.20.8",
+    "jsii-pacmak": "^0.20.8",
+    "jsii-runtime": "^0.20.8"
   }
 }

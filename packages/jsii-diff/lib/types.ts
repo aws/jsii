@@ -46,7 +46,7 @@ export class Mismatches {
     this.mismatches.push({
       violationKey: key,
       message: `${describeApiElement(options.violator)} ${fqn}: ${options.message}`,
-      stability: options.violator.docs.stability || this.defaultStability
+      stability: options.violator.docs.stability ?? this.defaultStability
     });
   }
 

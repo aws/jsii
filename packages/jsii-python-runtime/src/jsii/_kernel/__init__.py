@@ -52,7 +52,7 @@ class Object:
 
 
 def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
-    overrides = []
+    overrides: List[Override] = []
 
     # We need to inspect each item in the MRO, until we get to our JSClass, at that
     # point we'll bail, because those methods are not the overriden methods, but the
@@ -75,12 +75,18 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                 original = getattr(jsii_class, name, _nothing)
                 if original is not _nothing:
                     if inspect.isfunction(item) and hasattr(original, "__jsii_name__"):
+                        if any(entry.method == original.__jsii_name__ for entry in overrides):
+                            # Don't re-register an override we already discovered through a previous type
+                            continue
                         overrides.append(
                             Override(method=original.__jsii_name__, cookie=name)
                         )
                     elif inspect.isdatadescriptor(item) and hasattr(
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
+                        if any(entry.property == original.fget.__jsii_name__ for entry in overrides):
+                            # Don't re-register an override we already discovered through a previous type
+                            continue
                         overrides.append(
                             Override(property=original.fget.__jsii_name__, cookie=name)
                         )
@@ -314,7 +320,7 @@ class Kernel(metaclass=Singleton):
             CompleteRequest(
                 cbid=cbid,
                 err=err,
-                result=result
+                result=_make_reference_for_native(self, result)
             )
         )
 
@@ -325,7 +331,7 @@ class Kernel(metaclass=Singleton):
             CompleteRequest(
                 cbid=cbid,
                 err=err,
-                result=result),
+                result=_make_reference_for_native(self, result)),
             response_type=response_type
         )
 

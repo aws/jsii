@@ -238,6 +238,24 @@ export interface CalculatorProps {
 
 /**
  * A calculator which maintains a current value and allows adding operations.
+ *
+ * Here's how you use it:
+ *
+ * ```ts
+ * const calculator = new calc.Calculator();
+ * calculator.add(5);
+ * calculator.mul(3);
+ * console.log(calculator.expression.value);
+ * ```
+ *
+ * I will repeat this example again, but in an @example tag.
+ *
+ * @example
+ *
+ * const calculator = new calc.Calculator();
+ * calculator.add(5);
+ * calculator.mul(3);
+ * console.log(calculator.expression.value);
  */
 export class Calculator extends composition.CompositeOperation {
 
@@ -248,7 +266,7 @@ export class Calculator extends composition.CompositeOperation {
     constructor(props?: CalculatorProps) {
         super();
 
-        props = props || { };
+        props = props ?? { };
 
         const initialValue = props.initialValue ? props.initialValue : 0;
         this.curr = new Number(initialValue);

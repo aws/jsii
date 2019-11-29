@@ -2,13 +2,21 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This test is used to validate the runtimes can return correctly from a void callback.
+<<<<<<< HEAD
  * <p>
+=======
+ * 
+>>>>>>> origin/master
  * <ul>
  * <li>Implement <code>overrideMe</code> (method does not have to do anything).</li>
  * <li>Invoke <code>callMe</code></li>
  * <li>Verify that <code>methodWasCalled</code> is <code>true</code>.</li>
  * </ul>
+<<<<<<< HEAD
  * <p>
+=======
+ * 
+>>>>>>> origin/master
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

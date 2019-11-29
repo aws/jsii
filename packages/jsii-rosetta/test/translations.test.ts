@@ -30,21 +30,21 @@ interface SupportedLanguage {
 }
 
 const SUPPORTED_LANGUAGES = new Array<SupportedLanguage>(
-    {
-      name: 'Python',
-      extension: '.py',
-      visitor: new PythonVisitor(),
-    },
-    {
-      name: 'Java',
-      extension: '.java',
-      visitor: new JavaVisitor(),
-    },
-    {
-      name: 'C#',
-      extension: '.cs',
-      visitor: new CSharpVisitor(),
-    },
+  {
+    name: 'Python',
+    extension: '.py',
+    visitor: new PythonVisitor(),
+  },
+  {
+    name: 'Java',
+    extension: '.java',
+    visitor: new JavaVisitor(),
+  },
+  {
+    name: 'C#',
+    extension: '.cs',
+    visitor: new CSharpVisitor(),
+  },
 );
 
 /**
@@ -72,7 +72,7 @@ function makeTests() {
         // Print the AST for tests that failed (to help debugging)
         if (anyFailed) {
           const vis = translator.renderUsing(new VisualizeAstVisitor(true));
-          console.log(vis + '\n');
+          console.log(`${vis}\n`);
         }
         (translator as any) = undefined; // Need this to properly release memory
       });

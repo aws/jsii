@@ -4,6 +4,7 @@ import { DotNetNameUtils } from './nameutils';
 import { Rosetta, Translation, transformMarkdown, typeScriptSnippetFromSource, CSharpXmlCommentRenderer } from 'jsii-rosetta';
 import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';
 
+
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
  *

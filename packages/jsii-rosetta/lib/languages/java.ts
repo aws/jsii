@@ -18,7 +18,7 @@ interface InsideTypeDeclaration {
 type JavaRenderer = AstRenderer<JavaContext>;
 
 export class JavaVisitor extends DefaultVisitor<JavaContext> {
-  readonly defaultContext = {};
+  public readonly defaultContext = {};
 
   public mergeContext(old: JavaContext, update: Partial<JavaContext>): JavaContext {
     return Object.assign({}, old, update);
@@ -28,13 +28,12 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const namespace = this.lookupModuleNamespace(importStatement.packageName);
     if (importStatement.imports.import === 'full') {
       return new OTree([`import ${namespace}.*;`], [], { canBreakLine: true });
-    } else {
-      return new OTree(
-          [],
-          importStatement.imports.elements.map(importEl => `import ${namespace}.${importEl.sourceName};`),
-          { canBreakLine: true, separator: '\n' },
-      );
     }
+    return new OTree(
+      [],
+      importStatement.imports.elements.map(importEl => `import ${namespace}.${importEl.sourceName};`),
+      { canBreakLine: true, separator: '\n' },
+    );
   }
 
   public classDeclaration(node: ts.ClassDeclaration, renderer: JavaRenderer): OTree {
@@ -79,14 +78,14 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
   public constructorDeclaration(node: ts.ConstructorDeclaration, renderer: JavaRenderer): OTree {
     return this.methodOrConstructor(node, renderer,
-        renderer.currentContext.insideTypeDeclaration!.typeName,
-        undefined);
+      renderer.currentContext.insideTypeDeclaration!.typeName,
+      undefined);
   }
 
   public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
     return this.methodOrConstructor(node, renderer,
-        node.name,
-        this.renderTypeNode(node.type, renderer));
+      node.name,
+      this.renderTypeNode(node.type, renderer));
   }
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: JavaRenderer): OTree {
@@ -107,8 +106,8 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public expressionStatement(node: ts.ExpressionStatement, renderer: JavaRenderer): OTree {
     const inner = renderer.convert(node.expression);
     return inner.isEmpty
-        ? inner
-        : new OTree([inner, ';'], [], { canBreakLine: true });
+      ? inner
+      : new OTree([inner, ';'], [], { canBreakLine: true });
   }
 
   public ifStatement(node: ts.IfStatement, renderer: JavaRenderer): OTree {
@@ -126,19 +125,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       },
     );
     const elseStmt = node.elseStatement
-        ? new OTree(['else '], [renderer.convert(node.elseStatement)], { canBreakLine: true })
-        : undefined;
+      ? new OTree(['else '], [renderer.convert(node.elseStatement)], { canBreakLine: true })
+      : undefined;
 
     return elseStmt
-        ? new OTree(
-          [],
-          [ifStmt, elseStmt],
-          {
-            separator: ' ',
-            canBreakLine: true,
-          },
-        )
-        : ifStmt;
+      ? new OTree(
+        [],
+        [ifStmt, elseStmt],
+        {
+          separator: ' ',
+          canBreakLine: true,
+        },
+      )
+      : ifStmt;
   }
 
   public forOfStatement(node: ts.ForOfStatement, renderer: JavaRenderer): OTree {
@@ -146,11 +145,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     let variableName = '???';
 
     matchAst(node.initializer,
-        nodeOfType(ts.SyntaxKind.VariableDeclarationList,
-            nodeOfType('var', ts.SyntaxKind.VariableDeclaration)),
-        bindings => {
-          variableName = renderer.textOf(bindings.var.name);
-        });
+      nodeOfType(ts.SyntaxKind.VariableDeclarationList,
+        nodeOfType('var', ts.SyntaxKind.VariableDeclaration)),
+      bindings => {
+        variableName = renderer.textOf(bindings.var.name);
+      });
 
     return new OTree(
       [
@@ -193,15 +192,15 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
     // return that or some default-derived module name representation
     return resolvedNamespace ||
-        packageName.split(/[^a-zA-Z0-9]+/g)
-        .filter(s => s !== '')
-        .join('.');
+      packageName.split(/[^a-zA-Z0-9]+/g)
+      .filter(s => s !== '')
+      .join('.');
   }
 
   private typeHeritage(node: ts.ClassDeclaration, renderer: JavaRenderer): Array<OTree | string | undefined> {
     return [
-        ...this.extractSuperTypes(node, renderer, ts.SyntaxKind.ExtendsKeyword, 'extends'),
-        ...this.extractSuperTypes(node, renderer, ts.SyntaxKind.ImplementsKeyword, 'implements'),
+      ...this.extractSuperTypes(node, renderer, ts.SyntaxKind.ExtendsKeyword, 'extends'),
+      ...this.extractSuperTypes(node, renderer, ts.SyntaxKind.ImplementsKeyword, 'implements'),
     ];
   }
 
@@ -209,14 +208,14 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const heritageClause = (node.heritageClauses || [])
       .find(hc => hc.token === heritageKeyword);
     const superTypes = heritageClause
-        ? heritageClause.types.map(t => renderer.convert(t.expression))
-        : [];
+      ? heritageClause.types.map(t => renderer.convert(t.expression))
+      : [];
     return superTypes.length > 0
-        ? [
-          ` ${outputKeyword} `,
-          new OTree([], superTypes, { separator: ', ' }),
-        ]
-        : [];
+      ? [
+        ` ${outputKeyword} `,
+        new OTree([], superTypes, { separator: ', ' }),
+      ]
+      : [];
   }
 
   private renderTypeNode(typeNode: ts.TypeNode | undefined, renderer: JavaRenderer): string {

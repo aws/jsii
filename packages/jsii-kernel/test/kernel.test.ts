@@ -680,11 +680,11 @@ defineTest('sync overrides: properties - verify keys are enumerable', (sandbox) 
   const reader = sandbox.create({ fqn: 'jsii-calc.UsesInterfaceWithProperties', args: [obj] });
 
   sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
-    if (callback.get && callback.get.property === 'foo') {
+    if (callback.get?.property === 'foo') {
       return 999;
     }
 
-    if (callback.get && callback.get.property === 'readOnlyString') {
+    if (callback.get?.property === 'readOnlyString') {
       return 'STR';
     }
 
@@ -704,11 +704,11 @@ defineTest('sync overrides: returns an object', (sandbox) => {
   const number500 = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [500] });
 
   sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
-    if (callback.invoke && callback.invoke.method === 'obtainNumber') {
+    if (callback.invoke?.method === 'obtainNumber') {
       return number100;
     }
 
-    if (callback.get && callback.get.property === 'numberProp') {
+    if (callback.get?.property === 'numberProp') {
       return number500;
     }
 
@@ -856,7 +856,7 @@ defineTest('node.js standard library', async (sandbox) => {
     .toEqual({ result: 'Hello, resource! SYNC!' });
 
   const platform = sandbox.get({ objref, property: 'osPlatform' }).value;
-  expect(platform && platform.length).toBeGreaterThan(0);
+  expect(platform?.length).toBeGreaterThan(0);
 
   expect(sandbox.invoke({ objref, method: 'cryptoSha256' }))
     .toEqual({ result: '6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50' });
@@ -1031,9 +1031,6 @@ defineTest('calculator can set and retrieve union properties', (sandbox) => {
   expect(27).toBe(value);
 
   const expression = sandbox.get({ objref: calculator, property: 'unionProperty' }).value;
-
-  console.log(expression);
-
   expect(deepEqualWithRegex(expression, { [TOKEN_REF]: /^jsii-calc.Multiply@/ })).toBeTruthy();
 });
 
@@ -1100,8 +1097,8 @@ defineTest('notice when an array is passed instead of varargs', (sandbox) => {
 
 defineTest('Object ID does not get re-allocated when the constructor passes "this" out', (sandbox) => {
   sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
-    expect(callback.invoke && callback.invoke.method).toBe('consumePartiallyInitializedThis');
-    expect(callback.invoke && callback.invoke.args && callback.invoke.args).toEqual([{
+    expect(callback.invoke?.method).toBe('consumePartiallyInitializedThis');
+    expect(callback.invoke?.args).toEqual([{
       [api.TOKEN_REF]: 'jsii-calc.ConstructorPassesThisOut@10001'
     }, {
       [api.TOKEN_DATE]: '1970-01-01T00:00:00.000Z'
@@ -1163,8 +1160,8 @@ defineTest('registers interfaces requested', (sandbox) => {
 
 defineTest('retains the type of object literals', (sandbox) => {
   sandbox.callbackHandler = makeSyncCallbackHandler((cb) => {
-    expect(cb.invoke && cb.invoke.method).toBe('provideAsInterface');
-    expect(cb.invoke && cb.invoke.objref).toMatchObject({ [TOKEN_REF]: 'Object@10000' });
+    expect(cb.invoke?.method).toBe('provideAsInterface');
+    expect(cb.invoke?.objref).toMatchObject({ [TOKEN_REF]: 'Object@10000' });
     const realObject = sandbox.create({ fqn: 'jsii-calc.AnonymousImplementationProvider' });
     const { result } = sandbox.invoke({ objref: realObject, method: 'provideAsInterface' });
     sandbox.del({ objref: realObject });
@@ -1216,6 +1213,117 @@ defineTest('correctly deserializes struct unions', (sandbox) => {
     expect(sandbox.sinvoke({ fqn: unionConsumer, method: 'isStructA', args: [item] }).result).toBe(false);
     expect(sandbox.sinvoke({ fqn: unionConsumer, method: 'isStructB', args: [item] }).result).toBe(true);
   }
+});
+
+defineTest('ANY deserializer: decorated structs', sandbox => {
+  const input = { '$jsii.struct': { 'fqn': 'jsii-calc.StructB', 'data': { 'requiredString': 'Bazinga!', 'optionalBoolean': false } } };
+  expect(deserializeAny(sandbox, input)).toStrictEqual({ 'requiredString': 'Bazinga!', 'optionalBoolean': false });
+});
+
+defineTest('ANY deserializer: primitives', sandbox => {
+  expect(deserializeAny(sandbox, -100)).toStrictEqual(-100);
+  expect(deserializeAny(sandbox, 0)).toStrictEqual(0);
+  expect(deserializeAny(sandbox, 1234)).toStrictEqual(1234);
+  expect(deserializeAny(sandbox, 'hello')).toStrictEqual('hello');
+  expect(deserializeAny(sandbox, '')).toStrictEqual('');
+  expect(deserializeAny(sandbox, true)).toStrictEqual(true);
+  expect(deserializeAny(sandbox, false)).toStrictEqual(false);
+});
+
+defineTest('ANY deserializer: array', sandbox => {
+  expect(deserializeAny(sandbox, [1, 2, 3, 'four'])).toStrictEqual([1, 2, 3, 'four']);
+});
+
+defineTest('ANY deserializer: undefined/null', sandbox => {
+  expect(deserializeAny(sandbox, null)).toStrictEqual(undefined);
+  expect(deserializeAny(sandbox, undefined)).toStrictEqual(undefined);
+});
+
+defineTest('ANY deserializer: wire date', sandbox => {
+  expect(deserializeAny(sandbox, { '$jsii.date': '2019-11-18T13:01:20.515Z' })).toStrictEqual('2019-11-18T13:01:20.515Z');
+});
+
+defineTest('ANY deserializer: enum', sandbox => {
+  expect(deserializeAny(sandbox, { '$jsii.enum': 'jsii-calc.AllTypesEnum/YOUR_ENUM_VALUE' })).toStrictEqual(100);
+});
+
+defineTest('ANY deserializer: wire map', sandbox => {
+  const input = { '$jsii.map': { foo: 123, bar: { '$jsii.enum': 'jsii-calc.AllTypesEnum/YOUR_ENUM_VALUE' } } };
+  expect(deserializeAny(sandbox, input)).toStrictEqual({
+    foo: 123,
+    bar: 100
+  });
+});
+
+defineTest('ANY deserializer: by value', sandbox => {
+  const ref = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [444] });
+
+  const input = { 
+    foo: 123, 
+    bar: { '$jsii.enum': 'jsii-calc.AllTypesEnum/YOUR_ENUM_VALUE' },
+    struct: { '$jsii.struct': { 'fqn': 'jsii-calc.StructB', 'data': { 'requiredString': 'Bazinga!', 'optionalBoolean': false } } },
+    ref
+  };
+
+  expect(deserializeAny(sandbox, input)).toStrictEqual({ 
+    foo: 123, 
+    bar: 100,
+    struct: {
+      requiredString: 'Bazinga!',
+      optionalBoolean: false
+    },
+    ref: { value: 444 },
+  });
+});
+
+defineTest('ANY serializer: null/undefined', sandbox => {
+  expect(serializeAny(sandbox, 'anyNull')).toStrictEqual(undefined);
+  expect(serializeAny(sandbox, 'anyUndefined')).toStrictEqual(undefined);
+});
+
+defineTest('ANY serializer: function (fails)', sandbox => {
+  expect(() => serializeAny(sandbox, 'anyFunction')).toThrow(/JSII Kernel is unable to serialize `function`. An instance with methods might have been returned by an `any` method\?/);
+});
+
+defineTest('ANY serializer: date', sandbox => {
+  expect(serializeAny(sandbox, 'anyDate')).toStrictEqual({ '$jsii.date': '2019-11-18T13:01:20.515Z' });
+});
+
+defineTest('ANY serializer: primitives', sandbox => {
+  expect(serializeAny(sandbox, 'anyNumber')).toStrictEqual(123);
+  expect(serializeAny(sandbox, 'anyZero')).toStrictEqual(0);
+  expect(serializeAny(sandbox, 'anyString')).toStrictEqual('foo');
+  expect(serializeAny(sandbox, 'anyEmptyString')).toStrictEqual('');
+  expect(serializeAny(sandbox, 'anyBooleanTrue')).toStrictEqual(true);
+  expect(serializeAny(sandbox, 'anyBooleanFalse')).toStrictEqual(false);
+});
+
+defineTest('ANY serializer: array', sandbox => {
+  expect(serializeAny(sandbox, 'anyArray')).toEqual([
+    1, 2, 3, 
+    { 
+      '$jsii.byref': '@scope/jsii-calc-lib.Number@10000',
+      '$jsii.interfaces': undefined
+    }, 
+    { foo: 'bar' }
+  ]);
+});
+
+defineTest('ANY serializer: hash', sandbox => {
+  expect(serializeAny(sandbox, 'anyHash')).toStrictEqual({
+    hello: 1234,
+    world: { 
+      '$jsii.byref': '@scope/jsii-calc-lib.Number@10000',
+      '$jsii.interfaces': undefined
+    }
+  });
+});
+
+defineTest('ANY serializer: ref', sandbox => {
+  expect(serializeAny(sandbox, 'anyRef')).toStrictEqual({ 
+    '$jsii.byref': '@scope/jsii-calc-lib.Number@10000',
+    '$jsii.interfaces': undefined
+  });
 });
 
 // =================================================================================================
@@ -1351,4 +1459,19 @@ function get(kernel: Kernel, objref: ObjRef) {
   return (property: string) => {
     return kernel.get({ objref, property }).value;
   };
+}
+
+/**
+ * Passes `input` to the kernel through an "any" type and returns the JSON
+ * stringified version that the JavaScript code saw.
+ */
+function deserializeAny(sandbox: Kernel, input: any) {
+  const ret = sandbox.sinvoke({ fqn: 'jsii-calc.JsonFormatter', method: 'stringify', args: [input] });
+  if (ret.result === undefined) { return undefined; }
+  const json = JSON.parse(ret.result);
+  return json;
+}
+
+function serializeAny(sandbox: Kernel, method: string): any {
+  return sandbox.sinvoke({ fqn: 'jsii-calc.JsonFormatter', method }).result;
 }

@@ -2,9 +2,15 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verifies that singleton enums are handled correctly.
+<<<<<<< HEAD
  * <p>
  * https://github.com/aws/jsii/issues/231
  * <p>
+=======
+ * 
+ * <p>https://github.com/aws/jsii/issues/231</p>
+ * 
+>>>>>>> origin/master
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

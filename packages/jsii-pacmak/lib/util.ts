@@ -34,7 +34,7 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
       const child = spawn(cmd, args, {
         ...options,
         shell: true,
-        env: { ...process.env, ...options.env || {} },
+        env: { ...process.env, ...options.env ?? {} },
         stdio: ['ignore', 'pipe', 'pipe']
       });
       const stdout = new Array<Buffer>();
@@ -170,4 +170,14 @@ export async function filterAsync<A>(xs: A[], pred: (x: A) => Promise<boolean>):
     }
   }
   return ret;
+}
+
+/**
+ * Prefix fenced code blocks in MarkDown
+ *
+ * Match blocks starting with ```t so that we catch both
+ * ```ts and ```typescript.
+ */
+export function prefixMarkdownTsCodeBlocks(markdown: string, prefix: string) {
+  return markdown.replace(/^(```t.*)$/m, `$1\n${prefix}`);
 }

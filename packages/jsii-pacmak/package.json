@@ -1,6 +1,6 @@
 {
   "name": "jsii-pacmak",
-  "version": "0.20.5",
+  "version": "0.20.8",
   "description": "A code generation framework for jsii backend languages",
   "license": "Apache-2.0",
   "author": {
@@ -34,38 +34,37 @@
     "package": "package-js"
   },
   "dependencies": {
+    "camelcase": "^5.1.3",
     "clone": "^2.1.2",
-    "codemaker": "^0.20.5",
+    "codemaker": "^0.20.8",
     "commonmark": "^0.29.0",
     "escape-string-regexp": "^2.0.0",
     "fs-extra": "^8.1.0",
-    "jsii-reflect": "^0.20.5",
-    "jsii-rosetta": "^0.20.5",
-    "jsii-spec": "^0.20.5",
+    "jsii-reflect": "^0.20.8",
+    "jsii-rosetta": "^0.20.8",
+    "jsii-spec": "^0.20.8",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.2"
   },
   "devDependencies": {
-    "@scope/jsii-calc-lib": "^0.20.5",
+    "@scope/jsii-calc-lib": "^0.20.8",
     "@types/clone": "^0.1.30",
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.23",
     "@types/mock-fs": "^4.10.0",
-    "@types/node": "^10.17.4",
+    "@types/node": "^10.17.6",
     "@types/yargs": "^13.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.6.1",
-    "@typescript-eslint/parser": "^2.6.1",
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.1",
     "jest": "^24.9.0",
-    "jsii-build-tools": "^0.20.5",
-    "jsii-calc": "^0.20.5",
-    "jsii-dotnet-jsonmodel": "^0.20.5",
-    "jsii-dotnet-runtime": "^0.20.5",
-    "jsii-java-runtime": "^0.20.5",
-    "mock-fs": "^4.10.2",
-    "typescript": "~3.6.4"
+    "jsii-build-tools": "^0.20.8",
+    "jsii-calc": "^0.20.8",
+    "jsii-dotnet-jsonmodel": "^0.20.8",
+    "jsii-dotnet-runtime": "^0.20.8",
+    "jsii-java-runtime": "^0.20.8",
+    "mock-fs": "^4.10.4",
+    "typescript": "~3.7.2"
   },
   "keywords": [
     "jsii",

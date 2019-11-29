@@ -1,6 +1,6 @@
 {
   "name": "jsii-spec",
-  "version": "0.20.5",
+  "version": "0.20.8",
   "description": "Specification for jsii assemblies",
   "license": "Apache-2.0",
   "author": {
@@ -30,16 +30,15 @@
     "package": "package-js"
   },
   "dependencies": {
-    "jsonschema": "^1.2.4"
+    "jsonschema": "^1.2.5"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
-    "@typescript-eslint/eslint-plugin": "^2.6.1",
-    "@typescript-eslint/parser": "^2.6.1",
-    "eslint": "^6.6.0",
+    "@types/node": "^10.17.6",
+    "eslint": "^6.7.1",
     "jest": "^24.9.0",
-    "jsii-build-tools": "^0.20.5",
-    "typescript": "~3.6.4",
+    "jsii-build-tools": "^0.20.8",
+    "typescript": "~3.7.2",
     "typescript-json-schema": "^0.40.0"
   },
   "jest": {
@@ -54,7 +53,7 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 35,
+        "branches": 25,
         "statements": 60
       }
     },

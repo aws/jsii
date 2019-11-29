@@ -2,6 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This class has docs.
+<<<<<<< HEAD
  * <p>
  * The docs are great. They're a bunch of tags.
  * <p>
@@ -15,6 +16,19 @@ package software.amazon.jsii.tests.calculator;
  *   {
  *   })}</pre></blockquote>
  * <p>
+=======
+ * 
+ * <p>The docs are great. They're a bunch of tags.</p>
+ * 
+ * Example:
+ * 
+ * <blockquote><pre>{@code
+ * // This example is in TypeScript, examples in Java are coming soon.
+ * function anExample() {
+ * }
+ * }</pre></blockquote>
+ * 
+>>>>>>> origin/master
  * @see https://aws.amazon.com/
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
