@@ -1,7 +1,7 @@
 import { CodeMaker } from 'codemaker';
 import * as spec from '@jsii/spec';
 import { DotNetNameUtils } from './nameutils';
-import { Rosetta, Translation, transformMarkdown, typeScriptSnippetFromSource, CSharpXmlCommentRenderer } from 'jsii-rosetta';
+import { Rosetta, Translation, typeScriptSnippetFromSource, markDownToXmlDoc } from 'jsii-rosetta';
 import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';
 
 
@@ -83,7 +83,7 @@ export class DotNetDocGenerator {
   public emitMarkdownAsRemarks(markdown: string | undefined) {
     if (!markdown) { return; }
 
-    const translated = this.markDownToXml(this.convertSamplesInMarkdown(markdown));
+    const translated = markDownToXmlDoc(this.convertSamplesInMarkdown(markdown));
     const lines = translated.split('\n');
 
     this.code.line('/// <remarks>');
@@ -100,7 +100,7 @@ export class DotNetDocGenerator {
     const ret: string[] = [];
 
     if (docs.remarks) {
-      const translated = this.markDownToXml(this.convertSamplesInMarkdown(docs.remarks));
+      const translated = markDownToXmlDoc(this.convertSamplesInMarkdown(docs.remarks));
       ret.push(...translated.split('\n'));
       ret.push('');
     }
@@ -142,13 +142,6 @@ export class DotNetDocGenerator {
       language: trans.language,
       source: this.prefixDisclaimer(trans)
     }));
-  }
-
-  /**
-   * Convert MarkDown to XML using routines that we have available in Rosetta anyway
-   */
-  private markDownToXml(md: string) {
-    return transformMarkdown(md, new CSharpXmlCommentRenderer());
   }
 
   private prefixDisclaimer(translated: Translation) {

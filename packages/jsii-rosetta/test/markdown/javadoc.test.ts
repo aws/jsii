@@ -1,6 +1,4 @@
-import { transformMarkdown } from '../../lib/markdown/markdown';
-import { StructureRenderer } from '../../lib/markdown/structure-renderer';
-import { JavaDocRenderer } from '../../lib';
+import { markDownToStructure, markDownToJavaDoc } from '../../lib';
 
 const DEBUG = false;
 
@@ -60,11 +58,10 @@ This is <em>very</em> <strong>cool</strong>.
 
 function expectOutput(source: string, expected: string) {
   if (DEBUG) {
-    const struct = new StructureRenderer();
     // tslint:disable-next-line:no-console
-    console.log(transformMarkdown(source, struct));
+    console.log(markDownToStructure(source));
   }
 
-  const output = transformMarkdown(source, new JavaDocRenderer());
+  const output = markDownToJavaDoc(source);
   expect(output.trim()).toEqual(expected.trim());
 }

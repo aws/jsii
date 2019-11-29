@@ -12,7 +12,7 @@ import { shell, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
-import { Rosetta, typeScriptSnippetFromSource, Translation, JavaDocRenderer, transformMarkdown } from 'jsii-rosetta';
+import { Rosetta, typeScriptSnippetFromSource, Translation, markDownToJavaDoc } from 'jsii-rosetta';
 import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -644,7 +644,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of this.markDownToXml(this.convertSamplesInMarkdown(mod.readme.markdown)).split('\n')) {
+      for (const line of markDownToJavaDoc(this.convertSamplesInMarkdown(mod.readme.markdown)).split('\n')) {
         this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
       }
     }
@@ -1491,7 +1491,7 @@ class JavaGenerator extends Generator {
     }
 
     if (docs.remarks) {
-      paras.push(this.markDownToXml(this.convertSamplesInMarkdown(docs.remarks)).trimRight());
+      paras.push(markDownToJavaDoc(this.convertSamplesInMarkdown(docs.remarks)).trimRight());
     }
 
     if (docs.default) {
@@ -1838,13 +1838,6 @@ class JavaGenerator extends Generator {
       language: trans.language,
       source: this.prefixDisclaimer(trans)
     }));
-  }
-
-  /**
-   * Convert MarkDown to XML using routines that we have available in Rosetta anyway
-   */
-  private markDownToXml(md: string) {
-    return transformMarkdown(md, new JavaDocRenderer());
   }
 
   private prefixDisclaimer(translated: Translation) {
