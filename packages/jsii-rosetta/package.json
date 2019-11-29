@@ -32,7 +32,7 @@
   "dependencies": {
     "commonmark": "^0.29.0",
     "fs-extra": "^8.1.0",
-    "jsii-spec": "^0.20.8",
+    "@jsii/spec": "^0.20.8",
     "typescript": "~3.7.2",
     "yargs": "^15.0.2"
   },

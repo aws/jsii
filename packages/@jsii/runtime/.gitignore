@@ -1,0 +1,11 @@
+*.js
+*.d.ts
+dist
+webpack
+!webpack.config.js
+
+node_modules/
+.nyc_output/
+coverage/
+
+test/_tarballs/

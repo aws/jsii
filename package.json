@@ -22,11 +22,14 @@
   },
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "packages/@jsii/*",
+      "packages/@scope/*",
+      "tools/*"
     ],
     "nohoist": [
-      "**/jsii-calc-bundled",
-      "**/jsii-calc-bundled/**"
+      "**/@fixtures/jsii-calc-bundled",
+      "**/@fixtures/jsii-calc-bundled/**"
     ]
   }
 }

@@ -30,7 +30,7 @@
  *
  * https://github.com/Microsoft/tsdoc/blob/master/api-demo/src/advancedDemo.ts
  */
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import ts = require('typescript');
 
 /**

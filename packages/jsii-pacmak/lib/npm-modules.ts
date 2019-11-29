@@ -1,6 +1,6 @@
 import fs = require('fs-extra');
 import path = require('path');
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import { resolveDependencyDirectory } from './util';
 
 import logging = require('../lib/logging');

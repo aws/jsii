@@ -1,5 +1,5 @@
 import { default as camelcase } from 'camelcase';
-import * as spec from 'jsii-spec';
+import * as spec from '@jsii/spec';
 
 export class DotNetNameUtils {
 

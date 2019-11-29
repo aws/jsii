@@ -1,4 +1,4 @@
-import * as spec from 'jsii-spec';
+import * as spec from '@jsii/spec';
 import { DotNetDependency } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
 

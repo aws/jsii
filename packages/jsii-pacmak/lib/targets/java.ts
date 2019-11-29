@@ -2,7 +2,7 @@ import clone = require('clone');
 import { toPascalCase } from 'codemaker/lib/case-utils';
 import fs = require('fs-extra');
 import reflect = require('jsii-reflect');
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import path = require('path');
 import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';

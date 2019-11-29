@@ -114,7 +114,7 @@ jsii language bindings consist of two main components:
 1. __A runtime client library__: a library implemented for each language. This
    library is responsible to manage the child
    [`jsii-runtime`](./packages/jsii-runtime/README.md) process and interact with
-   the [jsii-kernel](./packages/jsii-kernel/README.md).
+   the [@jsii/kernel](./packages/@jsii/kernel/README.md).
 2. __A `jsii-pacmak` generator__: extend the jsii-pacmak project to be able to
    generate proxy classes for a jsii module.
 

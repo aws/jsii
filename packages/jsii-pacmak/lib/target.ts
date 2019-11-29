@@ -1,6 +1,6 @@
 import fs = require('fs-extra');
 import reflect = require('jsii-reflect');
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import path = require('path');
 
 import { IGenerator } from './generator';

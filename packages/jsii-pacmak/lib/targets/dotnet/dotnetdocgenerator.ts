@@ -1,5 +1,5 @@
 import { CodeMaker } from 'codemaker';
-import * as spec from 'jsii-spec';
+import * as spec from '@jsii/spec';
 import { DotNetNameUtils } from './nameutils';
 import { Rosetta, Translation, transformMarkdown, typeScriptSnippetFromSource, CSharpXmlCommentRenderer } from 'jsii-rosetta';
 import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';

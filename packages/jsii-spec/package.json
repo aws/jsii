@@ -3,6 +3,7 @@
   "version": "0.20.8",
   "description": "Specification for jsii assemblies",
   "license": "Apache-2.0",
+  "deprecated": "This package was renamed to @jsii/spec, please update your dependencies!",
   "author": {
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
@@ -22,45 +23,14 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc --build && bash generate-json-schema.sh && npm run lint",
-    "watch": "tsc --build -w",
-    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
-    "test": "jest",
-    "test:update": "jest -u",
+    "build": "tsc --build",
     "package": "package-js"
   },
   "dependencies": {
-    "jsonschema": "^1.2.5"
+    "@jsii/spec": "0.20.8"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.23",
-    "@types/node": "^10.17.6",
-    "eslint": "^6.7.1",
-    "jest": "^24.9.0",
     "jsii-build-tools": "^0.20.8",
-    "typescript": "~3.7.2",
-    "typescript-json-schema": "^0.40.0"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 25,
-        "statements": 60
-      }
-    },
-    "errorOnDeprecated": true,
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
+    "typescript": "~3.7.2"
   }
 }

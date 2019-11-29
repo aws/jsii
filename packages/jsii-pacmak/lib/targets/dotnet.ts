@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import * as spec from 'jsii-spec';
+import * as spec from '@jsii/spec';
 import * as path from 'path';
 import * as logging from '../logging';
 import xmlbuilder = require('xmlbuilder');
@@ -125,21 +125,21 @@ export class DotnetBuilder implements TargetBuilder {
     // If dotnet-jsonmodel is checked-out and we can find a local repository, add it to the list.
     try {
       /* eslint-disable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
-      const jsiiDotNetJsonModel = require('jsii-dotnet-jsonmodel');
+      const jsiiDotNetJsonModel = require('@jsii/dotnet-jsonmodel');
       /* eslint-enable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
       localRepos.push(jsiiDotNetJsonModel.repository);
     } catch {
-      // Couldn't locate jsii-dotnet-jsonmodel, which is owkay!
+      // Couldn't locate @jsii/dotnet-jsonmodel, which is owkay!
     }
 
     // If dotnet-runtime is checked-out and we can find a local repository, add it to the list.
     try {
       /* eslint-disable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
-      const jsiiDotNetRuntime = require('jsii-dotnet-runtime');
+      const jsiiDotNetRuntime = require('@jsii/dotnet-runtime');
       /* eslint-enable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
       localRepos.push(jsiiDotNetRuntime.repository);
     } catch {
-      // Couldn't locate jsii-dotnet-runtime, which is owkay!
+      // Couldn't locate @jsii/dotnet-runtime, which is owkay!
     }
 
     // Filter out nonexistant directories, .NET will be unhappy if paths don't exist
