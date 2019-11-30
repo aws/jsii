@@ -243,6 +243,17 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     );
   }
 
+  public regularCallExpression(node: ts.CallExpression, context: JavaRenderer): OTree {
+    return new OTree(
+      [
+        context.updateContext({ convertPropertyToGetter: false }).convert(node.expression),
+        '(',
+        this.argumentList(node.arguments, context),
+        ')',
+      ],
+    );
+  }
+
   public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
     const rightHandSide = renderer.convert(node.name);
     let parts: Array<OTree | string | undefined>;

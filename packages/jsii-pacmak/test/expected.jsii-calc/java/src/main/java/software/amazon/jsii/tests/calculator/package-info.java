@@ -16,7 +16,7 @@
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * add(10);
+ * calculator.add(10);
  * }</pre></blockquote>
  * <p>
  * <h2>Code Samples</h2>
