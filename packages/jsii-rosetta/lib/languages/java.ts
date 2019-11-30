@@ -261,8 +261,8 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       } else {
         // add a 'get' prefix to the property name, and change the access to a method call, if required
         const renderedRightHandSide = renderer.currentContext.convertPropertyToGetter === false
-            ? rightHandSide
-            : `get${capitalize(node.name.text)}()`;
+          ? rightHandSide
+          : `get${capitalize(node.name.text)}()`;
         // strip any trailing ! from the left-hand side, as they're not meaningful in Java
         parts = [stripTrailingBang(leftHandSide), '.', renderedRightHandSide];
       }
