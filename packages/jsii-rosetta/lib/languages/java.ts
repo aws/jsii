@@ -204,7 +204,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     ]);
   }
 
-  public templateExpression(node: ts.TemplateExpression, context: JavaRenderer): OTree {
+  public templateExpression(node: ts.TemplateExpression, renderer: JavaRenderer): OTree {
     const result = new Array<string>();
     let first = true;
 
@@ -214,7 +214,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     }
 
     for (const span of node.templateSpans) {
-      result.push(`${first ? '' : ' + '}${context.textOf(span.expression)}`);
+      result.push(`${first ? '' : ' + '}${renderer.textOf(span.expression)}`);
       first = false;
       if (span.literal.rawText) {
         result.push(` + "${quoteStringLiteral(span.literal.rawText)}"`);
@@ -243,13 +243,24 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     );
   }
 
-  public regularCallExpression(node: ts.CallExpression, context: JavaRenderer): OTree {
+  public regularCallExpression(node: ts.CallExpression, renderer: JavaRenderer): OTree {
     return new OTree(
       [
-        context.updateContext({ convertPropertyToGetter: false }).convert(node.expression),
+        renderer.updateContext({ convertPropertyToGetter: false }).convert(node.expression),
         '(',
-        this.argumentList(node.arguments, context),
+        this.argumentList(node.arguments, renderer),
         ')',
+      ],
+    );
+  }
+
+  public asExpression(node: ts.AsExpression, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [
+        '(',
+        this.renderTypeNode(node.type, renderer, 'Object'),
+        ')',
+        renderer.convert(node.expression),
       ],
     );
   }
@@ -335,6 +346,8 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     switch (typeScriptBuiltInType) {
       case 'string':
         return 'String';
+      case 'number':
+        return 'int';
       case 'any':
         return 'Object';
       default:
