@@ -15,6 +15,10 @@ interface JavaContext {
   readonly convertPropertyToGetter?: boolean;
 
   readonly insideTypeDeclaration?: InsideTypeDeclaration;
+
+  readonly inKeyValueList?: boolean;
+
+  readonly identifierAsString?: boolean;
 }
 
 interface InsideTypeDeclaration {
@@ -83,13 +87,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public constructorDeclaration(node: ts.ConstructorDeclaration, renderer: JavaRenderer): OTree {
-    return this.methodOrConstructor(node, renderer,
+    return this.procedure(node, renderer,
       renderer.currentContext.insideTypeDeclaration!.typeName,
       undefined);
   }
 
   public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
-    return this.methodOrConstructor(node, renderer,
+    return this.procedure(node, renderer,
+      node.name,
+      this.renderTypeNode(node.type, renderer, 'void'));
+  }
+
+  public functionDeclaration(node: ts.FunctionDeclaration, renderer: JavaRenderer): OTree {
+    return this.procedure(node, renderer,
       node.name,
       this.renderTypeNode(node.type, renderer, 'void'));
   }
@@ -274,7 +284,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       [
         'Map.of(',
       ],
-      renderer.convertAll(node.properties),
+      renderer.updateContext({ inKeyValueList: true }).convertAll(node.properties),
       {
         suffix: renderer.mirrorNewlineBefore(node.properties[0], ')'),
         separator: ', ',
@@ -286,9 +296,12 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public propertyAssignment(node: ts.PropertyAssignment, renderer: JavaRenderer): OTree {
     return new OTree(
       [
-        renderer.convert(node.name),
+        (renderer.currentContext.inKeyValueList
+            ? renderer.updateContext({ identifierAsString: true })
+            : renderer)
+          .convert(node.name),
         ', ',
-        renderer.convert(node.initializer),
+        renderer.updateContext({ inKeyValueList: false }).convert(node.initializer),
       ],
       [],
       {
@@ -323,6 +336,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     }
 
     return new OTree(parts);
+  }
+
+  public identifier(node: ts.Identifier, renderer: JavaRenderer): OTree {
+    const nodeText = node.text;
+    return new OTree([
+      renderer.currentContext.identifierAsString ? JSON.stringify(nodeText) : nodeText,
+    ]);
   }
 
   private lookupModuleNamespace(packageName: string): string {
@@ -392,11 +412,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     }
   }
 
-  private methodOrConstructor(
-    node: ts.ConstructorDeclaration | ts.MethodDeclaration,
-    renderer: JavaRenderer,
-    methodOrConstructorName: ts.Node | undefined,
-    returnType: string | undefined): OTree {
+  private procedure(
+      node: ts.ConstructorDeclaration | ts.MethodDeclaration | ts.FunctionDeclaration,
+      renderer: JavaRenderer,
+      methodOrConstructorName: ts.Node | undefined,
+      returnType: string | undefined): OTree {
     return new OTree(
       [
         'public ',
