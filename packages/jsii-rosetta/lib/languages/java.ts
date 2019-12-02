@@ -2,7 +2,7 @@ import ts = require('typescript');
 import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
-import { builtInTypeName } from '../typescript/types';
+import { builtInTypeName, mapElementType } from '../typescript/types';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { jsiiTargetParam } from '../jsii/packages';
@@ -113,7 +113,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const type = (node.type && renderer.typeOfType(node.type))
         || (node.initializer && renderer.typeOfExpression(node.initializer));
 
-    const renderedType = type ? this.renderType(type, 'Object') : 'Object';
+    const renderedType = type ? this.renderType(type, renderer, 'Object') : 'Object';
 
     return new OTree(
       [
@@ -265,6 +265,38 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     );
   }
 
+  public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
+    return this.keyValueObjectLiteralExpression(node, undefined, renderer);
+  }
+
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, _valueType: ts.Type | undefined, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [
+        'Map.of(',
+      ],
+      renderer.convertAll(node.properties),
+      {
+        suffix: renderer.mirrorNewlineBefore(node.properties[0], ')'),
+        separator: ', ',
+        indent: 4,
+      },
+    );
+  }
+
+  public propertyAssignment(node: ts.PropertyAssignment, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [
+        renderer.convert(node.name),
+        ', ',
+        renderer.convert(node.initializer),
+      ],
+      [],
+      {
+        canBreakLine: true,
+      },
+    );
+  }
+
   public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
     const rightHandSide = renderer.convert(node.name);
     let parts: Array<OTree | string | undefined>;
@@ -334,10 +366,15 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       return fallback;
     }
 
-    return this.renderType(renderer.typeOfType(typeNode), fallback);
+    return this.renderType(renderer.typeOfType(typeNode), renderer, fallback);
   }
 
-  private renderType(type: ts.Type, fallback: string) {
+  private renderType(type: ts.Type, renderer: JavaRenderer, fallback: string): string {
+    const mapValuesType = mapElementType(type, renderer);
+    if (mapValuesType) {
+      return `Map<String, ${this.renderType(mapValuesType, renderer, 'Object')}>`;
+    }
+
     const typeScriptBuiltInType = builtInTypeName(type);
     if (!typeScriptBuiltInType) {
       return fallback;
