@@ -9,11 +9,8 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * (FunctionDeclaration function anExample() {
- * }
- *   anExample
- *   {
- *   })}</pre></blockquote>
+ * public void anExample() {
+ * }}</pre></blockquote>
  * <p>
  * @see https://aws.amazon.com/
  */
