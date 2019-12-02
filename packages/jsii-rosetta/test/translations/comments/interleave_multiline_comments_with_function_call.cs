@@ -3,4 +3,5 @@ SomeFunction(arg1, new Struct {
     Arg2 = "string",
 
     /* A comment before arg3 */
-    Arg3 = "boo" });
+    Arg3 = "boo"
+});

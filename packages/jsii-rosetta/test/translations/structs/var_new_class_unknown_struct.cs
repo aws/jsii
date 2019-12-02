@@ -1,2 +1,3 @@
 var vpc = new Vpc(this, "Something", new Struct {
-    Argument = 5 });
+    Argument = 5
+});

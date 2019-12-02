@@ -1,2 +1,3 @@
 new Vpc(this, "Something", new VpcProps {
-    Argument = 5 });
+    Argument = 5
+});

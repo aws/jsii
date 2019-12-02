@@ -326,14 +326,21 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: CSharpRenderer): OTree {
     if (renderer.currentContext.preferObjectLiteralAsStruct) {
       // Type information missing and from context we prefer a struct
-      return new OTree(['new Struct { '], renderer.convertAll(node.properties), { suffix: ' }', separator: ', ', indent: 4 });
+      return new OTree(['new Struct { '], renderer.convertAll(node.properties), {
+        suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
+        separator: ', ',
+        indent: 4 });
     }
     // Type information missing and from context we prefer a map
     return this.keyValueObjectLiteralExpression(node, undefined, renderer);
   }
 
   public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, structType: ts.Type, renderer: CSharpRenderer): OTree {
-    return new OTree(['new ', structType.symbol.name, ' { '], renderer.convertAll(node.properties), { suffix: ' }', separator: ', ', indent: 4 });
+    return new OTree(['new ', structType.symbol.name, ' { '], renderer.convertAll(node.properties), {
+      suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
+      separator: ', ',
+      indent: 4
+    });
   }
 
   public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, valueType: ts.Type | undefined, renderer: CSharpRenderer): OTree {
@@ -345,7 +352,11 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     return new OTree([
       'new Dictionary<string, ',
       this.renderType(node, valueType, false, 'object', renderer),
-      '> { '], renderer.updateContext({ inKeyValueList: true }).convertAll(node.properties), { suffix: ' }', separator: ', ', indent: 4, });
+      '> { '], renderer.updateContext({ inKeyValueList: true }).convertAll(node.properties), {
+      suffix: renderer.mirrorNewlineBefore(node.properties[0], '}', ' '),
+      separator: ', ',
+      indent: 4,
+    });
   }
 
   public shorthandPropertyAssignment(node: ts.ShorthandPropertyAssignment, renderer: CSharpRenderer): OTree {

@@ -147,7 +147,7 @@ export class AstRenderer<C> {
    *
    * Used to mirror newline use between matchin brackets (such as { ... } and [ ... ]).
    */
-  public mirrorNewlineBefore(viz?: ts.Node, suffix = ''): string {
+  public mirrorNewlineBefore(viz?: ts.Node, suffix = '', otherwise = ''): string {
     if (viz === undefined) { return suffix; }
 
     // Return a newline if the given node is preceded by newlines
@@ -160,7 +160,7 @@ export class AstRenderer<C> {
       }
     }
 
-    return (newlines.join('').length > 0 ? '\n' : '') + suffix;
+    return (newlines.join('').length > 0 ? '\n' : otherwise) + suffix;
   }
 
   /**
