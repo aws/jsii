@@ -297,9 +297,8 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(
       [
         (renderer.currentContext.inKeyValueList
-            ? renderer.updateContext({ identifierAsString: true })
-            : renderer)
-          .convert(node.name),
+          ? renderer.updateContext({ identifierAsString: true })
+          : renderer).convert(node.name),
         ', ',
         renderer.updateContext({ inKeyValueList: false }).convert(node.initializer),
       ],
@@ -413,10 +412,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   private procedure(
-      node: ts.ConstructorDeclaration | ts.MethodDeclaration | ts.FunctionDeclaration,
-      renderer: JavaRenderer,
-      methodOrConstructorName: ts.Node | undefined,
-      returnType: string | undefined): OTree {
+    node: ts.ConstructorDeclaration | ts.MethodDeclaration | ts.FunctionDeclaration,
+    renderer: JavaRenderer,
+    methodOrConstructorName: ts.Node | undefined,
+    returnType: string | undefined): OTree {
+
     return new OTree(
       [
         'public ',
