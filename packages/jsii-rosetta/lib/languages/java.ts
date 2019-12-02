@@ -3,11 +3,17 @@ import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
 import { builtInTypeName } from '../typescript/types';
-import { isReadOnly, matchAst, nodeOfType, visibility } from '../typescript/ast-utils';
+import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { jsiiTargetParam } from '../jsii/packages';
 
 interface JavaContext {
+  /** @default false */
+  readonly ignorePropertyPrefix?: boolean;
+
+  /** @default true */
+  readonly convertPropertyToGetter?: boolean;
+
   readonly insideTypeDeclaration?: InsideTypeDeclaration;
 }
 
@@ -42,7 +48,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         'public ',
         'class ',
         renderer.convert(node.name),
-        ...this.typeHeritage(node, renderer),
+        ...this.typeHeritage(node, renderer.updateContext({ ignorePropertyPrefix: true })),
         ' {',
       ],
       renderer
@@ -64,7 +70,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         vis,
         isReadOnly(node) ? ' final' : '',
         ' ',
-        this.renderTypeNode(node.type, renderer),
+        this.renderTypeNode(node.type, renderer, 'Object'),
         ' ',
         renderer.convert(node.name),
         ';',
@@ -85,12 +91,12 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
     return this.methodOrConstructor(node, renderer,
       node.name,
-      this.renderTypeNode(node.type, renderer));
+      this.renderTypeNode(node.type, renderer, 'void'));
   }
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: JavaRenderer): OTree {
     return new OTree([
-      this.renderTypeNode(node.type, renderer),
+      this.renderTypeNode(node.type, renderer, 'Object'),
       ' ',
       renderer.convert(node.name),
     ]);
@@ -101,6 +107,28 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       indent: 4,
       suffix: '\n}',
     });
+  }
+
+  public variableDeclaration(node: ts.VariableDeclaration, renderer: JavaRenderer): OTree {
+    const type = (node.type && renderer.typeOfType(node.type))
+        || (node.initializer && renderer.typeOfExpression(node.initializer));
+
+    const renderedType = type ? this.renderType(type, 'Object') : 'Object';
+
+    return new OTree(
+      [
+        renderedType,
+        ' ',
+        renderer.convert(node.name),
+        ' = ',
+        renderer.convert(node.initializer),
+        ';'
+      ],
+      [],
+      {
+        canBreakLine: true,
+      }
+    );
   }
 
   public expressionStatement(node: ts.ExpressionStatement, renderer: JavaRenderer): OTree {
@@ -176,14 +204,93 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     ]);
   }
 
-  public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
-    const expressionText = renderer.textOf(node.expression);
+  public templateExpression(node: ts.TemplateExpression, renderer: JavaRenderer): OTree {
+    const result = new Array<string>();
+    let first = true;
+
+    if (node.head.rawText) {
+      result.push(`"${quoteStringLiteral(node.head.rawText)}"`);
+      first = false;
+    }
+
+    for (const span of node.templateSpans) {
+      result.push(`${first ? '' : ' + '}${renderer.textOf(span.expression)}`);
+      first = false;
+      if (span.literal.rawText) {
+        result.push(` + "${quoteStringLiteral(span.literal.rawText)}"`);
+      }
+    }
+
+    return new OTree(result);
+  }
+
+  public newExpression(node: ts.NewExpression, renderer: JavaRenderer): OTree {
     return new OTree(
       [
-        ...expressionText === 'this' ? ['this', '.'] : [],
-        renderer.convert(node.name),
-      ]
+        'new ',
+        renderer.updateContext({
+          ignorePropertyPrefix: true,
+          convertPropertyToGetter: false,
+        }).convert(node.expression),
+        '(',
+        this.argumentList(node.arguments, renderer),
+        ')',
+      ],
+      [],
+      {
+        canBreakLine: true,
+      },
     );
+  }
+
+  public regularCallExpression(node: ts.CallExpression, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [
+        renderer.updateContext({ convertPropertyToGetter: false }).convert(node.expression),
+        '(',
+        this.argumentList(node.arguments, renderer),
+        ')',
+      ],
+    );
+  }
+
+  public asExpression(node: ts.AsExpression, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [
+        '(',
+        this.renderTypeNode(node.type, renderer, 'Object'),
+        ')',
+        renderer.convert(node.expression),
+      ],
+    );
+  }
+
+  public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
+    const rightHandSide = renderer.convert(node.name);
+    let parts: Array<OTree | string | undefined>;
+
+    if (renderer.currentContext.ignorePropertyPrefix) {
+      // ignore al prefixes when resolving properties
+      // only used for type names, in things like
+      // 'MyClass extends cdk.Construct'
+      // and 'new' expressions
+      parts = [rightHandSide];
+    } else {
+      const leftHandSide = renderer.textOf(node.expression);
+      if (leftHandSide === 'this') {
+        // for 'this', assume this is a field, and access it directly
+        parts = ['this', '.', rightHandSide];
+      } else {
+        // add a 'get' prefix to the property name, and change the access to a method call, if required
+        const renderedRightHandSide = renderer.currentContext.convertPropertyToGetter === false
+          ? rightHandSide
+          : `get${capitalize(node.name.text)}()`;
+        // strip any trailing ! from the left-hand side, as they're not meaningful in Java
+        parts = [stripTrailingBang(leftHandSide), '.', renderedRightHandSide];
+      }
+    }
+
+    return new OTree(parts);
   }
 
   private lookupModuleNamespace(packageName: string): string {
@@ -222,21 +329,29 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       : [];
   }
 
-  private renderTypeNode(typeNode: ts.TypeNode | undefined, renderer: JavaRenderer): string {
+  private renderTypeNode(typeNode: ts.TypeNode | undefined, renderer: JavaRenderer, fallback: string): string {
     if (!typeNode) {
-      return 'void';
+      return fallback;
     }
 
-    const type = renderer.typeOfType(typeNode);
+    return this.renderType(renderer.typeOfType(typeNode), fallback);
+  }
 
+  private renderType(type: ts.Type, fallback: string) {
     const typeScriptBuiltInType = builtInTypeName(type);
     if (!typeScriptBuiltInType) {
-      return '???';
+      return fallback;
     }
 
     switch (typeScriptBuiltInType) {
-      case 'string': return 'String';
-      default: return typeScriptBuiltInType;
+      case 'string':
+        return 'String';
+      case 'number':
+        return 'int';
+      case 'any':
+        return 'Object';
+      default:
+        return typeScriptBuiltInType;
     }
   }
 
@@ -262,4 +377,12 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       },
     );
   }
+}
+
+function stripTrailingBang(str: string): string {
+  return str.replace(/!+$/, '');
+}
+
+function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

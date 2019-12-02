@@ -9,16 +9,14 @@
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * (VariableDeclaration calculator = new calc.Calculator()
- *   calculator
- *   new Calculator())
+ * Object calculator = new Calculator();
  * }</pre></blockquote>
  * <p>
  * Then call some operations:
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * add(10);
+ * calculator.add(10);
  * }</pre></blockquote>
  * <p>
  * <h2>Code Samples</h2>
@@ -26,9 +24,7 @@
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * /* This is totes a magic comment in here, just you wait! *{@literal /}
- * (VariableDeclaration foo = 'bar'
- *   foo
- *   "bar")
+ * String foo = "bar";
  * }</pre></blockquote>
  */
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

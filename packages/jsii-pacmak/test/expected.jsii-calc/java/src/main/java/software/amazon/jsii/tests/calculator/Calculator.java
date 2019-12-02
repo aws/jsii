@@ -7,12 +7,10 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * (VariableDeclaration calculator = new calc.Calculator()
- *   calculator
- *   new Calculator())
- * add(5);
- * mul(3);
- * System.out.println(value);
+ * Object calculator = new Calculator();
+ * calculator.add(5);
+ * calculator.mul(3);
+ * System.out.println(calculator.expression.getValue());
  * }</pre></blockquote>
  * <p>
  * I will repeat this example again, but in an @example tag.
@@ -21,12 +19,10 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * (VariableDeclaration calculator = new calc.Calculator()
- *   calculator
- *   new Calculator())
- * add(5);
- * mul(3);
- * System.out.println(value);}</pre></blockquote>
+ * Object calculator = new Calculator();
+ * calculator.add(5);
+ * calculator.mul(3);
+ * System.out.println(calculator.expression.getValue());}</pre></blockquote>
  * <p>
  * EXPERIMENTAL
  */
