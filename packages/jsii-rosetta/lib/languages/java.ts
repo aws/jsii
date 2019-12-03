@@ -2,7 +2,7 @@ import ts = require('typescript');
 import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';
-import { builtInTypeName, mapElementType } from '../typescript/types';
+import { builtInTypeName, mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
 import { jsiiTargetParam } from '../jsii/packages';
@@ -207,11 +207,15 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public printStatement(args: ts.NodeArray<ts.Expression>, renderer: JavaRenderer) {
-    return new OTree([
-      'System.out.println(',
-      ...renderer.convertAll(args),
-      ')',
-    ]);
+    return new OTree(
+      [
+        'System.out.println(',
+        (args.length === 1
+          ? renderer.convert(args[0])
+          : new OTree([], ['""', ...renderer.convertAll(args)], { separator: ' + ' })),
+        ')',
+      ],
+    );
   }
 
   public templateExpression(node: ts.TemplateExpression, renderer: JavaRenderer): OTree {
@@ -403,12 +407,18 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   private renderType(type: ts.Type, renderer: JavaRenderer, fallback: string): string {
-    const mapValuesType = mapElementType(type, renderer);
+    const nonUnionType = typeWithoutUndefinedUnion(type);
+    if (!nonUnionType) {
+      // renderer.report(typeNode, 'Type unions in examples are not supported');
+      return fallback;
+    }
+
+    const mapValuesType = mapElementType(nonUnionType, renderer);
     if (mapValuesType) {
       return `Map<String, ${this.renderType(mapValuesType, renderer, 'Object')}>`;
     }
 
-    const typeScriptBuiltInType = builtInTypeName(type);
+    const typeScriptBuiltInType = builtInTypeName(nonUnionType);
     if (!typeScriptBuiltInType) {
       return fallback;
     }
