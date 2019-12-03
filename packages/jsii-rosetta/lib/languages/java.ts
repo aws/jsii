@@ -275,6 +275,20 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     );
   }
 
+  public arrayLiteralExpression(node: ts.ArrayLiteralExpression, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [
+        'asList('
+      ],
+      renderer.convertAll(node.elements),
+      {
+        separator: ', ',
+        suffix: ')',
+        indent: 4,
+      },
+    );
+  }
+
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
     return this.keyValueObjectLiteralExpression(node, undefined, renderer);
   }
