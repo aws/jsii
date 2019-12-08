@@ -1,5 +1,11 @@
 #!/bin/bash
 set -euo pipefail
+
 rm -fr dist/js
-mkdir -p dist/js
-mv $(npm pack) dist/js
+
+package_name=$(node -p "require('./package.json').name")
+target_file="dist/js/${package_name/\//-}.tgz"
+
+mkdir -p $(dirname ${target_file})
+
+mv $(npm pack) ${target_file}
