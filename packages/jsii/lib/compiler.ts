@@ -143,7 +143,7 @@ export class Compiler implements Emitter {
     };
     ts.createWatchProgram(host);
     // Previous call never returns
-    return new Promise(() => {});
+    return Promise.reject(new Error('Unexpectedly returned from createWatchProgram'));
   }
 
   private async _consumeProgram(program: ts.Program, stdlib: string): Promise<EmitResult> {
