@@ -39,7 +39,7 @@
     "jest": "^24.9.0",
     "jsii-build-tools": "^0.20.8",
     "typescript": "~3.7.3",
-    "typescript-json-schema": "^0.40.0"
+    "typescript-json-schema": "^0.41.0"
   },
   "jest": {
     "collectCoverage": true,
