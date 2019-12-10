@@ -1156,6 +1156,7 @@ class JavaGenerator extends Generator {
       const setter: spec.Method = {
         name: fieldName,
         docs: {
+          ...prop.spec.docs,
           stability: prop.spec.docs?.stability,
           returns: '{@code this}',
         },
@@ -1207,13 +1208,20 @@ class JavaGenerator extends Generator {
     this.code.closeBlock();
   }
 
-  private emitBuilderSetter(prop: JavaProp, builderName: string) {
+  private emitBuilderSetter(prop: JavaProp, builderName: string, builtType: string) {
     for (const type of prop.javaTypes) {
       this.code.line();
       this.code.line('/**');
-      this.code.line(` * Sets the value of ${prop.propName}`);
+      this.code.line(` * Sets the value of {@link ${builtType}#${getterFor(prop.fieldName)}}`);
       const summary = prop.docs?.summary ?? 'the value to be set';
       this.code.line(` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`);
+      if (prop.docs?.remarks != null) {
+        const indent = ' '.repeat(7 + prop.fieldName.length);
+        const remarks = md2html(prefixMarkdownTsCodeBlocks(prop.docs.remarks, SAMPLES_DISCLAIMER)).trimRight();
+        for (const line of remarks.split('\n')) {
+          this.code.line(` * ${indent} ${line}`);
+        }
+      }
       this.code.line(' * @return {@code this}');
       if (prop.docs?.deprecated) {
         this.code.line(` * @deprecated ${prop.docs.deprecated}`);
@@ -1224,6 +1232,11 @@ class JavaGenerator extends Generator {
       this.code.line(`this.${prop.fieldName} = ${prop.fieldName};`);
       this.code.line('return this;');
       this.code.closeBlock();
+    }
+
+    function getterFor(fieldName: string): string {
+      const [first, ...rest] = fieldName;
+      return `get${first.toUpperCase()}${rest.join('')}`;
     }
   }
 
@@ -1247,7 +1260,7 @@ class JavaGenerator extends Generator {
     this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
 
     props.forEach(prop => this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`));
-    props.forEach(prop => this.emitBuilderSetter(prop, BUILDER_CLASS_NAME));
+    props.forEach(prop => this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec.name));
 
     // Start build()
     this.code.line();
@@ -1879,6 +1892,7 @@ function paramJavadoc(name: string, optional?: boolean, summary?: string): strin
 }
 
 function endWithPeriod(s: string): string {
+  s = s.trimRight();
   if (!s.endsWith('.')) {
     return `${s}.`;
   }

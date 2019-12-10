@@ -21,7 +21,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
         private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
-         * Sets the value of Bar
+         * Sets the value of {@link BaseProps#getBar}
          * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -31,7 +31,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
         }
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link BaseProps#getFoo}
          * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */

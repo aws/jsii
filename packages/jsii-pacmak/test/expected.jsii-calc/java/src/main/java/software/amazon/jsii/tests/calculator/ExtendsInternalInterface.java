@@ -37,7 +37,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
         private java.lang.String prop;
 
         /**
-         * Sets the value of Boom
+         * Sets the value of {@link ExtendsInternalInterface#getBoom}
          * @param boom the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -48,7 +48,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         * Sets the value of Prop
+         * Sets the value of {@link ExtendsInternalInterface#getProp}
          * @param prop the value to be set. This parameter is required.
          * @return {@code this}
          */

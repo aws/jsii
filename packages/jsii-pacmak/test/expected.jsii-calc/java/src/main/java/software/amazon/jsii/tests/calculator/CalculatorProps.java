@@ -12,6 +12,12 @@ package software.amazon.jsii.tests.calculator;
 public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     * The initial value of the calculator.
+     * 
+     * <p>NOTE: Any number works here, it's fine.</p>
+     * 
+     * Default: 0
+     * 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -20,6 +26,10 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
     }
 
     /**
+     * The maximum value the calculator can store.
+     * 
+     * Default: none
+     * 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -43,8 +53,9 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         private java.lang.Number maximumValue;
 
         /**
-         * Sets the value of InitialValue
-         * @param initialValue the value to be set.
+         * Sets the value of {@link CalculatorProps#getInitialValue}
+         * @param initialValue The initial value of the calculator.
+         *                     <p>NOTE: Any number works here, it's fine.</p>
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -54,8 +65,8 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of MaximumValue
-         * @param maximumValue the value to be set.
+         * Sets the value of {@link CalculatorProps#getMaximumValue}
+         * @param maximumValue The maximum value the calculator can store.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

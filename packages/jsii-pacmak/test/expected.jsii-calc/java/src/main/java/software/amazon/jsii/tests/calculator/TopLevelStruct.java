@@ -52,7 +52,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
         private java.lang.String optional;
 
         /**
-         * Sets the value of Required
+         * Sets the value of {@link TopLevelStruct#getRequired}
          * @param required This is a required field. This parameter is required.
          * @return {@code this}
          */
@@ -63,7 +63,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of SecondLevel
+         * Sets the value of {@link TopLevelStruct#getSecondLevel}
          * @param secondLevel A union to really stress test our serialization. This parameter is required.
          * @return {@code this}
          */
@@ -74,7 +74,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of SecondLevel
+         * Sets the value of {@link TopLevelStruct#getSecondLevel}
          * @param secondLevel A union to really stress test our serialization. This parameter is required.
          * @return {@code this}
          */
@@ -85,7 +85,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of Optional
+         * Sets the value of {@link TopLevelStruct#getOptional}
          * @param optional You don't have to pass this.
          * @return {@code this}
          */

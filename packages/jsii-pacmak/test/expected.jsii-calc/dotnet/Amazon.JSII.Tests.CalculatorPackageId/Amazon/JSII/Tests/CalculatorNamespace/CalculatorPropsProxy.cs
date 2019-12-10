@@ -13,7 +13,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>The initial value of the calculator.</summary>
         /// <remarks>
+        /// NOTE: Any number works here, it's fine.
+        /// default:
+        /// 0
         /// stability: Experimental
         /// </remarks>
         [JsiiOptional]
@@ -23,7 +27,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double?>();
         }
 
+        /// <summary>The maximum value the calculator can store.</summary>
         /// <remarks>
+        /// default:
+        /// none
         /// stability: Experimental
         /// </remarks>
         [JsiiOptional]

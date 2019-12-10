@@ -232,8 +232,21 @@ export class Power extends composition.CompositeOperation {
  * Properties for Calculator.
  */
 export interface CalculatorProps {
-    readonly initialValue?: number
-    readonly maximumValue?: number
+    /**
+     * The initial value of the calculator.
+     *
+     * NOTE: Any number works here, it's fine.
+     *
+     * @default 0
+     */
+    readonly initialValue?: number;
+
+    /**
+     * The maximum value the calculator can store.
+     *
+     * @default none
+     */
+    readonly maximumValue?: number;
 }
 
 /**

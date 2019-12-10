@@ -1422,7 +1422,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/calculator.ts",
-        "line": 260
+        "line": 273
       },
       "methods": [
         {
@@ -1432,7 +1432,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 299
+            "line": 312
           },
           "name": "add",
           "parameters": [
@@ -1451,7 +1451,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 306
+            "line": 319
           },
           "name": "mul",
           "parameters": [
@@ -1470,7 +1470,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 320
+            "line": 333
           },
           "name": "neg"
         },
@@ -1481,7 +1481,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 313
+            "line": 326
           },
           "name": "pow",
           "parameters": [
@@ -1500,7 +1500,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 339
+            "line": 352
           },
           "name": "readUnionValue",
           "returns": {
@@ -1520,7 +1520,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 327
+            "line": 340
           },
           "name": "expression",
           "overrides": "jsii-calc.composition.CompositeOperation",
@@ -1536,7 +1536,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 289
+            "line": 302
           },
           "name": "operationsLog",
           "type": {
@@ -1556,7 +1556,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 284
+            "line": 297
           },
           "name": "operationsMap",
           "type": {
@@ -1580,7 +1580,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 279
+            "line": 292
           },
           "name": "curr",
           "type": {
@@ -1594,7 +1594,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 294
+            "line": 307
           },
           "name": "maxValue",
           "optional": true,
@@ -1609,7 +1609,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 334
+            "line": 347
           },
           "name": "unionProperty",
           "optional": true,
@@ -1649,12 +1649,15 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "experimental"
+            "default": "0",
+            "remarks": "NOTE: Any number works here, it's fine.",
+            "stability": "experimental",
+            "summary": "The initial value of the calculator."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 235
+            "line": 242
           },
           "name": "initialValue",
           "optional": true,
@@ -1665,12 +1668,14 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "experimental"
+            "default": "none",
+            "stability": "experimental",
+            "summary": "The maximum value the calculator can store."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 236
+            "line": 249
           },
           "name": "maximumValue",
           "optional": true,
@@ -11743,5 +11748,5 @@
     }
   },
   "version": "0.20.8",
-  "fingerprint": "w4S74J2aEQiII5p1/vLG5rXFrtvbxUP1mra7ZGBd4so="
+  "fingerprint": "sZ6Jp7HsZKHGh8JYB08PYxyFX0bYBgK1FMDhzjtPjVQ="
 }

@@ -32,7 +32,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
         private java.lang.Object unionProperty;
 
         /**
-         * Sets the value of UnionProperty
+         * Sets the value of {@link ConfusingToJacksonStruct#getUnionProperty}
          * @param unionProperty the value to be set.
          * @return {@code this}
          */
@@ -43,7 +43,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         * Sets the value of UnionProperty
+         * Sets the value of {@link ConfusingToJacksonStruct#getUnionProperty}
          * @param unionProperty the value to be set.
          * @return {@code this}
          */
