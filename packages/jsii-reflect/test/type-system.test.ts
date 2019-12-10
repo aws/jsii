@@ -1,5 +1,5 @@
-import spec = require('jsii-spec');
-import { Stability } from 'jsii-spec';
+import spec = require('@jsii/spec');
+import { Stability } from '@jsii/spec';
 import path = require('path');
 import { TypeSystem } from '../lib';
 import { typeSystemFromSource } from './util';

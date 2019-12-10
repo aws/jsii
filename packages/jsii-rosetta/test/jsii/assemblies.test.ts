@@ -1,5 +1,5 @@
 import mockfs = require('mock-fs');
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import { allTypeScriptSnippets } from '../../lib/jsii/assemblies';
 import path = require('path');
 import { SnippetParameters } from '../../lib/snippet';

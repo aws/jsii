@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.19.0"
+    "@fixtures/jsii-calc-bundled": "^0.19.0"
   },
   "contributors": [
     {
@@ -11854,5 +11854,5 @@
     }
   },
   "version": "0.20.8",
-  "fingerprint": "ebpfchKXxZXGF98CcJaRlL6NWO7WWH/ZsW7EW1TNtug="
+  "fingerprint": "YcBXjwxW0F/uh2j6qeBwPZc5w+yTyFLSkRz4f7QCDfI="
 }

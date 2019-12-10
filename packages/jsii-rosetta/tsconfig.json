@@ -8,6 +8,6 @@
   ],
   "references": [
       { "path": "../jsii" },
-      { "path": "../jsii-spec" }
+      { "path": "../@jsii/spec" }
   ]
 }

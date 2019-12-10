@@ -22,7 +22,7 @@ function assert-generator() {
     local expected_tarball="${workdir}/$(basename ${expected_tarball})"
 
     local outdir="$(mktmpdir)"
-    local original_expected="$PWD/expected.${module}"
+    local original_expected="$PWD/expected.${module/@scope\//}"
     local expected="$(mktmpdir)"
 
     if [ -d ${original_expected} ]; then
@@ -72,9 +72,9 @@ function assert-generator() {
     done
 }
 
-assert-generator jsii-calc-base-of-base
-assert-generator jsii-calc-base
-assert-generator jsii-calc-lib
+assert-generator @scope/jsii-calc-base-of-base
+assert-generator @scope/jsii-calc-base
+assert-generator @scope/jsii-calc-lib
 assert-generator jsii-calc
 
 if ${success}; then

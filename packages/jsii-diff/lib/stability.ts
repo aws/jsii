@@ -1,5 +1,5 @@
 import reflect = require('jsii-reflect');
-import spec = require('jsii-spec');
+import spec = require('@jsii/spec');
 import { ApiElement, ComparisonContext } from './types';
 
 export function compareStabilities(original: reflect.Documentable & ApiElement, updated: reflect.Documentable, context: ComparisonContext) {

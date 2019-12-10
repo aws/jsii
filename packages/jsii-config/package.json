@@ -23,14 +23,14 @@
     "@types/jest-expect-message": "^1.0.1",
     "@types/node": "^10.17.6",
     "@types/yargs": "^13.0.3",
-    "eslint": "^6.7.1",
+    "eslint": "^6.7.2",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.3"
   },
   "dependencies": {
     "inquirer": "^7.0.0",
-    "jsii-spec": "^0.20.8",
+    "@jsii/spec": "^0.20.8",
     "yargs": "^15.0.2"
   },
   "jest": {

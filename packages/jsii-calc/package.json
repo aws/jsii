@@ -31,10 +31,10 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
+    "@fixtures/jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled",
     "@scope/jsii-calc-base": "^0.20.8",
     "@scope/jsii-calc-base-of-base": "^0.20.8",
-    "@scope/jsii-calc-lib": "^0.20.8",
-    "jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled"
+    "@scope/jsii-calc-lib": "^0.20.8"
   },
   "peerDependencies": {
     "@scope/jsii-calc-base": "^0.20.8",
@@ -77,7 +77,7 @@
     "versionFormat": "short"
   },
   "bundledDependencies": [
-    "jsii-calc-bundled"
+    "@fixtures/jsii-calc-bundled"
   ],
   "contributors": [
     {
