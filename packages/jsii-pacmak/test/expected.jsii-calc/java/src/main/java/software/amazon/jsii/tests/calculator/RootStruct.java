@@ -46,7 +46,7 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
         private software.amazon.jsii.tests.calculator.NestedStruct nestedStruct;
 
         /**
-         * Sets the value of StringProp
+         * Sets the value of {@link RootStruct#getStringProp}
          * @param stringProp May not be empty. This parameter is required.
          * @return {@code this}
          */
@@ -57,7 +57,7 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of NestedStruct
+         * Sets the value of {@link RootStruct#getNestedStruct}
          * @param nestedStruct the value to be set.
          * @return {@code this}
          */

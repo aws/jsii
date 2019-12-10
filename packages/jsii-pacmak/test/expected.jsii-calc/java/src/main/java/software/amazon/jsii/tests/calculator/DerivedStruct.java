@@ -80,7 +80,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         private java.util.List<java.lang.String> firstOptional;
 
         /**
-         * Sets the value of AnotherRequired
+         * Sets the value of {@link DerivedStruct#getAnotherRequired}
          * @param anotherRequired the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -91,7 +91,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of Bool
+         * Sets the value of {@link DerivedStruct#getBool}
          * @param bool the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -102,7 +102,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of NonPrimitive
+         * Sets the value of {@link DerivedStruct#getNonPrimitive}
          * @param nonPrimitive An example of a non primitive property. This parameter is required.
          * @return {@code this}
          */
@@ -113,7 +113,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of AnotherOptional
+         * Sets the value of {@link DerivedStruct#getAnotherOptional}
          * @param anotherOptional This is optional.
          * @return {@code this}
          */
@@ -124,7 +124,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of OptionalAny
+         * Sets the value of {@link DerivedStruct#getOptionalAny}
          * @param optionalAny the value to be set.
          * @return {@code this}
          */
@@ -135,7 +135,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of OptionalArray
+         * Sets the value of {@link DerivedStruct#getOptionalArray}
          * @param optionalArray the value to be set.
          * @return {@code this}
          */
@@ -146,7 +146,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of Anumber
+         * Sets the value of {@link DerivedStruct#getAnumber}
          * @param anumber An awesome number value. This parameter is required.
          * @return {@code this}
          */
@@ -158,7 +158,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of Astring
+         * Sets the value of {@link DerivedStruct#getAstring}
          * @param astring A string value. This parameter is required.
          * @return {@code this}
          */
@@ -170,7 +170,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of FirstOptional
+         * Sets the value of {@link DerivedStruct#getFirstOptional}
          * @param firstOptional the value to be set.
          * @return {@code this}
          */

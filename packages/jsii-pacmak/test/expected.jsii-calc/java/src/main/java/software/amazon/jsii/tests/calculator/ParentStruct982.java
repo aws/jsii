@@ -32,7 +32,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
         private java.lang.String foo;
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link ParentStruct982#getFoo}
          * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */
