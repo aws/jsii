@@ -43,7 +43,7 @@
     "@scope/jsii-calc-lib": "^0.20.8",
     "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.23",
-    "@types/node": "^10.17.6",
+    "@types/node": "^10.17.9",
     "@types/yargs": "^13.0.3",
     "eslint": "^6.7.2",
     "jest": "^24.9.0",
