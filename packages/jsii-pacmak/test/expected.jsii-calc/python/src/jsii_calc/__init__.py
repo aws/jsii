@@ -701,8 +701,8 @@ class CalculatorProps():
     def __init__(self, *, initial_value: typing.Optional[jsii.Number]=None, maximum_value: typing.Optional[jsii.Number]=None):
         """Properties for Calculator.
 
-        :param initial_value: 
-        :param maximum_value: 
+        :param initial_value: The initial value of the calculator. NOTE: Any number works here, it's fine. Default: 0
+        :param maximum_value: The maximum value the calculator can store. Default: none
 
         stability
         :stability: experimental
@@ -714,7 +714,13 @@ class CalculatorProps():
 
     @property
     def initial_value(self) -> typing.Optional[jsii.Number]:
-        """
+        """The initial value of the calculator.
+
+        NOTE: Any number works here, it's fine.
+
+        default
+        :default: 0
+
         stability
         :stability: experimental
         """
@@ -722,7 +728,11 @@ class CalculatorProps():
 
     @property
     def maximum_value(self) -> typing.Optional[jsii.Number]:
-        """
+        """The maximum value the calculator can store.
+
+        default
+        :default: none
+
         stability
         :stability: experimental
         """
@@ -8091,8 +8101,8 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
     def __init__(self, *, initial_value: typing.Optional[jsii.Number]=None, maximum_value: typing.Optional[jsii.Number]=None) -> None:
         """Creates a Calculator object.
 
-        :param initial_value: 
-        :param maximum_value: 
+        :param initial_value: The initial value of the calculator. NOTE: Any number works here, it's fine. Default: 0
+        :param maximum_value: The maximum value the calculator can store. Default: none
 
         stability
         :stability: experimental

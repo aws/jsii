@@ -43,7 +43,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
         private java.lang.Boolean props;
 
         /**
-         * Sets the value of Scope
+         * Sets the value of {@link StructParameterType#getScope}
          * @param scope the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -54,7 +54,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
         }
 
         /**
-         * Sets the value of Props
+         * Sets the value of {@link StructParameterType#getProps}
          * @param props the value to be set.
          * @return {@code this}
          */

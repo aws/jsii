@@ -39,7 +39,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         private java.lang.Object foo;
 
         /**
-         * Sets the value of Bar
+         * Sets the value of {@link UnionProperties#getBar}
          * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -50,7 +50,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of Bar
+         * Sets the value of {@link UnionProperties#getBar}
          * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -61,7 +61,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of Bar
+         * Sets the value of {@link UnionProperties#getBar}
          * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -72,7 +72,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link UnionProperties#getFoo}
          * @param foo the value to be set.
          * @return {@code this}
          */
@@ -83,7 +83,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link UnionProperties#getFoo}
          * @param foo the value to be set.
          * @return {@code this}
          */
