@@ -574,7 +574,7 @@ abstract class BaseProperty implements PythonBase {
       }
       code.openBlock(`def ${this.pythonName}(${this.implicitParameter}, value: ${pythonType})`);
       if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
-        code.line(`return jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
+        code.line(`jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
       } else {
         code.line('...');
       }
@@ -618,7 +618,7 @@ class Interface extends BasePythonClassType {
   }
 
   protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
-    code.line('@staticmethod');
+    code.line('@builtins.staticmethod');
     code.openBlock('def __jsii_proxy_class__()');
     code.line(`return ${this.getProxyClassName()}`);
     code.closeBlock();
@@ -637,7 +637,7 @@ class InterfaceMethod extends BaseMethod {
 }
 
 class InterfaceProperty extends BaseProperty {
-  protected readonly decorator: string = 'property';
+  protected readonly decorator: string = 'builtins.property';
   protected readonly implicitParameter: string = 'self';
   protected readonly jsiiGetMethod: string = 'get';
   protected readonly jsiiSetMethod: string = 'set';
@@ -729,7 +729,7 @@ class Struct extends BasePythonClassType {
   }
 
   private emitGetter(member: StructField, code: CodeMaker, resolver: TypeResolver) {
-    code.line('@property');
+    code.line('@builtins.property');
     code.openBlock(`def ${member.pythonName}(self) -> ${member.typeAnnotation(resolver)}`);
     member.emitDocString(code);
     code.line(`return self._values.get('${member.pythonName}')`);
@@ -901,7 +901,7 @@ class Class extends BasePythonClassType {
 
   protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
     if (this.abstract) {
-      code.line('@staticmethod');
+      code.line('@builtins.staticmethod');
       code.openBlock('def __jsii_proxy_class__()');
       code.line(`return ${this.getProxyClassName()}`);
       code.closeBlock();
@@ -924,7 +924,7 @@ class Class extends BasePythonClassType {
 }
 
 class StaticMethod extends BaseMethod {
-  protected readonly decorator?: string = 'classmethod';
+  protected readonly decorator?: string = 'builtins.classmethod';
   protected readonly implicitParameter: string = 'cls';
   protected readonly jsiiMethod: string = 'sinvoke';
 }
@@ -947,14 +947,14 @@ class AsyncMethod extends BaseMethod {
 }
 
 class StaticProperty extends BaseProperty {
-  protected readonly decorator: string = 'classproperty';
+  protected readonly decorator: string = 'jsii.python.classproperty';
   protected readonly implicitParameter: string = 'cls';
   protected readonly jsiiGetMethod: string = 'sget';
   protected readonly jsiiSetMethod: string = 'sset';
 }
 
 class Property extends BaseProperty {
-  protected readonly decorator: string = 'property';
+  protected readonly decorator: string = 'builtins.property';
   protected readonly implicitParameter: string = 'self';
   protected readonly jsiiGetMethod: string = 'get';
   protected readonly jsiiSetMethod: string = 'set';
@@ -1036,6 +1036,7 @@ class Module implements PythonType {
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
     code.line('import abc');
+    code.line('import builtins');
     code.line('import datetime');
     code.line('import enum');
     code.line('import typing');
@@ -1043,14 +1044,13 @@ class Module implements PythonType {
     code.line('import jsii');
     code.line('import jsii.compat');
     code.line('import publication');
-    code.line();
-    code.line('from jsii.python import classproperty');
 
     // Go over all of the modules that we need to import, and import them.
     this.emitDependencyImports(code, resolver);
 
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
+      code.line();
       code.line(
         '__jsii_assembly__ = jsii.JSIIAssembly.load(' +
                 `"${this.assembly.name}", ` +
@@ -1058,6 +1058,8 @@ class Module implements PythonType {
                 '__name__, ' +
                 `"${this.assemblyFilename}")`
       );
+      code.line();
+      code.line();
     }
 
     // Emit all of our members.

@@ -68,8 +68,7 @@ from jsii_calc import (
     StructUnionConsumer,
     SomeTypeJsii976,
     StructParameterType,
-    AnonymousImplementationProvider,
-    IAnonymousImplementationProvider
+    AnonymousImplementationProvider
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
