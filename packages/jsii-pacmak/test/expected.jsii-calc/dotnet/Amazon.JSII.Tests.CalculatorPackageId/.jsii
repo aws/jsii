@@ -1027,6 +1027,68 @@
       ],
       "name": "AllowedMethodNames"
     },
+    "jsii-calc.AmbiguousParameters": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.AmbiguousParameters",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "jsii-calc.Bell"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.StructParameterType"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2425
+      },
+      "name": "AmbiguousParameters",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2426
+          },
+          "name": "props",
+          "type": {
+            "fqn": "jsii-calc.StructParameterType"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2426
+          },
+          "name": "scope",
+          "type": {
+            "fqn": "jsii-calc.Bell"
+          }
+        }
+      ]
+    },
     "jsii-calc.AnonymousImplementationProvider": {
       "assembly": "jsii-calc",
       "docs": {
@@ -10049,6 +10111,55 @@
         }
       ]
     },
+    "jsii-calc.StructParameterType": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "remarks": "See: https://github.com/aws/aws-cdk/issues/4302",
+        "stability": "experimental",
+        "summary": "Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted."
+      },
+      "fqn": "jsii-calc.StructParameterType",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2421
+      },
+      "name": "StructParameterType",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2422
+          },
+          "name": "scope",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2423
+          },
+          "name": "props",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.StructPassing": {
       "assembly": "jsii-calc",
       "docs": {
@@ -11748,5 +11859,5 @@
     }
   },
   "version": "0.20.8",
-  "fingerprint": "sZ6Jp7HsZKHGh8JYB08PYxyFX0bYBgK1FMDhzjtPjVQ="
+  "fingerprint": "4Bqzy6fanRSSO2qQVmaQtsFCqqZVG+7rA/YXuHTbAec="
 }

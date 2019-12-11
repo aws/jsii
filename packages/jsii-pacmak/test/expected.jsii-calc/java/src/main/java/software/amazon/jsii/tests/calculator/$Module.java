@@ -25,6 +25,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.AllTypes": return software.amazon.jsii.tests.calculator.AllTypes.class;
             case "jsii-calc.AllTypesEnum": return software.amazon.jsii.tests.calculator.AllTypesEnum.class;
             case "jsii-calc.AllowedMethodNames": return software.amazon.jsii.tests.calculator.AllowedMethodNames.class;
+            case "jsii-calc.AmbiguousParameters": return software.amazon.jsii.tests.calculator.AmbiguousParameters.class;
             case "jsii-calc.AnonymousImplementationProvider": return software.amazon.jsii.tests.calculator.AnonymousImplementationProvider.class;
             case "jsii-calc.AsyncVirtualMethods": return software.amazon.jsii.tests.calculator.AsyncVirtualMethods.class;
             case "jsii-calc.AugmentableClass": return software.amazon.jsii.tests.calculator.AugmentableClass.class;
@@ -177,6 +178,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.StripInternal": return software.amazon.jsii.tests.calculator.StripInternal.class;
             case "jsii-calc.StructA": return software.amazon.jsii.tests.calculator.StructA.class;
             case "jsii-calc.StructB": return software.amazon.jsii.tests.calculator.StructB.class;
+            case "jsii-calc.StructParameterType": return software.amazon.jsii.tests.calculator.StructParameterType.class;
             case "jsii-calc.StructPassing": return software.amazon.jsii.tests.calculator.StructPassing.class;
             case "jsii-calc.StructUnionConsumer": return software.amazon.jsii.tests.calculator.StructUnionConsumer.class;
             case "jsii-calc.StructWithJavaReservedWords": return software.amazon.jsii.tests.calculator.StructWithJavaReservedWords.class;

@@ -140,6 +140,20 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ _y
  │   │     │   └── type: number
  │   │     └── returns: void
+ │   ├─┬ class AmbiguousParameters (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(scope,props) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ scope
+ │   │   │   │ └── type: jsii-calc.Bell
+ │   │   │   └─┬ props
+ │   │   │     └── type: jsii-calc.StructParameterType
+ │   │   ├─┬ props property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StructParameterType
+ │   │   └─┬ scope property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.Bell
  │   ├─┬ class AnonymousImplementationProvider (experimental)
  │   │ ├── interfaces: IAnonymousImplementationProvider
  │   │ └─┬ members
@@ -2112,6 +2126,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<jsii-calc.StructA>
+ │   ├─┬ interface StructParameterType (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ scope property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ props property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<boolean>
  │   ├─┬ interface StructWithJavaReservedWords (experimental)
  │   │ └─┬ members
  │   │   ├─┬ default property (experimental)
@@ -2330,6 +2354,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── base: BinaryOperation
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
+ │   ├── class AmbiguousParameters
  │   ├─┬ class AnonymousImplementationProvider
  │   │ └── interfaces: IAnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
@@ -2545,6 +2570,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface StableStruct
  │   ├── interface StructA
  │   ├── interface StructB
+ │   ├── interface StructParameterType
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
@@ -2648,6 +2674,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── getFoo(withParam) method
  │   │   ├── setBar(_x,_y,_z) method
  │   │   └── setFoo(_x,_y) method
+ │   ├─┬ class AmbiguousParameters
+ │   │ └─┬ members
+ │   │   ├── <initializer>(scope,props) initializer
+ │   │   ├── props property
+ │   │   └── scope property
  │   ├─┬ class AnonymousImplementationProvider
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3502,6 +3533,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── requiredString property
  │   │   ├── optionalBoolean property
  │   │   └── optionalStructA property
+ │   ├─┬ interface StructParameterType
+ │   │ └─┬ members
+ │   │   ├── scope property
+ │   │   └── props property
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├── default property
@@ -3629,6 +3664,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class Add
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
+ │   ├── class AmbiguousParameters
  │   ├── class AnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
@@ -3792,6 +3828,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface StableStruct
  │   ├── interface StructA
  │   ├── interface StructB
+ │   ├── interface StructParameterType
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct

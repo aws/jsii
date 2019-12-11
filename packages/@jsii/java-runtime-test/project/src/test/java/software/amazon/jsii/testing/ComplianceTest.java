@@ -1658,4 +1658,13 @@ public class ComplianceTest {
             return this.struct;
         }
     }
+
+    @Test
+    public void liftedKwargWithSameNameAsPositionalArg() {
+        // This is a replication of a test that mostly affects languages with keyword arguments (e.g: Python, Ruby, ...)
+        final Bell bell = new Bell();
+        final AmbiguousParameters amb = AmbiguousParameters.Builder.create(bell).scope("Driiiing!").build();
+        assertEquals(bell, amb.getScope());
+        assertEquals(StructParameterType.builder().scope("Driiiing!").build(), amb.getProps());
+    }
 }
