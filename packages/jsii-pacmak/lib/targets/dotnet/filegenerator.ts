@@ -66,6 +66,9 @@ export class FileGenerator {
     if (assembly.author.organization) {
       propertyGroup.ele('Company', assembly.author.name);
     }
+    if (assembly.keywords) {
+      propertyGroup.ele('PackageTags', assembly.keywords.join(';'));
+    }
     propertyGroup.ele('Language', 'en-US');
     propertyGroup.ele('ProjectUrl', assembly.homepage);
     propertyGroup.ele('RepositoryUrl', assembly.repository.url);

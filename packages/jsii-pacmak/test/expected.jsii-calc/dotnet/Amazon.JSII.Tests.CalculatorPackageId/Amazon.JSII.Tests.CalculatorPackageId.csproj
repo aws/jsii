@@ -9,6 +9,7 @@
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
+    <PackageTags>aws;jsii;test</PackageTags>
     <Language>en-US</Language>
     <ProjectUrl>https://github.com/aws/jsii</ProjectUrl>
     <RepositoryUrl>https://github.com/aws/jsii.git</RepositoryUrl>

@@ -13,6 +13,10 @@
   "bugs": {
     "url": "https://github.com/aws/jsii/issues"
   },
+  "keywords": [
+    "aws",
+    "jsii"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/aws/jsii.git",

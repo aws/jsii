@@ -4,6 +4,7 @@ process.stdout.write(`<Project>
   <PropertyGroup>
     <PackageVersion>$(JsiiVersion)</PackageVersion>
     <Description>${package.description}</Description>
+    <PackageTags>${(package.keywords || []).join(';')}</PackageTags>
     <PackageLicenseExpression>${package.license}</PackageLicenseExpression>
 
     <ProjectUrl>${package.homepage}</ProjectUrl>
