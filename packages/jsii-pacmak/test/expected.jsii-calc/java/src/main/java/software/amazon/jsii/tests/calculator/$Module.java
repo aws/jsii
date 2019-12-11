@@ -135,6 +135,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.JsiiAgent": return software.amazon.jsii.tests.calculator.JsiiAgent.class;
             case "jsii-calc.JsonFormatter": return software.amazon.jsii.tests.calculator.JsonFormatter.class;
             case "jsii-calc.LoadBalancedFargateServiceProps": return software.amazon.jsii.tests.calculator.LoadBalancedFargateServiceProps.class;
+            case "jsii-calc.MethodNamedProperty": return software.amazon.jsii.tests.calculator.MethodNamedProperty.class;
             case "jsii-calc.Multiply": return software.amazon.jsii.tests.calculator.Multiply.class;
             case "jsii-calc.Negate": return software.amazon.jsii.tests.calculator.Negate.class;
             case "jsii-calc.NestedStruct": return software.amazon.jsii.tests.calculator.NestedStruct.class;
@@ -155,6 +156,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.PartiallyInitializedThisConsumer": return software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer.class;
             case "jsii-calc.Polymorphism": return software.amazon.jsii.tests.calculator.Polymorphism.class;
             case "jsii-calc.Power": return software.amazon.jsii.tests.calculator.Power.class;
+            case "jsii-calc.PropertyNamedProperty": return software.amazon.jsii.tests.calculator.PropertyNamedProperty.class;
             case "jsii-calc.PublicClass": return software.amazon.jsii.tests.calculator.PublicClass.class;
             case "jsii-calc.PythonReservedWords": return software.amazon.jsii.tests.calculator.PythonReservedWords.class;
             case "jsii-calc.ReferenceEnumFromScopedPackage": return software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage.class;
@@ -168,6 +170,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.SingletonIntEnum": return software.amazon.jsii.tests.calculator.SingletonIntEnum.class;
             case "jsii-calc.SingletonString": return software.amazon.jsii.tests.calculator.SingletonString.class;
             case "jsii-calc.SingletonStringEnum": return software.amazon.jsii.tests.calculator.SingletonStringEnum.class;
+            case "jsii-calc.SmellyStruct": return software.amazon.jsii.tests.calculator.SmellyStruct.class;
             case "jsii-calc.SomeTypeJsii976": return software.amazon.jsii.tests.calculator.SomeTypeJsii976.class;
             case "jsii-calc.StableClass": return software.amazon.jsii.tests.calculator.StableClass.class;
             case "jsii-calc.StableEnum": return software.amazon.jsii.tests.calculator.StableEnum.class;

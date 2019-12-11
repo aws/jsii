@@ -1,4 +1,5 @@
 import abc
+import builtins
 import datetime
 import enum
 import typing
@@ -7,10 +8,11 @@ import jsii
 import jsii.compat
 import publication
 
-from jsii.python import classproperty
-
 import scope.jsii_calc_base
+
 __jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-lib", "0.20.8", __name__, "jsii-calc-lib@0.20.8.jsii.tgz")
+
+
 @jsii.enum(jsii_type="@scope/jsii-calc-lib.EnumFromScopedModule")
 class EnumFromScopedModule(enum.Enum):
     """Check that enums from @scoped packages can be references. See awslabs/jsii#138.
@@ -36,11 +38,11 @@ class IDoublable(jsii.compat.Protocol):
     stability
     :stability: deprecated
     """
-    @staticmethod
+    @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IDoublableProxy
 
-    @property
+    @builtins.property
     @jsii.member(jsii_name="doubleValue")
     def double_value(self) -> jsii.Number:
         """
@@ -57,7 +59,7 @@ class _IDoublableProxy():
     :stability: deprecated
     """
     __jsii_type__ = "@scope/jsii-calc-lib.IDoublable"
-    @property
+    @builtins.property
     @jsii.member(jsii_name="doubleValue")
     def double_value(self) -> jsii.Number:
         """
@@ -77,7 +79,7 @@ class IFriendly(jsii.compat.Protocol):
     stability
     :stability: deprecated
     """
-    @staticmethod
+    @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IFriendlyProxy
 
@@ -121,7 +123,7 @@ class IThreeLevelsInterface(scope.jsii_calc_base.IBaseInterface, jsii.compat.Pro
     stability
     :stability: deprecated
     """
-    @staticmethod
+    @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IThreeLevelsInterfaceProxy
 
@@ -171,7 +173,7 @@ class MyFirstStruct():
         }
         if first_optional is not None: self._values["first_optional"] = first_optional
 
-    @property
+    @builtins.property
     def anumber(self) -> jsii.Number:
         """An awesome number value.
 
@@ -180,7 +182,7 @@ class MyFirstStruct():
         """
         return self._values.get('anumber')
 
-    @property
+    @builtins.property
     def astring(self) -> str:
         """A string value.
 
@@ -189,7 +191,7 @@ class MyFirstStruct():
         """
         return self._values.get('astring')
 
-    @property
+    @builtins.property
     def first_optional(self) -> typing.Optional[typing.List[str]]:
         """
         stability
@@ -225,7 +227,7 @@ class StructWithOnlyOptionals():
         if optional2 is not None: self._values["optional2"] = optional2
         if optional3 is not None: self._values["optional3"] = optional3
 
-    @property
+    @builtins.property
     def optional1(self) -> typing.Optional[str]:
         """The first optional!
 
@@ -234,7 +236,7 @@ class StructWithOnlyOptionals():
         """
         return self._values.get('optional1')
 
-    @property
+    @builtins.property
     def optional2(self) -> typing.Optional[jsii.Number]:
         """
         stability
@@ -242,7 +244,7 @@ class StructWithOnlyOptionals():
         """
         return self._values.get('optional2')
 
-    @property
+    @builtins.property
     def optional3(self) -> typing.Optional[bool]:
         """
         stability
@@ -266,7 +268,7 @@ class Value(scope.jsii_calc_base.Base, metaclass=jsii.JSIIAbstractClass, jsii_ty
     stability
     :stability: deprecated
     """
-    @staticmethod
+    @builtins.staticmethod
     def __jsii_proxy_class__():
         return _ValueProxy
 
@@ -282,7 +284,7 @@ class Value(scope.jsii_calc_base.Base, metaclass=jsii.JSIIAbstractClass, jsii_ty
         """
         return jsii.invoke(self, "toString", [])
 
-    @property
+    @builtins.property
     @jsii.member(jsii_name="value")
     @abc.abstractmethod
     def value(self) -> jsii.Number:
@@ -295,7 +297,7 @@ class Value(scope.jsii_calc_base.Base, metaclass=jsii.JSIIAbstractClass, jsii_ty
 
 
 class _ValueProxy(Value, jsii.proxy_for(scope.jsii_calc_base.Base)):
-    @property
+    @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
         """The value.
@@ -323,7 +325,7 @@ class Number(Value, metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.Num
         """
         jsii.create(Number, self, [value])
 
-    @property
+    @builtins.property
     @jsii.member(jsii_name="doubleValue")
     def double_value(self) -> jsii.Number:
         """The number multiplied by 2.
@@ -333,7 +335,7 @@ class Number(Value, metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.Num
         """
         return jsii.get(self, "doubleValue")
 
-    @property
+    @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
         """The number.
@@ -350,7 +352,7 @@ class Operation(Value, metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-
     stability
     :stability: deprecated
     """
-    @staticmethod
+    @builtins.staticmethod
     def __jsii_proxy_class__():
         return _OperationProxy
 

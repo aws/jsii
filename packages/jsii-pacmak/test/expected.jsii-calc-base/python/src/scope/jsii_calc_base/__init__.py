@@ -1,4 +1,5 @@
 import abc
+import builtins
 import datetime
 import enum
 import typing
@@ -7,13 +8,14 @@ import jsii
 import jsii.compat
 import publication
 
-from jsii.python import classproperty
-
 import scope.jsii_calc_base_of_base
+
 __jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base", "0.20.8", __name__, "jsii-calc-base@0.20.8.jsii.tgz")
+
+
 class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Base"):
     """A base class."""
-    @staticmethod
+    @builtins.staticmethod
     def __jsii_proxy_class__():
         return _BaseProxy
 
@@ -44,11 +46,11 @@ class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
             'bar': bar,
         }
 
-    @property
+    @builtins.property
     def foo(self) -> scope.jsii_calc_base_of_base.Very:
         return self._values.get('foo')
 
-    @property
+    @builtins.property
     def bar(self) -> str:
         return self._values.get('bar')
 
@@ -64,7 +66,7 @@ class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
 
 @jsii.interface(jsii_type="@scope/jsii-calc-base.IBaseInterface")
 class IBaseInterface(scope.jsii_calc_base_of_base.IVeryBaseInterface, jsii.compat.Protocol):
-    @staticmethod
+    @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IBaseInterfaceProxy
 
