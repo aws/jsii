@@ -4,7 +4,7 @@ import setuptools
 kwargs = json.loads("""
 {
     "name": "scope.jsii-calc-base",
-    "version": "0.20.8",
+    "version": "0.20.9",
     "description": "An example direct dependency for jsii-calc.",
     "license": "Apache-2.0",
     "url": "https://github.com/aws/jsii",
@@ -22,7 +22,7 @@ kwargs = json.loads("""
     ],
     "package_data": {
         "scope.jsii_calc_base._jsii": [
-            "jsii-calc-base@0.20.8.jsii.tgz"
+            "jsii-calc-base@0.20.9.jsii.tgz"
         ],
         "scope.jsii_calc_base": [
             "py.typed"
@@ -30,9 +30,9 @@ kwargs = json.loads("""
     },
     "python_requires": ">=3.6",
     "install_requires": [
-        "jsii~=0.20.8",
+        "jsii~=0.20.9",
         "publication>=0.0.3",
-        "scope.jsii-calc-base-of-base~=0.20.8"
+        "scope.jsii-calc-base-of-base~=0.20.9"
     ],
     "classifiers": [
         "Intended Audience :: Developers",

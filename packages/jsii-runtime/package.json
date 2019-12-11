@@ -1,6 +1,6 @@
 {
   "name": "jsii-runtime",
-  "version": "0.20.8",
+  "version": "0.20.9",
   "description": "jsii runtime kernel process",
   "license": "Apache-2.0",
   "deprecated": "This package was renamed to @jsii/runtime, please update your dependencies!",
@@ -30,10 +30,10 @@
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/runtime": "^0.20.8"
+    "@jsii/runtime": "^0.20.9"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.20.8",
+    "jsii-build-tools": "^0.20.9",
     "typescript": "~3.7.3"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@jsii/ruby-runtime",
-  "version": "0.20.8",
+  "version": "0.20.9",
   "private": true,
   "description": "Ruby client for jsii runtime",
   "license": "Apache-2.0",
@@ -33,11 +33,11 @@
     "package": "package-ruby"
   },
   "devDependencies": {
-    "@jsii/runtime": "^0.20.8",
+    "@jsii/runtime": "^0.20.9",
     "@types/node": "^10.17.9",
-    "jsii-build-tools": "^0.20.8",
-    "jsii-calc": "^0.20.8",
-    "jsii-pacmak": "^0.20.8",
+    "jsii-build-tools": "^0.20.9",
+    "jsii-calc": "^0.20.9",
+    "jsii-pacmak": "^0.20.9",
     "typescript": "~3.7.3"
   }
 }
