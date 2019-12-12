@@ -2410,3 +2410,18 @@ export class ConsumePureInterface {
         return this.delegate.returnStruct();
     }
 }
+
+/**
+ * Verifies that, in languages that do keyword lifting (e.g: Python), having a
+ * struct member with the same name as a positional parameter results in the
+ * correct code being emitted.
+ *
+ * See: https://github.com/aws/aws-cdk/issues/4302
+ */
+export interface StructParameterType {
+    readonly scope: string;
+    readonly props?: boolean;
+}
+export class AmbiguousParameters {
+    public constructor(public readonly scope: Bell, public readonly props: StructParameterType) { }
+}

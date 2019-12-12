@@ -1387,5 +1387,16 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 return Struct;
             }
         }
+
+        [Fact(DisplayName = Prefix + nameof(LiftedKwargWithSameNameAsPositionalArg))]
+        public void LiftedKwargWithSameNameAsPositionalArg()
+        {
+            // This is a replication of a test that mostly affects languages with keyword arguments (e.g: Python, Ruby, ...)
+            var bell = new Bell();
+            var amb = new AmbiguousParameters(bell, new StructParameterType { Scope = "Driiiing!" });
+
+            Assert.Equal(bell, amb.Scope);
+            Assert.Equal("Driiiing!", amb.Props.Scope);
+        }
     }
 }

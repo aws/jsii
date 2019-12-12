@@ -373,3 +373,24 @@ export class Calculator extends composition.CompositeOperation {
         this.curr = value;
     }
 }
+
+/**
+ * Reproduction for https://github.com/aws/jsii/issues/1113
+ * Where a method or property named "property" would result in impossible to
+ * load Python code.
+ */
+export class PropertyNamedProperty {
+    public readonly property: string = 'Hello, I\'m property!';
+    public readonly yetAnoterOne: boolean = true;
+}
+export class MethodNamedProperty {
+    public property() {
+        return 'Hello, I\'m property()!';
+    }
+
+    public readonly elite = 1337;
+}
+export interface SmellyStruct {
+    readonly property: string;
+    readonly yetAnoterOne: boolean;
+}
