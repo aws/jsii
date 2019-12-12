@@ -31,6 +31,7 @@ export interface ProjectInfo {
     readonly url: string;
     readonly directory?: string;
   };
+  readonly keywords?: string[];
 
   readonly main: string;
   readonly types: string;
@@ -121,6 +122,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
     author: _toPerson(_required(pkg.author, 'The "package.json" file must specify the "author" attribute'), 'author'),
     repository: _toRepository(_required(pkg.repository, 'The "package.json" file must specify the "repository" attribute')),
     license: _validateLicense(pkg.license),
+    keywords: pkg.keywords,
 
     main: _required(pkg.main, 'The "package.json" file must specify the "main" attribute'),
     types: _required(pkg.types, 'The "package.json" file must specify the "types" attribute'),
