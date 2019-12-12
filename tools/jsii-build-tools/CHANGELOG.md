@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.9](https://github.com/aws/jsii/compare/v0.20.8...v0.20.9) (2019-12-11)
+
+
+### Bug Fixes
+
+* generate non-overlapping artifacts ([#1104](https://github.com/aws/jsii/issues/1104)) ([2add627](https://github.com/aws/jsii/commit/2add6276f9490fdb25ee53a1b1a9ea8a85012a1b))
+
+
+
+
+
 ## [0.20.8](https://github.com/aws/jsii/compare/v0.20.7...v0.20.8) (2019-11-24)
 
 **Note:** Version bump only for package jsii-build-tools
