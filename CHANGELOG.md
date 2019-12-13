@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.10](https://github.com/aws/jsii/compare/v0.20.9...v0.20.10) (2019-12-13)
+
+
+### Bug Fixes
+
+* **reflect:** failure to load assembly from "npm pack" ([#1117](https://github.com/aws/jsii/issues/1117)) ([a2b11f1](https://github.com/aws/jsii/commit/a2b11f19a826027be021ca815985c08461df618a))
+
+
+
+
+
 ## [0.20.9](https://github.com/aws/jsii/compare/v0.20.8...v0.20.9) (2019-12-11)
 
 

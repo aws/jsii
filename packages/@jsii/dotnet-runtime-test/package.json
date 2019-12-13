@@ -1,6 +1,6 @@
 {
   "name": "@jsii/dotnet-runtime-test",
-  "version": "0.20.9",
+  "version": "0.20.10",
   "private": true,
   "description": "Tests for the .NET client for jsii runtime",
   "license": "Apache-2.0",
@@ -30,10 +30,10 @@
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
-    "@jsii/dotnet-runtime": "^0.20.9",
+    "@jsii/dotnet-runtime": "^0.20.10",
     "@types/node": "^10.17.9",
-    "jsii-calc": "^0.20.9",
-    "jsii-pacmak": "^0.20.9",
+    "jsii-calc": "^0.20.10",
+    "jsii-pacmak": "^0.20.10",
     "typescript": "~3.7.3"
   }
 }
