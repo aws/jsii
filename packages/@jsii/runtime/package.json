@@ -1,6 +1,6 @@
 {
   "name": "@jsii/runtime",
-  "version": "0.20.10",
+  "version": "0.20.11",
   "description": "jsii runtime kernel process",
   "license": "Apache-2.0",
   "author": {
@@ -33,18 +33,18 @@
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/kernel": "^0.20.10",
-    "@jsii/spec": "^0.20.10"
+    "@jsii/kernel": "^0.20.11",
+    "@jsii/spec": "^0.20.11"
   },
   "devDependencies": {
-    "@scope/jsii-calc-base": "^0.20.10",
-    "@scope/jsii-calc-lib": "^0.20.10",
+    "@scope/jsii-calc-base": "^0.20.11",
+    "@scope/jsii-calc-lib": "^0.20.11",
     "@types/jest": "^24.0.23",
     "@types/node": "^10.17.9",
     "eslint": "^6.7.2",
     "jest": "^24.9.0",
-    "jsii-build-tools": "^0.20.10",
-    "jsii-calc": "^0.20.10",
+    "jsii-build-tools": "^0.20.11",
+    "jsii-calc": "^0.20.11",
     "source-map": "^0.7.3",
     "source-map-loader": "^0.2.4",
     "typescript": "~3.7.3",
