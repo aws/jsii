@@ -1,6 +1,6 @@
 {
   "name": "jsii-kernel",
-  "version": "0.20.9",
+  "version": "0.20.10",
   "description": "kernel for jsii execution environment",
   "license": "Apache-2.0",
   "deprecated": "This package has been renamed to @jsii/kernel, please update your dependencies!",
@@ -27,10 +27,10 @@
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/kernel": "^0.20.9"
+    "@jsii/kernel": "^0.20.10"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.20.9",
+    "jsii-build-tools": "^0.20.10",
     "typescript": "~3.7.3"
   }
 }
