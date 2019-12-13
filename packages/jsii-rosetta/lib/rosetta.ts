@@ -109,8 +109,8 @@ export class Rosetta {
     }
 
     if (!this.options.liveConversion) { return undefined; }
-    if (!this.options.targetLanguages?.includes(targetLang)) {
-      throw new Error(`Rosetta configured for live conversion to ${this.options.targetLanguages}, but requested ${targetLang}`);
+    if (this.options.targetLanguages && !this.options.targetLanguages.includes(targetLang)) {
+      throw new Error(`Rosetta configured for live conversion to ${this.options.targetLanguages.join(', ')}, but requested ${targetLang}`);
     }
 
     // See if we're going to live-convert it with full source information
