@@ -13,6 +13,12 @@
   "bugs": {
     "url": "https://github.com/aws/jsii/issues"
   },
+  "keywords": [
+    "aws",
+    "jsii",
+    "roslyn",
+    "analyzer"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/aws/jsii.git",

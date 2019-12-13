@@ -185,6 +185,11 @@
   },
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.20.9",
+  "keywords": [
+    "aws",
+    "jsii",
+    "test"
+  ],
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -11997,5 +12002,5 @@
     }
   },
   "version": "0.20.9",
-  "fingerprint": "fT6qRTaLZ5b9ufpTgj+ke1DJGA3LSYAqJpQuFWOvesI="
+  "fingerprint": "+eIc7ukZqQtzN+7cGyfCRv3HNLBnwyasStTolvMP2So="
 }
