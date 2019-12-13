@@ -42,9 +42,9 @@
     "@scope/jsii-calc-lib": "^0.20.11"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base": "^0.20.10",
-    "@scope/jsii-calc-base-of-base": "^0.20.10",
-    "@scope/jsii-calc-lib": "^0.20.10"
+    "@scope/jsii-calc-base": "^0.20.11",
+    "@scope/jsii-calc-base-of-base": "^0.20.11",
+    "@scope/jsii-calc-lib": "^0.20.11"
   },
   "devDependencies": {
     "@types/node": "^10.17.9",
