@@ -1,4 +1,4 @@
-import cm = require('commonmark');
+import * as cm from 'commonmark';
 
 export function transformMarkdown(source: string, renderer: CommonMarkRenderer, transform?: CommonMarkVisitor) {
   const parser = new cm.Parser();

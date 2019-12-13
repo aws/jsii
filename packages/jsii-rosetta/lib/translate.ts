@@ -1,5 +1,5 @@
-import logging = require('./logging');
-import ts = require('typescript');
+import * as logging from './logging';
+import * as ts from 'typescript';
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
 import { renderTree, Span, spanContains } from './o-tree';
 import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';

@@ -1,5 +1,5 @@
 import { default as camelcase } from 'camelcase';
-import decamelize = require('decamelize');
+import * as decamelize from 'decamelize';
 
 const COMMON_ABBREVIATIONS = [
   'KiB',

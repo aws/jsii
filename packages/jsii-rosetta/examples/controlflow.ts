@@ -1,4 +1,4 @@
-import lib = require('@aws-cdk/lib');
+import * as lib from '@aws-cdk/lib';
 
 /**
  * This squares a value

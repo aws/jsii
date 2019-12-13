@@ -8,7 +8,7 @@ import * as vm from 'vm';
 import * as api from './api';
 import { TOKEN_REF } from './api';
 import { ObjectTable, tagJsiiConstructor } from './objects';
-import wire = require('./serialization');
+import * as wire from './serialization';
 
 export class Kernel {
   /**
@@ -46,6 +46,7 @@ export class Kernel {
     // let loaded modules to use the native node "require" method.
     // I wonder if webpack has some pragma that allows opting-out at certain points
     // in the code.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const moduleLoad = require('module').Module._load;
     const nodeRequire = (p: string) => moduleLoad(p, module, false);
 

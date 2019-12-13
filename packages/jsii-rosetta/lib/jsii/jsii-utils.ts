@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 import { AstRenderer } from '../renderer';
 
 export function isStructInterface(name: string) {

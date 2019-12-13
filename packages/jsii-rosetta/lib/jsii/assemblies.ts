@@ -1,6 +1,6 @@
-import spec = require('@jsii/spec');
-import fs = require('fs-extra');
-import path = require('path');
+import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import { TypeScriptSnippet, typeScriptSnippetFromSource, updateParameters, SnippetParameters } from '../snippet';
 import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
 import { fixturize } from '../fixtures';

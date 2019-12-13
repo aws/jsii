@@ -1,5 +1,5 @@
-import colors = require('colors/safe');
-import yargs = require('yargs');
+import * as colors from 'colors/safe';
+import * as yargs from 'yargs';
 import { TypeSystem, TypeSystemTree } from '../lib';
 
 async function main() {
