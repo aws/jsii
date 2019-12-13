@@ -1,6 +1,6 @@
 {
   "name": "@jsii/dotnet-jsonmodel",
-  "version": "0.20.10",
+  "version": "0.20.11",
   "private": true,
   "description": ".NET json model for jsii spec and api.",
   "license": "Apache-2.0",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/node": "^10.17.9",
-    "jsii-build-tools": "^0.20.10",
+    "jsii-build-tools": "^0.20.11",
     "typescript": "~3.7.3"
   }
 }
