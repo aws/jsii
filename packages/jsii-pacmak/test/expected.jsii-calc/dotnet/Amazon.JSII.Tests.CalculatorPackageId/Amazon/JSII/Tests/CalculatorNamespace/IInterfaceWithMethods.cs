@@ -2,12 +2,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary></summary>
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IInterfaceWithMethods), fullyQualifiedName: "jsii-calc.IInterfaceWithMethods")]
     public interface IInterfaceWithMethods
     {
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -16,6 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

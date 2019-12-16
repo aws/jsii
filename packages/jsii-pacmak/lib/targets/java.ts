@@ -41,9 +41,7 @@ export class JavaBuilder implements TargetBuilder {
 
     if (this.options.codeOnly) {
       // Simple, just generate code to respective output dirs
-      for (const module of this.modules) {
-        await this.generateModuleCode(module, this.options, this.outputDir(module.outputDirectory));
-      }
+      await Promise.all(this.modules.map(module => this.generateModuleCode(module, this.options, this.outputDir(module.outputDirectory))));
       return;
     }
 
@@ -83,11 +81,14 @@ export class JavaBuilder implements TargetBuilder {
     return Scratch.make(async (tmpDir: string) => {
       logging.debug(`Generating aggregate Java source dir at ${tmpDir}`);
       const ret: TemporaryJavaPackage[] = [];
-      for (const module of modules) {
-        const relativeName = slugify(module.name);
-        const sourceDir = path.join(tmpDir, relativeName);
-        await this.generateModuleCode(module, options, sourceDir);
 
+      const generatedModules = modules
+        .map(module => ({ module, relativeName: slugify(module.name) }))
+        .map(({ module, relativeName }) => ({ module, relativeName, sourceDir: path.join(tmpDir, relativeName) }))
+        .map(({ module, relativeName, sourceDir }) => this.generateModuleCode(module, options, sourceDir)
+          .then(() => ({ module, relativeName })));
+
+      for await (const { module, relativeName } of generatedModules) {
         ret.push({
           relativeSourceDir: relativeName,
           relativeArtifactsDir: moduleArtifactsSubdir(module),
@@ -140,13 +141,13 @@ export class JavaBuilder implements TargetBuilder {
     // the files we need to copy, including Maven metadata. But we need to recreate
     // the whole path in the target directory.
 
-    for (const pkg of packages) {
+    await Promise.all(packages.map(async pkg => {
       const artifactsSource = path.join(artifactsRoot, pkg.relativeArtifactsDir);
       const artifactsDest = path.join(this.outputDir(pkg.outputTargetDirectory), pkg.relativeArtifactsDir);
 
       await fs.mkdirp(artifactsDest);
       await fs.copy(artifactsSource, artifactsDest, { recursive: true });
-    }
+    }));
   }
 
   /**
@@ -170,8 +171,13 @@ export class JavaBuilder implements TargetBuilder {
     // module. this enables building against local modules (i.e. in lerna
     // repositories or linked modules).
     const allDepsOutputDirs = new Set<string>();
-    for (const module of this.modules) {
-      setExtend(allDepsOutputDirs, await findLocalBuildDirs(module.moduleDirectory, this.targetName));
+
+    const resolvedModules = this.modules.map(async mod => ({
+      module: mod,
+      localBuildDirs: await findLocalBuildDirs(mod.moduleDirectory, this.targetName),
+    }));
+    for await (const { module, localBuildDirs } of resolvedModules) {
+      setExtend(allDepsOutputDirs, localBuildDirs);
 
       // Also include output directory where we're building to, in case we build multiple packages into
       // the same output directory.

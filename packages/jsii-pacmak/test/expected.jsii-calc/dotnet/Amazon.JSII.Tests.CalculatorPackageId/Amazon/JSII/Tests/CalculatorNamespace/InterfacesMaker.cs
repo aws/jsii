@@ -9,14 +9,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.InterfacesMaker), fullyQualifiedName: "jsii-calc.InterfacesMaker")]
     public class InterfacesMaker : DeputyBase
     {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected InterfacesMaker(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected InterfacesMaker(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
+        /// <param name="count"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

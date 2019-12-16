@@ -9,6 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DataRenderer), fullyQualifiedName: "jsii-calc.DataRenderer")]
     public class DataRenderer : DeputyBase
     {
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -16,14 +17,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected DataRenderer(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected DataRenderer(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
+        /// <param name="data"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -33,6 +40,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct)}, new object[]{data});
         }
 
+        /// <summary></summary>
+        /// <param name="data"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -42,6 +51,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{data});
         }
 
+        /// <summary></summary>
+        /// <param name="map"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

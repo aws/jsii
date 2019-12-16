@@ -5,6 +5,7 @@ import xmlbuilder = require('xmlbuilder');
 import { DotNetNameUtils } from './nameutils';
 import logging = require('../../logging');
 import { nextMajorVersion } from '../../util';
+import { TARGET_FRAMEWORK } from '../dotnet';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
@@ -80,7 +81,7 @@ export class FileGenerator {
     propertyGroup.ele('IncludeSymbols', 'true');
     propertyGroup.ele('IncludeSource', 'true');
     propertyGroup.ele('SymbolPackageFormat', 'snupkg');
-    propertyGroup.ele('TargetFramework', 'netcoreapp3.0');
+    propertyGroup.ele('TargetFramework', TARGET_FRAMEWORK);
 
     if (dotnetInfo!.signAssembly != null) {
       const signAssembly = propertyGroup.ele('SignAssembly');
@@ -114,6 +115,9 @@ export class FileGenerator {
         dependencyReference.att('Version', value.version);
       }
     });
+
+    // Suppress warnings about [Obsolete] members, this is the author's choice!
+    rootNode.ele('PropertyGroup').ele('NoWarn').text('0612,0618');
 
     const xml = rootNode.end({ pretty: true, spaceBeforeSlash: true });
 

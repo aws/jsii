@@ -7,6 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// - Implement `overrideMe` (method does not have to do anything).
     /// - Invoke `callMe`
     /// - Verify that `methodWasCalled` is `true`.
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]
@@ -16,6 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

@@ -27,5 +27,8 @@
     <PackageReference Include="Amazon.JSII.Runtime" Version="[0.20.11,0.21.0)" />
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.20.11" />
   </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>0612,0618</NoWarn>
+  </PropertyGroup>
 </Project>
 

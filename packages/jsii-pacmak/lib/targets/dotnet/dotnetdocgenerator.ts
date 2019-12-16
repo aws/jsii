@@ -1,5 +1,6 @@
 import { CodeMaker } from 'codemaker';
 import * as spec from '@jsii/spec';
+import * as xmlbuilder from 'xmlbuilder';
 import { DotNetNameUtils } from './nameutils';
 import { prefixMarkdownTsCodeBlocks } from '../../util';
 
@@ -33,22 +34,15 @@ export class DotNetDocGenerator {
     const docs = obj.docs;
 
     // The docs may be undefined at the method level but not the parameters level
-    if (docs) {
-      if (docs.summary) {
-        this.code.line(`/// <summary>${docs.summary}</summary>`);
-      }
-    }
+    this.emitXmlDoc('summary', docs?.summary || '');
 
     // Handling parameters only if the obj is a method
     const objMethod = obj as spec.Method;
     if (objMethod.parameters) {
       objMethod.parameters.forEach(param => {
-        if (param.docs) {
-          const paramSummary = param.docs.summary;
-          if (paramSummary) {
-            this.code.line(`/// <param name = "${this.nameutils.convertParameterName(param.name)}">${paramSummary}</param>`);
-          }
-        }
+        // Remove any slug `@` from the parameter name - it's not supposed to show up here.
+        const paramName = this.nameutils.convertParameterName(param.name).replace(/^@/, '');
+        this.emitXmlDoc('param', param.docs?.summary || '', { attributes: { name: paramName } });
       });
     }
 
@@ -58,68 +52,63 @@ export class DotNetDocGenerator {
     }
 
     if (docs.returns) {
-      this.code.line('/// <returns>');
-      const returnsLines = docs.returns.split('\n');
-      returnsLines.forEach( line => this.code.line(`/// ${line}`));
-      this.code.line('/// </returns>');
+      this.emitXmlDoc('returns', docs.returns);
     }
 
-    const remarks: string[] = [];
-    let remarksOpen = false;
+    const remarks = xmlbuilder.create('remarks', { headless: true });
     if (docs.remarks) {
-      this.code.line('/// <remarks>');
-      remarksOpen = true;
-      const remarkLines = prefixMarkdownTsCodeBlocks(docs.remarks, SAMPLES_DISCLAIMER).split('\n');
-      remarkLines.forEach( line => this.code.line(`/// ${line}`));
+      remarks.text(`\n${prefixMarkdownTsCodeBlocks(docs.remarks, SAMPLES_DISCLAIMER)}\n`);
     }
 
     if (docs.default) {
-      const defaultLines = docs.default.split('\n');
-      remarks.push('default:');
-      defaultLines.forEach( line => remarks.push(`${line}`));
+      remarks.text(`\ndefault:\n${docs.default}\n`);
     }
 
     if (docs.stability) {
-      remarks.push(`stability: ${this.nameutils.capitalizeWord(docs.stability)}`);
+      remarks.text(`\nstability: ${this.nameutils.capitalizeWord(docs.stability)}\n`);
     }
 
     if (docs.example) {
-      const remarkLines = docs.example.split('\n');
-      remarks.push('example:');
-      remarks.push('<code>');
-      remarks.push('// Examples in C# are coming soon.');
-      remarkLines.forEach( line => remarks.push(`${line}`));
-      remarks.push('</code>');
+      remarks.text('\nexample:\n');
+      remarks.ele('code')
+        .text('\n// Examples in C# are coming soon.\n')
+        .text(`${docs.example}\n`)
+      remarks.text('\n');
     }
 
     if (docs.see) {
-      const seeLines = docs.see.split('\n');
-      remarks.push('see:');
-      seeLines.forEach( line => remarks.push(`${line}`));
+      remarks.text(`\nsee:\n${docs.see}\n`);
     }
 
     if (docs.subclassable) {
-      remarks.push('subclassable');
+      remarks.text('\nsubclassable\n');
     }
 
     if (docs.custom) {
       for (const [k, v] of Object.entries(docs.custom ?? {})) {
         const custom = k === 'link' ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
-        const customLines = custom.split('\n');
-        customLines.forEach( line => remarks.push(`${line}`));
+        remarks.text(`\n${custom}\n`);
       }
     }
 
-    if (remarks.length > 0) {
-      if (!remarksOpen) {
-        this.code.line('/// <remarks>');
-        remarksOpen = true;
+    const remarksXml = remarks.end({ allowEmpty: true });
+    if (remarksXml !== '<remarks></remarks>') {
+      for (const line of remarksXml.split('\n')) {
+        this.code.line(`/// ${line}`);
       }
-      remarks.forEach( line => this.code.line(`/// ${line}`));
     }
+  }
 
-    if (remarksOpen) {
-      this.code.line('/// </remarks>');
+  private emitXmlDoc(tag: string, content: string, { attributes = {} }: { attributes?: { [name: string]: string } } = {}): void {
+    const xml = xmlbuilder.create(tag, { headless: true })
+      .text(content);
+    for (const [name, value] of Object.entries(attributes)) {
+      xml.att(name, value);
+    }
+    const xmlstring = xml.end({ allowEmpty: true, pretty: false });
+
+    for (const line of xmlstring.split('\n').map(x => x.trim())) {
+      this.code.line(`/// ${line}`)
     }
   }
 }

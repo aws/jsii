@@ -16,9 +16,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         string Farewell();
         /// <summary>Say goodbye.</summary>
-        /// <returns>
-        /// A goodbye blessing.
-        /// </returns>
+        /// <returns>A goodbye blessing.</returns>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
