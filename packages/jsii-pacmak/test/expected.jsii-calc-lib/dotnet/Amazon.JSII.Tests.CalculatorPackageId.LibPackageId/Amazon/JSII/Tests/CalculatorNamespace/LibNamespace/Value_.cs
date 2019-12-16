@@ -39,9 +39,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// </remarks>
         [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]
-        public virtual double Value
+        public abstract double Value
         {
-            get => GetInstanceProperty<double>();
+            get;
         }
     }
 }

@@ -36,9 +36,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
+        public abstract Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
+            get;
         }
 
         /// <summary>The value.</summary>

@@ -36,9 +36,7 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public java.lang.Number getValue() {
-        return this.jsiiGet("value", java.lang.Number.class);
-    }
+    public abstract java.lang.Number getValue();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
