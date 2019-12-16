@@ -1,4 +1,4 @@
-import path = require('path');
+import * as path from 'path';
 
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
@@ -15,9 +15,8 @@ import { Translation, Rosetta, typeScriptSnippetFromSource } from 'jsii-rosetta'
 
 const INCOMPLETE_DISCLAIMER = '# Example automatically generated. See https://github.com/aws/jsii/issues/826';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;

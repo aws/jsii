@@ -1,6 +1,6 @@
-import fs = require('fs-extra');
-import path = require('path');
-import ts = require('typescript');
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import * as ts from 'typescript';
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
 

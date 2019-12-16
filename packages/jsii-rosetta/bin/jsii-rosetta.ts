@@ -1,11 +1,11 @@
-import fs = require('fs-extra');
-import yargs = require('yargs');
+import * as fs from 'fs-extra';
+import * as yargs from 'yargs';
 import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript } from '../lib';
 import { PythonVisitor } from '../lib/languages/python';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
 import { extractSnippets } from '../lib/commands/extract';
-import logging = require('../lib/logging');
-import path = require('path');
+import * as logging from '../lib/logging';
+import * as path from 'path';
 import { readTablet as readTablet } from '../lib/commands/read';
 import { translateMarkdown } from '../lib/commands/convert';
 import { File, printDiagnostics, isErrorDiagnostic } from '../lib/util';
@@ -79,6 +79,7 @@ function main() {
     .demandCommand()
     .help()
     .strict()  // Error on wrong command
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     .version(require('../package.json').version)
     .showHelpOnFail(false)
     .argv;
@@ -93,7 +94,7 @@ function main() {
  */
 function wrapHandler<A extends { verbose?: number }, R>(handler: (x: A) => Promise<R>) {
   return (argv: A) => {
-    logging.level = argv.verbose !== undefined ? argv.verbose : 0;
+    logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
     handler(argv).catch(e => { throw e; });
   };
 }

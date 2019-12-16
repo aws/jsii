@@ -1,8 +1,8 @@
 import { Scratch, shell } from './util';
-import logging = require('../lib/logging');
-import reflect = require('jsii-reflect');
-import os = require('os');
-import path = require('path');
+import * as logging from '../lib/logging';
+import * as reflect from 'jsii-reflect';
+import * as os from 'os';
+import * as path from 'path';
 
 const SHARED_TS = new reflect.TypeSystem();
 

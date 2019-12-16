@@ -1,4 +1,4 @@
-import jsii = require('@jsii/spec');
+import * as jsii from '@jsii/spec';
 import { Assembly } from './assembly';
 import { Method } from './method';
 import { Property } from './property';

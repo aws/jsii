@@ -2,7 +2,7 @@ import * as clone from 'clone';
 import { CodeMaker } from 'codemaker';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
-import reflect = require('jsii-reflect');
+import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
 import * as path from 'path';
 import { VERSION_DESC } from './version';

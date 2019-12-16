@@ -1,8 +1,8 @@
-import fs = require('fs-extra');
-import reflect = require('jsii-reflect');
-import spec = require('@jsii/spec');
-import log4js = require('log4js');
-import yargs = require('yargs');
+import * as fs from 'fs-extra';
+import * as reflect from 'jsii-reflect';
+import * as spec from '@jsii/spec';
+import * as log4js from 'log4js';
+import * as yargs from 'yargs';
 import { compareAssemblies } from '../lib';
 import { classifyDiagnostics, formatDiagnostic, hasErrors } from '../lib/diagnostics';
 import { DownloadFailure, downloadNpmPackage, showDownloadFailure } from '../lib/util';

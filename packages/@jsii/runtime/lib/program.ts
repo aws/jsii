@@ -1,4 +1,4 @@
-import packageInfo = require('../package.json');
+import * as packageInfo from '../package.json';
 import { KernelHost } from './host';
 import { InputOutput } from './in-out';
 

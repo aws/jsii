@@ -1,9 +1,10 @@
-import fs = require('fs-extra');
+import * as fs from 'fs-extra';
 import { TabletSchema, TranslatedSnippetSchema, TranslationSchema, ORIGINAL_SNIPPET_KEY } from './schema';
 import { snippetKey } from './key';
 import { TargetLanguage } from '../languages';
 import { TypeScriptSnippet } from '../snippet';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const TOOL_VERSION = require('../../package.json').version;
 
 export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';

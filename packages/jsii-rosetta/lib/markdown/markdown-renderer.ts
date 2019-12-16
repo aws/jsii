@@ -1,4 +1,4 @@
-import cm = require('commonmark');
+import * as cm from 'commonmark';
 import { cmNodeChildren, CommonMarkRenderer, prefixLines, RendererContext } from './markdown';
 
 /* eslint-disable @typescript-eslint/camelcase */
@@ -117,9 +117,8 @@ function para(x: string) {
  * Collapse paragraph markers
  */
 function collapsePara(x: string, brk = '\n\n') {
-  /* eslint-disable no-control-regex */
+  // eslint-disable-next-line no-control-regex
   return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '').replace(/\u001d+/g, brk);
-  /* eslint-enable no-control-regex */
 }
 
 function determineItemPrefix(listNode: cm.Node, index: number) {

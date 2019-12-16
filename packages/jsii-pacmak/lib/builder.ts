@@ -1,5 +1,5 @@
-import path = require('path');
-import logging = require('./logging');
+import * as path from 'path';
+import * as logging from './logging';
 import { JsiiModule } from './packaging';
 import { TargetConstructor, Target } from './target';
 import { Scratch } from './util';

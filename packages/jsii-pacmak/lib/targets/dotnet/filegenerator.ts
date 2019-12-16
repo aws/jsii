@@ -1,9 +1,9 @@
 import { CodeMaker } from 'codemaker';
 import { Assembly } from '@jsii/spec';
-import path = require('path');
-import xmlbuilder = require('xmlbuilder');
+import * as path from 'path';
+import * as xmlbuilder from 'xmlbuilder';
 import { DotNetNameUtils } from './nameutils';
-import logging = require('../../logging');
+import * as logging from '../../logging';
 import { nextMajorVersion } from '../../util';
 
 // Represents a dependency in the dependency tree.
