@@ -72,7 +72,7 @@ export class DotNetDocGenerator {
       remarks.text('\nexample:\n');
       remarks.ele('code')
         .text('\n// Examples in C# are coming soon.\n')
-        .text(`${docs.example}\n`)
+        .text(`${docs.example}\n`);
       remarks.text('\n');
     }
 
@@ -108,7 +108,7 @@ export class DotNetDocGenerator {
     const xmlstring = xml.end({ allowEmpty: true, pretty: false });
 
     for (const line of xmlstring.split('\n').map(x => x.trim())) {
-      this.code.line(`/// ${line}`)
+      this.code.line(`/// ${line}`);
     }
   }
 }
