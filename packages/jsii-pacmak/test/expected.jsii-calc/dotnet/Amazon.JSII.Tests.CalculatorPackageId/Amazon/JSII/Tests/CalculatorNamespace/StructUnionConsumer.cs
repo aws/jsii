@@ -2,20 +2,27 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary></summary>
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), fullyQualifiedName: "jsii-calc.StructUnionConsumer")]
     public class StructUnionConsumer : DeputyBase
     {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected StructUnionConsumer(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected StructUnionConsumer(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
+        /// <param name="struct"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -25,6 +32,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructUnionConsumer), new System.Type[]{typeof(object)}, new object[]{@struct});
         }
 
+        /// <summary></summary>
+        /// <param name="struct"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

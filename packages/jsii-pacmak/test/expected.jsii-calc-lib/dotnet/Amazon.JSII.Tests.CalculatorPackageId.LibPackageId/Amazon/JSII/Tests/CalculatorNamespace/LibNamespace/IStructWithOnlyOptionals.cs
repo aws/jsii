@@ -25,6 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             }
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>
@@ -39,6 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             }
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>

@@ -2,15 +2,16 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.</summary>
+    /// <summary>We can generate fancy builders in Java for classes which take a mix of positional &amp; struct parameters.</summary>
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SupportsNiceJavaBuilderWithRequiredProps), fullyQualifiedName: "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps", parametersJson: "[{\"docs\":{\"summary\":\"some identifier of your choice.\"},\"name\":\"id\",\"type\":{\"primitive\":\"number\"}},{\"docs\":{\"summary\":\"some properties.\"},\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.SupportsNiceJavaBuilderProps\"}}]")]
     public class SupportsNiceJavaBuilderWithRequiredProps : DeputyBase
     {
-        /// <param name = "id">some identifier of your choice.</param>
-        /// <param name = "props">some properties.</param>
+        /// <summary></summary>
+        /// <param name="id">some identifier of your choice.</param>
+        /// <param name="props">some properties.</param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -18,14 +19,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected SupportsNiceJavaBuilderWithRequiredProps(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected SupportsNiceJavaBuilderWithRequiredProps(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -45,6 +51,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

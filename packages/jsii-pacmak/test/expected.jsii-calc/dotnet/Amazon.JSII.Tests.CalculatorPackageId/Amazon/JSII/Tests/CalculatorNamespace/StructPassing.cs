@@ -9,18 +9,26 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), fullyQualifiedName: "jsii-calc.StructPassing")]
     public class StructPassing : DeputyBase
     {
+        /// <summary></summary>
         public StructPassing(): base(new DeputyProps(new object[]{}))
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected StructPassing(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected StructPassing(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
+        /// <param name="positional"></param>
+        /// <param name="inputs"></param>
         /// <remarks>
         /// stability: External
         /// </remarks>
@@ -30,6 +38,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), new System.Type[]{typeof(double), typeof(Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct[])}, new object[]{positional, inputs});
         }
 
+        /// <summary></summary>
+        /// <param name="positional"></param>
+        /// <param name="input"></param>
         /// <remarks>
         /// stability: External
         /// </remarks>

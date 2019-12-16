@@ -16,8 +16,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>The initial value of the calculator.</summary>
         /// <remarks>
         /// NOTE: Any number works here, it's fine.
+        /// 
         /// default:
         /// 0
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiOptional]
@@ -31,6 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// default:
         /// none
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiOptional]

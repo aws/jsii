@@ -24,9 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Say goodbye.</summary>
-        /// <returns>
-        /// A goodbye blessing.
-        /// </returns>
+        /// <returns>A goodbye blessing.</returns>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

@@ -9,6 +9,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IConcreteBellRinger), fullyQualifiedName: "jsii-calc.IConcreteBellRinger")]
     public interface IConcreteBellRinger
     {
+        /// <summary></summary>
+        /// <param name="bell"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

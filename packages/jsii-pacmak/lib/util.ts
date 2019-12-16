@@ -163,13 +163,8 @@ export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
 }
 
 export async function filterAsync<A>(xs: A[], pred: (x: A) => Promise<boolean>): Promise<A[]> {
-  const ret = new Array<A>();
-  for (const x of xs) {
-    if (await pred(x)) {
-      ret.push(x);
-    }
-  }
-  return ret;
+  const mapped = await Promise.all(xs.map(async x => ({ x, pred: await pred(x) })));
+  return mapped.filter(({ pred }) => pred).map(({ x }) => x);
 }
 
 /**

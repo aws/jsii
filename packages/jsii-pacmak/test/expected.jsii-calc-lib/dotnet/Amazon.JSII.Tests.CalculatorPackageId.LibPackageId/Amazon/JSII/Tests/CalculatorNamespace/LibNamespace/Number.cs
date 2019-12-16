@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     public class Number : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable
     {
         /// <summary>Creates a Number object.</summary>
-        /// <param name = "@value">The number.</param>
+        /// <param name="value">The number.</param>
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>
@@ -20,11 +20,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         [System.Obsolete()]
         protected Number(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         [System.Obsolete()]
         protected Number(DeputyProps props): base(props)
         {

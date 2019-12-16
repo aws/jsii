@@ -149,7 +149,6 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
     // We run all target sets in parallel for minimal wall clock time
     await Promise.all(targetSets.map(async targetSet => {
-    // for (const targetSet of targetSets) {
       logging.info(`Packaging '${targetSet.targetType}' for ${describePackages(targetSet)}`);
       await timers.recordAsync(targetSet.targetType, () =>
         buildTargetsForLanguage(targetSet.targetType, targetSet.modules, perLanguageDirectory)

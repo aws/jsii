@@ -2,12 +2,15 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary></summary>
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicInvoker), fullyQualifiedName: "jsii-calc.VariadicInvoker", parametersJson: "[{\"name\":\"method\",\"type\":{\"fqn\":\"jsii-calc.VariadicMethod\"}}]")]
     public class VariadicInvoker : DeputyBase
     {
+        /// <summary></summary>
+        /// <param name="method"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -15,14 +18,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected VariadicInvoker(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected VariadicInvoker(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
+        /// <param name="values"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

@@ -10,8 +10,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class Multiply : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IFriendlier, Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator
     {
         /// <summary>Creates a BinaryOperation.</summary>
-        /// <param name = "lhs">Left-hand side operand.</param>
-        /// <param name = "rhs">Right-hand side operand.</param>
+        /// <param name="lhs">Left-hand side operand.</param>
+        /// <param name="rhs">Right-hand side operand.</param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -19,10 +19,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected Multiply(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected Multiply(DeputyProps props): base(props)
         {
         }
