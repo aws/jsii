@@ -7,14 +7,14 @@ pull_request_rules:
         message: >-
           Thank you for contributing! :heart: I will now look into making sure the PR is up-to-date, then proceed to try and merge it!
       label:
-        add: [ready-to-merge]
+        add: [pr-status/ready-to-merge]
     conditions:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
       - label!=blocked
       - label!=do-not-merge
-      - label!=ready-to-merge
+      - label!=pr-status/ready-to-merge
       - -merged
       - -closed
       - -approved-reviews-by~=author
@@ -40,7 +40,7 @@ pull_request_rules:
       - -title~=(WIP|wip)
       - label!=blocked
       - label!=do-not-merge
-      - label=ready-to-merge
+      - label=pr-status/ready-to-merge
       - -merged
       - -closed
       - -approved-reviews-by~=author
@@ -60,7 +60,7 @@ pull_request_rules:
   - name: Remove Label
     actions:
       label:
-        remove: [ready-to-merge]
+        remove: [pr-status/ready-to-merge]
     conditions:
       - merged
 
