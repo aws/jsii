@@ -1,4 +1,4 @@
-import calc = require('.');
+import * as calc from '.';
 const calculator = new calc.Calculator();
 
 /// here

@@ -1,4 +1,4 @@
-import reflect = require('jsii-reflect');
+import * as reflect from 'jsii-reflect';
 import { compareStabilities } from './stability';
 import { ComparisonContext } from './types';
 

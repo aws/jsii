@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@jsii/spec": "^0.20.11",
+    "fs-extra": "^8.1.0",
     "jsii-reflect": "^0.20.11",
     "log4js": "^6.1.0",
     "typescript": "~3.7.3",

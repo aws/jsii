@@ -1,8 +1,8 @@
-import child = require('child_process');
-import fs = require('fs');
-import os = require('os');
-import path = require('path');
-import process = require('process');
+import * as child from 'child_process';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
+import * as process from 'process';
 
 import { InputOutput, KernelHost, Input, Output } from '../lib';
 

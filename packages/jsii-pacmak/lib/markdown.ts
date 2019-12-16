@@ -1,4 +1,4 @@
-import commonmark = require('commonmark');
+import * as commonmark from 'commonmark';
 
 /**
  * Convert MarkDown to RST
@@ -22,8 +22,6 @@ export function md2rst(text: string) {
   function textOf(node: commonmark.Node) {
     return node.literal ?? '';
   }
-
-  // let lastParaLine: number; // Where the last paragraph ended, in order to add ::
 
   /* eslint-disable @typescript-eslint/camelcase */
   pump(ast, {

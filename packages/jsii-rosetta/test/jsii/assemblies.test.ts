@@ -1,7 +1,7 @@
-import mockfs = require('mock-fs');
-import spec = require('@jsii/spec');
+import * as mockfs from 'mock-fs';
+import * as spec from '@jsii/spec';
 import { allTypeScriptSnippets } from '../../lib/jsii/assemblies';
-import path = require('path');
+import * as path from 'path';
 import { SnippetParameters } from '../../lib/snippet';
 
 test('Extract snippet from README', () => {

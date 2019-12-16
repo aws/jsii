@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 
 export class TypeScriptCompiler {
   private readonly realHost: ts.CompilerHost;

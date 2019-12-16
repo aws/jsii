@@ -1,4 +1,4 @@
-import colors = require('colors/safe');
+import * as colors from 'colors/safe';
 import { Stability } from '@jsii/spec';
 import { AsciiTree } from 'oo-ascii-tree';
 import { Assembly } from './assembly';

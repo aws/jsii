@@ -1,5 +1,5 @@
-import childProcess = require('child_process');
-import path = require('path');
+import * as childProcess from 'child_process';
+import * as path from 'path';
 import { promisify } from 'util';
 
 const exec = promisify(childProcess.exec);

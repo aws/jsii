@@ -1,10 +1,10 @@
-import log4js = require('log4js');
-import path = require('path');
-import process = require('process');
-import yargs = require('yargs');
+import * as log4js from 'log4js';
+import * as path from 'path';
+import * as process from 'process';
+import * as yargs from 'yargs';
 import { Compiler, DIAGNOSTICS } from '../lib/compiler';
 import { loadProjectInfo } from '../lib/project-info';
-import utils = require('../lib/utils');
+import * as utils from '../lib/utils';
 import { VERSION } from '../lib/version';
 
 (async () => {
@@ -28,6 +28,7 @@ import { VERSION } from '../lib/version';
       desc: 'Treat warnings as errors'
     })
     .help()
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     .version(`${VERSION}, typescript ${require('typescript/package.json').version}`)
     .argv;
 

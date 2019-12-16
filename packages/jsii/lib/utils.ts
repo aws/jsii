@@ -1,5 +1,5 @@
-import log4js = require('log4js');
-import ts = require('typescript');
+import * as log4js from 'log4js';
+import * as ts from 'typescript';
 import { DIAGNOSTICS } from './compiler';
 
 /**

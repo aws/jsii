@@ -15,7 +15,7 @@ import { promisify } from 'util';
 import { IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
 
 const bundled = require('@fixtures/jsii-calc-bundled');
-import base = require('@scope/jsii-calc-base');
+import * as base from '@scope/jsii-calc-base';
 
 const readFile = promisify(fs.readFile);
 

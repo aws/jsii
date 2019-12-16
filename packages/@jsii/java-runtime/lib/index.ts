@@ -1,4 +1,4 @@
-import path = require('path');
+import * as path from 'path';
 
 export const maven = {
     groupId: 'software.amazon.jsii',

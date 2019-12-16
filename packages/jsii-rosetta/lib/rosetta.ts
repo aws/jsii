@@ -1,6 +1,6 @@
-import fs = require('fs-extra');
-import path = require('path');
-import spec = require('@jsii/spec');
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import * as spec from '@jsii/spec';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { allTypeScriptSnippets } from './jsii/assemblies';
 import { TargetLanguage } from './languages';

@@ -2,9 +2,9 @@
  * Pool worker for extract.ts
  */
 import { TypeScriptSnippet } from '../snippet';
-import ts = require('typescript');
+import * as ts from 'typescript';
 import { singleThreadedTranslateAll } from './extract';
-import worker = require('worker_threads');
+import * as worker from 'worker_threads';
 import { TranslatedSnippetSchema } from '../tablets/schema';
 
 export interface TranslateRequest {

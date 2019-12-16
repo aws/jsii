@@ -1,4 +1,4 @@
-import spec = require('@jsii/spec');
+import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
 import { sourceToAssemblyHelper as compile } from '../lib';
 
@@ -307,7 +307,7 @@ test('stability is inherited from parent type', async () => {
   ];
 
   for (const [tag, stability] of stabilities) {
-    /* eslint-disable no-await-in-loop */
+    // eslint-disable-next-line no-await-in-loop
     const assembly = await compile(`
       /**
        * ${tag}
@@ -342,12 +342,12 @@ test('@example can contain @ sign', async () => {
      *
      * @example
      *
-     * import x = require('@banana');
+     * import * as x from '@banana';
      */
     export class Foo {
     }
   `);
 
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
-  expect(classType.docs!.example).toBe('import x = require(\'@banana\');');
+  expect(classType.docs!.example).toBe('import * as x from \'@banana\';');
 });

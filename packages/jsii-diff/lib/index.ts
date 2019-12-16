@@ -1,6 +1,6 @@
-import reflect = require('jsii-reflect');
+import * as reflect from 'jsii-reflect';
 import { Stability } from '@jsii/spec';
-import log4js = require('log4js');
+import * as log4js from 'log4js';
 import { compareReferenceType, compareStruct } from './classes-ifaces';
 import { compareEnum } from './enums';
 import { ComparisonContext, ComparisonOptions, describeType, Mismatches } from './types';
