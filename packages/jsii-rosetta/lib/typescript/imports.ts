@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 import { AstRenderer } from '../renderer';
 import { allOfType, matchAst, nodeOfType, stringFromLiteral } from './ast-utils';
 
@@ -58,7 +58,7 @@ export function analyzeImportDeclaration(node: ts.ImportDeclaration, context: As
 
   const elements: ImportBinding[] = [];
   if (namedBindings) {
-    elements.push(...namedBindings.specifiers.map(spec => 
+    elements.push(...namedBindings.specifiers.map(spec =>
     // regular import { name }, renamed import { propertyName, name }
       spec.propertyName ? {
         sourceName: context.textOf(spec.propertyName),

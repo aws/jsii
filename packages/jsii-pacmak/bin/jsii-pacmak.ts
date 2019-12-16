@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import path = require('path');
-import process = require('process');
-import yargs = require('yargs');
+import * as path from 'path';
+import * as process from 'process';
+import * as yargs from 'yargs';
 import { Rosetta } from 'jsii-rosetta';
-import logging = require('../lib/logging');
+import * as logging from '../lib/logging';
 import { Timers } from '../lib/timer';
 import { VERSION_DESC } from '../lib/version';
 import { findJsiiModules, updateAllNpmIgnores } from '../lib/npm-modules';
@@ -92,7 +92,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
     .strict()
     .argv;
 
-  logging.level = argv.verbose !== undefined ? argv.verbose : 0;
+  logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
 
   // Default to 4 threads in case of concurrency, good enough for most situations
   logging.debug('command line arguments:', argv);

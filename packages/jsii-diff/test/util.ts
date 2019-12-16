@@ -1,5 +1,5 @@
 import { sourceToAssemblyHelper } from 'jsii';
-import reflect = require('jsii-reflect');
+import * as reflect from 'jsii-reflect';
 import { compareAssemblies } from '../lib';
 import { Mismatches } from '../lib/types';
 

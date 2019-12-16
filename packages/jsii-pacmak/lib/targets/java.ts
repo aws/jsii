@@ -1,12 +1,12 @@
-import clone = require('clone');
+import * as clone from 'clone';
 import { toPascalCase } from 'codemaker/lib/case-utils';
-import fs = require('fs-extra');
-import reflect = require('jsii-reflect');
-import spec = require('@jsii/spec');
-import path = require('path');
-import xmlbuilder = require('xmlbuilder');
+import * as fs from 'fs-extra';
+import * as reflect from 'jsii-reflect';
+import * as spec from '@jsii/spec';
+import * as path from 'path';
+import * as xmlbuilder from 'xmlbuilder';
 import { Generator } from '../generator';
-import logging = require('../logging');
+import * as logging from '../logging';
 import { md2html } from '../markdown';
 import { PackageInfo, Target, findLocalBuildDirs } from '../target';
 import { shell, Scratch, slugify, setExtend, prefixMarkdownTsCodeBlocks } from '../util';
@@ -14,9 +14,8 @@ import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILDER_CLASS_NAME = 'Builder';
 const SAMPLES_DISCLAIMER = '// This example is in TypeScript, examples in Java are coming soon.';
@@ -1862,9 +1861,8 @@ interface MavenDependency {
  */
 function findJavaRuntimeLocalRepository() {
   try {
-    /* eslint-disable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
+    // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
     const javaRuntime = require('jsii-java-runtime');
-    /* eslint-enable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
     return javaRuntime.repository;
   } catch {
     return undefined;

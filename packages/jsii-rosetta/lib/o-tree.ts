@@ -158,9 +158,8 @@ export class OTreeSink {
    * Marks can be used to query about things that have been written to output.
    */
   public mark(): SinkMark {
-    /* eslint-disable @typescript-eslint/no-this-alias */
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
-    /* eslint-enable @typescript-eslint/no-this-alias */
     const markIndex = this.fragments.length;
 
     return {

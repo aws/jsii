@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
 import * as path from 'path';
 import * as logging from '../logging';
-import xmlbuilder = require('xmlbuilder');
+import * as xmlbuilder from 'xmlbuilder';
 import { PackageInfo, Target, TargetOptions, findLocalBuildDirs } from '../target';
 import { shell, Scratch, setExtend, filterAsync } from '../util';
 import { DotNetGenerator } from './dotnet/dotnetgenerator';
@@ -135,9 +135,8 @@ export class DotnetBuilder implements TargetBuilder {
 
     // If dotnet-jsonmodel is checked-out and we can find a local repository, add it to the list.
     try {
-      /* eslint-disable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
+      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
       const jsiiDotNetJsonModel = require('@jsii/dotnet-jsonmodel');
-      /* eslint-enable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
       localRepos.push(jsiiDotNetJsonModel.repository);
     } catch {
       // Couldn't locate @jsii/dotnet-jsonmodel, which is owkay!
@@ -145,9 +144,8 @@ export class DotnetBuilder implements TargetBuilder {
 
     // If dotnet-runtime is checked-out and we can find a local repository, add it to the list.
     try {
-      /* eslint-disable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
+      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
       const jsiiDotNetRuntime = require('@jsii/dotnet-runtime');
-      /* eslint-enable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
       localRepos.push(jsiiDotNetRuntime.repository);
     } catch {
       // Couldn't locate @jsii/dotnet-runtime, which is owkay!
@@ -253,7 +251,7 @@ export default class Dotnet extends Target {
     this.generator = new DotNetGenerator(assembliesCurrentlyBeingCompiled);
   }
 
-  /* eslint-disable @typescript-eslint/require-await */
+  // eslint-disable-next-line @typescript-eslint/require-await
   public async build(_sourceDir: string, _outDir: string): Promise<void> {
     throw new Error('Should not be called; use builder instead');
   }

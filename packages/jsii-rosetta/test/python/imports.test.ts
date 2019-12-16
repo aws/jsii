@@ -3,7 +3,7 @@ import { expectPython } from './python';
 
 test('import/require', () =>
   expectPython(`
-  import mod = require('@scope/some-module');
+  import * as mod from '@scope/some-module';
   `, `
   import scope.some_module as mod
   `)

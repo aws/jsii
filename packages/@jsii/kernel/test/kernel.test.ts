@@ -1,8 +1,8 @@
-import childProcess = require('child_process');
-import fs = require('fs-extra');
+import * as childProcess from 'child_process';
+import * as fs from 'fs-extra';
 import { join } from 'path';
-import path = require('path');
-import vm = require('vm');
+import * as path from 'path';
+import * as vm from 'vm';
 import { api, Kernel } from '../lib';
 import { Callback, ObjRef, TOKEN_REF, TOKEN_INTERFACES, TOKEN_MAP, WireStruct, TOKEN_STRUCT } from '../lib/api';
 import { closeRecording, recordInteraction } from './recording';
@@ -10,8 +10,11 @@ import { closeRecording, recordInteraction } from './recording';
 /* eslint-disable require-atomic-updates */
 
 // extract versions of fixtures
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const calcBaseVersion = require('@scope/jsii-calc-base/package.json').version.replace(/\+.+$/, '');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const calcLibVersion = require('@scope/jsii-calc-lib/package.json').version.replace(/\+.+$/, '');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const calcVersion = require('jsii-calc/package.json').version.replace(/\+.+$/, '');
 
 // Do this so that regexes stringify nicely in approximate tests

@@ -20,6 +20,15 @@ extends:
   - plugin:@typescript-eslint/recommended-requiring-type-checking
   - plugin:import/typescript
 
+settings:
+  import/parsers:
+    '@typescript-eslint/parser': ['.ts', '.tsx']
+  import/resolver:
+    node: {}
+    typescript:
+      directory: ./**/tsconfig.json
+
+
 rules:
   # Custom Configurations
 
@@ -75,6 +84,9 @@ rules:
     - error
 
   '@typescript-eslint/no-for-in-array':
+    - error
+
+  '@typescript-eslint/no-require-imports':
     - error
 
   '@typescript-eslint/no-unused-vars':
@@ -146,6 +158,9 @@ rules:
     - devDependencies: ['**/test/**'] # Only allow importing devDependencies from tests
       optionalDependencies: false     # Disallow importing optional dependencies (those shouldn't be used here)
       peerDependencies: false         # Disallow importing peer dependencies (those shouldn't be used here)
+
+  'import/no-unresolved':
+    - error
 
   'max-len':
     - error

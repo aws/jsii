@@ -1,9 +1,9 @@
-import fs = require('fs-extra');
-import path = require('path');
-import spec = require('@jsii/spec');
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import * as spec from '@jsii/spec';
 import { resolveDependencyDirectory } from './util';
 
-import logging = require('../lib/logging');
+import * as logging from '../lib/logging';
 import { JsiiModule } from './packaging';
 import { topologicalSort } from './toposort';
 

@@ -125,17 +125,15 @@ export interface CreateRequest {
   readonly overrides?: Override[];
 }
 
-/* eslint-disable @typescript-eslint/no-empty-interface */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CreateResponse extends AnnotatedObjRef {}
-/* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface DelRequest {
   readonly objref: ObjRef;
 }
 
-/* eslint-disable @typescript-eslint/no-empty-interface */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DelResponse {}
-/* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface GetRequest {
   readonly objref: ObjRef;
@@ -163,9 +161,8 @@ export interface SetRequest {
   readonly value: any;
 }
 
-/* eslint-disable @typescript-eslint/no-empty-interface */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SetResponse { }
-/* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface StaticInvokeRequest {
   readonly fqn: string;
@@ -201,9 +198,8 @@ export interface EndResponse {
   readonly result: any;
 }
 
-/* eslint-disable @typescript-eslint/no-empty-interface */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CallbacksRequest { }
-/* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface CallbacksResponse {
   readonly callbacks: Callback[];
@@ -227,9 +223,8 @@ export interface NamingResponse {
   readonly naming: { readonly [language: string]: { readonly [key: string]: any } | undefined };
 }
 
-/* eslint-disable @typescript-eslint/no-empty-interface */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface StatsRequest { }
-/* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface StatsResponse {
   readonly objectCount: number;
