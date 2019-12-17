@@ -394,3 +394,20 @@ export interface SmellyStruct {
     readonly property: string;
     readonly yetAnoterOne: boolean;
 }
+
+/**
+ * Ensures abstract members implementations correctly register overrides in various languages.
+ */
+export abstract class AbstractSuite {
+    protected abstract property: string;
+    protected abstract someMethod(str: string): string;
+
+    /**
+     * Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result.
+     * @param seed a `string`.
+     */
+    public workItAll(seed: string) {
+        this.property = seed;
+        return this.someMethod(this.property);
+    }
+}

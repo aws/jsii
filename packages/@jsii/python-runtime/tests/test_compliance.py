@@ -10,6 +10,7 @@ from json import loads
 
 from jsii_calc import (
     AbstractClassReturner,
+    AbstractSuite,
     Add,
     AllTypes,
     AllTypesEnum,
@@ -1130,3 +1131,19 @@ def test_lifted_kwarg_with_same_name_as_positional_arg():
 
     assert amb.scope == bell
     assert amb.props == StructParameterType(scope='Driiiing!')
+
+def test_abstract_members_are_correctly_handled():
+    class AbstractSuiteImpl(AbstractSuite):
+        @property
+        def _property(self):
+            return self.property
+
+        @_property.setter
+        def _property(self, value):
+            self.property = "String<%s>" % value
+
+        def _some_method(self, str):
+            return "Wrapped<%s>" % str
+
+    abstract_suite = AbstractSuiteImpl()
+    assert "Wrapped<String<Oomf!>>" == abstract_suite.work_it_all("Oomf!")

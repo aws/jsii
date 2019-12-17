@@ -928,7 +928,7 @@ class JavaGenerator extends Generator {
         this.addJavaDocs(prop);
         if (overrides) { this.code.line('@Override'); }
         this.emitStabilityAnnotations(prop);
-        const signature = `${access} ${statc}void set${propName}(final ${type} value)`;
+        const signature = `${access} ${abstract}${statc}void set${propName}(final ${type} value)`;
         if (prop.abstract) {
           this.code.line(`${signature};`);
         } else {

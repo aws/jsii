@@ -1398,5 +1398,30 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(bell, amb.Scope);
             Assert.Equal("Driiiing!", amb.Props.Scope);
         }
+
+        [Fact(DisplayName = Prefix + nameof(AbstractMembersAreCorrectlyHandled))]
+        public void AbstractMembersAreCorrectlyHandled()
+        {
+            var abstractSuite = new AbstractSuiteImpl();
+            Assert.Equal("Wrapped<String<Oomf!>>", abstractSuite.WorkItAll("Oomf!"));
+        }
+        
+        private sealed class AbstractSuiteImpl : AbstractSuite
+        {
+            private string _property;
+            
+            public AbstractSuiteImpl() {}
+
+            protected override string SomeMethod(string str)
+            {
+                return $"Wrapped<{str}>";
+            }
+
+            protected override string Property
+            {
+                get => _property;
+                set => _property = $"String<{value}>";
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.AbstractClass": return software.amazon.jsii.tests.calculator.AbstractClass.class;
             case "jsii-calc.AbstractClassBase": return software.amazon.jsii.tests.calculator.AbstractClassBase.class;
             case "jsii-calc.AbstractClassReturner": return software.amazon.jsii.tests.calculator.AbstractClassReturner.class;
+            case "jsii-calc.AbstractSuite": return software.amazon.jsii.tests.calculator.AbstractSuite.class;
             case "jsii-calc.Add": return software.amazon.jsii.tests.calculator.Add.class;
             case "jsii-calc.AllTypes": return software.amazon.jsii.tests.calculator.AllTypes.class;
             case "jsii-calc.AllTypesEnum": return software.amazon.jsii.tests.calculator.AllTypesEnum.class;
