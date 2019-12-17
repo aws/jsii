@@ -33,7 +33,7 @@ const warningTypes = Object.keys(enabledWarnings);
     .option('silence-warnings', {
       type: 'array',
       default: [],
-      desc: `List of warnings to silence (warnings: ${warningTypes})`,
+      desc: `List of warnings to silence (warnings: ${warningTypes.join(',')})`,
     })
     .help()
     // eslint-disable-next-line @typescript-eslint/no-require-imports
