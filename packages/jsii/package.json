@@ -36,7 +36,7 @@
     "@jsii/spec": "^0.20.11",
     "case": "^1.6.2",
     "colors": "^1.4.0",
-    "deep-equal": "^1.1.1",
+    "deep-equal": "^2.0.1",
     "fs-extra": "^8.1.0",
     "log4js": "^6.1.0",
     "semver": "^7.0.0",
