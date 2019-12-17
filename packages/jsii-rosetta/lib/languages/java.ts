@@ -449,6 +449,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
         // parameters up to but excluding the current one
         const parametersUpToIth = node.parameters.slice(0, i);
+        // how should the call to the next overload look
+        const callExpr = ts.isConstructorDeclaration(node)
+          ? 'this'
+          : renderer.convert(methodOrConstructorName);
+
         overloads.push(this.renderOverload(
           returnType, renderer, methodOrConstructorName,
           parametersUpToIth,
@@ -456,7 +461,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
           this.renderBlock([new OTree(
             [
               '\n',
-              renderer.convert(methodOrConstructorName),
+              callExpr,
               '(',
             ],
             [
