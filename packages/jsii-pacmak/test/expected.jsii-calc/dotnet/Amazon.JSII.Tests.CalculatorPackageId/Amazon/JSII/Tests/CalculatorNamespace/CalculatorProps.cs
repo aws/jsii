@@ -9,7 +9,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.CalculatorProps")]
     public class CalculatorProps : Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps
     {
+        /// <summary>The initial value of the calculator.</summary>
         /// <remarks>
+        /// NOTE: Any number works here, it's fine.
+        /// 
+        /// default:
+        /// 0
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiOptional]
@@ -20,7 +26,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        /// <summary>The maximum value the calculator can store.</summary>
         /// <remarks>
+        /// default:
+        /// none
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiOptional]

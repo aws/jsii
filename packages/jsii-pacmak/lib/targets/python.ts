@@ -1,10 +1,10 @@
-import path = require('path');
+import * as path from 'path';
 
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
-import * as spec from 'jsii-spec';
-import { Stability } from 'jsii-spec';
+import * as spec from '@jsii/spec';
+import { Stability } from '@jsii/spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
@@ -15,9 +15,8 @@ import { Translation, Rosetta, typeScriptSnippetFromSource } from 'jsii-rosetta'
 
 const INCOMPLETE_DISCLAIMER = '# Example automatically generated. See https://github.com/aws/jsii/issues/826';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
@@ -110,9 +109,26 @@ const toPythonPropertyName = (name: string, constant = false, protectedItem = fa
   return value;
 };
 
-const toPythonParameterName = (name: string): string => {
-  return toPythonIdentifier(toSnakeCase(name));
-};
+/**
+ * Converts a given signature's parameter name to what should be emitted in Python. It slugifies the
+ * positional parameter names that collide with a lifted prop by appending trailing `_`. There is no
+ * risk of conflicting with an other positional parameter that ends with a `_` character because
+ * this is prohibited by the `jsii` compiler (parameter names MUST be camelCase, and only a single
+ * `_` is permitted when it is on **leading** position)
+ *
+ * @param name              the name of the parameter that needs conversion.
+ * @param liftedParamNames  the list of "lifted" keyword parameters in this signature. This must be
+ *                          omitted when generating a name for a parameter that **is** lifted.
+ */
+function toPythonParameterName(name: string, liftedParamNames = new Set<string>()): string {
+  let result = toPythonIdentifier(toSnakeCase(name));
+
+  while (liftedParamNames.has(result)) {
+    result += '_';
+  }
+
+  return result;
+}
 
 const setDifference = (setA: Set<any>, setB: Set<any>): Set<any> => {
   const difference = new Set(setA);
@@ -339,10 +355,7 @@ abstract class BaseMethod implements PythonBase {
       // initializers, because our keyword lifting will allow two names to clash.
       // This can hopefully be removed once we get https://github.com/aws/jsii/issues/288
       // resolved.
-      let paramName: string = toPythonParameterName(param.name);
-      while (liftedPropNames.has(paramName)) {
-        paramName = `${paramName}_`;
-      }
+      const paramName: string = toPythonParameterName(param.name, liftedPropNames);
 
       const paramType = resolver.resolve(param, { forwardReferences: false });
       const paramDefault = param.optional ? '=None' : '';
@@ -350,7 +363,10 @@ abstract class BaseMethod implements PythonBase {
       pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
     }
 
-    const documentableArgs = [...this.parameters];
+    const documentableArgs = this.parameters
+      // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
+      .filter((_, index) => this.liftedProp != null ? index < this.parameters.length - 1 : true)
+      .map(param => ({ ...param, name: toPythonParameterName(param.name, liftedPropNames) }));
 
     // If we have a lifted parameter, then we'll drop the last argument to our params
     // and then we'll lift all of the params of the lifted type as keyword arguments
@@ -407,25 +423,31 @@ abstract class BaseMethod implements PythonBase {
 
     code.openBlock(`def ${this.pythonName}(${pythonParams.join(', ')}) -> ${returnType}`);
     this.generator.emitDocString(code, this.docs, { arguments: documentableArgs, documentableItem: `method-${this.pythonName}` });
-    this.emitBody(code, resolver, renderAbstract, forceEmitBody);
+    this.emitBody(code, resolver, renderAbstract, forceEmitBody, liftedPropNames);
     code.closeBlock();
   }
 
-  private emitBody(code: CodeMaker, resolver: TypeResolver, renderAbstract: boolean, forceEmitBody: boolean) {
+  private emitBody(
+    code: CodeMaker,
+    resolver: TypeResolver,
+    renderAbstract: boolean,
+    forceEmitBody: boolean,
+    liftedPropNames: Set<string>
+  ) {
     if ((!this.shouldEmitBody && !forceEmitBody) || (renderAbstract && this.abstract)) {
       code.line('...');
     } else {
       if (this.liftedProp !== undefined) {
-        this.emitAutoProps(code, resolver);
+        this.emitAutoProps(code, resolver, liftedPropNames);
       }
 
-      this.emitJsiiMethodCall(code, resolver);
+      this.emitJsiiMethodCall(code, resolver, liftedPropNames);
     }
   }
 
-  private emitAutoProps(code: CodeMaker, resolver: TypeResolver) {
+  private emitAutoProps(code: CodeMaker, resolver: TypeResolver, liftedPropNames: Set<string>) {
     const lastParameter = this.parameters.slice(-1)[0];
-    const argName = toPythonParameterName(lastParameter.name);
+    const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
     const typeName = resolver.resolve(lastParameter, { ignoreOptional: true });
 
     // We need to build up a list of properties, which are mandatory, these are the
@@ -439,7 +461,7 @@ abstract class BaseMethod implements PythonBase {
     code.line();
   }
 
-  private emitJsiiMethodCall(code: CodeMaker, resolver: TypeResolver) {
+  private emitJsiiMethodCall(code: CodeMaker, resolver: TypeResolver, liftedPropNames: Set<string>) {
     const methodPrefix: string = this.returnFromJSIIMethod ? 'return ' : '';
 
     const jsiiMethodParams: string[] = [];
@@ -457,7 +479,7 @@ abstract class BaseMethod implements PythonBase {
     // If the last arg is variadic, expand the tuple
     const params: string[] = [];
     for (const param of this.parameters) {
-      let expr = toPythonParameterName(param.name);
+      let expr = toPythonParameterName(param.name, liftedPropNames);
       if (param.variadic) { expr = `*${expr}`; }
       params.push(expr);
     }
@@ -551,7 +573,7 @@ abstract class BaseProperty implements PythonBase {
       }
       code.openBlock(`def ${this.pythonName}(${this.implicitParameter}, value: ${pythonType})`);
       if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
-        code.line(`return jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
+        code.line(`jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
       } else {
         code.line('...');
       }
@@ -595,7 +617,7 @@ class Interface extends BasePythonClassType {
   }
 
   protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
-    code.line('@staticmethod');
+    code.line('@builtins.staticmethod');
     code.openBlock('def __jsii_proxy_class__()');
     code.line(`return ${this.getProxyClassName()}`);
     code.closeBlock();
@@ -614,7 +636,7 @@ class InterfaceMethod extends BaseMethod {
 }
 
 class InterfaceProperty extends BaseProperty {
-  protected readonly decorator: string = 'property';
+  protected readonly decorator: string = 'builtins.property';
   protected readonly implicitParameter: string = 'self';
   protected readonly jsiiGetMethod: string = 'get';
   protected readonly jsiiSetMethod: string = 'set';
@@ -706,7 +728,7 @@ class Struct extends BasePythonClassType {
   }
 
   private emitGetter(member: StructField, code: CodeMaker, resolver: TypeResolver) {
-    code.line('@property');
+    code.line('@builtins.property');
     code.openBlock(`def ${member.pythonName}(self) -> ${member.typeAnnotation(resolver)}`);
     member.emitDocString(code);
     code.line(`return self._values.get('${member.pythonName}')`);
@@ -878,7 +900,7 @@ class Class extends BasePythonClassType {
 
   protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
     if (this.abstract) {
-      code.line('@staticmethod');
+      code.line('@builtins.staticmethod');
       code.openBlock('def __jsii_proxy_class__()');
       code.line(`return ${this.getProxyClassName()}`);
       code.closeBlock();
@@ -901,7 +923,7 @@ class Class extends BasePythonClassType {
 }
 
 class StaticMethod extends BaseMethod {
-  protected readonly decorator?: string = 'classmethod';
+  protected readonly decorator?: string = 'builtins.classmethod';
   protected readonly implicitParameter: string = 'cls';
   protected readonly jsiiMethod: string = 'sinvoke';
 }
@@ -924,14 +946,14 @@ class AsyncMethod extends BaseMethod {
 }
 
 class StaticProperty extends BaseProperty {
-  protected readonly decorator: string = 'classproperty';
+  protected readonly decorator: string = 'jsii.python.classproperty';
   protected readonly implicitParameter: string = 'cls';
   protected readonly jsiiGetMethod: string = 'sget';
   protected readonly jsiiSetMethod: string = 'sset';
 }
 
 class Property extends BaseProperty {
-  protected readonly decorator: string = 'property';
+  protected readonly decorator: string = 'builtins.property';
   protected readonly implicitParameter: string = 'self';
   protected readonly jsiiGetMethod: string = 'get';
   protected readonly jsiiSetMethod: string = 'set';
@@ -1013,6 +1035,7 @@ class Module implements PythonType {
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
     code.line('import abc');
+    code.line('import builtins');
     code.line('import datetime');
     code.line('import enum');
     code.line('import typing');
@@ -1020,14 +1043,13 @@ class Module implements PythonType {
     code.line('import jsii');
     code.line('import jsii.compat');
     code.line('import publication');
-    code.line();
-    code.line('from jsii.python import classproperty');
 
     // Go over all of the modules that we need to import, and import them.
     this.emitDependencyImports(code, resolver);
 
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
+      code.line();
       code.line(
         '__jsii_assembly__ = jsii.JSIIAssembly.load(' +
                 `"${this.assembly.name}", ` +
@@ -1035,6 +1057,8 @@ class Module implements PythonType {
                 '__name__, ' +
                 `"${this.assemblyFilename}")`
       );
+      code.line();
+      code.line();
     }
 
     // Emit all of our members.
@@ -1204,7 +1228,12 @@ class Package {
       classifiers: [
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3',
+        'Programming Language :: JavaScript',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Typing :: Typed'
       ],
     };
     /* eslint-enable @typescript-eslint/camelcase */
@@ -1497,10 +1526,14 @@ class PythonGenerator extends Generator {
     this.types = new Map();
   }
 
-  public emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
-    arguments?: DocumentableArgument[];
-    documentableItem?: string;
-  } = {}) {
+  public emitDocString(
+    code: CodeMaker,
+    docs: spec.Docs | undefined,
+    options: {
+      arguments?: DocumentableArgument[];
+      documentableItem?: string;
+    } = {}
+  ) {
     if ((!docs || Object.keys(docs).length === 0) && !options.arguments) { return; }
     if (!docs) { docs = {}; }
 

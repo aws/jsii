@@ -1,6 +1,7 @@
-import cm = require('commonmark');
+import * as cm from 'commonmark';
 import { cmNodeChildren, CommonMarkRenderer, prefixLines, RendererContext } from './markdown';
 
+/* eslint-disable @typescript-eslint/camelcase */
 /**
  * A renderer that will render a CommonMark tree back to MarkDown
  */
@@ -10,11 +11,11 @@ export class MarkdownRenderer implements CommonMarkRenderer {
   }
 
   public code(node: cm.Node, _context: RendererContext) {
-    return '`' + node.literal + '`';
+    return `\`${node.literal}\``;
   }
 
   public code_block(node: cm.Node, _context: RendererContext) {
-    return para('```' + (node.info ?? '') + '\n' + node.literal + '```');
+    return para(`\`\`\`${node.info ?? ''}\n${node.literal}\`\`\``);
   }
 
   public text(node: cm.Node, _context: RendererContext) {
@@ -89,7 +90,7 @@ export class MarkdownRenderer implements CommonMarkRenderer {
   }
 
   public heading(node: cm.Node, context: RendererContext) {
-    return para('#'.repeat(node.level) + ' ' + context.content());
+    return para(`${'#'.repeat(node.level)} ${context.content()}`);
   }
 
   public thematic_break(_node: cm.Node, _context: RendererContext) {
@@ -104,12 +105,7 @@ export class MarkdownRenderer implements CommonMarkRenderer {
     return `<custom>${context.content()}</custom>`;
   }
 }
-
-/*
-function trimEmptyLines(x: string) {
-  return x.replace(/^\n+/, '').replace(/\n+$/, '');
-}
-*/
+/* eslint-enable @typescript-eslint/camelcase */
 
 const PARA_BREAK = '\u001d';
 
@@ -120,7 +116,8 @@ function para(x: string) {
 /**
  * Collapse paragraph markers
  */
-function collapsePara(x: string, brk: string = '\n\n') {
+function collapsePara(x: string, brk = '\n\n') {
+  // eslint-disable-next-line no-control-regex
   return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '').replace(/\u001d+/g, brk);
 }
 

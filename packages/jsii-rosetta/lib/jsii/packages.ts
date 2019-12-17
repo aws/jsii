@@ -8,8 +8,9 @@
 export function resolvePackage(packageName: string) {
   try {
     const resolved = require.resolve(`${packageName}/package.json`, { paths: [process.cwd()] });
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     return require(resolved);
-  } catch(e) {
+  } catch {
     return undefined;
   }
 }

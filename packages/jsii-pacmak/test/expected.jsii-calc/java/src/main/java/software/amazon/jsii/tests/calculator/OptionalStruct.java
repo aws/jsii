@@ -32,7 +32,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
         private java.lang.String field;
 
         /**
-         * Sets the value of Field
+         * Sets the value of {@link OptionalStruct#getField}
          * @param field the value to be set.
          * @return {@code this}
          */

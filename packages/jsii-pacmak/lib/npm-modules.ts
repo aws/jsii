@@ -1,9 +1,9 @@
-import fs = require('fs-extra');
-import path = require('path');
-import spec = require('jsii-spec');
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import * as spec from '@jsii/spec';
 import { resolveDependencyDirectory } from './util';
 
-import logging = require('../lib/logging');
+import * as logging from '../lib/logging';
 import { JsiiModule } from './packaging';
 import { topologicalSort } from './toposort';
 
@@ -18,9 +18,10 @@ import { topologicalSort } from './toposort';
 export async function findJsiiModules(directories: string[], recurse: boolean) {
   const ret: JsiiModule[] = [];
   const visited = new Set<string>();
-  for (const dir of directories.length > 0 ? directories : ['.']) {
-    await visitPackage(dir, true);
-  }
+
+  const toVisit = directories.length > 0 ? directories : ['.'];
+  await Promise.all(toVisit.map(dir => visitPackage(dir, true)));
+
   return topologicalSort(ret, m => m.name, m => m.dependencyNames);
 
   async function visitPackage(dir: string, isRoot: boolean) {
@@ -45,10 +46,8 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
 
     // if --recurse is set, find dependency dirs and build them.
     if (recurse) {
-      for (const dep of dependencyNames) {
-        const depDir = resolveDependencyDirectory(realPath, dep);
-        await visitPackage(depDir, false);
-      }
+      await Promise.all(dependencyNames.map(dep => resolveDependencyDirectory(realPath, dep))
+        .map(depDir => visitPackage(depDir, false)));
     }
 
     // outdir is either by package.json/jsii.outdir (relative to package root) or via command line (relative to cwd)
@@ -66,10 +65,7 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
 }
 
 export async function updateAllNpmIgnores(packages: JsiiModule[]) {
-  for (const pkg of packages) {
-    // updates .npmignore to exclude the output directory and include the .jsii file
-    await updateNpmIgnore(pkg.moduleDirectory, pkg.outputDirectory);
-  }
+  await Promise.all(packages.map(pkg => updateNpmIgnore(pkg.moduleDirectory, pkg.outputDirectory)));
 }
 
 async function updateNpmIgnore(packageDir: string, excludeOutdir: string | undefined) {

@@ -9,18 +9,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DoNotRecognizeAnyAsOptional), fullyQualifiedName: "jsii-calc.DoNotRecognizeAnyAsOptional")]
     public class DoNotRecognizeAnyAsOptional : DeputyBase
     {
+        /// <summary></summary>
         public DoNotRecognizeAnyAsOptional(): base(new DeputyProps(new object[]{}))
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected DoNotRecognizeAnyAsOptional(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected DoNotRecognizeAnyAsOptional(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
+        /// <param name="requiredAny"></param>
+        /// <param name="optionalAny"></param>
+        /// <param name="optionalString"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

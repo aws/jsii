@@ -1,6 +1,6 @@
-import spec = require('jsii-spec');
-import fs = require('fs-extra');
-import path = require('path');
+import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import { TypeScriptSnippet, typeScriptSnippetFromSource, updateParameters, SnippetParameters } from '../snippet';
 import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
 import { fixturize } from '../fixtures';
@@ -37,7 +37,7 @@ async function loadAssemblyFromFile(filename: string) {
   return spec.validateAssembly(contents);
 }
 
-export type AssemblySnippetSource = { type: 'markdown'; markdown: string; where: string } | { type: 'literal'; source: string; where: string };
+export type AssemblySnippetSource = { type: 'markdown', markdown: string, where: string } | { type: 'literal', source: string, where: string };
 
 /**
  * Return all markdown and example snippets from the given assembly
@@ -115,7 +115,7 @@ export function* allTypeScriptSnippets(assemblies: Array<{ assembly: spec.Assemb
  * sample.
  */
 function exampleLooksLikeSource(text: string) {
-  return !!text.trim().match(WHITESPACE);
+  return !!WHITESPACE.exec(text.trim());
 }
 
 const WHITESPACE = new RegExp('\\s');

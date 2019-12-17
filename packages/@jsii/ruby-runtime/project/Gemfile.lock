@@ -1,0 +1,37 @@
+PATH
+  remote: .
+  specs:
+    jsii_runtime (0.20.11)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.4.0)
+    jaro_winkler (1.5.4)
+    parallel (1.19.1)
+    parser (2.6.5.0)
+      ast (~> 2.4.0)
+    power_assert (1.1.5)
+    rainbow (3.0.0)
+    rubocop (0.77.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.6)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 1.7)
+    ruby-progressbar (1.10.1)
+    test-unit (3.3.4)
+      power_assert
+    unicode-display_width (1.6.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  jsii_runtime!
+  rubocop (~> 0.77.0)
+  test-unit (~> 3.3.3)
+
+BUNDLED WITH
+   2.0.2

@@ -5,20 +5,26 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>This tries to confuse Jackson by having overloaded property setters.</summary>
     /// <remarks>
     /// stability: Experimental
+    /// 
     /// see:
     /// https://github.com/aws/aws-cdk/issues/4080
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConfusingToJackson), fullyQualifiedName: "jsii-calc.ConfusingToJackson")]
     public class ConfusingToJackson : DeputyBase
     {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected ConfusingToJackson(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected ConfusingToJackson(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -28,6 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.ConfusingToJackson>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConfusingToJackson), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -37,6 +44,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IConfusingToJacksonStruct>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConfusingToJackson), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

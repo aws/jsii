@@ -1,0 +1,9 @@
+*.sh
+*.t.js
+project
+test-project
+test-maven-repo
+conf
+
+tsconfig.json
+*.tsbuildinfo

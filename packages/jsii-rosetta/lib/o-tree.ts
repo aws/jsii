@@ -60,7 +60,7 @@ export class OTree implements OTree {
   private readonly children: Array<OTree | string>;
   private span?: Span;
 
-  constructor(
+  public constructor(
     prefix: Array<OTree | string | undefined>,
     children?: Array<OTree | string | undefined>,
     private readonly options: OTreeOptions = {}) {
@@ -138,11 +138,11 @@ export interface OTreeSinkOptions {
 export class OTreeSink {
   private readonly indentLevels: number[] = [0];
   private readonly fragments = new Array<string>();
-  private singletonsRendered = new Set<string>();
+  private readonly singletonsRendered = new Set<string>();
   private pendingIndentChange = 0;
   private rendering = true;
 
-  constructor(private readonly options: OTreeSinkOptions = {}) {
+  public constructor(private readonly options: OTreeSinkOptions = {}) {
   }
 
   public tagOnce(key: string | undefined): boolean {
@@ -158,12 +158,13 @@ export class OTreeSink {
    * Marks can be used to query about things that have been written to output.
    */
   public mark(): SinkMark {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     const markIndex = this.fragments.length;
 
     return {
       get wroteNonWhitespaceSinceMark(): boolean {
-        return self.fragments.slice(markIndex).some(s => !!s.match(/[^\s]/));
+        return self.fragments.slice(markIndex).some(s => /[^\s]/.exec(s) != null);
       }
     };
   }
@@ -177,7 +178,7 @@ export class OTreeSink {
       if (containsNewline(text)) {
         this.applyPendingIndentChange();
       }
-      this.append(text.replace(/\n/g, '\n' + ' '.repeat(this.currentIndent)));
+      this.append(text.replace(/\n/g, `\n${' '.repeat(this.currentIndent)}`));
     }
   }
 
@@ -193,13 +194,12 @@ export class OTreeSink {
 
     this.pendingIndentChange = x;
     const currentIndentState = this.indentLevels.length;
-    const self = this;
 
     // Return a pop function which will reset to the current indent state,
     // regardless of whether the indent was actually applied or not.
     return () => {
-      self.indentLevels.splice(currentIndentState);
-      self.pendingIndentChange = 0;
+      this.indentLevels.splice(currentIndentState);
+      this.pendingIndentChange = 0;
     };
   }
 
@@ -239,12 +239,12 @@ export function renderTree(tree: OTree, options?: OTreeSinkOptions): string {
 }
 
 function containsNewline(x: string) {
-  return x.indexOf('\n') !== -1;
+  return x.includes('\n');
 }
 
 export interface Span {
   start: number;
-  end: number
+  end: number;
 }
 
 export function spanInside(a: Span, b: Span) {

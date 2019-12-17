@@ -1,5 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-rm -fr dist/js
-mkdir -p dist/js
-mv $(npm pack) dist/js

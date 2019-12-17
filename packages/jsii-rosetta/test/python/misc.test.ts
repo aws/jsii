@@ -1,4 +1,4 @@
-import { expectPython } from "./python";
+import { expectPython } from './python';
 
 test('booleans render to right primitives', () => {
   expectPython(`

@@ -1,0 +1,44 @@
+{
+  "name": "@jsii/dotnet-analyzers",
+  "version": "0.20.11",
+  "private": true,
+  "description": ".NET Roslyn Analyzers for Jsii",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "keywords": [
+    "aws",
+    "jsii",
+    "roslyn",
+    "analyzer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/@jsii/dotnet-analyzers"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "gen": "/bin/bash ./generate.sh",
+    "build": "npm run gen && tsc --build && /bin/bash ./build.sh",
+    "test": "/bin/bash ./test.sh",
+    "test:update": "UPDATE_DIFF=1 npm run test",
+    "package": "package-dotnet"
+  },
+  "devDependencies": {
+    "@types/node": "^10.17.9",
+    "jsii-build-tools": "^0.20.11",
+    "typescript": "~3.7.3"
+  }
+}

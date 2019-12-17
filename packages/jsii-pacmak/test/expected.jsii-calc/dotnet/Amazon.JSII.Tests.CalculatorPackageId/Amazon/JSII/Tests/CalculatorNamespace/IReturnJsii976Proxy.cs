@@ -13,6 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

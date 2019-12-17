@@ -2,6 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClasses
 {
+    /// <summary></summary>
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
@@ -12,6 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
         {
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

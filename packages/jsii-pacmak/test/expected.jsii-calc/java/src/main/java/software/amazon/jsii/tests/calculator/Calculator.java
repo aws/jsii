@@ -249,10 +249,16 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         }
 
         /**
+         * The initial value of the calculator.
+         * 
+         * <p>NOTE: Any number works here, it's fine.</p>
+         * 
+         * Default: 0
+         * 
          * EXPERIMENTAL
          * 
          * @return {@code this}
-         * @param initialValue This parameter is required.
+         * @param initialValue The initial value of the calculator. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder initialValue(final java.lang.Number initialValue) {
@@ -261,10 +267,14 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         }
 
         /**
+         * The maximum value the calculator can store.
+         * 
+         * Default: none
+         * 
          * EXPERIMENTAL
          * 
          * @return {@code this}
-         * @param maximumValue This parameter is required.
+         * @param maximumValue The maximum value the calculator can store. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder maximumValue(final java.lang.Number maximumValue) {

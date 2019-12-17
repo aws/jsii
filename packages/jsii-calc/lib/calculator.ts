@@ -232,8 +232,21 @@ export class Power extends composition.CompositeOperation {
  * Properties for Calculator.
  */
 export interface CalculatorProps {
-    readonly initialValue?: number
-    readonly maximumValue?: number
+    /**
+     * The initial value of the calculator.
+     *
+     * NOTE: Any number works here, it's fine.
+     *
+     * @default 0
+     */
+    readonly initialValue?: number;
+
+    /**
+     * The maximum value the calculator can store.
+     *
+     * @default none
+     */
+    readonly maximumValue?: number;
 }
 
 /**
@@ -359,4 +372,25 @@ export class Calculator extends composition.CompositeOperation {
         this.operationsLog.push(value);
         this.curr = value;
     }
+}
+
+/**
+ * Reproduction for https://github.com/aws/jsii/issues/1113
+ * Where a method or property named "property" would result in impossible to
+ * load Python code.
+ */
+export class PropertyNamedProperty {
+    public readonly property: string = 'Hello, I\'m property!';
+    public readonly yetAnoterOne: boolean = true;
+}
+export class MethodNamedProperty {
+    public property() {
+        return 'Hello, I\'m property()!';
+    }
+
+    public readonly elite = 1337;
+}
+export interface SmellyStruct {
+    readonly property: string;
+    readonly yetAnoterOne: boolean;
 }

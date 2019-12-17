@@ -9,6 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Sum), fullyQualifiedName: "jsii-calc.Sum")]
     public class Sum : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     {
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -16,10 +17,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected Sum(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected Sum(DeputyProps props): base(props)
         {
         }

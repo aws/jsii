@@ -33,6 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             set;
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>

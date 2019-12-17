@@ -1,4 +1,4 @@
-import * as spec from 'jsii-spec';
+import * as spec from '@jsii/spec';
 import { Generator } from '../generator';
 import { Target } from '../target';
 

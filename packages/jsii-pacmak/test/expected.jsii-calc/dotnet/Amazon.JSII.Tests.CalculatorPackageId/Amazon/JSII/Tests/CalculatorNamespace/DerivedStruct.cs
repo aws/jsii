@@ -9,6 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.DerivedStruct")]
     public class DerivedStruct : Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct
     {
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -19,6 +20,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -52,6 +54,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -63,6 +66,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -98,6 +102,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>

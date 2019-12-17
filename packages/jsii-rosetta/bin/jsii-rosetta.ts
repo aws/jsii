@@ -1,16 +1,16 @@
-import fs = require('fs-extra');
-import yargs = require('yargs');
+import * as fs from 'fs-extra';
+import * as yargs from 'yargs';
 import { TranslateResult, DEFAULT_TABLET_NAME, translateTypeScript } from '../lib';
 import { PythonVisitor } from '../lib/languages/python';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
 import { extractSnippets } from '../lib/commands/extract';
-import logging = require('../lib/logging');
-import path = require('path');
+import * as logging from '../lib/logging';
+import * as path from 'path';
 import { readTablet as readTablet } from '../lib/commands/read';
 import { translateMarkdown } from '../lib/commands/convert';
 import { File, printDiagnostics, isErrorDiagnostic } from '../lib/util';
 
-async function main() {
+function main() {
   const argv = yargs
     .usage('$0 <cmd> [args]')
     .option('verbose', {
@@ -21,8 +21,8 @@ async function main() {
       default: 0
     })
     .command('snippet FILE', 'Translate a single snippet', command => command
-        .positional('file', { type: 'string', describe: 'The file to translate (leave out for stdin)' })
-        .option('python', { alias: 'p', boolean: true, description: 'Translate snippets to Python' })
+      .positional('file', { type: 'string', describe: 'The file to translate (leave out for stdin)' })
+      .option('python', { alias: 'p', boolean: true, description: 'Translate snippets to Python' })
     , wrapHandler(async args => {
       const result = translateTypeScript(
         await makeFileSource(args.file ?? '-', 'stdin.ts'),
@@ -30,8 +30,8 @@ async function main() {
       renderResult(result);
     }))
     .command('markdown FILE', 'Translate a MarkDown file', command => command
-        .positional('file', { type: 'string', describe: 'The file to translate (leave out for stdin)' })
-        .option('python', { alias: 'p', boolean: true, description: 'Translate snippets to Python' })
+      .positional('file', { type: 'string', describe: 'The file to translate (leave out for stdin)' })
+      .option('python', { alias: 'p', boolean: true, description: 'Translate snippets to Python' })
     , wrapHandler(async args => {
       const result = translateMarkdown(
         await makeFileSource(args.file ?? '-', 'stdin.md'),
@@ -79,6 +79,7 @@ async function main() {
     .demandCommand()
     .help()
     .strict()  // Error on wrong command
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     .version(require('../package.json').version)
     .showHelpOnFail(false)
     .argv;
@@ -91,10 +92,10 @@ async function main() {
 /**
  * Wrap a command's handler with standard pre- and post-work
  */
-function wrapHandler<A extends { verbose?: number }>(handler: (x: A) => Promise<void>) {
+function wrapHandler<A extends { verbose?: number }, R>(handler: (x: A) => Promise<R>) {
   return (argv: A) => {
-    logging.level = argv.verbose !== undefined ? argv.verbose : 0;
-    return handler(argv);
+    logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
+    handler(argv).catch(e => { throw e; });
   };
 }
 
@@ -134,7 +135,7 @@ async function readStdin(): Promise<string> {
 }
 
 function renderResult(result: TranslateResult) {
-  process.stdout.write(result.translation + '\n');
+  process.stdout.write(`${result.translation}\n`);
 
   if (result.diagnostics.length > 0) {
     printDiagnostics(result.diagnostics, process.stderr);
@@ -145,8 +146,4 @@ function renderResult(result: TranslateResult) {
   }
 }
 
-main().catch(e => {
-  // tslint:disable-next-line:no-console
-  console.error(e);
-  process.exit(1);
-});
+main();

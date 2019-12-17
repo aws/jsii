@@ -9,14 +9,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JsiiAgent_), fullyQualifiedName: "jsii-calc.JsiiAgent")]
     public class JsiiAgent_ : DeputyBase
     {
+        /// <summary></summary>
         public JsiiAgent_(): base(new DeputyProps(new object[]{}))
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected JsiiAgent_(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected JsiiAgent_(DeputyProps props): base(props)
         {
         }

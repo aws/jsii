@@ -6,6 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// This is cheating with the (current) declared types, but this is the "more
     /// idiomatic" way for Pythonists.
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IRootStruct), fullyQualifiedName: "jsii-calc.RootStruct")]
@@ -25,6 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

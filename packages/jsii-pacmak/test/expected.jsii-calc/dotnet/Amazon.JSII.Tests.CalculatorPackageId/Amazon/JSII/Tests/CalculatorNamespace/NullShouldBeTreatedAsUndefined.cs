@@ -9,6 +9,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NullShouldBeTreatedAsUndefined), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefined", parametersJson: "[{\"name\":\"_param1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"optional\",\"optional\":true,\"type\":{\"primitive\":\"any\"}}]")]
     public class NullShouldBeTreatedAsUndefined : DeputyBase
     {
+        /// <summary></summary>
+        /// <param name="param1"></param>
+        /// <param name="optional"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -16,14 +19,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected NullShouldBeTreatedAsUndefined(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected NullShouldBeTreatedAsUndefined(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
+        /// <param name="value"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -33,6 +42,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object[]{@value});
         }
 
+        /// <summary></summary>
+        /// <param name="input"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -42,6 +53,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData)}, new object[]{input});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -51,6 +63,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

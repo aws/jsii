@@ -1,54 +1,54 @@
-import { expectPython } from "./python";
+import { expectPython } from './python';
 
-test('function call', async () => {
+test('function call', () =>
   expectPython(`
   callSomeFunction(1, 2, 3);
   `, `
   call_some_function(1, 2, 3)
-  `);
-});
+  `)
+);
 
-test('method call', async () => {
+test('method call', () =>
   expectPython(`
   someObject.callSomeFunction(1, 2, 3);
   `, `
   some_object.call_some_function(1, 2, 3)
-  `);
-});
+  `)
+);
 
-test('static function call', async () => {
+test('static function call', () =>
   expectPython(`
   SomeObject.callSomeFunction(1, 2, 3);
   `, `
   SomeObject.call_some_function(1, 2, 3)
-  `);
-});
+  `)
+);
 
-test('translate this to self when calling', async () => {
+test('translate this to self when calling', () =>
   expectPython(`
   callSomeFunction(this, 25);
   `, `
   call_some_function(self, 25)
-  `);
-});
+  `)
+);
 
-test('translate this to self on LHS of object accessor', async () => {
+test('translate this to self on LHS of object accessor', () =>
   expectPython(`
   this.callSomeFunction(25);
   `, `
   self.call_some_function(25)
-  `);
-});
+  `)
+);
 
-test('translate object literals in function call', async () => {
+test('translate object literals in function call', () =>
   expectPython(`
   foo(25, { foo: 3, banana: "hello"  });
   `, `
   foo(25, foo=3, banana="hello")
-  `);
-});
+  `)
+);
 
-test('translate object literals with newlines', async () => {
+test('translate object literals with newlines', () =>
   expectPython(`
   foo(25, {
     foo: 3,
@@ -59,10 +59,10 @@ test('translate object literals with newlines', async () => {
       foo=3,
       banana="hello"
   )
-  `);
-});
+  `)
+);
 
-test('translate object literals with multiple newlines', async () => {
+test('translate object literals with multiple newlines', () =>
   expectPython(`
   foo(25, {
     foo: 3,
@@ -75,19 +75,19 @@ test('translate object literals with multiple newlines', async () => {
 
       banana="hello"
   )
-  `);
-});
+  `)
+);
 
-test('translate object literals only one level deep', async () => {
+test('translate object literals only one level deep', () =>
   // FIXME: This is wrong! We need the types here!
   expectPython(`
   foo(25, { foo: 3, deeper: { a: 1, b: 2 });
   `, `
   foo(25, foo=3, deeper={"a": 1, "b": 2})
-  `);
-});
+  `)
+);
 
-test('translate object literals second level with newlines', async () => {
+test('translate object literals second level with newlines', () =>
   expectPython(`
   foo(25, { foo: 3, deeper: {
     a: 1,
@@ -98,10 +98,10 @@ test('translate object literals second level with newlines', async () => {
       "a": 1,
       "b": 2
   })
-  `);
-});
+  `)
+);
 
-test('will type deep structs directly if type info is available', () => {
+test('will type deep structs directly if type info is available', () =>
   expectPython(`
   interface BaseDeeperStruct {
     a: number;
@@ -129,10 +129,10 @@ test('will type deep structs directly if type info is available', () => {
       a=1,
       b=2
   ))
-  `);
-});
+  `)
+);
 
-test('default arguments get =None appended', () => {
+test('default arguments get =None appended', () =>
   expectPython(`
   function foo(x: string | undefined, y: string = 'hello', z?: string) {
     console.log(x, y, z);
@@ -140,10 +140,10 @@ test('default arguments get =None appended', () => {
   `, `
   def foo(x=None, y=None, z=None):
       print(x, y, z)
-  `);
-});
+  `)
+);
 
-test('default struct fields get =None appended', () => {
+test('default struct fields get =None appended', () =>
   expectPython(`
   interface Struct {
     x: string | undefined;
@@ -155,10 +155,10 @@ test('default struct fields get =None appended', () => {
   `, `
   def foo(*, x=None, y=None):
       print(x, y)
-  `);
-});
+  `)
+);
 
-test('list of structs', () => {
+test('list of structs', () =>
   expectPython(`
   foo({
     list: [{
@@ -179,10 +179,10 @@ test('list of structs', () => {
           "b": 4
       }]
   )
-  `);
-});
+  `)
+);
 
-test('literal map argument doesnt get keyworded', () => {
+test('literal map argument doesnt get keyworded', () =>
   // requires type information to work
   expectPython(`
   function foo(xs: {[key: string]: string}) {  }
@@ -193,5 +193,5 @@ test('literal map argument doesnt get keyworded', () => {
       pass
 
   foo({"foo": "bar", "schmoo": "schmar"})
-  `);
-});
+  `)
+);

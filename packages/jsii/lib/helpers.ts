@@ -6,10 +6,10 @@
  * well put it in one reusable place.
  */
 
-import fs = require('fs-extra');
-import spec = require('jsii-spec');
-import os = require('os');
-import path = require('path');
+import * as fs from 'fs-extra';
+import * as spec from '@jsii/spec';
+import * as os from 'os';
+import * as path from 'path';
 import { DiagnosticCategory } from 'typescript';
 import { Compiler } from './compiler';
 import { loadProjectInfo, ProjectInfo } from './project-info';

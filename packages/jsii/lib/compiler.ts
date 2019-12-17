@@ -1,13 +1,13 @@
-import Case = require('case');
-import colors = require('colors/safe');
-import fs = require('fs-extra');
-import log4js = require('log4js');
-import path = require('path');
-import ts = require('typescript');
+import * as Case from 'case';
+import * as colors from 'colors/safe';
+import * as fs from 'fs-extra';
+import * as log4js from 'log4js';
+import * as path from 'path';
+import * as ts from 'typescript';
 import { Assembler } from './assembler';
 import { EmitResult, Emitter } from './emitter';
 import { ProjectInfo } from './project-info';
-import utils = require('./utils');
+import * as utils from './utils';
 
 const COMPILER_OPTIONS: ts.CompilerOptions = {
   alwaysStrict: true,
@@ -16,7 +16,7 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
   experimentalDecorators: true,
   inlineSourceMap: true,
   inlineSources: true,
-  lib: ['lib.es2016.d.ts'],
+  lib: ['lib.es2018.d.ts'],
   module: ts.ModuleKind.CommonJS,
   noEmitOnError: true,
   noFallthroughCasesInSwitch: true,
@@ -30,7 +30,7 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
   strictNullChecks: true,
   strictPropertyInitialization: true,
   stripInternal: true,
-  target: ts.ScriptTarget.ES2017
+  target: ts.ScriptTarget.ES2018
 };
 
 const LOG = log4js.getLogger('jsii/compiler');
@@ -148,7 +148,7 @@ export class Compiler implements Emitter {
     };
     ts.createWatchProgram(host);
     // Previous call never returns
-    return new Promise(() => {});
+    return Promise.reject(new Error('Unexpectedly returned from createWatchProgram'));
   }
 
   private async _consumeProgram(program: ts.Program, stdlib: string): Promise<EmitResult> {
@@ -263,9 +263,8 @@ export class Compiler implements Emitter {
     for (const tsconfigFile of await Promise.all(Array.from(dependencyNames).map(depName => this.findMonorepoPeerTsconfig(depName)))) {
       if (!tsconfigFile) { continue; }
 
-      /* eslint-disable @typescript-eslint/no-var-requires */
+      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
       const tsconfig = require(tsconfigFile);
-      /* eslint-enable @typescript-eslint/no-var-requires */
 
       // Add references to any TypeScript package we find that is 'composite' enabled.
       // Make it relative.

@@ -1,8 +1,8 @@
-import clone = require('clone');
-import fs = require('fs-extra');
-import spec = require('jsii-spec');
-import os = require('os');
-import path = require('path');
+import * as clone from 'clone';
+import * as fs from 'fs-extra';
+import * as spec from '@jsii/spec';
+import * as os from 'os';
+import * as path from 'path';
 import { loadProjectInfo } from '../lib/project-info';
 import { VERSION } from '../lib/version';
 
@@ -110,9 +110,8 @@ describe('loadProjectInfo', () => {
 
   test('loads with missing peerDependency (when auto-fixing)', () => _withTestProject(async projectRoot => {
     await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
-    /* eslint-disable @typescript-eslint/no-var-requires */
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
     const info = require(path.join(projectRoot, 'package.json'));
-    /* eslint-enable @typescript-eslint/no-var-requires */
     expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
   }, info => {
     delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
@@ -129,9 +128,8 @@ describe('loadProjectInfo', () => {
 
   test('loads with inconsistent peerDependency (when auto-fixing)', () => _withTestProject(async projectRoot => {
     await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
-    /* eslint-disable @typescript-eslint/no-var-requires */
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
     const info = require(path.join(projectRoot, 'package.json'));
-    /* eslint-enable @typescript-eslint/no-var-requires */
     expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
   }, info => {
     info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';

@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import * as jsii from '@jsii/spec';
 import { ClassType } from './class';
 import { Dependency } from './dependency';
 import { EnumType } from './enum';

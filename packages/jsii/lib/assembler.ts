@@ -1,24 +1,24 @@
-import colors = require('colors/safe');
-import crypto = require('crypto');
+import * as colors from 'colors/safe';
+import * as crypto from 'crypto';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
-import fs = require('fs-extra');
-import spec = require('jsii-spec');
-import log4js = require('log4js');
-import path = require('path');
-import semver = require('semver');
-import ts = require('typescript');
+import * as fs from 'fs-extra';
+import * as spec from '@jsii/spec';
+import * as log4js from 'log4js';
+import * as path from 'path';
+import * as semver from 'semver';
+import * as ts from 'typescript';
 import { JSII_DIAGNOSTICS_CODE } from './compiler';
 import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
 import { Diagnostic, EmitResult, Emitter } from './emitter';
-import literate = require('./literate');
+import * as literate from './literate';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 const LOG = log4js.getLogger('jsii/assembler');
 
@@ -122,6 +122,7 @@ export class Assembler implements Emitter {
       version: this.projectInfo.version,
       description: this.projectInfo.description || this.projectInfo.name,
       license: this.projectInfo.license,
+      keywords: this.projectInfo.keywords,
       homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
       author: this.projectInfo.author,
       contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
@@ -497,9 +498,8 @@ export class Assembler implements Emitter {
         continue;
       }
 
-      /* eslint-disable no-await-in-loop */
+      // eslint-disable-next-line no-await-in-loop
       const ref = await this._typeReference(base, type.symbol.valueDeclaration);
-      /* eslint-enable no-await-in-loop */
 
       if (!spec.isNamedTypeReference(ref)) {
         this._diagnostic(base.symbol.valueDeclaration,
@@ -593,7 +593,7 @@ export class Assembler implements Emitter {
           continue;
         }
 
-        /* eslint-disable no-await-in-loop */
+        // eslint-disable-next-line no-await-in-loop
         if (ts.isMethodDeclaration(memberDecl) || ts.isMethodSignature(memberDecl)) {
           await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else if (ts.isPropertyDeclaration(memberDecl)
@@ -622,9 +622,8 @@ export class Assembler implements Emitter {
         if (signature) {
           for (const param of signature.getParameters()) {
             jsiiType.initializer.parameters = jsiiType.initializer.parameters ?? [];
-            /* eslint-disable no-await-in-loop */
+            // eslint-disable-next-line no-await-in-loop
             jsiiType.initializer.parameters.push(await this._toParameter(param, ctx.replaceStability(jsiiType.docs?.stability)));
-            /* eslint-enable no-await-in-loop */
             jsiiType.initializer.variadic = jsiiType.initializer?.parameters?.some(p => !!p.variadic) || undefined;
             jsiiType.initializer.protected = (ts.getCombinedModifierFlags(ctorDeclaration) & ts.ModifierFlags.Protected) !== 0
               || undefined;
@@ -638,9 +637,8 @@ export class Assembler implements Emitter {
       if (signature) {
         for (const param of signature.getParameters()) {
           if (ts.isParameterPropertyDeclaration(param.valueDeclaration, param.valueDeclaration.parent) && !this._isPrivateOrInternal(param)) {
-            /* eslint-disable no-await-in-loop */
+            // eslint-disable-next-line no-await-in-loop
             await this._visitProperty(param, jsiiType, memberEmitContext);
-            /* eslint-enable no-await-in-loop */
           }
         }
       }
@@ -873,19 +871,19 @@ export class Assembler implements Emitter {
           continue;
         }
 
-        /* eslint-disable no-await-in-loop */
         if (ts.isMethodDeclaration(member.valueDeclaration) || ts.isMethodSignature(member.valueDeclaration)) {
+          // eslint-disable-next-line no-await-in-loop
           await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else if (ts.isPropertyDeclaration(member.valueDeclaration)
           || ts.isPropertySignature(member.valueDeclaration)
           || ts.isAccessor(member.valueDeclaration)) {
+          // eslint-disable-next-line no-await-in-loop
           await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else {
           this._diagnostic(member.valueDeclaration,
             ts.DiagnosticCategory.Warning,
             `Ignoring un-handled ${ts.SyntaxKind[member.valueDeclaration.kind]} member`);
         }
-        /* eslint-enable no-await-in-loop */
       }
     }
 
@@ -1266,9 +1264,8 @@ export class Assembler implements Emitter {
           optional = true;
           continue;
         }
-        /* eslint-disable no-await-in-loop */
+        // eslint-disable-next-line no-await-in-loop
         const resolvedType = await this._typeReference(subType, declaration);
-        /* eslint-enable no-await-in-loop */
         if (types.find(ref => deepEqual(ref, resolvedType)) != null) {
           continue;
         }

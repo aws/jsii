@@ -30,7 +30,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         private java.lang.Number foo;
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link Hello#getFoo}
          * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */

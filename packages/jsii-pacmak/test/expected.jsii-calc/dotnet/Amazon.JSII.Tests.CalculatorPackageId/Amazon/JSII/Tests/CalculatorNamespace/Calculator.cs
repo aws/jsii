@@ -15,7 +15,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// ```
     /// 
     /// I will repeat this example again, but in an @example tag.
+    /// 
     /// stability: Experimental
+    /// 
     /// example:
     /// <code>
     /// // Examples in C# are coming soon.
@@ -29,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     {
         /// <summary>Creates a Calculator object.</summary>
-        /// <param name = "props">Initialization properties.</param>
+        /// <param name="props">Initialization properties.</param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -37,15 +39,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected Calculator(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected Calculator(DeputyProps props): base(props)
         {
         }
 
         /// <summary>Adds a number to the current value.</summary>
+        /// <param name="value"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -56,6 +63,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Multiplies the current value by a number.</summary>
+        /// <param name="value"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -76,6 +84,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Raises the current value by a power.</summary>
+        /// <param name="value"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

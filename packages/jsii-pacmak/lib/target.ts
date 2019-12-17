@@ -1,10 +1,10 @@
-import fs = require('fs-extra');
-import reflect = require('jsii-reflect');
-import spec = require('jsii-spec');
-import path = require('path');
+import * as fs from 'fs-extra';
+import * as reflect from 'jsii-reflect';
+import * as spec from '@jsii/spec';
+import * as path from 'path';
 
 import { IGenerator } from './generator';
-import logging = require('./logging');
+import * as logging from './logging';
 import { resolveDependencyDirectory } from './util';
 import { Rosetta } from 'jsii-rosetta';
 
@@ -61,6 +61,8 @@ export abstract class Target {
      * @param targetDir the directory to copy into.
      */
   protected async copyFiles(sourceDir: string, targetDir: string) {
+    // Preemptively create target directory, to avoid unsafely racing on it's creation.
+    await fs.mkdirp(targetDir);
     await fs.copy(sourceDir, targetDir, { recursive: true });
   }
 

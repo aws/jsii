@@ -1,12 +1,11 @@
-import Case = require('case');
-import spec = require('jsii-spec');
-import ts = require('typescript');
+import * as Case from 'case';
+import * as spec from '@jsii/spec';
+import * as ts from 'typescript';
 import { Diagnostic, EmitResult, Emitter } from './emitter';
 import { ProjectInfo } from './project-info';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const deepEqual = require('deep-equal');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 export class Validator implements Emitter {
   public static VALIDATIONS: ValidationFunction[] = _defaultValidations();
