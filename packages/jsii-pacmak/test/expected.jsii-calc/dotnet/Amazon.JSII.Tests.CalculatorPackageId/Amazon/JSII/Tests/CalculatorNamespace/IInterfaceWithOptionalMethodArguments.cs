@@ -9,6 +9,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IInterfaceWithOptionalMethodArguments), fullyQualifiedName: "jsii-calc.IInterfaceWithOptionalMethodArguments")]
     public interface IInterfaceWithOptionalMethodArguments
     {
+        /// <summary></summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

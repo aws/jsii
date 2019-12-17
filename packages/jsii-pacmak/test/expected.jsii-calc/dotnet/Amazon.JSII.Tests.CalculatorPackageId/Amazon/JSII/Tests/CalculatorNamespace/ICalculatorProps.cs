@@ -12,8 +12,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>The initial value of the calculator.</summary>
         /// <remarks>
         /// NOTE: Any number works here, it's fine.
+        /// 
         /// default:
         /// 0
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "initialValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
@@ -30,6 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// default:
         /// none
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "maximumValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]

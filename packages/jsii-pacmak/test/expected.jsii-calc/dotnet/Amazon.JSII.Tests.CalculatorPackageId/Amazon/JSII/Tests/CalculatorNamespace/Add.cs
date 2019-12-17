@@ -10,8 +10,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class Add : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation
     {
         /// <summary>Creates a BinaryOperation.</summary>
-        /// <param name = "lhs">Left-hand side operand.</param>
-        /// <param name = "rhs">Right-hand side operand.</param>
+        /// <param name="lhs">Left-hand side operand.</param>
+        /// <param name="rhs">Right-hand side operand.</param>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -19,10 +19,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected Add(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected Add(DeputyProps props): base(props)
         {
         }

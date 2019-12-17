@@ -13,6 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// default:
         /// world
+        /// 
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "name", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]

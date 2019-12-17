@@ -10,14 +10,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [System.Obsolete("Use the new class")]
     public class Old : DeputyBase
     {
+        /// <summary></summary>
         public Old(): base(new DeputyProps(new object[]{}))
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected Old(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected Old(DeputyProps props): base(props)
         {
         }

@@ -9,6 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IObjectWithProperty), fullyQualifiedName: "jsii-calc.IObjectWithProperty")]
     public interface IObjectWithProperty
     {
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -18,6 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
             set;
         }
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

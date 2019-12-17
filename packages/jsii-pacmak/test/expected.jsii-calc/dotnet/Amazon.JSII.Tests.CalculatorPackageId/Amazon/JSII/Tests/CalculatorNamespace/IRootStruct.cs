@@ -6,6 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// This is cheating with the (current) declared types, but this is the "more
     /// idiomatic" way for Pythonists.
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IRootStruct), fullyQualifiedName: "jsii-calc.RootStruct")]
@@ -21,6 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

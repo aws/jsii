@@ -7,7 +7,7 @@ import { Generator } from '../../generator';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
-import { DotNetDependency, FileGenerator } from './filegenerator';
+import { FileGenerator } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
 
 /**
@@ -73,11 +73,8 @@ export class DotNetGenerator extends Generator {
     const assm = this.assembly;
     const packageId: string = assm.targets!.dotnet!.packageId;
     if (!packageId) { throw new Error(`The module ${assm.name} does not have a dotnet.packageId setting`); }
-    await fs.mkdirs(path.join(outdir, packageId));
+    await fs.mkdirp(path.join(outdir, packageId));
     await fs.copyFile(tarball, path.join(outdir, packageId, tarballFileName));
-
-    // Create an anchor file for the current model
-    this.generateDependencyAnchorFile();
 
     // Copying the .jsii file
     await fs.copyFile(this.jsiiFilePath, path.join(outdir, packageId, spec.SPEC_FILE_NAME));
@@ -87,31 +84,15 @@ export class DotNetGenerator extends Generator {
   }
 
   /**
-     * Generates the Anchor file
-     */
-  protected generateDependencyAnchorFile(): void {
-    const namespace = `${this.assembly.targets!.dotnet!.namespace}.Internal.DependencyResolution`;
-    this.openFileIfNeeded('Anchor', namespace, false, false);
-    this.code.openBlock('public class Anchor');
-    this.code.openBlock('public Anchor()');
-    this.typeresolver.namespaceDependencies.forEach((value: DotNetDependency) => {
-      this.code.line(`new ${value.namespace}.Internal.DependencyResolution.Anchor();`);
-    });
-    this.code.closeBlock();
-    this.code.closeBlock();
-    this.closeFileIfNeeded('Anchor', namespace, false);
-  }
-
-  /**
-     * Not used as we override the save() method
-     */
+   * Not used as we override the save() method
+   */
   protected getAssemblyOutputDir(mod: spec.Assembly): string {
     return this.nameutils.convertPackageName(mod.name);
   }
 
   /**
-     * Namespaces are handled implicitly by openFileIfNeeded().
-     */
+   * Namespaces are handled implicitly by openFileIfNeeded().
+   */
   protected onBeginNamespace(_ns: string) { /* noop */ }
 
   protected onEndNamespace(_ns: string) { /* noop */ }
@@ -269,11 +250,15 @@ export class DotNetGenerator extends Generator {
       this.code.line();
     }
 
+    this.code.line('/// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>');
+    this.code.line('/// <param name="reference">The Javascript-owned object reference</param>');
     this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
     this.code.openBlock(`protected ${className}(ByRefValue reference): base(reference)`);
     this.code.closeBlock();
     this.code.line();
 
+    this.code.line('/// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>');
+    this.code.line('/// <param name="props">The deputy props</param>');
     this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
     this.code.openBlock(`protected ${className}(DeputyProps props): base(props)`);
     this.code.closeBlock();

@@ -9,22 +9,25 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NodeStandardLibrary), fullyQualifiedName: "jsii-calc.NodeStandardLibrary")]
     public class NodeStandardLibrary : DeputyBase
     {
+        /// <summary></summary>
         public NodeStandardLibrary(): base(new DeputyProps(new object[]{}))
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected NodeStandardLibrary(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected NodeStandardLibrary(DeputyProps props): base(props)
         {
         }
 
         /// <summary>Uses node.js "crypto" module to calculate sha256 of a string.</summary>
-        /// <returns>
-        /// "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
-        /// </returns>
+        /// <returns>"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"</returns>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -35,9 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Reads a local resource file (resource.txt) asynchronously.</summary>
-        /// <returns>
-        /// "Hello, resource!"
-        /// </returns>
+        /// <returns>"Hello, resource!"</returns>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -48,9 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Sync version of fsReadFile.</summary>
-        /// <returns>
-        /// "Hello, resource! SYNC!"
-        /// </returns>
+        /// <returns>"Hello, resource! SYNC!"</returns>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

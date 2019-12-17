@@ -4,13 +4,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>1.</summary>
     /// <remarks>
-    /// call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)
-    /// 2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type
+    /// call #takeThis() -&gt; An ObjectRef will be provisioned for the value (it'll be re-used!)
+    /// 2. call #takeThisToo() -&gt; The ObjectRef from before will need to be down-cased to the ParentStruct982 type
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Demonstrate982), fullyQualifiedName: "jsii-calc.Demonstrate982")]
     public class Demonstrate982 : DeputyBase
     {
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -18,10 +20,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
         protected Demonstrate982(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
         protected Demonstrate982(DeputyProps props): base(props)
         {
         }

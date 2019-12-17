@@ -5,11 +5,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.</summary>
     /// <remarks>
     /// See: https://github.com/aws/aws-cdk/issues/4302
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.StructParameterType")]
     public class StructParameterType : Amazon.JSII.Tests.CalculatorNamespace.IStructParameterType
     {
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -20,6 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

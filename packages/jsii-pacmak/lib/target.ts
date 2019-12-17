@@ -61,6 +61,8 @@ export abstract class Target {
      * @param targetDir the directory to copy into.
      */
   protected async copyFiles(sourceDir: string, targetDir: string) {
+    // Preemptively create target directory, to avoid unsafely racing on it's creation.
+    await fs.mkdirp(targetDir);
     await fs.copy(sourceDir, targetDir, { recursive: true });
   }
 

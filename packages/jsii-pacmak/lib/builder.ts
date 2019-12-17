@@ -66,13 +66,10 @@ export class OneByOneBuilder implements TargetBuilder {
   }
 
   public async buildModules(): Promise<void> {
-    for (const module of this.modules) {
-      if (this.options.codeOnly) {
-        await this.generateModuleCode(module, this.options);
-      } else {
-        await this.buildModule(module, this.options);
-      }
-    }
+    const promises = this.modules.map(module => this.options.codeOnly
+      ? this.generateModuleCode(module, this.options)
+      : this.buildModule(module, this.options));
+    await Promise.all(promises);
   }
 
   private async generateModuleCode(module: JsiiModule, options: BuildOptions) {

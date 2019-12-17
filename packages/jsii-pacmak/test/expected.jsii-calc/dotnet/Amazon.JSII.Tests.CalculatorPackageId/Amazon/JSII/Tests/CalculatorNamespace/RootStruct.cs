@@ -6,6 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// This is cheating with the (current) declared types, but this is the "more
     /// idiomatic" way for Pythonists.
+    /// 
     /// stability: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.RootStruct")]
@@ -22,6 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

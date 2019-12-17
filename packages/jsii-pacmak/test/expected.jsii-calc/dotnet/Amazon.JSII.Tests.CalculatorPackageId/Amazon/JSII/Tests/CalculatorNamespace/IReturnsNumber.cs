@@ -2,12 +2,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary></summary>
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IReturnsNumber), fullyQualifiedName: "jsii-calc.IReturnsNumber")]
     public interface IReturnsNumber
     {
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -16,6 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+        /// <summary></summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
