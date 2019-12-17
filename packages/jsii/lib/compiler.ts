@@ -46,11 +46,6 @@ export interface CompilerOptions {
   projectReferences?: boolean;
   /** Whether to fail when a warning is emitted */
   failOnWarnings?: boolean;
-  /**
-   * Do not emit warnings for reserved words.
-   * @default false (warnings are emitted)
-   */
-  readonly reservedWordsWarningsDisabled?: boolean;
 }
 
 export interface TypescriptConfig {
@@ -164,9 +159,7 @@ export class Compiler implements Emitter {
     // jsii warnings will appear. However, the Assembler might throw an exception
     // because broken/missing type information might lead it to fail completely.
     try {
-      const assembler = new Assembler(this.options.projectInfo, program, stdlib, {
-        reservedWordsWarningsDisabled: this.options.reservedWordsWarningsDisabled
-      });
+      const assembler = new Assembler(this.options.projectInfo, program, stdlib);
       const assmEmit = await assembler.emit();
       if (assmEmit.emitSkipped) {
         LOG.error('Type model errors prevented the JSII assembly from being created');

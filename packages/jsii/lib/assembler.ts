@@ -16,19 +16,12 @@ import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
+import { enabledWarnings } from './warnings';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
 
 const LOG = log4js.getLogger('jsii/assembler');
-
-export interface AssemblerOptions {
-  /**
-   * Do not emit warnings for reserved words.
-   * @default false (warnings are emitted)
-   */
-  readonly reservedWordsWarningsDisabled?: boolean;
-}
 
 /**
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
@@ -37,7 +30,6 @@ export class Assembler implements Emitter {
   private _diagnostics = new Array<Diagnostic>();
   private _deferred = new Array<DeferredRecord>();
   private _types: { [fqn: string]: spec.Type } = {};
-  private readonly _reservedWordsWarningsDisabled: boolean = false;
 
   /**
    * @param projectInfo information about the package being assembled
@@ -47,11 +39,7 @@ export class Assembler implements Emitter {
   public constructor(
     public readonly projectInfo: ProjectInfo,
     public readonly program: ts.Program,
-    public readonly stdlib: string,
-    options: AssemblerOptions) {
-
-    this._reservedWordsWarningsDisabled = !!options.reservedWordsWarningsDisabled;
-  }
+    public readonly stdlib: string) { }
 
   private get _typeChecker(): ts.TypeChecker {
     return this.program.getTypeChecker();
@@ -221,7 +209,7 @@ export class Assembler implements Emitter {
    * been executed.
    *
    * @param fqn FQN of the current type.
-   * @param deps List of FQNs of types this callback depends on. All deferreds for all
+   * @param dependedFqns List of FQNs of types this callback depends on. All deferreds for all
    * @param cb the function to be called in a deferred way. It will be bound with ``this``, so it can depend on using
    *           ``this``.
    */
@@ -1037,9 +1025,10 @@ export class Assembler implements Emitter {
   }
 
   private _warnAboutReservedWords(symbol: ts.Symbol) {
-    if (this._reservedWordsWarningsDisabled) {
+    if (!enabledWarnings['reserved-word']) {
       return;
     }
+
     const reservingLanguages = isReservedName(symbol.name);
     if (reservingLanguages) {
       this._diagnostic(ts.getNameOfDeclaration(symbol.valueDeclaration) || symbol.valueDeclaration,
