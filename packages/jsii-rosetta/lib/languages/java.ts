@@ -87,19 +87,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public constructorDeclaration(node: ts.ConstructorDeclaration, renderer: JavaRenderer): OTree {
-    return this.procedure(node, renderer,
+    return this.renderProcedure(node, renderer,
       renderer.currentContext.insideTypeDeclaration!.typeName,
       undefined);
   }
 
   public methodDeclaration(node: ts.MethodDeclaration, renderer: JavaRenderer): OTree {
-    return this.procedure(node, renderer,
+    return this.renderProcedure(node, renderer,
       node.name,
       this.renderTypeNode(node.type, renderer, 'void'));
   }
 
   public functionDeclaration(node: ts.FunctionDeclaration, renderer: JavaRenderer): OTree {
-    return this.procedure(node, renderer,
+    return this.renderProcedure(node, renderer,
       node.name,
       this.renderTypeNode(node.type, renderer, 'void'));
   }
@@ -113,10 +113,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public block(node: ts.Block, renderer: JavaRenderer): OTree {
-    return new OTree(['{'], renderer.convertAll(node.statements), {
-      indent: 4,
-      suffix: '\n}',
-    });
+    return this.renderBlock(renderer.convertAll(node.statements));
   }
 
   public variableDeclaration(node: ts.VariableDeclaration, renderer: JavaRenderer): OTree {
@@ -435,11 +432,68 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     }
   }
 
-  private procedure(
+  private renderProcedure(
     node: ts.ConstructorDeclaration | ts.MethodDeclaration | ts.FunctionDeclaration,
     renderer: JavaRenderer,
     methodOrConstructorName: ts.Node | undefined,
     returnType: string | undefined): OTree {
+
+    const overloads = new Array<OTree>();
+    for (let i = 0 ; i < node.parameters.length; i++) {
+      const param = node.parameters[i];
+      if (!!param.questionToken || !!param.initializer) {
+        // The parameter is either optional, or has a default -
+        // render an overload that delegates to a version with one more parameter.
+        // Note that we don't check that all parameters with indexes > i are also optional/have a default -
+        // we assume the TypeScript compiler does that for us.
+
+        // parameters up to but excluding the current one
+        const parametersUpToIth = node.parameters.slice(0, i);
+        overloads.push(this.renderOverload(
+          returnType, renderer, methodOrConstructorName,
+          parametersUpToIth,
+          // the body is the call to the next overload
+          this.renderBlock([new OTree(
+            [
+              '\n',
+              renderer.convert(methodOrConstructorName),
+              '(',
+            ],
+            [
+              ...parametersUpToIth.map(param => renderer.convert(param.name)),
+              param.initializer ? renderer.convert(param.initializer) : 'null',
+            ],
+            {
+              separator: ', ',
+              suffix: ');',
+            },
+          )]),
+        ));
+      }
+    }
+    // render the primary overload
+    overloads.push(this.renderOverload(
+      returnType, renderer, methodOrConstructorName,
+      node.parameters,
+      renderer.convert(node.body),
+    ));
+
+    return new OTree(
+      [],
+      overloads,
+      {
+        canBreakLine: true,
+        separator: '\n\n',
+      },
+    );
+  }
+
+  private renderOverload(
+    returnType: string | undefined,
+    renderer: JavaRenderer,
+    methodOrConstructorName: ts.Node | undefined,
+    parameters: ts.ParameterDeclaration[] | ts.NodeArray<ts.ParameterDeclaration>,
+    body: OTree): OTree {
 
     return new OTree(
       [
@@ -447,14 +501,27 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         returnType ? `${returnType} ` : undefined,
         renderer.convert(methodOrConstructorName),
         '(',
-        new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
+        new OTree([], renderer.convertAll(parameters), { separator: ', ' }),
         ') ',
       ],
       [
-        renderer.convert(node.body)
+        body,
       ],
       {
         canBreakLine: true
+      },
+    );
+  }
+
+  private renderBlock(blockContents: OTree[]) {
+    return new OTree(
+      [
+        '{',
+      ],
+      blockContents,
+      {
+        indent: 4,
+        suffix: '\n}',
       },
     );
   }
