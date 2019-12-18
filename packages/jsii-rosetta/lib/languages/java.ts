@@ -1,7 +1,7 @@
 import ts = require('typescript');
 import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
-import { OTree } from '../o-tree';
+import { NO_SYNTAX, OTree } from '../o-tree';
 import { builtInTypeName, mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
 import { isReadOnly, matchAst, nodeOfType, quoteStringLiteral, visibility } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
@@ -18,7 +18,21 @@ interface JavaContext {
 
   readonly inKeyValueList?: boolean;
 
+  /**
+   * Used when rendering a JavaScript object literal that is _not_ for a struct -
+   * we render that as a Map in Java.
+   *
+   * @default false
+   */
   readonly identifierAsString?: boolean;
+
+  /**
+   * Used when rendering a JavaScript object literal that is for a struct -
+   * maps to a Builder in Java.
+   *
+   * @default false
+   */
+  readonly stringLiteralAsIdentifier?: boolean;
 }
 
 interface InsideTypeDeclaration {
@@ -44,6 +58,14 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       importStatement.imports.elements.map(importEl => `import ${namespace}.${importEl.sourceName};`),
       { canBreakLine: true, separator: '\n' },
     );
+  }
+
+  /*
+   * Because structs are represented in Java as interfaces with a JsiiProxy implementation,
+   * do not render struct interfaces in Java snippets - same as we do in Python.
+   */
+  public structInterfaceDeclaration(_node: ts.InterfaceDeclaration, _renderer: JavaRenderer): OTree {
+    return NO_SYNTAX;
   }
 
   public classDeclaration(node: ts.ClassDeclaration, renderer: JavaRenderer): OTree {
@@ -290,6 +312,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     );
   }
 
+  public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, structType: ts.Type, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [
+        structType.symbol.name,
+        '.builder()',
+      ],
+      renderer.convertAll(node.properties),
+      {
+        suffix: '.build()',
+      },
+    );
+  }
+
   public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
     return this.keyValueObjectLiteralExpression(node, undefined, renderer);
   }
@@ -309,19 +344,9 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, renderer: JavaRenderer): OTree {
-    return new OTree(
-      [
-        (renderer.currentContext.inKeyValueList
-          ? renderer.updateContext({ identifierAsString: true })
-          : renderer).convert(node.name),
-        ', ',
-        renderer.updateContext({ inKeyValueList: false }).convert(node.initializer),
-      ],
-      [],
-      {
-        canBreakLine: true,
-      },
-    );
+    return renderer.currentContext.inKeyValueList
+      ? this.propertyAssignmentInMap(node, renderer)
+      : this.propertyAssignmentInBuilder(node, renderer);
   }
 
   public propertyAccessExpression(node: ts.PropertyAccessExpression, renderer: JavaRenderer): OTree {
@@ -352,11 +377,44 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(parts);
   }
 
-  public identifier(node: ts.Identifier, renderer: JavaRenderer): OTree {
+  public stringLiteral(node: ts.StringLiteral, renderer: JavaRenderer): OTree {
+    return renderer.currentContext.stringLiteralAsIdentifier
+      ? this.identifier(node, renderer)
+      : super.stringLiteral(node, renderer);
+  }
+
+  public identifier(node: ts.Identifier | ts.StringLiteral, renderer: JavaRenderer): OTree {
     const nodeText = node.text;
     return new OTree([
       renderer.currentContext.identifierAsString ? JSON.stringify(nodeText) : nodeText,
     ]);
+  }
+
+  private propertyAssignmentInMap(node: ts.PropertyAssignment, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [],
+      [
+        renderer.updateContext({ identifierAsString: true }).convert(node.name),
+        ', ',
+        renderer.updateContext({ inKeyValueList: false }).convert(node.initializer),
+      ],
+      {
+        canBreakLine: true,
+      },
+    );
+  }
+
+  private propertyAssignmentInBuilder(node: ts.PropertyAssignment, renderer: JavaRenderer): OTree {
+    return new OTree(
+      [],
+      [
+        '.',
+        renderer.updateContext({ stringLiteralAsIdentifier: true }).convert(node.name),
+        '(',
+        renderer.convert(node.initializer),
+        ')',
+      ],
+    );
   }
 
   private lookupModuleNamespace(packageName: string): string {
@@ -413,6 +471,14 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const mapValuesType = mapElementType(nonUnionType, renderer);
     if (mapValuesType) {
       return `Map<String, ${this.renderType(mapValuesType, renderer, 'Object')}>`;
+    }
+
+    // User-defined or aliased type
+    if (type.aliasSymbol) {
+      return type.aliasSymbol.name;
+    }
+    if (type.symbol) {
+      return type.symbol.name;
     }
 
     const typeScriptBuiltInType = builtInTypeName(nonUnionType);
