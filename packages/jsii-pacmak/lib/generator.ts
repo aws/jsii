@@ -502,7 +502,7 @@ export abstract class Generator implements IGenerator {
      * Looks up a jsii module in the dependency tree.
      * @param name The name of the jsii module to look up
      */
-  protected findModule(name: string): spec.PackageVersion {
+  protected findModule(name: string): spec.AssemblyConfiguration {
 
     // if this is the current module, return it
     if (this.assembly.name === name) {
@@ -515,7 +515,7 @@ export abstract class Generator implements IGenerator {
       return found;
     }
 
-    throw new Error(`Unable to find module ${name} as a direct or indirect dependency of ${this.assembly.name}`);
+    throw new Error(`Unable to find module ${name} as a dependency of ${this.assembly.name}`);
   }
 
   protected findType(fqn: string): spec.Type {

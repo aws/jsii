@@ -18,8 +18,8 @@ const BASE_PROJECT = {
   jsii: {
     targets: { foo: { bar: 'baz' } }
   },
-  dependencies: { 'jsii-test-dep': '^1.2.3' },
-  peerDependencies: { 'jsii-test-dep': '^1.2.3' }
+  dependencies: { 'jsii-test-dep': '^1.2.3' } as { [name: string]: string },
+  peerDependencies: { 'jsii-test-dep': '^1.2.3' } as { [name: string]: string }
 };
 
 describe('loadProjectInfo', () => {
@@ -36,8 +36,8 @@ describe('loadProjectInfo', () => {
     expect(info.repository?.type).toBe('git');
     expect(info.repository?.url).toBe(BASE_PROJECT.repository.url);
     expect(info.targets).toEqual({ ...BASE_PROJECT.jsii.targets, js: { npm: BASE_PROJECT.name } });
-    expect(info.dependencies).toEqual([TEST_DEP_ASSEMBLY]);
-    expect(info.transitiveDependencies).toEqual([TEST_DEP_ASSEMBLY, TEST_DEP_DEP_ASSEMBLY]);
+    expect(info.dependencies).toEqual({ [TEST_DEP_ASSEMBLY.name]: BASE_PROJECT.dependencies[TEST_DEP_ASSEMBLY.name] });
+    expect(info.dependencyClosure).toEqual([TEST_DEP_ASSEMBLY, TEST_DEP_DEP_ASSEMBLY]);
   }));
 
   test('loads valid project (UNLICENSED)', () => _withTestProject(async projectRoot => {
@@ -148,9 +148,7 @@ const TEST_DEP_ASSEMBLY: spec.Assembly = {
   author: { name: 'Amazon Web Services', url: 'https://aws.amazon.com', organization: true, roles: ['author'] },
   fingerprint: 'F1NG3RPR1N7',
   dependencies: {
-    'jsii-test-dep-dep': {
-      version: '3.2.1',
-    }
+    'jsii-test-dep-dep': '3.2.1',
   },
   jsiiVersion: VERSION,
 };

@@ -2,7 +2,7 @@ import * as spec from '@jsii/spec';
 import { DotNetDependency } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
 
-type FindModuleCallback = (fqn: string) => spec.Assembly | spec.PackageVersion;
+type FindModuleCallback = (fqn: string) => spec.AssemblyConfiguration;
 type FindTypeCallback = (fqn: string) => spec.Type;
 
 export class DotNetTypeResolver {
@@ -72,23 +72,21 @@ export class DotNetTypeResolver {
      */
   public resolveNamespacesDependencies(): void {
     const assmDependencies = this.assembly.dependencies ?? {};
-    for (const depName of Object.keys(assmDependencies)) {
-      const depInfo = assmDependencies[depName];
+    const assmConfigurations = this.assembly.dependencyClosure ?? {};
+    for (const [depName, version] of Object.entries(assmDependencies)) {
+      const depInfo = assmConfigurations[depName];
       if (!this.namespaceDependencies.has(depName)) {
-        const dotnetInfo = depInfo.targets!.dotnet;
-        const namespace = dotnetInfo!.namespace;
-        const packageId = dotnetInfo!.packageId;
-        let version = depInfo.version;
+        const dotnetInfo = depInfo.targets!.dotnet!;
+        const namespace = dotnetInfo.namespace;
+        const packageId = dotnetInfo.packageId;
         const suffix = depInfo.targets!.dotnet!.versionSuffix;
-        if (suffix) {
-          // suffix is guaranteed to start with a leading `-`
-          version = `${depInfo.version}${suffix}`;
-        }
+
         this.namespaceDependencies.set(depName, new DotNetDependency(
           namespace,
           packageId,
           depName,
-          version,
+          // suffix, when present, is guaranteed to start with a leading `-`
+          suffix ? `${version}${suffix}` : version,
           this.assembliesCurrentlyBeingCompiled.includes(depName)));
       }
     }

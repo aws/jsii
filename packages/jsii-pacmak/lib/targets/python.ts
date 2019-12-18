@@ -5,6 +5,7 @@ import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
+import * as semver from 'semver';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
@@ -1093,8 +1094,8 @@ class Module implements PythonType {
   private emitDependencyImports(code: CodeMaker, _resolver: TypeResolver) {
     const deps = Array.from(
       new Set([
-        ...Object.values(this.assembly.dependencies ?? {}).map(d => {
-          return d.targets!.python!.module;
+        ...Object.keys(this.assembly.dependencies ?? {}).map(d => {
+          return this.assembly.dependencyClosure![d]!.targets!.python!.module;
         }),
       ])
     );
@@ -1182,19 +1183,15 @@ class Package {
 
     // Compute our list of dependencies
     const dependencies: string[] = [];
-    const expectedDeps = this.metadata.dependencies ?? {};
-    for (const depName of Object.keys(expectedDeps)) {
-      const depInfo = expectedDeps[depName];
-      // We need to figure out what our version range is.
-      // Basically, if it starts with Zero we want to restrict things to
-      // ~=X.Y.Z. If it does not start with zero, then we want to do ~=X.Y,>=X.Y.Z.
-      const versionParts = depInfo.version.split('.');
-      let versionSpecifier: string;
-      if (versionParts[0] === '0') {
-        versionSpecifier = `~=${versionParts.slice(0, 3).join('.')}`;
-      } else {
-        versionSpecifier = `~=${versionParts.slice(0, 2).join('.')},>=${versionParts.slice(0, 3).join('.')}`;
-      }
+    for (const [depName, version] of Object.entries(this.metadata.dependencies ?? {})) {
+      const depInfo = this.metadata.dependencyClosure![depName];
+
+      const range = new semver.Range(version);
+      const versionSpecifier = range.set.map(
+        set => set.map(
+          comp => `${comp.operator || '=='}${comp.semver.raw}`
+        ).join(', ')
+      ).join(', ');
 
       dependencies.push(`${depInfo.targets!.python!.distName}${versionSpecifier}`);
     }
@@ -1292,7 +1289,7 @@ class Package {
   }
 }
 
-type FindModuleCallback = (fqn: string) => spec.Assembly | spec.PackageVersion;
+type FindModuleCallback = (fqn: string) => spec.AssemblyConfiguration;
 type FindTypeCallback = (fqn: string) => spec.Type;
 
 interface TypeResolverOpts {

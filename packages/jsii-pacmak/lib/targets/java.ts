@@ -4,6 +4,7 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
 import * as path from 'path';
+import * as semver from 'semver';
 import * as xmlbuilder from 'xmlbuilder';
 import { Generator } from '../generator';
 import * as logging from '../logging';
@@ -423,7 +424,7 @@ class JavaGenerator extends Generator {
      * for example, we need to refer to their types when flatting the class hierarchy for
      * interface proxies.
      */
-  private readonly referencedModules: { [name: string]: spec.PackageVersion } = { };
+  private readonly referencedModules: { [name: string]: spec.AssemblyConfiguration } = { };
 
   public constructor() {
     super({ generateOverloadsForMethodWithOptionals: true });
@@ -771,13 +772,12 @@ class JavaGenerator extends Generator {
     this.code.closeFile('pom.xml');
 
     /**
-         * Combines a version number with an optional suffix. If the suffix starts with '-' or '.', it will be
-         * concatenated as-is to the semantic version number. Otherwise, it'll be appended to the version number with an
-         * intercalar '-'.
-         *
-         * @param version the semantic version number
-         * @param suffix  the suffix, if any.
-         */
+     * Combines a version number with an optional suffix. The suffix, when present, must begin with
+     * '-' or '.', and will be concatenated as-is to the version number..
+     *
+     * @param version the semantic version number
+     * @param suffix  the suffix, if any.
+     */
     function makeVersion(version: string, suffix?: string): string {
       if (!suffix) { return version; }
       if (!suffix.startsWith('-') && !suffix.startsWith('.')) {
@@ -786,25 +786,74 @@ class JavaGenerator extends Generator {
       return `${version}${suffix}`;
     }
 
+    /**
+     * Formats a SemVer version range into the equivalent Maven dependency notation.
+     *
+     * @see https://cwiki.apache.org/confluence/display/MAVENOLD/Dependency+Mediation+and+Conflict+Resolution
+     *
+     * @param version the semantic version number
+     * @param suffix a suffix to be appended to versions
+     */
+    function semverToMavenRange(version: string, suffix?: string): string {
+      const range = new semver.Range(version);
+      return range.set.map(
+        set => {
+          if (set.length === 1) {
+            switch (set[0].operator || '=') {
+              // "[version]" => means exactly version
+              case '=': return `[${makeVersion(set[0].semver.raw, suffix)}]`;
+              // "(version,]" => means greater than version
+              case '>': return `(${makeVersion(set[0].semver.raw, suffix)},]`;
+              // "[version,]" => means greater than or equal to that version
+              case '>=': return `[${makeVersion(set[0].semver.raw, suffix)},]`;
+              // "[,version)" => means less than version
+              case '<': return `[,${makeVersion(set[0].semver.raw, suffix)})`;
+              // "[,version]" => means less than or equal to version
+              case '<=': return `[,${makeVersion(set[0].semver.raw, suffix)}]`;
+            }
+          } else if (set.length === 2) {
+            const range = mavenRange(set[0], set[1]);
+            if (range) {
+              return range;
+            }
+          }
+          throw new Error(`Unsupported range set: ${set.map(comp => comp.value).join(', ')}`);
+        }
+      ).join(',');
+
+      function mavenRange(left: semver.Comparator, right: semver.Comparator): string | undefined {
+        if (left.operator.startsWith('<') && right.operator.startsWith('>')) {
+          // Order isn't ideal, just re-invoke with the correct ordering...
+          return mavenRange(right, left);
+        }
+        if (!left.operator.startsWith('>') || !right.operator.startsWith('<')) {
+          // We only support ranges defined like "> (or >=) left, < (or <=) right"
+          return undefined;
+        }
+        const leftBrace = left.operator.endsWith('=') ? '[' : '(';
+        const rightBrace = right.operator.endsWith('=') ? ']' : ')';
+        return `${leftBrace}${makeVersion(left.semver.raw, suffix)},${makeVersion(right.semver.raw, suffix)}${rightBrace}`;
+      }
+    }
+
     function mavenDependencies(this: JavaGenerator) {
       const dependencies = new Array<MavenDependency>();
-      const allDeps = { ...assm.dependencies ?? {}, ...this.referencedModules };
-      for (const depName of Object.keys(allDeps)) {
-        const dep = allDeps[depName];
-        if (!dep.targets?.java) {
+      for (const [depName, version] of Object.entries(this.assembly.dependencies ?? {})) {
+        const dep = this.assembly.dependencyClosure?.[depName];
+        if (!dep?.targets?.java) {
           throw new Error(`Assembly ${assm.name} depends on ${depName}, which does not declare a java target`);
         }
         dependencies.push({
           groupId: dep.targets.java.maven.groupId,
           artifactId: dep.targets.java.maven.artifactId,
-          version: makeVersion(dep.version, dep.targets.java.maven.versionSuffix),
+          version: semverToMavenRange(version, dep.targets.java.maven.versionSuffix),
         });
       }
       // The JSII java runtime base classes
       dependencies.push({
         groupId: 'software.amazon.jsii',
         artifactId: 'jsii-runtime',
-        version: VERSION
+        version: semverToMavenRange(`^${VERSION}`)
       });
 
       // Provides @javax.annotation.*
@@ -1815,10 +1864,12 @@ class JavaGenerator extends Generator {
   }
 
   private getNativeName(assm: spec.Assembly, name: string | undefined): string;
-  private getNativeName(assm: spec.PackageVersion, name: string | undefined, assmName: string): string;
-  private getNativeName(assm: spec.Assembly | spec.PackageVersion,
+  private getNativeName(assm: spec.AssemblyConfiguration, name: string | undefined, assmName: string): string;
+  private getNativeName(
+    assm: spec.AssemblyConfiguration,
     name: string | undefined,
-    assmName: string = (assm as spec.Assembly).name): string {
+    assmName: string = (assm as spec.Assembly).name
+  ): string {
     const javaPackage = assm.targets?.java?.package;
     if (!javaPackage) { throw new Error(`The module ${assmName} does not have a java.package setting`); }
     return `${javaPackage}${name ? `.${name}` : ''}`;

@@ -34,77 +34,9 @@
     }
   ],
   "dependencies": {
-    "@scope/jsii-calc-base": {
-      "targets": {
-        "dotnet": {
-          "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
-        },
-        "java": {
-          "maven": {
-            "artifactId": "calculator-base",
-            "groupId": "software.amazon.jsii.tests"
-          },
-          "package": "software.amazon.jsii.tests.calculator.base"
-        },
-        "js": {
-          "npm": "@scope/jsii-calc-base"
-        },
-        "python": {
-          "distName": "scope.jsii-calc-base",
-          "module": "scope.jsii_calc_base"
-        }
-      },
-      "version": "0.20.11"
-    },
-    "@scope/jsii-calc-base-of-base": {
-      "targets": {
-        "dotnet": {
-          "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
-        },
-        "java": {
-          "maven": {
-            "artifactId": "calculator-base-of-base",
-            "groupId": "software.amazon.jsii.tests"
-          },
-          "package": "software.amazon.jsii.tests.calculator.baseofbase"
-        },
-        "js": {
-          "npm": "@scope/jsii-calc-base-of-base"
-        },
-        "python": {
-          "distName": "scope.jsii-calc-base-of-base",
-          "module": "scope.jsii_calc_base_of_base"
-        }
-      },
-      "version": "0.20.11"
-    },
-    "@scope/jsii-calc-lib": {
-      "targets": {
-        "dotnet": {
-          "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
-          "versionSuffix": "-devpreview"
-        },
-        "java": {
-          "maven": {
-            "artifactId": "calculator-lib",
-            "groupId": "software.amazon.jsii.tests",
-            "versionSuffix": ".DEVPREVIEW"
-          },
-          "package": "software.amazon.jsii.tests.calculator.lib"
-        },
-        "js": {
-          "npm": "@scope/jsii-calc-lib"
-        },
-        "python": {
-          "distName": "scope.jsii-calc-lib",
-          "module": "scope.jsii_calc_lib"
-        }
-      },
-      "version": "0.20.11"
-    }
+    "@scope/jsii-calc-base": "^0.20.11",
+    "@scope/jsii-calc-base-of-base": "^0.20.11",
+    "@scope/jsii-calc-lib": "^0.20.11"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base": {
@@ -127,8 +59,7 @@
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
         }
-      },
-      "version": "0.20.11"
+      }
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -150,8 +81,7 @@
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
         }
-      },
-      "version": "0.20.11"
+      }
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -175,8 +105,7 @@
           "distName": "scope.jsii-calc-lib",
           "module": "scope.jsii_calc_lib"
         }
-      },
-      "version": "0.20.11"
+      }
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -12002,5 +11931,5 @@
     }
   },
   "version": "0.20.11",
-  "fingerprint": "eenqZx1+dNMvfZCY02AIrinXeK98iQC4XLLj0yPIXuM="
+  "fingerprint": "JMTWeMHDPnC/01VAtTulHbaZ1mSgip2tVym5dlwrBZE="
 }
