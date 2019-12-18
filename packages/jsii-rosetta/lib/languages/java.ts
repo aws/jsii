@@ -320,7 +320,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       ],
       renderer.convertAll(node.properties),
       {
-        suffix: '.build()',
+        suffix: renderer.mirrorNewlineBefore(node.properties[0], '.build()'),
       },
     );
   }
@@ -414,6 +414,10 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         renderer.convert(node.initializer),
         ')',
       ],
+      {
+        canBreakLine: true,
+        indent: 8,
+      },
     );
   }
 
