@@ -9,7 +9,7 @@
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * Object calculator = new Calculator();
+ * Calculator calculator = new Calculator();
  * }</pre></blockquote>
  * <p>
  * Then call some operations:

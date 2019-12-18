@@ -7,7 +7,7 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * Object calculator = new Calculator();
+ * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
  * System.out.println(calculator.expression.getValue());
@@ -19,7 +19,7 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * Object calculator = new Calculator();
+ * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
  * System.out.println(calculator.expression.getValue());}</pre></blockquote>
