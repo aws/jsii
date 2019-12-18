@@ -52,7 +52,7 @@ const warningTypes = Object.keys(enabledWarnings);
       throw new Error(`Unknown warning type ${key}. Must be one of: ${warningTypes}`);
     }
 
-    (enabledWarnings as any)[key] = false;
+    enabledWarnings[key] = false;
   }
 
   const compiler = new Compiler({
