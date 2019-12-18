@@ -30,7 +30,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "jsii && jsii-rosetta --compile",
+    "build": "jsii --silence-warnings reserved-word && jsii-rosetta --compile",
     "watch": "jsii -w",
     "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"

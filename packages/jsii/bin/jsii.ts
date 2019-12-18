@@ -6,6 +6,9 @@ import { Compiler, DIAGNOSTICS } from '../lib/compiler';
 import { loadProjectInfo } from '../lib/project-info';
 import * as utils from '../lib/utils';
 import { VERSION } from '../lib/version';
+import { enabledWarnings } from '../lib/warnings';
+
+const warningTypes = Object.keys(enabledWarnings);
 
 (async () => {
   const argv = yargs
@@ -27,6 +30,11 @@ import { VERSION } from '../lib/version';
       type: 'boolean',
       desc: 'Treat warnings as errors'
     })
+    .option('silence-warnings', {
+      type: 'array',
+      default: [],
+      desc: `List of warnings to silence (warnings: ${warningTypes.join(',')})`,
+    })
     .help()
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     .version(`${VERSION}, typescript ${require('typescript/package.json').version}`)
@@ -38,11 +46,20 @@ import { VERSION } from '../lib/version';
 
   const projectInfo = await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] });
 
+  // disable all silenced warnings
+  for (const key of argv['silence-warnings']) {
+    if (!(key in enabledWarnings)) {
+      throw new Error(`Unknown warning type ${key}. Must be one of: ${warningTypes}`);
+    }
+
+    enabledWarnings[key] = false;
+  }
+
   const compiler = new Compiler({
     projectInfo,
     watch: argv.watch,
     projectReferences: argv['project-references'],
-    failOnWarnings: argv['fail-on-warnings']
+    failOnWarnings: argv['fail-on-warnings'],
   });
 
   return { projectRoot, emitResult: await compiler.emit() };
