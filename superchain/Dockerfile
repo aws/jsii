@@ -63,6 +63,7 @@ RUN curl -sSL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.r
 
 # Install some configuration
 COPY ssh_config /root/.ssh/config
+RUN chmod 600 /root/.ssh/config
 COPY dockerd-entrypoint.sh /usr/local/bin/
 ENV CHARSET=UTF-8                                                                                                       \
     LC_ALL=C.UTF-8
