@@ -339,9 +339,9 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       ],
       renderer.updateContext({ inKeyValueList: true }).convertAll(node.properties),
       {
-        suffix: renderer.mirrorNewlineBefore(node.properties[0], ')'),
+        suffix: ')',
         separator: ', ',
-        indent: 4,
+        indent: 8,
       },
     );
   }

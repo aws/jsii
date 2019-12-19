@@ -1,3 +1,2 @@
 Object vpc = new Vpc(this, "Something", Map.of(
-    "argument", 5
-));
+        "argument", 5));

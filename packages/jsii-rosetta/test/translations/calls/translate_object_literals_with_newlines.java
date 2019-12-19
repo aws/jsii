@@ -1,4 +1,3 @@
 foo(25, Map.of(
-    "foo", 3,
-    "banana", "hello"
-));
+        "foo", 3,
+        "banana", "hello"));
