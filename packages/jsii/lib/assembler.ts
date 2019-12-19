@@ -16,6 +16,7 @@ import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
+import { enabledWarnings } from './warnings';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
@@ -208,7 +209,7 @@ export class Assembler implements Emitter {
    * been executed.
    *
    * @param fqn FQN of the current type.
-   * @param deps List of FQNs of types this callback depends on. All deferreds for all
+   * @param dependedFqns List of FQNs of types this callback depends on. All deferreds for all
    * @param cb the function to be called in a deferred way. It will be bound with ``this``, so it can depend on using
    *           ``this``.
    */
@@ -1024,6 +1025,10 @@ export class Assembler implements Emitter {
   }
 
   private _warnAboutReservedWords(symbol: ts.Symbol) {
+    if (!enabledWarnings['reserved-word']) {
+      return;
+    }
+
     const reservingLanguages = isReservedName(symbol.name);
     if (reservingLanguages) {
       this._diagnostic(ts.getNameOfDeclaration(symbol.valueDeclaration) || symbol.valueDeclaration,

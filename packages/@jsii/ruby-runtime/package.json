@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@jsii/runtime": "^0.20.11",
-    "@types/node": "^10.17.9",
+    "@types/node": "^10.17.11",
     "jsii-build-tools": "^0.20.11",
     "jsii-calc": "^0.20.11",
     "jsii-pacmak": "^0.20.11",

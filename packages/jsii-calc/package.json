@@ -30,7 +30,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "jsii && jsii-rosetta --compile",
+    "build": "jsii --silence-warnings reserved-word && jsii-rosetta --compile",
     "watch": "jsii -w",
     "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
@@ -47,7 +47,7 @@
     "@scope/jsii-calc-lib": "^0.20.11"
   },
   "devDependencies": {
-    "@types/node": "^10.17.9",
+    "@types/node": "^10.17.11",
     "jsii": "^0.20.11",
     "jsii-build-tools": "^0.20.11",
     "jsii-rosetta": "^0.20.11"
