@@ -40,9 +40,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
-        return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
-    }
+    public abstract software.amazon.jsii.tests.calculator.lib.Value getExpression();
 
     /**
      * The value.

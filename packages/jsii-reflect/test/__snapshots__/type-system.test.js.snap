@@ -14,6 +14,7 @@ Array [
   "AbstractClass",
   "AbstractClassBase",
   "AbstractClassReturner",
+  "AbstractSuite",
   "Add",
   "AllTypes",
   "AllowedMethodNames",

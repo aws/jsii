@@ -41,6 +41,25 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ returnAbstractFromProperty property (experimental)
  │   │     ├── immutable
  │   │     └── type: jsii-calc.AbstractClassBase
+ │   ├─┬ class AbstractSuite (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ someMethod(str) method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── protected
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ str
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
+ │   │   ├─┬ workItAll(seed) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ seed
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
+ │   │   └─┬ property property (experimental)
+ │   │     ├── abstract
+ │   │     ├── protected
+ │   │     └── type: string
  │   ├─┬ class Add (experimental)
  │   │ ├── base: BinaryOperation
  │   │ └─┬ members
@@ -2377,6 +2396,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IInterfaceImplementedByAbstractClass
  │   ├── class AbstractClassBase
  │   ├── class AbstractClassReturner
+ │   ├── class AbstractSuite
  │   ├─┬ class Add
  │   │ └── base: BinaryOperation
  │   ├── class AllTypes
@@ -2667,6 +2687,12 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── giveMeAbstract() method
  │   │   ├── giveMeInterface() method
  │   │   └── returnAbstractFromProperty property
+ │   ├─┬ class AbstractSuite
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── someMethod(str) method
+ │   │   ├── workItAll(seed) method
+ │   │   └── property property
  │   ├─┬ class Add
  │   │ └─┬ members
  │   │   ├── <initializer>(lhs,rhs) initializer
@@ -3705,6 +3731,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
  │   ├── class AbstractClassReturner
+ │   ├── class AbstractSuite
  │   ├── class Add
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames

@@ -628,8 +628,8 @@ export class DotNetGenerator extends Generator {
   }
 
   /**
-     * Emits a property
-     */
+   * Emits a property
+   */
   private emitProperty(cls: spec.Type, prop: spec.Property, datatype = false, proxy = false): void {
 
     this.emitNewLineIfNecessary();
@@ -646,26 +646,31 @@ export class DotNetGenerator extends Generator {
     this.dotnetRuntimeGenerator.emitAttributesForProperty(prop, datatype);
 
     let isOverrideKeyWord = '';
-
     let isVirtualKeyWord = '';
+    let isAbstractKeyword = '';
+
     // If the prop parent is a class
     if (cls.kind === spec.TypeKind.Class) {
       const implementedInBase = this.isMemberDefinedOnAncestor(cls as spec.ClassType, prop);
       if (implementedInBase || datatype || proxy) {
         // Override if the property is in a datatype or proxy class or declared in a parent class
         isOverrideKeyWord = 'override ';
-      } else if (!prop.static && (prop.abstract || !implementedInBase)) {
-        // Virtual if the prop is not static, and is abstract or not implemented in base member, this way we can later override it.
+      } else if (prop.abstract) {
+        // Abstract members get decorated as such
+        isAbstractKeyword = 'abstract ';
+      } else if (!prop.static && !implementedInBase) {
+        // Virtual if the prop is not static, and is not implemented in base member, this way we can later override it.
         isVirtualKeyWord = 'virtual ';
       }
     }
+
     const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
     const isOptionalPrimitive = this.isOptionalPrimitive(prop) ? '?' : '';
-    const statement = `${access} ${isVirtualKeyWord}${isOverrideKeyWord}${staticKeyWord}${propTypeFQN}${isOptionalPrimitive} ${propName}`;
+    const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${isOverrideKeyWord}${staticKeyWord}${propTypeFQN}${isOptionalPrimitive} ${propName}`;
     this.code.openBlock(statement);
 
     // Emit getters
-    if (datatype || prop.const) {
+    if (datatype || prop.const || prop.abstract) {
       this.code.line('get;');
     } else {
       if (prop.static) {
@@ -676,7 +681,7 @@ export class DotNetGenerator extends Generator {
     }
 
     // Emit setters
-    if (datatype) {
+    if (datatype || (!prop.immutable && prop.abstract)) {
       this.code.line('set;');
     } else {
       if (!prop.immutable) {
