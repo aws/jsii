@@ -64,8 +64,8 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 44,
-        "statements": 57
+        "branches": 43,
+        "statements": 56
       }
     },
     "errorOnDeprecated": true,
