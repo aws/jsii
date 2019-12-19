@@ -318,9 +318,12 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         structType.symbol.name,
         '.builder()',
       ],
-      renderer.convertAll(node.properties),
+      [
+        ...renderer.convertAll(node.properties),
+        new OTree([renderer.mirrorNewlineBefore(node.properties[0])], ['.build()']),
+      ],
       {
-        suffix: renderer.mirrorNewlineBefore(node.properties[0], '.build()'),
+        indent: 8,
       },
     );
   }
@@ -416,7 +419,6 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       ],
       {
         canBreakLine: true,
-        indent: 8,
       },
     );
   }
