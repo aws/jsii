@@ -128,7 +128,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: JavaRenderer): OTree {
     return new OTree([
-      this.renderTypeNode(node.type, renderer, 'Object'),
+      this.renderTypeNode(node.type, renderer),
       ' ',
       renderer.convert(node.name),
     ]);
@@ -459,12 +459,24 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       : [];
   }
 
-  private renderTypeNode(typeNode: ts.TypeNode | undefined, renderer: JavaRenderer, fallback: string): string {
+  private renderTypeNode(typeNode: ts.TypeNode | undefined, renderer: JavaRenderer, fallback?: string): string {
+    fallback = fallback || (typeNode
+      ? lastElement(renderer.textOf(typeNode).split('.')) // remove any namespace prefixes
+      : 'Object');
+
     if (!typeNode) {
       return fallback;
     }
 
-    return this.renderType(renderer.typeOfType(typeNode), renderer, fallback);
+    const type = renderer.typeOfType(typeNode);
+
+    // this means the snippet didn't have enough info for the TypeScript compiler to figure out the type -
+    // so, just render the fallback
+    if ((type as any).intrinsicName === 'error') {
+      return fallback;
+    }
+
+    return this.renderType(type, renderer, fallback);
   }
 
   private renderType(type: ts.Type, renderer: JavaRenderer, fallback: string): string {
@@ -610,4 +622,8 @@ function stripTrailingBang(str: string): string {
 
 function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function lastElement(strings: string[]): string {
+  return strings[strings.length - 1];
 }
