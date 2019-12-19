@@ -7,5 +7,5 @@ public void foo(String x, String y) {
 }
 
 public void foo(String x, String y, String z) {
-    System.out.println("" + x + y + z);
+    System.out.println(x + y + z);
 }

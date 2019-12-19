@@ -231,7 +231,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         'System.out.println(',
         args.length === 1
           ? renderer.convert(args[0])
-          : new OTree([], ['""', ...renderer.convertAll(args)], { separator: ' + ' }),
+          : new OTree([], renderer.convertAll(args), { separator: ' + ' }),
         ')',
       ],
     );
