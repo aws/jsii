@@ -8,14 +8,33 @@ import { ImportStatement } from '../typescript/imports';
 import { jsiiTargetParam } from '../jsii/packages';
 
 interface JavaContext {
-  /** @default false */
+  /**
+   * Whether to ignore the left-hand part of a property access expression.
+   * Used to strip out TypeScript namespace prefixes from 'extends' and 'new' clauses.
+   *
+   * @default false
+   */
   readonly ignorePropertyPrefix?: boolean;
 
-  /** @default true */
+  /**
+   * Whether a property access ('sth.b') should be substituted by a getter ('sth.getB()').
+   * Not true for 'new' expressions and calls to methods on objects.
+   *
+   * @default true
+   */
   readonly convertPropertyToGetter?: boolean;
 
+  /**
+   * Set when we are in the middle translating a type (= class, interface or enum) declaration.
+   */
   readonly insideTypeDeclaration?: InsideTypeDeclaration;
 
+  /**
+   * True when, from the context,
+   * we are supposed to render a JavaScript object literal as a Map in Java.
+   *
+   * @default false
+   */
   readonly inKeyValueList?: boolean;
 
   /**
@@ -35,7 +54,14 @@ interface JavaContext {
   readonly stringLiteralAsIdentifier?: boolean;
 }
 
+/**
+ * Values saved when we are translating a type declaration.
+ */
 interface InsideTypeDeclaration {
+  /**
+   * The name of the type.
+   * Needed to correctly generate the constructor.
+   */
   readonly typeName: ts.Node | undefined;
 }
 
