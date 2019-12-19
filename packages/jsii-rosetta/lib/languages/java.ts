@@ -142,7 +142,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const type = (node.type && renderer.typeOfType(node.type))
         || (node.initializer && renderer.typeOfExpression(node.initializer));
 
-    const renderedType = type ? this.renderType(type, renderer, 'Object') : 'Object';
+    const renderedType = type ? this.renderType(node, type, renderer, 'Object') : 'Object';
 
     return new OTree(
       [
@@ -476,19 +476,19 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       return fallback;
     }
 
-    return this.renderType(type, renderer, fallback);
+    return this.renderType(typeNode, type, renderer, fallback);
   }
 
-  private renderType(type: ts.Type, renderer: JavaRenderer, fallback: string): string {
+  private renderType(owningNode: ts.Node, type: ts.Type, renderer: JavaRenderer, fallback: string): string {
     const nonUnionType = typeWithoutUndefinedUnion(type);
     if (!nonUnionType) {
-      // renderer.report(typeNode, 'Type unions in examples are not supported');
+      renderer.report(owningNode, 'Type unions in examples are not supported');
       return fallback;
     }
 
     const mapValuesType = mapElementType(nonUnionType, renderer);
     if (mapValuesType) {
-      return `Map<String, ${this.renderType(mapValuesType, renderer, 'Object')}>`;
+      return `Map<String, ${this.renderType(owningNode, mapValuesType, renderer, 'Object')}>`;
     }
 
     // User-defined or aliased type
