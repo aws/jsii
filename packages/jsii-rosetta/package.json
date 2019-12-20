@@ -21,7 +21,7 @@
     "@types/mock-fs": "^4.10.0",
     "@types/node": "^10.17.11",
     "@types/yargs": "^13.0.3",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "jsii": "^0.20.11",
     "jsii-build-tools": "^0.20.11",
