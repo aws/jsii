@@ -1,2 +1,3 @@
-Object vpc = new Vpc(this, "Something", Map.of(
-        "argument", 5));
+Object vpc = Vpc.Builder.create(this, "Something")
+        .argument(5)
+        .build();

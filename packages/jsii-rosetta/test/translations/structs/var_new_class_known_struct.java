@@ -1,3 +1,3 @@
-Vpc vpc = new Vpc(this, "Something", VpcProps.builder()
+Vpc vpc = Vpc.Builder.create(this, "Something")
         .argument(5)
-        .build());
+        .build();

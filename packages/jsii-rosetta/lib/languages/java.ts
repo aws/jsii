@@ -30,6 +30,14 @@ interface JavaContext {
   readonly insideTypeDeclaration?: InsideTypeDeclaration;
 
   /**
+   * True if we are in the middle of a `new` expression that has an object literal as its last argument -
+   * in that case, we render a ClassName.Builder.create(...).prop(...).build() expression instead.
+   *
+   * @default false
+   */
+  readonly inNewExprWithObjectLiteralAsLastArg?: boolean;
+
+  /**
    * True when, from the context,
    * we are supposed to render a JavaScript object literal as a Map in Java.
    *
@@ -283,36 +291,6 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(result);
   }
 
-  public newExpression(node: ts.NewExpression, renderer: JavaRenderer): OTree {
-    return new OTree(
-      [
-        'new ',
-        renderer.updateContext({
-          ignorePropertyPrefix: true,
-          convertPropertyToGetter: false,
-        }).convert(node.expression),
-        '(',
-        this.argumentList(node.arguments, renderer),
-        ')',
-      ],
-      [],
-      {
-        canBreakLine: true,
-      },
-    );
-  }
-
-  public regularCallExpression(node: ts.CallExpression, renderer: JavaRenderer): OTree {
-    return new OTree(
-      [
-        renderer.updateContext({ convertPropertyToGetter: false }).convert(node.expression),
-        '(',
-        this.argumentList(node.arguments, renderer),
-        ')',
-      ],
-    );
-  }
-
   public asExpression(node: ts.AsExpression, renderer: JavaRenderer): OTree {
     return new OTree(
       [
@@ -338,12 +316,63 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     );
   }
 
-  public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, structType: ts.Type, renderer: JavaRenderer): OTree {
+  public regularCallExpression(node: ts.CallExpression, renderer: JavaRenderer): OTree {
     return new OTree(
       [
-        structType.symbol.name,
-        '.builder()',
+        renderer.updateContext({ convertPropertyToGetter: false }).convert(node.expression),
+        '(',
+        this.argumentList(node.arguments, renderer),
+        ')',
       ],
+    );
+  }
+
+  public newExpression(node: ts.NewExpression, renderer: JavaRenderer): OTree {
+    const argsLength = node.arguments ? node.arguments.length : 0;
+    const lastArg = argsLength > 0 ? node.arguments![argsLength - 1] : undefined;
+    const lastArgIsObjectLiteral = lastArg && ts.isObjectLiteralExpression(lastArg);
+
+    // if the last argument to the `new` call is an object literal -
+    // render a Builder.ClassName.create(...).prop(...).build() expression instead
+
+    return new OTree(
+      [],
+      [
+        lastArgIsObjectLiteral ? undefined : 'new ',
+        renderer.updateContext({
+          ignorePropertyPrefix: true,
+          convertPropertyToGetter: false,
+        }).convert(node.expression),
+        lastArgIsObjectLiteral ? '.Builder.create' : undefined,
+        '(',
+        this.argumentList(
+          lastArgIsObjectLiteral ? node.arguments!.slice(0, argsLength - 1) : node.arguments,
+          renderer,
+        ),
+        ')',
+        lastArgIsObjectLiteral ? renderer.updateContext({ inNewExprWithObjectLiteralAsLastArg: true }).convert(lastArg) : undefined,
+      ],
+      {
+        canBreakLine: true,
+      },
+    );
+  }
+
+  public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
+    return renderer.currentContext.inNewExprWithObjectLiteralAsLastArg
+      ? this.knownStructObjectLiteralExpression(node, undefined, renderer)
+      : this.keyValueObjectLiteralExpression(node, undefined, renderer);
+  }
+
+  public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, structType: ts.Type | undefined, renderer: JavaRenderer): OTree {
+    return new OTree(
+      // structType is only undefined if renderer.currentContext.inNewExprWithObjectLiteralAsLastArg === true
+      renderer.currentContext.inNewExprWithObjectLiteralAsLastArg
+        ? []
+        : [
+          structType!.symbol.name,
+          '.builder()',
+        ],
       [
         ...renderer.convertAll(node.properties),
         new OTree([renderer.mirrorNewlineBefore(node.properties[0])], ['.build()']),
@@ -352,10 +381,6 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         indent: 8,
       },
     );
-  }
-
-  public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, renderer: JavaRenderer): OTree {
-    return this.keyValueObjectLiteralExpression(node, undefined, renderer);
   }
 
   public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, _valueType: ts.Type | undefined, renderer: JavaRenderer): OTree {
@@ -440,7 +465,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         '.',
         renderer.updateContext({ stringLiteralAsIdentifier: true }).convert(node.name),
         '(',
-        renderer.convert(node.initializer),
+        renderer.updateContext({ inNewExprWithObjectLiteralAsLastArg: false }).convert(node.initializer),
         ')',
       ],
       {
