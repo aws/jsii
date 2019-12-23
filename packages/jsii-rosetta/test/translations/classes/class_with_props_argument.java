@@ -3,7 +3,7 @@ public class MyClassProps {
     public String getProp1() {
         return this.prop1;
     }
-    public MyClassProps setProp1(String prop1) {
+    public MyClassProps prop1(String prop1) {
         this.prop1 = prop1;
         return this;
     }
@@ -11,7 +11,7 @@ public class MyClassProps {
     public int getProp2() {
         return this.prop2;
     }
-    public MyClassProps setProp2(int prop2) {
+    public MyClassProps prop2(int prop2) {
         this.prop2 = prop2;
         return this;
     }

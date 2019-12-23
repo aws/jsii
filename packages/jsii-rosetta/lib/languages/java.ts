@@ -113,7 +113,6 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
   public propertySignature(node: ts.PropertySignature, renderer: JavaRenderer): OTree {
     const propertyType = this.renderTypeNode(node.type, renderer, 'Object');
     const propertyName = renderer.convert(node.name);
-    const capitalizedPropertyName = capitalize(renderer.textOf(node.name));
 
     const field = new OTree(
       [],
@@ -135,7 +134,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         'public ',
         propertyType,
         ' ',
-        `get${capitalizedPropertyName}() `,
+        `get${capitalize(renderer.textOf(node.name))}() `,
         this.renderBlock([
           new OTree(
             [
@@ -160,7 +159,8 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         'public ',
         renderer.convert(renderer.currentContext.insideTypeDeclaration!.typeName),
         ' ',
-        `set${capitalizedPropertyName}(`,
+        propertyName, // don't prefix the setter with `set` - makes it more aligned with JSII builders
+        '(',
         propertyType,
         ' ',
         propertyName,

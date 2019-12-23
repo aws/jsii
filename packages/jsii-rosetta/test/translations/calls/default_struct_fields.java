@@ -3,7 +3,7 @@ public class Struct {
     public String getX() {
         return this.x;
     }
-    public Struct setX(String x) {
+    public Struct x(String x) {
         this.x = x;
         return this;
     }
@@ -11,7 +11,7 @@ public class Struct {
     public String getY() {
         return this.y;
     }
-    public Struct setY(String y) {
+    public Struct y(String y) {
         this.y = y;
         return this;
     }

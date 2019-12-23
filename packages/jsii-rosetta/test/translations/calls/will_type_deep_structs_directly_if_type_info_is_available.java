@@ -3,7 +3,7 @@ public class BaseDeeperStruct {
     public int getA() {
         return this.a;
     }
-    public BaseDeeperStruct setA(int a) {
+    public BaseDeeperStruct a(int a) {
         this.a = a;
         return this;
     }
@@ -13,7 +13,7 @@ public class DeeperStruct extends BaseDeeperStruct {
     public int getB() {
         return this.b;
     }
-    public DeeperStruct setB(int b) {
+    public DeeperStruct b(int b) {
         this.b = b;
         return this;
     }
@@ -24,7 +24,7 @@ public class OuterStruct {
     public int getFoo() {
         return this.foo;
     }
-    public OuterStruct setFoo(int foo) {
+    public OuterStruct foo(int foo) {
         this.foo = foo;
         return this;
     }
@@ -32,7 +32,7 @@ public class OuterStruct {
     public DeeperStruct getDeeper() {
         return this.deeper;
     }
-    public OuterStruct setDeeper(DeeperStruct deeper) {
+    public OuterStruct deeper(DeeperStruct deeper) {
         this.deeper = deeper;
         return this;
     }

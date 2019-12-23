@@ -3,7 +3,7 @@ public class Test {
     public String getKey() {
         return this.key;
     }
-    public Test setKey(String key) {
+    public Test key(String key) {
         this.key = key;
         return this;
     }
