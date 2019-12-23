@@ -174,7 +174,7 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.P
     const pkg = _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop
-    const assm = await loadAndValidateAssembly(pkg);
+    const assm = await loadAndValidateAssembly(pkg).catch(e => { throw new Error(`Error loading ${pkg}: ${e}`); });
     if (!version.intersects(new semver.Range(assm.version))) {
       throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
     }

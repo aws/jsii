@@ -1,4 +1,5 @@
 import * as log4js from 'log4js';
+import { cursorTo, clearScreenDown } from 'readline';
 import * as ts from 'typescript';
 import { DIAGNOSTICS } from './compiler';
 
@@ -19,6 +20,8 @@ export function diagnosticsLogger(logger: log4js.Logger, diagnostic: ts.Diagnost
       if (!logger.isWarnEnabled()) { return undefined; }
       return logger.warn.bind(logger);
     case ts.DiagnosticCategory.Message:
+      if (!logger.isInfoEnabled()) { return undefined; }
+      return logger.info.bind(logger);
     case ts.DiagnosticCategory.Suggestion:
     default:
       if (!logger.isDebugEnabled()) { return undefined; }
@@ -27,15 +30,26 @@ export function diagnosticsLogger(logger: log4js.Logger, diagnostic: ts.Diagnost
 }
 
 export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
-  const formatDiagnosticsHost = {
+  if (process.stdout.isTTY && process.stderr.isTTY && diagnostic.code === 6032) {
+    // Clearing the screen if the code is that of "File change detected. Starting incremental compilation..."
+    for (const stream of [process.stdout, process.stderr]) {
+      stream.write('\n'.repeat(stream.rows ?? 0));
+      cursorTo(stream, 0, 0);
+      clearScreenDown(stream);
+    }
+  }
+
+  const formatDiagnosticsHost: ts.FormatDiagnosticsHost = {
     getCurrentDirectory: () => projectRoot,
-    getCanonicalFileName(fileName: string) { return fileName; },
-    getNewLine() { return '\n'; }
+    getCanonicalFileName: fileName => fileName,
+    getNewLine: () => ts.sys.newLine,
   };
 
-  const message = diagnostic.file
-    ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
-    : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
+  const message = diagnostic.category === ts.DiagnosticCategory.Message && typeof diagnostic.messageText === 'string'
+    ? diagnostic.messageText
+    : diagnostic.file
+      ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
+      : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
 
   const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
   if (!logFunc) { return; }

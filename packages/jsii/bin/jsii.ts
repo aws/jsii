@@ -57,12 +57,17 @@ const warningTypes = Object.keys(enabledWarnings);
 
   const compiler = new Compiler({
     projectInfo,
-    watch: argv.watch,
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
   });
 
-  return { projectRoot, emitResult: await compiler.emit() };
+  compiler.on('statusChanged', diagnostic => utils.logDiagnostic(diagnostic, projectRoot));
+
+  const result = argv.watch
+    // When watching, return a promise that never resolves... #magic
+    ? new Promise<never>((_, ko) => { compiler.watch().catch(ko); })
+    : compiler.emit();
+  return { projectRoot, emitResult: await result };
 })().then(({ projectRoot, emitResult }) => {
   for (const diagnostic of emitResult.diagnostics) {
     utils.logDiagnostic(diagnostic, projectRoot);
@@ -82,19 +87,20 @@ function _configureLog4js(verbosity: number) {
         type: 'stderr',
         layout: { type: 'colored' }
       },
-      diagnostics: {
+      [DIAGNOSTICS]: {
         type: 'stdout',
         layout: { type: 'messagePassThrough' }
       }
     },
     categories: {
       default: { appenders: ['console'], level: _logLevel() },
-      [DIAGNOSTICS]: { appenders: ['diagnostics'], level: _logLevel() }
+      // The diagnostics logger must be set to INFO or more verbose, or watch won't show important messages
+      [DIAGNOSTICS]: { appenders: ['diagnostics'], level: _logLevel(Math.max(verbosity, 1)) }
     }
   });
 
-  function _logLevel(): keyof log4js.Levels {
-    switch (verbosity) {
+  function _logLevel(verbosityLevel = verbosity): keyof log4js.Levels {
+    switch (verbosityLevel) {
       case 0: return 'WARN';
       case 1: return 'INFO';
       case 2: return 'DEBUG';
