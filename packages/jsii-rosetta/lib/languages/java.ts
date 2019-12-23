@@ -176,7 +176,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     const type = (node.type && renderer.typeOfType(node.type))
         || (node.initializer && renderer.typeOfExpression(node.initializer));
 
-    const renderedType = type ? this.renderType(node, type, renderer, 'Object') : 'Object';
+    const renderedType = type ? this.renderType(node, type, renderer, 'var') : 'var';
 
     return new OTree(
       [
@@ -519,18 +519,16 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       return fallback;
     }
 
-    const type = renderer.typeOfType(typeNode);
+    return this.renderType(typeNode, renderer.typeOfType(typeNode), renderer, fallback);
+  }
 
+  private renderType(owningNode: ts.Node, type: ts.Type, renderer: JavaRenderer, fallback: string): string {
     // this means the snippet didn't have enough info for the TypeScript compiler to figure out the type -
     // so, just render the fallback
     if ((type as any).intrinsicName === 'error') {
       return fallback;
     }
 
-    return this.renderType(typeNode, type, renderer, fallback);
-  }
-
-  private renderType(owningNode: ts.Node, type: ts.Type, renderer: JavaRenderer, fallback: string): string {
     const nonUnionType = typeWithoutUndefinedUnion(type);
     if (!nonUnionType) {
       renderer.report(owningNode, 'Type unions in examples are not supported');
