@@ -16,7 +16,7 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
   }
 
   public code(node: cm.Node, _context: RendererContext) {
-    return `<c>${escapeAngleBrackets(node.literal)}</c>`;
+    return `<c>${escapeCharacters(node.literal)}</c>`;
   }
 
   public code_block(node: cm.Node, _context: RendererContext) {
@@ -24,7 +24,7 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
   }
 
   public text(node: cm.Node, _context: RendererContext) {
-    return escapeAngleBrackets(node.literal) || '';
+    return escapeCharacters(node.literal) || '';
   }
 
   public link(node: cm.Node, context: RendererContext) {
@@ -58,6 +58,9 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
   }
 }
 
-function escapeAngleBrackets(x: string | null): string {
-  return x ? x.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+/**
+ * Escape the characters that need escaping in XML
+ */
+function escapeCharacters(x: string | null): string {
+  return x ? x.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
 }

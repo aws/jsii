@@ -23,11 +23,11 @@ Here's a paragraph.
 <p>
 Here's one more.
 <p>
-<blockquote><pre>{@code
+<blockquote><pre>
 some_code();
 
 with_newlines();
-}</pre></blockquote>
+</pre></blockquote>
 <p>
 Some more text here.
 `);
@@ -54,6 +54,26 @@ This is <em>very</em> <strong>cool</strong>.
 <li>Really</li>
 </ul>
 `);
+});
+
+test('special characters are escaped', () => {
+  expectOutput(`
+  Escape this & and this < and this > and also @
+
+  ` + '```' + `
+  if (x < 3) {
+    System.Console.WriteLn("bloep");
+  }
+  ` + '```'
+  , `
+Escape this &amp; and this &lt; and this &gt; and also &#64;
+<p>
+<blockquote><pre>
+if (x &lt; 3) {
+  System.Console.WriteLn("bloep");
+}
+</pre></blockquote>
+  `);
 });
 
 function expectOutput(source: string, expected: string) {

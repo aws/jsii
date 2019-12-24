@@ -16,16 +16,25 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public code(node: cm.Node, _context: RendererContext) {
-    return `<code>${escapeAngleBrackets(node.literal)}</code>`;
+    return `<code>${escapeCharacters(node.literal)}</code>`;
   }
 
+  /**
+   * Render code blocks for JavaDoc
+   *
+   * See https://reflectoring.io/howto-format-code-snippets-in-javadoc/
+   *
+   * Since we need to display @ inside our examples and we don't have to
+   * care about writability, the most robust option seems to be <pre>
+   * tags with escaping of bad characters.
+   */
   /* eslint-disable-next-line @typescript-eslint/camelcase */
   public code_block(node: cm.Node, _context: RendererContext) {
-    return para(`<blockquote><pre>{@code\n${node.literal}}</pre></blockquote>`);
+    return para(`<blockquote><pre>\n${escapeCharacters(node.literal)}</pre></blockquote>`);
   }
 
   public text(node: cm.Node, _context: RendererContext) {
-    return escapeAngleBrackets(node.literal) || '';
+    return escapeCharacters(node.literal) || '';
   }
 
   public link(node: cm.Node, context: RendererContext) {
@@ -68,8 +77,11 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 }
 
-function escapeAngleBrackets(x: string | null): string {
-  return x ? x.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+/**
+ * Escape the characters that need escaping in JavaDoc HTML
+ */
+function escapeCharacters(x: string | null): string {
+  return x ? x.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/@/g, '&#64;') : '';
 }
 
 function collapseParaJava(x: string) {

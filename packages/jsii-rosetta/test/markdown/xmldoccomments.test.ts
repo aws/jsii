@@ -25,6 +25,26 @@ This is <em>very</em> <strong>cool</strong>.
 `);
 });
 
+test('special characters are escaped', () => {
+  expectOutput(`
+  Escape this & and this < and this >
+
+  ` + '```' + `
+  if (x < 3) {
+    System.Console.WriteLn("bloep");
+  }
+  ` + '```'
+  , `
+Escape this &amp; and this &lt; and this &gt;
+
+<code><![CDATA[
+if (x < 3) {
+  System.Console.WriteLn("bloep");
+}
+]]></code>
+  `);
+});
+
 function expectOutput(source: string, expected: string) {
   if (DEBUG) {
     // tslint:disable-next-line:no-console
