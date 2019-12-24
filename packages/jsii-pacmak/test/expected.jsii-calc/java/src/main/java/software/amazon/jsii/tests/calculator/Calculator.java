@@ -5,15 +5,15 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * Here's how you use it:
  * <p>
- * <blockquote><pre>{@code
+ * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
  * System.out.println(calculator.expression.getValue());
- * }</pre></blockquote>
+ * </pre></blockquote>
  * <p>
- * I will repeat this example again, but in an @example tag.
+ * I will repeat this example again, but in an &#64;example tag.
  * <p>
  * Example:
  * <p>

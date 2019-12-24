@@ -7,25 +7,25 @@
  * <p>
  * First, create a calculator:
  * <p>
- * <blockquote><pre>{@code
+ * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * Calculator calculator = new Calculator();
- * }</pre></blockquote>
+ * </pre></blockquote>
  * <p>
  * Then call some operations:
  * <p>
- * <blockquote><pre>{@code
+ * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * calculator.add(10);
- * }</pre></blockquote>
+ * </pre></blockquote>
  * <p>
  * <h2>Code Samples</h2>
  * <p>
- * <blockquote><pre>{@code
+ * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * /* This is totes a magic comment in here, just you wait! *{@literal /}
  * String foo = "bar";
- * }</pre></blockquote>
+ * </pre></blockquote>
  */
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 package software.amazon.jsii.tests.calculator;
