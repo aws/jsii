@@ -5,13 +5,13 @@ import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
-import * as semver from 'semver';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import { Translation, Rosetta, typeScriptSnippetFromSource } from 'jsii-rosetta';
+import { toPythonVersionRange } from './version-utils';
 
 
 const INCOMPLETE_DISCLAIMER = '# Example automatically generated. See https://github.com/aws/jsii/issues/826';
@@ -1185,15 +1185,7 @@ class Package {
     const dependencies: string[] = [];
     for (const [depName, version] of Object.entries(this.metadata.dependencies ?? {})) {
       const depInfo = this.metadata.dependencyClosure![depName];
-
-      const range = new semver.Range(version);
-      const versionSpecifier = range.set.map(
-        set => set.map(
-          comp => `${comp.operator || '=='}${comp.semver.raw}`
-        ).join(', ')
-      ).join(', ');
-
-      dependencies.push(`${depInfo.targets!.python!.distName}${versionSpecifier}`);
+      dependencies.push(`${depInfo.targets!.python!.distName}${toPythonVersionRange(version)}`);
     }
 
     code.openFile('README.md');

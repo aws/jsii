@@ -3,6 +3,7 @@ import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
+import { intersect } from 'semver-intersect';
 import { parsePerson, parseRepository } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
@@ -180,7 +181,9 @@ async function _loadDependencies(
     if (!version.intersects(new semver.Range(assm.version))) {
       throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
     }
-    packageVersions[assm.name] = versionString!;
+    packageVersions[assm.name] = packageVersions[assm.name] != null
+      ? intersect(versionString!, packageVersions[assm.name])
+      : versionString!;
     transitiveAssemblies[assm.name] = assm;
     const pkgDir = path.dirname(pkg);
     if (assm.dependencies) {

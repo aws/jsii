@@ -1,12 +1,12 @@
 import { CodeMaker } from 'codemaker';
 import { Assembly } from '@jsii/spec';
 import * as path from 'path';
-import * as semver from 'semver';
 import * as xmlbuilder from 'xmlbuilder';
 import { DotNetNameUtils } from './nameutils';
 import * as logging from '../../logging';
 import { nextMajorVersion } from '../../util';
 import { TARGET_FRAMEWORK } from '../dotnet';
+import { toNuGetVersionRange } from '../version-utils';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
@@ -19,44 +19,7 @@ export class DotNetDependency {
     version: string,
     public readonly partOfCompilation: boolean
   ) {
-    const range = new semver.Range(version);
-    // See: https://docs.microsoft.com/en-us/nuget/concepts/package-versioning#version-ranges-and-wildcards
-    this.version = range.set.map(set => {
-      if (set.length === 1) {
-        switch (set[0].operator || '=') {
-          // "[version]" => means exactly version
-          case '=': return `[${set[0].semver.raw}]`;
-          // "(version,]" => means greater than version
-          case '>': return `(${set[0].semver.raw},]`;
-          // "[version,]" => means greater than or equal to that version
-          case '>=': return `[${set[0].semver.raw},]`;
-          // "[,version)" => means less than version
-          case '<': return `[,${set[0].semver.raw})`;
-          // "[,version]" => means less than or equal to version
-          case '<=': return `[,${set[0].semver.raw}]`;
-        }
-      } else if (set.length === 2) {
-        const nugetRange = this.toNuGetRange(set[0], set[1]);
-        if (nugetRange) {
-          return nugetRange;
-        }
-      }
-      throw new Error(`Unsupported SemVer range set: ${set.map(comp => comp.value).join(', ')}`);
-    }).join(', ');
-  }
-
-  private toNuGetRange(left: semver.Comparator, right: semver.Comparator): string | undefined {
-    if (left.operator.startsWith('<') && right.operator.startsWith('>')) {
-      // Order isn't ideal, just re-invoke with the correct ordering...
-      return this.toNuGetRange(right, left);
-    }
-    if (!left.operator.startsWith('>') || !right.operator.startsWith('<')) {
-      // We only support ranges defined like "> (or >=) left, < (or <=) right"
-      return undefined;
-    }
-    const leftBrace = left.operator.endsWith('=') ? '[' : '(';
-    const rightBrace = right.operator.endsWith('=') ? ']' : ')';
-    return `${leftBrace}${left.semver.raw},${right.semver.raw}${rightBrace}`;
+    this.version = toNuGetVersionRange(version);
   }
 }
 

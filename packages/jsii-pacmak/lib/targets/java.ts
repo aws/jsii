@@ -4,7 +4,6 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
 import * as path from 'path';
-import * as semver from 'semver';
 import * as xmlbuilder from 'xmlbuilder';
 import { Generator } from '../generator';
 import * as logging from '../logging';
@@ -14,6 +13,7 @@ import { shell, Scratch, slugify, setExtend, prefixMarkdownTsCodeBlocks } from '
 import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
+import { toMavenVersionRange } from './version-utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -786,56 +786,6 @@ class JavaGenerator extends Generator {
       return `${version}${suffix}`;
     }
 
-    /**
-     * Formats a SemVer version range into the equivalent Maven dependency notation.
-     *
-     * @see https://cwiki.apache.org/confluence/display/MAVENOLD/Dependency+Mediation+and+Conflict+Resolution
-     *
-     * @param version the semantic version number
-     * @param suffix a suffix to be appended to versions
-     */
-    function semverToMavenRange(version: string, suffix?: string): string {
-      const range = new semver.Range(version);
-      return range.set.map(
-        set => {
-          if (set.length === 1) {
-            switch (set[0].operator || '=') {
-              // "[version]" => means exactly version
-              case '=': return `[${makeVersion(set[0].semver.raw, suffix)}]`;
-              // "(version,]" => means greater than version
-              case '>': return `(${makeVersion(set[0].semver.raw, suffix)},]`;
-              // "[version,]" => means greater than or equal to that version
-              case '>=': return `[${makeVersion(set[0].semver.raw, suffix)},]`;
-              // "[,version)" => means less than version
-              case '<': return `[,${makeVersion(set[0].semver.raw, suffix)})`;
-              // "[,version]" => means less than or equal to version
-              case '<=': return `[,${makeVersion(set[0].semver.raw, suffix)}]`;
-            }
-          } else if (set.length === 2) {
-            const range = mavenRange(set[0], set[1]);
-            if (range) {
-              return range;
-            }
-          }
-          throw new Error(`Unsupported range set: ${set.map(comp => comp.value).join(', ')}`);
-        }
-      ).join(',');
-
-      function mavenRange(left: semver.Comparator, right: semver.Comparator): string | undefined {
-        if (left.operator.startsWith('<') && right.operator.startsWith('>')) {
-          // Order isn't ideal, just re-invoke with the correct ordering...
-          return mavenRange(right, left);
-        }
-        if (!left.operator.startsWith('>') || !right.operator.startsWith('<')) {
-          // We only support ranges defined like "> (or >=) left, < (or <=) right"
-          return undefined;
-        }
-        const leftBrace = left.operator.endsWith('=') ? '[' : '(';
-        const rightBrace = right.operator.endsWith('=') ? ']' : ')';
-        return `${leftBrace}${makeVersion(left.semver.raw, suffix)},${makeVersion(right.semver.raw, suffix)}${rightBrace}`;
-      }
-    }
-
     function mavenDependencies(this: JavaGenerator) {
       const dependencies = new Array<MavenDependency>();
       for (const [depName, version] of Object.entries(this.assembly.dependencies ?? {})) {
@@ -846,14 +796,14 @@ class JavaGenerator extends Generator {
         dependencies.push({
           groupId: dep.targets.java.maven.groupId,
           artifactId: dep.targets.java.maven.artifactId,
-          version: semverToMavenRange(version, dep.targets.java.maven.versionSuffix),
+          version: toMavenVersionRange(version, dep.targets.java.maven.versionSuffix),
         });
       }
       // The JSII java runtime base classes
       dependencies.push({
         groupId: 'software.amazon.jsii',
         artifactId: 'jsii-runtime',
-        version: semverToMavenRange(`^${VERSION}`)
+        version: toMavenVersionRange(`^${VERSION}`)
       });
 
       // Provides @javax.annotation.*
