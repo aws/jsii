@@ -42,7 +42,7 @@
     "semver": "^7.1.1",
     "sort-json": "^2.0.0",
     "spdx-license-list": "^6.1.0",
-    "typescript": "~3.7.3",
+    "typescript": "~3.7.4",
     "yargs": "^15.0.2"
   },
   "devDependencies": {
@@ -53,9 +53,9 @@
     "@types/jest-expect-message": "^1.0.1",
     "@types/node": "^10.17.11",
     "@types/semver": "^6.2.0",
-    "@types/yargs": "^13.0.3",
+    "@types/yargs": "^13.0.4",
     "clone": "^2.1.2",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.20.11"

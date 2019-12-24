@@ -31,9 +31,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "abstractProperty", typeJson: "{\"primitive\":\"string\"}")]
-        public virtual string AbstractProperty
+        public abstract string AbstractProperty
         {
-            get => GetInstanceProperty<string>();
+            get;
         }
     }
 }

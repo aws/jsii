@@ -44,13 +44,13 @@
     "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.24",
     "@types/node": "^10.17.11",
-    "@types/yargs": "^13.0.3",
-    "eslint": "^6.7.2",
+    "@types/yargs": "^13.0.4",
+    "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "jsii": "^0.20.11",
     "jsii-build-tools": "^0.20.11",
     "jsii-calc": "^0.20.11",
-    "typescript": "~3.7.3"
+    "typescript": "~3.7.4"
   },
   "jest": {
     "collectCoverage": true,

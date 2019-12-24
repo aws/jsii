@@ -38,6 +38,6 @@
     "jsii-build-tools": "^0.20.11",
     "jsii-calc": "^0.20.11",
     "jsii-pacmak": "^0.20.11",
-    "typescript": "~3.7.3"
+    "typescript": "~3.7.4"
   }
 }

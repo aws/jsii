@@ -155,7 +155,7 @@ namespace Amazon.JSII.Runtime
 
             var attribute = propertyInfo.GetAttribute<JsiiPropertyAttribute>();
 
-            var methodInfo = propertyInfo.GetGetMethod();
+            var methodInfo = propertyInfo.GetMethod;
             if (methodInfo == null)
             {
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not have a getter");
@@ -175,7 +175,7 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} setter, but this property does not exist");
             }
 
-            var methodInfo = propertyInfo.GetSetMethod();
+            var methodInfo = propertyInfo.SetMethod;
             if (methodInfo == null)
             {
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} setter, but this property does not have a setter");

@@ -943,6 +943,7 @@ class JavaGenerator extends Generator {
     const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
     const access = this.renderAccessLevel(prop);
     const statc = prop.static ? 'static ' : '';
+    const abstract = prop.abstract ? 'abstract ' : '';
     const javaClass = this.toJavaType(cls);
 
     // for unions we only generate overloads for setters, not getters.
@@ -951,18 +952,23 @@ class JavaGenerator extends Generator {
       this.addJavaDocs(prop);
       if (overrides) { this.code.line('@Override'); }
       this.emitStabilityAnnotations(prop);
-      this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
-      let statement;
-      if (prop.static) {
-        statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
+      const signature = `${access} ${abstract}${statc}${getterType} get${propName}()`;
+      if (prop.abstract) {
+        this.code.line(`${signature};`);
       } else {
-        statement = 'this.jsiiGet(';
+        this.code.openBlock(signature);
+        let statement;
+        if (prop.static) {
+          statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
+        } else {
+          statement = 'this.jsiiGet(';
+        }
+
+        statement += `"${prop.name}", ${propClass}.class)`;
+
+        this.code.line(`return ${this.wrapCollection(statement, prop.type, prop.optional)};`);
+        this.code.closeBlock();
       }
-
-      statement += `"${prop.name}", ${propClass}.class)`;
-
-      this.code.line(`return ${this.wrapCollection(statement, prop.type, prop.optional)};`);
-      this.code.closeBlock();
     }
 
     if (!prop.immutable) {
@@ -971,18 +977,23 @@ class JavaGenerator extends Generator {
         this.addJavaDocs(prop);
         if (overrides) { this.code.line('@Override'); }
         this.emitStabilityAnnotations(prop);
-        this.code.openBlock(`${access} ${statc}void set${propName}(final ${type} value)`);
-        let statement = '';
-
-        if (prop.static) {
-          statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
+        const signature = `${access} ${abstract}${statc}void set${propName}(final ${type} value)`;
+        if (prop.abstract) {
+          this.code.line(`${signature};`);
         } else {
-          statement += 'this.jsiiSet(';
+          this.code.openBlock(signature);
+          let statement = '';
+
+          if (prop.static) {
+            statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
+          } else {
+            statement += 'this.jsiiSet(';
+          }
+          const value = prop.optional ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
+          statement += `"${prop.name}", ${value});`;
+          this.code.line(statement);
+          this.code.closeBlock();
         }
-        const value = prop.optional ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
-        statement += `"${prop.name}", ${value});`;
-        this.code.line(statement);
-        this.code.closeBlock();
       }
     }
   }

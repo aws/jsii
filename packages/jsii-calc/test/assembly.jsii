@@ -330,6 +330,93 @@
         }
       ]
     },
+    "jsii-calc.AbstractSuite": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Ensures abstract members implementations correctly register overrides in various languages."
+      },
+      "fqn": "jsii-calc.AbstractSuite",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 401
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 403
+          },
+          "name": "someMethod",
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "protected": true,
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result."
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 409
+          },
+          "name": "workItAll",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "a `string`."
+              },
+              "name": "seed",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "AbstractSuite",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 402
+          },
+          "name": "property",
+          "protected": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.Add": {
       "assembly": "jsii-calc",
       "base": "jsii-calc.BinaryOperation",
@@ -11931,5 +12018,5 @@
     }
   },
   "version": "0.20.11",
-  "fingerprint": "JMTWeMHDPnC/01VAtTulHbaZ1mSgip2tVym5dlwrBZE="
+  "fingerprint": "fX/bu7b/ZIIzUfucfhUGli5uXHZuItoolhCcKp4xpL8="
 }

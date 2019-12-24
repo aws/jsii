@@ -1667,4 +1667,28 @@ public class ComplianceTest {
         assertEquals(bell, amb.getScope());
         assertEquals(StructParameterType.builder().scope("Driiiing!").build(), amb.getProps());
     }
+
+    @Test
+    public void abstractMembersAreCorrectlyHandled() {
+        final AbstractSuite abstractSuite = new AbstractSuite() {
+            private String property;
+
+            @Override
+            protected String someMethod(String str) {
+                return String.format("Wrapped<%s>", str);
+            }
+
+            @Override
+            protected String getProperty() {
+                return this.property;
+            }
+
+            @Override
+            protected void setProperty(String value) {
+                this.property = String.format("String<%s>", value);
+            }
+        };
+
+        assertEquals("Wrapped<String<Oomf!>>", abstractSuite.workItAll("Oomf!"));
+    }
 }
