@@ -26,7 +26,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -38,7 +37,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<double?>();
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

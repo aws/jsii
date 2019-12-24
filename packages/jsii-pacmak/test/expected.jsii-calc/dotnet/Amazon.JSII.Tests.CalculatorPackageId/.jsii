@@ -12092,11 +12092,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-<<<<<<< HEAD
-  "version": "0.20.8",
-  "fingerprint": "RXyKxe7cZhjQraeBtWqnjdNPkV1KRAT6oHLGnU2sla4="
-=======
   "version": "0.20.11",
-  "fingerprint": "2idHJnE1Vv8YAFFrhqRzB2SwAvTXdSFkD7jKYcbabX4="
->>>>>>> origin/master
+  "fingerprint": "5M7u8+bWxu4amY/gs4Z/K4IpYqJCMGtnQiVoerS4uac="
 }

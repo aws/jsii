@@ -6,14 +6,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// See: https://github.com/aws/aws-cdk/issues/4302
     /// 
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.StructParameterType")]
     public class StructParameterType : Amazon.JSII.Tests.CalculatorNamespace.IStructParameterType
     {
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "scope", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
         public string Scope
@@ -22,9 +21,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "props", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]

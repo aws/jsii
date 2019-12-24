@@ -2,7 +2,6 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -13,7 +12,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -23,14 +21,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<System.DateTime>();
         }
 
-        /// <summary></summary>
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}")]
         public string Bar
         {
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary></summary>
         [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
         {

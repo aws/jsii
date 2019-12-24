@@ -252,11 +252,11 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
 
         /**
          * The initial value of the calculator.
-         * 
-         * <p>NOTE: Any number works here, it's fine.</p>
-         * 
+         * <p>
+         * NOTE: Any number works here, it's fine.
+         * <p>
          * Default: 0
-         * 
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
@@ -270,9 +270,9 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
 
         /**
          * The maximum value the calculator can store.
-         * 
+         * <p>
          * Default: none
-         * 
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}

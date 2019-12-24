@@ -10,27 +10,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public abstract class Value_ : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base
     {
-        /// <summary></summary>
         protected Value_(): base(new DeputyProps(new object[]{}))
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Value_(ByRefValue reference): base(reference)
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Value_(DeputyProps props): base(props)
         {
         }

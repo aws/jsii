@@ -2,34 +2,26 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.EnumDispenser), fullyQualifiedName: "jsii-calc.EnumDispenser")]
     public class EnumDispenser : DeputyBase
     {
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected EnumDispenser(ByRefValue reference): base(reference)
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected EnumDispenser(DeputyProps props): base(props)
         {
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -39,7 +31,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EnumDispenser), new System.Type[]{}, new object[]{});
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

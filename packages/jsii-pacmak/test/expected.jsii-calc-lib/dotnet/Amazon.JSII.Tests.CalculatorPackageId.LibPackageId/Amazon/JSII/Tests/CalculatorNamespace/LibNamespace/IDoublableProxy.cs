@@ -14,7 +14,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

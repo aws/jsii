@@ -9,7 +9,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DataRenderer), fullyQualifiedName: "jsii-calc.DataRenderer")]
     public class DataRenderer : DeputyBase
     {
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -17,28 +16,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected DataRenderer(ByRefValue reference): base(reference)
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected DataRenderer(DeputyProps props): base(props)
         {
         }
 
-        /// <summary></summary>
-        /// <param name="data"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -48,8 +39,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct)}, new object[]{data});
         }
 
-        /// <summary></summary>
-        /// <param name="data"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -59,8 +48,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(System.Collections.Generic.IDictionary<string, object>)}, new object[]{data});
         }
 
-        /// <summary></summary>
-        /// <param name="map"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -2,14 +2,12 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Stable
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IStableInterface), fullyQualifiedName: "jsii-calc.IStableInterface")]
     public interface IStableInterface
     {
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Stable
         /// </remarks>
@@ -26,7 +24,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 throw new System.NotSupportedException("'set' for 'MutableProperty' is not implemented");
             }
         }
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Stable
         /// </remarks>

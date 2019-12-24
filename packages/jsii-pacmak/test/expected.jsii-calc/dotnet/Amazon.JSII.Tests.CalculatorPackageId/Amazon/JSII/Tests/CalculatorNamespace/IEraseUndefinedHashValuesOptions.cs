@@ -2,14 +2,12 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IEraseUndefinedHashValuesOptions), fullyQualifiedName: "jsii-calc.EraseUndefinedHashValuesOptions")]
     public interface IEraseUndefinedHashValuesOptions
     {
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -23,7 +21,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             }
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

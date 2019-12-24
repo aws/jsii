@@ -13,11 +13,11 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * The initial value of the calculator.
-     * 
-     * <p>NOTE: Any number works here, it's fine.</p>
-     * 
+     * <p>
+     * NOTE: Any number works here, it's fine.
+     * <p>
      * Default: 0
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -27,9 +27,9 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * The maximum value the calculator can store.
-     * 
+     * <p>
      * Default: none
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -55,7 +55,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         /**
          * Sets the value of {@link CalculatorProps#getInitialValue}
          * @param initialValue The initial value of the calculator.
-         *                     <p>NOTE: Any number works here, it's fine.</p>
+         *                     NOTE: Any number works here, it's fine.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

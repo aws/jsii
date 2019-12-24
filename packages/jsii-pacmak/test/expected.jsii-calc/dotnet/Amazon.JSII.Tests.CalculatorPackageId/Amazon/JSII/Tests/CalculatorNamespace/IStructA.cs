@@ -9,7 +9,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IStructA), fullyQualifiedName: "jsii-calc.StructA")]
     public interface IStructA
     {
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -19,7 +18,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -33,7 +31,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             }
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named "property" would result in impossible to load Python code.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

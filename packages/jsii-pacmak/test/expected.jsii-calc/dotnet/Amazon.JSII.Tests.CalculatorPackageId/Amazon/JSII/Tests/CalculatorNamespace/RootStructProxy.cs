@@ -7,11 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// This is cheating with the (current) declared types, but this is the "more
     /// idiomatic" way for Pythonists.
     /// 
-<<<<<<< HEAD
     /// <strong>Stability</strong>: Experimental
-=======
-    /// stability: Experimental
->>>>>>> origin/master
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IRootStruct), fullyQualifiedName: "jsii-calc.RootStruct")]
     internal sealed class RootStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IRootStruct
@@ -30,7 +26,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

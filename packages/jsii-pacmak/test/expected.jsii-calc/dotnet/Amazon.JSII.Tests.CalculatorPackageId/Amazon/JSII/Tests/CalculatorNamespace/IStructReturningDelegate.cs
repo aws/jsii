@@ -9,7 +9,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(nativeType: typeof(IStructReturningDelegate), fullyQualifiedName: "jsii-calc.IStructReturningDelegate")]
     public interface IStructReturningDelegate
     {
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

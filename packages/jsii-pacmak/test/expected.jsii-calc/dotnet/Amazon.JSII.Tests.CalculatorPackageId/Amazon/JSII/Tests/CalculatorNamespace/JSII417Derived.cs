@@ -2,15 +2,12 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417Derived), fullyQualifiedName: "jsii-calc.JSII417Derived", parametersJson: "[{\"name\":\"property\",\"type\":{\"primitive\":\"string\"}}]")]
     public class JSII417Derived : Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase
     {
-        /// <summary></summary>
-        /// <param name="property"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -18,27 +15,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected JSII417Derived(ByRefValue reference): base(reference)
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected JSII417Derived(DeputyProps props): base(props)
         {
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -48,7 +38,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -58,7 +47,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

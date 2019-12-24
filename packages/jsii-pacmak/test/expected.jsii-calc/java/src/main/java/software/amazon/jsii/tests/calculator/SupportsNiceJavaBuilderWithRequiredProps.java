@@ -82,7 +82,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
 
         /**
          * Some number, like 42.
-         * 
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
@@ -96,9 +96,9 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
 
         /**
          * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
-         * 
-         * <p>But here we are, doing it like we didn't care.</p>
-         * 
+         * <p>
+         * But here we are, doing it like we didn't care.
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}

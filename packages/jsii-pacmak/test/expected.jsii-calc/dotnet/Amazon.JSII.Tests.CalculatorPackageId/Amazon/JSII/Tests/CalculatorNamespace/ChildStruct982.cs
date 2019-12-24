@@ -2,14 +2,12 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.ChildStruct982")]
     public class ChildStruct982 : Amazon.JSII.Tests.CalculatorNamespace.IChildStruct982
     {
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -20,7 +18,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

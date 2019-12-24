@@ -2,14 +2,12 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.OptionalStruct")]
     public class OptionalStruct : Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct
     {
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

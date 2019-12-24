@@ -9,33 +9,25 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ObjectRefsInCollections), fullyQualifiedName: "jsii-calc.ObjectRefsInCollections")]
     public class ObjectRefsInCollections : DeputyBase
     {
-        /// <summary></summary>
         public ObjectRefsInCollections(): base(new DeputyProps(new object[]{}))
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected ObjectRefsInCollections(ByRefValue reference): base(reference)
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected ObjectRefsInCollections(DeputyProps props): base(props)
         {
         }
 
         /// <summary>Returns the sum of all values.</summary>
-        /// <param name="values"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -46,7 +38,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Returns the sum of all values in a map.</summary>
-        /// <param name="values"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -16,22 +16,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// 
     /// I will repeat this example again, but in an @example tag.
     /// 
-<<<<<<< HEAD
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     /// <example>
-=======
-    /// stability: Experimental
-    /// 
-    /// example:
->>>>>>> origin/master
-    /// <code>
-    /// // Example automatically generated. See https://github.com/aws/jsii/issues/826
+    /// <code>// Example automatically generated. See https://github.com/aws/jsii/issues/826
     /// Calculator calculator = new Calculator();
     /// calculator.Add(5);
     /// calculator.Mul(3);
-    /// Console.WriteLine(calculator.Expression.Value);
-    /// </code>
+    /// Console.WriteLine(calculator.Expression.Value);</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"docs\":{\"summary\":\"Initialization properties.\"},\"name\":\"props\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
     public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
@@ -45,28 +37,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Calculator(ByRefValue reference): base(reference)
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Calculator(DeputyProps props): base(props)
         {
         }
 
         /// <summary>Adds a number to the current value.</summary>
-        /// <param name="value"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -77,7 +62,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Multiplies the current value by a number.</summary>
-        /// <param name="value"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -98,7 +82,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Raises the current value by a power.</summary>
-        /// <param name="value"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

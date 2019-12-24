@@ -9,9 +9,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NullShouldBeTreatedAsUndefined), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefined", parametersJson: "[{\"name\":\"_param1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"optional\",\"optional\":true,\"type\":{\"primitive\":\"any\"}}]")]
     public class NullShouldBeTreatedAsUndefined : DeputyBase
     {
-        /// <summary></summary>
-        /// <param name="param1"></param>
-        /// <param name="optional"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -19,28 +16,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected NullShouldBeTreatedAsUndefined(ByRefValue reference): base(reference)
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected NullShouldBeTreatedAsUndefined(DeputyProps props): base(props)
         {
         }
 
-        /// <summary></summary>
-        /// <param name="value"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -50,8 +39,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object[]{@value});
         }
 
-        /// <summary></summary>
-        /// <param name="input"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -61,7 +48,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData)}, new object[]{input});
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -71,7 +57,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

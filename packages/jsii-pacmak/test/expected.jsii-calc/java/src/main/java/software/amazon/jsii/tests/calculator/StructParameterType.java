@@ -2,9 +2,9 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
- * 
- * <p>See: https://github.com/aws/aws-cdk/issues/4302</p>
- * 
+ * <p>
+ * See: https://github.com/aws/aws-cdk/issues/4302
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

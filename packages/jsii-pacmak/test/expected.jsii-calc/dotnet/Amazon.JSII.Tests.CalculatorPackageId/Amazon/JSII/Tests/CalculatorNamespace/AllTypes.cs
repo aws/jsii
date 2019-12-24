@@ -7,42 +7,29 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// The setters will validate
     /// that the value set is of the expected type and throw otherwise.
     /// 
-<<<<<<< HEAD
     /// <strong>Stability</strong>: Experimental
-=======
-    /// stability: Experimental
->>>>>>> origin/master
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes), fullyQualifiedName: "jsii-calc.AllTypes")]
     public class AllTypes : DeputyBase
     {
-        /// <summary></summary>
         public AllTypes(): base(new DeputyProps(new object[]{}))
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected AllTypes(ByRefValue reference): base(reference)
         {
         }
 
-<<<<<<< HEAD
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-=======
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
->>>>>>> origin/master
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected AllTypes(DeputyProps props): base(props)
         {
         }
 
-        /// <summary></summary>
-        /// <param name="inp"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -52,7 +39,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object[]{inp});
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -62,8 +48,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary></summary>
-        /// <param name="value"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -73,7 +57,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.StringEnum)}, new object[]{@value});
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -83,7 +66,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -94,7 +76,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -105,7 +86,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -116,7 +96,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -127,7 +106,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -138,7 +116,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -149,7 +126,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -160,7 +136,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -171,7 +146,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -182,7 +156,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -193,7 +166,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -204,7 +176,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -215,7 +186,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -226,7 +196,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -237,7 +206,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -248,7 +216,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -259,7 +226,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -270,7 +236,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

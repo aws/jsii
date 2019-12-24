@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Ensures abstract members implementations correctly register overrides in various languages.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -25,7 +25,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param str This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -33,9 +33,9 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
 
     /**
      * Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param seed a `string`. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -83,7 +83,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @param str This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

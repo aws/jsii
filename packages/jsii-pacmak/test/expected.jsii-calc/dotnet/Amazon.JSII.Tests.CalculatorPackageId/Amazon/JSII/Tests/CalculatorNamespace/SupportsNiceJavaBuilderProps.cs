@@ -2,7 +2,6 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -24,11 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// But here we are, doing it like we didn't care.
         /// 
-<<<<<<< HEAD
         /// <strong>Stability</strong>: Experimental
-=======
-        /// stability: Experimental
->>>>>>> origin/master
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "id", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
