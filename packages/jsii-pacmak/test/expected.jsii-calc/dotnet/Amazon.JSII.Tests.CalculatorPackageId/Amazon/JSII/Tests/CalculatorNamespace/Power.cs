@@ -10,8 +10,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class Power : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     {
         /// <summary>Creates a Power operation.</summary>
-        /// <param name = "@base">The base of the power.</param>
-        /// <param name = "pow">The number of times to multiply.</param>
+        /// <param name="base">The base of the power.</param>
+        /// <param name="pow">The number of times to multiply.</param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -19,12 +19,22 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+>>>>>>> origin/master
         protected Power(ByRefValue reference): base(reference)
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+>>>>>>> origin/master
         protected Power(DeputyProps props): base(props)
         {
         }

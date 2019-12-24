@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 
 export function startsWithUppercase(x: string): boolean {
   return /^[A-Z]/.exec(x) != null;

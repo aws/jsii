@@ -38,7 +38,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
         private java.lang.String name;
 
         /**
-         * Sets the value of Name
+         * Sets the value of {@link Greetee#getName}
          * @param name The name of the greetee.
          * @return {@code this}
          */

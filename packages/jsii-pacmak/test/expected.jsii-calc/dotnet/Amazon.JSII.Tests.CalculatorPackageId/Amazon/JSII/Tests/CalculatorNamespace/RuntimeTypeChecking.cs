@@ -2,26 +2,42 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.RuntimeTypeChecking), fullyQualifiedName: "jsii-calc.RuntimeTypeChecking")]
     public class RuntimeTypeChecking : DeputyBase
     {
+        /// <summary></summary>
         public RuntimeTypeChecking(): base(new DeputyProps(new object[]{}))
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+>>>>>>> origin/master
         protected RuntimeTypeChecking(ByRefValue reference): base(reference)
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+>>>>>>> origin/master
         protected RuntimeTypeChecking(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -31,6 +47,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double), typeof(string), typeof(System.DateTime)}, new object[]{arg1, arg2, arg3});
         }
 
+        /// <summary></summary>
+        /// <param name="arg"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -41,6 +59,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Used to verify verification of number of method arguments.</summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <param name="arg3"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

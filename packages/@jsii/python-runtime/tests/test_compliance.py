@@ -10,10 +10,13 @@ from json import loads
 
 from jsii_calc import (
     AbstractClassReturner,
+    AbstractSuite,
     Add,
     AllTypes,
     AllTypesEnum,
+    AmbiguousParameters,
     AsyncVirtualMethods,
+    Bell,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
     ConfusingToJackson,
@@ -65,8 +68,8 @@ from jsii_calc import (
     StructB,
     StructUnionConsumer,
     SomeTypeJsii976,
-    AnonymousImplementationProvider,
-    IAnonymousImplementationProvider
+    StructParameterType,
+    AnonymousImplementationProvider
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
@@ -1121,3 +1124,26 @@ def test_pure_interfaces_can_be_used_transparently_when_added_to_jsii_type():
     delegate = ImplementsAdditionalInterface()
     consumer = ConsumePureInterface(delegate)
     assert consumer.work_it_baby() == expected
+
+def test_lifted_kwarg_with_same_name_as_positional_arg():
+    bell = Bell()
+    amb = AmbiguousParameters(bell, scope='Driiiing!')
+
+    assert amb.scope == bell
+    assert amb.props == StructParameterType(scope='Driiiing!')
+
+def test_abstract_members_are_correctly_handled():
+    class AbstractSuiteImpl(AbstractSuite):
+        @property
+        def _property(self):
+            return self.property
+
+        @_property.setter
+        def _property(self, value):
+            self.property = "String<%s>" % value
+
+        def _some_method(self, str):
+            return "Wrapped<%s>" % str
+
+    abstract_suite = AbstractSuiteImpl()
+    assert "Wrapped<String<Oomf!>>" == abstract_suite.work_it_all("Oomf!")

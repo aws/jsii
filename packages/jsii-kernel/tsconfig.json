@@ -1,7 +1,0 @@
-{
-  "extends": "../../tsconfig-base",
-  "include": ["**/*.ts"],
-  "references": [{
-    "path": "../@jsii/spec"
-  }]
-}

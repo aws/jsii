@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
 import { isStructType, propertiesOfStruct, StructProperty, structPropertyAcceptsUndefined } from '../jsii/jsii-utils';
 import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
@@ -131,9 +131,8 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     const originalIdentifier = node.text;
 
     const explodedParameter = context.currentContext.explodedParameter;
-    /* eslint-disable max-len */
+    // eslint-disable-next-line max-len
     if (context.currentContext.tailPositionArgument && explodedParameter && explodedParameter.type && explodedParameter.variableName === originalIdentifier) {
-    /* eslint-enable max-len */
       return new OTree([],
         propertiesOfStruct(explodedParameter.type, context).map(prop => new OTree([prop.name, '=', prop.name])),
         { separator: ', ' });

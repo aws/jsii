@@ -7,7 +7,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// This is cheating with the (current) declared types, but this is the "more
     /// idiomatic" way for Pythonists.
     /// 
+<<<<<<< HEAD
     /// <strong>Stability</strong>: Experimental
+=======
+    /// stability: Experimental
+>>>>>>> origin/master
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IRootStruct), fullyQualifiedName: "jsii-calc.RootStruct")]
     public interface IRootStruct
@@ -22,6 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

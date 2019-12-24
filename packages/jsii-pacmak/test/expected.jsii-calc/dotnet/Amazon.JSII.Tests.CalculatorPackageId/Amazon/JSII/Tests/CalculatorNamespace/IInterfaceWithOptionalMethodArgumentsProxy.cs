@@ -13,6 +13,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary></summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -1,5 +1,5 @@
 import { Rosetta, LanguageTablet, TranslatedSnippet, TypeScriptSnippet, DEFAULT_TABLET_NAME } from '../lib';
-import mockfs = require('mock-fs');
+import * as mockfs from 'mock-fs';
 import { TargetLanguage } from '../lib/languages';
 import { fakeAssembly } from './jsii/assemblies.test';
 

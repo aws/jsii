@@ -2,12 +2,15 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UsesInterfaceWithProperties), fullyQualifiedName: "jsii-calc.UsesInterfaceWithProperties", parametersJson: "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.IInterfaceWithProperties\"}}]")]
     public class UsesInterfaceWithProperties : DeputyBase
     {
+        /// <summary></summary>
+        /// <param name="obj"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -15,16 +18,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+>>>>>>> origin/master
         protected UsesInterfaceWithProperties(ByRefValue reference): base(reference)
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+>>>>>>> origin/master
         protected UsesInterfaceWithProperties(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -34,6 +48,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
+        /// <param name="ext"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -43,6 +59,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithPropertiesExtension)}, new object[]{ext});
         }
 
+        /// <summary></summary>
+        /// <param name="value"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -52,6 +70,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{@value});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

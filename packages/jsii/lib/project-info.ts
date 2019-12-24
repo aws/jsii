@@ -1,13 +1,12 @@
-import fs = require('fs-extra');
-import spec = require('@jsii/spec');
-import log4js = require('log4js');
-import path = require('path');
-import semver = require('semver');
+import * as fs from 'fs-extra';
+import * as spec from '@jsii/spec';
+import * as log4js from 'log4js';
+import * as path from 'path';
+import * as semver from 'semver';
 import { parsePerson, parseRepository } from './utils';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 const LOG = log4js.getLogger('jsii/package-info');
 
@@ -31,6 +30,7 @@ export interface ProjectInfo {
     readonly url: string;
     readonly directory?: string;
   };
+  readonly keywords?: string[];
 
   readonly main: string;
   readonly types: string;
@@ -52,9 +52,8 @@ export interface ProjectInfo {
 
 export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies }: { fixPeerDependencies: boolean }): Promise<ProjectInfo> {
   const packageJsonPath = path.join(projectRoot, 'package.json');
-  /* eslint-disable @typescript-eslint/no-var-requires */
+  // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
   const pkg = require(packageJsonPath);
-  /* eslint-enable @typescript-eslint/no-var-requires */
 
   let bundleDependencies: { [name: string]: string } | undefined;
   for (const name of pkg.bundleDependencies ?? pkg.bundledDependencies ?? []) {
@@ -121,6 +120,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
     author: _toPerson(_required(pkg.author, 'The "package.json" file must specify the "author" attribute'), 'author'),
     repository: _toRepository(_required(pkg.repository, 'The "package.json" file must specify the "repository" attribute')),
     license: _validateLicense(pkg.license),
+    keywords: pkg.keywords,
 
     main: _required(pkg.main, 'The "package.json" file must specify the "main" attribute'),
     types: _required(pkg.types, 'The "package.json" file must specify the "types" attribute'),
@@ -173,9 +173,8 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.P
     }
     const pkg = _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
-    /* eslint-disable no-await-in-loop */
+    // eslint-disable-next-line no-await-in-loop
     const assm = await loadAndValidateAssembly(pkg);
-    /* eslint-enable no-await-in-loop */
     if (!version.intersects(new semver.Range(assm.version))) {
       throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
     }
@@ -183,9 +182,8 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.P
     transitiveAssemblies[assm.name] = assm;
     const pkgDir = path.dirname(pkg);
     if (assm.dependencies) {
-      /* eslint-disable no-await-in-loop */
+      // eslint-disable-next-line no-await-in-loop
       await _loadDependencies(assm.dependencies, pkgDir, transitiveAssemblies);
-      /* eslint-enable no-await-in-loop */
     }
   }
   return assemblies;
@@ -292,6 +290,7 @@ function _resolveVersion(dep: spec.PackageVersion | string | undefined, searchPa
   const localPackage = path.resolve(searchPath, matches[1]);
   return {
     // Rendering as a caret version to maintain uniformity against the "standard".
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     version: `^${require(path.join(localPackage, 'package.json')).version}`,
     localPackage,
   };

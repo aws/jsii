@@ -13,9 +13,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Corresponds to container port mapping.
         /// 
+<<<<<<< HEAD
         /// <strong>Default</strong>: 80
         /// 
         /// <strong>Stability</strong>: Experimental
+=======
+        /// default:
+        /// 80
+        /// 
+        /// stability: Experimental
+>>>>>>> origin/master
         /// </remarks>
         [JsiiProperty(name: "containerPort", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]
@@ -38,9 +45,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// 
+<<<<<<< HEAD
         /// <strong>Default</strong>: 256
         /// 
         /// <strong>Stability</strong>: Experimental
+=======
+        /// default:
+        /// 256
+        /// 
+        /// stability: Experimental
+>>>>>>> origin/master
         /// </remarks>
         [JsiiProperty(name: "cpu", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]
@@ -69,9 +83,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// 
+<<<<<<< HEAD
         /// <strong>Default</strong>: 512
         /// 
         /// <strong>Stability</strong>: Experimental
+=======
+        /// default:
+        /// 512
+        /// 
+        /// stability: Experimental
+>>>>>>> origin/master
         /// </remarks>
         [JsiiProperty(name: "memoryMiB", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]
@@ -85,9 +106,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether the Application Load Balancer will be internet-facing.</summary>
         /// <remarks>
+<<<<<<< HEAD
         /// <strong>Default</strong>: true
         /// 
         /// <strong>Stability</strong>: Experimental
+=======
+        /// default:
+        /// true
+        /// 
+        /// stability: Experimental
+>>>>>>> origin/master
         /// </remarks>
         [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]
@@ -101,9 +129,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether your Fargate Service will be assigned a public IP address.</summary>
         /// <remarks>
+<<<<<<< HEAD
         /// <strong>Default</strong>: false
         /// 
         /// <strong>Stability</strong>: Experimental
+=======
+        /// default:
+        /// false
+        /// 
+        /// stability: Experimental
+>>>>>>> origin/master
         /// </remarks>
         [JsiiProperty(name: "publicTasks", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]

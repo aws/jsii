@@ -116,8 +116,9 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         private java.lang.Boolean publicTasks;
 
         /**
-         * Sets the value of ContainerPort
+         * Sets the value of {@link LoadBalancedFargateServiceProps#getContainerPort}
          * @param containerPort The container port of the application load balancer attached to your Fargate service.
+         *                      <p>Corresponds to container port mapping.</p>
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -127,8 +128,14 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         }
 
         /**
+<<<<<<< HEAD
          * Sets the value of Cpu
          * @param cpu The number of cpu units used by the task.
+=======
+         * Sets the value of {@link LoadBalancedFargateServiceProps#getCpu}
+         * @param cpu The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
+         *            <p>This default is set in the underlying FargateTaskDefinition construct.</p>
+>>>>>>> origin/master
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -138,8 +145,16 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         }
 
         /**
-         * Sets the value of MemoryMiB
+         * Sets the value of {@link LoadBalancedFargateServiceProps#getMemoryMiB}
          * @param memoryMiB The amount (in MiB) of memory used by the task.
+         *                  <p>This field is required and you must use one of the following values, which determines your range of valid values
+         *                  for the cpu parameter:</p>
+         *                  <p>0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)</p>
+         *                  <p>1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)</p>
+         *                  <p>2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)</p>
+         *                  <p>Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)</p>
+         *                  <p>Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)</p>
+         *                  <p>This default is set in the underlying FargateTaskDefinition construct.</p>
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -149,7 +164,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         }
 
         /**
-         * Sets the value of PublicLoadBalancer
+         * Sets the value of {@link LoadBalancedFargateServiceProps#getPublicLoadBalancer}
          * @param publicLoadBalancer Determines whether the Application Load Balancer will be internet-facing.
          * @return {@code this}
          */
@@ -160,7 +175,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         }
 
         /**
-         * Sets the value of PublicTasks
+         * Sets the value of {@link LoadBalancedFargateServiceProps#getPublicTasks}
          * @param publicTasks Determines whether your Fargate Service will be assigned a public IP address.
          * @return {@code this}
          */

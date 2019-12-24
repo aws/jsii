@@ -1,13 +1,13 @@
-import clone = require('clone');
+import * as clone from 'clone';
 import { toPascalCase } from 'codemaker/lib/case-utils';
-import fs = require('fs-extra');
-import reflect = require('jsii-reflect');
-import spec = require('@jsii/spec');
-import path = require('path');
-import xmlbuilder = require('xmlbuilder');
+import * as fs from 'fs-extra';
+import * as reflect from 'jsii-reflect';
+import * as spec from '@jsii/spec';
+import * as path from 'path';
+import * as xmlbuilder from 'xmlbuilder';
 import { Generator } from '../generator';
-import logging = require('../logging');
 import { PackageInfo, Target, findLocalBuildDirs, TargetOptions } from '../target';
+import * as logging from '../logging';
 import { shell, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
@@ -15,9 +15,8 @@ import { JsiiModule } from '../packaging';
 import { Rosetta, typeScriptSnippetFromSource, Translation, markDownToJavaDoc } from 'jsii-rosetta';
 import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILDER_CLASS_NAME = 'Builder';
 
@@ -41,9 +40,7 @@ export class JavaBuilder implements TargetBuilder {
 
     if (this.options.codeOnly) {
       // Simple, just generate code to respective output dirs
-      for (const module of this.modules) {
-        await this.generateModuleCode(module, this.options, this.outputDir(module.outputDirectory));
-      }
+      await Promise.all(this.modules.map(module => this.generateModuleCode(module, this.options, this.outputDir(module.outputDirectory))));
       return;
     }
 
@@ -83,11 +80,14 @@ export class JavaBuilder implements TargetBuilder {
     return Scratch.make(async (tmpDir: string) => {
       logging.debug(`Generating aggregate Java source dir at ${tmpDir}`);
       const ret: TemporaryJavaPackage[] = [];
-      for (const module of modules) {
-        const relativeName = slugify(module.name);
-        const sourceDir = path.join(tmpDir, relativeName);
-        await this.generateModuleCode(module, options, sourceDir);
 
+      const generatedModules = modules
+        .map(module => ({ module, relativeName: slugify(module.name) }))
+        .map(({ module, relativeName }) => ({ module, relativeName, sourceDir: path.join(tmpDir, relativeName) }))
+        .map(({ module, relativeName, sourceDir }) => this.generateModuleCode(module, options, sourceDir)
+          .then(() => ({ module, relativeName })));
+
+      for await (const { module, relativeName } of generatedModules) {
         ret.push({
           relativeSourceDir: relativeName,
           relativeArtifactsDir: moduleArtifactsSubdir(module),
@@ -140,13 +140,13 @@ export class JavaBuilder implements TargetBuilder {
     // the files we need to copy, including Maven metadata. But we need to recreate
     // the whole path in the target directory.
 
-    for (const pkg of packages) {
+    await Promise.all(packages.map(async pkg => {
       const artifactsSource = path.join(artifactsRoot, pkg.relativeArtifactsDir);
       const artifactsDest = path.join(this.outputDir(pkg.outputTargetDirectory), pkg.relativeArtifactsDir);
 
       await fs.mkdirp(artifactsDest);
       await fs.copy(artifactsSource, artifactsDest, { recursive: true });
-    }
+    }));
   }
 
   /**
@@ -170,8 +170,13 @@ export class JavaBuilder implements TargetBuilder {
     // module. this enables building against local modules (i.e. in lerna
     // repositories or linked modules).
     const allDepsOutputDirs = new Set<string>();
-    for (const module of this.modules) {
-      setExtend(allDepsOutputDirs, await findLocalBuildDirs(module.moduleDirectory, this.targetName));
+
+    const resolvedModules = this.modules.map(async mod => ({
+      module: mod,
+      localBuildDirs: await findLocalBuildDirs(mod.moduleDirectory, this.targetName),
+    }));
+    for await (const { module, localBuildDirs } of resolvedModules) {
+      setExtend(allDepsOutputDirs, localBuildDirs);
 
       // Also include output directory where we're building to, in case we build multiple packages into
       // the same output directory.
@@ -895,6 +900,7 @@ class JavaGenerator extends Generator {
     const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
     const access = this.renderAccessLevel(prop);
     const statc = prop.static ? 'static ' : '';
+    const abstract = prop.abstract ? 'abstract ' : '';
     const javaClass = this.toJavaType(cls);
 
     // for unions we only generate overloads for setters, not getters.
@@ -903,18 +909,23 @@ class JavaGenerator extends Generator {
       this.addJavaDocs(prop);
       if (overrides) { this.code.line('@Override'); }
       this.emitStabilityAnnotations(prop);
-      this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
-      let statement;
-      if (prop.static) {
-        statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
+      const signature = `${access} ${abstract}${statc}${getterType} get${propName}()`;
+      if (prop.abstract) {
+        this.code.line(`${signature};`);
       } else {
-        statement = 'this.jsiiGet(';
+        this.code.openBlock(signature);
+        let statement;
+        if (prop.static) {
+          statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
+        } else {
+          statement = 'this.jsiiGet(';
+        }
+
+        statement += `"${prop.name}", ${propClass}.class)`;
+
+        this.code.line(`return ${this.wrapCollection(statement, prop.type, prop.optional)};`);
+        this.code.closeBlock();
       }
-
-      statement += `"${prop.name}", ${propClass}.class)`;
-
-      this.code.line(`return ${this.wrapCollection(statement, prop.type, prop.optional)};`);
-      this.code.closeBlock();
     }
 
     if (!prop.immutable) {
@@ -923,18 +934,23 @@ class JavaGenerator extends Generator {
         this.addJavaDocs(prop);
         if (overrides) { this.code.line('@Override'); }
         this.emitStabilityAnnotations(prop);
-        this.code.openBlock(`${access} ${statc}void set${propName}(final ${type} value)`);
-        let statement = '';
-
-        if (prop.static) {
-          statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
+        const signature = `${access} ${abstract}${statc}void set${propName}(final ${type} value)`;
+        if (prop.abstract) {
+          this.code.line(`${signature};`);
         } else {
-          statement += 'this.jsiiSet(';
+          this.code.openBlock(signature);
+          let statement = '';
+
+          if (prop.static) {
+            statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
+          } else {
+            statement += 'this.jsiiSet(';
+          }
+          const value = prop.optional ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
+          statement += `"${prop.name}", ${value});`;
+          this.code.line(statement);
+          this.code.closeBlock();
         }
-        const value = prop.optional ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
-        statement += `"${prop.name}", ${value});`;
-        this.code.line(statement);
-        this.code.closeBlock();
       }
     }
   }
@@ -1162,6 +1178,7 @@ class JavaGenerator extends Generator {
       const setter: spec.Method = {
         name: fieldName,
         docs: {
+          ...prop.spec.docs,
           stability: prop.spec.docs?.stability,
           returns: '{@code this}',
         },
@@ -1213,13 +1230,20 @@ class JavaGenerator extends Generator {
     this.code.closeBlock();
   }
 
-  private emitBuilderSetter(prop: JavaProp, builderName: string) {
+  private emitBuilderSetter(prop: JavaProp, builderName: string, builtType: string) {
     for (const type of prop.javaTypes) {
       this.code.line();
       this.code.line('/**');
-      this.code.line(` * Sets the value of ${prop.propName}`);
+      this.code.line(` * Sets the value of {@link ${builtType}#${getterFor(prop.fieldName)}}`);
       const summary = prop.docs?.summary ?? 'the value to be set';
       this.code.line(` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`);
+      if (prop.docs?.remarks != null) {
+        const indent = ' '.repeat(7 + prop.fieldName.length);
+        const remarks = markDownToJavaDoc(this.convertSamplesInMarkdown(prop.docs.remarks)).trimRight();
+        for (const line of remarks.split('\n')) {
+          this.code.line(` * ${indent} ${line}`);
+        }
+      }
       this.code.line(' * @return {@code this}');
       if (prop.docs?.deprecated) {
         this.code.line(` * @deprecated ${prop.docs.deprecated}`);
@@ -1230,6 +1254,11 @@ class JavaGenerator extends Generator {
       this.code.line(`this.${prop.fieldName} = ${prop.fieldName};`);
       this.code.line('return this;');
       this.code.closeBlock();
+    }
+
+    function getterFor(fieldName: string): string {
+      const [first, ...rest] = fieldName;
+      return `get${first.toUpperCase()}${rest.join('')}`;
     }
   }
 
@@ -1253,7 +1282,7 @@ class JavaGenerator extends Generator {
     this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
 
     props.forEach(prop => this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`));
-    props.forEach(prop => this.emitBuilderSetter(prop, BUILDER_CLASS_NAME));
+    props.forEach(prop => this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec.name));
 
     // Start build()
     this.code.line();
@@ -1874,9 +1903,8 @@ interface MavenDependency {
  */
 function findJavaRuntimeLocalRepository() {
   try {
-    /* eslint-disable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
+    // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
     const javaRuntime = require('jsii-java-runtime');
-    /* eslint-enable @typescript-eslint/no-var-requires,import/no-extraneous-dependencies */
     return javaRuntime.repository;
   } catch {
     return undefined;
@@ -1901,6 +1929,7 @@ function paramJavadoc(name: string, optional?: boolean, summary?: string): strin
 }
 
 function endWithPeriod(s: string): string {
+  s = s.trimRight();
   if (!s.endsWith('.')) {
     return `${s}.`;
   }

@@ -15,9 +15,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>The name of the greetee.</summary>
         /// <remarks>
+<<<<<<< HEAD
         /// <strong>Default</strong>: world
         /// 
         /// <strong>Stability</strong>: Experimental
+=======
+        /// default:
+        /// world
+        /// 
+        /// stability: Experimental
+>>>>>>> origin/master
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "name", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]

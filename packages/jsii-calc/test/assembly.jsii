@@ -55,7 +55,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.8"
+      "version": "0.20.11"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -78,7 +78,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.8"
+      "version": "0.20.11"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -103,7 +103,7 @@
           "module": "scope.jsii_calc_lib"
         }
       },
-      "version": "0.20.8"
+      "version": "0.20.11"
     }
   },
   "dependencyClosure": {
@@ -128,7 +128,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.8"
+      "version": "0.20.11"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -151,7 +151,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.8"
+      "version": "0.20.11"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -176,7 +176,7 @@
           "module": "scope.jsii_calc_lib"
         }
       },
-      "version": "0.20.8"
+      "version": "0.20.11"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -184,7 +184,12 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.20.8",
+  "jsiiVersion": "0.20.11",
+  "keywords": [
+    "aws",
+    "jsii",
+    "test"
+  ],
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -392,6 +397,93 @@
           "name": "returnAbstractFromProperty",
           "type": {
             "fqn": "jsii-calc.AbstractClassBase"
+          }
+        }
+      ]
+    },
+    "jsii-calc.AbstractSuite": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Ensures abstract members implementations correctly register overrides in various languages."
+      },
+      "fqn": "jsii-calc.AbstractSuite",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 401
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 403
+          },
+          "name": "someMethod",
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "protected": true,
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result."
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 409
+          },
+          "name": "workItAll",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "a `string`."
+              },
+              "name": "seed",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "AbstractSuite",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 402
+          },
+          "name": "property",
+          "protected": true,
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -1027,6 +1119,68 @@
       ],
       "name": "AllowedMethodNames"
     },
+    "jsii-calc.AmbiguousParameters": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.AmbiguousParameters",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "jsii-calc.Bell"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.StructParameterType"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2425
+      },
+      "name": "AmbiguousParameters",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2426
+          },
+          "name": "props",
+          "type": {
+            "fqn": "jsii-calc.StructParameterType"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2426
+          },
+          "name": "scope",
+          "type": {
+            "fqn": "jsii-calc.Bell"
+          }
+        }
+      ]
+    },
     "jsii-calc.AnonymousImplementationProvider": {
       "assembly": "jsii-calc",
       "docs": {
@@ -1422,7 +1576,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/calculator.ts",
-        "line": 260
+        "line": 273
       },
       "methods": [
         {
@@ -1432,7 +1586,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 299
+            "line": 312
           },
           "name": "add",
           "parameters": [
@@ -1451,7 +1605,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 306
+            "line": 319
           },
           "name": "mul",
           "parameters": [
@@ -1470,7 +1624,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 320
+            "line": 333
           },
           "name": "neg"
         },
@@ -1481,7 +1635,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 313
+            "line": 326
           },
           "name": "pow",
           "parameters": [
@@ -1500,7 +1654,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 339
+            "line": 352
           },
           "name": "readUnionValue",
           "returns": {
@@ -1520,7 +1674,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 327
+            "line": 340
           },
           "name": "expression",
           "overrides": "jsii-calc.composition.CompositeOperation",
@@ -1536,7 +1690,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 289
+            "line": 302
           },
           "name": "operationsLog",
           "type": {
@@ -1556,7 +1710,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 284
+            "line": 297
           },
           "name": "operationsMap",
           "type": {
@@ -1580,7 +1734,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 279
+            "line": 292
           },
           "name": "curr",
           "type": {
@@ -1594,7 +1748,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 294
+            "line": 307
           },
           "name": "maxValue",
           "optional": true,
@@ -1609,7 +1763,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 334
+            "line": 347
           },
           "name": "unionProperty",
           "optional": true,
@@ -1649,12 +1803,15 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "experimental"
+            "default": "0",
+            "remarks": "NOTE: Any number works here, it's fine.",
+            "stability": "experimental",
+            "summary": "The initial value of the calculator."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 235
+            "line": 242
           },
           "name": "initialValue",
           "optional": true,
@@ -1665,12 +1822,14 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "experimental"
+            "default": "none",
+            "stability": "experimental",
+            "summary": "The maximum value the calculator can store."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 236
+            "line": 249
           },
           "name": "maximumValue",
           "optional": true,
@@ -7266,6 +7425,53 @@
         }
       ]
     },
+    "jsii-calc.MethodNamedProperty": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.MethodNamedProperty",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 386
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 387
+          },
+          "name": "property",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "MethodNamedProperty",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 391
+          },
+          "name": "elite",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.Multiply": {
       "assembly": "jsii-calc",
       "base": "jsii-calc.BinaryOperation",
@@ -8568,6 +8774,51 @@
         }
       ]
     },
+    "jsii-calc.PropertyNamedProperty": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named \"property\" would result in impossible to load Python code."
+      },
+      "fqn": "jsii-calc.PropertyNamedProperty",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 382
+      },
+      "name": "PropertyNamedProperty",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 383
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 384
+          },
+          "name": "yetAnoterOne",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.PublicClass": {
       "assembly": "jsii-calc",
       "docs": {
@@ -9437,6 +9688,52 @@
       ],
       "name": "SingletonStringEnum"
     },
+    "jsii-calc.SmellyStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.SmellyStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 393
+      },
+      "name": "SmellyStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 394
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 395
+          },
+          "name": "yetAnoterOne",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.SomeTypeJsii976": {
       "assembly": "jsii-calc",
       "docs": {
@@ -10042,6 +10339,55 @@
           "optional": true,
           "type": {
             "fqn": "jsii-calc.StructA"
+          }
+        }
+      ]
+    },
+    "jsii-calc.StructParameterType": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "remarks": "See: https://github.com/aws/aws-cdk/issues/4302",
+        "stability": "experimental",
+        "summary": "Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted."
+      },
+      "fqn": "jsii-calc.StructParameterType",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2421
+      },
+      "name": "StructParameterType",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2422
+          },
+          "name": "scope",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2423
+          },
+          "name": "props",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
           }
         }
       ]
@@ -11746,6 +12092,11 @@
       "namespace": "composition.CompositeOperation"
     }
   },
+<<<<<<< HEAD
   "version": "0.20.8",
   "fingerprint": "RXyKxe7cZhjQraeBtWqnjdNPkV1KRAT6oHLGnU2sla4="
+=======
+  "version": "0.20.11",
+  "fingerprint": "2idHJnE1Vv8YAFFrhqRzB2SwAvTXdSFkD7jKYcbabX4="
+>>>>>>> origin/master
 }

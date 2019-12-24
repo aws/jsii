@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 import { DefaultVisitor } from './default';
 import { AstRenderer } from '../renderer';
 import { OTree } from '../o-tree';

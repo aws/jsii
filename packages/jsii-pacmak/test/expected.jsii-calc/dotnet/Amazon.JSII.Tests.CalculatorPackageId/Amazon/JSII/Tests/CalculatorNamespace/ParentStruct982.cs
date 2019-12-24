@@ -9,6 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue(fqn: "jsii-calc.ParentStruct982")]
     public class ParentStruct982 : Amazon.JSII.Tests.CalculatorNamespace.IParentStruct982
     {
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 import { NO_SYNTAX, OTree, UnknownSyntax, Span } from './o-tree';
 import { commentRangeFromTextRange, extractMaskingVoidExpression, extractShowingVoidExpression, nodeChildren,
   repeatNewlines, scanText } from './typescript/ast-utils';

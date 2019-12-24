@@ -10,8 +10,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public abstract class BinaryOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly
     {
         /// <summary>Creates a BinaryOperation.</summary>
-        /// <param name = "lhs">Left-hand side operand.</param>
-        /// <param name = "rhs">Right-hand side operand.</param>
+        /// <param name="lhs">Left-hand side operand.</param>
+        /// <param name="rhs">Right-hand side operand.</param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -19,12 +19,22 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+>>>>>>> origin/master
         protected BinaryOperation(ByRefValue reference): base(reference)
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+>>>>>>> origin/master
         protected BinaryOperation(DeputyProps props): base(props)
         {
         }

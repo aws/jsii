@@ -1,8 +1,8 @@
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
-import logging = require('../logging');
-import os = require('os');
-import path = require('path');
-import ts = require('typescript');
+import * as logging from '../logging';
+import * as os from 'os';
+import * as path from 'path';
+import * as ts from 'typescript';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { Translator } from '../translate';
 import { TypeScriptSnippet } from '../snippet';

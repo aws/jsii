@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { OTree, NO_SYNTAX } from '../o-tree';
 import { ImportStatement } from '../typescript/imports';

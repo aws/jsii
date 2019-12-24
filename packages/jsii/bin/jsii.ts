@@ -1,11 +1,14 @@
-import log4js = require('log4js');
-import path = require('path');
-import process = require('process');
-import yargs = require('yargs');
+import * as log4js from 'log4js';
+import * as path from 'path';
+import * as process from 'process';
+import * as yargs from 'yargs';
 import { Compiler, DIAGNOSTICS } from '../lib/compiler';
 import { loadProjectInfo } from '../lib/project-info';
-import utils = require('../lib/utils');
+import * as utils from '../lib/utils';
 import { VERSION } from '../lib/version';
+import { enabledWarnings } from '../lib/warnings';
+
+const warningTypes = Object.keys(enabledWarnings);
 
 (async () => {
   const argv = yargs
@@ -27,7 +30,13 @@ import { VERSION } from '../lib/version';
       type: 'boolean',
       desc: 'Treat warnings as errors'
     })
+    .option('silence-warnings', {
+      type: 'array',
+      default: [],
+      desc: `List of warnings to silence (warnings: ${warningTypes.join(',')})`,
+    })
     .help()
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     .version(`${VERSION}, typescript ${require('typescript/package.json').version}`)
     .argv;
 
@@ -37,11 +46,20 @@ import { VERSION } from '../lib/version';
 
   const projectInfo = await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] });
 
+  // disable all silenced warnings
+  for (const key of argv['silence-warnings']) {
+    if (!(key in enabledWarnings)) {
+      throw new Error(`Unknown warning type ${key}. Must be one of: ${warningTypes}`);
+    }
+
+    enabledWarnings[key] = false;
+  }
+
   const compiler = new Compiler({
     projectInfo,
     watch: argv.watch,
     projectReferences: argv['project-references'],
-    failOnWarnings: argv['fail-on-warnings']
+    failOnWarnings: argv['fail-on-warnings'],
   });
 
   return { projectRoot, emitResult: await compiler.emit() };

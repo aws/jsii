@@ -7,7 +7,7 @@ import { Generator } from '../../generator';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
-import { DotNetDependency, FileGenerator } from './filegenerator';
+import { FileGenerator } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
 import { Rosetta } from 'jsii-rosetta';
 
@@ -76,11 +76,8 @@ export class DotNetGenerator extends Generator {
     const assm = this.assembly;
     const packageId: string = assm.targets!.dotnet!.packageId;
     if (!packageId) { throw new Error(`The module ${assm.name} does not have a dotnet.packageId setting`); }
-    await fs.mkdirs(path.join(outdir, packageId));
+    await fs.mkdirp(path.join(outdir, packageId));
     await fs.copyFile(tarball, path.join(outdir, packageId, tarballFileName));
-
-    // Create an anchor file for the current model
-    this.generateDependencyAnchorFile();
 
     // Copying the .jsii file
     await fs.copyFile(this.jsiiFilePath, path.join(outdir, packageId, spec.SPEC_FILE_NAME));
@@ -90,31 +87,15 @@ export class DotNetGenerator extends Generator {
   }
 
   /**
-     * Generates the Anchor file
-     */
-  protected generateDependencyAnchorFile(): void {
-    const namespace = `${this.assembly.targets!.dotnet!.namespace}.Internal.DependencyResolution`;
-    this.openFileIfNeeded('Anchor', namespace, false, false);
-    this.code.openBlock('public class Anchor');
-    this.code.openBlock('public Anchor()');
-    this.typeresolver.namespaceDependencies.forEach((value: DotNetDependency) => {
-      this.code.line(`new ${value.namespace}.Internal.DependencyResolution.Anchor();`);
-    });
-    this.code.closeBlock();
-    this.code.closeBlock();
-    this.closeFileIfNeeded('Anchor', namespace, false);
-  }
-
-  /**
-     * Not used as we override the save() method
-     */
+   * Not used as we override the save() method
+   */
   protected getAssemblyOutputDir(mod: spec.Assembly): string {
     return this.nameutils.convertPackageName(mod.name);
   }
 
   /**
-     * Namespaces are handled implicitly by openFileIfNeeded().
-     */
+   * Namespaces are handled implicitly by openFileIfNeeded().
+   */
   protected onBeginNamespace(_ns: string) { /* noop */ }
 
   protected onEndNamespace(_ns: string) { /* noop */ }
@@ -272,12 +253,16 @@ export class DotNetGenerator extends Generator {
       this.code.line();
     }
 
+    this.code.line('/// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>');
+    this.code.line('/// <param name="reference">The Javascript-owned object reference</param>');
     this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
     this.emitHideAttribute();
     this.code.openBlock(`protected ${className}(ByRefValue reference): base(reference)`);
     this.code.closeBlock();
     this.code.line();
 
+    this.code.line('/// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>');
+    this.code.line('/// <param name="props">The deputy props</param>');
     this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
     this.emitHideAttribute();
     this.code.openBlock(`protected ${className}(DeputyProps props): base(props)`);
@@ -648,8 +633,8 @@ export class DotNetGenerator extends Generator {
   }
 
   /**
-     * Emits a property
-     */
+   * Emits a property
+   */
   private emitProperty(cls: spec.Type, prop: spec.Property, datatype = false, proxy = false): void {
 
     this.emitNewLineIfNecessary();
@@ -666,26 +651,31 @@ export class DotNetGenerator extends Generator {
     this.dotnetRuntimeGenerator.emitAttributesForProperty(prop, datatype);
 
     let isOverrideKeyWord = '';
-
     let isVirtualKeyWord = '';
+    let isAbstractKeyword = '';
+
     // If the prop parent is a class
     if (cls.kind === spec.TypeKind.Class) {
       const implementedInBase = this.isMemberDefinedOnAncestor(cls as spec.ClassType, prop);
       if (implementedInBase || datatype || proxy) {
         // Override if the property is in a datatype or proxy class or declared in a parent class
         isOverrideKeyWord = 'override ';
-      } else if (!prop.static && (prop.abstract || !implementedInBase)) {
-        // Virtual if the prop is not static, and is abstract or not implemented in base member, this way we can later override it.
+      } else if (prop.abstract) {
+        // Abstract members get decorated as such
+        isAbstractKeyword = 'abstract ';
+      } else if (!prop.static && !implementedInBase) {
+        // Virtual if the prop is not static, and is not implemented in base member, this way we can later override it.
         isVirtualKeyWord = 'virtual ';
       }
     }
+
     const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
     const isOptionalPrimitive = this.isOptionalPrimitive(prop) ? '?' : '';
-    const statement = `${access} ${isVirtualKeyWord}${isOverrideKeyWord}${staticKeyWord}${propTypeFQN}${isOptionalPrimitive} ${propName}`;
+    const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${isOverrideKeyWord}${staticKeyWord}${propTypeFQN}${isOptionalPrimitive} ${propName}`;
     this.code.openBlock(statement);
 
     // Emit getters
-    if (datatype || prop.const) {
+    if (datatype || prop.const || prop.abstract) {
       this.code.line('get;');
     } else {
       if (prop.static) {
@@ -696,7 +686,7 @@ export class DotNetGenerator extends Generator {
     }
 
     // Emit setters
-    if (datatype) {
+    if (datatype || (!prop.immutable && prop.abstract)) {
       this.code.line('set;');
     } else {
       if (!prop.immutable) {

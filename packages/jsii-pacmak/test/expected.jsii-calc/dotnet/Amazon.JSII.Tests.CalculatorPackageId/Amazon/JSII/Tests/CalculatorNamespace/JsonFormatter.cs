@@ -4,23 +4,41 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Make sure structs are un-decorated on the way in.</summary>
     /// <remarks>
+<<<<<<< HEAD
     /// <strong>Stability</strong>: Experimental
     /// 
     /// <strong>See</strong>: https://github.com/aws/aws-cdk/issues/5066
+=======
+    /// stability: Experimental
+    /// 
+    /// see:
+    /// https://github.com/aws/aws-cdk/issues/5066
+>>>>>>> origin/master
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), fullyQualifiedName: "jsii-calc.JsonFormatter")]
     public class JsonFormatter : DeputyBase
     {
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+>>>>>>> origin/master
         protected JsonFormatter(ByRefValue reference): base(reference)
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+>>>>>>> origin/master
         protected JsonFormatter(DeputyProps props): base(props)
         {
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -30,6 +48,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -39,6 +58,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -48,6 +68,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -57,6 +78,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -66,6 +88,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -75,6 +98,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -84,6 +108,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -93,6 +118,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -102,6 +128,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -111,6 +138,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -120,6 +148,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -129,6 +158,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -138,6 +168,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
+        /// <param name="value"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

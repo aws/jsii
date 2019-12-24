@@ -2,12 +2,15 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary></summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), fullyQualifiedName: "jsii-calc.Statics", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
     public class Statics : DeputyBase
     {
+        /// <summary></summary>
+        /// <param name="value"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -15,18 +18,28 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+>>>>>>> origin/master
         protected Statics(ByRefValue reference): base(reference)
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+>>>>>>> origin/master
         protected Statics(DeputyProps props): base(props)
         {
         }
 
         /// <summary>Jsdocs for static method.</summary>
-        /// <param name = "name">The name of the person to say hello to.</param>
+        /// <param name="name">The name of the person to say hello to.</param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -36,6 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), new System.Type[]{typeof(string)}, new object[]{name});
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -56,6 +70,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         = GetStaticProperty<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics));
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -101,6 +116,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetStaticProperty(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), value);
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -111,6 +127,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetStaticProperty(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), value);
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

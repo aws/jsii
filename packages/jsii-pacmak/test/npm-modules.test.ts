@@ -1,4 +1,4 @@
-import mockfs = require('mock-fs');
+import * as mockfs from 'mock-fs';
 import { findJsiiModules } from '../lib/npm-modules';
 
 test('findJsiiModules is sorted topologically', async () => {

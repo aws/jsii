@@ -15,7 +15,7 @@ import { promisify } from 'util';
 import { IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
 
 const bundled = require('@fixtures/jsii-calc-bundled');
-import base = require('@scope/jsii-calc-base');
+import * as base from '@scope/jsii-calc-base';
 
 const readFile = promisify(fs.readFile);
 
@@ -2409,4 +2409,19 @@ export class ConsumePureInterface {
     public workItBaby() {
         return this.delegate.returnStruct();
     }
+}
+
+/**
+ * Verifies that, in languages that do keyword lifting (e.g: Python), having a
+ * struct member with the same name as a positional parameter results in the
+ * correct code being emitted.
+ *
+ * See: https://github.com/aws/aws-cdk/issues/4302
+ */
+export interface StructParameterType {
+    readonly scope: string;
+    readonly props?: boolean;
+}
+export class AmbiguousParameters {
+    public constructor(public readonly scope: Bell, public readonly props: StructParameterType) { }
 }

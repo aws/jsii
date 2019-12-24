@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 import { Span } from '../o-tree';
 import { AstRenderer } from '../renderer';
 
@@ -104,10 +104,10 @@ export function nodeChildren(node: ts.Node): ts.Node[] {
  * Looks like SyntaxList nodes appear in the printed AST, but they don't actually appear
  */
 export function nodeOfType<A>(syntaxKind: ts.SyntaxKind, children?: AstMatcher<A>): AstMatcher<A>;
-/* eslint-disable max-len */
-export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>(capture: N, capturableNodeType: S, children?: AstMatcher<A>): AstMatcher<Omit<A, N> & {[key in N]: CapturableNodes[S]}>;
+// eslint-disable-next-line max-len
+export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>(capture: N, capturableNodeType: S, children?: AstMatcher<A>): AstMatcher<Omit<A, N> & { [key in N]: CapturableNodes[S] }>;
+// eslint-disable-next-line max-len
 export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>(syntaxKindOrCaptureName: ts.SyntaxKind | N, nodeTypeOrChildren?: S | AstMatcher<A>, children?: AstMatcher<A>): AstMatcher<A> | AstMatcher<A & { [key in N]: CapturableNodes[S] }> {
-/* eslint-enable max-len */
   const capturing = typeof syntaxKindOrCaptureName === 'string';  // Determine which overload we're in (SyntaxKind is a number)
 
   const realNext = (capturing ? children : nodeTypeOrChildren as AstMatcher<A>) || DONE;

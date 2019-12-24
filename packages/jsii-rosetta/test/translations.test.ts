@@ -1,5 +1,5 @@
-import fs = require('fs-extra');
-import path = require('path');
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import { JavaVisitor, PythonVisitor, SnippetTranslator } from '../lib';
 import { AstHandler } from '../lib/renderer';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';

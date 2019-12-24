@@ -1,10 +1,10 @@
 import { spawn, SpawnOptions } from 'child_process';
-import fs = require('fs-extra');
-import spec = require('@jsii/spec');
-import os = require('os');
-import path = require('path');
-import semver = require('semver');
-import logging = require('./logging');
+import * as fs from 'fs-extra';
+import * as spec from '@jsii/spec';
+import * as os from 'os';
+import * as path from 'path';
+import * as semver from 'semver';
+import * as logging from './logging';
 
 export interface ShellOptions extends SpawnOptions {
   /**
@@ -27,7 +27,7 @@ export function resolveDependencyDirectory(packageDir: string, dependencyName: s
 }
 
 export async function shell(cmd: string, args: string[], options: ShellOptions): Promise<string> {
-  /* eslint-disable @typescript-eslint/require-await */
+  // eslint-disable-next-line @typescript-eslint/require-await
   async function spawn1() {
     logging.debug(cmd, args.join(' '), JSON.stringify(options));
     return new Promise<string>((ok, ko) => {
@@ -163,21 +163,6 @@ export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
 }
 
 export async function filterAsync<A>(xs: A[], pred: (x: A) => Promise<boolean>): Promise<A[]> {
-  const ret = new Array<A>();
-  for (const x of xs) {
-    if (await pred(x)) {
-      ret.push(x);
-    }
-  }
-  return ret;
-}
-
-/**
- * Prefix fenced code blocks in MarkDown
- *
- * Match blocks starting with ```t so that we catch both
- * ```ts and ```typescript.
- */
-export function prefixMarkdownTsCodeBlocks(markdown: string, prefix: string) {
-  return markdown.replace(/^(```t.*)$/m, `$1\n${prefix}`);
+  const mapped = await Promise.all(xs.map(async x => ({ x, pred: await pred(x) })));
+  return mapped.filter(({ pred }) => pred).map(({ x }) => x);
 }

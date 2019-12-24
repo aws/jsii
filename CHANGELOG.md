@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.11](https://github.com/aws/jsii/compare/v0.20.10...v0.20.11) (2019-12-13)
+
+
+### Bug Fixes
+
+* **rosetta:** "Rosetta configured for live conversion to undefined" ([#1120](https://github.com/aws/jsii/issues/1120)) ([10e9d38](https://github.com/aws/jsii/commit/10e9d3863e36bc86afd57f399cb64c02a8f1df4d))
+
+
+
+
+
+## [0.20.10](https://github.com/aws/jsii/compare/v0.20.9...v0.20.10) (2019-12-13)
+
+
+### Bug Fixes
+
+* **reflect:** failure to load assembly from "npm pack" ([#1117](https://github.com/aws/jsii/issues/1117)) ([a2b11f1](https://github.com/aws/jsii/commit/a2b11f19a826027be021ca815985c08461df618a))
+
+
+
+
+
+## [0.20.9](https://github.com/aws/jsii/compare/v0.20.8...v0.20.9) (2019-12-11)
+
+
+### Bug Fixes
+
+* allow Missing Dotnet Version Suffix ([#1047](https://github.com/aws/jsii/issues/1047)) ([fc366d0](https://github.com/aws/jsii/commit/fc366d0a461473e1e6caeb85117098c708d191da)), closes [#1037](https://github.com/aws/jsii/issues/1037)
+* **dotnet/roslyn:** analyzer target framework ([#1071](https://github.com/aws/jsii/issues/1071)) ([fea0f0a](https://github.com/aws/jsii/commit/fea0f0a4c8ddd002957823a42b2e93cd6a23344d)), closes [aws/aws-cdk#5189](https://github.com/aws/aws-cdk/issues/5189)
+* generate non-overlapping artifacts ([#1104](https://github.com/aws/jsii/issues/1104)) ([2add627](https://github.com/aws/jsii/commit/2add6276f9490fdb25ee53a1b1a9ea8a85012a1b))
+* **java:** missing remarks in builder documentation ([#1111](https://github.com/aws/jsii/issues/1111)) ([33e820c](https://github.com/aws/jsii/commit/33e820c9252dd791a11eefdb2e6ad64f63facefd)), closes [#1094](https://github.com/aws/jsii/issues/1094)
+* **java:** remove Jackson confusion with certain patterns ([#1070](https://github.com/aws/jsii/issues/1070)) ([9eacbe3](https://github.com/aws/jsii/commit/9eacbe3476c471bf0528559bb602bcb1ede0904b)), closes [#987](https://github.com/aws/jsii/issues/987) [aws/aws-cdk#4080](https://github.com/aws/aws-cdk/issues/4080)
+* **python:** correctly emit sligified positional args ([#1081](https://github.com/aws/jsii/issues/1081)) ([6f9167b](https://github.com/aws/jsii/commit/6f9167bc21fd5274d4e7c5e5442973d747f7dd94)), closes [aws/aws-cdk#4302](https://github.com/aws/aws-cdk/issues/4302)
+* **python:** correctly handle structs out of callbacks ([#1009](https://github.com/aws/jsii/issues/1009)) ([812d8c2](https://github.com/aws/jsii/commit/812d8c2fec948a507bcf488dd7387c6ce1b91b1a)), closes [#1003](https://github.com/aws/jsii/issues/1003) [#997](https://github.com/aws/jsii/issues/997) [#997](https://github.com/aws/jsii/issues/997) [#1003](https://github.com/aws/jsii/issues/1003)
+* **python:** members named property results in invalid code ([#1114](https://github.com/aws/jsii/issues/1114)) ([92be5d7](https://github.com/aws/jsii/commit/92be5d7f12cfccb5f7f3ba714b73a4db96f7d329)), closes [#1113](https://github.com/aws/jsii/issues/1113)
+
+
+### Features
+
+* upgrade to typescript 3.7 ([#988](https://github.com/aws/jsii/issues/988)) ([6e0a7e6](https://github.com/aws/jsii/commit/6e0a7e698ee1f2b20526667bb1222e92beb9eec8))
+
+
+
+
+
 ## [0.20.8](https://github.com/aws/jsii/compare/v0.20.7...v0.20.8) (2019-11-24)
 
 

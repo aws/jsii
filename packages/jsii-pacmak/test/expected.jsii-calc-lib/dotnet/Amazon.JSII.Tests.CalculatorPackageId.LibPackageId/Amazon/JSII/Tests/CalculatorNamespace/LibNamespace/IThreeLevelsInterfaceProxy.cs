@@ -7,7 +7,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// Their presence validates that .NET/Java/jsii-reflect can track all fields
     /// far enough up the tree.
     /// 
+<<<<<<< HEAD
     /// <strong>Stability</strong>: Deprecated
+=======
+    /// stability: Deprecated
+>>>>>>> origin/master
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IThreeLevelsInterface), fullyQualifiedName: "@scope/jsii-calc-lib.IThreeLevelsInterface")]
     [System.Obsolete()]
@@ -17,6 +21,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
+        /// <summary></summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -27,12 +32,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         [JsiiMethod(name: "bar")]
         public void Bar()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
+        /// <summary></summary>
         [JsiiMethod(name: "foo")]
         public void Foo()
         {

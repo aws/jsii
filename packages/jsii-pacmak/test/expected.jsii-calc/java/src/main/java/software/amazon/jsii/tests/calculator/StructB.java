@@ -50,7 +50,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
         private software.amazon.jsii.tests.calculator.StructA optionalStructA;
 
         /**
-         * Sets the value of RequiredString
+         * Sets the value of {@link StructB#getRequiredString}
          * @param requiredString the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -61,7 +61,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of OptionalBoolean
+         * Sets the value of {@link StructB#getOptionalBoolean}
          * @param optionalBoolean the value to be set.
          * @return {@code this}
          */
@@ -72,7 +72,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of OptionalStructA
+         * Sets the value of {@link StructB#getOptionalStructA}
          * @param optionalStructA the value to be set.
          * @return {@code this}
          */

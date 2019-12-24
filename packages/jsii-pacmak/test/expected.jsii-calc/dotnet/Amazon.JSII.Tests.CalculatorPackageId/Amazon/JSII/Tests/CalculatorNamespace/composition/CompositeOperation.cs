@@ -9,16 +9,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
     public abstract class CompositeOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
     {
+        /// <summary></summary>
         protected CompositeOperation(): base(new DeputyProps(new object[]{}))
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+>>>>>>> origin/master
         protected CompositeOperation(ByRefValue reference): base(reference)
         {
         }
 
+<<<<<<< HEAD
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+=======
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+>>>>>>> origin/master
         protected CompositeOperation(DeputyProps props): base(props)
         {
         }
@@ -40,9 +51,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
+        public abstract Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
+            get;
         }
 
         /// <summary>The value.</summary>

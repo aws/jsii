@@ -1,4 +1,4 @@
-import ts = require('typescript');
+import * as ts from 'typescript';
 import { AstRenderer } from '../renderer';
 import { typeContainsUndefined } from '../typescript/types';
 

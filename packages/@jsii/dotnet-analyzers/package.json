@@ -1,6 +1,6 @@
 {
   "name": "@jsii/dotnet-analyzers",
-  "version": "0.20.8",
+  "version": "0.20.11",
   "private": true,
   "description": ".NET Roslyn Analyzers for Jsii",
   "license": "Apache-2.0",
@@ -13,6 +13,12 @@
   "bugs": {
     "url": "https://github.com/aws/jsii/issues"
   },
+  "keywords": [
+    "aws",
+    "jsii",
+    "roslyn",
+    "analyzer"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/aws/jsii.git",
@@ -31,8 +37,8 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "@types/node": "^10.17.6",
-    "jsii-build-tools": "^0.20.8",
-    "typescript": "~3.7.2"
+    "@types/node": "^10.17.11",
+    "jsii-build-tools": "^0.20.11",
+    "typescript": "~3.7.4"
   }
 }

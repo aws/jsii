@@ -51,7 +51,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         private java.util.List<java.lang.String> firstOptional;
 
         /**
-         * Sets the value of Anumber
+         * Sets the value of {@link MyFirstStruct#getAnumber}
          * @param anumber An awesome number value. This parameter is required.
          * @return {@code this}
          */
@@ -63,7 +63,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of Astring
+         * Sets the value of {@link MyFirstStruct#getAstring}
          * @param astring A string value. This parameter is required.
          * @return {@code this}
          */
@@ -75,7 +75,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of FirstOptional
+         * Sets the value of {@link MyFirstStruct#getFirstOptional}
          * @param firstOptional the value to be set.
          * @return {@code this}
          */

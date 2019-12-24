@@ -1,6 +1,6 @@
 {
   "name": "jsii-diff",
-  "version": "0.20.8",
+  "version": "0.20.11",
   "description": "Assembly comparison for jsii",
   "license": "Apache-2.0",
   "author": {
@@ -32,24 +32,25 @@
     "package": "package-js"
   },
   "dependencies": {
-    "jsii-reflect": "^0.20.8",
-    "@jsii/spec": "^0.20.8",
+    "@jsii/spec": "^0.20.11",
+    "fs-extra": "^8.1.0",
+    "jsii-reflect": "^0.20.11",
     "log4js": "^6.1.0",
-    "typescript": "~3.7.2",
+    "typescript": "~3.7.4",
     "yargs": "^15.0.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.0.1",
-    "@types/jest": "^24.0.23",
+    "@types/jest": "^24.0.24",
     "@types/jest-expect-message": "^1.0.1",
-    "@types/node": "^10.17.6",
+    "@types/node": "^10.17.11",
     "@types/tar-fs": "^1.16.1",
-    "@types/yargs": "^13.0.3",
-    "eslint": "^6.7.1",
+    "@types/yargs": "^13.0.4",
+    "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
-    "jsii": "^0.20.8",
-    "jsii-build-tools": "^0.20.8"
+    "jsii": "^0.20.11",
+    "jsii-build-tools": "^0.20.11"
   },
   "jest": {
     "collectCoverage": true,

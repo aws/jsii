@@ -1,5 +1,5 @@
-import path = require('path');
-import logging = require('./logging');
+import * as path from 'path';
+import * as logging from './logging';
 import { JsiiModule } from './packaging';
 import { TargetConstructor, Target } from './target';
 import { Scratch } from './util';
@@ -66,13 +66,10 @@ export class OneByOneBuilder implements TargetBuilder {
   }
 
   public async buildModules(): Promise<void> {
-    for (const module of this.modules) {
-      if (this.options.codeOnly) {
-        await this.generateModuleCode(module, this.options);
-      } else {
-        await this.buildModule(module, this.options);
-      }
-    }
+    const promises = this.modules.map(module => this.options.codeOnly
+      ? this.generateModuleCode(module, this.options)
+      : this.buildModule(module, this.options));
+    await Promise.all(promises);
   }
 
   private async generateModuleCode(module: JsiiModule, options: BuildOptions) {

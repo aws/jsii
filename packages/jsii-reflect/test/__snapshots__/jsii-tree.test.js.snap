@@ -41,6 +41,25 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ returnAbstractFromProperty property (experimental)
  │   │     ├── immutable
  │   │     └── type: jsii-calc.AbstractClassBase
+ │   ├─┬ class AbstractSuite (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ someMethod(str) method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── protected
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ str
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
+ │   │   ├─┬ workItAll(seed) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ seed
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
+ │   │   └─┬ property property (experimental)
+ │   │     ├── abstract
+ │   │     ├── protected
+ │   │     └── type: string
  │   ├─┬ class Add (experimental)
  │   │ ├── base: BinaryOperation
  │   │ └─┬ members
@@ -140,6 +159,20 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ _y
  │   │     │   └── type: number
  │   │     └── returns: void
+ │   ├─┬ class AmbiguousParameters (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(scope,props) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ scope
+ │   │   │   │ └── type: jsii-calc.Bell
+ │   │   │   └─┬ props
+ │   │   │     └── type: jsii-calc.StructParameterType
+ │   │   ├─┬ props property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StructParameterType
+ │   │   └─┬ scope property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.Bell
  │   ├─┬ class AnonymousImplementationProvider (experimental)
  │   │ ├── interfaces: IAnonymousImplementationProvider
  │   │ └─┬ members
@@ -913,6 +946,14 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ value
  │   │     │   └── type: any
  │   │     └── returns: Optional<string>
+ │   ├─┬ class MethodNamedProperty (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ property() method (experimental)
+ │   │   │ └── returns: string
+ │   │   └─┬ elite property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class Multiply (experimental)
  │   │ ├── base: BinaryOperation
  │   │ ├── interfaces: IFriendlier,IRandomNumberGenerator
@@ -1130,6 +1171,15 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ pow property (experimental)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Value
+ │   ├─┬ class PropertyNamedProperty (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ property property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ yetAnoterOne property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: boolean
  │   ├─┬ class PublicClass (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -2078,6 +2128,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface SmellyStruct (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ property property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ yetAnoterOne property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: boolean
  │   ├─┬ interface StableStruct (stable)
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property (stable)
@@ -2112,6 +2172,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<jsii-calc.StructA>
+ │   ├─┬ interface StructParameterType (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ scope property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ props property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<boolean>
  │   ├─┬ interface StructWithJavaReservedWords (experimental)
  │   │ └─┬ members
  │   │   ├─┬ default property (experimental)
@@ -2326,10 +2396,12 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IInterfaceImplementedByAbstractClass
  │   ├── class AbstractClassBase
  │   ├── class AbstractClassReturner
+ │   ├── class AbstractSuite
  │   ├─┬ class Add
  │   │ └── base: BinaryOperation
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
+ │   ├── class AmbiguousParameters
  │   ├─┬ class AnonymousImplementationProvider
  │   │ └── interfaces: IAnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
@@ -2403,6 +2475,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IJsii496
  │   ├── class JsiiAgent
  │   ├── class JsonFormatter
+ │   ├── class MethodNamedProperty
  │   ├─┬ class Multiply
  │   │ ├── base: BinaryOperation
  │   │ └── interfaces: IFriendlier,IRandomNumberGenerator
@@ -2424,6 +2497,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class Polymorphism
  │   ├─┬ class Power
  │   │ └── base: CompositeOperation
+ │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
@@ -2542,9 +2616,11 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
+ │   ├── interface SmellyStruct
  │   ├── interface StableStruct
  │   ├── interface StructA
  │   ├── interface StructB
+ │   ├── interface StructParameterType
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
@@ -2611,6 +2687,12 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── giveMeAbstract() method
  │   │   ├── giveMeInterface() method
  │   │   └── returnAbstractFromProperty property
+ │   ├─┬ class AbstractSuite
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── someMethod(str) method
+ │   │   ├── workItAll(seed) method
+ │   │   └── property property
  │   ├─┬ class Add
  │   │ └─┬ members
  │   │   ├── <initializer>(lhs,rhs) initializer
@@ -2648,6 +2730,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── getFoo(withParam) method
  │   │   ├── setBar(_x,_y,_z) method
  │   │   └── setFoo(_x,_y) method
+ │   ├─┬ class AmbiguousParameters
+ │   │ └─┬ members
+ │   │   ├── <initializer>(scope,props) initializer
+ │   │   ├── props property
+ │   │   └── scope property
  │   ├─┬ class AnonymousImplementationProvider
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3000,6 +3087,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static anyUndefined() method
  │   │   ├── static anyZero() method
  │   │   └── static stringify(value) method
+ │   ├─┬ class MethodNamedProperty
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── property() method
+ │   │   └── elite property
  │   ├─┬ class Multiply
  │   │ └─┬ members
  │   │   ├── <initializer>(lhs,rhs) initializer
@@ -3090,6 +3182,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── base property
  │   │   ├── expression property
  │   │   └── pow property
+ │   ├─┬ class PropertyNamedProperty
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── property property
+ │   │   └── yetAnoterOne property
  │   ├─┬ class PublicClass
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3489,6 +3586,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── deeperRequiredProp property
  │   │   └── deeperOptionalProp property
+ │   ├─┬ interface SmellyStruct
+ │   │ └─┬ members
+ │   │   ├── property property
+ │   │   └── yetAnoterOne property
  │   ├─┬ interface StableStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
@@ -3502,6 +3603,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── requiredString property
  │   │   ├── optionalBoolean property
  │   │   └── optionalStructA property
+ │   ├─┬ interface StructParameterType
+ │   │ └─┬ members
+ │   │   ├── scope property
+ │   │   └── props property
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├── default property
@@ -3626,9 +3731,11 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
  │   ├── class AbstractClassReturner
+ │   ├── class AbstractSuite
  │   ├── class Add
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
+ │   ├── class AmbiguousParameters
  │   ├── class AnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
@@ -3685,6 +3792,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class Jsii496Derived
  │   ├── class JsiiAgent
  │   ├── class JsonFormatter
+ │   ├── class MethodNamedProperty
  │   ├── class Multiply
  │   ├── class Negate
  │   ├── class NodeStandardLibrary
@@ -3701,6 +3809,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
  │   ├── class Power
+ │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
@@ -3789,9 +3898,11 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
+ │   ├── interface SmellyStruct
  │   ├── interface StableStruct
  │   ├── interface StructA
  │   ├── interface StructB
+ │   ├── interface StructParameterType
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct

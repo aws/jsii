@@ -1,4 +1,4 @@
-import cm = require('commonmark');
+import * as cm from 'commonmark';
 import { RendererContext } from './markdown';
 import { MarkdownRenderer, collapsePara, para, stripTrailingWhitespace, stripPara } from './markdown-renderer';
 

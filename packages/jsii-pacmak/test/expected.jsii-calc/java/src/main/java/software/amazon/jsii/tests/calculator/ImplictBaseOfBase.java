@@ -32,7 +32,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
-         * Sets the value of Goo
+         * Sets the value of {@link ImplictBaseOfBase#getGoo}
          * @param goo the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -43,7 +43,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         }
 
         /**
-         * Sets the value of Bar
+         * Sets the value of {@link ImplictBaseOfBase#getBar}
          * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -53,7 +53,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         }
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link ImplictBaseOfBase#getFoo}
          * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */

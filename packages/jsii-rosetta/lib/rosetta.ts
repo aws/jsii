@@ -1,6 +1,6 @@
-import fs = require('fs-extra');
-import path = require('path');
-import spec = require('@jsii/spec');
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import * as spec from '@jsii/spec';
 import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
 import { allTypeScriptSnippets } from './jsii/assemblies';
 import { TargetLanguage } from './languages';
@@ -109,8 +109,8 @@ export class Rosetta {
     }
 
     if (!this.options.liveConversion) { return undefined; }
-    if (!this.options.targetLanguages?.includes(targetLang)) {
-      throw new Error(`Rosetta configured for live conversion to ${this.options.targetLanguages}, but requested ${targetLang}`);
+    if (this.options.targetLanguages && !this.options.targetLanguages.includes(targetLang)) {
+      throw new Error(`Rosetta configured for live conversion to ${this.options.targetLanguages.join(', ')}, but requested ${targetLang}`);
     }
 
     // See if we're going to live-convert it with full source information

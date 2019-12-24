@@ -1,4 +1,4 @@
-import cm = require('commonmark');
+import * as cm from 'commonmark';
 import { prefixLines, RendererContext } from './markdown';
 import { MarkdownRenderer, para, stripPara } from './markdown-renderer';
 

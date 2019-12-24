@@ -20,7 +20,7 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
         private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link VeryBaseProps#getFoo}
          * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */

@@ -34,7 +34,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
         private java.lang.String readonlyProperty;
 
         /**
-         * Sets the value of ReadonlyProperty
+         * Sets the value of {@link DeprecatedStruct#getReadonlyProperty}
          * @param readonlyProperty the value to be set. This parameter is required.
          * @return {@code this}
          * @deprecated well, yeah

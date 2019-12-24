@@ -1,5 +1,6 @@
 import { CodeMaker } from 'codemaker';
 import * as spec from '@jsii/spec';
+import * as xmlbuilder from 'xmlbuilder';
 import { DotNetNameUtils } from './nameutils';
 import { Rosetta, Translation, typeScriptSnippetFromSource, markDownToXmlDoc } from 'jsii-rosetta';
 import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';
@@ -32,22 +33,15 @@ export class DotNetDocGenerator {
     const docs = obj.docs;
 
     // The docs may be undefined at the method level but not the parameters level
-    if (docs) {
-      if (docs.summary) {
-        this.code.line(`/// <summary>${docs.summary}</summary>`);
-      }
-    }
+    this.emitXmlDoc('summary', docs?.summary || '');
 
     // Handling parameters only if the obj is a method
     const objMethod = obj as spec.Method;
     if (objMethod.parameters) {
       objMethod.parameters.forEach(param => {
-        if (param.docs) {
-          const paramSummary = param.docs.summary;
-          if (paramSummary) {
-            this.code.line(`/// <param name = "${this.nameutils.convertParameterName(param.name)}">${paramSummary}</param>`);
-          }
-        }
+        // Remove any slug `@` from the parameter name - it's not supposed to show up here.
+        const paramName = this.nameutils.convertParameterName(param.name).replace(/^@/, '');
+        this.emitXmlDoc('param', param.docs?.summary || '', { attributes: { name: paramName } });
       });
     }
 
@@ -57,12 +51,12 @@ export class DotNetDocGenerator {
     }
 
     if (docs.returns) {
-      this.code.line('/// <returns>');
-      const returnsLines = docs.returns.split('\n');
-      returnsLines.forEach( line => this.code.line(`/// ${line}`));
-      this.code.line('/// </returns>');
+      this.emitXmlDoc('returns', docs.returns);
     }
 
+    // Remarks does not use emitXmlDoc() because the remarks can contain code blocks
+    // which are fenced with <code> tags, which would be escaped to
+    // &lt;code&gt; if we used the xml builder.
     const remarks = this.renderRemarks(docs);
     if (remarks.length > 0) {
       this.code.line('/// <remarks>');
@@ -71,11 +65,8 @@ export class DotNetDocGenerator {
     }
 
     if (docs.example) {
-      const exampleLines = this.convertExample(docs.example).split('\n');
       this.code.line('/// <example>');
-      this.code.line('/// <code>');
-      exampleLines.forEach( line => this.code.line(`/// ${line}`));
-      this.code.line('/// </code>');
+      this.emitXmlDoc('code', this.convertExample(docs.example));
       this.code.line('/// </example>');
     }
   }
@@ -152,6 +143,21 @@ export class DotNetDocGenerator {
       return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
     }
     return translated.source;
+  }
+
+  private emitXmlDoc(tag: string, content: string, { attributes = {} }: { attributes?: { [name: string]: string } } = {}): void {
+    if (!content) { return; }
+
+    const xml = xmlbuilder.create(tag, { headless: true })
+      .text(content);
+    for (const [name, value] of Object.entries(attributes)) {
+      xml.att(name, value);
+    }
+    const xmlstring = xml.end({ allowEmpty: true, pretty: false });
+
+    for (const line of xmlstring.split('\n').map(x => x.trim())) {
+      this.code.line(`/// ${line}`);
+    }
   }
 }
 

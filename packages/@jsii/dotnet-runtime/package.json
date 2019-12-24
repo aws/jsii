@@ -1,6 +1,6 @@
 {
   "name": "@jsii/dotnet-runtime",
-  "version": "0.20.8",
+  "version": "0.20.11",
   "private": true,
   "description": ".NET client for jsii runtime",
   "license": "Apache-2.0",
@@ -13,6 +13,12 @@
   "bugs": {
     "url": "https://github.com/aws/jsii/issues"
   },
+  "keywords": [
+    "aws",
+    "jsii",
+    "runtime",
+    "node"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/aws/jsii.git",
@@ -31,11 +37,12 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "@jsii/dotnet-jsonmodel": "^0.20.8",
-    "@jsii/runtime": "^0.20.8",
-    "@types/node": "^10.17.6",
-    "jsii-build-tools": "^0.20.8",
-    "semver": "^6.3.0",
-    "typescript": "~3.7.2"
+    "@jsii/dotnet-jsonmodel": "^0.20.11",
+    "@jsii/runtime": "^0.20.11",
+    "@types/node": "^10.17.11",
+    "@types/semver": "^6.2.0",
+    "jsii-build-tools": "^0.20.11",
+    "semver": "^7.1.1",
+    "typescript": "~3.7.4"
   }
 }

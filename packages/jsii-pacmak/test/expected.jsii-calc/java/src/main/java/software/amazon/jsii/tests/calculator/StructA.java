@@ -50,7 +50,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
         private java.lang.String optionalString;
 
         /**
-         * Sets the value of RequiredString
+         * Sets the value of {@link StructA#getRequiredString}
          * @param requiredString the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -61,7 +61,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of OptionalNumber
+         * Sets the value of {@link StructA#getOptionalNumber}
          * @param optionalNumber the value to be set.
          * @return {@code this}
          */
@@ -72,7 +72,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of OptionalString
+         * Sets the value of {@link StructA#getOptionalString}
          * @param optionalString the value to be set.
          * @return {@code this}
          */

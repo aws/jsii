@@ -1,8 +1,8 @@
-import child = require('child_process');
-import fs = require('fs');
+import * as child from 'child_process';
+import * as fs from 'fs';
 import { api } from '@jsii/kernel';
-import spec = require('@jsii/spec');
-import path = require('path');
+import * as spec from '@jsii/spec';
+import * as path from 'path';
 import { KernelHost, InputOutput, Input, Output } from '../lib';
 
 test('can load libraries from within a callback', () => {

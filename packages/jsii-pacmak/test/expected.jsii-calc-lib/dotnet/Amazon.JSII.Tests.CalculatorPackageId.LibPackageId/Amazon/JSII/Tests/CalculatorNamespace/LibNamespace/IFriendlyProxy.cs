@@ -7,7 +7,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// These classes can be greeted with
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
     /// 
+<<<<<<< HEAD
     /// <strong>Stability</strong>: Deprecated
+=======
+    /// stability: Deprecated
+>>>>>>> origin/master
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
     [System.Obsolete()]

@@ -1,4 +1,4 @@
-import cm = require('commonmark');
+import * as cm from 'commonmark';
 import { cmNodeChildren, CommonMarkRenderer, prefixLines, RendererContext } from './markdown';
 
 /* eslint-disable @typescript-eslint/camelcase */

@@ -1,5 +1,5 @@
-import reflect = require('jsii-reflect');
-import log4js = require('log4js');
+import * as reflect from 'jsii-reflect';
+import * as log4js from 'log4js';
 import { compareStabilities } from './stability';
 import { Analysis, FailedAnalysis, isSuperType } from './type-analysis';
 import { ComparisonContext } from './types';
@@ -94,9 +94,9 @@ function describeOptionalValueMatchingFailure(origType: reflect.OptionalValue, u
   const updaDescr = reflect.OptionalValue.describe(updatedType);
   if (origDescr !== updaDescr) {
     return `${updaDescr} (formerly ${origDescr}): ${analysis.reasons.join(', ')}`;
-  } 
+  }
   return `${updaDescr}: ${analysis.reasons.join(', ')}`;
-  
+
 }
 
 function compareMethod<T extends (reflect.Method | reflect.Initializer)>(

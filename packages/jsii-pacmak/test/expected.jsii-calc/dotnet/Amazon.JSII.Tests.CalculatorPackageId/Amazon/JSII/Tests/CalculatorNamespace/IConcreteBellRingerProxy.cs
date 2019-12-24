@@ -13,6 +13,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary></summary>
+        /// <param name="bell"></param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
