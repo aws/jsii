@@ -23,12 +23,12 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
 
     /**
      * Returns `true` if `key` is defined in `opts`.
-     * 
-     * <p>Used to check that undefined/null hash values
-     * are being erased when sending values from native code to JS.</p>
-     * 
+     * <p>
+     * Used to check that undefined/null hash values
+     * are being erased when sending values from native code to JS.
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param opts This parameter is required.
      * @param key This parameter is required.
      */
@@ -39,7 +39,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
 
     /**
      * We expect "prop1" to be erased.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -49,7 +49,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
 
     /**
      * We expect "prop2" to be erased.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

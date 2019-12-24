@@ -19,7 +19,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
 
     /**
      * Creates a Number object.
-     * 
+     * <p>
      * @param value The number. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

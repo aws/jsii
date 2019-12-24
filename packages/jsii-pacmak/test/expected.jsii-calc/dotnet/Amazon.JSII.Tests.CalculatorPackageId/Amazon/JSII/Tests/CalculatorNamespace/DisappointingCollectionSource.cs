@@ -6,19 +6,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// This source of collections is disappointing - it'll always give you nothing :(
     /// 
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DisappointingCollectionSource), fullyQualifiedName: "jsii-calc.DisappointingCollectionSource")]
     public class DisappointingCollectionSource : DeputyBase
     {
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected DisappointingCollectionSource(ByRefValue reference): base(reference)
         {
         }
 
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected DisappointingCollectionSource(DeputyProps props): base(props)
         {
         }
@@ -27,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// (Nah, just a billion dollars mistake!)
         /// 
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "maybeList", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
         public static string[] MaybeList
@@ -40,7 +42,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// (Nah, just a billion dollars mistake!)
         /// 
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "maybeMap", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"number\"},\"kind\":\"map\"}}", isOptional: true)]
         public static System.Collections.Generic.IDictionary<string, double> MaybeMap

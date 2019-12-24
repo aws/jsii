@@ -1,0 +1,1 @@
+CallSomeFunction(25);

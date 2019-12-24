@@ -18,7 +18,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param optionalStruct
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -59,7 +59,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
     public static final class Builder {
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return a new instance of {@link Builder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -74,7 +74,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return {@code this}
          * @param field This parameter is required.
          */

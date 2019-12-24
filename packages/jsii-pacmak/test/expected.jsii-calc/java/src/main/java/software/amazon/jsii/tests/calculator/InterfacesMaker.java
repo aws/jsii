@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * We can return arrays of interfaces See aws/aws-cdk#2362.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,7 +20,7 @@ public class InterfacesMaker extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param count This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

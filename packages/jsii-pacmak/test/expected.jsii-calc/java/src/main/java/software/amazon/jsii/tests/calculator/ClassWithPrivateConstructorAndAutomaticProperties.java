@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Class that implements interface properties automatically, but using a private constructor.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,7 +20,7 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param readOnlyString This parameter is required.
      * @param readWriteString This parameter is required.
      */

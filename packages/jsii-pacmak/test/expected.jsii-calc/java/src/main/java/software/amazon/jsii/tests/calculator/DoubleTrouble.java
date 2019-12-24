@@ -23,7 +23,7 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
 
     /**
      * Say hello!
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -34,7 +34,7 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
 
     /**
      * Returns another random number.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

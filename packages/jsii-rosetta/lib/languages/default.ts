@@ -1,7 +1,10 @@
 import * as ts from 'typescript';
-import { AstRenderer, AstHandler, nimpl } from '../renderer';
-import { OTree } from '../o-tree';
+import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
+import { OTree, NO_SYNTAX } from '../o-tree';
 import { ImportStatement } from '../typescript/imports';
+import { isStructInterface, isStructType } from '../jsii/jsii-utils';
+import { mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
+import { voidExpressionString } from '../typescript/ast-utils';
 
 /**
  * A basic visitor that applies for most curly-braces-based languages
@@ -11,10 +14,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
 
   public abstract mergeContext(old: C, update: C): C;
 
-  public commentRange(node: ts.CommentRange, context: AstRenderer<C>): OTree {
+  public commentRange(comment: CommentSyntax, _context: AstRenderer<C>): OTree {
     return new OTree([
-      context.textAt(node.pos, node.end),
-      node.hasTrailingNewLine ? '\n' : ''
+      comment.text,
+      comment.hasTrailingNewLine ? '\n' : ''
     ]);
   }
 
@@ -73,7 +76,6 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public prefixUnaryExpression(node: ts.PrefixUnaryExpression, context: AstRenderer<C>): OTree {
-
     return new OTree([
       UNARY_OPS[node.operator],
       context.convert(node.operand)
@@ -88,11 +90,34 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return new OTree([context.convert(node.expression), '.', context.convert(node.name)]);
   }
 
+  /**
+   * Do some work on property accesses to translate common JavaScript-isms to language-specific idioms
+   */
   public callExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree {
+    const functionText = context.textOf(node.expression);
+    if (functionText === 'console.log' || functionText === 'console.error') { return this.printStatement(node.arguments, context); }
+    if (functionText === 'super') { return this.superCallExpression(node, context); }
+
+    return this.regularCallExpression(node, context);
+  }
+
+  public regularCallExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree {
     return new OTree([
       context.convert(node.expression),
       '(',
-      new OTree([], context.convertAll(node.arguments), { separator: ', ' }),
+      this.argumentList(node.arguments, context),
+      ')']);
+  }
+
+  public superCallExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree {
+    return this.regularCallExpression(node, context);
+  }
+
+  public printStatement(args: ts.NodeArray<ts.Expression>, context: AstRenderer<C>) {
+    return new OTree([
+      '<PRINT>',
+      '(',
+      this.argumentList(args, context),
       ')']);
   }
 
@@ -104,12 +129,49 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return new OTree([context.textOf(node)]);
   }
 
+  /**
+   * An object literal can render as one of three things:
+   *
+   * - Don't know the type (render as an unknown struct)
+   * - Know the type:
+   *     - It's a struct (render as known struct)
+   *     - It's not a struct (render as key-value map)
+   */
   public objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
+    const type = typeWithoutUndefinedUnion(context.inferredTypeOfExpression(node));
+
+    const isUnknownType = !type || !type.symbol;
+    const isKnownStruct = type && isStructType(type);
+
+    if (isUnknownType) {
+      return this.unknownTypeObjectLiteralExpression(node, context);
+    }
+    if (isKnownStruct) {
+      return this.knownStructObjectLiteralExpression(node, type!, context);
+    }
+    return this.keyValueObjectLiteralExpression(node, type && mapElementType(type, context), context);
+  }
+
+  public unknownTypeObjectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree {
+    return this.notImplemented(node, context);
+  }
+
+  public knownStructObjectLiteralExpression(node: ts.ObjectLiteralExpression, _structType: ts.Type, context: AstRenderer<C>): OTree {
+    return this.notImplemented(node, context);
+  }
+
+  public keyValueObjectLiteralExpression(node: ts.ObjectLiteralExpression, _valueType: ts.Type | undefined, context: AstRenderer<C>): OTree {
     return this.notImplemented(node, context);
   }
 
   public newExpression(node: ts.NewExpression, context: AstRenderer<C>): OTree {
-    return this.notImplemented(node, context);
+    return new OTree([
+      'new ',
+      context.convert(node.expression),
+      '(',
+      this.argumentList(node.arguments, context),
+      ')'
+    ], [], { canBreakLine: true });
   }
 
   public propertyAssignment(node: ts.PropertyAssignment, context: AstRenderer<C>): OTree {
@@ -160,6 +222,17 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   public interfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
+    if (isStructInterface(context.textOf(node.name))) {
+      return this.structInterfaceDeclaration(node, context);
+    }
+    return this.regularInterfaceDeclaration(node, context);
+  }
+
+  public structInterfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
+    return this.notImplemented(node, context);
+  }
+
+  public regularInterfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree {
     return this.notImplemented(node, context);
   }
 
@@ -196,9 +269,18 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return new OTree(['(', context.convert(node.expression), ')']);
   }
 
-  public maskingVoidExpression(_node: ts.VoidExpression, _context: AstRenderer<C>): OTree {
+  public maskingVoidExpression(node: ts.VoidExpression, context: AstRenderer<C>): OTree {
     // Don't render anything by default when nodes are masked
-    return new OTree([]);
+    const arg = voidExpressionString(node);
+    if (arg === 'block') {
+      return this.commentRange({ pos: context.getPosition(node).start, text: '\n// ...', kind: ts.SyntaxKind.SingleLineCommentTrivia, hasTrailingNewLine: false }, context);
+    }
+    if (arg === '...') { return new OTree(['...']); }
+    return NO_SYNTAX;
+  }
+
+  protected argumentList(args: readonly ts.Node[] | undefined, context: AstRenderer<C>): OTree {
+    return new OTree([], args ? context.convertAll(args) : [], { separator: ', ' });
   }
 
   private notImplemented(node: ts.Node, context: AstRenderer<C>) {

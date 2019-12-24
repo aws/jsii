@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Takes the object parameter as an interface.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -13,7 +13,7 @@ public interface IBellRinger extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param bell This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -29,7 +29,7 @@ public interface IBellRinger extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @param bell This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

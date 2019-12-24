@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * We can return an anonymous interface implementation from an override without losing the interface declarations.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

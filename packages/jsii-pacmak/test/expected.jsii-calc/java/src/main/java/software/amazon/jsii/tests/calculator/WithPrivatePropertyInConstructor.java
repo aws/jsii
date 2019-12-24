@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verifies that private property declarations in constructor arguments are hidden.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,7 +20,7 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param privateField
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

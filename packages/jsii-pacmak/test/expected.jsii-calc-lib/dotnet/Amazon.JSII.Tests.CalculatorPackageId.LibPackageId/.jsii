@@ -121,8 +121,9 @@
     "@scope/jsii-calc-lib.EnumFromScopedModule": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
+        "remarks": "See awslabs/jsii#138",
         "stability": "deprecated",
-        "summary": "Check that enums from \\@scoped packages can be references. See awslabs/jsii#138."
+        "summary": "Check that enums from \\@scoped packages can be references."
       },
       "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
       "kind": "enum",
@@ -539,5 +540,5 @@
     }
   },
   "version": "0.20.11",
-  "fingerprint": "D1VJJVqcvEKInLQ3r/WxIN332Yo1IRlVWkCPByyIIb0="
+  "fingerprint": "WSHD7tywHgFC9jmImvDuy7NGYCDWAAb49jk0ZPzCoFM="
 }

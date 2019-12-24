@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Generates random numbers.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -13,9 +13,9 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
 
     /**
      * Returns another random number.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return A random number.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -31,9 +31,9 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
 
         /**
          * Returns another random number.
-         * 
+         * <p>
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return A random number.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

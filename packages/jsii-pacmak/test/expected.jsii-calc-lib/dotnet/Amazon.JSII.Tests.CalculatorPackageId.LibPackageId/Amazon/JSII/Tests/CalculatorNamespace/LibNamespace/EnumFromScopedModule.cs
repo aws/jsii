@@ -2,24 +2,24 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Check that enums from \@scoped packages can be references. See awslabs/jsii#138.</summary>
+    /// <summary>Check that enums from \@scoped packages can be references.</summary>
     /// <remarks>
-    /// stability: Deprecated
+    /// See awslabs/jsii#138
+    /// 
+    /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiEnum(nativeType: typeof(EnumFromScopedModule), fullyQualifiedName: "@scope/jsii-calc-lib.EnumFromScopedModule")]
     [System.Obsolete()]
     public enum EnumFromScopedModule
     {
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiEnumMember(name: "VALUE1")]
         [System.Obsolete()]
         VALUE1,
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiEnumMember(name: "VALUE2")]
         [System.Obsolete()]

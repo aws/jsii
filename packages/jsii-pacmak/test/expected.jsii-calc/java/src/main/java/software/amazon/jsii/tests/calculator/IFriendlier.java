@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Even friendlier classes can implement this interface.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -13,7 +13,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
     /**
      * Say farewell.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -21,9 +21,9 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
     /**
      * Say goodbye.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return A goodbye blessing.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -39,7 +39,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Say farewell.
-         * 
+         * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -50,9 +50,9 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Say goodbye.
-         * 
+         * <p>
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return A goodbye blessing.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

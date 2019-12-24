@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verify that object references can be passed inside collections.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -25,9 +25,9 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
 
     /**
      * Returns the sum of all values.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param values This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -37,9 +37,9 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
 
     /**
      * Returns the sum of all values in a map.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param values This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

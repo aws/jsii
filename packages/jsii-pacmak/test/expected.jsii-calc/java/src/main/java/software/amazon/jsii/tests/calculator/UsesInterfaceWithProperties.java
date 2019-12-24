@@ -18,7 +18,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -37,7 +37,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param ext This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +47,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

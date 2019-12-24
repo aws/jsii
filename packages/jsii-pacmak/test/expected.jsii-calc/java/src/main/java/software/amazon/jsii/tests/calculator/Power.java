@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * The power operation.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,9 +20,9 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
 
     /**
      * Creates a Power operation.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param base The base of the power. This parameter is required.
      * @param pow The number of times to multiply. This parameter is required.
      */
@@ -34,7 +34,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
 
     /**
      * The base of the power.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -43,8 +43,10 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     }
 
     /**
-     * The expression that this operation consists of. Must be implemented by derived classes.
-     * 
+     * The expression that this operation consists of.
+     * <p>
+     * Must be implemented by derived classes.
+     * <p>
      * EXPERIMENTAL
      */
     @Override
@@ -55,7 +57,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
 
     /**
      * The number of times to multiply.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
