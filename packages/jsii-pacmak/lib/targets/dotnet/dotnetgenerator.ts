@@ -79,11 +79,28 @@ export class DotNetGenerator extends Generator {
     await fs.mkdirp(path.join(outdir, packageId));
     await fs.copyFile(tarball, path.join(outdir, packageId, tarballFileName));
 
+    // Create an anchor file for the current model
+    this.generateDependencyAnchorFile();
+
     // Copying the .jsii file
     await fs.copyFile(this.jsiiFilePath, path.join(outdir, packageId, spec.SPEC_FILE_NAME));
 
     // Saving the generated code.
     return this.code.save(outdir);
+  }
+
+  /**
+   * Generates the anchor file
+   */
+  protected generateDependencyAnchorFile() {
+    const namespace = `${this.assembly.targets!.dotnet!.namespace}.Internal.DependencyResolution`;
+    this.openFileIfNeeded('Anchor', namespace, false, false);
+    this.code.openBlock('public sealed class Anchor');
+    this.code.openBlock('public Anchor()');
+    this.typeresolver.namespaceDependencies.forEach(value => this.code.line(`new ${value.namespace}.Internal.DependencyResolution.Anchor();`));
+    this.code.closeBlock();
+    this.code.closeBlock();
+    this.closeFileIfNeeded('Anchor', namespace, false);
   }
 
   /**

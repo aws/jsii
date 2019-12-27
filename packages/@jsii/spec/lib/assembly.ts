@@ -3,7 +3,7 @@ export const SPEC_FILE_NAME = '.jsii';
 /**
  * A JSII assembly specification.
  */
-export interface Assembly extends Documentable {
+export interface Assembly extends AssemblyConfiguration, Documentable {
   /**
    * The version of the spec schema
    */
@@ -89,14 +89,6 @@ export interface Assembly extends Documentable {
   license: string;
 
   /**
-   * A map of target name to configuration, which is used when generating
-   * packages for various languages.
-   *
-   * @default none
-   */
-  targets?: AssemblyTargets;
-
-  /**
    * Arbitrary key-value pairs of metadata, which the maintainer chose to
    * document with the assembly. These entries do not carry normative
    * semantics and their interpretation is up to the assembly maintainer.
@@ -115,18 +107,20 @@ export interface Assembly extends Documentable {
 
   /**
    * Direct dependencies on other assemblies (with semver), the key is the JSII
-   * assembly name.
+   * assembly name, and the value is a SemVer expression..
    *
    * @default none
    */
-  dependencies?: { [assembly: string]: PackageVersion };
+  dependencies?: { [assembly: string]: string };
 
   /**
-   * Closure of all dependency assemblies, direct and transitive.
+   * Target configuration for all the assemblies that are direct or transitive
+   * dependencies of this assembly. This is needed to generate correct native
+   * type names for any transitively inherited member, in certain languages.
    *
    * @default none
    */
-  dependencyClosure?: { [assembly: string]: PackageVersion };
+  dependencyClosure?: { [assembly: string]: AssemblyConfiguration };
 
   /**
    * List if bundled dependencies (these are not expected to be jsii
@@ -149,6 +143,19 @@ export interface Assembly extends Documentable {
    * @default none
    */
   readme?: { markdown: string };
+}
+
+/**
+ * Shareable configuration of a jsii Assembly.
+ */
+export interface AssemblyConfiguration {
+  /**
+   * A map of target name to configuration, which is used when generating
+   * packages for various languages.
+   *
+   * @default none
+   */
+  targets?: AssemblyTargets;
 }
 
 /**
@@ -212,25 +219,6 @@ export interface AssemblyTargets {
    * Information about a particular language's targets
    */
   [language: string]: { [key: string]: any } | undefined;
-}
-
-/**
- * The version of a package.
- */
-export interface PackageVersion {
-  /**
-   * Version of the package.
-   *
-   * @minLength 1
-   */
-  version: string;
-
-  /**
-   * Targets for a given assembly.
-   *
-   * @default none
-   */
-  targets?: AssemblyTargets;
 }
 
 /**

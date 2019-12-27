@@ -2,6 +2,7 @@ import * as clone from 'clone';
 import { toPascalCase } from 'codemaker/lib/case-utils';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
+import { Rosetta, typeScriptSnippetFromSource, Translation, markDownToJavaDoc } from 'jsii-rosetta';
 import * as spec from '@jsii/spec';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
@@ -9,10 +10,10 @@ import { Generator } from '../generator';
 import { PackageInfo, Target, findLocalBuildDirs, TargetOptions } from '../target';
 import * as logging from '../logging';
 import { shell, Scratch, slugify, setExtend } from '../util';
-import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
-import { Rosetta, typeScriptSnippetFromSource, Translation, markDownToJavaDoc } from 'jsii-rosetta';
+import { VERSION, VERSION_DESC } from '../version';
+import { toMavenVersionRange } from './version-utils';
 import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
@@ -429,7 +430,7 @@ class JavaGenerator extends Generator {
      * for example, we need to refer to their types when flatting the class hierarchy for
      * interface proxies.
      */
-  private readonly referencedModules: { [name: string]: spec.PackageVersion } = { };
+  private readonly referencedModules: { [name: string]: spec.AssemblyConfiguration } = { };
 
   public constructor(private readonly rosetta: Rosetta) {
     super({ generateOverloadsForMethodWithOptionals: true });
@@ -777,13 +778,12 @@ class JavaGenerator extends Generator {
     this.code.closeFile('pom.xml');
 
     /**
-         * Combines a version number with an optional suffix. If the suffix starts with '-' or '.', it will be
-         * concatenated as-is to the semantic version number. Otherwise, it'll be appended to the version number with an
-         * intercalar '-'.
-         *
-         * @param version the semantic version number
-         * @param suffix  the suffix, if any.
-         */
+     * Combines a version number with an optional suffix. The suffix, when present, must begin with
+     * '-' or '.', and will be concatenated as-is to the version number..
+     *
+     * @param version the semantic version number
+     * @param suffix  the suffix, if any.
+     */
     function makeVersion(version: string, suffix?: string): string {
       if (!suffix) { return version; }
       if (!suffix.startsWith('-') && !suffix.startsWith('.')) {
@@ -794,23 +794,22 @@ class JavaGenerator extends Generator {
 
     function mavenDependencies(this: JavaGenerator) {
       const dependencies = new Array<MavenDependency>();
-      const allDeps = { ...assm.dependencies ?? {}, ...this.referencedModules };
-      for (const depName of Object.keys(allDeps)) {
-        const dep = allDeps[depName];
-        if (!dep.targets?.java) {
+      for (const [depName, version] of Object.entries(this.assembly.dependencies ?? {})) {
+        const dep = this.assembly.dependencyClosure?.[depName];
+        if (!dep?.targets?.java) {
           throw new Error(`Assembly ${assm.name} depends on ${depName}, which does not declare a java target`);
         }
         dependencies.push({
           groupId: dep.targets.java.maven.groupId,
           artifactId: dep.targets.java.maven.artifactId,
-          version: makeVersion(dep.version, dep.targets.java.maven.versionSuffix),
+          version: toMavenVersionRange(version, dep.targets.java.maven.versionSuffix),
         });
       }
       // The JSII java runtime base classes
       dependencies.push({
         groupId: 'software.amazon.jsii',
         artifactId: 'jsii-runtime',
-        version: VERSION
+        version: toMavenVersionRange(`^${VERSION}`)
       });
 
       // Provides @javax.annotation.*
@@ -1833,10 +1832,12 @@ class JavaGenerator extends Generator {
   }
 
   private getNativeName(assm: spec.Assembly, name: string | undefined): string;
-  private getNativeName(assm: spec.PackageVersion, name: string | undefined, assmName: string): string;
-  private getNativeName(assm: spec.Assembly | spec.PackageVersion,
+  private getNativeName(assm: spec.AssemblyConfiguration, name: string | undefined, assmName: string): string;
+  private getNativeName(
+    assm: spec.AssemblyConfiguration,
     name: string | undefined,
-    assmName: string = (assm as spec.Assembly).name): string {
+    assmName: string = (assm as spec.Assembly).name
+  ): string {
     const javaPackage = assm.targets?.java?.package;
     if (!javaPackage) { throw new Error(`The module ${assmName} does not have a java.package setting`); }
     return `${javaPackage}${name ? `.${name}` : ''}`;

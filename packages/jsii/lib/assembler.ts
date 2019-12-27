@@ -6,7 +6,6 @@ import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as path from 'path';
-import * as semver from 'semver';
 import * as ts from 'typescript';
 import { JSII_DIAGNOSTICS_CODE } from './compiler';
 import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
@@ -115,8 +114,8 @@ export class Assembler implements Emitter {
       author: this.projectInfo.author,
       contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
       repository: this.projectInfo.repository,
-      dependencies: this._toDependencies(this.projectInfo.dependencies),
-      dependencyClosure: this._buildDependencyClosure(this.projectInfo.dependencies),
+      dependencies: noEmptyDict({ ...this.projectInfo.dependencies, ...this.projectInfo.peerDependencies }),
+      dependencyClosure: noEmptyDict(toDependencyClosure(this.projectInfo.dependencyClosure)),
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
       targets: this.projectInfo.targets,
@@ -234,14 +233,13 @@ export class Assembler implements Emitter {
     if (assm === this.projectInfo.name) {
       type = this._types[ref];
     } else {
-      const assembly = this.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
+      const assembly = this.projectInfo.dependencyClosure.find(dep => dep.name === assm);
       type = assembly?.types?.[ref];
 
       // since we are exposing a type of this assembly in this module's public API,
       // we expect it to appear as a peer dependency instead of a normal dependency.
       if (assembly) {
-        const asPeerDependency = this.projectInfo.peerDependencies.find(d => d.name === assembly.name);
-        if (!asPeerDependency) {
+        if (!(assembly.name in this.projectInfo.peerDependencies)) {
           this._diagnostic(referencingNode, ts.DiagnosticCategory.Warning,
             `The type '${ref}' is exposed in the public API of this module. ` +
             `Therefore, the module '${assembly.name}' must also be defined under "peerDependencies". ` +
@@ -1341,71 +1339,6 @@ export class Assembler implements Emitter {
       }
     }
   }
-
-  private _toDependencies(assemblies: readonly spec.Assembly[]): { [name: string]: spec.PackageVersion } | undefined {
-    const ret: { [name: string]: spec.PackageVersion } = {};
-
-    for (const a of assemblies) {
-      Object.assign(ret, assemblyToPackageVersionMap(a));
-    }
-
-    return noEmptyDict(ret);
-  }
-
-  private _buildDependencyClosure(assemblies: readonly spec.Assembly[]): { [name: string]: spec.PackageVersion } | undefined {
-    // Merge the dependency closures of all dependencies and add the direct dependencies.
-    // There should not be version conflicts between them but we guard against it anyway.
-
-    // Get an array of dependency maps
-    const dependencyBags = flatten(assemblies.map(a => [assemblyToPackageVersionMap(a), a.dependencies ?? {}]));
-
-    const warned = new Set<string>();
-    const result: { [name: string]: spec.PackageVersion } = {};
-    for (const bag of dependencyBags) {
-      for (const [name, packV] of Object.entries(bag)) {
-        maybeRecord.call(this, name, packV);
-      }
-    }
-
-    return noEmptyDict(result);
-
-    function maybeRecord(this: Assembler, name: string, pack: spec.PackageVersion) {
-      let recordThisDependency = true;
-
-      if (name in result) {
-        // Two dependencies on the same package, find the right version to use
-        const highestVersion = mostConstrainedVersion(result[name].version, pack.version);
-
-        if (highestVersion === undefined) {
-          warnAboutVersionConflict.call(this, name, result[name].version, pack.version);
-        }
-
-        recordThisDependency = pack.version === highestVersion;
-      }
-
-      if (recordThisDependency) {
-        result[name] = {
-          version: pack.version,
-          targets: pack.targets,
-        };
-      }
-    }
-
-    function warnAboutVersionConflict(this: Assembler, name: string, v1: string, v2: string) {
-      if (warned.has(name)) { return; }
-      this._diagnostic(null, ts.DiagnosticCategory.Error, `Conflicting dependencies on incompatible versions for package '${name}': ${v1} and ${v2}`);
-      warned.add(name);
-    }
-  }
-}
-
-function assemblyToPackageVersionMap(a: spec.Assembly): {[key: string]: spec.PackageVersion} {
-  return {
-    [a.name]: {
-      version: a.version,
-      targets: a.targets
-    }
-  };
 }
 
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
@@ -1624,33 +1557,18 @@ function* intersect<T>(xs: Set<T>, ys: Set<T>) {
   }
 }
 
-/**
- * Return the most constrained version given two versions
- *
- * Returns the highest version. Return undefined if the values are not pairwise
- * comparable.
- */
-function mostConstrainedVersion(version1: string, version2: string): string | undefined {
-  if (semver.satisfies(version1, `^${version2}`)) {
-    // If v1 satisifies v2, then either:
-    // - v2 also satisfies v1, in which case it doesn't matter which we return
-    // - v2 does not satisfy v1, in which it must be the case that v1 is higher
-    return version1;
-  }
-
-  // Reverse logic
-  if (semver.satisfies(version2, `^${version1}`)) { return version2; }
-
-  return undefined;
-}
-
-function flatten<T>(xs: T[][]): T[] {
-  return Array.prototype.concat.call([], ...xs);
-}
-
 function noEmptyDict<T>(xs: {[key: string]: T}): {[key: string]: T} | undefined {
   if (Object.keys(xs).length === 0) { return undefined; }
   return xs;
+}
+
+function toDependencyClosure(assemblies: readonly spec.Assembly[]): { [name: string]: spec.AssemblyConfiguration } {
+  const result: { [name: string]: spec.AssemblyTargets } = {};
+  for (const assembly of assemblies) {
+    if (!assembly.targets) { continue; }
+    result[assembly.name] = { targets: assembly.targets };
+  }
+  return result;
 }
 
 /**

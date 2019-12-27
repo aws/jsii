@@ -36,7 +36,7 @@
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>0.20.11</version>
+      <version>[0.20.11,0.21.0)</version>
     </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>
