@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/inquirer": "^6.5.0",
-    "@types/jest": "^24.0.24",
+    "@types/jest": "^24.0.25",
     "@types/jest-expect-message": "^1.0.1",
     "@types/node": "^10.17.11",
     "@types/yargs": "^13.0.4",
