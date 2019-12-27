@@ -37,7 +37,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
+            <version>[1.3,1.4)</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

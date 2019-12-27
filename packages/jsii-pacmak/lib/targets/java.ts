@@ -726,7 +726,7 @@ class JavaGenerator extends Generator {
               }, {
                 groupId: 'org.apache.maven.plugins',
                 artifactId: 'maven-jar-plugin',
-                version: '3.1.0',
+                version: '3.2.0',
                 configuration: {
                   archive: {
                     index: true,
@@ -739,7 +739,7 @@ class JavaGenerator extends Generator {
               }, {
                 groupId: 'org.apache.maven.plugins',
                 artifactId: 'maven-source-plugin',
-                version: '3.0.1',
+                version: '3.2.0',
                 executions: {
                   execution: {
                     id: 'attach-sources',
@@ -749,7 +749,7 @@ class JavaGenerator extends Generator {
               }, {
                 groupId: 'org.apache.maven.plugins',
                 artifactId: 'maven-javadoc-plugin',
-                version: '3.0.1',
+                version: '3.1.1',
                 executions: {
                   execution: {
                     id: 'attach-javadocs',

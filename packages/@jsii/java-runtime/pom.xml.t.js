@@ -51,12 +51,12 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions of the dependencies -->
         <findbugs.version>[3.0.2,3.1.0)</findbugs.version>
-        <hamcrest.version>1.3</hamcrest.version>
-        <jackson-core.version>[2.9.9,2.10.0)</jackson-core.version>
-        <jackson-databind.version>[2.9.9.2,2.10.0)</jackson-databind.version>
+        <hamcrest.version>[1.3,1.4)</hamcrest.version>
+        <jackson-core.version>[2.10.1,2.11.0)</jackson-core.version>
+        <jackson-databind.version>[2.10.1,2.11.0)</jackson-databind.version>
         <javax.annotations.version>[1.3.2,1.4.0)</javax.annotations.version>
-        <junit.version>[5.5.1,5.6.0)</junit.version>
-        <mockito.version>[3.0.0,3.1.0)</mockito.version>
+        <junit.version>[5.5.2,5.6.0)</junit.version>
+        <mockito.version>[3.2.4,3.3.0)</mockito.version>
     </properties>
 
     <dependencies>
@@ -104,7 +104,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <version>\${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        
+
         <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -113,7 +113,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.mjockito/mockito-core -->
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -137,7 +137,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -151,7 +151,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
