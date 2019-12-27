@@ -40,7 +40,7 @@
     "@scope/jsii-calc-base": "^0.20.11",
     "@scope/jsii-calc-lib": "^0.20.11",
     "@types/jest": "^24.0.25",
-    "@types/node": "^10.17.11",
+    "@types/node": "^10.17.13",
     "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "jsii-build-tools": "^0.20.11",
