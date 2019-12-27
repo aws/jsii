@@ -15,7 +15,9 @@ __jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-lib", "0.20.11", __
 
 @jsii.enum(jsii_type="@scope/jsii-calc-lib.EnumFromScopedModule")
 class EnumFromScopedModule(enum.Enum):
-    """Check that enums from @scoped packages can be references. See awslabs/jsii#138.
+    """Check that enums from @scoped packages can be references.
+
+    See awslabs/jsii#138
 
     stability
     :stability: deprecated

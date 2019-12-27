@@ -166,13 +166,3 @@ export async function filterAsync<A>(xs: A[], pred: (x: A) => Promise<boolean>):
   const mapped = await Promise.all(xs.map(async x => ({ x, pred: await pred(x) })));
   return mapped.filter(({ pred }) => pred).map(({ x }) => x);
 }
-
-/**
- * Prefix fenced code blocks in MarkDown
- *
- * Match blocks starting with ```t so that we catch both
- * ```ts and ```typescript.
- */
-export function prefixMarkdownTsCodeBlocks(markdown: string, prefix: string) {
-  return markdown.replace(/^(```t.*)$/m, `$1\n${prefix}`);
-}

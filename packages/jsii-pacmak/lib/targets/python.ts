@@ -1,8 +1,7 @@
-import * as path from 'path';
-
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
+import * as path from 'path';
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
 import { Generator, GeneratorOptions } from '../generator';
@@ -12,9 +11,9 @@ import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import { Translation, Rosetta, typeScriptSnippetFromSource } from 'jsii-rosetta';
 import { toPythonVersionRange } from './version-utils';
+import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
 
 
-const INCOMPLETE_DISCLAIMER = '# Example automatically generated. See https://github.com/aws/jsii/issues/826';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -1628,8 +1627,13 @@ class PythonGenerator extends Generator {
   }
 
   private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile) { return translated.source; }
-    return `${INCOMPLETE_DISCLAIMER}\n${translated.source}`;
+    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
+      return `# ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
+    }
+    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
+      return `# ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
+    }
+    return translated.source;
   }
 
   public getPythonType(fqn: string): PythonType {

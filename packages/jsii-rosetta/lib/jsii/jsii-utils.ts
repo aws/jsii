@@ -1,5 +1,6 @@
 import * as ts from 'typescript';
 import { AstRenderer } from '../renderer';
+import { typeContainsUndefined } from '../typescript/types';
 
 export function isStructInterface(name: string) {
   return !name.startsWith('I');
@@ -42,22 +43,6 @@ export function propertiesOfStruct(type: ts.Type, context: AstRenderer<any>): St
   }) : [];
 }
 
-export function parameterAcceptsUndefined(param: ts.ParameterDeclaration, type?: ts.Type): boolean {
-  if (param.initializer !== undefined) { return true; }
-  if (param.questionToken !== undefined) { return true; }
-  if (type) { return typeContainsUndefined(type); }
-  return false;
-}
-
 export function structPropertyAcceptsUndefined(prop: StructProperty): boolean {
   return prop.questionMark || (!!prop.type && typeContainsUndefined(prop.type));
-}
-
-/**
- * This is a simplified check that should be good enough for most purposes
- */
-function typeContainsUndefined(type: ts.Type): boolean {
-  if (type.getFlags() === ts.TypeFlags.Undefined) { return true; }
-  if (type.isUnion()) { return type.types.some(typeContainsUndefined); }
-  return false;
 }

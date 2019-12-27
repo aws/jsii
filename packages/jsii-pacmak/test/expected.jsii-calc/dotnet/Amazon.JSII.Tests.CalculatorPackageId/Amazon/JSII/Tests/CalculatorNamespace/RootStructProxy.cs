@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// This is cheating with the (current) declared types, but this is the "more
     /// idiomatic" way for Pythonists.
     /// 
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IRootStruct), fullyQualifiedName: "jsii-calc.RootStruct")]
     internal sealed class RootStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IRootStruct
@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>May not be empty.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "stringProp", typeJson: "{\"primitive\":\"string\"}")]
         public string StringProp
@@ -26,9 +26,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "nestedStruct", typeJson: "{\"fqn\":\"jsii-calc.NestedStruct\"}", isOptional: true)]

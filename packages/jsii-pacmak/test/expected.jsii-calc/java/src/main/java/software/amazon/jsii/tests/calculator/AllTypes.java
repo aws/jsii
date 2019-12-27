@@ -2,10 +2,10 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This class includes property for all types supported by jsii.
- * 
- * <p>The setters will validate
- * that the value set is of the expected type and throw otherwise.</p>
- * 
+ * <p>
+ * The setters will validate
+ * that the value set is of the expected type and throw otherwise.
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -28,7 +28,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param inp This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -46,7 +46,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

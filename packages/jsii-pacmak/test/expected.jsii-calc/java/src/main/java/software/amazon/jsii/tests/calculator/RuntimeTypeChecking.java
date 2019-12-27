@@ -23,7 +23,7 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1
      * @param arg2
      * @param arg3
@@ -35,7 +35,7 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1
      * @param arg2
      */
@@ -46,7 +46,7 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -64,7 +64,7 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -82,9 +82,9 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * Used to verify verification of number of method arguments.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1 This parameter is required.
      * @param arg2 This parameter is required.
      * @param arg3
@@ -96,9 +96,9 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * Used to verify verification of number of method arguments.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1 This parameter is required.
      * @param arg2 This parameter is required.
      */

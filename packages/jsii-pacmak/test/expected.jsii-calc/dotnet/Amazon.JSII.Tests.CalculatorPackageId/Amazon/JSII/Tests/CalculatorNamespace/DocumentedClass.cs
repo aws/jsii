@@ -9,24 +9,25 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// 
     /// Multiple paragraphs are separated by an empty line.
     /// 
-    /// stability: Stable
+    /// <strong>Stability</strong>: Stable
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
     {
-        /// <summary></summary>
         public DocumentedClass(): base(new DeputyProps(new object[]{}))
         {
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected DocumentedClass(ByRefValue reference): base(reference)
         {
         }
 
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected DocumentedClass(DeputyProps props): base(props)
         {
         }
@@ -38,7 +39,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// This will print out a friendly greeting intended for
         /// the indicated person.
         /// 
-        /// stability: Stable
+        /// <strong>Stability</strong>: Stable
         /// </remarks>
         [JsiiMethod(name: "greet", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"docs\":{\"summary\":\"The person to be greeted.\"},\"name\":\"greetee\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.Greetee\"}}]")]
         public virtual double Greet(Amazon.JSII.Tests.CalculatorNamespace.IGreetee greetee = null)
@@ -48,7 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Say ¡Hola!</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "hola")]
         public virtual void Hola()

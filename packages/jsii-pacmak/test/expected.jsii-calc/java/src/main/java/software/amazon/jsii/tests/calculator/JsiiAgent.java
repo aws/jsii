@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Host runtime version should be set via JSII_AGENT.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -25,7 +25,7 @@ public class JsiiAgent extends software.amazon.jsii.JsiiObject {
 
     /**
      * Returns the value of the JSII_AGENT environment variable.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

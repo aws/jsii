@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Represents a concrete number.</summary>
     /// <remarks>
-    /// stability: Deprecated
+    /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number), fullyQualifiedName: "@scope/jsii-calc-lib.Number", parametersJson: "[{\"docs\":{\"summary\":\"The number.\"},\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
     [System.Obsolete()]
@@ -13,7 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <summary>Creates a Number object.</summary>
         /// <param name="value">The number.</param>
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete()]
         public Number(double @value): base(new DeputyProps(new object[]{@value}))
@@ -23,6 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
         [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Number(ByRefValue reference): base(reference)
         {
         }
@@ -30,13 +31,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
         [System.Obsolete()]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Number(DeputyProps props): base(props)
         {
         }
 
         /// <summary>The number multiplied by 2.</summary>
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiProperty(name: "doubleValue", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]
@@ -47,7 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 
         /// <summary>The number.</summary>
         /// <remarks>
-        /// stability: Deprecated
+        /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]

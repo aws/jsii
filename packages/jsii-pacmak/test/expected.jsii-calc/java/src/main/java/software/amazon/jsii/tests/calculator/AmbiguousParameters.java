@@ -18,7 +18,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param scope This parameter is required.
      * @param props This parameter is required.
      */
@@ -51,7 +51,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
     public static final class Builder {
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return a new instance of {@link Builder}.
          * @param scope This parameter is required.
          */
@@ -70,7 +70,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return {@code this}
          * @param scope This parameter is required.
          */
@@ -82,7 +82,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return {@code this}
          * @param props This parameter is required.
          */

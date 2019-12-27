@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-import { NO_SYNTAX, OTree, UnknownSyntax } from './o-tree';
+import { NO_SYNTAX, OTree, UnknownSyntax, Span } from './o-tree';
 import { commentRangeFromTextRange, extractMaskingVoidExpression, extractShowingVoidExpression, nodeChildren,
   repeatNewlines, scanText } from './typescript/ast-utils';
 import { analyzeImportDeclaration, analyzeImportEquals, ImportStatement } from './typescript/imports';
@@ -18,7 +18,7 @@ export class AstRenderer<C> {
 
   public constructor(
     private readonly sourceFile: ts.SourceFile,
-    private readonly typeChecker: ts.TypeChecker,
+    public readonly typeChecker: ts.TypeChecker,
     private readonly handler: AstHandler<C>,
     private readonly options: AstRendererOptions = {}
   ) {
@@ -28,7 +28,7 @@ export class AstRenderer<C> {
   /**
    * Merge the new context with the current context and create a new Converter from it
    */
-  public updateContext(contextUpdate: C): AstRenderer<C> {
+  public updateContext(contextUpdate: Partial<C>): AstRenderer<C> {
     const newContext = this.handler.mergeContext(this.currentContext, contextUpdate);
 
     // Use prototypal inheritance to create a version of 'this' in which only
@@ -87,6 +87,13 @@ export class AstRenderer<C> {
     return ret;
   }
 
+  public getPosition(node: ts.Node): Span {
+    return {
+      start: node.getStart(this.sourceFile),
+      end: node.getEnd(),
+    };
+  }
+
   public textOf(node: ts.Node): string {
     return node.getText(this.sourceFile);
   }
@@ -95,8 +102,22 @@ export class AstRenderer<C> {
     return this.sourceFile.text.substring(pos, end);
   }
 
-  public typeOfExpression(node: ts.Expression) {
+  /**
+   * Infer type of expression by the argument it is assigned to
+   *
+   * (Will return undefined for object literals not unified with a declared type)
+   */
+  public inferredTypeOfExpression(node: ts.Expression) {
     return this.typeChecker.getContextualType(node);
+  }
+
+  /**
+   * Type of expression from the text of the expression
+   *
+   * (Will return a map type for object literals)
+   */
+  public typeOfExpression(node: ts.Expression): ts.Type {
+    return this.typeChecker.getContextualType(node) || this.typeChecker.getTypeAtLocation(node);
   }
 
   public typeOfType(node: ts.TypeNode): ts.Type {
@@ -126,7 +147,7 @@ export class AstRenderer<C> {
    *
    * Used to mirror newline use between matchin brackets (such as { ... } and [ ... ]).
    */
-  public mirrorNewlineBefore(viz?: ts.Node, suffix = ''): string {
+  public mirrorNewlineBefore(viz?: ts.Node, suffix = '', otherwise = ''): string {
     if (viz === undefined) { return suffix; }
 
     // Return a newline if the given node is preceded by newlines
@@ -139,7 +160,7 @@ export class AstRenderer<C> {
       }
     }
 
-    return (newlines.join('').length > 0 ? '\n' : '') + suffix;
+    return (newlines.join('').length > 0 ? '\n' : otherwise) + suffix;
   }
 
   /**
@@ -238,7 +259,7 @@ export class AstRenderer<C> {
           break;
         case 'linecomment':
         case 'blockcomment':
-          precede.push(this.handler.commentRange(commentRangeFromTextRange(range), this));
+          precede.push(this.handler.commentRange(commentSyntaxFromCommentRange(commentRangeFromTextRange(range), this), this));
           break;
 
         case 'directive':
@@ -268,10 +289,10 @@ export class AstRenderer<C> {
  */
 export interface AstHandler<C> {
   readonly defaultContext: C;
-  mergeContext(old: C, update: C): C;
+  mergeContext(old: C, update: Partial<C>): C;
 
   sourceFile(node: ts.SourceFile, context: AstRenderer<C>): OTree;
-  commentRange(node: ts.CommentRange, context: AstRenderer<C>): OTree;
+  commentRange(node: CommentSyntax, context: AstRenderer<C>): OTree;
   importStatement(node: ImportStatement, context: AstRenderer<C>): OTree;
   stringLiteral(node: ts.StringLiteral, children: AstRenderer<C>): OTree;
   functionDeclaration(node: ts.FunctionDeclaration, children: AstRenderer<C>): OTree;
@@ -379,4 +400,25 @@ function assignVisibility(nodes: readonly ts.Node[]): ClassifiedNode[] {
 
 function notUndefined<A>(x: A | undefined): x is A {
   return x !== undefined;
+}
+
+/**
+ * Our own representation of comments
+ *
+ * (So we can synthesize 'em
+ */
+export interface CommentSyntax {
+  pos: number;
+  text: string;
+  hasTrailingNewLine?: boolean;
+  kind: ts.CommentKind;
+}
+
+function commentSyntaxFromCommentRange(rng: ts.CommentRange, renderer: AstRenderer<any>): CommentSyntax {
+  return {
+    hasTrailingNewLine: rng.hasTrailingNewLine,
+    kind: rng.kind,
+    pos: rng.pos,
+    text: renderer.textAt(rng.pos, rng.end),
+  };
 }

@@ -23,7 +23,7 @@ public class DontComplainAboutVariadicAfterOptional extends software.amazon.jsii
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param optional
      * @param things This parameter is required.
      */

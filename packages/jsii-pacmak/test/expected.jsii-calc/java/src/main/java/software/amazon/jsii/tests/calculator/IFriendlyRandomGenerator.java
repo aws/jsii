@@ -19,9 +19,9 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
 
         /**
          * Returns another random number.
-         * 
+         * <p>
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return A random number.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

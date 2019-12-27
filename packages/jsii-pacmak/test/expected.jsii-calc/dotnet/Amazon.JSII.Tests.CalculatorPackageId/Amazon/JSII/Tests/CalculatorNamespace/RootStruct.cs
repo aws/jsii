@@ -7,14 +7,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// This is cheating with the (current) declared types, but this is the "more
     /// idiomatic" way for Pythonists.
     /// 
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.RootStruct")]
     public class RootStruct : Amazon.JSII.Tests.CalculatorNamespace.IRootStruct
     {
         /// <summary>May not be empty.</summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "stringProp", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
         public string StringProp
@@ -23,9 +23,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "nestedStruct", typeJson: "{\"fqn\":\"jsii-calc.NestedStruct\"}", isOptional: true, isOverride: true)]

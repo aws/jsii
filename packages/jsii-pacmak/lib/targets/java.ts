@@ -2,24 +2,24 @@ import * as clone from 'clone';
 import { toPascalCase } from 'codemaker/lib/case-utils';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
+import { Rosetta, typeScriptSnippetFromSource, Translation, markDownToJavaDoc } from 'jsii-rosetta';
 import * as spec from '@jsii/spec';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
 import { Generator } from '../generator';
+import { PackageInfo, Target, findLocalBuildDirs, TargetOptions } from '../target';
 import * as logging from '../logging';
-import { md2html } from '../markdown';
-import { PackageInfo, Target, findLocalBuildDirs } from '../target';
-import { shell, Scratch, slugify, setExtend, prefixMarkdownTsCodeBlocks } from '../util';
-import { VERSION, VERSION_DESC } from '../version';
+import { shell, Scratch, slugify, setExtend } from '../util';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
+import { VERSION, VERSION_DESC } from '../version';
 import { toMavenVersionRange } from './version-utils';
+import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
 
 const BUILDER_CLASS_NAME = 'Builder';
-const SAMPLES_DISCLAIMER = '// This example is in TypeScript, examples in Java are coming soon.';
 
 /**
  * Build Java packages all together, by generating an aggregate POM
@@ -300,7 +300,13 @@ export default class Java extends Target {
     return { java: `import ${[options.package, ...name].join('.')};` };
   }
 
-  protected readonly generator = new JavaGenerator();
+  protected readonly generator: JavaGenerator;
+
+  public constructor(options: TargetOptions) {
+    super(options);
+
+    this.generator = new JavaGenerator(options.rosetta);
+  }
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
     const url = `file://${outDir}`;
@@ -426,7 +432,7 @@ class JavaGenerator extends Generator {
      */
   private readonly referencedModules: { [name: string]: spec.AssemblyConfiguration } = { };
 
-  public constructor() {
+  public constructor(private readonly rosetta: Rosetta) {
     super({ generateOverloadsForMethodWithOptionals: true });
   }
 
@@ -644,7 +650,7 @@ class JavaGenerator extends Generator {
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of md2html(prefixMarkdownTsCodeBlocks(mod.readme.markdown, SAMPLES_DISCLAIMER)).split('\n')) {
+      for (const line of markDownToJavaDoc(this.convertSamplesInMarkdown(mod.readme.markdown)).split('\n')) {
         this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
       }
     }
@@ -1232,7 +1238,7 @@ class JavaGenerator extends Generator {
       this.code.line(` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`);
       if (prop.docs?.remarks != null) {
         const indent = ' '.repeat(7 + prop.fieldName.length);
-        const remarks = md2html(prefixMarkdownTsCodeBlocks(prop.docs.remarks, SAMPLES_DISCLAIMER)).trimRight();
+        const remarks = markDownToJavaDoc(this.convertSamplesInMarkdown(prop.docs.remarks)).trimRight();
         for (const line of remarks.split('\n')) {
           this.code.line(` * ${indent} ${line}`);
         }
@@ -1513,7 +1519,7 @@ class JavaGenerator extends Generator {
     }
 
     if (docs.remarks) {
-      paras.push(md2html(prefixMarkdownTsCodeBlocks(docs.remarks, SAMPLES_DISCLAIMER)).trimRight());
+      paras.push(markDownToJavaDoc(this.convertSamplesInMarkdown(docs.remarks)).trimRight());
     }
 
     if (docs.default) {
@@ -1522,7 +1528,7 @@ class JavaGenerator extends Generator {
 
     if (docs.example) {
       paras.push('Example:');
-      paras.push(`<blockquote><pre>{@code\n${SAMPLES_DISCLAIMER}\n${docs.example}\n}</pre></blockquote>`);
+      paras.push(`<blockquote><pre>{@code\n${this.convertExample(docs.example)}}</pre></blockquote>`);
     }
 
     if (docs.stability === spec.Stability.Experimental) {
@@ -1551,8 +1557,9 @@ class JavaGenerator extends Generator {
     }
 
     const lines = new Array<string>();
-    for (const para of interleave('', paras)) {
-      lines.push(...para.split('\n'));
+    for (const para of paras) {
+      if (lines.length > 0) { lines.push('<p>'); }
+      lines.push(...para.split('\n').filter(l => l !== ''));
     }
 
     this.code.line('/**');
@@ -1848,6 +1855,30 @@ class JavaGenerator extends Generator {
       : 'jsii-pacmak';
     this.code.line(`@javax.annotation.Generated(value = "${generator}"${date})`);
   }
+
+  private convertExample(example: string): string {
+    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const translated = this.rosetta.translateSnippet(snippet, 'java');
+    if (!translated) { return example; }
+    return this.prefixDisclaimer(translated);
+  }
+
+  private convertSamplesInMarkdown(markdown: string): string {
+    return this.rosetta.translateSnippetsInMarkdown(markdown, 'java', trans => ({
+      language: trans.language,
+      source: this.prefixDisclaimer(trans)
+    }));
+  }
+
+  private prefixDisclaimer(translated: Translation) {
+    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
+      return `// ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
+    }
+    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
+      return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
+    }
+    return translated.source;
+  }
 }
 
 /**
@@ -1878,15 +1909,6 @@ function findJavaRuntimeLocalRepository() {
     return javaRuntime.repository;
   } catch {
     return undefined;
-  }
-}
-
-function* interleave<T>(sep: T, xs: Iterable<T>) {
-  let first = true;
-  for (const x of xs) {
-    if (!first) { yield sep; }
-    first = false;
-    yield x;
   }
 }
 

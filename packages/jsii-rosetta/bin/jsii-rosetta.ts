@@ -43,6 +43,7 @@ function main() {
       .option('output', { alias: 'o', type: 'string', describe: 'Output file where to store the sample tablets', default: DEFAULT_TABLET_NAME })
       .option('compile', { alias: 'c', type: 'boolean', describe: 'Try compiling', default: false })
       .option('directory', { alias: 'd', type: 'string', describe: 'Working directory (for require() etc)' })
+      .option('include', { alias: 'i', type: 'array', describe: 'Extract only snippets with given ids', default: new Array<string>() })
       .option('fail', { alias: 'f', type: 'boolean', describe: 'Fail if there are compilation errors', default: false })
     , wrapHandler(async args => {
 
@@ -56,7 +57,11 @@ function main() {
         process.chdir(args.directory);
       }
 
-      const result = await extractSnippets(absAssemblies, absOutput, args.compile);
+      const result = await extractSnippets(absAssemblies, {
+        outputFile: absOutput,
+        includeCompilerDiagnostics: args.compile,
+        only: args.include
+      });
 
       printDiagnostics(result.diagnostics, process.stderr);
 
