@@ -201,7 +201,11 @@ const ASSEMBLY_CACHE = new Map<string, spec.Assembly>();
  */
 async function loadAndValidateAssembly(jsiiFileName: string): Promise<spec.Assembly> {
   if (!ASSEMBLY_CACHE.has(jsiiFileName)) {
-    ASSEMBLY_CACHE.set(jsiiFileName, spec.validateAssembly(await fs.readJson(jsiiFileName)));
+    try {
+      ASSEMBLY_CACHE.set(jsiiFileName, spec.validateAssembly(await fs.readJson(jsiiFileName)));
+    } catch (e) {
+      throw new Error(`Error loading ${jsiiFileName}: ${e}`);
+    }
   }
   return ASSEMBLY_CACHE.get(jsiiFileName)!;
 }

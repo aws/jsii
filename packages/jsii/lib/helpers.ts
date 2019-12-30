@@ -25,7 +25,7 @@ export async function sourceToAssemblyHelper(source: string, cb?: (obj: PackageI
   return inTempDir(async () => {
     const fileName = 'index.ts';
     await fs.writeFile(fileName, source, { encoding: 'utf-8' });
-    const compiler = new Compiler({ projectInfo: await makeProjectInfo(fileName, cb), watch: false });
+    const compiler = new Compiler({ projectInfo: await makeProjectInfo(fileName, cb) });
     const emitResult = await compiler.emit();
 
     const errors = emitResult.diagnostics.filter(d => d.category === DiagnosticCategory.Error);

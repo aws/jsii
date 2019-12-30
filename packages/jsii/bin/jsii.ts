@@ -2,7 +2,7 @@ import * as log4js from 'log4js';
 import * as path from 'path';
 import * as process from 'process';
 import * as yargs from 'yargs';
-import { Compiler, DIAGNOSTICS } from '../lib/compiler';
+import { Compiler } from '../lib/compiler';
 import { loadProjectInfo } from '../lib/project-info';
 import * as utils from '../lib/utils';
 import { VERSION } from '../lib/version';
@@ -57,12 +57,14 @@ const warningTypes = Object.keys(enabledWarnings);
 
   const compiler = new Compiler({
     projectInfo,
-    watch: argv.watch,
     projectReferences: argv['project-references'],
     failOnWarnings: argv['fail-on-warnings'],
   });
 
-  return { projectRoot, emitResult: await compiler.emit() };
+  const result = argv.watch
+    ? compiler.watch()
+    : compiler.emit();
+  return { projectRoot, emitResult: await result };
 })().then(({ projectRoot, emitResult }) => {
   for (const diagnostic of emitResult.diagnostics) {
     utils.logDiagnostic(diagnostic, projectRoot);
@@ -82,19 +84,20 @@ function _configureLog4js(verbosity: number) {
         type: 'stderr',
         layout: { type: 'colored' }
       },
-      diagnostics: {
+      [utils.DIAGNOSTICS]: {
         type: 'stdout',
         layout: { type: 'messagePassThrough' }
       }
     },
     categories: {
       default: { appenders: ['console'], level: _logLevel() },
-      [DIAGNOSTICS]: { appenders: ['diagnostics'], level: _logLevel() }
+      // The diagnostics logger must be set to INFO or more verbose, or watch won't show important messages
+      [utils.DIAGNOSTICS]: { appenders: ['diagnostics'], level: _logLevel(Math.max(verbosity, 1)) }
     }
   });
 
-  function _logLevel(): keyof log4js.Levels {
-    switch (verbosity) {
+  function _logLevel(verbosityLevel = verbosity): keyof log4js.Levels {
+    switch (verbosityLevel) {
       case 0: return 'WARN';
       case 1: return 'INFO';
       case 2: return 'DEBUG';

@@ -13,7 +13,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
     const [expectations, strict] = await _getExpectedErrorMessage(filePath);
     expect(expectations.length, `Expected error messages should be specified using ${MATCH_ERROR_MARKER}`)
       .toBeGreaterThan(0);
-    const compiler = new Compiler({ projectInfo: _makeProjectInfo(source), watch: false, failOnWarnings: strict });
+    const compiler = new Compiler({ projectInfo: _makeProjectInfo(source), failOnWarnings: strict });
     const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
     expect(emitResult.emitSkipped).toBeTruthy();
     const errors = emitResult.diagnostics.filter(diag =>

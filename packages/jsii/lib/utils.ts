@@ -1,6 +1,14 @@
 import * as log4js from 'log4js';
 import * as ts from 'typescript';
-import { DIAGNOSTICS } from './compiler';
+
+/**
+ * Name of the logger for diagnostics information
+ */
+export const DIAGNOSTICS = 'diagnostics';
+/**
+ * Diagnostic code for JSII-generated messages.
+ */
+export const JSII_DIAGNOSTICS_CODE = 9999;
 
 /**
  * Obtains the relevant logger to be used for a given diagnostic message.
@@ -19,6 +27,8 @@ export function diagnosticsLogger(logger: log4js.Logger, diagnostic: ts.Diagnost
       if (!logger.isWarnEnabled()) { return undefined; }
       return logger.warn.bind(logger);
     case ts.DiagnosticCategory.Message:
+      if (!logger.isInfoEnabled()) { return undefined; }
+      return logger.info.bind(logger);
     case ts.DiagnosticCategory.Suggestion:
     default:
       if (!logger.isDebugEnabled()) { return undefined; }
@@ -27,15 +37,17 @@ export function diagnosticsLogger(logger: log4js.Logger, diagnostic: ts.Diagnost
 }
 
 export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
-  const formatDiagnosticsHost = {
+  const formatDiagnosticsHost: ts.FormatDiagnosticsHost = {
     getCurrentDirectory: () => projectRoot,
-    getCanonicalFileName(fileName: string) { return fileName; },
-    getNewLine() { return '\n'; }
+    getCanonicalFileName: fileName => fileName,
+    getNewLine: () => ts.sys.newLine,
   };
 
-  const message = diagnostic.file
-    ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
-    : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
+  const message = diagnostic.category === ts.DiagnosticCategory.Message && typeof diagnostic.messageText === 'string'
+    ? diagnostic.messageText
+    : diagnostic.file
+      ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
+      : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
 
   const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
   if (!logFunc) { return; }

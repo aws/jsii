@@ -72,28 +72,83 @@ export class Compiler implements Emitter {
   }
 
   /**
-     * Compiles the configured program.
-     *
-     * @param files can be specified to override the standard source code location logic. Useful for example when testing "negatives".
-     */
-  public async emit(...files: string[]): Promise<EmitResult | never> {
-    await this.buildTypeScriptConfig();
-    await this.writeTypeScriptConfig();
-    this.rootFiles = this.determineSources(files);
-
-    if (this.options.watch) {
-      if (files.length > 0) {
-        throw new Error('Files cannot be specified in watch mode!');
-      }
-      return this._startWatch();
-    }
+   * Compiles the configured program.
+   *
+   * @param files can be specified to override the standard source code location logic. Useful for example when testing "negatives".
+   */
+  public async emit(...files: string[]): Promise<EmitResult> {
+    await this._prepareForBuild(...files);
     return this._buildOnce();
-
   }
 
   /**
-     * Do a single build
-     */
+   * Watches for file-system changes and dynamically recompiles the project as needed. In non-blocking mode, this
+   * returns the TypeScript watch handle for the application to use.
+   *
+   * @internal
+   */
+  public async watch(opts: NonBlockingWatchOptions): Promise<ts.Watch<ts.BuilderProgram>>;
+  /**
+   * Watches for file-system changes and dynamically recompiles the project as needed. In blocking mode, this results
+   * in a never-resolving promise.
+   */
+  public async watch(): Promise<never>;
+  public async watch(opts?: NonBlockingWatchOptions): Promise<ts.Watch<ts.BuilderProgram> | never> {
+    await this._prepareForBuild();
+
+    const pi = this.options.projectInfo;
+    const projectRoot = pi.projectRoot;
+    const host = ts.createWatchCompilerHost(
+      this.configPath,
+      {
+        ...pi.tsc,
+        ...COMPILER_OPTIONS,
+        noEmitOnError: false,
+      },
+      { ...ts.sys, getCurrentDirectory() { return projectRoot; } },
+      ts.createEmitAndSemanticDiagnosticsBuilderProgram,
+      opts?.reportDiagnostics,
+      opts?.reportWatchStatus,
+    );
+    if (!host.getDefaultLibLocation) {
+      throw new Error('No default library location was found on the TypeScript compiler host!');
+    }
+    const orig = host.afterProgramCreate;
+    host.afterProgramCreate = async builderProgram => {
+      const emitResult = await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
+
+      for (const diag of emitResult.diagnostics.filter(d => d.code === JSII_DIAGNOSTICS_CODE)) {
+        utils.logDiagnostic(diag, projectRoot);
+      }
+
+      if (orig) { orig.call(host, builderProgram); }
+      if (opts?.compilationComplete) { await opts.compilationComplete(emitResult); }
+    };
+    const watch = ts.createWatchProgram(host);
+
+    if (opts?.nonBlocking) {
+      // In non-blocking mode, returns the handle to the TypeScript watch interface.
+      return watch;
+    }
+    // In blocking mode, returns a never-resolving promise.
+    return new Promise<never>(() => null);
+  }
+
+  /**
+   * Prepares the project for build, by creating the necessary configuration
+   * file(s), and assigning the relevant root file(s).
+   *
+   * @param files the files that were specified as input in the CLI invocation.
+   */
+  private async _prepareForBuild(...files: string[]) {
+    await this.buildTypeScriptConfig();
+    await this.writeTypeScriptConfig();
+    this.rootFiles = this.determineSources(files);
+  }
+
+  /**
+   * Do a single build
+   */
   private async _buildOnce(): Promise<EmitResult> {
     if (!this.compilerHost.getDefaultLibLocation) {
       throw new Error('No default library location was found on the TypeScript compiler host!');
@@ -111,39 +166,6 @@ export class Compiler implements Emitter {
     });
 
     return this._consumeProgram(prog, this.compilerHost.getDefaultLibLocation());
-  }
-
-  /**
-     * Start a watch on the config that has been written to disk
-     */
-  private async _startWatch(): Promise<never> {
-    const pi = this.options.projectInfo;
-    const projectRoot = pi.projectRoot;
-    const host = ts.createWatchCompilerHost(
-      this.configPath,
-      {
-        ...pi.tsc,
-        ...COMPILER_OPTIONS,
-        noEmitOnError: false,
-      },
-      { ...ts.sys, getCurrentDirectory() { return projectRoot; } }
-    );
-    if (!host.getDefaultLibLocation) {
-      throw new Error('No default library location was found on the TypeScript compiler host!');
-    }
-    const orig = host.afterProgramCreate;
-    host.afterProgramCreate = async builderProgram => {
-      const emitResult = await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
-
-      for (const diag of emitResult.diagnostics.filter(d => d.code === JSII_DIAGNOSTICS_CODE)) {
-        utils.logDiagnostic(diag, projectRoot);
-      }
-
-      if (orig) { orig.call(host, builderProgram); }
-    };
-    ts.createWatchProgram(host);
-    // Previous call never returns
-    return Promise.reject(new Error('Unexpectedly returned from createWatchProgram'));
   }
 
   private async _consumeProgram(program: ts.Program, stdlib: string): Promise<EmitResult> {
@@ -175,10 +197,10 @@ export class Compiler implements Emitter {
   }
 
   /**
-     * Build the TypeScript config object
-     *
-     * This is the object that will be written to disk.
-     */
+   * Build the TypeScript config object
+   *
+   * This is the object that will be written to disk.
+   */
   private async buildTypeScriptConfig() {
     let references: string[] | undefined;
     let composite: boolean | undefined;
@@ -212,10 +234,10 @@ export class Compiler implements Emitter {
   }
 
   /**
-     * Creates a `tsconfig.json` file to improve the IDE experience.
-     *
-     * @return the fully qualified path to the ``tsconfig.json`` file
-     */
+   * Creates a `tsconfig.json` file to improve the IDE experience.
+   *
+   * @return the fully qualified path to the ``tsconfig.json`` file
+   */
   private async writeTypeScriptConfig(): Promise<void> {
     const commentKey = '_generated_by_jsii_';
     const commentValue = 'Generated by jsii - safe to delete, and ideally should be in .gitignore';
@@ -233,15 +255,15 @@ export class Compiler implements Emitter {
   }
 
   /**
-     * Find all dependencies that look like TypeScript projects.
-     *
-     * Enumerate all dependencies, if they have a tsconfig.json file with
-     * "composite: true" we consider them project references.
-     *
-     * (Note: TypeScript seems to only correctly find transitive project references
-     * if there's an "index" tsconfig.json of all projects somewhere up the directory
-     * tree)
-     */
+   * Find all dependencies that look like TypeScript projects.
+   *
+   * Enumerate all dependencies, if they have a tsconfig.json file with
+   * "composite: true" we consider them project references.
+   *
+   * (Note: TypeScript seems to only correctly find transitive project references
+   * if there's an "index" tsconfig.json of all projects somewhere up the directory
+   * tree)
+   */
   private async findProjectReferences(): Promise<string[]> {
     const pkg = this.options.projectInfo.packageJson;
 
@@ -277,12 +299,12 @@ export class Compiler implements Emitter {
   }
 
   /**
-     * Find source files using the same mechanism that the TypeScript compiler itself uses.
-     *
-     * Respects includes/excludes/etc.
-     *
-     * This makes it so that running 'tsc' and running 'jsii' has the same behavior.
-     */
+   * Find source files using the same mechanism that the TypeScript compiler itself uses.
+   *
+   * Respects includes/excludes/etc.
+   *
+   * This makes it so that running 'tsc' and running 'jsii' has the same behavior.
+   */
   private determineSources(files: string[]): string[] {
     const ret = new Array<string>();
 
@@ -298,18 +320,18 @@ export class Compiler implements Emitter {
   }
 
   /**
-     * Resolve the given dependency name from the current package, and find the associated tsconfig.json location
-     *
-     * Because we have the following potential directory layout:
-     *
-     *   package/node_modules/some_dependency
-     *   package/tsconfig.json
-     *
-     * We resolve symlinks and only find a "TypeScript" dependency if doesn't have 'node_modules' in
-     * the path after resolving symlinks (i.e., if it's a peer package in the same monorepo).
-     *
-     * Returns undefined if no such tsconfig could be found.
-     */
+   * Resolve the given dependency name from the current package, and find the associated tsconfig.json location
+   *
+   * Because we have the following potential directory layout:
+   *
+   *   package/node_modules/some_dependency
+   *   package/tsconfig.json
+   *
+   * We resolve symlinks and only find a "TypeScript" dependency if doesn't have 'node_modules' in
+   * the path after resolving symlinks (i.e., if it's a peer package in the same monorepo).
+   *
+   * Returns undefined if no such tsconfig could be found.
+   */
   private async findMonorepoPeerTsconfig(depName: string): Promise<string | undefined> {
     const paths = nodeJsCompatibleSearchPaths(this.options.projectInfo.projectRoot);
 
@@ -327,6 +349,33 @@ export class Compiler implements Emitter {
 
     return dependencyRealPath;
   }
+}
+
+/**
+ * Options for Watch in non-blocking mode.
+ *
+ * @internal
+ */
+export interface NonBlockingWatchOptions {
+  /**
+   * Signals non-blocking execution
+   */
+  readonly nonBlocking: true;
+
+  /**
+   * Configures the diagnostics reporter
+   */
+  readonly reportDiagnostics: ts.DiagnosticReporter;
+
+  /**
+   * Configures the watch status reporter
+   */
+  readonly reportWatchStatus: ts.WatchStatusReporter;
+
+  /**
+   * This hook gets invoked when a compilation cycle (complete with Assembler execution) completes.
+   */
+  readonly compilationComplete: (emitResult: EmitResult) => void | Promise<void>;
 }
 
 function _pathOfLibraries(host: ts.CompilerHost | ts.WatchCompilerHost<any>): string[] {

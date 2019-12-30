@@ -7,12 +7,12 @@ import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
-import { JSII_DIAGNOSTICS_CODE } from './compiler';
 import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
 import { Diagnostic, EmitResult, Emitter } from './emitter';
 import * as literate from './literate';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
+import { JSII_DIAGNOSTICS_CODE } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
@@ -343,7 +343,7 @@ export class Assembler implements Emitter {
       if (LOG.isTraceEnabled()) { LOG.trace(`Leaving namespace:  ${colors.cyan([...context.namespace, name].join('.'))}`); }
       return allTypes;
     } else {
-      this._diagnostic(node, ts.DiagnosticCategory.Message, `Skipping ${ts.SyntaxKind[node.kind]} node`);
+      this._diagnostic(node, ts.DiagnosticCategory.Message, `Ignoring ${ts.SyntaxKind[node.kind]} node (it cannot be represented int he jsii type model)`);
     }
 
     if (!jsiiType) { return []; }
