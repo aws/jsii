@@ -18,7 +18,7 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1 This parameter is required.
      * @param arg2 This parameter is required.
      * @param arg3
@@ -31,7 +31,7 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1 This parameter is required.
      * @param arg2 This parameter is required.
      */

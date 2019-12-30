@@ -18,7 +18,7 @@ public class RootStructValidator extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param struct This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

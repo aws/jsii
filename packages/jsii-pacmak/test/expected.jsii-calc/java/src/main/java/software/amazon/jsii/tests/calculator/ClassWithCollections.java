@@ -18,7 +18,7 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param map This parameter is required.
      * @param array This parameter is required.
      */

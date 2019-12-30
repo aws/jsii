@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * The "+" binary operation.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,9 +20,9 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
 
     /**
      * Creates a BinaryOperation.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param lhs Left-hand side operand. This parameter is required.
      * @param rhs Right-hand side operand. This parameter is required.
      */
@@ -34,7 +34,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
 
     /**
      * String representation of the value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -45,7 +45,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
 
     /**
      * The value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @Override

@@ -31,7 +31,9 @@ test('Can use preloaded tablet', () => {
 
   const tablet = new LanguageTablet();
   tablet.addSnippet(makeSnippet(SAMPLE_CODE, {
-    python: 'Not Really Translated'
+    python: 'Not Really Translated',
+    csharp: 'Not Really Translated C#',
+    java: 'Not Really Translated Java',
   }));
   rosetta.addTablet(tablet);
 
@@ -104,7 +106,9 @@ describe('with mocked filesystem', () => {
 
   const tablet = new LanguageTablet();
   tablet.addSnippet(makeSnippet(SAMPLE_CODE, {
-    python: 'My Stored Translation'
+    python: 'My Stored Translation',
+    csharp: 'My Stored Translation C#',
+    java: 'My Stored Translation Java',
   }));
 
   test('Can save language tablet and load it in Rosetta class', async () => {

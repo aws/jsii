@@ -8,18 +8,21 @@ This library is used to demonstrate and test the features of JSII
 First, create a calculator:
 
 ```python
+# Example automatically generated. See https://github.com/aws/jsii/issues/826
 calculator = calc.Calculator()
 ```
 
 Then call some operations:
 
 ```python
+# Example automatically generated. See https://github.com/aws/jsii/issues/826
 calculator.add(10)
 ```
 
 ## Code Samples
 
 ```python
+# Example automatically generated. See https://github.com/aws/jsii/issues/826
 # This is totes a magic comment in here, just you wait!
 foo = "bar"
 ```
@@ -924,6 +927,7 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
 
     Example::
 
+        # Example automatically generated. See https://github.com/aws/jsii/issues/826
         def an_example():
             pass
     """
@@ -5276,7 +5280,7 @@ class LoadBalancedFargateServiceProps():
         """jsii#298: show default values in sphinx documentation, and respect newlines.
 
         :param container_port: The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping. Default: 80
-        :param cpu: The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments. This default is set in the underlying FargateTaskDefinition construct. Default: 256
+        :param cpu: The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments This default is set in the underlying FargateTaskDefinition construct. Default: 256
         :param memory_mib: The amount (in MiB) of memory used by the task. This field is required and you must use one of the following values, which determines your range of valid values for the cpu parameter: 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU) 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU) 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU) Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU) Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU) This default is set in the underlying FargateTaskDefinition construct. Default: 512
         :param public_load_balancer: Determines whether the Application Load Balancer will be internet-facing. Default: true
         :param public_tasks: Determines whether your Fargate Service will be assigned a public IP address. Default: false
@@ -5308,7 +5312,14 @@ class LoadBalancedFargateServiceProps():
 
     @builtins.property
     def cpu(self) -> typing.Optional[str]:
-        """The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
+        """The number of cpu units used by the task.
+
+        Valid values, which determines your range of valid values for the memory parameter:
+        256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
+        512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
+        1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
+        2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
+        4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
 
         This default is set in the underlying FargateTaskDefinition construct.
 
@@ -7001,7 +7012,9 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @jsii.python.classproperty
     @jsii.member(jsii_name="instance")
     def instance(cls) -> "Statics":
-        """Jsdocs for static getter. Jsdocs for static setter.
+        """Jsdocs for static getter.
+
+        Jsdocs for static setter.
 
         stability
         :stability: experimental
@@ -8156,7 +8169,9 @@ class composition:
         @jsii.member(jsii_name="expression")
         @abc.abstractmethod
         def expression(self) -> scope.jsii_calc_lib.Value:
-            """The expression that this operation consists of. Must be implemented by derived classes.
+            """The expression that this operation consists of.
+
+            Must be implemented by derived classes.
 
             stability
             :stability: experimental
@@ -8240,7 +8255,9 @@ class composition:
         @builtins.property
         @jsii.member(jsii_name="expression")
         def expression(self) -> scope.jsii_calc_lib.Value:
-            """The expression that this operation consists of. Must be implemented by derived classes.
+            """The expression that this operation consists of.
+
+            Must be implemented by derived classes.
 
             stability
             :stability: experimental
@@ -8254,6 +8271,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
 
     Here's how you use it::
 
+       # Example automatically generated. See https://github.com/aws/jsii/issues/826
        calculator = calc.Calculator()
        calculator.add(5)
        calculator.mul(3)
@@ -8266,6 +8284,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
 
     Example::
 
+        # Example automatically generated. See https://github.com/aws/jsii/issues/826
         calculator = calc.Calculator()
         calculator.add(5)
         calculator.mul(3)
@@ -8438,7 +8457,9 @@ class Power(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="
     @builtins.property
     @jsii.member(jsii_name="expression")
     def expression(self) -> scope.jsii_calc_lib.Value:
-        """The expression that this operation consists of. Must be implemented by derived classes.
+        """The expression that this operation consists of.
+
+        Must be implemented by derived classes.
 
         stability
         :stability: experimental
@@ -8472,7 +8493,9 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
     @builtins.property
     @jsii.member(jsii_name="expression")
     def expression(self) -> scope.jsii_calc_lib.Value:
-        """The expression that this operation consists of. Must be implemented by derived classes.
+        """The expression that this operation consists of.
+
+        Must be implemented by derived classes.
 
         stability
         :stability: experimental

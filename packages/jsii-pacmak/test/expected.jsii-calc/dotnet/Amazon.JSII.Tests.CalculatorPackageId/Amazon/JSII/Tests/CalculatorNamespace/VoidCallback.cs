@@ -4,35 +4,37 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>This test is used to validate the runtimes can return correctly from a void callback.</summary>
     /// <remarks>
-    /// - Implement `overrideMe` (method does not have to do anything).
-    /// - Invoke `callMe`
-    /// - Verify that `methodWasCalled` is `true`.
+    /// <list type="bullet">
+    /// <description>Implement <c>overrideMe</c> (method does not have to do anything).</description>
+    /// <description>Invoke <c>callMe</c></description>
+    /// <description>Verify that <c>methodWasCalled</c> is <c>true</c>.</description>
+    /// </list>
     /// 
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]
     public abstract class VoidCallback : DeputyBase
     {
-        /// <summary></summary>
         protected VoidCallback(): base(new DeputyProps(new object[]{}))
         {
         }
 
         /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
         /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected VoidCallback(ByRefValue reference): base(reference)
         {
         }
 
         /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
         /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected VoidCallback(DeputyProps props): base(props)
         {
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "callMe")]
         public virtual void CallMe()
@@ -40,17 +42,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "overrideMe")]
         protected abstract void OverrideMe();
 
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "methodWasCalled", typeJson: "{\"primitive\":\"boolean\"}")]
         public virtual bool MethodWasCalled

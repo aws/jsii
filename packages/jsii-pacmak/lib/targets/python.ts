@@ -1,8 +1,7 @@
-import * as path from 'path';
-
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
+import * as path from 'path';
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
 import { Generator, GeneratorOptions } from '../generator';
@@ -11,9 +10,10 @@ import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import { Translation, Rosetta, typeScriptSnippetFromSource } from 'jsii-rosetta';
+import { toPythonVersionRange } from './version-utils';
+import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
 
 
-const INCOMPLETE_DISCLAIMER = '# Example automatically generated. See https://github.com/aws/jsii/issues/826';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -1093,8 +1093,8 @@ class Module implements PythonType {
   private emitDependencyImports(code: CodeMaker, _resolver: TypeResolver) {
     const deps = Array.from(
       new Set([
-        ...Object.values(this.assembly.dependencies ?? {}).map(d => {
-          return d.targets!.python!.module;
+        ...Object.keys(this.assembly.dependencies ?? {}).map(d => {
+          return this.assembly.dependencyClosure![d]!.targets!.python!.module;
         }),
       ])
     );
@@ -1182,21 +1182,9 @@ class Package {
 
     // Compute our list of dependencies
     const dependencies: string[] = [];
-    const expectedDeps = this.metadata.dependencies ?? {};
-    for (const depName of Object.keys(expectedDeps)) {
-      const depInfo = expectedDeps[depName];
-      // We need to figure out what our version range is.
-      // Basically, if it starts with Zero we want to restrict things to
-      // ~=X.Y.Z. If it does not start with zero, then we want to do ~=X.Y,>=X.Y.Z.
-      const versionParts = depInfo.version.split('.');
-      let versionSpecifier: string;
-      if (versionParts[0] === '0') {
-        versionSpecifier = `~=${versionParts.slice(0, 3).join('.')}`;
-      } else {
-        versionSpecifier = `~=${versionParts.slice(0, 2).join('.')},>=${versionParts.slice(0, 3).join('.')}`;
-      }
-
-      dependencies.push(`${depInfo.targets!.python!.distName}${versionSpecifier}`);
+    for (const [depName, version] of Object.entries(this.metadata.dependencies ?? {})) {
+      const depInfo = this.metadata.dependencyClosure![depName];
+      dependencies.push(`${depInfo.targets!.python!.distName}${toPythonVersionRange(version)}`);
     }
 
     code.openFile('README.md');
@@ -1292,7 +1280,7 @@ class Package {
   }
 }
 
-type FindModuleCallback = (fqn: string) => spec.Assembly | spec.PackageVersion;
+type FindModuleCallback = (fqn: string) => spec.AssemblyConfiguration;
 type FindTypeCallback = (fqn: string) => spec.Type;
 
 interface TypeResolverOpts {
@@ -1639,8 +1627,13 @@ class PythonGenerator extends Generator {
   }
 
   private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile) { return translated.source; }
-    return `${INCOMPLETE_DISCLAIMER}\n${translated.source}`;
+    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
+      return `# ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
+    }
+    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
+      return `# ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
+    }
+    return translated.source;
   }
 
   public getPythonType(fqn: string): PythonType {

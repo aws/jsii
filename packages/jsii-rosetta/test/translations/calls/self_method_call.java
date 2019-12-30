@@ -1,0 +1,1 @@
+this.callSomeFunction(25);

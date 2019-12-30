@@ -9,6 +9,7 @@ import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
 import { FileGenerator } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
+import { Rosetta } from 'jsii-rosetta';
 
 /**
  * CODE GENERATOR V2
@@ -28,7 +29,7 @@ export class DotNetGenerator extends Generator {
 
   private dotnetDocGenerator!: DotNetDocGenerator;
 
-  public constructor(private readonly assembliesCurrentlyBeingCompiled: string[]) {
+  public constructor(private readonly assembliesCurrentlyBeingCompiled: string[], private readonly rosetta: Rosetta) {
     super();
 
     // Override the openBlock to get a correct C# looking code block with the curly brace after the line
@@ -54,7 +55,9 @@ export class DotNetGenerator extends Generator {
     );
 
     this.dotnetRuntimeGenerator = new DotNetRuntimeGenerator(this.code, this.typeresolver);
-    this.dotnetDocGenerator = new DotNetDocGenerator(this.code);
+    this.dotnetDocGenerator = new DotNetDocGenerator(this.code, this.rosetta);
+
+    this.emitNamespaceDocs();
 
     // We need to resolve the dependency tree
     this.typeresolver.resolveNamespacesDependencies();
@@ -76,11 +79,28 @@ export class DotNetGenerator extends Generator {
     await fs.mkdirp(path.join(outdir, packageId));
     await fs.copyFile(tarball, path.join(outdir, packageId, tarballFileName));
 
+    // Create an anchor file for the current model
+    this.generateDependencyAnchorFile();
+
     // Copying the .jsii file
     await fs.copyFile(this.jsiiFilePath, path.join(outdir, packageId, spec.SPEC_FILE_NAME));
 
     // Saving the generated code.
     return this.code.save(outdir);
+  }
+
+  /**
+   * Generates the anchor file
+   */
+  protected generateDependencyAnchorFile() {
+    const namespace = `${this.assembly.targets!.dotnet!.namespace}.Internal.DependencyResolution`;
+    this.openFileIfNeeded('Anchor', namespace, false, false);
+    this.code.openBlock('public sealed class Anchor');
+    this.code.openBlock('public Anchor()');
+    this.typeresolver.namespaceDependencies.forEach(value => this.code.line(`new ${value.namespace}.Internal.DependencyResolution.Anchor();`));
+    this.code.closeBlock();
+    this.code.closeBlock();
+    this.closeFileIfNeeded('Anchor', namespace, false);
   }
 
   /**
@@ -253,6 +273,7 @@ export class DotNetGenerator extends Generator {
     this.code.line('/// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>');
     this.code.line('/// <param name="reference">The Javascript-owned object reference</param>');
     this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
+    this.emitHideAttribute();
     this.code.openBlock(`protected ${className}(ByRefValue reference): base(reference)`);
     this.code.closeBlock();
     this.code.line();
@@ -260,6 +281,7 @@ export class DotNetGenerator extends Generator {
     this.code.line('/// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>');
     this.code.line('/// <param name="props">The deputy props</param>');
     this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
+    this.emitHideAttribute();
     this.code.openBlock(`protected ${className}(DeputyProps props): base(props)`);
     this.code.closeBlock();
 
@@ -784,5 +806,41 @@ export class DotNetGenerator extends Generator {
     } else {
       this.firstMemberWritten = false;
     }
+  }
+
+  /**
+   * Emit an unused, empty class called `NamespaceDoc` to attach the module README to
+   *
+   * There is no way to attach doc comments to a namespace in C#, and this trick has been
+   * semi-standardized by NDoc and Sandcastle Help File Builder.
+   *
+   * DocFX doesn't support it out of the box, but we should be able to get there with a
+   * bit of hackery.
+   *
+   * In any case, we need a place to attach the docs where they can be transported around,
+   * might as well be this method.
+   */
+  private emitNamespaceDocs() {
+    if (!this.assembly.readme) { return; }
+
+    const namespace = this.assembly.targets!.dotnet!.namespace;
+    const className = 'NamespaceDoc';
+    this.openFileIfNeeded(className, namespace, false, false);
+
+    this.dotnetDocGenerator.emitMarkdownAsRemarks(this.assembly.readme.markdown);
+    this.emitHideAttribute();
+    // Traditionally this class is made 'internal', but that interacts poorly with DocFX's default filters
+    // which aren't overridable. So we make it public, but use attributes to hide it from users' IntelliSense,
+    // so that we can access the class in DocFX.
+    this.code.openBlock(`public class ${className}`);
+    this.code.closeBlock();
+    this.closeFileIfNeeded(className, namespace, false);
+  }
+
+  /**
+   * Emit an attribute that will hide the subsequent API element from users
+   */
+  private emitHideAttribute() {
+    this.code.line('[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]');
   }
 }

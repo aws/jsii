@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * See awslabs/jsii#138.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -33,7 +33,7 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

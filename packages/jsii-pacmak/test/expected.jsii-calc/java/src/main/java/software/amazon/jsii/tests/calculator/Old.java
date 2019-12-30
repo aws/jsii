@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Old class.
- * 
+ * <p>
  * @deprecated Use the new class
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

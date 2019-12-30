@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verifies proper type handling through dynamic overrides.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -29,7 +29,7 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param data
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +47,7 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param data This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -57,7 +57,7 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param map This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

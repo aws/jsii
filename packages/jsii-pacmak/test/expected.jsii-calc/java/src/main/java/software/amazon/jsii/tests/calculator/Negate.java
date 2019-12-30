@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * The negation operation ("-value").
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,7 +20,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param operand This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -31,7 +31,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * Say farewell.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -42,7 +42,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * Say goodbye.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -53,7 +53,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * Say hello!
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -64,7 +64,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * String representation of the value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -75,7 +75,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * The value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @Override

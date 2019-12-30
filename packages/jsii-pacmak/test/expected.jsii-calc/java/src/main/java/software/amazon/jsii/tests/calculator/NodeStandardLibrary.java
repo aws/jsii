@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Test fixture to verify that jsii modules can use the node standard library.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -25,9 +25,9 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
 
     /**
      * Uses node.js "crypto" module to calculate sha256 of a string.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -37,9 +37,9 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
 
     /**
      * Reads a local resource file (resource.txt) asynchronously.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return "Hello, resource!"
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -49,9 +49,9 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
 
     /**
      * Sync version of fsReadFile.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return "Hello, resource! SYNC!"
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -61,7 +61,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
 
     /**
      * Returns the current os.platform() from the "os" node module.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

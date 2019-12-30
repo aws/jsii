@@ -18,7 +18,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1
      * @param arg2
      * @param arg3
@@ -31,7 +31,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1
      * @param arg2
      */
@@ -43,7 +43,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

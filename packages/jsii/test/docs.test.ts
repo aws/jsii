@@ -58,6 +58,27 @@ test('separate long doc comment into summary and remarks', async () => {
     remarks: "I think it's because they\ncopy/paste them out of CloudFormation, which has a tendency to just have one\n" +
               'doc block per API item and no structural separation.',
   });
+});
+
+// ----------------------------------------------------------------------
+test('separate non-space but newline terminated docs into summary&remarks', async () => {
+  const assembly = await compile(`
+    /**
+     * Lots of people enjoy writing very long captions here.
+     * I think it's because they copy/paste them out of CloudFormation,
+     * which has a tendency to just have one
+     * doc block per API item and no structural separation.
+     */
+    export class Foo {
+      public foo() { }
+    }
+  `);
+
+  expect(assembly.types!['testpkg.Foo'].docs).toEqual({
+    summary: 'Lots of people enjoy writing very long captions here.',
+    remarks: "I think it's because they copy/paste them out of CloudFormation,\nwhich has a tendency to just have one\n" +
+              'doc block per API item and no structural separation.',
+  });
 
 });
 

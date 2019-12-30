@@ -55,8 +55,7 @@ export class MarkdownRenderer implements CommonMarkRenderer {
   }
 
   public document(_node: cm.Node, context: RendererContext) {
-    // Remove trailing whitespace on every line
-    return collapsePara(context.content()).replace(/[ \t]+$/gm, '');
+    return stripTrailingWhitespace(collapsePara(context.content()));
   }
 
   public paragraph(_node: cm.Node, context: RendererContext) {
@@ -109,16 +108,24 @@ export class MarkdownRenderer implements CommonMarkRenderer {
 
 const PARA_BREAK = '\u001d';
 
-function para(x: string) {
+export function para(x: string) {
   return `${PARA_BREAK}${x}${PARA_BREAK}`;
 }
 
 /**
  * Collapse paragraph markers
  */
-function collapsePara(x: string, brk = '\n\n') {
-  // eslint-disable-next-line no-control-regex
+export function collapsePara(x: string, brk = '\n\n') {
+  /* eslint-disable-next-line no-control-regex */
   return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '').replace(/\u001d+/g, brk);
+}
+
+/**
+ * Strip paragraph markers from start and end
+ */
+export function stripPara(x: string) {
+  /* eslint-disable-next-line no-control-regex */
+  return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '');
 }
 
 function determineItemPrefix(listNode: cm.Node, index: number) {
@@ -126,4 +133,8 @@ function determineItemPrefix(listNode: cm.Node, index: number) {
     return '* ';
   }
   return `${index}${listNode.listDelimiter} `;
+}
+
+export function stripTrailingWhitespace(x: string) {
+  return x.replace(/[ \t]+$/gm, '');
 }

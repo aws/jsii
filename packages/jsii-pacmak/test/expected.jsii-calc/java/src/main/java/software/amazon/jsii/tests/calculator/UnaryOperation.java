@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * An operation on a single operand.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,7 +20,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param operand This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

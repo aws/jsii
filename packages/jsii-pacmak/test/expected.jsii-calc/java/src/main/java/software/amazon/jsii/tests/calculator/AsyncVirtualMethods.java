@@ -31,7 +31,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * Just calls "overrideMeToo".
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -41,11 +41,11 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * This method calls the "callMe" async method indirectly, which will then invoke a virtual method.
-     * 
-     * <p>This is a &quot;double promise&quot; situation, which
+     * <p>
+     * This is a "double promise" situation, which
      * means that callbacks are not going to be available immediate, but only
-     * after an &quot;immediates&quot; cycle.</p>
-     * 
+     * after an "immediates" cycle.
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -63,7 +63,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param mult This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

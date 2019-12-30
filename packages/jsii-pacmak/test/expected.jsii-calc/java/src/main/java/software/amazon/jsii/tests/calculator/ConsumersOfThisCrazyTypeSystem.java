@@ -23,7 +23,7 @@ public class ConsumersOfThisCrazyTypeSystem extends software.amazon.jsii.JsiiObj
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -33,7 +33,7 @@ public class ConsumersOfThisCrazyTypeSystem extends software.amazon.jsii.JsiiObj
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

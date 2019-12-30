@@ -2,9 +2,8 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary></summary>
     /// <remarks>
-    /// stability: Experimental
+    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IJSII417Derived), fullyQualifiedName: "jsii-calc.IJSII417Derived")]
     internal sealed class IJSII417DerivedProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJSII417Derived
@@ -13,9 +12,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
         public string Property
@@ -23,9 +21,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "hasRoot", typeJson: "{\"primitive\":\"boolean\"}")]
         public bool HasRoot
@@ -33,9 +30,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<bool>();
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "bar")]
         public void Bar()
@@ -43,9 +39,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "baz")]
         public void Baz()
@@ -53,9 +48,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary></summary>
         /// <remarks>
-        /// stability: Experimental
+        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "foo")]
         public void Foo()

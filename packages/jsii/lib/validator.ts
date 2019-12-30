@@ -130,7 +130,7 @@ function _defaultValidations(): ValidationFunction[] {
         }
         continue;
       }
-      const foreignAssm = validator.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
+      const foreignAssm = validator.projectInfo.dependencyClosure.find(dep => dep.name === assm);
       if (!foreignAssm) {
         diagnostic(ts.DiagnosticCategory.Error,
           `Type reference is rooted in unknown module: ${assm}`);
@@ -362,7 +362,7 @@ function _dereference(typeRef: string | spec.NamedTypeReference, assembly: spec.
   if (assembly.name === assm) {
     return assembly.types?.[typeRef];
   }
-  const foreignAssm = validator.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
+  const foreignAssm = validator.projectInfo.dependencyClosure.find(dep => dep.name === assm);
   return foreignAssm?.types?.[typeRef];
 }
 

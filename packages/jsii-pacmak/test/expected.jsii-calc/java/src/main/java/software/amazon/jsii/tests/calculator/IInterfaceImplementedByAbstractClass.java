@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * awslabs/jsii#220 Abstract return type.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

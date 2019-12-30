@@ -18,7 +18,7 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param int This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -29,7 +29,7 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param assert This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * The "*" binary operation.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,9 +20,9 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * Creates a BinaryOperation.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param lhs Left-hand side operand. This parameter is required.
      * @param rhs Right-hand side operand. This parameter is required.
      */
@@ -34,7 +34,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * Say farewell.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -45,7 +45,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * Say goodbye.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -56,7 +56,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * Returns another random number.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -67,7 +67,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * String representation of the value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -78,7 +78,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * The value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @Override

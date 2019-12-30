@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * We can serialize and deserialize structs without silently ignoring optional fields.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

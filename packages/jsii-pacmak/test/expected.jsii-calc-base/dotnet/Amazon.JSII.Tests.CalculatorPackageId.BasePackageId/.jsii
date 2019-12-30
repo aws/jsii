@@ -8,29 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "dependencies": {
-    "@scope/jsii-calc-base-of-base": {
-      "targets": {
-        "dotnet": {
-          "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
-        },
-        "java": {
-          "maven": {
-            "artifactId": "calculator-base-of-base",
-            "groupId": "software.amazon.jsii.tests"
-          },
-          "package": "software.amazon.jsii.tests.calculator.baseofbase"
-        },
-        "js": {
-          "npm": "@scope/jsii-calc-base-of-base"
-        },
-        "python": {
-          "distName": "scope.jsii-calc-base-of-base",
-          "module": "scope.jsii_calc_base_of_base"
-        }
-      },
-      "version": "0.20.11"
-    }
+    "@scope/jsii-calc-base-of-base": "0.20.11"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base-of-base": {
@@ -53,8 +31,7 @@
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
         }
-      },
-      "version": "0.20.11"
+      }
     }
   },
   "description": "An example direct dependency for jsii-calc.",
@@ -174,5 +151,5 @@
     }
   },
   "version": "0.20.11",
-  "fingerprint": "lSQlk5mMPd7fxaZoCdCekSFY4rDOAu3VnLuIcFUXA6o="
+  "fingerprint": "vaUHiWCfpSsCfXz18WPVQ3HhCBTPj23pDky4IqmEWxw="
 }

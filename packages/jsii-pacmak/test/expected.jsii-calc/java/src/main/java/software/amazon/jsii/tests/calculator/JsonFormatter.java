@@ -2,9 +2,9 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Make sure structs are un-decorated on the way in.
- * 
+ * <p>
  * EXPERIMENTAL
- * 
+ * <p>
  * @see https://github.com/aws/aws-cdk/issues/5066
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -126,7 +126,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param value
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

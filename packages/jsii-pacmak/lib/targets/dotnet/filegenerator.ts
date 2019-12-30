@@ -6,15 +6,20 @@ import { DotNetNameUtils } from './nameutils';
 import * as logging from '../../logging';
 import { nextMajorVersion } from '../../util';
 import { TARGET_FRAMEWORK } from '../dotnet';
+import { toNuGetVersionRange } from '../version-utils';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
+  public readonly version: string;
+
   public constructor(
     public readonly namespace: string,
     public readonly packageId: string,
     public readonly fqn: string,
-    public readonly version: string,
-    public readonly partOfCompilation: boolean) {
+    version: string,
+    public readonly partOfCompilation: boolean
+  ) {
+    this.version = toNuGetVersionRange(version);
   }
 }
 
