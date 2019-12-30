@@ -62,7 +62,6 @@ const warningTypes = Object.keys(enabledWarnings);
   });
 
   const result = argv.watch
-    // When watching, return a promise that never resolves... #magic
     ? await compiler.watch().then(watch => watch.block())
     : compiler.emit();
   return { projectRoot, emitResult: await result };
