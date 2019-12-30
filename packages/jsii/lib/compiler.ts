@@ -5,10 +5,9 @@ import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { Assembler } from './assembler';
-import { CompilerWatch } from './compiler-watch';
 import { EmitResult, Emitter } from './emitter';
 import { ProjectInfo } from './project-info';
-import { JSII_DIAGNOSTICS_CODE, logDiagnostic } from './utils';
+import * as utils from './utils';
 
 const COMPILER_OPTIONS: ts.CompilerOptions = {
   alwaysStrict: true,
@@ -35,10 +34,14 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
 };
 
 const LOG = log4js.getLogger('jsii/compiler');
+export const DIAGNOSTICS = 'diagnostics';
+export const JSII_DIAGNOSTICS_CODE = 9999;
 
 export interface CompilerOptions {
   /** The information about the project to be built */
   projectInfo: ProjectInfo;
+  /** Whether the compiler should watch for changes or just compile once */
+  watch?: boolean;
   /** Whether to detect and generate TypeScript project references */
   projectReferences?: boolean;
   /** Whether to fail when a warning is emitted */
@@ -73,36 +76,62 @@ export class Compiler implements Emitter {
    *
    * @param files can be specified to override the standard source code location logic. Useful for example when testing "negatives".
    */
-  public async emit(...files: string[]): Promise<EmitResult | never> {
+  public async emit(...files: string[]): Promise<EmitResult> {
     await this._prepareForBuild(...files);
     return this._buildOnce();
-
   }
 
   /**
-   * Watches for file changes and dynamically re-compiles whenever needed.
+   * Watches for file-system changes and dynamically recompiles the project as needed. In non-blocking mode, this
+   * returns the TypeScript watch handle for the application to use.
+   *
+   * @internal
    */
-  public async watch(
-    onStatusChanged?: ts.WatchStatusReporter,
-    onDiagnostic = logDiagnostic,
-  ): Promise<CompilerWatch> {
+  public async watch(opts: NonBlockingWatchOptions): Promise<ts.Watch<ts.BuilderProgram>>;
+  /**
+   * Watches for file-system changes and dynamically recompiles the project as needed. In blocking mode, this results
+   * in a never-resolving promise.
+   */
+  public async watch(): Promise<never>;
+  public async watch(opts?: NonBlockingWatchOptions): Promise<ts.Watch<ts.BuilderProgram> | never> {
     await this._prepareForBuild();
 
-    return new CompilerWatch(
-      this.options.projectInfo,
+    const pi = this.options.projectInfo;
+    const projectRoot = pi.projectRoot;
+    const host = ts.createWatchCompilerHost(
       this.configPath,
-      COMPILER_OPTIONS,
-      async (program, stdlib) => {
-        const emitResult = await this._consumeProgram(program, stdlib);
-
-        for (const diag of emitResult.diagnostics.filter(d => d.code === JSII_DIAGNOSTICS_CODE)) {
-          onDiagnostic(diag, this.options.projectInfo.projectRoot);
-        }
-
-        return emitResult;
+      {
+        ...pi.tsc,
+        ...COMPILER_OPTIONS,
+        noEmitOnError: false,
       },
-      onStatusChanged,
+      { ...ts.sys, getCurrentDirectory() { return projectRoot; } },
+      ts.createEmitAndSemanticDiagnosticsBuilderProgram,
+      opts?.reportDiagnostics,
+      opts?.reportWatchStatus,
     );
+    if (!host.getDefaultLibLocation) {
+      throw new Error('No default library location was found on the TypeScript compiler host!');
+    }
+    const orig = host.afterProgramCreate;
+    host.afterProgramCreate = async builderProgram => {
+      const emitResult = await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
+
+      for (const diag of emitResult.diagnostics.filter(d => d.code === JSII_DIAGNOSTICS_CODE)) {
+        utils.logDiagnostic(diag, projectRoot);
+      }
+
+      if (orig) { orig.call(host, builderProgram); }
+      if (opts?.compilationComplete) { await opts.compilationComplete(emitResult); }
+    };
+    const watch = ts.createWatchProgram(host);
+
+    if (opts?.nonBlocking) {
+      // In non-blocking mode, returns the handle to the TypeScript watch interface.
+      return watch;
+    }
+    // In blocking mode, returns a never-resolving promise.
+    return new Promise<never>(() => null);
   }
 
   /**
@@ -111,7 +140,7 @@ export class Compiler implements Emitter {
    *
    * @param files the files that were specified as input in the CLI invocation.
    */
-  private async _prepareForBuild(...files: string[]): Promise<void> {
+  private async _prepareForBuild(...files: string[]) {
     await this.buildTypeScriptConfig();
     await this.writeTypeScriptConfig();
     this.rootFiles = this.determineSources(files);
@@ -164,8 +193,7 @@ export class Compiler implements Emitter {
       LOG.error(`Error during type model analysis: ${e}`);
     }
 
-    const result: EmitResult = { emitSkipped: hasErrors, diagnostics, emittedFiles: emit.emittedFiles };
-    return result;
+    return { emitSkipped: hasErrors, diagnostics, emittedFiles: emit.emittedFiles };
   }
 
   /**
@@ -321,6 +349,33 @@ export class Compiler implements Emitter {
 
     return dependencyRealPath;
   }
+}
+
+/**
+ * Options for Watch in non-blocking mode.
+ *
+ * @internal
+ */
+export interface NonBlockingWatchOptions {
+  /**
+   * Signals non-blocking execution
+   */
+  readonly nonBlocking: true;
+
+  /**
+   * Configures the diagnostics reporter
+   */
+  readonly reportDiagnostics: ts.DiagnosticReporter;
+
+  /**
+   * Configures the watch status reporter
+   */
+  readonly reportWatchStatus: ts.WatchStatusReporter;
+
+  /**
+   * This hook gets invoked when a compilation cycle (complete with Assembler execution) completes.
+   */
+  readonly compilationComplete: (emitResult: EmitResult) => void | Promise<void>;
 }
 
 function _pathOfLibraries(host: ts.CompilerHost | ts.WatchCompilerHost<any>): string[] {

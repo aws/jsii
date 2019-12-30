@@ -62,7 +62,7 @@ const warningTypes = Object.keys(enabledWarnings);
   });
 
   const result = argv.watch
-    ? await compiler.watch().then(watch => watch.block())
+    ? compiler.watch()
     : compiler.emit();
   return { projectRoot, emitResult: await result };
 })().then(({ projectRoot, emitResult }) => {

@@ -1,21 +1,15 @@
 import { mkdtemp, remove, writeFile, readFile } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { DiagnosticCategory, formatDiagnostic, FormatDiagnosticsHost, sys } from 'typescript';
 import { Compiler } from '../lib/compiler';
-import { CompilerWatch } from '../lib/compiler-watch';
 import { ProjectInfo } from '../lib/project-info';
 
 describe(Compiler, () => {
   test('"watch" mode', async () => {
+    // This can be a little slow, allowing 15 seconds maximum here (default is 5 seconds)
     jest.setTimeout(15_000);
 
     const sourceDir = await mkdtemp(join(tmpdir(), 'jsii-compiler-watch-mode-'));
-    const formatDiagHost: FormatDiagnosticsHost = {
-      getCanonicalFileName: (fileName) => fileName,
-      getCurrentDirectory: () => sourceDir,
-      getNewLine: () => sys.newLine,
-    };
 
     try {
       await writeFile(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
@@ -26,60 +20,41 @@ describe(Compiler, () => {
         projectReferences: false,
       });
 
-      const watch = await compiler.watch(
-        // Ignore watch status change messages - we don't want to pollute our test output here!
-        () => null,
-        // No error should be emitted during this test, so we actually fail if one is!
-        (diag) => {
-          if (diag.category === DiagnosticCategory.Error) {
-            throw new Error(`Unexpected diagnostic entry: ${formatDiagnostic(diag, formatDiagHost)}`);
+      let firstCompilation = true;
+      let onWatchClosed: () => void;
+      let onWatchFailed: (err: Error) => void;
+      const watchClosed = new Promise((ok, ko) => {
+        onWatchClosed = ok;
+        onWatchFailed = ko;
+      });
+      const watch = await compiler.watch({
+        nonBlocking: true,
+        // Ignore diagnostics reporting (not to pollute test console output)
+        reportDiagnostics: () => null,
+        // Ignore watch status reporting (not to pollute test console output)
+        reportWatchStatus: () => null,
+        // Verify everything goes according to plan
+        compilationComplete: async emitResult => {
+          try {
+            expect(emitResult.emitSkipped).toBeFalsy();
+            const output = await readFile(join(sourceDir, '.jsii'), { encoding: 'utf-8' });
+            if (firstCompilation) {
+              firstCompilation = false;
+              expect(output).toContain('"MarkerA"');
+              await writeFile(join(sourceDir, 'index.ts'), 'export class MarkerB {}');
+              return;
+            }
+            expect(output).toContain('"MarkerB"');
+            watch.close();
+            // Tell the test suite we're done here!
+            onWatchClosed();
+          } catch (e) {
+            watch.close();
+            onWatchFailed(e);
           }
         },
-      );
-
-      const outputHasMarker = async (marker: string) => {
-        const content = await readFile(join(sourceDir, '.jsii'), { encoding: 'utf-8' });
-        return content.includes(`"${marker}"`);
-      };
-      const expectations = [
-        async () => {
-          // MarkerA must be present in the very first compilation result
-          expect(await outputHasMarker('MarkerA')).toBeTruthy();
-          await writeFile(join(sourceDir, 'index.ts'), 'export class MarkerB {}');
-          return true;
-        },
-        async () => {
-          // MarkerB must eventually be present, but it could take a few of cycles
-          return outputHasMarker('MarkerB');
-        }
-      ];
-
-      watch.on(CompilerWatch.EVENT_COMPILATION_COMPLETE, (result, compilerWatch) => {
-        expect(result.emitSkipped).toBeFalsy();
-        if (expectations.length === 0) {
-          // There's nothing left to check, we're already closing off at this point!
-          return;
-        }
-        expectations[0]().then(
-          done => {
-            if (done) {
-              expectations.splice(0, 1);
-              if (expectations.length === 0) {
-                compilerWatch.close();
-              }
-            }
-          },
-          failed => expect(() => { throw failed; }).not.toThrowError()
-        );
       });
-
-      try {
-        // Now wait until we're all done!
-        await watch.block(10_000);
-      } finally {
-        // Ensure the watch is closed when we exit this!
-        watch.close();
-      }
+      await watchClosed;
     } finally {
       await remove(sourceDir);
     }
