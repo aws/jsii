@@ -1,14 +1,14 @@
 import * as Case from 'case';
 import * as colors from 'colors/safe';
-import * as events from 'events';
 import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { Assembler } from './assembler';
-import { EmitResult, Emitter, Diagnostic } from './emitter';
+import { CompilerWatch } from './compiler-watch';
+import { EmitResult, Emitter } from './emitter';
 import { ProjectInfo } from './project-info';
-import * as utils from './utils';
+import { JSII_DIAGNOSTICS_CODE, logDiagnostic } from './utils';
 
 const COMPILER_OPTIONS: ts.CompilerOptions = {
   alwaysStrict: true,
@@ -35,8 +35,6 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
 };
 
 const LOG = log4js.getLogger('jsii/compiler');
-export const DIAGNOSTICS = 'diagnostics';
-export const JSII_DIAGNOSTICS_CODE = 9999;
 
 export interface CompilerOptions {
   /** The information about the project to be built */
@@ -60,7 +58,6 @@ export class Compiler implements Emitter {
   private rootFiles: string[] = [];
   private readonly configPath: string;
   private readonly projectReferences: boolean;
-  private readonly eventEmitter = new events.EventEmitter();
 
   public constructor(private readonly options: CompilerOptions) {
     this.compilerHost = ts.createCompilerHost(COMPILER_OPTIONS);
@@ -69,46 +66,6 @@ export class Compiler implements Emitter {
 
     this.projectReferences = options.projectReferences !== undefined ? options.projectReferences :
       options.projectInfo.projectReferences !== undefined ? options.projectInfo.projectReferences : false;
-  }
-
-  /**
-   * Adds a listener for the 'result' event that is called with EmitResult.
-   *
-   * @param event    the 'result' event
-   * @param listener the listener to be called with the EmitResult.
-   */
-  public on(event: 'result', listener: (result: EmitResult) => any): this;
-  /**
-   * Adds a listener for the 'statusChanged' event that is called with a Diagnostic whenever the
-   * status of the current watch process changes.
-   *
-   * @param event    the 'statusChanged' event
-   * @param listener the listener to be called with the Diagnostic.
-   */
-  public on(event: 'statusChanged', listener: (message: Diagnostic) => any): this;
-  public on(event: string, listener: (...args: any[]) => any): this {
-    this.eventEmitter.on(event, listener);
-    return this;
-  }
-
-  /**
-   * Adds a once-only listener for the 'result' event that is called with EmitResult.
-   *
-   * @param event    the 'result' event
-   * @param listener the listener to be called with the EmitResult.
-   */
-  public once(event: 'result', listener: (result: EmitResult) => any): this;
-  /**
-   * Adds a once-only listener for the 'statusChanged' event that is called with a Diagnostic
-   * whenever the status of the current watch process changes.
-   *
-   * @param event    the 'statusChanged' event
-   * @param listener the listener to be called with the Diagnostic.
-   */
-  public once(event: 'statusChanged', listener: (message: Diagnostic) => any): this;
-  public once(event: string, listener: (...args: any[]) => any): this {
-    this.eventEmitter.once(event, listener);
-    return this;
   }
 
   /**
@@ -125,9 +82,27 @@ export class Compiler implements Emitter {
   /**
    * Watches for file changes and dynamically re-compiles whenever needed.
    */
-  public async watch(): Promise<Watch> {
+  public async watch(
+    onStatusChanged?: ts.WatchStatusReporter,
+    onDiagnostic = logDiagnostic,
+  ): Promise<CompilerWatch> {
     await this._prepareForBuild();
-    return this._startWatch();
+
+    return new CompilerWatch(
+      this.options.projectInfo,
+      this.configPath,
+      COMPILER_OPTIONS,
+      async (program, stdlib) => {
+        const emitResult = await this._consumeProgram(program, stdlib);
+
+        for (const diag of emitResult.diagnostics.filter(d => d.code === JSII_DIAGNOSTICS_CODE)) {
+          onDiagnostic(diag, this.options.projectInfo.projectRoot);
+        }
+
+        return emitResult;
+      },
+      onStatusChanged,
+    );
   }
 
   /**
@@ -164,40 +139,6 @@ export class Compiler implements Emitter {
     return this._consumeProgram(prog, this.compilerHost.getDefaultLibLocation());
   }
 
-  /**
-   * Start a watch on the config that has been written to disk
-   */
-  private _startWatch(): Watch {
-    const pi = this.options.projectInfo;
-    const projectRoot = pi.projectRoot;
-    const host = ts.createWatchCompilerHost(
-      this.configPath,
-      {
-        ...pi.tsc,
-        ...COMPILER_OPTIONS,
-        noEmitOnError: false,
-      },
-      { ...ts.sys, getCurrentDirectory() { return projectRoot; } },
-      ts.createSemanticDiagnosticsBuilderProgram,
-      undefined,
-      diag => this.eventEmitter.emit('statusChanged', diag)
-    );
-    if (!host.getDefaultLibLocation) {
-      throw new Error('No default library location was found on the TypeScript compiler host!');
-    }
-    const orig = host.afterProgramCreate;
-    host.afterProgramCreate = async builderProgram => {
-      const emitResult = await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
-
-      for (const diag of emitResult.diagnostics.filter(d => d.code === JSII_DIAGNOSTICS_CODE)) {
-        utils.logDiagnostic(diag, projectRoot);
-      }
-
-      if (orig) { orig.call(host, builderProgram); }
-    };
-    return ts.createWatchProgram(host);
-  }
-
   private async _consumeProgram(program: ts.Program, stdlib: string): Promise<EmitResult> {
     const emit = program.emit();
     let hasErrors = emitHasErrors(emit, this.options.failOnWarnings);
@@ -224,7 +165,6 @@ export class Compiler implements Emitter {
     }
 
     const result: EmitResult = { emitSkipped: hasErrors, diagnostics, emittedFiles: emit.emittedFiles };
-    this.eventEmitter.emit('result', result);
     return result;
   }
 
@@ -381,16 +321,6 @@ export class Compiler implements Emitter {
 
     return dependencyRealPath;
   }
-}
-
-/**
- * A handle to a watch-mode operation.
- */
-export interface Watch {
-  /**
-   * Terminates the watch process.
-   */
-  close(): void;
 }
 
 function _pathOfLibraries(host: ts.CompilerHost | ts.WatchCompilerHost<any>): string[] {
