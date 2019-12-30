@@ -177,7 +177,7 @@ async function _loadDependencies(
     const pkg = _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop
-    const assm = await loadAndValidateAssembly(pkg).catch(e => { throw new Error(`Error loading ${pkg}: ${e}`); });
+    const assm = await loadAndValidateAssembly(pkg);
     if (!version.intersects(new semver.Range(assm.version))) {
       throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
     }
@@ -201,7 +201,11 @@ const ASSEMBLY_CACHE = new Map<string, spec.Assembly>();
  */
 async function loadAndValidateAssembly(jsiiFileName: string): Promise<spec.Assembly> {
   if (!ASSEMBLY_CACHE.has(jsiiFileName)) {
-    ASSEMBLY_CACHE.set(jsiiFileName, spec.validateAssembly(await fs.readJson(jsiiFileName)));
+    try {
+      ASSEMBLY_CACHE.set(jsiiFileName, spec.validateAssembly(await fs.readJson(jsiiFileName)));
+    } catch (e) {
+      throw new Error(`Error loading ${jsiiFileName}: ${e}`);
+    }
   }
   return ASSEMBLY_CACHE.get(jsiiFileName)!;
 }

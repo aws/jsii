@@ -117,20 +117,29 @@ export class Compiler implements Emitter {
    * @param files can be specified to override the standard source code location logic. Useful for example when testing "negatives".
    */
   public async emit(...files: string[]): Promise<EmitResult | never> {
-    await this.buildTypeScriptConfig();
-    await this.writeTypeScriptConfig();
-    this.rootFiles = this.determineSources(files);
-
+    await this._prepareForBuild(...files);
     return this._buildOnce();
 
   }
 
+  /**
+   * Watches for file changes and dynamically re-compiles whenever needed.
+   */
   public async watch(): Promise<Watch> {
+    await this._prepareForBuild();
+    return this._startWatch();
+  }
+
+  /**
+   * Prepares the project for build, by creating the necessary configuration
+   * file(s), and assigning the relevant root file(s).
+   *
+   * @param files the files that were specified as input in the CLI invocation.
+   */
+  private async _prepareForBuild(...files: string[]): Promise<void> {
     await this.buildTypeScriptConfig();
     await this.writeTypeScriptConfig();
-    this.rootFiles = this.determineSources([]);
-
-    return this._startWatch();
+    this.rootFiles = this.determineSources(files);
   }
 
   /**
