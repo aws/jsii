@@ -34,7 +34,7 @@
     "commonmark": "^0.29.0",
     "fs-extra": "^8.1.0",
     "typescript": "~3.7.4",
-    "yargs": "^15.0.2"
+    "yargs": "^15.1.0"
   },
   "jest": {
     "moduleFileExtensions": [
