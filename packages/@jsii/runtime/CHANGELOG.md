@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.21.0](https://github.com/aws/jsii/compare/v0.20.11...v0.21.0) (2020-01-02)
+
+
+### Bug Fixes
+
+* **runtime:** runtime crashes with EAGAIN trying to read from STDIN ([#1143](https://github.com/aws/jsii/issues/1143)) ([e3502ed](https://github.com/aws/jsii/commit/e3502ed4af3e17e9de7087c61fa9b8da6c05e1b0)), closes [#1142](https://github.com/aws/jsii/issues/1142) [aws/aws-cdk#5187](https://github.com/aws/aws-cdk/issues/5187)
+
+
+
+
+
 ## [0.20.11](https://github.com/aws/jsii/compare/v0.20.10...v0.20.11) (2019-12-13)
 
 **Note:** Version bump only for package @jsii/runtime

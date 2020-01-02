@@ -1,6 +1,6 @@
 {
   "name": "jsii-config",
-  "version": "0.20.11",
+  "version": "0.21.0",
   "description": "CLI tool for configuring jsii module configuration in package.json",
   "main": "lib/index.js",
   "repository": "https://github.com/aws/jsii",
@@ -29,7 +29,7 @@
     "typescript": "~3.7.4"
   },
   "dependencies": {
-    "@jsii/spec": "^0.20.11",
+    "@jsii/spec": "^0.21.0",
     "inquirer": "^7.0.1",
     "yargs": "^15.0.2"
   },

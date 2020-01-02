@@ -1,6 +1,6 @@
 {
   "name": "@jsii/dotnet-runtime",
-  "version": "0.20.11",
+  "version": "0.21.0",
   "private": true,
   "description": ".NET client for jsii runtime",
   "license": "Apache-2.0",
@@ -37,11 +37,11 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "@jsii/dotnet-jsonmodel": "^0.20.11",
-    "@jsii/runtime": "^0.20.11",
+    "@jsii/dotnet-jsonmodel": "^0.21.0",
+    "@jsii/runtime": "^0.21.0",
     "@types/node": "^10.17.13",
     "@types/semver": "^6.2.0",
-    "jsii-build-tools": "^0.20.11",
+    "jsii-build-tools": "^0.21.0",
     "semver": "^7.1.1",
     "typescript": "~3.7.4"
   }
