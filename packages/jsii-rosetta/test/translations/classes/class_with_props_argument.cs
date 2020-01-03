@@ -1,7 +1,7 @@
 class MyClassProps
 {
-    public string Prop1;
-    public int Prop2;
+    public string Prop1 { get; set; }
+    public int Prop2 { get; set; }
 }
 
 class MyClass : cdk.SomeOtherClass

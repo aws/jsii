@@ -85,9 +85,8 @@ function makeTests() {
 
         testConstructor(`to ${supportedLanguage.name}`, () => {
           const expected = fs.readFileSync(languageFile, { encoding: 'utf-8' });
-          const translation = translator.renderUsing(supportedLanguage.visitor);
-
           try {
+            const translation = translator.renderUsing(supportedLanguage.visitor);
             expect(stripEmptyLines(translation)).toEqual(stripEmptyLines(stripCommonWhitespace(expected)));
           } catch(e) {
             anyFailed = true;

@@ -1,7 +1,7 @@
 class Struct
 {
-    public string? X;
-    public string? Y;
+    public string? X { get; set; }
+    public string? Y { get; set; }
 }
 public void Foo(Struct s)
 {

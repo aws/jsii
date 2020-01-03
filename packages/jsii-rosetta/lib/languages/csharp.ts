@@ -25,6 +25,11 @@ interface CSharpLanguageContext {
   readonly inStructInterface: boolean;
 
   /**
+   * So we know how to render property signatures
+   */
+  readonly inRegularInterface: boolean;
+
+  /**
    * So we know how to render property assignments
    */
   readonly inKeyValueList: boolean;
@@ -53,9 +58,12 @@ interface CSharpLanguageContext {
 type CSharpRenderer = AstRenderer<CSharpLanguageContext>;
 
 export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
+  public readonly language = 'csharp';
+
   public readonly defaultContext = {
     propertyOrMethod: false,
     inStructInterface: false,
+    inRegularInterface: false,
     inKeyValueList: false,
     stringAsIdentifier: false,
     identifierAsString: false,
@@ -134,6 +142,17 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
 
   public methodDeclaration(node: ts.MethodDeclaration, renderer: CSharpRenderer): OTree {
     return this.functionLike(node, renderer);
+  }
+
+  public methodSignature(node: ts.MethodSignature, renderer: CSharpRenderer): OTree {
+    return new OTree([
+      this.renderTypeNode(node.type, false, renderer),
+      ' ',
+      renderer.updateContext({ propertyOrMethod: true }).convert(node.name),
+      '(',
+      new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
+      ');'
+    ], [], { canBreakLine: true });
   }
 
   // tslint:disable-next-line:max-line-length
@@ -248,13 +267,15 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
   }
 
   public propertySignature(node: ts.PropertySignature, renderer: CSharpRenderer): OTree {
+    const canSet = renderer.currentContext.inStructInterface || !isReadOnly(node);
+
     return new OTree([
-      visibility(node),
-      ' ',
+      !renderer.currentContext.inRegularInterface ? `${visibility(node)} ` : NO_SYNTAX,
       this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
       ' ',
       renderer.updateContext({ propertyOrMethod: true }).convert(node.name),
-      ';',
+      ' ',
+      canSet ? '{ get; set; }' : '{ get; }',
     ], [], { canBreakLine: true });
   }
 
@@ -308,7 +329,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       ...this.classHeritage(node, renderer),
       '\n{',
     ],
-    renderer.convertAll(node.members),
+    renderer.updateContext({ inRegularInterface: true }).convertAll(node.members),
     {
       indent: 4,
       canBreakLine: true,
@@ -503,7 +524,7 @@ function typeNameFromType(type: ts.Type, fallback: string): string {
 }
 
 function csharpTypeName(jsTypeName: string | undefined): string {
-  if (jsTypeName === undefined) { return '???'; }
+  if (jsTypeName === undefined) { return 'void'; }
   switch (jsTypeName) {
     case 'number': return 'int';
     case 'any': return 'object';
