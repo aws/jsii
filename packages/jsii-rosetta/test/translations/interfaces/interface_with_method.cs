@@ -1,0 +1,4 @@
+interface IThing
+{
+    void DoAThing();
+}
