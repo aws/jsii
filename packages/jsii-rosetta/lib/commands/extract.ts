@@ -106,7 +106,7 @@ export function singleThreadedTranslateAll(snippets: IterableIterator<TypeScript
       failures.push({
         category: ts.DiagnosticCategory.Error,
         code: 999,
-        messageText: `Error translating snippet: ${e}\n${block.completeSource}`,
+        messageText: `rosetta: error translating snippet: ${e}\n${block.completeSource}`,
         file: undefined,
         start: undefined,
         length: undefined,

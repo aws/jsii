@@ -267,14 +267,13 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
 
   public methodSignature(node: ts.MethodSignature, renderer: JavaRenderer): OTree {
     return new OTree([
-        this.renderTypeNode(node.type, renderer, 'void'),
-        ' ',
-        renderer.convert(node.name),
-        '(',
-        new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
-        ');',
-      ], [], { canBreakLine: true },
-    );
+      this.renderTypeNode(node.type, renderer, 'void'),
+      ' ',
+      renderer.convert(node.name),
+      '(',
+      new OTree([], renderer.convertAll(node.parameters), { separator: ', ' }),
+      ');',
+    ], [], { canBreakLine: true });
   }
 
   public parameterDeclaration(node: ts.ParameterDeclaration, renderer: JavaRenderer): OTree {

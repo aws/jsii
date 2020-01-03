@@ -270,7 +270,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     const canSet = renderer.currentContext.inStructInterface || !isReadOnly(node);
 
     return new OTree([
-      !renderer.currentContext.inRegularInterface ? visibility(node) + ' ' : NO_SYNTAX,
+      !renderer.currentContext.inRegularInterface ? `${visibility(node)} ` : NO_SYNTAX,
       this.renderTypeNode(node.type, node.questionToken !== undefined, renderer),
       ' ',
       renderer.updateContext({ propertyOrMethod: true }).convert(node.name),
