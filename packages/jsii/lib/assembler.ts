@@ -343,7 +343,7 @@ export class Assembler implements Emitter {
       if (LOG.isTraceEnabled()) { LOG.trace(`Leaving namespace:  ${colors.cyan([...context.namespace, name].join('.'))}`); }
       return allTypes;
     } else {
-      this._diagnostic(node, ts.DiagnosticCategory.Message, `Ignoring ${ts.SyntaxKind[node.kind]} node (it cannot be represented int he jsii type model)`);
+      this._diagnostic(node, ts.DiagnosticCategory.Message, `Ignoring ${ts.SyntaxKind[node.kind]} node (it cannot be represented in the jsii type model)`);
     }
 
     if (!jsiiType) { return []; }
