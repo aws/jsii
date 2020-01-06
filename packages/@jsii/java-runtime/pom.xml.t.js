@@ -168,12 +168,12 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>2.22.2</version>
             </plugin>
 
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>2.22.2</version>
             </plugin>
         </plugins>
     </build>
