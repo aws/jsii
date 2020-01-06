@@ -69,6 +69,7 @@ export interface PythonVisitorOptions {
 }
 
 export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
+  public readonly language = 'python';
   public readonly defaultContext = {};
 
   public constructor(private readonly options: PythonVisitorOptions = {}) {
@@ -438,6 +439,11 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 
   public propertySignature(_node: ts.PropertySignature, _context: PythonVisitorContext): OTree {
+    // Does not represent in Python
+    return NO_SYNTAX;
+  }
+
+  public methodSignature(_node: ts.MethodSignature, _context: PythonVisitorContext): OTree {
     // Does not represent in Python
     return NO_SYNTAX;
   }

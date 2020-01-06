@@ -3,6 +3,7 @@ import { NO_SYNTAX, OTree, UnknownSyntax, Span } from './o-tree';
 import { commentRangeFromTextRange, extractMaskingVoidExpression, extractShowingVoidExpression, nodeChildren,
   repeatNewlines, scanText } from './typescript/ast-utils';
 import { analyzeImportDeclaration, analyzeImportEquals, ImportStatement } from './typescript/imports';
+import { TargetLanguage } from './languages';
 
 /**
  * Render a TypeScript AST to some other representation (encoded in OTrees)
@@ -136,10 +137,14 @@ export class AstRenderer<C> {
     });
   }
 
-  public reportUnsupported(node: ts.Node): void {
+  public reportUnsupported(node: ts.Node, language: TargetLanguage | undefined): void {
     const nodeKind = ts.SyntaxKind[node.kind];
     // tslint:disable-next-line:max-line-length
-    this.report(node, `This TypeScript language feature (${nodeKind}) is not supported in examples because we cannot translate it. Please rewrite this example.`);
+    if (language) {
+      this.report(node, `This TypeScript feature (${nodeKind}) is not supported in examples because we cannot translate it to ${language}. Please rewrite this example.`);
+    } else {
+      this.report(node, `This TypeScript feature (${nodeKind}) is not supported in examples. Please rewrite this example.`);
+    }
   }
 
   /**
@@ -208,6 +213,7 @@ export class AstRenderer<C> {
     if (ts.isMethodDeclaration(tree)) { return visitor.methodDeclaration(tree, this); }
     if (ts.isInterfaceDeclaration(tree)) { return visitor.interfaceDeclaration(tree, this); }
     if (ts.isPropertySignature(tree)) { return visitor.propertySignature(tree, this); }
+    if (ts.isMethodSignature(tree)) { return visitor.methodSignature(tree, this); }
     if (ts.isAsExpression(tree)) { return visitor.asExpression(tree, this); }
     if (ts.isPrefixUnaryExpression(tree)) { return visitor.prefixUnaryExpression(tree, this); }
     if (ts.isSpreadAssignment(tree)) {
@@ -223,7 +229,7 @@ export class AstRenderer<C> {
     if (ts.isParenthesizedExpression(tree)) { return visitor.parenthesizedExpression(tree, this); }
     if (ts.isVoidExpression(tree)) { return visitor.maskingVoidExpression(tree, this); }
 
-    this.reportUnsupported(tree);
+    this.reportUnsupported(tree, undefined);
 
     if (this.options.bestEffort !== false) {
       // When doing best-effort conversion and we don't understand the node type, just return the complete text of it as-is
@@ -322,6 +328,7 @@ export interface AstHandler<C> {
   methodDeclaration(node: ts.MethodDeclaration, context: AstRenderer<C>): OTree;
   interfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree;
   propertySignature(node: ts.PropertySignature, context: AstRenderer<C>): OTree;
+  methodSignature(node: ts.MethodSignature, context: AstRenderer<C>): OTree;
   asExpression(node: ts.AsExpression, context: AstRenderer<C>): OTree;
   prefixUnaryExpression(node: ts.PrefixUnaryExpression, context: AstRenderer<C>): OTree;
   spreadElement(node: ts.SpreadElement, context: AstRenderer<C>): OTree;

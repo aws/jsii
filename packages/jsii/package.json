@@ -1,6 +1,6 @@
 {
   "name": "jsii",
-  "version": "0.20.11",
+  "version": "0.21.1",
   "description": "TypeScript compiler for jsii",
   "license": "Apache-2.0",
   "author": {
@@ -33,7 +33,7 @@
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/spec": "^0.20.11",
+    "@jsii/spec": "^0.21.1",
     "case": "^1.6.2",
     "colors": "^1.4.0",
     "deep-equal": "^2.0.1",
@@ -44,7 +44,7 @@
     "sort-json": "^2.0.0",
     "spdx-license-list": "^6.1.0",
     "typescript": "~3.7.4",
-    "yargs": "^15.0.2"
+    "yargs": "^15.1.0"
   },
   "devDependencies": {
     "@types/clone": "^0.1.30",
@@ -59,7 +59,7 @@
     "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
-    "jsii-build-tools": "^0.20.11"
+    "jsii-build-tools": "^0.21.1"
   },
   "jest": {
     "collectCoverage": true,

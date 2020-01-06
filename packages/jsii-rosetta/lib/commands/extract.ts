@@ -96,12 +96,25 @@ async function translateAll(snippets: IterableIterator<TypeScriptSnippet>, inclu
 export function singleThreadedTranslateAll(snippets: IterableIterator<TypeScriptSnippet>, includeCompilerDiagnostics: boolean): TranslateAllResult {
   const translatedSnippets = new Array<TranslatedSnippet>();
 
+  const failures = new Array<ts.Diagnostic>();
+
   const translator = new Translator(includeCompilerDiagnostics);
   for (const block of snippets) {
-    translatedSnippets.push(translator.translate(block));
+    try {
+      translatedSnippets.push(translator.translate(block));
+    } catch(e) {
+      failures.push({
+        category: ts.DiagnosticCategory.Error,
+        code: 999,
+        messageText: `rosetta: error translating snippet: ${e}\n${block.completeSource}`,
+        file: undefined,
+        start: undefined,
+        length: undefined,
+      });
+    }
   }
 
-  return { translatedSnippets, diagnostics: translator.diagnostics };
+  return { translatedSnippets, diagnostics: [...translator.diagnostics, ...failures] };
 }
 
 /**

@@ -5,12 +5,14 @@ import { ImportStatement } from '../typescript/imports';
 import { isStructInterface, isStructType } from '../jsii/jsii-utils';
 import { mapElementType, typeWithoutUndefinedUnion } from '../typescript/types';
 import { voidExpressionString } from '../typescript/ast-utils';
+import { TargetLanguage } from '.';
 
 /**
  * A basic visitor that applies for most curly-braces-based languages
  */
 export abstract class DefaultVisitor<C> implements AstHandler<C> {
   public abstract readonly defaultContext: C;
+  public abstract readonly language: TargetLanguage;
 
   public abstract mergeContext(old: C, update: C): C;
 
@@ -240,6 +242,10 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return this.notImplemented(node, context);
   }
 
+  public methodSignature(node: ts.MethodSignature, context: AstRenderer<C>): OTree {
+    return this.notImplemented(node, context);
+  }
+
   public asExpression(node: ts.AsExpression, context: AstRenderer<C>): OTree {
     return this.notImplemented(node, context);
   }
@@ -284,7 +290,7 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
   }
 
   private notImplemented(node: ts.Node, context: AstRenderer<C>) {
-    context.reportUnsupported(node);
+    context.reportUnsupported(node, this.language);
     return nimpl(node, context);
   }
 }

@@ -138,6 +138,10 @@ export class VisualizeAstVisitor implements AstHandler<void> {
     return this.defaultNode('propertySignature', node, context);
   }
 
+  public methodSignature(node: ts.MethodSignature, context: AstRenderer<void>): OTree {
+    return this.defaultNode('methodSignature', node, context);
+  }
+
   public asExpression(node: ts.AsExpression, context: AstRenderer<void>): OTree {
     return this.defaultNode('asExpression', node, context);
   }

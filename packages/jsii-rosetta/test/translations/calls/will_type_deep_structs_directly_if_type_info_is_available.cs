@@ -1,16 +1,16 @@
 class BaseDeeperStruct
 {
-    public int A;
+    public int A { get; set; }
 }
 class DeeperStruct : BaseDeeperStruct
 {
-    public int B;
+    public int B { get; set; }
 }
 
 class OuterStruct
 {
-    public int Foo;
-    public DeeperStruct Deeper;
+    public int Foo { get; set; }
+    public DeeperStruct Deeper { get; set; }
 }
 
 public void Foo(int x, OuterStruct outer)

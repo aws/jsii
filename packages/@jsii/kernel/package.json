@@ -1,6 +1,6 @@
 {
   "name": "@jsii/kernel",
-  "version": "0.20.11",
+  "version": "0.21.1",
   "description": "kernel for jsii execution environment",
   "license": "Apache-2.0",
   "author": {
@@ -30,14 +30,14 @@
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/spec": "^0.20.11",
+    "@jsii/spec": "^0.21.1",
     "fs-extra": "^8.1.0",
     "source-map": "^0.7.3",
     "tar": "^5.0.5"
   },
   "devDependencies": {
-    "@scope/jsii-calc-base": "^0.20.11",
-    "@scope/jsii-calc-lib": "^0.20.11",
+    "@scope/jsii-calc-base": "^0.21.1",
+    "@scope/jsii-calc-lib": "^0.21.1",
     "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.25",
     "@types/jest-expect-message": "^1.0.1",
@@ -46,8 +46,8 @@
     "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
-    "jsii-build-tools": "^0.20.11",
-    "jsii-calc": "^0.20.11",
+    "jsii-build-tools": "^0.21.1",
+    "jsii-calc": "^0.21.1",
     "typescript": "~3.7.4"
   },
   "jest": {
