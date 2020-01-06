@@ -29,7 +29,7 @@ setuptools.setup(
 
     install_requires=[
         "attrs>=18.2",
-        "cattrs",
+        "cattrs>=1.0.0",
         "importlib_resources ; python_version < '3.7'",
         "python-dateutil",
         "typing_extensions>=3.6.4",
