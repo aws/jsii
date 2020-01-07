@@ -148,3 +148,15 @@ The pacmak code generator should be implemented under
 
 The [Python](./packages/jsii-pacmak/lib/targets/python.ts) target is a good
 example to work from.
+
+## Releasing
+### The `jsii/superchain` Docker image
+
+Upon merging new changes to the `master` branch, the `jsii/superchain:nightly`
+image will be released by TravisCI after a last validation build.
+
+Upon making a new `jsii` release (creating the version tag), the
+`jsii/superchain:latest` image will be released by TravisCI after a last
+validation build.
+
+The latest release information can be seen on [Docker Hub](https://hub.docker.com/r/jsii/superchain/tags)
