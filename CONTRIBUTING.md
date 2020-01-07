@@ -155,8 +155,9 @@ example to work from.
 Upon merging new changes to the `master` branch, the `jsii/superchain:nightly`
 image will be released by TravisCI after a last validation build.
 
-Upon making a new `jsii` release (creating the version tag), the
-`jsii/superchain:latest` image will be released by TravisCI after a last
-validation build.
+Upon making a new `jsii` release (when the GitHub release entry - and its
+corresponding git tag - is created), the `jsii/superchain:latest` image will
+be released by TravisCI after a last validation build.
 
-The latest release information can be seen on [Docker Hub](https://hub.docker.com/r/jsii/superchain/tags)
+The latest release information (for both of the Docker image tags) can be seen
+on [Docker Hub](https://hub.docker.com/r/jsii/superchain/tags)
