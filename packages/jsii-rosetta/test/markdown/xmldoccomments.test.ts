@@ -45,6 +45,43 @@ if (x < 3) {
   `);
 });
 
+test('quotes are escaped inside attributes', () => {
+  expectOutput(`
+  ['tis but a "scratch"](http://bla.ck/"kni"gh&t)
+
+  ![nay merely a "flesh wound" &cet](http://bla.ck/"kni"gh&t.jpg)
+  `, `
+<a href="http://bla.ck/%22kni%22gh&amp;t">'tis but a "scratch"</a>
+
+<img alt="nay merely a &quot;flesh wound&quot; &amp;cet" src="http://bla.ck/%22kni%22gh&amp;t.jpg" />
+  `);
+});
+
+
+test('convert header properly', () => {
+  expectOutput(`
+  <!--BEGIN STABILITY BANNER-->
+
+  ---
+
+  ![Stability: Stable](https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge)
+
+  ---
+  <!--END STABILITY BANNER-->
+  `, `
+<!--BEGIN STABILITY BANNER-->
+
+<hr />
+
+<img alt="Stability: Stable" src="https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge" />
+
+<hr />
+
+  <!--END STABILITY BANNER-->
+  `);
+});
+
+
 function expectOutput(source: string, expected: string) {
   if (DEBUG) {
     // tslint:disable-next-line:no-console

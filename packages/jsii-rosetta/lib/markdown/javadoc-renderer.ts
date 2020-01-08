@@ -1,6 +1,9 @@
 import * as cm from 'commonmark';
 import { RendererContext } from './markdown';
 import { MarkdownRenderer, collapsePara, para, stripTrailingWhitespace, stripPara } from './markdown-renderer';
+import { makeJavaEscaper } from './escapes';
+
+const ESCAPE = makeJavaEscaper();
 
 /* eslint-disable @typescript-eslint/camelcase */
 
@@ -16,7 +19,7 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public code(node: cm.Node, _context: RendererContext) {
-    return `<code>${escapeCharacters(node.literal)}</code>`;
+    return `<code>${ESCAPE.text(node.literal)}</code>`;
   }
 
   /**
@@ -30,15 +33,15 @@ export class JavaDocRenderer extends MarkdownRenderer {
    */
   /* eslint-disable-next-line @typescript-eslint/camelcase */
   public code_block(node: cm.Node, _context: RendererContext) {
-    return para(`<blockquote><pre>\n${escapeCharacters(node.literal)}</pre></blockquote>`);
+    return para(`<blockquote><pre>\n${ESCAPE.text(node.literal)}</pre></blockquote>`);
   }
 
   public text(node: cm.Node, _context: RendererContext) {
-    return escapeCharacters(node.literal) || '';
+    return ESCAPE.text(node.literal) ?? '';
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `<a href="${node.destination || ''}">${context.content()}</a>`;
+    return `<a href="${ESCAPE.attribute(node.destination) ?? ''}">${context.content()}</a>`;
   }
 
   public document(_node: cm.Node, context: RendererContext) {
@@ -60,7 +63,7 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public image(node: cm.Node, context: RendererContext) {
-    return `<img alt="${context.content()}" src="${node.destination || ''}">`;
+    return `<img alt="${ESCAPE.text2attr(context.content())}" src="${ESCAPE.attribute(node.destination) ?? ''}">`;
   }
 
   public emph(_node: cm.Node, context: RendererContext) {
@@ -75,13 +78,6 @@ export class JavaDocRenderer extends MarkdownRenderer {
   public thematic_break(_node: cm.Node, _context: RendererContext) {
     return para('<hr>');
   }
-}
-
-/**
- * Escape the characters that need escaping in JavaDoc HTML
- */
-function escapeCharacters(x: string | null): string {
-  return x ? x.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/@/g, '&#64;') : '';
 }
 
 function collapseParaJava(x: string) {
