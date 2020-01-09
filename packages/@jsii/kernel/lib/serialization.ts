@@ -137,10 +137,10 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       const primitiveType = optionalValue.type as spec.PrimitiveTypeReference;
 
       if (!isScalar(value)) {
-        throw new Error(`Expected Scalar, got ${JSON.stringify(value)}`);
+        throw new Error(`Expected ${spec.describeTypeReference(optionalValue.type)}, got ${JSON.stringify(value)}`);
       }
       if (typeof value !== primitiveType.primitive) {
-        throw new Error(`Expected '${primitiveType.primitive}', got ${JSON.stringify(value)} (${typeof value})`);
+        throw new Error(`Expected a ${spec.describeTypeReference(optionalValue.type)}, got ${JSON.stringify(value)} (${typeof value})`);
       }
       return value;
     },
@@ -152,10 +152,10 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       const primitiveType = optionalValue.type as spec.PrimitiveTypeReference;
 
       if (!isScalar(value)) {
-        throw new Error(`Expected Scalar, got ${JSON.stringify(value)}`);
+        throw new Error(`Expected a ${spec.describeTypeReference(optionalValue.type)}, got ${JSON.stringify(value)}`);
       }
       if (typeof value !== primitiveType.primitive) {
-        throw new Error(`Expected '${primitiveType.primitive}', got ${JSON.stringify(value)} (${typeof value})`);
+        throw new Error(`Expected a ${spec.describeTypeReference(optionalValue.type)}, got ${JSON.stringify(value)} (${typeof value})`);
       }
 
       return value;
