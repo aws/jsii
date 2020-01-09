@@ -76,6 +76,19 @@ if (x &lt; 3) {
   `);
 });
 
+test('quotes are escaped inside attributes', () => {
+  expectOutput(`
+  ['tis but a "scratch"](http://bla.ck/"kni"gh&t)
+
+  ![nay merely a "flesh wound" &cet](http://bla.ck/"kni"gh&t.jpg)
+  `, `
+<a href="http://bla.ck/%22kni%22gh&amp;t">'tis but a "scratch"</a>
+<p>
+<img alt="nay merely a &quot;flesh wound&quot; &amp;cet" src="http://bla.ck/%22kni%22gh&amp;t.jpg">
+  `);
+});
+
+
 function expectOutput(source: string, expected: string) {
   if (DEBUG) {
     // tslint:disable-next-line:no-console

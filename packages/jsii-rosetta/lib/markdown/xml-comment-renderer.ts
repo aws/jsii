@@ -1,6 +1,13 @@
 import * as cm from 'commonmark';
 import { prefixLines, RendererContext } from './markdown';
 import { MarkdownRenderer, para, stripPara } from './markdown-renderer';
+import { makeXmlEscaper } from './escapes';
+
+const ESCAPE = makeXmlEscaper();
+
+// The types for 'xmldom' are not complete.
+/* eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports */
+const { DOMParser, XMLSerializer } = require('xmldom');
 
 /* eslint-disable @typescript-eslint/camelcase */
 
@@ -16,7 +23,7 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
   }
 
   public code(node: cm.Node, _context: RendererContext) {
-    return `<c>${escapeCharacters(node.literal)}</c>`;
+    return `<c>${ESCAPE.text(node.literal)}</c>`;
   }
 
   public code_block(node: cm.Node, _context: RendererContext) {
@@ -24,11 +31,15 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
   }
 
   public text(node: cm.Node, _context: RendererContext) {
-    return escapeCharacters(node.literal) || '';
+    return ESCAPE.text(node.literal) ?? '';
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `${context.content()} (${node.destination || ''})`;
+    return `<a href="${ESCAPE.attribute(node.destination) ?? ''}">${context.content()}</a>`;
+  }
+
+  public image(node: cm.Node, context: RendererContext) {
+    return `<img alt="${ESCAPE.text2attr(context.content())}" src="${ESCAPE.attribute(node.destination) ?? ''}" />`;
   }
 
   public emph(_node: cm.Node, context: RendererContext) {
@@ -53,14 +64,31 @@ export class CSharpXmlCommentRenderer extends MarkdownRenderer {
     return `<description>${stripPara(context.content())}</description>\n`;
   }
 
-  public image(node: cm.Node, context: RendererContext) {
-    return `<img alt="${context.content()}" src="${node.destination || ''}">`;
+  public thematic_break(_node: cm.Node, _context: RendererContext) {
+    return para('<hr />');
   }
-}
 
-/**
- * Escape the characters that need escaping in XML
- */
-function escapeCharacters(x: string | null): string {
-  return x ? x.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+  /**
+   * HTML needs to be converted to XML
+   *
+   * If we don't do this, the parser will reject the whole XML block once it seens an unclosed
+   * <img> tag.
+   */
+  public html_inline(node: cm.Node, _context: RendererContext) {
+    const html = node.literal ?? '';
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return new XMLSerializer().serializeToString(doc);
+  }
+
+  /**
+   * HTML needs to be converted to XML
+   *
+   * If we don't do this, the parser will reject the whole XML block once it seens an unclosed
+   * <img> tag.
+   */
+  public html_block(node: cm.Node, _context: RendererContext) {
+    const html = node.literal ?? '';
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return new XMLSerializer().serializeToString(doc);
+  }
 }
