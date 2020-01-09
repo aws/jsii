@@ -57,7 +57,7 @@ describe(SerializationClass.Scalar, () => {
             { 'this is not': `a ${example.name}` },
             example.type,
             host
-          )).toThrow(`Expected a ${example.name}, got \{`);
+          )).toThrow(`Expected a ${example.name}, got {`);
         });
 
         for (const validValue of example.validValues) {
