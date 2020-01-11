@@ -21,7 +21,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
-    test-unit (3.3.4)
+    test-unit (3.3.5)
       power_assert
     unicode-display_width (1.6.0)
 
