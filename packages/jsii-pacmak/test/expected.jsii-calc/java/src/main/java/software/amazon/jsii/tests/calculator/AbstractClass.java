@@ -34,7 +34,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number nonAbstractMethod() {
-        return this.jsiiCall("nonAbstractMethod", java.lang.Number.class);
+        return this.jsiiCall("nonAbstractMethod", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -43,7 +43,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getPropFromInterface() {
-        return this.jsiiGet("propFromInterface", java.lang.String.class);
+        return this.jsiiGet("propFromInterface", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getPropFromInterface() {
-            return this.jsiiGet("propFromInterface", java.lang.String.class);
+            return this.jsiiGet("propFromInterface", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**
@@ -69,7 +69,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getAbstractProperty() {
-            return this.jsiiGet("abstractProperty", java.lang.String.class);
+            return this.jsiiGet("abstractProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**
@@ -80,7 +80,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.String abstractMethod(final java.lang.String name) {
-            return this.jsiiCall("abstractMethod", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(name, "name is required") });
+            return this.jsiiCall("abstractMethod", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(name, "name is required") });
         }
     }
 }

@@ -28,7 +28,7 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule loadFoo() {
-        return this.jsiiCall("loadFoo", software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class);
+        return this.jsiiCall("loadFoo", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class));
     }
 
     /**
@@ -38,7 +38,7 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void saveFoo(final software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {
-        this.jsiiCall("saveFoo", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        this.jsiiCall("saveFoo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -46,7 +46,7 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule getFoo() {
-        return this.jsiiGet("foo", software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class);
+        return this.jsiiGet("foo", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class));
     }
 
     /**

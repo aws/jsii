@@ -66,7 +66,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getArg1() {
-        return this.jsiiGet("arg1", java.lang.Number.class);
+        return this.jsiiGet("arg1", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -74,7 +74,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.time.Instant getArg3() {
-        return this.jsiiGet("arg3", java.time.Instant.class);
+        return this.jsiiGet("arg3", software.amazon.jsii.NativeType.forClass(java.time.Instant.class));
     }
 
     /**
@@ -82,6 +82,6 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getArg2() {
-        return this.jsiiGet("arg2", java.lang.String.class);
+        return this.jsiiGet("arg2", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 }

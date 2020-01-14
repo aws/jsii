@@ -26,6 +26,6 @@ public class Implementation extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getValue() {
-        return this.jsiiGet("value", java.lang.Number.class);
+        return this.jsiiGet("value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 }

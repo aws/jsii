@@ -21,6 +21,6 @@ public class ObjectWithPropertyProvider extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.IObjectWithProperty provide() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ObjectWithPropertyProvider.class, "provide", software.amazon.jsii.tests.calculator.IObjectWithProperty.class);
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ObjectWithPropertyProvider.class, "provide", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IObjectWithProperty.class));
     }
 }

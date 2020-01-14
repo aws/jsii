@@ -35,7 +35,7 @@ public interface IAnonymouslyImplementMe extends software.amazon.jsii.JsiiSerial
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.Number getValue() {
-            return this.jsiiGet("value", java.lang.Number.class);
+            return this.jsiiGet("value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
 
         /**
@@ -44,7 +44,7 @@ public interface IAnonymouslyImplementMe extends software.amazon.jsii.JsiiSerial
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.String verb() {
-            return this.jsiiCall("verb", java.lang.String.class);
+            return this.jsiiCall("verb", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
     }
 }

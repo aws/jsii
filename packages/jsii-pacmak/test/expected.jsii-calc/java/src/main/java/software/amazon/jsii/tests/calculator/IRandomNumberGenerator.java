@@ -39,7 +39,7 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.Number next() {
-            return this.jsiiCall("next", java.lang.Number.class);
+            return this.jsiiCall("next", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
     }
 }

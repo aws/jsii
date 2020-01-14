@@ -32,7 +32,7 @@ public class SingleInstanceTwoTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.InbetweenClass interface1() {
-        return this.jsiiCall("interface1", software.amazon.jsii.tests.calculator.InbetweenClass.class);
+        return this.jsiiCall("interface1", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.InbetweenClass.class));
     }
 
     /**
@@ -40,6 +40,6 @@ public class SingleInstanceTwoTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.IPublicInterface interface2() {
-        return this.jsiiCall("interface2", software.amazon.jsii.tests.calculator.IPublicInterface.class);
+        return this.jsiiCall("interface2", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IPublicInterface.class));
     }
 }

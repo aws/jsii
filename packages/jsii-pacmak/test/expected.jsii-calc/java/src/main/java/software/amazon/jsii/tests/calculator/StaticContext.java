@@ -25,7 +25,7 @@ public class StaticContext extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.lang.Boolean canAccessStaticContext() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StaticContext.class, "canAccessStaticContext", java.lang.Boolean.class);
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StaticContext.class, "canAccessStaticContext", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
     }
 
     /**
@@ -33,7 +33,7 @@ public class StaticContext extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.lang.Boolean getStaticVariable() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.StaticContext.class, "staticVariable", java.lang.Boolean.class);
+        return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.StaticContext.class, "staticVariable", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
     }
 
     /**

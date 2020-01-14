@@ -17,10 +17,6 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
-import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
-import com.fasterxml.jackson.databind.ser.Serializers;
-import com.fasterxml.jackson.databind.ser.std.StdArraySerializers;
-import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.MapType;
 
@@ -44,31 +40,12 @@ public final class JsiiObjectMapper {
    * @param <T> expected type
    * @return the deserialized value
    */
-  @SuppressWarnings("unchecked")
-  public static <T> T treeToValue(final JsonNode tree, final Class<T> valueType) {
+  public static <T> T treeToValue(final JsonNode tree, final NativeType<T> valueType) {
     if (tree == null) {
       return null;
     }
-    try {
-      // If the needed type is a sub-class of JsiiObject, we'll be receiving it by-reference, so we can ask Jackson to
-      // de-serialize a JsiiObject instead of the actual type; and we'll still get the correct instance type. This
-      // avoids running into problems because of Jackson not liking the structure of a particular class (it will
-      // validate that before attempting any deserialization operation, and I don't know how to mute this behavior).
-      final Class<?> deserType = JsiiObject.class.isAssignableFrom(valueType)
-              ? JsiiObject.class
-              : valueType;
-      final Object result = INSTANCE.treeToValue(tree, deserType);
-      if (result != null && valueType.isInterface() && result instanceof JsiiObject) {
-        // The result type does not implement the interface, returning the proxy instead!
-        if (!valueType.isAssignableFrom(result.getClass()) && valueType.isAnnotationPresent(Jsii.Proxy.class)) {
-          final Jsii.Proxy proxyAnnotation = valueType.getAnnotation(Jsii.Proxy.class);
-          return (T)((JsiiObject) result).asInterfaceProxy(proxyAnnotation.value());
-        }
-      }
-      return (T)result;
-    } catch (final JsonProcessingException jpe) {
-      throw new JsiiException(jpe);
-    }
+    final Object result = INSTANCE.convertValue(tree, valueType.getJavaType());
+    return valueType.transform(result);
   }
 
   /**

@@ -28,7 +28,7 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public java.lang.String toString() {
-        return this.jsiiCall("toString", java.lang.String.class);
+        return this.jsiiCall("toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -53,7 +53,7 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         public java.lang.Number getValue() {
-            return this.jsiiGet("value", java.lang.Number.class);
+            return this.jsiiGet("value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
     }
 }

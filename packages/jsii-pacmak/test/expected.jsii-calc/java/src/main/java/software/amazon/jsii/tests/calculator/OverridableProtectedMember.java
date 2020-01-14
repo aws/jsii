@@ -28,7 +28,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected java.lang.String overrideMe() {
-        return this.jsiiCall("overrideMe", java.lang.String.class);
+        return this.jsiiCall("overrideMe", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -36,7 +36,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void switchModes() {
-        this.jsiiCall("switchModes", Void.class);
+        this.jsiiCall("switchModes", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -44,7 +44,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String valueFromProtected() {
-        return this.jsiiCall("valueFromProtected", java.lang.String.class);
+        return this.jsiiCall("valueFromProtected", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -52,7 +52,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected java.lang.String getOverrideReadOnly() {
-        return this.jsiiGet("overrideReadOnly", java.lang.String.class);
+        return this.jsiiGet("overrideReadOnly", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -60,7 +60,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected java.lang.String getOverrideReadWrite() {
-        return this.jsiiGet("overrideReadWrite", java.lang.String.class);
+        return this.jsiiGet("overrideReadWrite", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**

@@ -26,7 +26,7 @@ public class ImplementInternalInterface extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getProp() {
-        return this.jsiiGet("prop", java.lang.String.class);
+        return this.jsiiGet("prop", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**

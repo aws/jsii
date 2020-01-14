@@ -72,7 +72,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void add(final java.lang.Number value) {
-        this.jsiiCall("add", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        this.jsiiCall("add", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -84,7 +84,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void mul(final java.lang.Number value) {
-        this.jsiiCall("mul", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        this.jsiiCall("mul", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -94,7 +94,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void neg() {
-        this.jsiiCall("neg", Void.class);
+        this.jsiiCall("neg", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -106,7 +106,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void pow(final java.lang.Number value) {
-        this.jsiiCall("pow", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        this.jsiiCall("pow", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -116,7 +116,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number readUnionValue() {
-        return this.jsiiCall("readUnionValue", java.lang.Number.class);
+        return this.jsiiCall("readUnionValue", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -127,7 +127,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
-        return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
+        return this.jsiiGet("expression", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
     }
 
     /**
@@ -137,7 +137,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getOperationsLog() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("operationsLog", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("operationsLog", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class))));
     }
 
     /**
@@ -147,7 +147,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.util.List<software.amazon.jsii.tests.calculator.lib.Value>> getOperationsMap() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("operationsMap", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("operationsMap", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class)))));
     }
 
     /**
@@ -157,7 +157,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getCurr() {
-        return this.jsiiGet("curr", software.amazon.jsii.tests.calculator.lib.Value.class);
+        return this.jsiiGet("curr", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
     }
 
     /**
@@ -177,7 +177,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getMaxValue() {
-        return this.jsiiGet("maxValue", java.lang.Number.class);
+        return this.jsiiGet("maxValue", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -197,7 +197,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object getUnionProperty() {
-        return this.jsiiGet("unionProperty", java.lang.Object.class);
+        return this.jsiiGet("unionProperty", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
     }
 
     /**

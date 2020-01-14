@@ -92,8 +92,8 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.stringProp = this.jsiiGet("stringProp", java.lang.String.class);
-            this.nestedStruct = this.jsiiGet("nestedStruct", software.amazon.jsii.tests.calculator.NestedStruct.class);
+            this.stringProp = this.jsiiGet("stringProp", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.nestedStruct = this.jsiiGet("nestedStruct", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.NestedStruct.class));
         }
 
         /**

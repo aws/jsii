@@ -33,7 +33,7 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.util.List<java.lang.String> createAList() {
-        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithCollections.class, "createAList", java.util.List.class));
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithCollections.class, "createAList", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -41,7 +41,7 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.util.Map<java.lang.String, java.lang.String> createAMap() {
-        return java.util.Collections.unmodifiableMap(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithCollections.class, "createAMap", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithCollections.class, "createAMap", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -49,7 +49,7 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.util.List<java.lang.String> getStaticArray() {
-        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.ClassWithCollections.class, "staticArray", java.util.List.class));
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.ClassWithCollections.class, "staticArray", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -65,7 +65,7 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.util.Map<java.lang.String, java.lang.String> getStaticMap() {
-        return java.util.Collections.unmodifiableMap(software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.ClassWithCollections.class, "staticMap", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.ClassWithCollections.class, "staticMap", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -81,7 +81,7 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.String> getArray() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("array", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("array", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -97,7 +97,7 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.lang.String> getMap() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("map", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("map", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**

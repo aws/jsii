@@ -34,7 +34,7 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String doImport(final java.lang.String assertValue) {
-        return this.jsiiCall("import", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(assertValue, "assertValue is required") });
+        return this.jsiiCall("import", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(assertValue, "assertValue is required") });
     }
 
     /**
@@ -42,6 +42,6 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getIntValue() {
-        return this.jsiiGet("int", java.lang.String.class);
+        return this.jsiiGet("int", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 }

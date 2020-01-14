@@ -35,7 +35,7 @@ public interface IInterfaceWithMethods extends software.amazon.jsii.JsiiSerializ
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getValue() {
-            return this.jsiiGet("value", java.lang.String.class);
+            return this.jsiiGet("value", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**
@@ -44,7 +44,7 @@ public interface IInterfaceWithMethods extends software.amazon.jsii.JsiiSerializ
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void doThings() {
-            this.jsiiCall("doThings", Void.class);
+            this.jsiiCall("doThings", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

@@ -49,7 +49,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         public java.lang.Number getMutableProperty() {
-            return this.jsiiGet("mutableProperty", java.lang.Number.class);
+            return this.jsiiGet("mutableProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
 
         /**
@@ -69,7 +69,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         @Deprecated
         @Override
         public void method() {
-            this.jsiiCall("method", Void.class);
+            this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

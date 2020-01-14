@@ -10,10 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.util.*;
 
 import static software.amazon.jsii.Util.isJavaPropertyMethod;
@@ -345,7 +342,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         final String setterMethodName = getterMethodName.replaceFirst("g", "s");
         final Method setter = this.findCallbackSetter(obj.getClass(), setterMethodName, getter.getReturnType());
 
-        final Object arg = JsiiObjectMapper.treeToValue(req.getValue(), setter.getParameterTypes()[0]);
+        final Object arg = JsiiObjectMapper.treeToValue(req.getValue(), NativeType.forType(setter.getGenericParameterTypes()[0]));
         return JsiiObjectMapper.valueToTree(invokeMethod(obj, setter, arg));
     }
 
@@ -359,10 +356,10 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         Object obj = this.getObject(req.getObjref());
         Method method = this.findCallbackMethod(obj.getClass(), cookie);
 
-        final Class<?>[] argTypes = method.getParameterTypes();
+        final Type[] argTypes = method.getGenericParameterTypes();
         final Object[] args = new Object[argTypes.length];
         for (int i = 0; i < argTypes.length; i++) {
-            args[i] = JsiiObjectMapper.treeToValue(req.getArgs().get(i), argTypes[i]);
+            args[i] = JsiiObjectMapper.treeToValue(req.getArgs().get(i), NativeType.forType(argTypes[i]));
         }
 
         return JsiiObjectMapper.valueToTree(invokeMethod(obj, method, args));

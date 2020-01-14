@@ -46,7 +46,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public void method() {
-        this.jsiiCall("method", Void.class);
+        this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -55,7 +55,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public java.lang.String getReadonlyProperty() {
-        return this.jsiiGet("readonlyProperty", java.lang.String.class);
+        return this.jsiiGet("readonlyProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -64,7 +64,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public java.lang.Number getMutableProperty() {
-        return this.jsiiGet("mutableProperty", java.lang.Number.class);
+        return this.jsiiGet("mutableProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**

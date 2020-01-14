@@ -26,7 +26,7 @@ public class SomeTypeJsii976 extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.lang.Object returnAnonymous() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.SomeTypeJsii976.class, "returnAnonymous", java.lang.Object.class);
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.SomeTypeJsii976.class, "returnAnonymous", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
     }
 
     /**
@@ -34,6 +34,6 @@ public class SomeTypeJsii976 extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.IReturnJsii976 returnReturn() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.SomeTypeJsii976.class, "returnReturn", software.amazon.jsii.tests.calculator.IReturnJsii976.class);
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.SomeTypeJsii976.class, "returnReturn", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IReturnJsii976.class));
     }
 }

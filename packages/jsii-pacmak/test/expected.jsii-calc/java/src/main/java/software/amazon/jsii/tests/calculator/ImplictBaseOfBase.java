@@ -88,9 +88,9 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.goo = this.jsiiGet("goo", java.time.Instant.class);
-            this.bar = this.jsiiGet("bar", java.lang.String.class);
-            this.foo = this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
+            this.goo = this.jsiiGet("goo", software.amazon.jsii.NativeType.forClass(java.time.Instant.class));
+            this.bar = this.jsiiGet("bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.foo = this.jsiiGet("foo", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.baseofbase.Very.class));
         }
 
         /**

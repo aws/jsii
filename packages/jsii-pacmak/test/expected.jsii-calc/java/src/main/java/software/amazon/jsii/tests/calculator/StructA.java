@@ -108,9 +108,9 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.requiredString = this.jsiiGet("requiredString", java.lang.String.class);
-            this.optionalNumber = this.jsiiGet("optionalNumber", java.lang.Number.class);
-            this.optionalString = this.jsiiGet("optionalString", java.lang.String.class);
+            this.requiredString = this.jsiiGet("requiredString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.optionalNumber = this.jsiiGet("optionalNumber", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.optionalString = this.jsiiGet("optionalString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

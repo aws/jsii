@@ -221,11 +221,11 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.containerPort = this.jsiiGet("containerPort", java.lang.Number.class);
-            this.cpu = this.jsiiGet("cpu", java.lang.String.class);
-            this.memoryMiB = this.jsiiGet("memoryMiB", java.lang.String.class);
-            this.publicLoadBalancer = this.jsiiGet("publicLoadBalancer", java.lang.Boolean.class);
-            this.publicTasks = this.jsiiGet("publicTasks", java.lang.Boolean.class);
+            this.containerPort = this.jsiiGet("containerPort", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.cpu = this.jsiiGet("cpu", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.memoryMiB = this.jsiiGet("memoryMiB", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.publicLoadBalancer = this.jsiiGet("publicLoadBalancer", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+            this.publicTasks = this.jsiiGet("publicTasks", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
         }
 
         /**

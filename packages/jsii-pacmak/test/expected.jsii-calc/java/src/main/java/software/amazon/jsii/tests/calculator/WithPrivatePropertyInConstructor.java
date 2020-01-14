@@ -43,6 +43,6 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Boolean getSuccess() {
-        return this.jsiiGet("success", java.lang.Boolean.class);
+        return this.jsiiGet("success", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
     }
 }

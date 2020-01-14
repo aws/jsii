@@ -121,9 +121,9 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.required = this.jsiiGet("required", java.lang.String.class);
-            this.secondLevel = this.jsiiGet("secondLevel", java.lang.Object.class);
-            this.optional = this.jsiiGet("optional", java.lang.String.class);
+            this.required = this.jsiiGet("required", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.secondLevel = this.jsiiGet("secondLevel", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+            this.optional = this.jsiiGet("optional", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

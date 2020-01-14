@@ -41,7 +41,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Boolean getParameterWasUndefined() {
-        return this.jsiiGet("parameterWasUndefined", java.lang.Boolean.class);
+        return this.jsiiGet("parameterWasUndefined", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
     }
 
     /**
@@ -49,7 +49,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getFieldValue() {
-        return this.jsiiGet("fieldValue", java.lang.String.class);
+        return this.jsiiGet("fieldValue", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**

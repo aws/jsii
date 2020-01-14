@@ -92,8 +92,8 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.bar = this.jsiiGet("bar", java.lang.Number.class);
-            this.id = this.jsiiGet("id", java.lang.String.class);
+            this.bar = this.jsiiGet("bar", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.id = this.jsiiGet("id", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

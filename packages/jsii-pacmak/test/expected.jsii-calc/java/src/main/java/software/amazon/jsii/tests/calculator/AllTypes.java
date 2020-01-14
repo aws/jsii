@@ -33,7 +33,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void anyIn(final java.lang.Object inp) {
-        this.jsiiCall("anyIn", Void.class, new Object[] { inp });
+        this.jsiiCall("anyIn", software.amazon.jsii.NativeType.VOID, new Object[] { inp });
     }
 
     /**
@@ -41,7 +41,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object anyOut() {
-        return this.jsiiCall("anyOut", java.lang.Object.class);
+        return this.jsiiCall("anyOut", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
     }
 
     /**
@@ -51,7 +51,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.StringEnum enumMethod(final software.amazon.jsii.tests.calculator.StringEnum value) {
-        return this.jsiiCall("enumMethod", software.amazon.jsii.tests.calculator.StringEnum.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        return this.jsiiCall("enumMethod", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StringEnum.class), new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -59,7 +59,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getEnumPropertyValue() {
-        return this.jsiiGet("enumPropertyValue", java.lang.Number.class);
+        return this.jsiiGet("enumPropertyValue", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -67,7 +67,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Object> getAnyArrayProperty() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("anyArrayProperty", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("anyArrayProperty", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -83,7 +83,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.lang.Object> getAnyMapProperty() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("anyMapProperty", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("anyMapProperty", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -99,7 +99,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object getAnyProperty() {
-        return this.jsiiGet("anyProperty", java.lang.Object.class);
+        return this.jsiiGet("anyProperty", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
     }
 
     /**
@@ -115,7 +115,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.String> getArrayProperty() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("arrayProperty", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("arrayProperty", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -131,7 +131,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Boolean getBooleanProperty() {
-        return this.jsiiGet("booleanProperty", java.lang.Boolean.class);
+        return this.jsiiGet("booleanProperty", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
     }
 
     /**
@@ -147,7 +147,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.time.Instant getDateProperty() {
-        return this.jsiiGet("dateProperty", java.time.Instant.class);
+        return this.jsiiGet("dateProperty", software.amazon.jsii.NativeType.forClass(java.time.Instant.class));
     }
 
     /**
@@ -163,7 +163,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.AllTypesEnum getEnumProperty() {
-        return this.jsiiGet("enumProperty", software.amazon.jsii.tests.calculator.AllTypesEnum.class);
+        return this.jsiiGet("enumProperty", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.AllTypesEnum.class));
     }
 
     /**
@@ -179,7 +179,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public com.fasterxml.jackson.databind.node.ObjectNode getJsonProperty() {
-        return this.jsiiGet("jsonProperty", com.fasterxml.jackson.databind.node.ObjectNode.class);
+        return this.jsiiGet("jsonProperty", software.amazon.jsii.NativeType.forClass(com.fasterxml.jackson.databind.node.ObjectNode.class));
     }
 
     /**
@@ -195,7 +195,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Number> getMapProperty() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("mapProperty", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("mapProperty", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Number.class))));
     }
 
     /**
@@ -211,7 +211,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getNumberProperty() {
-        return this.jsiiGet("numberProperty", java.lang.Number.class);
+        return this.jsiiGet("numberProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -227,7 +227,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getStringProperty() {
-        return this.jsiiGet("stringProperty", java.lang.String.class);
+        return this.jsiiGet("stringProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -243,7 +243,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Object> getUnionArrayProperty() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("unionArrayProperty", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("unionArrayProperty", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -259,7 +259,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.lang.Object> getUnionMapProperty() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("unionMapProperty", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("unionMapProperty", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -275,7 +275,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object getUnionProperty() {
-        return this.jsiiGet("unionProperty", java.lang.Object.class);
+        return this.jsiiGet("unionProperty", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
     }
 
     /**
@@ -315,7 +315,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Object> getUnknownArrayProperty() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("unknownArrayProperty", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("unknownArrayProperty", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -331,7 +331,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.lang.Object> getUnknownMapProperty() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("unknownMapProperty", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("unknownMapProperty", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -347,7 +347,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object getUnknownProperty() {
-        return this.jsiiGet("unknownProperty", java.lang.Object.class);
+        return this.jsiiGet("unknownProperty", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
     }
 
     /**
@@ -363,7 +363,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.StringEnum getOptionalEnumValue() {
-        return this.jsiiGet("optionalEnumValue", software.amazon.jsii.tests.calculator.StringEnum.class);
+        return this.jsiiGet("optionalEnumValue", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StringEnum.class));
     }
 
     /**

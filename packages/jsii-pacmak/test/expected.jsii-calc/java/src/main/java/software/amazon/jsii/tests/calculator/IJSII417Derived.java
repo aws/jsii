@@ -41,7 +41,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getProperty() {
-            return this.jsiiGet("property", java.lang.String.class);
+            return this.jsiiGet("property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**
@@ -50,7 +50,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.Boolean getHasRoot() {
-            return this.jsiiGet("hasRoot", java.lang.Boolean.class);
+            return this.jsiiGet("hasRoot", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
         }
 
         /**
@@ -59,7 +59,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void bar() {
-            this.jsiiCall("bar", Void.class);
+            this.jsiiCall("bar", software.amazon.jsii.NativeType.VOID);
         }
 
         /**
@@ -68,7 +68,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void baz() {
-            this.jsiiCall("baz", Void.class);
+            this.jsiiCall("baz", software.amazon.jsii.NativeType.VOID);
         }
 
         /**
@@ -77,7 +77,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void foo() {
-            this.jsiiCall("foo", Void.class);
+            this.jsiiCall("foo", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

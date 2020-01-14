@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -93,16 +92,16 @@ public class JsiiObject implements JsiiSerializable {
      * Calls a JavaScript method on the object.
      *
      * @param method The name of the method.
-     * @param returnType The return type.
+     * @param nativeType The return type.
      * @param args Method arguments.
      * @param <T> Java type for the return value.
      *
      * @return A return value.
      */
     @Nullable
-    protected final <T> T jsiiCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
+    protected final <T> T jsiiCall(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
         final JsonNode result = this.engine.getClient().callMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
-        return JsiiObjectMapper.treeToValue(result, returnType);
+        return JsiiObjectMapper.treeToValue(result, nativeType);
     }
 
     /**
@@ -110,15 +109,15 @@ public class JsiiObject implements JsiiSerializable {
      *
      * @param nativeClass The java class.
      * @param method The method to call.
-     * @param returnType The return type.
+     * @param nativeType The return type.
      * @param args The method arguments.
      * @param <T> Return type.
      *
      * @return Return value.
      */
     @Nullable
-    protected static <T> T jsiiStaticCall(final Class<?> nativeClass, final String method, final Class<T> returnType, @Nullable final Object... args) {
-        return jsiiStaticCall(JsiiEngine.getInstance(), nativeClass, method, returnType, args);
+    protected static <T> T jsiiStaticCall(final Class<?> nativeClass, final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
+        return jsiiStaticCall(JsiiEngine.getInstance(), nativeClass, method, nativeType, args);
     }
 
     /**
@@ -129,37 +128,37 @@ public class JsiiObject implements JsiiSerializable {
      * @param engine The JsiiEngine to use.
      * @param nativeClass The java class.
      * @param method The method to call.
-     * @param returnType The return type.
+     * @param nativeType The return type.
      * @param args The method arguments.
      * @param <T> Return type.
      *
      * @return Return value.
      */
     @Nullable
-    static <T> T jsiiStaticCall(final JsiiEngine engine, final Class<?> nativeClass, final String method, final Class<T> returnType, @Nullable final Object... args) {
+    static <T> T jsiiStaticCall(final JsiiEngine engine, final Class<?> nativeClass, final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
         final String fqn = engine.loadModuleForClass(nativeClass);
         final JsonNode result = engine.getClient().callStaticMethod(fqn, method, JsiiObjectMapper.valueToTree(args));
-        return JsiiObjectMapper.treeToValue(result, returnType);
+        return JsiiObjectMapper.treeToValue(result, nativeType);
     }
 
     /**
      * Calls an async method on the object.
      *
      * @param method The name of the method.
-     * @param returnType The return type.
+     * @param nativeType The return type.
      * @param args Method arguments.
      * @param <T> Java type for the return value.
      *
      * @return A return value.
      */
     @Nullable
-    protected final <T> T jsiiAsyncCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
+    protected final <T> T jsiiAsyncCall(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
         final JsiiClient client = engine.getClient();
         final JsiiPromise promise = client.beginAsyncMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
 
         engine.processAllPendingCallbacks();
 
-        return JsiiObjectMapper.treeToValue(client.endAsyncMethod(promise), returnType);
+        return JsiiObjectMapper.treeToValue(client.endAsyncMethod(promise), nativeType);
     }
 
     /**
@@ -172,7 +171,7 @@ public class JsiiObject implements JsiiSerializable {
      * @return The property value.
      */
     @Nullable
-    protected final <T> T jsiiGet(final String property, final Class<T> type) {
+    protected final <T> T jsiiGet(final String property, final NativeType<T> type) {
         final JsonNode result = engine.getClient().getPropertyValue(this.objRef, property);
         return JsiiObjectMapper.treeToValue(result, type);
     }
@@ -188,7 +187,7 @@ public class JsiiObject implements JsiiSerializable {
      * @return Return value
      */
     @Nullable
-    protected static <T> T jsiiStaticGet(final Class<?> nativeClass, final String property, final Class<T> type) {
+    protected static <T> T jsiiStaticGet(final Class<?> nativeClass, final String property, final NativeType<T> type) {
         return jsiiStaticGet(JsiiEngine.getInstance(), nativeClass, property, type);
     }
 
@@ -206,7 +205,7 @@ public class JsiiObject implements JsiiSerializable {
      * @return Return value
      */
     @Nullable
-    static <T> T jsiiStaticGet(final JsiiEngine engine, final Class<?> nativeClass, final String property, final Class<T> type) {
+    static <T> T jsiiStaticGet(final JsiiEngine engine, final Class<?> nativeClass, final String property, final NativeType<T> type) {
         final String fqn = engine.loadModuleForClass(nativeClass);
         final JsonNode result = engine.getClient().getStaticPropertyValue(fqn, property);
         return JsiiObjectMapper.treeToValue(result, type);

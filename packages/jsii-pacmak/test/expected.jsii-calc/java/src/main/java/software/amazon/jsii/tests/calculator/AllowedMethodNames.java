@@ -29,7 +29,7 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void getBar(final java.lang.String _p1, final java.lang.Number _p2) {
-        this.jsiiCall("getBar", Void.class, new Object[] { java.util.Objects.requireNonNull(_p1, "_p1 is required"), java.util.Objects.requireNonNull(_p2, "_p2 is required") });
+        this.jsiiCall("getBar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_p1, "_p1 is required"), java.util.Objects.requireNonNull(_p2, "_p2 is required") });
     }
 
     /**
@@ -41,7 +41,7 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getFoo(final java.lang.String withParam) {
-        return this.jsiiCall("getFoo", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(withParam, "withParam is required") });
+        return this.jsiiCall("getFoo", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(withParam, "withParam is required") });
     }
 
     /**
@@ -53,7 +53,7 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void setBar(final java.lang.String _x, final java.lang.Number _y, final java.lang.Boolean _z) {
-        this.jsiiCall("setBar", Void.class, new Object[] { java.util.Objects.requireNonNull(_x, "_x is required"), java.util.Objects.requireNonNull(_y, "_y is required"), java.util.Objects.requireNonNull(_z, "_z is required") });
+        this.jsiiCall("setBar", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_x, "_x is required"), java.util.Objects.requireNonNull(_y, "_y is required"), java.util.Objects.requireNonNull(_z, "_z is required") });
     }
 
     /**
@@ -66,6 +66,6 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void setFoo(final java.lang.String _x, final java.lang.Number _y) {
-        this.jsiiCall("setFoo", Void.class, new Object[] { java.util.Objects.requireNonNull(_x, "_x is required"), java.util.Objects.requireNonNull(_y, "_y is required") });
+        this.jsiiCall("setFoo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(_x, "_x is required"), java.util.Objects.requireNonNull(_y, "_y is required") });
     }
 }

@@ -717,6 +717,20 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ ciao() method (experimental)
  │   │     └── returns: string
+ │   ├─┬ class InterfaceCollections (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ static listOfInterfaces() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: Array<jsii-calc.IBell>
+ │   │   ├─┬ static listOfStructs() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: Array<jsii-calc.StructA>
+ │   │   ├─┬ static mapOfInterfaces() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: Map<string => jsii-calc.IBell>
+ │   │   └─┬ static mapOfStructs() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: Map<string => jsii-calc.StructA>
  │   ├─┬ class Foo (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -2460,6 +2474,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class InbetweenClass
  │   │ ├── base: PublicClass
  │   │ └── interfaces: IPublicInterface2
+ │   ├── class InterfaceCollections
  │   ├── class Foo
  │   ├── class InterfacesMaker
  │   ├─┬ class JSII417Derived
@@ -2972,6 +2987,12 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── ciao() method
+ │   ├─┬ class InterfaceCollections
+ │   │ └─┬ members
+ │   │   ├── static listOfInterfaces() method
+ │   │   ├── static listOfStructs() method
+ │   │   ├── static mapOfInterfaces() method
+ │   │   └── static mapOfStructs() method
  │   ├─┬ class Foo
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3780,6 +3801,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ImplementsInterfaceWithInternalSubclass
  │   ├── class ImplementsPrivateInterface
  │   ├── class InbetweenClass
+ │   ├── class InterfaceCollections
  │   ├── class Foo
  │   ├── class InterfacesMaker
  │   ├── class JSII417Derived

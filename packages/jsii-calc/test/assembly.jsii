@@ -5990,6 +5990,107 @@
       ],
       "name": "InbetweenClass"
     },
+    "jsii-calc.InterfaceCollections": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "See: https://github.com/aws/jsii/issues/1196",
+        "stability": "experimental",
+        "summary": "Verifies that collections of interfaces or structs are correctly handled."
+      },
+      "fqn": "jsii-calc.InterfaceCollections",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2434
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2447
+          },
+          "name": "listOfInterfaces",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.IBell"
+                },
+                "kind": "array"
+              }
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2435
+          },
+          "name": "listOfStructs",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.StructA"
+                },
+                "kind": "array"
+              }
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2453
+          },
+          "name": "mapOfInterfaces",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.IBell"
+                },
+                "kind": "map"
+              }
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2441
+          },
+          "name": "mapOfStructs",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.StructA"
+                },
+                "kind": "map"
+              }
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "InterfaceCollections"
+    },
     "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": {
       "assembly": "jsii-calc",
       "docs": {
@@ -12022,5 +12123,5 @@
     }
   },
   "version": "0.21.1",
-  "fingerprint": "hHLKBWxZxJFgQd6fzw6Y3pkCRyKQpCYH15r+6b3ChwY="
+  "fingerprint": "D9YNL/IvLTkSjyBRX4PII/Ek/4G6nZ65VQKvMNvxG80="
 }

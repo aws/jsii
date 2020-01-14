@@ -34,7 +34,7 @@ public interface IAnotherPublicInterface extends software.amazon.jsii.JsiiSerial
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getA() {
-            return this.jsiiGet("a", java.lang.String.class);
+            return this.jsiiGet("a", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

@@ -37,7 +37,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public java.lang.String farewell() {
-        return this.jsiiCall("farewell", java.lang.String.class);
+        return this.jsiiCall("farewell", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -48,7 +48,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public java.lang.String goodbye() {
-        return this.jsiiCall("goodbye", java.lang.String.class);
+        return this.jsiiCall("goodbye", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -59,7 +59,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public java.lang.String hello() {
-        return this.jsiiCall("hello", java.lang.String.class);
+        return this.jsiiCall("hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -70,7 +70,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public java.lang.String toString() {
-        return this.jsiiCall("toString", java.lang.String.class);
+        return this.jsiiCall("toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -81,6 +81,6 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getValue() {
-        return this.jsiiGet("value", java.lang.Number.class);
+        return this.jsiiGet("value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 }

@@ -27,7 +27,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.Number next() {
-            return this.jsiiCall("next", java.lang.Number.class);
+            return this.jsiiCall("next", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
 
         /**
@@ -37,7 +37,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         @Deprecated
         @Override
         public java.lang.String hello() {
-            return this.jsiiCall("hello", java.lang.String.class);
+            return this.jsiiCall("hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
     }
 }

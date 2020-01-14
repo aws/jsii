@@ -32,7 +32,7 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number sumFromArray(final java.util.List<software.amazon.jsii.tests.calculator.lib.Value> values) {
-        return this.jsiiCall("sumFromArray", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(values, "values is required") });
+        return this.jsiiCall("sumFromArray", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(values, "values is required") });
     }
 
     /**
@@ -44,6 +44,6 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number sumFromMap(final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> values) {
-        return this.jsiiCall("sumFromMap", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(values, "values is required") });
+        return this.jsiiCall("sumFromMap", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(values, "values is required") });
     }
 }

@@ -34,7 +34,7 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String render(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct data) {
-        return this.jsiiCall("render", java.lang.String.class, new Object[] { data });
+        return this.jsiiCall("render", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { data });
     }
 
     /**
@@ -42,7 +42,7 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String render() {
-        return this.jsiiCall("render", java.lang.String.class);
+        return this.jsiiCall("render", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -52,7 +52,7 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String renderArbitrary(final java.util.Map<java.lang.String, java.lang.Object> data) {
-        return this.jsiiCall("renderArbitrary", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(data, "data is required") });
+        return this.jsiiCall("renderArbitrary", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(data, "data is required") });
     }
 
     /**
@@ -62,6 +62,6 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String renderMap(final java.util.Map<java.lang.String, java.lang.Object> map) {
-        return this.jsiiCall("renderMap", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(map, "map is required") });
+        return this.jsiiCall("renderMap", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(map, "map is required") });
     }
 }

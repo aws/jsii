@@ -39,7 +39,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getBase() {
-        return this.jsiiGet("base", software.amazon.jsii.tests.calculator.lib.Value.class);
+        return this.jsiiGet("base", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
     }
 
     /**
@@ -52,7 +52,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
-        return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
+        return this.jsiiGet("expression", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
     }
 
     /**
@@ -62,6 +62,6 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getPow() {
-        return this.jsiiGet("pow", software.amazon.jsii.tests.calculator.lib.Value.class);
+        return this.jsiiGet("pow", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
     }
 }

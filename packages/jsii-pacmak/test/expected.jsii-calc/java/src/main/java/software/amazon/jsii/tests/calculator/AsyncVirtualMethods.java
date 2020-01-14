@@ -26,7 +26,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number callMe() {
-        return this.jsiiAsyncCall("callMe", java.lang.Number.class);
+        return this.jsiiAsyncCall("callMe", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -36,7 +36,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number callMe2() {
-        return this.jsiiAsyncCall("callMe2", java.lang.Number.class);
+        return this.jsiiAsyncCall("callMe2", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -50,7 +50,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number callMeDoublePromise() {
-        return this.jsiiAsyncCall("callMeDoublePromise", java.lang.Number.class);
+        return this.jsiiAsyncCall("callMeDoublePromise", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -58,7 +58,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number dontOverrideMe() {
-        return this.jsiiCall("dontOverrideMe", java.lang.Number.class);
+        return this.jsiiCall("dontOverrideMe", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -68,7 +68,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number overrideMe(final java.lang.Number mult) {
-        return this.jsiiAsyncCall("overrideMe", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(mult, "mult is required") });
+        return this.jsiiAsyncCall("overrideMe", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(mult, "mult is required") });
     }
 
     /**
@@ -76,6 +76,6 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number overrideMeToo() {
-        return this.jsiiAsyncCall("overrideMeToo", java.lang.Number.class);
+        return this.jsiiAsyncCall("overrideMeToo", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 }

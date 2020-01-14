@@ -72,7 +72,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.readonlyProperty = this.jsiiGet("readonlyProperty", java.lang.String.class);
+            this.readonlyProperty = this.jsiiGet("readonlyProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

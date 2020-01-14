@@ -26,7 +26,7 @@ public class Foo extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getBar() {
-        return this.jsiiGet("bar", java.lang.String.class);
+        return this.jsiiGet("bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**

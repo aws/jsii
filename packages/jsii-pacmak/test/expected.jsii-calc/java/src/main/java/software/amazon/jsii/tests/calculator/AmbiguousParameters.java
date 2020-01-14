@@ -33,7 +33,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.StructParameterType getProps() {
-        return this.jsiiGet("props", software.amazon.jsii.tests.calculator.StructParameterType.class);
+        return this.jsiiGet("props", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StructParameterType.class));
     }
 
     /**
@@ -41,7 +41,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.Bell getScope() {
-        return this.jsiiGet("scope", software.amazon.jsii.tests.calculator.Bell.class);
+        return this.jsiiGet("scope", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.Bell.class));
     }
 
     /**

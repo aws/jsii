@@ -77,8 +77,8 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.bar = this.jsiiGet("bar", java.lang.Number.class);
-            this.foo = this.jsiiGet("foo", java.lang.String.class);
+            this.bar = this.jsiiGet("bar", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.foo = this.jsiiGet("foo", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

@@ -83,8 +83,8 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.boom = this.jsiiGet("boom", java.lang.Boolean.class);
-            this.prop = this.jsiiGet("prop", java.lang.String.class);
+            this.boom = this.jsiiGet("boom", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+            this.prop = this.jsiiGet("prop", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

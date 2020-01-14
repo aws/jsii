@@ -359,6 +359,9 @@ interface JavaProp {
   // The java type for the property (eg: 'List<String>')
   fieldJavaType: string;
 
+  // The NativeType representation of the property's type
+  fieldNativeType: string;
+
   // The raw class type of the property that can be used for marshalling (eg: 'List.class')
   fieldJavaClass: string;
 
@@ -869,8 +872,8 @@ class JavaGenerator extends Generator {
 
     for (const prop of consts) {
       const constName = this.renderConstName(prop);
-      const propClass = this.toJavaType(prop.type, true);
-      const statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class)`;
+      const propType = this.toNativeType(prop.type, true);
+      const statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propType})`;
       this.code.line(`${constName} = ${this.wrapCollection(statement, prop.type, prop.optional)};`);
     }
 
@@ -895,7 +898,6 @@ class JavaGenerator extends Generator {
   private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides = !!prop.overrides) {
     const getterType = this.toJavaType(prop.type);
     const setterTypes = this.toJavaTypes(prop.type);
-    const propClass = this.toJavaType(prop.type, true);
     const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
     const access = this.renderAccessLevel(prop);
     const statc = prop.static ? 'static ' : '';
@@ -920,7 +922,7 @@ class JavaGenerator extends Generator {
           statement = 'this.jsiiGet(';
         }
 
-        statement += `"${prop.name}", ${propClass}.class)`;
+        statement += `"${prop.name}", ${this.toNativeType(prop.type, true)})`;
 
         this.code.line(`return ${this.wrapCollection(statement, prop.type, prop.optional)};`);
         this.code.closeBlock();
@@ -1090,6 +1092,7 @@ class JavaGenerator extends Generator {
       nullable: !!property.optional,
       fieldName: this.code.toCamelCase(safeName),
       fieldJavaType: this.toJavaType(property.type),
+      fieldNativeType: this.toNativeType(property.type),
       fieldJavaClass: `${this.toJavaType(property.type, true)}.class`,
       javaTypes: this.toJavaTypes(property.type),
       immutable: property.immutable || false,
@@ -1344,7 +1347,7 @@ class JavaGenerator extends Generator {
     this.code.line(' */');
     this.code.openBlock(`protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`);
     this.code.line('super(objRef);');
-    props.forEach(prop => this.code.line(`this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldJavaClass});`));
+    props.forEach(prop => this.code.line(`this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldNativeType});`));
     this.code.closeBlock();
     // End JSII reference constructor
 
@@ -1586,6 +1589,22 @@ class JavaGenerator extends Generator {
 
   }
 
+  private toNativeType(type: spec.TypeReference, forMarshalling = false): string {
+    if (spec.isCollectionTypeReference(type)) {
+      const nativeElementType = this.toNativeType(type.collection.elementtype, forMarshalling);
+      switch (type.collection.kind) {
+        case spec.CollectionKind.Array:
+          return `software.amazon.jsii.NativeType.listOf(${nativeElementType})`;
+        case spec.CollectionKind.Map:
+          return `software.amazon.jsii.NativeType.mapOf(${nativeElementType})`;
+        default:
+          throw new Error(`Unsupported collection kind: ${type.collection.kind}`);
+      }
+    } else {
+      return `software.amazon.jsii.NativeType.forClass(${this.toJavaType(type, forMarshalling)}.class)`;
+    }
+  }
+
   private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
     if (spec.isPrimitiveTypeReference(typeref)) {
       return [this.toJavaPrimitive(typeref.primitive)];
@@ -1673,9 +1692,9 @@ class JavaGenerator extends Generator {
     statement += `"${method.name}"`;
 
     if (method.returns) {
-      statement += `, ${this.toJavaType(method.returns.type, true)}.class`;
+      statement += `, ${this.toNativeType(method.returns.type, true)}`;
     } else {
-      statement += ', Void.class';
+      statement += ', software.amazon.jsii.NativeType.VOID';
     }
     statement += `${this.renderMethodCallArguments(method)})`;
 

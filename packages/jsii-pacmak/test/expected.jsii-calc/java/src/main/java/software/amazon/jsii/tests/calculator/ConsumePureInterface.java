@@ -32,6 +32,6 @@ public class ConsumePureInterface extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.StructB workItBaby() {
-        return this.jsiiCall("workItBaby", software.amazon.jsii.tests.calculator.StructB.class);
+        return this.jsiiCall("workItBaby", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StructB.class));
     }
 }

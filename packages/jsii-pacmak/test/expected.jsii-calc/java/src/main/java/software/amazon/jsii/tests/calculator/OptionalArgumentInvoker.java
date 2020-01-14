@@ -32,7 +32,7 @@ public class OptionalArgumentInvoker extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void invokeWithOptional() {
-        this.jsiiCall("invokeWithOptional", Void.class);
+        this.jsiiCall("invokeWithOptional", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -40,6 +40,6 @@ public class OptionalArgumentInvoker extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void invokeWithoutOptional() {
-        this.jsiiCall("invokeWithoutOptional", Void.class);
+        this.jsiiCall("invokeWithoutOptional", software.amazon.jsii.NativeType.VOID);
     }
 }

@@ -77,7 +77,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.unionProperty = this.jsiiGet("unionProperty", java.lang.Object.class);
+            this.unionProperty = this.jsiiGet("unionProperty", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
         }
 
         /**

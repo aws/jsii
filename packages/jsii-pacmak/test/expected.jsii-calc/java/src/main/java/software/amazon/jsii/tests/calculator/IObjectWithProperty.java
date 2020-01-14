@@ -42,7 +42,7 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getProperty() {
-            return this.jsiiGet("property", java.lang.String.class);
+            return this.jsiiGet("property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**
@@ -60,7 +60,7 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.Boolean wasSet() {
-            return this.jsiiCall("wasSet", java.lang.Boolean.class);
+            return this.jsiiCall("wasSet", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
         }
     }
 }

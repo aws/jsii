@@ -117,9 +117,9 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.optional1 = this.jsiiGet("optional1", java.lang.String.class);
-            this.optional2 = this.jsiiGet("optional2", java.lang.Number.class);
-            this.optional3 = this.jsiiGet("optional3", java.lang.Boolean.class);
+            this.optional1 = this.jsiiGet("optional1", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.optional2 = this.jsiiGet("optional2", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.optional3 = this.jsiiGet("optional3", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
         }
 
         /**

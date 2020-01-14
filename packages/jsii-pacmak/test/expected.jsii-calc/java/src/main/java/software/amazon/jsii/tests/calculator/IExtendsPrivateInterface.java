@@ -40,7 +40,7 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.util.List<java.lang.String> getMoreThings() {
-            return java.util.Collections.unmodifiableList(this.jsiiGet("moreThings", java.util.List.class));
+            return java.util.Collections.unmodifiableList(this.jsiiGet("moreThings", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
         }
 
         /**
@@ -49,7 +49,7 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getPrivateValue() {
-            return this.jsiiGet("private", java.lang.String.class);
+            return this.jsiiGet("private", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

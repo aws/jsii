@@ -21,7 +21,7 @@ public class EnumDispenser extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.AllTypesEnum randomIntegerLikeEnum() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EnumDispenser.class, "randomIntegerLikeEnum", software.amazon.jsii.tests.calculator.AllTypesEnum.class);
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EnumDispenser.class, "randomIntegerLikeEnum", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.AllTypesEnum.class));
     }
 
     /**
@@ -29,6 +29,6 @@ public class EnumDispenser extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.StringEnum randomStringLikeEnum() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EnumDispenser.class, "randomStringLikeEnum", software.amazon.jsii.tests.calculator.StringEnum.class);
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EnumDispenser.class, "randomStringLikeEnum", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StringEnum.class));
     }
 }

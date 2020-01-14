@@ -30,7 +30,7 @@ public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         public java.lang.Number getDoubleValue() {
-            return this.jsiiGet("doubleValue", java.lang.Number.class);
+            return this.jsiiGet("doubleValue", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
         }
     }
 }

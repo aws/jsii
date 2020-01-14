@@ -127,10 +127,10 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.defaultValue = this.jsiiGet("default", java.lang.String.class);
-            this.assertValue = this.jsiiGet("assert", java.lang.String.class);
-            this.result = this.jsiiGet("result", java.lang.String.class);
-            this.that = this.jsiiGet("that", java.lang.String.class);
+            this.defaultValue = this.jsiiGet("default", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.assertValue = this.jsiiGet("assert", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.result = this.jsiiGet("result", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.that = this.jsiiGet("that", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

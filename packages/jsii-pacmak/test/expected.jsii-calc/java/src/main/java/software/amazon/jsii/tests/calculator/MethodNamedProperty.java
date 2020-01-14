@@ -26,7 +26,7 @@ public class MethodNamedProperty extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String property() {
-        return this.jsiiCall("property", java.lang.String.class);
+        return this.jsiiCall("property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
     }
 
     /**
@@ -34,6 +34,6 @@ public class MethodNamedProperty extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getElite() {
-        return this.jsiiGet("elite", java.lang.Number.class);
+        return this.jsiiGet("elite", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 }

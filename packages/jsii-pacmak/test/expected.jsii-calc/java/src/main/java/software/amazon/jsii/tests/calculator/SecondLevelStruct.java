@@ -89,8 +89,8 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.deeperRequiredProp = this.jsiiGet("deeperRequiredProp", java.lang.String.class);
-            this.deeperOptionalProp = this.jsiiGet("deeperOptionalProp", java.lang.String.class);
+            this.deeperRequiredProp = this.jsiiGet("deeperRequiredProp", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.deeperOptionalProp = this.jsiiGet("deeperOptionalProp", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
         }
 
         /**

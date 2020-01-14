@@ -38,7 +38,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getId() {
-        return this.jsiiGet("id", java.lang.Number.class);
+        return this.jsiiGet("id", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 
     /**
@@ -46,7 +46,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.String> getRest() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("rest", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("rest", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**

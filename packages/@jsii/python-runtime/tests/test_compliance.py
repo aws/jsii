@@ -34,6 +34,7 @@ from jsii_calc import (
     IFriendlier,
     IFriendlyRandomGenerator,
     IRandomNumberGenerator,
+    InterfaceCollections,
     IInterfaceWithProperties,
     IStructReturningDelegate,
     JsiiAgent,
@@ -1147,3 +1148,23 @@ def test_abstract_members_are_correctly_handled():
 
     abstract_suite = AbstractSuiteImpl()
     assert "Wrapped<String<Oomf!>>" == abstract_suite.work_it_all("Oomf!")
+
+
+def test_collection_of_interfaces_list_of_structs():
+    for elt in InterfaceCollections.list_of_structs():
+        assert getattr(elt, 'required_string') is not None
+
+
+def test_collection_of_interfaces_list_of_interfaces():
+    for elt in InterfaceCollections.list_of_interfaces():
+        assert getattr(elt, "ring") is not None
+
+
+def test_collection_of_interfaces_map_of_structs():
+    for elt in InterfaceCollections.map_of_structs().values():
+        assert getattr(elt, 'required_string') is not None
+
+
+def test_collection_of_interfaces_map_of_interfaces():
+    for elt in InterfaceCollections.map_of_interfaces().values():
+        assert getattr(elt, "ring") is not None

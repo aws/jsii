@@ -18,6 +18,6 @@ public class Very extends software.amazon.jsii.JsiiObject {
     }
 
     public java.lang.Number hey() {
-        return this.jsiiCall("hey", java.lang.Number.class);
+        return this.jsiiCall("hey", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
     }
 }
