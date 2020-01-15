@@ -34,7 +34,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getOperand() {
-        return this.jsiiGet("operand", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
+        return this.jsiiGet("operand", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
@@ -52,7 +52,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         public java.lang.Number getValue() {
-            return this.jsiiGet("value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            return this.jsiiGet("value", java.lang.Number.class);
         }
 
         /**
@@ -62,7 +62,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         @Deprecated
         @Override
         public java.lang.String toString() {
-            return this.jsiiCall("toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiCall("toString", java.lang.String.class);
         }
     }
 }

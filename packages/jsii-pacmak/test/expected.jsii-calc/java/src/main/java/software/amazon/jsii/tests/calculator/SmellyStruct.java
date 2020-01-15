@@ -83,8 +83,8 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.property = this.jsiiGet("property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-            this.yetAnoterOne = this.jsiiGet("yetAnoterOne", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+            this.property = this.jsiiGet("property", java.lang.String.class);
+            this.yetAnoterOne = this.jsiiGet("yetAnoterOne", java.lang.Boolean.class);
         }
 
         /**

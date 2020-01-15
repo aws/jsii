@@ -86,7 +86,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
             this.arrayWithThreeElementsAndUndefinedAsSecondArgument = this.jsiiGet("arrayWithThreeElementsAndUndefinedAsSecondArgument", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class)));
-            this.thisShouldBeUndefined = this.jsiiGet("thisShouldBeUndefined", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+            this.thisShouldBeUndefined = this.jsiiGet("thisShouldBeUndefined", java.lang.Object.class);
         }
 
         /**

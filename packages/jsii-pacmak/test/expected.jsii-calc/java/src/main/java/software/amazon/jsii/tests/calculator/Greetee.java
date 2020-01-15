@@ -72,7 +72,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.name = this.jsiiGet("name", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.name = this.jsiiGet("name", java.lang.String.class);
         }
 
         /**

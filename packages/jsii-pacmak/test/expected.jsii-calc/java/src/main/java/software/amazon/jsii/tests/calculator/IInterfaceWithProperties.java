@@ -40,7 +40,7 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getReadOnlyString() {
-            return this.jsiiGet("readOnlyString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiGet("readOnlyString", java.lang.String.class);
         }
 
         /**
@@ -49,7 +49,7 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getReadWriteString() {
-            return this.jsiiGet("readWriteString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiGet("readWriteString", java.lang.String.class);
         }
 
         /**

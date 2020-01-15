@@ -25,7 +25,7 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.ConfusingToJackson makeInstance() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConfusingToJackson.class, "makeInstance", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.ConfusingToJackson.class));
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConfusingToJackson.class, "makeInstance", software.amazon.jsii.tests.calculator.ConfusingToJackson.class);
     }
 
     /**
@@ -33,7 +33,7 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct makeStructInstance() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConfusingToJackson.class, "makeStructInstance", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct.class));
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConfusingToJackson.class, "makeStructInstance", software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct.class);
     }
 
     /**
@@ -41,7 +41,7 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object getUnionProperty() {
-        return this.jsiiGet("unionProperty", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        return this.jsiiGet("unionProperty", java.lang.Object.class);
     }
 
     /**

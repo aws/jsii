@@ -17,9 +17,9 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     static {
-        BAR = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "BAR", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-        CONST_OBJ = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "ConstObj", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.DoubleTrouble.class));
-        FOO = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "Foo", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        BAR = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "BAR", java.lang.Number.class);
+        CONST_OBJ = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "ConstObj", software.amazon.jsii.tests.calculator.DoubleTrouble.class);
+        FOO = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "Foo", java.lang.String.class);
         ZOO_BAR = java.util.Collections.unmodifiableMap(software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "zooBar", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
@@ -43,7 +43,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.lang.String staticMethod(final java.lang.String name) {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Statics.class, "staticMethod", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(name, "name is required") });
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Statics.class, "staticMethod", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(name, "name is required") });
     }
 
     /**
@@ -51,7 +51,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String justMethod() {
-        return this.jsiiCall("justMethod", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiCall("justMethod", java.lang.String.class);
     }
 
     /**
@@ -93,7 +93,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.Statics getInstance() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "instance", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.Statics.class));
+        return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "instance", software.amazon.jsii.tests.calculator.Statics.class);
     }
 
     /**
@@ -113,7 +113,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.lang.Number getNonConstStatic() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "nonConstStatic", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "nonConstStatic", java.lang.Number.class);
     }
 
     /**
@@ -129,6 +129,6 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getValue() {
-        return this.jsiiGet("value", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("value", java.lang.String.class);
     }
 }

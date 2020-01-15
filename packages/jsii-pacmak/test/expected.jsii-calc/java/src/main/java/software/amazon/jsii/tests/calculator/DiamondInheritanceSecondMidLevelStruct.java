@@ -77,8 +77,8 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.secondMidLevelProperty = this.jsiiGet("secondMidLevelProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-            this.baseLevelProperty = this.jsiiGet("baseLevelProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.secondMidLevelProperty = this.jsiiGet("secondMidLevelProperty", java.lang.String.class);
+            this.baseLevelProperty = this.jsiiGet("baseLevelProperty", java.lang.String.class);
         }
 
         /**

@@ -36,7 +36,7 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Boolean isSameGenerator(final software.amazon.jsii.tests.calculator.IRandomNumberGenerator gen) {
-        return this.jsiiCall("isSameGenerator", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(gen, "gen is required") });
+        return this.jsiiCall("isSameGenerator", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(gen, "gen is required") });
     }
 
     /**
@@ -44,7 +44,7 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number nextTimes100() {
-        return this.jsiiCall("nextTimes100", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiCall("nextTimes100", java.lang.Number.class);
     }
 
     /**
@@ -52,7 +52,7 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.IRandomNumberGenerator getGenerator() {
-        return this.jsiiGet("generator", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class));
+        return this.jsiiGet("generator", software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class);
     }
 
     /**

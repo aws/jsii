@@ -66,7 +66,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.field = this.jsiiGet("field", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.field = this.jsiiGet("field", java.lang.String.class);
         }
 
         /**

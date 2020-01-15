@@ -37,7 +37,7 @@ public class Demonstrate982 extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.ChildStruct982 takeThis() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Demonstrate982.class, "takeThis", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.ChildStruct982.class));
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Demonstrate982.class, "takeThis", software.amazon.jsii.tests.calculator.ChildStruct982.class);
     }
 
     /**
@@ -47,6 +47,6 @@ public class Demonstrate982 extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.ParentStruct982 takeThisToo() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Demonstrate982.class, "takeThisToo", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.ParentStruct982.class));
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Demonstrate982.class, "takeThisToo", software.amazon.jsii.tests.calculator.ParentStruct982.class);
     }
 }

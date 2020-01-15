@@ -118,8 +118,8 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.bar = this.jsiiGet("bar", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
-            this.foo = this.jsiiGet("foo", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+            this.bar = this.jsiiGet("bar", java.lang.Object.class);
+            this.foo = this.jsiiGet("foo", java.lang.Object.class);
         }
 
         /**

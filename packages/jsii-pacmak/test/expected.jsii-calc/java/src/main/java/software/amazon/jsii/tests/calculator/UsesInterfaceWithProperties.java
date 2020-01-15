@@ -32,7 +32,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String justRead() {
-        return this.jsiiCall("justRead", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiCall("justRead", java.lang.String.class);
     }
 
     /**
@@ -42,7 +42,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String readStringAndNumber(final software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension ext) {
-        return this.jsiiCall("readStringAndNumber", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(ext, "ext is required") });
+        return this.jsiiCall("readStringAndNumber", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(ext, "ext is required") });
     }
 
     /**
@@ -52,7 +52,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String writeAndRead(final java.lang.String value) {
-        return this.jsiiCall("writeAndRead", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        return this.jsiiCall("writeAndRead", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -60,6 +60,6 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.IInterfaceWithProperties getObj() {
-        return this.jsiiGet("obj", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IInterfaceWithProperties.class));
+        return this.jsiiGet("obj", software.amazon.jsii.tests.calculator.IInterfaceWithProperties.class);
     }
 }

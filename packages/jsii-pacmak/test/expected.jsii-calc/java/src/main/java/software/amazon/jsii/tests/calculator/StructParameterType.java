@@ -89,8 +89,8 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.scope = this.jsiiGet("scope", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-            this.props = this.jsiiGet("props", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+            this.scope = this.jsiiGet("scope", java.lang.String.class);
+            this.props = this.jsiiGet("props", java.lang.Boolean.class);
         }
 
         /**

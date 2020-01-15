@@ -27,6 +27,6 @@ public class InbetweenClass extends software.amazon.jsii.tests.calculator.Public
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public java.lang.String ciao() {
-        return this.jsiiCall("ciao", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiCall("ciao", java.lang.String.class);
     }
 }

@@ -63,8 +63,8 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.bar = this.jsiiGet("bar", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-            this.foo = this.jsiiGet("foo", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.baseofbase.Very.class));
+            this.bar = this.jsiiGet("bar", java.lang.String.class);
+            this.foo = this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
         }
 
         /**

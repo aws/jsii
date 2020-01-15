@@ -28,6 +28,6 @@ public class GreetingAugmenter extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String betterGreeting(final software.amazon.jsii.tests.calculator.lib.IFriendly friendly) {
-        return this.jsiiCall("betterGreeting", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(friendly, "friendly is required") });
+        return this.jsiiCall("betterGreeting", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(friendly, "friendly is required") });
     }
 }

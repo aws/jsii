@@ -26,7 +26,7 @@ public class ClassWithMutableObjectLiteralProperty extends software.amazon.jsii.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.IMutableObjectLiteral getMutableObject() {
-        return this.jsiiGet("mutableObject", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class));
+        return this.jsiiGet("mutableObject", software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class);
     }
 
     /**

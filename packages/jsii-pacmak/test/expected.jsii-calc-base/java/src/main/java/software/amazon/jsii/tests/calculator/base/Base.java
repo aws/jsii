@@ -24,7 +24,7 @@ public abstract class Base extends software.amazon.jsii.JsiiObject {
      * @return the name of the class (to verify native type names are created for derived classes).
      */
     public java.lang.Object typeName() {
-        return this.jsiiCall("typeName", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        return this.jsiiCall("typeName", java.lang.Object.class);
     }
 
     /**

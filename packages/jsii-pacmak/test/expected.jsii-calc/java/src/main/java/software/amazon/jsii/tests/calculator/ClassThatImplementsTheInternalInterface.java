@@ -27,7 +27,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getA() {
-        return this.jsiiGet("a", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("a", java.lang.String.class);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getB() {
-        return this.jsiiGet("b", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("b", java.lang.String.class);
     }
 
     /**
@@ -63,7 +63,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getC() {
-        return this.jsiiGet("c", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("c", java.lang.String.class);
     }
 
     /**
@@ -80,7 +80,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getD() {
-        return this.jsiiGet("d", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("d", java.lang.String.class);
     }
 
     /**

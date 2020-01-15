@@ -108,9 +108,9 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.requiredString = this.jsiiGet("requiredString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-            this.optionalBoolean = this.jsiiGet("optionalBoolean", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
-            this.optionalStructA = this.jsiiGet("optionalStructA", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StructA.class));
+            this.requiredString = this.jsiiGet("requiredString", java.lang.String.class);
+            this.optionalBoolean = this.jsiiGet("optionalBoolean", java.lang.Boolean.class);
+            this.optionalStructA = this.jsiiGet("optionalStructA", software.amazon.jsii.tests.calculator.StructA.class);
         }
 
         /**

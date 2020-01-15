@@ -26,7 +26,7 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties create(final java.lang.String readOnlyString, final java.lang.String readWriteString) {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class, "create", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class), new Object[] { java.util.Objects.requireNonNull(readOnlyString, "readOnlyString is required"), java.util.Objects.requireNonNull(readWriteString, "readWriteString is required") });
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class, "create", software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class, new Object[] { java.util.Objects.requireNonNull(readOnlyString, "readOnlyString is required"), java.util.Objects.requireNonNull(readWriteString, "readWriteString is required") });
     }
 
     /**
@@ -35,7 +35,7 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getReadOnlyString() {
-        return this.jsiiGet("readOnlyString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("readOnlyString", java.lang.String.class);
     }
 
     /**
@@ -44,7 +44,7 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getReadWriteString() {
-        return this.jsiiGet("readWriteString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("readWriteString", java.lang.String.class);
     }
 
     /**

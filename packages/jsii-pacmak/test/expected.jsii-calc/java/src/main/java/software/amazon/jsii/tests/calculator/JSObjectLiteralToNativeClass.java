@@ -26,7 +26,7 @@ public class JSObjectLiteralToNativeClass extends software.amazon.jsii.JsiiObjec
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getPropA() {
-        return this.jsiiGet("propA", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("propA", java.lang.String.class);
     }
 
     /**
@@ -42,7 +42,7 @@ public class JSObjectLiteralToNativeClass extends software.amazon.jsii.JsiiObjec
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getPropB() {
-        return this.jsiiGet("propB", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiGet("propB", java.lang.Number.class);
     }
 
     /**

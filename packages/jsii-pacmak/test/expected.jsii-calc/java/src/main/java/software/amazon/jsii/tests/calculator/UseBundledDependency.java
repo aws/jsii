@@ -26,6 +26,6 @@ public class UseBundledDependency extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object value() {
-        return this.jsiiCall("value", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        return this.jsiiCall("value", java.lang.Object.class);
     }
 }

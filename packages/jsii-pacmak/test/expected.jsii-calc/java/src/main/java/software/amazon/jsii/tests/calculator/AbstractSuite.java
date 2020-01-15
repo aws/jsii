@@ -40,7 +40,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String workItAll(final java.lang.String seed) {
-        return this.jsiiCall("workItAll", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(seed, "seed is required") });
+        return this.jsiiCall("workItAll", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(seed, "seed is required") });
     }
 
     /**
@@ -69,7 +69,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         protected java.lang.String getProperty() {
-            return this.jsiiGet("property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiGet("property", java.lang.String.class);
         }
 
         /**
@@ -89,7 +89,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         protected java.lang.String someMethod(final java.lang.String str) {
-            return this.jsiiCall("someMethod", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(str, "str is required") });
+            return this.jsiiCall("someMethod", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(str, "str is required") });
         }
     }
 }

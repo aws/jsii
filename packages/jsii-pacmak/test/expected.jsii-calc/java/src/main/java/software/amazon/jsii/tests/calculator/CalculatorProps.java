@@ -100,8 +100,8 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.initialValue = this.jsiiGet("initialValue", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-            this.maximumValue = this.jsiiGet("maximumValue", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.initialValue = this.jsiiGet("initialValue", java.lang.Number.class);
+            this.maximumValue = this.jsiiGet("maximumValue", java.lang.Number.class);
         }
 
         /**

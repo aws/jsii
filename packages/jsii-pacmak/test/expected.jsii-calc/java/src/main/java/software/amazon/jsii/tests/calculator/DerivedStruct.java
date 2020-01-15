@@ -213,14 +213,14 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.anotherRequired = this.jsiiGet("anotherRequired", software.amazon.jsii.NativeType.forClass(java.time.Instant.class));
-            this.bool = this.jsiiGet("bool", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
-            this.nonPrimitive = this.jsiiGet("nonPrimitive", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.DoubleTrouble.class));
+            this.anotherRequired = this.jsiiGet("anotherRequired", java.time.Instant.class);
+            this.bool = this.jsiiGet("bool", java.lang.Boolean.class);
+            this.nonPrimitive = this.jsiiGet("nonPrimitive", software.amazon.jsii.tests.calculator.DoubleTrouble.class);
             this.anotherOptional = this.jsiiGet("anotherOptional", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class)));
-            this.optionalAny = this.jsiiGet("optionalAny", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+            this.optionalAny = this.jsiiGet("optionalAny", java.lang.Object.class);
             this.optionalArray = this.jsiiGet("optionalArray", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class)));
-            this.anumber = this.jsiiGet("anumber", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-            this.astring = this.jsiiGet("astring", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.anumber = this.jsiiGet("anumber", java.lang.Number.class);
+            this.astring = this.jsiiGet("astring", java.lang.String.class);
             this.firstOptional = this.jsiiGet("firstOptional", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class)));
         }
 

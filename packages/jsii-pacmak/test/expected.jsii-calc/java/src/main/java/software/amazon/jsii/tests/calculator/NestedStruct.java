@@ -66,7 +66,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.numberProp = this.jsiiGet("numberProp", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            this.numberProp = this.jsiiGet("numberProp", java.lang.Number.class);
         }
 
         /**

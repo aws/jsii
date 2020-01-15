@@ -36,7 +36,7 @@ public class DoNotOverridePrivates extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String privateMethodValue() {
-        return this.jsiiCall("privateMethodValue", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiCall("privateMethodValue", java.lang.String.class);
     }
 
     /**
@@ -44,6 +44,6 @@ public class DoNotOverridePrivates extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String privatePropertyValue() {
-        return this.jsiiCall("privatePropertyValue", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiCall("privatePropertyValue", java.lang.String.class);
     }
 }

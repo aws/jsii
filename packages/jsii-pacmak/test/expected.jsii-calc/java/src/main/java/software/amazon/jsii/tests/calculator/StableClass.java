@@ -45,14 +45,14 @@ public class StableClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public java.lang.String getReadonlyProperty() {
-        return this.jsiiGet("readonlyProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("readonlyProperty", java.lang.String.class);
     }
 
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public java.lang.Number getMutableProperty() {
-        return this.jsiiGet("mutableProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiGet("mutableProperty", java.lang.Number.class);
     }
 
     /**

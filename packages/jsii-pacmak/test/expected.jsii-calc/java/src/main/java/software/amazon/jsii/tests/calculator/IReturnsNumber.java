@@ -35,7 +35,7 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public software.amazon.jsii.tests.calculator.lib.Number getNumberProp() {
-            return this.jsiiGet("numberProp", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Number.class));
+            return this.jsiiGet("numberProp", software.amazon.jsii.tests.calculator.lib.Number.class);
         }
 
         /**
@@ -44,7 +44,7 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber() {
-            return this.jsiiCall("obtainNumber", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.IDoublable.class));
+            return this.jsiiCall("obtainNumber", software.amazon.jsii.tests.calculator.lib.IDoublable.class);
         }
     }
 }

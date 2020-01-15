@@ -40,7 +40,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public java.lang.String hello() {
-        return this.jsiiCall("hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiCall("hello", java.lang.String.class);
     }
 
     /**
@@ -50,7 +50,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getLhs() {
-        return this.jsiiGet("lhs", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
+        return this.jsiiGet("lhs", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getRhs() {
-        return this.jsiiGet("rhs", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
+        return this.jsiiGet("rhs", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
@@ -78,7 +78,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         public java.lang.Number getValue() {
-            return this.jsiiGet("value", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            return this.jsiiGet("value", java.lang.Number.class);
         }
 
         /**
@@ -88,7 +88,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         @Deprecated
         @Override
         public java.lang.String hello() {
-            return this.jsiiCall("hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiCall("hello", java.lang.String.class);
         }
 
         /**
@@ -98,7 +98,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         @Deprecated
         @Override
         public java.lang.String toString() {
-            return this.jsiiCall("toString", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiCall("toString", java.lang.String.class);
         }
     }
 }

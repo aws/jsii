@@ -1589,9 +1589,9 @@ class JavaGenerator extends Generator {
 
   }
 
-  private toNativeType(type: spec.TypeReference, forMarshalling = false): string {
+  private toNativeType(type: spec.TypeReference, forMarshalling = false, recursing = false): string {
     if (spec.isCollectionTypeReference(type)) {
-      const nativeElementType = this.toNativeType(type.collection.elementtype, forMarshalling);
+      const nativeElementType = this.toNativeType(type.collection.elementtype, forMarshalling, true);
       switch (type.collection.kind) {
         case spec.CollectionKind.Array:
           return `software.amazon.jsii.NativeType.listOf(${nativeElementType})`;
@@ -1600,9 +1600,10 @@ class JavaGenerator extends Generator {
         default:
           throw new Error(`Unsupported collection kind: ${type.collection.kind}`);
       }
-    } else {
-      return `software.amazon.jsii.NativeType.forClass(${this.toJavaType(type, forMarshalling)}.class)`;
     }
+    return recursing
+      ? `software.amazon.jsii.NativeType.forClass(${this.toJavaType(type, forMarshalling)}.class)`
+      : `${this.toJavaType(type, forMarshalling)}.class`;
   }
 
   private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {

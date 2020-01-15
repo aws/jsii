@@ -137,7 +137,7 @@ public final class JsiiObjectTest {
         return objectNode;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "deprecation", "unchecked" })
     private static final class LegacySubject extends JsiiObject {
         public LegacySubject(final JsiiEngine engine, final JsiiObjectRef objectRef) {
             super(engine, objectRef);

@@ -114,8 +114,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.anumber = this.jsiiGet("anumber", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
-            this.astring = this.jsiiGet("astring", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.anumber = this.jsiiGet("anumber", java.lang.Number.class);
+            this.astring = this.jsiiGet("astring", java.lang.String.class);
             this.firstOptional = this.jsiiGet("firstOptional", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class)));
         }
 

@@ -64,7 +64,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.readonlyProperty = this.jsiiGet("readonlyProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.readonlyProperty = this.jsiiGet("readonlyProperty", java.lang.String.class);
         }
 
         /**

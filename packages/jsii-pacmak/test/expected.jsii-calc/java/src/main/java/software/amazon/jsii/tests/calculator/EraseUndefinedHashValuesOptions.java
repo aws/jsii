@@ -87,8 +87,8 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.option1 = this.jsiiGet("option1", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
-            this.option2 = this.jsiiGet("option2", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            this.option1 = this.jsiiGet("option1", java.lang.String.class);
+            this.option2 = this.jsiiGet("option2", java.lang.String.class);
         }
 
         /**

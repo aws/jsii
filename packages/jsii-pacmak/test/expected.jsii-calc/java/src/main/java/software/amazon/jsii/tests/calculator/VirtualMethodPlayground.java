@@ -28,7 +28,7 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number overrideMeAsync(final java.lang.Number index) {
-        return this.jsiiAsyncCall("overrideMeAsync", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(index, "index is required") });
+        return this.jsiiAsyncCall("overrideMeAsync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(index, "index is required") });
     }
 
     /**
@@ -38,7 +38,7 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number overrideMeSync(final java.lang.Number index) {
-        return this.jsiiCall("overrideMeSync", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(index, "index is required") });
+        return this.jsiiCall("overrideMeSync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(index, "index is required") });
     }
 
     /**
@@ -48,7 +48,7 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number parallelSumAsync(final java.lang.Number count) {
-        return this.jsiiAsyncCall("parallelSumAsync", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
+        return this.jsiiAsyncCall("parallelSumAsync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
     }
 
     /**
@@ -58,7 +58,7 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number serialSumAsync(final java.lang.Number count) {
-        return this.jsiiAsyncCall("serialSumAsync", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
+        return this.jsiiAsyncCall("serialSumAsync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
     }
 
     /**
@@ -68,6 +68,6 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number sumSync(final java.lang.Number count) {
-        return this.jsiiCall("sumSync", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
+        return this.jsiiCall("sumSync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
     }
 }

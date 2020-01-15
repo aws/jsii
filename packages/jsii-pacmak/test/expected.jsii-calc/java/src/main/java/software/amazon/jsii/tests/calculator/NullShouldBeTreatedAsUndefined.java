@@ -82,7 +82,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getChangeMeToUndefined() {
-        return this.jsiiGet("changeMeToUndefined", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("changeMeToUndefined", java.lang.String.class);
     }
 
     /**

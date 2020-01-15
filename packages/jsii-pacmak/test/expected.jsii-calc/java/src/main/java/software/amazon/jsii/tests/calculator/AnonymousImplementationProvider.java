@@ -27,7 +27,7 @@ public class AnonymousImplementationProvider extends software.amazon.jsii.JsiiOb
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public software.amazon.jsii.tests.calculator.Implementation provideAsClass() {
-        return this.jsiiCall("provideAsClass", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.Implementation.class));
+        return this.jsiiCall("provideAsClass", software.amazon.jsii.tests.calculator.Implementation.class);
     }
 
     /**
@@ -36,6 +36,6 @@ public class AnonymousImplementationProvider extends software.amazon.jsii.JsiiOb
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
-        return this.jsiiCall("provideAsInterface", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class));
+        return this.jsiiCall("provideAsInterface", software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class);
     }
 }

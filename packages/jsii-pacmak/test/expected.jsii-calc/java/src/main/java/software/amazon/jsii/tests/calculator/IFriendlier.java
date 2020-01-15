@@ -45,7 +45,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.String farewell() {
-            return this.jsiiCall("farewell", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiCall("farewell", java.lang.String.class);
         }
 
         /**
@@ -58,7 +58,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.String goodbye() {
-            return this.jsiiCall("goodbye", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiCall("goodbye", java.lang.String.class);
         }
 
         /**
@@ -68,7 +68,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         @Deprecated
         @Override
         public java.lang.String hello() {
-            return this.jsiiCall("hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiCall("hello", java.lang.String.class);
         }
     }
 }

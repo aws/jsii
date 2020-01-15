@@ -35,7 +35,7 @@ public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
         @Deprecated
         @Override
         public java.lang.String hello() {
-            return this.jsiiCall("hello", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiCall("hello", java.lang.String.class);
         }
     }
 }

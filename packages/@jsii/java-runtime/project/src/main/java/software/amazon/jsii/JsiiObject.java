@@ -92,6 +92,22 @@ public class JsiiObject implements JsiiSerializable {
      * Calls a JavaScript method on the object.
      *
      * @param method The name of the method.
+     * @param returnType The return type.
+     * @param args Method arguments.
+     * @param <T> Java type for the return value.
+     * @return A return value.
+     *
+     * @deprecated use {@link #jsiiCall(String, NativeType, Object...)} instead
+     */
+    @Nullable
+    @Deprecated
+    protected final <T> T jsiiCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
+        return jsiiCall(method, NativeType.forType(returnType), args);
+    }
+
+    /**
+     * Calls a JavaScript method on the object.
+     * @param method The name of the method.
      * @param nativeType The return type.
      * @param args Method arguments.
      * @param <T> Java type for the return value.
@@ -107,6 +123,23 @@ public class JsiiObject implements JsiiSerializable {
     /**
      * Calls a static method.
      *
+     * @param nativeClass The java class.
+     * @param method The method to call.
+     * @param returnType The return type.
+     * @param args The method arguments.
+     * @param <T> Return type.
+     * @return Return value.
+     *
+     * @deprecated use {@link #jsiiStaticCall(Class, String, NativeType, Object...)} instead
+     */
+    @Nullable
+    @Deprecated
+    protected static <T> T jsiiStaticCall(final Class<?> nativeClass, final String method, final Class<T> returnType, @Nullable final Object... args) {
+        return jsiiStaticCall(nativeClass, method, NativeType.forType(returnType), args);
+    }
+
+    /**
+     * Calls a static method.
      * @param nativeClass The java class.
      * @param method The method to call.
      * @param nativeType The return type.
@@ -145,6 +178,22 @@ public class JsiiObject implements JsiiSerializable {
      * Calls an async method on the object.
      *
      * @param method The name of the method.
+     * @param returnType The return type.
+     * @param args Method arguments.
+     * @param <T> Java type for the return value.
+     * @return A return value.
+     *
+     * @deprecated use {@link #jsiiAsyncCall(String, NativeType, Object...)} instead
+     */
+    @Nullable
+    @Deprecated
+    protected final <T> T jsiiAsyncCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
+        return jsiiAsyncCall(method, NativeType.forType(returnType), args);
+    }
+
+    /**
+     * Calls an async method on the object.
+     * @param method The name of the method.
      * @param nativeType The return type.
      * @param args Method arguments.
      * @param <T> Java type for the return value.
@@ -169,6 +218,21 @@ public class JsiiObject implements JsiiSerializable {
      * @param <T> The Java type of the property.
      *
      * @return The property value.
+     *
+     * @deprecated use {@link #jsiiGet(String, NativeType)} instead
+     */
+    @Nullable
+    @Deprecated
+    protected final <T> T jsiiGet(final String property, final Class<T> type) {
+        return jsiiGet(property, NativeType.forType(type));
+    }
+
+    /**
+     * Gets a property value from the object.
+     * @param property The property name.
+     * @param type The Java type of the property.
+     * @param <T> The Java type of the property.
+     * @return The property value.
      */
     @Nullable
     protected final <T> T jsiiGet(final String property, final NativeType<T> type) {
@@ -184,6 +248,22 @@ public class JsiiObject implements JsiiSerializable {
      * @param type The expected java return type.
      * @param <T> Return type
      *
+     * @return Return value
+     *
+     * @deprecated use {@link #jsiiStaticGet(Class, String, NativeType)} instead
+     */
+    @Nullable
+    @Deprecated
+    protected static <T> T jsiiStaticGet(final Class<?> nativeClass, final String property, final Class<T> type) {
+        return jsiiStaticGet(nativeClass, property, NativeType.forType(type));
+    }
+
+    /**
+     * Returns the value of a static property.
+     * @param nativeClass The java class.
+     * @param property The name of the property.
+     * @param type The expected java return type.
+     * @param <T> Return type
      * @return Return value
      */
     @Nullable

@@ -26,7 +26,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number callerIsAsync() {
-        return this.jsiiAsyncCall("callerIsAsync", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiAsyncCall("callerIsAsync", java.lang.Number.class);
     }
 
     /**
@@ -34,7 +34,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number callerIsMethod() {
-        return this.jsiiCall("callerIsMethod", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiCall("callerIsMethod", java.lang.Number.class);
     }
 
     /**
@@ -62,7 +62,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number readA() {
-        return this.jsiiCall("readA", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiCall("readA", java.lang.Number.class);
     }
 
     /**
@@ -70,7 +70,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String retrieveOtherProperty() {
-        return this.jsiiCall("retrieveOtherProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiCall("retrieveOtherProperty", java.lang.String.class);
     }
 
     /**
@@ -78,7 +78,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String retrieveReadOnlyProperty() {
-        return this.jsiiCall("retrieveReadOnlyProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiCall("retrieveReadOnlyProperty", java.lang.String.class);
     }
 
     /**
@@ -86,7 +86,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String retrieveValueOfTheProperty() {
-        return this.jsiiCall("retrieveValueOfTheProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiCall("retrieveValueOfTheProperty", java.lang.String.class);
     }
 
     /**
@@ -96,7 +96,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number virtualMethod(final java.lang.Number n) {
-        return this.jsiiCall("virtualMethod", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(n, "n is required") });
+        return this.jsiiCall("virtualMethod", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(n, "n is required") });
     }
 
     /**
@@ -114,7 +114,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getReadonlyProperty() {
-        return this.jsiiGet("readonlyProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("readonlyProperty", java.lang.String.class);
     }
 
     /**
@@ -122,7 +122,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getA() {
-        return this.jsiiGet("a", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiGet("a", java.lang.Number.class);
     }
 
     /**
@@ -138,7 +138,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getCallerIsProperty() {
-        return this.jsiiGet("callerIsProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiGet("callerIsProperty", java.lang.Number.class);
     }
 
     /**
@@ -154,7 +154,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getOtherProperty() {
-        return this.jsiiGet("otherProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("otherProperty", java.lang.String.class);
     }
 
     /**
@@ -170,7 +170,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getTheProperty() {
-        return this.jsiiGet("theProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("theProperty", java.lang.String.class);
     }
 
     /**
@@ -186,7 +186,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getValueOfOtherProperty() {
-        return this.jsiiGet("valueOfOtherProperty", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("valueOfOtherProperty", java.lang.String.class);
     }
 
     /**

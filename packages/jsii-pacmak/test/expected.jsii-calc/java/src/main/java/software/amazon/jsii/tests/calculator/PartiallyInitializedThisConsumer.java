@@ -49,7 +49,7 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.String consumePartiallyInitializedThis(final software.amazon.jsii.tests.calculator.ConstructorPassesThisOut obj, final java.time.Instant dt, final software.amazon.jsii.tests.calculator.AllTypesEnum ev) {
-            return this.jsiiCall("consumePartiallyInitializedThis", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(obj, "obj is required"), java.util.Objects.requireNonNull(dt, "dt is required"), java.util.Objects.requireNonNull(ev, "ev is required") });
+            return this.jsiiCall("consumePartiallyInitializedThis", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required"), java.util.Objects.requireNonNull(dt, "dt is required"), java.util.Objects.requireNonNull(ev, "ev is required") });
         }
     }
 }

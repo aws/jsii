@@ -116,7 +116,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number readUnionValue() {
-        return this.jsiiCall("readUnionValue", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiCall("readUnionValue", java.lang.Number.class);
     }
 
     /**
@@ -127,7 +127,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
-        return this.jsiiGet("expression", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
+        return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
@@ -157,7 +157,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getCurr() {
-        return this.jsiiGet("curr", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
+        return this.jsiiGet("curr", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
@@ -177,7 +177,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getMaxValue() {
-        return this.jsiiGet("maxValue", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiGet("maxValue", java.lang.Number.class);
     }
 
     /**
@@ -197,7 +197,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object getUnionProperty() {
-        return this.jsiiGet("unionProperty", software.amazon.jsii.NativeType.forClass(java.lang.Object.class));
+        return this.jsiiGet("unionProperty", java.lang.Object.class);
     }
 
     /**

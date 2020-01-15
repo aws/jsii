@@ -34,7 +34,7 @@ public interface IMutableObjectLiteral extends software.amazon.jsii.JsiiSerializ
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getValue() {
-            return this.jsiiGet("value", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiGet("value", java.lang.String.class);
         }
 
         /**

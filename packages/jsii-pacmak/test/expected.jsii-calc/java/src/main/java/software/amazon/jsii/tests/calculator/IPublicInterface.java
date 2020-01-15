@@ -29,7 +29,7 @@ public interface IPublicInterface extends software.amazon.jsii.JsiiSerializable 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.String bye() {
-            return this.jsiiCall("bye", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+            return this.jsiiCall("bye", java.lang.String.class);
         }
     }
 }

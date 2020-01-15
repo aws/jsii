@@ -51,7 +51,7 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.foo = this.jsiiGet("foo", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.baseofbase.Very.class));
+            this.foo = this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
         }
 
         /**

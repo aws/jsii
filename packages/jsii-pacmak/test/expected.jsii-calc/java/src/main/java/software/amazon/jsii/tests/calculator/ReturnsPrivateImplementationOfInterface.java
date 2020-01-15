@@ -31,6 +31,6 @@ public class ReturnsPrivateImplementationOfInterface extends software.amazon.jsi
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.IPrivatelyImplemented getPrivateImplementation() {
-        return this.jsiiGet("privateImplementation", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class));
+        return this.jsiiGet("privateImplementation", software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class);
     }
 }

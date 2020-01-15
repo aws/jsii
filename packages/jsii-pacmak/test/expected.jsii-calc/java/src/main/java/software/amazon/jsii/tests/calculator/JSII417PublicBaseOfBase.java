@@ -26,7 +26,7 @@ public class JSII417PublicBaseOfBase extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase makeInstance() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase.class, "makeInstance", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase.class));
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase.class, "makeInstance", software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase.class);
     }
 
     /**
@@ -42,6 +42,6 @@ public class JSII417PublicBaseOfBase extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Boolean getHasRoot() {
-        return this.jsiiGet("hasRoot", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+        return this.jsiiGet("hasRoot", java.lang.Boolean.class);
     }
 }

@@ -442,7 +442,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getWhileValue() {
-        return this.jsiiGet("while", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("while", java.lang.String.class);
     }
 
     /**

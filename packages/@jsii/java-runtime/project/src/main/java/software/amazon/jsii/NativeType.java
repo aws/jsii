@@ -14,40 +14,97 @@ import java.util.stream.Collectors;
 public abstract class NativeType<T> {
     protected static final JavaType[] NO_TYPE_PARAMS = {};
 
+    /**
+     * A {@link NativeType} representation for `void`.
+     */
     public static final NativeType<Void> VOID = NativeType.forClass(Void.class);
 
+    /**
+     * Creates a {@link NativeType} representation for classes that are neither {@link List} nor {@link Map} subclasses.
+     *
+     * @param simpleType the Java class to be represented.
+     * @param <T> the static type of {@code simpleType}.
+     *
+     * @return a new {@link NativeType} instance.
+     *
+     * @throws IllegalArgumentException if a {@link List} or {@link Map} subclass is passed as an argument.
+     */
     public static <T> NativeType<T> forClass(final Class<T> simpleType) {
         return new SimpleNativeType<>(simpleType);
     }
 
+    /**
+     * Creates a {@link NativeType} representation for a {@link List} of some {@code elementType}.
+     *
+     * @param elementType the type of elements in the {@link List}.
+     * @param <T> the static type of the elements in the {@link List}.
+     *
+     * @return a new {@link NativeType} instance.
+     */
     public static <T> NativeType<List<T>> listOf(final NativeType<T> elementType) {
         return new ListNativeType<>(elementType);
     }
 
+    /**
+     * Creates a {@link NativeType} representation for a {@link Map} of {@link String} to some {@code elementType}.
+     *
+     * @param elementType the type of values in the {@link Map}.
+     * @param <T> the static type of the values in the {@link Map}.
+     *
+     * @return a new {@link NativeType} instance.
+     */
     public static <T> NativeType<Map<String, T>> mapOf(final NativeType<T> elementType) {
         return new MapNativeType<>(elementType);
     }
 
-    public static NativeType<?> forType(final Type type) {
+    /**
+     * Creates a {@link NativeType} for the given Java type description. This particular API is unsafe and should not be
+     * used if any of the other APIs can be.
+     *
+     * @param type the {@link Type} to be represented. It can be any type, including a {@link Class} reference, however
+     *             when a {@link Class} instance is available, the caller should use {@link #forClass(Class)},
+     *             {@link #listOf(NativeType)} and {@link #mapOf(NativeType)} appropriately instead, as this operation
+     *             is not checked at runtime.
+     * @param <T> the static type of the represented type. This operation is not checked, leaving the caller responsible
+     *            for ensuring the correct type is specified.
+     *
+     * @return a new {@link NativeType} instance.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T>  NativeType<T> forType(final Type type) {
         if (type instanceof ParameterizedType) {
             final ParameterizedType genericType = (ParameterizedType)type;
             final Class<?> rawType = (Class<?>)genericType.getRawType();
 
+            // Provided List<T>, we abide by the value of T
             if (List.class.isAssignableFrom(rawType)) {
-                return listOf(forType(genericType.getActualTypeArguments()[0]));
+                return (NativeType<T>)listOf(forType(genericType.getActualTypeArguments()[0]));
             }
+            // Provided Map<?, T>, we abide by the value of T
             if (Map.class.isAssignableFrom(rawType)) {
-                return mapOf(forType(genericType.getActualTypeArguments()[1]));
+                return (NativeType<T>)mapOf(forType(genericType.getActualTypeArguments()[1]));
             }
         }
 
+        // If it's not a List<T> or Map<String, T>, it MUST be a Class, or we don't know how to handle it
         if (!(type instanceof Class<?>)) {
             throw new IllegalArgumentException(String.format("Unsupported type: %s", type));
         }
-        return forClass((Class<?>)type);
+
+        // Provided the raw class List, interpret it as List<Object>
+        if (List.class.isAssignableFrom((Class<?>)type)) {
+            return (NativeType<T>)listOf(forClass(Object.class));
+        }
+        // Provided the raw class Map, interpret it as Map<String, Object>
+        if (Map.class.isAssignableFrom((Class<?>)type)) {
+            return (NativeType<T>)mapOf(forClass(Object.class));
+        }
+
+        // Anything else...
+        return (NativeType<T>) forClass((Class<?>)type);
     }
 
-    protected static Class<?> wireFor(final Class<?> type) {
+    private static Class<?> wireFor(final Class<?> type) {
         if (JsiiObject.class.isAssignableFrom(type)) {
             return JsiiObject.class;
         }

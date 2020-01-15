@@ -26,7 +26,7 @@ public class StripInternal extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getYouSeeMe() {
-        return this.jsiiGet("youSeeMe", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("youSeeMe", java.lang.String.class);
     }
 
     /**

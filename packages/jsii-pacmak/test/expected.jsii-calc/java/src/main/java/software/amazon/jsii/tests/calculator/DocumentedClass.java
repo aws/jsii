@@ -37,7 +37,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public java.lang.Number greet(final software.amazon.jsii.tests.calculator.Greetee greetee) {
-        return this.jsiiCall("greet", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { greetee });
+        return this.jsiiCall("greet", java.lang.Number.class, new Object[] { greetee });
     }
 
     /**
@@ -50,7 +50,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public java.lang.Number greet() {
-        return this.jsiiCall("greet", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+        return this.jsiiCall("greet", java.lang.Number.class);
     }
 
     /**

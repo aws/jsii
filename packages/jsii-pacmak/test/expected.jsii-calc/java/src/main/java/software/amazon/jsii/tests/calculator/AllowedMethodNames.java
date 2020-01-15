@@ -41,7 +41,7 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getFoo(final java.lang.String withParam) {
-        return this.jsiiCall("getFoo", software.amazon.jsii.NativeType.forClass(java.lang.String.class), new Object[] { java.util.Objects.requireNonNull(withParam, "withParam is required") });
+        return this.jsiiCall("getFoo", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(withParam, "withParam is required") });
     }
 
     /**

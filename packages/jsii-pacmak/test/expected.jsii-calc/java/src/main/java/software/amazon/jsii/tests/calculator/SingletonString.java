@@ -27,6 +27,6 @@ public class SingletonString extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Boolean isSingletonString(final java.lang.String value) {
-        return this.jsiiCall("isSingletonString", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class), new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        return this.jsiiCall("isSingletonString", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 }

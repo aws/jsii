@@ -40,7 +40,7 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public java.lang.Number getMutableProperty() {
-            return this.jsiiGet("mutableProperty", software.amazon.jsii.NativeType.forClass(java.lang.Number.class));
+            return this.jsiiGet("mutableProperty", java.lang.Number.class);
         }
 
         /**

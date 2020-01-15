@@ -37,7 +37,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
-        return this.jsiiGet("expression", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class));
+        return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**

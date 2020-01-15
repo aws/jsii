@@ -48,6 +48,6 @@ public class JSII417Derived extends software.amazon.jsii.tests.calculator.JSII41
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected java.lang.String getProperty() {
-        return this.jsiiGet("property", software.amazon.jsii.NativeType.forClass(java.lang.String.class));
+        return this.jsiiGet("property", java.lang.String.class);
     }
 }

@@ -30,7 +30,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.MyFirstStruct derivedToFirst(final software.amazon.jsii.tests.calculator.DerivedStruct derived) {
-        return this.jsiiCall("derivedToFirst", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.MyFirstStruct.class), new Object[] { java.util.Objects.requireNonNull(derived, "derived is required") });
+        return this.jsiiCall("derivedToFirst", software.amazon.jsii.tests.calculator.lib.MyFirstStruct.class, new Object[] { java.util.Objects.requireNonNull(derived, "derived is required") });
     }
 
     /**
@@ -42,7 +42,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.DoubleTrouble readDerivedNonPrimitive(final software.amazon.jsii.tests.calculator.DerivedStruct derived) {
-        return this.jsiiCall("readDerivedNonPrimitive", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.DoubleTrouble.class), new Object[] { java.util.Objects.requireNonNull(derived, "derived is required") });
+        return this.jsiiCall("readDerivedNonPrimitive", software.amazon.jsii.tests.calculator.DoubleTrouble.class, new Object[] { java.util.Objects.requireNonNull(derived, "derived is required") });
     }
 
     /**
@@ -54,7 +54,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number readFirstNumber(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct first) {
-        return this.jsiiCall("readFirstNumber", software.amazon.jsii.NativeType.forClass(java.lang.Number.class), new Object[] { java.util.Objects.requireNonNull(first, "first is required") });
+        return this.jsiiCall("readFirstNumber", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(first, "first is required") });
     }
 
     /**
@@ -62,6 +62,6 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals getStructLiteral() {
-        return this.jsiiGet("structLiteral", software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals.class));
+        return this.jsiiGet("structLiteral", software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals.class);
     }
 }

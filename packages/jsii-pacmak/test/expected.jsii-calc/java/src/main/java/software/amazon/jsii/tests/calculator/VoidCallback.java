@@ -48,7 +48,7 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Boolean getMethodWasCalled() {
-        return this.jsiiGet("methodWasCalled", software.amazon.jsii.NativeType.forClass(java.lang.Boolean.class));
+        return this.jsiiGet("methodWasCalled", java.lang.Boolean.class);
     }
 
     /**
