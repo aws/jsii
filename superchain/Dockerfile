@@ -44,7 +44,7 @@ RUN amazon-linux-extras enable corretto8                                        
 ENV M2_VERSION 3.6.3
 RUN curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz     \
          -o /tmp/apache-maven.tar.gz                                                                                    \
-  && curl -sL https://www.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz.asc                \
+  && curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc\
           -o /tmp/apache-maven.tar.gz.asc                                                                               \
   && mkdir -p /tmp/gpg-maven && chmod go-rwx /tmp/gpg-maven                                                             \
   && curl -sL https://www.apache.org/dist/maven/KEYS | gpg --homedir /tmp/gpg-maven --import                            \
