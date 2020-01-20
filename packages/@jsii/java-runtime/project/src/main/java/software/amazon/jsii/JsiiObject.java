@@ -1,11 +1,14 @@
 package software.amazon.jsii;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Represents a JavaScript object in the Java world.
@@ -15,7 +18,7 @@ public class JsiiObject implements JsiiSerializable {
     /**
      * The jsii engine used by this object.
      */
-    private final static JsiiEngine engine = JsiiEngine.getInstance();
+    private final JsiiEngine engine;
 
     /**
      * The interface-proxies that this object can also be represented as.
@@ -30,9 +33,24 @@ public class JsiiObject implements JsiiSerializable {
     /**
      * A special constructor that allows creating wrapper objects while bypassing the normal constructor
      * chain. This is used when an object was created in javascript-land and just needs a wrapper in native-land.
+     *
      * @param initializationMode Must always be set to "JSII".
      */
     protected JsiiObject(final InitializationMode initializationMode) {
+        this(JsiiEngine.getInstance(), initializationMode);
+    }
+
+    /**
+     * A special constructor that allows creating wrapper objects while bypassing the normal constructor
+     * chain. This is used when an object was created in javascript-land and just needs a wrapper in native-land.
+     *
+     * This constructor is meant to be used only in unit tests.
+     *
+     * @param engine The {@link JsiiEngine} to use.
+     * @param initializationMode Must always be set to "JSII".
+     */
+    JsiiObject(final JsiiEngine engine, final InitializationMode initializationMode) {
+        this.engine = Objects.requireNonNull(engine);
         if (initializationMode != InitializationMode.JSII) {
             throw new JsiiException("The only supported initialization mode is '" + InitializationMode.JSII + "'");
         }
@@ -40,10 +58,24 @@ public class JsiiObject implements JsiiSerializable {
 
     /**
      * Used to construct a JSII object with a reference to an existing managed JSII node object.
+     *
      * @param objRef Reference to existing managed JSII node object.
      */
     protected JsiiObject(final JsiiObjectRef objRef) {
+        this(JsiiEngine.getInstance(), objRef);
+    }
+
+    /**
+     * Used to construct a JSII object with a reference to an existing managed JSII node object.
+     *
+     * This constructor is meant to be used only in unit tests.
+     *
+     * @param engine the {@link JsiiEngine} to use.
+     * @param objRef Reference to existing managed JSII node object.
+     */
+    JsiiObject(final JsiiEngine engine, final JsiiObjectRef objRef) {
         this.objRef = objRef;
+        this.engine = Objects.requireNonNull(engine);
     }
 
     /**
@@ -59,50 +91,71 @@ public class JsiiObject implements JsiiSerializable {
 
     /**
      * Calls a JavaScript method on the object.
+     *
      * @param method The name of the method.
      * @param returnType The return type.
      * @param args Method arguments.
      * @param <T> Java type for the return value.
+     *
      * @return A return value.
      */
     @Nullable
     protected final <T> T jsiiCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
-        return JsiiObjectMapper.treeToValue(JsiiObject.engine.getClient()
-                                                                .callMethod(this.objRef,
-                                                                            method,
-                                                                            JsiiObjectMapper.valueToTree(args)),
-                                            returnType);
+        final JsonNode result = this.engine.getClient().callMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
+        return JsiiObjectMapper.treeToValue(result, returnType);
     }
 
     /**
      * Calls a static method.
+     *
      * @param nativeClass The java class.
      * @param method The method to call.
      * @param returnType The return type.
      * @param args The method arguments.
      * @param <T> Return type.
+     *
      * @return Return value.
      */
     @Nullable
     protected static <T> T jsiiStaticCall(final Class<?> nativeClass, final String method, final Class<T> returnType, @Nullable final Object... args) {
-        String fqn = engine.loadModuleForClass(nativeClass);
-        return JsiiObjectMapper.treeToValue(engine.getClient()
-                                                  .callStaticMethod(fqn, method, JsiiObjectMapper.valueToTree(args)),
-                                            returnType);
+        return jsiiStaticCall(JsiiEngine.getInstance(), nativeClass, method, returnType, args);
+    }
+
+    /**
+     * Calls a static method.
+     *
+     * This method is meant to be used only in unit tests.
+     *
+     * @param engine The JsiiEngine to use.
+     * @param nativeClass The java class.
+     * @param method The method to call.
+     * @param returnType The return type.
+     * @param args The method arguments.
+     * @param <T> Return type.
+     *
+     * @return Return value.
+     */
+    @Nullable
+    static <T> T jsiiStaticCall(final JsiiEngine engine, final Class<?> nativeClass, final String method, final Class<T> returnType, @Nullable final Object... args) {
+        final String fqn = engine.loadModuleForClass(nativeClass);
+        final JsonNode result = engine.getClient().callStaticMethod(fqn, method, JsiiObjectMapper.valueToTree(args));
+        return JsiiObjectMapper.treeToValue(result, returnType);
     }
 
     /**
      * Calls an async method on the object.
+     *
      * @param method The name of the method.
      * @param returnType The return type.
      * @param args Method arguments.
      * @param <T> Java type for the return value.
-     * @return A ereturn value.
+     *
+     * @return A return value.
      */
     @Nullable
     protected final <T> T jsiiAsyncCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
-        JsiiClient client = engine.getClient();
-        JsiiPromise promise = client.beginAsyncMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
+        final JsiiClient client = engine.getClient();
+        final JsiiPromise promise = client.beginAsyncMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
 
         engine.processAllPendingCallbacks();
 
@@ -111,32 +164,57 @@ public class JsiiObject implements JsiiSerializable {
 
     /**
      * Gets a property value from the object.
+     *
      * @param property The property name.
      * @param type The Java type of the property.
      * @param <T> The Java type of the property.
+     *
      * @return The property value.
      */
     @Nullable
     protected final <T> T jsiiGet(final String property, final Class<T> type) {
-        return JsiiObjectMapper.treeToValue(engine.getClient().getPropertyValue(this.objRef, property), type);
+        final JsonNode result = engine.getClient().getPropertyValue(this.objRef, property);
+        return JsiiObjectMapper.treeToValue(result, type);
     }
 
     /**
      * Returns the value of a static property.
+     *
      * @param nativeClass The java class.
      * @param property The name of the property.
      * @param type The expected java return type.
      * @param <T> Return type
+     *
      * @return Return value
      */
     @Nullable
     protected static <T> T jsiiStaticGet(final Class<?> nativeClass, final String property, final Class<T> type) {
-        String fqn = engine.loadModuleForClass(nativeClass);
-        return JsiiObjectMapper.treeToValue(engine.getClient().getStaticPropertyValue(fqn, property), type);
+        return jsiiStaticGet(JsiiEngine.getInstance(), nativeClass, property, type);
+    }
+
+    /**
+     * Returns the value of a static property.
+     *
+     * This method is meant to be used only in unit tests.
+     *
+     * @param engine The JsiiEngine to use.
+     * @param nativeClass The java class.
+     * @param property The name of the property.
+     * @param type The expected java return type.
+     * @param <T> Return type
+     *
+     * @return Return value
+     */
+    @Nullable
+    static <T> T jsiiStaticGet(final JsiiEngine engine, final Class<?> nativeClass, final String property, final Class<T> type) {
+        final String fqn = engine.loadModuleForClass(nativeClass);
+        final JsonNode result = engine.getClient().getStaticPropertyValue(fqn, property);
+        return JsiiObjectMapper.treeToValue(result, type);
     }
 
     /**
      * Sets a property value of an object.
+     *
      * @param property The name of the property.
      * @param value The property value.
      */
@@ -146,17 +224,33 @@ public class JsiiObject implements JsiiSerializable {
 
     /**
      * Sets a value for a static property.
+     *
      * @param nativeClass The java class.
      * @param property The name of the property
      * @param value The value
      */
     protected static void jsiiStaticSet(final Class<?> nativeClass, final String property, @Nullable final Object value) {
-        String fqn = engine.loadModuleForClass(nativeClass);
+        jsiiStaticSet(JsiiEngine.getInstance(), nativeClass, property, value);
+    }
+
+    /**
+     * Sets a value for a static property.
+     *
+     * This method is meant to be used only in unit tests.
+     *
+     * @param engine The JsiiEngine to use.
+     * @param nativeClass The java class.
+     * @param property The name of the property
+     * @param value The value
+     */
+    static void jsiiStaticSet(final JsiiEngine engine, final Class<?> nativeClass, final String property, @Nullable final Object value) {
+        final String fqn = engine.loadModuleForClass(nativeClass);
         engine.getClient().setStaticPropertyValue(fqn, property, JsiiObjectMapper.valueToTree(value));
     }
 
     /**
      * Sets the jsii object reference for this object.
+     *
      * @param objRef The objref
      */
     final void setObjRef(final JsiiObjectRef objRef) {
@@ -165,13 +259,22 @@ public class JsiiObject implements JsiiSerializable {
 
     /**
      * Gets the jsii object reference for this object.
+     *
      * @return The objref.
      */
     final JsiiObjectRef getObjRef() {
         return objRef;
     }
 
-    final JsiiObject asInterfaceProxy(final Class<? extends JsiiObject> proxyClass) {
+    /**
+     * Create a view of this {@link JsiiObject} as the implementation of an interface.
+     *
+     * @param proxyClass the {@code $JsiiProxy} class for the desired interface.
+     * @param <T> the interface type that the new vew must implement.
+     *
+     * @return a view on the same {@link JsiiObject}.
+     */
+    final <T extends JsiiObject> T asInterfaceProxy(final Class<? extends T> proxyClass) {
         if (!this.proxies.containsKey(proxyClass)) {
             try {
                 final Constructor<? extends JsiiObject> constructor = proxyClass.getDeclaredConstructor(JsiiObjectRef.class);
@@ -192,6 +295,8 @@ public class JsiiObject implements JsiiSerializable {
                 throw new JsiiException("Unable to invoke constructor of " + proxyClass.getCanonicalName(), iae);
             }
         }
-        return this.proxies.get(proxyClass);
+        @SuppressWarnings("unchecked")
+        final T result = (T)this.proxies.get(proxyClass);
+        return result;
     }
 }
