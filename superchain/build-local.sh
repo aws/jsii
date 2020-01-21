@@ -24,5 +24,6 @@ docker build                                                                    
   --pull                                                                        \
   --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')                  \
   --build-arg COMMIT_ID=${COMMIT_ID}                                            \
+  --build-arg JSII_VERSION=$(node -p "require('../lerna.json').version")        \
   -t "jsii/superchain:local"                                                    \
   .
