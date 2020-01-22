@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.21.2](https://github.com/aws/jsii/compare/v0.21.1...v0.21.2) (2020-01-22)
+
+
+### Bug Fixes
+
+* **java:** maven-surefire-plugin 2.22.2 ([#1165](https://github.com/aws/jsii/issues/1165)) ([2f1f7b9](https://github.com/aws/jsii/commit/2f1f7b91f6405db8f992dc3331a5749b7f5fc9b3))
+* depend on python-3.8-supporting version of cattrs ([#1177](https://github.com/aws/jsii/issues/1177)) ([e9b00c8](https://github.com/aws/jsii/commit/e9b00c80c46968aecc2e51dbf822fbe8acecd1cb)), closes [#913](https://github.com/aws/jsii/issues/913)
+* **rosetta:** properly escape C# comments as XML ([#1184](https://github.com/aws/jsii/issues/1184)) ([2bdc589](https://github.com/aws/jsii/commit/2bdc589f105a90f394e85f0c9287f69b19c0b536))
+* poor error message on scalar deserialization type mismatch ([#1187](https://github.com/aws/jsii/issues/1187)) ([fdf8927](https://github.com/aws/jsii/commit/fdf8927314a6953d4c206a0c69df510ddcc2eaf0))
+
+
+### Features
+
+* **superchain:** upgrade maven to 3.6.3 ([#1205](https://github.com/aws/jsii/issues/1205)) ([1398bef](https://github.com/aws/jsii/commit/1398bef0eb5359b2cacb3eda3a1255510f0e7e77))
+
+
+
+
+
 ## [0.21.1](https://github.com/aws/jsii/compare/v0.21.0...v0.21.1) (2020-01-03)
 
 

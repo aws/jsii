@@ -1,6 +1,6 @@
 {
   "name": "@jsii/java-runtime-test",
-  "version": "0.21.1",
+  "version": "0.21.2",
   "private": true,
   "description": "Tests for the Java client for jsii runtime",
   "license": "Apache-2.0",
@@ -28,8 +28,8 @@
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
-    "@jsii/java-runtime": "^0.21.1",
-    "jsii-calc": "^0.21.1",
-    "jsii-pacmak": "^0.21.1"
+    "@jsii/java-runtime": "^0.21.2",
+    "jsii-calc": "^0.21.2",
+    "jsii-pacmak": "^0.21.2"
   }
 }
