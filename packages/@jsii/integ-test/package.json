@@ -1,0 +1,29 @@
+{
+  "name": "integ-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "test:integ": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/rest": "^16.36.0",
+    "dotenv": "^8.2.0",
+    "jest": "^25.1.0",
+    "jsii": "^0.21.2",
+    "jsii-pacmak": "^0.21.2",
+    "typescript": "^3.7.5"
+  },
+  "jest": {
+    "errorOnDeprecated": true,
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
+    ]
+  }
+}
