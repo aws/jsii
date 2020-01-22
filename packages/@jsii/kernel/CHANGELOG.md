@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.21.2](https://github.com/aws/jsii/compare/v0.21.1...v0.21.2) (2020-01-22)
+
+
+### Bug Fixes
+
+* poor error message on scalar deserialization type mismatch ([#1187](https://github.com/aws/jsii/issues/1187)) ([fdf8927](https://github.com/aws/jsii/commit/fdf8927314a6953d4c206a0c69df510ddcc2eaf0))
+
+
+
+
+
 ## [0.21.1](https://github.com/aws/jsii/compare/v0.21.0...v0.21.1) (2020-01-03)
 
 **Note:** Version bump only for package @jsii/kernel
