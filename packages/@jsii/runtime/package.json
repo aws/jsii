@@ -39,7 +39,7 @@
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.21.2",
     "@scope/jsii-calc-lib": "^0.21.2",
-    "@types/jest": "^24.9.0",
+    "@types/jest": "^24.9.1",
     "@types/node": "^10.17.13",
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
