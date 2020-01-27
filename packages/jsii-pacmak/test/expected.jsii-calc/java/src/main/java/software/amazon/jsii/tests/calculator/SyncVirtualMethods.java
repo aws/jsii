@@ -44,7 +44,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void modifyOtherProperty(final java.lang.String value) {
-        this.jsiiCall("modifyOtherProperty", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        this.jsiiCall("modifyOtherProperty", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -54,7 +54,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void modifyValueOfTheProperty(final java.lang.String value) {
-        this.jsiiCall("modifyValueOfTheProperty", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        this.jsiiCall("modifyValueOfTheProperty", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -106,7 +106,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void writeA(final java.lang.Number value) {
-        this.jsiiCall("writeA", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        this.jsiiCall("writeA", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**

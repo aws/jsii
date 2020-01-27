@@ -1691,4 +1691,32 @@ public class ComplianceTest {
 
         assertEquals("Wrapped<String<Oomf!>>", abstractSuite.workItAll("Oomf!"));
     }
+
+    @Test
+    public void collectionOfInterfaces_ListOfStructs() {
+        for (final Object obj : InterfaceCollections.listOfStructs()) {
+            assertTrue(obj + " is an instance of " + StructA.class.getCanonicalName(), obj instanceof StructA);
+        }
+    }
+
+    @Test
+    public void collectionOfInterfaces_ListOfInterfaces() {
+        for (final Object obj : InterfaceCollections.listOfInterfaces()) {
+            assertTrue(obj + " is an instance of " + IBell.class.getCanonicalName(), obj instanceof IBell);
+        }
+    }
+
+    @Test
+    public void collectionOfInterfaces_MapOfStructs() {
+        for (final Object obj : InterfaceCollections.mapOfStructs().values()) {
+            assertTrue(obj + " is an instance of " + StructA.class.getCanonicalName(), obj instanceof StructA);
+        }
+    }
+
+    @Test
+    public void collectionOfInterfaces_MapOfInterfaces() {
+        for (final Object obj : InterfaceCollections.mapOfInterfaces().values()) {
+            assertTrue(obj + " is an instance of " + IBell.class.getCanonicalName(), obj instanceof IBell);
+        }
+    }
 }

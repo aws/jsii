@@ -27,7 +27,7 @@ public class Bell extends software.amazon.jsii.JsiiObject implements software.am
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public void ring() {
-        this.jsiiCall("ring", Void.class);
+        this.jsiiCall("ring", software.amazon.jsii.NativeType.VOID);
     }
 
     /**

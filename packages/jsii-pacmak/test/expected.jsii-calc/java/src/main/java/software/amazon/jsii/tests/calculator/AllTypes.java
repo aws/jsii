@@ -33,7 +33,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void anyIn(final java.lang.Object inp) {
-        this.jsiiCall("anyIn", Void.class, new Object[] { inp });
+        this.jsiiCall("anyIn", software.amazon.jsii.NativeType.VOID, new Object[] { inp });
     }
 
     /**
@@ -67,7 +67,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Object> getAnyArrayProperty() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("anyArrayProperty", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("anyArrayProperty", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -83,7 +83,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.lang.Object> getAnyMapProperty() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("anyMapProperty", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("anyMapProperty", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -115,7 +115,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.String> getArrayProperty() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("arrayProperty", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("arrayProperty", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -195,7 +195,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Number> getMapProperty() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("mapProperty", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("mapProperty", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Number.class))));
     }
 
     /**
@@ -243,7 +243,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Object> getUnionArrayProperty() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("unionArrayProperty", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("unionArrayProperty", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -259,7 +259,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.lang.Object> getUnionMapProperty() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("unionMapProperty", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("unionMapProperty", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -315,7 +315,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Object> getUnknownArrayProperty() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("unknownArrayProperty", java.util.List.class));
+        return java.util.Collections.unmodifiableList(this.jsiiGet("unknownArrayProperty", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**
@@ -331,7 +331,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.lang.Object> getUnknownMapProperty() {
-        return java.util.Collections.unmodifiableMap(this.jsiiGet("unknownMapProperty", java.util.Map.class));
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("unknownMapProperty", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class))));
     }
 
     /**

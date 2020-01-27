@@ -34,7 +34,7 @@ public class JSII417PublicBaseOfBase extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void foo() {
-        this.jsiiCall("foo", Void.class);
+        this.jsiiCall("foo", software.amazon.jsii.NativeType.VOID);
     }
 
     /**

@@ -38,7 +38,7 @@ public class StableClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public void method() {
-        this.jsiiCall("method", Void.class);
+        this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);
     }
 
     /**

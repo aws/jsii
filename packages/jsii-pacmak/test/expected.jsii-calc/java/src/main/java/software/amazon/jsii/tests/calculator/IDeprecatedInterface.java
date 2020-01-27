@@ -69,7 +69,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         @Deprecated
         @Override
         public void method() {
-            this.jsiiCall("method", Void.class);
+            this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

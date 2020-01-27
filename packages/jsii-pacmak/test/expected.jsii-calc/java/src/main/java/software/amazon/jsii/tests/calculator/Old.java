@@ -30,6 +30,6 @@ public class Old extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     public void doAThing() {
-        this.jsiiCall("doAThing", Void.class);
+        this.jsiiCall("doAThing", software.amazon.jsii.NativeType.VOID);
     }
 }

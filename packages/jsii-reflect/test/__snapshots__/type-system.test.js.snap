@@ -66,6 +66,7 @@ Array [
   "ImplementsInterfaceWithInternalSubclass",
   "ImplementsPrivateInterface",
   "InbetweenClass",
+  "InterfaceCollections",
   "InterfacesMaker",
   "JSII417Derived",
   "JSII417PublicBaseOfBase",

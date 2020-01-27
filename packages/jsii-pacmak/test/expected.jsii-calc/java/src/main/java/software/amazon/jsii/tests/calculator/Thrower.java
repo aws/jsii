@@ -26,6 +26,6 @@ public class Thrower extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void throwError() {
-        this.jsiiCall("throwError", Void.class);
+        this.jsiiCall("throwError", software.amazon.jsii.NativeType.VOID);
     }
 }

@@ -34,6 +34,6 @@ public class VariadicInvoker extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Number> asArray(final java.lang.Number... values) {
-        return java.util.Collections.unmodifiableList(this.jsiiCall("asArray", java.util.List.class, java.util.Arrays.<Object>stream(values).toArray(Object[]::new)));
+        return java.util.Collections.unmodifiableList(this.jsiiCall("asArray", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Number.class)), java.util.Arrays.<Object>stream(values).toArray(Object[]::new)));
     }
 }

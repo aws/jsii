@@ -56,7 +56,7 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public void method() {
-            this.jsiiCall("method", Void.class);
+            this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);
         }
     }
 }
