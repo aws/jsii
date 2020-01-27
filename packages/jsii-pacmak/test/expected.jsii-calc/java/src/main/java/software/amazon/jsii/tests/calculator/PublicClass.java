@@ -26,6 +26,6 @@ public class PublicClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void hello() {
-        this.jsiiCall("hello", Void.class);
+        this.jsiiCall("hello", software.amazon.jsii.NativeType.VOID);
     }
 }

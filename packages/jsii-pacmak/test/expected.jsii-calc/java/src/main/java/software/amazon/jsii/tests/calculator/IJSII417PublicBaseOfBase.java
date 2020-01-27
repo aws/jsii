@@ -44,7 +44,7 @@ public interface IJSII417PublicBaseOfBase extends software.amazon.jsii.JsiiSeria
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void foo() {
-            this.jsiiCall("foo", Void.class);
+            this.jsiiCall("foo", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

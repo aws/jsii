@@ -36,7 +36,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void switchModes() {
-        this.jsiiCall("switchModes", Void.class);
+        this.jsiiCall("switchModes", software.amazon.jsii.NativeType.VOID);
     }
 
     /**

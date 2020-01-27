@@ -33,17 +33,17 @@ public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializ
         @Deprecated
         @Override
         public void baz() {
-            this.jsiiCall("baz", Void.class);
+            this.jsiiCall("baz", software.amazon.jsii.NativeType.VOID);
         }
 
         @Override
         public void bar() {
-            this.jsiiCall("bar", Void.class);
+            this.jsiiCall("bar", software.amazon.jsii.NativeType.VOID);
         }
 
         @Override
         public void foo() {
-            this.jsiiCall("foo", Void.class);
+            this.jsiiCall("foo", software.amazon.jsii.NativeType.VOID);
         }
     }
 }
