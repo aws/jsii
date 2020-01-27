@@ -1,23 +1,26 @@
 {
-  "name": "integ-test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@jsii/integ-test",
+  "version": "0.21.2",
+  "description": "A suite of integration tests for JSII and related modules.",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build",
     "test:integ": "jest"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
     "@octokit/rest": "^16.36.0",
     "dotenv": "^8.2.0",
+    "fs-extra": "^8.1.0",
     "jest": "^25.1.0",
     "jsii": "^0.21.2",
     "jsii-pacmak": "^0.21.2",
-    "typescript": "^3.7.5"
+    "typescript": "~3.7.5"
   },
   "jest": {
     "errorOnDeprecated": true,

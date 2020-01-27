@@ -1,15 +1,12 @@
-// import { IncomingMessage } from 'http';
-import * as fs from 'fs';
+import { mkdtemp, remove } from 'fs-extra';
 import * as path from 'path';
 import * as Octokit from '@octokit/rest';
-import { downloadReleaseAsset, minutes, ProcessManager, rmdirRecursive } from '../utils';
+import { downloadReleaseAsset, minutes, ProcessManager, writeFileStream } from '../utils';
 import * as dotenv from 'dotenv';
 
-const { mkdtemp } = fs.promises;
-
 dotenv.config();
-const JSII_DIR = path.resolve(require.resolve('jsii'), '..', '..');
-const JSII_PACMAK_DIR = path.resolve(require.resolve('jsii-pacmak'), '..', '..');
+const JSII_DIR = path.dirname(require.resolve('jsii/package.json'));
+const JSII_PACMAK_DIR = path.dirname(require.resolve('jsii-pacmak/package.json'));
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN
@@ -26,10 +23,10 @@ describe('Build CDK', () => {
 
   afterAll(async () => {
     await processes.killAll();
-    await rmdirRecursive(buildDir);
+    await remove(buildDir);
   });
 
-  test('can build latest cdk release', async (done) => {
+  test('can build latest cdk release', async () => {
     // download latest release info
     console.time('cdkbuild');
     const release = await octokit.repos.getLatestRelease({
@@ -41,16 +38,11 @@ describe('Build CDK', () => {
     const fileName = 'cdk.tar.gz';
     const tarFile = path.join(buildDir, fileName);
     const code = await downloadReleaseAsset(`https://api.github.com/repos/aws/aws-cdk/tarball/${release.data.tag_name}`);
-    const codeStream = fs.createWriteStream(tarFile);
 
-    // save to file and wait to finish
-    code.pipe(codeStream);
-    await new Promise(resolve => codeStream.on('close', () => {
-      resolve();
-    }));
+    await writeFileStream(code, tarFile);
 
     // unzip tar archive
-    await processes.spawn('tar', ['-xzvf', fileName], {
+    await processes.spawn('tar', ['-xzf', fileName], {
       cwd: buildDir
     });
 
@@ -70,12 +62,11 @@ describe('Build CDK', () => {
     await processes.spawn('ln', ['-s', JSII_PACMAK_DIR, './node_modules'], { cwd: srcDir });
 
     // build cdk
-    await processes.spawn('./node_modules/.bin/lerna', ['run', 'build', '--stream'], { cwd: srcDir });
+    await processes.spawn('npx', ['lerna', 'run', 'build', '--stream'], { cwd: srcDir });
 
     // package modules
     await processes.spawn('yarn', ['run', 'pack'], { cwd: srcDir });
-    console.timeEnd('cdkbuild');
-    done();
 
+    console.timeEnd('cdkbuild');
   }, minutes(60));
 });
