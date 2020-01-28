@@ -47,7 +47,7 @@
     "@scope/jsii-calc-lib": "^0.21.2"
   },
   "devDependencies": {
-    "@types/node": "^10.17.13",
+    "@types/node": "^10.17.14",
     "jsii": "^0.21.2",
     "jsii-build-tools": "^0.21.2",
     "jsii-rosetta": "^0.21.2"
