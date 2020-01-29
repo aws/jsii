@@ -1,12 +1,13 @@
+import * as Octokit from '@octokit/rest';
+import * as dotenv from 'dotenv';
 import { mkdtemp, remove } from 'fs-extra';
 import * as path from 'path';
-import * as Octokit from '@octokit/rest';
-import { downloadReleaseAsset, minutes, ProcessManager, writeFileStream } from '../utils';
-import * as dotenv from 'dotenv';
+import { downloadReleaseAsset, minutes, ProcessManager, extractFileStream } from '../utils';
 
 dotenv.config();
 const JSII_DIR = path.dirname(require.resolve('jsii/package.json'));
 const JSII_PACMAK_DIR = path.dirname(require.resolve('jsii-pacmak/package.json'));
+const JSII_ROSETTA_DIR = path.dirname(require.resolve('jsii-rosetta/package.json'));
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN
@@ -28,45 +29,60 @@ describe('Build CDK', () => {
 
   test('can build latest cdk release', async () => {
     // download latest release info
-    console.time('cdkbuild');
     const release = await octokit.repos.getLatestRelease({
       owner: 'aws',
       repo: 'aws-cdk'
     });
 
-    // save code to tmp dir
-    const fileName = 'cdk.tar.gz';
-    const tarFile = path.join(buildDir, fileName);
+    // download and extract code
     const code = await downloadReleaseAsset(`https://api.github.com/repos/aws/aws-cdk/tarball/${release.data.tag_name}`);
-
-    await writeFileStream(code, tarFile);
-
-    // unzip tar archive
-    await processes.spawn('tar', ['-xzf', fileName], {
-      cwd: buildDir
-    });
-
-    // root dir of extracted src
-    // `${buildDir}/${owner}-${repo}-${first 7 chars of commit hash}
     const srcDir = path.join(buildDir, `aws-aws-cdk-${release.data.target_commitish.substring(0, 7)}`);
+    await extractFileStream(code, buildDir);
 
     // install cdk dependencies
-    await processes.spawn('yarn', ['install'], {
+    await processes.spawn('yarn', ['install', '--frozen-lockfile'], {
       cwd: srcDir
     });
 
-    // link local jsii/jsii-pacmak builds
-    await processes.spawn('rm', ['-rf', './node_modules/jsii'], { cwd: srcDir });
-    await processes.spawn('rm', ['-rf', './node_modules/jsii-pacmak'], { cwd: srcDir });
-    await processes.spawn('ln', ['-s', JSII_DIR, './node_modules'], { cwd: srcDir });
-    await processes.spawn('ln', ['-s', JSII_PACMAK_DIR, './node_modules'], { cwd: srcDir });
+    // build cdk build tools
+    await processes.spawn('npx', [
+      'lerna',
+      '--stream',
+      '--scope', 'cdk-build-tools',
+      '--scope', 'pkglint',
+      '--scope', 'awslint',
+      'run', 'build',
+    ], { cwd: srcDir });
 
-    // build cdk
-    await processes.spawn('npx', ['lerna', 'run', 'build', '--stream'], { cwd: srcDir });
+    // build jsii modules
+    await processes.spawn('npx', [
+      'lerna',
+      '--stream',
+      '--scope', '@aws-cdk/*',
+      '--scope', 'aws-cdk',
+      'run', 'build',
+      '--', '--jsii', path.join(JSII_DIR, 'bin', 'jsii'),
+    ], { cwd: srcDir });
+
+    // build the rest
+    await processes.spawn('npx', [
+      'lerna',
+      '--stream',
+      '--ignore', '@aws-cdk/*',
+      '--ignore', 'aws-cdk',
+      '--ignore', 'cdk-build-tools',
+      '--ignore', 'pkglint',
+      '--ignore', 'awslint',
+      'run', 'build',
+    ], { cwd: srcDir });
 
     // package modules
-    await processes.spawn('yarn', ['run', 'pack'], { cwd: srcDir });
-
-    console.timeEnd('cdkbuild');
+    await processes.spawn('./pack.sh', [], {
+      cwd: srcDir,
+      env: {
+        PACMAK: path.join(JSII_PACMAK_DIR, 'bin', 'jsii-pacmak'),
+        ROSETTA: path.join(JSII_ROSETTA_DIR, 'bin', 'jsii-rosetta')
+      }
+    });
   }, minutes(60));
 });

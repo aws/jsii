@@ -12,7 +12,6 @@ phases:
   build:
     commands:
       - yarn build && yarn test
-      - yarn test:integ
   post_build:
     commands:
       - '[ ${CODEBUILD_BUILD_SUCCEEDING} = 1 ] && yarn package'

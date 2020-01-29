@@ -1,8 +1,8 @@
-import { Readable } from 'stream';
-import { createWriteStream } from 'fs';
 import * as cp from 'child_process';
-import * as https from 'https';
 import { IncomingMessage } from 'http';
+import * as https from 'https';
+import { Readable } from 'stream';
+import { extract } from 'tar';
 
 /**
  * @param num a quantity of minutes (could be fractional)
@@ -19,17 +19,17 @@ export function minutes(num: number): number {
 export class ProcessManager {
   private readonly processes: {
     [pid: string]: {
-      proc: cp.ChildProcess,
-      promise: Promise<void>
-    }
+      proc: cp.ChildProcess;
+      promise: Promise<void>;
+    };
   } = {};
 
   /**
    * kill all still running processes
    *
-   * @param [signal] - signal sent to terminate process
+   * @param signal sent to terminate process
    */
-  async killAll(signal?: string) {
+  public async killAll(signal?: string) {
     const values = Object.values(this.processes);
     await Promise.all(values.map(({ proc, promise }) => async() => {
       proc.kill(signal);
@@ -53,7 +53,7 @@ export class ProcessManager {
    * @param arguments passed to command
    * @param options passed to child process spawn
    */
-  spawn(cmd: string, args: string[], opts: any = {}): Promise<void> {
+  public async spawn(cmd: string, args: string[], opts: any = {}): Promise<void> {
     const proc = cp.spawn(cmd, args, { stdio: 'inherit', ...opts });
 
     const promise = new Promise<void>((ok, ko) => {
@@ -85,11 +85,11 @@ export class ProcessManager {
  * write downloaded asset to file
  *
  * @param source stream
- * @param destination of saved file
+ * @param destination directory for extracted files
  */
-export function writeFileStream(source: Readable, destination: string) {
+export async function extractFileStream(source: Readable, destination: string) {
   return new Promise((ok, ko) => {
-    const destStream = createWriteStream(destination);
+    const destStream = extract({ cwd: destination });
     destStream.once('close', ok);
     destStream.once('error', ko);
     source.once('error', ko);
@@ -107,7 +107,7 @@ export function writeFileStream(source: Readable, destination: string) {
  *
  * @returns readable stream of asset data
  */
-export function downloadReleaseAsset(url: string): Promise<Readable> {
+export async function downloadReleaseAsset(url: string): Promise<Readable> {
   return new Promise((ok, ko) => {
     const config = {
       headers: {
@@ -131,4 +131,4 @@ export function downloadReleaseAsset(url: string): Promise<Readable> {
       return ok(response);
     });
   });
-};
+}
