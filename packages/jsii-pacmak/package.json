@@ -43,7 +43,7 @@
     "fs-extra": "^8.1.0",
     "jsii-reflect": "^0.21.2",
     "jsii-rosetta": "^0.21.2",
-    "semver": "^7.1.1",
+    "semver": "^7.1.2",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
     "yargs": "^15.1.0"
