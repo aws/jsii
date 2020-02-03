@@ -21,8 +21,8 @@ public class DisappointingCollectionSource extends software.amazon.jsii.JsiiObje
     }
 
     static {
-        MAYBE_LIST = java.util.Optional.ofNullable((java.util.List<java.lang.String>)(software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.DisappointingCollectionSource.class, "maybeList", java.util.List.class))).map(java.util.Collections::unmodifiableList).orElse(null);
-        MAYBE_MAP = java.util.Optional.ofNullable((java.util.Map<java.lang.String, java.lang.Number>)(software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.DisappointingCollectionSource.class, "maybeMap", java.util.Map.class))).map(java.util.Collections::unmodifiableMap).orElse(null);
+        MAYBE_LIST = java.util.Optional.ofNullable((java.util.List<java.lang.String>)(software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.DisappointingCollectionSource.class, "maybeList", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))))).map(java.util.Collections::unmodifiableList).orElse(null);
+        MAYBE_MAP = java.util.Optional.ofNullable((java.util.Map<java.lang.String, java.lang.Number>)(software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.DisappointingCollectionSource.class, "maybeMap", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.Number.class))))).map(java.util.Collections::unmodifiableMap).orElse(null);
     }
 
     /**

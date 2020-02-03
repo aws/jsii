@@ -116,7 +116,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
             super(objRef);
             this.anumber = this.jsiiGet("anumber", java.lang.Number.class);
             this.astring = this.jsiiGet("astring", java.lang.String.class);
-            this.firstOptional = this.jsiiGet("firstOptional", java.util.List.class);
+            this.firstOptional = this.jsiiGet("firstOptional", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class)));
         }
 
         /**

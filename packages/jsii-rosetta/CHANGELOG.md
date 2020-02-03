@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.21.2](https://github.com/aws/jsii/compare/v0.21.1...v0.21.2) (2020-01-22)
+
+
+### Bug Fixes
+
+* **rosetta:** properly escape C# comments as XML ([#1184](https://github.com/aws/jsii/issues/1184)) ([2bdc589](https://github.com/aws/jsii/commit/2bdc589f105a90f394e85f0c9287f69b19c0b536))
+
+
+
+
+
 ## [0.21.1](https://github.com/aws/jsii/compare/v0.21.0...v0.21.1) (2020-01-03)
 
 

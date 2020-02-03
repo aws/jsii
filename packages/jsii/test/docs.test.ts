@@ -2,6 +2,8 @@ import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
 import { sourceToAssemblyHelper as compile } from '../lib';
 
+jest.setTimeout(60_000);
+
 // ----------------------------------------------------------------------
 test('extract summary line from doc block, ends with a period', async () => {
   const assembly = await compile(`

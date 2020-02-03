@@ -17,7 +17,7 @@ public interface IVeryBaseInterface extends software.amazon.jsii.JsiiSerializabl
 
         @Override
         public void foo() {
-            this.jsiiCall("foo", Void.class);
+            this.jsiiCall("foo", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

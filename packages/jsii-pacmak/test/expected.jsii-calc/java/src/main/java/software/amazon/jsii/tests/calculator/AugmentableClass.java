@@ -26,7 +26,7 @@ public class AugmentableClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodOne() {
-        this.jsiiCall("methodOne", Void.class);
+        this.jsiiCall("methodOne", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -34,6 +34,6 @@ public class AugmentableClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodTwo() {
-        this.jsiiCall("methodTwo", Void.class);
+        this.jsiiCall("methodTwo", software.amazon.jsii.NativeType.VOID);
     }
 }

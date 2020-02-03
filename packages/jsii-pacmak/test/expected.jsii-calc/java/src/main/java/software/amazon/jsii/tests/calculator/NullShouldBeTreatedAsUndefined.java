@@ -48,7 +48,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void giveMeUndefined(final java.lang.Object value) {
-        this.jsiiCall("giveMeUndefined", Void.class, new Object[] { value });
+        this.jsiiCall("giveMeUndefined", software.amazon.jsii.NativeType.VOID, new Object[] { value });
     }
 
     /**
@@ -56,7 +56,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void giveMeUndefined() {
-        this.jsiiCall("giveMeUndefined", Void.class);
+        this.jsiiCall("giveMeUndefined", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -66,7 +66,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void giveMeUndefinedInsideAnObject(final software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData input) {
-        this.jsiiCall("giveMeUndefinedInsideAnObject", Void.class, new Object[] { java.util.Objects.requireNonNull(input, "input is required") });
+        this.jsiiCall("giveMeUndefinedInsideAnObject", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(input, "input is required") });
     }
 
     /**
@@ -74,7 +74,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void verifyPropertyIsUndefined() {
-        this.jsiiCall("verifyPropertyIsUndefined", Void.class);
+        this.jsiiCall("verifyPropertyIsUndefined", software.amazon.jsii.NativeType.VOID);
     }
 
     /**

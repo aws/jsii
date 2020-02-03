@@ -60,6 +60,6 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void hola() {
-        this.jsiiCall("hola", Void.class);
+        this.jsiiCall("hola", software.amazon.jsii.NativeType.VOID);
     }
 }

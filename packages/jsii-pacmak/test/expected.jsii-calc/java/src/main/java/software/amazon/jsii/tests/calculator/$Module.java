@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("jsii-calc", "0.21.1", $Module.class, "jsii-calc@0.21.1.jsii.tgz");
+        super("jsii-calc", "0.21.2", $Module.class, "jsii-calc@0.21.2.jsii.tgz");
     }
 
     @Override
@@ -121,6 +121,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ImplementsPrivateInterface": return software.amazon.jsii.tests.calculator.ImplementsPrivateInterface.class;
             case "jsii-calc.ImplictBaseOfBase": return software.amazon.jsii.tests.calculator.ImplictBaseOfBase.class;
             case "jsii-calc.InbetweenClass": return software.amazon.jsii.tests.calculator.InbetweenClass.class;
+            case "jsii-calc.InterfaceCollections": return software.amazon.jsii.tests.calculator.InterfaceCollections.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Foo.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello.class;
             case "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceOnlyInterface.Hello.class;

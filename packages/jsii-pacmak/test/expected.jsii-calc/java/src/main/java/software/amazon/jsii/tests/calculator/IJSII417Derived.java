@@ -59,7 +59,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void bar() {
-            this.jsiiCall("bar", Void.class);
+            this.jsiiCall("bar", software.amazon.jsii.NativeType.VOID);
         }
 
         /**
@@ -68,7 +68,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void baz() {
-            this.jsiiCall("baz", Void.class);
+            this.jsiiCall("baz", software.amazon.jsii.NativeType.VOID);
         }
 
         /**
@@ -77,7 +77,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void foo() {
-            this.jsiiCall("foo", Void.class);
+            this.jsiiCall("foo", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

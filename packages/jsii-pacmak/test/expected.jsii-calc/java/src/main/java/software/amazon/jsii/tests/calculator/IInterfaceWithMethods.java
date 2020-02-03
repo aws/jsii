@@ -44,7 +44,7 @@ public interface IInterfaceWithMethods extends software.amazon.jsii.JsiiSerializ
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void doThings() {
-            this.jsiiCall("doThings", Void.class);
+            this.jsiiCall("doThings", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

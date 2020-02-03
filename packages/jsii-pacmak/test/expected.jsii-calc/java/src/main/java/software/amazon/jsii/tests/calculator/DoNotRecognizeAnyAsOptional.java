@@ -32,7 +32,7 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void method(final java.lang.Object _requiredAny, final java.lang.Object _optionalAny, final java.lang.String _optionalString) {
-        this.jsiiCall("method", Void.class, new Object[] { _requiredAny, _optionalAny, _optionalString });
+        this.jsiiCall("method", software.amazon.jsii.NativeType.VOID, new Object[] { _requiredAny, _optionalAny, _optionalString });
     }
 
     /**
@@ -43,7 +43,7 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void method(final java.lang.Object _requiredAny, final java.lang.Object _optionalAny) {
-        this.jsiiCall("method", Void.class, new Object[] { _requiredAny, _optionalAny });
+        this.jsiiCall("method", software.amazon.jsii.NativeType.VOID, new Object[] { _requiredAny, _optionalAny });
     }
 
     /**
@@ -53,6 +53,6 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void method(final java.lang.Object _requiredAny) {
-        this.jsiiCall("method", Void.class, new Object[] { _requiredAny });
+        this.jsiiCall("method", software.amazon.jsii.NativeType.VOID, new Object[] { _requiredAny });
     }
 }

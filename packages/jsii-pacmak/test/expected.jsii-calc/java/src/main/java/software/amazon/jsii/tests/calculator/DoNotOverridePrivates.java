@@ -28,7 +28,7 @@ public class DoNotOverridePrivates extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void changePrivatePropertyValue(final java.lang.String newValue) {
-        this.jsiiCall("changePrivatePropertyValue", Void.class, new Object[] { java.util.Objects.requireNonNull(newValue, "newValue is required") });
+        this.jsiiCall("changePrivatePropertyValue", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(newValue, "newValue is required") });
     }
 
     /**

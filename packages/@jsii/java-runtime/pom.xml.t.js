@@ -113,10 +113,10 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
+            <artifactId>mockito-junit-jupiter</artifactId>
             <version>\${mockito.version}</version>
             <scope>test</scope>
         </dependency>

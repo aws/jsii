@@ -2425,3 +2425,36 @@ export interface StructParameterType {
 export class AmbiguousParameters {
     public constructor(public readonly scope: Bell, public readonly props: StructParameterType) { }
 }
+
+/**
+ * Verifies that collections of interfaces or structs are correctly handled.
+ *
+ * See: https://github.com/aws/jsii/issues/1196
+ */
+export class InterfaceCollections {
+  public static listOfStructs(): StructA[] {
+    return [
+      { requiredString: 'Hello, I\'m String!' }
+    ];
+  }
+
+  public static mapOfStructs(): { [name: string]: StructA } {
+    return {
+      A: { requiredString: 'Hello, I\'m String!' }
+    };
+  }
+
+  public static listOfInterfaces(): IBell[] {
+    return [
+      { ring: () => { return; } }
+    ];
+  }
+
+  public static mapOfInterfaces(): { [name: string]: IBell } {
+    return {
+      A: { ring: () => { return; } }
+    };
+  }
+
+  private constructor(){ }
+}

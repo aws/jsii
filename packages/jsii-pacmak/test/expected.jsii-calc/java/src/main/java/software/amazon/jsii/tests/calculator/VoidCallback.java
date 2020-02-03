@@ -34,7 +34,7 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void callMe() {
-        this.jsiiCall("callMe", Void.class);
+        this.jsiiCall("callMe", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         protected void overrideMe() {
-            this.jsiiCall("overrideMe", Void.class);
+            this.jsiiCall("overrideMe", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

@@ -45,7 +45,7 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void hello(final java.lang.String arg1, final java.lang.Number arg2) {
-            this.jsiiCall("hello", Void.class, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), arg2 });
+            this.jsiiCall("hello", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), arg2 });
         }
 
         /**
@@ -56,7 +56,7 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void hello(final java.lang.String arg1) {
-            this.jsiiCall("hello", Void.class, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required") });
+            this.jsiiCall("hello", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required") });
         }
     }
 }

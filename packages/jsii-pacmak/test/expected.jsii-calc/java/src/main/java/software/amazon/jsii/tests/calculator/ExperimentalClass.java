@@ -44,7 +44,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void method() {
-        this.jsiiCall("method", Void.class);
+        this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
