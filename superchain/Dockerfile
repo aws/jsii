@@ -91,11 +91,9 @@ ENV CHARSET=UTF-8                                                               
 ## Image Metadata
 ARG BUILD_TIMESTAMP
 ARG COMMIT_ID
-ARG JSII_VERSION
 LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                                                               \
       org.opencontainers.image.title="jsii/superchain"                                                                  \
       org.opencontainers.image.description="An image to build cross-language artifacts with AWS jsii"                   \
-      org.opencontainers.image.version=${JSII_VERSION}                                                                  \
       org.opencontainers.image.url="https://github.com/aws/jsii/tree/master/superchain"                                 \
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
