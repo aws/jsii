@@ -25,7 +25,7 @@ public class JSObjectLiteralToNativeClass extends software.amazon.jsii.JsiiObjec
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getPropA() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getPropA() {
         return this.jsiiGet("propA", java.lang.String.class);
     }
 
@@ -33,7 +33,7 @@ public class JSObjectLiteralToNativeClass extends software.amazon.jsii.JsiiObjec
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setPropA(final java.lang.String value) {
+    public void setPropA(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("propA", java.util.Objects.requireNonNull(value, "propA is required"));
     }
 
@@ -41,7 +41,7 @@ public class JSObjectLiteralToNativeClass extends software.amazon.jsii.JsiiObjec
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getPropB() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getPropB() {
         return this.jsiiGet("propB", java.lang.Number.class);
     }
 
@@ -49,7 +49,7 @@ public class JSObjectLiteralToNativeClass extends software.amazon.jsii.JsiiObjec
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setPropB(final java.lang.Number value) {
+    public void setPropB(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
         this.jsiiSet("propB", java.util.Objects.requireNonNull(value, "propB is required"));
     }
 }

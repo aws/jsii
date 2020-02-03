@@ -36,7 +36,7 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public software.amazon.jsii.tests.calculator.Implementation provideAsClass() {
+        public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Implementation provideAsClass() {
             return this.jsiiCall("provideAsClass", software.amazon.jsii.tests.calculator.Implementation.class);
         }
 
@@ -45,7 +45,7 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
+        public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
             return this.jsiiCall("provideAsInterface", software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class);
         }
     }

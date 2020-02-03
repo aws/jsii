@@ -25,7 +25,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      * @param optional
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public NullShouldBeTreatedAsUndefined(final java.lang.String _param1, final java.lang.Object optional) {
+    public NullShouldBeTreatedAsUndefined(final @org.jetbrains.annotations.NotNull java.lang.String _param1, final @org.jetbrains.annotations.Nullable java.lang.Object optional) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required"), optional });
     }
@@ -36,7 +36,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      * @param _param1 This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public NullShouldBeTreatedAsUndefined(final java.lang.String _param1) {
+    public NullShouldBeTreatedAsUndefined(final @org.jetbrains.annotations.NotNull java.lang.String _param1) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required") });
     }
@@ -47,7 +47,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      * @param value
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void giveMeUndefined(final java.lang.Object value) {
+    public void giveMeUndefined(final @org.jetbrains.annotations.Nullable java.lang.Object value) {
         this.jsiiCall("giveMeUndefined", software.amazon.jsii.NativeType.VOID, new Object[] { value });
     }
 
@@ -65,7 +65,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      * @param input This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void giveMeUndefinedInsideAnObject(final software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData input) {
+    public void giveMeUndefinedInsideAnObject(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData input) {
         this.jsiiCall("giveMeUndefinedInsideAnObject", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(input, "input is required") });
     }
 
@@ -81,7 +81,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getChangeMeToUndefined() {
+    public @org.jetbrains.annotations.Nullable java.lang.String getChangeMeToUndefined() {
         return this.jsiiGet("changeMeToUndefined", java.lang.String.class);
     }
 
@@ -89,7 +89,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setChangeMeToUndefined(final java.lang.String value) {
+    public void setChangeMeToUndefined(final @org.jetbrains.annotations.Nullable java.lang.String value) {
         this.jsiiSet("changeMeToUndefined", value);
     }
 }

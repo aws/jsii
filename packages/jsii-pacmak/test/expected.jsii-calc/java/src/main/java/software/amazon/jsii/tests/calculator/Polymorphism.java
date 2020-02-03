@@ -27,7 +27,7 @@ public class Polymorphism extends software.amazon.jsii.JsiiObject {
      * @param friendly This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String sayHello(final software.amazon.jsii.tests.calculator.lib.IFriendly friendly) {
+    public @org.jetbrains.annotations.NotNull java.lang.String sayHello(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.IFriendly friendly) {
         return this.jsiiCall("sayHello", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(friendly, "friendly is required") });
     }
 }

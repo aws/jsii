@@ -22,7 +22,7 @@ public class ExportedBaseClass extends software.amazon.jsii.JsiiObject {
      * @param success This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public ExportedBaseClass(final java.lang.Boolean success) {
+    public ExportedBaseClass(final @org.jetbrains.annotations.NotNull java.lang.Boolean success) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(success, "success is required") });
     }
@@ -31,7 +31,7 @@ public class ExportedBaseClass extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean getSuccess() {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean getSuccess() {
         return this.jsiiGet("success", java.lang.Boolean.class);
     }
 }

@@ -28,7 +28,7 @@ public interface IPublicInterface2 extends software.amazon.jsii.JsiiSerializable
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.String ciao() {
+        public @org.jetbrains.annotations.NotNull java.lang.String ciao() {
             return this.jsiiCall("ciao", java.lang.String.class);
         }
     }

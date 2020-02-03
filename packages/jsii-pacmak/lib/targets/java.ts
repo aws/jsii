@@ -21,6 +21,9 @@ const spdxLicenseList = require('spdx-license-list');
 
 const BUILDER_CLASS_NAME = 'Builder';
 
+const ANN_NOT_NULL = '@org.jetbrains.annotations.NotNull';
+const ANN_NULLABLE = '@org.jetbrains.annotations.Nullable';
+
 /**
  * Build Java packages all together, by generating an aggregate POM
  *
@@ -812,16 +815,16 @@ class JavaGenerator extends Generator {
       dependencies.push({
         groupId: 'software.amazon.jsii',
         artifactId: 'jsii-runtime',
-        version: toMavenVersionRange(`^${VERSION}`)
+        version: toMavenVersionRange(`^${VERSION}`),
       });
 
-      // Provides @javax.annotation.*
+      // Provides @org.jetbrains.*
       dependencies.push({
-        groupId: 'javax.annotation',
-        artifactId: 'javax.annotation-api',
-        version: '[1.3.2,)',
-        scope: 'provided'
+        groupId: 'org.jetbrains',
+        artifactId: 'annotations',
+        version: '[18.0.0,19.0.0)',
       });
+
       return dependencies;
     }
 
@@ -896,8 +899,8 @@ class JavaGenerator extends Generator {
   }
 
   private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides = !!prop.overrides) {
-    const getterType = this.toJavaType(prop.type);
-    const setterTypes = this.toJavaTypes(prop.type);
+    const getterType = this.toDecoratedJavaType(prop);
+    const setterTypes = this.toDecoratedJavaTypes(prop);
     const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
     const access = this.renderAccessLevel(prop);
     const statc = prop.static ? 'static ' : '';
@@ -957,7 +960,7 @@ class JavaGenerator extends Generator {
   }
 
   private emitMethod(cls: spec.Type, method: spec.Method, overrides = !!method.overrides) {
-    const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
+    const returnType = method.returns ? this.toDecoratedJavaType(method.returns) : 'void';
     const statc = method.static ? 'static ' : '';
     const access = this.renderAccessLevel(method);
     const async = !!method.async;
@@ -1580,6 +1583,16 @@ class JavaGenerator extends Generator {
     return this.toJavaType({ fqn: cls.base });
   }
 
+  private toDecoratedJavaType(optionalValue: spec.OptionalValue): string {
+    const nakedType = this.toJavaType(optionalValue.type);
+    return `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`;
+  }
+
+  private toDecoratedJavaTypes(optionalValue: spec.OptionalValue): string[] {
+    return this.toJavaTypes(optionalValue.type).map(nakedType =>
+      `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`);
+  }
+
   private toJavaType(type: spec.TypeReference, forMarshalling = false): string {
     const types = this.toJavaTypes(type, forMarshalling);
     if (types.length > 1) {
@@ -1743,7 +1756,7 @@ class JavaGenerator extends Generator {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
-        params.push(`final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
+        params.push(`final ${this.toDecoratedJavaType(p)}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
       }
     }
     return params.join(', ');

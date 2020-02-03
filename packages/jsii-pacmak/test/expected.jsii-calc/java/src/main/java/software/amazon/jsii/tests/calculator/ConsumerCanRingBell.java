@@ -36,7 +36,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Boolean staticImplementedByObjectLiteral(final software.amazon.jsii.tests.calculator.IBellRinger ringer) {
+    public static @org.jetbrains.annotations.NotNull java.lang.Boolean staticImplementedByObjectLiteral(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IBellRinger ringer) {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConsumerCanRingBell.class, "staticImplementedByObjectLiteral", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(ringer, "ringer is required") });
     }
 
@@ -50,7 +50,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Boolean staticImplementedByPrivateClass(final software.amazon.jsii.tests.calculator.IBellRinger ringer) {
+    public static @org.jetbrains.annotations.NotNull java.lang.Boolean staticImplementedByPrivateClass(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IBellRinger ringer) {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConsumerCanRingBell.class, "staticImplementedByPrivateClass", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(ringer, "ringer is required") });
     }
 
@@ -64,7 +64,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Boolean staticImplementedByPublicClass(final software.amazon.jsii.tests.calculator.IBellRinger ringer) {
+    public static @org.jetbrains.annotations.NotNull java.lang.Boolean staticImplementedByPublicClass(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IBellRinger ringer) {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConsumerCanRingBell.class, "staticImplementedByPublicClass", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(ringer, "ringer is required") });
     }
 
@@ -78,7 +78,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Boolean staticWhenTypedAsClass(final software.amazon.jsii.tests.calculator.IConcreteBellRinger ringer) {
+    public static @org.jetbrains.annotations.NotNull java.lang.Boolean staticWhenTypedAsClass(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IConcreteBellRinger ringer) {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConsumerCanRingBell.class, "staticWhenTypedAsClass", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(ringer, "ringer is required") });
     }
 
@@ -92,7 +92,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean implementedByObjectLiteral(final software.amazon.jsii.tests.calculator.IBellRinger ringer) {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean implementedByObjectLiteral(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IBellRinger ringer) {
         return this.jsiiCall("implementedByObjectLiteral", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(ringer, "ringer is required") });
     }
 
@@ -106,7 +106,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean implementedByPrivateClass(final software.amazon.jsii.tests.calculator.IBellRinger ringer) {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean implementedByPrivateClass(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IBellRinger ringer) {
         return this.jsiiCall("implementedByPrivateClass", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(ringer, "ringer is required") });
     }
 
@@ -120,7 +120,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean implementedByPublicClass(final software.amazon.jsii.tests.calculator.IBellRinger ringer) {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean implementedByPublicClass(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IBellRinger ringer) {
         return this.jsiiCall("implementedByPublicClass", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(ringer, "ringer is required") });
     }
 
@@ -134,7 +134,7 @@ public class ConsumerCanRingBell extends software.amazon.jsii.JsiiObject {
      * @param ringer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean whenTypedAsClass(final software.amazon.jsii.tests.calculator.IConcreteBellRinger ringer) {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean whenTypedAsClass(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IConcreteBellRinger ringer) {
         return this.jsiiCall("whenTypedAsClass", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(ringer, "ringer is required") });
     }
 }

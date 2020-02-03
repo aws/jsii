@@ -27,7 +27,7 @@ public class DoNotOverridePrivates extends software.amazon.jsii.JsiiObject {
      * @param newValue This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void changePrivatePropertyValue(final java.lang.String newValue) {
+    public void changePrivatePropertyValue(final @org.jetbrains.annotations.NotNull java.lang.String newValue) {
         this.jsiiCall("changePrivatePropertyValue", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(newValue, "newValue is required") });
     }
 
@@ -35,7 +35,7 @@ public class DoNotOverridePrivates extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String privateMethodValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.String privateMethodValue() {
         return this.jsiiCall("privateMethodValue", java.lang.String.class);
     }
 
@@ -43,7 +43,7 @@ public class DoNotOverridePrivates extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String privatePropertyValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.String privatePropertyValue() {
         return this.jsiiCall("privatePropertyValue", java.lang.String.class);
     }
 }

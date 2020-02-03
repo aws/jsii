@@ -27,7 +27,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
      * @param rhs Right-hand side operand. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public Add(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
+    public Add(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value lhs, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") });
     }
@@ -39,7 +39,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
-    public java.lang.String toString() {
+    public @org.jetbrains.annotations.NotNull java.lang.String toString() {
         return this.jsiiCall("toString", java.lang.String.class);
     }
 
@@ -50,7 +50,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);
     }
 }

@@ -27,7 +27,7 @@ public class PropertyNamedProperty extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getProperty() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
         return this.jsiiGet("property", java.lang.String.class);
     }
 
@@ -35,7 +35,7 @@ public class PropertyNamedProperty extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean getYetAnoterOne() {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean getYetAnoterOne() {
         return this.jsiiGet("yetAnoterOne", java.lang.Boolean.class);
     }
 }

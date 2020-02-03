@@ -33,7 +33,7 @@ public interface IMutableObjectLiteral extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getValue() {
             return this.jsiiGet("value", java.lang.String.class);
         }
 
@@ -42,7 +42,7 @@ public interface IMutableObjectLiteral extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setValue(final java.lang.String value) {
+        public void setValue(final @org.jetbrains.annotations.NotNull java.lang.String value) {
             this.jsiiSet("value", java.util.Objects.requireNonNull(value, "value is required"));
         }
     }

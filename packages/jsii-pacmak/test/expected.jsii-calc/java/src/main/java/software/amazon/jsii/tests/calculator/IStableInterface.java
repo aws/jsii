@@ -39,7 +39,7 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public java.lang.Number getMutableProperty() {
+        public @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
             return this.jsiiGet("mutableProperty", java.lang.Number.class);
         }
 
@@ -47,7 +47,7 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public void setMutableProperty(final java.lang.Number value) {
+        public void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
             this.jsiiSet("mutableProperty", value);
         }
 

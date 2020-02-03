@@ -25,7 +25,7 @@ public class JSObjectLiteralToNative extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass returnLiteral() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass returnLiteral() {
         return this.jsiiCall("returnLiteral", software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass.class);
     }
 }

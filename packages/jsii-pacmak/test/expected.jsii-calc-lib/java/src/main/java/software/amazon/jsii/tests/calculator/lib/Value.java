@@ -27,7 +27,7 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public java.lang.String toString() {
+    public @org.jetbrains.annotations.NotNull java.lang.String toString() {
         return this.jsiiCall("toString", java.lang.String.class);
     }
 
@@ -36,7 +36,7 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public abstract java.lang.Number getValue();
+    public abstract @org.jetbrains.annotations.NotNull java.lang.Number getValue();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -52,7 +52,7 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public java.lang.Number getValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
     }

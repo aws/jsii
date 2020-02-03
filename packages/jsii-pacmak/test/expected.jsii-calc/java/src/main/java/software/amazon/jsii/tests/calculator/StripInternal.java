@@ -25,7 +25,7 @@ public class StripInternal extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getYouSeeMe() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getYouSeeMe() {
         return this.jsiiGet("youSeeMe", java.lang.String.class);
     }
 
@@ -33,7 +33,7 @@ public class StripInternal extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setYouSeeMe(final java.lang.String value) {
+    public void setYouSeeMe(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("youSeeMe", java.util.Objects.requireNonNull(value, "youSeeMe is required"));
     }
 }

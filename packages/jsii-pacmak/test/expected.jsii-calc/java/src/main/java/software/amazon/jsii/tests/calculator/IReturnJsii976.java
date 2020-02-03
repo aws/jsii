@@ -30,7 +30,7 @@ public interface IReturnJsii976 extends software.amazon.jsii.JsiiSerializable {
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.Number getFoo() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number getFoo() {
             return this.jsiiGet("foo", java.lang.Number.class);
         }
     }

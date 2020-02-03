@@ -26,7 +26,7 @@ public class SingletonInt extends software.amazon.jsii.JsiiObject {
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean isSingletonInt(final java.lang.Number value) {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean isSingletonInt(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
         return this.jsiiCall("isSingletonInt", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 }

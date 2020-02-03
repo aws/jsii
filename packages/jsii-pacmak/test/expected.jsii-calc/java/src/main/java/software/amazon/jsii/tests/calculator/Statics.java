@@ -29,7 +29,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public Statics(final java.lang.String value) {
+    public Statics(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
@@ -42,7 +42,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * @param name The name of the person to say hello to. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.String staticMethod(final java.lang.String name) {
+    public static @org.jetbrains.annotations.NotNull java.lang.String staticMethod(final @org.jetbrains.annotations.NotNull java.lang.String name) {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Statics.class, "staticMethod", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(name, "name is required") });
     }
 
@@ -50,7 +50,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String justMethod() {
+    public @org.jetbrains.annotations.NotNull java.lang.String justMethod() {
         return this.jsiiCall("justMethod", java.lang.String.class);
     }
 
@@ -92,7 +92,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static software.amazon.jsii.tests.calculator.Statics getInstance() {
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Statics getInstance() {
         return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "instance", software.amazon.jsii.tests.calculator.Statics.class);
     }
 
@@ -104,7 +104,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static void setInstance(final software.amazon.jsii.tests.calculator.Statics value) {
+    public static void setInstance(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Statics value) {
         software.amazon.jsii.JsiiObject.jsiiStaticSet(software.amazon.jsii.tests.calculator.Statics.class, "instance", java.util.Objects.requireNonNull(value, "instance is required"));
     }
 
@@ -112,7 +112,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Number getNonConstStatic() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Number getNonConstStatic() {
         return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "nonConstStatic", java.lang.Number.class);
     }
 
@@ -120,7 +120,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static void setNonConstStatic(final java.lang.Number value) {
+    public static void setNonConstStatic(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
         software.amazon.jsii.JsiiObject.jsiiStaticSet(software.amazon.jsii.tests.calculator.Statics.class, "nonConstStatic", java.util.Objects.requireNonNull(value, "nonConstStatic is required"));
     }
 
@@ -128,7 +128,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getValue() {
         return this.jsiiGet("value", java.lang.String.class);
     }
 }

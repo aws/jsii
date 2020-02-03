@@ -26,7 +26,7 @@ public class SingletonString extends software.amazon.jsii.JsiiObject {
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean isSingletonString(final java.lang.String value) {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean isSingletonString(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         return this.jsiiCall("isSingletonString", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 }

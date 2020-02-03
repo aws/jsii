@@ -25,7 +25,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
      * @param props some properties. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public SupportsNiceJavaBuilderWithRequiredProps(final java.lang.Number id, final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props) {
+    public SupportsNiceJavaBuilderWithRequiredProps(final @org.jetbrains.annotations.NotNull java.lang.Number id, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(id, "id is required"), java.util.Objects.requireNonNull(props, "props is required") });
     }
@@ -34,7 +34,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getBar() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getBar() {
         return this.jsiiGet("bar", java.lang.Number.class);
     }
 
@@ -44,7 +44,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getId() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getId() {
         return this.jsiiGet("id", java.lang.Number.class);
     }
 
@@ -52,7 +52,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getPropId() {
+    public @org.jetbrains.annotations.Nullable java.lang.String getPropId() {
         return this.jsiiGet("propId", java.lang.String.class);
     }
 
