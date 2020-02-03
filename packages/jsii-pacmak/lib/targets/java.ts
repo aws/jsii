@@ -1584,8 +1584,11 @@ class JavaGenerator extends Generator {
   }
 
   private toDecoratedJavaType(optionalValue: spec.OptionalValue): string {
-    const nakedType = this.toJavaType(optionalValue.type);
-    return `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`;
+    const result = this.toDecoratedJavaTypes(optionalValue);
+    if (result.length > 1) {
+      return `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} java.lang.Object`;
+    }
+    return result[0];
   }
 
   private toDecoratedJavaTypes(optionalValue: spec.OptionalValue): string[] {
