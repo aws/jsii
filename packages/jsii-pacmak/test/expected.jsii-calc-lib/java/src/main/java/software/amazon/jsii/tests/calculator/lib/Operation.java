@@ -28,7 +28,7 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     @Override
-    public abstract java.lang.String toString();
+    public abstract @org.jetbrains.annotations.NotNull java.lang.String toString();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -44,7 +44,7 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public java.lang.Number getValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
 
@@ -54,7 +54,7 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         @Override
-        public java.lang.String toString() {
+        public @org.jetbrains.annotations.NotNull java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);
         }
     }

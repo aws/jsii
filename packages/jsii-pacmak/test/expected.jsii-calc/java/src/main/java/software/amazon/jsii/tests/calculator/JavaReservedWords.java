@@ -441,7 +441,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getWhileValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getWhileValue() {
         return this.jsiiGet("while", java.lang.String.class);
     }
 
@@ -449,7 +449,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setWhileValue(final java.lang.String value) {
+    public void setWhileValue(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("while", java.util.Objects.requireNonNull(value, "while is required"));
     }
 }

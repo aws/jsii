@@ -22,7 +22,7 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
      * @param int This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public ClassWithJavaReservedWords(final java.lang.String intValue) {
+    public ClassWithJavaReservedWords(final @org.jetbrains.annotations.NotNull java.lang.String intValue) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(intValue, "intValue is required") });
     }
@@ -33,7 +33,7 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
      * @param assert This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String doImport(final java.lang.String assertValue) {
+    public @org.jetbrains.annotations.NotNull java.lang.String doImport(final @org.jetbrains.annotations.NotNull java.lang.String assertValue) {
         return this.jsiiCall("import", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(assertValue, "assertValue is required") });
     }
 
@@ -41,7 +41,7 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getIntValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getIntValue() {
         return this.jsiiGet("int", java.lang.String.class);
     }
 }

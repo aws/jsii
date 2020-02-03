@@ -22,7 +22,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
      * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public UsesInterfaceWithProperties(final software.amazon.jsii.tests.calculator.IInterfaceWithProperties obj) {
+    public UsesInterfaceWithProperties(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IInterfaceWithProperties obj) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
     }
@@ -31,7 +31,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String justRead() {
+    public @org.jetbrains.annotations.NotNull java.lang.String justRead() {
         return this.jsiiCall("justRead", java.lang.String.class);
     }
 
@@ -41,7 +41,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
      * @param ext This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String readStringAndNumber(final software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension ext) {
+    public @org.jetbrains.annotations.NotNull java.lang.String readStringAndNumber(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension ext) {
         return this.jsiiCall("readStringAndNumber", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(ext, "ext is required") });
     }
 
@@ -51,7 +51,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String writeAndRead(final java.lang.String value) {
+    public @org.jetbrains.annotations.NotNull java.lang.String writeAndRead(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         return this.jsiiCall("writeAndRead", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
@@ -59,7 +59,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.IInterfaceWithProperties getObj() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IInterfaceWithProperties getObj() {
         return this.jsiiGet("obj", software.amazon.jsii.tests.calculator.IInterfaceWithProperties.class);
     }
 }

@@ -34,7 +34,7 @@ public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         @Override
-        public java.lang.String hello() {
+        public @org.jetbrains.annotations.NotNull java.lang.String hello() {
             return this.jsiiCall("hello", java.lang.String.class);
         }
     }

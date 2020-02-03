@@ -26,7 +26,7 @@ public class StructPassing extends software.amazon.jsii.JsiiObject {
      * @param inputs This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.External)
-    public static java.lang.Number howManyVarArgsDidIPass(final java.lang.Number _positional, final software.amazon.jsii.tests.calculator.TopLevelStruct... inputs) {
+    public static @org.jetbrains.annotations.NotNull java.lang.Number howManyVarArgsDidIPass(final @org.jetbrains.annotations.NotNull java.lang.Number _positional, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.TopLevelStruct... inputs) {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructPassing.class, "howManyVarArgsDidIPass", java.lang.Number.class, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(_positional, "_positional is required") }), java.util.Arrays.<Object>stream(inputs)).toArray(Object[]::new));
     }
 
@@ -35,7 +35,7 @@ public class StructPassing extends software.amazon.jsii.JsiiObject {
      * @param input This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.External)
-    public static software.amazon.jsii.tests.calculator.TopLevelStruct roundTrip(final java.lang.Number _positional, final software.amazon.jsii.tests.calculator.TopLevelStruct input) {
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.TopLevelStruct roundTrip(final @org.jetbrains.annotations.NotNull java.lang.Number _positional, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.TopLevelStruct input) {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructPassing.class, "roundTrip", software.amazon.jsii.tests.calculator.TopLevelStruct.class, new Object[] { java.util.Objects.requireNonNull(_positional, "_positional is required"), java.util.Objects.requireNonNull(input, "input is required") });
     }
 }

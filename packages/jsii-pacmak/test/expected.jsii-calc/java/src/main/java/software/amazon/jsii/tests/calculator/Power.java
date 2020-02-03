@@ -27,7 +27,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
      * @param pow The number of times to multiply. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public Power(final software.amazon.jsii.tests.calculator.lib.Value base, final software.amazon.jsii.tests.calculator.lib.Value pow) {
+    public Power(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value base, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value pow) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(base, "base is required"), java.util.Objects.requireNonNull(pow, "pow is required") });
     }
@@ -38,7 +38,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getBase() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getBase() {
         return this.jsiiGet("base", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
@@ -51,7 +51,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getExpression() {
         return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
@@ -61,7 +61,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getPow() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getPow() {
         return this.jsiiGet("pow", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 }

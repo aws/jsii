@@ -34,7 +34,7 @@ public interface IJSII417PublicBaseOfBase extends software.amazon.jsii.JsiiSeria
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.Boolean getHasRoot() {
+        public @org.jetbrains.annotations.NotNull java.lang.Boolean getHasRoot() {
             return this.jsiiGet("hasRoot", java.lang.Boolean.class);
         }
 

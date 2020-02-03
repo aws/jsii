@@ -22,7 +22,7 @@ public class ConsumePureInterface extends software.amazon.jsii.JsiiObject {
      * @param delegate This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public ConsumePureInterface(final software.amazon.jsii.tests.calculator.IStructReturningDelegate delegate) {
+    public ConsumePureInterface(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IStructReturningDelegate delegate) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(delegate, "delegate is required") });
     }
@@ -31,7 +31,7 @@ public class ConsumePureInterface extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.StructB workItBaby() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructB workItBaby() {
         return this.jsiiCall("workItBaby", software.amazon.jsii.tests.calculator.StructB.class);
     }
 }

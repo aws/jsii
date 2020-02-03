@@ -30,7 +30,7 @@ public interface IStructReturningDelegate extends software.amazon.jsii.JsiiSeria
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public software.amazon.jsii.tests.calculator.StructB returnStruct() {
+        public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructB returnStruct() {
             return this.jsiiCall("returnStruct", software.amazon.jsii.tests.calculator.StructB.class);
         }
     }

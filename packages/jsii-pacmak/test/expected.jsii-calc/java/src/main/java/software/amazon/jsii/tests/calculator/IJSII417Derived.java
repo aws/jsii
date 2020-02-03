@@ -40,7 +40,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getProperty() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
             return this.jsiiGet("property", java.lang.String.class);
         }
 
@@ -49,7 +49,7 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.Boolean getHasRoot() {
+        public @org.jetbrains.annotations.NotNull java.lang.Boolean getHasRoot() {
             return this.jsiiGet("hasRoot", java.lang.Boolean.class);
         }
 

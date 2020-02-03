@@ -24,7 +24,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public Number(final java.lang.Number value) {
+    public Number(final @org.jetbrains.annotations.NotNull java.lang.Number value) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
@@ -35,7 +35,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public java.lang.Number getDoubleValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getDoubleValue() {
         return this.jsiiGet("doubleValue", java.lang.Number.class);
     }
 
@@ -45,7 +45,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public java.lang.Number getValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);
     }
 }

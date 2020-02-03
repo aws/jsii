@@ -31,7 +31,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
      * @return "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String cryptoSha256() {
+    public @org.jetbrains.annotations.NotNull java.lang.String cryptoSha256() {
         return this.jsiiCall("cryptoSha256", java.lang.String.class);
     }
 
@@ -43,7 +43,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
      * @return "Hello, resource!"
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String fsReadFile() {
+    public @org.jetbrains.annotations.NotNull java.lang.String fsReadFile() {
         return this.jsiiAsyncCall("fsReadFile", java.lang.String.class);
     }
 
@@ -55,7 +55,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
      * @return "Hello, resource! SYNC!"
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String fsReadFileSync() {
+    public @org.jetbrains.annotations.NotNull java.lang.String fsReadFileSync() {
         return this.jsiiCall("fsReadFileSync", java.lang.String.class);
     }
 
@@ -65,7 +65,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getOsPlatform() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getOsPlatform() {
         return this.jsiiGet("osPlatform", java.lang.String.class);
     }
 }

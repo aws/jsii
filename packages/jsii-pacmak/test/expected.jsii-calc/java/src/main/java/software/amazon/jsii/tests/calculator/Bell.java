@@ -34,7 +34,7 @@ public class Bell extends software.amazon.jsii.JsiiObject implements software.am
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean getRung() {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean getRung() {
         return this.jsiiGet("rung", java.lang.Boolean.class);
     }
 
@@ -42,7 +42,7 @@ public class Bell extends software.amazon.jsii.JsiiObject implements software.am
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setRung(final java.lang.Boolean value) {
+    public void setRung(final @org.jetbrains.annotations.NotNull java.lang.Boolean value) {
         this.jsiiSet("rung", java.util.Objects.requireNonNull(value, "rung is required"));
     }
 }

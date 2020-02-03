@@ -48,7 +48,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public java.lang.Number getMutableProperty() {
+        public @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
             return this.jsiiGet("mutableProperty", java.lang.Number.class);
         }
 
@@ -58,7 +58,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public void setMutableProperty(final java.lang.Number value) {
+        public void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
             this.jsiiSet("mutableProperty", value);
         }
 

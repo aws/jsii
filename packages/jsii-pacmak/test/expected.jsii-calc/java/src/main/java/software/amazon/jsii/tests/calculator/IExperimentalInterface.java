@@ -44,7 +44,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.Number getMutableProperty() {
+        public @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
             return this.jsiiGet("mutableProperty", java.lang.Number.class);
         }
 
@@ -53,7 +53,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setMutableProperty(final java.lang.Number value) {
+        public void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
             this.jsiiSet("mutableProperty", value);
         }
 

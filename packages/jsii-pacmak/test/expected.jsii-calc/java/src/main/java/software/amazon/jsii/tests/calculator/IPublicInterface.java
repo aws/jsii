@@ -28,7 +28,7 @@ public interface IPublicInterface extends software.amazon.jsii.JsiiSerializable 
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.String bye() {
+        public @org.jetbrains.annotations.NotNull java.lang.String bye() {
             return this.jsiiCall("bye", java.lang.String.class);
         }
     }

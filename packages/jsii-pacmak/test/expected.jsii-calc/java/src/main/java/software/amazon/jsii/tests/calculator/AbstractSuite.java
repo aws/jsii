@@ -29,7 +29,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
      * @param str This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected abstract java.lang.String someMethod(final java.lang.String str);
+    protected abstract @org.jetbrains.annotations.NotNull java.lang.String someMethod(final @org.jetbrains.annotations.NotNull java.lang.String str);
 
     /**
      * Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result.
@@ -39,7 +39,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
      * @param seed a `string`. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String workItAll(final java.lang.String seed) {
+    public @org.jetbrains.annotations.NotNull java.lang.String workItAll(final @org.jetbrains.annotations.NotNull java.lang.String seed) {
         return this.jsiiCall("workItAll", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(seed, "seed is required") });
     }
 
@@ -47,13 +47,13 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected abstract java.lang.String getProperty();
+    protected abstract @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected abstract void setProperty(final java.lang.String value);
+    protected abstract void setProperty(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -68,7 +68,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        protected java.lang.String getProperty() {
+        protected @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
             return this.jsiiGet("property", java.lang.String.class);
         }
 
@@ -77,7 +77,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        protected void setProperty(final java.lang.String value) {
+        protected void setProperty(final @org.jetbrains.annotations.NotNull java.lang.String value) {
             this.jsiiSet("property", java.util.Objects.requireNonNull(value, "property is required"));
         }
 
@@ -88,7 +88,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        protected java.lang.String someMethod(final java.lang.String str) {
+        protected @org.jetbrains.annotations.NotNull java.lang.String someMethod(final @org.jetbrains.annotations.NotNull java.lang.String str) {
             return this.jsiiCall("someMethod", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(str, "str is required") });
         }
     }

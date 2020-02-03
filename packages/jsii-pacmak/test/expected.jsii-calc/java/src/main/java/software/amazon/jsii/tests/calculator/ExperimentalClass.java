@@ -23,7 +23,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
      * @param mutableNumber
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public ExperimentalClass(final java.lang.String readonlyString, final java.lang.Number mutableNumber) {
+    public ExperimentalClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString, final @org.jetbrains.annotations.Nullable java.lang.Number mutableNumber) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber });
     }
@@ -34,7 +34,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
      * @param readonlyString This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public ExperimentalClass(final java.lang.String readonlyString) {
+    public ExperimentalClass(final @org.jetbrains.annotations.NotNull java.lang.String readonlyString) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required") });
     }
@@ -51,7 +51,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getReadonlyProperty() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty() {
         return this.jsiiGet("readonlyProperty", java.lang.String.class);
     }
 
@@ -59,7 +59,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getMutableProperty() {
+    public @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
         return this.jsiiGet("mutableProperty", java.lang.Number.class);
     }
 
@@ -67,7 +67,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setMutableProperty(final java.lang.Number value) {
+    public void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
         this.jsiiSet("mutableProperty", value);
     }
 }

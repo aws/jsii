@@ -29,7 +29,7 @@ public class JsiiAgent extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.String getJsiiAgent() {
+    public static @org.jetbrains.annotations.Nullable java.lang.String getJsiiAgent() {
         return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.JsiiAgent.class, "jsiiAgent", java.lang.String.class);
     }
 }

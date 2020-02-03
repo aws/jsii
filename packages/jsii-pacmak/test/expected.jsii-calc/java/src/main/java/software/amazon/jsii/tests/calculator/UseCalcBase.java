@@ -27,7 +27,7 @@ public class UseCalcBase extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.base.Base hello() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.base.Base hello() {
         return this.jsiiCall("hello", software.amazon.jsii.tests.calculator.base.Base.class);
     }
 }

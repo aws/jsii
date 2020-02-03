@@ -27,13 +27,13 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
      * @param name This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public abstract java.lang.String abstractMethod(final java.lang.String name);
+    public abstract @org.jetbrains.annotations.NotNull java.lang.String abstractMethod(final @org.jetbrains.annotations.NotNull java.lang.String name);
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number nonAbstractMethod() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number nonAbstractMethod() {
         return this.jsiiCall("nonAbstractMethod", java.lang.Number.class);
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getPropFromInterface() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getPropFromInterface() {
         return this.jsiiGet("propFromInterface", java.lang.String.class);
     }
 
@@ -59,7 +59,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getPropFromInterface() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getPropFromInterface() {
             return this.jsiiGet("propFromInterface", java.lang.String.class);
         }
 
@@ -68,7 +68,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getAbstractProperty() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getAbstractProperty() {
             return this.jsiiGet("abstractProperty", java.lang.String.class);
         }
 
@@ -79,7 +79,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.String abstractMethod(final java.lang.String name) {
+        public @org.jetbrains.annotations.NotNull java.lang.String abstractMethod(final @org.jetbrains.annotations.NotNull java.lang.String name) {
             return this.jsiiCall("abstractMethod", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(name, "name is required") });
         }
     }

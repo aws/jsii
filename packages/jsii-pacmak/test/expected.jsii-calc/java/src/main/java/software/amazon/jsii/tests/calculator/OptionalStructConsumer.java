@@ -22,7 +22,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
      * @param optionalStruct
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public OptionalStructConsumer(final software.amazon.jsii.tests.calculator.OptionalStruct optionalStruct) {
+    public OptionalStructConsumer(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.OptionalStruct optionalStruct) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { optionalStruct });
     }
@@ -40,7 +40,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean getParameterWasUndefined() {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean getParameterWasUndefined() {
         return this.jsiiGet("parameterWasUndefined", java.lang.Boolean.class);
     }
 
@@ -48,7 +48,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getFieldValue() {
+    public @org.jetbrains.annotations.Nullable java.lang.String getFieldValue() {
         return this.jsiiGet("fieldValue", java.lang.String.class);
     }
 

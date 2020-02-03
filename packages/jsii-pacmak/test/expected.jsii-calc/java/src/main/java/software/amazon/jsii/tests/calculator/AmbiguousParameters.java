@@ -23,7 +23,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
      * @param props This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public AmbiguousParameters(final software.amazon.jsii.tests.calculator.Bell scope, final software.amazon.jsii.tests.calculator.StructParameterType props) {
+    public AmbiguousParameters(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Bell scope, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructParameterType props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(scope, "scope is required"), java.util.Objects.requireNonNull(props, "props is required") });
     }
@@ -32,7 +32,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.StructParameterType getProps() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructParameterType getProps() {
         return this.jsiiGet("props", software.amazon.jsii.tests.calculator.StructParameterType.class);
     }
 
@@ -40,7 +40,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.Bell getScope() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Bell getScope() {
         return this.jsiiGet("scope", software.amazon.jsii.tests.calculator.Bell.class);
     }
 
