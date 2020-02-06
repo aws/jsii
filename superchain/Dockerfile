@@ -14,7 +14,7 @@ RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"            
   && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
   && curl -sSL "https://download.mono-project.com/repo/centos7-stable.repo"                                             \
       | tee /etc/yum.repos.d/mono-centos7-stable.repo                                                                   \
-  && yum -y install dotnet-sdk-3.0 mono-devel powershell                                                                \
+  && yum -y install dotnet-sdk-3.1 mono-devel powershell                                                                \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && dotnet help
 

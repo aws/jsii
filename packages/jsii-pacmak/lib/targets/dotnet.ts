@@ -9,7 +9,7 @@ import { DotNetGenerator } from './dotnet/dotnetgenerator';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
 
-export const TARGET_FRAMEWORK = 'netcoreapp3.0';
+export const TARGET_FRAMEWORK = 'netcoreapp3.1';
 
 /**
  * Build .NET packages all together, by generating an aggregate solution file
