@@ -1,5 +1,7 @@
 import { expectError, expectNoError } from './util';
 
+jest.setTimeout(50_000);
+
 // ----------------------------------------------------------------------
 
 test('type unions in return structs can be the same', () =>

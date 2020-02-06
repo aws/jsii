@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "dependencies": {
-    "@scope/jsii-calc-base": "^0.21.2"
+    "@scope/jsii-calc-base": "^0.22.0"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base": {
@@ -62,7 +62,7 @@
     "stability": "deprecated"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.21.2",
+  "jsiiVersion": "0.22.0",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-lib",
   "repository": {
@@ -515,6 +515,6 @@
       ]
     }
   },
-  "version": "0.21.2",
-  "fingerprint": "Sl62LU8wPidi/OXxqCl92w+uQCbtvNJbdUiHYNmSBaQ="
+  "version": "0.22.0",
+  "fingerprint": "i2VZu3yga2n7APt6oa8RYA14jfrlqkD8zPc+xoxXQfw="
 }

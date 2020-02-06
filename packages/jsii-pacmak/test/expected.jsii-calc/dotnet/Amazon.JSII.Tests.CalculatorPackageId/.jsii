@@ -34,9 +34,9 @@
     }
   ],
   "dependencies": {
-    "@scope/jsii-calc-base": "^0.21.2",
-    "@scope/jsii-calc-base-of-base": "^0.21.2",
-    "@scope/jsii-calc-lib": "^0.21.2"
+    "@scope/jsii-calc-base": "^0.22.0",
+    "@scope/jsii-calc-base-of-base": "^0.22.0",
+    "@scope/jsii-calc-lib": "^0.22.0"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base": {
@@ -113,7 +113,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.21.2",
+  "jsiiVersion": "0.22.0",
   "keywords": [
     "aws",
     "jsii",
@@ -12122,6 +12122,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.21.2",
-  "fingerprint": "velTLD1SesfpPdZkm+dSlxTyDd6rl75nTBpCsaGIus4="
+  "version": "0.22.0",
+  "fingerprint": "dmFWtiHlAAJTZImTNAjLUtdrfFpMaJzHMBqCsDDG1Dk="
 }
