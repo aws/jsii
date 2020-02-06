@@ -25,7 +25,7 @@ public class SomeTypeJsii976 extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object returnAnonymous() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object returnAnonymous() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.SomeTypeJsii976.class, "returnAnonymous", java.lang.Object.class);
     }
 
@@ -33,7 +33,7 @@ public class SomeTypeJsii976 extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static software.amazon.jsii.tests.calculator.IReturnJsii976 returnReturn() {
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IReturnJsii976 returnReturn() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.SomeTypeJsii976.class, "returnReturn", software.amazon.jsii.tests.calculator.IReturnJsii976.class);
     }
 }

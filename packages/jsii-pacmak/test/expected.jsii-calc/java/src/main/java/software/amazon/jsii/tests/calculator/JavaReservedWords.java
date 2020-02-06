@@ -26,7 +26,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doAbstract() {
-        this.jsiiCall("abstract", Void.class);
+        this.jsiiCall("abstract", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -34,7 +34,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doAssert() {
-        this.jsiiCall("assert", Void.class);
+        this.jsiiCall("assert", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -42,7 +42,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doBoolean() {
-        this.jsiiCall("boolean", Void.class);
+        this.jsiiCall("boolean", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -50,7 +50,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doBreak() {
-        this.jsiiCall("break", Void.class);
+        this.jsiiCall("break", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -58,7 +58,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doByte() {
-        this.jsiiCall("byte", Void.class);
+        this.jsiiCall("byte", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -66,7 +66,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doCase() {
-        this.jsiiCall("case", Void.class);
+        this.jsiiCall("case", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -74,7 +74,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doCatch() {
-        this.jsiiCall("catch", Void.class);
+        this.jsiiCall("catch", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -82,7 +82,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doChar() {
-        this.jsiiCall("char", Void.class);
+        this.jsiiCall("char", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -90,7 +90,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doClass() {
-        this.jsiiCall("class", Void.class);
+        this.jsiiCall("class", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -98,7 +98,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doConst() {
-        this.jsiiCall("const", Void.class);
+        this.jsiiCall("const", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -106,7 +106,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doContinue() {
-        this.jsiiCall("continue", Void.class);
+        this.jsiiCall("continue", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -114,7 +114,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doDefault() {
-        this.jsiiCall("default", Void.class);
+        this.jsiiCall("default", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -122,7 +122,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doDo() {
-        this.jsiiCall("do", Void.class);
+        this.jsiiCall("do", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -130,7 +130,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doDouble() {
-        this.jsiiCall("double", Void.class);
+        this.jsiiCall("double", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -138,7 +138,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doElse() {
-        this.jsiiCall("else", Void.class);
+        this.jsiiCall("else", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -146,7 +146,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doEnum() {
-        this.jsiiCall("enum", Void.class);
+        this.jsiiCall("enum", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -154,7 +154,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doExtends() {
-        this.jsiiCall("extends", Void.class);
+        this.jsiiCall("extends", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -162,7 +162,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doFalse() {
-        this.jsiiCall("false", Void.class);
+        this.jsiiCall("false", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -170,7 +170,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doFinal() {
-        this.jsiiCall("final", Void.class);
+        this.jsiiCall("final", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -178,7 +178,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doFinally() {
-        this.jsiiCall("finally", Void.class);
+        this.jsiiCall("finally", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -186,7 +186,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doFloat() {
-        this.jsiiCall("float", Void.class);
+        this.jsiiCall("float", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -194,7 +194,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doFor() {
-        this.jsiiCall("for", Void.class);
+        this.jsiiCall("for", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -202,7 +202,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doGoto() {
-        this.jsiiCall("goto", Void.class);
+        this.jsiiCall("goto", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -210,7 +210,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doIf() {
-        this.jsiiCall("if", Void.class);
+        this.jsiiCall("if", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -218,7 +218,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doImplements() {
-        this.jsiiCall("implements", Void.class);
+        this.jsiiCall("implements", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -226,7 +226,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doImport() {
-        this.jsiiCall("import", Void.class);
+        this.jsiiCall("import", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -234,7 +234,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doInstanceof() {
-        this.jsiiCall("instanceof", Void.class);
+        this.jsiiCall("instanceof", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -242,7 +242,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doInt() {
-        this.jsiiCall("int", Void.class);
+        this.jsiiCall("int", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -250,7 +250,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doInterface() {
-        this.jsiiCall("interface", Void.class);
+        this.jsiiCall("interface", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -258,7 +258,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doLong() {
-        this.jsiiCall("long", Void.class);
+        this.jsiiCall("long", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -266,7 +266,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doNative() {
-        this.jsiiCall("native", Void.class);
+        this.jsiiCall("native", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -274,7 +274,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doNew() {
-        this.jsiiCall("new", Void.class);
+        this.jsiiCall("new", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -282,7 +282,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doNull() {
-        this.jsiiCall("null", Void.class);
+        this.jsiiCall("null", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -290,7 +290,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doPackage() {
-        this.jsiiCall("package", Void.class);
+        this.jsiiCall("package", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -298,7 +298,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doPrivate() {
-        this.jsiiCall("private", Void.class);
+        this.jsiiCall("private", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -306,7 +306,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doProtected() {
-        this.jsiiCall("protected", Void.class);
+        this.jsiiCall("protected", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -314,7 +314,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doPublic() {
-        this.jsiiCall("public", Void.class);
+        this.jsiiCall("public", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -322,7 +322,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doReturn() {
-        this.jsiiCall("return", Void.class);
+        this.jsiiCall("return", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -330,7 +330,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doShort() {
-        this.jsiiCall("short", Void.class);
+        this.jsiiCall("short", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -338,7 +338,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doStatic() {
-        this.jsiiCall("static", Void.class);
+        this.jsiiCall("static", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -346,7 +346,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doStrictfp() {
-        this.jsiiCall("strictfp", Void.class);
+        this.jsiiCall("strictfp", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -354,7 +354,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doSuper() {
-        this.jsiiCall("super", Void.class);
+        this.jsiiCall("super", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -362,7 +362,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doSwitch() {
-        this.jsiiCall("switch", Void.class);
+        this.jsiiCall("switch", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -370,7 +370,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doSynchronized() {
-        this.jsiiCall("synchronized", Void.class);
+        this.jsiiCall("synchronized", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -378,7 +378,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doThis() {
-        this.jsiiCall("this", Void.class);
+        this.jsiiCall("this", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -386,7 +386,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doThrow() {
-        this.jsiiCall("throw", Void.class);
+        this.jsiiCall("throw", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -394,7 +394,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doThrows() {
-        this.jsiiCall("throws", Void.class);
+        this.jsiiCall("throws", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -402,7 +402,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doTransient() {
-        this.jsiiCall("transient", Void.class);
+        this.jsiiCall("transient", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -410,7 +410,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doTrue() {
-        this.jsiiCall("true", Void.class);
+        this.jsiiCall("true", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -418,7 +418,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doTry() {
-        this.jsiiCall("try", Void.class);
+        this.jsiiCall("try", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -426,7 +426,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doVoid() {
-        this.jsiiCall("void", Void.class);
+        this.jsiiCall("void", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -434,14 +434,14 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void doVolatile() {
-        this.jsiiCall("volatile", Void.class);
+        this.jsiiCall("volatile", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getWhileValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getWhileValue() {
         return this.jsiiGet("while", java.lang.String.class);
     }
 
@@ -449,7 +449,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setWhileValue(final java.lang.String value) {
+    public void setWhileValue(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("while", java.util.Objects.requireNonNull(value, "while is required"));
     }
 }

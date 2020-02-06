@@ -29,7 +29,7 @@ public interface IInterfaceWithInternal extends software.amazon.jsii.JsiiSeriali
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void visible() {
-            this.jsiiCall("visible", Void.class);
+            this.jsiiCall("visible", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

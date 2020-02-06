@@ -25,7 +25,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static software.amazon.jsii.tests.calculator.IPublicInterface hiddenInterface() {
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IPublicInterface hiddenInterface() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenInterface", software.amazon.jsii.tests.calculator.IPublicInterface.class);
     }
 
@@ -33,23 +33,23 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> hiddenInterfaces() {
-        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenInterfaces", java.util.List.class));
+    public static @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> hiddenInterfaces() {
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenInterfaces", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IPublicInterface.class))));
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> hiddenSubInterfaces() {
-        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenSubInterfaces", java.util.List.class));
+    public static @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> hiddenSubInterfaces() {
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenSubInterfaces", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IPublicInterface.class))));
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static software.amazon.jsii.tests.calculator.PublicClass makeClass() {
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.PublicClass makeClass() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "makeClass", software.amazon.jsii.tests.calculator.PublicClass.class);
     }
 
@@ -57,7 +57,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static software.amazon.jsii.tests.calculator.IPublicInterface makeInterface() {
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IPublicInterface makeInterface() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "makeInterface", software.amazon.jsii.tests.calculator.IPublicInterface.class);
     }
 
@@ -65,7 +65,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static software.amazon.jsii.tests.calculator.IPublicInterface2 makeInterface2() {
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IPublicInterface2 makeInterface2() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "makeInterface2", software.amazon.jsii.tests.calculator.IPublicInterface2.class);
     }
 
@@ -73,7 +73,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> makeInterfaces() {
-        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "makeInterfaces", java.util.List.class));
+    public static @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> makeInterfaces() {
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "makeInterfaces", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IPublicInterface.class))));
     }
 }

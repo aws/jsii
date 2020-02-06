@@ -25,7 +25,7 @@ public class ImplementInternalInterface extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getProp() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getProp() {
         return this.jsiiGet("prop", java.lang.String.class);
     }
 
@@ -33,7 +33,7 @@ public class ImplementInternalInterface extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setProp(final java.lang.String value) {
+    public void setProp(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("prop", java.util.Objects.requireNonNull(value, "prop is required"));
     }
 }

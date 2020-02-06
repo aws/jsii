@@ -25,7 +25,7 @@ public class UseBundledDependency extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Object value() {
+    public @org.jetbrains.annotations.NotNull java.lang.Object value() {
         return this.jsiiCall("value", java.lang.Object.class);
     }
 }

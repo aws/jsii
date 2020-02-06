@@ -30,7 +30,7 @@ public interface IInterfaceImplementedByAbstractClass extends software.amazon.js
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getPropFromInterface() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getPropFromInterface() {
             return this.jsiiGet("propFromInterface", java.lang.String.class);
         }
     }

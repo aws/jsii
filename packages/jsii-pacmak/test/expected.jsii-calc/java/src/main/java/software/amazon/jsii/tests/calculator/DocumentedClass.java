@@ -36,7 +36,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      * @param greetee The person to be greeted.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public java.lang.Number greet(final software.amazon.jsii.tests.calculator.Greetee greetee) {
+    public @org.jetbrains.annotations.NotNull java.lang.Number greet(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.Greetee greetee) {
         return this.jsiiCall("greet", java.lang.Number.class, new Object[] { greetee });
     }
 
@@ -49,7 +49,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      * @return A number that everyone knows very well
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public java.lang.Number greet() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number greet() {
         return this.jsiiCall("greet", java.lang.Number.class);
     }
 
@@ -60,6 +60,6 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void hola() {
-        this.jsiiCall("hola", Void.class);
+        this.jsiiCall("hola", software.amazon.jsii.NativeType.VOID);
     }
 }

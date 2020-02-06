@@ -1,7 +1,6 @@
 package software.amazon.jsii;
 
 import software.amazon.jsii.api.Callback;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -123,7 +122,7 @@ public final class JsiiRuntime {
             throw new JsiiException("Cannot process callback since callbackHandler was not set");
         }
 
-        Callback callback = JsiiObjectMapper.treeToValue(resp.get("callback"), Callback.class);
+        Callback callback = JsiiObjectMapper.treeToValue(resp.get("callback"), NativeType.forClass(Callback.class));
 
         JsonNode result = null;
         String error = null;

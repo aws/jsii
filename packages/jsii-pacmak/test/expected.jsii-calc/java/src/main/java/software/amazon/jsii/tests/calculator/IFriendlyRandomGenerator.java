@@ -26,7 +26,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.Number next() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number next() {
             return this.jsiiCall("next", java.lang.Number.class);
         }
 
@@ -36,7 +36,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         @Override
-        public java.lang.String hello() {
+        public @org.jetbrains.annotations.NotNull java.lang.String hello() {
             return this.jsiiCall("hello", java.lang.String.class);
         }
     }

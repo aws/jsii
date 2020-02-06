@@ -25,7 +25,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
      * @param rest a variadic continuation. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public SupportsNiceJavaBuilder(final java.lang.Number id, final java.lang.Number defaultBar, final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props, final java.lang.String... rest) {
+    public SupportsNiceJavaBuilder(final @org.jetbrains.annotations.NotNull java.lang.Number id, final @org.jetbrains.annotations.Nullable java.lang.Number defaultBar, final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props, final @org.jetbrains.annotations.NotNull java.lang.String... rest) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(id, "id is required"), defaultBar, props }), java.util.Arrays.<Object>stream(rest)).toArray(Object[]::new));
     }
@@ -37,7 +37,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getId() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getId() {
         return this.jsiiGet("id", java.lang.Number.class);
     }
 
@@ -45,8 +45,8 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.util.List<java.lang.String> getRest() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("rest", java.util.List.class));
+    public @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> getRest() {
+        return java.util.Collections.unmodifiableList(this.jsiiGet("rest", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**

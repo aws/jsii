@@ -17,7 +17,7 @@ public class Very extends software.amazon.jsii.JsiiObject {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
-    public java.lang.Number hey() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number hey() {
         return this.jsiiCall("hey", java.lang.Number.class);
     }
 }

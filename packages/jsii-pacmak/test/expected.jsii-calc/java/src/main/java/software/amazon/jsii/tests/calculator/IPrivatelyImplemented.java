@@ -28,7 +28,7 @@ public interface IPrivatelyImplemented extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.Boolean getSuccess() {
+        public @org.jetbrains.annotations.NotNull java.lang.Boolean getSuccess() {
             return this.jsiiGet("success", java.lang.Boolean.class);
         }
     }

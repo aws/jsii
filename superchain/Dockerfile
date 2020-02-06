@@ -96,7 +96,8 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.description="An image to build cross-language artifacts with AWS jsii"                   \
       org.opencontainers.image.url="https://github.com/aws/jsii/tree/master/superchain"                                 \
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
-      org.opencontainers.image.revision=$COMMIT_ID
+      org.opencontainers.image.revision=$COMMIT_ID                                                                      \
+      org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
 
 # Upgrade all packages that weren't up-to-date just yet (last so it risks invalidating cache less)
 RUN yum -y upgrade                                                                                                      \

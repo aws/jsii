@@ -25,7 +25,7 @@ public class Implementation extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);
     }
 }

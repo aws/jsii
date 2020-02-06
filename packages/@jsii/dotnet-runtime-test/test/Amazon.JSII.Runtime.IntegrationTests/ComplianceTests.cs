@@ -1423,5 +1423,41 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 set => _property = $"String<{value}>";
             }
         }
+
+        [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_ListOfStructs))]
+        public void CollectionOfInterfaces_ListOfStructs()
+        {
+            foreach (var elt in InterfaceCollections.ListOfStructs())
+            {
+                Assert.IsAssignableFrom<IStructA>(elt);
+            }
+        }
+        
+        [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_ListOfInterfaces))]
+        public void CollectionOfInterfaces_ListOfInterfaces()
+        {
+            foreach (var elt in InterfaceCollections.ListOfInterfaces())
+            {
+                Assert.IsAssignableFrom<IBell>(elt);
+            }
+        }
+        
+        [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_MapOfStructs))]
+        public void CollectionOfInterfaces_MapOfStructs()
+        {
+            foreach (var elt in InterfaceCollections.MapOfStructs().Values)
+            {
+                Assert.IsAssignableFrom<IStructA>(elt);
+            }
+        }
+        
+        [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_MapOfInterfaces))]
+        public void CollectionOfInterfaces_MapOfInterfaces()
+        {
+            foreach (var elt in InterfaceCollections.MapOfInterfaces().Values)
+            {
+                Assert.IsAssignableFrom<IBell>(elt);
+            }
+        }
     }
 }

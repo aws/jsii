@@ -25,7 +25,7 @@ public class AbstractClassReturner extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.AbstractClass giveMeAbstract() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.AbstractClass giveMeAbstract() {
         return this.jsiiCall("giveMeAbstract", software.amazon.jsii.tests.calculator.AbstractClass.class);
     }
 
@@ -33,7 +33,7 @@ public class AbstractClassReturner extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass giveMeInterface() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass giveMeInterface() {
         return this.jsiiCall("giveMeInterface", software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass.class);
     }
 
@@ -41,7 +41,7 @@ public class AbstractClassReturner extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.AbstractClassBase getReturnAbstractFromProperty() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.AbstractClassBase getReturnAbstractFromProperty() {
         return this.jsiiGet("returnAbstractFromProperty", software.amazon.jsii.tests.calculator.AbstractClassBase.class);
     }
 }

@@ -33,7 +33,7 @@ public interface IAnotherPublicInterface extends software.amazon.jsii.JsiiSerial
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getA() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getA() {
             return this.jsiiGet("a", java.lang.String.class);
         }
 
@@ -42,7 +42,7 @@ public interface IAnotherPublicInterface extends software.amazon.jsii.JsiiSerial
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setA(final java.lang.String value) {
+        public void setA(final @org.jetbrains.annotations.NotNull java.lang.String value) {
             this.jsiiSet("a", java.util.Objects.requireNonNull(value, "a is required"));
         }
     }

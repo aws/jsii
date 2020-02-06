@@ -30,7 +30,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
-    public java.lang.String toString() {
+    public @org.jetbrains.annotations.NotNull java.lang.String toString() {
         return this.jsiiCall("toString", java.lang.String.class);
     }
 
@@ -42,7 +42,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public abstract software.amazon.jsii.tests.calculator.lib.Value getExpression();
+    public abstract @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getExpression();
 
     /**
      * The value.
@@ -51,7 +51,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);
     }
 
@@ -61,8 +61,8 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.util.List<java.lang.String> getDecorationPostfixes() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPostfixes", java.util.List.class));
+    public @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> getDecorationPostfixes() {
+        return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPostfixes", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -71,7 +71,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setDecorationPostfixes(final java.util.List<java.lang.String> value) {
+    public void setDecorationPostfixes(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> value) {
         this.jsiiSet("decorationPostfixes", java.util.Objects.requireNonNull(value, "decorationPostfixes is required"));
     }
 
@@ -81,8 +81,8 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.util.List<java.lang.String> getDecorationPrefixes() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPrefixes", java.util.List.class));
+    public @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> getDecorationPrefixes() {
+        return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPrefixes", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -91,7 +91,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setDecorationPrefixes(final java.util.List<java.lang.String> value) {
+    public void setDecorationPrefixes(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> value) {
         this.jsiiSet("decorationPrefixes", java.util.Objects.requireNonNull(value, "decorationPrefixes is required"));
     }
 
@@ -101,7 +101,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle getStringStyle() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle getStringStyle() {
         return this.jsiiGet("stringStyle", software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle.class);
     }
 
@@ -111,7 +111,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setStringStyle(final software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle value) {
+    public void setStringStyle(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle value) {
         this.jsiiSet("stringStyle", java.util.Objects.requireNonNull(value, "stringStyle is required"));
     }
     /**
@@ -155,7 +155,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
+        public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getExpression() {
             return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
         }
 
@@ -165,7 +165,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public java.lang.Number getValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
 
@@ -175,7 +175,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         @Override
-        public java.lang.String toString() {
+        public @org.jetbrains.annotations.NotNull java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);
         }
     }

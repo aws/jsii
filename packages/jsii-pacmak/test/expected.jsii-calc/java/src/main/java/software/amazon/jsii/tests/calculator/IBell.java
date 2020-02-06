@@ -29,7 +29,7 @@ public interface IBell extends software.amazon.jsii.JsiiSerializable {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void ring() {
-            this.jsiiCall("ring", Void.class);
+            this.jsiiCall("ring", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.22.0](https://github.com/aws/jsii/compare/v0.21.2...v0.22.0) (2020-02-06)
+
+
+### Bug Fixes
+
+* **java:** invalid collections returned with non-class elements ([#1197](https://github.com/aws/jsii/issues/1197)) ([bbc2302](https://github.com/aws/jsii/commit/bbc23029746038e34fdd572312cec218344a368a)), closes [#1196](https://github.com/aws/jsii/issues/1196)
+
+
+### Features
+
+* **java:** annotate nullability ([#1234](https://github.com/aws/jsii/issues/1234)) ([6f2ab03](https://github.com/aws/jsii/commit/6f2ab03dfc4fe5625d97cfacdc980e85b54928a7)), closes [aws/aws-cdk#6026](https://github.com/aws/aws-cdk/issues/6026)
+
+
+
+
+
 ## [0.21.2](https://github.com/aws/jsii/compare/v0.21.1...v0.21.2) (2020-01-22)
 
 

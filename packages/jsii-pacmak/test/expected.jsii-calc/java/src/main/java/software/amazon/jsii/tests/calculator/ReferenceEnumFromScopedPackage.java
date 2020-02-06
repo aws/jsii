@@ -27,7 +27,7 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule loadFoo() {
+    public @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule loadFoo() {
         return this.jsiiCall("loadFoo", software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class);
     }
 
@@ -37,15 +37,15 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void saveFoo(final software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {
-        this.jsiiCall("saveFoo", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+    public void saveFoo(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {
+        this.jsiiCall("saveFoo", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule getFoo() {
+    public @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule getFoo() {
         return this.jsiiGet("foo", software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class);
     }
 
@@ -53,7 +53,7 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setFoo(final software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {
+    public void setFoo(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {
         this.jsiiSet("foo", value);
     }
 }

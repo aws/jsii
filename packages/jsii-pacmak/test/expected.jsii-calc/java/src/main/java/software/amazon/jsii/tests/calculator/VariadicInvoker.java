@@ -22,7 +22,7 @@ public class VariadicInvoker extends software.amazon.jsii.JsiiObject {
      * @param method This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public VariadicInvoker(final software.amazon.jsii.tests.calculator.VariadicMethod method) {
+    public VariadicInvoker(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.VariadicMethod method) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(method, "method is required") });
     }
@@ -33,7 +33,7 @@ public class VariadicInvoker extends software.amazon.jsii.JsiiObject {
      * @param values This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.util.List<java.lang.Number> asArray(final java.lang.Number... values) {
-        return java.util.Collections.unmodifiableList(this.jsiiCall("asArray", java.util.List.class, java.util.Arrays.<Object>stream(values).toArray(Object[]::new)));
+    public @org.jetbrains.annotations.NotNull java.util.List<java.lang.Number> asArray(final @org.jetbrains.annotations.NotNull java.lang.Number... values) {
+        return java.util.Collections.unmodifiableList(this.jsiiCall("asArray", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Number.class)), java.util.Arrays.<Object>stream(values).toArray(Object[]::new)));
     }
 }

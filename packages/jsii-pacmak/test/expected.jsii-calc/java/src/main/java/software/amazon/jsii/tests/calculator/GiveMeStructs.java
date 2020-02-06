@@ -29,7 +29,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      * @param derived This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.MyFirstStruct derivedToFirst(final software.amazon.jsii.tests.calculator.DerivedStruct derived) {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.MyFirstStruct derivedToFirst(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.DerivedStruct derived) {
         return this.jsiiCall("derivedToFirst", software.amazon.jsii.tests.calculator.lib.MyFirstStruct.class, new Object[] { java.util.Objects.requireNonNull(derived, "derived is required") });
     }
 
@@ -41,7 +41,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      * @param derived This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.DoubleTrouble readDerivedNonPrimitive(final software.amazon.jsii.tests.calculator.DerivedStruct derived) {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.DoubleTrouble readDerivedNonPrimitive(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.DerivedStruct derived) {
         return this.jsiiCall("readDerivedNonPrimitive", software.amazon.jsii.tests.calculator.DoubleTrouble.class, new Object[] { java.util.Objects.requireNonNull(derived, "derived is required") });
     }
 
@@ -53,7 +53,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      * @param first This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number readFirstNumber(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct first) {
+    public @org.jetbrains.annotations.NotNull java.lang.Number readFirstNumber(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.MyFirstStruct first) {
         return this.jsiiCall("readFirstNumber", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(first, "first is required") });
     }
 
@@ -61,7 +61,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals getStructLiteral() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals getStructLiteral() {
         return this.jsiiGet("structLiteral", software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals.class);
     }
 }

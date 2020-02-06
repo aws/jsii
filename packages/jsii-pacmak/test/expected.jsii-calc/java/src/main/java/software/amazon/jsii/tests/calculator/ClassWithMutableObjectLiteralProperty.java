@@ -25,7 +25,7 @@ public class ClassWithMutableObjectLiteralProperty extends software.amazon.jsii.
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.IMutableObjectLiteral getMutableObject() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IMutableObjectLiteral getMutableObject() {
         return this.jsiiGet("mutableObject", software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class);
     }
 
@@ -33,7 +33,7 @@ public class ClassWithMutableObjectLiteralProperty extends software.amazon.jsii.
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setMutableObject(final software.amazon.jsii.tests.calculator.IMutableObjectLiteral value) {
+    public void setMutableObject(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IMutableObjectLiteral value) {
         this.jsiiSet("mutableObject", java.util.Objects.requireNonNull(value, "mutableObject is required"));
     }
 }

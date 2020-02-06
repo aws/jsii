@@ -31,8 +31,8 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
      * @param _optionalString
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void method(final java.lang.Object _requiredAny, final java.lang.Object _optionalAny, final java.lang.String _optionalString) {
-        this.jsiiCall("method", Void.class, new Object[] { _requiredAny, _optionalAny, _optionalString });
+    public void method(final @org.jetbrains.annotations.NotNull java.lang.Object _requiredAny, final @org.jetbrains.annotations.Nullable java.lang.Object _optionalAny, final @org.jetbrains.annotations.Nullable java.lang.String _optionalString) {
+        this.jsiiCall("method", software.amazon.jsii.NativeType.VOID, new Object[] { _requiredAny, _optionalAny, _optionalString });
     }
 
     /**
@@ -42,8 +42,8 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
      * @param _optionalAny
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void method(final java.lang.Object _requiredAny, final java.lang.Object _optionalAny) {
-        this.jsiiCall("method", Void.class, new Object[] { _requiredAny, _optionalAny });
+    public void method(final @org.jetbrains.annotations.NotNull java.lang.Object _requiredAny, final @org.jetbrains.annotations.Nullable java.lang.Object _optionalAny) {
+        this.jsiiCall("method", software.amazon.jsii.NativeType.VOID, new Object[] { _requiredAny, _optionalAny });
     }
 
     /**
@@ -52,7 +52,7 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
      * @param _requiredAny This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void method(final java.lang.Object _requiredAny) {
-        this.jsiiCall("method", Void.class, new Object[] { _requiredAny });
+    public void method(final @org.jetbrains.annotations.NotNull java.lang.Object _requiredAny) {
+        this.jsiiCall("method", software.amazon.jsii.NativeType.VOID, new Object[] { _requiredAny });
     }
 }

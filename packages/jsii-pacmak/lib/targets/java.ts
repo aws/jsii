@@ -21,6 +21,9 @@ const spdxLicenseList = require('spdx-license-list');
 
 const BUILDER_CLASS_NAME = 'Builder';
 
+const ANN_NOT_NULL = '@org.jetbrains.annotations.NotNull';
+const ANN_NULLABLE = '@org.jetbrains.annotations.Nullable';
+
 /**
  * Build Java packages all together, by generating an aggregate POM
  *
@@ -358,6 +361,9 @@ interface JavaProp {
 
   // The java type for the property (eg: 'List<String>')
   fieldJavaType: string;
+
+  // The NativeType representation of the property's type
+  fieldNativeType: string;
 
   // The raw class type of the property that can be used for marshalling (eg: 'List.class')
   fieldJavaClass: string;
@@ -809,16 +815,16 @@ class JavaGenerator extends Generator {
       dependencies.push({
         groupId: 'software.amazon.jsii',
         artifactId: 'jsii-runtime',
-        version: toMavenVersionRange(`^${VERSION}`)
+        version: toMavenVersionRange(`^${VERSION}`),
       });
 
-      // Provides @javax.annotation.*
+      // Provides @org.jetbrains.*
       dependencies.push({
-        groupId: 'javax.annotation',
-        artifactId: 'javax.annotation-api',
-        version: '[1.3.2,)',
-        scope: 'provided'
+        groupId: 'org.jetbrains',
+        artifactId: 'annotations',
+        version: '[18.0.0,19.0.0)',
       });
+
       return dependencies;
     }
 
@@ -869,8 +875,8 @@ class JavaGenerator extends Generator {
 
     for (const prop of consts) {
       const constName = this.renderConstName(prop);
-      const propClass = this.toJavaType(prop.type, true);
-      const statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class)`;
+      const propType = this.toNativeType(prop.type, true);
+      const statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propType})`;
       this.code.line(`${constName} = ${this.wrapCollection(statement, prop.type, prop.optional)};`);
     }
 
@@ -893,9 +899,8 @@ class JavaGenerator extends Generator {
   }
 
   private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides = !!prop.overrides) {
-    const getterType = this.toJavaType(prop.type);
-    const setterTypes = this.toJavaTypes(prop.type);
-    const propClass = this.toJavaType(prop.type, true);
+    const getterType = this.toDecoratedJavaType(prop);
+    const setterTypes = this.toDecoratedJavaTypes(prop);
     const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
     const access = this.renderAccessLevel(prop);
     const statc = prop.static ? 'static ' : '';
@@ -920,7 +925,7 @@ class JavaGenerator extends Generator {
           statement = 'this.jsiiGet(';
         }
 
-        statement += `"${prop.name}", ${propClass}.class)`;
+        statement += `"${prop.name}", ${this.toNativeType(prop.type, true)})`;
 
         this.code.line(`return ${this.wrapCollection(statement, prop.type, prop.optional)};`);
         this.code.closeBlock();
@@ -955,7 +960,7 @@ class JavaGenerator extends Generator {
   }
 
   private emitMethod(cls: spec.Type, method: spec.Method, overrides = !!method.overrides) {
-    const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
+    const returnType = method.returns ? this.toDecoratedJavaType(method.returns) : 'void';
     const statc = method.static ? 'static ' : '';
     const access = this.renderAccessLevel(method);
     const async = !!method.async;
@@ -1090,6 +1095,7 @@ class JavaGenerator extends Generator {
       nullable: !!property.optional,
       fieldName: this.code.toCamelCase(safeName),
       fieldJavaType: this.toJavaType(property.type),
+      fieldNativeType: this.toNativeType(property.type),
       fieldJavaClass: `${this.toJavaType(property.type, true)}.class`,
       javaTypes: this.toJavaTypes(property.type),
       immutable: property.immutable || false,
@@ -1344,7 +1350,7 @@ class JavaGenerator extends Generator {
     this.code.line(' */');
     this.code.openBlock(`protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`);
     this.code.line('super(objRef);');
-    props.forEach(prop => this.code.line(`this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldJavaClass});`));
+    props.forEach(prop => this.code.line(`this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldNativeType});`));
     this.code.closeBlock();
     // End JSII reference constructor
 
@@ -1577,6 +1583,19 @@ class JavaGenerator extends Generator {
     return this.toJavaType({ fqn: cls.base });
   }
 
+  private toDecoratedJavaType(optionalValue: spec.OptionalValue): string {
+    const result = this.toDecoratedJavaTypes(optionalValue);
+    if (result.length > 1) {
+      return `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} java.lang.Object`;
+    }
+    return result[0];
+  }
+
+  private toDecoratedJavaTypes(optionalValue: spec.OptionalValue): string[] {
+    return this.toJavaTypes(optionalValue.type).map(nakedType =>
+      `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`);
+  }
+
   private toJavaType(type: spec.TypeReference, forMarshalling = false): string {
     const types = this.toJavaTypes(type, forMarshalling);
     if (types.length > 1) {
@@ -1584,6 +1603,23 @@ class JavaGenerator extends Generator {
     }
     return types[0];
 
+  }
+
+  private toNativeType(type: spec.TypeReference, forMarshalling = false, recursing = false): string {
+    if (spec.isCollectionTypeReference(type)) {
+      const nativeElementType = this.toNativeType(type.collection.elementtype, forMarshalling, true);
+      switch (type.collection.kind) {
+        case spec.CollectionKind.Array:
+          return `software.amazon.jsii.NativeType.listOf(${nativeElementType})`;
+        case spec.CollectionKind.Map:
+          return `software.amazon.jsii.NativeType.mapOf(${nativeElementType})`;
+        default:
+          throw new Error(`Unsupported collection kind: ${type.collection.kind}`);
+      }
+    }
+    return recursing
+      ? `software.amazon.jsii.NativeType.forClass(${this.toJavaType(type, forMarshalling)}.class)`
+      : `${this.toJavaType(type, forMarshalling)}.class`;
   }
 
   private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
@@ -1673,9 +1709,9 @@ class JavaGenerator extends Generator {
     statement += `"${method.name}"`;
 
     if (method.returns) {
-      statement += `, ${this.toJavaType(method.returns.type, true)}.class`;
+      statement += `, ${this.toNativeType(method.returns.type, true)}`;
     } else {
-      statement += ', Void.class';
+      statement += ', software.amazon.jsii.NativeType.VOID';
     }
     statement += `${this.renderMethodCallArguments(method)})`;
 
@@ -1723,7 +1759,7 @@ class JavaGenerator extends Generator {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
-        params.push(`final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
+        params.push(`final ${this.toDecoratedJavaType(p)}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
       }
     }
     return params.join(', ');

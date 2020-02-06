@@ -22,7 +22,7 @@ public class RootStructValidator extends software.amazon.jsii.JsiiObject {
      * @param struct This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static void validate(final software.amazon.jsii.tests.calculator.RootStruct struct) {
-        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.RootStructValidator.class, "validate", Void.class, new Object[] { java.util.Objects.requireNonNull(struct, "struct is required") });
+    public static void validate(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.RootStruct struct) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.RootStructValidator.class, "validate", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(struct, "struct is required") });
     }
 }

@@ -6,7 +6,11 @@ import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Utilities.
@@ -72,11 +76,8 @@ final class Util {
             final Method getter = declaring.getDeclaredMethod(getterName);
             return getter.getReturnType().equals(returnType);
         } catch (final NoSuchMethodException nsme) {
-            return declaring.equals(Object.class)
-                ? false
-                : isMatchingGetterPresent(getterName,
-                                          returnType,
-                                          declaring.getSuperclass());
+            return !declaring.equals(Object.class)
+                    && isMatchingGetterPresent(getterName, returnType, declaring.getSuperclass());
         }
     }
 
@@ -125,7 +126,8 @@ final class Util {
 
     /**
      * Extracts a resource file from the .jar and saves it into an output directory.
-     * @param url The URL of the resource
+     * @param klass The referent class for the resource (used to determine the correct ClassLoader, etc...)
+     * @param resourceName The name of the resource to be loaded.
      * @param outputDirectory The output directory (optional)
      * @return The full path of the saved resource
      * @throws IOException If there was an I/O error
@@ -147,5 +149,4 @@ final class Util {
 
         return target.toAbsolutePath().toString();
     }
-
 }

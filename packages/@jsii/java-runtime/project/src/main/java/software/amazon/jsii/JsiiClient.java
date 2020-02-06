@@ -3,7 +3,6 @@ package software.amazon.jsii;
 import software.amazon.jsii.api.Callback;
 import software.amazon.jsii.api.CreateRequest;
 import software.amazon.jsii.api.JsiiOverride;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static software.amazon.jsii.Util.extractResource;
@@ -226,7 +224,7 @@ public final class JsiiClient {
 
         List<Callback> result = new ArrayList<>();
         callbacksArray.forEach(node -> {
-            result.add(JsiiObjectMapper.treeToValue(node, Callback.class));
+            result.add(JsiiObjectMapper.treeToValue(node, NativeType.forClass(Callback.class)));
         });
 
         return result;
