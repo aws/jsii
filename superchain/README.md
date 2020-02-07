@@ -9,28 +9,28 @@ required in order to package [jsii] projects in all supported languages.
 
 SDK             | Version
 ----------------|-------------------------------------------
-`OpenJDK 8`     | Amazon Corretto `>= 8.222.10.2`
-`.NET SDK`      | `>= 3.0.100`
-`mono`          | `>= 6.0.0.319`
-`Javascript`    | `node >= 10.17.0` with `npm >= 6.9.0`
+`OpenJDK 8`     | Amazon Corretto `>= 8.242.08.1`
+`.NET SDK`      | `>= 3.1.101`
+`mono`          | `>= 6.8.0.105`
+`Javascript`    | `node >= 10.19.0` with `npm >= 6.13.4`
 `PowerShell`    | `pwsh >= 6.2.3`
-`Python 3`      | `python3 >= 3.7.4` with `pip3 >= 19.3`
-`Ruby`          | `ruby >= 2.4.7p357`
+`Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
+`Ruby`          | `ruby >= 2.6.3p62`
 
 ## Included Tools & Utilities
 
 Tool / Utility | Version
 ---------------|--------------------------------------------
-`aws`          | `>= 1.16.102`
-`bundler`      | `>= 1.17.2` and `>= 2.0.2`
+`aws`          | `>= 1.16.300`
+`bundler`      | `>= 1.17.3` and `>= 2.1.4`
 `gcc`          | `>= 7.3.1`
-`docker`       | `>= 18.06.1-ce`
-`git`          | `>= 2.17.2`
+`docker`       | `>= 18.09.9-ce`
+`git`          | `>= 2.23.1`
 `make`         | `>= 3.82`
 `maven`        | `>= 3.6.3`
 `openssl`      | `>= 1.0.2k-fips`
-`rsync`        | `>= 3.1.2-4`
-`yarn`         | `>= 1.19.1`
+`rsync`        | `>= 3.1.2`
+`yarn`         | `>= 1.21.1`
 `zip` & `unzip`| `>= 6.0-19`
 
 ## License

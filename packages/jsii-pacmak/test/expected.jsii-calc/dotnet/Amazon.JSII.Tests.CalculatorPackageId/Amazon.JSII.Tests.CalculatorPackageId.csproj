@@ -5,7 +5,7 @@
     <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageVersion>0.21.2</PackageVersion>
+    <PackageVersion>0.22.0</PackageVersion>
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
@@ -23,13 +23,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="jsii-calc-0.21.2.tgz" />
+    <EmbeddedResource Include="jsii-calc-0.22.0.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.21.2,0.22.0)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="[0.21.2,0.22.0)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[0.21.2,0.22.0)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="[0.21.2-devpreview,0.22.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.22.0,0.23.0)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="[0.22.0,0.23.0)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[0.22.0,0.23.0)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="[0.22.0-devpreview,0.23.0)" />
   </ItemGroup>
   <PropertyGroup>
     <NoWarn>0612,0618</NoWarn>
