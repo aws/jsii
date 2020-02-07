@@ -8,15 +8,15 @@ namespace Amazon.JSII.JsonModel.Spec
         public Method
         (
             string name,
-            OptionalValue returns = null,
-            Parameter[] parameters = null,
+            OptionalValue? returns = null,
+            Parameter[]? parameters = null,
             bool isAbstract = false,
             bool isAsync = false,
             bool isProtected = false,
             bool isVariadic = false,
             bool isStatic = false,
-            string overrides = null,
-            Docs docs = null
+            string? overrides = null,
+            Docs? docs = null
         ): base
         (
             parameters: parameters,
@@ -37,7 +37,7 @@ namespace Amazon.JSII.JsonModel.Spec
         public string Name { get; }
 
         [JsonProperty("returns", NullValueHandling = NullValueHandling.Ignore)]
-        public OptionalValue Returns { get; }
+        public OptionalValue? Returns { get; }
 
         [JsonProperty("abstract", NullValueHandling = NullValueHandling.Ignore)]
         public bool IsAbstract { get; }

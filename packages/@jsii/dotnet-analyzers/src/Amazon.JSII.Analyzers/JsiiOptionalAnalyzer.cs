@@ -73,7 +73,7 @@ namespace Amazon.JSII.Analyzers
                     return;
 
                 // Get all the required properties on the prop object
-                var requiredProperties = typeInfo.Type.GetMembers()
+                var requiredProperties = typeInfo.Type!.GetMembers()
                     .Where(m => m.Kind == SymbolKind.Property
                                 && !IsJsiiOptionalProperty(m));
                 foreach (var requiredProperty in requiredProperties)
@@ -105,6 +105,10 @@ namespace Amazon.JSII.Analyzers
         /// <returns>true if the TypeInfo is related to a Jsii class, false otherwise</returns>
         private static bool IsJsiiClass(TypeInfo typeInfo)
         {
+            if (typeInfo.Type == null)
+            {
+                return false;
+            }
             var typeAttributes = typeInfo.Type.GetAttributes().ToArray();
             return typeAttributes.Any(a => a.AttributeClass.Name == "JsiiClassAttribute");
         }
@@ -119,6 +123,10 @@ namespace Amazon.JSII.Analyzers
         /// <returns>true if the TypeInfo is related to a Jsii datatype, false otherwise</returns>
         private static bool IsJsiiDatatype(TypeInfo typeInfo)
         {
+            if (typeInfo.Type == null)
+            {
+                return false;
+            }
             var typeAttributes = typeInfo.Type.GetAttributes().ToArray();
             return typeAttributes.Any(a => a.AttributeClass.Name == "JsiiByValueAttribute");
         }

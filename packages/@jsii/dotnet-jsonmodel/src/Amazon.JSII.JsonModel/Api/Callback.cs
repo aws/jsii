@@ -10,10 +10,10 @@ namespace Amazon.JSII.JsonModel.Api
         public Callback
         (
             string callbackId,
-            string cookie = null,
-            InvokeRequest invoke = null,
-            GetRequest get = null,
-            SetRequest set = null
+            string? cookie = null,
+            InvokeRequest? invoke = null,
+            GetRequest? get = null,
+            SetRequest? set = null
         )
         {
             CallbackId = callbackId ?? throw new ArgumentNullException(nameof(callbackId));
@@ -27,15 +27,15 @@ namespace Amazon.JSII.JsonModel.Api
         public string CallbackId { get; }
 
         [JsonProperty("cookie", NullValueHandling = NullValueHandling.Ignore)]
-        public string Cookie { get; }
+        public string? Cookie { get; }
 
         [JsonProperty("invoke", NullValueHandling = NullValueHandling.Ignore)]
-        public InvokeRequest Invoke { get; }
+        public InvokeRequest? Invoke { get; }
 
         [JsonProperty("get", NullValueHandling = NullValueHandling.Ignore)]
-        public GetRequest Get { get; }
+        public GetRequest? Get { get; }
 
         [JsonProperty("set", NullValueHandling = NullValueHandling.Ignore)]
-        public SetRequest Set { get; }
+        public SetRequest? Set { get; }
     }
 }

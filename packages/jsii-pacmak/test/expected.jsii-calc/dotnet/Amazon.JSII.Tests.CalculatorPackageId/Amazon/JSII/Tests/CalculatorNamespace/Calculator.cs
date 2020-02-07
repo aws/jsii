@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
@@ -33,7 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Calculator(Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps props = null): base(new DeputyProps(new object[]{props}))
+        public Calculator(Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps? props = null): base(new DeputyProps(new object?[]{props}))
         {
         }
 
@@ -160,9 +162,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "unionProperty", typeJson: "{\"union\":{\"types\":[{\"fqn\":\"jsii-calc.Add\"},{\"fqn\":\"jsii-calc.Multiply\"},{\"fqn\":\"jsii-calc.Power\"}]}}", isOptional: true)]
-        public virtual object UnionProperty
+        public virtual object? UnionProperty
         {
-            get => GetInstanceProperty<object>();
+            get => GetInstanceProperty<object?>();
             set => SetInstanceProperty(value);
         }
     }

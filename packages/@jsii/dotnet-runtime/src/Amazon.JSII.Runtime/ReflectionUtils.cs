@@ -66,7 +66,7 @@ namespace Amazon.JSII.Runtime
             return type.GetProperties().FirstOrDefault(p => p.GetIndexParameters().Any());
         }
 
-        public static JsiiClassAttribute GetClassAttribute(Type type)
+        public static JsiiClassAttribute? GetClassAttribute(Type? type)
         {
             if (type == null)
             {
@@ -86,7 +86,7 @@ namespace Amazon.JSII.Runtime
         /// <typeparam name="T">The attribute type that is desired</typeparam>
         /// <returns>The attribute if one was found, or null</returns>
         [return: MaybeNull]
-        internal static T GetAttribute<T>(this MethodInfo method, bool inherit = true) where T : Attribute
+        internal static T? GetAttribute<T>(this MethodInfo method, bool inherit = true) where T : notnull, Attribute
         {
             var directAttribute = method.GetCustomAttribute<T>(inherit);
             if (directAttribute != null || !inherit) return directAttribute;
@@ -118,7 +118,7 @@ namespace Amazon.JSII.Runtime
         /// <typeparam name="T">The attribute type that is desired</typeparam>
         /// <returns>The attribute if one was found, or null</returns>
         [return: MaybeNull]
-        internal static T GetAttribute<T>(this PropertyInfo property, bool inherit = true) where T : Attribute
+        internal static T? GetAttribute<T>(this PropertyInfo property, bool inherit = true) where T : notnull, Attribute
         {
             var directAttribute = property.GetCustomAttribute<T>(inherit);
             if (directAttribute != null || !inherit) return directAttribute;

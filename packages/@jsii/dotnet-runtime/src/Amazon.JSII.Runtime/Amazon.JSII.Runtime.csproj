@@ -6,6 +6,7 @@
     <PackageId>Amazon.JSII.Runtime</PackageId>
     <Title>.NET Runtime for JSII</Title>
     <PackageIcon>icon.png</PackageIcon>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClasses
 {
     /// <remarks>
@@ -31,9 +33,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public virtual string Bar
+        public virtual string? Bar
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
             set => SetInstanceProperty(value);
         }
     }

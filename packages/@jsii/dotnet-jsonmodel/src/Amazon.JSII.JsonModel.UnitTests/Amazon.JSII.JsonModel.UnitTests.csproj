@@ -5,6 +5,7 @@
     <IsPackable>false</IsPackable>
     <AssemblyName>Amazon.JSII.JsonModel.UnitTests</AssemblyName>
     <RootNamespace>Amazon.JSII.JsonModel.UnitTests</RootNamespace>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

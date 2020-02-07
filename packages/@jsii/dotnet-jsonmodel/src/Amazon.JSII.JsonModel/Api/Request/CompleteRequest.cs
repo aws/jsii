@@ -6,7 +6,7 @@ namespace Amazon.JSII.JsonModel.Api.Request
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class CompleteRequest : IKernelRequest
     {
-        public CompleteRequest(string callbackId, string error = null, object result = null)
+        public CompleteRequest(string callbackId, string? error = null, object? result = null)
         {
             CallbackId = callbackId ?? throw new ArgumentNullException(nameof(callbackId));
             Error = error;
@@ -20,9 +20,9 @@ namespace Amazon.JSII.JsonModel.Api.Request
         public string CallbackId { get; }
 
         [JsonProperty("err", NullValueHandling = NullValueHandling.Ignore)]
-        public string Error { get; }
+        public string? Error { get; }
 
         [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
-        public object Result { get; }
+        public object? Result { get; }
     }
 }

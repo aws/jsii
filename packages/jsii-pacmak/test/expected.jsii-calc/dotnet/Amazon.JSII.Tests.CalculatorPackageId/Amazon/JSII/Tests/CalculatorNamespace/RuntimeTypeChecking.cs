@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
@@ -30,18 +32,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "methodWithDefaultedArguments", parametersJson: "[{\"name\":\"arg1\",\"optional\":true,\"type\":{\"primitive\":\"number\"}},{\"name\":\"arg2\",\"optional\":true,\"type\":{\"primitive\":\"string\"}},{\"name\":\"arg3\",\"optional\":true,\"type\":{\"primitive\":\"date\"}}]")]
-        public virtual void MethodWithDefaultedArguments(double? arg1 = null, string arg2 = null, System.DateTime? arg3 = null)
+        public virtual void MethodWithDefaultedArguments(double? arg1 = null, string? arg2 = null, System.DateTime? arg3 = null)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(double), typeof(string), typeof(System.DateTime)}, new object[]{arg1, arg2, arg3});
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(double), typeof(string), typeof(System.DateTime)}, new object?[]{arg1, arg2, arg3});
         }
 
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "methodWithOptionalAnyArgument", parametersJson: "[{\"name\":\"arg\",\"optional\":true,\"type\":{\"primitive\":\"any\"}}]")]
-        public virtual void MethodWithOptionalAnyArgument(object arg = null)
+        public virtual void MethodWithOptionalAnyArgument(object? arg = null)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object[]{arg});
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object?[]{arg});
         }
 
         /// <summary>Used to verify verification of number of method arguments.</summary>
@@ -51,7 +53,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "methodWithOptionalArguments", parametersJson: "[{\"name\":\"arg1\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"arg2\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"arg3\",\"optional\":true,\"type\":{\"primitive\":\"date\"}}]")]
         public virtual void MethodWithOptionalArguments(double arg1, string arg2, System.DateTime? arg3 = null)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(double), typeof(string), typeof(System.DateTime)}, new object[]{arg1, arg2, arg3});
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(double), typeof(string), typeof(System.DateTime)}, new object?[]{arg1, arg2, arg3});
         }
     }
 }

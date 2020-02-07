@@ -6,6 +6,7 @@
     <IsPackable>false</IsPackable>
 
     <AssemblyName>Amazon.JSII.Runtime.UnitTests</AssemblyName>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

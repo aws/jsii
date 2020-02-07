@@ -5,6 +5,6 @@ namespace Amazon.JSII.Runtime.Services
 {
     internal interface IResourceExtractor : IDisposable
     {
-        string ExtractResource(Assembly assembly, string resourceName, string bag = "default", string fileName = null);
+        string ExtractResource(Assembly assembly, string resourceName, string bag = "default", string? fileName = null);
     }
 }

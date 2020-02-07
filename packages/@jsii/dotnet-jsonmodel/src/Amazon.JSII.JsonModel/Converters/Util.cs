@@ -21,9 +21,9 @@ namespace Amazon.JSII.JsonModel.Converters
 
             return kind switch
             {
-                TypeKind.Enum => (Spec.Type) token.ToObject<EnumType>(),
-                TypeKind.Class => token.ToObject<ClassType>(),
-                TypeKind.Interface => token.ToObject<InterfaceType>(),
+                TypeKind.Enum => (Spec.Type) token.ToObject<EnumType>()!,
+                TypeKind.Class => token.ToObject<ClassType>()!,
+                TypeKind.Interface => token.ToObject<InterfaceType>()!,
                 _ => throw new ArgumentException($"Unknown kind {kind} on type {token.ToString(Formatting.Indented)}", nameof(token))
             };
         }

@@ -24,6 +24,6 @@ namespace Amazon.JSII.Runtime.Services
             }
         }
 
-        public string JsiiRuntimePath { get; }
+        public string? JsiiRuntimePath { get; }
     }
 }

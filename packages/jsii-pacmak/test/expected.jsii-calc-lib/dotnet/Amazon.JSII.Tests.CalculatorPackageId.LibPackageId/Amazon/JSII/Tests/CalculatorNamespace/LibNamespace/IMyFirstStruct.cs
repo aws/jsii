@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>This is the first struct we have created in jsii.</summary>
@@ -38,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
         [System.Obsolete()]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]
-        string[] FirstOptional
+        string[]? FirstOptional
         {
             get
             {

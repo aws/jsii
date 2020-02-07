@@ -14,11 +14,11 @@ namespace Amazon.JSII.Runtime.Services
             LazyThreadSafetyMode.ExecutionAndPublication
         );
 
-        public static IServiceProvider ServiceProviderOverride { get; set; }
+        public static IServiceProvider? ServiceProviderOverride { get; set; }
 
         public static IServiceProvider ServiceProvider => ServiceProviderOverride ?? _serviceProvider.Value;
 
-        public static IServiceProvider BuildServiceProvider(ILoggerFactory loggerFactoryOverride = null)
+        public static IServiceProvider BuildServiceProvider(ILoggerFactory? loggerFactoryOverride = null)
         {
             IServiceCollection serviceCollection = new ServiceCollection();
 

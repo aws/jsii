@@ -20,12 +20,12 @@ namespace Amazon.JSII.JsonModel.Converters
             return objectType.IsAssignableFrom(typeof(EnumType)) || objectType.IsAssignableFrom(typeof(ClassType));
         }
 
-        public override object ReadJson(JsonReader reader, System.Type objectType, object existingValue, JsonSerializer serializer)
+        public override object? ReadJson(JsonReader reader, System.Type objectType, object? existingValue, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
             Spec.Type type = value as Spec.Type ?? throw new ArgumentException($"{value} is not a jsii Type", nameof(value));
 

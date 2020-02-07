@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#282, aws-cdk#157: null should be treated as "undefined".</summary>
@@ -12,7 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public NullShouldBeTreatedAsUndefined(string param1, object optional = null): base(new DeputyProps(new object[]{param1, optional}))
+        public NullShouldBeTreatedAsUndefined(string param1, object? optional = null): base(new DeputyProps(new object?[]{param1, optional}))
         {
         }
 
@@ -34,9 +36,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "giveMeUndefined", parametersJson: "[{\"name\":\"value\",\"optional\":true,\"type\":{\"primitive\":\"any\"}}]")]
-        public virtual void GiveMeUndefined(object @value = null)
+        public virtual void GiveMeUndefined(object? @value = null)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object[]{@value});
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object?[]{@value});
         }
 
         /// <remarks>
@@ -62,9 +64,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "changeMeToUndefined", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public virtual string ChangeMeToUndefined
+        public virtual string? ChangeMeToUndefined
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
             set => SetInstanceProperty(value);
         }
     }

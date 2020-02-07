@@ -9,8 +9,8 @@ namespace Amazon.JSII.Runtime.Deputy
     {
         public JsiiMethodAttribute(
             string name,
-            string returnsJson = null,
-            string parametersJson = null,
+            string? returnsJson = null,
+            string? parametersJson = null,
             bool isAsync = false,
             bool isOverride = false)
         {
@@ -27,7 +27,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
         public string Name { get; }
 
-        public OptionalValue Returns { get; }
+        public OptionalValue? Returns { get; }
 
         public Parameter[] Parameters { get; }
 

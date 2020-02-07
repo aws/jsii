@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
@@ -28,9 +30,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "deeperOptionalProp", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public string DeeperOptionalProp
+        public string? DeeperOptionalProp
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
     }
 }

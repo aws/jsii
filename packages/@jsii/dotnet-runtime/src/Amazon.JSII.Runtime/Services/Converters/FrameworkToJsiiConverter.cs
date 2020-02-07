@@ -15,12 +15,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
         {
         }
 
-        public bool TryConvert(IOptionalValue optionalValue, IReferenceMap referenceMap, object value, out object result)
+        public bool TryConvert(IOptionalValue? optionalValue, IReferenceMap referenceMap, object? value, out object? result)
         {
             return TryConvert(optionalValue, typeof(object), referenceMap, value, out result);
         }
 
-        protected override bool TryConvertVoid(object value, out object result)
+        protected override bool TryConvertVoid(object? value, out object? result)
         {
             if (value != null)
             {
@@ -31,7 +31,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return true;
         }
 
-        protected override bool TryConvertClass(Type type, IReferenceMap referenceMap, object value, out object result)
+        protected override bool TryConvertClass(Type type, IReferenceMap referenceMap, object? value, out object? result)
         {
             if (value == null)
             {
@@ -51,7 +51,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 var data = new JObject();
                 foreach (var prop in value.GetType().GetProperties())
                 {
-                    var jsiiProperty = (JsiiPropertyAttribute) prop.GetCustomAttribute(typeof(JsiiPropertyAttribute), true);
+                    var jsiiProperty = (JsiiPropertyAttribute?) prop.GetCustomAttribute(typeof(JsiiPropertyAttribute), true);
                     if (jsiiProperty == null)
                     {
                         continue;
@@ -86,8 +86,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertEnum(object value, bool isOptional, string fullyQualifiedName,
-            out object result)
+        protected override bool TryConvertEnum(object? value, bool isOptional, string fullyQualifiedName, out object? result)
         {
             if (value == null)
             {
@@ -96,7 +95,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             }
 
             Type valueType = value.GetType();
-            JsiiEnumAttribute attribute = value.GetType().GetCustomAttribute<JsiiEnumAttribute>();
+            JsiiEnumAttribute? attribute = value.GetType().GetCustomAttribute<JsiiEnumAttribute>();
 
             if (attribute == null || attribute.FullyQualifiedName != fullyQualifiedName)
             {
@@ -104,7 +103,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return false;
             }
 
-            string valueName = Enum.GetName(valueType, value);
+            string? valueName = Enum.GetName(valueType, value);
             FieldInfo fieldInfo = valueType.GetFields().FirstOrDefault(field => field.Name == valueName);
 
             if (fieldInfo == null)
@@ -113,7 +112,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return false;
             }
 
-            JsiiEnumMemberAttribute memberAttribute = fieldInfo.GetCustomAttribute<JsiiEnumMemberAttribute>();
+            JsiiEnumMemberAttribute? memberAttribute = fieldInfo.GetCustomAttribute<JsiiEnumMemberAttribute>();
             if (memberAttribute == null)
             {
                 result = null;
@@ -124,7 +123,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return true;
         }
 
-        protected override bool TryConvertBoolean(object value, bool isOptional, out object result)
+        protected override bool TryConvertBoolean(object? value, bool isOptional, out object? result)
         {
             if (value == null)
             {
@@ -134,7 +133,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value.GetType().IsAssignableFrom(typeof(bool)))
             {
-                result = value;
+                result = (bool)value;
                 return true;
             }
 
@@ -142,7 +141,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertDate(object value, bool isOptional, out object result)
+        protected override bool TryConvertDate(object? value, bool isOptional, out object? result)
         {
             if (value == null)
             {
@@ -160,7 +159,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertJson(object value, out object result)
+        protected override bool TryConvertJson(object? value, out object? result)
         {
             if (value == null)
             {
@@ -178,7 +177,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertNumber(object value, bool isOptional, out object result)
+        protected override bool TryConvertNumber(object? value, bool isOptional, out object? result)
         {
             if (value == null)
             {
@@ -196,7 +195,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertString(object value, out object result)
+        protected override bool TryConvertString(object? value, out object? result)
         {
             if (value == null)
             {
@@ -214,8 +213,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeReference elementType, object value,
-            out object result)
+        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeReference elementType, object? value, out object? result)
         {
             if (value == null)
             {
@@ -232,9 +230,9 @@ namespace Amazon.JSII.Runtime.Services.Converters
             Array array = (Array) value;
 
             JArray resultArray = new JArray();
-            foreach (object element in array)
+            foreach (object? element in array)
             {
-                if (!TryConvertCollectionElement(element, referenceMap, elementType, out object convertedElement))
+                if (!TryConvertCollectionElement(element, referenceMap, elementType, out object? convertedElement))
                 {
                     result = null;
                     return false;
@@ -247,8 +245,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return true;
         }
 
-        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeReference elementType, object value,
-            out object result)
+        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeReference elementType, object? value, out object? result)
         {
             if (value == null)
             {
@@ -256,7 +253,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return true;
             }
 
-            Type valueType = value.GetType();
+            Type valueType = value.GetType()!;
             Type dictionaryInterface = valueType.GetInterfaces()
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
 
@@ -267,15 +264,15 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return false;
             }
 
-            IEnumerable<string> keys = (IEnumerable<string>) valueType.GetProperty("Keys").GetValue(value);
+            IEnumerable<string> keys = (IEnumerable<string>) valueType.GetProperty("Keys")!.GetValue(value)!;
             PropertyInfo indexer = ReflectionUtils.GetIndexer(valueType);
 
             JObject resultObject = new JObject();
             foreach (string key in keys)
             {
-                object element = indexer.GetValue(value, new object[] {key});
+                object? element = indexer.GetValue(value, new object[] {key});
 
-                if (!TryConvertCollectionElement(element, referenceMap, elementType, out object convertedElement))
+                if (!TryConvertCollectionElement(element, referenceMap, elementType, out object? convertedElement))
                 {
                     result = null;
                     return false;
@@ -297,8 +294,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
         /// <param name="elementType">The TypeReference of the element, as seen by Jsii</param>
         /// <param name="convertedElement">out: the converted element</param>
         /// <returns>True if the conversion was successful, false otherwise</returns>
-        private bool TryConvertCollectionElement(object element, IReferenceMap referenceMap, TypeReference elementType,
-            out object convertedElement)
+        private bool TryConvertCollectionElement(object? element, IReferenceMap referenceMap, TypeReference elementType, out object? convertedElement)
         {
             if (element is IDictionary<string, object> || element is object[])
             {
@@ -341,19 +337,19 @@ namespace Amazon.JSII.Runtime.Services.Converters
         {
             type = type ?? throw new ArgumentNullException(nameof(type));
 
-            JsiiClassAttribute classAttribute = ReflectionUtils.GetClassAttribute(type);
+            var classAttribute = ReflectionUtils.GetClassAttribute(type);
             if (classAttribute != null)
             {
                 return new TypeReference(classAttribute.FullyQualifiedName);
             }
 
-            JsiiEnumAttribute enumAttribute = type.GetCustomAttribute<JsiiEnumAttribute>();
+            var enumAttribute = type.GetCustomAttribute<JsiiEnumAttribute>();
             if (enumAttribute != null)
             {
                 return new TypeReference(enumAttribute.FullyQualifiedName);
             }
 
-            JsiiByValueAttribute structAttribute = type.GetCustomAttribute<JsiiByValueAttribute>();
+            var structAttribute = type.GetCustomAttribute<JsiiByValueAttribute>();
             if (structAttribute != null)
             {
                 return new TypeReference(structAttribute.FullyQualifiedName);
@@ -393,7 +389,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         kind: CollectionKind.Array,
                         elementType: typeof(Object) == type.GetElementType()
                             ? new TypeReference(primitive: PrimitiveType.Any)
-                            : InferType(referenceMap, type.GetElementType())
+                            : InferType(referenceMap, type.GetElementType()!)
                     )
                 );
             }
