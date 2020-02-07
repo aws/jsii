@@ -14,7 +14,7 @@ RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"            
   && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
   && curl -sSL "https://download.mono-project.com/repo/centos7-stable.repo"                                             \
       | tee /etc/yum.repos.d/mono-centos7-stable.repo                                                                   \
-  && yum -y install dotnet-sdk-3.0 mono-devel powershell                                                                \
+  && yum -y install dotnet-sdk-3.1 mono-devel powershell                                                                \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && dotnet help
 
@@ -23,15 +23,15 @@ RUN yum -y install python3 python3-pip                                          
   && python3 -m pip install --upgrade pip setuptools wheel twine                                                        \
   && yum clean all && rm -rf /var/cache/yum
 
-# Install Ruby 2.4+
+# Install Ruby 2.6+
 ENV GEM_HOME /usr/local/bundle
-RUN amazon-linux-extras install ruby2.4                                                                                 \
+RUN amazon-linux-extras install ruby2.6                                                                                 \
   && yum -y install gcc make ruby-devel rubygem-rdoc system-rpm-config                                                  \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && echo 'install: --no-document' > /usr/local/etc/gemrc                                                               \
   && echo 'update: --no-document' >> /usr/local/etc/gemrc                                                               \
   && mkdir -p "$GEM_HOME"                                                                                               \
-  && gem install 'bundler:~>1.17.2' 'bundler:~>2.0.2'
+  && gem install 'bundler:~>1.17.3' 'bundler:~>2.1.4'
 ENV BUNDLE_SILENCE_ROOT_WARNING=1                                                                                       \
 	  PATH="$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH"
 
@@ -70,7 +70,7 @@ VOLUME /var/lib/docker
 RUN yum -y install awscli git gzip openssl rsync unzip which zip                                                        \
   && yum clean all && rm -rf /var/cache/yum
 
-# Install Node 8+
+# Install Node 10+
 RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -                                                             \
   && yum -y install nodejs                                                                                              \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
