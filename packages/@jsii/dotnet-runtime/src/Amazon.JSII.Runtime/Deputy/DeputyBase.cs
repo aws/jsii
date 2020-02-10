@@ -285,7 +285,7 @@ namespace Amazon.JSII.Runtime.Deputy
             
             return (T)frameworkValue!;
 
-            object GetResult()
+            object? GetResult()
             {
                 var args = ConvertArguments(methodAttribute.Parameters, arguments);
 

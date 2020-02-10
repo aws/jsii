@@ -299,7 +299,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             if (element is IDictionary<string, object> || element is object[])
             {
                 var objectType = InferType(referenceMap, element);
-                var nestedType = elementType.Primitive == PrimitiveType.Any ? elementType : objectType.Collection.ElementType;
+                var nestedType = elementType.Primitive == PrimitiveType.Any ? elementType : objectType.Collection?.ElementType;
                 switch (objectType.Collection?.Kind)
                 {
                     case CollectionKind.Map:
@@ -309,15 +309,13 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         // So we can directly convert to another map here, and forgo the type hierarchy
                         // induced by elementType
                         // See https://github.com/aws/aws-cdk/issues/2496
-                        return TryConvertMap(referenceMap, nestedType, element,
-                                out convertedElement);
+                        return TryConvertMap(referenceMap, nestedType!, element, out convertedElement);
                     case CollectionKind.Array:
                         // The [object] could be another array. (ie Tags)
                         // https://github.com/aws/aws-cdk/issues/3244
-                        return TryConvertArray(referenceMap, nestedType, element,
-                                out convertedElement);
+                        return TryConvertArray(referenceMap, nestedType!, element, out convertedElement);
                     default:
-                        return TryConvert(elementType, typeof(object), referenceMap, element, out convertedElement);
+                        return TryConvert(elementType!, typeof(object), referenceMap, element, out convertedElement);
                 }
             }
             else

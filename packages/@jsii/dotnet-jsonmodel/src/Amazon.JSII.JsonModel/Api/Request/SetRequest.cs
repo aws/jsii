@@ -6,7 +6,7 @@ namespace Amazon.JSII.JsonModel.Api.Request
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class SetRequest : IKernelRequest
     {
-        public SetRequest(ObjectReference objectReference, string property, object value)
+        public SetRequest(ObjectReference objectReference, string property, object? value)
         {
             ObjectReference = objectReference ?? throw new ArgumentNullException(nameof(objectReference));
             Property = property ?? throw new ArgumentNullException(nameof(property));
@@ -23,6 +23,6 @@ namespace Amazon.JSII.JsonModel.Api.Request
         public string Property { get; }
 
         [JsonProperty("value")]
-        public object Value { get; }
+        public object? Value { get; }
     }
 }

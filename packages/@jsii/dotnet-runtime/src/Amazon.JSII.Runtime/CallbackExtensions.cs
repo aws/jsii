@@ -84,14 +84,14 @@ namespace Amazon.JSII.Runtime
             
             var converter = ServiceContainer.ServiceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
             
-            var rehydratedArgs = Enumerable.Range(0, request.Arguments.Length)
+            var rehydratedArgs = Enumerable.Range(0, request.Arguments?.Length ?? 0)
                 .Select(n =>
                 {
                     var paramIndex = n >= parameters.Length ? parameters.Length - 1 : n;
                     var requiredType = parameters[paramIndex].ParameterType;
-                    if (!converter.TryConvert(attribute.Parameters[paramIndex], requiredType, referenceMap, request.Arguments[n], out var value))
+                    if (!converter.TryConvert(attribute.Parameters[paramIndex], requiredType, referenceMap, request.Arguments![n], out var value))
                     {
-                        throw new JsiiException($"Unable to convert {request.Arguments[n]} to {requiredType.Name}");
+                        throw new JsiiException($"Unable to convert {request.Arguments![n]} to {requiredType.Name}");
                     }
 
                     if (attribute.Parameters[paramIndex].IsVariadic)
@@ -153,7 +153,7 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not exist");
             }
 
-            var attribute = propertyInfo.GetAttribute<JsiiPropertyAttribute>();
+            var attribute = propertyInfo.GetAttribute<JsiiPropertyAttribute>()!;
 
             var methodInfo = propertyInfo.GetMethod;
             if (methodInfo == null)
@@ -188,7 +188,7 @@ namespace Amazon.JSII.Runtime
          * This is a temporary workaround / hack to solve an immediate problem, but does not completely solve the
          * problem to it's full extent. See https://github.com/aws/jsii/issues/404 for more information.
          */
-        private static object FromKernel(object obj, IReferenceMap referenceMap)
+        private static object? FromKernel(object? obj, IReferenceMap referenceMap)
         {
             if (!(obj is JObject jObject)) return obj;
             var prop = jObject.Property("$jsii.byref");
@@ -229,10 +229,10 @@ namespace Amazon.JSII.Runtime
 
     internal sealed class CallbackResult : OptionalValue
     {
-        public CallbackResult(IOptionalValue? optionalValue, object? value)
-            : this(optionalValue?.Type, optionalValue?.IsOptional ?? false, value) {}
+        public CallbackResult(IOptionalValue optionalValue, object? value)
+            : this(optionalValue.Type, optionalValue.IsOptional, value) {}
 
-        private CallbackResult(TypeReference? type, bool isOptional, object? value): base(type, isOptional)
+        private CallbackResult(TypeReference type, bool isOptional, object? value): base(type, isOptional)
         {
             Value = value;
         }
