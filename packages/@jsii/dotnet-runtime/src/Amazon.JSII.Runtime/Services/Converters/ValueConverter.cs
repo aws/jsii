@@ -106,7 +106,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return TryConvertClass(type, referenceMap, value, out result);
             }
 
-            if (_types.GetEnumType(fullyQualifiedName) != null)
+            if (_types.TryGetEnumType(fullyQualifiedName) != null)
             {
                 return TryConvertEnum(value, isOptional, fullyQualifiedName, out result);
             }
