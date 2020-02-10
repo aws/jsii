@@ -39,8 +39,8 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
                 ServiceContainer.ServiceProviderOverride = serviceProvider;
 
-                _typeCache.GetClassType("myClassFqn").Returns(typeof(TestClass));
-                _typeCache.GetEnumType("myEnumFqn").Returns(typeof(TestEnum));
+                _typeCache.TryGetClassType("myClassFqn").Returns(typeof(TestClass));
+                _typeCache.TryGetEnumType("myEnumFqn").Returns(typeof(TestEnum));
             }
         }
 

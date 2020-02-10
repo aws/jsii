@@ -209,8 +209,8 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
             public FullyQualifiedName()
             {
-                _typeCache.GetClassType("myClassFqn").Returns(typeof(TestClass));
-                _typeCache.GetEnumType("myEnumFqn").Returns(typeof(TestEnum));
+                _typeCache.TryGetClassType("myClassFqn").Returns(typeof(TestClass));
+                _typeCache.TryGetEnumType("myEnumFqn").Returns(typeof(TestEnum));
             }
 
             [Fact(DisplayName = _Prefix + nameof(ConvertsClassReference))]
