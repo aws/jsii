@@ -1,4 +1,4 @@
-﻿using Amazon.JSII.JsonModel.Spec;
+using Amazon.JSII.JsonModel.Spec;
 using Newtonsoft.Json;
 using System;
 using Xunit;
@@ -30,7 +30,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingName))]
             public void ShouldThrowOnMissingName()
             {
+#pragma warning disable CS8625
                 Assert.Throws<ArgumentNullException>(() => new EnumMember(null, new Docs()));
+#pragma warning restore CS8625
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldNotSerializeMissingDocs))]
@@ -61,8 +63,8 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
 
                 EnumMember actual = JsonConvert.DeserializeObject<EnumMember>(json);
 
-                Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
-                Assert.Equal("hello", actual.Docs.Summary);
+                Assert.Equal("myName", actual?.Name, ignoreLineEndingDifferences: true);
+                Assert.Equal("hello", actual?.Docs?.Summary);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingName))]

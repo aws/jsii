@@ -1,4 +1,4 @@
-﻿using Amazon.JSII.JsonModel.Spec;
+using Amazon.JSII.JsonModel.Spec;
 using Newtonsoft.Json;
 using System;
 using Xunit;
@@ -36,7 +36,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingElementType))]
             public void ShouldThrowOnMissingElementType()
             {
+#pragma warning disable CS8625
                 Assert.Throws<ArgumentNullException>(() => new CollectionTypeReference(CollectionKind.Array, null));
+#pragma warning restore CS8625
             }
         }
 

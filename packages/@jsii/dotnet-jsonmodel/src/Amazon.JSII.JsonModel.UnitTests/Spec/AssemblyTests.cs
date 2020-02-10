@@ -107,7 +107,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 Assert.Throws<ArgumentNullException>(() => new Assembly
                 (
+#pragma warning disable CS8625
                     name: null,
+#pragma warning restore CS8625
                     description: "",
                     homepage: "",
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
@@ -140,7 +142,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     repository: new Assembly.AssemblyRepository(type: "", url: ""),
                     author: new Person(name: "", roles: new string[] { }),
                     fingerprint: "",
+#pragma warning disable CS8625
                     version: null,
+#pragma warning restore CS8625
                     license: "",
                     targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
                         @namespace: "Dot.Net.Namespace",
@@ -375,7 +379,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Empty(actual.Types);
                 Assert.Empty(actual.Dependencies);
                 Assert.Empty(actual.Bundled);
-                Assert.Equal("hello", actual.Docs.Summary);
+                Assert.Equal("hello", actual.Docs?.Summary);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldDeserializeAllMembersWithNoTypes))]
@@ -411,7 +415,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Null(actual.Types);
                 Assert.Empty(actual.Dependencies);
                 Assert.Empty(actual.Bundled);
-                Assert.Equal("hello", actual.Docs.Summary);
+                Assert.Equal("hello", actual.Docs?.Summary);
             }
 
 
@@ -455,19 +459,19 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Equal("jsii/0.9.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
 
-                AssemblyTargets.DotNetTarget dotNetTarget = actual.Targets.DotNet;
+                AssemblyTargets.DotNetTarget? dotNetTarget = actual.Targets?.DotNet;
                 Assert.NotNull(dotNetTarget);
-                Assert.Equal("Dot.Net.Namespace", dotNetTarget.Namespace);
-                Assert.Equal("Dot.Net.PackageId", dotNetTarget.PackageId);
-                Assert.True(dotNetTarget.SignAssembly);
-                Assert.Equal("key.snk", dotNetTarget.AssemblyOriginatorKeyFile);
-                Assert.Equal("http://www.example.com/icon.png", dotNetTarget.IconUrl);
+                Assert.Equal("Dot.Net.Namespace", dotNetTarget?.Namespace);
+                Assert.Equal("Dot.Net.PackageId", dotNetTarget?.PackageId);
+                Assert.True(dotNetTarget?.SignAssembly);
+                Assert.Equal("key.snk", dotNetTarget?.AssemblyOriginatorKeyFile);
+                Assert.Equal("http://www.example.com/icon.png", dotNetTarget?.IconUrl);
 
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
                 Assert.Empty(actual.Types);
                 Assert.Empty(actual.Dependencies);
                 Assert.Empty(actual.Bundled);
-                Assert.Equal("hello", actual.Docs.Summary);
+                Assert.Equal("hello", actual.Docs?.Summary);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingName))]

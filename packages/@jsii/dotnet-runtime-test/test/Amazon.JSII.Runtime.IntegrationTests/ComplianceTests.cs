@@ -61,7 +61,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             // json
             types.JsonProperty = JObject.Parse(@"{ ""Foo"": { ""Bar"": 123 } }");
-            Assert.Equal(123d, types.JsonProperty["Foo"]["Bar"].Value<double>());
+            Assert.Equal(123d, types.JsonProperty["Foo"]?["Bar"]?.Value<double>());
         }
 
         [Fact(DisplayName = Prefix + nameof(Dates))]
@@ -508,7 +508,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
         class InterfaceWithProperties : DeputyBase, IInterfaceWithProperties
         {
-            string _x;
+            string? _x;
 
             public string ReadOnlyString => "READ_ONLY_STRING";
 
@@ -863,7 +863,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.GiveMeUndefinedInsideAnObject(new NullShouldBeTreatedAsUndefinedData
             {
                 ThisShouldBeUndefined = null,
+#pragma warning disable CS8625
                 ArrayWithThreeElementsAndUndefinedAsSecondArgument = new object[] {"hello", null, "world"}
+#pragma warning restore CS8625
             });
 
             // property
@@ -888,7 +890,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             var variadicClassNoParams = new VariadicMethod();
 
             // Array with null value in constructor params
+#pragma warning disable CS8625
             new VariadicMethod(null);
+#pragma warning restore CS8625
 
             // Array with one value in constructor params
             new VariadicMethod(1);
@@ -897,7 +901,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             new VariadicMethod(1, 2, 3, 4);
 
             // Variadic parameter with null passed
+#pragma warning disable CS8625
             variadicClassNoParams.AsArray(double.MinValue, null);
+#pragma warning restore CS8625
 
             // Variadic parameter with default value used
             variadicClassNoParams.AsArray(double.MinValue);
@@ -1044,7 +1050,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             public override double[] AsArray(double first, params double[] others)
             {
+#pragma warning disable CS8604
                 return base.AsArray(first + 1, others?.Select(n => n + 1).ToArray());
+#pragma warning restore CS8604
             }
         }
 
@@ -1216,7 +1224,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 set => AnotherTheProperty = value;
             }
 
-            public string AnotherTheProperty { get; set; }
+            public string? AnotherTheProperty { get; set; }
         }
 
         class PureNativeFriendlyRandom : DeputyBase, IFriendlyRandomGenerator
@@ -1289,7 +1297,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(StructsAreUndecoratedOntheWayToKernel))]
         public void StructsAreUndecoratedOntheWayToKernel()
         {
-            var json = JsonFormatter.Stringify(new StructB {RequiredString = "Bazinga!", OptionalBoolean = false});
+            var json = JsonFormatter.Stringify(new StructB {RequiredString = "Bazinga!", OptionalBoolean = false})!;
             var actual = JObject.Parse(json);
 
             var expected = new JObject();
@@ -1408,7 +1416,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         
         private sealed class AbstractSuiteImpl : AbstractSuite
         {
-            private string _property;
+            private string _property = "";
             
             public AbstractSuiteImpl() {}
 

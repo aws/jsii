@@ -1,4 +1,4 @@
-﻿using Amazon.JSII.JsonModel.Spec;
+using Amazon.JSII.JsonModel.Spec;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -56,7 +56,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 Assert.Throws<ArgumentNullException>(() => new ClassType
                 (
+#pragma warning disable CS8625
                     fullyQualifiedName: null,
+#pragma warning restore CS8625
                     assembly: "myModule",
                     name: "myName",
                     @namespace: "myNamespace",
@@ -76,7 +78,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new ClassType
                 (
                     fullyQualifiedName: "myFqn",
+#pragma warning disable CS8625
                     assembly: null,
+#pragma warning restore CS8625
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -96,7 +100,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 (
                     fullyQualifiedName: "myFqn",
                     assembly: "myModule",
+#pragma warning disable CS8625
                     name: null,
+#pragma warning restore CS8625
                     @namespace: "myNamespace",
                     isAbstract: true,
                     docs: new Docs(),
@@ -388,7 +394,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
                 Assert.Equal("myNamespace", actual.Namespace, ignoreLineEndingDifferences: true);
                 Assert.Equal(TypeKind.Class, actual.Kind);
-                Assert.Equal("hello", actual.Docs.Summary);
+                Assert.Equal("hello", actual.Docs?.Summary);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingFullyQualifiedName))]
@@ -623,8 +629,8 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
 
                 ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
 
-                Assert.True(actual.Methods.Length == 1);
-                Assert.True(actual.Methods[0]?.IsAsync);
+                Assert.Equal(1, actual.Methods?.Length);
+                Assert.True(actual.Methods?[0]?.IsAsync);
             }
         }
     }
