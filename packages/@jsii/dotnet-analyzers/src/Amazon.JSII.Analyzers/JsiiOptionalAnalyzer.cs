@@ -73,7 +73,7 @@ namespace Amazon.JSII.Analyzers
                     return;
 
                 // Get all the required properties on the prop object
-                var requiredProperties = typeInfo.Type!.GetMembers()
+                var requiredProperties = typeInfo.Type.GetMembers()
                     .Where(m => m.Kind == SymbolKind.Property
                                 && !IsJsiiOptionalProperty(m));
                 foreach (var requiredProperty in requiredProperties)
