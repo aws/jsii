@@ -16,8 +16,8 @@ namespace Amazon.JSII.JsonModel.Spec
             bool isAbstract = false,
             bool isStatic = false,
             bool isConstant = false,
-            string overrides = null,
-            Docs docs = null
+            string? overrides = null,
+            Docs? docs = null
         ): base(type: type, isOptional: isOptional)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -49,9 +49,9 @@ namespace Amazon.JSII.JsonModel.Spec
         public bool IsStatic { get; }
 
         [JsonProperty("overrides", NullValueHandling = NullValueHandling.Ignore)]
-        public string Overrides { get; }
+        public string? Overrides { get; }
         
         [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
-        public Docs Docs { get; }
+        public Docs? Docs { get; }
     }
 }

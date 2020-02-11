@@ -1,7 +1,11 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    #pragma warning disable CS8618
+
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -23,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "thisShouldBeUndefined", typeJson: "{\"primitive\":\"any\"}", isOptional: true, isOverride: true)]
-        public object ThisShouldBeUndefined
+        public object? ThisShouldBeUndefined
         {
             get;
             set;

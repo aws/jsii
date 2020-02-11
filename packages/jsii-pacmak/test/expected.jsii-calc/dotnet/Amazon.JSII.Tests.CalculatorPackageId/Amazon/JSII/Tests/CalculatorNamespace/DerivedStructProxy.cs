@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A struct which derives from another struct.</summary>
@@ -47,9 +49,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"map\"}}", isOptional: true)]
-        public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_> AnotherOptional
+        public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>? AnotherOptional
         {
-            get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>>();
+            get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>?>();
         }
 
         /// <remarks>
@@ -57,9 +59,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalAny", typeJson: "{\"primitive\":\"any\"}", isOptional: true)]
-        public object OptionalAny
+        public object? OptionalAny
         {
-            get => GetInstanceProperty<object>();
+            get => GetInstanceProperty<object?>();
         }
 
         /// <remarks>
@@ -67,9 +69,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
-        public string[] OptionalArray
+        public string[]? OptionalArray
         {
-            get => GetInstanceProperty<string[]>();
+            get => GetInstanceProperty<string[]?>();
         }
 
         /// <summary>An awesome number value.</summary>
@@ -100,9 +102,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiOptional]
         [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
         [System.Obsolete()]
-        public string[] FirstOptional
+        public string[]? FirstOptional
         {
-            get => GetInstanceProperty<string[]>();
+            get => GetInstanceProperty<string[]?>();
         }
     }
 }

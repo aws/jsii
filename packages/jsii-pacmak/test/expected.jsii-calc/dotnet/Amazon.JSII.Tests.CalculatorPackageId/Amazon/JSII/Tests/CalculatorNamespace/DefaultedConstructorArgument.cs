@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
@@ -11,7 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public DefaultedConstructorArgument(double? arg1 = null, string arg2 = null, System.DateTime? arg3 = null): base(new DeputyProps(new object[]{arg1, arg2, arg3}))
+        public DefaultedConstructorArgument(double? arg1 = null, string? arg2 = null, System.DateTime? arg3 = null): base(new DeputyProps(new object?[]{arg1, arg2, arg3}))
         {
         }
 
@@ -52,9 +54,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "arg2", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public virtual string Arg2
+        public virtual string? Arg2
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
     }
 }

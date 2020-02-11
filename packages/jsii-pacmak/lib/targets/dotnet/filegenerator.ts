@@ -85,6 +85,7 @@ export class FileGenerator {
     propertyGroup.ele('GeneratePackageOnBuild', 'true');
     propertyGroup.ele('IncludeSymbols', 'true');
     propertyGroup.ele('IncludeSource', 'true');
+    propertyGroup.ele('Nullable', 'enable');
     propertyGroup.ele('SymbolPackageFormat', 'snupkg');
     propertyGroup.ele('TargetFramework', TARGET_FRAMEWORK);
 

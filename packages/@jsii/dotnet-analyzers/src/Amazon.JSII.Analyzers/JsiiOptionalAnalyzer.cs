@@ -105,6 +105,10 @@ namespace Amazon.JSII.Analyzers
         /// <returns>true if the TypeInfo is related to a Jsii class, false otherwise</returns>
         private static bool IsJsiiClass(TypeInfo typeInfo)
         {
+            if (typeInfo.Type == null)
+            {
+                return false;
+            }
             var typeAttributes = typeInfo.Type.GetAttributes().ToArray();
             return typeAttributes.Any(a => a.AttributeClass.Name == "JsiiClassAttribute");
         }
@@ -119,6 +123,10 @@ namespace Amazon.JSII.Analyzers
         /// <returns>true if the TypeInfo is related to a Jsii datatype, false otherwise</returns>
         private static bool IsJsiiDatatype(TypeInfo typeInfo)
         {
+            if (typeInfo.Type == null)
+            {
+                return false;
+            }
             var typeAttributes = typeInfo.Type.GetAttributes().ToArray();
             return typeAttributes.Any(a => a.AttributeClass.Name == "JsiiByValueAttribute");
         }

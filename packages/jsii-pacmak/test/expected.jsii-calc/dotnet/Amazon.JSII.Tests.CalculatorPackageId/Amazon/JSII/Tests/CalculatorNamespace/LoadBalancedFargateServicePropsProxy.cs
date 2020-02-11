@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#298: show default values in sphinx documentation, and respect newlines.</summary>
@@ -45,9 +47,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "cpu", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public string Cpu
+        public string? Cpu
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
 
         /// <summary>The amount (in MiB) of memory used by the task.</summary>
@@ -73,9 +75,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "memoryMiB", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public string MemoryMiB
+        public string? MemoryMiB
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
 
         /// <summary>Determines whether the Application Load Balancer will be internet-facing.</summary>

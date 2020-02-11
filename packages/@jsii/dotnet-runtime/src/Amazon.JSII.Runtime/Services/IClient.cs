@@ -14,7 +14,7 @@ namespace Amazon.JSII.Runtime.Services
 
         LoadResponse Load(LoadRequest request);
 
-        CreateResponse Create(string fullyQualifiedName, object[] arguments = null, Override[] overrides = null, string[] interfaces = null);
+        CreateResponse Create(string fullyQualifiedName, object?[]? arguments = null, Override[]? overrides = null, string[]? interfaces = null);
 
         CreateResponse Create(CreateRequest request);
 
@@ -30,23 +30,23 @@ namespace Amazon.JSII.Runtime.Services
 
         GetResponse StaticGet(StaticGetRequest request);
 
-        SetResponse Set(ObjectReference objectReference, string property, object value);
+        SetResponse Set(ObjectReference objectReference, string property, object? value);
 
         SetResponse Set(SetRequest request);
 
-        SetResponse StaticSet(string fullyQualifiedName, string property, object value);
+        SetResponse StaticSet(string fullyQualifiedName, string property, object? value);
 
         SetResponse StaticSet(StaticSetRequest request);
 
-        InvokeResponse Invoke(ObjectReference objectReference, string method, object[] arguments = null);
+        InvokeResponse Invoke(ObjectReference objectReference, string method, object?[]? arguments = null);
 
         InvokeResponse Invoke(InvokeRequest request);
 
-        InvokeResponse StaticInvoke(string fullyQualifiedName, string method, object[] arguments = null);
+        InvokeResponse StaticInvoke(string fullyQualifiedName, string method, object?[]? arguments = null);
 
         InvokeResponse StaticInvoke(StaticInvokeRequest request);
 
-        BeginResponse Begin(ObjectReference objectReference, string method, object[] arguments = null);
+        BeginResponse Begin(ObjectReference objectReference, string method, object?[]? arguments = null);
 
         BeginResponse Begin(BeginRequest request);
 
@@ -58,7 +58,7 @@ namespace Amazon.JSII.Runtime.Services
 
         CallbacksResponse Callbacks(CallbacksRequest request);
 
-        CompleteResponse Complete(string callbackId, string error = null, object result = null);
+        CompleteResponse Complete(string callbackId, string? error = null, object? result = null);
 
         CompleteResponse Complete(CompleteRequest request);
 

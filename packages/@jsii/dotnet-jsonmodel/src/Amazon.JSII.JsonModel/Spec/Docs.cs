@@ -8,16 +8,16 @@ namespace Amazon.JSII.JsonModel.Spec
     {
         public Docs
         (
-            string summary = null,
-            string remarks = null,
-            string deprecated = null,
-            string returns = null,
+            string? summary = null,
+            string? remarks = null,
+            string? deprecated = null,
+            string? returns = null,
             Stability? stability = null,
-            string example = null,
-            string see = null,
+            string? example = null,
+            string? see = null,
             bool? subclassable = null,
-            string @default = null,
-            IDictionary<string, string> custom = null
+            string? @default = null,
+            IDictionary<string, string>? custom = null
         )
         {
             Summary = summary;
@@ -33,31 +33,31 @@ namespace Amazon.JSII.JsonModel.Spec
         }
 
         [JsonProperty("summary", NullValueHandling = NullValueHandling.Ignore)]
-        public string Summary { get; }
+        public string? Summary { get; }
 
         [JsonProperty("remarks", NullValueHandling = NullValueHandling.Ignore)]
-        public string Remarks { get; }
+        public string? Remarks { get; }
 
         [JsonProperty("deprecated", NullValueHandling = NullValueHandling.Ignore)]
-        public string Deprecated { get; }
+        public string? Deprecated { get; }
 
         [JsonProperty("returns", NullValueHandling = NullValueHandling.Ignore)]
-        public string Returns { get; }
+        public string? Returns { get; }
 
         [JsonProperty("stability", NullValueHandling = NullValueHandling.Ignore)]
         public Stability? Stability { get; }
 
         [JsonProperty("example", NullValueHandling = NullValueHandling.Ignore)]
-        public string Example { get; }
+        public string? Example { get; }
 
         [JsonProperty("see", NullValueHandling = NullValueHandling.Ignore)]
-        public string See { get; }
+        public string? See { get; }
 
         [JsonProperty("subclassable", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Subclassable { get; }
 
         [JsonProperty("default", NullValueHandling = NullValueHandling.Ignore)]
-        public string Default { get; }
+        public string? Default { get; }
 
         [JsonProperty("custom", NullValueHandling = NullValueHandling.Ignore)]
         public IDictionary<string, string> Custom;

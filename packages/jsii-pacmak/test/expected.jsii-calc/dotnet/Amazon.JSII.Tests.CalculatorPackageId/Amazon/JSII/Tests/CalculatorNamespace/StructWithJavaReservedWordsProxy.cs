@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
@@ -26,9 +28,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "assert", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public string Assert
+        public string? Assert
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
 
         /// <remarks>
@@ -36,9 +38,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "result", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public string Result
+        public string? Result
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
 
         /// <remarks>
@@ -46,9 +48,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "that", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public string That
+        public string? That
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
     }
 }

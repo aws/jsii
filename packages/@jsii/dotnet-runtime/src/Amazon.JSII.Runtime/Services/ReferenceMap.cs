@@ -30,7 +30,7 @@ namespace Amazon.JSII.Runtime.Services
 
         public DeputyBase GetOrCreateNativeReference(ObjectReference reference)
         {
-            return GetOrCreateNativeReference(new ByRefValue(reference["$jsii.byref"] as string));
+            return GetOrCreateNativeReference(new ByRefValue((reference["$jsii.byref"] as string)!));
         }
 
         public DeputyBase GetOrCreateNativeReference(ByRefValue byRefValue)
@@ -64,7 +64,7 @@ namespace Amazon.JSII.Runtime.Services
                 }
 
                 BindingFlags constructorFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-                ConstructorInfo constructorInfo = type.GetConstructor(constructorFlags, null, new[] {typeof(ByRefValue)}, null);
+                ConstructorInfo? constructorInfo = type.GetConstructor(constructorFlags, null, new[] {typeof(ByRefValue)}, null);
                 if (constructorInfo == null)
                 {
                     throw new JsiiException($"Could not find constructor to initialize {type.FullName} with a {typeof(ByRefValue).FullName}");

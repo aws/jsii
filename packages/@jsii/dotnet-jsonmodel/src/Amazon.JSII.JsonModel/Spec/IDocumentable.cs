@@ -2,6 +2,6 @@
 {
     public interface IDocumentable
     {
-        Docs Docs { get; }
+        Docs? Docs { get; }
     }
 }

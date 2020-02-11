@@ -16,9 +16,9 @@ namespace Amazon.JSII.JsonModel.Spec
             // EnumType properties
             EnumMember[] members,
 
-            string @namespace = null,
+            string? @namespace = null,
             // Type properties
-            Docs docs = null
+            Docs? docs = null
         )
             : base
             (

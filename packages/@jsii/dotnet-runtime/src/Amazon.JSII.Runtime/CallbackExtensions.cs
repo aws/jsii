@@ -16,17 +16,17 @@ namespace Amazon.JSII.Runtime
 {
     internal static class CallbackExtensions
     {
-        public static object InvokeCallback(this Callback callback, IReferenceMap referenceMap, IFrameworkToJsiiConverter converter, out string error)
+        public static object? InvokeCallback(this Callback callback, IReferenceMap referenceMap, IFrameworkToJsiiConverter converter, out string? error)
         {
             try
             {
-                CallbackResult frameworkResult = callback.InvokeCallbackCore(referenceMap);
+                CallbackResult? frameworkResult = callback.InvokeCallbackCore(referenceMap);
 
                 converter.TryConvert(
                     frameworkResult,
                     referenceMap,
                     frameworkResult?.Value,
-                    out object result
+                    out object? result
                 );
 
                 error = null;
@@ -46,7 +46,7 @@ namespace Amazon.JSII.Runtime
             }
         }
 
-        static CallbackResult InvokeCallbackCore(this Callback callback, IReferenceMap referenceMap)
+        static CallbackResult? InvokeCallbackCore(this Callback callback, IReferenceMap referenceMap)
         {
             if (callback.Invoke != null)
             {
@@ -67,7 +67,7 @@ namespace Amazon.JSII.Runtime
             throw new ArgumentException("Callback does not specificy a method, getter, or setter to invoke");
         }
 
-        private static CallbackResult InvokeMethod(InvokeRequest request, IReferenceMap referenceMap)
+        private static CallbackResult? InvokeMethod(InvokeRequest request, IReferenceMap referenceMap)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
             var deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
@@ -79,24 +79,24 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Method} method, but this method does not exist");
             }
 
-            var attribute = methodInfo.GetAttribute<JsiiMethodAttribute>();
+            var attribute = methodInfo.GetAttribute<JsiiMethodAttribute>()!;
             var parameters = methodInfo.GetParameters();
             
             var converter = ServiceContainer.ServiceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
             
-            var rehydratedArgs = Enumerable.Range(0, request.Arguments.Length)
+            var rehydratedArgs = Enumerable.Range(0, request.Arguments?.Length ?? 0)
                 .Select(n =>
                 {
                     var paramIndex = n >= parameters.Length ? parameters.Length - 1 : n;
                     var requiredType = parameters[paramIndex].ParameterType;
-                    if (!converter.TryConvert(attribute.Parameters[paramIndex], requiredType, referenceMap, request.Arguments[n], out var value))
+                    if (!converter.TryConvert(attribute.Parameters[paramIndex], requiredType, referenceMap, request.Arguments![n], out var value))
                     {
-                        throw new JsiiException($"Unable to convert {request.Arguments[n]} to {requiredType.Name}");
+                        throw new JsiiException($"Unable to convert {request.Arguments![n]} to {requiredType.Name}");
                     }
 
                     if (attribute.Parameters[paramIndex].IsVariadic)
                     {
-                        var array = Array.CreateInstance(value.GetType(), 1);
+                        var array = Array.CreateInstance(value?.GetType() ?? requiredType, 1);
                         array.SetValue(value, 0);
                         value = array;
                     }
@@ -120,12 +120,12 @@ namespace Amazon.JSII.Runtime
                     if (n == parameters.Length - 1 && rehydratedArgs.Length > parameters.Length)
                     {
                         var allArgs = rehydratedArgs.TakeLast(rehydratedArgs.Length - parameters.Length + 1);
-                        var array = Array.CreateInstance(parameters[parameters.Length - 1].ParameterType.GetElementType(),
-                            allArgs.Select(list => (list as Array).Length).Sum());
+                        var array = Array.CreateInstance(parameters[parameters.Length - 1].ParameterType.GetElementType()!,
+                            allArgs.Select(list => (list as Array)!.Length).Sum());
                         var idx = 0;
                         foreach (var list in allArgs)
                         {
-                            foreach (var item in list as Array)
+                            foreach (var item in (list as Array)!)
                             {
                                 array.SetValue(item, idx);
                                 idx += 1;
@@ -153,7 +153,7 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not exist");
             }
 
-            var attribute = propertyInfo.GetAttribute<JsiiPropertyAttribute>();
+            var attribute = propertyInfo.GetAttribute<JsiiPropertyAttribute>()!;
 
             var methodInfo = propertyInfo.GetMethod;
             if (methodInfo == null)
@@ -188,7 +188,7 @@ namespace Amazon.JSII.Runtime
          * This is a temporary workaround / hack to solve an immediate problem, but does not completely solve the
          * problem to it's full extent. See https://github.com/aws/jsii/issues/404 for more information.
          */
-        private static object FromKernel(object obj, IReferenceMap referenceMap)
+        private static object? FromKernel(object? obj, IReferenceMap referenceMap)
         {
             if (!(obj is JObject jObject)) return obj;
             var prop = jObject.Property("$jsii.byref");
@@ -201,16 +201,16 @@ namespace Amazon.JSII.Runtime
 
             if (jObject.ContainsKey("$jsii.map"))
             {
-                jObject = (JObject)jObject.Property("$jsii.map").Value;
+                jObject = (JObject)jObject.Property("$jsii.map")!.Value;
             }
 
             /*
-                 * Turning all outstanding JObjects to IDictionary<string, object> (recursively), as the code generator
-                 * will have emitted IDictionary<string, object> for  maps of string to <anything>. Not doing so would
-                 * result in an ArgumentError for not being able to convert JObject to IDictionary.
-                 */
-            var dict = jObject.ToObject<Dictionary<string, object>>();
-            var mapped = new Dictionary<string, object>(dict.Count);
+             * Turning all outstanding JObjects to IDictionary<string, object> (recursively), as the code generator
+             * will have emitted IDictionary<string, object> for  maps of string to <anything>. Not doing so would
+             * result in an ArgumentError for not being able to convert JObject to IDictionary.
+             */
+            var dict = jObject.ToObject<Dictionary<string, object?>>()!;
+            var mapped = new Dictionary<string, object?>(dict.Count);
             foreach (var key in dict.Keys)
             {
                 var value = dict[key];
@@ -229,14 +229,14 @@ namespace Amazon.JSII.Runtime
 
     internal sealed class CallbackResult : OptionalValue
     {
-        public CallbackResult(IOptionalValue optionalValue, object value)
-            : this(optionalValue?.Type, optionalValue?.IsOptional ?? false, value) {}
+        public CallbackResult(IOptionalValue optionalValue, object? value)
+            : this(optionalValue.Type, optionalValue.IsOptional, value) {}
 
-        private CallbackResult(TypeReference type, bool isOptional, object value): base(type, isOptional)
+        private CallbackResult(TypeReference type, bool isOptional, object? value): base(type, isOptional)
         {
             Value = value;
         }
 
-        public object Value { get; }
+        public object? Value { get; }
     }
 }

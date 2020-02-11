@@ -2,6 +2,6 @@
 {
     internal interface IJsiiRuntimeProvider
     {
-        string JsiiRuntimePath { get; }
+        string? JsiiRuntimePath { get; }
     }
 }

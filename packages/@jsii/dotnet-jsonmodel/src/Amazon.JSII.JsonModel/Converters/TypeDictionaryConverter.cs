@@ -16,14 +16,14 @@ namespace Amazon.JSII.JsonModel.Converters
             throw new NotImplementedException();
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             var untypedDictionary = JObject.Load(reader);
 
             return untypedDictionary.Properties().ToDictionary(p => p.Name, p => Util.ConvertToDerivedType(p.Value));
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace Amazon.JSII.JsonModel
 {
     public abstract class JsonDictionaryBase<TKey, TValue> : IDictionary<TKey, TValue>
+        where TKey : notnull
     {
         private readonly IDictionary<TKey, TValue> _members = new Dictionary<TKey, TValue>();
 

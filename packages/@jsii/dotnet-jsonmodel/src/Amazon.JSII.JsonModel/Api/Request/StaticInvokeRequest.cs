@@ -6,7 +6,7 @@ namespace Amazon.JSII.JsonModel.Api.Request
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class StaticInvokeRequest : IKernelRequest
     {
-        public StaticInvokeRequest(string fullyQualifiedName, string method, object[] arguments = null)
+        public StaticInvokeRequest(string fullyQualifiedName, string method, object?[]? arguments = null)
         {
             FullyQualifiedName = fullyQualifiedName ?? throw new ArgumentNullException(nameof(fullyQualifiedName));
             Method = method ?? throw new ArgumentNullException(nameof(method));
@@ -23,6 +23,6 @@ namespace Amazon.JSII.JsonModel.Api.Request
         public string Method { get; }
 
         [JsonProperty("args", NullValueHandling = NullValueHandling.Ignore)]
-        public object[] Arguments { get; }
+        public object?[]? Arguments { get; }
     }
 }

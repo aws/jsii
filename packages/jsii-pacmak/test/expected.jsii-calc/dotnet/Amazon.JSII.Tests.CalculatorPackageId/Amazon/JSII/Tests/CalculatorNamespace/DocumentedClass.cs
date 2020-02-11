@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Here's the first line of the TSDoc comment.</summary>
@@ -42,9 +44,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Stable
         /// </remarks>
         [JsiiMethod(name: "greet", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"docs\":{\"summary\":\"The person to be greeted.\"},\"name\":\"greetee\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.Greetee\"}}]")]
-        public virtual double Greet(Amazon.JSII.Tests.CalculatorNamespace.IGreetee greetee = null)
+        public virtual double Greet(Amazon.JSII.Tests.CalculatorNamespace.IGreetee? greetee = null)
         {
-            return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IGreetee)}, new object[]{greetee});
+            return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IGreetee)}, new object?[]{greetee});
         }
 
         /// <summary>Say ¡Hola!</summary>

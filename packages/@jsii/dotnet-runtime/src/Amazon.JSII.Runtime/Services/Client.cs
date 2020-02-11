@@ -100,26 +100,26 @@ namespace Amazon.JSII.Runtime.Services
 
         TResponse TryDeserialize<TResponse>(string responseJson) where TResponse : class, IKernelResponse
         {
-            JObject responseObject = (JObject)JsonConvert.DeserializeObject(responseJson);
+            JObject responseObject = (JObject)JsonConvert.DeserializeObject(responseJson)!;
 
             if (responseObject.ContainsKey("error"))
             {
-                ErrorResponse errorResponse = responseObject.ToObject<ErrorResponse>();
+                ErrorResponse errorResponse = responseObject.ToObject<ErrorResponse>()!;
 
                 throw new JsiiException(errorResponse, null);
             }
 
             if (typeof(TResponse).IsAssignableFrom(typeof(HelloResponse)))
             {
-                return responseObject.ToObject<TResponse>();
+                return responseObject.ToObject<TResponse>()!;
             }
 
             if (responseObject.ContainsKey("callback"))
             {
-                CallbackResponse callbackResponse = responseObject.ToObject<CallbackResponse>();
+                CallbackResponse callbackResponse = responseObject.ToObject<CallbackResponse>()!;
                 Callback callback = callbackResponse.Callback;
 
-                object result = callback.InvokeCallback(_referenceMap, _frameworkToJsiiConverter, out string error);
+                object? result = callback.InvokeCallback(_referenceMap, _frameworkToJsiiConverter, out string? error);
 
                 return Send<SynchronousCompleteRequest, TResponse>(new SynchronousCompleteRequest
                 (
@@ -135,7 +135,7 @@ namespace Amazon.JSII.Runtime.Services
 
             if (responseObject.ContainsKey("ok"))
             {
-                OkResponse<TResponse> okResponse = responseObject.ToObject<OkResponse<TResponse>>();
+                OkResponse<TResponse> okResponse = responseObject.ToObject<OkResponse<TResponse>>()!;
 
                 return okResponse.Ok;
             }
@@ -175,7 +175,7 @@ namespace Amazon.JSII.Runtime.Services
             return Send<LoadRequest, LoadResponse>(request);
         }
 
-        public CreateResponse Create(string fullyQualifiedName, object[] arguments = null, Override[] overrides = null, string[] interfaces = null)
+        public CreateResponse Create(string fullyQualifiedName, object?[]? arguments = null, Override[]? overrides = null, string[]? interfaces = null)
         {
             return Create(new CreateRequest(fullyQualifiedName, arguments, overrides, interfaces));
         }
@@ -215,7 +215,7 @@ namespace Amazon.JSII.Runtime.Services
             return Send<StaticGetRequest, GetResponse>(request);
         }
 
-        public SetResponse Set(ObjectReference objectReference, string property, object value)
+        public SetResponse Set(ObjectReference objectReference, string property, object? value)
         {
             return Set(new SetRequest(objectReference, property, value));
         }
@@ -225,7 +225,7 @@ namespace Amazon.JSII.Runtime.Services
             return Send<SetRequest, SetResponse>(request);
         }
 
-        public SetResponse StaticSet(string fullyQualifiedName, string property, object value)
+        public SetResponse StaticSet(string fullyQualifiedName, string property, object? value)
         {
             return StaticSet(new StaticSetRequest(fullyQualifiedName, property, value));
         }
@@ -235,7 +235,7 @@ namespace Amazon.JSII.Runtime.Services
             return Send<StaticSetRequest, SetResponse>(request);
         }
 
-        public InvokeResponse Invoke(ObjectReference objectReference, string method, object[] arguments = null)
+        public InvokeResponse Invoke(ObjectReference objectReference, string method, object?[]? arguments = null)
         {
             return Invoke(new InvokeRequest(objectReference, method, arguments));
         }
@@ -245,7 +245,7 @@ namespace Amazon.JSII.Runtime.Services
             return Send<InvokeRequest, InvokeResponse>(request);
         }
 
-        public InvokeResponse StaticInvoke(string fullyQualifiedName, string method, object[] arguments = null)
+        public InvokeResponse StaticInvoke(string fullyQualifiedName, string method, object?[]? arguments = null)
         {
             return StaticInvoke(new StaticInvokeRequest(fullyQualifiedName, method, arguments));
         }
@@ -255,7 +255,7 @@ namespace Amazon.JSII.Runtime.Services
             return Send<StaticInvokeRequest, InvokeResponse>(request);
         }
 
-        public BeginResponse Begin(ObjectReference objectReference, string method, object[] arguments = null)
+        public BeginResponse Begin(ObjectReference objectReference, string method, object?[]? arguments = null)
         {
             return Begin(new BeginRequest(objectReference, method, arguments));
         }
@@ -285,7 +285,7 @@ namespace Amazon.JSII.Runtime.Services
             return Send<CallbacksRequest, CallbacksResponse>(request);
         }
 
-        public CompleteResponse Complete(string callbackId, string error = null, object result = null)
+        public CompleteResponse Complete(string callbackId, string? error = null, object? result = null)
         {
             return Complete(new CompleteRequest(callbackId, error, result));
         }

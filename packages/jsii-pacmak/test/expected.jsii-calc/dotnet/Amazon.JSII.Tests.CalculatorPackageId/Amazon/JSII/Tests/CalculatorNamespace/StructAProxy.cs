@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>We can serialize and deserialize structs without silently ignoring optional fields.</summary>
@@ -37,9 +39,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalString", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public string OptionalString
+        public string? OptionalString
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
     }
 }

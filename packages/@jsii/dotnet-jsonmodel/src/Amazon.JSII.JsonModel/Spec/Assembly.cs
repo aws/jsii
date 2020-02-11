@@ -34,13 +34,13 @@ namespace Amazon.JSII.JsonModel.Spec
             string fingerprint,
             string version,
             string license,
-            AssemblyTargets targets = null,
-            IDictionary<string, PackageVersion> dependencies = null,
-            Person[] contributors = null,
-            IDictionary<string, string> bundled = null,
-            IDictionary<string, Type> types = null,
-            Docs docs = null,
-            Readme readme = null
+            AssemblyTargets? targets = null,
+            IDictionary<string, PackageVersion>? dependencies = null,
+            Person[]? contributors = null,
+            IDictionary<string, string>? bundled = null,
+            IDictionary<string, Type>? types = null,
+            Docs? docs = null,
+            Readme? readme = null
         ): base(targets, dependencies)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -86,19 +86,19 @@ namespace Amazon.JSII.JsonModel.Spec
         public string License { get; }
 
         [JsonProperty("contributors", NullValueHandling = NullValueHandling.Ignore)]
-        public Person[] Contributors { get; }
+        public Person[]? Contributors { get; }
 
         [JsonProperty("bundled", NullValueHandling = NullValueHandling.Ignore)]
-        public IDictionary<string, string> Bundled { get; }
+        public IDictionary<string, string>? Bundled { get; }
 
         [JsonProperty("types", ItemConverterType = typeof(TypeConverter))]
         [JsonConverter(typeof(TypeDictionaryConverter))]
-        public IDictionary<string, Type> Types { get; }
+        public IDictionary<string, Type>? Types { get; }
 
         [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
-        public Docs Docs { get; }
+        public Docs? Docs { get; }
 
         [JsonProperty("readme", NullValueHandling = NullValueHandling.Ignore)]
-        public Readme Readme { get; }
+        public Readme? Readme { get; }
     }
 }

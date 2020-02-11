@@ -29,48 +29,43 @@ namespace Amazon.JSII.Runtime.Services
             _types = new Dictionary<string, Type>();
         }
 
-        public Type GetClassType(string fullyQualifiedName)
+        public Type? TryGetClassType(string fullyQualifiedName)
         {
-            return GetType<JsiiClassAttribute>(fullyQualifiedName);
+            return TryGetType<JsiiClassAttribute>(fullyQualifiedName);
         }
 
-        public Type GetEnumType(string fullyQualifiedName)
+        public Type? TryGetEnumType(string fullyQualifiedName)
         {
-            return GetType<JsiiEnumAttribute>(fullyQualifiedName);
+            return TryGetType<JsiiEnumAttribute>(fullyQualifiedName);
         }
 
-        public Type GetInterfaceType(string fullyQualifiedName)
+        public Type? TryGetInterfaceType(string fullyQualifiedName)
         {
-            return GetType<JsiiInterfaceAttribute>(fullyQualifiedName);
+            return TryGetType<JsiiInterfaceAttribute>(fullyQualifiedName);
         }
 
-        public Type GetProxyType(string fullyQualifiedName)
+        public Type? TryGetProxyType(string fullyQualifiedName)
         {
-            return GetType<JsiiTypeProxyAttribute>(fullyQualifiedName + ProxySuffix);
+            return TryGetType<JsiiTypeProxyAttribute>(fullyQualifiedName + ProxySuffix);
         }
 
-        public Type GetFrameworkType(IOptionalValue instance)
-        {
-            return GetFrameworkType(instance?.Type, instance?.IsOptional ?? false);
-        }
-        
         public Type GetFrameworkType(TypeReference typeReference, bool isOptional)
         {
             if (typeReference.FullyQualifiedName != null)
             {
-                Type classType = GetClassType(typeReference.FullyQualifiedName);
+                var classType = TryGetClassType(typeReference.FullyQualifiedName);
                 if (classType != null)
                 {
                     return classType;
                 }
 
-                Type enumType = GetEnumType(typeReference.FullyQualifiedName);
+                var enumType = TryGetEnumType(typeReference.FullyQualifiedName);
                 if (enumType != null)
                 {
                     return MakeNullableIfOptional(enumType);
                 }
                 
-                Type interfaceType = GetInterfaceType(typeReference.FullyQualifiedName);
+                var interfaceType = TryGetInterfaceType(typeReference.FullyQualifiedName);
                 if (interfaceType != null)
                 {
                     return interfaceType;
@@ -128,14 +123,14 @@ namespace Amazon.JSII.Runtime.Services
             }
         }
 
-        Type GetType<T>(string fullyQualifiedName) where T : JsiiTypeAttributeBase
+        private Type? TryGetType<T>(string fullyQualifiedName) where T : JsiiTypeAttributeBase
         {
             if (fullyQualifiedName == "Object")
             {
                 return typeof(AnonymousObject);
             }
             
-            Type type = null;
+            Type? type = null;
 
             lock (_lock)
             {
@@ -147,9 +142,7 @@ namespace Amazon.JSII.Runtime.Services
                 }
             }
 
-            return type?.GetCustomAttribute<T>() == null ?
-                null :
-                type;
+            return type?.GetCustomAttribute<T>() == null ? null : type;
         }
 
         void Refresh()
@@ -158,9 +151,9 @@ namespace Amazon.JSII.Runtime.Services
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (Assembly assembly in assemblies)
             {
-                if (!_assemblies.Contains(assembly.FullName))
+                if (!_assemblies.Contains(assembly.FullName!))
                 {
-                    _assemblies.Add(assembly.FullName);
+                    _assemblies.Add(assembly.FullName!);
                     CacheTypes(assembly);
                 }
             }
@@ -192,7 +185,7 @@ namespace Amazon.JSII.Runtime.Services
             }
         }
 
-        IEnumerable<Type> GetTypes(Assembly assembly)
+        IEnumerable<Type>? GetTypes(Assembly assembly)
         {
             try
             {
@@ -201,9 +194,12 @@ namespace Amazon.JSII.Runtime.Services
             catch (ReflectionTypeLoadException e)
             {
                 _logger.LogWarning("ReflectionTypeLoadException while searching for JSII types. Loader exceptions:");
-                foreach (Exception loaderException in e.LoaderExceptions)
+                foreach (Exception? loaderException in e.LoaderExceptions ?? new Exception?[] {})
                 {
-                    _logger.LogWarning(loaderException.ToString());
+                    if (loaderException != null)
+                    {
+                        _logger.LogWarning(loaderException.ToString());
+                    }
                 }
 
                 return e.Types;
