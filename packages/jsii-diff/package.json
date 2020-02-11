@@ -35,7 +35,7 @@
     "@jsii/spec": "^0.22.0",
     "fs-extra": "^8.1.0",
     "jsii-reflect": "^0.22.0",
-    "log4js": "^6.1.1",
+    "log4js": "^6.1.2",
     "typescript": "~3.7.5",
     "yargs": "^15.1.0"
   },
