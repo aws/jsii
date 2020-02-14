@@ -7,6 +7,7 @@
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
     "package": "bash scripts/package.sh",
     "test": "lerna run test --stream",
+    "test:integ": "lerna run test:integ --stream",
     "test:update": "lerna run test:update --stream"
   },
   "devDependencies": {
