@@ -18,12 +18,10 @@ test('TypeSystem.hasAssembly', () => {
 });
 
 test('TypeSystem.assemblies lists all the loaded assemblies', () =>
-  expect(typesys.assemblies.map(a => a.name).sort()).toMatchSnapshot()
-);
+  expect(typesys.assemblies.map(a => a.name).sort()).toMatchSnapshot());
 
 test('TypeSystem.classes lists all the classes in the typesystem', () =>
-  expect(typesys.classes.map(c => c.name).sort()).toMatchSnapshot()
-);
+  expect(typesys.classes.map(c => c.name).sort()).toMatchSnapshot());
 
 test('findClass', () => {
   const calc = typesys.findClass('jsii-calc.Calculator');
@@ -60,7 +58,9 @@ describe('Type', () => {
   test('.isDataType', () => {
     // GIVEN
     const clazz = typesys.findFqn('jsii-calc.AllTypes');
-    const iface = typesys.findFqn('jsii-calc.IInterfaceThatShouldNotBeADataType');
+    const iface = typesys.findFqn(
+      'jsii-calc.IInterfaceThatShouldNotBeADataType',
+    );
     const datat = typesys.findFqn('jsii-calc.CalculatorProps');
     const enumt = typesys.findFqn('jsii-calc.AllTypesEnum');
 
@@ -98,7 +98,9 @@ describe('Type', () => {
   describe('.extends(base)', () => {
     test('with interfaces', () => {
       // GIVEN
-      const base = typesys.findFqn('@scope/jsii-calc-base-of-base.VeryBaseProps');
+      const base = typesys.findFqn(
+        '@scope/jsii-calc-base-of-base.VeryBaseProps',
+      );
       const clazz = typesys.findFqn('jsii-calc.ImplictBaseOfBase');
       const enumt = typesys.findFqn('jsii-calc.AllTypesEnum');
 
@@ -113,7 +115,9 @@ describe('Type', () => {
 
     test('with a class and an interface', () => {
       // GIVEN
-      const iface = typesys.findFqn('jsii-calc.IInterfaceImplementedByAbstractClass');
+      const iface = typesys.findFqn(
+        'jsii-calc.IInterfaceImplementedByAbstractClass',
+      );
       const clazz = typesys.findFqn('jsii-calc.AbstractClass');
 
       // THEN
@@ -133,10 +137,15 @@ describe('Type', () => {
   describe('.allImplementations', () => {
     test('with an interface', () => {
       // GIVEN
-      const base = typesys.findFqn('jsii-calc.IInterfaceImplementedByAbstractClass');
+      const base = typesys.findFqn(
+        'jsii-calc.IInterfaceImplementedByAbstractClass',
+      );
 
       // THEN
-      expect(base.allImplementations).toEqual([typesys.findFqn('jsii-calc.AbstractClass'), base]);
+      expect(base.allImplementations).toEqual([
+        typesys.findFqn('jsii-calc.AbstractClass'),
+        base,
+      ]);
     });
 
     test('with an enum', () => {
@@ -150,7 +159,9 @@ describe('Type', () => {
 });
 
 test('Three Inheritance Levels', () => {
-  const iface = typesys.findInterface('@scope/jsii-calc-lib.IThreeLevelsInterface');
+  const iface = typesys.findInterface(
+    '@scope/jsii-calc-lib.IThreeLevelsInterface',
+  );
   const methodnames = iface.allMethods.map(m => m.name);
   methodnames.sort();
   expect(methodnames).toEqual(['bar', 'baz', 'foo']);

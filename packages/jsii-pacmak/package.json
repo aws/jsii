@@ -29,6 +29,7 @@
     "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && npm run lint",
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint:fix": "yarn lint --fix",
     "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest",
     "test:update": "UPDATE_DIFF=1 /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest -u",
     "package": "package-js"
@@ -62,10 +63,13 @@
     "@types/semver": "^7.1.0",
     "@types/yargs": "^15.0.3",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
     "jsii-build-tools": "^0.22.0",
     "jsii-calc": "^0.22.0",
     "mock-fs": "^4.10.4",
+    "prettier": "^1.19.1",
     "typescript": "~3.7.5"
   },
   "keywords": [

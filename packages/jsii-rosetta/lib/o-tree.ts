@@ -50,7 +50,9 @@ export interface OTreeOptions {
  * can be rendered to an output sink.
  */
 export class OTree implements OTree {
-  public static simplify(xs: Array<OTree | string | undefined>): Array<OTree | string> {
+  public static simplify(
+    xs: Array<OTree | string | undefined>,
+  ): Array<OTree | string> {
     return xs.filter(notUndefined).filter(notEmpty);
   }
 
@@ -63,8 +65,8 @@ export class OTree implements OTree {
   public constructor(
     prefix: Array<OTree | string | undefined>,
     children?: Array<OTree | string | undefined>,
-    private readonly options: OTreeOptions = {}) {
-
+    private readonly options: OTreeOptions = {},
+  ) {
     this.prefix = OTree.simplify(prefix);
     this.children = OTree.simplify(children ?? []);
     this.attachComment = !!options.canBreakLine;
@@ -78,7 +80,9 @@ export class OTree implements OTree {
   }
 
   public write(sink: OTreeSink) {
-    if (!sink.tagOnce(this.options.renderOnce)) { return; }
+    if (!sink.tagOnce(this.options.renderOnce)) {
+      return;
+    }
 
     const meVisible = sink.renderingForSpan(this.span);
 
@@ -86,7 +90,9 @@ export class OTree implements OTree {
       sink.write(x);
     }
 
-    const popIndent = sink.requestIndentChange(meVisible ? this.options.indent || 0 : 0);
+    const popIndent = sink.requestIndentChange(
+      meVisible ? this.options.indent || 0 : 0,
+    );
     let mark = sink.mark();
     for (const child of this.children ?? []) {
       if (this.options.separator && mark.wroteNonWhitespaceSinceMark) {
@@ -115,8 +121,7 @@ export class OTree implements OTree {
 
 export const NO_SYNTAX = new OTree([]);
 
-export class UnknownSyntax extends OTree {
-}
+export class UnknownSyntax extends OTree {}
 
 export interface SinkMark {
   readonly wroteNonWhitespaceSinceMark: boolean;
@@ -142,12 +147,15 @@ export class OTreeSink {
   private pendingIndentChange = 0;
   private rendering = true;
 
-  public constructor(private readonly options: OTreeSinkOptions = {}) {
-  }
+  public constructor(private readonly options: OTreeSinkOptions = {}) {}
 
   public tagOnce(key: string | undefined): boolean {
-    if (key === undefined) { return true; }
-    if (this.singletonsRendered.has(key)) { return false; }
+    if (key === undefined) {
+      return true;
+    }
+    if (this.singletonsRendered.has(key)) {
+      return false;
+    }
     this.singletonsRendered.add(key);
     return true;
   }
@@ -164,8 +172,10 @@ export class OTreeSink {
 
     return {
       get wroteNonWhitespaceSinceMark(): boolean {
-        return self.fragments.slice(markIndex).some(s => /[^\s]/.exec(s) != null);
-      }
+        return self.fragments
+          .slice(markIndex)
+          .some(s => /[^\s]/.exec(s) != null);
+      },
     };
   }
 
@@ -173,7 +183,9 @@ export class OTreeSink {
     if (text instanceof OTree) {
       text.write(this);
     } else {
-      if (!this.rendering) { return; }
+      if (!this.rendering) {
+        return;
+      }
 
       if (containsNewline(text)) {
         this.applyPendingIndentChange();
@@ -190,7 +202,9 @@ export class OTreeSink {
   }
 
   public requestIndentChange(x: number): () => void {
-    if (x === 0) { return () => undefined; }
+    if (x === 0) {
+      return () => undefined;
+    }
 
     this.pendingIndentChange = x;
     const currentIndentState = this.indentLevels.length;
@@ -205,7 +219,11 @@ export class OTreeSink {
 
   public toString() {
     // Strip trailing whitespace from every line, and empty lines from the start and end
-    return this.fragments.join('').replace(/[ \t]+$/gm, '').replace(/^\n+/, '').replace(/\n+$/, '');
+    return this.fragments
+      .join('')
+      .replace(/[ \t]+$/gm, '')
+      .replace(/^\n+/, '')
+      .replace(/\n+$/, '');
   }
 
   private append(x: string) {

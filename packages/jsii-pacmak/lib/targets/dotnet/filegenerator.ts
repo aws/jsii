@@ -17,7 +17,7 @@ export class DotNetDependency {
     public readonly packageId: string,
     public readonly fqn: string,
     version: string,
-    public readonly partOfCompilation: boolean
+    public readonly partOfCompilation: boolean,
   ) {
     this.version = toNuGetVersionRange(version);
   }
@@ -26,11 +26,12 @@ export class DotNetDependency {
 // Generates misc files such as the .csproj and the AssemblyInfo.cs file
 // Uses the same instance of CodeMaker as the rest of the code so that the files get created when calling the save() method
 export class FileGenerator {
-
   private readonly assm: Assembly;
   private readonly tarballFileName: string;
   private readonly code: CodeMaker;
-  private readonly assemblyInfoNamespaces: string[] = ['Amazon.JSII.Runtime.Deputy'];
+  private readonly assemblyInfoNamespaces: string[] = [
+    'Amazon.JSII.Runtime.Deputy',
+  ];
   private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
   // We pass in an instance of CodeMaker so that the files get later saved
@@ -50,7 +51,10 @@ export class FileGenerator {
 
     // Construct XML csproj content.
     // headless removes the <xml?> head node so that the first node is the <Project> node
-    const rootNode = xmlbuilder.create('Project', { encoding: 'UTF-8', headless: true });
+    const rootNode = xmlbuilder.create('Project', {
+      encoding: 'UTF-8',
+      headless: true,
+    });
     rootNode.att('Sdk', 'Microsoft.NET.Sdk');
     const propertyGroup = rootNode.ele('PropertyGroup');
     const dotnetInfo = assembly.targets!.dotnet;
@@ -91,11 +95,17 @@ export class FileGenerator {
 
     if (dotnetInfo!.signAssembly != null) {
       const signAssembly = propertyGroup.ele('SignAssembly');
-      signAssembly.att('Condition', `Exists('${dotnetInfo!.assemblyOriginatorKeyFile}')`);
+      signAssembly.att(
+        'Condition',
+        `Exists('${dotnetInfo!.assemblyOriginatorKeyFile}')`,
+      );
     }
 
     if (dotnetInfo!.assemblyOriginatorKeyFile != null) {
-      propertyGroup.ele('AssemblyOriginatorKeyFile', dotnetInfo!.assemblyOriginatorKeyFile);
+      propertyGroup.ele(
+        'AssemblyOriginatorKeyFile',
+        dotnetInfo!.assemblyOriginatorKeyFile,
+      );
     }
 
     const itemGroup1 = rootNode.ele('ItemGroup');
@@ -114,7 +124,10 @@ export class FileGenerator {
     dependencies.forEach((value: DotNetDependency) => {
       if (value.partOfCompilation) {
         const dependencyReference = itemGroup2.ele('ProjectReference');
-        dependencyReference.att('Include', `../${value.packageId}/${value.packageId}.csproj`);
+        dependencyReference.att(
+          'Include',
+          `../${value.packageId}/${value.packageId}.csproj`,
+        );
       } else {
         const dependencyReference = itemGroup2.ele('PackageReference');
         dependencyReference.att('Include', value.packageId);
@@ -123,7 +136,10 @@ export class FileGenerator {
     });
 
     // Suppress warnings about [Obsolete] members, this is the author's choice!
-    rootNode.ele('PropertyGroup').ele('NoWarn').text('0612,0618');
+    rootNode
+      .ele('PropertyGroup')
+      .ele('NoWarn')
+      .text('0612,0618');
 
     const xml = rootNode.end({ pretty: true, spaceBeforeSlash: true });
 
@@ -156,7 +172,9 @@ export class FileGenerator {
     if (docs) {
       const stability = docs.stability;
       if (stability) {
-        return `${this.assm.description} (Stability: ${this.nameutils.capitalizeWord(stability)})`;
+        return `${
+          this.assm.description
+        } (Stability: ${this.nameutils.capitalizeWord(stability)})`;
       }
     }
     return this.assm.description;

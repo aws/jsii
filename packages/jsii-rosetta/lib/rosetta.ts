@@ -1,7 +1,11 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as spec from '@jsii/spec';
-import { DEFAULT_TABLET_NAME, LanguageTablet, Translation } from './tablets/tablets';
+import {
+  DEFAULT_TABLET_NAME,
+  LanguageTablet,
+  Translation,
+} from './tablets/tablets';
 import { allTypeScriptSnippets } from './jsii/assemblies';
 import { TargetLanguage } from './languages';
 import { Translator } from './translate';
@@ -47,8 +51,7 @@ export class Rosetta {
   private readonly extractedSnippets: Record<string, TypeScriptSnippet> = {};
   private readonly translator = new Translator(false);
 
-  public constructor(private readonly options: RosettaOptions = {}) {
-  }
+  public constructor(private readonly options: RosettaOptions = {}) {}
 
   /**
    * Diagnostics encountered while doing live translation
@@ -90,53 +93,83 @@ export class Rosetta {
    */
   public async addAssembly(assembly: spec.Assembly, assemblyDir: string) {
     if (await fs.pathExists(path.join(assemblyDir, DEFAULT_TABLET_NAME))) {
-      await this.loadTabletFromFile(path.join(assemblyDir, DEFAULT_TABLET_NAME));
+      await this.loadTabletFromFile(
+        path.join(assemblyDir, DEFAULT_TABLET_NAME),
+      );
       return;
     }
 
     if (this.options.liveConversion) {
-      for (const tsnip of allTypeScriptSnippets([{ assembly, directory: assemblyDir }])) {
+      for (const tsnip of allTypeScriptSnippets([
+        { assembly, directory: assemblyDir },
+      ])) {
         this.extractedSnippets[tsnip.visibleSource] = tsnip;
       }
     }
   }
 
-  public translateSnippet(source: TypeScriptSnippet, targetLang: TargetLanguage): Translation | undefined {
+  public translateSnippet(
+    source: TypeScriptSnippet,
+    targetLang: TargetLanguage,
+  ): Translation | undefined {
     // Look for it in loaded tablets
     for (const tab of this.allTablets) {
       const ret = tab.lookup(source, targetLang);
-      if (ret !== undefined) { return ret; }
+      if (ret !== undefined) {
+        return ret;
+      }
     }
 
-    if (!this.options.liveConversion) { return undefined; }
-    if (this.options.targetLanguages && !this.options.targetLanguages.includes(targetLang)) {
-      throw new Error(`Rosetta configured for live conversion to ${this.options.targetLanguages.join(', ')}, but requested ${targetLang}`);
+    if (!this.options.liveConversion) {
+      return undefined;
+    }
+    if (
+      this.options.targetLanguages &&
+      !this.options.targetLanguages.includes(targetLang)
+    ) {
+      throw new Error(
+        `Rosetta configured for live conversion to ${this.options.targetLanguages.join(
+          ', ',
+        )}, but requested ${targetLang}`,
+      );
     }
 
     // See if we're going to live-convert it with full source information
     const extracted = this.extractedSnippets[source.visibleSource];
     if (extracted !== undefined) {
-      const snippet = this.translator.translate(extracted, this.options.targetLanguages);
+      const snippet = this.translator.translate(
+        extracted,
+        this.options.targetLanguages,
+      );
       this.liveTablet.addSnippet(snippet);
       return snippet.get(targetLang);
     }
 
     // Try to live-convert it on the spot (we won't have "where" information or fixtures)
-    const snippet = this.translator.translate(source, this.options.targetLanguages);
+    const snippet = this.translator.translate(
+      source,
+      this.options.targetLanguages,
+    );
     return snippet.get(targetLang);
   }
 
   public translateSnippetsInMarkdown(
     markdown: string,
     targetLang: TargetLanguage,
-    translationToCodeBlock: (x: Translation) => CodeBlock = id
+    translationToCodeBlock: (x: Translation) => CodeBlock = id,
   ): string {
-    return transformMarkdown(markdown, new MarkdownRenderer(), new ReplaceTypeScriptTransform('markdown', tsSnip => {
-      const translated = this.translateSnippet(tsSnip, targetLang);
-      if (!translated) { return undefined; }
+    return transformMarkdown(
+      markdown,
+      new MarkdownRenderer(),
+      new ReplaceTypeScriptTransform('markdown', tsSnip => {
+        const translated = this.translateSnippet(tsSnip, targetLang);
+        if (!translated) {
+          return undefined;
+        }
 
-      return translationToCodeBlock(translated);
-    }));
+        return translationToCodeBlock(translated);
+      }),
+    );
   }
 
   public printDiagnostics(stream: NodeJS.WritableStream) {
@@ -152,5 +185,6 @@ export class Rosetta {
   }
 }
 
-
-function id(x: Translation) { return x; }
+function id(x: Translation) {
+  return x;
+}

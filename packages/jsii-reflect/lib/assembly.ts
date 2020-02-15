@@ -12,7 +12,8 @@ export class Assembly {
 
   public constructor(
     public readonly system: TypeSystem,
-    public readonly spec: jsii.Assembly) { }
+    public readonly spec: jsii.Assembly,
+  ) {}
 
   /**
    * The version of the spec schema
@@ -54,7 +55,7 @@ export class Assembly {
    * The module repository, maps to "repository" from package.json
    * This is required since some package managers (like Maven) require it.
    */
-  public get repository(): { type: string, url: string, directory?: string } {
+  public get repository(): { type: string; url: string; directory?: string } {
     return this.spec.repository;
   }
 
@@ -105,7 +106,9 @@ export class Assembly {
    * Dependencies on other assemblies (with semver), the key is the JSII assembly name.
    */
   public get dependencies(): Dependency[] {
-    return Object.keys(this._dependencies).map(name => this._dependencies[name]);
+    return Object.keys(this._dependencies).map(
+      name => this._dependencies[name],
+    );
   }
 
   public findDependency(name: string) {
@@ -120,7 +123,7 @@ export class Assembly {
    * List if bundled dependencies (these are not expected to be jsii assemblies).
    */
   public get bundled(): { [module: string]: string } {
-    return this.spec.bundled ?? { };
+    return this.spec.bundled ?? {};
   }
 
   /**
@@ -138,15 +141,21 @@ export class Assembly {
   }
 
   public get classes(): ClassType[] {
-    return this.types.filter(t => t instanceof ClassType).map(t => t as ClassType);
+    return this.types
+      .filter(t => t instanceof ClassType)
+      .map(t => t as ClassType);
   }
 
   public get interfaces(): InterfaceType[] {
-    return this.types.filter(t => t instanceof InterfaceType).map(t => t as InterfaceType);
+    return this.types
+      .filter(t => t instanceof InterfaceType)
+      .map(t => t as InterfaceType);
   }
 
   public get enums(): EnumType[] {
-    return this.types.filter(t => t instanceof EnumType).map(t => t as EnumType);
+    return this.types
+      .filter(t => t instanceof EnumType)
+      .map(t => t as EnumType);
   }
 
   public findType(fqn: string) {
@@ -173,10 +182,14 @@ export class Assembly {
 
   private get _dependencies() {
     if (!this._dependencyCache) {
-      this._dependencyCache = { };
+      this._dependencyCache = {};
       if (this.spec.dependencies) {
         for (const name of Object.keys(this.spec.dependencies)) {
-          this._dependencyCache[name] = new Dependency(this.system, name, this.spec.dependencies[name]);
+          this._dependencyCache[name] = new Dependency(
+            this.system,
+            name,
+            this.spec.dependencies[name],
+          );
         }
       }
     }
@@ -186,9 +199,9 @@ export class Assembly {
 
   private get _types() {
     if (!this._typeCache) {
-      this._typeCache = { };
+      this._typeCache = {};
 
-      const ts = this.spec.types ?? { };
+      const ts = this.spec.types ?? {};
       for (const fqn of Object.keys(ts)) {
         const type = ts[fqn];
         switch (type.kind) {

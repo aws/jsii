@@ -13,17 +13,16 @@ async function main() {
     .option('package-json', {
       alias: 'p',
       type: 'string',
-      description: 'location of module\'s package.json file',
-      default: './package.json'
+      description: "location of module's package.json file",
+      default: './package.json',
     })
     .option('dry-run', {
       alias: 'd',
       type: 'boolean',
-      description: 'print output to stdout, don\'t write to package.json',
-      default: false
+      description: "print output to stdout, don't write to package.json",
+      default: false,
     })
-    .help()
-    .argv;
+    .help().argv;
 
   const packageJsonLocation = argv.packageJson as string;
   const config = await jsiiConfig(packageJsonLocation);

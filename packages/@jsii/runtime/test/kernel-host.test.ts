@@ -6,16 +6,23 @@ import * as path from 'path';
 import { KernelHost, InputOutput, Input, Output } from '../lib';
 
 test('can load libraries from within a callback', () => {
-  const inout = new TestInputOutput(
-    [
-      { api: 'load', ...loadRequest('@scope/jsii-calc-base') },
-      { api: 'load', ...loadRequest('@scope/jsii-calc-lib') },
-      { api: 'create', fqn: 'Object', interfaces: ['@scope/jsii-calc-lib.IFriendly'], overrides: [{ method: 'hello' }] },
-      { api: 'invoke', objref: { [api.TOKEN_REF]: 'Object@10000' }, method: 'hello' },
-      { api: 'load', ...loadRequest('jsii-calc') },
-      { complete: { cbid: 'jsii::callback::20000', result: 'SUCCESS!' } },
-    ]
-  );
+  const inout = new TestInputOutput([
+    { api: 'load', ...loadRequest('@scope/jsii-calc-base') },
+    { api: 'load', ...loadRequest('@scope/jsii-calc-lib') },
+    {
+      api: 'create',
+      fqn: 'Object',
+      interfaces: ['@scope/jsii-calc-lib.IFriendly'],
+      overrides: [{ method: 'hello' }],
+    },
+    {
+      api: 'invoke',
+      objref: { [api.TOKEN_REF]: 'Object@10000' },
+      method: 'hello',
+    },
+    { api: 'load', ...loadRequest('jsii-calc') },
+    { complete: { cbid: 'jsii::callback::20000', result: 'SUCCESS!' } },
+  ]);
   const host = new KernelHost(inout, { noStack: true, debug: false });
   return new Promise<void>(ok => {
     host.on('exit', () => ok(inout.expectCompleted()));
@@ -26,7 +33,10 @@ test('can load libraries from within a callback', () => {
 class TestInputOutput extends InputOutput {
   private readonly inputCommands: Input[];
 
-  public constructor(inputCommands: Input[], private readonly allowErrors = false) {
+  public constructor(
+    inputCommands: Input[],
+    private readonly allowErrors = false,
+  ) {
     super();
     this.inputCommands = inputCommands.reverse();
   }
@@ -56,7 +66,12 @@ class TestInputOutput extends InputOutput {
 
 function loadRequest(library: string): api.LoadRequest {
   const assembly = loadAssembly();
-  const tarball = path.join(__dirname, '_tarballs', library, `${assembly.fingerprint.replace('/', '_')}.tgz`);
+  const tarball = path.join(
+    __dirname,
+    '_tarballs',
+    library,
+    `${assembly.fingerprint.replace('/', '_')}.tgz`,
+  );
   if (!fs.existsSync(tarball)) {
     packageLibrary(tarball);
   }
@@ -67,21 +82,38 @@ function loadRequest(library: string): api.LoadRequest {
   };
 
   function loadAssembly(): spec.Assembly {
-    const assemblyFile = path.resolve(require.resolve(`${library}/package.json`), '..', '.jsii');
+    const assemblyFile = path.resolve(
+      require.resolve(`${library}/package.json`),
+      '..',
+      '.jsii',
+    );
     return JSON.parse(fs.readFileSync(assemblyFile, { encoding: 'utf-8' }));
   }
 
   function packageLibrary(target: string): void {
     const targetDir = path.dirname(target);
     fs.mkdirSync(targetDir, { recursive: true });
-    const result = child.spawnSync('npm', ['pack', path.dirname(require.resolve(`${library}/package.json`))], { cwd: targetDir, stdio: ['inherit', 'pipe', 'pipe'] });
+    const result = child.spawnSync(
+      'npm',
+      ['pack', path.dirname(require.resolve(`${library}/package.json`))],
+      { cwd: targetDir, stdio: ['inherit', 'pipe', 'pipe'] },
+    );
     if (result.error) {
       throw result.error;
     }
     if (result.status !== 0) {
       console.error(result.stderr.toString('utf-8'));
-      throw new Error(`Unable to 'npm pack' ${library}: process ${result.signal != null ? `killed by ${result.signal}` : `exited with code ${result.status}`}`);
+      throw new Error(
+        `Unable to 'npm pack' ${library}: process ${
+          result.signal != null
+            ? `killed by ${result.signal}`
+            : `exited with code ${result.status}`
+        }`,
+      );
     }
-    fs.renameSync(path.join(targetDir, result.stdout.toString('utf-8').trim()), target);
+    fs.renameSync(
+      path.join(targetDir, result.stdout.toString('utf-8').trim()),
+      target,
+    );
   }
 }

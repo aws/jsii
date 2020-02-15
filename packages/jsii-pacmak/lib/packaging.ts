@@ -24,7 +24,7 @@ export interface JsiiModuleOptions {
 
   /**
    * Output directory where to package everything
-  */
+   */
   defaultOutputDirectory: string;
 
   /**
@@ -68,7 +68,11 @@ export class JsiiModule {
       const lastLine = lines[lines.length - 1].trim();
 
       if (!lastLine.endsWith('.tgz') && !lastLine.endsWith('.tar.gz')) {
-        throw new Error(`npm pack did not produce tarball from ${this.moduleDirectory} into ${tmpdir} (output was ${JSON.stringify(lines)})`);
+        throw new Error(
+          `npm pack did not produce tarball from ${
+            this.moduleDirectory
+          } into ${tmpdir} (output was ${JSON.stringify(lines)})`,
+        );
       }
 
       return path.resolve(tmpdir, lastLine);

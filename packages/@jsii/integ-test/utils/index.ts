@@ -31,11 +31,13 @@ export class ProcessManager {
    */
   public async killAll(signal?: string) {
     const values = Object.values(this.processes);
-    await Promise.all(values.map(({ proc, promise }) => async() => {
-      proc.kill(signal);
-      await promise;
-      this.remove(proc);
-    }));
+    await Promise.all(
+      values.map(({ proc, promise }) => async () => {
+        proc.kill(signal);
+        await promise;
+        this.remove(proc);
+      }),
+    );
   }
 
   private add(proc: cp.ChildProcess, promise: Promise<void>) {
@@ -53,7 +55,11 @@ export class ProcessManager {
    * @param arguments passed to command
    * @param options passed to child process spawn
    */
-  public async spawn(cmd: string, args: string[], opts: any = {}): Promise<void> {
+  public async spawn(
+    cmd: string,
+    args: string[],
+    opts: any = {},
+  ): Promise<void> {
     const proc = cp.spawn(cmd, args, { stdio: 'inherit', ...opts });
 
     const promise = new Promise<void>((ok, ko) => {
@@ -112,19 +118,21 @@ export async function downloadReleaseAsset(url: string): Promise<Readable> {
     const config = {
       headers: {
         'User-Agent': '@jsii/integ-test',
-        Authorization: `token ${process.env.GITHUB_TOKEN}`
-      }
+        Authorization: `token ${process.env.GITHUB_TOKEN}`,
+      },
     };
 
     https.get(url, config, (response: IncomingMessage) => {
       if (response.statusCode === 302) {
-
         if (!response.headers.location) {
           throw new Error('Bad redirect, no location header found');
         }
 
         return https.get(response.headers.location, config, ok);
-      } else if (response.statusCode && (response.statusCode < 200 || response.statusCode > 300)) {
+      } else if (
+        response.statusCode &&
+        (response.statusCode < 200 || response.statusCode > 300)
+      ) {
         return ko(new Error(`Status Code: ${response.statusCode}`));
       }
 

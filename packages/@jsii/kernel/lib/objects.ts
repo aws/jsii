@@ -12,7 +12,6 @@ const OBJID_SYMBOL = Symbol.for('$__jsii__objid__$');
  */
 const IFACES_SYMBOL = Symbol.for('$__jsii__interfaces__$');
 
-
 /**
  * Symbol we use to tag the constructor of a JSII class
  */
@@ -66,7 +65,7 @@ export function tagJsiiConstructor(constructor: any, fqn: string) {
     configurable: false,
     enumerable: false,
     writable: false,
-    value: { fqn }
+    value: { fqn },
   });
 }
 
@@ -77,17 +76,23 @@ export function tagJsiiConstructor(constructor: any, fqn: string) {
  * type.
  */
 export class ObjectTable {
-  private objects: { [objid: string]: RegisteredObject } = { };
+  private objects: { [objid: string]: RegisteredObject } = {};
   private nextid = 10000;
 
-  public constructor(private readonly resolveType: (fqn: string) => spec.Type) { }
+  public constructor(
+    private readonly resolveType: (fqn: string) => spec.Type,
+  ) {}
 
   /**
-     * Register the given object with the given type
-     *
-     * Return the existing registration if available.
-     */
-  public registerObject(obj: object, fqn: string, interfaces?: string[]): api.AnnotatedObjRef {
+   * Register the given object with the given type
+   *
+   * Return the existing registration if available.
+   */
+  public registerObject(
+    obj: object,
+    fqn: string,
+    interfaces?: string[],
+  ): api.AnnotatedObjRef {
     if (fqn === undefined) {
       throw new Error('FQN cannot be undefined');
     }
@@ -99,11 +104,11 @@ export class ObjectTable {
         for (const iface of existingRef[api.TOKEN_INTERFACES] ?? []) {
           allIfaces.add(iface);
         }
-        this.objects[existingRef[api.TOKEN_REF]].interfaces =
-          (obj as any)[IFACES_SYMBOL] =
-          existingRef[api.TOKEN_INTERFACES] =
-          interfaces =
-          this.removeRedundant(Array.from(allIfaces), fqn);
+        this.objects[existingRef[api.TOKEN_REF]].interfaces = (obj as any)[
+          IFACES_SYMBOL
+        ] = existingRef[
+          api.TOKEN_INTERFACES
+        ] = interfaces = this.removeRedundant(Array.from(allIfaces), fqn);
       }
       return existingRef;
     }
@@ -118,8 +123,8 @@ export class ObjectTable {
   }
 
   /**
-     * Find the object and registered type for the given ObjRef
-     */
+   * Find the object and registered type for the given ObjRef
+   */
   public findObject(objref: api.ObjRef): RegisteredObject {
     if (typeof objref !== 'object' || !(api.TOKEN_REF in objref)) {
       throw new Error(`Malformed object reference: ${JSON.stringify(objref)}`);
@@ -134,8 +139,8 @@ export class ObjectTable {
   }
 
   /**
-     * Delete the registration with the given objref
-     */
+   * Delete the registration with the given objref
+   */
   public deleteObject(objref: api.ObjRef) {
     this.findObject(objref); // make sure object exists
     delete this.objects[objref[api.TOKEN_REF]];
@@ -149,8 +154,13 @@ export class ObjectTable {
     return `${fqn}@${this.nextid++}`;
   }
 
-  private removeRedundant(interfaces: string[] | undefined, fqn: string): string[] | undefined {
-    if (!interfaces || interfaces.length === 0) { return undefined; }
+  private removeRedundant(
+    interfaces: string[] | undefined,
+    fqn: string,
+  ): string[] | undefined {
+    if (!interfaces || interfaces.length === 0) {
+      return undefined;
+    }
 
     const result = new Set(interfaces);
     const builtIn = new InterfaceCollection(this.resolveType);
@@ -177,12 +187,16 @@ export interface RegisteredObject {
 class InterfaceCollection implements Iterable<string> {
   private readonly interfaces = new Set<string>();
 
-  public constructor(private readonly resolveType: (fqn: string) => spec.Type) { }
+  public constructor(
+    private readonly resolveType: (fqn: string) => spec.Type,
+  ) {}
 
   public addFromClass(fqn: string): void {
     const ti = this.resolveType(fqn);
     if (!spec.isClassType(ti)) {
-      throw new Error(`Expected a class, but received ${spec.describeTypeReference(ti)}`);
+      throw new Error(
+        `Expected a class, but received ${spec.describeTypeReference(ti)}`,
+      );
     }
     if (ti.base) {
       this.addFromClass(ti.base);
@@ -201,11 +215,17 @@ class InterfaceCollection implements Iterable<string> {
   public addFromInterface(fqn: string): void {
     const ti = this.resolveType(fqn);
     if (!spec.isInterfaceType(ti)) {
-      throw new Error(`Expected an interface, but received ${spec.describeTypeReference(ti)}`);
+      throw new Error(
+        `Expected an interface, but received ${spec.describeTypeReference(ti)}`,
+      );
     }
-    if (!ti.interfaces) { return; }
+    if (!ti.interfaces) {
+      return;
+    }
     for (const iface of ti.interfaces) {
-      if (this.interfaces.has(iface)) { continue; }
+      if (this.interfaces.has(iface)) {
+        continue;
+      }
       this.interfaces.add(iface);
       this.addFromInterface(iface);
     }

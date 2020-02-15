@@ -19,12 +19,15 @@ export interface Diagnostic {
   suppressionKey: string;
 }
 
-export function formatDiagnostic(diag: Diagnostic, includeSuppressionKey = false) {
+export function formatDiagnostic(
+  diag: Diagnostic,
+  includeSuppressionKey = false,
+) {
   return [
     LEVEL_PREFIX[diag.level],
     '-',
     diag.message,
-    ...includeSuppressionKey ? [`[${diag.suppressionKey}]`] : [],
+    ...(includeSuppressionKey ? [`[${diag.suppressionKey}]`] : []),
   ].join(' ');
 }
 
@@ -35,14 +38,29 @@ export function hasErrors(diags: Diagnostic[]) {
 /**
  * Classify API mismatches into a set of warnings and errors
  */
-export function classifyDiagnostics(mismatches: Mismatches, experimentalErrors: boolean, skipFilter: Set<string>): Diagnostic[] {
-  const ret = mismatches.mismatches.map(mis => ({ level: level(mis), message: mis.message, suppressionKey: mis.violationKey }));
+export function classifyDiagnostics(
+  mismatches: Mismatches,
+  experimentalErrors: boolean,
+  skipFilter: Set<string>,
+): Diagnostic[] {
+  const ret = mismatches.mismatches.map(mis => ({
+    level: level(mis),
+    message: mis.message,
+    suppressionKey: mis.violationKey,
+  }));
   ret.sort((a, b) => a.level - b.level);
   return ret;
 
   function level(mis: ApiMismatch) {
-    if (skipFilter.has(mis.violationKey)) { return DiagLevel.Skipped; }
-    if (mis.stability === Stability.Stable || (mis.stability === Stability.Experimental && experimentalErrors)) { return DiagLevel.Error; }
+    if (skipFilter.has(mis.violationKey)) {
+      return DiagLevel.Skipped;
+    }
+    if (
+      mis.stability === Stability.Stable ||
+      (mis.stability === Stability.Experimental && experimentalErrors)
+    ) {
+      return DiagLevel.Error;
+    }
     return DiagLevel.Warning;
   }
 }

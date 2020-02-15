@@ -25,9 +25,9 @@ export function makeXmlEscaper(): Escaper {
   const attr: Escapes = [...TEXT, ...ATTR_ADDL];
 
   return {
-    text: (x) => escapeText(TEXT, x),
-    attribute: (x) => escapeText(attr, x),
-    text2attr: (x) => escapeText(ATTR_ADDL, x)
+    text: x => escapeText(TEXT, x),
+    attribute: x => escapeText(attr, x),
+    text2attr: x => escapeText(ATTR_ADDL, x),
   };
 }
 
@@ -42,9 +42,9 @@ export function makeJavaEscaper(): Escaper {
   const javaAttr: Escapes = [...javaText, ...ATTR_ADDL];
 
   return {
-    text: (x) => escapeText(javaText, x),
-    attribute: (x) => escapeText(javaAttr, x),
-    text2attr: (x) => escapeText(ATTR_ADDL, x)
+    text: x => escapeText(javaText, x),
+    attribute: x => escapeText(javaAttr, x),
+    text2attr: x => escapeText(ATTR_ADDL, x),
   };
 }
 
@@ -63,7 +63,9 @@ const ATTR_ADDL: Escapes = [
 ];
 
 function escapeText(set: Escapes, what: string | null): string {
-  if (!what) { return ''; }
+  if (!what) {
+    return '';
+  }
 
   for (const [re, repl] of set) {
     what = what.replace(re, repl);

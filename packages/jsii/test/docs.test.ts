@@ -16,9 +16,8 @@ test('extract summary line from doc block, ends with a period', async () => {
   `);
 
   expect(assembly.types!['testpkg.Foo'].docs).toEqual({
-    summary: 'Hello this is the documentation for this class.'
+    summary: 'Hello this is the documentation for this class.',
   });
-
 });
 
 // ----------------------------------------------------------------------
@@ -37,9 +36,8 @@ test('extract remarks from whitespace-separated doc block', async () => {
   `);
 
   expect(assembly.types!['testpkg.Foo'].docs!.remarks).toBe(
-    'Here are some more details about it.\n\nIt looks pretty good, doesn\'t it?'
+    "Here are some more details about it.\n\nIt looks pretty good, doesn't it?",
   );
-
 });
 
 // ----------------------------------------------------------------------
@@ -57,8 +55,9 @@ test('separate long doc comment into summary and remarks', async () => {
 
   expect(assembly.types!['testpkg.Foo'].docs).toEqual({
     summary: 'Lots of people enjoy writing very long captions here.',
-    remarks: "I think it's because they\ncopy/paste them out of CloudFormation, which has a tendency to just have one\n" +
-              'doc block per API item and no structural separation.',
+    remarks:
+      "I think it's because they\ncopy/paste them out of CloudFormation, which has a tendency to just have one\n" +
+      'doc block per API item and no structural separation.',
   });
 });
 
@@ -78,10 +77,10 @@ test('separate non-space but newline terminated docs into summary&remarks', asyn
 
   expect(assembly.types!['testpkg.Foo'].docs).toEqual({
     summary: 'Lots of people enjoy writing very long captions here.',
-    remarks: "I think it's because they copy/paste them out of CloudFormation,\nwhich has a tendency to just have one\n" +
-              'doc block per API item and no structural separation.',
+    remarks:
+      "I think it's because they copy/paste them out of CloudFormation,\nwhich has a tendency to just have one\n" +
+      'doc block per API item and no structural separation.',
   });
-
 });
 
 // ----------------------------------------------------------------------
@@ -96,9 +95,8 @@ test('dont add period to summary that ends in exclamation mark', async () => {
   `);
 
   expect(assembly.types!['testpkg.Foo'].docs).toEqual({
-    summary: 'I\'m happy about this class!'
+    summary: "I'm happy about this class!",
   });
-
 });
 
 // ----------------------------------------------------------------------
@@ -115,7 +113,7 @@ test('parse method docs', async () => {
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
 
   expect(classType.methods![0].docs).toEqual({
-    summary: 'Do the foo.'
+    summary: 'Do the foo.',
   });
 });
 
@@ -137,7 +135,6 @@ test('associate parameter comments with right parameter', async () => {
   expect(classType.methods![0].parameters![0].docs).toEqual({
     summary: 'First argument is best argument.',
   });
-
 });
 
 // ----------------------------------------------------------------------
@@ -159,10 +156,8 @@ test('read example', async () => {
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
 
   expect(classType.methods![0].docs!.example).toBe(
-    '// Example of fooing it up:\n' +
-    'new Foo().foo();'
+    '// Example of fooing it up:\n' + 'new Foo().foo();',
   );
-
 });
 
 // ----------------------------------------------------------------------
@@ -181,7 +176,6 @@ test('read default value', async () => {
   const classType = assembly.types!['testpkg.Foo'] as spec.InterfaceType;
 
   expect(classType.properties![0].docs!.default).toBe('Some foo');
-
 });
 
 // ----------------------------------------------------------------------
@@ -195,7 +189,6 @@ test('read "see" annotation', async () => {
   `);
 
   expect(assembly.types!['testpkg.Foo'].docs!.see).toBe('http://lmgtfy.com/');
-
 });
 
 // ----------------------------------------------------------------------
@@ -231,7 +224,9 @@ test('can haz deprecated', async () => {
 
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
 
-  expect(classType.methods![0].docs!.deprecated).toBe('These days we do the bar',);
+  expect(classType.methods![0].docs!.deprecated).toBe(
+    'These days we do the bar',
+  );
 });
 
 // ----------------------------------------------------------------------
@@ -326,7 +321,7 @@ test('stability is inherited from parent type', async () => {
   const stabilities = [
     ['@deprecated Not good no more', Stability.Deprecated],
     ['@experimental', Stability.Experimental],
-    ['@stable', Stability.Stable]
+    ['@stable', Stability.Stable],
   ];
 
   for (const [tag, stability] of stabilities) {
@@ -372,5 +367,5 @@ test('@example can contain @ sign', async () => {
   `);
 
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
-  expect(classType.docs!.example).toBe('import * as x from \'@banana\';');
+  expect(classType.docs!.example).toBe("import * as x from '@banana';");
 });

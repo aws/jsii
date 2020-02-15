@@ -2,19 +2,32 @@ import * as clone from 'clone';
 import { toPascalCase } from 'codemaker/lib/case-utils';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
-import { Rosetta, typeScriptSnippetFromSource, Translation, markDownToJavaDoc } from 'jsii-rosetta';
+import {
+  Rosetta,
+  typeScriptSnippetFromSource,
+  Translation,
+  markDownToJavaDoc,
+} from 'jsii-rosetta';
 import * as spec from '@jsii/spec';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
 import { Generator } from '../generator';
-import { PackageInfo, Target, findLocalBuildDirs, TargetOptions } from '../target';
+import {
+  PackageInfo,
+  Target,
+  findLocalBuildDirs,
+  TargetOptions,
+} from '../target';
 import * as logging from '../logging';
 import { shell, Scratch, slugify, setExtend } from '../util';
 import { TargetBuilder, BuildOptions } from '../builder';
 import { JsiiModule } from '../packaging';
 import { VERSION, VERSION_DESC } from '../version';
 import { toMavenVersionRange } from './version-utils';
-import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
+import {
+  INCOMPLETE_DISCLAIMER_COMPILING,
+  INCOMPLETE_DISCLAIMER_NONCOMPILING,
+} from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -36,22 +49,37 @@ const ANN_NULLABLE = '@org.jetbrains.annotations.Nullable';
 export class JavaBuilder implements TargetBuilder {
   private readonly targetName = 'java';
 
-  public constructor(private readonly modules: JsiiModule[], private readonly options: BuildOptions) {
-  }
+  public constructor(
+    private readonly modules: JsiiModule[],
+    private readonly options: BuildOptions,
+  ) {}
 
   public async buildModules(): Promise<void> {
-    if (this.modules.length === 0) { return; }
+    if (this.modules.length === 0) {
+      return;
+    }
 
     if (this.options.codeOnly) {
       // Simple, just generate code to respective output dirs
-      await Promise.all(this.modules.map(module => this.generateModuleCode(module, this.options, this.outputDir(module.outputDirectory))));
+      await Promise.all(
+        this.modules.map(module =>
+          this.generateModuleCode(
+            module,
+            this.options,
+            this.outputDir(module.outputDirectory),
+          ),
+        ),
+      );
       return;
     }
 
     // Otherwise make a single tempdir to hold all sources, build them together and copy them back out
     const scratchDirs: Array<Scratch<any>> = [];
     try {
-      const tempSourceDir = await this.generateAggregateSourceDir(this.modules, this.options);
+      const tempSourceDir = await this.generateAggregateSourceDir(
+        this.modules,
+        this.options,
+      );
       scratchDirs.push(tempSourceDir);
 
       // Need any old module object to make a target to be able to invoke build, though none of its settings
@@ -63,43 +91,68 @@ export class JavaBuilder implements TargetBuilder {
       });
       scratchDirs.push(tempOutputDir);
 
-      await this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object);
+      await this.copyOutArtifacts(
+        tempOutputDir.directory,
+        tempSourceDir.object,
+      );
 
       if (this.options.clean) {
         await Scratch.cleanupAll(scratchDirs);
       }
-    } catch(e) {
-      logging.warn(`Exception occurred, not cleaning up ${scratchDirs.map(s => s.directory)}`);
+    } catch (e) {
+      logging.warn(
+        `Exception occurred, not cleaning up ${scratchDirs.map(
+          s => s.directory,
+        )}`,
+      );
       throw e;
     }
   }
 
-  private async generateModuleCode(module: JsiiModule, options: BuildOptions, where: string): Promise<void> {
+  private async generateModuleCode(
+    module: JsiiModule,
+    options: BuildOptions,
+    where: string,
+  ): Promise<void> {
     const target = this.makeTarget(module, options);
     logging.debug(`Generating Java code into ${where}`);
     await target.generateCode(where, module.tarball);
   }
 
-  private async generateAggregateSourceDir(modules: JsiiModule[], options: BuildOptions): Promise<Scratch<TemporaryJavaPackage[]>> {
+  private async generateAggregateSourceDir(
+    modules: JsiiModule[],
+    options: BuildOptions,
+  ): Promise<Scratch<TemporaryJavaPackage[]>> {
     return Scratch.make(async (tmpDir: string) => {
       logging.debug(`Generating aggregate Java source dir at ${tmpDir}`);
       const ret: TemporaryJavaPackage[] = [];
 
       const generatedModules = modules
         .map(module => ({ module, relativeName: slugify(module.name) }))
-        .map(({ module, relativeName }) => ({ module, relativeName, sourceDir: path.join(tmpDir, relativeName) }))
-        .map(({ module, relativeName, sourceDir }) => this.generateModuleCode(module, options, sourceDir)
-          .then(() => ({ module, relativeName })));
+        .map(({ module, relativeName }) => ({
+          module,
+          relativeName,
+          sourceDir: path.join(tmpDir, relativeName),
+        }))
+        .map(({ module, relativeName, sourceDir }) =>
+          this.generateModuleCode(module, options, sourceDir).then(() => ({
+            module,
+            relativeName,
+          })),
+        );
 
       for await (const { module, relativeName } of generatedModules) {
         ret.push({
           relativeSourceDir: relativeName,
           relativeArtifactsDir: moduleArtifactsSubdir(module),
-          outputTargetDirectory: module.outputDirectory
+          outputTargetDirectory: module.outputDirectory,
         });
       }
 
-      await this.generateAggregatePom(tmpDir, ret.map(m => m.relativeSourceDir));
+      await this.generateAggregatePom(
+        tmpDir,
+        ret.map(m => m.relativeSourceDir),
+      );
       await this.generateMavenSettingsForLocalDeps(tmpDir);
 
       return ret;
@@ -107,33 +160,42 @@ export class JavaBuilder implements TargetBuilder {
   }
 
   private async generateAggregatePom(where: string, moduleNames: string[]) {
-    const aggregatePom = xmlbuilder.create({
-      project: {
-        '@xmlns': 'http://maven.apache.org/POM/4.0.0',
-        '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-        '@xsi:schemaLocation': 'http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd',
-        '#comment': [
-          `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
-        ],
+    const aggregatePom = xmlbuilder
+      .create(
+        {
+          project: {
+            '@xmlns': 'http://maven.apache.org/POM/4.0.0',
+            '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+            '@xsi:schemaLocation':
+              'http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd',
+            '#comment': [
+              `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
+            ],
 
-        'modelVersion': '4.0.0',
-        'packaging': 'pom',
+            modelVersion: '4.0.0',
+            packaging: 'pom',
 
-        'groupId': 'software.amazon.jsii',
-        'artifactId': 'aggregatepom',
-        'version': '1.0.0',
+            groupId: 'software.amazon.jsii',
+            artifactId: 'aggregatepom',
+            version: '1.0.0',
 
-        'modules': {
-          module: moduleNames,
-        }
-      }
-    }, { encoding: 'UTF-8' }).end({ pretty: true });
+            modules: {
+              module: moduleNames,
+            },
+          },
+        },
+        { encoding: 'UTF-8' },
+      )
+      .end({ pretty: true });
 
     logging.debug(`Generated ${where}/pom.xml`);
     await fs.writeFile(path.join(where, 'pom.xml'), aggregatePom);
   }
 
-  private async copyOutArtifacts(artifactsRoot: string, packages: TemporaryJavaPackage[]) {
+  private async copyOutArtifacts(
+    artifactsRoot: string,
+    packages: TemporaryJavaPackage[],
+  ) {
     logging.debug('Copying out Java artifacts');
     // The artifacts directory looks like this:
     //  /tmp/XXX/software/amazon/awscdk/something/v1.2.3
@@ -144,20 +206,30 @@ export class JavaBuilder implements TargetBuilder {
     // the files we need to copy, including Maven metadata. But we need to recreate
     // the whole path in the target directory.
 
-    await Promise.all(packages.map(async pkg => {
-      const artifactsSource = path.join(artifactsRoot, pkg.relativeArtifactsDir);
-      const artifactsDest = path.join(this.outputDir(pkg.outputTargetDirectory), pkg.relativeArtifactsDir);
+    await Promise.all(
+      packages.map(async pkg => {
+        const artifactsSource = path.join(
+          artifactsRoot,
+          pkg.relativeArtifactsDir,
+        );
+        const artifactsDest = path.join(
+          this.outputDir(pkg.outputTargetDirectory),
+          pkg.relativeArtifactsDir,
+        );
 
-      await fs.mkdirp(artifactsDest);
-      await fs.copy(artifactsSource, artifactsDest, { recursive: true });
-    }));
+        await fs.mkdirp(artifactsDest);
+        await fs.copy(artifactsSource, artifactsDest, { recursive: true });
+      }),
+    );
   }
 
   /**
    * Decide whether or not to append 'java' to the given output directory
    */
   private outputDir(declaredDir: string) {
-    return this.options.languageSubdirectory ? path.join(declaredDir, this.targetName) : declaredDir;
+    return this.options.languageSubdirectory
+      ? path.join(declaredDir, this.targetName)
+      : declaredDir;
   }
 
   /**
@@ -177,14 +249,22 @@ export class JavaBuilder implements TargetBuilder {
 
     const resolvedModules = this.modules.map(async mod => ({
       module: mod,
-      localBuildDirs: await findLocalBuildDirs(mod.moduleDirectory, this.targetName),
+      localBuildDirs: await findLocalBuildDirs(
+        mod.moduleDirectory,
+        this.targetName,
+      ),
     }));
     for await (const { module, localBuildDirs } of resolvedModules) {
       setExtend(allDepsOutputDirs, localBuildDirs);
 
       // Also include output directory where we're building to, in case we build multiple packages into
       // the same output directory.
-      allDepsOutputDirs.add(path.join(module.outputDirectory, this.options.languageSubdirectory ? this.targetName : ''));
+      allDepsOutputDirs.add(
+        path.join(
+          module.outputDirectory,
+          this.options.languageSubdirectory ? this.targetName : '',
+        ),
+      );
     }
 
     const localRepos = Array.from(allDepsOutputDirs);
@@ -199,30 +279,36 @@ export class JavaBuilder implements TargetBuilder {
     logging.debug('local maven repos:', localRepos);
 
     const profileName = 'local-jsii-modules';
-    const settings = xmlbuilder.create({
-      settings: {
-        '@xmlns': 'http://maven.apache.org/POM/4.0.0',
-        '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-        '@xsi:schemaLocation': 'http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd',
-        '#comment': [
-          `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
-        ],
-        'profiles': {
-          profile: {
-            id: profileName,
-            repositories: {
-              repository: localRepos.map((repo, index) => ({
-                id: `local${index}`,
-                url: `file://${repo}`
-              }))
-            }
-          }
+    const settings = xmlbuilder
+      .create(
+        {
+          settings: {
+            '@xmlns': 'http://maven.apache.org/POM/4.0.0',
+            '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+            '@xsi:schemaLocation':
+              'http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd',
+            '#comment': [
+              `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
+            ],
+            profiles: {
+              profile: {
+                id: profileName,
+                repositories: {
+                  repository: localRepos.map((repo, index) => ({
+                    id: `local${index}`,
+                    url: `file://${repo}`,
+                  })),
+                },
+              },
+            },
+            activeProfiles: {
+              activeProfile: profileName,
+            },
+          },
         },
-        'activeProfiles': {
-          activeProfile: profileName
-        }
-      }
-    }, { encoding: 'UTF-8' }).end({ pretty: true });
+        { encoding: 'UTF-8' },
+      )
+      .end({ pretty: true });
 
     logging.debug(`Generated ${filePath}`);
     await fs.writeFile(filePath, settings);
@@ -269,32 +355,47 @@ function moduleArtifactsSubdir(module: JsiiModule) {
 }
 
 export default class Java extends Target {
-
-  public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
+  public static toPackageInfos(
+    assm: spec.Assembly,
+  ): { [language: string]: PackageInfo } {
     const groupId = assm.targets!.java!.maven.groupId;
     const artifactId = assm.targets!.java!.maven.artifactId;
-    const url = `https://repo1.maven.org/maven2/${groupId.replace(/\./g, '/')}/${artifactId}/${assm.version}/`;
+    const url = `https://repo1.maven.org/maven2/${groupId.replace(
+      /\./g,
+      '/',
+    )}/${artifactId}/${assm.version}/`;
     return {
       java: {
-        repository: 'Maven Central', url,
+        repository: 'Maven Central',
+        url,
         usage: {
           'Apache Maven': {
             language: 'xml',
-            code: xmlbuilder.create({
-              dependency: { groupId, artifactId, version: assm.version }
-            }).end({ pretty: true }).replace(/<\?\s*xml(\s[^>]+)?>\s*/m, '')
+            code: xmlbuilder
+              .create({
+                dependency: { groupId, artifactId, version: assm.version },
+              })
+              .end({ pretty: true })
+              .replace(/<\?\s*xml(\s[^>]+)?>\s*/m, ''),
           },
           'Apache Buildr': `'${groupId}:${artifactId}:jar:${assm.version}'`,
           'Apache Ivy': {
             language: 'xml',
-            code: xmlbuilder.create({
-              dependency: { '@groupId': groupId, '@name': artifactId, '@rev': assm.version }
-            }).end({ pretty: true }).replace(/<\?\s*xml(\s[^>]+)?>\s*/m, '')
+            code: xmlbuilder
+              .create({
+                dependency: {
+                  '@groupId': groupId,
+                  '@name': artifactId,
+                  '@rev': assm.version,
+                },
+              })
+              .end({ pretty: true })
+              .replace(/<\?\s*xml(\s[^>]+)?>\s*/m, ''),
           },
           'Groovy Grape': `@Grapes(\n@Grab(group='${groupId}', module='${artifactId}', version='${assm.version}')\n)`,
           'Gradle / Grails': `compile '${groupId}:${artifactId}:${assm.version}'`,
-        }
-      }
+        },
+      },
     };
   }
 
@@ -315,22 +416,30 @@ export default class Java extends Target {
     const url = `file://${outDir}`;
     const mvnArguments = new Array<string>();
     for (const arg of Object.keys(this.arguments)) {
-      if (!arg.startsWith('mvn-')) { continue; }
+      if (!arg.startsWith('mvn-')) {
+        continue;
+      }
       mvnArguments.push(`--${arg.slice(4)}`);
       mvnArguments.push(this.arguments[arg].toString());
     }
 
     await shell(
       'mvn',
-      [...mvnArguments, 'deploy', `-D=altDeploymentRepository=local::default::${url}`, '--settings=user.xml'],
+      [
+        ...mvnArguments,
+        'deploy',
+        `-D=altDeploymentRepository=local::default::${url}`,
+        '--settings=user.xml',
+      ],
       {
         cwd: sourceDir,
         env: {
           // Twiddle the JVM settings a little for Maven. Delaying JIT compilation
           // brings down Maven execution time by about 1/3rd (15->10s, 30->20s)
-          MAVEN_OPTS: `${process.env.MAVEN_OPTS ?? ''} -XX:+TieredCompilation -XX:TieredStopAtLevel=1`
-        }
-      }
+          MAVEN_OPTS: `${process.env.MAVEN_OPTS ??
+            ''} -XX:+TieredCompilation -XX:TieredStopAtLevel=1`,
+        },
+      },
     );
   }
 }
@@ -386,18 +495,66 @@ class JavaGenerator extends Generator {
   // be automatically modified to avoid compile errors. Most of these are java language reserved keywords. In addition to those, any keywords that
   // are likely to conflict with auto-generated methods or properties (eg: 'build') are also considered reserved.
   private static readonly RESERVED_KEYWORDS = [
-    'abstract', 'assert', 'boolean', 'break', 'build', 'byte', 'case', 'catch', 'char', 'class',
-    'const', 'continue', 'default', 'double', 'do', 'else', 'enum', 'extends', 'false',
-    'final', 'finally', 'float', 'for', 'goto', 'if', 'implements', 'import', 'instanceof',
-    'int', 'interface', 'long', 'native', 'new', 'null', 'package', 'private', 'protected',
-    'public', 'return', 'short', 'static', 'strictfp', 'super', 'switch', 'synchronized',
-    'this', 'throw', 'throws', 'transient', 'true', 'try', 'void', 'volatile', 'while'
+    'abstract',
+    'assert',
+    'boolean',
+    'break',
+    'build',
+    'byte',
+    'case',
+    'catch',
+    'char',
+    'class',
+    'const',
+    'continue',
+    'default',
+    'double',
+    'do',
+    'else',
+    'enum',
+    'extends',
+    'false',
+    'final',
+    'finally',
+    'float',
+    'for',
+    'goto',
+    'if',
+    'implements',
+    'import',
+    'instanceof',
+    'int',
+    'interface',
+    'long',
+    'native',
+    'new',
+    'null',
+    'package',
+    'private',
+    'protected',
+    'public',
+    'return',
+    'short',
+    'static',
+    'strictfp',
+    'super',
+    'switch',
+    'synchronized',
+    'this',
+    'throw',
+    'throws',
+    'transient',
+    'true',
+    'try',
+    'void',
+    'volatile',
+    'while',
   ];
 
   /**
-     * Turns a raw javascript property name (eg: 'default') into a safe Java property name (eg: 'defaultValue').
-     * @param propertyName the raw JSII property Name
-     */
+   * Turns a raw javascript property name (eg: 'default') into a safe Java property name (eg: 'defaultValue').
+   * @param propertyName the raw JSII property Name
+   */
   private static safeJavaPropertyName(propertyName: string) {
     if (!propertyName) {
       return propertyName;
@@ -407,13 +564,12 @@ class JavaGenerator extends Generator {
       return `${propertyName}Value`;
     }
     return propertyName;
-
   }
 
   /**
-     * Turns a raw javascript method name (eg: 'import') into a safe Java method name (eg: 'doImport').
-     * @param methodName
-     */
+   * Turns a raw javascript method name (eg: 'import') into a safe Java method name (eg: 'doImport').
+   * @param methodName
+   */
   private static safeJavaMethodName(methodName: string) {
     if (!methodName) {
       return methodName;
@@ -423,7 +579,6 @@ class JavaGenerator extends Generator {
       return `do${toPascalCase(methodName)}`;
     }
     return methodName;
-
   }
 
   /** If false, @Generated will not include generator version nor timestamp */
@@ -431,12 +586,14 @@ class JavaGenerator extends Generator {
   private moduleClass!: string;
 
   /**
-     * A map of all the modules ever referenced during code generation. These include
-     * direct dependencies but can potentially also include transitive dependencies, when,
-     * for example, we need to refer to their types when flatting the class hierarchy for
-     * interface proxies.
-     */
-  private readonly referencedModules: { [name: string]: spec.AssemblyConfiguration } = { };
+   * A map of all the modules ever referenced during code generation. These include
+   * direct dependencies but can potentially also include transitive dependencies, when,
+   * for example, we need to refer to their types when flatting the class hierarchy for
+   * interface proxies.
+   */
+  private readonly referencedModules: {
+    [name: string]: spec.AssemblyConfiguration;
+  } = {};
 
   public constructor(private readonly rosetta: Rosetta) {
     super({ generateOverloadsForMethodWithOptionals: true });
@@ -468,17 +625,25 @@ class JavaGenerator extends Generator {
 
     let implementsExpr = '';
     if (cls.interfaces?.length ?? 0 > 0) {
-      implementsExpr = ` implements ${cls.interfaces!.map(x => this.toNativeFqn(x))}`;
+      implementsExpr = ` implements ${cls.interfaces!.map(x =>
+        this.toNativeFqn(x),
+      )}`;
     }
 
     const nested = this.isNested(cls);
     const inner = nested ? ' static' : '';
     const absPrefix = abstract ? ' abstract' : '';
 
-    if (!nested) { this.emitGeneratedAnnotation(); }
+    if (!nested) {
+      this.emitGeneratedAnnotation();
+    }
     this.emitStabilityAnnotations(cls);
-    this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
-    this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
+    this.code.line(
+      `@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`,
+    );
+    this.code.openBlock(
+      `public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`,
+    );
 
     this.emitJsiiInitializers(cls);
     this.emitStaticInitializer(cls);
@@ -503,19 +668,41 @@ class JavaGenerator extends Generator {
     this.emitStabilityAnnotations(method);
 
     // Abstract classes should have protected initializers
-    const initializerAccessLevel = cls.abstract ? 'protected' : this.renderAccessLevel(method);
+    const initializerAccessLevel = cls.abstract
+      ? 'protected'
+      : this.renderAccessLevel(method);
 
-    this.code.openBlock(`${initializerAccessLevel} ${cls.name}(${this.renderMethodParameters(method)})`);
-    this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
-    this.code.line(`software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)});`);
+    this.code.openBlock(
+      `${initializerAccessLevel} ${cls.name}(${this.renderMethodParameters(
+        method,
+      )})`,
+    );
+    this.code.line(
+      'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
+    );
+    this.code.line(
+      `software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(
+        method,
+      )});`,
+    );
     this.code.closeBlock();
   }
 
-  protected onInitializerOverload(cls: spec.ClassType, overload: spec.Method, _originalInitializer: spec.Method) {
+  protected onInitializerOverload(
+    cls: spec.ClassType,
+    overload: spec.Method,
+    _originalInitializer: spec.Method,
+  ) {
     this.onInitializer(cls, overload);
   }
 
-  protected onField(_cls: spec.ClassType, _prop: spec.Property, _union?: spec.UnionTypeReference) { /* noop */ }
+  protected onField(
+    _cls: spec.ClassType,
+    _prop: spec.Property,
+    _union?: spec.UnionTypeReference,
+  ) {
+    /* noop */
+  }
 
   protected onProperty(cls: spec.ClassType, prop: spec.Property) {
     this.emitProperty(cls, prop);
@@ -530,9 +717,13 @@ class JavaGenerator extends Generator {
   }
 
   /**
-     * Since we expand the union setters, we will use this event to only emit the getter which returns an Object.
-     */
-  protected onUnionProperty(cls: spec.ClassType, prop: spec.Property, _union: spec.UnionTypeReference) {
+   * Since we expand the union setters, we will use this event to only emit the getter which returns an Object.
+   */
+  protected onUnionProperty(
+    cls: spec.ClassType,
+    prop: spec.Property,
+    _union: spec.UnionTypeReference,
+  ) {
     this.emitProperty(cls, prop);
   }
 
@@ -540,7 +731,11 @@ class JavaGenerator extends Generator {
     this.emitMethod(cls, method);
   }
 
-  protected onMethodOverload(cls: spec.ClassType, overload: spec.Method, _originalMethod: spec.Method) {
+  protected onMethodOverload(
+    cls: spec.ClassType,
+    overload: spec.Method,
+    _originalMethod: spec.Method,
+  ) {
     this.onMethod(cls, overload);
   }
 
@@ -548,16 +743,24 @@ class JavaGenerator extends Generator {
     this.emitMethod(cls, method);
   }
 
-  protected onStaticMethodOverload(cls: spec.ClassType, overload: spec.Method, _originalMethod: spec.Method) {
+  protected onStaticMethodOverload(
+    cls: spec.ClassType,
+    overload: spec.Method,
+    _originalMethod: spec.Method,
+  ) {
     this.emitMethod(cls, overload);
   }
 
   protected onBeginEnum(enm: spec.EnumType) {
     this.openFileIfNeeded(enm);
     this.addJavaDocs(enm);
-    if (!this.isNested(enm)) { this.emitGeneratedAnnotation(); }
+    if (!this.isNested(enm)) {
+      this.emitGeneratedAnnotation();
+    }
     this.emitStabilityAnnotations(enm);
-    this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`);
+    this.code.line(
+      `@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`,
+    );
     this.code.openBlock(`public enum ${enm.name}`);
   }
   protected onEndEnum(enm: spec.EnumType) {
@@ -571,9 +774,13 @@ class JavaGenerator extends Generator {
   }
 
   // namespaces are handled implicitly by onBeginClass().
-  protected onBeginNamespace(_ns: string) { /* noop */ }
+  protected onBeginNamespace(_ns: string) {
+    /* noop */
+  }
 
-  protected onEndNamespace(_ns: string) { /* noop */ }
+  protected onEndNamespace(_ns: string) {
+    /* noop */
+  }
 
   protected onBeginInterface(ifc: spec.InterfaceType) {
     this.openFileIfNeeded(ifc);
@@ -581,15 +788,26 @@ class JavaGenerator extends Generator {
 
     // all interfaces always extend JsiiInterface so we can identify that it is a jsii interface.
     const interfaces = ifc.interfaces ?? [];
-    const bases = ['software.amazon.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x))].join(', ');
+    const bases = [
+      'software.amazon.jsii.JsiiSerializable',
+      ...interfaces.map(x => this.toNativeFqn(x)),
+    ].join(', ');
 
     const nested = this.isNested(ifc);
     const inner = nested ? ' static' : '';
-    if (!nested) { this.emitGeneratedAnnotation(); }
-    this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${ifc.fqn}")`);
-    this.code.line(`@software.amazon.jsii.Jsii.Proxy(${ifc.name}.${INTERFACE_PROXY_CLASS_NAME}.class)`);
+    if (!nested) {
+      this.emitGeneratedAnnotation();
+    }
+    this.code.line(
+      `@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${ifc.fqn}")`,
+    );
+    this.code.line(
+      `@software.amazon.jsii.Jsii.Proxy(${ifc.name}.${INTERFACE_PROXY_CLASS_NAME}.class)`,
+    );
     this.emitStabilityAnnotations(ifc);
-    this.code.openBlock(`public${inner} interface ${ifc.name} extends ${bases}`);
+    this.code.openBlock(
+      `public${inner} interface ${ifc.name} extends ${bases}`,
+    );
   }
 
   protected onEndInterface(ifc: spec.InterfaceType) {
@@ -605,20 +823,30 @@ class JavaGenerator extends Generator {
 
   protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
     this.code.line();
-    const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
+    const returnType = method.returns
+      ? this.toJavaType(method.returns.type)
+      : 'void';
     this.addJavaDocs(method);
     this.emitStabilityAnnotations(method);
-    this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
+    this.code.line(
+      `${returnType} ${method.name}(${this.renderMethodParameters(method)});`,
+    );
   }
 
-  protected onInterfaceMethodOverload(ifc: spec.InterfaceType, overload: spec.Method, _originalMethod: spec.Method) {
+  protected onInterfaceMethodOverload(
+    ifc: spec.InterfaceType,
+    overload: spec.Method,
+    _originalMethod: spec.Method,
+  ) {
     this.onInterfaceMethod(ifc, overload);
   }
 
   protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
     const getterType = this.toJavaType(prop.type);
     const setterTypes = this.toJavaTypes(prop.type);
-    const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
+    const propName = this.code.toPascalCase(
+      JavaGenerator.safeJavaPropertyName(prop.name),
+    );
 
     // for unions we only generate overloads for setters, not getters.
     this.code.line();
@@ -638,8 +866,12 @@ class JavaGenerator extends Generator {
         this.addJavaDocs(prop);
         if (prop.optional) {
           this.code.line('@software.amazon.jsii.Optional');
-          this.code.openBlock(`default void set${propName}(final ${type} value)`);
-          this.code.line(`throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#set${propName}(${type})' is not implemented!");`);
+          this.code.openBlock(
+            `default void set${propName}(final ${type} value)`,
+          );
+          this.code.line(
+            `throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#set${propName}(${type})' is not implemented!");`,
+          );
           this.code.closeBlock();
         } else {
           this.code.line(`void set${propName}(final ${type} value);`);
@@ -649,14 +881,18 @@ class JavaGenerator extends Generator {
   }
 
   private emitPackageInfo(mod: spec.Assembly) {
-    if (!mod.docs) { return; }
+    if (!mod.docs) {
+      return;
+    }
 
     const packageName = this.getNativeName(mod, undefined);
     const packageInfoFile = this.toJavaFilePath(`${mod.name}.package-info`);
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
-      for (const line of markDownToJavaDoc(this.convertSamplesInMarkdown(mod.readme.markdown)).split('\n')) {
+      for (const line of markDownToJavaDoc(
+        this.convertSamplesInMarkdown(mod.readme.markdown),
+      ).split('\n')) {
         this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
       }
     }
@@ -678,108 +914,125 @@ class JavaGenerator extends Generator {
 
     const comment = fingerprint
       ? {
-        '#comment': [
-          `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
-          `@jsii-pacmak:meta@ ${JSON.stringify(this.metadata)}`
-        ]
-      }
+          '#comment': [
+            `Generated by jsii-pacmak@${VERSION_DESC} on ${new Date().toISOString()}`,
+            `@jsii-pacmak:meta@ ${JSON.stringify(this.metadata)}`,
+          ],
+        }
       : {};
 
     this.code.openFile('pom.xml');
     this.code.line(
-      xmlbuilder.create({
-        project: {
-          '@xmlns': 'http://maven.apache.org/POM/4.0.0',
-          '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-          '@xsi:schemaLocation': 'http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd',
+      xmlbuilder
+        .create(
+          {
+            project: {
+              '@xmlns': 'http://maven.apache.org/POM/4.0.0',
+              '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+              '@xsi:schemaLocation':
+                'http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd',
 
-          ...comment,
+              ...comment,
 
-          'modelVersion': '4.0.0',
-          'name': '${project.groupId}:${project.artifactId}',
-          'description': assm.description,
-          'url': assm.homepage,
+              modelVersion: '4.0.0',
+              name: '${project.groupId}:${project.artifactId}',
+              description: assm.description,
+              url: assm.homepage,
 
-          'licenses': {
-            license: getLicense()
-          },
+              licenses: {
+                license: getLicense(),
+              },
 
-          'developers': {
-            developer: mavenDevelopers()
-          },
+              developers: {
+                developer: mavenDevelopers(),
+              },
 
-          'scm': {
-            connection: `scm:${assm.repository.type}:${assm.repository.url}`,
-            url: assm.repository.url
-          },
+              scm: {
+                connection: `scm:${assm.repository.type}:${assm.repository.url}`,
+                url: assm.repository.url,
+              },
 
-          'groupId': assm.targets.java.maven.groupId,
-          'artifactId': assm.targets.java.maven.artifactId,
-          'version': makeVersion(assm.version, assm.targets.java.maven.versionSuffix),
-          'packaging': 'jar',
+              groupId: assm.targets.java.maven.groupId,
+              artifactId: assm.targets.java.maven.artifactId,
+              version: makeVersion(
+                assm.version,
+                assm.targets.java.maven.versionSuffix,
+              ),
+              packaging: 'jar',
 
-          'properties': { 'project.build.sourceEncoding': 'UTF-8' },
+              properties: { 'project.build.sourceEncoding': 'UTF-8' },
 
-          'dependencies': { dependency: mavenDependencies.call(this) },
+              dependencies: { dependency: mavenDependencies.call(this) },
 
-          'build': {
-            plugins: {
-              plugin: [{
-                groupId: 'org.apache.maven.plugins',
-                artifactId: 'maven-compiler-plugin',
-                version: '3.8.1',
-                configuration: { source: '1.8', target: '1.8' }
-              }, {
-                groupId: 'org.apache.maven.plugins',
-                artifactId: 'maven-jar-plugin',
-                version: '3.2.0',
-                configuration: {
-                  archive: {
-                    index: true,
-                    manifest: {
-                      addDefaultImplementationEntries: true,
-                      addDefaultSpecificationEntries: true,
-                    }
-                  }
-                }
-              }, {
-                groupId: 'org.apache.maven.plugins',
-                artifactId: 'maven-source-plugin',
-                version: '3.2.0',
-                executions: {
-                  execution: {
-                    id: 'attach-sources',
-                    goals: { goal: 'jar' }
-                  }
-                }
-              }, {
-                groupId: 'org.apache.maven.plugins',
-                artifactId: 'maven-javadoc-plugin',
-                version: '3.1.1',
-                executions: {
-                  execution: {
-                    id: 'attach-javadocs',
-                    goals: { goal: 'jar' }
-                  }
+              build: {
+                plugins: {
+                  plugin: [
+                    {
+                      groupId: 'org.apache.maven.plugins',
+                      artifactId: 'maven-compiler-plugin',
+                      version: '3.8.1',
+                      configuration: { source: '1.8', target: '1.8' },
+                    },
+                    {
+                      groupId: 'org.apache.maven.plugins',
+                      artifactId: 'maven-jar-plugin',
+                      version: '3.2.0',
+                      configuration: {
+                        archive: {
+                          index: true,
+                          manifest: {
+                            addDefaultImplementationEntries: true,
+                            addDefaultSpecificationEntries: true,
+                          },
+                        },
+                      },
+                    },
+                    {
+                      groupId: 'org.apache.maven.plugins',
+                      artifactId: 'maven-source-plugin',
+                      version: '3.2.0',
+                      executions: {
+                        execution: {
+                          id: 'attach-sources',
+                          goals: { goal: 'jar' },
+                        },
+                      },
+                    },
+                    {
+                      groupId: 'org.apache.maven.plugins',
+                      artifactId: 'maven-javadoc-plugin',
+                      version: '3.1.1',
+                      executions: {
+                        execution: {
+                          id: 'attach-javadocs',
+                          goals: { goal: 'jar' },
+                        },
+                      },
+                      configuration: {
+                        failOnError: false,
+                        show: 'protected',
+                        sourceFileExcludes: {
+                          // Excluding the $Module classes so they won't pollute the docsite. They otherwise
+                          // are all collected at the top of the classlist, burrying useful information under
+                          // a lot of dry scrolling.
+                          exclude: ['**/$Module.java'],
+                        },
+                        // Adding these makes JavaDoc generation about a 3rd faster (which is far and away the most
+                        // expensive part of the build)
+                        additionalJOption: [
+                          '-J-XX:+TieredCompilation',
+                          '-J-XX:TieredStopAtLevel=1',
+                        ],
+                      },
+                    },
+                  ],
                 },
-                configuration: {
-                  failOnError: false,
-                  show: 'protected',
-                  sourceFileExcludes: {
-                    // Excluding the $Module classes so they won't pollute the docsite. They otherwise
-                    // are all collected at the top of the classlist, burrying useful information under
-                    // a lot of dry scrolling.
-                    exclude: ['**/$Module.java']
-                  },
-                  // Adding these makes JavaDoc generation about a 3rd faster (which is far and away the most
-                  // expensive part of the build)
-                  additionalJOption: ['-J-XX:+TieredCompilation', '-J-XX:TieredStopAtLevel=1']
-                }
-              }]
-            }
-          }
-        }
-      }, { encoding: 'UTF-8' }).end({ pretty: true })
+              },
+            },
+          },
+          { encoding: 'UTF-8' },
+        )
+        .end({ pretty: true }),
     );
     this.code.closeFile('pom.xml');
 
@@ -791,24 +1044,35 @@ class JavaGenerator extends Generator {
      * @param suffix  the suffix, if any.
      */
     function makeVersion(version: string, suffix?: string): string {
-      if (!suffix) { return version; }
+      if (!suffix) {
+        return version;
+      }
       if (!suffix.startsWith('-') && !suffix.startsWith('.')) {
-        throw new Error(`versionSuffix must start with '-' or '.', but received ${suffix}`);
+        throw new Error(
+          `versionSuffix must start with '-' or '.', but received ${suffix}`,
+        );
       }
       return `${version}${suffix}`;
     }
 
     function mavenDependencies(this: JavaGenerator) {
       const dependencies = new Array<MavenDependency>();
-      for (const [depName, version] of Object.entries(this.assembly.dependencies ?? {})) {
+      for (const [depName, version] of Object.entries(
+        this.assembly.dependencies ?? {},
+      )) {
         const dep = this.assembly.dependencyClosure?.[depName];
         if (!dep?.targets?.java) {
-          throw new Error(`Assembly ${assm.name} depends on ${depName}, which does not declare a java target`);
+          throw new Error(
+            `Assembly ${assm.name} depends on ${depName}, which does not declare a java target`,
+          );
         }
         dependencies.push({
           groupId: dep.targets.java.maven.groupId,
           artifactId: dep.targets.java.maven.artifactId,
-          version: toMavenVersionRange(version, dep.targets.java.maven.versionSuffix),
+          version: toMavenVersionRange(
+            version,
+            dep.targets.java.maven.versionSuffix,
+          ),
         });
       }
       // The JSII java runtime base classes
@@ -829,36 +1093,39 @@ class JavaGenerator extends Generator {
     }
 
     function mavenDevelopers() {
-      return [assm.author, ...assm.contributors ?? []].map(toDeveloper);
+      return [assm.author, ...(assm.contributors ?? [])].map(toDeveloper);
 
       function toDeveloper(person: spec.Person) {
         const developer: any = {
           [person.organization ? 'organization' : 'name']: person.name,
-          roles: { role: person.roles }
+          roles: { role: person.roles },
         };
         // We cannot set "undefined" or "null" to a field - this causes invalid XML to be emitted (per POM schema).
         if (person.email) {
           developer.email = person.email;
         }
         if (person.url) {
-          developer[person.organization ? 'organizationUrl' : 'url'] = person.url;
+          developer[person.organization ? 'organizationUrl' : 'url'] =
+            person.url;
         }
         return developer;
       }
     }
 
     /**
-         * Get the maven-style license block for a the assembly.
-         * @see https://maven.apache.org/pom.html#Licenses
-         */
+     * Get the maven-style license block for a the assembly.
+     * @see https://maven.apache.org/pom.html#Licenses
+     */
     function getLicense() {
       const spdx = spdxLicenseList[assm.license];
-      return spdx && {
-        name: spdx.name,
-        url: spdx.url,
-        distribution: 'repo',
-        comments: spdx.osiApproved ? 'An OSI-approved license' : undefined
-      };
+      return (
+        spdx && {
+          name: spdx.name,
+          url: spdx.url,
+          distribution: 'repo',
+          comments: spdx.osiApproved ? 'An OSI-approved license' : undefined,
+        }
+      );
     }
   }
 
@@ -877,7 +1144,13 @@ class JavaGenerator extends Generator {
       const constName = this.renderConstName(prop);
       const propType = this.toNativeType(prop.type, true);
       const statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propType})`;
-      this.code.line(`${constName} = ${this.wrapCollection(statement, prop.type, prop.optional)};`);
+      this.code.line(
+        `${constName} = ${this.wrapCollection(
+          statement,
+          prop.type,
+          prop.optional,
+        )};`,
+      );
     }
 
     this.code.closeBlock();
@@ -898,10 +1171,17 @@ class JavaGenerator extends Generator {
     this.code.line(`${access} final static ${propType} ${propName};`);
   }
 
-  private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides = !!prop.overrides) {
+  private emitProperty(
+    cls: spec.Type,
+    prop: spec.Property,
+    includeGetter = true,
+    overrides = !!prop.overrides,
+  ) {
     const getterType = this.toDecoratedJavaType(prop);
     const setterTypes = this.toDecoratedJavaTypes(prop);
-    const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
+    const propName = this.code.toPascalCase(
+      JavaGenerator.safeJavaPropertyName(prop.name),
+    );
     const access = this.renderAccessLevel(prop);
     const statc = prop.static ? 'static ' : '';
     const abstract = prop.abstract ? 'abstract ' : '';
@@ -911,7 +1191,9 @@ class JavaGenerator extends Generator {
     if (includeGetter) {
       this.code.line();
       this.addJavaDocs(prop);
-      if (overrides) { this.code.line('@Override'); }
+      if (overrides) {
+        this.code.line('@Override');
+      }
       this.emitStabilityAnnotations(prop);
       const signature = `${access} ${abstract}${statc}${getterType} get${propName}()`;
       if (prop.abstract) {
@@ -927,7 +1209,9 @@ class JavaGenerator extends Generator {
 
         statement += `"${prop.name}", ${this.toNativeType(prop.type, true)})`;
 
-        this.code.line(`return ${this.wrapCollection(statement, prop.type, prop.optional)};`);
+        this.code.line(
+          `return ${this.wrapCollection(statement, prop.type, prop.optional)};`,
+        );
         this.code.closeBlock();
       }
     }
@@ -936,7 +1220,9 @@ class JavaGenerator extends Generator {
       for (const type of setterTypes) {
         this.code.line();
         this.addJavaDocs(prop);
-        if (overrides) { this.code.line('@Override'); }
+        if (overrides) {
+          this.code.line('@Override');
+        }
         this.emitStabilityAnnotations(prop);
         const signature = `${access} ${abstract}${statc}void set${propName}(final ${type} value)`;
         if (prop.abstract) {
@@ -950,7 +1236,9 @@ class JavaGenerator extends Generator {
           } else {
             statement += 'this.jsiiSet(';
           }
-          const value = prop.optional ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
+          const value = prop.optional
+            ? 'value'
+            : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
           statement += `"${prop.name}", ${value});`;
           this.code.line(statement);
           this.code.closeBlock();
@@ -959,17 +1247,27 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private emitMethod(cls: spec.Type, method: spec.Method, overrides = !!method.overrides) {
-    const returnType = method.returns ? this.toDecoratedJavaType(method.returns) : 'void';
+  private emitMethod(
+    cls: spec.Type,
+    method: spec.Method,
+    overrides = !!method.overrides,
+  ) {
+    const returnType = method.returns
+      ? this.toDecoratedJavaType(method.returns)
+      : 'void';
     const statc = method.static ? 'static ' : '';
     const access = this.renderAccessLevel(method);
     const async = !!method.async;
     const methodName = JavaGenerator.safeJavaMethodName(method.name);
-    const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
+    const signature = `${returnType} ${methodName}(${this.renderMethodParameters(
+      method,
+    )})`;
     this.code.line();
     this.addJavaDocs(method);
     this.emitStabilityAnnotations(method);
-    if (overrides) { this.code.line('@Override'); }
+    if (overrides) {
+      this.code.line('@Override');
+    }
     if (method.abstract) {
       this.code.line(`${access} abstract ${signature};`);
     } else {
@@ -980,28 +1278,35 @@ class JavaGenerator extends Generator {
   }
 
   /**
-     * We are now going to build a class that can be used as a proxy for untyped
-     * javascript objects that implement this interface. we want java code to be
-     * able to interact with them, so we will create a proxy class which
-     * implements this interface and has the same methods.
-     *
-     * These proxies are also used to extend abstract classes to allow the JSII
-     * engine to instantiate an abstract class in Java.
-     */
+   * We are now going to build a class that can be used as a proxy for untyped
+   * javascript objects that implement this interface. we want java code to be
+   * able to interact with them, so we will create a proxy class which
+   * implements this interface and has the same methods.
+   *
+   * These proxies are also used to extend abstract classes to allow the JSII
+   * engine to instantiate an abstract class in Java.
+   */
   private emitProxy(ifc: spec.InterfaceType | spec.ClassType) {
     const name = INTERFACE_PROXY_CLASS_NAME;
 
     this.code.line();
     this.code.line('/**');
-    this.code.line(' * A proxy class which represents a concrete javascript instance of this type.');
+    this.code.line(
+      ' * A proxy class which represents a concrete javascript instance of this type.',
+    );
     this.code.line(' */');
 
-    const suffix = ifc.kind === spec.TypeKind.Interface
-      ? `extends software.amazon.jsii.JsiiObject implements ${this.toNativeFqn(ifc.fqn)}`
-      : `extends ${this.toNativeFqn(ifc.fqn)}`;
+    const suffix =
+      ifc.kind === spec.TypeKind.Interface
+        ? `extends software.amazon.jsii.JsiiObject implements ${this.toNativeFqn(
+            ifc.fqn,
+          )}`
+        : `extends ${this.toNativeFqn(ifc.fqn)}`;
 
     this.code.openBlock(`final static class ${name} ${suffix}`);
-    this.code.openBlock(`protected ${name}(final software.amazon.jsii.JsiiObjectRef objRef)`);
+    this.code.openBlock(
+      `protected ${name}(final software.amazon.jsii.JsiiObjectRef objRef)`,
+    );
     this.code.line('super(objRef);');
     this.code.closeBlock();
 
@@ -1009,7 +1314,9 @@ class JavaGenerator extends Generator {
     // base interfaces (and their bases).
     const methods: { [name: string]: spec.Method } = {};
     const properties: { [name: string]: spec.Property } = {};
-    const collectAbstractMembers = (currentType: spec.InterfaceType | spec.ClassType) => {
+    const collectAbstractMembers = (
+      currentType: spec.InterfaceType | spec.ClassType,
+    ) => {
       for (const prop of currentType.properties ?? []) {
         if (prop.abstract) {
           properties[prop.name] = prop;
@@ -1022,14 +1329,21 @@ class JavaGenerator extends Generator {
       }
 
       const bases = new Array<spec.NamedTypeReference>();
-      bases.push(...(currentType.interfaces ?? []).map(iface => this.findType(iface)));
+      bases.push(
+        ...(currentType.interfaces ?? []).map(iface => this.findType(iface)),
+      );
       if (currentType.kind === spec.TypeKind.Class && currentType.base) {
         bases.push(this.findType(currentType.base));
       }
       for (const base of bases) {
         const type = this.findType(base.fqn);
-        if (type.kind !== spec.TypeKind.Interface && type.kind !== spec.TypeKind.Class) {
-          throw new Error(`Base interfaces of an interface must be an interface or a class (${base.fqn} is of type ${type.kind})`);
+        if (
+          type.kind !== spec.TypeKind.Interface &&
+          type.kind !== spec.TypeKind.Class
+        ) {
+          throw new Error(
+            `Base interfaces of an interface must be an interface or a class (${base.fqn} is of type ${type.kind})`,
+          );
         }
         collectAbstractMembers(type);
       }
@@ -1040,7 +1354,12 @@ class JavaGenerator extends Generator {
     for (const propName of Object.keys(properties)) {
       const prop = clone(properties[propName]);
       prop.abstract = false;
-      this.emitProperty(ifc, prop, /* includeGetter: */ undefined, /* overrides: */ true);
+      this.emitProperty(
+        ifc,
+        prop,
+        /* includeGetter: */ undefined,
+        /* overrides: */ true,
+      );
     }
 
     // emit all the methods
@@ -1059,11 +1378,20 @@ class JavaGenerator extends Generator {
   }
 
   private emitStabilityAnnotations(entity: spec.Documentable) {
-    if (!entity.docs) { return; }
-    if (entity.docs.stability) {
-      this.code.line(`@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.${_level(entity.docs.stability)})`);
+    if (!entity.docs) {
+      return;
     }
-    if (entity.docs.stability === spec.Stability.Deprecated || entity.docs.deprecated) {
+    if (entity.docs.stability) {
+      this.code.line(
+        `@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.${_level(
+          entity.docs.stability,
+        )})`,
+      );
+    }
+    if (
+      entity.docs.stability === spec.Stability.Deprecated ||
+      entity.docs.deprecated
+    ) {
       this.code.line('@Deprecated');
     }
 
@@ -1105,30 +1433,52 @@ class JavaGenerator extends Generator {
 
   private emitClassBuilder(cls: spec.ClassType) {
     // Not rendering if there is no initializer, or if the initializer is protected or variadic
-    if (cls.initializer == null || cls.initializer.protected) { return; }
+    if (cls.initializer == null || cls.initializer.protected) {
+      return;
+    }
     // Not rendering if the initializer has no parameters
-    if (cls.initializer.parameters == null) { return; }
+    if (cls.initializer.parameters == null) {
+      return;
+    }
     // Not rendering if there is a nested "Builder" class
-    if (this.reflectAssembly.tryFindType(`${cls.fqn}.${BUILDER_CLASS_NAME}`) != null) { return; }
+    if (
+      this.reflectAssembly.tryFindType(`${cls.fqn}.${BUILDER_CLASS_NAME}`) !=
+      null
+    ) {
+      return;
+    }
 
     // Find the first struct parameter of the constructor (if any)
     const firstStruct = cls.initializer.parameters.find(param => {
-      if (!spec.isNamedTypeReference(param.type)) { return false; }
+      if (!spec.isNamedTypeReference(param.type)) {
+        return false;
+      }
       const paramType = this.reflectAssembly.tryFindType(param.type.fqn);
       return paramType?.isDataType();
     });
 
     // Not rendering if there is no struct parameter
-    if (firstStruct == null) { return; }
+    if (firstStruct == null) {
+      return;
+    }
 
-    const structType = this.reflectAssembly.findType((firstStruct.type as spec.NamedTypeReference).fqn) as reflect.InterfaceType;
-    const structParamName = this.code.toCamelCase(JavaGenerator.safeJavaPropertyName(firstStruct.name));
-    const structBuilder = `${this.toJavaType(firstStruct.type)}.${BUILDER_CLASS_NAME}`;
+    const structType = this.reflectAssembly.findType(
+      (firstStruct.type as spec.NamedTypeReference).fqn,
+    ) as reflect.InterfaceType;
+    const structParamName = this.code.toCamelCase(
+      JavaGenerator.safeJavaPropertyName(firstStruct.name),
+    );
+    const structBuilder = `${this.toJavaType(
+      firstStruct.type,
+    )}.${BUILDER_CLASS_NAME}`;
 
-    const positionalParams = cls.initializer.parameters.filter(p => p !== firstStruct)
+    const positionalParams = cls.initializer.parameters
+      .filter(p => p !== firstStruct)
       .map(param => ({
         param,
-        fieldName: this.code.toCamelCase(JavaGenerator.safeJavaPropertyName(param.name)),
+        fieldName: this.code.toCamelCase(
+          JavaGenerator.safeJavaPropertyName(param.name),
+        ),
         javaType: this.toJavaType(param.type),
       }));
 
@@ -1153,21 +1503,51 @@ class JavaGenerator extends Generator {
       };
       this.addJavaDocs(dummyMethod);
       this.emitStabilityAnnotations(cls.initializer);
-      this.code.openBlock(`public static ${BUILDER_CLASS_NAME} create(${params.map(param => `final ${param.javaType}${param.param.variadic ? '...' : ''} ${param.fieldName}`).join(', ')})`);
-      this.code.line(`return new ${BUILDER_CLASS_NAME}(${positionalParams.map((param, idx) => idx < params.length ? param.fieldName : 'null').join(', ')});`);
+      this.code.openBlock(
+        `public static ${BUILDER_CLASS_NAME} create(${params
+          .map(
+            param =>
+              `final ${param.javaType}${param.param.variadic ? '...' : ''} ${
+                param.fieldName
+              }`,
+          )
+          .join(', ')})`,
+      );
+      this.code.line(
+        `return new ${BUILDER_CLASS_NAME}(${positionalParams
+          .map((param, idx) => (idx < params.length ? param.fieldName : 'null'))
+          .join(', ')});`,
+      );
       this.code.closeBlock();
     }
 
     // Private properties
     this.code.line();
     for (const param of positionalParams) {
-      this.code.line(`private final ${param.javaType}${param.param.variadic ? '[]' : ''} ${param.fieldName};`);
+      this.code.line(
+        `private final ${param.javaType}${param.param.variadic ? '[]' : ''} ${
+          param.fieldName
+        };`,
+      );
     }
-    this.code.line(`private ${firstStruct.optional ? '' : 'final '}${structBuilder} ${structParamName};`);
+    this.code.line(
+      `private ${
+        firstStruct.optional ? '' : 'final '
+      }${structBuilder} ${structParamName};`,
+    );
 
     // Private constructor
     this.code.line();
-    this.code.openBlock(`private ${BUILDER_CLASS_NAME}(${positionalParams.map(param => `final ${param.javaType}${param.param.variadic ? '...' : ''} ${param.fieldName}`).join(', ')})`);
+    this.code.openBlock(
+      `private ${BUILDER_CLASS_NAME}(${positionalParams
+        .map(
+          param =>
+            `final ${param.javaType}${param.param.variadic ? '...' : ''} ${
+              param.fieldName
+            }`,
+        )
+        .join(', ')})`,
+    );
     for (const param of positionalParams) {
       this.code.line(`this.${param.fieldName} = ${param.fieldName};`);
     }
@@ -1178,7 +1558,9 @@ class JavaGenerator extends Generator {
 
     // Fields
     for (const prop of structType.allProperties) {
-      const fieldName = this.code.toCamelCase(JavaGenerator.safeJavaPropertyName(prop.name));
+      const fieldName = this.code.toCamelCase(
+        JavaGenerator.safeJavaPropertyName(prop.name),
+      );
       this.code.line();
       const setter: spec.Method = {
         name: fieldName,
@@ -1187,17 +1569,25 @@ class JavaGenerator extends Generator {
           stability: prop.spec.docs?.stability,
           returns: '{@code this}',
         },
-        parameters: [{
-          name: fieldName,
-          type: spec.CANONICAL_ANY, // We don't quite care in this context!
-          docs: prop.spec.docs,
-        }],
+        parameters: [
+          {
+            name: fieldName,
+            type: spec.CANONICAL_ANY, // We don't quite care in this context!
+            docs: prop.spec.docs,
+          },
+        ],
       };
       for (const javaType of this.toJavaTypes(prop.type.spec!)) {
         this.addJavaDocs(setter);
         this.emitStabilityAnnotations(prop.spec);
-        this.code.openBlock(`public ${BUILDER_CLASS_NAME} ${fieldName}(final ${javaType} ${fieldName})`);
-        this.code.line(`this.${structParamName}${firstStruct.optional ? '()' : ''}.${fieldName}(${fieldName});`);
+        this.code.openBlock(
+          `public ${BUILDER_CLASS_NAME} ${fieldName}(final ${javaType} ${fieldName})`,
+        );
+        this.code.line(
+          `this.${structParamName}${
+            firstStruct.optional ? '()' : ''
+          }.${fieldName}(${fieldName});`,
+        );
         this.code.line('return this;');
         this.code.closeBlock();
       }
@@ -1206,19 +1596,24 @@ class JavaGenerator extends Generator {
     // Final build method
     this.code.line();
     this.code.line('/**');
-    this.code.line(` * @returns a newly built instance of {@link ${builtType}}.`);
+    this.code.line(
+      ` * @returns a newly built instance of {@link ${builtType}}.`,
+    );
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
     this.code.openBlock(`public ${builtType} build()`);
     const params = cls.initializer.parameters.map(param => {
       if (param === firstStruct) {
-        return firstStruct.optional ? `this.${structParamName} != null ? this.${structParamName}.build() : null` : `this.${structParamName}.build()`;
+        return firstStruct.optional
+          ? `this.${structParamName} != null ? this.${structParamName}.build() : null`
+          : `this.${structParamName}.build()`;
       }
       return `this.${positionalParams.find(p => param === p.param)!.fieldName}`;
     });
     this.code.indent(`return new ${builtType}(`);
     params.forEach((param, idx) =>
-      this.code.line(`${param}${idx < params.length - 1 ? ',' : ''}`));
+      this.code.line(`${param}${idx < params.length - 1 ? ',' : ''}`),
+    );
     this.code.unindent(');');
     this.code.closeBlock();
 
@@ -1235,16 +1630,28 @@ class JavaGenerator extends Generator {
     this.code.closeBlock();
   }
 
-  private emitBuilderSetter(prop: JavaProp, builderName: string, builtType: string) {
+  private emitBuilderSetter(
+    prop: JavaProp,
+    builderName: string,
+    builtType: string,
+  ) {
     for (const type of prop.javaTypes) {
       this.code.line();
       this.code.line('/**');
-      this.code.line(` * Sets the value of {@link ${builtType}#${getterFor(prop.fieldName)}}`);
+      this.code.line(
+        ` * Sets the value of {@link ${builtType}#${getterFor(
+          prop.fieldName,
+        )}}`,
+      );
       const summary = prop.docs?.summary ?? 'the value to be set';
-      this.code.line(` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`);
+      this.code.line(
+        ` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`,
+      );
       if (prop.docs?.remarks != null) {
         const indent = ' '.repeat(7 + prop.fieldName.length);
-        const remarks = markDownToJavaDoc(this.convertSamplesInMarkdown(prop.docs.remarks)).trimRight();
+        const remarks = markDownToJavaDoc(
+          this.convertSamplesInMarkdown(prop.docs.remarks),
+        ).trimRight();
         for (const line of remarks.split('\n')) {
           this.code.line(` * ${indent} ${line}`);
         }
@@ -1255,7 +1662,9 @@ class JavaGenerator extends Generator {
       }
       this.code.line(' */');
       this.emitStabilityAnnotations(prop.spec);
-      this.code.openBlock(`public ${builderName} ${prop.fieldName}(${type} ${prop.fieldName})`);
+      this.code.openBlock(
+        `public ${builderName} ${prop.fieldName}(${type} ${prop.fieldName})`,
+      );
       this.code.line(`this.${prop.fieldName} = ${prop.fieldName};`);
       this.code.line('return this;');
       this.code.closeBlock();
@@ -1267,11 +1676,17 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private emitInterfaceBuilder(classSpec: spec.InterfaceType, constructorName: string, props: JavaProp[]) {
+  private emitInterfaceBuilder(
+    classSpec: spec.InterfaceType,
+    constructorName: string,
+    props: JavaProp[],
+  ) {
     // Start builder()
     this.code.line();
     this.code.line('/**');
-    this.code.line(` * @return a {@link ${BUILDER_CLASS_NAME}} of {@link ${classSpec.name}}`);
+    this.code.line(
+      ` * @return a {@link ${BUILDER_CLASS_NAME}} of {@link ${classSpec.name}}`,
+    );
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
     this.code.openBlock(`static ${BUILDER_CLASS_NAME} builder()`);
@@ -1286,15 +1701,21 @@ class JavaGenerator extends Generator {
     this.emitStabilityAnnotations(classSpec);
     this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
 
-    props.forEach(prop => this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`));
-    props.forEach(prop => this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec.name));
+    props.forEach(prop =>
+      this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`),
+    );
+    props.forEach(prop =>
+      this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec.name),
+    );
 
     // Start build()
     this.code.line();
     this.code.line('/**');
     this.code.line(' * Builds the configured instance.');
     this.code.line(` * @return a new instance of {@link ${classSpec.name}}`);
-    this.code.line(' * @throws NullPointerException if any required attribute was not provided');
+    this.code.line(
+      ' * @throws NullPointerException if any required attribute was not provided',
+    );
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
     this.code.openBlock(`public ${classSpec.name} build()`);
@@ -1315,7 +1736,11 @@ class JavaGenerator extends Generator {
     // enforced by Typescript constraints.
     const propsByName: { [name: string]: JavaProp } = {};
 
-    function collectProps(this: JavaGenerator, currentIfc: spec.InterfaceType, isBaseClass = false) {
+    function collectProps(
+      this: JavaGenerator,
+      currentIfc: spec.InterfaceType,
+      isBaseClass = false,
+    ) {
       for (const property of currentIfc.properties ?? []) {
         const javaProp = this.toJavaProp(property, isBaseClass);
         propsByName[javaProp.propName] = javaProp;
@@ -1323,7 +1748,11 @@ class JavaGenerator extends Generator {
 
       // add props of base struct
       for (const base of currentIfc.interfaces ?? []) {
-        collectProps.call(this, this.findType(base) as spec.InterfaceType, true);
+        collectProps.call(
+          this,
+          this.findType(base) as spec.InterfaceType,
+          true,
+        );
       }
     }
 
@@ -1337,33 +1766,58 @@ class JavaGenerator extends Generator {
     this.code.line(` * An implementation for {@link ${ifc.name}}`);
     this.code.line(' */');
     this.emitStabilityAnnotations(ifc);
-    this.code.openBlock(`final class ${INTERFACE_PROXY_CLASS_NAME} extends software.amazon.jsii.JsiiObject implements ${ifc.name}`);
+    this.code.openBlock(
+      `final class ${INTERFACE_PROXY_CLASS_NAME} extends software.amazon.jsii.JsiiObject implements ${ifc.name}`,
+    );
 
     // Immutable properties
-    props.forEach(prop => this.code.line(`private final ${prop.fieldJavaType} ${prop.fieldName};`));
+    props.forEach(prop =>
+      this.code.line(`private final ${prop.fieldJavaType} ${prop.fieldName};`),
+    );
 
     // Start JSII reference constructor
     this.code.line();
     this.code.line('/**');
-    this.code.line(' * Constructor that initializes the object based on values retrieved from the JsiiObject.');
+    this.code.line(
+      ' * Constructor that initializes the object based on values retrieved from the JsiiObject.',
+    );
     this.code.line(' * @param objRef Reference to the JSII managed object.');
     this.code.line(' */');
-    this.code.openBlock(`protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`);
+    this.code.openBlock(
+      `protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`,
+    );
     this.code.line('super(objRef);');
-    props.forEach(prop => this.code.line(`this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldNativeType});`));
+    props.forEach(prop =>
+      this.code.line(
+        `this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldNativeType});`,
+      ),
+    );
     this.code.closeBlock();
     // End JSII reference constructor
 
     // Start literal constructor
     this.code.line();
     this.code.line('/**');
-    this.code.line(' * Constructor that initializes the object based on literal property values passed by the {@link Builder}.');
+    this.code.line(
+      ' * Constructor that initializes the object based on literal property values passed by the {@link Builder}.',
+    );
     this.code.line(' */');
-    const constructorArgs = props.map(prop => `final ${prop.fieldJavaType} ${prop.fieldName}`).join(', ');
-    this.code.openBlock(`private ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`);
-    this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
+    const constructorArgs = props
+      .map(prop => `final ${prop.fieldJavaType} ${prop.fieldName}`)
+      .join(', ');
+    this.code.openBlock(
+      `private ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`,
+    );
+    this.code.line(
+      'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
+    );
     props.forEach(prop => {
-      this.code.line(`this.${prop.fieldName} = ${_validateIfNonOptional(prop.fieldName, prop)};`);
+      this.code.line(
+        `this.${prop.fieldName} = ${_validateIfNonOptional(
+          prop.fieldName,
+          prop,
+        )};`,
+      );
     });
     this.code.closeBlock();
     // End literal constructor
@@ -1380,24 +1834,40 @@ class JavaGenerator extends Generator {
     // emit $jsii$toJson which will be called to serialize this object when sent to JS
     this.code.line();
     this.code.line('@Override');
-    this.code.openBlock('public com.fasterxml.jackson.databind.JsonNode $jsii$toJson()');
-    this.code.line('final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;');
-    this.code.line('final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();');
+    this.code.openBlock(
+      'public com.fasterxml.jackson.databind.JsonNode $jsii$toJson()',
+    );
+    this.code.line(
+      'final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;',
+    );
+    this.code.line(
+      'final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();',
+    );
 
     this.code.line();
     for (const prop of props) {
-      if (prop.nullable) { this.code.openBlock(`if (this.get${prop.propName}() != null)`); }
-      this.code.line(`data.set("${prop.spec.name}", om.valueToTree(this.get${prop.propName}()));`);
-      if (prop.nullable) { this.code.closeBlock(); }
+      if (prop.nullable) {
+        this.code.openBlock(`if (this.get${prop.propName}() != null)`);
+      }
+      this.code.line(
+        `data.set("${prop.spec.name}", om.valueToTree(this.get${prop.propName}()));`,
+      );
+      if (prop.nullable) {
+        this.code.closeBlock();
+      }
     }
 
     this.code.line();
-    this.code.line('final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();');
+    this.code.line(
+      'final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();',
+    );
     this.code.line(`struct.set("fqn", om.valueToTree("${ifc.fqn}"));`);
     this.code.line('struct.set("data", data);');
 
     this.code.line();
-    this.code.line('final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();');
+    this.code.line(
+      'final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();',
+    );
     this.code.line('obj.set("$jsii.struct", struct);');
 
     this.code.line();
@@ -1415,7 +1885,9 @@ class JavaGenerator extends Generator {
     // End implementation class
 
     function _validateIfNonOptional(variable: string, prop: JavaProp): string {
-      if (prop.nullable) { return variable; }
+      if (prop.nullable) {
+        return variable;
+      }
       return `java.util.Objects.requireNonNull(${variable}, "${prop.fieldName} is required")`;
     }
   }
@@ -1431,26 +1903,30 @@ class JavaGenerator extends Generator {
     this.code.openBlock('public boolean equals(Object o)');
     this.code.line('if (this == o) return true;');
 
-    this.code.line('if (o == null || getClass() != o.getClass()) return false;');
+    this.code.line(
+      'if (o == null || getClass() != o.getClass()) return false;',
+    );
     this.code.line();
-    this.code.line(`${className}.${INTERFACE_PROXY_CLASS_NAME} that = (${className}.${INTERFACE_PROXY_CLASS_NAME}) o;`);
+    this.code.line(
+      `${className}.${INTERFACE_PROXY_CLASS_NAME} that = (${className}.${INTERFACE_PROXY_CLASS_NAME}) o;`,
+    );
     this.code.line();
 
     const initialProps = props.slice(0, props.length - 1);
     const finalProp = props[props.length - 1];
 
     initialProps.forEach(prop => {
-      const predicate = prop.nullable ?
-        `this.${prop.fieldName} != null ? !this.${prop.fieldName}.equals(that.${prop.fieldName}) : that.${prop.fieldName} != null` :
-        `!${prop.fieldName}.equals(that.${prop.fieldName})`;
+      const predicate = prop.nullable
+        ? `this.${prop.fieldName} != null ? !this.${prop.fieldName}.equals(that.${prop.fieldName}) : that.${prop.fieldName} != null`
+        : `!${prop.fieldName}.equals(that.${prop.fieldName})`;
 
       this.code.line(`if (${predicate}) return false;`);
     });
 
     // The final (returned predicate) is the inverse of the other ones
-    const finalPredicate = finalProp.nullable ?
-      `this.${finalProp.fieldName} != null ? this.${finalProp.fieldName}.equals(that.${finalProp.fieldName}) : ` +
-            `that.${finalProp.fieldName} == null`
+    const finalPredicate = finalProp.nullable
+      ? `this.${finalProp.fieldName} != null ? this.${finalProp.fieldName}.equals(that.${finalProp.fieldName}) : ` +
+        `that.${finalProp.fieldName} == null`
       : `this.${finalProp.fieldName}.equals(that.${finalProp.fieldName})`;
     this.code.line(`return ${finalPredicate};`);
 
@@ -1471,12 +1947,16 @@ class JavaGenerator extends Generator {
     const remainingProps = props.slice(1);
 
     this.code.line(`int result = ${_hashCodeForProp(firstProp)};`);
-    remainingProps.forEach(prop => this.code.line(`result = 31 * result + (${_hashCodeForProp(prop)});`));
+    remainingProps.forEach(prop =>
+      this.code.line(`result = 31 * result + (${_hashCodeForProp(prop)});`),
+    );
     this.code.line('return result;');
     this.code.closeBlock();
 
     function _hashCodeForProp(prop: JavaProp) {
-      return prop.nullable ? `this.${prop.fieldName} != null ? this.${prop.fieldName}.hashCode() : 0` : `this.${prop.fieldName}.hashCode()`;
+      return prop.nullable
+        ? `this.${prop.fieldName} != null ? this.${prop.fieldName}.hashCode() : 0`
+        : `this.${prop.fieldName}.hashCode()`;
     }
   }
 
@@ -1486,7 +1966,9 @@ class JavaGenerator extends Generator {
     }
 
     this.code.openFile(this.toJavaFilePath(type.fqn));
-    this.code.line(`package ${this.getNativeName(this.assembly, type.namespace)};`);
+    this.code.line(
+      `package ${this.getNativeName(this.assembly, type.namespace)};`,
+    );
     this.code.line();
   }
 
@@ -1498,7 +1980,9 @@ class JavaGenerator extends Generator {
   }
 
   private isNested(type: spec.Type) {
-    if (!this.assembly.types || !type.namespace) { return false; }
+    if (!this.assembly.types || !type.namespace) {
+      return false;
+    }
     const parent = `${type.assembly}.${type.namespace}`;
     return parent in this.assembly.types;
   }
@@ -1509,12 +1993,17 @@ class JavaGenerator extends Generator {
   }
 
   private addJavaDocs(doc: spec.Documentable, defaultText?: string) {
-    if (!defaultText && Object.keys(doc.docs ?? {}).length === 0
-                         && !((doc as spec.Method).parameters ?? []).some(p => Object.keys(p.docs ?? {}).length !== 0)) {
+    if (
+      !defaultText &&
+      Object.keys(doc.docs ?? {}).length === 0 &&
+      !((doc as spec.Method).parameters ?? []).some(
+        p => Object.keys(p.docs ?? {}).length !== 0,
+      )
+    ) {
       return;
     }
 
-    const docs = doc.docs = doc.docs ?? {};
+    const docs = (doc.docs = doc.docs ?? {});
 
     const paras = [];
 
@@ -1525,7 +2014,11 @@ class JavaGenerator extends Generator {
     }
 
     if (docs.remarks) {
-      paras.push(markDownToJavaDoc(this.convertSamplesInMarkdown(docs.remarks)).trimRight());
+      paras.push(
+        markDownToJavaDoc(
+          this.convertSamplesInMarkdown(docs.remarks),
+        ).trimRight(),
+      );
     }
 
     if (docs.default) {
@@ -1534,7 +2027,11 @@ class JavaGenerator extends Generator {
 
     if (docs.example) {
       paras.push('Example:');
-      paras.push(`<blockquote><pre>{@code\n${this.convertExample(docs.example)}}</pre></blockquote>`);
+      paras.push(
+        `<blockquote><pre>{@code\n${this.convertExample(
+          docs.example,
+        )}}</pre></blockquote>`,
+      );
     }
 
     if (docs.stability === spec.Stability.Experimental) {
@@ -1543,9 +2040,15 @@ class JavaGenerator extends Generator {
 
     const tagLines = [];
 
-    if (docs.returns) { tagLines.push(`@return ${docs.returns}`); }
-    if (docs.see) { tagLines.push(`@see ${docs.see}`); }
-    if (docs.deprecated) { tagLines.push(`@deprecated ${docs.deprecated}`); }
+    if (docs.returns) {
+      tagLines.push(`@return ${docs.returns}`);
+    }
+    if (docs.see) {
+      tagLines.push(`@see ${docs.see}`);
+    }
+    if (docs.deprecated) {
+      tagLines.push(`@deprecated ${docs.deprecated}`);
+    }
 
     // Params
     if ((doc as spec.Method).parameters) {
@@ -1564,7 +2067,9 @@ class JavaGenerator extends Generator {
 
     const lines = new Array<string>();
     for (const para of paras) {
-      if (lines.length > 0) { lines.push('<p>'); }
+      if (lines.length > 0) {
+        lines.push('<p>');
+      }
       lines.push(...para.split('\n').filter(l => l !== ''));
     }
 
@@ -1586,14 +2091,18 @@ class JavaGenerator extends Generator {
   private toDecoratedJavaType(optionalValue: spec.OptionalValue): string {
     const result = this.toDecoratedJavaTypes(optionalValue);
     if (result.length > 1) {
-      return `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} java.lang.Object`;
+      return `${
+        optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL
+      } java.lang.Object`;
     }
     return result[0];
   }
 
   private toDecoratedJavaTypes(optionalValue: spec.OptionalValue): string[] {
-    return this.toJavaTypes(optionalValue.type).map(nakedType =>
-      `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`);
+    return this.toJavaTypes(optionalValue.type).map(
+      nakedType =>
+        `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`,
+    );
   }
 
   private toJavaType(type: spec.TypeReference, forMarshalling = false): string {
@@ -1602,27 +2111,42 @@ class JavaGenerator extends Generator {
       return 'java.lang.Object';
     }
     return types[0];
-
   }
 
-  private toNativeType(type: spec.TypeReference, forMarshalling = false, recursing = false): string {
+  private toNativeType(
+    type: spec.TypeReference,
+    forMarshalling = false,
+    recursing = false,
+  ): string {
     if (spec.isCollectionTypeReference(type)) {
-      const nativeElementType = this.toNativeType(type.collection.elementtype, forMarshalling, true);
+      const nativeElementType = this.toNativeType(
+        type.collection.elementtype,
+        forMarshalling,
+        true,
+      );
       switch (type.collection.kind) {
         case spec.CollectionKind.Array:
           return `software.amazon.jsii.NativeType.listOf(${nativeElementType})`;
         case spec.CollectionKind.Map:
           return `software.amazon.jsii.NativeType.mapOf(${nativeElementType})`;
         default:
-          throw new Error(`Unsupported collection kind: ${type.collection.kind}`);
+          throw new Error(
+            `Unsupported collection kind: ${type.collection.kind}`,
+          );
       }
     }
     return recursing
-      ? `software.amazon.jsii.NativeType.forClass(${this.toJavaType(type, forMarshalling)}.class)`
+      ? `software.amazon.jsii.NativeType.forClass(${this.toJavaType(
+          type,
+          forMarshalling,
+        )}.class)`
       : `${this.toJavaType(type, forMarshalling)}.class`;
   }
 
-  private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
+  private toJavaTypes(
+    typeref: spec.TypeReference,
+    forMarshalling = false,
+  ): string[] {
     if (spec.isPrimitiveTypeReference(typeref)) {
       return [this.toJavaPrimitive(typeref.primitive)];
     } else if (spec.isCollectionTypeReference(typeref)) {
@@ -1639,14 +2163,22 @@ class JavaGenerator extends Generator {
       return types;
     }
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
-
   }
 
-  private toJavaCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean) {
+  private toJavaCollection(
+    ref: spec.CollectionTypeReference,
+    forMarshalling: boolean,
+  ) {
     const elementJavaType = this.toJavaType(ref.collection.elementtype);
     switch (ref.collection.kind) {
-      case spec.CollectionKind.Array: return forMarshalling ? 'java.util.List' : `java.util.List<${elementJavaType}>`;
-      case spec.CollectionKind.Map: return forMarshalling ? 'java.util.Map' : `java.util.Map<java.lang.String, ${elementJavaType}>`;
+      case spec.CollectionKind.Array:
+        return forMarshalling
+          ? 'java.util.List'
+          : `java.util.List<${elementJavaType}>`;
+      case spec.CollectionKind.Map:
+        return forMarshalling
+          ? 'java.util.Map'
+          : `java.util.Map<java.lang.String, ${elementJavaType}>`;
       default:
         throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
     }
@@ -1654,19 +2186,27 @@ class JavaGenerator extends Generator {
 
   private toJavaPrimitive(primitive: spec.PrimitiveType) {
     switch (primitive) {
-      case spec.PrimitiveType.Boolean: return 'java.lang.Boolean';
-      case spec.PrimitiveType.Date: return 'java.time.Instant';
-      case spec.PrimitiveType.Json: return 'com.fasterxml.jackson.databind.node.ObjectNode';
-      case spec.PrimitiveType.Number: return 'java.lang.Number';
-      case spec.PrimitiveType.String: return 'java.lang.String';
-      case spec.PrimitiveType.Any: return 'java.lang.Object';
+      case spec.PrimitiveType.Boolean:
+        return 'java.lang.Boolean';
+      case spec.PrimitiveType.Date:
+        return 'java.time.Instant';
+      case spec.PrimitiveType.Json:
+        return 'com.fasterxml.jackson.databind.node.ObjectNode';
+      case spec.PrimitiveType.Number:
+        return 'java.lang.Number';
+      case spec.PrimitiveType.String:
+        return 'java.lang.String';
+      case spec.PrimitiveType.Any:
+        return 'java.lang.Object';
       default:
         throw new Error(`Unknown primitive type: ${primitive}`);
     }
   }
 
   private renderMethodCallArguments(method: spec.Callable) {
-    if (!method.parameters || method.parameters.length === 0) { return ''; }
+    if (!method.parameters || method.parameters.length === 0) {
+      return '';
+    }
     const regularParams = method.parameters.filter(p => !p.variadic);
     const values = regularParams.map(_renderParameter);
     const valueStr = `new Object[] { ${values.join(', ')} }`;
@@ -1676,13 +2216,13 @@ class JavaGenerator extends Generator {
       const lastParam = method.parameters[method.parameters.length - 1];
       const restStream = `java.util.Arrays.<Object>stream(${lastParam.name})`;
 
-      const fullStream = regularParams.length > 0
-        ? `java.util.stream.Stream.concat(${valuesStream}, ${restStream})`
-        : restStream;
+      const fullStream =
+        regularParams.length > 0
+          ? `java.util.stream.Stream.concat(${valuesStream}, ${restStream})`
+          : restStream;
       return `, ${fullStream}.toArray(Object[]::new)`;
     }
     return `, ${valueStr}`;
-
 
     function _renderParameter(param: spec.Parameter) {
       const safeName = JavaGenerator.safeJavaPropertyName(param.name);
@@ -1692,7 +2232,11 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private renderMethodCall(cls: spec.TypeReference, method: spec.Method, async: boolean) {
+  private renderMethodCall(
+    cls: spec.TypeReference,
+    method: spec.Method,
+    async: boolean,
+  ) {
     let statement = '';
 
     if (method.static) {
@@ -1716,24 +2260,31 @@ class JavaGenerator extends Generator {
     statement += `${this.renderMethodCallArguments(method)})`;
 
     if (method.returns) {
-      statement = this.wrapCollection(statement, method.returns.type, method.returns.optional);
+      statement = this.wrapCollection(
+        statement,
+        method.returns.type,
+        method.returns.optional,
+      );
     }
 
     if (method.returns) {
       return `return ${statement};`;
     }
     return `${statement};`;
-
   }
 
   /**
-     * Wraps a collection into an unmodifiable collection else returns the existing statement.
-     * @param statement The statement to wrap if necessary.
-     * @param type The type of the object to wrap.
-     * @param optional Whether the value is optional (can be null/undefined) or not.
-     * @returns The modified or original statement.
-     */
-  private wrapCollection(statement: string, type: spec.TypeReference, optional?: boolean): string {
+   * Wraps a collection into an unmodifiable collection else returns the existing statement.
+   * @param statement The statement to wrap if necessary.
+   * @param type The type of the object to wrap.
+   * @param optional Whether the value is optional (can be null/undefined) or not.
+   * @returns The modified or original statement.
+   */
+  private wrapCollection(
+    statement: string,
+    type: spec.TypeReference,
+    optional?: boolean,
+  ): string {
     if (spec.isCollectionTypeReference(type)) {
       let wrapper: string;
       switch (type.collection.kind) {
@@ -1744,11 +2295,15 @@ class JavaGenerator extends Generator {
           wrapper = 'unmodifiableMap';
           break;
         default:
-          throw new Error(`Unsupported collection kind: ${type.collection.kind}`);
+          throw new Error(
+            `Unsupported collection kind: ${type.collection.kind}`,
+          );
       }
       // In the case of "optional", the value needs ot be explicitly cast to allow for cases where the raw type was returned.
       return optional
-        ? `java.util.Optional.ofNullable((${this.toJavaType(type)})(${statement})).map(java.util.Collections::${wrapper}).orElse(null)`
+        ? `java.util.Optional.ofNullable((${this.toJavaType(
+            type,
+          )})(${statement})).map(java.util.Collections::${wrapper}).orElse(null)`
         : `java.util.Collections.${wrapper}(${statement})`;
     }
 
@@ -1759,7 +2314,11 @@ class JavaGenerator extends Generator {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
-        params.push(`final ${this.toDecoratedJavaType(p)}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
+        params.push(
+          `final ${this.toDecoratedJavaType(p)}${
+            p.variadic ? '...' : ''
+          } ${JavaGenerator.safeJavaPropertyName(p.name)}`,
+        );
       }
     }
     return params.join(', ');
@@ -1792,11 +2351,17 @@ class JavaGenerator extends Generator {
     this.code.line('import software.amazon.jsii.JsiiModule;');
     this.code.line();
 
-    this.code.openBlock(`public final class ${MODULE_CLASS_NAME} extends JsiiModule`);
+    this.code.openBlock(
+      `public final class ${MODULE_CLASS_NAME} extends JsiiModule`,
+    );
 
     // ctor
     this.code.openBlock(`public ${MODULE_CLASS_NAME}()`);
-    this.code.line(`super("${moduleName}", "${mod.version}", ${MODULE_CLASS_NAME}.class, "${this.getAssemblyFileName()}");`);
+    this.code.line(
+      `super("${moduleName}", "${
+        mod.version
+      }", ${MODULE_CLASS_NAME}.class, "${this.getAssemblyFileName()}");`,
+    );
     this.code.closeBlock(); // ctor
 
     // dependencies
@@ -1808,19 +2373,25 @@ class JavaGenerator extends Generator {
 
       this.code.line();
       this.code.line('@Override');
-      this.code.openBlock('public List<Class<? extends JsiiModule>> getDependencies()');
+      this.code.openBlock(
+        'public List<Class<? extends JsiiModule>> getDependencies()',
+      );
       this.code.line(`return asList(${deps.join(', ')});`);
       this.code.closeBlock();
     }
 
     this.code.line();
     this.code.line('@Override');
-    this.code.openBlock('protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException');
+    this.code.openBlock(
+      'protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException',
+    );
     this.code.openBlock('switch (fqn)');
     for (const type of Object.keys(this.assembly.types ?? {})) {
       this.code.line(`case "${type}": return ${this.toNativeFqn(type)}.class;`);
     }
-    this.code.line('default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);');
+    this.code.line(
+      'default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);',
+    );
     this.code.closeBlock();
     this.code.closeBlock();
 
@@ -1833,28 +2404,32 @@ class JavaGenerator extends Generator {
 
   private emitJsiiInitializers(cls: spec.ClassType) {
     this.code.line();
-    this.code.openBlock(`protected ${cls.name}(final software.amazon.jsii.JsiiObjectRef objRef)`);
+    this.code.openBlock(
+      `protected ${cls.name}(final software.amazon.jsii.JsiiObjectRef objRef)`,
+    );
     this.code.line('super(objRef);');
     this.code.closeBlock();
 
     this.code.line();
-    this.code.openBlock(`protected ${cls.name}(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode)`);
+    this.code.openBlock(
+      `protected ${cls.name}(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode)`,
+    );
     this.code.line('super(initializationMode);');
     this.code.closeBlock();
   }
 
   /**
-     * Computes the java FQN for a JSII FQN:
-     * 1. Determine which assembly the FQN belongs to (first component of the FQN)
-     * 2. Locate the `targets.java.package` value for that assembly (this assembly, or one of the dependencies)
-     * 3. Return the java FQN: ``<module.targets.java.package>.<FQN stipped of first component>``
-     *
-     * @param fqn the JSII FQN to be used.
-     *
-     * @returns the corresponding Java FQN.
-     *
-     * @throws if the assembly the FQN belongs to does not have a `targets.java.package` set.
-     */
+   * Computes the java FQN for a JSII FQN:
+   * 1. Determine which assembly the FQN belongs to (first component of the FQN)
+   * 2. Locate the `targets.java.package` value for that assembly (this assembly, or one of the dependencies)
+   * 3. Return the java FQN: ``<module.targets.java.package>.<FQN stipped of first component>``
+   *
+   * @param fqn the JSII FQN to be used.
+   *
+   * @returns the corresponding Java FQN.
+   *
+   * @throws if the assembly the FQN belongs to does not have a `targets.java.package` set.
+   */
   private toNativeFqn(fqn: string): string {
     const [mod, ...name] = fqn.split('.');
     const depMod = this.findModule(mod);
@@ -1868,20 +2443,28 @@ class JavaGenerator extends Generator {
   }
 
   private getNativeName(assm: spec.Assembly, name: string | undefined): string;
-  private getNativeName(assm: spec.AssemblyConfiguration, name: string | undefined, assmName: string): string;
   private getNativeName(
     assm: spec.AssemblyConfiguration,
     name: string | undefined,
-    assmName: string = (assm as spec.Assembly).name
+    assmName: string,
+  ): string;
+  private getNativeName(
+    assm: spec.AssemblyConfiguration,
+    name: string | undefined,
+    assmName: string = (assm as spec.Assembly).name,
   ): string {
     const javaPackage = assm.targets?.java?.package;
-    if (!javaPackage) { throw new Error(`The module ${assmName} does not have a java.package setting`); }
+    if (!javaPackage) {
+      throw new Error(
+        `The module ${assmName} does not have a java.package setting`,
+      );
+    }
     return `${javaPackage}${name ? `.${name}` : ''}`;
   }
 
   /**
-     * Emits an ``@Generated`` annotation honoring the ``this.emitFullGeneratorInfo`` setting.
-     */
+   * Emits an ``@Generated`` annotation honoring the ``this.emitFullGeneratorInfo`` setting.
+   */
   private emitGeneratedAnnotation() {
     const date = this.emitFullGeneratorInfo
       ? `, date = "${new Date().toISOString()}"`
@@ -1889,21 +2472,29 @@ class JavaGenerator extends Generator {
     const generator = this.emitFullGeneratorInfo
       ? `jsii-pacmak/${VERSION_DESC}`
       : 'jsii-pacmak';
-    this.code.line(`@javax.annotation.Generated(value = "${generator}"${date})`);
+    this.code.line(
+      `@javax.annotation.Generated(value = "${generator}"${date})`,
+    );
   }
 
   private convertExample(example: string): string {
     const snippet = typeScriptSnippetFromSource(example, 'example');
     const translated = this.rosetta.translateSnippet(snippet, 'java');
-    if (!translated) { return example; }
+    if (!translated) {
+      return example;
+    }
     return this.prefixDisclaimer(translated);
   }
 
   private convertSamplesInMarkdown(markdown: string): string {
-    return this.rosetta.translateSnippetsInMarkdown(markdown, 'java', trans => ({
-      language: trans.language,
-      source: this.prefixDisclaimer(trans)
-    }));
+    return this.rosetta.translateSnippetsInMarkdown(
+      markdown,
+      'java',
+      trans => ({
+        language: trans.language,
+        source: this.prefixDisclaimer(trans),
+      }),
+    );
   }
 
   private prefixDisclaimer(translated: Translation) {
@@ -1952,15 +2543,25 @@ function isNullable(optionalValue: spec.OptionalValue | undefined): boolean {
   if (!optionalValue) {
     return false;
   }
-  return optionalValue.optional
-        || (spec.isPrimitiveTypeReference(optionalValue.type)
-            && optionalValue.type.primitive === spec.PrimitiveType.Any);
+  return (
+    optionalValue.optional ||
+    (spec.isPrimitiveTypeReference(optionalValue.type) &&
+      optionalValue.type.primitive === spec.PrimitiveType.Any)
+  );
 }
 
-function paramJavadoc(name: string, optional?: boolean, summary?: string): string {
+function paramJavadoc(
+  name: string,
+  optional?: boolean,
+  summary?: string,
+): string {
   const parts = ['@param', name];
-  if (summary) { parts.push(endWithPeriod(summary)); }
-  if (!optional) { parts.push('This parameter is required.'); }
+  if (summary) {
+    parts.push(endWithPeriod(summary));
+  }
+  if (!optional) {
+    parts.push('This parameter is required.');
+  }
 
   return parts.join(' ');
 }
@@ -1973,9 +2574,11 @@ function endWithPeriod(s: string): string {
   return s;
 }
 
-function computeOverrides<T extends { param: spec.Parameter }>(allParams: T[]): Iterable<T[]> {
+function computeOverrides<T extends { param: spec.Parameter }>(
+  allParams: T[],
+): Iterable<T[]> {
   return {
-    [Symbol.iterator]: function* () {
+    [Symbol.iterator]: function*() {
       yield allParams;
       while (allParams.length > 0) {
         const lastParam = allParams[allParams.length - 1];

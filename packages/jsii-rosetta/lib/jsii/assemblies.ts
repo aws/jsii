@@ -1,7 +1,12 @@
 import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { TypeScriptSnippet, typeScriptSnippetFromSource, updateParameters, SnippetParameters } from '../snippet';
+import {
+  TypeScriptSnippet,
+  typeScriptSnippetFromSource,
+  updateParameters,
+  SnippetParameters,
+} from '../snippet';
 import { extractTypescriptSnippetsFromMarkdown } from '../markdown/extract-snippets';
 import { fixturize } from '../fixtures';
 
@@ -20,7 +25,7 @@ export async function loadAssemblies(assemblyLocations: string[]) {
     if (stat.isDirectory()) {
       ret.push({
         assembly: await loadAssemblyFromFile(path.join(loc, '.jsii')),
-        directory: loc
+        directory: loc,
       });
     } else {
       ret.push({
@@ -37,16 +42,24 @@ async function loadAssemblyFromFile(filename: string) {
   return spec.validateAssembly(contents);
 }
 
-export type AssemblySnippetSource = { type: 'markdown', markdown: string, where: string } | { type: 'literal', source: string, where: string };
+export type AssemblySnippetSource =
+  | { type: 'markdown'; markdown: string; where: string }
+  | { type: 'literal'; source: string; where: string };
 
 /**
  * Return all markdown and example snippets from the given assembly
  */
-export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSource[] {
+export function allSnippetSources(
+  assembly: spec.Assembly,
+): AssemblySnippetSource[] {
   const ret: AssemblySnippetSource[] = [];
 
   if (assembly.readme) {
-    ret.push({ type: 'markdown', markdown: assembly.readme.markdown, where: removeSlashes(`${assembly.name}-README`) });
+    ret.push({
+      type: 'markdown',
+      markdown: assembly.readme.markdown,
+      where: removeSlashes(`${assembly.name}-README`),
+    });
   }
 
   if (assembly.types) {
@@ -54,11 +67,17 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
       emitDocs(type.docs, `${assembly.name}.${type.name}`);
 
       if (spec.isEnumType(type)) {
-        type.members.forEach(m => emitDocs(m.docs, `${assembly.name}.${type.name}.${m.name}`));
+        type.members.forEach(m =>
+          emitDocs(m.docs, `${assembly.name}.${type.name}.${m.name}`),
+        );
       }
       if (spec.isClassOrInterfaceType(type)) {
-        (type.methods ?? []).forEach(m => emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`));
-        (type.properties ?? []).forEach(m => emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`));
+        (type.methods ?? []).forEach(m =>
+          emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`),
+        );
+        (type.properties ?? []).forEach(m =>
+          emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`),
+        );
       }
     });
   }
@@ -66,11 +85,23 @@ export function allSnippetSources(assembly: spec.Assembly): AssemblySnippetSourc
   return ret;
 
   function emitDocs(docs: spec.Docs | undefined, where: string) {
-    if (!docs) { return; }
+    if (!docs) {
+      return;
+    }
 
-    if (docs.remarks) { ret.push({ 'type': 'markdown', markdown: docs.remarks, where: removeSlashes(where) }); }
+    if (docs.remarks) {
+      ret.push({
+        type: 'markdown',
+        markdown: docs.remarks,
+        where: removeSlashes(where),
+      });
+    }
     if (docs.example && exampleLooksLikeSource(docs.example)) {
-      ret.push({ 'type': 'literal', source: docs.example, where: removeSlashes(`${where}-example`) });
+      ret.push({
+        type: 'literal',
+        source: docs.example,
+        where: removeSlashes(`${where}-example`),
+      });
     }
   }
 }
@@ -83,20 +114,28 @@ function removeSlashes(x: string) {
   return x.replace(/\//g, '.');
 }
 
-export function* allTypeScriptSnippets(assemblies: Array<{ assembly: spec.Assembly, directory: string }>): IterableIterator<TypeScriptSnippet> {
+export function* allTypeScriptSnippets(
+  assemblies: Array<{ assembly: spec.Assembly; directory: string }>,
+): IterableIterator<TypeScriptSnippet> {
   for (const assembly of assemblies) {
     for (const source of allSnippetSources(assembly.assembly)) {
       switch (source.type) {
         case 'literal':
-          const snippet = updateParameters(typeScriptSnippetFromSource(source.source, source.where), {
-            [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory
-          });
+          const snippet = updateParameters(
+            typeScriptSnippetFromSource(source.source, source.where),
+            {
+              [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory,
+            },
+          );
           yield fixturize(snippet);
           break;
         case 'markdown':
-          for (const snippet of extractTypescriptSnippetsFromMarkdown(source.markdown, source.where)) {
+          for (const snippet of extractTypescriptSnippetsFromMarkdown(
+            source.markdown,
+            source.where,
+          )) {
             const withDirectory = updateParameters(snippet, {
-              [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory
+              [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory,
             });
             yield fixturize(withDirectory);
           }

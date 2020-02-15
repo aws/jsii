@@ -8,21 +8,21 @@ test('findJsiiModules is sorted topologically', async () => {
       jsii: {
         outdir: 'dist',
         targets: {
-          python: {}
-        }
+          python: {},
+        },
       },
       dependencies: {
-        packageB: '*'
-      }
+        packageB: '*',
+      },
     }),
     '/packageB/package.json': JSON.stringify({
       name: 'packageB',
       jsii: {
         outdir: 'dist',
         targets: {
-          python: {}
-        }
-      }
+          python: {},
+        },
+      },
     }),
   });
 
@@ -41,8 +41,8 @@ test('findJsiiModules without deps loads packages in given order', async () => {
       jsii: {
         outdir: 'dist',
         targets: {
-          python: {}
-        }
+          python: {},
+        },
       },
     }),
     '/packageB/package.json': JSON.stringify({
@@ -50,9 +50,9 @@ test('findJsiiModules without deps loads packages in given order', async () => {
       jsii: {
         outdir: 'dist',
         targets: {
-          python: {}
-        }
-      }
+          python: {},
+        },
+      },
     }),
   });
 

@@ -1,8 +1,18 @@
 import * as ts from 'typescript';
 import { NO_SYNTAX, OTree, UnknownSyntax, Span } from './o-tree';
-import { commentRangeFromTextRange, extractMaskingVoidExpression, extractShowingVoidExpression, nodeChildren,
-  repeatNewlines, scanText } from './typescript/ast-utils';
-import { analyzeImportDeclaration, analyzeImportEquals, ImportStatement } from './typescript/imports';
+import {
+  commentRangeFromTextRange,
+  extractMaskingVoidExpression,
+  extractShowingVoidExpression,
+  nodeChildren,
+  repeatNewlines,
+  scanText,
+} from './typescript/ast-utils';
+import {
+  analyzeImportDeclaration,
+  analyzeImportEquals,
+  ImportStatement,
+} from './typescript/imports';
 import { TargetLanguage } from './languages';
 
 /**
@@ -21,7 +31,7 @@ export class AstRenderer<C> {
     private readonly sourceFile: ts.SourceFile,
     public readonly typeChecker: ts.TypeChecker,
     private readonly handler: AstHandler<C>,
-    private readonly options: AstRendererOptions = {}
+    private readonly options: AstRendererOptions = {},
   ) {
     this.currentContext = handler.defaultContext;
   }
@@ -30,12 +40,15 @@ export class AstRenderer<C> {
    * Merge the new context with the current context and create a new Converter from it
    */
   public updateContext(contextUpdate: Partial<C>): AstRenderer<C> {
-    const newContext = this.handler.mergeContext(this.currentContext, contextUpdate);
+    const newContext = this.handler.mergeContext(
+      this.currentContext,
+      contextUpdate,
+    );
 
     // Use prototypal inheritance to create a version of 'this' in which only
     // 'currentContext' is updated.
     return Object.assign(Object.create(this), {
-      currentContext: newContext
+      currentContext: newContext,
     });
   }
 
@@ -43,12 +56,16 @@ export class AstRenderer<C> {
    * Convert a single node to an OTree
    */
   public convert(node: ts.Node | undefined): OTree {
-    if (node === undefined) { return NO_SYNTAX; }
+    if (node === undefined) {
+      return NO_SYNTAX;
+    }
 
     // Basic transform of node
     const transformed = this.dispatch(node);
     transformed.setSpan(node.getStart(this.sourceFile), node.getEnd());
-    if (!transformed.attachComment) { return transformed; }
+    if (!transformed.attachComment) {
+      return transformed;
+    }
 
     const withTrivia = this.attachLeadingTrivia(node, transformed);
     withTrivia.setSpan(node.getStart(this.sourceFile), node.getEnd());
@@ -67,7 +84,10 @@ export class AstRenderer<C> {
    *
    * Takes visibility into account.
    */
-  public convertLastDifferently(nodes: readonly ts.Node[], lastContext: C): OTree[] {
+  public convertLastDifferently(
+    nodes: readonly ts.Node[],
+    lastContext: C,
+  ): OTree[] {
     const lastConverter = this.updateContext(lastContext);
 
     const convert = this.convert.bind(this);
@@ -118,14 +138,21 @@ export class AstRenderer<C> {
    * (Will return a map type for object literals)
    */
   public typeOfExpression(node: ts.Expression): ts.Type {
-    return this.typeChecker.getContextualType(node) || this.typeChecker.getTypeAtLocation(node);
+    return (
+      this.typeChecker.getContextualType(node) ||
+      this.typeChecker.getTypeAtLocation(node)
+    );
   }
 
   public typeOfType(node: ts.TypeNode): ts.Type {
     return this.typeChecker.getTypeFromTypeNode(node);
   }
 
-  public report(node: ts.Node, messageText: string, category: ts.DiagnosticCategory = ts.DiagnosticCategory.Error) {
+  public report(
+    node: ts.Node,
+    messageText: string,
+    category: ts.DiagnosticCategory = ts.DiagnosticCategory.Error,
+  ) {
     this.diagnostics.push({
       category,
       code: 0,
@@ -133,17 +160,26 @@ export class AstRenderer<C> {
       messageText,
       file: this.sourceFile,
       start: node.getStart(this.sourceFile),
-      length: node.getWidth(this.sourceFile)
+      length: node.getWidth(this.sourceFile),
     });
   }
 
-  public reportUnsupported(node: ts.Node, language: TargetLanguage | undefined): void {
+  public reportUnsupported(
+    node: ts.Node,
+    language: TargetLanguage | undefined,
+  ): void {
     const nodeKind = ts.SyntaxKind[node.kind];
     // tslint:disable-next-line:max-line-length
     if (language) {
-      this.report(node, `This TypeScript feature (${nodeKind}) is not supported in examples because we cannot translate it to ${language}. Please rewrite this example.`);
+      this.report(
+        node,
+        `This TypeScript feature (${nodeKind}) is not supported in examples because we cannot translate it to ${language}. Please rewrite this example.`,
+      );
     } else {
-      this.report(node, `This TypeScript feature (${nodeKind}) is not supported in examples. Please rewrite this example.`);
+      this.report(
+        node,
+        `This TypeScript feature (${nodeKind}) is not supported in examples. Please rewrite this example.`,
+      );
     }
   }
 
@@ -152,16 +188,28 @@ export class AstRenderer<C> {
    *
    * Used to mirror newline use between matchin brackets (such as { ... } and [ ... ]).
    */
-  public mirrorNewlineBefore(viz?: ts.Node, suffix = '', otherwise = ''): string {
-    if (viz === undefined) { return suffix; }
+  public mirrorNewlineBefore(
+    viz?: ts.Node,
+    suffix = '',
+    otherwise = '',
+  ): string {
+    if (viz === undefined) {
+      return suffix;
+    }
 
     // Return a newline if the given node is preceded by newlines
-    const leadingRanges = scanText(this.sourceFile.text, viz.getFullStart(), viz.getStart(this.sourceFile));
+    const leadingRanges = scanText(
+      this.sourceFile.text,
+      viz.getFullStart(),
+      viz.getStart(this.sourceFile),
+    );
     const newlines = [];
 
     for (const range of leadingRanges) {
       if (range.type === 'other') {
-        newlines.push(repeatNewlines(this.sourceFile.text.substring(range.pos, range.end)));
+        newlines.push(
+          repeatNewlines(this.sourceFile.text.substring(range.pos, range.end)),
+        );
       }
     }
 
@@ -181,53 +229,138 @@ export class AstRenderer<C> {
     const visitor = this.handler;
 
     // Nodes with meaning
-    if (ts.isSourceFile(tree)) { return visitor.sourceFile(tree, this); }
-    if (ts.isImportEqualsDeclaration(tree)) { return visitor.importStatement(analyzeImportEquals(tree, this), this); }
-    if (ts.isImportDeclaration(tree)) { return visitor.importStatement(analyzeImportDeclaration(tree, this), this); }
-    if (ts.isStringLiteral(tree)) { return visitor.stringLiteral(tree, this); }
-    if (ts.isFunctionDeclaration(tree)) { return visitor.functionDeclaration(tree, this); }
-    if (ts.isIdentifier(tree)) { return visitor.identifier(tree, this); }
-    if (ts.isBlock(tree)) { return visitor.block(tree, this); }
-    if (ts.isParameter(tree)) { return visitor.parameterDeclaration(tree, this); }
-    if (ts.isReturnStatement(tree)) { return visitor.returnStatement(tree, this); }
-    if (ts.isBinaryExpression(tree)) { return visitor.binaryExpression(tree, this); }
-    if (ts.isIfStatement(tree)) { return visitor.ifStatement(tree, this); }
-    if (ts.isPropertyAccessExpression(tree)) { return visitor.propertyAccessExpression(tree, this); }
-    if (ts.isCallExpression(tree)) { return visitor.callExpression(tree, this); }
-    if (ts.isExpressionStatement(tree)) { return visitor.expressionStatement(tree, this); }
-    if (ts.isNoSubstitutionTemplateLiteral(tree)) { return visitor.noSubstitutionTemplateLiteral(tree, this); }
-    if (ts.isToken(tree)) { return visitor.token(tree, this); }
-    if (ts.isObjectLiteralExpression(tree)) { return visitor.objectLiteralExpression(tree, this); }
-    if (ts.isNewExpression(tree)) { return visitor.newExpression(tree, this); }
-    if (ts.isPropertyAssignment(tree)) { return visitor.propertyAssignment(tree, this); }
-    if (ts.isVariableStatement(tree)) { return visitor.variableStatement(tree, this); }
-    if (ts.isVariableDeclarationList(tree)) { return visitor.variableDeclarationList(tree, this); }
-    if (ts.isVariableDeclaration(tree)) { return visitor.variableDeclaration(tree, this); }
-    if (ts.isJSDoc(tree)) { return visitor.jsDoc(tree, this); }
-    if (ts.isArrayLiteralExpression(tree)) { return visitor.arrayLiteralExpression(tree, this); }
-    if (ts.isShorthandPropertyAssignment(tree)) { return visitor.shorthandPropertyAssignment(tree, this); }
-    if (ts.isForOfStatement(tree)) { return visitor.forOfStatement(tree, this); }
-    if (ts.isClassDeclaration(tree)) { return visitor.classDeclaration(tree, this); }
-    if (ts.isConstructorDeclaration(tree)) { return visitor.constructorDeclaration(tree, this); }
-    if (ts.isPropertyDeclaration(tree)) { return visitor.propertyDeclaration(tree, this); }
-    if (ts.isMethodDeclaration(tree)) { return visitor.methodDeclaration(tree, this); }
-    if (ts.isInterfaceDeclaration(tree)) { return visitor.interfaceDeclaration(tree, this); }
-    if (ts.isPropertySignature(tree)) { return visitor.propertySignature(tree, this); }
-    if (ts.isMethodSignature(tree)) { return visitor.methodSignature(tree, this); }
-    if (ts.isAsExpression(tree)) { return visitor.asExpression(tree, this); }
-    if (ts.isPrefixUnaryExpression(tree)) { return visitor.prefixUnaryExpression(tree, this); }
+    if (ts.isSourceFile(tree)) {
+      return visitor.sourceFile(tree, this);
+    }
+    if (ts.isImportEqualsDeclaration(tree)) {
+      return visitor.importStatement(analyzeImportEquals(tree, this), this);
+    }
+    if (ts.isImportDeclaration(tree)) {
+      return visitor.importStatement(
+        analyzeImportDeclaration(tree, this),
+        this,
+      );
+    }
+    if (ts.isStringLiteral(tree)) {
+      return visitor.stringLiteral(tree, this);
+    }
+    if (ts.isFunctionDeclaration(tree)) {
+      return visitor.functionDeclaration(tree, this);
+    }
+    if (ts.isIdentifier(tree)) {
+      return visitor.identifier(tree, this);
+    }
+    if (ts.isBlock(tree)) {
+      return visitor.block(tree, this);
+    }
+    if (ts.isParameter(tree)) {
+      return visitor.parameterDeclaration(tree, this);
+    }
+    if (ts.isReturnStatement(tree)) {
+      return visitor.returnStatement(tree, this);
+    }
+    if (ts.isBinaryExpression(tree)) {
+      return visitor.binaryExpression(tree, this);
+    }
+    if (ts.isIfStatement(tree)) {
+      return visitor.ifStatement(tree, this);
+    }
+    if (ts.isPropertyAccessExpression(tree)) {
+      return visitor.propertyAccessExpression(tree, this);
+    }
+    if (ts.isCallExpression(tree)) {
+      return visitor.callExpression(tree, this);
+    }
+    if (ts.isExpressionStatement(tree)) {
+      return visitor.expressionStatement(tree, this);
+    }
+    if (ts.isNoSubstitutionTemplateLiteral(tree)) {
+      return visitor.noSubstitutionTemplateLiteral(tree, this);
+    }
+    if (ts.isToken(tree)) {
+      return visitor.token(tree, this);
+    }
+    if (ts.isObjectLiteralExpression(tree)) {
+      return visitor.objectLiteralExpression(tree, this);
+    }
+    if (ts.isNewExpression(tree)) {
+      return visitor.newExpression(tree, this);
+    }
+    if (ts.isPropertyAssignment(tree)) {
+      return visitor.propertyAssignment(tree, this);
+    }
+    if (ts.isVariableStatement(tree)) {
+      return visitor.variableStatement(tree, this);
+    }
+    if (ts.isVariableDeclarationList(tree)) {
+      return visitor.variableDeclarationList(tree, this);
+    }
+    if (ts.isVariableDeclaration(tree)) {
+      return visitor.variableDeclaration(tree, this);
+    }
+    if (ts.isJSDoc(tree)) {
+      return visitor.jsDoc(tree, this);
+    }
+    if (ts.isArrayLiteralExpression(tree)) {
+      return visitor.arrayLiteralExpression(tree, this);
+    }
+    if (ts.isShorthandPropertyAssignment(tree)) {
+      return visitor.shorthandPropertyAssignment(tree, this);
+    }
+    if (ts.isForOfStatement(tree)) {
+      return visitor.forOfStatement(tree, this);
+    }
+    if (ts.isClassDeclaration(tree)) {
+      return visitor.classDeclaration(tree, this);
+    }
+    if (ts.isConstructorDeclaration(tree)) {
+      return visitor.constructorDeclaration(tree, this);
+    }
+    if (ts.isPropertyDeclaration(tree)) {
+      return visitor.propertyDeclaration(tree, this);
+    }
+    if (ts.isMethodDeclaration(tree)) {
+      return visitor.methodDeclaration(tree, this);
+    }
+    if (ts.isInterfaceDeclaration(tree)) {
+      return visitor.interfaceDeclaration(tree, this);
+    }
+    if (ts.isPropertySignature(tree)) {
+      return visitor.propertySignature(tree, this);
+    }
+    if (ts.isMethodSignature(tree)) {
+      return visitor.methodSignature(tree, this);
+    }
+    if (ts.isAsExpression(tree)) {
+      return visitor.asExpression(tree, this);
+    }
+    if (ts.isPrefixUnaryExpression(tree)) {
+      return visitor.prefixUnaryExpression(tree, this);
+    }
     if (ts.isSpreadAssignment(tree)) {
-      if (this.textOf(tree) === '...') { return visitor.ellipsis(tree, this); }
+      if (this.textOf(tree) === '...') {
+        return visitor.ellipsis(tree, this);
+      }
       return visitor.spreadAssignment(tree, this);
     }
     if (ts.isSpreadElement(tree)) {
-      if (this.textOf(tree) === '...') { return visitor.ellipsis(tree, this); }
+      if (this.textOf(tree) === '...') {
+        return visitor.ellipsis(tree, this);
+      }
       return visitor.spreadElement(tree, this);
     }
-    if (ts.isTemplateExpression(tree)) { return visitor.templateExpression(tree, this); }
-    if (ts.isNonNullExpression(tree)) { return visitor.nonNullExpression(tree, this); }
-    if (ts.isParenthesizedExpression(tree)) { return visitor.parenthesizedExpression(tree, this); }
-    if (ts.isVoidExpression(tree)) { return visitor.maskingVoidExpression(tree, this); }
+    if (ts.isTemplateExpression(tree)) {
+      return visitor.templateExpression(tree, this);
+    }
+    if (ts.isNonNullExpression(tree)) {
+      return visitor.nonNullExpression(tree, this);
+    }
+    if (ts.isParenthesizedExpression(tree)) {
+      return visitor.parenthesizedExpression(tree, this);
+    }
+    if (ts.isVoidExpression(tree)) {
+      return visitor.maskingVoidExpression(tree, this);
+    }
 
     this.reportUnsupported(tree, undefined);
 
@@ -237,13 +370,13 @@ export class AstRenderer<C> {
     }
     // Otherwise, show a placeholder indicating we don't recognize the type
     const nodeKind = ts.SyntaxKind[tree.kind];
-    return new UnknownSyntax([`<${nodeKind} ${this.textOf(tree)}>`], [
-      '\n',
-      ...nodeChildren(tree).map(this.convert.bind(this))
-    ], {
-      indent: 2,
-    });
-
+    return new UnknownSyntax(
+      [`<${nodeKind} ${this.textOf(tree)}>`],
+      ['\n', ...nodeChildren(tree).map(this.convert.bind(this))],
+      {
+        indent: 2,
+      },
+    );
   }
 
   /**
@@ -253,19 +386,41 @@ export class AstRenderer<C> {
    */
   private attachLeadingTrivia(node: ts.Node, transformed: OTree): OTree {
     // Add comments and leading whitespace
-    const leadingRanges = scanText(this.sourceFile.text, node.getFullStart(), node.getStart(this.sourceFile));
+    const leadingRanges = scanText(
+      this.sourceFile.text,
+      node.getFullStart(),
+      node.getStart(this.sourceFile),
+    );
 
     const precede: OTree[] = [];
     for (const range of leadingRanges) {
       switch (range.type) {
         case 'other':
-          precede.push(new OTree([repeatNewlines(this.sourceFile.text.substring(range.pos, range.end))], [], {
-            renderOnce: `ws-${range.pos}`
-          }));
+          precede.push(
+            new OTree(
+              [
+                repeatNewlines(
+                  this.sourceFile.text.substring(range.pos, range.end),
+                ),
+              ],
+              [],
+              {
+                renderOnce: `ws-${range.pos}`,
+              },
+            ),
+          );
           break;
         case 'linecomment':
         case 'blockcomment':
-          precede.push(this.handler.commentRange(commentSyntaxFromCommentRange(commentRangeFromTextRange(range), this), this));
+          precede.push(
+            this.handler.commentRange(
+              commentSyntaxFromCommentRange(
+                commentRangeFromTextRange(range),
+                this,
+              ),
+              this,
+            ),
+          );
           break;
 
         case 'directive':
@@ -279,7 +434,6 @@ export class AstRenderer<C> {
       return new OTree([...precede, transformed], [], { canBreakLine: true });
     }
     return transformed;
-
   }
 }
 
@@ -301,50 +455,114 @@ export interface AstHandler<C> {
   commentRange(node: CommentSyntax, context: AstRenderer<C>): OTree;
   importStatement(node: ImportStatement, context: AstRenderer<C>): OTree;
   stringLiteral(node: ts.StringLiteral, children: AstRenderer<C>): OTree;
-  functionDeclaration(node: ts.FunctionDeclaration, children: AstRenderer<C>): OTree;
+  functionDeclaration(
+    node: ts.FunctionDeclaration,
+    children: AstRenderer<C>,
+  ): OTree;
   identifier(node: ts.Identifier, children: AstRenderer<C>): OTree;
   block(node: ts.Block, children: AstRenderer<C>): OTree;
-  parameterDeclaration(node: ts.ParameterDeclaration, children: AstRenderer<C>): OTree;
+  parameterDeclaration(
+    node: ts.ParameterDeclaration,
+    children: AstRenderer<C>,
+  ): OTree;
   returnStatement(node: ts.ReturnStatement, context: AstRenderer<C>): OTree;
   binaryExpression(node: ts.BinaryExpression, context: AstRenderer<C>): OTree;
   ifStatement(node: ts.IfStatement, context: AstRenderer<C>): OTree;
-  propertyAccessExpression(node: ts.PropertyAccessExpression, context: AstRenderer<C>): OTree;
+  propertyAccessExpression(
+    node: ts.PropertyAccessExpression,
+    context: AstRenderer<C>,
+  ): OTree;
   callExpression(node: ts.CallExpression, context: AstRenderer<C>): OTree;
-  expressionStatement(node: ts.ExpressionStatement, context: AstRenderer<C>): OTree;
-  token<A extends ts.SyntaxKind>(node: ts.Token<A>, context: AstRenderer<C>): OTree;
-  objectLiteralExpression(node: ts.ObjectLiteralExpression, context: AstRenderer<C>): OTree;
+  expressionStatement(
+    node: ts.ExpressionStatement,
+    context: AstRenderer<C>,
+  ): OTree;
+  token<A extends ts.SyntaxKind>(
+    node: ts.Token<A>,
+    context: AstRenderer<C>,
+  ): OTree;
+  objectLiteralExpression(
+    node: ts.ObjectLiteralExpression,
+    context: AstRenderer<C>,
+  ): OTree;
   newExpression(node: ts.NewExpression, context: AstRenderer<C>): OTree;
-  propertyAssignment(node: ts.PropertyAssignment, context: AstRenderer<C>): OTree;
+  propertyAssignment(
+    node: ts.PropertyAssignment,
+    context: AstRenderer<C>,
+  ): OTree;
   variableStatement(node: ts.VariableStatement, context: AstRenderer<C>): OTree;
-  variableDeclarationList(node: ts.VariableDeclarationList, context: AstRenderer<C>): OTree;
-  variableDeclaration(node: ts.VariableDeclaration, context: AstRenderer<C>): OTree;
+  variableDeclarationList(
+    node: ts.VariableDeclarationList,
+    context: AstRenderer<C>,
+  ): OTree;
+  variableDeclaration(
+    node: ts.VariableDeclaration,
+    context: AstRenderer<C>,
+  ): OTree;
   jsDoc(node: ts.JSDoc, context: AstRenderer<C>): OTree;
-  arrayLiteralExpression(node: ts.ArrayLiteralExpression, context: AstRenderer<C>): OTree;
-  shorthandPropertyAssignment(node: ts.ShorthandPropertyAssignment, context: AstRenderer<C>): OTree;
+  arrayLiteralExpression(
+    node: ts.ArrayLiteralExpression,
+    context: AstRenderer<C>,
+  ): OTree;
+  shorthandPropertyAssignment(
+    node: ts.ShorthandPropertyAssignment,
+    context: AstRenderer<C>,
+  ): OTree;
   forOfStatement(node: ts.ForOfStatement, context: AstRenderer<C>): OTree;
   classDeclaration(node: ts.ClassDeclaration, context: AstRenderer<C>): OTree;
-  constructorDeclaration(node: ts.ConstructorDeclaration, context: AstRenderer<C>): OTree;
-  propertyDeclaration(node: ts.PropertyDeclaration, context: AstRenderer<C>): OTree;
+  constructorDeclaration(
+    node: ts.ConstructorDeclaration,
+    context: AstRenderer<C>,
+  ): OTree;
+  propertyDeclaration(
+    node: ts.PropertyDeclaration,
+    context: AstRenderer<C>,
+  ): OTree;
   methodDeclaration(node: ts.MethodDeclaration, context: AstRenderer<C>): OTree;
-  interfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree;
+  interfaceDeclaration(
+    node: ts.InterfaceDeclaration,
+    context: AstRenderer<C>,
+  ): OTree;
   propertySignature(node: ts.PropertySignature, context: AstRenderer<C>): OTree;
   methodSignature(node: ts.MethodSignature, context: AstRenderer<C>): OTree;
   asExpression(node: ts.AsExpression, context: AstRenderer<C>): OTree;
-  prefixUnaryExpression(node: ts.PrefixUnaryExpression, context: AstRenderer<C>): OTree;
+  prefixUnaryExpression(
+    node: ts.PrefixUnaryExpression,
+    context: AstRenderer<C>,
+  ): OTree;
   spreadElement(node: ts.SpreadElement, context: AstRenderer<C>): OTree;
   spreadAssignment(node: ts.SpreadAssignment, context: AstRenderer<C>): OTree;
-  templateExpression(node: ts.TemplateExpression, context: AstRenderer<C>): OTree;
+  templateExpression(
+    node: ts.TemplateExpression,
+    context: AstRenderer<C>,
+  ): OTree;
   nonNullExpression(node: ts.NonNullExpression, context: AstRenderer<C>): OTree;
-  parenthesizedExpression(node: ts.ParenthesizedExpression, context: AstRenderer<C>): OTree;
-  maskingVoidExpression(node: ts.VoidExpression, context: AstRenderer<C>): OTree;
-  noSubstitutionTemplateLiteral(node: ts.NoSubstitutionTemplateLiteral, context: AstRenderer<C>): OTree;
+  parenthesizedExpression(
+    node: ts.ParenthesizedExpression,
+    context: AstRenderer<C>,
+  ): OTree;
+  maskingVoidExpression(
+    node: ts.VoidExpression,
+    context: AstRenderer<C>,
+  ): OTree;
+  noSubstitutionTemplateLiteral(
+    node: ts.NoSubstitutionTemplateLiteral,
+    context: AstRenderer<C>,
+  ): OTree;
 
   // Not a node, called when we recognize a spread element/assignment that is only
   // '...' and nothing else.
-  ellipsis(node: ts.SpreadElement | ts.SpreadAssignment, context: AstRenderer<C>): OTree;
+  ellipsis(
+    node: ts.SpreadElement | ts.SpreadAssignment,
+    context: AstRenderer<C>,
+  ): OTree;
 }
 
-export function nimpl<C>(node: ts.Node, context: AstRenderer<C>, options: { additionalInfo?: string} = {}) {
+export function nimpl<C>(
+  node: ts.Node,
+  context: AstRenderer<C>,
+  options: { additionalInfo?: string } = {},
+) {
   const children = nodeChildren(node).map(c => context.convert(c));
 
   let syntaxKind = ts.SyntaxKind[node.kind];
@@ -354,15 +572,21 @@ export function nimpl<C>(node: ts.Node, context: AstRenderer<C>, options: { addi
   }
 
   const parts = [`(${syntaxKind}`];
-  if (options.additionalInfo) { parts.push(`{${options.additionalInfo}}`); }
+  if (options.additionalInfo) {
+    parts.push(`{${options.additionalInfo}}`);
+  }
   parts.push(context.textOf(node));
 
-  return new UnknownSyntax([parts.join(' ')], children.length > 0 ? ['\n', ...children] : [], {
-    indent: 2,
-    suffix: ')',
-    separator: '\n',
-    canBreakLine: true
-  });
+  return new UnknownSyntax(
+    [parts.join(' ')],
+    children.length > 0 ? ['\n', ...children] : [],
+    {
+      indent: 2,
+      suffix: ')',
+      separator: '\n',
+      canBreakLine: true,
+    },
+  );
 }
 
 export interface AstRendererOptions {
@@ -381,7 +605,9 @@ interface ClassifiedNode {
 }
 
 function filterVisible(nodes: readonly ts.Node[]): ts.Node[] {
-  return assignVisibility(nodes).map(c => c.visible ? c.node : c.maskingVoid).filter(notUndefined);
+  return assignVisibility(nodes)
+    .map(c => (c.visible ? c.node : c.maskingVoid))
+    .filter(notUndefined);
 }
 
 function assignVisibility(nodes: readonly ts.Node[]): ClassifiedNode[] {
@@ -390,7 +616,9 @@ function assignVisibility(nodes: readonly ts.Node[]): ClassifiedNode[] {
   let visible = true;
   for (const node of nodes) {
     const maskingVoid = extractMaskingVoidExpression(node);
-    if (visible && maskingVoid) { visible = false; }
+    if (visible && maskingVoid) {
+      visible = false;
+    }
 
     ret.push({ node, maskingVoid, visible });
 
@@ -421,7 +649,10 @@ export interface CommentSyntax {
   kind: ts.CommentKind;
 }
 
-function commentSyntaxFromCommentRange(rng: ts.CommentRange, renderer: AstRenderer<any>): CommentSyntax {
+function commentSyntaxFromCommentRange(
+  rng: ts.CommentRange,
+  renderer: AstRenderer<any>,
+): CommentSyntax {
   return {
     hasTrailingNewLine: rng.hasTrailingNewLine,
     kind: rng.kind,

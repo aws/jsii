@@ -18,20 +18,31 @@ export const JSII_DIAGNOSTICS_CODE = 9999;
  *
  * @returns a logger method of the ``logger`` for the appropriate level.
  */
-export function diagnosticsLogger(logger: log4js.Logger, diagnostic: ts.Diagnostic): ((message: any, ...args: any[]) => void) | undefined {
+export function diagnosticsLogger(
+  logger: log4js.Logger,
+  diagnostic: ts.Diagnostic,
+): ((message: any, ...args: any[]) => void) | undefined {
   switch (diagnostic.category) {
     case ts.DiagnosticCategory.Error:
-      if (!logger.isErrorEnabled()) { return undefined; }
+      if (!logger.isErrorEnabled()) {
+        return undefined;
+      }
       return logger.error.bind(logger);
     case ts.DiagnosticCategory.Warning:
-      if (!logger.isWarnEnabled()) { return undefined; }
+      if (!logger.isWarnEnabled()) {
+        return undefined;
+      }
       return logger.warn.bind(logger);
     case ts.DiagnosticCategory.Message:
-      if (!logger.isInfoEnabled()) { return undefined; }
+      if (!logger.isInfoEnabled()) {
+        return undefined;
+      }
       return logger.info.bind(logger);
     case ts.DiagnosticCategory.Suggestion:
     default:
-      if (!logger.isDebugEnabled()) { return undefined; }
+      if (!logger.isDebugEnabled()) {
+        return undefined;
+      }
       return logger.debug.bind(logger);
   }
 }
@@ -43,14 +54,21 @@ export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
     getNewLine: () => ts.sys.newLine,
   };
 
-  const message = diagnostic.category === ts.DiagnosticCategory.Message && typeof diagnostic.messageText === 'string'
-    ? diagnostic.messageText
-    : diagnostic.file
-      ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
+  const message =
+    diagnostic.category === ts.DiagnosticCategory.Message &&
+    typeof diagnostic.messageText === 'string'
+      ? diagnostic.messageText
+      : diagnostic.file
+      ? ts.formatDiagnosticsWithColorAndContext(
+          [diagnostic],
+          formatDiagnosticsHost,
+        )
       : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
 
   const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
-  if (!logFunc) { return; }
+  if (!logFunc) {
+    return;
+  }
   logFunc(message.trim());
 }
 
@@ -69,7 +87,9 @@ export function parsePerson(value: string) {
     throw new Error(`Invalid stringified "person" value: ${value}`);
   }
   const [, name, email, url] = match;
-  const result: { name: string, email?: string, url?: string } = { name: name.trim() };
+  const result: { name: string; email?: string; url?: string } = {
+    name: name.trim(),
+  };
   if (email) {
     result.email = email.trim();
   }

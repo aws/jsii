@@ -9,7 +9,9 @@ describe(Compiler, () => {
     // This can be a little slow, allowing 15 seconds maximum here (default is 5 seconds)
     jest.setTimeout(15_000);
 
-    const sourceDir = await mkdtemp(join(tmpdir(), 'jsii-compiler-watch-mode-'));
+    const sourceDir = await mkdtemp(
+      join(tmpdir(), 'jsii-compiler-watch-mode-'),
+    );
 
     try {
       await writeFile(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
@@ -37,11 +39,16 @@ describe(Compiler, () => {
         compilationComplete: async emitResult => {
           try {
             expect(emitResult.emitSkipped).toBeFalsy();
-            const output = await readFile(join(sourceDir, '.jsii'), { encoding: 'utf-8' });
+            const output = await readFile(join(sourceDir, '.jsii'), {
+              encoding: 'utf-8',
+            });
             if (firstCompilation) {
               firstCompilation = false;
               expect(output).toContain('"MarkerA"');
-              await writeFile(join(sourceDir, 'index.ts'), 'export class MarkerB {}');
+              await writeFile(
+                join(sourceDir, 'index.ts'),
+                'export class MarkerB {}',
+              );
               return;
             }
             expect(output).toContain('"MarkerB"');

@@ -3,25 +3,29 @@ import { expectError, expectNoError } from './util';
 // ----------------------------------------------------------------------
 
 test('okay to add a new class', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export class Foo1 { }
-  `, `
+  `,
+    `
     export class Foo1 { }
     export class Foo2 { }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('okay to add a new function to a class', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export class Foo { }
-  `, `
+  `,
+    `
     export class Foo {
       public foo(): void { }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -34,40 +38,44 @@ test('not okay to add a required argument to a method', () =>
         Array.isArray(arg1);
       }
     }
-  `, `
+  `,
+    `
     export class Foo {
       public foo(arg1: string, arg2: string): void {
         Array.isArray(arg1);
         Array.isArray(arg2);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('okay to make a required argument optional', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export class Foo {
       public foo(arg1: string, arg2: string): void {
         Array.isArray(arg1);
         Array.isArray(arg2);
       }
     }
-  `, `
+  `,
+    `
     export class Foo {
       public foo(arg1: string, arg2?: string): void {
         Array.isArray(arg1);
         Array.isArray(arg2);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('okay to turn required arguments into varargs', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export class Foo {
       public foo(arg1: string, arg2: number, arg3: number): void {
         Array.isArray(arg1);
@@ -75,15 +83,16 @@ test('okay to turn required arguments into varargs', () =>
         Array.isArray(arg3);
       }
     }
-  `, `
+  `,
+    `
     export class Foo {
       public foo(arg1: string, ...args: number[]): void {
         Array.isArray(arg1);
         Array.isArray(args);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -96,14 +105,15 @@ test('not allowed to change argument type to a different scalar', () =>
         Array.isArray(arg1);
       }
     }
-  `, `
+  `,
+    `
     export class Foo {
       public foo(arg1: number): void {
         Array.isArray(arg1);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -117,7 +127,8 @@ test('cannot add any abstract members to a subclassable class', () =>
     export abstract class Henk {
       abstract readonly henk: string;
     }
-  `, `
+  `,
+    `
     /**
      * @subclassable
      */
@@ -125,8 +136,8 @@ test('cannot add any abstract members to a subclassable class', () =>
       abstract readonly henk: string;
       abstract readonly piet: string;
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -140,7 +151,8 @@ test('cannot add any members to a subclassable interface, not even optional ones
     export interface IHenk {
       henk: string;
     }
-  `, `
+  `,
+    `
     /**
      * @subclassable
      */
@@ -148,8 +160,8 @@ test('cannot add any members to a subclassable interface, not even optional ones
       henk: string;
       piet?: string;
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -160,12 +172,13 @@ test('cannot make a member less visible', () =>
     export class Henk {
       public henk: string = 'henk';
     }
-  `, `
+  `,
+    `
     export class Henk {
       protected henk: string = 'henk';
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -176,12 +189,13 @@ test('cannot make a class property optional', () =>
     export class Henk {
       public henk: string = 'henk';
     }
-  `, `
+  `,
+    `
     export class Henk {
       public henk?: string = 'henk';
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -196,7 +210,8 @@ test('consider inherited constructor', () =>
     }
     export class Sub extends Super {
     }
-  `, `
+  `,
+    `
     export class Super {
       constructor(param: number) {
         Array.isArray(param);
@@ -208,8 +223,8 @@ test('consider inherited constructor', () =>
         Array.isArray(param);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -227,7 +242,8 @@ test('consider inherited constructor, the other way', () =>
         super(5);
       }
     }
-  `, `
+  `,
+    `
     export class Super {
       constructor(param: number) {
         Array.isArray(param);
@@ -235,13 +251,14 @@ test('consider inherited constructor, the other way', () =>
     }
     export class Sub extends Super {
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('method can be moved to supertype', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export class Super {
     }
     export class Sub extends Super {
@@ -249,7 +266,8 @@ test('method can be moved to supertype', () =>
         Array.isArray(param);
       }
     }
-  `, `
+  `,
+    `
     export class Super {
       public foo(param: number) {
         Array.isArray(param);
@@ -257,26 +275,28 @@ test('method can be moved to supertype', () =>
     }
     export class Sub extends Super {
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('property can be moved to supertype', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export class Super {
     }
     export class Sub extends Super {
       public foo: string = 'foo';
     }
-  `, `
+  `,
+    `
     export class Super {
       public foo: string = 'foo';
     }
     export class Sub extends Super {
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -289,11 +309,12 @@ test('subclassable is forever', () =>
      */
     export class Super {
     }
-  `, `
+  `,
+    `
     export class Super {
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -309,9 +330,8 @@ test('change from method to property', () =>
     export class Boom {
       get foo() { return 12; }
     }
-    `
-  )
-);
+    `,
+  ));
 
 test('change from method with arguments to property', () =>
   expectError(
@@ -325,9 +345,8 @@ test('change from method with arguments to property', () =>
     export class Boom {
       get foo() { return 12; }
     }
-    `
-  )
-);
+    `,
+  ));
 
 test('change from property to method', () =>
   expectError(
@@ -341,6 +360,5 @@ test('change from property to method', () =>
     export class Boom {
       foo() { return 12; }
     }
-    `
-  )
-);
+    `,
+  ));

@@ -2,15 +2,15 @@ import { SyncStdio } from './sync-stdio';
 import { api } from '@jsii/kernel';
 
 export type Output =
-    { hello: string } |
-    { ok: api.KernelResponse } |
-    { callback: api.Callback } |
-    { pending: true } |
-    { error: string, stack?: string };
+  | { hello: string }
+  | { ok: api.KernelResponse }
+  | { callback: api.Callback }
+  | { pending: true }
+  | { error: string; stack?: string };
 
 export type Input =
-    { api: string } & api.KernelRequest |
-    { complete: api.CompleteRequest };
+  | ({ api: string } & api.KernelRequest)
+  | { complete: api.CompleteRequest };
 
 export class InputOutput {
   public debug = false;

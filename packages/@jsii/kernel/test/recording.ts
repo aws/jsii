@@ -30,37 +30,41 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
   const logfile = fs.createWriteStream(inputOutputLogPath);
   (kernel as any).logfile = logfile;
 
-  Object.getOwnPropertyNames(Kernel.prototype).filter(p => !p.startsWith('_')).forEach(api => {
-    const old = Object.getOwnPropertyDescriptor(Kernel.prototype, api)!;
+  Object.getOwnPropertyNames(Kernel.prototype)
+    .filter(p => !p.startsWith('_'))
+    .forEach(api => {
+      const old = Object.getOwnPropertyDescriptor(Kernel.prototype, api)!;
 
-    Object.defineProperty(kernel, api, {
-      value(...args: any[]) {
-        logInput({ api, ...args[0] });
-        try {
-          const ret = old.value.apply(this, args);
+      Object.defineProperty(kernel, api, {
+        value(...args: any[]) {
+          logInput({ api, ...args[0] });
+          try {
+            const ret = old.value.apply(this, args);
 
-          // if this is an async function, wait for the promised value.
-          if (typeof ret?.then === 'function') {
-            return new Promise((ok, fail) => {
-              return ret.then((value: any) => {
-                logOutput({ ok: value });
-                ok(value);
-              }).catch((err: any) => {
-                logOutput({ error: err.message });
-                fail(err);
+            // if this is an async function, wait for the promised value.
+            if (typeof ret?.then === 'function') {
+              return new Promise((ok, fail) => {
+                return ret
+                  .then((value: any) => {
+                    logOutput({ ok: value });
+                    ok(value);
+                  })
+                  .catch((err: any) => {
+                    logOutput({ error: err.message });
+                    fail(err);
+                  });
               });
-            });
-          }
+            }
 
-          logOutput({ ok: ret });
-          return ret;
-        } catch (e) {
-          logOutput({ error: e.message });
-          throw e;
-        }
-      }
+            logOutput({ ok: ret });
+            return ret;
+          } catch (e) {
+            logOutput({ error: e.message });
+            throw e;
+          }
+        },
+      });
     });
-  });
 
   function logInput(obj: any) {
     const inputLine = `${JSON.stringify(obj)}\n`;

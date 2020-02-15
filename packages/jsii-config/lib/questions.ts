@@ -17,30 +17,42 @@ function getCurrentValue(name: string, current: BasePackageJson): any {
  *
  * Pull defaults from current values in package.json or previous answers
  */
-function flattenNestedQuestions(fields: ConfigPromptsSchema, current: BasePackageJson): QuestionCollection[] {
-  return Object.entries(fields).reduce((accum: QuestionCollection[], [name, question]: [string, any]) => {
-    if (question.type && question.message) {
-      const currentValue = getCurrentValue(name, current) || question.default;
-      return [...accum, {
-        name,
-        ...question,
-        ...currentValue ? { default: currentValue } : {}
-      }];
-    }
+function flattenNestedQuestions(
+  fields: ConfigPromptsSchema,
+  current: BasePackageJson,
+): QuestionCollection[] {
+  return Object.entries(fields).reduce(
+    (accum: QuestionCollection[], [name, question]: [string, any]) => {
+      if (question.type && question.message) {
+        const currentValue = getCurrentValue(name, current) || question.default;
+        return [
+          ...accum,
+          {
+            name,
+            ...question,
+            ...(currentValue ? { default: currentValue } : {}),
+          },
+        ];
+      }
 
-    const flattened = flattenKeys(name, question);
-    return [...accum, ...flattenNestedQuestions(flattened, current)];
-  }, []);
+      const flattened = flattenKeys(name, question);
+      return [...accum, ...flattenNestedQuestions(flattened, current)];
+    },
+    [],
+  );
 }
 
-function buildQuestions(schema: ConfigPromptsSchema, current: BasePackageJson): QuestionCollection[] {
+function buildQuestions(
+  schema: ConfigPromptsSchema,
+  current: BasePackageJson,
+): QuestionCollection[] {
   const currentTargets = getNestedValue(['jsii', 'targets'], current) || {};
   const targetsPrompt: QuestionCollection = {
     name: 'jsiiTargets',
     message: 'Target Languages',
     type: 'checkbox',
     choices: Object.keys(schema.jsii.targets),
-    default: Object.keys(currentTargets)
+    default: Object.keys(currentTargets),
   };
 
   return [targetsPrompt, ...flattenNestedQuestions(schema, current)];

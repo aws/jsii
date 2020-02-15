@@ -1,6 +1,12 @@
 import * as cm from 'commonmark';
 import { RendererContext } from './markdown';
-import { MarkdownRenderer, collapsePara, para, stripTrailingWhitespace, stripPara } from './markdown-renderer';
+import {
+  MarkdownRenderer,
+  collapsePara,
+  para,
+  stripTrailingWhitespace,
+  stripPara,
+} from './markdown-renderer';
 import { makeJavaEscaper } from './escapes';
 
 const ESCAPE = makeJavaEscaper();
@@ -33,7 +39,9 @@ export class JavaDocRenderer extends MarkdownRenderer {
    */
   /* eslint-disable-next-line @typescript-eslint/camelcase */
   public code_block(node: cm.Node, _context: RendererContext) {
-    return para(`<blockquote><pre>\n${ESCAPE.text(node.literal)}</pre></blockquote>`);
+    return para(
+      `<blockquote><pre>\n${ESCAPE.text(node.literal)}</pre></blockquote>`,
+    );
   }
 
   public text(node: cm.Node, _context: RendererContext) {
@@ -41,7 +49,8 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `<a href="${ESCAPE.attribute(node.destination) ?? ''}">${context.content()}</a>`;
+    return `<a href="${ESCAPE.attribute(node.destination) ??
+      ''}">${context.content()}</a>`;
   }
 
   public document(_node: cm.Node, context: RendererContext) {
@@ -53,7 +62,7 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public list(node: cm.Node, context: RendererContext) {
-    const tag = node.listType === 'bullet' ? 'ul': 'ol';
+    const tag = node.listType === 'bullet' ? 'ul' : 'ol';
 
     return para(`<${tag}>\n${context.content()}</${tag}>`);
   }
@@ -63,7 +72,9 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public image(node: cm.Node, context: RendererContext) {
-    return `<img alt="${ESCAPE.text2attr(context.content())}" src="${ESCAPE.attribute(node.destination) ?? ''}">`;
+    return `<img alt="${ESCAPE.text2attr(
+      context.content(),
+    )}" src="${ESCAPE.attribute(node.destination) ?? ''}">`;
   }
 
   public emph(_node: cm.Node, context: RendererContext) {

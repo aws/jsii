@@ -60,7 +60,7 @@ export interface MethodOverride {
 }
 
 export function isMethodOverride(value: Override): value is MethodOverride {
-  return (value as any).method != null;  // Python passes "null"
+  return (value as any).method != null; // Python passes "null"
 }
 
 export interface PropertyOverride {
@@ -69,7 +69,7 @@ export interface PropertyOverride {
 }
 
 export function isPropertyOverride(value: Override): value is PropertyOverride {
-  return (value as any).property != null;  // Python passes "null"
+  return (value as any).property != null; // Python passes "null"
 }
 
 export interface Callback {
@@ -162,7 +162,7 @@ export interface SetRequest {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SetResponse { }
+export interface SetResponse {}
 
 export interface StaticInvokeRequest {
   readonly fqn: string;
@@ -199,7 +199,7 @@ export interface EndResponse {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface CallbacksRequest { }
+export interface CallbacksRequest {}
 
 export interface CallbacksResponse {
   readonly callbacks: Callback[];
@@ -220,44 +220,46 @@ export interface NamingRequest {
 }
 
 export interface NamingResponse {
-  readonly naming: { readonly [language: string]: { readonly [key: string]: any } | undefined };
+  readonly naming: {
+    readonly [language: string]: { readonly [key: string]: any } | undefined;
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface StatsRequest { }
+export interface StatsRequest {}
 
 export interface StatsResponse {
   readonly objectCount: number;
 }
 
 export type KernelRequest =
-    LoadRequest |
-    CreateRequest |
-    DelRequest |
-    GetRequest |
-    SetRequest |
-    InvokeRequest |
-    BeginRequest |
-    EndRequest |
-    CallbacksRequest |
-    CompleteRequest |
-    NamingRequest |
-    StatsRequest;
+  | LoadRequest
+  | CreateRequest
+  | DelRequest
+  | GetRequest
+  | SetRequest
+  | InvokeRequest
+  | BeginRequest
+  | EndRequest
+  | CallbacksRequest
+  | CompleteRequest
+  | NamingRequest
+  | StatsRequest;
 
 export type KernelResponse =
-    HelloResponse |
-    LoadResponse |
-    CreateResponse |
-    DelResponse |
-    GetResponse |
-    SetResponse |
-    InvokeResponse |
-    BeginResponse |
-    EndResponse |
-    CallbacksResponse |
-    CompleteResponse |
-    NamingResponse |
-    StatsResponse;
+  | HelloResponse
+  | LoadResponse
+  | CreateResponse
+  | DelResponse
+  | GetResponse
+  | SetResponse
+  | InvokeResponse
+  | BeginResponse
+  | EndResponse
+  | CallbacksResponse
+  | CompleteResponse
+  | NamingResponse
+  | StatsResponse;
 
 export interface OkayResponse {
   readonly ok: any;

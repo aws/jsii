@@ -2,9 +2,18 @@ import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
 import { ApiElement, ComparisonContext } from './types';
 
-export function compareStabilities(original: reflect.Documentable & ApiElement, updated: reflect.Documentable, context: ComparisonContext) {
+export function compareStabilities(
+  original: reflect.Documentable & ApiElement,
+  updated: reflect.Documentable,
+  context: ComparisonContext,
+) {
   // Nothing to do in these cases
-  if (original.docs.stability === undefined || original.docs.stability === updated.docs.stability) { return; }
+  if (
+    original.docs.stability === undefined ||
+    original.docs.stability === updated.docs.stability
+  ) {
+    return;
+  }
 
   // Not allowed to disavow stability
   if (updated.docs.stability === undefined) {
@@ -30,7 +39,11 @@ function allowedTransitions(start: spec.Stability): spec.Stability[] {
   switch (start) {
     // Experimental can go to stable, external, or be deprecated
     case spec.Stability.Experimental:
-      return [spec.Stability.Stable, spec.Stability.Deprecated, spec.Stability.External];
+      return [
+        spec.Stability.Stable,
+        spec.Stability.Deprecated,
+        spec.Stability.External,
+      ];
 
     // Stable can be deprecated, or switched to external
     case spec.Stability.Stable:

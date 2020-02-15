@@ -2,9 +2,16 @@ import { CodeMaker } from 'codemaker';
 import * as spec from '@jsii/spec';
 import * as xmlbuilder from 'xmlbuilder';
 import { DotNetNameUtils } from './nameutils';
-import { Rosetta, Translation, typeScriptSnippetFromSource, markDownToXmlDoc } from 'jsii-rosetta';
-import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';
-
+import {
+  Rosetta,
+  Translation,
+  typeScriptSnippetFromSource,
+  markDownToXmlDoc,
+} from 'jsii-rosetta';
+import {
+  INCOMPLETE_DISCLAIMER_COMPILING,
+  INCOMPLETE_DISCLAIMER_NONCOMPILING,
+} from '..';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
@@ -20,15 +27,15 @@ export class DotNetDocGenerator {
   }
 
   /**
-     * Emits all documentation depending on what is available in the jsii model
-     *
-     * Used by all kind of members + classes, interfaces, enums
-     * Order should be
-     * Summary
-     * Param
-     * Returns
-     * Remarks (includes examples, links, deprecated)
-     */
+   * Emits all documentation depending on what is available in the jsii model
+   *
+   * Used by all kind of members + classes, interfaces, enums
+   * Order should be
+   * Summary
+   * Param
+   * Returns
+   * Remarks (includes examples, links, deprecated)
+   */
   public emitDocs(obj: spec.Documentable): void {
     const docs = obj.docs;
 
@@ -40,8 +47,12 @@ export class DotNetDocGenerator {
     if (objMethod.parameters) {
       objMethod.parameters.forEach(param => {
         // Remove any slug `@` from the parameter name - it's not supposed to show up here.
-        const paramName = this.nameutils.convertParameterName(param.name).replace(/^@/, '');
-        this.emitXmlDoc('param', param.docs?.summary || '', { attributes: { name: paramName } });
+        const paramName = this.nameutils
+          .convertParameterName(param.name)
+          .replace(/^@/, '');
+        this.emitXmlDoc('param', param.docs?.summary || '', {
+          attributes: { name: paramName },
+        });
       });
     }
 
@@ -72,9 +83,13 @@ export class DotNetDocGenerator {
   }
 
   public emitMarkdownAsRemarks(markdown: string | undefined) {
-    if (!markdown) { return; }
+    if (!markdown) {
+      return;
+    }
 
-    const translated = markDownToXmlDoc(this.convertSamplesInMarkdown(markdown));
+    const translated = markDownToXmlDoc(
+      this.convertSamplesInMarkdown(markdown),
+    );
     const lines = translated.split('\n');
 
     this.code.line('/// <remarks>');
@@ -91,25 +106,42 @@ export class DotNetDocGenerator {
     const ret: string[] = [];
 
     if (docs.remarks) {
-      const translated = markDownToXmlDoc(this.convertSamplesInMarkdown(docs.remarks));
+      const translated = markDownToXmlDoc(
+        this.convertSamplesInMarkdown(docs.remarks),
+      );
       ret.push(...translated.split('\n'));
       ret.push('');
     }
 
     // All the "tags" need to be rendered with empyt lines between them or they'll be word wrapped.
 
-    if (docs.default) { emitDocAttribute('default', docs.default); }
-    if (docs.stability) { emitDocAttribute('stability', this.nameutils.capitalizeWord(docs.stability)); }
-    if (docs.see) { emitDocAttribute('see', docs.see); }
-    if (docs.subclassable) { emitDocAttribute('subclassable', ''); }
+    if (docs.default) {
+      emitDocAttribute('default', docs.default);
+    }
+    if (docs.stability) {
+      emitDocAttribute(
+        'stability',
+        this.nameutils.capitalizeWord(docs.stability),
+      );
+    }
+    if (docs.see) {
+      emitDocAttribute('see', docs.see);
+    }
+    if (docs.subclassable) {
+      emitDocAttribute('subclassable', '');
+    }
     for (const [k, v] of Object.entries(docs.custom || {})) {
       const extraSpace = k === 'link' ? ' ' : ''; // Extra space for '@link' to keep unit tests happy
       emitDocAttribute(k, v + extraSpace);
     }
 
     // Remove leading and trailing empty lines
-    while (ret.length > 0 && ret[0] === '') { ret.shift(); }
-    while (ret.length > 0 && ret[ret.length - 1] === '') { ret.pop(); }
+    while (ret.length > 0 && ret[0] === '') {
+      ret.shift();
+    }
+    while (ret.length > 0 && ret[ret.length - 1] === '') {
+      ret.pop();
+    }
 
     return ret;
 
@@ -124,15 +156,21 @@ export class DotNetDocGenerator {
   private convertExample(example: string): string {
     const snippet = typeScriptSnippetFromSource(example, 'example');
     const translated = this.rosetta.translateSnippet(snippet, 'csharp');
-    if (!translated) { return example; }
+    if (!translated) {
+      return example;
+    }
     return this.prefixDisclaimer(translated);
   }
 
   private convertSamplesInMarkdown(markdown: string): string {
-    return this.rosetta.translateSnippetsInMarkdown(markdown, 'csharp', trans => ({
-      language: trans.language,
-      source: this.prefixDisclaimer(trans)
-    }));
+    return this.rosetta.translateSnippetsInMarkdown(
+      markdown,
+      'csharp',
+      trans => ({
+        language: trans.language,
+        source: this.prefixDisclaimer(trans),
+      }),
+    );
   }
 
   private prefixDisclaimer(translated: Translation) {
@@ -145,11 +183,16 @@ export class DotNetDocGenerator {
     return translated.source;
   }
 
-  private emitXmlDoc(tag: string, content: string, { attributes = {} }: { attributes?: { [name: string]: string } } = {}): void {
-    if (!content) { return; }
+  private emitXmlDoc(
+    tag: string,
+    content: string,
+    { attributes = {} }: { attributes?: { [name: string]: string } } = {},
+  ): void {
+    if (!content) {
+      return;
+    }
 
-    const xml = xmlbuilder.create(tag, { headless: true })
-      .text(content);
+    const xml = xmlbuilder.create(tag, { headless: true }).text(content);
     for (const [name, value] of Object.entries(attributes)) {
       xml.att(name, value);
     }

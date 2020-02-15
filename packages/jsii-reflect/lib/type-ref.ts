@@ -5,15 +5,26 @@ import { TypeSystem } from './type-system';
 export class TypeReference {
   public constructor(
     public readonly system: TypeSystem,
-    public readonly spec?: jsii.TypeReference) { }
+    public readonly spec?: jsii.TypeReference,
+  ) {}
 
   public toString(): string {
-    if (this.void) { return 'void'; }
-    if (this.primitive) { return this.primitive; }
-    if (this.fqn) { return this.fqn; }
+    if (this.void) {
+      return 'void';
+    }
+    if (this.primitive) {
+      return this.primitive;
+    }
+    if (this.fqn) {
+      return this.fqn;
+    }
 
-    if (this.arrayOfType) { return `Array<${this.arrayOfType}>`; }
-    if (this.mapOfType) { return `Map<string => ${this.mapOfType}>`; }
+    if (this.arrayOfType) {
+      return `Array<${this.arrayOfType}>`;
+    }
+    if (this.mapOfType) {
+      return `Map<string => ${this.mapOfType}>`;
+    }
     if (this.unionOfTypes) {
       return this.unionOfTypes.map(x => x.toString()).join(' | ');
     }

@@ -1,4 +1,10 @@
-import { Rosetta, LanguageTablet, TranslatedSnippet, TypeScriptSnippet, DEFAULT_TABLET_NAME } from '../lib';
+import {
+  Rosetta,
+  LanguageTablet,
+  TranslatedSnippet,
+  TypeScriptSnippet,
+  DEFAULT_TABLET_NAME,
+} from '../lib';
 import * as mockfs from 'mock-fs';
 import { TargetLanguage } from '../lib/languages';
 import { fakeAssembly } from './jsii/assemblies.test';
@@ -12,7 +18,7 @@ test('Rosetta object can do live translation', () => {
   // GIVEN
   const rosetta = new Rosetta({
     liveConversion: true,
-    targetLanguages: ['python']
+    targetLanguages: ['python'],
   });
 
   // WHEN
@@ -21,7 +27,7 @@ test('Rosetta object can do live translation', () => {
   // THEN
   expect(translated).toMatchObject({
     source: 'call_this_function()',
-    language: 'python'
+    language: 'python',
   });
 });
 
@@ -30,11 +36,13 @@ test('Can use preloaded tablet', () => {
   const rosetta = new Rosetta();
 
   const tablet = new LanguageTablet();
-  tablet.addSnippet(makeSnippet(SAMPLE_CODE, {
-    python: 'Not Really Translated',
-    csharp: 'Not Really Translated C#',
-    java: 'Not Really Translated Java',
-  }));
+  tablet.addSnippet(
+    makeSnippet(SAMPLE_CODE, {
+      python: 'Not Really Translated',
+      csharp: 'Not Really Translated C#',
+      java: 'Not Really Translated Java',
+    }),
+  );
   rosetta.addTablet(tablet);
 
   // WHEN
@@ -43,7 +51,7 @@ test('Can use preloaded tablet', () => {
   // THEN
   expect(translated).toMatchObject({
     source: 'Not Really Translated',
-    language: 'python'
+    language: 'python',
   });
 });
 
@@ -51,7 +59,7 @@ test('Rosetta object can do live translation', () => {
   // GIVEN
   const rosetta = new Rosetta({
     liveConversion: true,
-    targetLanguages: ['python']
+    targetLanguages: ['python'],
   });
 
   // WHEN
@@ -60,56 +68,70 @@ test('Rosetta object can do live translation', () => {
   // THEN
   expect(translated).toMatchObject({
     source: 'call_this_function()',
-    language: 'python'
+    language: 'python',
   });
 });
-
 
 test('Rosetta object can do translation and annotation of snippets in MarkDown', () => {
   // GIVEN
   const rosetta = new Rosetta({
     liveConversion: true,
-    targetLanguages: ['python']
+    targetLanguages: ['python'],
   });
 
   // WHEN
-  const translated = rosetta.translateSnippetsInMarkdown([
-    '# MarkDown Translation',
-    '',
-    'Now follows a snippet:',
-    '```ts',
-    SAMPLE_CODE.visibleSource,
-    '```',
-    'That was it, thank you for your attention.'
-  ].join('\n'), 'python', trans => {
-    return { ...trans, source: `# We translated something!\n${trans.source}` };
-  });
+  const translated = rosetta.translateSnippetsInMarkdown(
+    [
+      '# MarkDown Translation',
+      '',
+      'Now follows a snippet:',
+      '```ts',
+      SAMPLE_CODE.visibleSource,
+      '```',
+      'That was it, thank you for your attention.',
+    ].join('\n'),
+    'python',
+    trans => {
+      return {
+        ...trans,
+        source: `# We translated something!\n${trans.source}`,
+      };
+    },
+  );
 
   // THEN
-  expect(translated).toEqual([
-    '# MarkDown Translation',
-    '',
-    'Now follows a snippet:',
-    '',
-    '```python',
-    '# We translated something!',
-    'call_this_function()',
-    '```',
-    '',
-    'That was it, thank you for your attention.'
-  ].join('\n'));
+  expect(translated).toEqual(
+    [
+      '# MarkDown Translation',
+      '',
+      'Now follows a snippet:',
+      '',
+      '```python',
+      '# We translated something!',
+      'call_this_function()',
+      '```',
+      '',
+      'That was it, thank you for your attention.',
+    ].join('\n'),
+  );
 });
 
 describe('with mocked filesystem', () => {
-  beforeEach(() => { mockfs(); });
-  afterEach(() => { mockfs.restore(); });
+  beforeEach(() => {
+    mockfs();
+  });
+  afterEach(() => {
+    mockfs.restore();
+  });
 
   const tablet = new LanguageTablet();
-  tablet.addSnippet(makeSnippet(SAMPLE_CODE, {
-    python: 'My Stored Translation',
-    csharp: 'My Stored Translation C#',
-    java: 'My Stored Translation Java',
-  }));
+  tablet.addSnippet(
+    makeSnippet(SAMPLE_CODE, {
+      python: 'My Stored Translation',
+      csharp: 'My Stored Translation C#',
+      java: 'My Stored Translation Java',
+    }),
+  );
 
   test('Can save language tablet and load it in Rosetta class', async () => {
     // GIVEN
@@ -123,7 +145,7 @@ describe('with mocked filesystem', () => {
     // THEN
     expect(translated).toMatchObject({
       source: 'My Stored Translation',
-      language: 'python'
+      language: 'python',
     });
   });
 
@@ -139,14 +161,15 @@ describe('with mocked filesystem', () => {
     // THEN
     expect(translated).toMatchObject({
       source: 'My Stored Translation',
-      language: 'python'
+      language: 'python',
     });
   });
-
 });
 
-
-function makeSnippet(original: TypeScriptSnippet, translations: Record<TargetLanguage, string>) {
+function makeSnippet(
+  original: TypeScriptSnippet,
+  translations: Record<TargetLanguage, string>,
+) {
   const snippet = TranslatedSnippet.fromSnippet(original);
   for (const [key, value] of Object.entries(translations)) {
     snippet.addTranslatedSource(key as TargetLanguage, value);

@@ -3,6 +3,8 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "lerna run build --stream --sort --concurrency=1",
+    "lint": "lerna run lint --stream --sort",
+    "lint:fix": "lerna run lint:fix --stream --sort",
     "bump": "bash scripts/bump.sh",
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
     "package": "bash scripts/package.sh",

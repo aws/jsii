@@ -19,9 +19,15 @@ export interface TranslateResponse {
 }
 
 function translateSnippet(request: TranslateRequest): TranslateResponse {
-  const result = singleThreadedTranslateAll(request.snippets[Symbol.iterator](), request.includeCompilerDiagnostics);
+  const result = singleThreadedTranslateAll(
+    request.snippets[Symbol.iterator](),
+    request.includeCompilerDiagnostics,
+  );
 
-  return { diagnostics: result.diagnostics, translatedSnippetSchemas: result.translatedSnippets.map(s => s.toSchema()) };
+  return {
+    diagnostics: result.diagnostics,
+    translatedSnippetSchemas: result.translatedSnippets.map(s => s.toSchema()),
+  };
 }
 
 if (worker.isMainThread) {
@@ -29,7 +35,9 @@ if (worker.isMainThread) {
   // deal, but we want to be compatible with run modes where 'worker_threads' is not available
   // and by doing this people on platforms where 'worker_threads' is available don't accidentally
   // add a require().
-  throw new Error('This script should be run as a worker, not included directly.');
+  throw new Error(
+    'This script should be run as a worker, not included directly.',
+  );
 }
 
 const request = worker.workerData;

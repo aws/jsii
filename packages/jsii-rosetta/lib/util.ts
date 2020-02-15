@@ -9,15 +9,27 @@ export interface File {
   readonly fileName: string;
 }
 
-export function printDiagnostics(diags: ts.Diagnostic[], stream: NodeJS.WritableStream) {
+export function printDiagnostics(
+  diags: ts.Diagnostic[],
+  stream: NodeJS.WritableStream,
+) {
   diags.forEach(d => printDiagnostic(d, stream));
 }
 
-export function printDiagnostic(diag: ts.Diagnostic, stream: NodeJS.WritableStream) {
+export function printDiagnostic(
+  diag: ts.Diagnostic,
+  stream: NodeJS.WritableStream,
+) {
   const host = {
-    getCurrentDirectory() { return '.'; },
-    getCanonicalFileName(fileName: string) { return fileName; },
-    getNewLine() { return '\n'; }
+    getCurrentDirectory() {
+      return '.';
+    },
+    getCanonicalFileName(fileName: string) {
+      return fileName;
+    },
+    getNewLine() {
+      return '\n';
+    },
   };
 
   const message = ts.formatDiagnosticsWithColorAndContext([diag], host);

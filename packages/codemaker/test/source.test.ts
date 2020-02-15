@@ -4,8 +4,9 @@ import { CodeMaker } from '../lib';
 
 test('cannot write before opening a file', () => {
   const sources = new CodeMaker();
-  expect(() => sources.line('Nope!'))
-    .toThrow(/Cannot emit source lines without openning a file/);
+  expect(() => sources.line('Nope!')).toThrow(
+    /Cannot emit source lines without openning a file/,
+  );
 });
 
 test('source files', async () => {
@@ -21,7 +22,8 @@ test('source files', async () => {
   sources.close(']');
   sources.closeFile('myfile.js');
 
-  const yourfileRelativePath = './relative/subdirs/are/also/supported/yourfile.js';
+  const yourfileRelativePath =
+    './relative/subdirs/are/also/supported/yourfile.js';
   sources.openFile(yourfileRelativePath);
   sources.line('this is your file speaking');
 

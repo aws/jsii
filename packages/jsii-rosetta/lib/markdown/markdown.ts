@@ -1,6 +1,10 @@
 import * as cm from 'commonmark';
 
-export function transformMarkdown(source: string, renderer: CommonMarkRenderer, transform?: CommonMarkVisitor) {
+export function transformMarkdown(
+  source: string,
+  renderer: CommonMarkRenderer,
+  transform?: CommonMarkVisitor,
+) {
   const parser = new cm.Parser();
   const doc = parser.parse(source);
   if (transform) {
@@ -40,7 +44,10 @@ export interface CommonMarkRenderer {
 }
 /* eslint-enable @typescript-eslint/camelcase */
 
-export function renderCommonMarkTree(node: cm.Node, renderer: CommonMarkRenderer) {
+export function renderCommonMarkTree(
+  node: cm.Node,
+  renderer: CommonMarkRenderer,
+) {
   const context: RendererContext = {
     recurse(n: cm.Node): string {
       return renderCommonMarkTree(n, renderer);
@@ -56,7 +63,7 @@ export function renderCommonMarkTree(node: cm.Node, renderer: CommonMarkRenderer
         parts.push(renderCommonMarkTree(child, renderer));
       }
       return parts;
-    }
+    },
   };
 
   return renderer[node.type](node, context);
@@ -70,7 +77,10 @@ export function visitCommonMarkTree(node: cm.Node, visitor: CommonMarkVisitor) {
 }
 
 export function prefixLines(prefix: string, x: string) {
-  return x.split('\n').map(l => prefix + l).join('\n');
+  return x
+    .split('\n')
+    .map(l => prefix + l)
+    .join('\n');
 }
 
 export function* cmNodeChildren(node: cm.Node): IterableIterator<cm.Node> {

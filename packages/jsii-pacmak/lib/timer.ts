@@ -22,7 +22,9 @@ export class Timer {
   }
 
   public humanTime() {
-    if (!this.timeMs) { return '???'; }
+    if (!this.timeMs) {
+      return '???';
+    }
 
     const parts = [];
 

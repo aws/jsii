@@ -8,7 +8,10 @@ import { Comparator, Range } from 'semver';
  *
  * @see https://cwiki.apache.org/confluence/display/MAVENOLD/Dependency+Mediation+and+Conflict+Resolution
  */
-export function toMavenVersionRange(semverRange: string, suffix?: string): string {
+export function toMavenVersionRange(
+  semverRange: string,
+  suffix?: string,
+): string {
   return toBracketNotation(semverRange, suffix);
 }
 
@@ -31,47 +34,64 @@ export function toNuGetVersionRange(semverRange: string): string {
  */
 export function toPythonVersionRange(semverRange: string): string {
   const range = new Range(semverRange);
-  return range.set.map(
-    set => set.map(
-      comp => {
-        switch (comp.operator) {
-          case '':
-          case '=':
-            return `==${comp.semver.raw}`;
-          default: // >, >=, <, <= are all valid expressions
-            return `${comp.operator}${comp.semver.raw}`;
-        }
-      }
-    ).join(', ')
-  ).join(', ');
+  return range.set
+    .map(set =>
+      set
+        .map(comp => {
+          switch (comp.operator) {
+            case '':
+            case '=':
+              return `==${comp.semver.raw}`;
+            default:
+              // >, >=, <, <= are all valid expressions
+              return `${comp.operator}${comp.semver.raw}`;
+          }
+        })
+        .join(', '),
+    )
+    .join(', ');
 }
 
 function toBracketNotation(semverRange: string, suffix?: string): string {
   const range = new Range(semverRange);
-  return range.set.map(set => {
-    if (set.length === 1) {
-      switch (set[0].operator || '=') {
-        // "[version]" => means exactly version
-        case '=': return `[${addSuffix(set[0].semver.raw)}]`;
-        // "(version,]" => means greater than version
-        case '>': return `(${addSuffix(set[0].semver.raw)},]`;
-        // "[version,]" => means greater than or equal to that version
-        case '>=': return `[${addSuffix(set[0].semver.raw)},]`;
-        // "[,version)" => means less than version
-        case '<': return `[,${addSuffix(set[0].semver.raw)})`;
-        // "[,version]" => means less than or equal to version
-        case '<=': return `[,${addSuffix(set[0].semver.raw)}]`;
+  return range.set
+    .map(set => {
+      if (set.length === 1) {
+        switch (set[0].operator || '=') {
+          // "[version]" => means exactly version
+          case '=':
+            return `[${addSuffix(set[0].semver.raw)}]`;
+          // "(version,]" => means greater than version
+          case '>':
+            return `(${addSuffix(set[0].semver.raw)},]`;
+          // "[version,]" => means greater than or equal to that version
+          case '>=':
+            return `[${addSuffix(set[0].semver.raw)},]`;
+          // "[,version)" => means less than version
+          case '<':
+            return `[,${addSuffix(set[0].semver.raw)})`;
+          // "[,version]" => means less than or equal to version
+          case '<=':
+            return `[,${addSuffix(set[0].semver.raw)}]`;
+        }
+      } else if (set.length === 2) {
+        const nugetRange = toBracketRange(set[0], set[1]);
+        if (nugetRange) {
+          return nugetRange;
+        }
       }
-    } else if (set.length === 2) {
-      const nugetRange = toBracketRange(set[0], set[1]);
-      if (nugetRange) {
-        return nugetRange;
-      }
-    }
-    throw new Error(`Unsupported SemVer range set: ${set.map(comp => comp.value).join(', ')}`);
-  }).join(', ');
+      throw new Error(
+        `Unsupported SemVer range set: ${set
+          .map(comp => comp.value)
+          .join(', ')}`,
+      );
+    })
+    .join(', ');
 
-  function toBracketRange(left: Comparator, right: Comparator): string | undefined {
+  function toBracketRange(
+    left: Comparator,
+    right: Comparator,
+  ): string | undefined {
     if (left.operator.startsWith('<') && right.operator.startsWith('>')) {
       // Order isn't ideal, swap around..
       [left, right] = [right, left];
@@ -84,7 +104,9 @@ function toBracketNotation(semverRange: string, suffix?: string): string {
 
     const leftBrace = left.operator.endsWith('=') ? '[' : '(';
     const rightBrace = right.operator.endsWith('=') ? ']' : ')';
-    return `${leftBrace}${addSuffix(left.semver.raw)},${addSuffix(right.semver.raw)}${rightBrace}`;
+    return `${leftBrace}${addSuffix(left.semver.raw)},${addSuffix(
+      right.semver.raw,
+    )}${rightBrace}`;
   }
 
   function addSuffix(str: string) {

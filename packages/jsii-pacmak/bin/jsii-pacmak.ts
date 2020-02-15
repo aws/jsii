@@ -18,56 +18,60 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
       alias: ['target', 't'],
       type: 'array',
       desc: 'target languages for which to generate bindings',
-      defaultDescription: 'all targets defined in `package.json` will be generated',
+      defaultDescription:
+        'all targets defined in `package.json` will be generated',
       choices: Object.keys(ALL_BUILDERS),
-      required: false
+      required: false,
     })
     .option('outdir', {
       alias: 'o',
       type: 'string',
       desc: 'directory where artifacts will be generated',
       defaultDescription: 'based on `jsii.output` in `package.json`',
-      required: false
+      required: false,
     })
     .option('code-only', {
       alias: 'c',
       type: 'boolean',
       desc: 'generate code only (instead of building and packaging)',
-      default: false
+      default: false,
     })
     .option('fingerprint', {
       type: 'boolean',
-      desc: 'attach a fingerprint to the generated artifacts, and skip generation if outdir contains artifacts that have a matching fingerprint',
-      default: true
+      desc:
+        'attach a fingerprint to the generated artifacts, and skip generation if outdir contains artifacts that have a matching fingerprint',
+      default: true,
     })
     .option('force', {
       alias: 'f',
       type: 'boolean',
       desc: 'force generation of new artifacts, even if the fingerprints match',
-      default: false
+      default: false,
     })
     .option('force-subdirectory', {
       type: 'boolean',
-      desc: 'force generation into a target-named subdirectory, even in single-target mode',
+      desc:
+        'force generation into a target-named subdirectory, even in single-target mode',
       default: true,
     })
     .option('force-target', {
       type: 'boolean',
-      desc: 'force generation of the given targets, even if the source package.json doesnt declare it',
+      desc:
+        'force generation of the given targets, even if the source package.json doesnt declare it',
       default: false,
     })
     .option('recurse', {
       alias: 'R',
       type: 'boolean',
       desc: 'recursively generate and build all dependencies into `outdir`',
-      default: false
+      default: false,
     })
     .option('verbose', {
       alias: 'v',
       type: 'boolean',
       desc: 'emit verbose build output',
       count: true,
-      default: 0
+      default: 0,
     })
     .option('clean', {
       type: 'boolean',
@@ -76,21 +80,23 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
     })
     .option('npmignore', {
       type: 'boolean',
-      desc: 'Auto-update .npmignore to exclude the output directory and include the .jsii file',
-      default: true
+      desc:
+        'Auto-update .npmignore to exclude the output directory and include the .jsii file',
+      default: true,
     })
     .option('rosetta-tablet', {
       type: 'string',
-      desc: 'Location of a jsii-rosetta tablet with sample translations (created using \'jsii-rosetta extract\')'
+      desc:
+        "Location of a jsii-rosetta tablet with sample translations (created using 'jsii-rosetta extract')",
     })
     .option('rosetta-translate-live', {
       type: 'boolean',
-      desc: 'Translate code samples on-the-fly if they can\'t be found in the samples tablet',
-      default: true
+      desc:
+        "Translate code samples on-the-fly if they can't be found in the samples tablet",
+      default: true,
     })
     .version(VERSION_DESC)
-    .strict()
-    .argv;
+    .strict().argv;
 
   logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
 
@@ -99,7 +105,9 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
   const timers = new Timers();
 
-  const rosetta = new Rosetta({ liveConversion: argv['rosetta-translate-live'] });
+  const rosetta = new Rosetta({
+    liveConversion: argv['rosetta-translate-live'],
+  });
   if (argv['rosetta-tablet']) {
     await rosetta.loadTabletFromFile(argv['rosetta-tablet']);
   }
@@ -115,7 +123,6 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
     for (const module of modulesToPackage) {
       module.outputDirectory = path.resolve(argv.outdir);
     }
-
   } else if (argv.npmignore) {
     // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
     // defined via --out, don't perform this verification.
@@ -124,44 +131,59 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
   await timers.recordAsync('npm pack', () => {
     logging.info('Packaging NPM bundles');
-    return Promise.all(modulesToPackage
-      .map(m => m.npmPack()));
+    return Promise.all(modulesToPackage.map(m => m.npmPack()));
   });
 
   await timers.recordAsync('load jsii', () => {
     logging.info('Loading jsii assemblies and translations');
-    return Promise.all(modulesToPackage
-      .map(async m => {
+    return Promise.all(
+      modulesToPackage.map(async m => {
         await m.load();
         await rosetta.addAssembly(m.assembly.spec, m.moduleDirectory);
-      }));
+      }),
+    );
   });
 
   try {
     const requestedTargets = argv.targets?.map(t => `${t}`);
-    const targetSets = sliceTargets(modulesToPackage, requestedTargets, argv['force-target']);
+    const targetSets = sliceTargets(
+      modulesToPackage,
+      requestedTargets,
+      argv['force-target'],
+    );
 
     if (targetSets.every(s => s.modules.length === 0)) {
-      throw new Error(`None of the requested packages had any targets to build for '${requestedTargets}' (use --force-target to force)`);
+      throw new Error(
+        `None of the requested packages had any targets to build for '${requestedTargets}' (use --force-target to force)`,
+      );
     }
 
-    const perLanguageDirectory = targetSets.length > 1 || argv['force-subdirectory'];
+    const perLanguageDirectory =
+      targetSets.length > 1 || argv['force-subdirectory'];
 
     // We run all target sets in parallel for minimal wall clock time
-    await Promise.all(targetSets.map(async targetSet => {
-      logging.info(`Packaging '${targetSet.targetType}' for ${describePackages(targetSet)}`);
-      await timers.recordAsync(targetSet.targetType, () =>
-        buildTargetsForLanguage(targetSet.targetType, targetSet.modules, perLanguageDirectory)
-      );
-      logging.info(`${targetSet.targetType} finished`);
-    }));
-
+    await Promise.all(
+      targetSets.map(async targetSet => {
+        logging.info(
+          `Packaging '${targetSet.targetType}' for ${describePackages(
+            targetSet,
+          )}`,
+        );
+        await timers.recordAsync(targetSet.targetType, () =>
+          buildTargetsForLanguage(
+            targetSet.targetType,
+            targetSet.modules,
+            perLanguageDirectory,
+          ),
+        );
+        logging.info(`${targetSet.targetType} finished`);
+      }),
+    );
   } finally {
     if (argv.clean) {
       logging.debug('Cleaning up');
       await timers.recordAsync('cleanup', () =>
-        Promise.all(modulesToPackage
-          .map(m => m.cleanup()))
+        Promise.all(modulesToPackage.map(m => m.cleanup())),
       );
     } else {
       logging.debug('Temporary directories retained (--no-clean)');
@@ -170,7 +192,11 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
   logging.info(`Packaged. ${timers.display()}`);
 
-  async function buildTargetsForLanguage(targetLanguage: string, modules: JsiiModule[], perLanguageDirectory: boolean) {
+  async function buildTargetsForLanguage(
+    targetLanguage: string,
+    modules: JsiiModule[],
+    perLanguageDirectory: boolean,
+  ) {
     // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
     const factory = ALL_BUILDERS[targetLanguage as TargetName];
     if (!factory) {
@@ -200,7 +226,11 @@ interface TargetSet {
   modules: JsiiModule[];
 }
 
-function sliceTargets(modules: JsiiModule[], requestedTargets: string[] | undefined, force: boolean) {
+function sliceTargets(
+  modules: JsiiModule[],
+  requestedTargets: string[] | undefined,
+  force: boolean,
+) {
   if (requestedTargets === undefined) {
     requestedTargets = allAvailableTargets(modules);
   }
@@ -209,7 +239,9 @@ function sliceTargets(modules: JsiiModule[], requestedTargets: string[] | undefi
   for (const target of requestedTargets) {
     ret.push({
       targetType: target,
-      modules: modules.filter(m => force || m.availableTargets.includes(target))
+      modules: modules.filter(
+        m => force || m.availableTargets.includes(target),
+      ),
     });
   }
 

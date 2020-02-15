@@ -45,7 +45,9 @@ export function md2rst(text: string) {
       if (!entering && node.next && node.next?.type === 'code_block') {
         doc.transformLastLine(lastLine => {
           const appended = lastLine.replace(/[\W]$/, '::');
-          if (appended !== lastLine) { return appended; }
+          if (appended !== lastLine) {
+            return appended;
+          }
 
           return `${lastLine} Example::`;
         });
@@ -57,13 +59,27 @@ export function md2rst(text: string) {
       }
     },
 
-    text(node) { doc.append(textOf(node)); },
-    softbreak() { doc.newline(); },
-    linebreak() { doc.newline(); },
-    thematic_break() { doc.appendLine('------'); },
-    code(node) { doc.append(`\`\`${textOf(node)}\`\``); },
-    strong() { doc.append('**'); },
-    emph() { doc.append('*'); },
+    text(node) {
+      doc.append(textOf(node));
+    },
+    softbreak() {
+      doc.newline();
+    },
+    linebreak() {
+      doc.newline();
+    },
+    thematic_break() {
+      doc.appendLine('------');
+    },
+    code(node) {
+      doc.append(`\`\`${textOf(node)}\`\``);
+    },
+    strong() {
+      doc.append('**');
+    },
+    emph() {
+      doc.append('*');
+    },
 
     list() {
       doc.paraBreak();
@@ -101,13 +117,14 @@ export function md2rst(text: string) {
 
       doc.pushBulletPrefix('   ');
 
-      for (const l of textOf(node).replace(/\n+$/, '').split('\n')) {
+      for (const l of textOf(node)
+        .replace(/\n+$/, '')
+        .split('\n')) {
         doc.appendLine(l);
       }
 
       doc.popPrefix();
-    }
-
+    },
   });
   /* eslint-enable @typescript-eslint/camelcase */
 
@@ -141,7 +158,9 @@ class DocumentBuilder {
   }
 
   public paraBreak() {
-    if (this.lines.length > 0 && partsToString(this.lastLine) !== '') { this.newline(); }
+    if (this.lines.length > 0 && partsToString(this.lastLine) !== '') {
+      this.newline();
+    }
   }
 
   public get length() {
@@ -171,7 +190,11 @@ class DocumentBuilder {
 
   public transformLastLine(block: (x: string) => string) {
     if (this.length >= 0) {
-      this.lines[this.length - 1].splice(0, this.lastLine.length, block(partsToString(this.lastLine)));
+      this.lines[this.length - 1].splice(
+        0,
+        this.lastLine.length,
+        block(partsToString(this.lastLine)),
+      );
     } else {
       this.lines.push([block('')]);
     }
@@ -184,7 +207,10 @@ class DocumentBuilder {
   }
 
   public toString() {
-    return this.lines.map(partsToString).join('\n').replace(/\n+$/, '');
+    return this.lines
+      .map(partsToString)
+      .join('\n')
+      .replace(/\n+$/, '');
   }
 
   private flushQueuedNewline() {
@@ -205,7 +231,7 @@ function partsToString(parts: string[]) {
 const headings = ['=', '-', '^', '"'];
 
 type Handler = (node: commonmark.Node, entering: boolean) => void;
-type Handlers = {[key in commonmark.NodeType]?: Handler };
+type Handlers = { [key in commonmark.NodeType]?: Handler };
 
 /**
  * Pump a CommonMark AST tree through a set of handlers
