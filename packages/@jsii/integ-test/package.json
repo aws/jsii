@@ -18,7 +18,7 @@
     "tar": "^6.0.1"
   },
   "devDependencies": {
-    "@octokit/rest": "^16.36.0",
+    "@octokit/rest": "^16.43.1",
     "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^8.0.1",
     "@types/tar": "^4.0.3",
