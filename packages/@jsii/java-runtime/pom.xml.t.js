@@ -20,18 +20,25 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 
     <licenses>
         <license>
-            <name>Apache License 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <name>${packageInfo.license}</name>
+            <url>https://spdx.org/licenses/${packageInfo.license}.html</url>
             <distribution>repo</distribution>
-            <comments>An OSI-approved license</comments>
         </license>
     </licenses>
+
+    <organization>
+        <name>Amazon Web Services</name>
+        <url>https://aws.amazon.com</url>
+    </organization>
 
     <developers>
         <developer>
             <id>amazonwebservices</id>
-            <organization>${packageInfo.author.name}</organization>
-            <organizationUrl>${packageInfo.author.url}</organizationUrl>
+            <name>${packageInfo.author.name}</name>
+            <email>${packageInfo.author.email}</email>
+            <url>${packageInfo.author.url}</url>
+            <organization>Amazon Web Services</organization>
+            <organizationUrl>https://aws.amazon.com</organizationUrl>
             <roles>
                 <role>developer</role>
             </roles>
@@ -40,7 +47,9 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 
     <scm>
         <connection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</connection>
+        <developerConnection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</developerConnection>
         <url>${packageInfo.repository.url}</url>
+        <tag>v${packageInfo.version}</tag>
     </scm>
 
     <issueManagement>
@@ -50,12 +59,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions of the dependencies -->
-        <findbugs.version>[3.0.2,3.1.0)</findbugs.version>
         <hamcrest.version>[1.3,1.4)</hamcrest.version>
         <jackson-core.version>[2.10.1,2.11.0)</jackson-core.version>
         <jackson-databind.version>[2.10.1,2.11.0)</jackson-databind.version>
-        <javax.annotations.version>[1.3.2,1.4.0)</javax.annotations.version>
-        <junit.version>[5.5.2,5.6.0)</junit.version>
+        <jetbrains-annotations.version>[16.0.3,20.0.0)</jetbrains-annotations.version>
+        <junit.version>[5.6.0,5.7.0)</junit.version>
         <mockito.version>[3.2.4,3.3.0)</mockito.version>
     </properties>
 
@@ -74,19 +82,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <version>\${jackson-databind.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->
+        <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>\${findbugs.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>\${javax.annotations.version}</version>
-            <scope>provided</scope>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>\${jetbrains-annotations.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
@@ -137,7 +137,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -168,12 +168,42 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M4</version>
             </plugin>
 
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M4</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
             </plugin>
         </plugins>
     </build>
