@@ -25,7 +25,7 @@ pull_request_rules:
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
 
-  - name: Synchronize that PR to upstream and merge it
+  - name: Synchronize that PR to upstream and merge it (squash)
     actions:
       dismiss_reviews:
         approved: true
@@ -34,6 +34,8 @@ pull_request_rules:
         strict: smart
         method: squash
         strict_method: merge
+      comment:
+        message: Merging (with squash)...
     conditions:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
@@ -41,6 +43,7 @@ pull_request_rules:
       - label!=blocked
       - label!=do-not-merge
       - label=pr-status/ready-to-merge
+      - label!=pr-status/no-squash
       - -merged
       - -closed
       - -approved-reviews-by~=author
@@ -50,6 +53,35 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
+      
+  - name: Synchronize that PR to upstream and merge it (no-squash)
+    actions:
+      dismiss_reviews:
+        approved: true
+        changes_requested: false
+      merge:
+        strict: smart
+        method: merge
+        strict_method: merge
+      comment:
+        message: Merging (no-squash)...
+    conditions:
+      - author!=dependabot[bot]
+      - author!=dependabot-preview[bot]
+      - -title~=(WIP|wip)
+      - label!=blocked
+      - label!=do-not-merge
+      - label=pr-status/ready-to-merge
+      - label=pr-status/no-squash
+      - -merged
+      - -closed
+      - -approved-reviews-by~=author
+      - "#approved-reviews-by>=1"
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - status-success~=AWS CodeBuild us-east-1
+      - status-success=continuous-integration/travis-ci/pr
+      - status-success=Semantic Pull Request      
 
   - name: Clean branch up
     actions:
