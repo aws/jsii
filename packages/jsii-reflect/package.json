@@ -1,6 +1,6 @@
 {
   "name": "jsii-reflect",
-  "version": "0.22.0",
+  "version": "1.0.0",
   "description": "strongly-typed reflection library and tools for jsii",
   "license": "Apache-2.0",
   "author": {
@@ -33,23 +33,23 @@
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/spec": "^0.22.0",
+    "@jsii/spec": "^1.0.0",
     "colors": "^1.4.0",
     "fs-extra": "^8.1.0",
-    "oo-ascii-tree": "^0.22.0",
+    "oo-ascii-tree": "^1.0.0",
     "yargs": "^15.1.0"
   },
   "devDependencies": {
-    "@scope/jsii-calc-lib": "^0.22.0",
+    "@scope/jsii-calc-lib": "^1.0.0",
     "@types/fs-extra": "^8.1.0",
     "@types/jest": "^25.1.2",
     "@types/node": "^10.17.15",
     "@types/yargs": "^15.0.3",
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
-    "jsii": "^0.22.0",
-    "jsii-build-tools": "^0.22.0",
-    "jsii-calc": "^0.22.0",
+    "jsii": "^1.0.0",
+    "jsii-build-tools": "^1.0.0",
+    "jsii-calc": "^1.0.0",
     "typescript": "~3.7.5"
   },
   "jest": {
