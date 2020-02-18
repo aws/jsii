@@ -48,7 +48,7 @@
   </scm>
   <groupId>software.amazon.jsii.tests</groupId>
   <artifactId>calculator</artifactId>
-  <version>0.22.0</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,22 +57,22 @@
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base</artifactId>
-      <version>[0.22.0,0.23.0)</version>
+      <version>[1.0.0,2.0.0)</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base-of-base</artifactId>
-      <version>[0.22.0,0.23.0)</version>
+      <version>[1.0.0,2.0.0)</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-lib</artifactId>
-      <version>[0.22.0.DEVPREVIEW,0.23.0.DEVPREVIEW)</version>
+      <version>[1.0.0.DEVPREVIEW,2.0.0.DEVPREVIEW)</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.22.0,0.23.0)</version>
+      <version>[1.0.0,2.0.0)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
