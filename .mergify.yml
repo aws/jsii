@@ -43,7 +43,7 @@ pull_request_rules:
       - label!=blocked
       - label!=do-not-merge
       - label=pr-status/ready-to-merge
-      - label=!no-squash
+      - label!=no-squash
       - -merged
       - -closed
       - -approved-reviews-by~=author
