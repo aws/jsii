@@ -62,7 +62,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <hamcrest.version>[1.3,1.4)</hamcrest.version>
         <jackson-core.version>[2.10.1,2.11.0)</jackson-core.version>
         <jackson-databind.version>[2.10.1,2.11.0)</jackson-databind.version>
-        <jetbrains-annotations.version>[16.0.3,20.0.0)</jetbrains-annotations.version>
+        <jetbrains-annotations.version>[13.0.0,20.0.0)</jetbrains-annotations.version>
         <junit.version>[5.6.0,5.7.0)</junit.version>
         <mockito.version>[3.2.4,3.3.0)</mockito.version>
     </properties>
