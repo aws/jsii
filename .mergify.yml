@@ -34,6 +34,8 @@ pull_request_rules:
         strict: smart
         method: squash
         strict_method: merge
+      comment:
+        message: Merging (with squash)...
     conditions:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
@@ -61,6 +63,8 @@ pull_request_rules:
         strict: smart
         method: merge
         strict_method: merge
+      comment:
+        message: Merging (no-squash)...
     conditions:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
