@@ -15,16 +15,16 @@ namespace Amazon.JSII.JsonModel.Spec
             // ClassType properties
             bool isAbstract = false,
 
-            string @namespace = null,
+            string? @namespace = null,
             // Type properties
-            Docs docs = null,
+            Docs? docs = null,
 
             // ClassType properties
-            string @base = null,
-            Initializer initializer = null,
-            Property[] properties = null,
-            Method[] methods = null,
-            string[] interfaces = null
+            string? @base = null,
+            Initializer? initializer = null,
+            Property[]? properties = null,
+            Method[]? methods = null,
+            string[]? interfaces = null
         )
             : base
             (
@@ -49,18 +49,18 @@ namespace Amazon.JSII.JsonModel.Spec
         public bool IsAbstract { get; }
 
         [JsonProperty("base", NullValueHandling = NullValueHandling.Ignore)]
-        public string Base { get; }
+        public string? Base { get; }
 
         [JsonProperty("initializer", NullValueHandling = NullValueHandling.Ignore)]
-        public Initializer Initializer { get; }
+        public Initializer? Initializer { get; }
 
         [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
-        public Property[] Properties { get; }
+        public Property[]? Properties { get; }
 
         [JsonProperty("methods", NullValueHandling = NullValueHandling.Ignore)]
-        public Method[] Methods { get; }
+        public Method[]? Methods { get; }
 
         [JsonProperty("interfaces", NullValueHandling = NullValueHandling.Ignore)]
-        public string[] Interfaces { get; }
+        public string[]? Interfaces { get; }
     }
 }

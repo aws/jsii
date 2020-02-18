@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.</summary>
@@ -19,7 +21,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "hello", parametersJson: "[{\"name\":\"arg1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"arg2\",\"optional\":true,\"type\":{\"primitive\":\"number\"}}]")]
         public void Hello(string arg1, double? arg2 = null)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(string), typeof(double)}, new object[]{arg1, arg2});
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(string), typeof(double)}, new object?[]{arg1, arg2});
         }
     }
 }

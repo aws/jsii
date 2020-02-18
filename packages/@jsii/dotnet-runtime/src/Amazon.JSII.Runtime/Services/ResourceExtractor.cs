@@ -16,10 +16,9 @@ namespace Amazon.JSII.Runtime.Services
             _fileSystem = fileSystem;
         }
 
-        public string ExtractResource(Assembly assembly, string resourceName, string bag, string fileName)
+        public string ExtractResource(Assembly assembly, string resourceName, string bag, string? fileName)
         {
-            string workingDirectory = null;
-            if (!_bags.TryGetValue(bag, out workingDirectory))
+            if (!_bags.TryGetValue(bag, out var workingDirectory))
             {
                 workingDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
                 _fileSystem.Directory.CreateDirectory(workingDirectory);
@@ -28,8 +27,8 @@ namespace Amazon.JSII.Runtime.Services
 
             var outputPath = Path.Combine(workingDirectory, fileName ?? resourceName);
             using (var output = _fileSystem.File.Create(outputPath))
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
             {
+                using var stream = assembly.GetManifestResourceStream(resourceName);
                 if (stream == null)
                 {
                     throw new JsiiException("Cannot find embedded resource: " + resourceName + " in assembly " + assembly.GetName(), null);

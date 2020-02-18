@@ -7,7 +7,7 @@ namespace Amazon.JSII.JsonModel.Spec
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class AssemblyTargets
     {
-        public AssemblyTargets(DotNetTarget dotnet, IDictionary<string, object> others = null)
+        public AssemblyTargets(DotNetTarget dotnet, IDictionary<string, object>? others = null)
         {
             DotNet = dotnet ?? throw new ArgumentNullException(nameof(dotnet));
         }
@@ -22,11 +22,11 @@ namespace Amazon.JSII.JsonModel.Spec
             (
                 string @namespace,
                 string packageId,
-                string title = null,
+                string? title = null,
                 bool signAssembly = false,
-                string assemblyOriginatorKeyFile = null,
-                string iconUrl = null,
-                string versionSuffix = null
+                string? assemblyOriginatorKeyFile = null,
+                string? iconUrl = null,
+                string? versionSuffix = null
             )
             {
                 Namespace = @namespace ?? throw new ArgumentNullException(nameof(@namespace));
@@ -51,19 +51,19 @@ namespace Amazon.JSII.JsonModel.Spec
             public string PackageId { get; }
 
             [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
-            public string Title { get; }
+            public string? Title { get; }
 
             [JsonProperty("signAssembly", NullValueHandling = NullValueHandling.Ignore)]
             public bool SignAssembly { get; }
 
             [JsonProperty("assemblyOriginatorKeyFile", NullValueHandling = NullValueHandling.Ignore)]
-            public string AssemblyOriginatorKeyFile { get; }
+            public string? AssemblyOriginatorKeyFile { get; }
 
             [JsonProperty("iconUrl", NullValueHandling = NullValueHandling.Ignore)]
-            public string IconUrl { get; }
+            public string? IconUrl { get; }
 
             [JsonProperty("versionSuffix", NullValueHandling = NullValueHandling.Ignore)]
-            public string VersionSuffix { get; }
+            public string? VersionSuffix { get; }
     }
     }
 }

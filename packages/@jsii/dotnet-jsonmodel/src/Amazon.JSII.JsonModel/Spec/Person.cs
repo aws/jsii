@@ -10,8 +10,8 @@ namespace Amazon.JSII.JsonModel.Spec
         (
             string name,
             string[] roles,
-            string email = null,
-            string url = null,
+            string? email = null,
+            string? url = null,
             bool isOrganization = false
         )
         {
@@ -29,10 +29,10 @@ namespace Amazon.JSII.JsonModel.Spec
         public string[] Roles { get; }
 
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
-        public string Email { get; }
+        public string? Email { get; }
 
         [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
-        public string Url { get; }
+        public string? Url { get; }
 
         [JsonProperty("organization", NullValueHandling = NullValueHandling.Ignore)]
         public bool IsOrganization { get; }

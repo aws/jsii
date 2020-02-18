@@ -6,7 +6,7 @@ namespace Amazon.JSII.JsonModel.Api.Request
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class CreateRequest : IKernelRequest
     {
-        public CreateRequest(string fullyQualifiedName, object[] arguments = null, Override[] overrides = null, string[] interfaces = null)
+        public CreateRequest(string fullyQualifiedName, object?[]? arguments = null, Override[]? overrides = null, string[]? interfaces = null)
         {
             FullyQualifiedName = fullyQualifiedName ?? throw new ArgumentNullException(nameof(fullyQualifiedName));
             Arguments = arguments;
@@ -21,7 +21,7 @@ namespace Amazon.JSII.JsonModel.Api.Request
         public string FullyQualifiedName { get; }
 
         [JsonProperty("args", NullValueHandling = NullValueHandling.Ignore)]
-        public object[] Arguments { get; }
+        public object?[]? Arguments { get; }
 
         [JsonProperty("overrides", NullValueHandling = NullValueHandling.Ignore)]
         public Override[] Overrides { get; }

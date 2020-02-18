@@ -1,7 +1,11 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    #pragma warning disable CS8618
+
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -23,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "assert", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
-        public string Assert
+        public string? Assert
         {
             get;
             set;
@@ -34,7 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "result", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
-        public string Result
+        public string? Result
         {
             get;
             set;
@@ -45,7 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "that", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
-        public string That
+        public string? That
         {
             get;
             set;

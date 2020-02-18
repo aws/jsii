@@ -2,6 +2,6 @@
 {
     public interface IOverridable
     {
-        string Overrides { get;  }
+        string? Overrides { get;  }
     }
 }

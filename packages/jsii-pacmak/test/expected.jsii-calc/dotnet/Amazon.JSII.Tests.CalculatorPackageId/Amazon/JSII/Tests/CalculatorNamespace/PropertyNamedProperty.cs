@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named "property" would result in impossible to load Python code.</summary>

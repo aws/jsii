@@ -1,4 +1,4 @@
-﻿using Amazon.JSII.JsonModel.Spec;
+using Amazon.JSII.JsonModel.Spec;
 using Newtonsoft.Json;
 using System;
 using Xunit;
@@ -41,7 +41,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnNull))]
             public void ShouldThrowOnNull()
             {
+#pragma warning disable CS8625
                 Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<CollectionKind>(null));
+#pragma warning restore CS8625
             }
         }
     }

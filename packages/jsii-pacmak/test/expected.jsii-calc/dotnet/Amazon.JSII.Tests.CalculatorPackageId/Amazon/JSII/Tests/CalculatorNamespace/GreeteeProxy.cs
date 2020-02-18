@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>These are some arguments you can pass to a method.</summary>
@@ -21,9 +23,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "name", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public string Name
+        public string? Name
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
     }
 }

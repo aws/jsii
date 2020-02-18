@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.</summary>
@@ -36,7 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiProperty(name: "optionalStructA", typeJson: "{\"fqn\":\"jsii-calc.StructA\"}", isOptional: true)]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]
-        Amazon.JSII.Tests.CalculatorNamespace.IStructA OptionalStructA
+        Amazon.JSII.Tests.CalculatorNamespace.IStructA? OptionalStructA
         {
             get
             {

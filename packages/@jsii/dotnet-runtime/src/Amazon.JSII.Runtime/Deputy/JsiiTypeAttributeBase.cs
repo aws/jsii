@@ -47,8 +47,7 @@ namespace Amazon.JSII.Runtime.Deputy
             var tarballResourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(".tgz"));
             if (tarballResourceName == null)
             {
-                throw new JsiiException("Cannot find embedded tarball resource in assembly " + assembly.GetName(),
-                    null);
+                throw new JsiiException("Cannot find embedded tarball resource in assembly " + assembly.GetName(), null);
             }
 
             IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;

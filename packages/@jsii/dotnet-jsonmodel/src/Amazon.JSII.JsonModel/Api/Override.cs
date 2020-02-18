@@ -7,9 +7,9 @@ namespace Amazon.JSII.JsonModel.Api
     {
         public Override
         (
-            string method = null,
-            string property = null,
-            string cookie = null
+            string? method = null,
+            string? property = null,
+            string? cookie = null
         )
         {
             Method = method;
@@ -18,12 +18,12 @@ namespace Amazon.JSII.JsonModel.Api
         }
 
         [JsonProperty("method", NullValueHandling = NullValueHandling.Ignore)]
-        public string Method { get; }
+        public string? Method { get; }
 
         [JsonProperty("property", NullValueHandling = NullValueHandling.Ignore)]
-        public string Property { get; }
+        public string? Property { get; }
 
         [JsonProperty("cookie", NullValueHandling = NullValueHandling.Ignore)]
-        public string Cookie { get; }
+        public string? Cookie { get; }
     }
 }

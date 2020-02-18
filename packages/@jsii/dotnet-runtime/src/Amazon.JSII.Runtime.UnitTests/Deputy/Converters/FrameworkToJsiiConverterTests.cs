@@ -39,8 +39,8 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
                 ServiceContainer.ServiceProviderOverride = serviceProvider;
 
-                _typeCache.GetClassType("myClassFqn").Returns(typeof(TestClass));
-                _typeCache.GetEnumType("myEnumFqn").Returns(typeof(TestEnum));
+                _typeCache.TryGetClassType("myClassFqn").Returns(typeof(TestClass));
+                _typeCache.TryGetEnumType("myEnumFqn").Returns(typeof(TestEnum));
             }
         }
 
@@ -51,7 +51,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(DoesNotConvert))]
             public void DoesNotConvert()
             {
-                bool success = _converter.TryConvert(null, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(null, _referenceMap, null, out object? actual);
 
                 Assert.True(success);
                 Assert.Null(actual);
@@ -60,7 +60,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ThrowsIfValueIsNotNull))]
             public void ThrowsIfValueIsNotNull()
             {
-                Assert.Throws<ArgumentException>("value", () => _converter.TryConvert(null, _referenceMap, "", out object actual));
+                Assert.Throws<ArgumentException>("value", () => _converter.TryConvert(null, _referenceMap, "", out object? actual));
             }
         }
 
@@ -103,7 +103,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 var instance = new OptionalValue(new TypeReference(primitive: primitive), isOptional: isOptional);
 
-                bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, value, out object? actual);
 
                 Assert.True(success);
                 Assert.Equal(expected, actual);
@@ -115,7 +115,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Date));
 
                 DateTime now = DateTime.Now;
-                bool success = _converter.TryConvert(instance, _referenceMap, now, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, now, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
@@ -139,7 +139,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Date), isOptional: true);
 
                 DateTime now = DateTime.Now;
-                bool success = _converter.TryConvert(instance, _referenceMap, now, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, now, out object? actual);
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
                 var expected = new JObject
@@ -172,7 +172,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     ))
                 );
 
-                bool success = _converter.TryConvert(instance, _referenceMap, jObject, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, jObject, out object? actual);
 
                 Assert.True(success);
                 Assert.Same(jObject, actual);
@@ -183,7 +183,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Boolean));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.False(success);
             }
@@ -193,7 +193,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Number));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.False(success);
             }
@@ -203,7 +203,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Json));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.True(success);
                 Assert.Null(actual);
@@ -222,7 +222,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 ByRefValue byRef = new ByRefValue("myClassFqn", "0001");
                 TestClass myClass = new TestClass(byRef);
 
-                bool success = _converter.TryConvert(instance, _referenceMap, myClass, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, myClass, out object? actual);
                 
                 Assert.True(success);
                 Assert.Equal(JObject.FromObject(byRef), actual);
@@ -236,7 +236,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 TestEnum myEnum = TestEnum.MyMember2;
 
-                bool success = _converter.TryConvert(instance, _referenceMap, myEnum, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, myEnum, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
@@ -252,7 +252,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 var instance = new OptionalValue(new TypeReference("myClassFqn"));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.True(success);
                 Assert.Null(actual);
@@ -263,7 +263,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 var instance = new OptionalValue(new TypeReference("myEnumFqn"));
 
-                bool success =_converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success =_converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.False(success);
                 Assert.Null(actual);
@@ -274,7 +274,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 var instance = new OptionalValue(new TypeReference("myEnumFqn"), isOptional: true);
 
-                bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.True(success);
                 Assert.Null(actual);
@@ -300,7 +300,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     { "myKey2", "myValue2" }
                 };
 
-                bool success = _converter.TryConvert(instance, _referenceMap, frameworkMap, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkMap, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
@@ -335,7 +335,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     { "myKey2", new Dictionary<string, string> { { "mySubKey2", "myValue2" } } },
                 };
 
-                bool success = _converter.TryConvert(instance, _referenceMap, frameworkMap, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkMap, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
@@ -365,13 +365,13 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 "myValue2",
                 };
 
-                bool success = _converter.TryConvert(instance, _referenceMap, frameworkArray, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkArray, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JArray>(actual);
                 Assert.Collection
                 (
-                    (JArray)actual,
+                    (JArray)actual!,
                     value => Assert.Equal("myValue1", value),
                     value => Assert.Equal("myValue2", value)
                 );
@@ -398,12 +398,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     new [] { "myValue2" },
                 };
 
-                bool success = _converter.TryConvert(instance, _referenceMap, frameworkArray, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkArray, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JArray>(actual);
                 Assert.Collection(
-                    (JArray)actual,
+                    (JArray)actual!,
                     value =>
                     {
                         Assert.IsType<JArray>(value);
@@ -445,7 +445,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 // This will test the call to FrameworkToJsiiConverter.TryConvertCollectionElement()
                 // In the case of a of a Map of Map of Any
-                bool success = _converter.TryConvert(instance, _referenceMap, frameworkMap, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkMap, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
@@ -492,7 +492,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 // This will test the call to FrameworkToJsiiConverter.TryConvertCollectionElement()
                 // In the case of a of a Map of Array of Any
-                bool success = _converter.TryConvert(instance, _referenceMap, frameworkArray, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkArray, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
@@ -518,7 +518,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     )
                 ));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.True(success);
                 Assert.Null(actual);
@@ -534,7 +534,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     )
                 ));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.True(success);
                 Assert.Null(actual);
@@ -555,7 +555,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     })
                 ));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, true, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, true, out object? actual);
 
                 Assert.False(success);
                 Assert.Null(actual);
@@ -570,7 +570,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     })
                 ));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, "abc", out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, "abc", out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<string>(actual);
@@ -587,7 +587,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     })
                 ));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, (ushort)7, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, (ushort)7, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<double>(actual);
@@ -603,7 +603,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     })
                 ));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.True(success);
                 Assert.Null(actual);
@@ -619,7 +619,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, null, out object? actual);
 
                 Assert.True(success);
                 Assert.Null(actual);
@@ -633,7 +633,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
-                bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, value, out object? actual);
 
                 Assert.True(success);
                 Assert.Equal(expected, actual);
@@ -645,7 +645,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
                 DateTime now = DateTime.Now;
-                bool success = _converter.TryConvert(instance, _referenceMap, now, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, now, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
@@ -663,7 +663,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
                 JObject value = new JObject(new JProperty("myKey", "myValue"));
-                bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, value, out object? actual);
 
                 Assert.True(success);
                 Assert.Same(value, actual);
@@ -678,11 +678,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 {
                     { "myKey", "myValue" }
                 };
-                bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, value, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
-                Assert.Collection((IEnumerable<KeyValuePair<string, JToken>>)actual,
+                Assert.Collection((IEnumerable<KeyValuePair<string, JToken>>)actual!,
                     kvp =>
                     {
                         Assert.IsType<JObject>(kvp.Value);
@@ -704,11 +704,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
                 string[] value = new[] { "myValue" };
-                bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
+                bool success = _converter.TryConvert(instance, _referenceMap, value, out object? actual);
 
                 Assert.True(success);
                 Assert.IsType<JArray>(actual);
-                Assert.Collection((IEnumerable<JToken>)actual,
+                Assert.Collection((IEnumerable<JToken>)actual!,
                     element => Assert.Equal("myValue", element.Value<string>(), ignoreLineEndingDifferences: true)
                 );
             }

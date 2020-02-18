@@ -6,7 +6,7 @@ namespace Amazon.JSII.JsonModel.Api.Request
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class StaticSetRequest : IKernelRequest
     {
-        public StaticSetRequest(string fullyQualifiedName, string property, object value)
+        public StaticSetRequest(string fullyQualifiedName, string property, object? value)
         {
             FullyQualifiedName = fullyQualifiedName ?? throw new ArgumentNullException(nameof(fullyQualifiedName));
             Property = property ?? throw new ArgumentNullException(nameof(property));
@@ -23,6 +23,6 @@ namespace Amazon.JSII.JsonModel.Api.Request
         public string Property { get; }
 
         [JsonProperty("value")]
-        public object Value { get; }
+        public object? Value { get; }
     }
 }

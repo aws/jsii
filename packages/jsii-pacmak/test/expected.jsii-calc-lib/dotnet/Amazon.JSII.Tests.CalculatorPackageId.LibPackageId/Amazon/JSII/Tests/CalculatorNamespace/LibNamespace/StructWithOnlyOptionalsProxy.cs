@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>This is a struct with only optional properties.</summary>
@@ -21,9 +23,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [JsiiOptional]
         [JsiiProperty(name: "optional1", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         [System.Obsolete()]
-        public string Optional1
+        public string? Optional1
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string?>();
         }
 
         /// <remarks>

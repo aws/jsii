@@ -7,10 +7,10 @@ namespace Amazon.JSII.JsonModel.Spec
     {
         public TypeReference
         (
-            string fullyQualifiedName = null,
+            string? fullyQualifiedName = null,
             PrimitiveType? primitive = null,
-            CollectionTypeReference collection = null,
-            UnionTypeReference union = null
+            CollectionTypeReference? collection = null,
+            UnionTypeReference? union = null
         )
         {
             FullyQualifiedName = fullyQualifiedName;
@@ -20,15 +20,15 @@ namespace Amazon.JSII.JsonModel.Spec
         }
 
         [JsonProperty("fqn", NullValueHandling = NullValueHandling.Ignore)]
-        public string FullyQualifiedName { get; }
+        public string? FullyQualifiedName { get; }
 
         [JsonProperty("primitive", NullValueHandling = NullValueHandling.Ignore)]
         public PrimitiveType? Primitive { get; }
 
         [JsonProperty("collection", NullValueHandling = NullValueHandling.Ignore)]
-        public CollectionTypeReference Collection { get; }
+        public CollectionTypeReference? Collection { get; }
 
         [JsonProperty("union", NullValueHandling = NullValueHandling.Ignore)]
-        public UnionTypeReference Union { get; }
+        public UnionTypeReference? Union { get; }
     }
 }

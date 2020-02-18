@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.</summary>
@@ -27,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiProperty(name: "nestedStruct", typeJson: "{\"fqn\":\"jsii-calc.NestedStruct\"}", isOptional: true)]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]
-        Amazon.JSII.Tests.CalculatorNamespace.INestedStruct NestedStruct
+        Amazon.JSII.Tests.CalculatorNamespace.INestedStruct? NestedStruct
         {
             get
             {

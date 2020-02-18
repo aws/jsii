@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Interface that inherits from packages 2 levels up the tree.</summary>

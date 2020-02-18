@@ -2,10 +2,13 @@
   <Import Project="../NuGet.Metadata.props" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>Amazon.JSII.JsonModel</PackageId>
     <Title>.NET JsonModel for JSII</Title>
     <PackageIcon>icon.png</PackageIcon>
+
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>

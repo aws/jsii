@@ -40,7 +40,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            _output.WriteLine($"[{_categoryName}] {state.ToString()}");
+            _output.WriteLine($"[{_categoryName}] {state?.ToString()}");
         }
 
         public IDisposable BeginScope<TState>(TState state)

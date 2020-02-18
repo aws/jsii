@@ -6,7 +6,7 @@ namespace Amazon.JSII.JsonModel.Api.Request
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class InvokeRequest : IKernelRequest
     {
-        public InvokeRequest(ObjectReference objectReference, string method, object[] arguments = null)
+        public InvokeRequest(ObjectReference objectReference, string method, object?[]? arguments = null)
         {
             ObjectReference = objectReference ?? throw new ArgumentNullException(nameof(objectReference));
             Method = method ?? throw new ArgumentNullException(nameof(method));
@@ -23,6 +23,6 @@ namespace Amazon.JSII.JsonModel.Api.Request
         public string Method { get; }
 
         [JsonProperty("args", NullValueHandling = NullValueHandling.Ignore)]
-        public object[] Arguments { get; }
+        public object?[]? Arguments { get; }
     }
 }

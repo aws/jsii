@@ -7,18 +7,18 @@ using System.Threading;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    internal static class ServiceContainer
+    public static class ServiceContainer
     {
         private static readonly Lazy<IServiceProvider> _serviceProvider = new Lazy<IServiceProvider>(
             () => BuildServiceProvider(),
             LazyThreadSafetyMode.ExecutionAndPublication
         );
 
-        public static IServiceProvider ServiceProviderOverride { get; set; }
+        public static IServiceProvider? ServiceProviderOverride { get; set; }
 
-        public static IServiceProvider ServiceProvider => ServiceProviderOverride ?? _serviceProvider.Value;
+        internal static IServiceProvider ServiceProvider => ServiceProviderOverride ?? _serviceProvider.Value;
 
-        public static IServiceProvider BuildServiceProvider(ILoggerFactory loggerFactoryOverride = null)
+        public static IServiceProvider BuildServiceProvider(ILoggerFactory? loggerFactoryOverride = null)
         {
             IServiceCollection serviceCollection = new ServiceCollection();
 

@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Make sure structs are un-decorated on the way in.</summary>
@@ -146,9 +148,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "stringify", returnsJson: "{\"optional\":true,\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"value\",\"optional\":true,\"type\":{\"primitive\":\"any\"}}]")]
-        public static string Stringify(object @value = null)
+        public static string? Stringify(object? @value = null)
         {
-            return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{typeof(object)}, new object[]{@value});
+            return InvokeStaticMethod<string?>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{typeof(object)}, new object?[]{@value});
         }
     }
 }

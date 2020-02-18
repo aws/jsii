@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#298: show default values in sphinx documentation, and respect newlines.</summary>
@@ -42,7 +44,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "cpu", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
-        public string Cpu
+        public string? Cpu
         {
             get;
             set;
@@ -71,7 +73,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "memoryMiB", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
-        public string MemoryMiB
+        public string? MemoryMiB
         {
             get;
             set;

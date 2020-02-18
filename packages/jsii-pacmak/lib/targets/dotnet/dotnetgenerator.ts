@@ -186,8 +186,8 @@ export class DotNetGenerator extends Generator {
     }
 
     // Specifying that a type is nullable is only required for primitive value types
-    const isOptionalPrimitive = this.isOptionalPrimitive(prop) ? '?' : '';
-    this.code.openBlock(`${propType}${isOptionalPrimitive} ${propName}`);
+    const isOptional = prop.optional ? '?' : '';
+    this.code.openBlock(`${propType}${isOptional} ${propName}`);
 
     if (prop.optional) {
       this.code.openBlock('get');
@@ -265,7 +265,8 @@ export class DotNetGenerator extends Generator {
       // Abstract classes have protected constructors.
       const visibility = cls.abstract ? 'protected' : 'public';
 
-      this.code.openBlock(`${visibility} ${className}(${parametersDefinition}): base(new DeputyProps(new object[]{${parametersBase}}))`);
+      const hasOptional = initializer.parameters?.find(param => param.optional) != null ? '?' : '';
+      this.code.openBlock(`${visibility} ${className}(${parametersDefinition}): base(new DeputyProps(new object${hasOptional}[]{${parametersBase}}))`);
       this.code.closeBlock();
       this.code.line();
     }
@@ -397,7 +398,8 @@ export class DotNetGenerator extends Generator {
     }
     const access = this.renderAccessLevel(method);
     const methodName = this.nameutils.convertMethodName(method.name);
-    const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
+    const isOptional = method.returns && method.returns.optional ? '?' : '';
+    const signature = `${returnType}${isOptional} ${methodName}(${this.renderMethodParameters(method)})`;
 
     this.dotnetDocGenerator.emitDocs(method);
     this.dotnetRuntimeGenerator.emitAttributesForMethod(cls, method/*, emitForProxyOrDatatype*/);
@@ -478,7 +480,7 @@ export class DotNetGenerator extends Generator {
         let type = this.typeresolver.toDotNetType(p.type);
         if (p.optional) {
           optionalKeyword = ' = null';
-          if (this.isOptionalPrimitive(p)) {
+          if (p.optional) {
             optionalPrimitive = '?';
 
           }
@@ -491,27 +493,6 @@ export class DotNetGenerator extends Generator {
       }
     }
     return params.join(', ');
-  }
-
-  private isOptionalPrimitive(optionalValue: spec.OptionalValue | undefined): boolean {
-    if (!optionalValue || !optionalValue.optional) {
-      return false;
-    }
-
-    // If the optional type is an enum then we need to flag it as ?
-    const typeref = optionalValue.type as spec.NamedTypeReference;
-    let isOptionalEnum = false;
-    if (typeref && typeref.fqn) {
-      const type = this.findType(typeref.fqn);
-      isOptionalEnum = type.kind === spec.TypeKind.Enum;
-    }
-
-    return (spec.isPrimitiveTypeReference(optionalValue.type)
-            // In .NET, string or object is a reference type, and can be nullable
-            && optionalValue.type.primitive !== spec.PrimitiveType.String
-            && optionalValue.type.primitive !== spec.PrimitiveType.Any
-            && optionalValue.type.primitive !== spec.PrimitiveType.Json) // Json is not a primitive in .NET
-            || isOptionalEnum;
   }
 
   /**
@@ -558,6 +539,13 @@ export class DotNetGenerator extends Generator {
     const namespace = ifc.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${ifc.namespace}` : this.assembly.targets!.dotnet!.namespace;
     const isNested = this.isNested(ifc);
     this.openFileIfNeeded(name, namespace, isNested);
+
+    if (ifc.properties?.find(prop => !prop.optional) != null) {
+      // We don't want to be annoyed by the lack of initialization of non-nullable fields in this case.
+      this.code.line('#pragma warning disable CS8618');
+      this.code.line();
+    }
+
     this.dotnetDocGenerator.emitDocs(ifc);
     const suffix = `: ${this.typeresolver.toNativeFqn(ifc.fqn)}`;
     this.dotnetRuntimeGenerator.emitAttributesForInterfaceDatatype(ifc);
@@ -687,8 +675,8 @@ export class DotNetGenerator extends Generator {
     }
 
     const propTypeFQN = this.typeresolver.toDotNetType(prop.type);
-    const isOptionalPrimitive = this.isOptionalPrimitive(prop) ? '?' : '';
-    const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${isOverrideKeyWord}${staticKeyWord}${propTypeFQN}${isOptionalPrimitive} ${propName}`;
+    const isOptional = prop.optional ? '?' : '';
+    const statement = `${access} ${isAbstractKeyword}${isVirtualKeyWord}${isOverrideKeyWord}${staticKeyWord}${propTypeFQN}${isOptional} ${propName}`;
     this.code.openBlock(statement);
 
     // Emit getters
@@ -696,9 +684,9 @@ export class DotNetGenerator extends Generator {
       this.code.line('get;');
     } else {
       if (prop.static) {
-        this.code.line(`get => GetStaticProperty<${propTypeFQN}>(typeof(${className}));`);
+        this.code.line(`get => GetStaticProperty<${propTypeFQN}${isOptional}>(typeof(${className}));`);
       } else {
-        this.code.line(`get => GetInstanceProperty<${propTypeFQN}${isOptionalPrimitive}>();`);
+        this.code.line(`get => GetInstanceProperty<${propTypeFQN}${isOptional}>();`);
       }
     }
 
@@ -770,6 +758,11 @@ export class DotNetGenerator extends Generator {
       this.code.line('using Amazon.JSII.Runtime.Deputy;');
       this.code.line();
     }
+
+    // Suppress warnings about missing XMLDoc, Obsolete inconsistencies
+    this.code.line('#pragma warning disable CS0672,CS0809,CS1591');
+    this.code.line();
+
     this.code.openBlock(`namespace ${namespace}`);
   }
 

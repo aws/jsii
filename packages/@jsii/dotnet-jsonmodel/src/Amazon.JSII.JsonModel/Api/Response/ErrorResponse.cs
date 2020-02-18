@@ -6,7 +6,7 @@ namespace Amazon.JSII.JsonModel.Api.Response
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class ErrorResponse
     {
-        public ErrorResponse(string error, string stack = null)
+        public ErrorResponse(string error, string? stack = null)
         {
             Error = error ?? throw new ArgumentNullException(nameof(error));
             Stack = stack;
@@ -16,6 +16,6 @@ namespace Amazon.JSII.JsonModel.Api.Response
         public string Error { get; }
 
         [JsonProperty("stack", NullValueHandling = NullValueHandling.Ignore)]
-        public string Stack { get; }
+        public string? Stack { get; }
     }
 }

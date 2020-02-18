@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
@@ -15,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public SupportsNiceJavaBuilder(double id, double? defaultBar = null, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps props = null, params string[] rest): base(new DeputyProps(new object[]{id, defaultBar, props, rest}))
+        public SupportsNiceJavaBuilder(double id, double? defaultBar = null, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps? props = null, params string[] rest): base(new DeputyProps(new object?[]{id, defaultBar, props, rest}))
         {
         }
 

@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Host runtime version should be set via JSII_AGENT.</summary>
@@ -33,9 +35,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "jsiiAgent", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
-        public static string JsiiAgent
+        public static string? JsiiAgent
         {
-            get => GetStaticProperty<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsiiAgent_));
+            get => GetStaticProperty<string?>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsiiAgent_));
         }
     }
 }

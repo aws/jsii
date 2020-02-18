@@ -10,7 +10,7 @@ namespace Amazon.JSII.Runtime.Deputy
     public sealed class ByRefValue
     {
         [JsonConstructor]
-        internal ByRefValue(string value, string[] interfaces = null, bool isProxy = false)
+        internal ByRefValue(string value, string[]? interfaces = null, bool isProxy = false)
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
             Interfaces = interfaces ?? new string[]{};
@@ -27,12 +27,12 @@ namespace Amazon.JSII.Runtime.Deputy
             IsProxy = isProxy;
         }
 
-        internal ByRefValue(string fullyQualifiedName, string id, string[] interfaces = null)
+        internal ByRefValue(string fullyQualifiedName, string id, string[]? interfaces = null)
             : this($"{fullyQualifiedName}@{id}", fullyQualifiedName, id, interfaces, false)
         {
         }
 
-        internal ByRefValue(string value, string fullyQualifiedName, string id, string[] interfaces, bool isProxy)
+        internal ByRefValue(string value, string fullyQualifiedName, string id, string[]? interfaces, bool isProxy)
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
             FullyQualifiedName = fullyQualifiedName ?? throw new ArgumentNullException(nameof(value));

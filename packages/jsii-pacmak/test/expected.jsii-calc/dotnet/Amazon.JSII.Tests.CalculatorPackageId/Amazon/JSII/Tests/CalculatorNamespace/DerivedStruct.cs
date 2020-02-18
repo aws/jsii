@@ -1,7 +1,11 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    #pragma warning disable CS8618
+
     /// <summary>A struct which derives from another struct.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
@@ -46,7 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"map\"}}", isOptional: true, isOverride: true)]
-        public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_> AnotherOptional
+        public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>? AnotherOptional
         {
             get;
             set;
@@ -57,7 +61,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalAny", typeJson: "{\"primitive\":\"any\"}", isOptional: true, isOverride: true)]
-        public object OptionalAny
+        public object? OptionalAny
         {
             get;
             set;
@@ -68,7 +72,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true, isOverride: true)]
-        public string[] OptionalArray
+        public string[]? OptionalArray
         {
             get;
             set;
@@ -104,7 +108,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiOptional]
         [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true, isOverride: true)]
         [System.Obsolete()]
-        public string[] FirstOptional
+        public string[]? FirstOptional
         {
             get;
             set;

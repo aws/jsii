@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/aws/jsii/compare/v0.22.0...v1.0.0) (2020-02-17)
+
+
+### Features
+
+* **csharp:** enable nullable reference types ([#1246](https://github.com/aws/jsii/issues/1246)) ([cbc7258](https://github.com/aws/jsii/commit/cbc72588b7a70fb2cb1d6d3012bec53d27263001))
+* **dotnet:** upgrade target framework to netcoreapp3.1 ([#1241](https://github.com/aws/jsii/issues/1241)) ([c324439](https://github.com/aws/jsii/commit/c32443979548faa283894d5aaf4f4baf31350063))
+
+
+
+
+
 # [0.22.0](https://github.com/aws/jsii/compare/v0.21.2...v0.22.0) (2020-02-06)
 
 **Note:** Version bump only for package @jsii/dotnet-runtime

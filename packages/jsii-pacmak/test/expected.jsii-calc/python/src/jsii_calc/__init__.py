@@ -41,7 +41,7 @@ import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
 
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.22.0", __name__, "jsii-calc@0.22.0.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "1.0.0", __name__, "jsii-calc@1.0.0.jsii.tgz")
 
 
 class AbstractClassBase(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"):

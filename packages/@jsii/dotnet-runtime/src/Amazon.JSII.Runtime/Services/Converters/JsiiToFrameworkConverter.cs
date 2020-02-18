@@ -13,7 +13,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
         {
         }
 
-        protected override bool TryConvertVoid(object value, out object result)
+        protected override bool TryConvertVoid(object? value, out object? result)
         {
             if (value != null && (value as JToken)?.Type != JTokenType.Null)
             {
@@ -25,7 +25,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
         }
 
-        protected override bool TryConvertClass(System.Type type, IReferenceMap referenceMap, object value, out object result)
+        protected override bool TryConvertClass(System.Type type, IReferenceMap referenceMap, object? value, out object? result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -35,7 +35,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value is JObject jsonValue && jsonValue.ContainsKey("$jsii.byref"))
             {
-                ByRefValue byRefValue = jsonValue.ToObject<ByRefValue>();
+                ByRefValue byRefValue = jsonValue.ToObject<ByRefValue>()!;
 
                 result = referenceMap.GetOrCreateNativeReference(byRefValue);
 
@@ -51,7 +51,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertEnum(object value, bool isOptional, string fullyQualifiedName, out object result)
+        protected override bool TryConvertEnum(object? value, bool isOptional, string fullyQualifiedName, out object? result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -61,7 +61,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value is JObject jsonValue && jsonValue.ContainsKey("$jsii.enum"))
             {
-                EnumValue enumValue = jsonValue.ToObject<EnumValue>();
+                EnumValue enumValue = jsonValue.ToObject<EnumValue>()!;
                 if (enumValue.FullyQualifiedName == fullyQualifiedName)
                 {
                     System.Type enumType = _types.GetEnumType(fullyQualifiedName);
@@ -76,7 +76,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertBoolean(object value, bool isOptional, out object result)
+        protected override bool TryConvertBoolean(object? value, bool isOptional, out object? result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -86,7 +86,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value.GetType().IsAssignableFrom(typeof(bool)))
             {
-                result = value;
+                result = (bool)value;
                 return true;
             }
 
@@ -100,7 +100,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertDate(object value, bool isOptional, out object result)
+        protected override bool TryConvertDate(object? value, bool isOptional, out object? result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -110,7 +110,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value is JObject jsonValue && jsonValue.ContainsKey("$jsii.date"))
             {
-                result = jsonValue.ToObject<DateValue>().DateTime;
+                result = jsonValue.ToObject<DateValue>()!.DateTime;
                 return true;
             }
 
@@ -118,7 +118,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertJson(object value, out object result)
+        protected override bool TryConvertJson(object? value, out object? result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -136,7 +136,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertNumber(object value, bool isOptional, out object result)
+        protected override bool TryConvertNumber(object? value, bool isOptional, out object? result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -165,7 +165,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertString(object value, out object result)
+        protected override bool TryConvertString(object? value, out object? result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -189,7 +189,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeReference elementTypeInstance, object value, out object result)
+        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeReference elementTypeInstance, object? value, out object? result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -204,7 +204,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
                 for (int i = 0; i < array.Count; i++)
                 {
-                    if (!TryConvert(elementTypeInstance, elementType, referenceMap, array[i], out object convertedElement))
+                    if (!TryConvert(elementTypeInstance, elementType, referenceMap, array[i], out object? convertedElement))
                     {
                         throw new ArgumentException("Could not convert all elements of array", nameof(value));
                     }
@@ -220,7 +220,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeReference elementTypeInstance, object value, out object result)
+        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeReference elementTypeInstance, object? value, out object? result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -233,18 +233,18 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 var elementType = _types.GetFrameworkType(elementTypeInstance, false);
                 var dictionaryType = typeof(Dictionary<,>).MakeGenericType(typeof(string), elementType);
 
-                var dictionaryConstructor = dictionaryType.GetConstructor(new System.Type[] { });
-                var dictionaryAddMethod = dictionaryType.GetMethod("Add", new [] { typeof(string), elementType });
+                var dictionaryConstructor = dictionaryType.GetConstructor(new System.Type[] { })!;
+                var dictionaryAddMethod = dictionaryType.GetMethod("Add", new [] { typeof(string), elementType })!;
                 var dictionary = dictionaryConstructor.Invoke(new object[] { });
 
                 if (jsonObject.ContainsKey("$jsii.map"))
                 {
-                    jsonObject = (JObject)jsonObject["$jsii.map"];
+                    jsonObject = (JObject)jsonObject["$jsii.map"]!;
                 }
                 
                 foreach (JProperty property in jsonObject.Properties())
                 {
-                    if (!TryConvert(elementTypeInstance, elementType, referenceMap, property.Value, out object convertedElement))
+                    if (!TryConvert(elementTypeInstance, elementType, referenceMap, property.Value, out object? convertedElement))
                     {
                         throw new ArgumentException("Could not convert all elements of map", nameof(value));
                     }
@@ -276,11 +276,11 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         }
                         if (jObject.ContainsKey("$jsii.enum"))
                         {
-                            return new TypeReference(jObject.ToObject<EnumValue>().FullyQualifiedName);
+                            return new TypeReference(jObject.ToObject<EnumValue>()!.FullyQualifiedName);
                         }
                         if (jObject.ContainsKey("$jsii.byref"))
                         {
-                            return new TypeReference(jObject.ToObject<ByRefValue>().FullyQualifiedName);
+                            return new TypeReference(jObject.ToObject<ByRefValue>()!.FullyQualifiedName);
                         }
 
                         // At this point, we can't distinguish between a PrimitiveType.Json and a CollectionKind.Map,
