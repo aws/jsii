@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "dependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.22.0"
+    "@scope/jsii-calc-base-of-base": "^1.0.0"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base-of-base": {
@@ -36,7 +36,7 @@
   },
   "description": "An example direct dependency for jsii-calc.",
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.22.0",
+  "jsiiVersion": "1.0.0",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "repository": {
@@ -150,6 +150,6 @@
       "name": "IBaseInterface"
     }
   },
-  "version": "0.22.0",
-  "fingerprint": "ajVoqlQslGoM3+L8TvwOYbqLWGNMwn1Vioe+WY7H4Eo="
+  "version": "1.0.0",
+  "fingerprint": "haBNSe7Z5qvqzSPCTTZ8DLPPSWyAbiVc83/8h/5QaGw="
 }

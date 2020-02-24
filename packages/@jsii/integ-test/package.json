@@ -1,6 +1,6 @@
 {
   "name": "@jsii/integ-test",
-  "version": "0.22.0",
+  "version": "1.0.0",
   "description": "A suite of integration tests for JSII and related modules.",
   "private": true,
   "scripts": {
@@ -20,16 +20,16 @@
   "devDependencies": {
     "@octokit/rest": "^16.36.0",
     "@types/dotenv": "^8.2.0",
-    "@types/fs-extra": "^8.0.1",
+    "@types/fs-extra": "^8.1.0",
     "@types/tar": "^4.0.3",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "fs-extra": "^8.1.0",
     "jest": "^25.1.0",
-    "jsii": "^0.22.0",
-    "jsii-pacmak": "^0.22.0",
-    "jsii-rosetta": "^0.22.0",
-    "typescript": "~3.7.5"
+    "jsii": "^1.0.0",
+    "jsii-pacmak": "^1.0.0",
+    "jsii-rosetta": "^1.0.0",
+    "typescript": "~3.8.2"
   },
   "jest": {
     "errorOnDeprecated": true,
