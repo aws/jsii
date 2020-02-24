@@ -605,7 +605,7 @@ class JavaGenerator extends Generator {
 
   protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
     this.code.line();
-    const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
+    const returnType = method.returns ? this.toDecoratedJavaType(method.returns) : 'void';
     this.addJavaDocs(method);
     this.emitStabilityAnnotations(method);
     this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
@@ -616,8 +616,8 @@ class JavaGenerator extends Generator {
   }
 
   protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
-    const getterType = this.toJavaType(prop.type);
-    const setterTypes = this.toJavaTypes(prop.type);
+    const getterType = this.toDecoratedJavaType(prop);
+    const setterTypes = this.toDecoratedJavaTypes(prop);
     const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
 
     // for unions we only generate overloads for setters, not getters.

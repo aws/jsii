@@ -13,13 +13,13 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
+    @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Object getThisShouldBeUndefined() {
+    default @org.jetbrains.annotations.Nullable java.lang.Object getThisShouldBeUndefined() {
         return null;
     }
 

@@ -15,7 +15,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getNumberProp();
+    @org.jetbrains.annotations.NotNull java.lang.Number getNumberProp();
 
     /**
      * @return a {@link Builder} of {@link NestedStruct}

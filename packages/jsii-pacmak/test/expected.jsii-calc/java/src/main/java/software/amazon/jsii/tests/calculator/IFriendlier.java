@@ -17,7 +17,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String farewell();
+    @org.jetbrains.annotations.NotNull java.lang.String farewell();
 
     /**
      * Say goodbye.
@@ -27,7 +27,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
      * @return A goodbye blessing.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String goodbye();
+    @org.jetbrains.annotations.NotNull java.lang.String goodbye();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

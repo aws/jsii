@@ -15,20 +15,20 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.Number getAnumber();
+    @org.jetbrains.annotations.NotNull java.lang.Number getAnumber();
 
     /**
      * A string value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.String getAstring();
+    @org.jetbrains.annotations.NotNull java.lang.String getAstring();
 
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.util.List<java.lang.String> getFirstOptional() {
+    default @org.jetbrains.annotations.Nullable java.util.List<java.lang.String> getFirstOptional() {
         return null;
     }
 

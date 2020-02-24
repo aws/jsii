@@ -20,13 +20,13 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getStringProp();
+    @org.jetbrains.annotations.NotNull java.lang.String getStringProp();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default software.amazon.jsii.tests.calculator.NestedStruct getNestedStruct() {
+    default @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.NestedStruct getNestedStruct() {
         return null;
     }
 

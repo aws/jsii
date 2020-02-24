@@ -13,7 +13,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Object getUnionProperty() {
+    default @org.jetbrains.annotations.Nullable java.lang.Object getUnionProperty() {
         return null;
     }
 

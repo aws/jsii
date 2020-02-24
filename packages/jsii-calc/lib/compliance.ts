@@ -2458,3 +2458,10 @@ export class InterfaceCollections {
 
   private constructor(){ }
 }
+
+/**
+ * Checks that optional result from interface method code generates correctly
+ */
+export interface IOptionalMethod {
+    optional(): string | undefined;
+}

@@ -13,13 +13,13 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getBoom();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getBoom();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getProp();
+    @org.jetbrains.annotations.NotNull java.lang.String getProp();
 
     /**
      * @return a {@link Builder} of {@link ExtendsInternalInterface}

@@ -13,7 +13,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getOption1() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getOption1() {
         return null;
     }
 
@@ -21,7 +21,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getOption2() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getOption2() {
         return null;
     }
 

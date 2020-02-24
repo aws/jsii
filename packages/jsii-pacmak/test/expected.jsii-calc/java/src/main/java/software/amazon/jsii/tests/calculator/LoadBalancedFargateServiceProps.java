@@ -21,7 +21,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Number getContainerPort() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getContainerPort() {
         return null;
     }
 
@@ -42,7 +42,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getCpu() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getCpu() {
         return null;
     }
 
@@ -69,7 +69,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getMemoryMiB() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getMemoryMiB() {
         return null;
     }
 
@@ -81,7 +81,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Boolean getPublicLoadBalancer() {
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getPublicLoadBalancer() {
         return null;
     }
 
@@ -93,7 +93,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Boolean getPublicTasks() {
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getPublicTasks() {
         return null;
     }
 

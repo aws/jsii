@@ -15,7 +15,7 @@ public interface IStructReturningDelegate extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.StructB returnStruct();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructB returnStruct();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

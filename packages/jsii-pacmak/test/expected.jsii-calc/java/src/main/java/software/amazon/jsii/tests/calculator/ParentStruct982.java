@@ -15,7 +15,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getFoo();
+    @org.jetbrains.annotations.NotNull java.lang.String getFoo();
 
     /**
      * @return a {@link Builder} of {@link ParentStruct982}
