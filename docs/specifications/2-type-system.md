@@ -64,6 +64,9 @@ represent a value of arbitary type. The difference between them is that while
 `any` is assignable to any other type, `unknown` requires a type assertion or
 explicit cast to be performed before it can be assigned.
 
+Both of these types map to an `Any` *primitive type* in the *jsii* type system,
+and the subtle distinction between `any` and `unknown` is lost in the process.
+
 > :information_source: It is important to note that, contrary to the other types
 > in the **TypeScript** type system, `any` and `unknown` types are inherently
 > `null`-able.

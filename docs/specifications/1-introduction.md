@@ -169,7 +169,8 @@ The [*jsii* runtime architecture] defines two processes:
 1. The *host* process runs the users' code native environment (a Java virtual
    machine, the .NET Runtime, ...).
 2. The *kernel* process hosts the **JavaScript** code from the standard *npm*
-   package.
+   package defined by the user (and their dependencies), which is loaded and
+   managed by a standardized `@jsii/kernel` package.
 
 The *host* process is responsible for starting the *kernel* process as needed. A
 designated *host runtime library* provides helper functions that will perform
