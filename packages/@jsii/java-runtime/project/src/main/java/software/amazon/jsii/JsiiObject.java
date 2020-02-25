@@ -2,7 +2,8 @@ package software.amazon.jsii;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
