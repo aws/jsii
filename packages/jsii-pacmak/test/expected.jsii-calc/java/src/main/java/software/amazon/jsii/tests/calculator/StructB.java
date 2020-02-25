@@ -15,13 +15,13 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getRequiredString();
+    @org.jetbrains.annotations.NotNull java.lang.String getRequiredString();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Boolean getOptionalBoolean() {
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getOptionalBoolean() {
         return null;
     }
 
@@ -29,7 +29,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default software.amazon.jsii.tests.calculator.StructA getOptionalStructA() {
+    default @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.StructA getOptionalStructA() {
         return null;
     }
 

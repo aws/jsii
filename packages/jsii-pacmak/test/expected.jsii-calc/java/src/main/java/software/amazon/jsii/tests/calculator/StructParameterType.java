@@ -17,13 +17,13 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getScope();
+    @org.jetbrains.annotations.NotNull java.lang.String getScope();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Boolean getProps() {
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getProps() {
         return null;
     }
 

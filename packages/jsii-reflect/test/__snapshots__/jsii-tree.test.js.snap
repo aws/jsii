@@ -2003,6 +2003,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ property property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
+ │   ├─┬ interface IOptionalMethod (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ optional() method (experimental)
+ │   │     ├── abstract
+ │   │     └── returns: Optional<string>
  │   ├─┬ interface IPrivatelyImplemented (experimental)
  │   │ └─┬ members
  │   │   └─┬ success property (experimental)
@@ -2611,6 +2616,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └─┬ interfaces
  │   │   └── IAnotherPublicInterface
  │   ├── interface IObjectWithProperty
+ │   ├── interface IOptionalMethod
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
@@ -3544,6 +3550,9 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── wasSet() method
  │   │   └── property property
+ │   ├─┬ interface IOptionalMethod
+ │   │ └─┬ members
+ │   │   └── optional() method
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └── success property
@@ -3902,6 +3911,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IMutableObjectLiteral
  │   ├── interface INonInternalInterface
  │   ├── interface IObjectWithProperty
+ │   ├── interface IOptionalMethod
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2

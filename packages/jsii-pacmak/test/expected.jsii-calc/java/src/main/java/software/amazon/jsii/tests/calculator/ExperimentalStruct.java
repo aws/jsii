@@ -13,7 +13,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getReadonlyProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty();
 
     /**
      * @return a {@link Builder} of {@link ExperimentalStruct}

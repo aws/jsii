@@ -15,7 +15,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getDeeperRequiredProp();
+    @org.jetbrains.annotations.NotNull java.lang.String getDeeperRequiredProp();
 
     /**
      * It's long, but you'll almost never pass it.
@@ -23,7 +23,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getDeeperOptionalProp() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getDeeperOptionalProp() {
         return null;
     }
 

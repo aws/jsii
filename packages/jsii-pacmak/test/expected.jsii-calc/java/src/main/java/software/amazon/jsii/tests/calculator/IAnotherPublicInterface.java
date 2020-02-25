@@ -13,12 +13,12 @@ public interface IAnotherPublicInterface extends software.amazon.jsii.JsiiSerial
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getA();
+    @org.jetbrains.annotations.NotNull java.lang.String getA();
 
     /**
      * EXPERIMENTAL
      */
-    void setA(final java.lang.String value);
+    void setA(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

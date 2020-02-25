@@ -106,6 +106,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IMutableObjectLiteral": return software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class;
             case "jsii-calc.INonInternalInterface": return software.amazon.jsii.tests.calculator.INonInternalInterface.class;
             case "jsii-calc.IObjectWithProperty": return software.amazon.jsii.tests.calculator.IObjectWithProperty.class;
+            case "jsii-calc.IOptionalMethod": return software.amazon.jsii.tests.calculator.IOptionalMethod.class;
             case "jsii-calc.IPrivatelyImplemented": return software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class;
             case "jsii-calc.IPublicInterface": return software.amazon.jsii.tests.calculator.IPublicInterface.class;
             case "jsii-calc.IPublicInterface2": return software.amazon.jsii.tests.calculator.IPublicInterface2.class;

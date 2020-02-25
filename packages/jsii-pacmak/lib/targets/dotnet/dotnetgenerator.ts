@@ -154,7 +154,8 @@ export class DotNetGenerator extends Generator {
     this.dotnetDocGenerator.emitDocs(method);
     this.dotnetRuntimeGenerator.emitAttributesForMethod(ifc, method);
     const returnType = method.returns ? this.typeresolver.toDotNetType(method.returns.type) : 'void';
-    this.code.line(`${returnType} ${this.nameutils.convertMethodName(method.name)}(${this.renderMethodParameters(method)});`);
+    const nullable = method.returns?.optional ? '?' : '';
+    this.code.line(`${returnType}${nullable} ${this.nameutils.convertMethodName(method.name)}(${this.renderMethodParameters(method)});`);
   }
 
   protected onInterfaceMethodOverload(ifc: spec.InterfaceType, overload: spec.Method, _originalMethod: spec.Method) {

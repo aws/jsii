@@ -5507,6 +5507,39 @@
         }
       ]
     },
+    "jsii-calc.IOptionalMethod": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Checks that optional result from interface method code generates correctly."
+      },
+      "fqn": "jsii-calc.IOptionalMethod",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2465
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2466
+          },
+          "name": "optional",
+          "returns": {
+            "optional": true,
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IOptionalMethod"
+    },
     "jsii-calc.IPrivatelyImplemented": {
       "assembly": "jsii-calc",
       "docs": {
@@ -12123,5 +12156,5 @@
     }
   },
   "version": "1.0.0",
-  "fingerprint": "rtlqfLVk+YuqJRqeFCR5A3mesEPpfJgo5m1gRM323+U="
+  "fingerprint": "oTbIPjVGH+NSJCWHMqRYC7fJ3XjjZSr8TvvRkANEonA="
 }

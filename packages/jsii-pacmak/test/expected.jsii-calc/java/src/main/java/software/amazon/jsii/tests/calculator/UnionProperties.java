@@ -13,13 +13,13 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Object getBar();
+    @org.jetbrains.annotations.NotNull java.lang.Object getBar();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Object getFoo() {
+    default @org.jetbrains.annotations.Nullable java.lang.Object getFoo() {
         return null;
     }
 

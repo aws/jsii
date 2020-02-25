@@ -13,12 +13,12 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getFoo();
+    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
 
     /**
      * EXPERIMENTAL
      */
-    void setFoo(final java.lang.Number value);
+    void setFoo(final @org.jetbrains.annotations.NotNull java.lang.Number value);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

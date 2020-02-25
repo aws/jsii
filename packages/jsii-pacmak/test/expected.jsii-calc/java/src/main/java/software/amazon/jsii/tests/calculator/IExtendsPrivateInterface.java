@@ -13,18 +13,18 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.util.List<java.lang.String> getMoreThings();
+    @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> getMoreThings();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getPrivateValue();
+    @org.jetbrains.annotations.NotNull java.lang.String getPrivateValue();
 
     /**
      * EXPERIMENTAL
      */
-    void setPrivateValue(final java.lang.String value);
+    void setPrivateValue(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

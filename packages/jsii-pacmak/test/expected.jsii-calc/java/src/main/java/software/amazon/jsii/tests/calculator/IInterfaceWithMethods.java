@@ -13,7 +13,7 @@ public interface IInterfaceWithMethods extends software.amazon.jsii.JsiiSerializ
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getValue();
+    @org.jetbrains.annotations.NotNull java.lang.String getValue();
 
     /**
      * EXPERIMENTAL

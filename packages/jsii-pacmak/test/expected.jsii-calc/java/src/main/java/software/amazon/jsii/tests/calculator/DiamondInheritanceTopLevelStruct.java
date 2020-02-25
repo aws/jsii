@@ -13,7 +13,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getTopLevelProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getTopLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceTopLevelStruct}

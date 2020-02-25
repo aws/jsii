@@ -18,7 +18,7 @@ public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.String hello();
+    @org.jetbrains.annotations.NotNull java.lang.String hello();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

@@ -15,7 +15,7 @@ public interface IInterfaceImplementedByAbstractClass extends software.amazon.js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getPropFromInterface();
+    @org.jetbrains.annotations.NotNull java.lang.String getPropFromInterface();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

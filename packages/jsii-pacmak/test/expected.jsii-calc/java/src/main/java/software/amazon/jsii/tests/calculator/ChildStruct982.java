@@ -13,7 +13,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getBar();
+    @org.jetbrains.annotations.NotNull java.lang.Number getBar();
 
     /**
      * @return a {@link Builder} of {@link ChildStruct982}
