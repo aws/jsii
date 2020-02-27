@@ -30,6 +30,9 @@ export class Assembler implements Emitter {
   private _deferred = new Array<DeferredRecord>();
   private _types: { [fqn: string]: spec.Type } = {};
 
+  /** Map of Symbol to namespace export Symbol */
+  private readonly _namespaceMap = new Map<ts.Symbol, ts.Symbol>();
+
   /**
    * @param projectInfo information about the package being assembled
    * @param program     the TypeScript program to be assembled from
@@ -80,7 +83,11 @@ export class Assembler implements Emitter {
       }
       const symbol = this._typeChecker.getSymbolAtLocation(sourceFile);
       if (!symbol) { continue; }
-      for (const node of this._typeChecker.getExportsOfModule(symbol)) {
+      const moduleExports = this._typeChecker.getExportsOfModule(symbol);
+      for (const node of moduleExports) {
+        this._registerNamespaces(node);
+      }
+      for (const node of moduleExports) {
         visitPromises.push(this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability)));
       }
     }
@@ -256,7 +263,12 @@ export class Assembler implements Emitter {
     return type;
   }
 
-  private _diagnostic(node: ts.Node | null, category: ts.DiagnosticCategory, messageText: string) {
+  private _diagnostic(
+    node: ts.Node | null,
+    category: ts.DiagnosticCategory,
+    messageText: string,
+    relatedInformation?: ts.DiagnosticRelatedInformation[]
+  ) {
     this._diagnostics.push({
       domain: 'JSII',
       category,
@@ -265,6 +277,7 @@ export class Assembler implements Emitter {
       file: node != null ? node.getSourceFile() : undefined,
       start: node != null ? node.getStart() : undefined,
       length: node != null ? node.getEnd() - node.getStart() : undefined,
+      relatedInformation,
     });
   }
 
@@ -292,7 +305,10 @@ export class Assembler implements Emitter {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
       return `unknown.${typeName}`;
     }
-    const fqn = `${pkg.name}.${typeName}`;
+    const submoduleNs = this._namespaceMap.get(type.symbol)?.name;
+    const fqn = submoduleNs == null
+      ? `${pkg.name}.${typeName}`
+      : `${pkg.name}.${submoduleNs}.${typeName}`;
     if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn }, type.symbol.valueDeclaration)) {
       this._diagnostic(node,
         ts.DiagnosticCategory.Error,
@@ -311,6 +327,88 @@ export class Assembler implements Emitter {
     }
   }
 
+  private _registerNamespaces(symbol: ts.Symbol): void {
+    const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
+    if (declaration == null || !ts.isNamespaceExport(declaration)) {
+      // Nothing to do here...
+      return;
+    }
+    const moduleSpecifier = declaration.parent.moduleSpecifier;
+    if (moduleSpecifier == null || !ts.isStringLiteral(moduleSpecifier)) {
+      // There is a grammar error here, so we'll let tsc report this for us.
+      return;
+    }
+    const resolution = ts.resolveModuleName(
+      moduleSpecifier.text,
+      declaration.getSourceFile().fileName,
+      this.program.getCompilerOptions(),
+      ts.sys
+    );
+    if (resolution.resolvedModule == null) {
+      // Unresolvable module... We'll let tsc report this for us.
+      return;
+    }
+    if (resolution.resolvedModule.isExternalLibraryImport) {
+      // External re-exports are "pure-javascript" sugar; they need not be
+      // represented in the jsii Assembly since the types in there will be
+      // resolved through dependencies.
+      return;
+    }
+    const sourceFile = this.program.getSourceFile(resolution.resolvedModule.resolvedFileName)!;
+    const sourceModule = this._typeChecker.getSymbolAtLocation(sourceFile);
+    // If there's no module, it's a syntax error, and tsc will have reported it for us.
+    if (sourceModule) {
+      this._addToNamespace(symbol, sourceModule);
+    }
+  }
+
+  private _addToNamespace(ns: ts.Symbol, moduleLike: ts.Symbol) {
+    for (const symbol of this._typeChecker.getExportsOfModule(moduleLike)) {
+      if (this._namespaceMap.has(symbol)) {
+        const currNs = this._namespaceMap.get(symbol)!;
+        if (currNs.name !== ns.name) {
+          const currNsDecl = currNs.valueDeclaration ?? currNs.declarations[0];
+          const nsDecl = ns.valueDeclaration ?? ns.declarations[0];
+          this._diagnostic(
+            symbol.valueDeclaration,
+            ts.DiagnosticCategory.Error,
+            `Symbol is re-exported under two distinct namespaces (${currNs.name} and ${ns.name})`,
+            [{
+              category: ts.DiagnosticCategory.Warning,
+              file: currNsDecl.getSourceFile(),
+              length: currNsDecl.getStart() - currNsDecl.getEnd(),
+              messageText: `Symbol is exported under the "${currNs.name}" namespace`,
+              start: currNsDecl.getStart(),
+              code: JSII_DIAGNOSTICS_CODE
+            }, {
+              category: ts.DiagnosticCategory.Warning,
+              file: nsDecl.getSourceFile(),
+              length: nsDecl.getStart() - nsDecl.getEnd(),
+              messageText: `Symbol is exported under the "${ns.name}" namespace`,
+              start: nsDecl.getStart(),
+              code: JSII_DIAGNOSTICS_CODE
+            }]
+          );
+        }
+        // Found two re-exports, which is odd, but they use the same namespace,
+        // so it's probably okay? That's likely a tsc error, which will have
+        // been reported for us already anyway.
+        continue;
+      }
+      this._namespaceMap.set(symbol, ns);
+
+      const decl = symbol.declarations?.[0];
+      if (decl != null
+        && (ts.isClassDeclaration(decl) || ts.isInterfaceDeclaration(decl) || ts.isEnumDeclaration(decl) || ts.isModuleDeclaration(decl))
+      ) {
+        const type = this._typeChecker.getTypeAtLocation(decl);
+        if (type.symbol.exports) {
+          this._addToNamespace(ns, symbol);
+        }
+      }
+    }
+  }
+
   /**
    * Register exported types in ``this.types``.
    *
@@ -318,6 +416,16 @@ export class Assembler implements Emitter {
    * @param namePrefix the prefix for the types' namespaces
    */
   private async _visitNode(node: ts.Declaration, context: EmitContext): Promise<spec.Type[]> {
+    if (ts.isNamespaceExport(node)) {
+      const symbol = this._typeChecker.getSymbolAtLocation(node.parent.moduleSpecifier!)!;
+      const nsContext = context.appendNamespace(node.name.text);
+      const promises = new Array<Promise<spec.Type[]>>();
+      for (const child of this._typeChecker.getExportsOfModule(symbol)) {
+        promises.push(this._visitNode(child.declarations[0], nsContext));
+      }
+      return flattenPromises(promises);
+    }
+
     if ((ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) === 0) { return []; }
 
     let jsiiType: spec.Type | undefined;
