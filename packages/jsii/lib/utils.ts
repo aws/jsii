@@ -43,11 +43,9 @@ export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
     getNewLine: () => ts.sys.newLine,
   };
 
-  const message = diagnostic.category === ts.DiagnosticCategory.Message && typeof diagnostic.messageText === 'string'
-    ? diagnostic.messageText
-    : diagnostic.file
-      ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
-      : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
+  const message = diagnostic.file != null
+    ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
+    : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
 
   const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
   if (!logFunc) { return; }
