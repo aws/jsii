@@ -37,7 +37,7 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "@types/node": "^10.17.16",
+    "@types/node": "^10.17.17",
     "jsii-build-tools": "^1.0.0",
     "typescript": "~3.8.2"
   }
