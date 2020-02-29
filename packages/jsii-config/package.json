@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@jsii/spec": "^1.0.0",
-    "inquirer": "^7.0.4",
+    "inquirer": "^7.0.5",
     "yargs": "^15.1.0"
   },
   "jest": {
