@@ -1,6 +1,6 @@
 import * as Octokit from '@octokit/rest';
 import * as dotenv from 'dotenv';
-import { mkdtemp, remove } from 'fs-extra';
+import { readdir, mkdtemp, remove } from 'fs-extra';
 import * as path from 'path';
 import { downloadReleaseAsset, minutes, ProcessManager, extractFileStream } from '../utils';
 
@@ -44,45 +44,28 @@ describe('Build CDK', () => {
       cwd: srcDir
     });
 
-    // build cdk build tools
-    await processes.spawn('npx', [
-      'lerna',
-      '--stream',
-      '--scope', 'cdk-build-tools',
-      '--scope', 'pkglint',
-      '--scope', 'awslint',
-      'run', 'build',
-    ], { cwd: srcDir });
-
-    // build jsii modules
-    await processes.spawn('npx', [
-      'lerna',
-      '--stream',
-      '--scope', '@aws-cdk/*',
-      '--scope', 'aws-cdk',
-      'run', 'build',
-      '--', '--jsii', path.join(JSII_DIR, 'bin', 'jsii'),
-    ], { cwd: srcDir });
-
-    // build the rest
-    await processes.spawn('npx', [
-      'lerna',
-      '--stream',
-      '--ignore', '@aws-cdk/*',
-      '--ignore', 'aws-cdk',
-      '--ignore', 'cdk-build-tools',
-      '--ignore', 'pkglint',
-      '--ignore', 'awslint',
-      'run', 'build',
-    ], { cwd: srcDir });
-
-    // package modules
-    await processes.spawn('./pack.sh', [], {
-      cwd: srcDir,
-      env: {
-        PACMAK: path.join(JSII_PACMAK_DIR, 'bin', 'jsii-pacmak'),
-        ROSETTA: path.join(JSII_ROSETTA_DIR, 'bin', 'jsii-rosetta')
-      }
+    // install local version of jsii
+    await processes.spawn('yarn', ['workspace', 'cdk-build-tools', 'add', JSII_DIR, JSII_PACMAK_DIR], {
+      cwd: srcDir
     });
+    await processes.spawn('yarn', ['add', '-W', JSII_DIR, JSII_ROSETTA_DIR, JSII_PACMAK_DIR], {
+      cwd: srcDir
+    });
+
+    // build cdk modules
+    await processes.spawn('npx', ['lerna', 'run', 'build'], {
+      cwd: srcDir
+    });
+
+    // package modules with pacmak
+    await processes.spawn('yarn', ['run', 'pack'], {
+      cwd: srcDir
+    });
+
+    // assert against cdk dist dir
+    await Promise.all(['js', 'dotnet', 'python', 'java'].map(async (distDir) => {
+      const items = await readdir(path.join(srcDir, 'dist', distDir));
+      expect(items.length).toBeGreaterThanOrEqual(1);
+    }));
   }, minutes(60));
 });
