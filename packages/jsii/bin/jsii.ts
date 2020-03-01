@@ -35,6 +35,20 @@ const warningTypes = Object.keys(enabledWarnings);
       default: [],
       desc: `List of warnings to silence (warnings: ${warningTypes.join(',')})`,
     })
+    .option('tsc-outdir', {
+      alias: 'o',
+      type: 'string',
+      desc: 'directory where TS artifacts will be generated',
+      defaultDescription: 'based on `jsii.tsc.outDir` in `package.json`',
+      required: false
+    })
+    .option('tsc-rootdir', {
+      alias: 'rd',
+      type: 'string',
+      desc: 'root directory where TS artifacts will be generated',
+      defaultDescription: 'based on `jsii.tsc.rootDir` in `package.json`',
+      required: false
+    })
     .help()
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     .version(`${VERSION}, typescript ${require('typescript/package.json').version}`)
@@ -45,6 +59,14 @@ const warningTypes = Object.keys(enabledWarnings);
   const projectRoot = path.normalize(path.resolve(process.cwd(), argv._[0] ?? '.'));
 
   const projectInfo = await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] });
+
+  if (argv['tsc-outdir']) {
+    projectInfo.tsc.outDir = argv['tsc-outdir];
+  }
+
+  if (argv['tsc-rootdir') {
+    projectInfo.tsc.rootDir = argv['tsc-rootdir'];
+  }
 
   // disable all silenced warnings
   for (const key of argv['silence-warnings']) {
