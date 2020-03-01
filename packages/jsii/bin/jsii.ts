@@ -61,10 +61,10 @@ const warningTypes = Object.keys(enabledWarnings);
   const projectInfo = await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] });
 
   if (argv['tsc-outdir']) {
-    projectInfo.tsc.outDir = argv['tsc-outdir];
+    projectInfo.tsc.outDir = argv['tsc-outdir'];
   }
 
-  if (argv['tsc-rootdir') {
+  if (argv['tsc-rootdir']) {
     projectInfo.tsc.rootDir = argv['tsc-rootdir'];
   }
 
