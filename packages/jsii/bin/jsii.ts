@@ -64,8 +64,8 @@ const warningTypes = Object.keys(enabledWarnings);
     projectInfo = {
       ...projectInfo, 
       tsc: {
-        outDir: argv['tsc-outdir'] || projectInfo.tsc.outDir,
-        rootDir: argv['tsc-rootdir'] || projectInfo.tsc.rootDir,
+        outDir: argv['tsc-outdir'] || projectInfo.tsc?.outDir,
+        rootDir: argv['tsc-rootdir'] || projectInfo.tsc?.rootDir,
       }
     };
   }
