@@ -58,14 +58,16 @@ const warningTypes = Object.keys(enabledWarnings);
 
   const projectRoot = path.normalize(path.resolve(process.cwd(), argv._[0] ?? '.'));
 
-  const projectInfo = await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] });
+  let projectInfo = await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] });
 
-  if (argv['tsc-outdir']) {
-    projectInfo.tsc.outDir = argv['tsc-outdir'];
-  }
-
-  if (argv['tsc-rootdir']) {
-    projectInfo.tsc.rootDir = argv['tsc-rootdir'];
+  if (argv['tsc-outdir'] || argv['tsc-rootdir']) {
+    projectInfo = {
+      ...projectInfo, 
+      tsc: {
+        outDir: argv['tsc-outdir'] || projectInfo.tsc.outDir,
+        rootDir: argv['tsc-rootdir'] || projectInfo.tsc.rootDir,
+      }
+    };
   }
 
   // disable all silenced warnings
