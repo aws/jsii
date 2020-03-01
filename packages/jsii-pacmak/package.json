@@ -46,7 +46,7 @@
     "semver": "^7.1.3",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^14.0.0",
-    "yargs": "^15.1.0"
+    "yargs": "^15.2.0"
   },
   "devDependencies": {
     "@jsii/dotnet-jsonmodel": "^1.0.0",
