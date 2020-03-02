@@ -1,6 +1,13 @@
 # See https://doc.mergify.io
 
 pull_request_rules:
+  - name: label core
+    actions:
+      label:
+        add: [ contribution/core ]
+    conditions:
+      - author~=^(eladb|RomainMuller|garnaat|nija-at|shivlaks|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo)$
+      - -label~="contribution/core"
   - name: Tell them we're good now
     actions:
       comment:
@@ -105,20 +112,7 @@ pull_request_rules:
       - base=master
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
-      # List of people with push permissions on the repository
-      - author!=eladb
-      - author!=RomainMuller
-      - author!=garnaat
-      - author!=nija-at
-      - author!=shivlaks
-      - author!=skinny85
-      - author!=rix0rrr
-      - author!=NGL321
-      - author!=Jerry-AWS
-      - author!=SomayaB
-      - author!=MrArnoldPalmer
-      - author!=NetaNir
-      - author!=illapolo
+      - label!=contribution/core
 
   - name: Let them know the PR title doesn't look right
     actions:
