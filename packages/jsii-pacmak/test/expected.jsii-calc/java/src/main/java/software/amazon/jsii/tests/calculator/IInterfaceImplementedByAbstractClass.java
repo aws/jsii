@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * awslabs/jsii#220 Abstract return type.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -15,7 +15,7 @@ public interface IInterfaceImplementedByAbstractClass extends software.amazon.js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getPropFromInterface();
+    @org.jetbrains.annotations.NotNull java.lang.String getPropFromInterface();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -30,7 +30,7 @@ public interface IInterfaceImplementedByAbstractClass extends software.amazon.js
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getPropFromInterface() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getPropFromInterface() {
             return this.jsiiGet("propFromInterface", java.lang.String.class);
         }
     }

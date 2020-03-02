@@ -1,5 +1,5 @@
-import jsii = require('jsii-spec');
-import { Stability } from 'jsii-spec';
+import * as jsii from '@jsii/spec';
+import { Stability } from '@jsii/spec';
 import { TypeSystem } from './type-system';
 
 export interface Documentable {
@@ -16,7 +16,7 @@ export class Docs {
     private readonly parentDocs?: Docs,
   ) {
 
-    this.docs = spec || {};
+    this.docs = spec ?? {};
 
   }
 
@@ -51,19 +51,19 @@ export class Docs {
    * Return the stability of this type
    */
   public get stability(): jsii.Stability | undefined {
-    return lowestStability(this.docs.stability, this.parentDocs && this.parentDocs.stability);
+    return lowestStability(this.docs.stability, this.parentDocs?.stability);
   }
 
   public customTag(tag: string): string | undefined {
-    return this.docs.custom && this.docs.custom[tag];
+    return this.docs.custom?.[tag];
   }
 
   public get summary(): string {
-    return this.docs.summary || '';
+    return this.docs.summary ?? '';
   }
 
   public get remarks(): string {
-    return this.docs.remarks || '';
+    return this.docs.remarks ?? '';
   }
 }
 

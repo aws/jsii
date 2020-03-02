@@ -15,20 +15,20 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.Number getAnumber();
+    @org.jetbrains.annotations.NotNull java.lang.Number getAnumber();
 
     /**
      * A string value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.String getAstring();
+    @org.jetbrains.annotations.NotNull java.lang.String getAstring();
 
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.util.List<java.lang.String> getFirstOptional() {
+    default @org.jetbrains.annotations.Nullable java.util.List<java.lang.String> getFirstOptional() {
         return null;
     }
 
@@ -51,7 +51,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         private java.util.List<java.lang.String> firstOptional;
 
         /**
-         * Sets the value of Anumber
+         * Sets the value of {@link MyFirstStruct#getAnumber}
          * @param anumber An awesome number value. This parameter is required.
          * @return {@code this}
          */
@@ -63,7 +63,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of Astring
+         * Sets the value of {@link MyFirstStruct#getAstring}
          * @param astring A string value. This parameter is required.
          * @return {@code this}
          */
@@ -75,7 +75,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of FirstOptional
+         * Sets the value of {@link MyFirstStruct#getFirstOptional}
          * @param firstOptional the value to be set.
          * @return {@code this}
          */
@@ -116,7 +116,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
             super(objRef);
             this.anumber = this.jsiiGet("anumber", java.lang.Number.class);
             this.astring = this.jsiiGet("astring", java.lang.String.class);
-            this.firstOptional = this.jsiiGet("firstOptional", java.util.List.class);
+            this.firstOptional = this.jsiiGet("firstOptional", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class)));
         }
 
         /**

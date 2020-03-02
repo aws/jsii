@@ -1,19 +1,25 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly } from 'jsii-spec';
-import path = require('path');
-import xmlbuilder = require('xmlbuilder');
+import { Assembly } from '@jsii/spec';
+import * as path from 'path';
+import * as xmlbuilder from 'xmlbuilder';
 import { DotNetNameUtils } from './nameutils';
-import logging = require('../../logging');
+import * as logging from '../../logging';
 import { nextMajorVersion } from '../../util';
+import { TARGET_FRAMEWORK } from '../dotnet';
+import { toNuGetVersionRange } from '../version-utils';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
+  public readonly version: string;
+
   public constructor(
     public readonly namespace: string,
     public readonly packageId: string,
     public readonly fqn: string,
-    public readonly version: string,
-    public readonly partOfCompilation: boolean) {
+    version: string,
+    public readonly partOfCompilation: boolean
+  ) {
+    this.version = toNuGetVersionRange(version);
   }
 }
 
@@ -66,6 +72,9 @@ export class FileGenerator {
     if (assembly.author.organization) {
       propertyGroup.ele('Company', assembly.author.name);
     }
+    if (assembly.keywords) {
+      propertyGroup.ele('PackageTags', assembly.keywords.join(';'));
+    }
     propertyGroup.ele('Language', 'en-US');
     propertyGroup.ele('ProjectUrl', assembly.homepage);
     propertyGroup.ele('RepositoryUrl', assembly.repository.url);
@@ -76,8 +85,9 @@ export class FileGenerator {
     propertyGroup.ele('GeneratePackageOnBuild', 'true');
     propertyGroup.ele('IncludeSymbols', 'true');
     propertyGroup.ele('IncludeSource', 'true');
+    propertyGroup.ele('Nullable', 'enable');
     propertyGroup.ele('SymbolPackageFormat', 'snupkg');
-    propertyGroup.ele('TargetFramework', 'netcoreapp3.0');
+    propertyGroup.ele('TargetFramework', TARGET_FRAMEWORK);
 
     if (dotnetInfo!.signAssembly != null) {
       const signAssembly = propertyGroup.ele('SignAssembly');
@@ -111,6 +121,9 @@ export class FileGenerator {
         dependencyReference.att('Version', value.version);
       }
     });
+
+    // Suppress warnings about [Obsolete] members, this is the author's choice!
+    rootNode.ele('PropertyGroup').ele('NoWarn').text('0612,0618');
 
     const xml = rootNode.end({ pretty: true, spaceBeforeSlash: true });
 

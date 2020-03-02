@@ -25,9 +25,7 @@ public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getAbstractProperty() {
-        return this.jsiiGet("abstractProperty", java.lang.String.class);
-    }
+    public abstract @org.jetbrains.annotations.NotNull java.lang.String getAbstractProperty();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -42,7 +40,7 @@ public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject 
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getAbstractProperty() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getAbstractProperty() {
             return this.jsiiGet("abstractProperty", java.lang.String.class);
         }
     }

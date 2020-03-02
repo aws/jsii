@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import * as jsii from '@jsii/spec';
 import { Assembly } from './assembly';
 import { Docs, Documentable } from './docs';
 import { Type } from './type';
@@ -29,7 +29,7 @@ export class EnumMember implements Documentable {
     public readonly enumType: EnumType, memberSpec: jsii.EnumMember) {
 
     this.name = memberSpec.name;
-    this.docs = new Docs(this.system, this, memberSpec.docs || {}, this.enumType.docs);
+    this.docs = new Docs(this.system, this, memberSpec.docs ?? {}, this.enumType.docs);
   }
 
   public get system(): TypeSystem { return this.enumType.system; }

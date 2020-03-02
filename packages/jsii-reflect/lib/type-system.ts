@@ -1,6 +1,6 @@
-import fs = require('fs');
-import jsii = require('jsii-spec');
-import path = require('path');
+import * as fs from 'fs';
+import * as jsii from '@jsii/spec';
+import * as path from 'path';
 import { promisify } from 'util';
 import { Assembly } from './assembly';
 import { ClassType } from './class';
@@ -33,21 +33,18 @@ export class TypeSystem {
    * NOT have to declare a JSII dependency on any of the packages.
    */
   public async loadNpmDependencies(packageRoot: string, options: { validate?: boolean } = {}): Promise<void> {
-    /* eslint-disable @typescript-eslint/no-var-requires */
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
     const pkg = require(path.resolve(packageRoot, 'package.json'));
-    /* eslint-enable @typescript-eslint/no-var-requires */
 
     for (const dep of dependenciesOf(pkg)) {
       // Filter jsii dependencies
       const depPkgJsonPath = require.resolve(`${dep}/package.json`, { paths: [packageRoot] });
-      /* eslint-disable @typescript-eslint/no-var-requires */
+      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
       const depPkgJson = require(depPkgJsonPath);
-      /* eslint-enable @typescript-eslint/no-var-requires */
       if (!depPkgJson.jsii) { continue; }
 
-      /* eslint-disable no-await-in-loop */
+      // eslint-disable-next-line no-await-in-loop
       await this.loadModule(path.dirname(depPkgJsonPath), options);
-      /* eslint-enable no-await-in-loop */
     }
   }
 
@@ -108,6 +105,8 @@ export class TypeSystem {
       }
 
       const root = this.addAssembly(asm, { isRoot });
+      // Using || instead of ?? because npmjs.com will alter the package.json file and possibly put `false` in pkg.bundleDependencies.
+      // This is actually non compliant to the package.json specification, but that's how it is...
       const bundled: string[] = pkg.bundledDependencies || pkg.bundleDependencies || [];
 
       for (const name of dependenciesOf(pkg)) {
@@ -116,9 +115,8 @@ export class TypeSystem {
         const depDir = require.resolve(`${name}/package.json`, {
           paths: [moduleDirectory]
         });
-        /* eslint-disable no-await-in-loop */
+        // eslint-disable-next-line no-await-in-loop
         await _loadModule.call(this, path.dirname(depDir));
-        /* eslint-enable no-await-in-loop */
       }
 
       return root;
@@ -181,7 +179,7 @@ export class TypeSystem {
   public tryFindFqn(fqn: string): Type | undefined {
     const [assembly] = fqn.split('.');
     const asm = this.tryFindAssembly(assembly);
-    return asm && asm.tryFindType(fqn);
+    return asm?.tryFindType(fqn);
   }
 
   public findClass(fqn: string): ClassType {
@@ -273,7 +271,7 @@ export class TypeSystem {
 
 function dependenciesOf(packageJson: any) {
   const deps = new Set<string>();
-  Object.keys(packageJson.dependencies || {}).forEach(deps.add.bind(deps));
-  Object.keys(packageJson.peerDependencies || {}).forEach(deps.add.bind(deps));
+  Object.keys(packageJson.dependencies ?? {}).forEach(deps.add.bind(deps));
+  Object.keys(packageJson.peerDependencies ?? {}).forEach(deps.add.bind(deps));
   return Array.from(deps);
 }

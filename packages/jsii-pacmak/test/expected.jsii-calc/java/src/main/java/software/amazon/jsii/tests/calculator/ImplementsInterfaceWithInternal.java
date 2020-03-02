@@ -27,6 +27,6 @@ public class ImplementsInterfaceWithInternal extends software.amazon.jsii.JsiiOb
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public void visible() {
-        this.jsiiCall("visible", Void.class);
+        this.jsiiCall("visible", software.amazon.jsii.NativeType.VOID);
     }
 }

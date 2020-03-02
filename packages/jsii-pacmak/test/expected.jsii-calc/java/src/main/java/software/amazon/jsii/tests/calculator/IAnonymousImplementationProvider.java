@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * We can return an anonymous interface implementation from an override without losing the interface declarations.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -15,13 +15,13 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.Implementation provideAsClass();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Implementation provideAsClass();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -36,7 +36,7 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public software.amazon.jsii.tests.calculator.Implementation provideAsClass() {
+        public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Implementation provideAsClass() {
             return this.jsiiCall("provideAsClass", software.amazon.jsii.tests.calculator.Implementation.class);
         }
 
@@ -45,7 +45,7 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
+        public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
             return this.jsiiCall("provideAsInterface", software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class);
         }
     }

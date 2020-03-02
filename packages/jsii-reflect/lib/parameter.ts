@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import * as jsii from '@jsii/spec';
 import { Callable } from './callable';
 import { Docs, Documentable } from './docs';
 import { OptionalValue } from './optional-value';
@@ -30,6 +30,6 @@ export class Parameter extends OptionalValue implements Documentable {
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs || {});
+    return new Docs(this.system, this, this.spec.docs ?? {});
   }
 }

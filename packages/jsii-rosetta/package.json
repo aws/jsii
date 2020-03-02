@@ -1,37 +1,41 @@
 {
   "name": "jsii-rosetta",
-  "version": "0.20.8",
+  "version": "1.0.0",
   "description": "Translate TypeScript code snippets to other languages",
   "main": "lib/index.js",
   "bin": {
     "jsii-rosetta": "bin/jsii-rosetta"
   },
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc --build && npm run lint",
     "watch": "tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=examples/* --ignore-pattern=test/translations/*",
     "test": "jest",
     "test:update": "jest -u",
     "package": "package-js"
   },
   "devDependencies": {
     "@types/commonmark": "^0.27.4",
-    "@types/fs-extra": "^8.0.1",
-    "@types/jest": "^24.0.23",
+    "@types/fs-extra": "^8.1.0",
+    "@types/jest": "^25.1.3",
     "@types/mock-fs": "^4.10.0",
-    "@types/node": "^10.17.4",
-    "@types/yargs": "^13.0.3",
-    "jest": "^24.9.0",
-    "jsii": "^0.20.8",
-    "jsii-build-tools": "^0.20.8",
+    "@types/node": "^10.17.17",
+    "@types/yargs": "^15.0.4",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "jsii": "^1.0.0",
+    "jsii-build-tools": "^1.0.0",
     "memory-streams": "^0.1.3",
-    "mock-fs": "^4.10.4"
+    "mock-fs": "^4.11.0",
+    "typescript": "~3.8.3"
   },
   "dependencies": {
-    "commonmark": "^0.29.0",
+    "@jsii/spec": "^1.0.0",
+    "commonmark": "^0.29.1",
     "fs-extra": "^8.1.0",
-    "jsii-spec": "^0.20.8",
-    "typescript": "~3.6.4",
-    "yargs": "^14.2.0"
+    "typescript": "~3.8.3",
+    "xmldom": "^0.2.1",
+    "yargs": "^15.2.0"
   },
   "jest": {
     "moduleFileExtensions": [

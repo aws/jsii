@@ -23,51 +23,51 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param index This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number overrideMeAsync(final java.lang.Number index) {
+    public @org.jetbrains.annotations.NotNull java.lang.Number overrideMeAsync(final @org.jetbrains.annotations.NotNull java.lang.Number index) {
         return this.jsiiAsyncCall("overrideMeAsync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(index, "index is required") });
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param index This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number overrideMeSync(final java.lang.Number index) {
+    public @org.jetbrains.annotations.NotNull java.lang.Number overrideMeSync(final @org.jetbrains.annotations.NotNull java.lang.Number index) {
         return this.jsiiCall("overrideMeSync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(index, "index is required") });
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param count This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number parallelSumAsync(final java.lang.Number count) {
+    public @org.jetbrains.annotations.NotNull java.lang.Number parallelSumAsync(final @org.jetbrains.annotations.NotNull java.lang.Number count) {
         return this.jsiiAsyncCall("parallelSumAsync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param count This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number serialSumAsync(final java.lang.Number count) {
+    public @org.jetbrains.annotations.NotNull java.lang.Number serialSumAsync(final @org.jetbrains.annotations.NotNull java.lang.Number count) {
         return this.jsiiAsyncCall("serialSumAsync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param count This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number sumSync(final java.lang.Number count) {
+    public @org.jetbrains.annotations.NotNull java.lang.Number sumSync(final @org.jetbrains.annotations.NotNull java.lang.Number count) {
         return this.jsiiCall("sumSync", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
     }
 }

@@ -1,24 +1,24 @@
-import colors = require('colors/safe');
-import crypto = require('crypto');
+import * as colors from 'colors/safe';
+import * as crypto from 'crypto';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
-import fs = require('fs-extra');
-import spec = require('jsii-spec');
-import log4js = require('log4js');
-import path = require('path');
-import semver = require('semver');
-import ts = require('typescript');
-import { JSII_DIAGNOSTICS_CODE } from './compiler';
+import * as fs from 'fs-extra';
+import * as spec from '@jsii/spec';
+import * as log4js from 'log4js';
+import * as path from 'path';
+import * as ts from 'typescript';
 import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
 import { Diagnostic, EmitResult, Emitter } from './emitter';
-import literate = require('./literate');
+import * as literate from './literate';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
+import { JSII_DIAGNOSTICS_CODE } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
+import { enabledWarnings } from './warnings';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 const LOG = log4js.getLogger('jsii/assembler');
 
@@ -109,12 +109,13 @@ export class Assembler implements Emitter {
       version: this.projectInfo.version,
       description: this.projectInfo.description || this.projectInfo.name,
       license: this.projectInfo.license,
+      keywords: this.projectInfo.keywords,
       homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
       author: this.projectInfo.author,
       contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
       repository: this.projectInfo.repository,
-      dependencies: this._toDependencies(this.projectInfo.dependencies),
-      dependencyClosure: this._buildDependencyClosure(this.projectInfo.dependencies),
+      dependencies: noEmptyDict({ ...this.projectInfo.dependencies, ...this.projectInfo.peerDependencies }),
+      dependencyClosure: noEmptyDict(toDependencyClosure(this.projectInfo.dependencyClosure)),
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
       targets: this.projectInfo.targets,
@@ -207,7 +208,7 @@ export class Assembler implements Emitter {
    * been executed.
    *
    * @param fqn FQN of the current type.
-   * @param deps List of FQNs of types this callback depends on. All deferreds for all
+   * @param dependedFqns List of FQNs of types this callback depends on. All deferreds for all
    * @param cb the function to be called in a deferred way. It will be bound with ``this``, so it can depend on using
    *           ``this``.
    */
@@ -232,14 +233,13 @@ export class Assembler implements Emitter {
     if (assm === this.projectInfo.name) {
       type = this._types[ref];
     } else {
-      const assembly = this.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
-      type = assembly && assembly.types && assembly.types[ref];
+      const assembly = this.projectInfo.dependencyClosure.find(dep => dep.name === assm);
+      type = assembly?.types?.[ref];
 
       // since we are exposing a type of this assembly in this module's public API,
       // we expect it to appear as a peer dependency instead of a normal dependency.
       if (assembly) {
-        const asPeerDependency = this.projectInfo.peerDependencies.find(d => d.name === assembly.name);
-        if (!asPeerDependency) {
+        if (!(assembly.name in this.projectInfo.peerDependencies)) {
           this._diagnostic(referencingNode, ts.DiagnosticCategory.Warning,
             `The type '${ref}' is exposed in the public API of this module. ` +
             `Therefore, the module '${assembly.name}' must also be defined under "peerDependencies". ` +
@@ -343,7 +343,7 @@ export class Assembler implements Emitter {
       if (LOG.isTraceEnabled()) { LOG.trace(`Leaving namespace:  ${colors.cyan([...context.namespace, name].join('.'))}`); }
       return allTypes;
     } else {
-      this._diagnostic(node, ts.DiagnosticCategory.Message, `Skipping ${ts.SyntaxKind[node.kind]} node`);
+      this._diagnostic(node, ts.DiagnosticCategory.Message, `Ignoring ${ts.SyntaxKind[node.kind]} node (it cannot be represented in the jsii type model)`);
     }
 
     if (!jsiiType) { return []; }
@@ -463,7 +463,7 @@ export class Assembler implements Emitter {
     }
 
     const erasedBases = new Array<ts.BaseType>();
-    for (let base of type.getBaseTypes() || []) {
+    for (let base of type.getBaseTypes() ?? []) {
       if (jsiiType.base) {
         this._diagnostic(base.symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Found multiple base types for ${jsiiType.fqn}`);
         continue;
@@ -477,16 +477,15 @@ export class Assembler implements Emitter {
       while (base && this._isPrivateOrInternal(base.symbol)) {
         LOG.debug(`Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(base.symbol.name)} is not exported, erasing it...`);
         erasedBases.push(base);
-        base = (base.getBaseTypes() || [])[0];
+        base = (base.getBaseTypes() ?? [])[0];
       }
       if (!base) {
         // There is no exported base class to be found, pretend this class has no base class.
         continue;
       }
 
-      /* eslint-disable no-await-in-loop */
+      // eslint-disable-next-line no-await-in-loop
       const ref = await this._typeReference(base, type.symbol.valueDeclaration);
-      /* eslint-enable no-await-in-loop */
 
       if (!spec.isNamedTypeReference(ref)) {
         this._diagnostic(base.symbol.valueDeclaration,
@@ -510,7 +509,7 @@ export class Assembler implements Emitter {
     // collect all "implements" declarations from the current type and all
     // erased base types (because otherwise we lose them, see jsii#487)
     const implementsClauses = new Array<ts.HeritageClause>();
-    for (const heritage of [type, ...erasedBases].map(t => (t.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses || [])) {
+    for (const heritage of [type, ...erasedBases].map(t => (t.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses ?? [])) {
       for (const clause of heritage) {
         if (clause.token === ts.SyntaxKind.ExtendsKeyword) {
           // Handled by `getBaseTypes`
@@ -528,7 +527,7 @@ export class Assembler implements Emitter {
     const allInterfaces = new Set<string>();
     const baseInterfaces = implementsClauses.map(clause => this._processBaseInterfaces(fqn, clause.types.map(t => this._getTypeFromTypeNode(t))));
     for (const { interfaces } of await Promise.all(baseInterfaces)) {
-      for (const ifc of interfaces || []) {
+      for (const ifc of interfaces ?? []) {
         allInterfaces.add(ifc.fqn);
       }
       if (interfaces) {
@@ -567,7 +566,7 @@ export class Assembler implements Emitter {
       for (const memberDecl of classDecl.members) {
         const member: ts.Symbol = (memberDecl as any).symbol;
 
-        if (!(declaringType.symbol.getDeclarations() || []).find(d => d === memberDecl.parent)) {
+        if (!(declaringType.symbol.getDeclarations() ?? []).find(d => d === memberDecl.parent)) {
           continue;
         }
 
@@ -580,13 +579,13 @@ export class Assembler implements Emitter {
           continue;
         }
 
-        /* eslint-disable no-await-in-loop */
+        // eslint-disable-next-line no-await-in-loop
         if (ts.isMethodDeclaration(memberDecl) || ts.isMethodSignature(memberDecl)) {
-          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
+          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else if (ts.isPropertyDeclaration(memberDecl)
           || ts.isPropertySignature(memberDecl)
           || ts.isAccessor(memberDecl)) {
-          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
+          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else {
           this._diagnostic(memberDecl,
             ts.DiagnosticCategory.Warning,
@@ -608,13 +607,10 @@ export class Assembler implements Emitter {
         jsiiType.initializer = {};
         if (signature) {
           for (const param of signature.getParameters()) {
-            jsiiType.initializer.parameters = jsiiType.initializer.parameters || [];
-            /* eslint-disable no-await-in-loop */
-            jsiiType.initializer.parameters.push(await this._toParameter(param, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability)));
-            /* eslint-enable no-await-in-loop */
-            jsiiType.initializer.variadic =
-              (jsiiType.initializer.parameters && jsiiType.initializer.parameters.some(p => !!p.variadic))
-              || undefined;
+            jsiiType.initializer.parameters = jsiiType.initializer.parameters ?? [];
+            // eslint-disable-next-line no-await-in-loop
+            jsiiType.initializer.parameters.push(await this._toParameter(param, ctx.replaceStability(jsiiType.docs?.stability)));
+            jsiiType.initializer.variadic = jsiiType.initializer?.parameters?.some(p => !!p.variadic) || undefined;
             jsiiType.initializer.protected = (ts.getCombinedModifierFlags(ctorDeclaration) & ts.ModifierFlags.Protected) !== 0
               || undefined;
           }
@@ -627,9 +623,8 @@ export class Assembler implements Emitter {
       if (signature) {
         for (const param of signature.getParameters()) {
           if (ts.isParameterPropertyDeclaration(param.valueDeclaration, param.valueDeclaration.parent) && !this._isPrivateOrInternal(param)) {
-            /* eslint-disable no-await-in-loop */
+            // eslint-disable-next-line no-await-in-loop
             await this._visitProperty(param, jsiiType, memberEmitContext);
-            /* eslint-enable no-await-in-loop */
           }
         }
       }
@@ -672,8 +667,8 @@ export class Assembler implements Emitter {
     }
 
     // Check class itself--may have two methods/props with the same name, so check the arrays
-    const statics = new Set((klass.methods || []).concat(klass.properties || []).filter(x => x.static).map(x => x.name));
-    const nonStatics = new Set((klass.methods || []).concat(klass.properties || []).filter(x => !x.static).map(x => x.name));
+    const statics = new Set((klass.methods ?? []).concat(klass.properties ?? []).filter(x => x.static).map(x => x.name));
+    const nonStatics = new Set((klass.methods ?? []).concat(klass.properties ?? []).filter(x => !x.static).map(x => x.name));
     // Intersect
     for (const member of intersect(statics, nonStatics)) {
       this._diagnostic(decl, ts.DiagnosticCategory.Error,
@@ -774,7 +769,7 @@ export class Assembler implements Emitter {
 
     const docs = this._visitDocumentation(symbol, ctx);
 
-    const typeContext = ctx.replaceStability(docs && docs.stability);
+    const typeContext = ctx.replaceStability(docs?.stability);
     const members = type.isUnion() ? type.types : [type];
 
     const jsiiType: spec.EnumType = {
@@ -799,7 +794,7 @@ export class Assembler implements Emitter {
   private _visitDocumentation(sym: ts.Symbol, context: EmitContext): spec.Docs | undefined {
     const result = parseSymbolDocumentation(sym, this._typeChecker);
 
-    for (const diag of result.diagnostics || []) {
+    for (const diag of result.diagnostics ?? []) {
       this._diagnostic(sym.declarations[0],
         ts.DiagnosticCategory.Error,
         diag
@@ -820,7 +815,7 @@ export class Assembler implements Emitter {
    */
   private _validateReferencedDocParams(method: spec.Method, methodSym: ts.Symbol) {
     const params = getReferencedDocParams(methodSym);
-    const actualNames = new Set((method.parameters || []).map(p => p.name));
+    const actualNames = new Set((method.parameters ?? []).map(p => p.name));
     for (const param of params) {
       if (!actualNames.has(param)) {
         this._diagnostic(methodSym.valueDeclaration, ts.DiagnosticCategory.Warning,
@@ -856,32 +851,32 @@ export class Assembler implements Emitter {
 
     for (const declaringType of [type, ...erasedBases]) {
       for (const member of declaringType.getProperties()) {
-        if (!(declaringType.symbol.getDeclarations() || []).find(decl => decl === member.valueDeclaration.parent)) { continue; }
+        if (!(declaringType.symbol.getDeclarations() ?? []).find(decl => decl === member.valueDeclaration.parent)) { continue; }
 
         if (this._isPrivateOrInternal(member, member.valueDeclaration)) {
           continue;
         }
 
-        /* eslint-disable no-await-in-loop */
         if (ts.isMethodDeclaration(member.valueDeclaration) || ts.isMethodSignature(member.valueDeclaration)) {
-          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
+          // eslint-disable-next-line no-await-in-loop
+          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else if (ts.isPropertyDeclaration(member.valueDeclaration)
           || ts.isPropertySignature(member.valueDeclaration)
           || ts.isAccessor(member.valueDeclaration)) {
-          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
+          // eslint-disable-next-line no-await-in-loop
+          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else {
           this._diagnostic(member.valueDeclaration,
             ts.DiagnosticCategory.Warning,
             `Ignoring un-handled ${ts.SyntaxKind[member.valueDeclaration.kind]} member`);
         }
-        /* eslint-enable no-await-in-loop */
       }
     }
 
     // Calculate datatype based on the datatypeness of this interface and all of its parents
     // To keep the spec minimal the actual values of the attribute are "true" or "undefined" (to represent "false").
-    this._deferUntilTypesAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, (...bases: spec.Type[]) => {
-      if ((jsiiType.methods || []).length === 0) {
+    this._deferUntilTypesAvailable(fqn, jsiiType.interfaces ?? [], type.symbol.valueDeclaration, (...bases: spec.Type[]) => {
+      if ((jsiiType.methods ?? []).length === 0) {
         jsiiType.datatype = true;
       }
 
@@ -907,7 +902,7 @@ export class Assembler implements Emitter {
 
       // Okay, this is a data type, check that all properties are readonly
       if (jsiiType.datatype) {
-        for (const prop of jsiiType.properties || []) {
+        for (const prop of jsiiType.properties ?? []) {
           if (!prop.immutable) {
             const p = type.getProperty(prop.name)!;
             this._diagnostic(p.valueDeclaration,
@@ -950,10 +945,10 @@ export class Assembler implements Emitter {
           }
         }
         // Recurse upwards
-        this._deferUntilTypesAvailable(fqn, base.interfaces || [], type.symbol.valueDeclaration, checkNoIntersection);
+        this._deferUntilTypesAvailable(fqn, base.interfaces ?? [], type.symbol.valueDeclaration, checkNoIntersection);
       }
     };
-    this._deferUntilTypesAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, checkNoIntersection);
+    this._deferUntilTypesAvailable(fqn, jsiiType.interfaces ?? [], type.symbol.valueDeclaration, checkNoIntersection);
 
     return _sortMembers(jsiiType);
   }
@@ -988,7 +983,7 @@ export class Assembler implements Emitter {
       static: _isStatic(symbol) || undefined,
       locationInModule: this.declarationLocation(declaration),
     };
-    method.variadic = (method.parameters && method.parameters.some(p => !!p.variadic)) || undefined;
+    method.variadic = method.parameters?.some(p => !!p.variadic) || undefined;
 
     this._verifyConsecutiveOptionals(declaration, method.parameters);
 
@@ -1019,7 +1014,7 @@ export class Assembler implements Emitter {
 
     this._validateReferencedDocParams(method, symbol);
 
-    type.methods = type.methods || [];
+    type.methods = type.methods ?? [];
     if (type.methods.find(m => m.name === method.name && m.static === method.static) != null) {
       LOG.trace(`Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(method.name)}`);
       return;
@@ -1028,6 +1023,10 @@ export class Assembler implements Emitter {
   }
 
   private _warnAboutReservedWords(symbol: ts.Symbol) {
+    if (!enabledWarnings['reserved-word']) {
+      return;
+    }
+
     const reservingLanguages = isReservedName(symbol.name);
     if (reservingLanguages) {
       this._diagnostic(ts.getNameOfDeclaration(symbol.valueDeclaration) || symbol.valueDeclaration,
@@ -1038,7 +1037,7 @@ export class Assembler implements Emitter {
   }
 
   private async _visitProperty(symbol: ts.Symbol, type: spec.ClassType | spec.InterfaceType, ctx: EmitContext) {
-    if (type.properties && type.properties.find(p => p.name === symbol.name)) {
+    if (type.properties?.find(p => p.name === symbol.name)) {
       /*
        * Second declaration of the same property. For example, if code specifies a getter & setter signature,
        * there will be one pass for each of the signatures, but we can process only the first encountered. The
@@ -1071,7 +1070,7 @@ export class Assembler implements Emitter {
     };
 
     if (ts.isGetAccessor(signature)) {
-      const decls = symbol.getDeclarations() || [];
+      const decls = symbol.getDeclarations() ?? [];
       property.immutable = !decls.some(decl => ts.isSetAccessor(decl)) || undefined;
     } else {
       property.immutable = ((ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !== 0) || undefined;
@@ -1087,7 +1086,7 @@ export class Assembler implements Emitter {
 
     property.docs = this._visitDocumentation(symbol, ctx);
 
-    type.properties = type.properties || [];
+    type.properties = type.properties ?? [];
     if (type.properties.find(prop => prop.name === property.name && prop.static === property.static) != null) {
       LOG.trace(`Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(property.name)}`);
       return;
@@ -1177,7 +1176,7 @@ export class Assembler implements Emitter {
       const typeRef = type as ts.TypeReference;
       let elementtype: spec.TypeReference;
 
-      if (typeRef.typeArguments && typeRef.typeArguments.length === 1) {
+      if (typeRef.typeArguments?.length === 1) {
         elementtype = await this._typeReference(typeRef.typeArguments[0], declaration);
       } else {
         const count = typeRef.typeArguments ? typeRef.typeArguments.length : 'none';
@@ -1252,9 +1251,8 @@ export class Assembler implements Emitter {
           optional = true;
           continue;
         }
-        /* eslint-disable no-await-in-loop */
+        // eslint-disable-next-line no-await-in-loop
         const resolvedType = await this._typeReference(subType, declaration);
-        /* eslint-enable no-await-in-loop */
         if (types.find(ref => deepEqual(ref, resolvedType)) != null) {
           continue;
         }
@@ -1311,11 +1309,11 @@ export class Assembler implements Emitter {
     return ret;
 
     function recurse(this: Assembler, int: spec.InterfaceType) {
-      for (const property of int.properties || []) {
+      for (const property of int.properties ?? []) {
         ret.add(property.name);
       }
 
-      for (const baseRef of int.interfaces || []) {
+      for (const baseRef of int.interfaces ?? []) {
         const base = this._dereference(baseRef, null);
         if (!base) { throw new Error('Impossible to have unresolvable base in allProperties()'); }
         if (!spec.isInterfaceType(base)) { throw new Error('Impossible to have non-interface base in allProperties()'); }
@@ -1341,71 +1339,6 @@ export class Assembler implements Emitter {
       }
     }
   }
-
-  private _toDependencies(assemblies: readonly spec.Assembly[]): { [name: string]: spec.PackageVersion } | undefined {
-    const ret: { [name: string]: spec.PackageVersion } = {};
-
-    for (const a of assemblies) {
-      Object.assign(ret, assemblyToPackageVersionMap(a));
-    }
-
-    return noEmptyDict(ret);
-  }
-
-  private _buildDependencyClosure(assemblies: readonly spec.Assembly[]): { [name: string]: spec.PackageVersion } | undefined {
-    // Merge the dependency closures of all dependencies and add the direct dependencies.
-    // There should not be version conflicts between them but we guard against it anyway.
-
-    // Get an array of dependency maps
-    const dependencyBags = flatten(assemblies.map(a => [assemblyToPackageVersionMap(a), a.dependencies || {}]));
-
-    const warned = new Set<string>();
-    const result: { [name: string]: spec.PackageVersion } = {};
-    for (const bag of dependencyBags) {
-      for (const [name, packV] of Object.entries(bag)) {
-        maybeRecord.call(this, name, packV);
-      }
-    }
-
-    return noEmptyDict(result);
-
-    function maybeRecord(this: Assembler, name: string, pack: spec.PackageVersion) {
-      let recordThisDependency = true;
-
-      if (name in result) {
-        // Two dependencies on the same package, find the right version to use
-        const highestVersion = mostConstrainedVersion(result[name].version, pack.version);
-
-        if (highestVersion === undefined) {
-          warnAboutVersionConflict.call(this, name, result[name].version, pack.version);
-        }
-
-        recordThisDependency = pack.version === highestVersion;
-      }
-
-      if (recordThisDependency) {
-        result[name] = {
-          version: pack.version,
-          targets: pack.targets,
-        };
-      }
-    }
-
-    function warnAboutVersionConflict(this: Assembler, name: string, v1: string, v2: string) {
-      if (warned.has(name)) { return; }
-      this._diagnostic(null, ts.DiagnosticCategory.Error, `Conflicting dependencies on incompatible versions for package '${name}': ${v1} and ${v2}`);
-      warned.add(name);
-    }
-  }
-}
-
-function assemblyToPackageVersionMap(a: spec.Assembly): {[key: string]: spec.PackageVersion} {
-  return {
-    [a.name]: {
-      version: a.version,
-      targets: a.targets
-    }
-  };
 }
 
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
@@ -1483,7 +1416,7 @@ function _isVoid(type: ts.Type): boolean {
 }
 
 function _isPromise(type: ts.Type): boolean {
-  return type.symbol && type.symbol.escapedName === 'Promise';
+  return type.symbol?.escapedName === 'Promise';
 }
 
 function _sortMembers(type: spec.ClassType): spec.ClassType;
@@ -1591,12 +1524,12 @@ function memberNames(jsiiType: spec.InterfaceType | spec.ClassType): string[] {
 function typeMembers(jsiiType: spec.InterfaceType | spec.ClassType): {[key: string]: spec.Property | spec.Method} {
   const ret: {[key: string]: spec.Property | spec.Method} = {};
 
-  for (const prop of jsiiType.properties || []) {
+  for (const prop of jsiiType.properties ?? []) {
     ret[prop.name] = prop;
   }
 
-  for (const method of jsiiType.methods || []) {
-    ret[method.name || ''] = method;
+  for (const method of jsiiType.methods ?? []) {
+    ret[method.name ?? ''] = method;
   }
 
   return ret;
@@ -1613,8 +1546,7 @@ function isInterfaceName(name: string) {
 }
 
 function getConstructor(type: ts.Type): ts.Symbol | undefined {
-  return type.symbol.members
-      && type.symbol.members.get(ts.InternalSymbolName.Constructor);
+  return type.symbol.members?.get(ts.InternalSymbolName.Constructor);
 }
 
 function* intersect<T>(xs: Set<T>, ys: Set<T>) {
@@ -1625,33 +1557,18 @@ function* intersect<T>(xs: Set<T>, ys: Set<T>) {
   }
 }
 
-/**
- * Return the most constrained version given two versions
- *
- * Returns the highest version. Return undefined if the values are not pairwise
- * comparable.
- */
-function mostConstrainedVersion(version1: string, version2: string): string | undefined {
-  if (semver.satisfies(version1, `^${version2}`)) {
-    // If v1 satisifies v2, then either:
-    // - v2 also satisfies v1, in which case it doesn't matter which we return
-    // - v2 does not satisfy v1, in which it must be the case that v1 is higher
-    return version1;
-  }
-
-  // Reverse logic
-  if (semver.satisfies(version2, `^${version1}`)) { return version2; }
-
-  return undefined;
-}
-
-function flatten<T>(xs: T[][]): T[] {
-  return Array.prototype.concat.call([], ...xs);
-}
-
 function noEmptyDict<T>(xs: {[key: string]: T}): {[key: string]: T} | undefined {
   if (Object.keys(xs).length === 0) { return undefined; }
   return xs;
+}
+
+function toDependencyClosure(assemblies: readonly spec.Assembly[]): { [name: string]: spec.AssemblyConfiguration } {
+  const result: { [name: string]: spec.AssemblyTargets } = {};
+  for (const assembly of assemblies) {
+    if (!assembly.targets) { continue; }
+    result[assembly.name] = { targets: assembly.targets };
+  }
+  return result;
 }
 
 /**

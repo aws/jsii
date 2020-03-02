@@ -14,8 +14,8 @@ import * as crypto from 'crypto';
 import { promisify } from 'util';
 import { IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
 
-const bundled = require('jsii-calc-bundled');
-import base = require('@scope/jsii-calc-base');
+const bundled = require('@fixtures/jsii-calc-bundled');
+import * as base from '@scope/jsii-calc-base';
 
 const readFile = promisify(fs.readFile);
 
@@ -1948,7 +1948,7 @@ export class SupportsNiceJavaBuilder extends SupportsNiceJavaBuilderWithRequired
      * @param rest       a variadic continuation
      */
     public constructor(public readonly id: number, defaultBar = 1337, props?: SupportsNiceJavaBuilderProps, ...rest: string[]) {
-        super(id, props || { bar: defaultBar });
+        super(id, props ?? { bar: defaultBar });
         this.rest = rest;
     }
 }
@@ -2332,10 +2332,10 @@ export class JsonFormatter {
         return () => 'boom';
     }
 
-    public static anyDate(): any { 
+    public static anyDate(): any {
         return new Date('2019-11-18T13:01:20.515Z');
     }
-    
+
     public static anyNumber(): any {
         return 123;
     }
@@ -2373,4 +2373,95 @@ export class JsonFormatter {
     }
 
     private constructor() { }
+}
+
+/**
+ * This tries to confuse Jackson by having overloaded property setters.
+ *
+ * @see https://github.com/aws/aws-cdk/issues/4080
+ */
+export class ConfusingToJackson {
+    public static makeInstance(): ConfusingToJackson {
+        return new ConfusingToJackson();
+    }
+
+    public static makeStructInstance(): ConfusingToJacksonStruct {
+        return {};
+    }
+
+    public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+
+    private constructor() { }
+}
+export interface ConfusingToJacksonStruct {
+    readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+}
+
+/**
+ * Verifies that a "pure" implementation of an interface works correctly
+ */
+export interface IStructReturningDelegate {
+    returnStruct(): StructB;
+}
+export class ConsumePureInterface {
+    constructor(private readonly delegate: IStructReturningDelegate) { }
+
+    public workItBaby() {
+        return this.delegate.returnStruct();
+    }
+}
+
+/**
+ * Verifies that, in languages that do keyword lifting (e.g: Python), having a
+ * struct member with the same name as a positional parameter results in the
+ * correct code being emitted.
+ *
+ * See: https://github.com/aws/aws-cdk/issues/4302
+ */
+export interface StructParameterType {
+    readonly scope: string;
+    readonly props?: boolean;
+}
+export class AmbiguousParameters {
+    public constructor(public readonly scope: Bell, public readonly props: StructParameterType) { }
+}
+
+/**
+ * Verifies that collections of interfaces or structs are correctly handled.
+ *
+ * See: https://github.com/aws/jsii/issues/1196
+ */
+export class InterfaceCollections {
+  public static listOfStructs(): StructA[] {
+    return [
+      { requiredString: 'Hello, I\'m String!' }
+    ];
+  }
+
+  public static mapOfStructs(): { [name: string]: StructA } {
+    return {
+      A: { requiredString: 'Hello, I\'m String!' }
+    };
+  }
+
+  public static listOfInterfaces(): IBell[] {
+    return [
+      { ring: () => { return; } }
+    ];
+  }
+
+  public static mapOfInterfaces(): { [name: string]: IBell } {
+    return {
+      A: { ring: () => { return; } }
+    };
+  }
+
+  private constructor(){ }
+}
+
+/**
+ * Checks that optional result from interface method code generates correctly
+ */
+export interface IOptionalMethod {
+    optional(): string | undefined;
 }

@@ -1,8 +1,8 @@
-import clone = require('clone');
-import fs = require('fs-extra');
-import spec = require('jsii-spec');
-import os = require('os');
-import path = require('path');
+import * as clone from 'clone';
+import * as fs from 'fs-extra';
+import * as spec from '@jsii/spec';
+import * as os from 'os';
+import * as path from 'path';
 import { loadProjectInfo } from '../lib/project-info';
 import { VERSION } from '../lib/version';
 
@@ -18,8 +18,8 @@ const BASE_PROJECT = {
   jsii: {
     targets: { foo: { bar: 'baz' } }
   },
-  dependencies: { 'jsii-test-dep': '^1.2.3' },
-  peerDependencies: { 'jsii-test-dep': '^1.2.3' }
+  dependencies: { 'jsii-test-dep': '^1.2.3' } as { [name: string]: string },
+  peerDependencies: { 'jsii-test-dep': '^1.2.3' } as { [name: string]: string }
 };
 
 describe('loadProjectInfo', () => {
@@ -33,16 +33,16 @@ describe('loadProjectInfo', () => {
     expect(info.main).toBe(BASE_PROJECT.main);
     expect(info.types).toBe(BASE_PROJECT.types);
     expect(info.homepage).toBe(undefined);
-    expect(info.repository && info.repository.type).toBe('git');
-    expect(info.repository && info.repository.url).toBe(BASE_PROJECT.repository.url);
+    expect(info.repository?.type).toBe('git');
+    expect(info.repository?.url).toBe(BASE_PROJECT.repository.url);
     expect(info.targets).toEqual({ ...BASE_PROJECT.jsii.targets, js: { npm: BASE_PROJECT.name } });
-    expect(info.dependencies).toEqual([TEST_DEP_ASSEMBLY]);
-    expect(info.transitiveDependencies).toEqual([TEST_DEP_ASSEMBLY, TEST_DEP_DEP_ASSEMBLY]);
+    expect(info.dependencies).toEqual({ [TEST_DEP_ASSEMBLY.name]: BASE_PROJECT.dependencies[TEST_DEP_ASSEMBLY.name] });
+    expect(info.dependencyClosure).toEqual([TEST_DEP_ASSEMBLY, TEST_DEP_DEP_ASSEMBLY]);
   }));
 
   test('loads valid project (UNLICENSED)', () => _withTestProject(async projectRoot => {
     const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
-    expect(info && info.license).toBe('UNLICENSED');
+    expect(info?.license).toBe('UNLICENSED');
   }, info => {
     info.license = 'UNLICENSED';
   })
@@ -70,7 +70,7 @@ describe('loadProjectInfo', () => {
     const contributors = [{ name: 'foo', email: 'nobody@amazon.com' }];
     return _withTestProject(async projectRoot => {
       const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
-      expect(info && info.contributors && info.contributors.map(_stripUndefined))
+      expect(info?.contributors?.map(_stripUndefined))
         .toEqual(contributors.map(c => ({ ...c, roles: ['contributor'] })));
     }, info => info.contributors = contributors);
   });
@@ -110,9 +110,8 @@ describe('loadProjectInfo', () => {
 
   test('loads with missing peerDependency (when auto-fixing)', () => _withTestProject(async projectRoot => {
     await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
-    /* eslint-disable @typescript-eslint/no-var-requires */
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
     const info = require(path.join(projectRoot, 'package.json'));
-    /* eslint-enable @typescript-eslint/no-var-requires */
     expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
   }, info => {
     delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
@@ -129,9 +128,8 @@ describe('loadProjectInfo', () => {
 
   test('loads with inconsistent peerDependency (when auto-fixing)', () => _withTestProject(async projectRoot => {
     await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
-    /* eslint-disable @typescript-eslint/no-var-requires */
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
     const info = require(path.join(projectRoot, 'package.json'));
-    /* eslint-enable @typescript-eslint/no-var-requires */
     expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
   }, info => {
     info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
@@ -150,9 +148,7 @@ const TEST_DEP_ASSEMBLY: spec.Assembly = {
   author: { name: 'Amazon Web Services', url: 'https://aws.amazon.com', organization: true, roles: ['author'] },
   fingerprint: 'F1NG3RPR1N7',
   dependencies: {
-    'jsii-test-dep-dep': {
-      version: '3.2.1',
-    }
+    'jsii-test-dep-dep': '3.2.1',
   },
   jsiiVersion: VERSION,
 };

@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -27,7 +27,7 @@ public class UseCalcBase extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.base.Base hello() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.base.Base hello() {
         return this.jsiiCall("hello", software.amazon.jsii.tests.calculator.base.Base.class);
     }
 }

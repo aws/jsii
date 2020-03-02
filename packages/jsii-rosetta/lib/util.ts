@@ -1,21 +1,12 @@
-import { VisualizeAstVisitor } from './languages/visualize';
-import ts = require('typescript');
-import { translateTypeScript } from './translate';
+import * as ts from 'typescript';
 
-export function startsWithUppercase(x: string) {
-  return x.match(/^[A-Z]/);
+export function startsWithUppercase(x: string): boolean {
+  return /^[A-Z]/.exec(x) != null;
 }
 
 export interface File {
   readonly contents: string;
   readonly fileName: string;
-}
-
-export function visualizeTypeScriptAst(source: File) {
-  const vis = translateTypeScript(source, new VisualizeAstVisitor(true), {
-    bestEffort: false
-  });
-  return vis.translation + '\n';
 }
 
 export function printDiagnostics(diags: ts.Diagnostic[], stream: NodeJS.WritableStream) {
@@ -49,4 +40,34 @@ export function divideEvenly<A>(groups: number, xs: A[]): A[][] {
   }
 
   return ret;
+}
+
+export function flat<A>(xs: A[][]): A[] {
+  return Array.prototype.concat.apply([], xs);
+}
+
+/**
+ * Partition a list in twain using a predicate
+ *
+ * Returns [elements-matching-predicate, elements-not-matching-predicate];
+ */
+export function partition<A>(xs: A[], pred: (x: A) => boolean): [A[], A[]] {
+  const truthy = new Array<A>();
+  const falsy = new Array<A>();
+
+  for (const x of xs) {
+    if (pred(x)) {
+      truthy.push(x);
+    } else {
+      falsy.push(x);
+    }
+  }
+
+  return [truthy, falsy];
+}
+
+export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
+  for (const el of els) {
+    xs.add(el);
+  }
 }

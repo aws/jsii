@@ -1,6 +1,7 @@
-import cm = require('commonmark');
+import * as cm from 'commonmark';
 import { cmNodeChildren, CommonMarkRenderer, prefixLines, RendererContext } from './markdown';
 
+/* eslint-disable @typescript-eslint/camelcase */
 /**
  * A renderer that will render a CommonMark tree back to MarkDown
  */
@@ -10,15 +11,15 @@ export class MarkdownRenderer implements CommonMarkRenderer {
   }
 
   public code(node: cm.Node, _context: RendererContext) {
-    return '`' + node.literal + '`';
+    return `\`${node.literal}\``;
   }
 
   public code_block(node: cm.Node, _context: RendererContext) {
-    return para('```' + (node.info || '') + '\n' + node.literal + '```');
+    return para(`\`\`\`${node.info ?? ''}\n${node.literal}\`\`\``);
   }
 
   public text(node: cm.Node, _context: RendererContext) {
-    return node.literal || '';
+    return node.literal ?? '';
   }
 
   public softbreak(_node: cm.Node, _context: RendererContext) {
@@ -38,24 +39,23 @@ export class MarkdownRenderer implements CommonMarkRenderer {
   }
 
   public html_inline(node: cm.Node, _context: RendererContext) {
-    return node.literal || '';
+    return node.literal ?? '';
   }
 
   public html_block(node: cm.Node, _context: RendererContext) {
-    return node.literal || '';
+    return node.literal ?? '';
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `[${context.content()}](${node.destination || ''})`;
+    return `[${context.content()}](${node.destination ?? ''})`;
   }
 
   public image(node: cm.Node, context: RendererContext) {
-    return `![${context.content()}](${node.destination || ''})`;
+    return `![${context.content()}](${node.destination ?? ''})`;
   }
 
   public document(_node: cm.Node, context: RendererContext) {
-    // Remove trailing whitespace on every line
-    return collapsePara(context.content()).replace(/[ \t]+$/gm, '');
+    return stripTrailingWhitespace(collapsePara(context.content()));
   }
 
   public paragraph(_node: cm.Node, context: RendererContext) {
@@ -89,7 +89,7 @@ export class MarkdownRenderer implements CommonMarkRenderer {
   }
 
   public heading(node: cm.Node, context: RendererContext) {
-    return para('#'.repeat(node.level) + ' ' + context.content());
+    return para(`${'#'.repeat(node.level)} ${context.content()}`);
   }
 
   public thematic_break(_node: cm.Node, _context: RendererContext) {
@@ -104,24 +104,28 @@ export class MarkdownRenderer implements CommonMarkRenderer {
     return `<custom>${context.content()}</custom>`;
   }
 }
-
-/*
-function trimEmptyLines(x: string) {
-  return x.replace(/^\n+/, '').replace(/\n+$/, '');
-}
-*/
+/* eslint-enable @typescript-eslint/camelcase */
 
 const PARA_BREAK = '\u001d';
 
-function para(x: string) {
+export function para(x: string) {
   return `${PARA_BREAK}${x}${PARA_BREAK}`;
 }
 
 /**
  * Collapse paragraph markers
  */
-function collapsePara(x: string, brk: string = '\n\n') {
+export function collapsePara(x: string, brk = '\n\n') {
+  /* eslint-disable-next-line no-control-regex */
   return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '').replace(/\u001d+/g, brk);
+}
+
+/**
+ * Strip paragraph markers from start and end
+ */
+export function stripPara(x: string) {
+  /* eslint-disable-next-line no-control-regex */
+  return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '');
 }
 
 function determineItemPrefix(listNode: cm.Node, index: number) {
@@ -129,4 +133,8 @@ function determineItemPrefix(listNode: cm.Node, index: number) {
     return '* ';
   }
   return `${index}${listNode.listDelimiter} `;
+}
+
+export function stripTrailingWhitespace(x: string) {
+  return x.replace(/[ \t]+$/gm, '');
 }

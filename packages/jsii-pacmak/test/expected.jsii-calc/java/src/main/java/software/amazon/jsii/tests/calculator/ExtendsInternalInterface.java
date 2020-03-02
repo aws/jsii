@@ -13,13 +13,13 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getBoom();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getBoom();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getProp();
+    @org.jetbrains.annotations.NotNull java.lang.String getProp();
 
     /**
      * @return a {@link Builder} of {@link ExtendsInternalInterface}
@@ -37,7 +37,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
         private java.lang.String prop;
 
         /**
-         * Sets the value of Boom
+         * Sets the value of {@link ExtendsInternalInterface#getBoom}
          * @param boom the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -48,7 +48,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         * Sets the value of Prop
+         * Sets the value of {@link ExtendsInternalInterface#getProp}
          * @param prop the value to be set. This parameter is required.
          * @return {@code this}
          */

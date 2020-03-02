@@ -1,10 +1,10 @@
 import { CodeMaker } from 'codemaker';
-import * as spec from 'jsii-spec';
+import * as spec from '@jsii/spec';
+import * as xmlbuilder from 'xmlbuilder';
 import { DotNetNameUtils } from './nameutils';
-import { prefixMarkdownTsCodeBlocks } from '../../util';
+import { Rosetta, Translation, typeScriptSnippetFromSource, markDownToXmlDoc } from 'jsii-rosetta';
+import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';
 
-
-const SAMPLES_DISCLAIMER = '// This example is in TypeScript, examples in C# are coming soon.';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
@@ -15,7 +15,7 @@ export class DotNetDocGenerator {
   private readonly code: CodeMaker;
   private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  public constructor(code: CodeMaker) {
+  public constructor(code: CodeMaker, private readonly rosetta: Rosetta) {
     this.code = code;
   }
 
@@ -29,97 +29,141 @@ export class DotNetDocGenerator {
      * Returns
      * Remarks (includes examples, links, deprecated)
      */
-  public emitDocs(obj: spec.Method | spec.InterfaceType | spec.ClassType | spec.Property | spec.EnumType | spec.Initializer): void {
+  public emitDocs(obj: spec.Documentable): void {
     const docs = obj.docs;
 
     // The docs may be undefined at the method level but not the parameters level
-    if (docs) {
-      if (docs.summary) {
-        this.code.line(`/// <summary>${docs.summary}</summary>`);
-      }
-    }
+    this.emitXmlDoc('summary', docs?.summary || '');
 
     // Handling parameters only if the obj is a method
     const objMethod = obj as spec.Method;
     if (objMethod.parameters) {
       objMethod.parameters.forEach(param => {
-        if (param.docs) {
-          const paramSummary = param.docs.summary;
-          if (paramSummary) {
-            this.code.line(`/// <param name = "${this.nameutils.convertParameterName(param.name)}">${paramSummary}</param>`);
-          }
-        }
+        // Remove any slug `@` from the parameter name - it's not supposed to show up here.
+        const paramName = this.nameutils.convertParameterName(param.name).replace(/^@/, '');
+        this.emitXmlDoc('param', param.docs?.summary || '', { attributes: { name: paramName } });
       });
     }
 
-    // At this point we only need a valid instance of docs
+    // At this pdocfx namespacedocd a valid instance of docs
     if (!docs) {
       return;
     }
 
     if (docs.returns) {
-      this.code.line('/// <returns>');
-      const returnsLines = docs.returns.split('\n');
-      returnsLines.forEach( line => this.code.line(`/// ${line}`));
-      this.code.line('/// </returns>');
+      this.emitXmlDoc('returns', docs.returns);
     }
 
-    const remarks: string[] = [];
-    let remarksOpen = false;
-    if (docs.remarks) {
+    // Remarks does not use emitXmlDoc() because the remarks can contain code blocks
+    // which are fenced with <code> tags, which would be escaped to
+    // &lt;code&gt; if we used the xml builder.
+    const remarks = this.renderRemarks(docs);
+    if (remarks.length > 0) {
       this.code.line('/// <remarks>');
-      remarksOpen = true;
-      const remarkLines = prefixMarkdownTsCodeBlocks(docs.remarks, SAMPLES_DISCLAIMER).split('\n');
-      remarkLines.forEach( line => this.code.line(`/// ${line}`));
-    }
-
-    if (docs.default) {
-      const defaultLines = docs.default.split('\n');
-      remarks.push('default:');
-      defaultLines.forEach( line => remarks.push(`${line}`));
-    }
-
-    if (docs.stability) {
-      remarks.push(`stability: ${this.nameutils.capitalizeWord(docs.stability)}`);
+      remarks.forEach(r => this.code.line(`/// ${r}`));
+      this.code.line('/// </remarks>');
     }
 
     if (docs.example) {
-      const remarkLines = docs.example.split('\n');
-      remarks.push('example:');
-      remarks.push('<code>');
-      remarks.push('// Examples in C# are coming soon.');
-      remarkLines.forEach( line => remarks.push(`${line}`));
-      remarks.push('</code>');
-    }
-
-    if (docs.see) {
-      const seeLines = docs.see.split('\n');
-      remarks.push('see:');
-      seeLines.forEach( line => remarks.push(`${line}`));
-    }
-
-    if (docs.subclassable) {
-      remarks.push('subclassable');
-    }
-
-    if (docs.custom) {
-      for (const [k, v] of Object.entries(docs.custom || {})) {
-        const custom = k === 'link' ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
-        const customLines = custom.split('\n');
-        customLines.forEach( line => remarks.push(`${line}`));
-      }
-    }
-
-    if (remarks.length > 0) {
-      if (!remarksOpen) {
-        this.code.line('/// <remarks>');
-        remarksOpen = true;
-      }
-      remarks.forEach( line => this.code.line(`/// ${line}`));
-    }
-
-    if (remarksOpen) {
-      this.code.line('/// </remarks>');
+      this.code.line('/// <example>');
+      this.emitXmlDoc('code', this.convertExample(docs.example));
+      this.code.line('/// </example>');
     }
   }
+
+  public emitMarkdownAsRemarks(markdown: string | undefined) {
+    if (!markdown) { return; }
+
+    const translated = markDownToXmlDoc(this.convertSamplesInMarkdown(markdown));
+    const lines = translated.split('\n');
+
+    this.code.line('/// <remarks>');
+    for (const line of lines) {
+      this.code.line(`/// ${line}`);
+    }
+    this.code.line('/// </remarks>');
+  }
+
+  /**
+   * Returns the lines that should go into the <remarks> section
+   */
+  private renderRemarks(docs: spec.Docs): string[] {
+    const ret: string[] = [];
+
+    if (docs.remarks) {
+      const translated = markDownToXmlDoc(this.convertSamplesInMarkdown(docs.remarks));
+      ret.push(...translated.split('\n'));
+      ret.push('');
+    }
+
+    // All the "tags" need to be rendered with empyt lines between them or they'll be word wrapped.
+
+    if (docs.default) { emitDocAttribute('default', docs.default); }
+    if (docs.stability) { emitDocAttribute('stability', this.nameutils.capitalizeWord(docs.stability)); }
+    if (docs.see) { emitDocAttribute('see', docs.see); }
+    if (docs.subclassable) { emitDocAttribute('subclassable', ''); }
+    for (const [k, v] of Object.entries(docs.custom || {})) {
+      const extraSpace = k === 'link' ? ' ' : ''; // Extra space for '@link' to keep unit tests happy
+      emitDocAttribute(k, v + extraSpace);
+    }
+
+    // Remove leading and trailing empty lines
+    while (ret.length > 0 && ret[0] === '') { ret.shift(); }
+    while (ret.length > 0 && ret[ret.length - 1] === '') { ret.pop(); }
+
+    return ret;
+
+    function emitDocAttribute(name: string, contents: string) {
+      const ls = contents.split('\n');
+      ret.push(`<strong>${ucFirst(name)}</strong>: ${ls[0]}`);
+      ret.push(...ls.slice(1));
+      ret.push('');
+    }
+  }
+
+  private convertExample(example: string): string {
+    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const translated = this.rosetta.translateSnippet(snippet, 'csharp');
+    if (!translated) { return example; }
+    return this.prefixDisclaimer(translated);
+  }
+
+  private convertSamplesInMarkdown(markdown: string): string {
+    return this.rosetta.translateSnippetsInMarkdown(markdown, 'csharp', trans => ({
+      language: trans.language,
+      source: this.prefixDisclaimer(trans)
+    }));
+  }
+
+  private prefixDisclaimer(translated: Translation) {
+    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
+      return `// ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
+    }
+    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
+      return `// ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
+    }
+    return translated.source;
+  }
+
+  private emitXmlDoc(tag: string, content: string, { attributes = {} }: { attributes?: { [name: string]: string } } = {}): void {
+    if (!content) { return; }
+
+    const xml = xmlbuilder.create(tag, { headless: true })
+      .text(content);
+    for (const [name, value] of Object.entries(attributes)) {
+      xml.att(name, value);
+    }
+    const xmlstring = xml.end({ allowEmpty: true, pretty: false });
+
+    for (const line of xmlstring.split('\n').map(x => x.trim())) {
+      this.code.line(`/// ${line}`);
+    }
+  }
+}
+
+/**
+ * Uppercase the first letter
+ */
+function ucFirst(x: string) {
+  return x.substr(0, 1).toUpperCase() + x.substr(1);
 }

@@ -2,9 +2,9 @@ package software.amazon.jsii.tests.calculator.lib;
 
 /**
  * Interface that inherits from packages 2 levels up the tree.
- * 
- * <p>Their presence validates that .NET/Java/jsii-reflect can track all fields
- * far enough up the tree.</p>
+ * <p>
+ * Their presence validates that .NET/Java/jsii-reflect can track all fields
+ * far enough up the tree.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.IThreeLevelsInterface")
@@ -33,17 +33,17 @@ public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializ
         @Deprecated
         @Override
         public void baz() {
-            this.jsiiCall("baz", Void.class);
+            this.jsiiCall("baz", software.amazon.jsii.NativeType.VOID);
         }
 
         @Override
         public void bar() {
-            this.jsiiCall("bar", Void.class);
+            this.jsiiCall("bar", software.amazon.jsii.NativeType.VOID);
         }
 
         @Override
         public void foo() {
-            this.jsiiCall("foo", Void.class);
+            this.jsiiCall("foo", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

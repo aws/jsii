@@ -2,9 +2,9 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verifies that singleton enums are handled correctly.
- * 
- * <p>https://github.com/aws/jsii/issues/231</p>
- * 
+ * <p>
+ * https://github.com/aws/jsii/issues/231
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -22,11 +22,11 @@ public class SingletonString extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean isSingletonString(final java.lang.String value) {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean isSingletonString(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         return this.jsiiCall("isSingletonString", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 }

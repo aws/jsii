@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Generates random numbers.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -13,13 +13,13 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
 
     /**
      * Returns another random number.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return A random number.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number next();
+    @org.jetbrains.annotations.NotNull java.lang.Number next();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -31,14 +31,14 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
 
         /**
          * Returns another random number.
-         * 
+         * <p>
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return A random number.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.Number next() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number next() {
             return this.jsiiCall("next", java.lang.Number.class);
         }
     }

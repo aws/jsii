@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import * as jsii from '@jsii/spec';
 import { ClassType } from './class';
 import { Dependency } from './dependency';
 import { EnumType } from './enum';
@@ -69,7 +69,7 @@ export class Assembly {
    * Additional contributors to this package.
    */
   public get contributors(): jsii.Person[] {
-    return this.spec.contributors || [];
+    return this.spec.contributors ?? [];
   }
 
   /**
@@ -120,7 +120,7 @@ export class Assembly {
    * List if bundled dependencies (these are not expected to be jsii assemblies).
    */
   public get bundled(): { [module: string]: string } {
-    return this.spec.bundled || { };
+    return this.spec.bundled ?? { };
   }
 
   /**
@@ -188,7 +188,7 @@ export class Assembly {
     if (!this._typeCache) {
       this._typeCache = { };
 
-      const ts = this.spec.types || { };
+      const ts = this.spec.types ?? { };
       for (const fqn of Object.keys(ts)) {
         const type = ts[fqn];
         switch (type.kind) {

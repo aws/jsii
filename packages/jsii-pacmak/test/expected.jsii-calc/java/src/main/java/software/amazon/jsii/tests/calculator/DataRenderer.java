@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verifies proper type handling through dynamic overrides.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -29,11 +29,11 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param data
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String render(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct data) {
+    public @org.jetbrains.annotations.NotNull java.lang.String render(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.lib.MyFirstStruct data) {
         return this.jsiiCall("render", java.lang.String.class, new Object[] { data });
     }
 
@@ -41,27 +41,27 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String render() {
+    public @org.jetbrains.annotations.NotNull java.lang.String render() {
         return this.jsiiCall("render", java.lang.String.class);
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param data This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String renderArbitrary(final java.util.Map<java.lang.String, java.lang.Object> data) {
+    public @org.jetbrains.annotations.NotNull java.lang.String renderArbitrary(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> data) {
         return this.jsiiCall("renderArbitrary", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(data, "data is required") });
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param map This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String renderMap(final java.util.Map<java.lang.String, java.lang.Object> map) {
+    public @org.jetbrains.annotations.NotNull java.lang.String renderMap(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> map) {
         return this.jsiiCall("renderMap", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(map, "map is required") });
     }
 }

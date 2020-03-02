@@ -114,7 +114,7 @@ jsii language bindings consist of two main components:
 1. __A runtime client library__: a library implemented for each language. This
    library is responsible to manage the child
    [`jsii-runtime`](./packages/jsii-runtime/README.md) process and interact with
-   the [jsii-kernel](./packages/jsii-kernel/README.md).
+   the [@jsii/kernel](./packages/@jsii/kernel/README.md).
 2. __A `jsii-pacmak` generator__: extend the jsii-pacmak project to be able to
    generate proxy classes for a jsii module.
 
@@ -148,3 +148,16 @@ The pacmak code generator should be implemented under
 
 The [Python](./packages/jsii-pacmak/lib/targets/python.ts) target is a good
 example to work from.
+
+## Releasing
+### The `jsii/superchain` Docker image
+
+Upon merging new changes to the `master` branch, the `jsii/superchain:nightly`
+image will be released by TravisCI after a last validation build.
+
+Upon making a new `jsii` release (when the GitHub release entry - and its
+corresponding git tag - is created), the `jsii/superchain:latest` image will
+be released by TravisCI after a last validation build.
+
+The latest release information (for both of the Docker image tags) can be seen
+on [Docker Hub](https://hub.docker.com/r/jsii/superchain/tags)

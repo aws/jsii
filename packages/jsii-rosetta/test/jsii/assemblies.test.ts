@@ -1,7 +1,7 @@
-import mockfs = require('mock-fs');
-import spec = require('jsii-spec');
+import * as mockfs from 'mock-fs';
+import * as spec from '@jsii/spec';
 import { allTypeScriptSnippets } from '../../lib/jsii/assemblies';
-import path = require('path');
+import * as path from 'path';
 import { SnippetParameters } from '../../lib/snippet';
 
 test('Extract snippet from README', () => {
@@ -130,7 +130,7 @@ test('Backwards compatibility with literate integ tests', () => {
 
     expect(snippets[0].visibleSource).toEqual('someExample();');
     expect(snippets[0].completeSource).toEqual('# Some literate source file');
-    expect(snippets[0].parameters && snippets[0].parameters[SnippetParameters.$COMPILATION_DIRECTORY]).toEqual('/package/test');
+    expect(snippets[0]?.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY]).toEqual('/package/test');
   } finally {
     mockfs.restore();
   }

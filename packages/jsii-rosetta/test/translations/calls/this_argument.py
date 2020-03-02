@@ -1,0 +1,1 @@
+call_some_function(self, 25)

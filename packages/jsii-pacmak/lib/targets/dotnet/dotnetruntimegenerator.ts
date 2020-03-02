@@ -1,5 +1,5 @@
 import { CodeMaker } from 'codemaker';
-import * as spec from 'jsii-spec';
+import * as spec from '@jsii/spec';
 import { DotNetTypeResolver } from './dotnettyperesolver';
 import { DotNetNameUtils } from './nameutils';
 
@@ -142,7 +142,7 @@ export class DotNetRuntimeGenerator {
     const isStatic = method.static ? 'Static' : 'Instance';
     const returns = method.returns ? '' : 'Void';
     const invokeMethodName = method.returns ? `return Invoke${isStatic}${returns}Method` : `Invoke${isStatic}${returns}Method`;
-    const returnType = method.returns ? `<${this.typeresolver.toDotNetType(method.returns.type)}>` : '';
+    const returnType = method.returns ? `<${this.typeresolver.toDotNetType(method.returns.type)}${method.returns.optional ? '?' : ''}>` : '';
     const typeofStatement = method.static ? `typeof(${className}), ` : '';
     const paramTypes = new Array<string>();
     const params = new Array<string>();
@@ -152,7 +152,8 @@ export class DotNetRuntimeGenerator {
         params.push(this.nameutils.convertParameterName(param.name));
       }
     }
-    return `${invokeMethodName}${returnType}(${typeofStatement}new System.Type[]{${paramTypes.join(', ')}}, new object[]{${params.join(', ')}});`;
+    const hasOptional = method.parameters?.find(param => param.optional) != null ? '?' : '';
+    return `${invokeMethodName}${returnType}(${typeofStatement}new System.Type[]{${paramTypes.join(', ')}}, new object${hasOptional}[]{${params.join(', ')}});`;
   }
 
   /**

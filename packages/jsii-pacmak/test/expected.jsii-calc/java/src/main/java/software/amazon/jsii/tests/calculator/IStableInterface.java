@@ -11,15 +11,15 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    default java.lang.Number getMutableProperty() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
         return null;
     }
 
     /**
      */
     @software.amazon.jsii.Optional
-    default void setMutableProperty(final java.lang.Number value) {
-        throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#setMutableProperty(java.lang.Number)' is not implemented!");
+    default void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
+        throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#setMutableProperty(@org.jetbrains.annotations.Nullable java.lang.Number)' is not implemented!");
     }
 
     /**
@@ -39,7 +39,7 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public java.lang.Number getMutableProperty() {
+        public @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
             return this.jsiiGet("mutableProperty", java.lang.Number.class);
         }
 
@@ -47,7 +47,7 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-        public void setMutableProperty(final java.lang.Number value) {
+        public void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
             this.jsiiSet("mutableProperty", value);
         }
 
@@ -56,7 +56,7 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public void method() {
-            this.jsiiCall("method", Void.class);
+            this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

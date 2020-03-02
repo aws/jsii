@@ -15,7 +15,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.lang.String getOptional1() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getOptional1() {
         return null;
     }
 
@@ -23,7 +23,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.lang.Number getOptional2() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getOptional2() {
         return null;
     }
 
@@ -31,7 +31,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.lang.Boolean getOptional3() {
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getOptional3() {
         return null;
     }
 
@@ -54,7 +54,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         private java.lang.Boolean optional3;
 
         /**
-         * Sets the value of Optional1
+         * Sets the value of {@link StructWithOnlyOptionals#getOptional1}
          * @param optional1 The first optional!.
          * @return {@code this}
          */
@@ -66,7 +66,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         }
 
         /**
-         * Sets the value of Optional2
+         * Sets the value of {@link StructWithOnlyOptionals#getOptional2}
          * @param optional2 the value to be set.
          * @return {@code this}
          */
@@ -78,7 +78,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         }
 
         /**
-         * Sets the value of Optional3
+         * Sets the value of {@link StructWithOnlyOptionals#getOptional3}
          * @param optional3 the value to be set.
          * @return {@code this}
          */

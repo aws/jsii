@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Make sure that setters are properly called on objects with interfaces.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -15,18 +15,18 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
      * EXPERIMENTAL
      */
-    void setProperty(final java.lang.String value);
+    void setProperty(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean wasSet();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean wasSet();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -41,7 +41,7 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getProperty() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
             return this.jsiiGet("property", java.lang.String.class);
         }
 
@@ -50,7 +50,7 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setProperty(final java.lang.String value) {
+        public void setProperty(final @org.jetbrains.annotations.NotNull java.lang.String value) {
             this.jsiiSet("property", java.util.Objects.requireNonNull(value, "property is required"));
         }
 
@@ -59,7 +59,7 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.Boolean wasSet() {
+        public @org.jetbrains.annotations.NotNull java.lang.Boolean wasSet() {
             return this.jsiiCall("wasSet", java.lang.Boolean.class);
         }
     }

@@ -23,13 +23,13 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param obj This parameter is required.
      * @param dt This parameter is required.
      * @param ev This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public abstract java.lang.String consumePartiallyInitializedThis(final software.amazon.jsii.tests.calculator.ConstructorPassesThisOut obj, final java.time.Instant dt, final software.amazon.jsii.tests.calculator.AllTypesEnum ev);
+    public abstract @org.jetbrains.annotations.NotNull java.lang.String consumePartiallyInitializedThis(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.ConstructorPassesThisOut obj, final @org.jetbrains.annotations.NotNull java.time.Instant dt, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.AllTypesEnum ev);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -41,14 +41,14 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @param obj This parameter is required.
          * @param dt This parameter is required.
          * @param ev This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.String consumePartiallyInitializedThis(final software.amazon.jsii.tests.calculator.ConstructorPassesThisOut obj, final java.time.Instant dt, final software.amazon.jsii.tests.calculator.AllTypesEnum ev) {
+        public @org.jetbrains.annotations.NotNull java.lang.String consumePartiallyInitializedThis(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.ConstructorPassesThisOut obj, final @org.jetbrains.annotations.NotNull java.time.Instant dt, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.AllTypesEnum ev) {
             return this.jsiiCall("consumePartiallyInitializedThis", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required"), java.util.Objects.requireNonNull(dt, "dt is required"), java.util.Objects.requireNonNull(ev, "ev is required") });
         }
     }

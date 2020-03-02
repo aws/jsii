@@ -1,4 +1,4 @@
-import reflect = require('jsii-reflect');
+import * as reflect from 'jsii-reflect';
 import { flatMap } from './util';
 
 /**
@@ -211,7 +211,7 @@ class TypePairs {
     if (!a.fqn || !b.fqn) { return false; } // Only for user-defined types
 
     const image = this.pairs.get(a.fqn);
-    return !!image && image.has(b.fqn);
+    return !!image?.has(b.fqn);
   }
 }
 

@@ -1,13 +1,13 @@
-import fs = require('fs-extra');
-import spec = require('jsii-spec');
-import log4js = require('log4js');
-import path = require('path');
-import semver = require('semver');
+import * as fs from 'fs-extra';
+import * as spec from '@jsii/spec';
+import * as log4js from 'log4js';
+import * as path from 'path';
+import * as semver from 'semver';
+import { intersect } from 'semver-intersect';
 import { parsePerson, parseRepository } from './utils';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const spdx: Set<string> = require('spdx-license-list/simple');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 const LOG = log4js.getLogger('jsii/package-info');
 
@@ -31,13 +31,14 @@ export interface ProjectInfo {
     readonly url: string;
     readonly directory?: string;
   };
+  readonly keywords?: string[];
 
   readonly main: string;
   readonly types: string;
 
-  readonly dependencies: readonly spec.Assembly[];
-  readonly peerDependencies: readonly spec.Assembly[];
-  readonly transitiveDependencies: readonly spec.Assembly[];
+  readonly dependencies: { readonly [name: string]: string };
+  readonly peerDependencies: { readonly [name: string]: string };
+  readonly dependencyClosure: readonly spec.Assembly[];
   readonly bundleDependencies?: { readonly [name: string]: string };
   readonly targets: spec.AssemblyTargets;
   readonly metadata?: { [key: string]: any };
@@ -52,13 +53,12 @@ export interface ProjectInfo {
 
 export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies }: { fixPeerDependencies: boolean }): Promise<ProjectInfo> {
   const packageJsonPath = path.join(projectRoot, 'package.json');
-  /* eslint-disable @typescript-eslint/no-var-requires */
+  // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
   const pkg = require(packageJsonPath);
-  /* eslint-enable @typescript-eslint/no-var-requires */
 
   let bundleDependencies: { [name: string]: string } | undefined;
-  for (const name of pkg.bundleDependencies || pkg.bundledDependencies || []) {
-    const version = pkg.dependencies && pkg.dependencies[name];
+  for (const name of pkg.bundleDependencies ?? pkg.bundledDependencies ?? []) {
+    const version = pkg.dependencies?.[name];
     if (!version) {
       throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
     }
@@ -67,17 +67,17 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
       throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", and also in "peerDependencies"`);
     }
 
-    bundleDependencies = bundleDependencies || {};
+    bundleDependencies = bundleDependencies ?? {};
     bundleDependencies[name] = _resolveVersion(version, projectRoot).version!;
   }
 
   let addedPeerDependency = false;
-  Object.entries(pkg.dependencies || {}).forEach(([name, version]) => {
-    if (name in (bundleDependencies || {})) {
+  Object.entries(pkg.dependencies ?? {}).forEach(([name, version]) => {
+    if (name in (bundleDependencies ?? {})) {
       return;
     }
     version = _resolveVersion(version as any, projectRoot).version;
-    pkg.peerDependencies = pkg.peerDependencies || {};
+    pkg.peerDependencies = pkg.peerDependencies ?? {};
     const peerVersion = _resolveVersion(pkg.peerDependencies[name], projectRoot).version;
     if (peerVersion === version) {
       return;
@@ -104,11 +104,11 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 
   const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
   const dependencies =
-        await _loadDependencies(pkg.dependencies, projectRoot, transitiveAssemblies, new Set<string>(Object.keys(bundleDependencies || {})));
+        await _loadDependencies(pkg.dependencies, projectRoot, transitiveAssemblies, new Set<string>(Object.keys(bundleDependencies ?? {})));
   const peerDependencies =
         await _loadDependencies(pkg.peerDependencies, projectRoot, transitiveAssemblies);
 
-  const transitiveDependencies = Object.keys(transitiveAssemblies).map(name => transitiveAssemblies[name]);
+  const transitiveDependencies = Object.values(transitiveAssemblies);
 
   return {
     projectRoot,
@@ -121,31 +121,31 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
     author: _toPerson(_required(pkg.author, 'The "package.json" file must specify the "author" attribute'), 'author'),
     repository: _toRepository(_required(pkg.repository, 'The "package.json" file must specify the "repository" attribute')),
     license: _validateLicense(pkg.license),
+    keywords: pkg.keywords,
 
     main: _required(pkg.main, 'The "package.json" file must specify the "main" attribute'),
     types: _required(pkg.types, 'The "package.json" file must specify the "types" attribute'),
 
     dependencies,
     peerDependencies,
-    transitiveDependencies,
+    dependencyClosure: transitiveDependencies,
     bundleDependencies,
     targets: {
       ..._required(pkg.jsii, 'The "package.json" file must specify the "jsii" attribute').targets,
       js: { npm: pkg.name }
     },
-    metadata: pkg.jsii && pkg.jsii.metadata,
-    jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat || 'full'),
+    metadata: pkg.jsii?.metadata,
+    jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat ?? 'full'),
 
     description: pkg.description,
     homepage: pkg.homepage,
-    contributors: pkg.contributors
-            && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
+    contributors: (pkg.contributors as any[])?.map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
 
-    excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
-    projectReferences: pkg.jsii && pkg.jsii.projectReferences,
+    excludeTypescript: pkg.jsii?.excludeTypescript ?? [],
+    projectReferences: pkg.jsii?.projectReferences,
     tsc: {
-      outDir: pkg.jsii && pkg.jsii.tsc && pkg.jsii.tsc.outDir,
-      rootDir: pkg.jsii && pkg.jsii.tsc && pkg.jsii.tsc.rootDir,
+      outDir: pkg.jsii?.tsc?.outDir,
+      rootDir: pkg.jsii?.tsc?.rootDir,
     }
   };
 }
@@ -153,18 +153,20 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 function _guessRepositoryType(url: string): string {
   if (url.endsWith('.git')) { return 'git'; }
   const parts = /^([^:]+):\/\//.exec(url);
-  if (parts && parts[1] !== 'http' && parts[1] !== 'https') {
-    return parts[1];
+  if (parts?.[1] !== 'http' && parts?.[1] !== 'https') {
+    return parts![1];
   }
   throw new Error(`The "package.json" file must specify the "repository.type" attribute (could not guess from ${url})`);
 }
 
-async function _loadDependencies(dependencies: { [name: string]: string | spec.PackageVersion } | undefined,
+async function _loadDependencies(
+  dependencies: { [name: string]: string } | undefined,
   searchPath: string,
   transitiveAssemblies: { [name: string]: spec.Assembly },
-  bundled = new Set<string>()): Promise<spec.Assembly[]> {
-  if (!dependencies) { return []; }
-  const assemblies = new Array<spec.Assembly>();
+  bundled = new Set<string>()
+): Promise<{ [name: string]: string }> {
+  if (!dependencies) { return {}; }
+  const packageVersions: { [name: string]: string } = {};
   for (const name of Object.keys(dependencies)) {
     if (bundled.has(name)) { continue; }
     const { version: versionString, localPackage } = _resolveVersion(dependencies[name], searchPath);
@@ -174,22 +176,22 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.P
     }
     const pkg = _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
-    /* eslint-disable no-await-in-loop */
+    // eslint-disable-next-line no-await-in-loop
     const assm = await loadAndValidateAssembly(pkg);
-    /* eslint-enable no-await-in-loop */
     if (!version.intersects(new semver.Range(assm.version))) {
       throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
     }
-    assemblies.push(assm);
+    packageVersions[assm.name] = packageVersions[assm.name] != null
+      ? intersect(versionString!, packageVersions[assm.name])
+      : versionString!;
     transitiveAssemblies[assm.name] = assm;
     const pkgDir = path.dirname(pkg);
     if (assm.dependencies) {
-      /* eslint-disable no-await-in-loop */
+      // eslint-disable-next-line no-await-in-loop
       await _loadDependencies(assm.dependencies, pkgDir, transitiveAssemblies);
-      /* eslint-enable no-await-in-loop */
     }
   }
-  return assemblies;
+  return packageVersions;
 }
 
 const ASSEMBLY_CACHE = new Map<string, spec.Assembly>();
@@ -199,7 +201,11 @@ const ASSEMBLY_CACHE = new Map<string, spec.Assembly>();
  */
 async function loadAndValidateAssembly(jsiiFileName: string): Promise<spec.Assembly> {
   if (!ASSEMBLY_CACHE.has(jsiiFileName)) {
-    ASSEMBLY_CACHE.set(jsiiFileName, spec.validateAssembly(await fs.readJson(jsiiFileName)));
+    try {
+      ASSEMBLY_CACHE.set(jsiiFileName, spec.validateAssembly(await fs.readJson(jsiiFileName)));
+    } catch (e) {
+      throw new Error(`Error loading ${jsiiFileName}: ${e}`);
+    }
   }
   return ASSEMBLY_CACHE.get(jsiiFileName)!;
 }
@@ -281,11 +287,7 @@ function _validateStability(stability: string | undefined, deprecated: string | 
   return stability as spec.Stability;
 }
 
-function _resolveVersion(dep: spec.PackageVersion | string | undefined, searchPath: string): { version: string | undefined, localPackage?: string } {
-  if (typeof dep !== 'string') {
-    return { version: dep && dep.version };
-  }
-
+function _resolveVersion(dep: string, searchPath: string): { version: string | undefined, localPackage?: string } {
   const matches = /^file:(.+)$/.exec(dep);
   if (!matches) {
     return { version: dep };
@@ -293,6 +295,7 @@ function _resolveVersion(dep: spec.PackageVersion | string | undefined, searchPa
   const localPackage = path.resolve(searchPath, matches[1]);
   return {
     // Rendering as a caret version to maintain uniformity against the "standard".
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     version: `^${require(path.join(localPackage, 'package.json')).version}`,
     localPackage,
   };

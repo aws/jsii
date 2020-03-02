@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -15,7 +15,7 @@ public interface IInterfaceThatShouldNotBeADataType extends software.amazon.jsii
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getOtherValue();
+    @org.jetbrains.annotations.NotNull java.lang.String getOtherValue();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -30,7 +30,7 @@ public interface IInterfaceThatShouldNotBeADataType extends software.amazon.jsii
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getOtherValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getOtherValue() {
             return this.jsiiGet("otherValue", java.lang.String.class);
         }
 
@@ -39,7 +39,7 @@ public interface IInterfaceThatShouldNotBeADataType extends software.amazon.jsii
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getValue() {
             return this.jsiiGet("value", java.lang.String.class);
         }
 
@@ -49,7 +49,7 @@ public interface IInterfaceThatShouldNotBeADataType extends software.amazon.jsii
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void doThings() {
-            this.jsiiCall("doThings", Void.class);
+            this.jsiiCall("doThings", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

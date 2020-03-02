@@ -6,10 +6,10 @@
  * well put it in one reusable place.
  */
 
-import fs = require('fs-extra');
-import spec = require('jsii-spec');
-import os = require('os');
-import path = require('path');
+import * as fs from 'fs-extra';
+import * as spec from '@jsii/spec';
+import * as os from 'os';
+import * as path from 'path';
 import { DiagnosticCategory } from 'typescript';
 import { Compiler } from './compiler';
 import { loadProjectInfo, ProjectInfo } from './project-info';
@@ -25,7 +25,7 @@ export async function sourceToAssemblyHelper(source: string, cb?: (obj: PackageI
   return inTempDir(async () => {
     const fileName = 'index.ts';
     await fs.writeFile(fileName, source, { encoding: 'utf-8' });
-    const compiler = new Compiler({ projectInfo: await makeProjectInfo(fileName, cb), watch: false });
+    const compiler = new Compiler({ projectInfo: await makeProjectInfo(fileName, cb) });
     const emitResult = await compiler.emit();
 
     const errors = emitResult.diagnostics.filter(d => d.category === DiagnosticCategory.Error);

@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * A singleton string.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -11,7 +11,7 @@ package software.amazon.jsii.tests.calculator;
 public enum SingletonStringEnum {
     /**
      * 1337.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

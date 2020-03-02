@@ -13,7 +13,7 @@ public interface IInterfaceWithMethods extends software.amazon.jsii.JsiiSerializ
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getValue();
+    @org.jetbrains.annotations.NotNull java.lang.String getValue();
 
     /**
      * EXPERIMENTAL
@@ -34,7 +34,7 @@ public interface IInterfaceWithMethods extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getValue() {
             return this.jsiiGet("value", java.lang.String.class);
         }
 
@@ -44,7 +44,7 @@ public interface IInterfaceWithMethods extends software.amazon.jsii.JsiiSerializ
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void doThings() {
-            this.jsiiCall("doThings", Void.class);
+            this.jsiiCall("doThings", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

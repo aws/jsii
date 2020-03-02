@@ -1,5 +1,5 @@
-import colors = require('colors/safe');
-import yargs = require('yargs');
+import * as colors from 'colors/safe';
+import * as yargs from 'yargs';
 import { TypeSystem, TypeSystemTree } from '../lib';
 
 async function main() {
@@ -25,7 +25,7 @@ async function main() {
     await typesys.loadNpmDependencies(options.closure, { validate: options.validate });
   }
 
-  await Promise.all((options.jsiiFile as string[] || []).map(fileOrDirectory => typesys.load(fileOrDirectory, { validate: options.validate })));
+  await Promise.all((options.jsiiFile as string[] ?? []).map(fileOrDirectory => typesys.load(fileOrDirectory, { validate: options.validate })));
 
   const tst = new TypeSystemTree(typesys, {
     dependencies: options.dependencies || options.all,

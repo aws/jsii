@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * We can serialize and deserialize structs without silently ignoring optional fields.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -15,13 +15,13 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getRequiredString();
+    @org.jetbrains.annotations.NotNull java.lang.String getRequiredString();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Number getOptionalNumber() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getOptionalNumber() {
         return null;
     }
 
@@ -29,7 +29,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getOptionalString() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getOptionalString() {
         return null;
     }
 
@@ -50,7 +50,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
         private java.lang.String optionalString;
 
         /**
-         * Sets the value of RequiredString
+         * Sets the value of {@link StructA#getRequiredString}
          * @param requiredString the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -61,7 +61,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of OptionalNumber
+         * Sets the value of {@link StructA#getOptionalNumber}
          * @param optionalNumber the value to be set.
          * @return {@code this}
          */
@@ -72,7 +72,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of OptionalString
+         * Sets the value of {@link StructA#getOptionalString}
          * @param optionalString the value to be set.
          * @return {@code this}
          */

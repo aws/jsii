@@ -1,6 +1,6 @@
 {
   "name": "jsii-reflect",
-  "version": "0.20.8",
+  "version": "1.0.0",
   "description": "strongly-typed reflection library and tools for jsii",
   "license": "Apache-2.0",
   "author": {
@@ -33,25 +33,24 @@
     "package": "package-js"
   },
   "dependencies": {
+    "@jsii/spec": "^1.0.0",
     "colors": "^1.4.0",
     "fs-extra": "^8.1.0",
-    "jsii-spec": "^0.20.8",
-    "oo-ascii-tree": "^0.20.8",
-    "yargs": "^14.2.0"
+    "oo-ascii-tree": "^1.0.0",
+    "yargs": "^15.2.0"
   },
   "devDependencies": {
-    "@scope/jsii-calc-lib": "^0.20.8",
-    "@types/fs-extra": "^8.0.1",
-    "@types/jest": "^24.0.23",
-    "@types/yargs": "^13.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.6.1",
-    "@typescript-eslint/parser": "^2.6.1",
-    "eslint": "^6.6.0",
-    "jest": "^24.9.0",
-    "jsii": "^0.20.8",
-    "jsii-build-tools": "^0.20.8",
-    "jsii-calc": "^0.20.8",
-    "typescript": "~3.6.4"
+    "@scope/jsii-calc-lib": "^1.0.0",
+    "@types/fs-extra": "^8.1.0",
+    "@types/jest": "^25.1.3",
+    "@types/node": "^10.17.17",
+    "@types/yargs": "^15.0.4",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "jsii": "^1.0.0",
+    "jsii-build-tools": "^1.0.0",
+    "jsii-calc": "^1.0.0",
+    "typescript": "~3.8.3"
   },
   "jest": {
     "collectCoverage": true,

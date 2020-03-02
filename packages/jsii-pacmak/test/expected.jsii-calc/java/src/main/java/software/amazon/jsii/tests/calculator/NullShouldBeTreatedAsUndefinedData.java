@@ -13,13 +13,13 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
+    @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Object getThisShouldBeUndefined() {
+    default @org.jetbrains.annotations.Nullable java.lang.Object getThisShouldBeUndefined() {
         return null;
     }
 
@@ -39,7 +39,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
         private java.lang.Object thisShouldBeUndefined;
 
         /**
-         * Sets the value of ArrayWithThreeElementsAndUndefinedAsSecondArgument
+         * Sets the value of {@link NullShouldBeTreatedAsUndefinedData#getArrayWithThreeElementsAndUndefinedAsSecondArgument}
          * @param arrayWithThreeElementsAndUndefinedAsSecondArgument the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -50,7 +50,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
         }
 
         /**
-         * Sets the value of ThisShouldBeUndefined
+         * Sets the value of {@link NullShouldBeTreatedAsUndefinedData#getThisShouldBeUndefined}
          * @param thisShouldBeUndefined the value to be set.
          * @return {@code this}
          */
@@ -85,7 +85,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = this.jsiiGet("arrayWithThreeElementsAndUndefinedAsSecondArgument", java.util.List.class);
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = this.jsiiGet("arrayWithThreeElementsAndUndefinedAsSecondArgument", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class)));
             this.thisShouldBeUndefined = this.jsiiGet("thisShouldBeUndefined", java.lang.Object.class);
         }
 

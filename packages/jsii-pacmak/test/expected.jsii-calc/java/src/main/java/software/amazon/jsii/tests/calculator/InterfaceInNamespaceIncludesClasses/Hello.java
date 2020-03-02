@@ -13,7 +13,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getFoo();
+    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
 
     /**
      * @return a {@link Builder} of {@link Hello}
@@ -30,7 +30,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         private java.lang.Number foo;
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link Hello#getFoo}
          * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */

@@ -25,7 +25,7 @@ public class JSObjectLiteralForInterface extends software.amazon.jsii.JsiiObject
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.IFriendly giveMeFriendly() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.IFriendly giveMeFriendly() {
         return this.jsiiCall("giveMeFriendly", software.amazon.jsii.tests.calculator.lib.IFriendly.class);
     }
 
@@ -33,7 +33,7 @@ public class JSObjectLiteralForInterface extends software.amazon.jsii.JsiiObject
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator giveMeFriendlyGenerator() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator giveMeFriendlyGenerator() {
         return this.jsiiCall("giveMeFriendlyGenerator", software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator.class);
     }
 }

@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * An operation that sums multiple values.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -28,33 +28,35 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     }
 
     /**
-     * The expression that this operation consists of. Must be implemented by derived classes.
-     * 
+     * The expression that this operation consists of.
+     * <p>
+     * Must be implemented by derived classes.
+     * <p>
      * EXPERIMENTAL
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getExpression() {
         return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
      * The parts to sum.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getParts() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("parts", java.util.List.class));
+    public @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getParts() {
+        return java.util.Collections.unmodifiableList(this.jsiiGet("parts", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class))));
     }
 
     /**
      * The parts to sum.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setParts(final java.util.List<software.amazon.jsii.tests.calculator.lib.Value> value) {
+    public void setParts(final @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.Value> value) {
         this.jsiiSet("parts", java.util.Objects.requireNonNull(value, "parts is required"));
     }
 }

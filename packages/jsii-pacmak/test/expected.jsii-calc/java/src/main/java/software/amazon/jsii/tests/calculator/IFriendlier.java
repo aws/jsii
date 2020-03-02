@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Even friendlier classes can implement this interface.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -13,21 +13,21 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
     /**
      * Say farewell.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String farewell();
+    @org.jetbrains.annotations.NotNull java.lang.String farewell();
 
     /**
      * Say goodbye.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return A goodbye blessing.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String goodbye();
+    @org.jetbrains.annotations.NotNull java.lang.String goodbye();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -39,25 +39,25 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Say farewell.
-         * 
+         * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.String farewell() {
+        public @org.jetbrains.annotations.NotNull java.lang.String farewell() {
             return this.jsiiCall("farewell", java.lang.String.class);
         }
 
         /**
          * Say goodbye.
-         * 
+         * <p>
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return A goodbye blessing.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.String goodbye() {
+        public @org.jetbrains.annotations.NotNull java.lang.String goodbye() {
             return this.jsiiCall("goodbye", java.lang.String.class);
         }
 
@@ -67,7 +67,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         @Override
-        public java.lang.String hello() {
+        public @org.jetbrains.annotations.NotNull java.lang.String hello() {
             return this.jsiiCall("hello", java.lang.String.class);
         }
     }

@@ -11,7 +11,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    java.lang.String getReadonlyProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty();
 
     /**
      * @return a {@link Builder} of {@link StableStruct}
@@ -28,7 +28,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
         private java.lang.String readonlyProperty;
 
         /**
-         * Sets the value of ReadonlyProperty
+         * Sets the value of {@link StableStruct#getReadonlyProperty}
          * @param readonlyProperty the value to be set. This parameter is required.
          * @return {@code this}
          */

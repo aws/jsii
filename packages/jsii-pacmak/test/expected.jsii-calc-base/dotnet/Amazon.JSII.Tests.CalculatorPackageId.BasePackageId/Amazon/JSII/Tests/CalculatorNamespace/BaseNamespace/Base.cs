@@ -1,5 +1,7 @@
 using Amazon.JSII.Runtime.Deputy;
 
+#pragma warning disable CS0672,CS0809,CS1591
+
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
 {
     /// <summary>A base class.</summary>
@@ -10,17 +12,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Base(ByRefValue reference): base(reference)
         {
         }
 
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         protected Base(DeputyProps props): base(props)
         {
         }
 
-        /// <returns>
-        /// the name of the class (to verify native type names are created for derived classes).
-        /// </returns>
+        /// <returns>the name of the class (to verify native type names are created for derived classes).</returns>
         [JsiiMethod(name: "typeName", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public virtual object TypeName()
         {

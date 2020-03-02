@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verify that object references can be passed inside collections.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -25,25 +25,25 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
 
     /**
      * Returns the sum of all values.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param values This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number sumFromArray(final java.util.List<software.amazon.jsii.tests.calculator.lib.Value> values) {
+    public @org.jetbrains.annotations.NotNull java.lang.Number sumFromArray(final @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.Value> values) {
         return this.jsiiCall("sumFromArray", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(values, "values is required") });
     }
 
     /**
      * Returns the sum of all values in a map.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param values This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number sumFromMap(final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> values) {
+    public @org.jetbrains.annotations.NotNull java.lang.Number sumFromMap(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> values) {
         return this.jsiiCall("sumFromMap", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(values, "values is required") });
     }
 }

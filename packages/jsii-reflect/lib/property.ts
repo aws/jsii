@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import * as jsii from '@jsii/spec';
 import { Assembly } from './assembly';
 import { Docs, Documentable } from './docs';
 import { OptionalValue } from './optional-value';
@@ -77,7 +77,7 @@ export class Property extends OptionalValue implements Documentable, Overridable
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs || {}, this.parentType.docs);
+    return new Docs(this.system, this, this.spec.docs ?? {}, this.parentType.docs);
   }
 
   /**

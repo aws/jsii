@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -15,13 +15,13 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getRequiredString();
+    @org.jetbrains.annotations.NotNull java.lang.String getRequiredString();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Boolean getOptionalBoolean() {
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getOptionalBoolean() {
         return null;
     }
 
@@ -29,7 +29,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default software.amazon.jsii.tests.calculator.StructA getOptionalStructA() {
+    default @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.StructA getOptionalStructA() {
         return null;
     }
 
@@ -50,7 +50,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
         private software.amazon.jsii.tests.calculator.StructA optionalStructA;
 
         /**
-         * Sets the value of RequiredString
+         * Sets the value of {@link StructB#getRequiredString}
          * @param requiredString the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -61,7 +61,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of OptionalBoolean
+         * Sets the value of {@link StructB#getOptionalBoolean}
          * @param optionalBoolean the value to be set.
          * @return {@code this}
          */
@@ -72,7 +72,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of OptionalStructA
+         * Sets the value of {@link StructB#getOptionalStructA}
          * @param optionalStructA the value to be set.
          * @return {@code this}
          */

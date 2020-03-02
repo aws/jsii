@@ -14,7 +14,7 @@ public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.Number getDoubleValue();
+    @org.jetbrains.annotations.NotNull java.lang.Number getDoubleValue();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -29,7 +29,7 @@ public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public java.lang.Number getDoubleValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number getDoubleValue() {
             return this.jsiiGet("doubleValue", java.lang.Number.class);
         }
     }

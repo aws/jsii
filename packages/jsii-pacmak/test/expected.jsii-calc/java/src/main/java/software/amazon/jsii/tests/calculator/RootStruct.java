@@ -2,10 +2,10 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
- * 
- * <p>This is cheating with the (current) declared types, but this is the &quot;more
- * idiomatic&quot; way for Pythonists.</p>
- * 
+ * <p>
+ * This is cheating with the (current) declared types, but this is the "more
+ * idiomatic" way for Pythonists.
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -16,17 +16,17 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * May not be empty.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getStringProp();
+    @org.jetbrains.annotations.NotNull java.lang.String getStringProp();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default software.amazon.jsii.tests.calculator.NestedStruct getNestedStruct() {
+    default @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.NestedStruct getNestedStruct() {
         return null;
     }
 
@@ -46,7 +46,7 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
         private software.amazon.jsii.tests.calculator.NestedStruct nestedStruct;
 
         /**
-         * Sets the value of StringProp
+         * Sets the value of {@link RootStruct#getStringProp}
          * @param stringProp May not be empty. This parameter is required.
          * @return {@code this}
          */
@@ -57,7 +57,7 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of NestedStruct
+         * Sets the value of {@link RootStruct#getNestedStruct}
          * @param nestedStruct the value to be set.
          * @return {@code this}
          */

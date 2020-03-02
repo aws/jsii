@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * EXPERIMENTAL
- * 
+ * <p>
  * @see https://github.com/aws/jsii/issues/903
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -27,7 +27,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected java.lang.String overrideMe() {
+    protected @org.jetbrains.annotations.NotNull java.lang.String overrideMe() {
         return this.jsiiCall("overrideMe", java.lang.String.class);
     }
 
@@ -36,14 +36,14 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void switchModes() {
-        this.jsiiCall("switchModes", Void.class);
+        this.jsiiCall("switchModes", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String valueFromProtected() {
+    public @org.jetbrains.annotations.NotNull java.lang.String valueFromProtected() {
         return this.jsiiCall("valueFromProtected", java.lang.String.class);
     }
 
@@ -51,7 +51,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected java.lang.String getOverrideReadOnly() {
+    protected @org.jetbrains.annotations.NotNull java.lang.String getOverrideReadOnly() {
         return this.jsiiGet("overrideReadOnly", java.lang.String.class);
     }
 
@@ -59,7 +59,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected java.lang.String getOverrideReadWrite() {
+    protected @org.jetbrains.annotations.NotNull java.lang.String getOverrideReadWrite() {
         return this.jsiiGet("overrideReadWrite", java.lang.String.class);
     }
 
@@ -67,7 +67,7 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected void setOverrideReadWrite(final java.lang.String value) {
+    protected void setOverrideReadWrite(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("overrideReadWrite", java.util.Objects.requireNonNull(value, "overrideReadWrite is required"));
     }
 }

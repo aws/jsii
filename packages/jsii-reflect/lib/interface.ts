@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import * as jsii from '@jsii/spec';
 import { Assembly } from './assembly';
 import { Method } from './method';
 import { Property } from './property';
@@ -77,7 +77,7 @@ export class InterfaceType extends ReferenceType {
       }
     }
     return Object.assign(base, indexBy(
-      (this.spec.properties || []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
+      (this.spec.properties ?? []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
       p => p.name));
   }
 
@@ -89,7 +89,7 @@ export class InterfaceType extends ReferenceType {
       }
     }
     return Object.assign(base, indexBy(
-      (this.spec.methods || []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
+      (this.spec.methods ?? []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
       m => m.name));
   }
 }

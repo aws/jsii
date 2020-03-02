@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * The power operation.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,46 +20,48 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
 
     /**
      * Creates a Power operation.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param base The base of the power. This parameter is required.
      * @param pow The number of times to multiply. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public Power(final software.amazon.jsii.tests.calculator.lib.Value base, final software.amazon.jsii.tests.calculator.lib.Value pow) {
+    public Power(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value base, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value pow) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(base, "base is required"), java.util.Objects.requireNonNull(pow, "pow is required") });
     }
 
     /**
      * The base of the power.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getBase() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getBase() {
         return this.jsiiGet("base", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
-     * The expression that this operation consists of. Must be implemented by derived classes.
-     * 
+     * The expression that this operation consists of.
+     * <p>
+     * Must be implemented by derived classes.
+     * <p>
      * EXPERIMENTAL
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getExpression() {
         return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
      * The number of times to multiply.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getPow() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getPow() {
         return this.jsiiGet("pow", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 }

@@ -1,20 +1,20 @@
-import ts = require('typescript');
-import { AstRenderer, AstHandler, nimpl } from "../renderer";
+import * as ts from 'typescript';
+import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { OTree } from '../o-tree';
 import { ImportStatement } from '../typescript/imports';
 
 export class VisualizeAstVisitor implements AstHandler<void> {
   public readonly defaultContext: void = undefined;
 
-  constructor(private readonly includeHandlerNames?: boolean) {
+  public constructor(private readonly includeHandlerNames?: boolean) {
   }
 
-  public mergeContext(_old: void, _update: void): void {
+  public mergeContext(_old: any, _update: any): any {
     return undefined;
   }
 
-  public commentRange(node: ts.CommentRange, context: AstRenderer<void>): OTree {
-    return new OTree(['(Comment', context.textAt(node.pos, node.end)], [], { suffix: ')' });
+  public commentRange(node: CommentSyntax, _context: AstRenderer<void>): OTree {
+    return new OTree(['(Comment', node.text], [], { suffix: ')' });
   }
 
   public jsDoc(_node: ts.JSDoc, _context: AstRenderer<void>): OTree {
@@ -136,6 +136,10 @@ export class VisualizeAstVisitor implements AstHandler<void> {
 
   public propertySignature(node: ts.PropertySignature, context: AstRenderer<void>): OTree {
     return this.defaultNode('propertySignature', node, context);
+  }
+
+  public methodSignature(node: ts.MethodSignature, context: AstRenderer<void>): OTree {
+    return this.defaultNode('methodSignature', node, context);
   }
 
   public asExpression(node: ts.AsExpression, context: AstRenderer<void>): OTree {

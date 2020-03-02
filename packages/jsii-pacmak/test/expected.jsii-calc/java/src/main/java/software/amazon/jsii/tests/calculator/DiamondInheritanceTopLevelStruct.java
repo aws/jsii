@@ -13,7 +13,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getTopLevelProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getTopLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceTopLevelStruct}
@@ -33,7 +33,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
         private java.lang.String secondMidLevelProperty;
 
         /**
-         * Sets the value of TopLevelProperty
+         * Sets the value of {@link DiamondInheritanceTopLevelStruct#getTopLevelProperty}
          * @param topLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -44,7 +44,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
         }
 
         /**
-         * Sets the value of FirstMidLevelProperty
+         * Sets the value of {@link DiamondInheritanceTopLevelStruct#getFirstMidLevelProperty}
          * @param firstMidLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -55,7 +55,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
         }
 
         /**
-         * Sets the value of BaseLevelProperty
+         * Sets the value of {@link DiamondInheritanceTopLevelStruct#getBaseLevelProperty}
          * @param baseLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -66,7 +66,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
         }
 
         /**
-         * Sets the value of SecondMidLevelProperty
+         * Sets the value of {@link DiamondInheritanceTopLevelStruct#getSecondMidLevelProperty}
          * @param secondMidLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */

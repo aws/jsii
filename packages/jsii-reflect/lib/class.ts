@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import * as jsii from '@jsii/spec';
 import { Assembly } from './assembly';
 import { Initializer } from './initializer';
 import { InterfaceType } from './interface';
@@ -100,14 +100,14 @@ export class ClassType extends ReferenceType {
   private _getProperties(inherited: boolean, parentType: ReferenceType): {[name: string]: Property} {
     const base = inherited && this.base ? this.base._getProperties(inherited, parentType) : {};
     return Object.assign(base, indexBy(
-      (this.spec.properties || []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
+      (this.spec.properties ?? []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
       p => p.name));
   }
 
   private _getMethods(inherited: boolean, parentType: ReferenceType): {[name: string]: Method} {
     const base = inherited && this.base ? this.base._getMethods(inherited, parentType) : {};
     return Object.assign(base, indexBy(
-      (this.spec.methods || []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
+      (this.spec.methods ?? []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
       m => m.name));
   }
 }

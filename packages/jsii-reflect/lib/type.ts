@@ -1,4 +1,4 @@
-import jsii = require('jsii-spec');
+import * as jsii from '@jsii/spec';
 import { Assembly } from './assembly';
 import { ClassType } from './class';
 import { Docs, Documentable } from './docs';
@@ -48,7 +48,7 @@ export abstract class Type implements Documentable, SourceLocatable {
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs || {});
+    return new Docs(this.system, this, this.spec.docs ?? {});
   }
 
   /**

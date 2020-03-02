@@ -2,9 +2,9 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
- * 
+ * <p>
  * EXPERIMENTAL
- * 
+ * <p>
  * @return an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.
  * @see https://github.com/aws/jsii/issues/320
  */
@@ -30,7 +30,7 @@ public class ReturnsPrivateImplementationOfInterface extends software.amazon.jsi
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.IPrivatelyImplemented getPrivateImplementation() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IPrivatelyImplemented getPrivateImplementation() {
         return this.jsiiGet("privateImplementation", software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class);
     }
 }

@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * An operation on a single operand.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,11 +20,11 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param operand This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected UnaryOperation(final software.amazon.jsii.tests.calculator.lib.Value operand) {
+    protected UnaryOperation(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value operand) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") });
     }
@@ -33,7 +33,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getOperand() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getOperand() {
         return this.jsiiGet("operand", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
@@ -51,7 +51,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public java.lang.Number getValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
 
@@ -61,7 +61,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         @Override
-        public java.lang.String toString() {
+        public @org.jetbrains.annotations.NotNull java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);
         }
     }

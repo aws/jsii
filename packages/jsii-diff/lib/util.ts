@@ -1,9 +1,9 @@
-import childProcess = require('child_process');
-import fs = require('fs-extra');
-import log4js = require('log4js');
-import os = require('os');
-import path = require('path');
-import util = require('util');
+import * as childProcess from 'child_process';
+import * as fs from 'fs-extra';
+import * as log4js from 'log4js';
+import * as os from 'os';
+import * as path from 'path';
+import * as util from 'util';
 
 const LOG = log4js.getLogger('jsii-diff');
 

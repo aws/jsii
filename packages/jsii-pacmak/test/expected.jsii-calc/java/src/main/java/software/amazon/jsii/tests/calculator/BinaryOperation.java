@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Represents an operation with two operands.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,46 +20,46 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
     /**
      * Creates a BinaryOperation.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param lhs Left-hand side operand. This parameter is required.
      * @param rhs Right-hand side operand. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected BinaryOperation(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
+    protected BinaryOperation(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value lhs, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") });
     }
 
     /**
      * Say hello!
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
-    public java.lang.String hello() {
+    public @org.jetbrains.annotations.NotNull java.lang.String hello() {
         return this.jsiiCall("hello", java.lang.String.class);
     }
 
     /**
      * Left-hand side operand.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getLhs() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getLhs() {
         return this.jsiiGet("lhs", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
      * Right-hand side operand.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public software.amazon.jsii.tests.calculator.lib.Value getRhs() {
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getRhs() {
         return this.jsiiGet("rhs", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
@@ -77,7 +77,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public java.lang.Number getValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
 
@@ -87,7 +87,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         @Override
-        public java.lang.String hello() {
+        public @org.jetbrains.annotations.NotNull java.lang.String hello() {
             return this.jsiiCall("hello", java.lang.String.class);
         }
 
@@ -97,7 +97,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
         @Override
-        public java.lang.String toString() {
+        public @org.jetbrains.annotations.NotNull java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);
         }
     }

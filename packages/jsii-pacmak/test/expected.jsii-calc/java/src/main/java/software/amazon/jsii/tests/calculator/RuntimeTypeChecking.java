@@ -23,35 +23,35 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1
      * @param arg2
      * @param arg3
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void methodWithDefaultedArguments(final java.lang.Number arg1, final java.lang.String arg2, final java.time.Instant arg3) {
-        this.jsiiCall("methodWithDefaultedArguments", Void.class, new Object[] { arg1, arg2, arg3 });
+    public void methodWithDefaultedArguments(final @org.jetbrains.annotations.Nullable java.lang.Number arg1, final @org.jetbrains.annotations.Nullable java.lang.String arg2, final @org.jetbrains.annotations.Nullable java.time.Instant arg3) {
+        this.jsiiCall("methodWithDefaultedArguments", software.amazon.jsii.NativeType.VOID, new Object[] { arg1, arg2, arg3 });
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1
      * @param arg2
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void methodWithDefaultedArguments(final java.lang.Number arg1, final java.lang.String arg2) {
-        this.jsiiCall("methodWithDefaultedArguments", Void.class, new Object[] { arg1, arg2 });
+    public void methodWithDefaultedArguments(final @org.jetbrains.annotations.Nullable java.lang.Number arg1, final @org.jetbrains.annotations.Nullable java.lang.String arg2) {
+        this.jsiiCall("methodWithDefaultedArguments", software.amazon.jsii.NativeType.VOID, new Object[] { arg1, arg2 });
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void methodWithDefaultedArguments(final java.lang.Number arg1) {
-        this.jsiiCall("methodWithDefaultedArguments", Void.class, new Object[] { arg1 });
+    public void methodWithDefaultedArguments(final @org.jetbrains.annotations.Nullable java.lang.Number arg1) {
+        this.jsiiCall("methodWithDefaultedArguments", software.amazon.jsii.NativeType.VOID, new Object[] { arg1 });
     }
 
     /**
@@ -59,17 +59,17 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodWithDefaultedArguments() {
-        this.jsiiCall("methodWithDefaultedArguments", Void.class);
+        this.jsiiCall("methodWithDefaultedArguments", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void methodWithOptionalAnyArgument(final java.lang.Object arg) {
-        this.jsiiCall("methodWithOptionalAnyArgument", Void.class, new Object[] { arg });
+    public void methodWithOptionalAnyArgument(final @org.jetbrains.annotations.Nullable java.lang.Object arg) {
+        this.jsiiCall("methodWithOptionalAnyArgument", software.amazon.jsii.NativeType.VOID, new Object[] { arg });
     }
 
     /**
@@ -77,33 +77,33 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodWithOptionalAnyArgument() {
-        this.jsiiCall("methodWithOptionalAnyArgument", Void.class);
+        this.jsiiCall("methodWithOptionalAnyArgument", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
      * Used to verify verification of number of method arguments.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1 This parameter is required.
      * @param arg2 This parameter is required.
      * @param arg3
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void methodWithOptionalArguments(final java.lang.Number arg1, final java.lang.String arg2, final java.time.Instant arg3) {
-        this.jsiiCall("methodWithOptionalArguments", Void.class, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required"), arg3 });
+    public void methodWithOptionalArguments(final @org.jetbrains.annotations.NotNull java.lang.Number arg1, final @org.jetbrains.annotations.NotNull java.lang.String arg2, final @org.jetbrains.annotations.Nullable java.time.Instant arg3) {
+        this.jsiiCall("methodWithOptionalArguments", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required"), arg3 });
     }
 
     /**
      * Used to verify verification of number of method arguments.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param arg1 This parameter is required.
      * @param arg2 This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void methodWithOptionalArguments(final java.lang.Number arg1, final java.lang.String arg2) {
-        this.jsiiCall("methodWithOptionalArguments", Void.class, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required") });
+    public void methodWithOptionalArguments(final @org.jetbrains.annotations.NotNull java.lang.Number arg1, final @org.jetbrains.annotations.NotNull java.lang.String arg2) {
+        this.jsiiCall("methodWithOptionalArguments", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required") });
     }
 }

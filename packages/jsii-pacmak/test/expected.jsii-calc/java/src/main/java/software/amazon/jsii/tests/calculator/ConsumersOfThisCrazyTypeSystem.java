@@ -23,21 +23,21 @@ public class ConsumersOfThisCrazyTypeSystem extends software.amazon.jsii.JsiiObj
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String consumeAnotherPublicInterface(final software.amazon.jsii.tests.calculator.IAnotherPublicInterface obj) {
+    public @org.jetbrains.annotations.NotNull java.lang.String consumeAnotherPublicInterface(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IAnotherPublicInterface obj) {
         return this.jsiiCall("consumeAnotherPublicInterface", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Object consumeNonInternalInterface(final software.amazon.jsii.tests.calculator.INonInternalInterface obj) {
+    public @org.jetbrains.annotations.NotNull java.lang.Object consumeNonInternalInterface(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.INonInternalInterface obj) {
         return this.jsiiCall("consumeNonInternalInterface", java.lang.Object.class, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
     }
 }

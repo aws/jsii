@@ -1,0 +1,80 @@
+{
+  "name": "@jsii/runtime",
+  "version": "1.0.0",
+  "description": "jsii runtime kernel process",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/@jsii/runtime"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "bin": {
+    "jsii-runtime": "bin/jsii-runtime"
+  },
+  "scripts": {
+    "build": "tsc --build && chmod +x bin/jsii-runtime && /bin/bash ./bundle.sh && npm run lint",
+    "watch": "tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=webpack.config.js",
+    "test": "jest",
+    "test:update": "jest -u",
+    "package": "package-js"
+  },
+  "dependencies": {
+    "@jsii/kernel": "^1.0.0",
+    "@jsii/spec": "^1.0.0"
+  },
+  "devDependencies": {
+    "@scope/jsii-calc-base": "^1.0.0",
+    "@scope/jsii-calc-lib": "^1.0.0",
+    "@types/jest": "^25.1.3",
+    "@types/node": "^10.17.17",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "jsii-build-tools": "^1.0.0",
+    "jsii-calc": "^1.0.0",
+    "source-map": "^0.7.3",
+    "source-map-loader": "^0.2.4",
+    "typescript": "~3.8.3",
+    "wasm-loader": "^1.3.0",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 43,
+        "statements": 56
+      }
+    },
+    "errorOnDeprecated": true,
+    "setupFilesAfterEnv": [
+      "jest-expect-message"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
+    ]
+  }
+}

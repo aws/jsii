@@ -13,13 +13,13 @@ public interface IAnonymouslyImplementMe extends software.amazon.jsii.JsiiSerial
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getValue();
+    @org.jetbrains.annotations.NotNull java.lang.Number getValue();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String verb();
+    @org.jetbrains.annotations.NotNull java.lang.String verb();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -34,7 +34,7 @@ public interface IAnonymouslyImplementMe extends software.amazon.jsii.JsiiSerial
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.Number getValue() {
+        public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
 
@@ -43,7 +43,7 @@ public interface IAnonymouslyImplementMe extends software.amazon.jsii.JsiiSerial
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public java.lang.String verb() {
+        public @org.jetbrains.annotations.NotNull java.lang.String verb() {
             return this.jsiiCall("verb", java.lang.String.class);
         }
     }

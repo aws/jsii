@@ -13,7 +13,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getBar();
+    @org.jetbrains.annotations.NotNull java.lang.Number getBar();
 
     /**
      * @return a {@link Builder} of {@link ChildStruct982}
@@ -31,7 +31,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
         private java.lang.String foo;
 
         /**
-         * Sets the value of Bar
+         * Sets the value of {@link ChildStruct982#getBar}
          * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -42,7 +42,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
         }
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link ChildStruct982#getFoo}
          * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */

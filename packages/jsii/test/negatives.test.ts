@@ -1,6 +1,6 @@
-import fs = require('fs-extra');
-import path = require('path');
-import ts = require('typescript');
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import * as ts from 'typescript';
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
 
@@ -13,7 +13,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
     const [expectations, strict] = await _getExpectedErrorMessage(filePath);
     expect(expectations.length, `Expected error messages should be specified using ${MATCH_ERROR_MARKER}`)
       .toBeGreaterThan(0);
-    const compiler = new Compiler({ projectInfo: _makeProjectInfo(source), watch: false, failOnWarnings: strict });
+    const compiler = new Compiler({ projectInfo: _makeProjectInfo(source), failOnWarnings: strict });
     const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
     expect(emitResult.emitSkipped).toBeTruthy();
     const errors = emitResult.diagnostics.filter(diag =>
@@ -74,9 +74,9 @@ function _makeProjectInfo(types: string): ProjectInfo {
     license: 'Apache-2.0',
     author: { name: 'John Doe', roles: ['author'] },
     repository: { type: 'git', url: 'https://github.com/aws/jsii.git' },
-    dependencies: [],
-    peerDependencies: [],
-    transitiveDependencies: [],
+    dependencies: {},
+    peerDependencies: {},
+    dependencyClosure: [],
     bundleDependencies: {},
     targets: {},
     excludeTypescript: [],

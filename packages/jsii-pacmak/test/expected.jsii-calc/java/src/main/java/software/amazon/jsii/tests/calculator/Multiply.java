@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * The "*" binary operation.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,70 +20,70 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * Creates a BinaryOperation.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param lhs Left-hand side operand. This parameter is required.
      * @param rhs Right-hand side operand. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public Multiply(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
+    public Multiply(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value lhs, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") });
     }
 
     /**
      * Say farewell.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
-    public java.lang.String farewell() {
+    public @org.jetbrains.annotations.NotNull java.lang.String farewell() {
         return this.jsiiCall("farewell", java.lang.String.class);
     }
 
     /**
      * Say goodbye.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
-    public java.lang.String goodbye() {
+    public @org.jetbrains.annotations.NotNull java.lang.String goodbye() {
         return this.jsiiCall("goodbye", java.lang.String.class);
     }
 
     /**
      * Returns another random number.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
-    public java.lang.Number next() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number next() {
         return this.jsiiCall("next", java.lang.Number.class);
     }
 
     /**
      * String representation of the value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
-    public java.lang.String toString() {
+    public @org.jetbrains.annotations.NotNull java.lang.String toString() {
         return this.jsiiCall("toString", java.lang.String.class);
     }
 
     /**
      * The value.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getValue() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);
     }
 }

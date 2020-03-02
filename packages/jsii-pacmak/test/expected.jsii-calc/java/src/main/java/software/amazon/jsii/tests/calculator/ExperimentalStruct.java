@@ -13,7 +13,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getReadonlyProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty();
 
     /**
      * @return a {@link Builder} of {@link ExperimentalStruct}
@@ -30,7 +30,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
         private java.lang.String readonlyProperty;
 
         /**
-         * Sets the value of ReadonlyProperty
+         * Sets the value of {@link ExperimentalStruct#getReadonlyProperty}
          * @param readonlyProperty the value to be set. This parameter is required.
          * @return {@code this}
          */

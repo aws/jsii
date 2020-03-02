@@ -11,11 +11,11 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * When provided, must be > 0.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getNumberProp();
+    @org.jetbrains.annotations.NotNull java.lang.Number getNumberProp();
 
     /**
      * @return a {@link Builder} of {@link NestedStruct}
@@ -32,7 +32,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
         private java.lang.Number numberProp;
 
         /**
-         * Sets the value of NumberProp
+         * Sets the value of {@link NestedStruct#getNumberProp}
          * @param numberProp When provided, must be > 0. This parameter is required.
          * @return {@code this}
          */

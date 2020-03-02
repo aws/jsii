@@ -15,7 +15,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.lang.Number getMutableProperty() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
         return null;
     }
 
@@ -23,8 +23,8 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
      * @deprecated could be better
      */
     @software.amazon.jsii.Optional
-    default void setMutableProperty(final java.lang.Number value) {
-        throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#setMutableProperty(java.lang.Number)' is not implemented!");
+    default void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
+        throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#setMutableProperty(@org.jetbrains.annotations.Nullable java.lang.Number)' is not implemented!");
     }
 
     /**
@@ -48,7 +48,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public java.lang.Number getMutableProperty() {
+        public @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
             return this.jsiiGet("mutableProperty", java.lang.Number.class);
         }
 
@@ -58,7 +58,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public void setMutableProperty(final java.lang.Number value) {
+        public void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
             this.jsiiSet("mutableProperty", value);
         }
 
@@ -69,7 +69,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         @Deprecated
         @Override
         public void method() {
-            this.jsiiCall("method", Void.class);
+            this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

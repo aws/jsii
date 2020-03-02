@@ -2,9 +2,9 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Make sure structs are un-decorated on the way in.
- * 
+ * <p>
  * EXPERIMENTAL
- * 
+ * <p>
  * @see https://github.com/aws/aws-cdk/issues/5066
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -24,7 +24,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyArray() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyArray() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyArray", java.lang.Object.class);
     }
 
@@ -32,7 +32,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyBooleanFalse() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyBooleanFalse() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyBooleanFalse", java.lang.Object.class);
     }
 
@@ -40,7 +40,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyBooleanTrue() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyBooleanTrue() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyBooleanTrue", java.lang.Object.class);
     }
 
@@ -48,7 +48,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyDate() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyDate() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyDate", java.lang.Object.class);
     }
 
@@ -56,7 +56,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyEmptyString() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyEmptyString() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyEmptyString", java.lang.Object.class);
     }
 
@@ -64,7 +64,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyFunction() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyFunction() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyFunction", java.lang.Object.class);
     }
 
@@ -72,7 +72,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyHash() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyHash() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyHash", java.lang.Object.class);
     }
 
@@ -80,7 +80,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyNull() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyNull() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyNull", java.lang.Object.class);
     }
 
@@ -88,7 +88,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyNumber() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyNumber() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyNumber", java.lang.Object.class);
     }
 
@@ -96,7 +96,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyRef() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyRef() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyRef", java.lang.Object.class);
     }
 
@@ -104,7 +104,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyString() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyString() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyString", java.lang.Object.class);
     }
 
@@ -112,7 +112,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyUndefined() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyUndefined() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyUndefined", java.lang.Object.class);
     }
 
@@ -120,17 +120,17 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object anyZero() {
+    public static @org.jetbrains.annotations.NotNull java.lang.Object anyZero() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "anyZero", java.lang.Object.class);
     }
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param value
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.String stringify(final java.lang.Object value) {
+    public static @org.jetbrains.annotations.Nullable java.lang.String stringify(final @org.jetbrains.annotations.Nullable java.lang.Object value) {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "stringify", java.lang.String.class, new Object[] { value });
     }
 
@@ -138,7 +138,7 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.String stringify() {
+    public static @org.jetbrains.annotations.Nullable java.lang.String stringify() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.JsonFormatter.class, "stringify", java.lang.String.class);
     }
 }

@@ -1,0 +1,1 @@
+string x = "some string";

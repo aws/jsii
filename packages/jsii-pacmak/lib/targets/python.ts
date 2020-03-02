@@ -1,23 +1,22 @@
-import path = require('path');
-
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
-import * as spec from 'jsii-spec';
-import { Stability } from 'jsii-spec';
+import * as path from 'path';
+import * as spec from '@jsii/spec';
+import { Stability } from '@jsii/spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import { Translation, Rosetta, typeScriptSnippetFromSource } from 'jsii-rosetta';
+import { toPythonVersionRange } from './version-utils';
+import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
 
 
-const INCOMPLETE_DISCLAIMER = '# Example automatically generated. See https://github.com/aws/jsii/issues/826';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
@@ -110,9 +109,26 @@ const toPythonPropertyName = (name: string, constant = false, protectedItem = fa
   return value;
 };
 
-const toPythonParameterName = (name: string): string => {
-  return toPythonIdentifier(toSnakeCase(name));
-};
+/**
+ * Converts a given signature's parameter name to what should be emitted in Python. It slugifies the
+ * positional parameter names that collide with a lifted prop by appending trailing `_`. There is no
+ * risk of conflicting with an other positional parameter that ends with a `_` character because
+ * this is prohibited by the `jsii` compiler (parameter names MUST be camelCase, and only a single
+ * `_` is permitted when it is on **leading** position)
+ *
+ * @param name              the name of the parameter that needs conversion.
+ * @param liftedParamNames  the list of "lifted" keyword parameters in this signature. This must be
+ *                          omitted when generating a name for a parameter that **is** lifted.
+ */
+function toPythonParameterName(name: string, liftedParamNames = new Set<string>()): string {
+  let result = toPythonIdentifier(toSnakeCase(name));
+
+  while (liftedParamNames.has(result)) {
+    result += '_';
+  }
+
+  return result;
+}
 
 const setDifference = (setA: Set<any>, setB: Set<any>): Set<any> => {
   const difference = new Set(setA);
@@ -309,7 +325,7 @@ abstract class BaseMethod implements PythonBase {
   }
 
   public emit(code: CodeMaker, resolver: TypeResolver, opts?: BaseMethodEmitOpts) {
-    const { renderAbstract = true, forceEmitBody = false } = opts || {};
+    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
 
     let returnType: string;
     if (this.returns !== undefined) {
@@ -324,10 +340,8 @@ abstract class BaseMethod implements PythonBase {
     // resolved, so build up a list of all of the prop names so we can check against
     // them later.
     const liftedPropNames: Set<string> = new Set();
-    if (this.liftedProp !== undefined
-                && this.liftedProp.properties !== undefined
-                && this.liftedProp.properties.length >= 1) {
-      for (const prop of this.liftedProp.properties) {
+    if (this.liftedProp?.properties?.length ?? 0 >= 1) {
+      for (const prop of this.liftedProp!.properties!) {
         liftedPropNames.add(toPythonParameterName(prop.name));
       }
     }
@@ -341,10 +355,7 @@ abstract class BaseMethod implements PythonBase {
       // initializers, because our keyword lifting will allow two names to clash.
       // This can hopefully be removed once we get https://github.com/aws/jsii/issues/288
       // resolved.
-      let paramName: string = toPythonParameterName(param.name);
-      while (liftedPropNames.has(paramName)) {
-        paramName = `${paramName}_`;
-      }
+      const paramName: string = toPythonParameterName(param.name, liftedPropNames);
 
       const paramType = resolver.resolve(param, { forwardReferences: false });
       const paramDefault = param.optional ? '=None' : '';
@@ -352,7 +363,10 @@ abstract class BaseMethod implements PythonBase {
       pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
     }
 
-    const documentableArgs = [...this.parameters];
+    const documentableArgs = this.parameters
+      // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
+      .filter((_, index) => this.liftedProp != null ? index < this.parameters.length - 1 : true)
+      .map(param => ({ ...param, name: toPythonParameterName(param.name, liftedPropNames) }));
 
     // If we have a lifted parameter, then we'll drop the last argument to our params
     // and then we'll lift all of the params of the lifted type as keyword arguments
@@ -409,25 +423,31 @@ abstract class BaseMethod implements PythonBase {
 
     code.openBlock(`def ${this.pythonName}(${pythonParams.join(', ')}) -> ${returnType}`);
     this.generator.emitDocString(code, this.docs, { arguments: documentableArgs, documentableItem: `method-${this.pythonName}` });
-    this.emitBody(code, resolver, renderAbstract, forceEmitBody);
+    this.emitBody(code, resolver, renderAbstract, forceEmitBody, liftedPropNames);
     code.closeBlock();
   }
 
-  private emitBody(code: CodeMaker, resolver: TypeResolver, renderAbstract: boolean, forceEmitBody: boolean) {
+  private emitBody(
+    code: CodeMaker,
+    resolver: TypeResolver,
+    renderAbstract: boolean,
+    forceEmitBody: boolean,
+    liftedPropNames: Set<string>
+  ) {
     if ((!this.shouldEmitBody && !forceEmitBody) || (renderAbstract && this.abstract)) {
       code.line('...');
     } else {
       if (this.liftedProp !== undefined) {
-        this.emitAutoProps(code, resolver);
+        this.emitAutoProps(code, resolver, liftedPropNames);
       }
 
-      this.emitJsiiMethodCall(code, resolver);
+      this.emitJsiiMethodCall(code, resolver, liftedPropNames);
     }
   }
 
-  private emitAutoProps(code: CodeMaker, resolver: TypeResolver) {
+  private emitAutoProps(code: CodeMaker, resolver: TypeResolver, liftedPropNames: Set<string>) {
     const lastParameter = this.parameters.slice(-1)[0];
-    const argName = toPythonParameterName(lastParameter.name);
+    const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
     const typeName = resolver.resolve(lastParameter, { ignoreOptional: true });
 
     // We need to build up a list of properties, which are mandatory, these are the
@@ -441,7 +461,7 @@ abstract class BaseMethod implements PythonBase {
     code.line();
   }
 
-  private emitJsiiMethodCall(code: CodeMaker, resolver: TypeResolver) {
+  private emitJsiiMethodCall(code: CodeMaker, resolver: TypeResolver, liftedPropNames: Set<string>) {
     const methodPrefix: string = this.returnFromJSIIMethod ? 'return ' : '';
 
     const jsiiMethodParams: string[] = [];
@@ -459,7 +479,7 @@ abstract class BaseMethod implements PythonBase {
     // If the last arg is variadic, expand the tuple
     const params: string[] = [];
     for (const param of this.parameters) {
-      let expr = toPythonParameterName(param.name);
+      let expr = toPythonParameterName(param.name, liftedPropNames);
       if (param.variadic) { expr = `*${expr}`; }
       params.push(expr);
     }
@@ -529,7 +549,7 @@ abstract class BaseProperty implements PythonBase {
   }
 
   public emit(code: CodeMaker, resolver: TypeResolver, opts?: BasePropertyEmitOpts) {
-    const { renderAbstract = true, forceEmitBody = false } = opts || {};
+    const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
     const pythonType = resolver.resolve(this.type, { forwardReferences: false });
 
     code.line(`@${this.decorator}`);
@@ -553,7 +573,7 @@ abstract class BaseProperty implements PythonBase {
       }
       code.openBlock(`def ${this.pythonName}(${this.implicitParameter}, value: ${pythonType})`);
       if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
-        code.line(`return jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
+        code.line(`jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
       } else {
         code.line('...');
       }
@@ -597,7 +617,7 @@ class Interface extends BasePythonClassType {
   }
 
   protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
-    code.line('@staticmethod');
+    code.line('@builtins.staticmethod');
     code.openBlock('def __jsii_proxy_class__()');
     code.line(`return ${this.getProxyClassName()}`);
     code.closeBlock();
@@ -616,7 +636,7 @@ class InterfaceMethod extends BaseMethod {
 }
 
 class InterfaceProperty extends BaseProperty {
-  protected readonly decorator: string = 'property';
+  protected readonly decorator: string = 'builtins.property';
   protected readonly implicitParameter: string = 'self';
   protected readonly jsiiGetMethod: string = 'get';
   protected readonly jsiiSetMethod: string = 'set';
@@ -708,7 +728,7 @@ class Struct extends BasePythonClassType {
   }
 
   private emitGetter(member: StructField, code: CodeMaker, resolver: TypeResolver) {
-    code.line('@property');
+    code.line('@builtins.property');
     code.openBlock(`def ${member.pythonName}(self) -> ${member.typeAnnotation(resolver)}`);
     member.emitDocString(code);
     code.line(`return self._values.get('${member.pythonName}')`);
@@ -880,7 +900,7 @@ class Class extends BasePythonClassType {
 
   protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
     if (this.abstract) {
-      code.line('@staticmethod');
+      code.line('@builtins.staticmethod');
       code.openBlock('def __jsii_proxy_class__()');
       code.line(`return ${this.getProxyClassName()}`);
       code.closeBlock();
@@ -903,7 +923,7 @@ class Class extends BasePythonClassType {
 }
 
 class StaticMethod extends BaseMethod {
-  protected readonly decorator?: string = 'classmethod';
+  protected readonly decorator?: string = 'builtins.classmethod';
   protected readonly implicitParameter: string = 'cls';
   protected readonly jsiiMethod: string = 'sinvoke';
 }
@@ -926,14 +946,14 @@ class AsyncMethod extends BaseMethod {
 }
 
 class StaticProperty extends BaseProperty {
-  protected readonly decorator: string = 'classproperty';
+  protected readonly decorator: string = 'jsii.python.classproperty';
   protected readonly implicitParameter: string = 'cls';
   protected readonly jsiiGetMethod: string = 'sget';
   protected readonly jsiiSetMethod: string = 'sset';
 }
 
 class Property extends BaseProperty {
-  protected readonly decorator: string = 'property';
+  protected readonly decorator: string = 'builtins.property';
   protected readonly implicitParameter: string = 'self';
   protected readonly jsiiGetMethod: string = 'get';
   protected readonly jsiiSetMethod: string = 'set';
@@ -1015,6 +1035,7 @@ class Module implements PythonType {
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
     code.line('import abc');
+    code.line('import builtins');
     code.line('import datetime');
     code.line('import enum');
     code.line('import typing');
@@ -1022,14 +1043,13 @@ class Module implements PythonType {
     code.line('import jsii');
     code.line('import jsii.compat');
     code.line('import publication');
-    code.line();
-    code.line('from jsii.python import classproperty');
 
     // Go over all of the modules that we need to import, and import them.
     this.emitDependencyImports(code, resolver);
 
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
+      code.line();
       code.line(
         '__jsii_assembly__ = jsii.JSIIAssembly.load(' +
                 `"${this.assembly.name}", ` +
@@ -1037,6 +1057,8 @@ class Module implements PythonType {
                 '__name__, ' +
                 `"${this.assemblyFilename}")`
       );
+      code.line();
+      code.line();
     }
 
     // Emit all of our members.
@@ -1071,8 +1093,8 @@ class Module implements PythonType {
   private emitDependencyImports(code: CodeMaker, _resolver: TypeResolver) {
     const deps = Array.from(
       new Set([
-        ...Object.values(this.assembly.dependencies || {}).map(d => {
-          return d.targets!.python!.module;
+        ...Object.keys(this.assembly.dependencies ?? {}).map(d => {
+          return this.assembly.dependencyClosure![d]!.targets!.python!.module;
         }),
       ])
     );
@@ -1160,21 +1182,9 @@ class Package {
 
     // Compute our list of dependencies
     const dependencies: string[] = [];
-    const expectedDeps = this.metadata.dependencies || {};
-    for (const depName of Object.keys(expectedDeps)) {
-      const depInfo = expectedDeps[depName];
-      // We need to figure out what our version range is.
-      // Basically, if it starts with Zero we want to restrict things to
-      // ~=X.Y.Z. If it does not start with zero, then we want to do ~=X.Y,>=X.Y.Z.
-      const versionParts = depInfo.version.split('.');
-      let versionSpecifier: string;
-      if (versionParts[0] === '0') {
-        versionSpecifier = `~=${versionParts.slice(0, 3).join('.')}`;
-      } else {
-        versionSpecifier = `~=${versionParts.slice(0, 2).join('.')},>=${versionParts.slice(0, 3).join('.')}`;
-      }
-
-      dependencies.push(`${depInfo.targets!.python!.distName}${versionSpecifier}`);
+    for (const [depName, version] of Object.entries(this.metadata.dependencies ?? {})) {
+      const depInfo = this.metadata.dependencyClosure![depName];
+      dependencies.push(`${depInfo.targets!.python!.distName}${toPythonVersionRange(version)}`);
     }
 
     code.openFile('README.md');
@@ -1206,12 +1216,17 @@ class Package {
       classifiers: [
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3',
+        'Programming Language :: JavaScript',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Typing :: Typed'
       ],
     };
     /* eslint-enable @typescript-eslint/camelcase */
 
-    switch (this.metadata.docs && this.metadata.docs.stability) {
+    switch (this.metadata.docs?.stability) {
       case spec.Stability.Experimental:
         setupKwargs.classifiers.push('Development Status :: 4 - Beta');
         break;
@@ -1225,7 +1240,7 @@ class Package {
         // No 'Development Status' trove classifier for you!
     }
 
-    if (spdxLicenseList[this.metadata.license] && spdxLicenseList[this.metadata.license].osiApproved) {
+    if (spdxLicenseList[this.metadata.license]?.osiApproved) {
       setupKwargs.classifiers.push('License :: OSI Approved');
     }
 
@@ -1265,7 +1280,7 @@ class Package {
   }
 }
 
-type FindModuleCallback = (fqn: string) => spec.Assembly | spec.PackageVersion;
+type FindModuleCallback = (fqn: string) => spec.AssemblyConfiguration;
 type FindTypeCallback = (fqn: string) => spec.Type;
 
 interface TypeResolverOpts {
@@ -1499,10 +1514,14 @@ class PythonGenerator extends Generator {
     this.types = new Map();
   }
 
-  public emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
-    arguments?: DocumentableArgument[];
-    documentableItem?: string;
-  } = {}) {
+  public emitDocString(
+    code: CodeMaker,
+    docs: spec.Docs | undefined,
+    options: {
+      arguments?: DocumentableArgument[];
+      documentableItem?: string;
+    } = {}
+  ) {
     if ((!docs || Object.keys(docs).length === 0) && !options.arguments) { return; }
     if (!docs) { docs = {}; }
 
@@ -1537,13 +1556,13 @@ class PythonGenerator extends Generator {
 
     if (docs.remarks) {
       brk();
-      lines.push(...md2rst(this.convertMarkdown(docs.remarks || '')).split('\n'));
+      lines.push(...md2rst(this.convertMarkdown(docs.remarks ?? '')).split('\n'));
       brk();
     }
 
-    if (options.arguments && options.arguments.length > 0) {
+    if (options.arguments?.length ?? 0 > 0) {
       brk();
-      for (const param of options.arguments) {
+      for (const param of options.arguments!) {
         // Add a line for every argument. Even if there is no description, we need
         // the docstring so that the Sphinx extension can add the type annotations.
         lines.push(`:param ${toPythonParameterName(param.name)}: ${onelineDescription(param.docs)}`);
@@ -1558,7 +1577,7 @@ class PythonGenerator extends Generator {
     if (docs.stability && shouldMentionStability(docs.stability)) { block('stability', docs.stability, false); }
     if (docs.subclassable) { block('subclassable', 'Yes'); }
 
-    for (const [k, v] of Object.entries(docs.custom || {})) {
+    for (const [k, v] of Object.entries(docs.custom ?? {})) {
       block(`${k}:`, v, false);
     }
 
@@ -1608,8 +1627,13 @@ class PythonGenerator extends Generator {
   }
 
   private prefixDisclaimer(translated: Translation) {
-    if (translated.didCompile) { return translated.source; }
-    return `${INCOMPLETE_DISCLAIMER}\n${translated.source}`;
+    if (translated.didCompile && INCOMPLETE_DISCLAIMER_COMPILING) {
+      return `# ${INCOMPLETE_DISCLAIMER_COMPILING}\n${translated.source}`;
+    }
+    if (!translated.didCompile && INCOMPLETE_DISCLAIMER_NONCOMPILING) {
+      return `# ${INCOMPLETE_DISCLAIMER_NONCOMPILING}\n${translated.source}`;
+    }
+    return translated.source;
   }
 
   public getPythonType(fqn: string): PythonType {
@@ -1704,8 +1728,8 @@ class PythonGenerator extends Generator {
       cls.fqn,
       {
         abstract,
-        bases: (cls.base && [this.findType(cls.base)]) || [],
-        interfaces: cls.interfaces && cls.interfaces.map(base => this.findType(base)),
+        bases: cls.base ? [this.findType(cls.base)] : undefined,
+        interfaces: cls.interfaces?.map(base => this.findType(base)),
         abstractBases: abstract ? this.getAbstractBases(cls) : [],
       },
       cls.docs,
@@ -1814,7 +1838,7 @@ class PythonGenerator extends Generator {
         this,
         toPythonIdentifier(ifc.name),
         ifc.fqn,
-        { bases: ifc.interfaces && ifc.interfaces.map(base => this.findType(base)) },
+        { bases: ifc.interfaces?.map(base => this.findType(base)) },
         ifc.docs,
       );
     } else {
@@ -1822,7 +1846,7 @@ class PythonGenerator extends Generator {
         this,
         toPythonIdentifier(ifc.name),
         ifc.fqn,
-        { bases: ifc.interfaces && ifc.interfaces.map(base => this.findType(base)) },
+        { bases: ifc.interfaces?.map(base => this.findType(base)) },
         ifc.docs,
       );
     }
@@ -1925,8 +1949,8 @@ class PythonGenerator extends Generator {
     // If there are parameters to this method, and if the last parameter's type is
     // a datatype interface, then we want to lift the members of that last paramter
     // as keyword arguments to this function.
-    if (method.parameters !== undefined && method.parameters.length >= 1) {
-      const lastParameter = method.parameters.slice(-1)[0];
+    if (method.parameters?.length ?? 0 >= 1) {
+      const lastParameter = method.parameters!.slice(-1)[0];
       if (!lastParameter.variadic && spec.isNamedTypeReference(lastParameter.type)) {
         const lastParameterType = this.findType(lastParameter.type.fqn);
         if (spec.isInterfaceType(lastParameterType) && lastParameterType.datatype) {
@@ -1986,5 +2010,5 @@ function shouldMentionStability(s: Stability) {
 function isStruct(typeSystem: reflect.TypeSystem, ref: spec.TypeReference): boolean {
   if (!spec.isNamedTypeReference(ref)) { return false; }
   const type = typeSystem.tryFindFqn(ref.fqn);
-  return type !== undefined && type.isInterfaceType() && type.isDataType();
+  return !!(type?.isInterfaceType() && type?.isDataType());
 }

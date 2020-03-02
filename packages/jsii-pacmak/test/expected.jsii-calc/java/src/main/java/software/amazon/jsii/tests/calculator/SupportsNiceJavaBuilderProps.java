@@ -11,21 +11,21 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
 
     /**
      * Some number, like 42.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getBar();
+    @org.jetbrains.annotations.NotNull java.lang.Number getBar();
 
     /**
      * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
-     * 
-     * <p>But here we are, doing it like we didn't care.</p>
-     * 
+     * <p>
+     * But here we are, doing it like we didn't care.
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getId() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getId() {
         return null;
     }
 
@@ -45,7 +45,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
         private java.lang.String id;
 
         /**
-         * Sets the value of Bar
+         * Sets the value of {@link SupportsNiceJavaBuilderProps#getBar}
          * @param bar Some number, like 42. This parameter is required.
          * @return {@code this}
          */
@@ -56,8 +56,9 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
         }
 
         /**
-         * Sets the value of Id
+         * Sets the value of {@link SupportsNiceJavaBuilderProps#getId}
          * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
+         *           But here we are, doing it like we didn't care.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

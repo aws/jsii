@@ -18,26 +18,26 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param id some identifier. This parameter is required.
      * @param defaultBar the default value of `bar`.
      * @param props some props once can provide.
      * @param rest a variadic continuation. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public SupportsNiceJavaBuilder(final java.lang.Number id, final java.lang.Number defaultBar, final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props, final java.lang.String... rest) {
+    public SupportsNiceJavaBuilder(final @org.jetbrains.annotations.NotNull java.lang.Number id, final @org.jetbrains.annotations.Nullable java.lang.Number defaultBar, final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props, final @org.jetbrains.annotations.NotNull java.lang.String... rest) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(id, "id is required"), defaultBar, props }), java.util.Arrays.<Object>stream(rest)).toArray(Object[]::new));
     }
 
     /**
      * some identifier.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Number getId() {
+    public @org.jetbrains.annotations.NotNull java.lang.Number getId() {
         return this.jsiiGet("id", java.lang.Number.class);
     }
 
@@ -45,8 +45,8 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.util.List<java.lang.String> getRest() {
-        return java.util.Collections.unmodifiableList(this.jsiiGet("rest", java.util.List.class));
+    public @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> getRest() {
+        return java.util.Collections.unmodifiableList(this.jsiiGet("rest", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
@@ -56,7 +56,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
     public static final class Builder {
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return a new instance of {@link Builder}.
          * @param id some identifier. This parameter is required.
          * @param defaultBar the default value of `bar`.
@@ -68,7 +68,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         }
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return a new instance of {@link Builder}.
          * @param id some identifier. This parameter is required.
          */
@@ -89,8 +89,10 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         }
 
         /**
+         * Some number, like 42.
+         * <p>
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return {@code this}
          * @param bar Some number, like 42. This parameter is required.
          */
@@ -101,8 +103,12 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         }
 
         /**
+         * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
+         * <p>
+         * But here we are, doing it like we didn't care.
+         * <p>
          * EXPERIMENTAL
-         * 
+         * <p>
          * @return {@code this}
          * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. This parameter is required.
          */

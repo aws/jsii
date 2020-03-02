@@ -1,6 +1,8 @@
-import spec = require('jsii-spec');
-import { Stability } from 'jsii-spec';
+import * as spec from '@jsii/spec';
+import { Stability } from '@jsii/spec';
 import { sourceToAssemblyHelper as compile } from '../lib';
+
+jest.setTimeout(60_000);
 
 // ----------------------------------------------------------------------
 test('extract summary line from doc block, ends with a period', async () => {
@@ -56,6 +58,27 @@ test('separate long doc comment into summary and remarks', async () => {
   expect(assembly.types!['testpkg.Foo'].docs).toEqual({
     summary: 'Lots of people enjoy writing very long captions here.',
     remarks: "I think it's because they\ncopy/paste them out of CloudFormation, which has a tendency to just have one\n" +
+              'doc block per API item and no structural separation.',
+  });
+});
+
+// ----------------------------------------------------------------------
+test('separate non-space but newline terminated docs into summary&remarks', async () => {
+  const assembly = await compile(`
+    /**
+     * Lots of people enjoy writing very long captions here.
+     * I think it's because they copy/paste them out of CloudFormation,
+     * which has a tendency to just have one
+     * doc block per API item and no structural separation.
+     */
+    export class Foo {
+      public foo() { }
+    }
+  `);
+
+  expect(assembly.types!['testpkg.Foo'].docs).toEqual({
+    summary: 'Lots of people enjoy writing very long captions here.',
+    remarks: "I think it's because they copy/paste them out of CloudFormation,\nwhich has a tendency to just have one\n" +
               'doc block per API item and no structural separation.',
   });
 
@@ -307,7 +330,7 @@ test('stability is inherited from parent type', async () => {
   ];
 
   for (const [tag, stability] of stabilities) {
-    /* eslint-disable no-await-in-loop */
+    // eslint-disable-next-line no-await-in-loop
     const assembly = await compile(`
       /**
        * ${tag}
@@ -342,12 +365,12 @@ test('@example can contain @ sign', async () => {
      *
      * @example
      *
-     * import x = require('@banana');
+     * import * as x from '@banana';
      */
     export class Foo {
     }
   `);
 
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
-  expect(classType.docs!.example).toBe('import x = require(\'@banana\');');
+  expect(classType.docs!.example).toBe('import * as x from \'@banana\';');
 });

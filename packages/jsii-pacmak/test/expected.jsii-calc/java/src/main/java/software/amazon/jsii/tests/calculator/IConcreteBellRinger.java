@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Takes the object parameter as a calss.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -13,11 +13,11 @@ public interface IConcreteBellRinger extends software.amazon.jsii.JsiiSerializab
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param bell This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    void yourTurn(final software.amazon.jsii.tests.calculator.Bell bell);
+    void yourTurn(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Bell bell);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -29,13 +29,13 @@ public interface IConcreteBellRinger extends software.amazon.jsii.JsiiSerializab
 
         /**
          * EXPERIMENTAL
-         * 
+         * <p>
          * @param bell This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public void yourTurn(final software.amazon.jsii.tests.calculator.Bell bell) {
-            this.jsiiCall("yourTurn", Void.class, new Object[] { java.util.Objects.requireNonNull(bell, "bell is required") });
+        public void yourTurn(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Bell bell) {
+            this.jsiiCall("yourTurn", software.amazon.jsii.NativeType.VOID, new Object[] { java.util.Objects.requireNonNull(bell, "bell is required") });
         }
     }
 }

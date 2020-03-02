@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Verifies that private property declarations in constructor arguments are hidden.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -20,11 +20,11 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param privateField
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public WithPrivatePropertyInConstructor(final java.lang.String privateField) {
+    public WithPrivatePropertyInConstructor(final @org.jetbrains.annotations.Nullable java.lang.String privateField) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { privateField });
     }
@@ -42,7 +42,7 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean getSuccess() {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean getSuccess() {
         return this.jsiiGet("success", java.lang.Boolean.class);
     }
 }

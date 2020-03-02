@@ -1,42 +1,54 @@
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
-import logging = require('../logging');
-import os = require('os');
-import path = require('path');
-import ts = require('typescript');
+import * as logging from '../logging';
+import * as os from 'os';
+import * as path from 'path';
+import * as ts from 'typescript';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { Translator } from '../translate';
 import { TypeScriptSnippet } from '../snippet';
 import { divideEvenly } from '../util';
+import { snippetKey } from '../tablets/key';
 
 export interface ExtractResult {
   diagnostics: ts.Diagnostic[];
   tablet: LanguageTablet;
 }
 
+export interface ExtractOptions {
+  outputFile: string;
+  includeCompilerDiagnostics: boolean;
+  only?: string[];
+}
+
 /**
  * Extract all samples from the given assemblies into a tablet
  */
-export async function extractSnippets(assemblyLocations: string[], outputFile: string, includeCompilerDiagnostics: boolean): Promise<ExtractResult> {
+export async function extractSnippets(assemblyLocations: string[], options: ExtractOptions): Promise<ExtractResult> {
+  const only = options.only || [];
+
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(assemblyLocations);
 
-  const snippets = allTypeScriptSnippets(assemblies);
+  let snippets = allTypeScriptSnippets(assemblies);
+  if (only.length > 0) {
+    snippets = filterSnippets(snippets, only);
+  }
 
   const tablet = new LanguageTablet();
 
-  logging.info(`Translating`);
+  logging.info('Translating');
   const startTime = Date.now();
 
-  const result = await translateAll(snippets, includeCompilerDiagnostics);
+  const result = await translateAll(snippets, options.includeCompilerDiagnostics);
 
   for (const snippet of result.translatedSnippets) {
     tablet.addSnippet(snippet);
   }
 
-  const delta =  (Date.now() - startTime) / 1000;
+  const delta = (Date.now() - startTime) / 1000;
   logging.info(`Converted ${tablet.count} snippets in ${delta} seconds (${(delta / tablet.count).toPrecision(3)}s/snippet)`);
-  logging.info(`Saving language tablet to ${outputFile}`);
-  await tablet.save(outputFile);
+  logging.info(`Saving language tablet to ${options.outputFile}`);
+  await tablet.save(options.outputFile);
 
   return { diagnostics: result.diagnostics, tablet };
 }
@@ -44,6 +56,17 @@ export async function extractSnippets(assemblyLocations: string[], outputFile: s
 interface TranslateAllResult {
   translatedSnippets: TranslatedSnippet[];
   diagnostics: ts.Diagnostic[];
+}
+
+/**
+ * Only yield the snippets whose id exists in a whitelist
+ */
+function* filterSnippets(ts: IterableIterator<TypeScriptSnippet>, includeIds: string[]) {
+  for (const t of ts) {
+    if (includeIds.includes(snippetKey(t))) {
+      yield t;
+    }
+  }
 }
 
 /**
@@ -73,12 +96,25 @@ async function translateAll(snippets: IterableIterator<TypeScriptSnippet>, inclu
 export function singleThreadedTranslateAll(snippets: IterableIterator<TypeScriptSnippet>, includeCompilerDiagnostics: boolean): TranslateAllResult {
   const translatedSnippets = new Array<TranslatedSnippet>();
 
+  const failures = new Array<ts.Diagnostic>();
+
   const translator = new Translator(includeCompilerDiagnostics);
   for (const block of snippets) {
-    translatedSnippets.push(translator.translate(block));
+    try {
+      translatedSnippets.push(translator.translate(block));
+    } catch(e) {
+      failures.push({
+        category: ts.DiagnosticCategory.Error,
+        code: 999,
+        messageText: `rosetta: error translating snippet: ${e}\n${block.completeSource}`,
+        file: undefined,
+        start: undefined,
+        length: undefined,
+      });
+    }
   }
 
-  return { translatedSnippets, diagnostics: translator.diagnostics };
+  return { translatedSnippets, diagnostics: [...translator.diagnostics, ...failures] };
 }
 
 /**
@@ -106,14 +142,14 @@ async function workerBasedTranslateAll(worker: typeof import('worker_threads'), 
     acc.translatedSnippetSchemas.push(...current.translatedSnippetSchemas);
     acc.diagnostics.push(...current.diagnostics);
     return acc;
-  }, { translatedSnippetSchemas: [], diagnostics: [] })
+  }, { translatedSnippetSchemas: [], diagnostics: [] });
   // Hydrate TranslatedSnippets from data back to objects
   return { diagnostics: x.diagnostics, translatedSnippets: x.translatedSnippetSchemas.map(s => TranslatedSnippet.fromSchema(s)) };
 
   /**
    * Turn running the worker into a nice Promise.
    */
-  function runWorker(request: import('./extract_worker').TranslateRequest): Promise<import('./extract_worker').TranslateResponse> {
+  async function runWorker(request: import('./extract_worker').TranslateRequest): Promise<import('./extract_worker').TranslateResponse> {
     return new Promise((resolve, reject) => {
       const wrk = new worker.Worker(path.join(__dirname, 'extract_worker.js'), { workerData: request });
       wrk.on('message', resolve);

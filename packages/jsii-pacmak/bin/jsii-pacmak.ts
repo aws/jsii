@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import path = require('path');
-import process = require('process');
-import yargs = require('yargs');
+import * as path from 'path';
+import * as process from 'process';
+import * as yargs from 'yargs';
 import { Rosetta } from 'jsii-rosetta';
-import logging = require('../lib/logging');
+import * as logging from '../lib/logging';
 import { Timers } from '../lib/timer';
 import { VERSION_DESC } from '../lib/version';
 import { findJsiiModules, updateAllNpmIgnores } from '../lib/npm-modules';
@@ -92,7 +92,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
     .strict()
     .argv;
 
-  logging.level = argv.verbose !== undefined ? argv.verbose : 0;
+  logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
 
   // Default to 4 threads in case of concurrency, good enough for most situations
   logging.debug('command line arguments:', argv);
@@ -138,7 +138,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
   });
 
   try {
-    const requestedTargets = argv.targets && argv.targets.map(t => `${t}`);
+    const requestedTargets = argv.targets?.map(t => `${t}`);
     const targetSets = sliceTargets(modulesToPackage, requestedTargets, argv['force-target']);
 
     if (targetSets.every(s => s.modules.length === 0)) {
@@ -149,7 +149,6 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
     // We run all target sets in parallel for minimal wall clock time
     await Promise.all(targetSets.map(async targetSet => {
-    // for (const targetSet of targetSets) {
       logging.info(`Packaging '${targetSet.targetType}' for ${describePackages(targetSet)}`);
       await timers.recordAsync(targetSet.targetType, () =>
         buildTargetsForLanguage(targetSet.targetType, targetSet.modules, perLanguageDirectory)

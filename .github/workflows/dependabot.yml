@@ -1,0 +1,21 @@
+# Automatically manage PRs made by Dependabot
+
+name: Dependabot Pull Requests
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "!**"               # <-- Excludes everything by default
+      - "**/package.json"   # <-- Allows modfying any package.json
+      - "yarn.lock"         # <-- Allows modifying yarn.lock
+
+jobs:
+  approve:
+    name: Auto-Approve
+    if: github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'dependabot-preview[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/auto-approve-action@7782c7e2bdf62b4d79bdcded8332808fd2f179cd
+        with:
+          github-token: "${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}"

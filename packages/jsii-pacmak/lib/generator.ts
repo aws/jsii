@@ -2,8 +2,8 @@ import * as clone from 'clone';
 import { CodeMaker } from 'codemaker';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
-import reflect = require('jsii-reflect');
-import * as spec from 'jsii-spec';
+import * as reflect from 'jsii-reflect';
+import * as spec from '@jsii/spec';
 import * as path from 'path';
 import { VERSION_DESC } from './version';
 
@@ -244,7 +244,7 @@ export abstract class Generator implements IGenerator {
     };
 
     if (node.fqn) {
-      const type = this.assembly.types && this.assembly.types[node.fqn];
+      const type = this.assembly.types?.[node.fqn];
       if (!type) {
         throw new Error(`Malformed jsii file. Cannot find type: ${node.fqn}`);
       }
@@ -335,7 +335,7 @@ export abstract class Generator implements IGenerator {
 
     next = remaining.pop();
     // Parameter is optional if it's type is optional, and all subsequent parameters are optional/variadic
-    while (next && next.optional) {
+    while (next?.optional) {
       // clone the method but set the parameter list based on the remaining set of parameters
       const cloned: T = clone(method);
       cloned.parameters = clone(remaining);
@@ -461,10 +461,6 @@ export abstract class Generator implements IGenerator {
         return true;
       }
 
-      // if (t.collection && t.collection.elementtype.primitive) {
-      //     return true;
-      // }
-
       return false;
     });
   }
@@ -506,20 +502,20 @@ export abstract class Generator implements IGenerator {
      * Looks up a jsii module in the dependency tree.
      * @param name The name of the jsii module to look up
      */
-  protected findModule(name: string): spec.PackageVersion {
+  protected findModule(name: string): spec.AssemblyConfiguration {
 
     // if this is the current module, return it
     if (this.assembly.name === name) {
       return this.assembly;
     }
 
-    const found = (this.assembly.dependencyClosure || {})[name];
+    const found = (this.assembly.dependencyClosure ?? {})[name];
 
     if (found) {
       return found;
     }
 
-    throw new Error(`Unable to find module ${name} as a direct or indirect dependency of ${this.assembly.name}`);
+    throw new Error(`Unable to find module ${name} as a dependency of ${this.assembly.name}`);
   }
 
   protected findType(fqn: string): spec.Type {

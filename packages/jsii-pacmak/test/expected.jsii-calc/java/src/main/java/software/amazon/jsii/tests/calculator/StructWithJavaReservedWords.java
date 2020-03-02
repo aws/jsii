@@ -13,13 +13,13 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getDefaultValue();
+    @org.jetbrains.annotations.NotNull java.lang.String getDefaultValue();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getAssertValue() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getAssertValue() {
         return null;
     }
 
@@ -27,7 +27,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getResult() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getResult() {
         return null;
     }
 
@@ -35,7 +35,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getThat() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getThat() {
         return null;
     }
 
@@ -57,7 +57,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
         private java.lang.String that;
 
         /**
-         * Sets the value of DefaultValue
+         * Sets the value of {@link StructWithJavaReservedWords#getDefaultValue}
          * @param defaultValue the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -68,7 +68,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
         }
 
         /**
-         * Sets the value of AssertValue
+         * Sets the value of {@link StructWithJavaReservedWords#getAssertValue}
          * @param assertValue the value to be set.
          * @return {@code this}
          */
@@ -79,7 +79,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
         }
 
         /**
-         * Sets the value of Result
+         * Sets the value of {@link StructWithJavaReservedWords#getResult}
          * @param result the value to be set.
          * @return {@code this}
          */
@@ -90,7 +90,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
         }
 
         /**
-         * Sets the value of That
+         * Sets the value of {@link StructWithJavaReservedWords#getThat}
          * @param that the value to be set.
          * @return {@code this}
          */

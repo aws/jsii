@@ -2,13 +2,13 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * This test is used to validate the runtimes can return correctly from a void callback.
- * 
+ * <p>
  * <ul>
  * <li>Implement <code>overrideMe</code> (method does not have to do anything).</li>
  * <li>Invoke <code>callMe</code></li>
  * <li>Verify that <code>methodWasCalled</code> is <code>true</code>.</li>
  * </ul>
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -34,7 +34,7 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void callMe() {
-        this.jsiiCall("callMe", Void.class);
+        this.jsiiCall("callMe", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.Boolean getMethodWasCalled() {
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean getMethodWasCalled() {
         return this.jsiiGet("methodWasCalled", java.lang.Boolean.class);
     }
 
@@ -65,7 +65,7 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         protected void overrideMe() {
-            this.jsiiCall("overrideMe", Void.class);
+            this.jsiiCall("overrideMe", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

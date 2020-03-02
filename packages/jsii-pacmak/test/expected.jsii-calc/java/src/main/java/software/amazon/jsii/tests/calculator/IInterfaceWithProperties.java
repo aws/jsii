@@ -13,18 +13,18 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getReadOnlyString();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadOnlyString();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getReadWriteString();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadWriteString();
 
     /**
      * EXPERIMENTAL
      */
-    void setReadWriteString(final java.lang.String value);
+    void setReadWriteString(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -39,7 +39,7 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getReadOnlyString() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getReadOnlyString() {
             return this.jsiiGet("readOnlyString", java.lang.String.class);
         }
 
@@ -48,7 +48,7 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getReadWriteString() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getReadWriteString() {
             return this.jsiiGet("readWriteString", java.lang.String.class);
         }
 
@@ -57,7 +57,7 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setReadWriteString(final java.lang.String value) {
+        public void setReadWriteString(final @org.jetbrains.annotations.NotNull java.lang.String value) {
             this.jsiiSet("readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));
         }
     }

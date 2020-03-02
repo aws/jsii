@@ -13,7 +13,7 @@ public interface IPrivatelyImplemented extends software.amazon.jsii.JsiiSerializ
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getSuccess();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getSuccess();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -28,7 +28,7 @@ public interface IPrivatelyImplemented extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.Boolean getSuccess() {
+        public @org.jetbrains.annotations.NotNull java.lang.Boolean getSuccess() {
             return this.jsiiGet("success", java.lang.Boolean.class);
         }
     }

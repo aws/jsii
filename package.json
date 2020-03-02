@@ -7,15 +7,17 @@
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
     "package": "bash scripts/package.sh",
     "test": "lerna run test --stream",
+    "test:integ": "lerna run test:integ --stream",
     "test:update": "lerna run test:update --stream"
   },
   "devDependencies": {
-    "@types/node": "^10.17.5",
-    "@typescript-eslint/eslint-plugin": "^2.7.0",
-    "@typescript-eslint/parser": "^2.7.0",
-    "eslint": "^6.6.0",
-    "lerna": "^3.18.4",
-    "typescript": "~3.6.4"
+    "@typescript-eslint/eslint-plugin": "^2.21.0",
+    "@typescript-eslint/parser": "^2.21.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-import-resolver-node": "^0.3.3",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "lerna": "^3.20.2"
   },
   "repository": {
     "type": "git",
@@ -23,11 +25,14 @@
   },
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "packages/@jsii/*",
+      "packages/@scope/*",
+      "tools/*"
     ],
     "nohoist": [
-      "**/jsii-calc-bundled",
-      "**/jsii-calc-bundled/**"
+      "**/@fixtures/jsii-calc-bundled",
+      "**/@fixtures/jsii-calc-bundled/**"
     ]
   }
 }

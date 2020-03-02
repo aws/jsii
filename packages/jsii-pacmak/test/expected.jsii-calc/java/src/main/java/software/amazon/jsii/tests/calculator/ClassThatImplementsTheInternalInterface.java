@@ -26,7 +26,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getA() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getA() {
         return this.jsiiGet("a", java.lang.String.class);
     }
 
@@ -35,7 +35,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setA(final java.lang.String value) {
+    public void setA(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("a", java.util.Objects.requireNonNull(value, "a is required"));
     }
 
@@ -44,7 +44,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getB() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getB() {
         return this.jsiiGet("b", java.lang.String.class);
     }
 
@@ -53,7 +53,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setB(final java.lang.String value) {
+    public void setB(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("b", java.util.Objects.requireNonNull(value, "b is required"));
     }
 
@@ -62,7 +62,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getC() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getC() {
         return this.jsiiGet("c", java.lang.String.class);
     }
 
@@ -71,7 +71,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setC(final java.lang.String value) {
+    public void setC(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("c", java.util.Objects.requireNonNull(value, "c is required"));
     }
 
@@ -79,7 +79,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getD() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getD() {
         return this.jsiiGet("d", java.lang.String.class);
     }
 
@@ -87,7 +87,7 @@ public class ClassThatImplementsTheInternalInterface extends software.amazon.jsi
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setD(final java.lang.String value) {
+    public void setD(final @org.jetbrains.annotations.NotNull java.lang.String value) {
         this.jsiiSet("d", java.util.Objects.requireNonNull(value, "d is required"));
     }
 }

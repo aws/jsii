@@ -56,8 +56,8 @@
  *     console.log(x);
  *     ```
  */
-import fs = require('fs-extra');
-import path = require('path');
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
 /**
  * Convert an annotated TypeScript source file to MarkDown
@@ -86,10 +86,9 @@ export async function includeAndRenderExamples(lines: string[], loader: FileLoad
     const m = regex.exec(line);
     if (m) {
       // Found an include
-      /* eslint-disable no-await-in-loop */
       const filename = m[2];
+      // eslint-disable-next-line no-await-in-loop
       const source = await loader(filename);
-      /* eslint-enable no-await-in-loop */
       // 'lit' source attribute will make snippet compiler know to extract the same source
       const imported = typescriptSourceToMarkdown(source, [`lit=${filename}`]);
       ret.push(...imported);
@@ -191,9 +190,8 @@ function markdownify(lines: string[], codeBlockAnnotations: string[]): string[] 
    */
   function flushTS() {
     if (typescriptLines.length !== 0) {
-      /* eslint-disable prefer-template */
+      // eslint-disable-next-line prefer-template
       ret.push('```ts' + (codeBlockAnnotations.length > 0 ? ' ' + codeBlockAnnotations.join(' ') : ''), ...typescriptLines, '```');
-      /* eslint-enable prefer-template */
       typescriptLines.splice(0); // Clear
     }
   }

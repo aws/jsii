@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.19.0"
+    "@fixtures/jsii-calc-bundled": "^0.19.0"
   },
   "contributors": [
     {
@@ -34,77 +34,9 @@
     }
   ],
   "dependencies": {
-    "@scope/jsii-calc-base": {
-      "targets": {
-        "dotnet": {
-          "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
-        },
-        "java": {
-          "maven": {
-            "artifactId": "calculator-base",
-            "groupId": "software.amazon.jsii.tests"
-          },
-          "package": "software.amazon.jsii.tests.calculator.base"
-        },
-        "js": {
-          "npm": "@scope/jsii-calc-base"
-        },
-        "python": {
-          "distName": "scope.jsii-calc-base",
-          "module": "scope.jsii_calc_base"
-        }
-      },
-      "version": "0.20.8"
-    },
-    "@scope/jsii-calc-base-of-base": {
-      "targets": {
-        "dotnet": {
-          "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
-        },
-        "java": {
-          "maven": {
-            "artifactId": "calculator-base-of-base",
-            "groupId": "software.amazon.jsii.tests"
-          },
-          "package": "software.amazon.jsii.tests.calculator.baseofbase"
-        },
-        "js": {
-          "npm": "@scope/jsii-calc-base-of-base"
-        },
-        "python": {
-          "distName": "scope.jsii-calc-base-of-base",
-          "module": "scope.jsii_calc_base_of_base"
-        }
-      },
-      "version": "0.20.8"
-    },
-    "@scope/jsii-calc-lib": {
-      "targets": {
-        "dotnet": {
-          "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
-          "versionSuffix": "-devpreview"
-        },
-        "java": {
-          "maven": {
-            "artifactId": "calculator-lib",
-            "groupId": "software.amazon.jsii.tests",
-            "versionSuffix": ".DEVPREVIEW"
-          },
-          "package": "software.amazon.jsii.tests.calculator.lib"
-        },
-        "js": {
-          "npm": "@scope/jsii-calc-lib"
-        },
-        "python": {
-          "distName": "scope.jsii-calc-lib",
-          "module": "scope.jsii_calc_lib"
-        }
-      },
-      "version": "0.20.8"
-    }
+    "@scope/jsii-calc-base": "^1.0.0",
+    "@scope/jsii-calc-base-of-base": "^1.0.0",
+    "@scope/jsii-calc-lib": "^1.0.0"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base": {
@@ -127,8 +59,7 @@
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
         }
-      },
-      "version": "0.20.8"
+      }
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -150,8 +81,7 @@
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
         }
-      },
-      "version": "0.20.8"
+      }
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -175,8 +105,7 @@
           "distName": "scope.jsii-calc-lib",
           "module": "scope.jsii_calc_lib"
         }
-      },
-      "version": "0.20.8"
+      }
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -184,7 +113,12 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.20.8",
+  "jsiiVersion": "1.0.0",
+  "keywords": [
+    "aws",
+    "jsii",
+    "test"
+  ],
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -392,6 +326,93 @@
           "name": "returnAbstractFromProperty",
           "type": {
             "fqn": "jsii-calc.AbstractClassBase"
+          }
+        }
+      ]
+    },
+    "jsii-calc.AbstractSuite": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Ensures abstract members implementations correctly register overrides in various languages."
+      },
+      "fqn": "jsii-calc.AbstractSuite",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 401
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 403
+          },
+          "name": "someMethod",
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "protected": true,
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result."
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 409
+          },
+          "name": "workItAll",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "a `string`."
+              },
+              "name": "seed",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "AbstractSuite",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 402
+          },
+          "name": "property",
+          "protected": true,
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -1027,6 +1048,68 @@
       ],
       "name": "AllowedMethodNames"
     },
+    "jsii-calc.AmbiguousParameters": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.AmbiguousParameters",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "jsii-calc.Bell"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.StructParameterType"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2425
+      },
+      "name": "AmbiguousParameters",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2426
+          },
+          "name": "props",
+          "type": {
+            "fqn": "jsii-calc.StructParameterType"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2426
+          },
+          "name": "scope",
+          "type": {
+            "fqn": "jsii-calc.Bell"
+          }
+        }
+      ]
+    },
     "jsii-calc.AnonymousImplementationProvider": {
       "assembly": "jsii-calc",
       "docs": {
@@ -1422,7 +1505,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/calculator.ts",
-        "line": 260
+        "line": 273
       },
       "methods": [
         {
@@ -1432,7 +1515,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 299
+            "line": 312
           },
           "name": "add",
           "parameters": [
@@ -1451,7 +1534,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 306
+            "line": 319
           },
           "name": "mul",
           "parameters": [
@@ -1470,7 +1553,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 320
+            "line": 333
           },
           "name": "neg"
         },
@@ -1481,7 +1564,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 313
+            "line": 326
           },
           "name": "pow",
           "parameters": [
@@ -1500,7 +1583,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 339
+            "line": 352
           },
           "name": "readUnionValue",
           "returns": {
@@ -1520,7 +1603,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 327
+            "line": 340
           },
           "name": "expression",
           "overrides": "jsii-calc.composition.CompositeOperation",
@@ -1536,7 +1619,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 289
+            "line": 302
           },
           "name": "operationsLog",
           "type": {
@@ -1556,7 +1639,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 284
+            "line": 297
           },
           "name": "operationsMap",
           "type": {
@@ -1580,7 +1663,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 279
+            "line": 292
           },
           "name": "curr",
           "type": {
@@ -1594,7 +1677,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 294
+            "line": 307
           },
           "name": "maxValue",
           "optional": true,
@@ -1609,7 +1692,7 @@
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 334
+            "line": 347
           },
           "name": "unionProperty",
           "optional": true,
@@ -1649,12 +1732,15 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "experimental"
+            "default": "0",
+            "remarks": "NOTE: Any number works here, it's fine.",
+            "stability": "experimental",
+            "summary": "The initial value of the calculator."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 235
+            "line": 242
           },
           "name": "initialValue",
           "optional": true,
@@ -1665,12 +1751,14 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "experimental"
+            "default": "none",
+            "stability": "experimental",
+            "summary": "The maximum value the calculator can store."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/calculator.ts",
-            "line": 236
+            "line": 249
           },
           "name": "maximumValue",
           "optional": true,
@@ -2221,6 +2309,149 @@
         }
       ]
     },
+    "jsii-calc.ConfusingToJackson": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/aws-cdk/issues/4080",
+        "stability": "experimental",
+        "summary": "This tries to confuse Jackson by having overloaded property setters."
+      },
+      "fqn": "jsii-calc.ConfusingToJackson",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2383
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2384
+          },
+          "name": "makeInstance",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ConfusingToJackson"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2388
+          },
+          "name": "makeStructInstance",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.ConfusingToJacksonStruct"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "ConfusingToJackson",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2392
+          },
+          "name": "unionProperty",
+          "optional": true,
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                },
+                {
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "@scope/jsii-calc-lib.IFriendly"
+                          },
+                          {
+                            "fqn": "jsii-calc.AbstractClass"
+                          }
+                        ]
+                      }
+                    },
+                    "kind": "array"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "jsii-calc.ConfusingToJacksonStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ConfusingToJacksonStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2396
+      },
+      "name": "ConfusingToJacksonStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2397
+          },
+          "name": "unionProperty",
+          "optional": true,
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "fqn": "@scope/jsii-calc-lib.IFriendly"
+                },
+                {
+                  "collection": {
+                    "elementtype": {
+                      "union": {
+                        "types": [
+                          {
+                            "fqn": "@scope/jsii-calc-lib.IFriendly"
+                          },
+                          {
+                            "fqn": "jsii-calc.AbstractClass"
+                          }
+                        ]
+                      }
+                    },
+                    "kind": "array"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.ConstructorPassesThisOut": {
       "assembly": "jsii-calc",
       "docs": {
@@ -2389,6 +2620,49 @@
         }
       ],
       "name": "Constructors"
+    },
+    "jsii-calc.ConsumePureInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ConsumePureInterface",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "delegate",
+            "type": {
+              "fqn": "jsii-calc.IStructReturningDelegate"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2406
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2409
+          },
+          "name": "workItBaby",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.StructB"
+            }
+          }
+        }
+      ],
+      "name": "ConsumePureInterface"
     },
     "jsii-calc.ConsumerCanRingBell": {
       "assembly": "jsii-calc",
@@ -5233,6 +5507,39 @@
         }
       ]
     },
+    "jsii-calc.IOptionalMethod": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Checks that optional result from interface method code generates correctly."
+      },
+      "fqn": "jsii-calc.IOptionalMethod",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2465
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2466
+          },
+          "name": "optional",
+          "returns": {
+            "optional": true,
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IOptionalMethod"
+    },
     "jsii-calc.IPrivatelyImplemented": {
       "assembly": "jsii-calc",
       "docs": {
@@ -5481,6 +5788,38 @@
         }
       ]
     },
+    "jsii-calc.IStructReturningDelegate": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Verifies that a \"pure\" implementation of an interface works correctly."
+      },
+      "fqn": "jsii-calc.IStructReturningDelegate",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2403
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2404
+          },
+          "name": "returnStruct",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.StructB"
+            }
+          }
+        }
+      ],
+      "name": "IStructReturningDelegate"
+    },
     "jsii-calc.ImplementInternalInterface": {
       "assembly": "jsii-calc",
       "docs": {
@@ -5683,6 +6022,107 @@
         }
       ],
       "name": "InbetweenClass"
+    },
+    "jsii-calc.InterfaceCollections": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "See: https://github.com/aws/jsii/issues/1196",
+        "stability": "experimental",
+        "summary": "Verifies that collections of interfaces or structs are correctly handled."
+      },
+      "fqn": "jsii-calc.InterfaceCollections",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2434
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2447
+          },
+          "name": "listOfInterfaces",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.IBell"
+                },
+                "kind": "array"
+              }
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2435
+          },
+          "name": "listOfStructs",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.StructA"
+                },
+                "kind": "array"
+              }
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2453
+          },
+          "name": "mapOfInterfaces",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.IBell"
+                },
+                "kind": "map"
+              }
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2441
+          },
+          "name": "mapOfStructs",
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.StructA"
+                },
+                "kind": "map"
+              }
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "InterfaceCollections"
     },
     "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": {
       "assembly": "jsii-calc",
@@ -6976,9 +7416,9 @@
           "abstract": true,
           "docs": {
             "default": "256",
-            "remarks": "This default is set in the underlying FargateTaskDefinition construct.",
+            "remarks": "Valid values, which determines your range of valid values for the memory parameter:\n256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB\n512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB\n1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB\n2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments\n4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments\n\nThis default is set in the underlying FargateTaskDefinition construct.",
             "stability": "experimental",
-            "summary": "The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments."
+            "summary": "The number of cpu units used by the task."
           },
           "immutable": true,
           "locationInModule": {
@@ -7044,6 +7484,53 @@
           "optional": true,
           "type": {
             "primitive": "boolean"
+          }
+        }
+      ]
+    },
+    "jsii-calc.MethodNamedProperty": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.MethodNamedProperty",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 386
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 387
+          },
+          "name": "property",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "MethodNamedProperty",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 391
+          },
+          "name": "elite",
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -8318,8 +8805,9 @@
         },
         {
           "docs": {
+            "remarks": "Must be implemented by derived classes.",
             "stability": "experimental",
-            "summary": "The expression that this operation consists of. Must be implemented by derived classes."
+            "summary": "The expression that this operation consists of."
           },
           "immutable": true,
           "locationInModule": {
@@ -8345,6 +8833,51 @@
           "name": "pow",
           "type": {
             "fqn": "@scope/jsii-calc-lib.Value"
+          }
+        }
+      ]
+    },
+    "jsii-calc.PropertyNamedProperty": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named \"property\" would result in impossible to load Python code."
+      },
+      "fqn": "jsii-calc.PropertyNamedProperty",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 382
+      },
+      "name": "PropertyNamedProperty",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 383
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 384
+          },
+          "name": "yetAnoterOne",
+          "type": {
+            "primitive": "boolean"
           }
         }
       ]
@@ -9218,6 +9751,52 @@
       ],
       "name": "SingletonStringEnum"
     },
+    "jsii-calc.SmellyStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.SmellyStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 393
+      },
+      "name": "SmellyStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 394
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/calculator.ts",
+            "line": 395
+          },
+          "name": "yetAnoterOne",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.SomeTypeJsii976": {
       "assembly": "jsii-calc",
       "docs": {
@@ -9593,8 +10172,9 @@
         },
         {
           "docs": {
+            "remarks": "Jsdocs for static setter.",
             "stability": "experimental",
-            "summary": "Jsdocs for static getter. Jsdocs for static setter."
+            "summary": "Jsdocs for static getter."
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
@@ -9822,6 +10402,55 @@
           "optional": true,
           "type": {
             "fqn": "jsii-calc.StructA"
+          }
+        }
+      ]
+    },
+    "jsii-calc.StructParameterType": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "remarks": "See: https://github.com/aws/aws-cdk/issues/4302",
+        "stability": "experimental",
+        "summary": "Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted."
+      },
+      "fqn": "jsii-calc.StructParameterType",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2421
+      },
+      "name": "StructParameterType",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2422
+          },
+          "name": "scope",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2423
+          },
+          "name": "props",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
           }
         }
       ]
@@ -10087,8 +10716,9 @@
       "properties": [
         {
           "docs": {
+            "remarks": "Must be implemented by derived classes.",
             "stability": "experimental",
-            "summary": "The expression that this operation consists of. Must be implemented by derived classes."
+            "summary": "The expression that this operation consists of."
           },
           "immutable": true,
           "locationInModule": {
@@ -11409,8 +12039,9 @@
         {
           "abstract": true,
           "docs": {
+            "remarks": "Must be implemented by derived classes.",
             "stability": "experimental",
-            "summary": "The expression that this operation consists of. Must be implemented by derived classes."
+            "summary": "The expression that this operation consists of."
           },
           "immutable": true,
           "locationInModule": {
@@ -11524,6 +12155,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.20.8",
-  "fingerprint": "N6rN2lItGrVvvguYWKJffMgN+NaFLr5GQp2a1fmrbx0="
+  "version": "1.0.0",
+  "fingerprint": "oTbIPjVGH+NSJCWHMqRYC7fJ3XjjZSr8TvvRkANEonA="
 }

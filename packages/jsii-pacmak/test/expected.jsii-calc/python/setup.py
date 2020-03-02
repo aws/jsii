@@ -4,7 +4,7 @@ import setuptools
 kwargs = json.loads("""
 {
     "name": "jsii-calc",
-    "version": "0.20.8",
+    "version": "1.0.0",
     "description": "A simple calcuator built on JSII.",
     "license": "Apache-2.0",
     "url": "https://github.com/aws/jsii",
@@ -22,7 +22,7 @@ kwargs = json.loads("""
     ],
     "package_data": {
         "jsii_calc._jsii": [
-            "jsii-calc@0.20.8.jsii.tgz"
+            "jsii-calc@1.0.0.jsii.tgz"
         ],
         "jsii_calc": [
             "py.typed"
@@ -30,16 +30,21 @@ kwargs = json.loads("""
     },
     "python_requires": ">=3.6",
     "install_requires": [
-        "jsii~=0.20.8",
+        "jsii~=1.0.0",
         "publication>=0.0.3",
-        "scope.jsii-calc-base~=0.20.8",
-        "scope.jsii-calc-base-of-base~=0.20.8",
-        "scope.jsii-calc-lib~=0.20.8"
+        "scope.jsii-calc-base>=1.0.0, <2.0.0",
+        "scope.jsii-calc-base-of-base>=1.0.0, <2.0.0",
+        "scope.jsii-calc-lib>=1.0.0, <2.0.0"
     ],
     "classifiers": [
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3",
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Typing :: Typed",
         "Development Status :: 4 - Beta",
         "License :: OSI Approved"
     ]

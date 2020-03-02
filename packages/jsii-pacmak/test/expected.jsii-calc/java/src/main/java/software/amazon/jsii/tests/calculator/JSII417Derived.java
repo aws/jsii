@@ -18,11 +18,11 @@ public class JSII417Derived extends software.amazon.jsii.tests.calculator.JSII41
 
     /**
      * EXPERIMENTAL
-     * 
+     * <p>
      * @param property This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public JSII417Derived(final java.lang.String property) {
+    public JSII417Derived(final @org.jetbrains.annotations.NotNull java.lang.String property) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(property, "property is required") });
     }
@@ -32,7 +32,7 @@ public class JSII417Derived extends software.amazon.jsii.tests.calculator.JSII41
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void bar() {
-        this.jsiiCall("bar", Void.class);
+        this.jsiiCall("bar", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
@@ -40,14 +40,14 @@ public class JSII417Derived extends software.amazon.jsii.tests.calculator.JSII41
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void baz() {
-        this.jsiiCall("baz", Void.class);
+        this.jsiiCall("baz", software.amazon.jsii.NativeType.VOID);
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected java.lang.String getProperty() {
+    protected @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
         return this.jsiiGet("property", java.lang.String.class);
     }
 }

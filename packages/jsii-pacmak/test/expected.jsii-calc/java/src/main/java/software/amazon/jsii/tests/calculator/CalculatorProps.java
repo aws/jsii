@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Properties for Calculator.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -12,18 +12,28 @@ package software.amazon.jsii.tests.calculator;
 public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     * The initial value of the calculator.
+     * <p>
+     * NOTE: Any number works here, it's fine.
+     * <p>
+     * Default: 0
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Number getInitialValue() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getInitialValue() {
         return null;
     }
 
     /**
+     * The maximum value the calculator can store.
+     * <p>
+     * Default: none
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Number getMaximumValue() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getMaximumValue() {
         return null;
     }
 
@@ -43,8 +53,9 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         private java.lang.Number maximumValue;
 
         /**
-         * Sets the value of InitialValue
-         * @param initialValue the value to be set.
+         * Sets the value of {@link CalculatorProps#getInitialValue}
+         * @param initialValue The initial value of the calculator.
+         *                     NOTE: Any number works here, it's fine.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -54,8 +65,8 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of MaximumValue
-         * @param maximumValue the value to be set.
+         * Sets the value of {@link CalculatorProps#getMaximumValue}
+         * @param maximumValue The maximum value the calculator can store.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

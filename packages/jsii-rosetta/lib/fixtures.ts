@@ -1,5 +1,5 @@
-import fs = require('fs-extra');
-import path = require('path');
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import { TypeScriptSnippet, SnippetParameters } from './snippet';
 
 /**
@@ -7,7 +7,7 @@ import { TypeScriptSnippet, SnippetParameters } from './snippet';
  */
 export function fixturize(snippet: TypeScriptSnippet): TypeScriptSnippet {
   let source = snippet.visibleSource;
-  const parameters = snippet.parameters || {};
+  const parameters = snippet.parameters ?? {};
 
   const directory = parameters[SnippetParameters.$PROJECT_DIRECTORY];
   if (!directory) { return snippet; }

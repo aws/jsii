@@ -13,7 +13,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getFirstMidLevelProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getFirstMidLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceFirstMidLevelStruct}
@@ -31,7 +31,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
         private java.lang.String baseLevelProperty;
 
         /**
-         * Sets the value of FirstMidLevelProperty
+         * Sets the value of {@link DiamondInheritanceFirstMidLevelStruct#getFirstMidLevelProperty}
          * @param firstMidLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
@@ -42,7 +42,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
         }
 
         /**
-         * Sets the value of BaseLevelProperty
+         * Sets the value of {@link DiamondInheritanceFirstMidLevelStruct#getBaseLevelProperty}
          * @param baseLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */

@@ -13,7 +13,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Number getMutableProperty() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
         return null;
     }
 
@@ -21,8 +21,8 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Optional
-    default void setMutableProperty(final java.lang.Number value) {
-        throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#setMutableProperty(java.lang.Number)' is not implemented!");
+    default void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
+        throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#setMutableProperty(@org.jetbrains.annotations.Nullable java.lang.Number)' is not implemented!");
     }
 
     /**
@@ -44,7 +44,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.Number getMutableProperty() {
+        public @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
             return this.jsiiGet("mutableProperty", java.lang.Number.class);
         }
 
@@ -53,7 +53,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setMutableProperty(final java.lang.Number value) {
+        public void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
             this.jsiiSet("mutableProperty", value);
         }
 
@@ -63,7 +63,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public void method() {
-            this.jsiiCall("method", Void.class);
+            this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);
         }
     }
 }

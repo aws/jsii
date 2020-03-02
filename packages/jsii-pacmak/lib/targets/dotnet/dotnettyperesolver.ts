@@ -1,8 +1,8 @@
-import * as spec from 'jsii-spec';
+import * as spec from '@jsii/spec';
 import { DotNetDependency } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
 
-type FindModuleCallback = (fqn: string) => spec.Assembly | spec.PackageVersion;
+type FindModuleCallback = (fqn: string) => spec.AssemblyConfiguration;
 type FindTypeCallback = (fqn: string) => spec.Type;
 
 export class DotNetTypeResolver {
@@ -46,14 +46,14 @@ export class DotNetTypeResolver {
     }
     const [mod] = fqn.split('.');
     const depMod = this.findModule(mod);
-    const dotnetNamespace = depMod.targets && depMod.targets.dotnet && depMod.targets.dotnet.namespace;
+    const dotnetNamespace = depMod.targets?.dotnet?.namespace;
     if (!dotnetNamespace) {
       throw new Error('The module does not have a dotnet.namespace setting');
     }
     if (type.namespace) {
       // If the type is declared in an additional namespace.
       const namespaceFqn = `${this.assembly.name}.${type.namespace}`;
-      const associatedNamespace = this.assembly.types && this.assembly.types[namespaceFqn];
+      const associatedNamespace = this.assembly.types?.[namespaceFqn];
       if (associatedNamespace) {
         // Checking if there is a C# type associated with this namespace, in case we need to slugify it
         const actualNamespace = this.toDotNetType(this.findType(namespaceFqn));
@@ -71,24 +71,22 @@ export class DotNetTypeResolver {
      * Resolves the namespaces dependencies by looking at the .jsii model
      */
   public resolveNamespacesDependencies(): void {
-    const assmDependencies = this.assembly.dependencies || {};
-    for (const depName of Object.keys(assmDependencies)) {
-      const depInfo = assmDependencies[depName];
+    const assmDependencies = this.assembly.dependencies ?? {};
+    const assmConfigurations = this.assembly.dependencyClosure ?? {};
+    for (const [depName, version] of Object.entries(assmDependencies)) {
+      const depInfo = assmConfigurations[depName];
       if (!this.namespaceDependencies.has(depName)) {
-        const dotnetInfo = depInfo.targets!.dotnet;
-        const namespace = dotnetInfo!.namespace;
-        const packageId = dotnetInfo!.packageId;
-        let version = depInfo.version;
+        const dotnetInfo = depInfo.targets!.dotnet!;
+        const namespace = dotnetInfo.namespace;
+        const packageId = dotnetInfo.packageId;
         const suffix = depInfo.targets!.dotnet!.versionSuffix;
-        if (suffix) {
-          // suffix is guaranteed to start with a leading `-`
-          version = `${depInfo.version}${suffix}`;
-        }
+
         this.namespaceDependencies.set(depName, new DotNetDependency(
           namespace,
           packageId,
           depName,
-          version,
+          // suffix, when present, is guaranteed to start with a leading `-`
+          suffix ? `${version}${suffix}` : version,
           this.assembliesCurrentlyBeingCompiled.includes(depName)));
       }
     }
@@ -99,7 +97,7 @@ export class DotNetTypeResolver {
      *
      */
   public resolveImplementedInterfaces(ifc: spec.InterfaceType | spec.ClassType): string[] {
-    const interfaces = ifc.interfaces || [];
+    const interfaces = ifc.interfaces ?? [];
     const baseTypeNames: string[] = [];
 
     // For all base members

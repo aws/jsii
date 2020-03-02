@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Test fixture to verify that jsii modules can use the node standard library.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -25,47 +25,47 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
 
     /**
      * Uses node.js "crypto" module to calculate sha256 of a string.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String cryptoSha256() {
+    public @org.jetbrains.annotations.NotNull java.lang.String cryptoSha256() {
         return this.jsiiCall("cryptoSha256", java.lang.String.class);
     }
 
     /**
      * Reads a local resource file (resource.txt) asynchronously.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return "Hello, resource!"
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String fsReadFile() {
+    public @org.jetbrains.annotations.NotNull java.lang.String fsReadFile() {
         return this.jsiiAsyncCall("fsReadFile", java.lang.String.class);
     }
 
     /**
      * Sync version of fsReadFile.
-     * 
+     * <p>
      * EXPERIMENTAL
-     * 
+     * <p>
      * @return "Hello, resource! SYNC!"
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String fsReadFileSync() {
+    public @org.jetbrains.annotations.NotNull java.lang.String fsReadFileSync() {
         return this.jsiiCall("fsReadFileSync", java.lang.String.class);
     }
 
     /**
      * Returns the current os.platform() from the "os" node module.
-     * 
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getOsPlatform() {
+    public @org.jetbrains.annotations.NotNull java.lang.String getOsPlatform() {
         return this.jsiiGet("osPlatform", java.lang.String.class);
     }
 }

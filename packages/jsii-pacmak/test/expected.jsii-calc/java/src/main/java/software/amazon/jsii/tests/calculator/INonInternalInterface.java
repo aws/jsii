@@ -13,23 +13,23 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getB();
+    @org.jetbrains.annotations.NotNull java.lang.String getB();
 
     /**
      * EXPERIMENTAL
      */
-    void setB(final java.lang.String value);
+    void setB(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getC();
+    @org.jetbrains.annotations.NotNull java.lang.String getC();
 
     /**
      * EXPERIMENTAL
      */
-    void setC(final java.lang.String value);
+    void setC(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -44,7 +44,7 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getB() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getB() {
             return this.jsiiGet("b", java.lang.String.class);
         }
 
@@ -53,7 +53,7 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setB(final java.lang.String value) {
+        public void setB(final @org.jetbrains.annotations.NotNull java.lang.String value) {
             this.jsiiSet("b", java.util.Objects.requireNonNull(value, "b is required"));
         }
 
@@ -62,7 +62,7 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getC() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getC() {
             return this.jsiiGet("c", java.lang.String.class);
         }
 
@@ -71,7 +71,7 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setC(final java.lang.String value) {
+        public void setC(final @org.jetbrains.annotations.NotNull java.lang.String value) {
             this.jsiiSet("c", java.util.Objects.requireNonNull(value, "c is required"));
         }
 
@@ -80,7 +80,7 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getA() {
+        public @org.jetbrains.annotations.NotNull java.lang.String getA() {
             return this.jsiiGet("a", java.lang.String.class);
         }
 
@@ -89,7 +89,7 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setA(final java.lang.String value) {
+        public void setA(final @org.jetbrains.annotations.NotNull java.lang.String value) {
             this.jsiiSet("a", java.util.Objects.requireNonNull(value, "a is required"));
         }
     }

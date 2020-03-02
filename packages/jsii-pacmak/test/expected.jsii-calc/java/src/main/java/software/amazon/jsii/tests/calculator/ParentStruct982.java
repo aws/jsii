@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * https://github.com/aws/jsii/issues/982.
- * 
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -15,7 +15,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getFoo();
+    @org.jetbrains.annotations.NotNull java.lang.String getFoo();
 
     /**
      * @return a {@link Builder} of {@link ParentStruct982}
@@ -32,7 +32,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
         private java.lang.String foo;
 
         /**
-         * Sets the value of Foo
+         * Sets the value of {@link ParentStruct982#getFoo}
          * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */

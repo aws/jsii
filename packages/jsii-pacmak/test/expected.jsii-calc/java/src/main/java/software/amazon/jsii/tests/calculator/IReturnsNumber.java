@@ -13,13 +13,13 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.lib.Number getNumberProp();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number getNumberProp();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -34,7 +34,7 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public software.amazon.jsii.tests.calculator.lib.Number getNumberProp() {
+        public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number getNumberProp() {
             return this.jsiiGet("numberProp", software.amazon.jsii.tests.calculator.lib.Number.class);
         }
 
@@ -43,7 +43,7 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber() {
+        public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber() {
             return this.jsiiCall("obtainNumber", software.amazon.jsii.tests.calculator.lib.IDoublable.class);
         }
     }

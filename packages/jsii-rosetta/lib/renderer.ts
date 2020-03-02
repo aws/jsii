@@ -1,8 +1,9 @@
-import ts = require('typescript');
-import { NO_SYNTAX, OTree, UnknownSyntax } from './o-tree';
+import * as ts from 'typescript';
+import { NO_SYNTAX, OTree, UnknownSyntax, Span } from './o-tree';
 import { commentRangeFromTextRange, extractMaskingVoidExpression, extractShowingVoidExpression, nodeChildren,
   repeatNewlines, scanText } from './typescript/ast-utils';
 import { analyzeImportDeclaration, analyzeImportEquals, ImportStatement } from './typescript/imports';
+import { TargetLanguage } from './languages';
 
 /**
  * Render a TypeScript AST to some other representation (encoded in OTrees)
@@ -16,19 +17,19 @@ export class AstRenderer<C> {
   public readonly diagnostics = new Array<ts.Diagnostic>();
   public readonly currentContext: C;
 
-  constructor(
+  public constructor(
     private readonly sourceFile: ts.SourceFile,
-    private readonly typeChecker: ts.TypeChecker,
+    public readonly typeChecker: ts.TypeChecker,
     private readonly handler: AstHandler<C>,
-    private readonly options: AstRendererOptions = {}) {
-
+    private readonly options: AstRendererOptions = {}
+  ) {
     this.currentContext = handler.defaultContext;
   }
 
   /**
    * Merge the new context with the current context and create a new Converter from it
    */
-  public updateContext(contextUpdate: C): AstRenderer<C> {
+  public updateContext(contextUpdate: Partial<C>): AstRenderer<C> {
     const newContext = this.handler.mergeContext(this.currentContext, contextUpdate);
 
     // Use prototypal inheritance to create a version of 'this' in which only
@@ -57,7 +58,7 @@ export class AstRenderer<C> {
   /**
    * Convert a set of nodes, filtering out hidden nodes
    */
-  public convertAll(nodes: ReadonlyArray<ts.Node>): OTree[] {
+  public convertAll(nodes: readonly ts.Node[]): OTree[] {
     return filterVisible(nodes).map(this.convert.bind(this));
   }
 
@@ -66,7 +67,7 @@ export class AstRenderer<C> {
    *
    * Takes visibility into account.
    */
-  public convertLastDifferently(nodes: ReadonlyArray<ts.Node>, lastContext: C): OTree[] {
+  public convertLastDifferently(nodes: readonly ts.Node[], lastContext: C): OTree[] {
     const lastConverter = this.updateContext(lastContext);
 
     const convert = this.convert.bind(this);
@@ -87,6 +88,13 @@ export class AstRenderer<C> {
     return ret;
   }
 
+  public getPosition(node: ts.Node): Span {
+    return {
+      start: node.getStart(this.sourceFile),
+      end: node.getEnd(),
+    };
+  }
+
   public textOf(node: ts.Node): string {
     return node.getText(this.sourceFile);
   }
@@ -95,8 +103,22 @@ export class AstRenderer<C> {
     return this.sourceFile.text.substring(pos, end);
   }
 
-  public typeOfExpression(node: ts.Expression) {
+  /**
+   * Infer type of expression by the argument it is assigned to
+   *
+   * (Will return undefined for object literals not unified with a declared type)
+   */
+  public inferredTypeOfExpression(node: ts.Expression) {
     return this.typeChecker.getContextualType(node);
+  }
+
+  /**
+   * Type of expression from the text of the expression
+   *
+   * (Will return a map type for object literals)
+   */
+  public typeOfExpression(node: ts.Expression): ts.Type {
+    return this.typeChecker.getContextualType(node) || this.typeChecker.getTypeAtLocation(node);
   }
 
   public typeOfType(node: ts.TypeNode): ts.Type {
@@ -115,10 +137,14 @@ export class AstRenderer<C> {
     });
   }
 
-  public reportUnsupported(node: ts.Node): void {
+  public reportUnsupported(node: ts.Node, language: TargetLanguage | undefined): void {
     const nodeKind = ts.SyntaxKind[node.kind];
     // tslint:disable-next-line:max-line-length
-    this.report(node, `This TypeScript language feature (${nodeKind}) is not supported in examples because we cannot translate it. Please rewrite this example.`);
+    if (language) {
+      this.report(node, `This TypeScript feature (${nodeKind}) is not supported in examples because we cannot translate it to ${language}. Please rewrite this example.`);
+    } else {
+      this.report(node, `This TypeScript feature (${nodeKind}) is not supported in examples. Please rewrite this example.`);
+    }
   }
 
   /**
@@ -126,7 +152,7 @@ export class AstRenderer<C> {
    *
    * Used to mirror newline use between matchin brackets (such as { ... } and [ ... ]).
    */
-  public mirrorNewlineBefore(viz?: ts.Node, suffix: string = ''): string {
+  public mirrorNewlineBefore(viz?: ts.Node, suffix = '', otherwise = ''): string {
     if (viz === undefined) { return suffix; }
 
     // Return a newline if the given node is preceded by newlines
@@ -139,7 +165,7 @@ export class AstRenderer<C> {
       }
     }
 
-    return (newlines.join('').length > 0 ? '\n' : '') + suffix;
+    return (newlines.join('').length > 0 ? '\n' : otherwise) + suffix;
   }
 
   /**
@@ -153,71 +179,71 @@ export class AstRenderer<C> {
     }
 
     const visitor = this.handler;
-    const context = this;
 
     // Nodes with meaning
     if (ts.isSourceFile(tree)) { return visitor.sourceFile(tree, this); }
-    if (ts.isImportEqualsDeclaration(tree)) { return visitor.importStatement(analyzeImportEquals(tree, context), context); }
-    if (ts.isImportDeclaration(tree)) { return visitor.importStatement(analyzeImportDeclaration(tree, context), context); }
-    if (ts.isStringLiteral(tree)) { return visitor.stringLiteral(tree, context); }
-    if (ts.isFunctionDeclaration(tree)) { return visitor.functionDeclaration(tree, context); }
-    if (ts.isIdentifier(tree)) { return visitor.identifier(tree, context); }
-    if (ts.isBlock(tree)) { return visitor.block(tree, context); }
-    if (ts.isParameter(tree)) { return visitor.parameterDeclaration(tree, context); }
-    if (ts.isReturnStatement(tree)) { return visitor.returnStatement(tree, context); }
-    if (ts.isBinaryExpression(tree)) { return visitor.binaryExpression(tree, context); }
-    if (ts.isIfStatement(tree)) { return visitor.ifStatement(tree, context); }
-    if (ts.isPropertyAccessExpression(tree)) { return visitor.propertyAccessExpression(tree, context); }
-    if (ts.isCallExpression(tree)) { return visitor.callExpression(tree, context); }
-    if (ts.isExpressionStatement(tree)) { return visitor.expressionStatement(tree, context); }
-    if (ts.isNoSubstitutionTemplateLiteral(tree)) { return visitor.noSubstitutionTemplateLiteral(tree, context); }
-    if (ts.isToken(tree)) { return visitor.token(tree, context); }
-    if (ts.isObjectLiteralExpression(tree)) { return visitor.objectLiteralExpression(tree, context); }
-    if (ts.isNewExpression(tree)) { return visitor.newExpression(tree, context); }
-    if (ts.isPropertyAssignment(tree)) { return visitor.propertyAssignment(tree, context); }
-    if (ts.isVariableStatement(tree)) { return visitor.variableStatement(tree, context); }
-    if (ts.isVariableDeclarationList(tree)) { return visitor.variableDeclarationList(tree, context); }
-    if (ts.isVariableDeclaration(tree)) { return visitor.variableDeclaration(tree, context); }
-    if (ts.isJSDoc(tree)) { return visitor.jsDoc(tree, context); }
-    if (ts.isArrayLiteralExpression(tree)) { return visitor.arrayLiteralExpression(tree, context); }
-    if (ts.isShorthandPropertyAssignment(tree)) { return visitor.shorthandPropertyAssignment(tree, context); }
-    if (ts.isForOfStatement(tree)) { return visitor.forOfStatement(tree, context); }
-    if (ts.isClassDeclaration(tree)) { return visitor.classDeclaration(tree, context); }
-    if (ts.isConstructorDeclaration(tree)) { return visitor.constructorDeclaration(tree, context); }
-    if (ts.isPropertyDeclaration(tree)) { return visitor.propertyDeclaration(tree, context); }
-    if (ts.isMethodDeclaration(tree)) { return visitor.methodDeclaration(tree, context); }
-    if (ts.isInterfaceDeclaration(tree)) { return visitor.interfaceDeclaration(tree, context); }
-    if (ts.isPropertySignature(tree)) { return visitor.propertySignature(tree, context); }
-    if (ts.isAsExpression(tree)) { return visitor.asExpression(tree, context); }
-    if (ts.isPrefixUnaryExpression(tree)) { return visitor.prefixUnaryExpression(tree, context); }
+    if (ts.isImportEqualsDeclaration(tree)) { return visitor.importStatement(analyzeImportEquals(tree, this), this); }
+    if (ts.isImportDeclaration(tree)) { return visitor.importStatement(analyzeImportDeclaration(tree, this), this); }
+    if (ts.isStringLiteral(tree)) { return visitor.stringLiteral(tree, this); }
+    if (ts.isFunctionDeclaration(tree)) { return visitor.functionDeclaration(tree, this); }
+    if (ts.isIdentifier(tree)) { return visitor.identifier(tree, this); }
+    if (ts.isBlock(tree)) { return visitor.block(tree, this); }
+    if (ts.isParameter(tree)) { return visitor.parameterDeclaration(tree, this); }
+    if (ts.isReturnStatement(tree)) { return visitor.returnStatement(tree, this); }
+    if (ts.isBinaryExpression(tree)) { return visitor.binaryExpression(tree, this); }
+    if (ts.isIfStatement(tree)) { return visitor.ifStatement(tree, this); }
+    if (ts.isPropertyAccessExpression(tree)) { return visitor.propertyAccessExpression(tree, this); }
+    if (ts.isCallExpression(tree)) { return visitor.callExpression(tree, this); }
+    if (ts.isExpressionStatement(tree)) { return visitor.expressionStatement(tree, this); }
+    if (ts.isNoSubstitutionTemplateLiteral(tree)) { return visitor.noSubstitutionTemplateLiteral(tree, this); }
+    if (ts.isToken(tree)) { return visitor.token(tree, this); }
+    if (ts.isObjectLiteralExpression(tree)) { return visitor.objectLiteralExpression(tree, this); }
+    if (ts.isNewExpression(tree)) { return visitor.newExpression(tree, this); }
+    if (ts.isPropertyAssignment(tree)) { return visitor.propertyAssignment(tree, this); }
+    if (ts.isVariableStatement(tree)) { return visitor.variableStatement(tree, this); }
+    if (ts.isVariableDeclarationList(tree)) { return visitor.variableDeclarationList(tree, this); }
+    if (ts.isVariableDeclaration(tree)) { return visitor.variableDeclaration(tree, this); }
+    if (ts.isJSDoc(tree)) { return visitor.jsDoc(tree, this); }
+    if (ts.isArrayLiteralExpression(tree)) { return visitor.arrayLiteralExpression(tree, this); }
+    if (ts.isShorthandPropertyAssignment(tree)) { return visitor.shorthandPropertyAssignment(tree, this); }
+    if (ts.isForOfStatement(tree)) { return visitor.forOfStatement(tree, this); }
+    if (ts.isClassDeclaration(tree)) { return visitor.classDeclaration(tree, this); }
+    if (ts.isConstructorDeclaration(tree)) { return visitor.constructorDeclaration(tree, this); }
+    if (ts.isPropertyDeclaration(tree)) { return visitor.propertyDeclaration(tree, this); }
+    if (ts.isMethodDeclaration(tree)) { return visitor.methodDeclaration(tree, this); }
+    if (ts.isInterfaceDeclaration(tree)) { return visitor.interfaceDeclaration(tree, this); }
+    if (ts.isPropertySignature(tree)) { return visitor.propertySignature(tree, this); }
+    if (ts.isMethodSignature(tree)) { return visitor.methodSignature(tree, this); }
+    if (ts.isAsExpression(tree)) { return visitor.asExpression(tree, this); }
+    if (ts.isPrefixUnaryExpression(tree)) { return visitor.prefixUnaryExpression(tree, this); }
     if (ts.isSpreadAssignment(tree)) {
-       if (context.textOf(tree) === '...') { return visitor.ellipsis(tree, context); }
-       return visitor.spreadAssignment(tree, context);
+      if (this.textOf(tree) === '...') { return visitor.ellipsis(tree, this); }
+      return visitor.spreadAssignment(tree, this);
     }
     if (ts.isSpreadElement(tree)) {
-      if (context.textOf(tree) === '...') { return visitor.ellipsis(tree, context); }
-      return visitor.spreadElement(tree, context);
+      if (this.textOf(tree) === '...') { return visitor.ellipsis(tree, this); }
+      return visitor.spreadElement(tree, this);
     }
-    if (ts.isTemplateExpression(tree)) { return visitor.templateExpression(tree, context); }
-    if (ts.isNonNullExpression(tree)) { return visitor.nonNullExpression(tree, context); }
-    if (ts.isParenthesizedExpression(tree)) { return visitor.parenthesizedExpression(tree, context); }
-    if (ts.isVoidExpression(tree)) { return visitor.maskingVoidExpression(tree, context); }
+    if (ts.isTemplateExpression(tree)) { return visitor.templateExpression(tree, this); }
+    if (ts.isNonNullExpression(tree)) { return visitor.nonNullExpression(tree, this); }
+    if (ts.isParenthesizedExpression(tree)) { return visitor.parenthesizedExpression(tree, this); }
+    if (ts.isVoidExpression(tree)) { return visitor.maskingVoidExpression(tree, this); }
 
-    context.reportUnsupported(tree);
+    this.reportUnsupported(tree, undefined);
 
     if (this.options.bestEffort !== false) {
       // When doing best-effort conversion and we don't understand the node type, just return the complete text of it as-is
-      return new OTree([context.textOf(tree)]);
-    } else {
-      // Otherwise, show a placeholder indicating we don't recognize the type
-      const nodeKind = ts.SyntaxKind[tree.kind];
-      return new UnknownSyntax([`<${nodeKind} ${context.textOf(tree)}>`], [
-          '\n',
-          ...nodeChildren(tree).map(this.convert.bind(this))
-        ], {
-        indent: 2,
-      });
+      return new OTree([this.textOf(tree)]);
     }
+    // Otherwise, show a placeholder indicating we don't recognize the type
+    const nodeKind = ts.SyntaxKind[tree.kind];
+    return new UnknownSyntax([`<${nodeKind} ${this.textOf(tree)}>`], [
+      '\n',
+      ...nodeChildren(tree).map(this.convert.bind(this))
+    ], {
+      indent: 2,
+    });
+
   }
 
   /**
@@ -239,7 +265,7 @@ export class AstRenderer<C> {
           break;
         case 'linecomment':
         case 'blockcomment':
-          precede.push(this.handler.commentRange(commentRangeFromTextRange(range), this));
+          precede.push(this.handler.commentRange(commentSyntaxFromCommentRange(commentRangeFromTextRange(range), this), this));
           break;
 
         case 'directive':
@@ -251,9 +277,9 @@ export class AstRenderer<C> {
 
     if (precede.length > 0 && !transformed.isEmpty) {
       return new OTree([...precede, transformed], [], { canBreakLine: true });
-    } else {
-      return transformed;
     }
+    return transformed;
+
   }
 }
 
@@ -269,10 +295,10 @@ export class AstRenderer<C> {
  */
 export interface AstHandler<C> {
   readonly defaultContext: C;
-  mergeContext(old: C, update: C): C;
+  mergeContext(old: C, update: Partial<C>): C;
 
   sourceFile(node: ts.SourceFile, context: AstRenderer<C>): OTree;
-  commentRange(node: ts.CommentRange, context: AstRenderer<C>): OTree;
+  commentRange(node: CommentSyntax, context: AstRenderer<C>): OTree;
   importStatement(node: ImportStatement, context: AstRenderer<C>): OTree;
   stringLiteral(node: ts.StringLiteral, children: AstRenderer<C>): OTree;
   functionDeclaration(node: ts.FunctionDeclaration, children: AstRenderer<C>): OTree;
@@ -302,6 +328,7 @@ export interface AstHandler<C> {
   methodDeclaration(node: ts.MethodDeclaration, context: AstRenderer<C>): OTree;
   interfaceDeclaration(node: ts.InterfaceDeclaration, context: AstRenderer<C>): OTree;
   propertySignature(node: ts.PropertySignature, context: AstRenderer<C>): OTree;
+  methodSignature(node: ts.MethodSignature, context: AstRenderer<C>): OTree;
   asExpression(node: ts.AsExpression, context: AstRenderer<C>): OTree;
   prefixUnaryExpression(node: ts.PrefixUnaryExpression, context: AstRenderer<C>): OTree;
   spreadElement(node: ts.SpreadElement, context: AstRenderer<C>): OTree;
@@ -353,11 +380,11 @@ interface ClassifiedNode {
   maskingVoid?: ts.VoidExpression;
 }
 
-function filterVisible(nodes: ReadonlyArray<ts.Node>): ts.Node[] {
+function filterVisible(nodes: readonly ts.Node[]): ts.Node[] {
   return assignVisibility(nodes).map(c => c.visible ? c.node : c.maskingVoid).filter(notUndefined);
 }
 
-function assignVisibility(nodes: ReadonlyArray<ts.Node>): ClassifiedNode[] {
+function assignVisibility(nodes: readonly ts.Node[]): ClassifiedNode[] {
   const ret: ClassifiedNode[] = [];
 
   let visible = true;
@@ -380,4 +407,25 @@ function assignVisibility(nodes: ReadonlyArray<ts.Node>): ClassifiedNode[] {
 
 function notUndefined<A>(x: A | undefined): x is A {
   return x !== undefined;
+}
+
+/**
+ * Our own representation of comments
+ *
+ * (So we can synthesize 'em
+ */
+export interface CommentSyntax {
+  pos: number;
+  text: string;
+  hasTrailingNewLine?: boolean;
+  kind: ts.CommentKind;
+}
+
+function commentSyntaxFromCommentRange(rng: ts.CommentRange, renderer: AstRenderer<any>): CommentSyntax {
+  return {
+    hasTrailingNewLine: rng.hasTrailingNewLine,
+    kind: rng.kind,
+    pos: rng.pos,
+    text: renderer.textAt(rng.pos, rng.end),
+  };
 }
