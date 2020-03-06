@@ -52,6 +52,11 @@ describe('Build CDK', () => {
       cwd: srcDir
     });
 
+    // align versions for packaging
+    await processes.spawn('./scripts/align-version.sh', [], {
+      cwd: srcDir
+    });
+
     // build cdk modules
     await processes.spawn('npx', ['lerna', 'run', 'build'], {
       cwd: srcDir
