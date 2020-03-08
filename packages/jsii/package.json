@@ -44,7 +44,7 @@
     "sort-json": "^2.0.0",
     "spdx-license-list": "^6.1.0",
     "typescript": "~3.8.3",
-    "yargs": "^15.2.0"
+    "yargs": "^15.3.0"
   },
   "devDependencies": {
     "@types/clone": "^0.1.30",
