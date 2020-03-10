@@ -39,10 +39,10 @@
   "devDependencies": {
     "@jsii/dotnet-jsonmodel": "^1.0.0",
     "@jsii/runtime": "^1.0.0",
-    "@types/node": "^10.17.16",
+    "@types/node": "^10.17.17",
     "@types/semver": "^7.1.0",
     "jsii-build-tools": "^1.0.0",
     "semver": "^7.1.3",
-    "typescript": "~3.8.2"
+    "typescript": "~3.8.3"
   }
 }
