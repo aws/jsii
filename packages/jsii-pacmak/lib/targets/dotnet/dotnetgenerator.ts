@@ -1,7 +1,9 @@
 import * as clone from 'clone';
+import { toPascalCase } from 'codemaker';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
+import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 import { Generator } from '../../generator';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
@@ -9,7 +11,6 @@ import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';
 import { DotNetTypeResolver } from './dotnettyperesolver';
 import { FileGenerator } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
-import { Rosetta } from 'jsii-rosetta';
 
 /**
  * CODE GENERATOR V2
@@ -120,7 +121,7 @@ export class DotNetGenerator extends Generator {
   protected onBeginInterface(ifc: spec.InterfaceType) {
     const implementations = this.typeresolver.resolveImplementedInterfaces(ifc);
     const interfaceName = this.nameutils.convertInterfaceName(ifc);
-    const namespace = ifc.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${ifc.namespace}` : this.assembly.targets!.dotnet!.namespace;
+    const namespace = this.namespaceFor(this.assembly, ifc);
     this.openFileIfNeeded(interfaceName, namespace, this.isNested(ifc));
 
     this.dotnetDocGenerator.emitDocs(ifc);
@@ -137,7 +138,7 @@ export class DotNetGenerator extends Generator {
   protected onEndInterface(ifc: spec.InterfaceType) {
     const interfaceName = this.nameutils.convertInterfaceName(ifc);
     this.code.closeBlock();
-    const namespace = ifc.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${ifc.namespace}` : this.assembly.targets!.dotnet!.namespace;
+    const namespace = this.namespaceFor(this.assembly, ifc);
     this.closeFileIfNeeded(interfaceName, namespace, this.isNested(ifc));
 
     // emit interface proxy class
@@ -212,7 +213,7 @@ export class DotNetGenerator extends Generator {
 
   protected onBeginClass(cls: spec.ClassType, abstract: boolean) {
     let baseTypeNames: string[] = [];
-    const namespace = cls.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${cls.namespace}` : this.assembly.targets!.dotnet!.namespace;
+    const namespace = this.namespaceFor(this.assembly, cls);
 
     // A class can derive from only one base class
     // But can implement multiple interfaces
@@ -294,7 +295,7 @@ export class DotNetGenerator extends Generator {
   protected onEndClass(cls: spec.ClassType) {
     this.code.closeBlock();
     const className = this.nameutils.convertClassName(cls);
-    const namespace = cls.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${cls.namespace}` : this.assembly.targets!.dotnet!.namespace;
+    const namespace = this.namespaceFor(this.assembly, cls);
     this.closeFileIfNeeded(className, namespace, this.isNested(cls));
 
     if (cls.abstract) {
@@ -338,7 +339,7 @@ export class DotNetGenerator extends Generator {
 
   protected onBeginEnum(enm: spec.EnumType) {
     const enumName = this.nameutils.convertTypeName(enm.name);
-    const namespace = enm.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${enm.namespace}` : this.assembly.targets!.dotnet!.namespace;
+    const namespace = this.namespaceFor(this.assembly, enm);
     this.openFileIfNeeded(enumName, namespace, this.isNested(enm));
     this.emitNewLineIfNecessary();
     this.dotnetDocGenerator.emitDocs(enm);
@@ -349,7 +350,7 @@ export class DotNetGenerator extends Generator {
   protected onEndEnum(enm: spec.EnumType) {
     this.code.closeBlock();
     const enumName = this.nameutils.convertTypeName(enm.name);
-    const namespace = enm.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${enm.namespace}` : this.assembly.targets!.dotnet!.namespace;
+    const namespace = this.namespaceFor(this.assembly, enm);
     this.closeFileIfNeeded(enumName, namespace, this.isNested(enm));
   }
 
@@ -363,6 +364,19 @@ export class DotNetGenerator extends Generator {
     } else {
       this.code.line(`${enumMemberName}`);
     }
+  }
+
+  private namespaceFor(assm: spec.Assembly, type: spec.Type): string {
+    const parts = [assm.targets!.dotnet!.namespace];
+    let ns = type.namespace;
+    while (ns != null && assm.types?.[`${assm.name}.${ns}`] != null) {
+      const nesting = assm.types[`${assm.name}.${ns}`];
+      ns = nesting.namespace;
+    }
+    if (ns != null) {
+      parts.push(...ns.split('.').map(n => toPascalCase(n)));
+    }
+    return parts.join('.');
   }
 
   private emitMethod(cls: spec.ClassType | spec.InterfaceType, method: spec.Method, emitForProxyOrDatatype = false): void {
@@ -502,7 +516,7 @@ export class DotNetGenerator extends Generator {
   private emitInterfaceProxy(ifc: spec.InterfaceType | spec.ClassType): void {
     // No need to slugify for a proxy
     const name = `${this.nameutils.convertTypeName(ifc.name)}Proxy`;
-    const namespace = ifc.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${ifc.namespace}` : this.assembly.targets!.dotnet!.namespace;
+    const namespace = this.namespaceFor(this.assembly, ifc);
     const isNested = this.isNested(ifc);
     this.openFileIfNeeded(name, namespace, isNested);
 
@@ -537,7 +551,7 @@ export class DotNetGenerator extends Generator {
   private emitInterfaceDataType(ifc: spec.InterfaceType): void {
     // Interface datatypes do not need to be prefixed by I, we can call convertClassName
     const name = this.nameutils.convertClassName(ifc);
-    const namespace = ifc.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${ifc.namespace}` : this.assembly.targets!.dotnet!.namespace;
+    const namespace = this.namespaceFor(this.assembly, ifc);
     const isNested = this.isNested(ifc);
     this.openFileIfNeeded(name, namespace, isNested);
 

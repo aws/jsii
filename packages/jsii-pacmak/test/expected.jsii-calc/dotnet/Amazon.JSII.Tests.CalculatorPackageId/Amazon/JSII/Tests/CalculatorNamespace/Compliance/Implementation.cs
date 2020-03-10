@@ -1,0 +1,40 @@
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Compliance
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Compliance.Implementation), fullyQualifiedName: "jsii-calc.compliance.Implementation")]
+    public class Implementation : DeputyBase
+    {
+        public Implementation(): base(new DeputyProps(new object[]{}))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Implementation(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Implementation(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
+        public virtual double Value
+        {
+            get => GetInstanceProperty<double>();
+        }
+    }
+}

@@ -130,47 +130,44 @@ function toPythonParameterName(name: string, liftedParamNames = new Set<string>(
   return result;
 }
 
-const setDifference = (setA: Set<any>, setB: Set<any>): Set<any> => {
-  const difference = new Set(setA);
-  for (const elem of setB) {
-    difference.delete(elem);
+const setDifference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
+  const result = new Set<T>();
+  for (const item of setA) {
+    if (!setB.has(item)) {
+      result.add(item);
+    }
   }
-  return difference;
+  return result;
 };
 
-const sortMembers = (sortable: PythonBase[], resolver: TypeResolver): PythonBase[] => {
-  const sorted: PythonBase[] = [];
-  const seen: Set<PythonBase> = new Set();
-
-  // We're going to take a copy of our sortable item, because it'll make it easier if
-  // this method doesn't have side effects.
-  sortable = sortable.slice();
+const sortMembers = (members: PythonBase[], resolver: TypeResolver): PythonBase[] => {
+  let sortable = new Array <{ member: PythonBase & ISortableType, dependsOn: Set<PythonType> }>();
+  const sorted = new Array<PythonBase>();
+  const seen = new Set<PythonBase>();
 
   // The first thing we want to do, is push any item which is not sortable to the very
   // front of the list. This will be things like methods, properties, etc.
-  for (const item of sortable) {
-    if (!isSortableType(item)) {
-      sorted.push(item);
-      seen.add(item);
+  for (const member of members) {
+    if (!isSortableType(member)) {
+      sorted.push(member);
+      seen.add(member);
+    } else {
+      sortable.push({ member, dependsOn: new Set(member.dependsOn(resolver)) });
     }
   }
-  sortable = sortable.filter(i => !seen.has(i));
 
   // Now that we've pulled out everything that couldn't possibly have dependencies,
   // we will go through the remaining items, and pull off any items which have no
   // dependencies that we haven't already sorted.
   while (sortable.length > 0) {
-    for (const item of (sortable as Array<PythonBase & ISortableType>)) {
-      const itemDeps: Set<PythonBase> = new Set(item.dependsOn(resolver));
-      if (setDifference(itemDeps, seen).size === 0) {
-        sorted.push(item);
-        seen.add(item);
-
-        break;
+    for (const { member, dependsOn } of sortable) {
+      if (setDifference(dependsOn, seen).size === 0) {
+        sorted.push(member);
+        seen.add(member);
       }
     }
 
-    const leftover = sortable.filter(i => !seen.has(i));
+    const leftover = sortable.filter(({ member }) => !seen.has(member));
     if (leftover.length === sortable.length) {
       throw new Error('Could not sort members (circular dependency?).');
     } else {
@@ -199,8 +196,8 @@ interface ISortableType {
   dependsOn(resolver: TypeResolver): PythonType[];
 }
 
-function isSortableType(arg: any): arg is ISortableType {
-  return arg.dependsOn !== undefined;
+function isSortableType(arg: unknown): arg is ISortableType {
+  return (arg as Partial<ISortableType>).dependsOn !== undefined;
 }
 
 interface PythonTypeOpts {
@@ -226,12 +223,12 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
   }
 
   public dependsOn(resolver: TypeResolver): PythonType[] {
-    const dependencies: PythonType[] = [];
+    const dependencies = new Array<PythonType>();
     const parent = resolver.getParent(this.fqn!);
 
     // We need to return any bases that are in the same module at the same level of
     // nesting.
-    const seen: Set<string> = new Set();
+    const seen = new Set<string>();
     for (const base of this.bases) {
       if (spec.isNamedTypeReference(base)) {
         if (resolver.isInModule(base)) {
@@ -272,7 +269,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     this.emitPreamble(code, resolver);
 
     if (this.members.length > 0) {
-      resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
+      resolver = this.boundResolver(resolver);
       for (const member of sortMembers(this.members, resolver)) {
         member.emit(code, resolver);
       }
@@ -281,6 +278,13 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     }
 
     code.closeBlock();
+  }
+
+  protected boundResolver(resolver: TypeResolver): TypeResolver {
+    if (this.fqn == null) {
+      return resolver;
+    }
+    return resolver.bind(this.fqn);
   }
 
   protected abstract getClassParams(resolver: TypeResolver): string[];
@@ -339,7 +343,7 @@ abstract class BaseMethod implements PythonBase {
     // This can hopefully be removed once we get https://github.com/aws/jsii/issues/288
     // resolved, so build up a list of all of the prop names so we can check against
     // them later.
-    const liftedPropNames: Set<string> = new Set();
+    const liftedPropNames = new Set<string>();
     if (this.liftedProp?.properties?.length ?? 0 >= 1) {
       for (const prop of this.liftedProp!.properties!) {
         liftedPropNames.add(toPythonParameterName(prop.name));
@@ -811,7 +815,7 @@ interface ClassOpts extends PythonTypeOpts {
   abstractBases?: spec.ClassType[];
 }
 
-class Class extends BasePythonClassType {
+class Class extends BasePythonClassType implements ISortableType {
 
   private readonly abstract: boolean;
   private readonly abstractBases: spec.ClassType[];
@@ -833,7 +837,7 @@ class Class extends BasePythonClassType {
 
     // We need to return any ifaces that are in the same module at the same level of
     // nesting.
-    const seen: Set<string> = new Set();
+    const seen = new Set<string>();
     for (const iface of this.interfaces) {
       if (resolver.isInModule(iface)) {
         // Given a iface, we need to locate the ifaces's parent that is the same
@@ -874,7 +878,7 @@ class Class extends BasePythonClassType {
     if (this.abstract) {
       resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
 
-      const proxyBases: string[] = [this.pythonName];
+      const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
         proxyBases.push(`jsii.proxy_for(${resolver.resolve({ type: base })})`);
       }
@@ -989,6 +993,13 @@ class EnumMember implements PythonBase {
 }
 
 class Namespace extends BasePythonClassType {
+  protected boundResolver(resolver: TypeResolver): TypeResolver {
+    if (this.fqn == null) {
+      return resolver;
+    }
+    return resolver.bind(this.fqn, `.${this.pythonName}`);
+  }
+
   protected getClassParams(_resolver: TypeResolver): string[] {
     return [];
   }
@@ -1038,11 +1049,11 @@ class Module implements PythonType {
     code.line('import builtins');
     code.line('import datetime');
     code.line('import enum');
+    code.line('import publication');
     code.line('import typing');
     code.line();
     code.line('import jsii');
     code.line('import jsii.compat');
-    code.line('import publication');
 
     // Go over all of the modules that we need to import, and import them.
     this.emitDependencyImports(code, resolver);
@@ -1091,20 +1102,14 @@ class Module implements PythonType {
   }
 
   private emitDependencyImports(code: CodeMaker, _resolver: TypeResolver) {
-    const deps = Array.from(
-      new Set([
-        ...Object.keys(this.assembly.dependencies ?? {}).map(d => {
-          return this.assembly.dependencyClosure![d]!.targets!.python!.module;
-        }),
-      ])
-    );
+    const deps = Object.keys(this.assembly.dependencies ?? {})
+      .map(d => this.assembly.dependencyClosure![d]!.targets!.python!.module)
+      .sort();
 
-    for (const [idx, moduleName] of deps.sort().entries()) {
+    for (const [idx, moduleName] of deps.entries()) {
       // If this our first dependency, add a blank line to format our imports
       // slightly nicer.
-      if (idx === 0) {
-        code.line();
-      }
+      if (idx === 0) { code.line(); }
 
       code.line(`import ${moduleName}`);
     }
@@ -1289,10 +1294,10 @@ interface TypeResolverOpts {
 }
 
 class TypeResolver {
+  private static readonly STD_TYPES_REGEX = /^(datetime\.datetime|typing\.[A-Z][a-z]+|jsii\.Number)$/;
 
   private readonly types: Map<string, PythonType>;
   private readonly boundTo?: string;
-  private readonly stdTypesRe = new RegExp('^(datetime\\.datetime|typing\\.[A-Z][a-z]+|jsii\\.Number)$');
   private readonly boundRe!: RegExp;
   private readonly moduleName?: string;
   private readonly moduleRe!: RegExp;
@@ -1325,7 +1330,9 @@ class TypeResolver {
       this.findModule,
       this.findType,
       fqn,
-      moduleName !== undefined ? moduleName : this.moduleName,
+      moduleName !== undefined
+        ? moduleName.startsWith('.') ? `${this.moduleName}${moduleName}` : moduleName
+        : this.moduleName,
     );
   }
 
@@ -1341,7 +1348,11 @@ class TypeResolver {
 
   public getParent(typeRef: spec.NamedTypeReference | string): PythonType {
     const fqn = typeof typeRef !== 'string' ? typeRef.fqn : typeRef;
-    const [, parentFQN] = /^(.+)\.[^.]+$/.exec(fqn) as string[];
+    const matches = /^(.+)\.[^.]+$/.exec(fqn);
+    if (matches == null || !Array.isArray(matches)) {
+      throw new Error(`Invalid FQN: ${fqn}`);
+    }
+    const [, parentFQN] = matches;
     const parent = this.types.get(parentFQN);
 
     if (parent === undefined) {
@@ -1393,7 +1404,7 @@ class TypeResolver {
 
       // These are not exactly built in types, but they're also not types that
       // this resolver has to worry about.
-      if (this.stdTypesRe.test(innerType)) {
+      if (TypeResolver.STD_TYPES_REGEX.test(innerType)) {
         continue;
       }
 
@@ -1514,6 +1525,7 @@ class PythonGenerator extends Generator {
     this.types = new Map();
   }
 
+  // eslint-disable-next-line complexity
   public emitDocString(
     code: CodeMaker,
     docs: spec.Docs | undefined,
@@ -1712,7 +1724,7 @@ class PythonGenerator extends Generator {
       this.addPythonType(
         new Namespace(
           this,
-          toPythonIdentifier(ns.replace(/^.+\.([^.]+)$/, '$1')),
+          toSnakeCase(toPythonIdentifier(ns.replace(/^.+\.([^.]+)$/, '$1'))),
           ns,
           {},
           undefined,

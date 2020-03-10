@@ -1,3 +1,4 @@
+import * as Case from 'case';
 import * as colors from 'colors/safe';
 import * as crypto from 'crypto';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -32,6 +33,7 @@ export class Assembler implements Emitter {
 
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
+  private readonly _submodules = new Set<ts.Symbol>();
 
   /**
    * @param projectInfo information about the package being assembled
@@ -358,6 +360,11 @@ export class Assembler implements Emitter {
     const sourceModule = this._typeChecker.getSymbolAtLocation(sourceFile);
     // If there's no module, it's a syntax error, and tsc will have reported it for us.
     if (sourceModule) {
+      if (symbol.name !== Case.camel(symbol.name) && symbol.name !== Case.snake(symbol.name)) {
+        this._diagnostic(declaration, ts.DiagnosticCategory.Error,
+          `Submodule namespaces must be camelCased or snake_cased. Consider renaming to "${Case.camel(symbol.name)}".`);
+      }
+      this._submodules.add(symbol);
       this._addToSubmodule(symbol, sourceModule);
     }
   }
@@ -414,11 +421,13 @@ export class Assembler implements Emitter {
       // (classes, interfaces, enums, modules), we need to also associate those
       // nested symbols to the submodule (or they won't be named correctly!)
       const decl = symbol.declarations?.[0];
-      if (decl != null
-        && (ts.isClassDeclaration(decl) || ts.isInterfaceDeclaration(decl) || ts.isEnumDeclaration(decl) || ts.isModuleDeclaration(decl))
-      ) {
-        const type = this._typeChecker.getTypeAtLocation(decl);
-        if (type.symbol.exports) {
+      if (decl != null) {
+        if (ts.isClassDeclaration(decl) || ts.isInterfaceDeclaration(decl) || ts.isEnumDeclaration(decl)) {
+          const type = this._typeChecker.getTypeAtLocation(decl);
+          if (type.symbol.exports) {
+            this._addToSubmodule(ns, symbol);
+          }
+        } else if (ts.isModuleDeclaration(decl)) {
           this._addToSubmodule(ns, symbol);
         }
       }
@@ -465,7 +474,7 @@ export class Assembler implements Emitter {
       jsiiType = await this._visitEnum(this._typeChecker.getTypeAtLocation(node), context);
     } else if (ts.isModuleDeclaration(node)) { // export namespace name { ... }
       const name = node.name.getText();
-      const symbol = (node as any).symbol;
+      const symbol = this._typeChecker.getSymbolAtLocation(node.name)!;
 
       if (LOG.isTraceEnabled()) { LOG.trace(`Entering namespace: ${colors.cyan([...context.namespace, name].join('.'))}`); }
 
@@ -482,6 +491,31 @@ export class Assembler implements Emitter {
     }
 
     if (!jsiiType) { return []; }
+
+    // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
+    // target language separately, so names cannot collide with case-variations.
+    for (const submodule of this._submodules) {
+      const candidates = Array.from(new Set([
+        submodule.name,
+        Case.camel(submodule.name),
+        Case.pascal(submodule.name),
+        Case.snake(submodule.name),
+      ]));
+      const colliding = candidates.find(name => `${this.projectInfo.name}.${name}` === jsiiType!.fqn);
+      if (colliding != null) {
+        const submoduleDecl = submodule.valueDeclaration ?? submodule.declarations[0];
+        this._diagnostic(node, ts.DiagnosticCategory.Error,
+          `Submodule "${submodule.name}" conflicts with "${jsiiType.name}". Restricted names are: ${candidates.join(', ')}`,
+          [{
+            category: ts.DiagnosticCategory.Warning,
+            code: JSII_DIAGNOSTICS_CODE,
+            file: submoduleDecl.getSourceFile(),
+            length: submoduleDecl.getEnd() - submoduleDecl.getStart(),
+            messageText: 'This is the conflicting submodule declaration.',
+            start: submoduleDecl.getStart()
+          }]);
+      }
+    }
 
     if (LOG.isInfoEnabled()) {
       LOG.info(`Registering JSII ${colors.magenta(jsiiType.kind)}: ${colors.green(jsiiType.fqn)}`);
@@ -700,7 +734,8 @@ export class Assembler implements Emitter {
       if (!classDecl.members) { continue; }
 
       for (const memberDecl of classDecl.members) {
-        const member: ts.Symbol = (memberDecl as any).symbol;
+        // The "??" is to get to the __constructor symbol (getSymbolAtLocation wouldn't work there...)
+        const member = this._typeChecker.getSymbolAtLocation(memberDecl.name!) ?? ((memberDecl as any).symbol as ts.Symbol);
 
         if (!(declaringType.symbol.getDeclarations() ?? []).find(d => d === memberDecl.parent)) {
           continue;
