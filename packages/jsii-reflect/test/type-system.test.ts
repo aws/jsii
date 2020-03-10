@@ -47,9 +47,9 @@ test('"roots" is a list of the directly loaded assemblies', async () => {
 describe('Type', () => {
   test('.isClassType', () => {
     // GIVEN
-    const clazz = typesys.findFqn('jsii-calc.AllTypes');
-    const iface = typesys.findFqn('jsii-calc.IPublicInterface');
-    const enumt = typesys.findFqn('jsii-calc.AllTypesEnum');
+    const clazz = typesys.findFqn('jsii-calc.compliance.AllTypes');
+    const iface = typesys.findFqn('jsii-calc.compliance.IPublicInterface');
+    const enumt = typesys.findFqn('jsii-calc.compliance.AllTypesEnum');
 
     // THEN
     expect(clazz.isClassType()).toBeTruthy();
@@ -59,10 +59,10 @@ describe('Type', () => {
 
   test('.isDataType', () => {
     // GIVEN
-    const clazz = typesys.findFqn('jsii-calc.AllTypes');
-    const iface = typesys.findFqn('jsii-calc.IInterfaceThatShouldNotBeADataType');
+    const clazz = typesys.findFqn('jsii-calc.compliance.AllTypes');
+    const iface = typesys.findFqn('jsii-calc.compliance.IInterfaceThatShouldNotBeADataType');
     const datat = typesys.findFqn('jsii-calc.CalculatorProps');
-    const enumt = typesys.findFqn('jsii-calc.AllTypesEnum');
+    const enumt = typesys.findFqn('jsii-calc.compliance.AllTypesEnum');
 
     // THEN
     expect(clazz.isDataType()).toBeFalsy();
@@ -73,9 +73,9 @@ describe('Type', () => {
 
   test('.isInterfaceType', () => {
     // GIVEN
-    const clazz = typesys.findFqn('jsii-calc.AllTypes');
-    const iface = typesys.findFqn('jsii-calc.IPublicInterface');
-    const enumt = typesys.findFqn('jsii-calc.AllTypesEnum');
+    const clazz = typesys.findFqn('jsii-calc.compliance.AllTypes');
+    const iface = typesys.findFqn('jsii-calc.compliance.IPublicInterface');
+    const enumt = typesys.findFqn('jsii-calc.compliance.AllTypesEnum');
 
     // THEN
     expect(clazz.isInterfaceType()).toBeFalsy();
@@ -85,9 +85,9 @@ describe('Type', () => {
 
   test('.isEnumType', () => {
     // GIVEN
-    const clazz = typesys.findFqn('jsii-calc.AllTypes');
-    const iface = typesys.findFqn('jsii-calc.IPublicInterface');
-    const enumt = typesys.findFqn('jsii-calc.AllTypesEnum');
+    const clazz = typesys.findFqn('jsii-calc.compliance.AllTypes');
+    const iface = typesys.findFqn('jsii-calc.compliance.IPublicInterface');
+    const enumt = typesys.findFqn('jsii-calc.compliance.AllTypesEnum');
 
     // THEN
     expect(clazz.isEnumType()).toBeFalsy();
@@ -99,8 +99,8 @@ describe('Type', () => {
     test('with interfaces', () => {
       // GIVEN
       const base = typesys.findFqn('@scope/jsii-calc-base-of-base.VeryBaseProps');
-      const clazz = typesys.findFqn('jsii-calc.ImplictBaseOfBase');
-      const enumt = typesys.findFqn('jsii-calc.AllTypesEnum');
+      const clazz = typesys.findFqn('jsii-calc.compliance.ImplictBaseOfBase');
+      const enumt = typesys.findFqn('jsii-calc.compliance.AllTypesEnum');
 
       // THEN
       expect(base.extends(base)).toBeTruthy();
@@ -113,8 +113,8 @@ describe('Type', () => {
 
     test('with a class and an interface', () => {
       // GIVEN
-      const iface = typesys.findFqn('jsii-calc.IInterfaceImplementedByAbstractClass');
-      const clazz = typesys.findFqn('jsii-calc.AbstractClass');
+      const iface = typesys.findFqn('jsii-calc.compliance.IInterfaceImplementedByAbstractClass');
+      const clazz = typesys.findFqn('jsii-calc.compliance.AbstractClass');
 
       // THEN
       expect(clazz.extends(iface)).toBeTruthy();
@@ -122,8 +122,8 @@ describe('Type', () => {
 
     test('with two classes', () => {
       // GIVEN
-      const base = typesys.findFqn('jsii-calc.AbstractClassBase');
-      const clazz = typesys.findFqn('jsii-calc.AbstractClass');
+      const base = typesys.findFqn('jsii-calc.compliance.AbstractClassBase');
+      const clazz = typesys.findFqn('jsii-calc.compliance.AbstractClass');
 
       // THEN
       expect(clazz.extends(base)).toBeTruthy();
@@ -133,15 +133,15 @@ describe('Type', () => {
   describe('.allImplementations', () => {
     test('with an interface', () => {
       // GIVEN
-      const base = typesys.findFqn('jsii-calc.IInterfaceImplementedByAbstractClass');
+      const base = typesys.findFqn('jsii-calc.compliance.IInterfaceImplementedByAbstractClass');
 
       // THEN
-      expect(base.allImplementations).toEqual([typesys.findFqn('jsii-calc.AbstractClass'), base]);
+      expect(base.allImplementations).toEqual([typesys.findFqn('jsii-calc.compliance.AbstractClass'), base]);
     });
 
     test('with an enum', () => {
       // GIVEN
-      const enumt = typesys.findFqn('jsii-calc.AllTypesEnum');
+      const enumt = typesys.findFqn('jsii-calc.compliance.AllTypesEnum');
 
       // THEN
       expect(enumt.allImplementations).toEqual([]);
@@ -158,12 +158,12 @@ test('Three Inheritance Levels', () => {
 
 describe('@deprecated', () => {
   test('can be read on an item', () => {
-    const klass = typesys.findClass('jsii-calc.Old');
+    const klass = typesys.findClass('jsii-calc.documented.Old');
     expect(klass.docs.deprecated).toBeTruthy();
   });
 
   test('is inherited from class', () => {
-    const klass = typesys.findClass('jsii-calc.Old');
+    const klass = typesys.findClass('jsii-calc.documented.Old');
     const method = klass.getMethods().doAThing;
     expect(method.docs.deprecated).toBeTruthy();
   });
@@ -203,18 +203,18 @@ test('overridden member knows about both parent types', async () => {
 
 describe('Stability', () => {
   test('can be read on an item', () => {
-    const klass = typesys.findClass('jsii-calc.DocumentedClass');
+    const klass = typesys.findClass('jsii-calc.documented.DocumentedClass');
     expect(klass.docs.stability).toBe(spec.Stability.Stable);
   });
 
   test('is inherited from class', () => {
-    const klass = typesys.findClass('jsii-calc.DocumentedClass');
+    const klass = typesys.findClass('jsii-calc.documented.DocumentedClass');
     const method = klass.getMethods().greet;
     expect(method.docs.stability).toBe(spec.Stability.Stable);
   });
 
   test('can be overridden from class', () => {
-    const klass = typesys.findClass('jsii-calc.DocumentedClass');
+    const klass = typesys.findClass('jsii-calc.documented.DocumentedClass');
     const method = klass.getMethods().hola;
     expect(method.docs.stability).toBe(spec.Stability.Experimental);
   });

@@ -7,13 +7,12 @@ import org.junit.Test;
 import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.tests.calculator.*;
-import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
-import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
-import software.amazon.jsii.tests.calculator.lib.IFriendly;
-import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
+import software.amazon.jsii.tests.calculator.compliance.*;
+import software.amazon.jsii.tests.calculator.composition.*;
+import software.amazon.jsii.tests.calculator.lib.*;
+// Removes ambiguity with java.lang.Number
 import software.amazon.jsii.tests.calculator.lib.Number;
-import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
-import software.amazon.jsii.tests.calculator.lib.Value;
+import software.amazon.jsii.tests.calculator.stability_annotations.*;
 
 import java.io.IOException;
 import java.time.Instant;
