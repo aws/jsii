@@ -31,7 +31,7 @@ export class Assembler implements Emitter {
   private _types: { [fqn: string]: spec.Type } = {};
 
   /** Map of Symbol to namespace export Symbol */
-  private readonly _namespaceMap = new Map<ts.Symbol, ts.Symbol>();
+  private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
 
   /**
    * @param projectInfo information about the package being assembled
@@ -305,10 +305,10 @@ export class Assembler implements Emitter {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
       return `unknown.${typeName}`;
     }
-    const submoduleNs = this._namespaceMap.get(type.symbol)?.name;
-    const fqn = submoduleNs == null
-      ? `${pkg.name}.${typeName}`
-      : `${pkg.name}.${submoduleNs}.${typeName}`;
+    const submoduleNs = this._submoduleMap.get(type.symbol)?.name;
+    const fqn = submoduleNs != null
+      ? `${pkg.name}.${submoduleNs}.${typeName}`
+      : `${pkg.name}.${typeName}`;
     if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn }, type.symbol.valueDeclaration)) {
       this._diagnostic(node,
         ts.DiagnosticCategory.Error,
@@ -358,52 +358,68 @@ export class Assembler implements Emitter {
     const sourceModule = this._typeChecker.getSymbolAtLocation(sourceFile);
     // If there's no module, it's a syntax error, and tsc will have reported it for us.
     if (sourceModule) {
-      this._addToNamespace(symbol, sourceModule);
+      this._addToSubmodule(symbol, sourceModule);
     }
   }
 
-  private _addToNamespace(ns: ts.Symbol, moduleLike: ts.Symbol) {
+  /**
+   * Registers Symbols to a particular submodule. This is used to associate
+   * declarations exported by an `export * as ns from 'moduleLike';` statement
+   * so that they can subsequently be correctly namespaced.
+   *
+   * @param ns         the symbol that identifies the submodule.
+   * @param moduleLike the module-like symbol bound to the submodule.
+   */
+  private _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol) {
+    // For each symbol exported by the moduleLike, map it to the ns submodule.
     for (const symbol of this._typeChecker.getExportsOfModule(moduleLike)) {
-      if (this._namespaceMap.has(symbol)) {
-        const currNs = this._namespaceMap.get(symbol)!;
+      if (this._submoduleMap.has(symbol)) {
+        const currNs = this._submoduleMap.get(symbol)!;
+        // Checking if there's been two submodules exporting the same symbol,
+        // which is illegal. We can tell if the currently registered symbol has
+        // a different name than the one we're currently trying to register in.
         if (currNs.name !== ns.name) {
           const currNsDecl = currNs.valueDeclaration ?? currNs.declarations[0];
           const nsDecl = ns.valueDeclaration ?? ns.declarations[0];
           this._diagnostic(
             symbol.valueDeclaration,
             ts.DiagnosticCategory.Error,
-            `Symbol is re-exported under two distinct namespaces (${currNs.name} and ${ns.name})`,
+            `Symbol is re-exported under two distinct submodules (${currNs.name} and ${ns.name})`,
             [{
               category: ts.DiagnosticCategory.Warning,
               file: currNsDecl.getSourceFile(),
               length: currNsDecl.getStart() - currNsDecl.getEnd(),
-              messageText: `Symbol is exported under the "${currNs.name}" namespace`,
+              messageText: `Symbol is exported under the "${currNs.name}" submodule`,
               start: currNsDecl.getStart(),
               code: JSII_DIAGNOSTICS_CODE
             }, {
               category: ts.DiagnosticCategory.Warning,
               file: nsDecl.getSourceFile(),
               length: nsDecl.getStart() - nsDecl.getEnd(),
-              messageText: `Symbol is exported under the "${ns.name}" namespace`,
+              messageText: `Symbol is exported under the "${ns.name}" submodule`,
               start: nsDecl.getStart(),
               code: JSII_DIAGNOSTICS_CODE
             }]
           );
         }
-        // Found two re-exports, which is odd, but they use the same namespace,
+        // Found two re-exports, which is odd, but they use the same submodule,
         // so it's probably okay? That's likely a tsc error, which will have
         // been reported for us already anyway.
         continue;
       }
-      this._namespaceMap.set(symbol, ns);
+      this._submoduleMap.set(symbol, ns);
 
+      // If the exported symbol has any declaration, and that delcaration is of
+      // an entity that can have nested declarations of interest to jsii
+      // (classes, interfaces, enums, modules), we need to also associate those
+      // nested symbols to the submodule (or they won't be named correctly!)
       const decl = symbol.declarations?.[0];
       if (decl != null
         && (ts.isClassDeclaration(decl) || ts.isInterfaceDeclaration(decl) || ts.isEnumDeclaration(decl) || ts.isModuleDeclaration(decl))
       ) {
         const type = this._typeChecker.getTypeAtLocation(decl);
         if (type.symbol.exports) {
-          this._addToNamespace(ns, symbol);
+          this._addToSubmodule(ns, symbol);
         }
       }
     }
@@ -415,28 +431,39 @@ export class Assembler implements Emitter {
    * @param node       a node found in a module
    * @param namePrefix the prefix for the types' namespaces
    */
+  // eslint-disable-next-line complexity
   private async _visitNode(node: ts.Declaration, context: EmitContext): Promise<spec.Type[]> {
-    if (ts.isNamespaceExport(node)) {
+    if (ts.isNamespaceExport(node)) { // export * as ns from 'module';
+      // Note: the "ts.NamespaceExport" refers to the "export * as ns" part of
+      // the statement only. We must refer to `node.parent` in order to be able
+      // to access the module specifier ("from 'module'") part.
       const symbol = this._typeChecker.getSymbolAtLocation(node.parent.moduleSpecifier!)!;
+
+      if (LOG.isTraceEnabled()) { LOG.trace(`Entering submodule: ${colors.cyan([...context.namespace, symbol.name].join('.'))}`); }
+
       const nsContext = context.appendNamespace(node.name.text);
       const promises = new Array<Promise<spec.Type[]>>();
       for (const child of this._typeChecker.getExportsOfModule(symbol)) {
         promises.push(this._visitNode(child.declarations[0], nsContext));
       }
-      return flattenPromises(promises);
+      const allTypes = flattenPromises(promises);
+
+      if (LOG.isTraceEnabled()) { LOG.trace(`Leaving submodule: ${colors.cyan([...context.namespace, symbol.name].join('.'))}`); }
+
+      return allTypes;
     }
 
     if ((ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) === 0) { return []; }
 
     let jsiiType: spec.Type | undefined;
 
-    if (ts.isClassDeclaration(node) && _isExported(node)) {
+    if (ts.isClassDeclaration(node) && _isExported(node)) { // export class Name { ... }
       jsiiType = await this._visitClass(this._typeChecker.getTypeAtLocation(node), context);
-    } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) {
+    } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) { // export interface Name { ... }
       jsiiType = await this._visitInterface(this._typeChecker.getTypeAtLocation(node), context);
-    } else if (ts.isEnumDeclaration(node) && _isExported(node)) {
+    } else if (ts.isEnumDeclaration(node) && _isExported(node)) { // export enum Name { ... }
       jsiiType = await this._visitEnum(this._typeChecker.getTypeAtLocation(node), context);
-    } else if (ts.isModuleDeclaration(node)) {
+    } else if (ts.isModuleDeclaration(node)) { // export namespace name { ... }
       const name = node.name.getText();
       const symbol = (node as any).symbol;
 
@@ -544,6 +571,7 @@ export class Assembler implements Emitter {
     return { interfaces: result.length === 0 ? undefined : result, erasedBases };
   }
 
+  // eslint-disable-next-line complexity
   private async _visitClass(type: ts.Type, ctx: EmitContext): Promise<spec.ClassType | undefined> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(`Processing class: ${colors.gray(ctx.namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
