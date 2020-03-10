@@ -15,7 +15,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.String getReadonlyProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty();
 
     /**
      * @return a {@link Builder} of {@link DeprecatedStruct}

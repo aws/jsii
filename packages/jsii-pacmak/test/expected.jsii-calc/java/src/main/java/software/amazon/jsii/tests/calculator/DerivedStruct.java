@@ -15,13 +15,13 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.time.Instant getAnotherRequired();
+    @org.jetbrains.annotations.NotNull java.time.Instant getAnotherRequired();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getBool();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getBool();
 
     /**
      * An example of a non primitive property.
@@ -29,7 +29,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive();
 
     /**
      * This is optional.
@@ -37,7 +37,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional() {
+    default @org.jetbrains.annotations.Nullable java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional() {
         return null;
     }
 
@@ -45,7 +45,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Object getOptionalAny() {
+    default @org.jetbrains.annotations.Nullable java.lang.Object getOptionalAny() {
         return null;
     }
 
@@ -53,7 +53,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.util.List<java.lang.String> getOptionalArray() {
+    default @org.jetbrains.annotations.Nullable java.util.List<java.lang.String> getOptionalArray() {
         return null;
     }
 

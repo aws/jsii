@@ -1,20 +1,27 @@
 # See https://doc.mergify.io
 
 pull_request_rules:
+  - name: label core
+    actions:
+      label:
+        add: [ contribution/core ]
+    conditions:
+      - author~=^(eladb|RomainMuller|garnaat|nija-at|shivlaks|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo)$
+      - -label~="contribution/core"
   - name: Tell them we're good now
     actions:
       comment:
         message: >-
           Thank you for contributing! :heart: I will now look into making sure the PR is up-to-date, then proceed to try and merge it!
       label:
-        add: [pr-status/ready-to-merge]
+        add: [pr/ready-to-merge]
     conditions:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
-      - label!=blocked
-      - label!=do-not-merge
-      - label!=pr-status/ready-to-merge
+      - label!=pr/blocked
+      - label!=pr/do-not-merge
+      - label!=pr/ready-to-merge
       - -merged
       - -closed
       - -approved-reviews-by~=author
@@ -40,10 +47,10 @@ pull_request_rules:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
-      - label!=blocked
-      - label!=do-not-merge
-      - label=pr-status/ready-to-merge
-      - label!=pr-status/no-squash
+      - label!=pr/blocked
+      - label!=pr/do-not-merge
+      - label=pr/ready-to-merge
+      - label!=pr/no-squash
       - -merged
       - -closed
       - -approved-reviews-by~=author
@@ -69,10 +76,10 @@ pull_request_rules:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
-      - label!=blocked
-      - label!=do-not-merge
-      - label=pr-status/ready-to-merge
-      - label=pr-status/no-squash
+      - label!=pr/blocked
+      - label!=pr/do-not-merge
+      - label=pr/ready-to-merge
+      - label=pr/no-squash
       - -merged
       - -closed
       - -approved-reviews-by~=author
@@ -92,7 +99,7 @@ pull_request_rules:
   - name: Remove Label
     actions:
       label:
-        remove: [pr-status/ready-to-merge]
+        remove: [pr/ready-to-merge]
     conditions:
       - merged
 
@@ -105,17 +112,7 @@ pull_request_rules:
       - base=master
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
-      # List of people with push permissions on the repository
-      - author!=eladb
-      - author!=RomainMuller
-      - author!=garnaat
-      - author!=nija-at
-      - author!=shivlaks
-      - author!=skinny85
-      - author!=rix0rrr
-      - author!=NGL321
-      - author!=Jerry-AWS
-      - author!=SomayaB
+      - label!=contribution/core
 
   - name: Let them know the PR title doesn't look right
     actions:

@@ -14,7 +14,7 @@ public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.Number getDoubleValue();
+    @org.jetbrains.annotations.NotNull java.lang.Number getDoubleValue();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

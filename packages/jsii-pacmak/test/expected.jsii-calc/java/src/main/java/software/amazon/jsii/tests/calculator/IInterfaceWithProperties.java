@@ -13,18 +13,18 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getReadOnlyString();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadOnlyString();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getReadWriteString();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadWriteString();
 
     /**
      * EXPERIMENTAL
      */
-    void setReadWriteString(final java.lang.String value);
+    void setReadWriteString(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

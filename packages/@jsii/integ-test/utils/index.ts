@@ -55,14 +55,17 @@ export class ProcessManager {
    */
   public async spawn(cmd: string, args: string[], opts: any = {}): Promise<void> {
     const proc = cp.spawn(cmd, args, { stdio: 'inherit', ...opts });
+    const cmdString = `${cmd} ${args.join(' ')}`;
+    process.stdout.write(`Running command: ${cmdString}\n`);
 
     const promise = new Promise<void>((ok, ko) => {
       proc.once('exit', code => {
-        const message = `child process exited with code: ${code}`;
+        const message = `child process exited with code: ${code}\n`;
         if (code === 0) {
           process.stdout.write(message);
           ok();
         } else {
+          process.stderr.write(`Command failed: ${cmdString}\n`);
           process.stderr.write(message);
           ko(new Error(message));
         }
@@ -71,6 +74,7 @@ export class ProcessManager {
       });
 
       proc.once('error', error => {
+        process.stderr.write(`Command failed: ${cmdString}\n`);
         process.stderr.write(`Process ${proc.pid} error: ${error}`);
         ko();
       });

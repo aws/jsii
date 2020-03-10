@@ -13,13 +13,13 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.lib.Number getNumberProp();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Number getNumberProp();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

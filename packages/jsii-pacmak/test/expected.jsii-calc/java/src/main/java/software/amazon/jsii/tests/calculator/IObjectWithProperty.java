@@ -15,18 +15,18 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
      * EXPERIMENTAL
      */
-    void setProperty(final java.lang.String value);
+    void setProperty(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean wasSet();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean wasSet();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

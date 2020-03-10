@@ -11,7 +11,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    java.lang.String getReadonlyProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty();
 
     /**
      * @return a {@link Builder} of {@link StableStruct}

@@ -5,7 +5,7 @@ package software.amazon.jsii.tests.calculator.base;
 @software.amazon.jsii.Jsii.Proxy(BaseProps.Jsii$Proxy.class)
 public interface BaseProps extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.baseofbase.VeryBaseProps {
 
-    java.lang.String getBar();
+    @org.jetbrains.annotations.NotNull java.lang.String getBar();
 
     /**
      * @return a {@link Builder} of {@link BaseProps}

@@ -261,6 +261,15 @@ reference must be correctly identified and passed across.
 > :construction: The .NET Runtime does not currently honor object identity,
 > meaning that despite the same object reference is returned twice, two distinct
 > proxies exist for it in the *host* .NET app.
+>
+> Generally speaking, using pure object identity on *jsii* language front-ends
+> is dangerous, as certain statically typed language will require the runtime to
+> have different instances for different static types a given object reference
+> is surfaced as. It may be necessary to introduce a helper akin to
+> `Jsii.isSameObject(a, b)` to enable identity predicates to be used. Other
+> helper functions may be necessary, too, such as one to obtain a "consistent"
+> object hash for instances in Java (so they can be safely used with `HashMap`,
+> ...).
 
 <details><summary>Show test</summary>
 

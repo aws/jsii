@@ -34,9 +34,9 @@
     }
   ],
   "dependencies": {
-    "@scope/jsii-calc-base": "^1.0.0",
-    "@scope/jsii-calc-base-of-base": "^1.0.0",
-    "@scope/jsii-calc-lib": "^1.0.0"
+    "@scope/jsii-calc-base": "^1.1.0",
+    "@scope/jsii-calc-base-of-base": "^1.1.0",
+    "@scope/jsii-calc-lib": "^1.1.0"
   },
   "dependencyClosure": {
     "@scope/jsii-calc-base": {
@@ -113,7 +113,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "1.0.0",
+  "jsiiVersion": "1.1.0",
   "keywords": [
     "aws",
     "jsii",
@@ -5506,6 +5506,39 @@
           }
         }
       ]
+    },
+    "jsii-calc.IOptionalMethod": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Checks that optional result from interface method code generates correctly."
+      },
+      "fqn": "jsii-calc.IOptionalMethod",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2465
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2466
+          },
+          "name": "optional",
+          "returns": {
+            "optional": true,
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IOptionalMethod"
     },
     "jsii-calc.IPrivatelyImplemented": {
       "assembly": "jsii-calc",
@@ -12122,6 +12155,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "1.0.0",
-  "fingerprint": "rtlqfLVk+YuqJRqeFCR5A3mesEPpfJgo5m1gRM323+U="
+  "version": "1.1.0",
+  "fingerprint": "EIFtfZN4eukuZnpbTeqrxdc/JrKnU8eDm1SVncWk/vU="
 }

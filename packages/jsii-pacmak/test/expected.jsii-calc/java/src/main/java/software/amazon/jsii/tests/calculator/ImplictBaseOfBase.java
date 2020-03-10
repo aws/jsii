@@ -13,7 +13,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.time.Instant getGoo();
+    @org.jetbrains.annotations.NotNull java.time.Instant getGoo();
 
     /**
      * @return a {@link Builder} of {@link ImplictBaseOfBase}

@@ -19,7 +19,7 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
      * @return A random number.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number next();
+    @org.jetbrains.annotations.NotNull java.lang.Number next();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

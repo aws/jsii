@@ -15,13 +15,13 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.Implementation provideAsClass();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Implementation provideAsClass();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

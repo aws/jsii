@@ -1,12 +1,13 @@
 {
   "name": "@jsii/integ-test",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A suite of integration tests for JSII and related modules.",
   "private": true,
   "scripts": {
     "build": "tsc --build && npm run lint",
     "lint": "eslint . --ext .ts --ignore-path=.gitignore",
-    "test:integ": "jest"
+    "test:integ": "jest",
+    "package": "package-private"
   },
   "keywords": [],
   "author": {
@@ -15,21 +16,23 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
+    "@octokit/rest": "^16.36.0",
+    "dotenv": "^8.2.0",
+    "fs-extra": "^8.1.0",
+    "jest": "^25.1.0",
+    "jsii": "^1.1.0",
+    "jsii-pacmak": "^1.1.0",
+    "jsii-rosetta": "^1.1.0",
     "tar": "^6.0.1"
   },
   "devDependencies": {
-    "@octokit/rest": "^16.36.0",
     "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^8.1.0",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^10.17.17",
     "@types/tar": "^4.0.3",
-    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
-    "fs-extra": "^8.1.0",
-    "jest": "^25.1.0",
-    "jsii": "^1.0.0",
-    "jsii-pacmak": "^1.0.0",
-    "jsii-rosetta": "^1.0.0",
-    "typescript": "~3.7.5"
+    "typescript": "~3.8.3"
   },
   "jest": {
     "errorOnDeprecated": true,

@@ -13,13 +13,13 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getDefaultValue();
+    @org.jetbrains.annotations.NotNull java.lang.String getDefaultValue();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getAssertValue() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getAssertValue() {
         return null;
     }
 
@@ -27,7 +27,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getResult() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getResult() {
         return null;
     }
 
@@ -35,7 +35,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getThat() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getThat() {
         return null;
     }
 

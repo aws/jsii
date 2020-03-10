@@ -15,7 +15,7 @@ public interface IReturnJsii976 extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getFoo();
+    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
