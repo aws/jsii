@@ -13,13 +13,13 @@ public interface IAnonymouslyImplementMe extends software.amazon.jsii.JsiiSerial
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getValue();
+    @org.jetbrains.annotations.NotNull java.lang.Number getValue();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String verb();
+    @org.jetbrains.annotations.NotNull java.lang.String verb();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

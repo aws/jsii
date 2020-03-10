@@ -13,7 +13,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getFirstMidLevelProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getFirstMidLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceFirstMidLevelStruct}

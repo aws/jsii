@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+rm -fr dist/private
+
+package_name=$(node -p "require('./package.json').name")
+target_file="dist/private/${package_name/\//-}.tgz"
+
+mkdir -p $(dirname ${target_file})
+
+mv $(npm pack) ${target_file}

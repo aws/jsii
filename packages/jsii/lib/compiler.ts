@@ -216,7 +216,7 @@ export class Compiler implements Emitter {
         ...pi.tsc,
         ...COMPILER_OPTIONS,
         composite,
-        // Need to stip the `lib.` prefix and `.d.ts` suffix
+        // Need to strip the `lib.` prefix and `.d.ts` suffix
         lib: COMPILER_OPTIONS.lib?.map(name => name.slice(4, name.length - 5)),
         // Those int-enums, we need to output the names instead
         module: COMPILER_OPTIONS.module && ts.ModuleKind[COMPILER_OPTIONS.module],

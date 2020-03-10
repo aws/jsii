@@ -13,12 +13,12 @@ public interface IMutableObjectLiteral extends software.amazon.jsii.JsiiSerializ
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getValue();
+    @org.jetbrains.annotations.NotNull java.lang.String getValue();
 
     /**
      * EXPERIMENTAL
      */
-    void setValue(final java.lang.String value);
+    void setValue(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

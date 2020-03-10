@@ -1,6 +1,6 @@
 {
   "name": "jsii",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "TypeScript compiler for jsii",
   "license": "Apache-2.0",
   "author": {
@@ -33,7 +33,7 @@
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/spec": "^1.0.0",
+    "@jsii/spec": "^1.1.0",
     "case": "^1.6.2",
     "colors": "^1.4.0",
     "deep-equal": "^2.0.1",
@@ -43,23 +43,23 @@
     "semver-intersect": "^1.4.0",
     "sort-json": "^2.0.0",
     "spdx-license-list": "^6.1.0",
-    "typescript": "~3.7.5",
-    "yargs": "^15.1.0"
+    "typescript": "~3.8.3",
+    "yargs": "^15.3.0"
   },
   "devDependencies": {
     "@types/clone": "^0.1.30",
     "@types/deep-equal": "^1.0.1",
     "@types/fs-extra": "^8.1.0",
-    "@types/jest": "^25.1.2",
+    "@types/jest": "^25.1.4",
     "@types/jest-expect-message": "^1.0.1",
-    "@types/node": "^10.17.15",
+    "@types/node": "^10.17.17",
     "@types/semver": "^7.1.0",
-    "@types/yargs": "^15.0.3",
+    "@types/yargs": "^15.0.4",
     "clone": "^2.1.2",
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
     "jest-expect-message": "^1.0.2",
-    "jsii-build-tools": "^1.0.0"
+    "jsii-build-tools": "^1.1.0"
   },
   "jest": {
     "collectCoverage": true,

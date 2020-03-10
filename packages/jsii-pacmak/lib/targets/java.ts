@@ -605,7 +605,7 @@ class JavaGenerator extends Generator {
 
   protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
     this.code.line();
-    const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
+    const returnType = method.returns ? this.toDecoratedJavaType(method.returns) : 'void';
     this.addJavaDocs(method);
     this.emitStabilityAnnotations(method);
     this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
@@ -616,8 +616,8 @@ class JavaGenerator extends Generator {
   }
 
   protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
-    const getterType = this.toJavaType(prop.type);
-    const setterTypes = this.toJavaTypes(prop.type);
+    const getterType = this.toDecoratedJavaType(prop);
+    const setterTypes = this.toDecoratedJavaTypes(prop);
     const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
 
     // for unions we only generate overloads for setters, not getters.
@@ -745,7 +745,7 @@ class JavaGenerator extends Generator {
               }, {
                 groupId: 'org.apache.maven.plugins',
                 artifactId: 'maven-source-plugin',
-                version: '3.2.0',
+                version: '3.2.1',
                 executions: {
                   execution: {
                     id: 'attach-sources',
@@ -774,6 +774,28 @@ class JavaGenerator extends Generator {
                   // Adding these makes JavaDoc generation about a 3rd faster (which is far and away the most
                   // expensive part of the build)
                   additionalJOption: ['-J-XX:+TieredCompilation', '-J-XX:TieredStopAtLevel=1']
+                }
+              }, {
+                groupId: 'org.apache.maven.plugins',
+                artifactId: 'maven-enforcer-plugin',
+                version: '3.0.0-M3',
+                executions: {
+                  execution: {
+                    id: 'enforce-maven',
+                    goals: { goal: 'enforce' },
+                    configuration: {
+                      rules: {
+                        requireMavenVersion: { version: '3.6' },
+                      },
+                    },
+                  },
+                },
+              }, {
+                groupId: 'org.codehaus.mojo',
+                artifactId: 'versions-maven-plugin',
+                version: '2.7',
+                configuration: {
+                  generateBackupPoms: false
                 }
               }]
             }
@@ -822,7 +844,16 @@ class JavaGenerator extends Generator {
       dependencies.push({
         groupId: 'org.jetbrains',
         artifactId: 'annotations',
-        version: '[18.0.0,19.0.0)',
+        version: '[16.0.3,20.0.0)',
+      });
+
+      // Provides @javax.annotation.Generated for JDKs >= 9
+      dependencies.push({
+        '#comment': 'Provides @javax.annotation.Generated for JDKs >= 9',
+        'groupId': 'javax.annotation',
+        'artifactId': 'javax.annotation-api',
+        'version': '[1.3.2,1.4.0)',
+        'scope': 'compile',
       });
 
       return dependencies;
@@ -1930,6 +1961,8 @@ interface MavenDependency {
   scope?: 'compile' | 'provided' | 'runtime' | 'test' | 'system';
   systemPath?: string;
   optional?: boolean;
+
+  '#comment'?: string;
 }
 
 /**

@@ -19,7 +19,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getName() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getName() {
         return null;
     }
 

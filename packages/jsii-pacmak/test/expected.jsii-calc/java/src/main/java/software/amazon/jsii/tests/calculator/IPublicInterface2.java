@@ -13,7 +13,7 @@ public interface IPublicInterface2 extends software.amazon.jsii.JsiiSerializable
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String ciao();
+    @org.jetbrains.annotations.NotNull java.lang.String ciao();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

@@ -21,7 +21,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Number getInitialValue() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getInitialValue() {
         return null;
     }
 
@@ -33,7 +33,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Number getMaximumValue() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getMaximumValue() {
         return null;
     }
 

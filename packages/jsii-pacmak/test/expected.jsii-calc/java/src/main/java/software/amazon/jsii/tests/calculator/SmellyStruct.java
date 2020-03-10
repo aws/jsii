@@ -13,13 +13,13 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getYetAnoterOne();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getYetAnoterOne();
 
     /**
      * @return a {@link Builder} of {@link SmellyStruct}

@@ -13,7 +13,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getSecondMidLevelProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getSecondMidLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceSecondMidLevelStruct}

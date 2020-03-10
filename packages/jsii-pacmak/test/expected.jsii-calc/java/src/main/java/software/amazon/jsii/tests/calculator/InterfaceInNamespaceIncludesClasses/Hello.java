@@ -13,7 +13,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getFoo();
+    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
 
     /**
      * @return a {@link Builder} of {@link Hello}

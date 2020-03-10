@@ -15,7 +15,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getRequired();
+    @org.jetbrains.annotations.NotNull java.lang.String getRequired();
 
     /**
      * A union to really stress test our serialization.
@@ -23,7 +23,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Object getSecondLevel();
+    @org.jetbrains.annotations.NotNull java.lang.Object getSecondLevel();
 
     /**
      * You don't have to pass this.
@@ -31,7 +31,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getOptional() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getOptional() {
         return null;
     }
 
