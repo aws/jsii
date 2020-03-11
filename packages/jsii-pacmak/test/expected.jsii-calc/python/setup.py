@@ -18,7 +18,15 @@ kwargs = json.loads("""
     },
     "packages": [
         "jsii_calc",
-        "jsii_calc._jsii"
+        "jsii_calc._jsii",
+        "jsii_calc.compliance",
+        "jsii_calc.compliance.derived_class_has_no_properties",
+        "jsii_calc.compliance.interface_in_namespace_includes_classes",
+        "jsii_calc.compliance.interface_in_namespace_only_interface",
+        "jsii_calc.composition",
+        "jsii_calc.documented",
+        "jsii_calc.erasure_tests",
+        "jsii_calc.stability_annotations"
     ],
     "package_data": {
         "jsii_calc._jsii": [
