@@ -12,7 +12,7 @@ import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
 
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "1.0.0", "jsii_calc", "jsii-calc@1.0.0.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "1.1.0", "jsii_calc", "jsii-calc@1.1.0.jsii.tgz")
 
 
 class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.documented.DocumentedClass"):

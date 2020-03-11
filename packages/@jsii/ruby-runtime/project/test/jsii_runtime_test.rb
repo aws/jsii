@@ -39,13 +39,13 @@ class JsiiRuntimeTest < Test::Unit::TestCase
     @client.del(objref: calc)
     assert_raise(Aws::Jsii::JsiiError) { @client.get(objref: calc, property: 'curr') }
 
-    assert_equal({ 'value' => 'hello' }, @client.sget(fqn: 'jsii-calc.Statics', property: 'Foo'))
-    assert_equal({ 'result' => 'hello ,Foo!' }, @client.sinvoke(fqn: 'jsii-calc.Statics', method: 'staticMethod', args: ['Foo']))
+    assert_equal({ 'value' => 'hello' }, @client.sget(fqn: 'jsii-calc.compliance.Statics', property: 'Foo'))
+    assert_equal({ 'result' => 'hello ,Foo!' }, @client.sinvoke(fqn: 'jsii-calc.compliance.Statics', method: 'staticMethod', args: ['Foo']))
   end
 
   def test_async_callbacks
     objref = @client.create(
-      fqn: 'jsii-calc.AsyncVirtualMethods',
+      fqn: 'jsii-calc.compliance.AsyncVirtualMethods',
       overrides: [{ method: 'overrideMe', cookie: 'myCookie' }]
     )
 
@@ -67,7 +67,7 @@ class JsiiRuntimeTest < Test::Unit::TestCase
 
   def test_overrides
     objref = @client.create(
-      fqn: 'jsii-calc.SyncVirtualMethods',
+      fqn: 'jsii-calc.compliance.SyncVirtualMethods',
       overrides: [{ method: 'virtualMethod', cookie: 'myCookie' }]
     )
 
@@ -92,7 +92,7 @@ class JsiiRuntimeTest < Test::Unit::TestCase
 
   def test_overrides_error
     objref = @client.create(
-      fqn: 'jsii-calc.SyncVirtualMethods',
+      fqn: 'jsii-calc.compliance.SyncVirtualMethods',
       overrides: [{ method: 'virtualMethod', cookie: 'myCookie' }]
     )
 

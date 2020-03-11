@@ -4,7 +4,7 @@
     <Description>An example direct dependency for jsii-calc.</Description>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BasePackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
@@ -22,11 +22,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scope-jsii-calc-base-1.0.0.tgz" />
+    <EmbeddedResource Include="scope-jsii-calc-base-1.1.0.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[1.0.0,2.0.0)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[1.0.0,2.0.0)" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[1.1.0,2.0.0)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[1.1.0,2.0.0)" />
   </ItemGroup>
   <PropertyGroup>
     <NoWarn>0612,0618</NoWarn>
