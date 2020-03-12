@@ -323,7 +323,7 @@ defines a namespace `ns1`, which itself contains `ns2`, the submodule for `ns2`
 will be named `foo.ns1.ns2`).
 
 *Submodules* may use differnt [code-generation configuration](#code-generation)
-than thier parent submodule or package.
+than their parent submodule or package.
 
 > :construction: *Submodule*-level code-generation configuration is not yet
 > implemented.
