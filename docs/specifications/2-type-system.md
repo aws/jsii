@@ -322,7 +322,7 @@ qualified name of the namespace from the package's root (if a package `foo`
 defines a namespace `ns1`, which itself contains `ns2`, the submodule for `ns2`
 will be named `foo.ns1.ns2`).
 
-*Submodules* may use differnt [code-generation configuration](#code-generation)
+*Submodules* may use different [code-generation configuration](#code-generation)
 than their parent submodule or package.
 
 > :construction: *Submodule*-level code-generation configuration is not yet
