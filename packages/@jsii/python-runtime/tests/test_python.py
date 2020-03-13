@@ -17,7 +17,7 @@ class TestErrorHandling:
     def test_inheritance_maintained(self):
         """Check that for JSII struct types we can get the inheritance tree in some way."""
         # inspect.getmro() won't work because of TypedDict, but we add another annotation
-        bases = find_struct_bases(jsii_calc.compliance.DerivedStruct)
+        bases = find_struct_bases(jsii_calc.DerivedStruct)
 
         base_names = [b.__name__ for b  in bases]
 

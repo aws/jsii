@@ -9,24 +9,15 @@ import jsii
 from json import loads
 
 from jsii_calc import (
+    AbstractClassReturner,
     AbstractSuite,
     Add,
-    Calculator,
-    IFriendlier,
-    IFriendlyRandomGenerator,
-    IRandomNumberGenerator,
-    Multiply,
-    Negate,
-    Power,
-    Sum,
-)
-from jsii_calc.compliance import (
-    AbstractClassReturner,
     AllTypes,
     AllTypesEnum,
     AmbiguousParameters,
     AsyncVirtualMethods,
     Bell,
+    Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
     ConfusingToJackson,
     ConsumerCanRingBell,
@@ -40,6 +31,9 @@ from jsii_calc.compliance import (
     GreetingAugmenter,
     IBellRinger,
     IConcreteBellRinger,
+    IFriendlier,
+    IFriendlyRandomGenerator,
+    IRandomNumberGenerator,
     InterfaceCollections,
     IInterfaceWithProperties,
     IStructReturningDelegate,
@@ -47,18 +41,23 @@ from jsii_calc.compliance import (
     JSObjectLiteralForInterface,
     JSObjectLiteralToNative,
     JsonFormatter,
+    Multiply,
+    Negate,
     NodeStandardLibrary,
     NullShouldBeTreatedAsUndefined,
     NumberGenerator,
     ObjectWithPropertyProvider,
     PartiallyInitializedThisConsumer,
     Polymorphism,
+    Power,
     PythonReservedWords,
     ReferenceEnumFromScopedPackage,
     ReturnsPrivateImplementationOfInterface,
     Statics,
+    Sum,
     SyncVirtualMethods,
     UsesInterfaceWithProperties,
+    composition,
     EraseUndefinedHashValues,
     EraseUndefinedHashValuesOptions,
     VariadicMethod,
@@ -71,10 +70,7 @@ from jsii_calc.compliance import (
     StructUnionConsumer,
     SomeTypeJsii976,
     StructParameterType,
-    AnonymousImplementationProvider,
-)
-from jsii_calc.composition import (
-    CompositeOperation
+    AnonymousImplementationProvider
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
@@ -372,6 +368,8 @@ def test_getAndSetEnumValues():
     calc = Calculator()
     calc.add(9)
     calc.pow(3)
+
+    CompositeOperation = composition.CompositeOperation
 
     assert calc.string_style == CompositeOperation.CompositionStringStyle.NORMAL
 
@@ -1048,7 +1046,7 @@ def test_return_subclass_that_implements_interface_976_raises_attributeerror_whe
         failed = False
     except AttributeError as err:
         failed = True
-        assert err.args[0] == "'<class 'jsii_calc.compliance.BaseJsii976'>+<class 'jsii_calc.compliance._IReturnJsii976Proxy'>' object has no attribute 'not_a_real_method_I_swear'"
+        assert err.args[0] == "'<class 'jsii_calc.BaseJsii976'>+<class 'jsii_calc._IReturnJsii976Proxy'>' object has no attribute 'not_a_real_method_I_swear'"
     assert failed
 
 def test_return_anonymous_implementation_of_interface():

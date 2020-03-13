@@ -79,7 +79,7 @@ public class JsiiClientTest {
 
     @Test
     public void asyncMethods() {
-        JsiiObjectRef obj = client.createObject("jsii-calc.compliance.AsyncVirtualMethods", Arrays.asList(), Arrays.asList(), Arrays.asList());
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods", Arrays.asList(), Arrays.asList(), Arrays.asList());
 
         // begin will return a promise
         JsiiPromise promise = client.beginAsyncMethod(obj, "callMe", toSandboxArray());
@@ -99,7 +99,7 @@ public class JsiiClientTest {
 
     @Test
     public void asyncMethodOverrides() {
-        JsiiObjectRef obj = client.createObject("jsii-calc.compliance.AsyncVirtualMethods", Arrays.asList(), methodOverride("overrideMe", "myCookie"), Arrays.asList());
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods", Arrays.asList(), methodOverride("overrideMe", "myCookie"), Arrays.asList());
 
         // begin will return a promise
         JsiiPromise promise = client.beginAsyncMethod(obj, "callMe", toSandboxArray());
@@ -128,7 +128,7 @@ public class JsiiClientTest {
 
     @Test
     public void asyncMethodOverridesThrow() {
-        JsiiObjectRef obj = client.createObject("jsii-calc.compliance.AsyncVirtualMethods", Arrays.asList(), methodOverride("overrideMe", "myCookie"), Arrays.asList());
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods", Arrays.asList(), methodOverride("overrideMe", "myCookie"), Arrays.asList());
 
         // begin will return a promise
         JsiiPromise promise = client.beginAsyncMethod(obj, "callMe", toSandboxArray());
@@ -163,7 +163,7 @@ public class JsiiClientTest {
 
     @Test
     public void syncVirtualMethods() {
-        JsiiObjectRef obj = client.createObject("jsii-calc.compliance.SyncVirtualMethods", Arrays.asList(), methodOverride("virtualMethod","myCookie"), Arrays.asList());
+        JsiiObjectRef obj = client.createObject("jsii-calc.SyncVirtualMethods", Arrays.asList(), methodOverride("virtualMethod","myCookie"), Arrays.asList());
 
         jsiiRuntime.setCallbackHandler(callback -> {
             assertEquals(obj.getObjId(), JsiiObjectRef.parse(callback.getInvoke().getObjref()).getObjId());
@@ -197,7 +197,7 @@ public class JsiiClientTest {
 
     @Test
     public void staticProperties() {
-        final String fqn = "jsii-calc.compliance.Statics";
+        final String fqn = "jsii-calc.Statics";
         assertEquals("hello", client.getStaticPropertyValue(fqn, "Foo").textValue());
 
         JsonNode defaultInstance = client.getStaticPropertyValue(fqn, "instance");
@@ -212,7 +212,7 @@ public class JsiiClientTest {
 
     @Test
     public void staticMethods() {
-        final String fqn = "jsii-calc.compliance.Statics";
+        final String fqn = "jsii-calc.Statics";
         JsonNode result = client.callStaticMethod(fqn, "staticMethod", JSON.arrayNode().add("Foo"));
         assertEquals("hello ,Foo!", result.textValue());
     }
