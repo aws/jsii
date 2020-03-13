@@ -13,6 +13,7 @@ import { OptionalValue } from './optional-value';
 import { Parameter } from './parameter';
 import { Property } from './property';
 import { TypeSystem } from './type-system';
+import { Submodule } from './submodule';
 
 export interface TypeSystemTreeOptions {
   /**
@@ -101,12 +102,40 @@ class AssemblyNode extends AsciiTree {
       deps.add(...assembly.dependencies.map(d => new DependencyNode(d, options)));
     }
 
+    const submodules = assembly.submodules;
+    if (submodules.length > 0) {
+      const title = new TitleNode('submodules');
+      this.add(title);
+      title.add(...submodules.map(s => new SubmoduleNode(s, options)));
+    }
+
     if (options.types) {
       const types = new TitleNode('types');
       this.add(types);
       types.add(...assembly.classes.map(c => new ClassNode(c, options)));
       types.add(...assembly.interfaces.map(c => new InterfaceNode(c, options)));
       types.add(...assembly.enums.map(c => new EnumNode(c, options)));
+    }
+  }
+}
+
+class SubmoduleNode extends AsciiTree {
+  public constructor(submodule: Submodule, options: TypeSystemTreeOptions) {
+    super(colors.green(submodule.name));
+
+    const submodules = submodule.submodules;
+    if (submodules.length > 0) {
+      const title = new TitleNode('submodules');
+      this.add(title);
+      title.add(...submodules.map(s => new SubmoduleNode(s, options)));
+    }
+
+    if (options.types) {
+      const types = new TitleNode('types');
+      this.add(types);
+      types.add(...submodule.classes.map(c => new ClassNode(c, options)));
+      types.add(...submodule.interfaces.map(i => new InterfaceNode(i, options)));
+      types.add(...submodule.enums.map(e => new EnumNode(e, options)));
     }
   }
 }

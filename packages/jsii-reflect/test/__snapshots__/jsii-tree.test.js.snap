@@ -7,7 +7,125 @@ exports[`jsii-tree --all 1`] = `
  │ │ ├── @scope/jsii-calc-base
  │ │ ├── @scope/jsii-calc-base-of-base
  │ │ └── @scope/jsii-calc-lib
+ │ ├─┬ submodules
+ │ │ ├─┬ DerivedClassHasNoProperties
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base (experimental)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (experimental)
+ │ │ │   │   └─┬ prop property (experimental)
+ │ │ │   │     └── type: string
+ │ │ │   └─┬ class Derived (experimental)
+ │ │ │     ├── base: Base
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer (experimental)
+ │ │ ├─┬ InterfaceInNamespaceIncludesClasses
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Foo (experimental)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (experimental)
+ │ │ │   │   └─┬ bar property (experimental)
+ │ │ │   │     └── type: Optional<string>
+ │ │ │   └─┬ interface Hello (experimental)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ foo property (experimental)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
+ │ │ ├─┬ InterfaceInNamespaceOnlyInterface
+ │ │ │ └─┬ types
+ │ │ │   └─┬ interface Hello (experimental)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ foo property (experimental)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
+ │ │ ├─┬ composition
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class CompositeOperation (experimental)
+ │ │ │   │ ├── base: Operation
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (experimental)
+ │ │ │   │   ├─┬ toString() method (experimental)
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   ├─┬ expression property (experimental)
+ │ │ │   │   │ ├── abstract
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │ │ │   │   ├─┬ value property (experimental)
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: number
+ │ │ │   │   ├─┬ decorationPostfixes property (experimental)
+ │ │ │   │   │ └── type: Array<string>
+ │ │ │   │   ├─┬ decorationPrefixes property (experimental)
+ │ │ │   │   │ └── type: Array<string>
+ │ │ │   │   └─┬ stringStyle property (experimental)
+ │ │ │   │     └── type: jsii-calc.composition.CompositeOperation.CompositionStringStyle
+ │ │ │   └─┬ enum CompositionStringStyle (experimental)
+ │ │ │     ├── NORMAL (experimental)
+ │ │ │     └── DECORATED (experimental)
+ │ │ └─┬ submodule
+ │ │   ├─┬ submodules
+ │ │   │ ├─┬ child
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ interface Structure (experimental)
+ │ │   │ │     └─┬ members
+ │ │   │ │       └─┬ bool property (experimental)
+ │ │   │ │         ├── abstract
+ │ │   │ │         ├── immutable
+ │ │   │ │         └── type: boolean
+ │ │   │ └─┬ nested_submodule
+ │ │   │   ├─┬ submodules
+ │ │   │   │ └─┬ deeplyNested
+ │ │   │   │   └─┬ types
+ │ │   │   │     └─┬ interface INamespaced (experimental)
+ │ │   │   │       └─┬ members
+ │ │   │   │         └─┬ definedAt property (experimental)
+ │ │   │   │           ├── abstract
+ │ │   │   │           ├── immutable
+ │ │   │   │           └── type: string
+ │ │   │   └─┬ types
+ │ │   │     └─┬ class Namespaced (experimental)
+ │ │   │       ├── interfaces: INamespaced
+ │ │   │       └─┬ members
+ │ │   │         └─┬ definedAt property (experimental)
+ │ │   │           ├── immutable
+ │ │   │           └── type: string
+ │ │   └── types
  │ └─┬ types
+ │   ├─┬ class AbstractClass (experimental)
+ │   │ ├── base: AbstractClassBase
+ │   │ ├── interfaces: IInterfaceImplementedByAbstractClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ abstractMethod(name) method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ name
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
+ │   │   ├─┬ nonAbstractMethod() method (experimental)
+ │   │   │ └── returns: number
+ │   │   └─┬ propFromInterface property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ class AbstractClassBase (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ abstractProperty property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ class AbstractClassReturner (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ giveMeAbstract() method (experimental)
+ │   │   │ └── returns: jsii-calc.AbstractClass
+ │   │   ├─┬ giveMeInterface() method (experimental)
+ │   │   │ └── returns: jsii-calc.IInterfaceImplementedByAbstractClass
+ │   │   └─┬ returnAbstractFromProperty property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.AbstractClassBase
  │   ├─┬ class AbstractSuite (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -41,6 +159,149 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ value property (experimental)
  │   │     ├── immutable
  │   │     └── type: number
+ │   ├─┬ class AllTypes (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ anyIn(inp) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ inp
+ │   │   │ │   └── type: any
+ │   │   │ └── returns: void
+ │   │   ├─┬ anyOut() method (experimental)
+ │   │   │ └── returns: any
+ │   │   ├─┬ enumMethod(value) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── type: jsii-calc.StringEnum
+ │   │   │ └── returns: jsii-calc.StringEnum
+ │   │   ├─┬ enumPropertyValue property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   ├─┬ anyArrayProperty property (experimental)
+ │   │   │ └── type: Array<any>
+ │   │   ├─┬ anyMapProperty property (experimental)
+ │   │   │ └── type: Map<string => any>
+ │   │   ├─┬ anyProperty property (experimental)
+ │   │   │ └── type: any
+ │   │   ├─┬ arrayProperty property (experimental)
+ │   │   │ └── type: Array<string>
+ │   │   ├─┬ booleanProperty property (experimental)
+ │   │   │ └── type: boolean
+ │   │   ├─┬ dateProperty property (experimental)
+ │   │   │ └── type: date
+ │   │   ├─┬ enumProperty property (experimental)
+ │   │   │ └── type: jsii-calc.AllTypesEnum
+ │   │   ├─┬ jsonProperty property (experimental)
+ │   │   │ └── type: json
+ │   │   ├─┬ mapProperty property (experimental)
+ │   │   │ └── type: Map<string => @scope/jsii-calc-lib.Number>
+ │   │   ├─┬ numberProperty property (experimental)
+ │   │   │ └── type: number
+ │   │   ├─┬ stringProperty property (experimental)
+ │   │   │ └── type: string
+ │   │   ├─┬ unionArrayProperty property (experimental)
+ │   │   │ └── type: Array<number | @scope/jsii-calc-lib.Value>
+ │   │   ├─┬ unionMapProperty property (experimental)
+ │   │   │ └── type: Map<string => string | number | @scope/jsii-calc-lib.Number>
+ │   │   ├─┬ unionProperty property (experimental)
+ │   │   │ └── type: string | number | jsii-calc.Multiply | @scope/jsii-calc-lib.Number
+ │   │   ├─┬ unknownArrayProperty property (experimental)
+ │   │   │ └── type: Array<any>
+ │   │   ├─┬ unknownMapProperty property (experimental)
+ │   │   │ └── type: Map<string => any>
+ │   │   ├─┬ unknownProperty property (experimental)
+ │   │   │ └── type: any
+ │   │   └─┬ optionalEnumValue property (experimental)
+ │   │     └── type: Optional<jsii-calc.StringEnum>
+ │   ├─┬ class AllowedMethodNames (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ getBar(_p1,_p2) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ ├─┬ _p1
+ │   │   │ │ │ └── type: string
+ │   │   │ │ └─┬ _p2
+ │   │   │ │   └── type: number
+ │   │   │ └── returns: void
+ │   │   ├─┬ getFoo(withParam) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ withParam
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
+ │   │   ├─┬ setBar(_x,_y,_z) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ ├─┬ _x
+ │   │   │ │ │ └── type: string
+ │   │   │ │ ├─┬ _y
+ │   │   │ │ │ └── type: number
+ │   │   │ │ └─┬ _z
+ │   │   │ │   └── type: boolean
+ │   │   │ └── returns: void
+ │   │   └─┬ setFoo(_x,_y) method (experimental)
+ │   │     ├─┬ parameters
+ │   │     │ ├─┬ _x
+ │   │     │ │ └── type: string
+ │   │     │ └─┬ _y
+ │   │     │   └── type: number
+ │   │     └── returns: void
+ │   ├─┬ class AmbiguousParameters (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(scope,props) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ scope
+ │   │   │   │ └── type: jsii-calc.Bell
+ │   │   │   └─┬ props
+ │   │   │     └── type: jsii-calc.StructParameterType
+ │   │   ├─┬ props property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: jsii-calc.StructParameterType
+ │   │   └─┬ scope property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.Bell
+ │   ├─┬ class AnonymousImplementationProvider (experimental)
+ │   │ ├── interfaces: IAnonymousImplementationProvider
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ provideAsClass() method (experimental)
+ │   │   │ └── returns: jsii-calc.Implementation
+ │   │   └─┬ provideAsInterface() method (experimental)
+ │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
+ │   ├─┬ class AsyncVirtualMethods (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ callMe() method (experimental)
+ │   │   │ └── returns: Promise<number>
+ │   │   ├─┬ callMe2() method (experimental)
+ │   │   │ └── returns: Promise<number>
+ │   │   ├─┬ callMeDoublePromise() method (experimental)
+ │   │   │ └── returns: Promise<number>
+ │   │   ├─┬ dontOverrideMe() method (experimental)
+ │   │   │ └── returns: number
+ │   │   ├─┬ overrideMe(mult) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ mult
+ │   │   │ │   └── type: number
+ │   │   │ └── returns: Promise<number>
+ │   │   └─┬ overrideMeToo() method (experimental)
+ │   │     └── returns: Promise<number>
+ │   ├─┬ class AugmentableClass (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ methodOne() method (experimental)
+ │   │   │ └── returns: void
+ │   │   └─┬ methodTwo() method (experimental)
+ │   │     └── returns: void
+ │   ├─┬ class BaseJsii976 (experimental)
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer (experimental)
+ │   ├─┬ class Bell (experimental)
+ │   │ ├── interfaces: IBell
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ ring() method (experimental)
+ │   │   │ └── returns: void
+ │   │   └─┬ rung property (experimental)
+ │   │     └── type: boolean
  │   ├─┬ class BinaryOperation (experimental)
  │   │ ├── base: Operation
  │   │ ├── interfaces: IFriendly
@@ -100,276 +361,6 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: Optional<number>
  │   │   └─┬ unionProperty property (experimental)
  │   │     └── type: Optional<jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power>
- │   ├─┬ class MethodNamedProperty (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ property() method (experimental)
- │   │   │ └── returns: string
- │   │   └─┬ elite property (experimental)
- │   │     ├── immutable
- │   │     └── type: number
- │   ├─┬ class Multiply (experimental)
- │   │ ├── base: BinaryOperation
- │   │ ├── interfaces: IFriendlier,IRandomNumberGenerator
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(lhs,rhs) initializer (experimental)
- │   │   │ └─┬ parameters
- │   │   │   ├─┬ lhs
- │   │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   │   └─┬ rhs
- │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ farewell() method (experimental)
- │   │   │ └── returns: string
- │   │   ├─┬ goodbye() method (experimental)
- │   │   │ └── returns: string
- │   │   ├─┬ next() method (experimental)
- │   │   │ └── returns: number
- │   │   ├─┬ toString() method (experimental)
- │   │   │ └── returns: string
- │   │   └─┬ value property (experimental)
- │   │     ├── immutable
- │   │     └── type: number
- │   ├─┬ class Negate (experimental)
- │   │ ├── base: UnaryOperation
- │   │ ├── interfaces: IFriendlier
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(operand) initializer (experimental)
- │   │   │ └─┬ parameters
- │   │   │   └─┬ operand
- │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ farewell() method (experimental)
- │   │   │ └── returns: string
- │   │   ├─┬ goodbye() method (experimental)
- │   │   │ └── returns: string
- │   │   ├─┬ hello() method (experimental)
- │   │   │ └── returns: string
- │   │   ├─┬ toString() method (experimental)
- │   │   │ └── returns: string
- │   │   └─┬ value property (experimental)
- │   │     ├── immutable
- │   │     └── type: number
- │   ├─┬ class Power (experimental)
- │   │ ├── base: CompositeOperation
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(base,pow) initializer (experimental)
- │   │   │ └─┬ parameters
- │   │   │   ├─┬ base
- │   │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   │   └─┬ pow
- │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ base property (experimental)
- │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ expression property (experimental)
- │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   └─┬ pow property (experimental)
- │   │     ├── immutable
- │   │     └── type: @scope/jsii-calc-lib.Value
- │   ├─┬ class PropertyNamedProperty (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ property property (experimental)
- │   │   │ ├── immutable
- │   │   │ └── type: string
- │   │   └─┬ yetAnoterOne property (experimental)
- │   │     ├── immutable
- │   │     └── type: boolean
- │   ├─┬ class Sum (experimental)
- │   │ ├── base: CompositeOperation
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ expression property (experimental)
- │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   └─┬ parts property (experimental)
- │   │     └── type: Array<@scope/jsii-calc-lib.Value>
- │   ├─┬ class UnaryOperation (experimental)
- │   │ ├── base: Operation
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(operand) initializer (experimental)
- │   │   │ └─┬ parameters
- │   │   │   └─┬ operand
- │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   └─┬ operand property (experimental)
- │   │     ├── immutable
- │   │     └── type: @scope/jsii-calc-lib.Value
- │   ├─┬ class AbstractClass (experimental)
- │   │ ├── base: AbstractClassBase
- │   │ ├── interfaces: IInterfaceImplementedByAbstractClass
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ abstractMethod(name) method (experimental)
- │   │   │ ├── abstract
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ name
- │   │   │ │   └── type: string
- │   │   │ └── returns: string
- │   │   ├─┬ nonAbstractMethod() method (experimental)
- │   │   │ └── returns: number
- │   │   └─┬ propFromInterface property (experimental)
- │   │     ├── immutable
- │   │     └── type: string
- │   ├─┬ class AbstractClassBase (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   └─┬ abstractProperty property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: string
- │   ├─┬ class AbstractClassReturner (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ giveMeAbstract() method (experimental)
- │   │   │ └── returns: jsii-calc.compliance.AbstractClass
- │   │   ├─┬ giveMeInterface() method (experimental)
- │   │   │ └── returns: jsii-calc.compliance.IInterfaceImplementedByAbstractClass
- │   │   └─┬ returnAbstractFromProperty property (experimental)
- │   │     ├── immutable
- │   │     └── type: jsii-calc.compliance.AbstractClassBase
- │   ├─┬ class AllTypes (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ anyIn(inp) method (experimental)
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ inp
- │   │   │ │   └── type: any
- │   │   │ └── returns: void
- │   │   ├─┬ anyOut() method (experimental)
- │   │   │ └── returns: any
- │   │   ├─┬ enumMethod(value) method (experimental)
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ value
- │   │   │ │   └── type: jsii-calc.compliance.StringEnum
- │   │   │ └── returns: jsii-calc.compliance.StringEnum
- │   │   ├─┬ enumPropertyValue property (experimental)
- │   │   │ ├── immutable
- │   │   │ └── type: number
- │   │   ├─┬ anyArrayProperty property (experimental)
- │   │   │ └── type: Array<any>
- │   │   ├─┬ anyMapProperty property (experimental)
- │   │   │ └── type: Map<string => any>
- │   │   ├─┬ anyProperty property (experimental)
- │   │   │ └── type: any
- │   │   ├─┬ arrayProperty property (experimental)
- │   │   │ └── type: Array<string>
- │   │   ├─┬ booleanProperty property (experimental)
- │   │   │ └── type: boolean
- │   │   ├─┬ dateProperty property (experimental)
- │   │   │ └── type: date
- │   │   ├─┬ enumProperty property (experimental)
- │   │   │ └── type: jsii-calc.compliance.AllTypesEnum
- │   │   ├─┬ jsonProperty property (experimental)
- │   │   │ └── type: json
- │   │   ├─┬ mapProperty property (experimental)
- │   │   │ └── type: Map<string => @scope/jsii-calc-lib.Number>
- │   │   ├─┬ numberProperty property (experimental)
- │   │   │ └── type: number
- │   │   ├─┬ stringProperty property (experimental)
- │   │   │ └── type: string
- │   │   ├─┬ unionArrayProperty property (experimental)
- │   │   │ └── type: Array<number | @scope/jsii-calc-lib.Value>
- │   │   ├─┬ unionMapProperty property (experimental)
- │   │   │ └── type: Map<string => string | number | @scope/jsii-calc-lib.Number>
- │   │   ├─┬ unionProperty property (experimental)
- │   │   │ └── type: string | number | jsii-calc.Multiply | @scope/jsii-calc-lib.Number
- │   │   ├─┬ unknownArrayProperty property (experimental)
- │   │   │ └── type: Array<any>
- │   │   ├─┬ unknownMapProperty property (experimental)
- │   │   │ └── type: Map<string => any>
- │   │   ├─┬ unknownProperty property (experimental)
- │   │   │ └── type: any
- │   │   └─┬ optionalEnumValue property (experimental)
- │   │     └── type: Optional<jsii-calc.compliance.StringEnum>
- │   ├─┬ class AllowedMethodNames (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ getBar(_p1,_p2) method (experimental)
- │   │   │ ├─┬ parameters
- │   │   │ │ ├─┬ _p1
- │   │   │ │ │ └── type: string
- │   │   │ │ └─┬ _p2
- │   │   │ │   └── type: number
- │   │   │ └── returns: void
- │   │   ├─┬ getFoo(withParam) method (experimental)
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ withParam
- │   │   │ │   └── type: string
- │   │   │ └── returns: string
- │   │   ├─┬ setBar(_x,_y,_z) method (experimental)
- │   │   │ ├─┬ parameters
- │   │   │ │ ├─┬ _x
- │   │   │ │ │ └── type: string
- │   │   │ │ ├─┬ _y
- │   │   │ │ │ └── type: number
- │   │   │ │ └─┬ _z
- │   │   │ │   └── type: boolean
- │   │   │ └── returns: void
- │   │   └─┬ setFoo(_x,_y) method (experimental)
- │   │     ├─┬ parameters
- │   │     │ ├─┬ _x
- │   │     │ │ └── type: string
- │   │     │ └─┬ _y
- │   │     │   └── type: number
- │   │     └── returns: void
- │   ├─┬ class AmbiguousParameters (experimental)
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(scope,props) initializer (experimental)
- │   │   │ └─┬ parameters
- │   │   │   ├─┬ scope
- │   │   │   │ └── type: jsii-calc.compliance.Bell
- │   │   │   └─┬ props
- │   │   │     └── type: jsii-calc.compliance.StructParameterType
- │   │   ├─┬ props property (experimental)
- │   │   │ ├── immutable
- │   │   │ └── type: jsii-calc.compliance.StructParameterType
- │   │   └─┬ scope property (experimental)
- │   │     ├── immutable
- │   │     └── type: jsii-calc.compliance.Bell
- │   ├─┬ class AnonymousImplementationProvider (experimental)
- │   │ ├── interfaces: IAnonymousImplementationProvider
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ provideAsClass() method (experimental)
- │   │   │ └── returns: jsii-calc.compliance.Implementation
- │   │   └─┬ provideAsInterface() method (experimental)
- │   │     └── returns: jsii-calc.compliance.IAnonymouslyImplementMe
- │   ├─┬ class AsyncVirtualMethods (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ callMe() method (experimental)
- │   │   │ └── returns: Promise<number>
- │   │   ├─┬ callMe2() method (experimental)
- │   │   │ └── returns: Promise<number>
- │   │   ├─┬ callMeDoublePromise() method (experimental)
- │   │   │ └── returns: Promise<number>
- │   │   ├─┬ dontOverrideMe() method (experimental)
- │   │   │ └── returns: number
- │   │   ├─┬ overrideMe(mult) method (experimental)
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ mult
- │   │   │ │   └── type: number
- │   │   │ └── returns: Promise<number>
- │   │   └─┬ overrideMeToo() method (experimental)
- │   │     └── returns: Promise<number>
- │   ├─┬ class AugmentableClass (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ methodOne() method (experimental)
- │   │   │ └── returns: void
- │   │   └─┬ methodTwo() method (experimental)
- │   │     └── returns: void
- │   ├─┬ class BaseJsii976 (experimental)
- │   │ └─┬ members
- │   │   └── <initializer>() initializer (experimental)
- │   ├─┬ class Bell (experimental)
- │   │ ├── interfaces: IBell
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ ring() method (experimental)
- │   │   │ └── returns: void
- │   │   └─┬ rung property (experimental)
- │   │     └── type: boolean
  │   ├─┬ class ClassThatImplementsTheInternalInterface (experimental)
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
@@ -439,7 +430,7 @@ exports[`jsii-tree --all 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ mutableObject property (experimental)
- │   │     └── type: jsii-calc.compliance.IMutableObjectLiteral
+ │   │     └── type: jsii-calc.IMutableObjectLiteral
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties (experimental)
  │   │ ├── interfaces: IInterfaceWithProperties
  │   │ └─┬ members
@@ -450,7 +441,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ │ │ └── type: string
  │   │   │ │ └─┬ readWriteString
  │   │   │ │   └── type: string
- │   │   │ └── returns: jsii-calc.compliance.ClassWithPrivateConstructorAndAutomaticProperties
+ │   │   │ └── returns: jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties
  │   │   ├─┬ readOnlyString property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: string
@@ -460,50 +451,50 @@ exports[`jsii-tree --all 1`] = `
  │   │ └─┬ members
  │   │   ├─┬ static makeInstance() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.compliance.ConfusingToJackson
+ │   │   │ └── returns: jsii-calc.ConfusingToJackson
  │   │   ├─┬ static makeStructInstance() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.compliance.ConfusingToJacksonStruct
+ │   │   │ └── returns: jsii-calc.ConfusingToJacksonStruct
  │   │   └─┬ unionProperty property (experimental)
- │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<jsii-calc.compliance.AbstractClass | @scope/jsii-calc-lib.IFriendly>>
+ │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
  │   ├─┬ class ConstructorPassesThisOut (experimental)
  │   │ └─┬ members
  │   │   └─┬ <initializer>(consumer) initializer (experimental)
  │   │     └─┬ parameters
  │   │       └─┬ consumer
- │   │         └── type: jsii-calc.compliance.PartiallyInitializedThisConsumer
+ │   │         └── type: jsii-calc.PartiallyInitializedThisConsumer
  │   ├─┬ class Constructors (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ static hiddenInterface() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.compliance.IPublicInterface
+ │   │   │ └── returns: jsii-calc.IPublicInterface
  │   │   ├─┬ static hiddenInterfaces() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: Array<jsii-calc.compliance.IPublicInterface>
+ │   │   │ └── returns: Array<jsii-calc.IPublicInterface>
  │   │   ├─┬ static hiddenSubInterfaces() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: Array<jsii-calc.compliance.IPublicInterface>
+ │   │   │ └── returns: Array<jsii-calc.IPublicInterface>
  │   │   ├─┬ static makeClass() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.compliance.PublicClass
+ │   │   │ └── returns: jsii-calc.PublicClass
  │   │   ├─┬ static makeInterface() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.compliance.IPublicInterface
+ │   │   │ └── returns: jsii-calc.IPublicInterface
  │   │   ├─┬ static makeInterface2() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.compliance.IPublicInterface2
+ │   │   │ └── returns: jsii-calc.IPublicInterface2
  │   │   └─┬ static makeInterfaces() method (experimental)
  │   │     ├── static
- │   │     └── returns: Array<jsii-calc.compliance.IPublicInterface>
+ │   │     └── returns: Array<jsii-calc.IPublicInterface>
  │   ├─┬ class ConsumePureInterface (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(delegate) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ delegate
- │   │   │     └── type: jsii-calc.compliance.IStructReturningDelegate
+ │   │   │     └── type: jsii-calc.IStructReturningDelegate
  │   │   └─┬ workItBaby() method (experimental)
- │   │     └── returns: jsii-calc.compliance.StructB
+ │   │     └── returns: jsii-calc.StructB
  │   ├─┬ class ConsumerCanRingBell (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -511,45 +502,45 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ringer
- │   │   │ │   └── type: jsii-calc.compliance.IBellRinger
+ │   │   │ │   └── type: jsii-calc.IBellRinger
  │   │   │ └── returns: boolean
  │   │   ├─┬ static staticImplementedByPrivateClass(ringer) method (experimental)
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ringer
- │   │   │ │   └── type: jsii-calc.compliance.IBellRinger
+ │   │   │ │   └── type: jsii-calc.IBellRinger
  │   │   │ └── returns: boolean
  │   │   ├─┬ static staticImplementedByPublicClass(ringer) method (experimental)
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ringer
- │   │   │ │   └── type: jsii-calc.compliance.IBellRinger
+ │   │   │ │   └── type: jsii-calc.IBellRinger
  │   │   │ └── returns: boolean
  │   │   ├─┬ static staticWhenTypedAsClass(ringer) method (experimental)
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ringer
- │   │   │ │   └── type: jsii-calc.compliance.IConcreteBellRinger
+ │   │   │ │   └── type: jsii-calc.IConcreteBellRinger
  │   │   │ └── returns: boolean
  │   │   ├─┬ implementedByObjectLiteral(ringer) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ringer
- │   │   │ │   └── type: jsii-calc.compliance.IBellRinger
+ │   │   │ │   └── type: jsii-calc.IBellRinger
  │   │   │ └── returns: boolean
  │   │   ├─┬ implementedByPrivateClass(ringer) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ringer
- │   │   │ │   └── type: jsii-calc.compliance.IBellRinger
+ │   │   │ │   └── type: jsii-calc.IBellRinger
  │   │   │ └── returns: boolean
  │   │   ├─┬ implementedByPublicClass(ringer) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ringer
- │   │   │ │   └── type: jsii-calc.compliance.IBellRinger
+ │   │   │ │   └── type: jsii-calc.IBellRinger
  │   │   │ └── returns: boolean
  │   │   └─┬ whenTypedAsClass(ringer) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ ringer
- │   │     │   └── type: jsii-calc.compliance.IConcreteBellRinger
+ │   │     │   └── type: jsii-calc.IConcreteBellRinger
  │   │     └── returns: boolean
  │   ├─┬ class ConsumersOfThisCrazyTypeSystem (experimental)
  │   │ └─┬ members
@@ -557,12 +548,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ consumeAnotherPublicInterface(obj) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ obj
- │   │   │ │   └── type: jsii-calc.compliance.IAnotherPublicInterface
+ │   │   │ │   └── type: jsii-calc.IAnotherPublicInterface
  │   │   │ └── returns: string
  │   │   └─┬ consumeNonInternalInterface(obj) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ obj
- │   │     │   └── type: jsii-calc.compliance.INonInternalInterface
+ │   │     │   └── type: jsii-calc.INonInternalInterface
  │   │     └── returns: any
  │   ├─┬ class DataRenderer (experimental)
  │   │ └─┬ members
@@ -606,19 +597,25 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ static takeThis() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.compliance.ChildStruct982
+ │   │   │ └── returns: jsii-calc.ChildStruct982
  │   │   └─┬ static takeThisToo() method (experimental)
  │   │     ├── static
- │   │     └── returns: jsii-calc.compliance.ParentStruct982
- │   ├─┬ class Base (experimental)
+ │   │     └── returns: jsii-calc.ParentStruct982
+ │   ├─┬ class DeprecatedClass (deprecated)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   └─┬ prop property (experimental)
- │   │     └── type: string
- │   ├─┬ class Derived (experimental)
- │   │ ├── base: Base
- │   │ └─┬ members
- │   │   └── <initializer>() initializer (experimental)
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (deprecated)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── type: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── type: Optional<number>
+ │   │   ├─┬ method() method (deprecated)
+ │   │   │ └── returns: void
+ │   │   ├─┬ readonlyProperty property (deprecated)
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ mutableProperty property (deprecated)
+ │   │     └── type: Optional<number>
  │   ├─┬ class DisappointingCollectionSource (experimental)
  │   │ └─┬ members
  │   │   ├─┬ static maybeList property (experimental)
@@ -655,6 +652,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ _optionalString
  │   │     │   └── type: Optional<string>
  │   │     └── returns: void
+ │   ├─┬ class DocumentedClass (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ greet(greetee) method (stable)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ greetee
+ │   │   │ │   └── type: Optional<jsii-calc.Greetee>
+ │   │   │ └── returns: number
+ │   │   └─┬ hola() method (experimental)
+ │   │     └── returns: void
  │   ├─┬ class DontComplainAboutVariadicAfterOptional (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -679,10 +686,10 @@ exports[`jsii-tree --all 1`] = `
  │   │ └─┬ members
  │   │   ├─┬ static randomIntegerLikeEnum() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.compliance.AllTypesEnum
+ │   │   │ └── returns: jsii-calc.AllTypesEnum
  │   │   └─┬ static randomStringLikeEnum() method (experimental)
  │   │     ├── static
- │   │     └── returns: jsii-calc.compliance.StringEnum
+ │   │     └── returns: jsii-calc.StringEnum
  │   ├─┬ class EraseUndefinedHashValues (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -690,7 +697,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ opts
- │   │   │ │ │ └── type: jsii-calc.compliance.EraseUndefinedHashValuesOptions
+ │   │   │ │ │ └── type: jsii-calc.EraseUndefinedHashValuesOptions
  │   │   │ │ └─┬ key
  │   │   │ │   └── type: string
  │   │   │ └── returns: boolean
@@ -700,6 +707,21 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ static prop2IsUndefined() method (experimental)
  │   │     ├── static
  │   │     └── returns: Map<string => any>
+ │   ├─┬ class ExperimentalClass (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── type: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── type: Optional<number>
+ │   │   ├─┬ method() method (experimental)
+ │   │   │ └── returns: void
+ │   │   ├─┬ readonlyProperty property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ mutableProperty property (experimental)
+ │   │     └── type: Optional<number>
  │   ├─┬ class ExportedBaseClass (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(success) initializer (experimental)
@@ -715,13 +737,13 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ derivedToFirst(derived) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ derived
- │   │   │ │   └── type: jsii-calc.compliance.DerivedStruct
+ │   │   │ │   └── type: jsii-calc.DerivedStruct
  │   │   │ └── returns: @scope/jsii-calc-lib.MyFirstStruct
  │   │   ├─┬ readDerivedNonPrimitive(derived) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ derived
- │   │   │ │   └── type: jsii-calc.compliance.DerivedStruct
- │   │   │ └── returns: jsii-calc.compliance.DoubleTrouble
+ │   │   │ │   └── type: jsii-calc.DerivedStruct
+ │   │   │ └── returns: jsii-calc.DoubleTrouble
  │   │   ├─┬ readFirstNumber(first) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ first
@@ -775,21 +797,16 @@ exports[`jsii-tree --all 1`] = `
  │   │ └─┬ members
  │   │   ├─┬ static listOfInterfaces() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: Array<jsii-calc.compliance.IBell>
+ │   │   │ └── returns: Array<jsii-calc.IBell>
  │   │   ├─┬ static listOfStructs() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: Array<jsii-calc.compliance.StructA>
+ │   │   │ └── returns: Array<jsii-calc.StructA>
  │   │   ├─┬ static mapOfInterfaces() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: Map<string => jsii-calc.compliance.IBell>
+ │   │   │ └── returns: Map<string => jsii-calc.IBell>
  │   │   └─┬ static mapOfStructs() method (experimental)
  │   │     ├── static
- │   │     └── returns: Map<string => jsii-calc.compliance.StructA>
- │   ├─┬ class Foo (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   └─┬ bar property (experimental)
- │   │     └── type: Optional<string>
+ │   │     └── returns: Map<string => jsii-calc.StructA>
  │   ├─┬ class InterfacesMaker (experimental)
  │   │ └─┬ members
  │   │   └─┬ static makeInterfaces(count) method (experimental)
@@ -798,6 +815,32 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ count
  │   │     │   └── type: number
  │   │     └── returns: Array<@scope/jsii-calc-lib.IDoublable>
+ │   ├─┬ class JSII417Derived (experimental)
+ │   │ ├── base: JSII417PublicBaseOfBase
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(property) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ property
+ │   │   │     └── type: string
+ │   │   ├─┬ bar() method (experimental)
+ │   │   │ └── returns: void
+ │   │   ├─┬ baz() method (experimental)
+ │   │   │ └── returns: void
+ │   │   └─┬ property property (experimental)
+ │   │     ├── immutable
+ │   │     ├── protected
+ │   │     └── type: string
+ │   ├─┬ class JSII417PublicBaseOfBase (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static makeInstance() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.JSII417PublicBaseOfBase
+ │   │   ├─┬ foo() method (experimental)
+ │   │   │ └── returns: void
+ │   │   └─┬ hasRoot property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: boolean
  │   ├─┬ class JSObjectLiteralForInterface (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -809,7 +852,7 @@ exports[`jsii-tree --all 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ returnLiteral() method (experimental)
- │   │     └── returns: jsii-calc.compliance.JSObjectLiteralToNativeClass
+ │   │     └── returns: jsii-calc.JSObjectLiteralToNativeClass
  │   ├─┬ class JSObjectLiteralToNativeClass (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -926,6 +969,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: void
  │   │   └─┬ while property (experimental)
  │   │     └── type: string
+ │   ├─┬ class Jsii487Derived (experimental)
+ │   │ ├── interfaces: IJsii487External2,IJsii487External
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer (experimental)
+ │   ├─┬ class Jsii496Derived (experimental)
+ │   │ ├── interfaces: IJsii496
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer (experimental)
  │   ├─┬ class JsiiAgent (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -980,6 +1031,54 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ value
  │   │     │   └── type: any
  │   │     └── returns: Optional<string>
+ │   ├─┬ class MethodNamedProperty (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ property() method (experimental)
+ │   │   │ └── returns: string
+ │   │   └─┬ elite property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: number
+ │   ├─┬ class Multiply (experimental)
+ │   │ ├── base: BinaryOperation
+ │   │ ├── interfaces: IFriendlier,IRandomNumberGenerator
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(lhs,rhs) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ lhs
+ │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   └─┬ rhs
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   ├─┬ farewell() method (experimental)
+ │   │   │ └── returns: string
+ │   │   ├─┬ goodbye() method (experimental)
+ │   │   │ └── returns: string
+ │   │   ├─┬ next() method (experimental)
+ │   │   │ └── returns: number
+ │   │   ├─┬ toString() method (experimental)
+ │   │   │ └── returns: string
+ │   │   └─┬ value property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: number
+ │   ├─┬ class Negate (experimental)
+ │   │ ├── base: UnaryOperation
+ │   │ ├── interfaces: IFriendlier
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(operand) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ operand
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   ├─┬ farewell() method (experimental)
+ │   │   │ └── returns: string
+ │   │   ├─┬ goodbye() method (experimental)
+ │   │   │ └── returns: string
+ │   │   ├─┬ hello() method (experimental)
+ │   │   │ └── returns: string
+ │   │   ├─┬ toString() method (experimental)
+ │   │   │ └── returns: string
+ │   │   └─┬ value property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class NodeStandardLibrary (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1008,7 +1107,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ giveMeUndefinedInsideAnObject(input) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ input
- │   │   │ │   └── type: jsii-calc.compliance.NullShouldBeTreatedAsUndefinedData
+ │   │   │ │   └── type: jsii-calc.NullShouldBeTreatedAsUndefinedData
  │   │   │ └── returns: void
  │   │   ├─┬ verifyPropertyIsUndefined() method (experimental)
  │   │   │ └── returns: void
@@ -1046,13 +1145,18 @@ exports[`jsii-tree --all 1`] = `
  │   │ └─┬ members
  │   │   └─┬ static provide() method (experimental)
  │   │     ├── static
- │   │     └── returns: jsii-calc.compliance.IObjectWithProperty
+ │   │     └── returns: jsii-calc.IObjectWithProperty
+ │   ├─┬ class Old (deprecated)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (deprecated)
+ │   │   └─┬ doAThing() method (deprecated)
+ │   │     └── returns: void
  │   ├─┬ class OptionalArgumentInvoker (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(delegate) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ delegate
- │   │   │     └── type: jsii-calc.compliance.IInterfaceWithOptionalMethodArguments
+ │   │   │     └── type: jsii-calc.IInterfaceWithOptionalMethodArguments
  │   │   ├─┬ invokeWithOptional() method (experimental)
  │   │   │ └── returns: void
  │   │   └─┬ invokeWithoutOptional() method (experimental)
@@ -1081,7 +1185,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ <initializer>(optionalStruct) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ optionalStruct
- │   │   │     └── type: Optional<jsii-calc.compliance.OptionalStruct>
+ │   │   │     └── type: Optional<jsii-calc.OptionalStruct>
  │   │   ├─┬ parameterWasUndefined property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: boolean
@@ -1111,7 +1215,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ test(obj) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ obj
- │   │     │   └── type: jsii-calc.compliance.IReturnsNumber
+ │   │     │   └── type: jsii-calc.IReturnsNumber
  │   │     └── returns: number
  │   ├─┬ class PartiallyInitializedThisConsumer (experimental)
  │   │ └─┬ members
@@ -1120,11 +1224,11 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├─┬ parameters
  │   │     │ ├─┬ obj
- │   │     │ │ └── type: jsii-calc.compliance.ConstructorPassesThisOut
+ │   │     │ │ └── type: jsii-calc.ConstructorPassesThisOut
  │   │     │ ├─┬ dt
  │   │     │ │ └── type: date
  │   │     │ └─┬ ev
- │   │     │   └── type: jsii-calc.compliance.AllTypesEnum
+ │   │     │   └── type: jsii-calc.AllTypesEnum
  │   │     └── returns: string
  │   ├─┬ class Polymorphism (experimental)
  │   │ └─┬ members
@@ -1134,6 +1238,33 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ friendly
  │   │     │   └── type: @scope/jsii-calc-lib.IFriendly
  │   │     └── returns: string
+ │   ├─┬ class Power (experimental)
+ │   │ ├── base: CompositeOperation
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(base,pow) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ base
+ │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   └─┬ pow
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   ├─┬ base property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   ├─┬ expression property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   └─┬ pow property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: @scope/jsii-calc-lib.Value
+ │   ├─┬ class PropertyNamedProperty (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ property property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ yetAnoterOne property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: boolean
  │   ├─┬ class PublicClass (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1223,14 +1354,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ privateImplementation property (experimental)
  │   │     ├── immutable
- │   │     └── type: jsii-calc.compliance.IPrivatelyImplemented
+ │   │     └── type: jsii-calc.IPrivatelyImplemented
  │   ├─┬ class RootStructValidator (experimental)
  │   │ └─┬ members
  │   │   └─┬ static validate(struct) method (experimental)
  │   │     ├── static
  │   │     ├─┬ parameters
  │   │     │ └─┬ struct
- │   │     │   └── type: jsii-calc.compliance.RootStruct
+ │   │     │   └── type: jsii-calc.RootStruct
  │   │     └── returns: void
  │   ├─┬ class RuntimeTypeChecking (experimental)
  │   │ └─┬ members
@@ -1262,9 +1393,9 @@ exports[`jsii-tree --all 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ interface1() method (experimental)
- │   │   │ └── returns: jsii-calc.compliance.InbetweenClass
+ │   │   │ └── returns: jsii-calc.InbetweenClass
  │   │   └─┬ interface2() method (experimental)
- │   │     └── returns: jsii-calc.compliance.IPublicInterface
+ │   │     └── returns: jsii-calc.IPublicInterface
  │   ├─┬ class SingletonInt (experimental)
  │   │ └─┬ members
  │   │   └─┬ isSingletonInt(value) method (experimental)
@@ -1287,7 +1418,22 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: any
  │   │   └─┬ static returnReturn() method (experimental)
  │   │     ├── static
- │   │     └── returns: jsii-calc.compliance.IReturnJsii976
+ │   │     └── returns: jsii-calc.IReturnJsii976
+ │   ├─┬ class StableClass (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (stable)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── type: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── type: Optional<number>
+ │   │   ├─┬ method() method (stable)
+ │   │   │ └── returns: void
+ │   │   ├─┬ readonlyProperty property (stable)
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ mutableProperty property (stable)
+ │   │     └── type: Optional<number>
  │   ├─┬ class StaticContext (experimental)
  │   │ └─┬ members
  │   │   ├─┬ static canAccessStaticContext() method (experimental)
@@ -1319,7 +1465,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ ├── const
  │   │   │ ├── immutable
  │   │   │ ├── static
- │   │   │ └── type: jsii-calc.compliance.DoubleTrouble
+ │   │   │ └── type: jsii-calc.DoubleTrouble
  │   │   ├─┬ static Foo property (experimental)
  │   │   │ ├── const
  │   │   │ ├── immutable
@@ -1332,7 +1478,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: Map<string => string>
  │   │   ├─┬ static instance property (experimental)
  │   │   │ ├── static
- │   │   │ └── type: jsii-calc.compliance.Statics
+ │   │   │ └── type: jsii-calc.Statics
  │   │   ├─┬ static nonConstStatic property (experimental)
  │   │   │ ├── static
  │   │   │ └── type: number
@@ -1354,7 +1500,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ │ ├─┬ _positional
  │   │   │ │ │ └── type: number
  │   │   │ │ └─┬ inputs
- │   │   │ │   ├── type: jsii-calc.compliance.TopLevelStruct
+ │   │   │ │   ├── type: jsii-calc.TopLevelStruct
  │   │   │ │   └── variadic
  │   │   │ └── returns: number
  │   │   └─┬ static roundTrip(_positional,input) method
@@ -1363,22 +1509,31 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ ├─┬ _positional
  │   │     │ │ └── type: number
  │   │     │ └─┬ input
- │   │     │   └── type: jsii-calc.compliance.TopLevelStruct
- │   │     └── returns: jsii-calc.compliance.TopLevelStruct
+ │   │     │   └── type: jsii-calc.TopLevelStruct
+ │   │     └── returns: jsii-calc.TopLevelStruct
  │   ├─┬ class StructUnionConsumer (experimental)
  │   │ └─┬ members
  │   │   ├─┬ static isStructA(struct) method (experimental)
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ struct
- │   │   │ │   └── type: jsii-calc.compliance.StructA | jsii-calc.compliance.StructB
+ │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
  │   │   │ └── returns: boolean
  │   │   └─┬ static isStructB(struct) method (experimental)
  │   │     ├── static
  │   │     ├─┬ parameters
  │   │     │ └─┬ struct
- │   │     │   └── type: jsii-calc.compliance.StructA | jsii-calc.compliance.StructB
+ │   │     │   └── type: jsii-calc.StructA | jsii-calc.StructB
  │   │     └── returns: boolean
+ │   ├─┬ class Sum (experimental)
+ │   │ ├── base: CompositeOperation
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ expression property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   └─┬ parts property (experimental)
+ │   │     └── type: Array<@scope/jsii-calc-lib.Value>
  │   ├─┬ class SupportsNiceJavaBuilder (experimental)
  │   │ ├── base: SupportsNiceJavaBuilderWithRequiredProps
  │   │ └─┬ members
@@ -1390,7 +1545,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │   ├─┬ defaultBar
  │   │   │   │ └── type: Optional<number>
  │   │   │   ├─┬ props
- │   │   │   │ └── type: Optional<jsii-calc.compliance.SupportsNiceJavaBuilderProps>
+ │   │   │   │ └── type: Optional<jsii-calc.SupportsNiceJavaBuilderProps>
  │   │   │   └─┬ rest
  │   │   │     ├── type: string
  │   │   │     └── variadic
@@ -1407,7 +1562,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │   ├─┬ id
  │   │   │   │ └── type: number
  │   │   │   └─┬ props
- │   │   │     └── type: jsii-calc.compliance.SupportsNiceJavaBuilderProps
+ │   │   │     └── type: jsii-calc.SupportsNiceJavaBuilderProps
  │   │   ├─┬ bar property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: number
@@ -1470,6 +1625,16 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ throwError() method (experimental)
  │   │     └── returns: void
+ │   ├─┬ class UnaryOperation (experimental)
+ │   │ ├── base: Operation
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(operand) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ operand
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   └─┬ operand property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: @scope/jsii-calc-lib.Value
  │   ├─┬ class UseBundledDependency (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1485,13 +1650,13 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ <initializer>(obj) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ obj
- │   │   │     └── type: jsii-calc.compliance.IInterfaceWithProperties
+ │   │   │     └── type: jsii-calc.IInterfaceWithProperties
  │   │   ├─┬ justRead() method (experimental)
  │   │   │ └── returns: string
  │   │   ├─┬ readStringAndNumber(ext) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ext
- │   │   │ │   └── type: jsii-calc.compliance.IInterfaceWithPropertiesExtension
+ │   │   │ │   └── type: jsii-calc.IInterfaceWithPropertiesExtension
  │   │   │ └── returns: string
  │   │   ├─┬ writeAndRead(value) method (experimental)
  │   │   │ ├─┬ parameters
@@ -1500,13 +1665,13 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: string
  │   │   └─┬ obj property (experimental)
  │   │     ├── immutable
- │   │     └── type: jsii-calc.compliance.IInterfaceWithProperties
+ │   │     └── type: jsii-calc.IInterfaceWithProperties
  │   ├─┬ class VariadicInvoker (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(method) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ method
- │   │   │     └── type: jsii-calc.compliance.VariadicMethod
+ │   │   │     └── type: jsii-calc.VariadicMethod
  │   │   └─┬ asArray(values) method (experimental)
  │   │     ├── variadic
  │   │     ├─┬ parameters
@@ -1580,119 +1745,6 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ success property (experimental)
  │   │     ├── immutable
  │   │     └── type: boolean
- │   ├─┬ class CompositeOperation (experimental)
- │   │ ├── base: Operation
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ toString() method (experimental)
- │   │   │ └── returns: string
- │   │   ├─┬ expression property (experimental)
- │   │   │ ├── abstract
- │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ value property (experimental)
- │   │   │ ├── immutable
- │   │   │ └── type: number
- │   │   ├─┬ decorationPostfixes property (experimental)
- │   │   │ └── type: Array<string>
- │   │   ├─┬ decorationPrefixes property (experimental)
- │   │   │ └── type: Array<string>
- │   │   └─┬ stringStyle property (experimental)
- │   │     └── type: jsii-calc.composition.CompositeOperation.CompositionStringStyle
- │   ├─┬ class DocumentedClass (stable)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (stable)
- │   │   ├─┬ greet(greetee) method (stable)
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ greetee
- │   │   │ │   └── type: Optional<jsii-calc.documented.Greetee>
- │   │   │ └── returns: number
- │   │   └─┬ hola() method (experimental)
- │   │     └── returns: void
- │   ├─┬ class Old (deprecated)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (deprecated)
- │   │   └─┬ doAThing() method (deprecated)
- │   │     └── returns: void
- │   ├─┬ class JSII417Derived (experimental)
- │   │ ├── base: JSII417PublicBaseOfBase
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(property) initializer (experimental)
- │   │   │ └─┬ parameters
- │   │   │   └─┬ property
- │   │   │     └── type: string
- │   │   ├─┬ bar() method (experimental)
- │   │   │ └── returns: void
- │   │   ├─┬ baz() method (experimental)
- │   │   │ └── returns: void
- │   │   └─┬ property property (experimental)
- │   │     ├── immutable
- │   │     ├── protected
- │   │     └── type: string
- │   ├─┬ class JSII417PublicBaseOfBase (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ static makeInstance() method (experimental)
- │   │   │ ├── static
- │   │   │ └── returns: jsii-calc.erasureTests.JSII417PublicBaseOfBase
- │   │   ├─┬ foo() method (experimental)
- │   │   │ └── returns: void
- │   │   └─┬ hasRoot property (experimental)
- │   │     ├── immutable
- │   │     └── type: boolean
- │   ├─┬ class Jsii487Derived (experimental)
- │   │ ├── interfaces: IJsii487External2,IJsii487External
- │   │ └─┬ members
- │   │   └── <initializer>() initializer (experimental)
- │   ├─┬ class Jsii496Derived (experimental)
- │   │ ├── interfaces: IJsii496
- │   │ └─┬ members
- │   │   └── <initializer>() initializer (experimental)
- │   ├─┬ class DeprecatedClass (deprecated)
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (deprecated)
- │   │   │ └─┬ parameters
- │   │   │   ├─┬ readonlyString
- │   │   │   │ └── type: string
- │   │   │   └─┬ mutableNumber
- │   │   │     └── type: Optional<number>
- │   │   ├─┬ method() method (deprecated)
- │   │   │ └── returns: void
- │   │   ├─┬ readonlyProperty property (deprecated)
- │   │   │ ├── immutable
- │   │   │ └── type: string
- │   │   └─┬ mutableProperty property (deprecated)
- │   │     └── type: Optional<number>
- │   ├─┬ class ExperimentalClass (experimental)
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (experimental)
- │   │   │ └─┬ parameters
- │   │   │   ├─┬ readonlyString
- │   │   │   │ └── type: string
- │   │   │   └─┬ mutableNumber
- │   │   │     └── type: Optional<number>
- │   │   ├─┬ method() method (experimental)
- │   │   │ └── returns: void
- │   │   ├─┬ readonlyProperty property (experimental)
- │   │   │ ├── immutable
- │   │   │ └── type: string
- │   │   └─┬ mutableProperty property (experimental)
- │   │     └── type: Optional<number>
- │   ├─┬ class StableClass (stable)
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (stable)
- │   │   │ └─┬ parameters
- │   │   │   ├─┬ readonlyString
- │   │   │   │ └── type: string
- │   │   │   └─┬ mutableNumber
- │   │   │     └── type: Optional<number>
- │   │   ├─┬ method() method (stable)
- │   │   │ └── returns: void
- │   │   ├─┬ readonlyProperty property (stable)
- │   │   │ ├── immutable
- │   │   │ └── type: string
- │   │   └─┬ mutableProperty property (stable)
- │   │     └── type: Optional<number>
  │   ├─┬ interface CalculatorProps (experimental)
  │   │ └─┬ members
  │   │   ├─┬ initialValue property (experimental)
@@ -1703,36 +1755,6 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<number>
- │   ├─┬ interface IFriendlier (experimental)
- │   │ ├─┬ interfaces
- │   │ │ └── IFriendly
- │   │ └─┬ members
- │   │   ├─┬ farewell() method (experimental)
- │   │   │ ├── abstract
- │   │   │ └── returns: string
- │   │   └─┬ goodbye() method (experimental)
- │   │     ├── abstract
- │   │     └── returns: string
- │   ├─┬ interface IFriendlyRandomGenerator (experimental)
- │   │ ├─┬ interfaces
- │   │ │ ├── IRandomNumberGenerator
- │   │ │ └── IFriendly
- │   │ └── members
- │   ├─┬ interface IRandomNumberGenerator (experimental)
- │   │ └─┬ members
- │   │   └─┬ next() method (experimental)
- │   │     ├── abstract
- │   │     └── returns: number
- │   ├─┬ interface SmellyStruct (experimental)
- │   │ └─┬ members
- │   │   ├─┬ property property (experimental)
- │   │   │ ├── abstract
- │   │   │ ├── immutable
- │   │   │ └── type: string
- │   │   └─┬ yetAnoterOne property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: boolean
  │   ├─┬ interface ChildStruct982 (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── ParentStruct982
@@ -1746,7 +1768,13 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ unionProperty property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<jsii-calc.compliance.AbstractClass | @scope/jsii-calc-lib.IFriendly>>
+ │   │     └── type: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
+ │   ├─┬ interface DeprecatedStruct (deprecated)
+ │   │ └─┬ members
+ │   │   └─┬ readonlyProperty property (deprecated)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface DerivedStruct (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── MyFirstStruct
@@ -1762,7 +1790,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ nonPrimitive property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: jsii-calc.compliance.DoubleTrouble
+ │   │   │ └── type: jsii-calc.DoubleTrouble
  │   │   ├─┬ anotherOptional property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
@@ -1816,6 +1844,12 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface ExperimentalStruct (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ readonlyProperty property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface ExtendsInternalInterface (experimental)
  │   │ └─┬ members
  │   │   ├─┬ boom property (experimental)
@@ -1826,14 +1860,20 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ interface Greetee (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ name property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
  │   ├─┬ interface IAnonymousImplementationProvider (experimental)
  │   │ └─┬ members
  │   │   ├─┬ provideAsClass() method (experimental)
  │   │   │ ├── abstract
- │   │   │ └── returns: jsii-calc.compliance.Implementation
+ │   │   │ └── returns: jsii-calc.Implementation
  │   │   └─┬ provideAsInterface() method (experimental)
  │   │     ├── abstract
- │   │     └── returns: jsii-calc.compliance.IAnonymouslyImplementMe
+ │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
  │   ├─┬ interface IAnonymouslyImplementMe (experimental)
  │   │ └─┬ members
  │   │   ├─┬ verb() method (experimental)
@@ -1859,7 +1899,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├─┬ parameters
  │   │     │ └─┬ bell
- │   │     │   └── type: jsii-calc.compliance.IBell
+ │   │     │   └── type: jsii-calc.IBell
  │   │     └── returns: void
  │   ├─┬ interface IConcreteBellRinger (experimental)
  │   │ └─┬ members
@@ -1867,8 +1907,24 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├─┬ parameters
  │   │     │ └─┬ bell
- │   │     │   └── type: jsii-calc.compliance.Bell
+ │   │     │   └── type: jsii-calc.Bell
  │   │     └── returns: void
+ │   ├─┬ interface IDeprecatedInterface (deprecated)
+ │   │ └─┬ members
+ │   │   ├─┬ method() method (deprecated)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ mutableProperty property (deprecated)
+ │   │     ├── abstract
+ │   │     └── type: Optional<number>
+ │   ├─┬ interface IExperimentalInterface (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ method() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ mutableProperty property (experimental)
+ │   │     ├── abstract
+ │   │     └── type: Optional<number>
  │   ├─┬ interface IExtendsPrivateInterface (experimental)
  │   │ └─┬ members
  │   │   ├─┬ moreThings property (experimental)
@@ -1878,6 +1934,21 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ private property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
+ │   ├─┬ interface IFriendlier (experimental)
+ │   │ ├─┬ interfaces
+ │   │ │ └── IFriendly
+ │   │ └─┬ members
+ │   │   ├─┬ farewell() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: string
+ │   │   └─┬ goodbye() method (experimental)
+ │   │     ├── abstract
+ │   │     └── returns: string
+ │   ├─┬ interface IFriendlyRandomGenerator (experimental)
+ │   │ ├─┬ interfaces
+ │   │ │ ├── IRandomNumberGenerator
+ │   │ │ └── IFriendly
+ │   │ └── members
  │   ├─┬ interface IInterfaceImplementedByAbstractClass (experimental)
  │   │ └─┬ members
  │   │   └─┬ propFromInterface property (experimental)
@@ -1932,6 +2003,35 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ foo property (experimental)
  │   │     ├── abstract
  │   │     └── type: number
+ │   ├─┬ interface IJSII417Derived (experimental)
+ │   │ ├─┬ interfaces
+ │   │ │ └── IJSII417PublicBaseOfBase
+ │   │ └─┬ members
+ │   │   ├─┬ bar() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   ├─┬ baz() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ property property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ interface IJSII417PublicBaseOfBase (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ foo() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ hasRoot property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: boolean
+ │   ├─┬ interface IJsii487External (experimental)
+ │   │ └── members
+ │   ├─┬ interface IJsii487External2 (experimental)
+ │   │ └── members
+ │   ├─┬ interface IJsii496 (experimental)
+ │   │ └── members
  │   ├─┬ interface IMutableObjectLiteral (experimental)
  │   │ └─┬ members
  │   │   └─┬ value property (experimental)
@@ -1976,6 +2076,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ ciao() method (experimental)
  │   │     ├── abstract
  │   │     └── returns: string
+ │   ├─┬ interface IRandomNumberGenerator (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ next() method (experimental)
+ │   │     ├── abstract
+ │   │     └── returns: number
  │   ├─┬ interface IReturnJsii976 (experimental)
  │   │ └─┬ members
  │   │   └─┬ foo property (experimental)
@@ -1991,11 +2096,19 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Number
+ │   ├─┬ interface IStableInterface (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ method() method (stable)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ mutableProperty property (stable)
+ │   │     ├── abstract
+ │   │     └── type: Optional<number>
  │   ├─┬ interface IStructReturningDelegate (experimental)
  │   │ └─┬ members
  │   │   └─┬ returnStruct() method (experimental)
  │   │     ├── abstract
- │   │     └── returns: jsii-calc.compliance.StructB
+ │   │     └── returns: jsii-calc.StructB
  │   ├─┬ interface ImplictBaseOfBase (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── BaseProps
@@ -2004,18 +2117,6 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: date
- │   ├─┬ interface Hello (experimental)
- │   │ └─┬ members
- │   │   └─┬ foo property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: number
- │   ├─┬ interface Hello (experimental)
- │   │ └─┬ members
- │   │   └─┬ foo property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: number
  │   ├─┬ interface LoadBalancedFargateServiceProps (experimental)
  │   │ └─┬ members
  │   │   ├─┬ containerPort property (experimental)
@@ -2075,7 +2176,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ nestedStruct property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: Optional<jsii-calc.compliance.NestedStruct>
+ │   │     └── type: Optional<jsii-calc.NestedStruct>
  │   ├─┬ interface SecondLevelStruct (experimental)
  │   │ └─┬ members
  │   │   ├─┬ deeperRequiredProp property (experimental)
@@ -2086,6 +2187,22 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface SmellyStruct (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ property property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ yetAnoterOne property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: boolean
+ │   ├─┬ interface StableStruct (stable)
+ │   │ └─┬ members
+ │   │   └─┬ readonlyProperty property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface StructA (experimental)
  │   │ └─┬ members
  │   │   ├─┬ requiredString property (experimental)
@@ -2113,7 +2230,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ optionalStructA property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: Optional<jsii-calc.compliance.StructA>
+ │   │     └── type: Optional<jsii-calc.StructA>
  │   ├─┬ interface StructParameterType (experimental)
  │   │ └─┬ members
  │   │   ├─┬ scope property (experimental)
@@ -2161,7 +2278,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ secondLevel property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: number | jsii-calc.compliance.SecondLevelStruct
+ │   │   │ └── type: number | jsii-calc.SecondLevelStruct
  │   │   └─┬ optional property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
@@ -2171,112 +2288,32 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ bar property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: string | number | jsii-calc.compliance.AllTypes
+ │   │   │ └── type: string | number | jsii-calc.AllTypes
  │   │   └─┬ foo property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string | number>
- │   ├─┬ interface Greetee (experimental)
- │   │ └─┬ members
- │   │   └─┬ name property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: Optional<string>
- │   ├─┬ interface IJSII417Derived (experimental)
- │   │ ├─┬ interfaces
- │   │ │ └── IJSII417PublicBaseOfBase
- │   │ └─┬ members
- │   │   ├─┬ bar() method (experimental)
- │   │   │ ├── abstract
- │   │   │ └── returns: void
- │   │   ├─┬ baz() method (experimental)
- │   │   │ ├── abstract
- │   │   │ └── returns: void
- │   │   └─┬ property property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: string
- │   ├─┬ interface IJSII417PublicBaseOfBase (experimental)
- │   │ └─┬ members
- │   │   ├─┬ foo() method (experimental)
- │   │   │ ├── abstract
- │   │   │ └── returns: void
- │   │   └─┬ hasRoot property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: boolean
- │   ├─┬ interface IJsii487External (experimental)
- │   │ └── members
- │   ├─┬ interface IJsii487External2 (experimental)
- │   │ └── members
- │   ├─┬ interface IJsii496 (experimental)
- │   │ └── members
- │   ├─┬ interface DeprecatedStruct (deprecated)
- │   │ └─┬ members
- │   │   └─┬ readonlyProperty property (deprecated)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: string
- │   ├─┬ interface ExperimentalStruct (experimental)
- │   │ └─┬ members
- │   │   └─┬ readonlyProperty property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: string
- │   ├─┬ interface IDeprecatedInterface (deprecated)
- │   │ └─┬ members
- │   │   ├─┬ method() method (deprecated)
- │   │   │ ├── abstract
- │   │   │ └── returns: void
- │   │   └─┬ mutableProperty property (deprecated)
- │   │     ├── abstract
- │   │     └── type: Optional<number>
- │   ├─┬ interface IExperimentalInterface (experimental)
- │   │ └─┬ members
- │   │   ├─┬ method() method (experimental)
- │   │   │ ├── abstract
- │   │   │ └── returns: void
- │   │   └─┬ mutableProperty property (experimental)
- │   │     ├── abstract
- │   │     └── type: Optional<number>
- │   ├─┬ interface IStableInterface (stable)
- │   │ └─┬ members
- │   │   ├─┬ method() method (stable)
- │   │   │ ├── abstract
- │   │   │ └── returns: void
- │   │   └─┬ mutableProperty property (stable)
- │   │     ├── abstract
- │   │     └── type: Optional<number>
- │   ├─┬ interface StableStruct (stable)
- │   │ └─┬ members
- │   │   └─┬ readonlyProperty property (stable)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: string
  │   ├─┬ enum AllTypesEnum (experimental)
  │   │ ├── MY_ENUM_VALUE (experimental)
  │   │ ├── YOUR_ENUM_VALUE (experimental)
  │   │ └── THIS_IS_GREAT (experimental)
- │   ├─┬ enum SingletonIntEnum (experimental)
- │   │ └── SINGLETON_INT (experimental)
- │   ├─┬ enum SingletonStringEnum (experimental)
- │   │ └── SINGLETON_STRING (experimental)
- │   ├─┬ enum StringEnum (experimental)
- │   │ ├── A (experimental)
- │   │ ├── B (experimental)
- │   │ └── C (experimental)
- │   ├─┬ enum CompositionStringStyle (experimental)
- │   │ ├── NORMAL (experimental)
- │   │ └── DECORATED (experimental)
  │   ├─┬ enum DeprecatedEnum (deprecated)
  │   │ ├── OPTION_A (deprecated)
  │   │ └── OPTION_B (deprecated)
  │   ├─┬ enum ExperimentalEnum (experimental)
  │   │ ├── OPTION_A (experimental)
  │   │ └── OPTION_B (experimental)
- │   └─┬ enum StableEnum (stable)
- │     ├── OPTION_A (stable)
- │     └── OPTION_B (stable)
+ │   ├─┬ enum SingletonIntEnum (experimental)
+ │   │ └── SINGLETON_INT (experimental)
+ │   ├─┬ enum SingletonStringEnum (experimental)
+ │   │ └── SINGLETON_STRING (experimental)
+ │   ├─┬ enum StableEnum (stable)
+ │   │ ├── OPTION_A (stable)
+ │   │ └── OPTION_B (stable)
+ │   └─┬ enum StringEnum (experimental)
+ │     ├── A (experimental)
+ │     ├── B (experimental)
+ │     └── C (experimental)
  ├─┬ @scope/jsii-calc-base
  │ ├─┬ dependencies
  │ │ └── @scope/jsii-calc-base-of-base
@@ -2409,34 +2446,47 @@ exports[`jsii-tree --all 1`] = `
 exports[`jsii-tree --inheritance 1`] = `
 "assemblies
  ├─┬ jsii-calc
+ │ ├─┬ submodules
+ │ │ ├─┬ DerivedClassHasNoProperties
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   └─┬ class Derived
+ │ │ │     └── base: Base
+ │ │ ├─┬ InterfaceInNamespaceIncludesClasses
+ │ │ │ └─┬ types
+ │ │ │   ├── class Foo
+ │ │ │   └── interface Hello
+ │ │ ├─┬ InterfaceInNamespaceOnlyInterface
+ │ │ │ └─┬ types
+ │ │ │   └── interface Hello
+ │ │ ├─┬ composition
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class CompositeOperation
+ │ │ │   │ └── base: Operation
+ │ │ │   └── enum CompositionStringStyle
+ │ │ └─┬ submodule
+ │ │   ├─┬ submodules
+ │ │   │ ├─┬ child
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface Structure
+ │ │   │ └─┬ nested_submodule
+ │ │   │   ├─┬ submodules
+ │ │   │   │ └─┬ deeplyNested
+ │ │   │   │   └─┬ types
+ │ │   │   │     └── interface INamespaced
+ │ │   │   └─┬ types
+ │ │   │     └─┬ class Namespaced
+ │ │   │       └── interfaces: INamespaced
+ │ │   └── types
  │ └─┬ types
- │   ├── class AbstractSuite
- │   ├─┬ class Add
- │   │ └── base: BinaryOperation
- │   ├─┬ class BinaryOperation
- │   │ ├── base: Operation
- │   │ └── interfaces: IFriendly
- │   ├─┬ class Calculator
- │   │ └── base: CompositeOperation
- │   ├── class MethodNamedProperty
- │   ├─┬ class Multiply
- │   │ ├── base: BinaryOperation
- │   │ └── interfaces: IFriendlier,IRandomNumberGenerator
- │   ├─┬ class Negate
- │   │ ├── base: UnaryOperation
- │   │ └── interfaces: IFriendlier
- │   ├─┬ class Power
- │   │ └── base: CompositeOperation
- │   ├── class PropertyNamedProperty
- │   ├─┬ class Sum
- │   │ └── base: CompositeOperation
- │   ├─┬ class UnaryOperation
- │   │ └── base: Operation
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
  │   │ └── interfaces: IInterfaceImplementedByAbstractClass
  │   ├── class AbstractClassBase
  │   ├── class AbstractClassReturner
+ │   ├── class AbstractSuite
+ │   ├─┬ class Add
+ │   │ └── base: BinaryOperation
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
  │   ├── class AmbiguousParameters
@@ -2447,6 +2497,11 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class BaseJsii976
  │   ├─┬ class Bell
  │   │ └── interfaces: IBell
+ │   ├─┬ class BinaryOperation
+ │   │ ├── base: Operation
+ │   │ └── interfaces: IFriendly
+ │   ├─┬ class Calculator
+ │   │ └── base: CompositeOperation
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ └── interfaces: INonInternalInterface
  │   ├─┬ class ClassThatImplementsThePrivateInterface
@@ -2466,17 +2521,17 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
- │   ├── class Base
- │   ├─┬ class Derived
- │   │ └── base: Base
+ │   ├── class DeprecatedClass
  │   ├── class DisappointingCollectionSource
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
+ │   ├── class DocumentedClass
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├─┬ class DoubleTrouble
  │   │ └── interfaces: IFriendlyRandomGenerator
  │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
+ │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
@@ -2491,19 +2546,33 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ ├── base: PublicClass
  │   │ └── interfaces: IPublicInterface2
  │   ├── class InterfaceCollections
- │   ├── class Foo
  │   ├── class InterfacesMaker
+ │   ├─┬ class JSII417Derived
+ │   │ └── base: JSII417PublicBaseOfBase
+ │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface
  │   ├── class JSObjectLiteralToNative
  │   ├── class JSObjectLiteralToNativeClass
  │   ├── class JavaReservedWords
+ │   ├─┬ class Jsii487Derived
+ │   │ └── interfaces: IJsii487External2,IJsii487External
+ │   ├─┬ class Jsii496Derived
+ │   │ └── interfaces: IJsii496
  │   ├── class JsiiAgent
  │   ├── class JsonFormatter
+ │   ├── class MethodNamedProperty
+ │   ├─┬ class Multiply
+ │   │ ├── base: BinaryOperation
+ │   │ └── interfaces: IFriendlier,IRandomNumberGenerator
+ │   ├─┬ class Negate
+ │   │ ├── base: UnaryOperation
+ │   │ └── interfaces: IFriendlier
  │   ├── class NodeStandardLibrary
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
  │   ├── class ObjectWithPropertyProvider
+ │   ├── class Old
  │   ├── class OptionalArgumentInvoker
  │   ├── class OptionalConstructorArgument
  │   ├── class OptionalStructConsumer
@@ -2511,6 +2580,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class OverrideReturnsObject
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
+ │   ├─┬ class Power
+ │   │ └── base: CompositeOperation
+ │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
@@ -2521,16 +2593,21 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SingletonInt
  │   ├── class SingletonString
  │   ├── class SomeTypeJsii976
+ │   ├── class StableClass
  │   ├── class StaticContext
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├── class StructPassing
  │   ├── class StructUnionConsumer
+ │   ├─┬ class Sum
+ │   │ └── base: CompositeOperation
  │   ├─┬ class SupportsNiceJavaBuilder
  │   │ └── base: SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
+ │   ├─┬ class UnaryOperation
+ │   │ └── base: Operation
  │   ├── class UseBundledDependency
  │   ├── class UseCalcBase
  │   ├── class UsesInterfaceWithProperties
@@ -2539,34 +2616,12 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
  │   ├── class WithPrivatePropertyInConstructor
- │   ├─┬ class CompositeOperation
- │   │ └── base: Operation
- │   ├── class DocumentedClass
- │   ├── class Old
- │   ├─┬ class JSII417Derived
- │   │ └── base: JSII417PublicBaseOfBase
- │   ├── class JSII417PublicBaseOfBase
- │   ├─┬ class Jsii487Derived
- │   │ └── interfaces: IJsii487External2,IJsii487External
- │   ├─┬ class Jsii496Derived
- │   │ └── interfaces: IJsii496
- │   ├── class DeprecatedClass
- │   ├── class ExperimentalClass
- │   ├── class StableClass
  │   ├── interface CalculatorProps
- │   ├─┬ interface IFriendlier
- │   │ └─┬ interfaces
- │   │   └── IFriendly
- │   ├─┬ interface IFriendlyRandomGenerator
- │   │ └─┬ interfaces
- │   │   ├── IRandomNumberGenerator
- │   │   └── IFriendly
- │   ├── interface IRandomNumberGenerator
- │   ├── interface SmellyStruct
  │   ├─┬ interface ChildStruct982
  │   │ └─┬ interfaces
  │   │   └── ParentStruct982
  │   ├── interface ConfusingToJacksonStruct
+ │   ├── interface DeprecatedStruct
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
  │   │   └── MyFirstStruct
@@ -2582,14 +2637,25 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │   ├── DiamondInheritanceFirstMidLevelStruct
  │   │   └── DiamondInheritanceSecondMidLevelStruct
  │   ├── interface EraseUndefinedHashValuesOptions
+ │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
+ │   ├── interface Greetee
  │   ├── interface IAnonymousImplementationProvider
  │   ├── interface IAnonymouslyImplementMe
  │   ├── interface IAnotherPublicInterface
  │   ├── interface IBell
  │   ├── interface IBellRinger
  │   ├── interface IConcreteBellRinger
+ │   ├── interface IDeprecatedInterface
+ │   ├── interface IExperimentalInterface
  │   ├── interface IExtendsPrivateInterface
+ │   ├─┬ interface IFriendlier
+ │   │ └─┬ interfaces
+ │   │   └── IFriendly
+ │   ├─┬ interface IFriendlyRandomGenerator
+ │   │ └─┬ interfaces
+ │   │   ├── IRandomNumberGenerator
+ │   │   └── IFriendly
  │   ├── interface IInterfaceImplementedByAbstractClass
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ └─┬ interfaces
@@ -2601,6 +2667,13 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ interface IInterfaceWithPropertiesExtension
  │   │ └─┬ interfaces
  │   │   └── IInterfaceWithProperties
+ │   ├─┬ interface IJSII417Derived
+ │   │ └─┬ interfaces
+ │   │   └── IJSII417PublicBaseOfBase
+ │   ├── interface IJSII417PublicBaseOfBase
+ │   ├── interface IJsii487External
+ │   ├── interface IJsii487External2
+ │   ├── interface IJsii496
  │   ├── interface IMutableObjectLiteral
  │   ├─┬ interface INonInternalInterface
  │   │ └─┬ interfaces
@@ -2610,14 +2683,14 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
+ │   ├── interface IRandomNumberGenerator
  │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
+ │   ├── interface IStableInterface
  │   ├── interface IStructReturningDelegate
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ interfaces
  │   │   └── BaseProps
- │   ├── interface Hello
- │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
@@ -2625,6 +2698,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
+ │   ├── interface SmellyStruct
+ │   ├── interface StableStruct
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
@@ -2632,28 +2707,13 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
  │   ├── interface UnionProperties
- │   ├── interface Greetee
- │   ├─┬ interface IJSII417Derived
- │   │ └─┬ interfaces
- │   │   └── IJSII417PublicBaseOfBase
- │   ├── interface IJSII417PublicBaseOfBase
- │   ├── interface IJsii487External
- │   ├── interface IJsii487External2
- │   ├── interface IJsii496
- │   ├── interface DeprecatedStruct
- │   ├── interface ExperimentalStruct
- │   ├── interface IDeprecatedInterface
- │   ├── interface IExperimentalInterface
- │   ├── interface IStableInterface
- │   ├── interface StableStruct
  │   ├── enum AllTypesEnum
- │   ├── enum SingletonIntEnum
- │   ├── enum SingletonStringEnum
- │   ├── enum StringEnum
- │   ├── enum CompositionStringStyle
  │   ├── enum DeprecatedEnum
  │   ├── enum ExperimentalEnum
- │   └── enum StableEnum
+ │   ├── enum SingletonIntEnum
+ │   ├── enum SingletonStringEnum
+ │   ├── enum StableEnum
+ │   └── enum StringEnum
  ├─┬ @scope/jsii-calc-base
  │ └─┬ types
  │   ├── class Base
@@ -2691,79 +2751,64 @@ exports[`jsii-tree --inheritance 1`] = `
 exports[`jsii-tree --members 1`] = `
 "assemblies
  ├─┬ jsii-calc
+ │ ├─┬ submodules
+ │ │ ├─┬ DerivedClassHasNoProperties
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── prop property
+ │ │ │   └─┬ class Derived
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer
+ │ │ ├─┬ InterfaceInNamespaceIncludesClasses
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Foo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── bar property
+ │ │ │   └─┬ interface Hello
+ │ │ │     └─┬ members
+ │ │ │       └── foo property
+ │ │ ├─┬ InterfaceInNamespaceOnlyInterface
+ │ │ │ └─┬ types
+ │ │ │   └─┬ interface Hello
+ │ │ │     └─┬ members
+ │ │ │       └── foo property
+ │ │ ├─┬ composition
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class CompositeOperation
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├── toString() method
+ │ │ │   │   ├── expression property
+ │ │ │   │   ├── value property
+ │ │ │   │   ├── decorationPostfixes property
+ │ │ │   │   ├── decorationPrefixes property
+ │ │ │   │   └── stringStyle property
+ │ │ │   └─┬ enum CompositionStringStyle
+ │ │ │     ├── NORMAL
+ │ │ │     └── DECORATED
+ │ │ └─┬ submodule
+ │ │   ├─┬ submodules
+ │ │   │ ├─┬ child
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ interface Structure
+ │ │   │ │     └─┬ members
+ │ │   │ │       └── bool property
+ │ │   │ └─┬ nested_submodule
+ │ │   │   ├─┬ submodules
+ │ │   │   │ └─┬ deeplyNested
+ │ │   │   │   └─┬ types
+ │ │   │   │     └─┬ interface INamespaced
+ │ │   │   │       └─┬ members
+ │ │   │   │         └── definedAt property
+ │ │   │   └─┬ types
+ │ │   │     └─┬ class Namespaced
+ │ │   │       └─┬ members
+ │ │   │         └── definedAt property
+ │ │   └── types
  │ └─┬ types
- │   ├─┬ class AbstractSuite
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├── someMethod(str) method
- │   │   ├── workItAll(seed) method
- │   │   └── property property
- │   ├─┬ class Add
- │   │ └─┬ members
- │   │   ├── <initializer>(lhs,rhs) initializer
- │   │   ├── toString() method
- │   │   └── value property
- │   ├─┬ class BinaryOperation
- │   │ └─┬ members
- │   │   ├── <initializer>(lhs,rhs) initializer
- │   │   ├── hello() method
- │   │   ├── lhs property
- │   │   └── rhs property
- │   ├─┬ class Calculator
- │   │ └─┬ members
- │   │   ├── <initializer>(props) initializer
- │   │   ├── add(value) method
- │   │   ├── mul(value) method
- │   │   ├── neg() method
- │   │   ├── pow(value) method
- │   │   ├── readUnionValue() method
- │   │   ├── expression property
- │   │   ├── operationsLog property
- │   │   ├── operationsMap property
- │   │   ├── curr property
- │   │   ├── maxValue property
- │   │   └── unionProperty property
- │   ├─┬ class MethodNamedProperty
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├── property() method
- │   │   └── elite property
- │   ├─┬ class Multiply
- │   │ └─┬ members
- │   │   ├── <initializer>(lhs,rhs) initializer
- │   │   ├── farewell() method
- │   │   ├── goodbye() method
- │   │   ├── next() method
- │   │   ├── toString() method
- │   │   └── value property
- │   ├─┬ class Negate
- │   │ └─┬ members
- │   │   ├── <initializer>(operand) initializer
- │   │   ├── farewell() method
- │   │   ├── goodbye() method
- │   │   ├── hello() method
- │   │   ├── toString() method
- │   │   └── value property
- │   ├─┬ class Power
- │   │ └─┬ members
- │   │   ├── <initializer>(base,pow) initializer
- │   │   ├── base property
- │   │   ├── expression property
- │   │   └── pow property
- │   ├─┬ class PropertyNamedProperty
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├── property property
- │   │   └── yetAnoterOne property
- │   ├─┬ class Sum
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├── expression property
- │   │   └── parts property
- │   ├─┬ class UnaryOperation
- │   │ └─┬ members
- │   │   ├── <initializer>(operand) initializer
- │   │   └── operand property
  │   ├─┬ class AbstractClass
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2780,6 +2825,17 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── giveMeAbstract() method
  │   │   ├── giveMeInterface() method
  │   │   └── returnAbstractFromProperty property
+ │   ├─┬ class AbstractSuite
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── someMethod(str) method
+ │   │   ├── workItAll(seed) method
+ │   │   └── property property
+ │   ├─┬ class Add
+ │   │ └─┬ members
+ │   │   ├── <initializer>(lhs,rhs) initializer
+ │   │   ├── toString() method
+ │   │   └── value property
  │   ├─┬ class AllTypes
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2844,6 +2900,26 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── ring() method
  │   │   └── rung property
+ │   ├─┬ class BinaryOperation
+ │   │ └─┬ members
+ │   │   ├── <initializer>(lhs,rhs) initializer
+ │   │   ├── hello() method
+ │   │   ├── lhs property
+ │   │   └── rhs property
+ │   ├─┬ class Calculator
+ │   │ └─┬ members
+ │   │   ├── <initializer>(props) initializer
+ │   │   ├── add(value) method
+ │   │   ├── mul(value) method
+ │   │   ├── neg() method
+ │   │   ├── pow(value) method
+ │   │   ├── readUnionValue() method
+ │   │   ├── expression property
+ │   │   ├── operationsLog property
+ │   │   ├── operationsMap property
+ │   │   ├── curr property
+ │   │   ├── maxValue property
+ │   │   └── unionProperty property
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2939,13 +3015,12 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── static takeThis() method
  │   │   └── static takeThisToo() method
- │   ├─┬ class Base
+ │   ├─┬ class DeprecatedClass
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └── prop property
- │   ├─┬ class Derived
- │   │ └─┬ members
- │   │   └── <initializer>() initializer
+ │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├── method() method
+ │   │   ├── readonlyProperty property
+ │   │   └── mutableProperty property
  │   ├─┬ class DisappointingCollectionSource
  │   │ └─┬ members
  │   │   ├── static maybeList property
@@ -2960,6 +3035,11 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── method(_requiredAny,_optionalAny,_optionalString) method
+ │   ├─┬ class DocumentedClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── greet(greetee) method
+ │   │   └── hola() method
  │   ├─┬ class DontComplainAboutVariadicAfterOptional
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2979,6 +3059,12 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static doesKeyExist(opts,key) method
  │   │   ├── static prop1IsNull() method
  │   │   └── static prop2IsUndefined() method
+ │   ├─┬ class ExperimentalClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├── method() method
+ │   │   ├── readonlyProperty property
+ │   │   └── mutableProperty property
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
  │   │   ├── <initializer>(success) initializer
@@ -3023,13 +3109,21 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static listOfStructs() method
  │   │   ├── static mapOfInterfaces() method
  │   │   └── static mapOfStructs() method
- │   ├─┬ class Foo
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └── bar property
  │   ├─┬ class InterfacesMaker
  │   │ └─┬ members
  │   │   └── static makeInterfaces(count) method
+ │   ├─┬ class JSII417Derived
+ │   │ └─┬ members
+ │   │   ├── <initializer>(property) initializer
+ │   │   ├── bar() method
+ │   │   ├── baz() method
+ │   │   └── property property
+ │   ├─┬ class JSII417PublicBaseOfBase
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static makeInstance() method
+ │   │   ├── foo() method
+ │   │   └── hasRoot property
  │   ├─┬ class JSObjectLiteralForInterface
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3100,6 +3194,12 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── void() method
  │   │   ├── volatile() method
  │   │   └── while property
+ │   ├─┬ class Jsii487Derived
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
+ │   ├─┬ class Jsii496Derived
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class JsiiAgent
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3120,6 +3220,27 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static anyUndefined() method
  │   │   ├── static anyZero() method
  │   │   └── static stringify(value) method
+ │   ├─┬ class MethodNamedProperty
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── property() method
+ │   │   └── elite property
+ │   ├─┬ class Multiply
+ │   │ └─┬ members
+ │   │   ├── <initializer>(lhs,rhs) initializer
+ │   │   ├── farewell() method
+ │   │   ├── goodbye() method
+ │   │   ├── next() method
+ │   │   ├── toString() method
+ │   │   └── value property
+ │   ├─┬ class Negate
+ │   │ └─┬ members
+ │   │   ├── <initializer>(operand) initializer
+ │   │   ├── farewell() method
+ │   │   ├── goodbye() method
+ │   │   ├── hello() method
+ │   │   ├── toString() method
+ │   │   └── value property
  │   ├─┬ class NodeStandardLibrary
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3148,6 +3269,10 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class ObjectWithPropertyProvider
  │   │ └─┬ members
  │   │   └── static provide() method
+ │   ├─┬ class Old
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── doAThing() method
  │   ├─┬ class OptionalArgumentInvoker
  │   │ └─┬ members
  │   │   ├── <initializer>(delegate) initializer
@@ -3184,6 +3309,17 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── sayHello(friendly) method
+ │   ├─┬ class Power
+ │   │ └─┬ members
+ │   │   ├── <initializer>(base,pow) initializer
+ │   │   ├── base property
+ │   │   ├── expression property
+ │   │   └── pow property
+ │   ├─┬ class PropertyNamedProperty
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── property property
+ │   │   └── yetAnoterOne property
  │   ├─┬ class PublicClass
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3258,6 +3394,12 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── static returnAnonymous() method
  │   │   └── static returnReturn() method
+ │   ├─┬ class StableClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├── method() method
+ │   │   ├── readonlyProperty property
+ │   │   └── mutableProperty property
  │   ├─┬ class StaticContext
  │   │ └─┬ members
  │   │   ├── static canAccessStaticContext() method
@@ -3287,6 +3429,11 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── static isStructA(struct) method
  │   │   └── static isStructB(struct) method
+ │   ├─┬ class Sum
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── expression property
+ │   │   └── parts property
  │   ├─┬ class SupportsNiceJavaBuilder
  │   │ └─┬ members
  │   │   ├── <initializer>(id,defaultBar,props,rest) initializer
@@ -3321,6 +3468,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── throwError() method
+ │   ├─┬ class UnaryOperation
+ │   │ └─┬ members
+ │   │   ├── <initializer>(operand) initializer
+ │   │   └── operand property
  │   ├─┬ class UseBundledDependency
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3362,83 +3513,19 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>(privateField) initializer
  │   │   └── success property
- │   ├─┬ class CompositeOperation
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├── toString() method
- │   │   ├── expression property
- │   │   ├── value property
- │   │   ├── decorationPostfixes property
- │   │   ├── decorationPrefixes property
- │   │   └── stringStyle property
- │   ├─┬ class DocumentedClass
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├── greet(greetee) method
- │   │   └── hola() method
- │   ├─┬ class Old
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └── doAThing() method
- │   ├─┬ class JSII417Derived
- │   │ └─┬ members
- │   │   ├── <initializer>(property) initializer
- │   │   ├── bar() method
- │   │   ├── baz() method
- │   │   └── property property
- │   ├─┬ class JSII417PublicBaseOfBase
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├── static makeInstance() method
- │   │   ├── foo() method
- │   │   └── hasRoot property
- │   ├─┬ class Jsii487Derived
- │   │ └─┬ members
- │   │   └── <initializer>() initializer
- │   ├─┬ class Jsii496Derived
- │   │ └─┬ members
- │   │   └── <initializer>() initializer
- │   ├─┬ class DeprecatedClass
- │   │ └─┬ members
- │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
- │   │   ├── method() method
- │   │   ├── readonlyProperty property
- │   │   └── mutableProperty property
- │   ├─┬ class ExperimentalClass
- │   │ └─┬ members
- │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
- │   │   ├── method() method
- │   │   ├── readonlyProperty property
- │   │   └── mutableProperty property
- │   ├─┬ class StableClass
- │   │ └─┬ members
- │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
- │   │   ├── method() method
- │   │   ├── readonlyProperty property
- │   │   └── mutableProperty property
  │   ├─┬ interface CalculatorProps
  │   │ └─┬ members
  │   │   ├── initialValue property
  │   │   └── maximumValue property
- │   ├─┬ interface IFriendlier
- │   │ └─┬ members
- │   │   ├── farewell() method
- │   │   └── goodbye() method
- │   ├─┬ interface IFriendlyRandomGenerator
- │   │ └── members
- │   ├─┬ interface IRandomNumberGenerator
- │   │ └─┬ members
- │   │   └── next() method
- │   ├─┬ interface SmellyStruct
- │   │ └─┬ members
- │   │   ├── property property
- │   │   └── yetAnoterOne property
  │   ├─┬ interface ChildStruct982
  │   │ └─┬ members
  │   │   └── bar property
  │   ├─┬ interface ConfusingToJacksonStruct
  │   │ └─┬ members
  │   │   └── unionProperty property
+ │   ├─┬ interface DeprecatedStruct
+ │   │ └─┬ members
+ │   │   └── readonlyProperty property
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ members
  │   │   ├── anotherRequired property
@@ -3463,10 +3550,16 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── option1 property
  │   │   └── option2 property
+ │   ├─┬ interface ExperimentalStruct
+ │   │ └─┬ members
+ │   │   └── readonlyProperty property
  │   ├─┬ interface ExtendsInternalInterface
  │   │ └─┬ members
  │   │   ├── boom property
  │   │   └── prop property
+ │   ├─┬ interface Greetee
+ │   │ └─┬ members
+ │   │   └── name property
  │   ├─┬ interface IAnonymousImplementationProvider
  │   │ └─┬ members
  │   │   ├── provideAsClass() method
@@ -3487,10 +3580,24 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface IConcreteBellRinger
  │   │ └─┬ members
  │   │   └── yourTurn(bell) method
+ │   ├─┬ interface IDeprecatedInterface
+ │   │ └─┬ members
+ │   │   ├── method() method
+ │   │   └── mutableProperty property
+ │   ├─┬ interface IExperimentalInterface
+ │   │ └─┬ members
+ │   │   ├── method() method
+ │   │   └── mutableProperty property
  │   ├─┬ interface IExtendsPrivateInterface
  │   │ └─┬ members
  │   │   ├── moreThings property
  │   │   └── private property
+ │   ├─┬ interface IFriendlier
+ │   │ └─┬ members
+ │   │   ├── farewell() method
+ │   │   └── goodbye() method
+ │   ├─┬ interface IFriendlyRandomGenerator
+ │   │ └── members
  │   ├─┬ interface IInterfaceImplementedByAbstractClass
  │   │ └─┬ members
  │   │   └── propFromInterface property
@@ -3514,6 +3621,21 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface IInterfaceWithPropertiesExtension
  │   │ └─┬ members
  │   │   └── foo property
+ │   ├─┬ interface IJSII417Derived
+ │   │ └─┬ members
+ │   │   ├── bar() method
+ │   │   ├── baz() method
+ │   │   └── property property
+ │   ├─┬ interface IJSII417PublicBaseOfBase
+ │   │ └─┬ members
+ │   │   ├── foo() method
+ │   │   └── hasRoot property
+ │   ├─┬ interface IJsii487External
+ │   │ └── members
+ │   ├─┬ interface IJsii487External2
+ │   │ └── members
+ │   ├─┬ interface IJsii496
+ │   │ └── members
  │   ├─┬ interface IMutableObjectLiteral
  │   │ └─┬ members
  │   │   └── value property
@@ -3537,6 +3659,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface IPublicInterface2
  │   │ └─┬ members
  │   │   └── ciao() method
+ │   ├─┬ interface IRandomNumberGenerator
+ │   │ └─┬ members
+ │   │   └── next() method
  │   ├─┬ interface IReturnJsii976
  │   │ └─┬ members
  │   │   └── foo property
@@ -3544,18 +3669,16 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── obtainNumber() method
  │   │   └── numberProp property
+ │   ├─┬ interface IStableInterface
+ │   │ └─┬ members
+ │   │   ├── method() method
+ │   │   └── mutableProperty property
  │   ├─┬ interface IStructReturningDelegate
  │   │ └─┬ members
  │   │   └── returnStruct() method
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ members
  │   │   └── goo property
- │   ├─┬ interface Hello
- │   │ └─┬ members
- │   │   └── foo property
- │   ├─┬ interface Hello
- │   │ └─┬ members
- │   │   └── foo property
  │   ├─┬ interface LoadBalancedFargateServiceProps
  │   │ └─┬ members
  │   │   ├── containerPort property
@@ -3584,6 +3707,13 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── deeperRequiredProp property
  │   │   └── deeperOptionalProp property
+ │   ├─┬ interface SmellyStruct
+ │   │ └─┬ members
+ │   │   ├── property property
+ │   │   └── yetAnoterOne property
+ │   ├─┬ interface StableStruct
+ │   │ └─┬ members
+ │   │   └── readonlyProperty property
  │   ├─┬ interface StructA
  │   │ └─┬ members
  │   │   ├── requiredString property
@@ -3617,69 +3747,27 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── bar property
  │   │   └── foo property
- │   ├─┬ interface Greetee
- │   │ └─┬ members
- │   │   └── name property
- │   ├─┬ interface IJSII417Derived
- │   │ └─┬ members
- │   │   ├── bar() method
- │   │   ├── baz() method
- │   │   └── property property
- │   ├─┬ interface IJSII417PublicBaseOfBase
- │   │ └─┬ members
- │   │   ├── foo() method
- │   │   └── hasRoot property
- │   ├─┬ interface IJsii487External
- │   │ └── members
- │   ├─┬ interface IJsii487External2
- │   │ └── members
- │   ├─┬ interface IJsii496
- │   │ └── members
- │   ├─┬ interface DeprecatedStruct
- │   │ └─┬ members
- │   │   └── readonlyProperty property
- │   ├─┬ interface ExperimentalStruct
- │   │ └─┬ members
- │   │   └── readonlyProperty property
- │   ├─┬ interface IDeprecatedInterface
- │   │ └─┬ members
- │   │   ├── method() method
- │   │   └── mutableProperty property
- │   ├─┬ interface IExperimentalInterface
- │   │ └─┬ members
- │   │   ├── method() method
- │   │   └── mutableProperty property
- │   ├─┬ interface IStableInterface
- │   │ └─┬ members
- │   │   ├── method() method
- │   │   └── mutableProperty property
- │   ├─┬ interface StableStruct
- │   │ └─┬ members
- │   │   └── readonlyProperty property
  │   ├─┬ enum AllTypesEnum
  │   │ ├── MY_ENUM_VALUE
  │   │ ├── YOUR_ENUM_VALUE
  │   │ └── THIS_IS_GREAT
- │   ├─┬ enum SingletonIntEnum
- │   │ └── SINGLETON_INT
- │   ├─┬ enum SingletonStringEnum
- │   │ └── SINGLETON_STRING
- │   ├─┬ enum StringEnum
- │   │ ├── A
- │   │ ├── B
- │   │ └── C
- │   ├─┬ enum CompositionStringStyle
- │   │ ├── NORMAL
- │   │ └── DECORATED
  │   ├─┬ enum DeprecatedEnum
  │   │ ├── OPTION_A
  │   │ └── OPTION_B
  │   ├─┬ enum ExperimentalEnum
  │   │ ├── OPTION_A
  │   │ └── OPTION_B
- │   └─┬ enum StableEnum
- │     ├── OPTION_A
- │     └── OPTION_B
+ │   ├─┬ enum SingletonIntEnum
+ │   │ └── SINGLETON_INT
+ │   ├─┬ enum SingletonStringEnum
+ │   │ └── SINGLETON_STRING
+ │   ├─┬ enum StableEnum
+ │   │ ├── OPTION_A
+ │   │ └── OPTION_B
+ │   └─┬ enum StringEnum
+ │     ├── A
+ │     ├── B
+ │     └── C
  ├─┬ @scope/jsii-calc-base
  │ └─┬ types
  │   ├─┬ class Base
@@ -3747,7 +3835,18 @@ exports[`jsii-tree --members 1`] = `
 
 exports[`jsii-tree --signatures 1`] = `
 "assemblies
- ├── jsii-calc
+ ├─┬ jsii-calc
+ │ └─┬ submodules
+ │   ├── DerivedClassHasNoProperties
+ │   ├── InterfaceInNamespaceIncludesClasses
+ │   ├── InterfaceInNamespaceOnlyInterface
+ │   ├── composition
+ │   └─┬ submodule
+ │     └─┬ submodules
+ │       ├── child
+ │       └─┬ nested_submodule
+ │         └─┬ submodules
+ │           └── deeplyNested
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └── @scope/jsii-calc-lib
@@ -3757,21 +3856,41 @@ exports[`jsii-tree --signatures 1`] = `
 exports[`jsii-tree --types 1`] = `
 "assemblies
  ├─┬ jsii-calc
+ │ ├─┬ submodules
+ │ │ ├─┬ DerivedClassHasNoProperties
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   └── class Derived
+ │ │ ├─┬ InterfaceInNamespaceIncludesClasses
+ │ │ │ └─┬ types
+ │ │ │   ├── class Foo
+ │ │ │   └── interface Hello
+ │ │ ├─┬ InterfaceInNamespaceOnlyInterface
+ │ │ │ └─┬ types
+ │ │ │   └── interface Hello
+ │ │ ├─┬ composition
+ │ │ │ └─┬ types
+ │ │ │   ├── class CompositeOperation
+ │ │ │   └── enum CompositionStringStyle
+ │ │ └─┬ submodule
+ │ │   ├─┬ submodules
+ │ │   │ ├─┬ child
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface Structure
+ │ │   │ └─┬ nested_submodule
+ │ │   │   ├─┬ submodules
+ │ │   │   │ └─┬ deeplyNested
+ │ │   │   │   └─┬ types
+ │ │   │   │     └── interface INamespaced
+ │ │   │   └─┬ types
+ │ │   │     └── class Namespaced
+ │ │   └── types
  │ └─┬ types
- │   ├── class AbstractSuite
- │   ├── class Add
- │   ├── class BinaryOperation
- │   ├── class Calculator
- │   ├── class MethodNamedProperty
- │   ├── class Multiply
- │   ├── class Negate
- │   ├── class Power
- │   ├── class PropertyNamedProperty
- │   ├── class Sum
- │   ├── class UnaryOperation
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
  │   ├── class AbstractClassReturner
+ │   ├── class AbstractSuite
+ │   ├── class Add
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
  │   ├── class AmbiguousParameters
@@ -3780,6 +3899,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class AugmentableClass
  │   ├── class BaseJsii976
  │   ├── class Bell
+ │   ├── class BinaryOperation
+ │   ├── class Calculator
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
  │   ├── class ClassWithCollections
@@ -3796,15 +3917,16 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
- │   ├── class Base
- │   ├── class Derived
+ │   ├── class DeprecatedClass
  │   ├── class DisappointingCollectionSource
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
+ │   ├── class DocumentedClass
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├── class DoubleTrouble
  │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
+ │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
@@ -3815,19 +3937,26 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ImplementsPrivateInterface
  │   ├── class InbetweenClass
  │   ├── class InterfaceCollections
- │   ├── class Foo
  │   ├── class InterfacesMaker
+ │   ├── class JSII417Derived
+ │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface
  │   ├── class JSObjectLiteralToNative
  │   ├── class JSObjectLiteralToNativeClass
  │   ├── class JavaReservedWords
+ │   ├── class Jsii487Derived
+ │   ├── class Jsii496Derived
  │   ├── class JsiiAgent
  │   ├── class JsonFormatter
+ │   ├── class MethodNamedProperty
+ │   ├── class Multiply
+ │   ├── class Negate
  │   ├── class NodeStandardLibrary
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
  │   ├── class ObjectWithPropertyProvider
+ │   ├── class Old
  │   ├── class OptionalArgumentInvoker
  │   ├── class OptionalConstructorArgument
  │   ├── class OptionalStructConsumer
@@ -3835,6 +3964,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class OverrideReturnsObject
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
+ │   ├── class Power
+ │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
@@ -3845,15 +3976,18 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SingletonInt
  │   ├── class SingletonString
  │   ├── class SomeTypeJsii976
+ │   ├── class StableClass
  │   ├── class StaticContext
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├── class StructPassing
  │   ├── class StructUnionConsumer
+ │   ├── class Sum
  │   ├── class SupportsNiceJavaBuilder
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
+ │   ├── class UnaryOperation
  │   ├── class UseBundledDependency
  │   ├── class UseCalcBase
  │   ├── class UsesInterfaceWithProperties
@@ -3862,37 +3996,30 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
  │   ├── class WithPrivatePropertyInConstructor
- │   ├── class CompositeOperation
- │   ├── class DocumentedClass
- │   ├── class Old
- │   ├── class JSII417Derived
- │   ├── class JSII417PublicBaseOfBase
- │   ├── class Jsii487Derived
- │   ├── class Jsii496Derived
- │   ├── class DeprecatedClass
- │   ├── class ExperimentalClass
- │   ├── class StableClass
  │   ├── interface CalculatorProps
- │   ├── interface IFriendlier
- │   ├── interface IFriendlyRandomGenerator
- │   ├── interface IRandomNumberGenerator
- │   ├── interface SmellyStruct
  │   ├── interface ChildStruct982
  │   ├── interface ConfusingToJacksonStruct
+ │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
  │   ├── interface DiamondInheritanceBaseLevelStruct
  │   ├── interface DiamondInheritanceFirstMidLevelStruct
  │   ├── interface DiamondInheritanceSecondMidLevelStruct
  │   ├── interface DiamondInheritanceTopLevelStruct
  │   ├── interface EraseUndefinedHashValuesOptions
+ │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
+ │   ├── interface Greetee
  │   ├── interface IAnonymousImplementationProvider
  │   ├── interface IAnonymouslyImplementMe
  │   ├── interface IAnotherPublicInterface
  │   ├── interface IBell
  │   ├── interface IBellRinger
  │   ├── interface IConcreteBellRinger
+ │   ├── interface IDeprecatedInterface
+ │   ├── interface IExperimentalInterface
  │   ├── interface IExtendsPrivateInterface
+ │   ├── interface IFriendlier
+ │   ├── interface IFriendlyRandomGenerator
  │   ├── interface IInterfaceImplementedByAbstractClass
  │   ├── interface IInterfaceThatShouldNotBeADataType
  │   ├── interface IInterfaceWithInternal
@@ -3900,6 +4027,11 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IInterfaceWithOptionalMethodArguments
  │   ├── interface IInterfaceWithProperties
  │   ├── interface IInterfaceWithPropertiesExtension
+ │   ├── interface IJSII417Derived
+ │   ├── interface IJSII417PublicBaseOfBase
+ │   ├── interface IJsii487External
+ │   ├── interface IJsii487External2
+ │   ├── interface IJsii496
  │   ├── interface IMutableObjectLiteral
  │   ├── interface INonInternalInterface
  │   ├── interface IObjectWithProperty
@@ -3907,12 +4039,12 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IPublicInterface2
+ │   ├── interface IRandomNumberGenerator
  │   ├── interface IReturnJsii976
  │   ├── interface IReturnsNumber
+ │   ├── interface IStableInterface
  │   ├── interface IStructReturningDelegate
  │   ├── interface ImplictBaseOfBase
- │   ├── interface Hello
- │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
@@ -3920,6 +4052,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface ParentStruct982
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
+ │   ├── interface SmellyStruct
+ │   ├── interface StableStruct
  │   ├── interface StructA
  │   ├── interface StructB
  │   ├── interface StructParameterType
@@ -3927,26 +4061,13 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
  │   ├── interface UnionProperties
- │   ├── interface Greetee
- │   ├── interface IJSII417Derived
- │   ├── interface IJSII417PublicBaseOfBase
- │   ├── interface IJsii487External
- │   ├── interface IJsii487External2
- │   ├── interface IJsii496
- │   ├── interface DeprecatedStruct
- │   ├── interface ExperimentalStruct
- │   ├── interface IDeprecatedInterface
- │   ├── interface IExperimentalInterface
- │   ├── interface IStableInterface
- │   ├── interface StableStruct
  │   ├── enum AllTypesEnum
- │   ├── enum SingletonIntEnum
- │   ├── enum SingletonStringEnum
- │   ├── enum StringEnum
- │   ├── enum CompositionStringStyle
  │   ├── enum DeprecatedEnum
  │   ├── enum ExperimentalEnum
- │   └── enum StableEnum
+ │   ├── enum SingletonIntEnum
+ │   ├── enum SingletonStringEnum
+ │   ├── enum StableEnum
+ │   └── enum StringEnum
  ├─┬ @scope/jsii-calc-base
  │ └─┬ types
  │   ├── class Base
@@ -3973,7 +4094,18 @@ exports[`jsii-tree --types 1`] = `
 
 exports[`jsii-tree 1`] = `
 "assemblies
- ├── jsii-calc
+ ├─┬ jsii-calc
+ │ └─┬ submodules
+ │   ├── DerivedClassHasNoProperties
+ │   ├── InterfaceInNamespaceIncludesClasses
+ │   ├── InterfaceInNamespaceOnlyInterface
+ │   ├── composition
+ │   └─┬ submodule
+ │     └─┬ submodules
+ │       ├── child
+ │       └─┬ nested_submodule
+ │         └─┬ submodules
+ │           └── deeplyNested
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └── @scope/jsii-calc-lib
