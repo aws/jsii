@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc",
-  "version": "1.1.0",
+  "version": "0.0.0",
   "private": true,
   "description": "A simple calcuator built on JSII.",
   "stability": "experimental",
@@ -37,20 +37,20 @@
   },
   "dependencies": {
     "@fixtures/jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled",
-    "@scope/jsii-calc-base": "^1.1.0",
-    "@scope/jsii-calc-base-of-base": "^1.1.0",
-    "@scope/jsii-calc-lib": "^1.1.0"
+    "@scope/jsii-calc-base": "^0.0.0",
+    "@scope/jsii-calc-base-of-base": "^0.0.0",
+    "@scope/jsii-calc-lib": "^0.0.0"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base": "^1.1.0",
-    "@scope/jsii-calc-base-of-base": "^1.1.0",
-    "@scope/jsii-calc-lib": "^1.1.0"
+    "@scope/jsii-calc-base": "^0.0.0",
+    "@scope/jsii-calc-base-of-base": "^0.0.0",
+    "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
     "@types/node": "^10.17.17",
-    "jsii": "^1.1.0",
-    "jsii-build-tools": "^1.1.0",
-    "jsii-rosetta": "^1.1.0"
+    "jsii": "^0.0.0",
+    "jsii-build-tools": "^0.0.0",
+    "jsii-rosetta": "^0.0.0"
   },
   "jsii": {
     "outdir": "dist",

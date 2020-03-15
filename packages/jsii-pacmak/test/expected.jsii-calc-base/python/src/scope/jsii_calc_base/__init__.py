@@ -10,7 +10,7 @@ import publication
 
 import scope.jsii_calc_base_of_base
 
-__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base", "1.1.0", "scope.jsii_calc_base", "jsii-calc-base@1.1.0.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base", "0.0.0", "scope.jsii_calc_base", "jsii-calc-base@0.0.0.jsii.tgz")
 
 
 class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Base"):
