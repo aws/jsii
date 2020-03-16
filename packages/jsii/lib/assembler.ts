@@ -429,6 +429,9 @@ export class Assembler implements Emitter {
           }
         } else if (ts.isModuleDeclaration(decl)) {
           this._addToSubmodule(ns, symbol);
+        } else if (ts.isNamespaceExport(decl)) {
+          this._addToSubmodule(ns, symbol);
+          this._registerNamespaces(symbol);
         }
       }
     }
