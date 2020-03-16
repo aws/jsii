@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
-using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation;
+using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation;
 using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -1413,11 +1413,11 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             var abstractSuite = new AbstractSuiteImpl();
             Assert.Equal("Wrapped<String<Oomf!>>", abstractSuite.WorkItAll("Oomf!"));
         }
-        
+
         private sealed class AbstractSuiteImpl : AbstractSuite
         {
             private string _property = "";
-            
+
             public AbstractSuiteImpl() {}
 
             protected override string SomeMethod(string str)
@@ -1440,7 +1440,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 Assert.IsAssignableFrom<IStructA>(elt);
             }
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_ListOfInterfaces))]
         public void CollectionOfInterfaces_ListOfInterfaces()
         {
@@ -1449,7 +1449,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 Assert.IsAssignableFrom<IBell>(elt);
             }
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_MapOfStructs))]
         public void CollectionOfInterfaces_MapOfStructs()
         {
@@ -1458,7 +1458,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 Assert.IsAssignableFrom<IStructA>(elt);
             }
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(CollectionOfInterfaces_MapOfInterfaces))]
         public void CollectionOfInterfaces_MapOfInterfaces()
         {
