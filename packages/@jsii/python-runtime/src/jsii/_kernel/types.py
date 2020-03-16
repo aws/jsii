@@ -232,11 +232,13 @@ KernelRequest = Union[
 ]
 
 KernelResponse = Union[
+    BeginResponse,
     LoadResponse,
     CreateResponse,
     DeleteResponse,
     GetResponse,
     InvokeResponse,
+    SetResponse,
     StatsResponse,
     Callback,
 ]
