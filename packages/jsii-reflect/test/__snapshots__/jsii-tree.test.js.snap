@@ -66,14 +66,26 @@ exports[`jsii-tree --all 1`] = `
  │ │ │     └── DECORATED (experimental)
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
- │ │   │ ├─┬ child
+ │ │   │ ├─┬ back_references
  │ │   │ │ └─┬ types
- │ │   │ │   └─┬ interface Structure (experimental)
+ │ │   │ │   └─┬ interface MyClassReference (experimental)
  │ │   │ │     └─┬ members
- │ │   │ │       └─┬ bool property (experimental)
+ │ │   │ │       └─┬ reference property (experimental)
  │ │   │ │         ├── abstract
  │ │   │ │         ├── immutable
- │ │   │ │         └── type: boolean
+ │ │   │ │         └── type: jsii-calc.submodule.MyClass
+ │ │   │ ├─┬ child
+ │ │   │ │ └─┬ types
+ │ │   │ │   ├─┬ interface Structure (experimental)
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └─┬ bool property (experimental)
+ │ │   │ │   │     ├── abstract
+ │ │   │ │   │     ├── immutable
+ │ │   │ │   │     └── type: boolean
+ │ │   │ │   └─┬ enum Goodness (experimental)
+ │ │   │ │     ├── PRETTY_GOOD (experimental)
+ │ │   │ │     ├── REALLY_GOOD (experimental)
+ │ │   │ │     └── AMAZINGLY_GOOD (experimental)
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -88,10 +100,26 @@ exports[`jsii-tree --all 1`] = `
  │ │   │     └─┬ class Namespaced (experimental)
  │ │   │       ├── interfaces: INamespaced
  │ │   │       └─┬ members
- │ │   │         └─┬ definedAt property (experimental)
+ │ │   │         ├─┬ definedAt property (experimental)
+ │ │   │         │ ├── immutable
+ │ │   │         │ └── type: string
+ │ │   │         └─┬ goodness property (experimental)
+ │ │   │           ├── abstract
  │ │   │           ├── immutable
- │ │   │           └── type: string
- │ │   └── types
+ │ │   │           └── type: jsii-calc.submodule.child.Goodness
+ │ │   └─┬ types
+ │ │     └─┬ class MyClass (experimental)
+ │ │       ├── interfaces: INamespaced
+ │ │       └─┬ members
+ │ │         ├── <initializer>() initializer (experimental)
+ │ │         ├─┬ definedAt property (experimental)
+ │ │         │ ├── immutable
+ │ │         │ └── type: string
+ │ │         ├─┬ goodness property (experimental)
+ │ │         │ ├── immutable
+ │ │         │ └── type: jsii-calc.submodule.child.Goodness
+ │ │         └─┬ allTypes property (experimental)
+ │ │           └── type: Optional<jsii-calc.AllTypes>
  │ └─┬ types
  │   ├─┬ class AbstractClass (experimental)
  │   │ ├── base: AbstractClassBase
@@ -2466,9 +2494,13 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │ │   └── enum CompositionStringStyle
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
+ │ │   │ ├─┬ back_references
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface MyClassReference
  │ │   │ ├─┬ child
  │ │   │ │ └─┬ types
- │ │   │ │   └── interface Structure
+ │ │   │ │   ├── interface Structure
+ │ │   │ │   └── enum Goodness
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -2477,7 +2509,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │   │   └─┬ types
  │ │   │     └─┬ class Namespaced
  │ │   │       └── interfaces: INamespaced
- │ │   └── types
+ │ │   └─┬ types
+ │ │     └─┬ class MyClass
+ │ │       └── interfaces: INamespaced
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
@@ -2791,11 +2825,20 @@ exports[`jsii-tree --members 1`] = `
  │ │ │     └── DECORATED
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
+ │ │   │ ├─┬ back_references
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ interface MyClassReference
+ │ │   │ │     └─┬ members
+ │ │   │ │       └── reference property
  │ │   │ ├─┬ child
  │ │   │ │ └─┬ types
- │ │   │ │   └─┬ interface Structure
- │ │   │ │     └─┬ members
- │ │   │ │       └── bool property
+ │ │   │ │   ├─┬ interface Structure
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └── bool property
+ │ │   │ │   └─┬ enum Goodness
+ │ │   │ │     ├── PRETTY_GOOD
+ │ │   │ │     ├── REALLY_GOOD
+ │ │   │ │     └── AMAZINGLY_GOOD
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -2806,8 +2849,15 @@ exports[`jsii-tree --members 1`] = `
  │ │   │   └─┬ types
  │ │   │     └─┬ class Namespaced
  │ │   │       └─┬ members
- │ │   │         └── definedAt property
- │ │   └── types
+ │ │   │         ├── definedAt property
+ │ │   │         └── goodness property
+ │ │   └─┬ types
+ │ │     └─┬ class MyClass
+ │ │       └─┬ members
+ │ │         ├── <initializer>() initializer
+ │ │         ├── definedAt property
+ │ │         ├── goodness property
+ │ │         └── allTypes property
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ └─┬ members
@@ -3843,6 +3893,7 @@ exports[`jsii-tree --signatures 1`] = `
  │   ├── composition
  │   └─┬ submodule
  │     └─┬ submodules
+ │       ├── back_references
  │       ├── child
  │       └─┬ nested_submodule
  │         └─┬ submodules
@@ -3874,9 +3925,13 @@ exports[`jsii-tree --types 1`] = `
  │ │ │   └── enum CompositionStringStyle
  │ │ └─┬ submodule
  │ │   ├─┬ submodules
+ │ │   │ ├─┬ back_references
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface MyClassReference
  │ │   │ ├─┬ child
  │ │   │ │ └─┬ types
- │ │   │ │   └── interface Structure
+ │ │   │ │   ├── interface Structure
+ │ │   │ │   └── enum Goodness
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -3884,7 +3939,8 @@ exports[`jsii-tree --types 1`] = `
  │ │   │   │     └── interface INamespaced
  │ │   │   └─┬ types
  │ │   │     └── class Namespaced
- │ │   └── types
+ │ │   └─┬ types
+ │ │     └── class MyClass
  │ └─┬ types
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
@@ -4102,6 +4158,7 @@ exports[`jsii-tree 1`] = `
  │   ├── composition
  │   └─┬ submodule
  │     └─┬ submodules
+ │       ├── back_references
  │       ├── child
  │       └─┬ nested_submodule
  │         └─┬ submodules

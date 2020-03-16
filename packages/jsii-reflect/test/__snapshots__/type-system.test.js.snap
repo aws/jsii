@@ -130,6 +130,7 @@ Array [
   "jsii-calc.VoidCallback",
   "jsii-calc.WithPrivatePropertyInConstructor",
   "jsii-calc.composition.CompositeOperation",
+  "jsii-calc.submodule.MyClass",
   "jsii-calc.submodule.nested_submodule.Namespaced",
 ]
 `;
