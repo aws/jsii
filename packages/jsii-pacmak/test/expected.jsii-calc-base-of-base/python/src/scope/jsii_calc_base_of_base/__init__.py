@@ -2,11 +2,11 @@ import abc
 import builtins
 import datetime
 import enum
-import publication
 import typing
 
 import jsii
 import jsii.compat
+import publication
 
 __jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base-of-base", "1.1.0", "scope.jsii_calc_base_of_base", "jsii-calc-base-of-base@1.1.0.jsii.tgz")
 

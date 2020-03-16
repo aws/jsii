@@ -1133,11 +1133,11 @@ class PythonModule implements PythonType {
     code.line('import builtins');
     code.line('import datetime');
     code.line('import enum');
-    code.line('import publication');
     code.line('import typing');
     code.line();
     code.line('import jsii');
     code.line('import jsii.compat');
+    code.line('import publication');
 
     // Go over all of the modules that we need to import, and import them.
     this.emitDependencyImports(code, resolver);

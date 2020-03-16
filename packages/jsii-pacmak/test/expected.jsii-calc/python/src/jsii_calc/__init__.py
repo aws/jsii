@@ -31,11 +31,11 @@ import abc
 import builtins
 import datetime
 import enum
-import publication
 import typing
 
 import jsii
 import jsii.compat
+import publication
 
 import jsii_calc.composition
 import scope.jsii_calc_base
