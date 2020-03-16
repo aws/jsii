@@ -307,7 +307,15 @@ export class Assembler implements Emitter {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
       return `unknown.${typeName}`;
     }
-    const submoduleNs = this._submoduleMap.get(type.symbol)?.name;
+
+    let submodule = this._submoduleMap.get(type.symbol);
+    let submoduleNs = submodule?.name;
+    // Submodules can be in submodules themselves, so we crawl up the tree...
+    while (submodule != null && this._submoduleMap.has(submodule)) {
+      submodule = this._submoduleMap.get(submodule)!;
+      submoduleNs = `${submodule.name}.${submoduleNs}`;
+    }
+
     const fqn = submoduleNs != null
       ? `${pkg.name}.${submoduleNs}.${typeName}`
       : `${pkg.name}.${typeName}`;
@@ -430,7 +438,7 @@ export class Assembler implements Emitter {
         } else if (ts.isModuleDeclaration(decl)) {
           this._addToSubmodule(ns, symbol);
         } else if (ts.isNamespaceExport(decl)) {
-          this._addToSubmodule(ns, symbol);
+          this._submoduleMap.set(symbol, ns);
           this._registerNamespaces(symbol);
         }
       }

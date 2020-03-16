@@ -8,6 +8,7 @@ import jsii
 import jsii.compat
 import publication
 
+import jsii_calc.submodule.child
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
@@ -16,11 +17,15 @@ __jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "1.1.0", "jsii_calc", "j
 
 
 @jsii.implements(deeplyNested.INamespaced)
-class Namespaced(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.nested_submodule.Namespaced"):
+class Namespaced(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.submodule.nested_submodule.Namespaced"):
     """
     stability
     :stability: experimental
     """
+    @builtins.staticmethod
+    def __jsii_proxy_class__():
+        return _NamespacedProxy
+
     @builtins.property
     @jsii.member(jsii_name="definedAt")
     def defined_at(self) -> str:
@@ -29,6 +34,27 @@ class Namespaced(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.nested_
         :stability: experimental
         """
         return jsii.get(self, "definedAt")
+
+    @builtins.property
+    @jsii.member(jsii_name="goodness")
+    @abc.abstractmethod
+    def goodness(self) -> jsii_calc.submodule.child.Goodness:
+        """
+        stability
+        :stability: experimental
+        """
+        ...
+
+
+class _NamespacedProxy(Namespaced):
+    @builtins.property
+    @jsii.member(jsii_name="goodness")
+    def goodness(self) -> jsii_calc.submodule.child.Goodness:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "goodness")
 
 
 __all__ = ["Namespaced", "__jsii_assembly__"]

@@ -15,6 +15,31 @@ import scope.jsii_calc_lib
 __jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "1.1.0", "jsii_calc", "jsii-calc@1.1.0.jsii.tgz")
 
 
+@jsii.enum(jsii_type="jsii-calc.submodule.child.Goodness")
+class Goodness(enum.Enum):
+    """
+    stability
+    :stability: experimental
+    """
+    PRETTY_GOOD = "PRETTY_GOOD"
+    """It's pretty good.
+
+    stability
+    :stability: experimental
+    """
+    REALLY_GOOD = "REALLY_GOOD"
+    """It's really good.
+
+    stability
+    :stability: experimental
+    """
+    AMAZINGLY_GOOD = "AMAZINGLY_GOOD"
+    """It's amazingly good.
+
+    stability
+    :stability: experimental
+    """
+
 @jsii.data_type(jsii_type="jsii-calc.submodule.child.Structure", jsii_struct_bases=[], name_mapping={'bool': 'bool'})
 class Structure():
     def __init__(self, *, bool: bool):
@@ -46,6 +71,6 @@ class Structure():
         return 'Structure(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["Structure", "__jsii_assembly__"]
+__all__ = ["Goodness", "Structure", "__jsii_assembly__"]
 
 publication.publish()

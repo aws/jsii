@@ -207,6 +207,9 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.WithPrivatePropertyInConstructor": return software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor.class;
             case "jsii-calc.composition.CompositeOperation": return software.amazon.jsii.tests.calculator.composition.CompositeOperation.class;
             case "jsii-calc.composition.CompositeOperation.CompositionStringStyle": return software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle.class;
+            case "jsii-calc.submodule.MyClass": return software.amazon.jsii.tests.calculator.submodule.MyClass.class;
+            case "jsii-calc.submodule.back_references.MyClassReference": return software.amazon.jsii.tests.calculator.submodule.back_references.MyClassReference.class;
+            case "jsii-calc.submodule.child.Goodness": return software.amazon.jsii.tests.calculator.submodule.child.Goodness.class;
             case "jsii-calc.submodule.child.Structure": return software.amazon.jsii.tests.calculator.submodule.child.Structure.class;
             case "jsii-calc.submodule.nested_submodule.Namespaced": return software.amazon.jsii.tests.calculator.submodule.nested_submodule.Namespaced.class;
             case "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced": return software.amazon.jsii.tests.calculator.submodule.nested_submodule.deeply_nested.INamespaced.class;

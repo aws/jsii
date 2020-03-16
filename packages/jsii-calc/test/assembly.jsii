@@ -12154,6 +12154,142 @@
       "name": "CompositionStringStyle",
       "namespace": "composition.CompositeOperation"
     },
+    "jsii-calc.submodule.MyClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.submodule.MyClass",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        }
+      },
+      "interfaces": [
+        "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodule/my-class.ts",
+        "line": 5
+      },
+      "name": "MyClass",
+      "namespace": "submodule",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/my-class.ts",
+            "line": 6
+          },
+          "name": "definedAt",
+          "overrides": "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/my-class.ts",
+            "line": 7
+          },
+          "name": "goodness",
+          "type": {
+            "fqn": "jsii-calc.submodule.child.Goodness"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/submodule/my-class.ts",
+            "line": 8
+          },
+          "name": "allTypes",
+          "optional": true,
+          "type": {
+            "fqn": "jsii-calc.AllTypes"
+          }
+        }
+      ]
+    },
+    "jsii-calc.submodule.back_references.MyClassReference": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.submodule.back_references.MyClassReference",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/refers-to-parent/index.ts",
+        "line": 3
+      },
+      "name": "MyClassReference",
+      "namespace": "submodule.back_references",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/refers-to-parent/index.ts",
+            "line": 4
+          },
+          "name": "reference",
+          "type": {
+            "fqn": "jsii-calc.submodule.MyClass"
+          }
+        }
+      ]
+    },
+    "jsii-calc.submodule.child.Goodness": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.submodule.child.Goodness",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/submodule/child/index.ts",
+        "line": 5
+      },
+      "members": [
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's pretty good."
+          },
+          "name": "PRETTY_GOOD"
+        },
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's really good."
+          },
+          "name": "REALLY_GOOD"
+        },
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's amazingly good."
+          },
+          "name": "AMAZINGLY_GOOD"
+        }
+      ],
+      "name": "Goodness",
+      "namespace": "submodule.child"
+    },
     "jsii-calc.submodule.child.Structure": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -12187,6 +12323,7 @@
       ]
     },
     "jsii-calc.submodule.nested_submodule.Namespaced": {
+      "abstract": true,
       "assembly": "jsii-calc",
       "docs": {
         "stability": "experimental"
@@ -12197,8 +12334,8 @@
       ],
       "kind": "class",
       "locationInModule": {
-        "filename": "lib/submodule/index.ts",
-        "line": 8
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 10
       },
       "name": "Namespaced",
       "namespace": "submodule.nested_submodule",
@@ -12209,13 +12346,28 @@
           },
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/submodule/index.ts",
-            "line": 9
+            "filename": "lib/submodule/nested_submodule.ts",
+            "line": 11
           },
           "name": "definedAt",
           "overrides": "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced",
           "type": {
             "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/nested_submodule.ts",
+            "line": 12
+          },
+          "name": "goodness",
+          "type": {
+            "fqn": "jsii-calc.submodule.child.Goodness"
           }
         }
       ]
@@ -12228,8 +12380,8 @@
       "fqn": "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced",
       "kind": "interface",
       "locationInModule": {
-        "filename": "lib/submodule/index.ts",
-        "line": 3
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 5
       },
       "name": "INamespaced",
       "namespace": "submodule.nested_submodule.deeplyNested",
@@ -12241,8 +12393,8 @@
           },
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/submodule/index.ts",
-            "line": 4
+            "filename": "lib/submodule/nested_submodule.ts",
+            "line": 6
           },
           "name": "definedAt",
           "type": {
@@ -12253,5 +12405,5 @@
     }
   },
   "version": "1.1.0",
-  "fingerprint": "q2bAmQlqnFhbni6+NVgvKc4llulsPPEXGKkQvoTi1jo="
+  "fingerprint": "vtobmk8xL6Ke30Blb4NyDZ1X7T7J8lcKbbrmZtMtcpU="
 }
