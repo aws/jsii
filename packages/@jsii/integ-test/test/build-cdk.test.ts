@@ -1,4 +1,4 @@
-import * as Octokit from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import * as dotenv from 'dotenv';
 import { readdir, mkdtemp, remove } from 'fs-extra';
 import * as path from 'path';
