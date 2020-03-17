@@ -23,8 +23,8 @@
   "engines": {
     "node": ">= 10.3.0"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "build": "jsii && jsii-rosetta",
     "test": "diff-test test/assembly.jsii .jsii",
@@ -34,7 +34,8 @@
     "@scope/jsii-calc-base": "^1.1.0"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base": "^1.1.0"
+    "@scope/jsii-calc-base": "^1.1.0",
+    "@scope/jsii-calc-base-of-base": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^10.17.17",
@@ -62,6 +63,9 @@
         "distName": "scope.jsii-calc-lib",
         "module": "scope.jsii_calc_lib"
       }
+    },
+    "tsc": {
+      "outDir": "build"
     },
     "versionFormat": "short"
   }

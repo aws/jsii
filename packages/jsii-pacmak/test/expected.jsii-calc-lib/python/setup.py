@@ -32,7 +32,8 @@ kwargs = json.loads("""
     "install_requires": [
         "jsii~=1.1.0",
         "publication>=0.0.3",
-        "scope.jsii-calc-base>=1.1.0, <2.0.0"
+        "scope.jsii-calc-base>=1.1.0, <2.0.0",
+        "scope.jsii-calc-base-of-base>=1.1.0, <2.0.0"
     ],
     "classifiers": [
         "Intended Audience :: Developers",

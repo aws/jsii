@@ -12,7 +12,7 @@ public final class $Module extends JsiiModule {
 
     @Override
     public List<Class<? extends JsiiModule>> getDependencies() {
-        return asList(software.amazon.jsii.tests.calculator.base.$Module.class);
+        return asList(software.amazon.jsii.tests.calculator.base.$Module.class, software.amazon.jsii.tests.calculator.baseofbase.$Module.class);
     }
 
     @Override
