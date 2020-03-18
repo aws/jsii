@@ -44,10 +44,14 @@ export class Assembler implements Emitter {
     const dts = projectInfo.types;
     let mainFile = dts.replace(/\.d\.ts(x?)$/, '.ts$1');
 
+    // If out-of-source build was configured (tsc's outDir and rootDir), the
+    // main file's path needs to be re-rooted from the outDir into the rootDir.
     const tscOutDir = program.getCompilerOptions().outDir;
     if (tscOutDir != null) {
       mainFile = path.relative(tscOutDir, mainFile);
 
+      // rootDir may be set explicitly or not. If not, inferRootDir replicates
+      // tsc's behavior of using the longest prefix of all built source files.
       const tscRootDir = program.getCompilerOptions().rootDir ?? inferRootDir(program);
       if (tscRootDir != null) {
         mainFile = path.join(tscRootDir, mainFile);

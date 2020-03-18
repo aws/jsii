@@ -224,7 +224,7 @@ export class Compiler implements Emitter {
         jsx: COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
       },
       include: [
-        pi.tsc?.rootDir
+        pi.tsc?.rootDir != null
           ? path.join(pi.tsc.rootDir, '**', '*.ts')
           : path.join('**', '*.ts')
       ],
