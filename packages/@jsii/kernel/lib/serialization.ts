@@ -757,11 +757,12 @@ function isByReferenceOnly(obj: any): boolean {
     for (const prop of Object.getOwnPropertyNames(curr)) {
       const descr = Object.getOwnPropertyDescriptor(curr, prop);
       if (descr?.get != null || descr?.set != null || typeof descr?.value === 'function') {
-        // Property has a dynamic getter, setter or is a method/constructor, so by-ref required!
+        // Property has a dynamic getter, setter or is a constructor/method, so by-ref required!
         return true;
       }
     }
-  } while (Object.prototype !== (curr = Object.getPrototypeOf(curr)));
+    // End when the parent proto is `Object`, which has no parent proto itself.
+  } while (Object.getPrototypeOf(curr = Object.getPrototypeOf(curr)) != null);
 
   return false;
 }
