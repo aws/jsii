@@ -474,7 +474,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
       // If this is or should be a reference type, pass or make the reference
       // (Like regular reftype serialization, but without the type derivation to an interface)
-      const jsiiType = jsiiTypeFqn(value) ?? isByReferenceOnly(value) ? EMPTY_OBJECT_FQN : undefined;
+      const jsiiType = jsiiTypeFqn(value) ?? (isByReferenceOnly(value) ? EMPTY_OBJECT_FQN : undefined);
       if (jsiiType) { return host.objects.registerObject(value, jsiiType); }
 
       // At this point we have an object that is not of an exported type. Either an object
