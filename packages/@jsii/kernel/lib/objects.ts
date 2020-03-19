@@ -26,8 +26,7 @@ const JSII_SYMBOL = Symbol.for('__jsii__');
  * information.
  */
 export function jsiiTypeFqn(obj: any): string | undefined {
-  const jsii = obj.constructor[JSII_SYMBOL];
-  return jsii?.fqn;
+  return obj.constructor[JSII_SYMBOL]?.fqn;
 }
 
 /**

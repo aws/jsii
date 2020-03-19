@@ -2386,7 +2386,8 @@ exports[`jsii-tree --all 1`] = `
  │         └── type: @scope/jsii-calc-base-of-base.Very
  └─┬ @scope/jsii-calc-lib
    ├─┬ dependencies
-   │ └── @scope/jsii-calc-base
+   │ ├── @scope/jsii-calc-base
+   │ └── @scope/jsii-calc-base-of-base
    └─┬ types
      ├─┬ class Number (deprecated)
      │ ├── base: Value

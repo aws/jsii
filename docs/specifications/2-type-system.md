@@ -201,8 +201,11 @@ term *primitive* encompasses `boolean`, `string`, and `number`.
 `interface` | `undefined` | :x:         | :x:         | :x:         | [Reference] | [Reference]
 `struct`    | `undefined` | :x:         | :x:         | :x:         | :x:         | [Value]
 `class`     | `undefined` | :x:         | :x:         | :x:         | [Reference] | [Reference]
-`any`       | `undefined` | [Date]      | [Identity]  | [Array]     | [Reference] | [Mapping]
+`any`       | `undefined` | [Date]      | [Identity]  | [Array]     | [Reference] | [Value] or [Reference]
 
+In the case of `object` being passed though `any`, the value may be serialized
+by [Value] only if the value being passed does not have any method or dynamic
+accessor. Otherwise, it must be passed by [Reference] instead.
 
 > :warning: The serialization behavior around `undefined` values is affected by
 > the `optional` attribute of the declared type. As discussed earlier, the `any`
