@@ -40,7 +40,7 @@
     "codemaker": "^1.1.0",
     "commonmark": "^0.29.1",
     "escape-string-regexp": "^2.0.0",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "jsii-reflect": "^1.1.0",
     "jsii-rosetta": "^1.1.0",
     "semver": "^7.1.3",
