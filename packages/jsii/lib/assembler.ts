@@ -26,6 +26,8 @@ const LOG = log4js.getLogger('jsii/assembler');
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
  */
 export class Assembler implements Emitter {
+  private readonly mainFile: string;
+
   private _diagnostics = new Array<Diagnostic>();
   private _deferred = new Array<DeferredRecord>();
   private _types: { [fqn: string]: spec.Type } = {};
@@ -38,7 +40,26 @@ export class Assembler implements Emitter {
   public constructor(
     public readonly projectInfo: ProjectInfo,
     public readonly program: ts.Program,
-    public readonly stdlib: string) { }
+    public readonly stdlib: string) {
+    const dts = projectInfo.types;
+    let mainFile = dts.replace(/\.d\.ts(x?)$/, '.ts$1');
+
+    // If out-of-source build was configured (tsc's outDir and rootDir), the
+    // main file's path needs to be re-rooted from the outDir into the rootDir.
+    const tscOutDir = program.getCompilerOptions().outDir;
+    if (tscOutDir != null) {
+      mainFile = path.relative(tscOutDir, mainFile);
+
+      // rootDir may be set explicitly or not. If not, inferRootDir replicates
+      // tsc's behavior of using the longest prefix of all built source files.
+      const tscRootDir = program.getCompilerOptions().rootDir ?? inferRootDir(program);
+      if (tscRootDir != null) {
+        mainFile = path.join(tscRootDir, mainFile);
+      }
+    }
+
+    this.mainFile = path.resolve(projectInfo.projectRoot, mainFile);
+  }
 
   private get _typeChecker(): ts.TypeChecker {
     return this.program.getTypeChecker();
@@ -71,19 +92,24 @@ export class Assembler implements Emitter {
 
     this._types = {};
     this._deferred = [];
-    const mainFile = path.resolve(this.projectInfo.projectRoot, this.projectInfo.types.replace(/\.d\.ts(x?)$/, '.ts$1'));
     const visitPromises = new Array<Promise<any>>();
-    for (const sourceFile of this.program.getSourceFiles().filter(f => !f.isDeclarationFile)) {
-      if (sourceFile.fileName !== mainFile) { continue; }
+
+    const sourceFile = this.program.getSourceFile(this.mainFile);
+
+    if (sourceFile == null) {
+      this._diagnostic(null, ts.DiagnosticCategory.Error, `Could not find "main" file: ${this.mainFile}`);
+    } else {
       if (LOG.isTraceEnabled()) {
         LOG.trace(`Processing source file: ${colors.blue(path.relative(this.projectInfo.projectRoot, sourceFile.fileName))}`);
       }
       const symbol = this._typeChecker.getSymbolAtLocation(sourceFile);
-      if (!symbol) { continue; }
-      for (const node of this._typeChecker.getExportsOfModule(symbol)) {
-        visitPromises.push(this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability)));
+      if (symbol) {
+        for (const node of this._typeChecker.getExportsOfModule(symbol)) {
+          visitPromises.push(this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability)));
+        }
       }
     }
+
     await Promise.all(visitPromises);
 
     this.callDeferredsInOrder();
@@ -1635,4 +1661,36 @@ async function flattenPromises<T>(promises: Array<Promise<T[]>>): Promise<T[]> {
     result.push(...subset);
   }
   return result;
+}
+
+function inferRootDir(program: ts.Program): string | undefined {
+  const directories = program.getRootFileNames()
+    .filter(fileName => {
+      const sourceFile = program.getSourceFile(fileName);
+      return sourceFile != null
+        && !program.isSourceFileFromExternalLibrary(sourceFile)
+        && !program.isSourceFileDefaultLibrary(sourceFile);
+    })
+    .map(fileName => path.relative(program.getCurrentDirectory(), path.dirname(fileName)))
+    .map(segmentPath);
+
+  const maxPrefix = Math.min(...directories.map(segments => segments.length - 1));
+  let commonIndex = -1;
+  while (commonIndex < maxPrefix && new Set(directories.map(segments => segments[commonIndex + 1])).size === 1) {
+    commonIndex++;
+  }
+
+  if (commonIndex < 0) {
+    return undefined;
+  }
+
+  return directories[0][commonIndex];
+
+  function segmentPath(fileName: string): string[] {
+    const result = new Array<string>();
+    for (let parent = fileName; parent !== path.dirname(parent); parent = path.dirname(parent)) {
+      result.unshift(parent);
+    }
+    return result;
+  }
 }

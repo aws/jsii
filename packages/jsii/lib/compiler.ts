@@ -223,8 +223,18 @@ export class Compiler implements Emitter {
         target: COMPILER_OPTIONS.target && ts.ScriptTarget[COMPILER_OPTIONS.target],
         jsx: COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
       },
-      include: [pi.tsc?.rootDir ? `${pi.tsc.rootDir}/**/*.ts` : '**/*.ts'],
-      exclude: ['node_modules'].concat(pi.excludeTypescript),
+      include: [
+        pi.tsc?.rootDir != null
+          ? path.join(pi.tsc.rootDir, '**', '*.ts')
+          : path.join('**', '*.ts')
+      ],
+      exclude: [
+        'node_modules',
+        ...pi.excludeTypescript,
+        ...pi.tsc?.outDir != null
+          ? [path.join(pi.tsc.outDir, '**', '*.ts')]
+          : [],
+      ],
       // Change the references a little. We write 'originalpath' to the
       // file under the 'path' key, which is the same as what the
       // TypeScript compiler does. Make it relative so that the files are
@@ -236,7 +246,7 @@ export class Compiler implements Emitter {
   /**
    * Creates a `tsconfig.json` file to improve the IDE experience.
    *
-   * @return the fully qualified path to the ``tsconfig.json`` file
+   * @return the fully qualified path to the `tsconfig.json` file
    */
   private async writeTypeScriptConfig(): Promise<void> {
     const commentKey = '_generated_by_jsii_';
