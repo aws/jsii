@@ -1,3 +1,4 @@
+import * as Case from 'case';
 import * as colors from 'colors/safe';
 import * as crypto from 'crypto';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -31,6 +32,10 @@ export class Assembler implements Emitter {
   private _diagnostics = new Array<Diagnostic>();
   private _deferred = new Array<DeferredRecord>();
   private _types: { [fqn: string]: spec.Type } = {};
+
+  /** Map of Symbol to namespace export Symbol */
+  private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
+  private readonly _submodules = new Set<ts.Symbol>();
 
   /**
    * @param projectInfo information about the package being assembled
@@ -104,7 +109,11 @@ export class Assembler implements Emitter {
       }
       const symbol = this._typeChecker.getSymbolAtLocation(sourceFile);
       if (symbol) {
-        for (const node of this._typeChecker.getExportsOfModule(symbol)) {
+        const moduleExports = this._typeChecker.getExportsOfModule(symbol);
+        for (const node of moduleExports) {
+          this._registerNamespaces(node);
+        }
+        for (const node of moduleExports) {
           visitPromises.push(this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability)));
         }
       }
@@ -282,7 +291,12 @@ export class Assembler implements Emitter {
     return type;
   }
 
-  private _diagnostic(node: ts.Node | null, category: ts.DiagnosticCategory, messageText: string) {
+  private _diagnostic(
+    node: ts.Node | null,
+    category: ts.DiagnosticCategory,
+    messageText: string,
+    relatedInformation?: ts.DiagnosticRelatedInformation[]
+  ) {
     this._diagnostics.push({
       domain: 'JSII',
       category,
@@ -291,6 +305,7 @@ export class Assembler implements Emitter {
       file: node != null ? node.getSourceFile() : undefined,
       start: node != null ? node.getStart() : undefined,
       length: node != null ? node.getEnd() - node.getStart() : undefined,
+      relatedInformation,
     });
   }
 
@@ -318,7 +333,18 @@ export class Assembler implements Emitter {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
       return `unknown.${typeName}`;
     }
-    const fqn = `${pkg.name}.${typeName}`;
+
+    let submodule = this._submoduleMap.get(type.symbol);
+    let submoduleNs = submodule?.name;
+    // Submodules can be in submodules themselves, so we crawl up the tree...
+    while (submodule != null && this._submoduleMap.has(submodule)) {
+      submodule = this._submoduleMap.get(submodule)!;
+      submoduleNs = `${submodule.name}.${submoduleNs}`;
+    }
+
+    const fqn = submoduleNs != null
+      ? `${pkg.name}.${submoduleNs}.${typeName}`
+      : `${pkg.name}.${typeName}`;
     if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn }, type.symbol.valueDeclaration)) {
       this._diagnostic(node,
         ts.DiagnosticCategory.Error,
@@ -337,26 +363,155 @@ export class Assembler implements Emitter {
     }
   }
 
+  private _registerNamespaces(symbol: ts.Symbol): void {
+    const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
+    if (declaration == null || !ts.isNamespaceExport(declaration)) {
+      // Nothing to do here...
+      return;
+    }
+    const moduleSpecifier = declaration.parent.moduleSpecifier;
+    if (moduleSpecifier == null || !ts.isStringLiteral(moduleSpecifier)) {
+      // There is a grammar error here, so we'll let tsc report this for us.
+      return;
+    }
+    const resolution = ts.resolveModuleName(
+      moduleSpecifier.text,
+      declaration.getSourceFile().fileName,
+      this.program.getCompilerOptions(),
+      ts.sys
+    );
+    if (resolution.resolvedModule == null) {
+      // Unresolvable module... We'll let tsc report this for us.
+      return;
+    }
+    if (resolution.resolvedModule.isExternalLibraryImport) {
+      // External re-exports are "pure-javascript" sugar; they need not be
+      // represented in the jsii Assembly since the types in there will be
+      // resolved through dependencies.
+      return;
+    }
+    const sourceFile = this.program.getSourceFile(resolution.resolvedModule.resolvedFileName)!;
+    const sourceModule = this._typeChecker.getSymbolAtLocation(sourceFile);
+    // If there's no module, it's a syntax error, and tsc will have reported it for us.
+    if (sourceModule) {
+      if (symbol.name !== Case.camel(symbol.name) && symbol.name !== Case.snake(symbol.name)) {
+        this._diagnostic(declaration, ts.DiagnosticCategory.Error,
+          `Submodule namespaces must be camelCased or snake_cased. Consider renaming to "${Case.camel(symbol.name)}".`);
+      }
+      this._submodules.add(symbol);
+      this._addToSubmodule(symbol, sourceModule);
+    }
+  }
+
+  /**
+   * Registers Symbols to a particular submodule. This is used to associate
+   * declarations exported by an `export * as ns from 'moduleLike';` statement
+   * so that they can subsequently be correctly namespaced.
+   *
+   * @param ns         the symbol that identifies the submodule.
+   * @param moduleLike the module-like symbol bound to the submodule.
+   */
+  private _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol) {
+    // For each symbol exported by the moduleLike, map it to the ns submodule.
+    for (const symbol of this._typeChecker.getExportsOfModule(moduleLike)) {
+      if (this._submoduleMap.has(symbol)) {
+        const currNs = this._submoduleMap.get(symbol)!;
+        // Checking if there's been two submodules exporting the same symbol,
+        // which is illegal. We can tell if the currently registered symbol has
+        // a different name than the one we're currently trying to register in.
+        if (currNs.name !== ns.name) {
+          const currNsDecl = currNs.valueDeclaration ?? currNs.declarations[0];
+          const nsDecl = ns.valueDeclaration ?? ns.declarations[0];
+          this._diagnostic(
+            symbol.valueDeclaration,
+            ts.DiagnosticCategory.Error,
+            `Symbol is re-exported under two distinct submodules (${currNs.name} and ${ns.name})`,
+            [{
+              category: ts.DiagnosticCategory.Warning,
+              file: currNsDecl.getSourceFile(),
+              length: currNsDecl.getStart() - currNsDecl.getEnd(),
+              messageText: `Symbol is exported under the "${currNs.name}" submodule`,
+              start: currNsDecl.getStart(),
+              code: JSII_DIAGNOSTICS_CODE
+            }, {
+              category: ts.DiagnosticCategory.Warning,
+              file: nsDecl.getSourceFile(),
+              length: nsDecl.getStart() - nsDecl.getEnd(),
+              messageText: `Symbol is exported under the "${ns.name}" submodule`,
+              start: nsDecl.getStart(),
+              code: JSII_DIAGNOSTICS_CODE
+            }]
+          );
+        }
+        // Found two re-exports, which is odd, but they use the same submodule,
+        // so it's probably okay? That's likely a tsc error, which will have
+        // been reported for us already anyway.
+        continue;
+      }
+      this._submoduleMap.set(symbol, ns);
+
+      // If the exported symbol has any declaration, and that delcaration is of
+      // an entity that can have nested declarations of interest to jsii
+      // (classes, interfaces, enums, modules), we need to also associate those
+      // nested symbols to the submodule (or they won't be named correctly!)
+      const decl = symbol.declarations?.[0];
+      if (decl != null) {
+        if (ts.isClassDeclaration(decl) || ts.isInterfaceDeclaration(decl) || ts.isEnumDeclaration(decl)) {
+          const type = this._typeChecker.getTypeAtLocation(decl);
+          if (type.symbol.exports) {
+            this._addToSubmodule(ns, symbol);
+          }
+        } else if (ts.isModuleDeclaration(decl)) {
+          this._addToSubmodule(ns, symbol);
+        } else if (ts.isNamespaceExport(decl)) {
+          this._submoduleMap.set(symbol, ns);
+          this._registerNamespaces(symbol);
+        }
+      }
+    }
+  }
+
   /**
    * Register exported types in ``this.types``.
    *
    * @param node       a node found in a module
    * @param namePrefix the prefix for the types' namespaces
    */
+  // eslint-disable-next-line complexity
   private async _visitNode(node: ts.Declaration, context: EmitContext): Promise<spec.Type[]> {
+    if (ts.isNamespaceExport(node)) { // export * as ns from 'module';
+      // Note: the "ts.NamespaceExport" refers to the "export * as ns" part of
+      // the statement only. We must refer to `node.parent` in order to be able
+      // to access the module specifier ("from 'module'") part.
+      const symbol = this._typeChecker.getSymbolAtLocation(node.parent.moduleSpecifier!)!;
+
+      if (LOG.isTraceEnabled()) { LOG.trace(`Entering submodule: ${colors.cyan([...context.namespace, symbol.name].join('.'))}`); }
+
+      const nsContext = context.appendNamespace(node.name.text);
+      const promises = new Array<Promise<spec.Type[]>>();
+      for (const child of this._typeChecker.getExportsOfModule(symbol)) {
+        promises.push(this._visitNode(child.declarations[0], nsContext));
+      }
+      const allTypes = flattenPromises(promises);
+
+      if (LOG.isTraceEnabled()) { LOG.trace(`Leaving submodule: ${colors.cyan([...context.namespace, symbol.name].join('.'))}`); }
+
+      return allTypes;
+    }
+
     if ((ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) === 0) { return []; }
 
     let jsiiType: spec.Type | undefined;
 
-    if (ts.isClassDeclaration(node) && _isExported(node)) {
+    if (ts.isClassDeclaration(node) && _isExported(node)) { // export class Name { ... }
       jsiiType = await this._visitClass(this._typeChecker.getTypeAtLocation(node), context);
-    } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) {
+    } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) { // export interface Name { ... }
       jsiiType = await this._visitInterface(this._typeChecker.getTypeAtLocation(node), context);
-    } else if (ts.isEnumDeclaration(node) && _isExported(node)) {
+    } else if (ts.isEnumDeclaration(node) && _isExported(node)) { // export enum Name { ... }
       jsiiType = await this._visitEnum(this._typeChecker.getTypeAtLocation(node), context);
-    } else if (ts.isModuleDeclaration(node)) {
+    } else if (ts.isModuleDeclaration(node)) { // export namespace name { ... }
       const name = node.name.getText();
-      const symbol = (node as any).symbol;
+      const symbol = this._typeChecker.getSymbolAtLocation(node.name)!;
 
       if (LOG.isTraceEnabled()) { LOG.trace(`Entering namespace: ${colors.cyan([...context.namespace, name].join('.'))}`); }
 
@@ -373,6 +528,31 @@ export class Assembler implements Emitter {
     }
 
     if (!jsiiType) { return []; }
+
+    // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
+    // target language separately, so names cannot collide with case-variations.
+    for (const submodule of this._submodules) {
+      const candidates = Array.from(new Set([
+        submodule.name,
+        Case.camel(submodule.name),
+        Case.pascal(submodule.name),
+        Case.snake(submodule.name),
+      ]));
+      const colliding = candidates.find(name => `${this.projectInfo.name}.${name}` === jsiiType!.fqn);
+      if (colliding != null) {
+        const submoduleDecl = submodule.valueDeclaration ?? submodule.declarations[0];
+        this._diagnostic(node, ts.DiagnosticCategory.Error,
+          `Submodule "${submodule.name}" conflicts with "${jsiiType.name}". Restricted names are: ${candidates.join(', ')}`,
+          [{
+            category: ts.DiagnosticCategory.Warning,
+            code: JSII_DIAGNOSTICS_CODE,
+            file: submoduleDecl.getSourceFile(),
+            length: submoduleDecl.getEnd() - submoduleDecl.getStart(),
+            messageText: 'This is the conflicting submodule declaration.',
+            start: submoduleDecl.getStart()
+          }]);
+      }
+    }
 
     if (LOG.isInfoEnabled()) {
       LOG.info(`Registering JSII ${colors.magenta(jsiiType.kind)}: ${colors.green(jsiiType.fqn)}`);
@@ -462,6 +642,7 @@ export class Assembler implements Emitter {
     return { interfaces: result.length === 0 ? undefined : result, erasedBases };
   }
 
+  // eslint-disable-next-line complexity
   private async _visitClass(type: ts.Type, ctx: EmitContext): Promise<spec.ClassType | undefined> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(`Processing class: ${colors.gray(ctx.namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
@@ -590,7 +771,8 @@ export class Assembler implements Emitter {
       if (!classDecl.members) { continue; }
 
       for (const memberDecl of classDecl.members) {
-        const member: ts.Symbol = (memberDecl as any).symbol;
+        // The "??" is to get to the __constructor symbol (getSymbolAtLocation wouldn't work there...)
+        const member = this._typeChecker.getSymbolAtLocation(memberDecl.name!) ?? ((memberDecl as any).symbol as ts.Symbol);
 
         if (!(declaringType.symbol.getDeclarations() ?? []).find(d => d === memberDecl.parent)) {
           continue;

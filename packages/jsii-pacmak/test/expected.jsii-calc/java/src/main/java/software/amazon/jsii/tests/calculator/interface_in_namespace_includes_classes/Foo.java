@@ -1,4 +1,4 @@
-package software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses;
+package software.amazon.jsii.tests.calculator.interface_in_namespace_includes_classes;
 
 /**
  * EXPERIMENTAL

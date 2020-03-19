@@ -1,62 +1,62 @@
-package software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses;
+package software.amazon.jsii.tests.calculator.submodule.child;
 
 /**
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello")
-@software.amazon.jsii.Jsii.Proxy(Hello.Jsii$Proxy.class)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.submodule.child.Structure")
+@software.amazon.jsii.Jsii.Proxy(Structure.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-public interface Hello extends software.amazon.jsii.JsiiSerializable {
+public interface Structure extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getBool();
 
     /**
-     * @return a {@link Builder} of {@link Hello}
+     * @return a {@link Builder} of {@link Structure}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     static Builder builder() {
         return new Builder();
     }
     /**
-     * A builder for {@link Hello}
+     * A builder for {@link Structure}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static final class Builder {
-        private java.lang.Number foo;
+        private java.lang.Boolean bool;
 
         /**
-         * Sets the value of {@link Hello#getFoo}
-         * @param foo the value to be set. This parameter is required.
+         * Sets the value of {@link Structure#getBool}
+         * @param bool the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder foo(java.lang.Number foo) {
-            this.foo = foo;
+        public Builder bool(java.lang.Boolean bool) {
+            this.bool = bool;
             return this;
         }
 
         /**
          * Builds the configured instance.
-         * @return a new instance of {@link Hello}
+         * @return a new instance of {@link Structure}
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Hello build() {
-            return new Jsii$Proxy(foo);
+        public Structure build() {
+            return new Jsii$Proxy(bool);
         }
     }
 
     /**
-     * An implementation for {@link Hello}
+     * An implementation for {@link Structure}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Hello {
-        private final java.lang.Number foo;
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Structure {
+        private final java.lang.Boolean bool;
 
         /**
          * Constructor that initializes the object based on values retrieved from the JsiiObject.
@@ -64,20 +64,20 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
             super(objRef);
-            this.foo = this.jsiiGet("foo", java.lang.Number.class);
+            this.bool = this.jsiiGet("bool", java.lang.Boolean.class);
         }
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(final java.lang.Number foo) {
+        private Jsii$Proxy(final java.lang.Boolean bool) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+            this.bool = java.util.Objects.requireNonNull(bool, "bool is required");
         }
 
         @Override
-        public java.lang.Number getFoo() {
-            return this.foo;
+        public java.lang.Boolean getBool() {
+            return this.bool;
         }
 
         @Override
@@ -85,10 +85,10 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
             final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
             final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
 
-            data.set("foo", om.valueToTree(this.getFoo()));
+            data.set("bool", om.valueToTree(this.getBool()));
 
             final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            struct.set("fqn", om.valueToTree("jsii-calc.InterfaceInNamespaceIncludesClasses.Hello"));
+            struct.set("fqn", om.valueToTree("jsii-calc.submodule.child.Structure"));
             struct.set("data", data);
 
             final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
@@ -102,14 +102,14 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            Hello.Jsii$Proxy that = (Hello.Jsii$Proxy) o;
+            Structure.Jsii$Proxy that = (Structure.Jsii$Proxy) o;
 
-            return this.foo.equals(that.foo);
+            return this.bool.equals(that.bool);
         }
 
         @Override
         public int hashCode() {
-            int result = this.foo.hashCode();
+            int result = this.bool.hashCode();
             return result;
         }
     }

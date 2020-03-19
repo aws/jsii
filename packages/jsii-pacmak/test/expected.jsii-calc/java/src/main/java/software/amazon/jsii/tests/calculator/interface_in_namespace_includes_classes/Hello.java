@@ -1,10 +1,10 @@
-package software.amazon.jsii.tests.calculator.InterfaceInNamespaceOnlyInterface;
+package software.amazon.jsii.tests.calculator.interface_in_namespace_includes_classes;
 
 /**
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello")
 @software.amazon.jsii.Jsii.Proxy(Hello.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface Hello extends software.amazon.jsii.JsiiSerializable {
@@ -88,7 +88,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
             data.set("foo", om.valueToTree(this.getFoo()));
 
             final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            struct.set("fqn", om.valueToTree("jsii-calc.InterfaceInNamespaceOnlyInterface.Hello"));
+            struct.set("fqn", om.valueToTree("jsii-calc.InterfaceInNamespaceIncludesClasses.Hello"));
             struct.set("data", data);
 
             final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();

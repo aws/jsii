@@ -1,5 +1,5 @@
 import * as clone from 'clone';
-import { toPascalCase } from 'codemaker/lib/case-utils';
+import { toPascalCase, toSnakeCase } from 'codemaker/lib/case-utils';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import { Rosetta, typeScriptSnippetFromSource, Translation, markDownToJavaDoc } from 'jsii-rosetta';
@@ -395,9 +395,9 @@ class JavaGenerator extends Generator {
   ];
 
   /**
-     * Turns a raw javascript property name (eg: 'default') into a safe Java property name (eg: 'defaultValue').
-     * @param propertyName the raw JSII property Name
-     */
+   * Turns a raw javascript property name (eg: 'default') into a safe Java property name (eg: 'defaultValue').
+   * @param propertyName the raw JSII property Name
+   */
   private static safeJavaPropertyName(propertyName: string) {
     if (!propertyName) {
       return propertyName;
@@ -411,9 +411,9 @@ class JavaGenerator extends Generator {
   }
 
   /**
-     * Turns a raw javascript method name (eg: 'import') into a safe Java method name (eg: 'doImport').
-     * @param methodName
-     */
+   * Turns a raw javascript method name (eg: 'import') into a safe Java method name (eg: 'doImport').
+   * @param methodName
+   */
   private static safeJavaMethodName(methodName: string) {
     if (!methodName) {
       return methodName;
@@ -431,11 +431,11 @@ class JavaGenerator extends Generator {
   private moduleClass!: string;
 
   /**
-     * A map of all the modules ever referenced during code generation. These include
-     * direct dependencies but can potentially also include transitive dependencies, when,
-     * for example, we need to refer to their types when flatting the class hierarchy for
-     * interface proxies.
-     */
+   * A map of all the modules ever referenced during code generation. These include
+   * direct dependencies but can potentially also include transitive dependencies, when,
+   * for example, we need to refer to their types when flatting the class hierarchy for
+   * interface proxies.
+   */
   private readonly referencedModules: { [name: string]: spec.AssemblyConfiguration } = { };
 
   public constructor(private readonly rosetta: Rosetta) {
@@ -530,8 +530,8 @@ class JavaGenerator extends Generator {
   }
 
   /**
-     * Since we expand the union setters, we will use this event to only emit the getter which returns an Object.
-     */
+   * Since we expand the union setters, we will use this event to only emit the getter which returns an Object.
+   */
   protected onUnionProperty(cls: spec.ClassType, prop: spec.Property, _union: spec.UnionTypeReference) {
     this.emitProperty(cls, prop);
   }
@@ -651,8 +651,13 @@ class JavaGenerator extends Generator {
   private emitPackageInfo(mod: spec.Assembly) {
     if (!mod.docs) { return; }
 
-    const packageName = this.getNativeName(mod, undefined);
-    const packageInfoFile = this.toJavaFilePath(`${mod.name}.package-info`);
+    const { packageName } = this.toNativeName(mod);
+    const packageInfoFile = this.toJavaFilePath(mod, {
+      assembly: mod.name,
+      fqn: `${mod.name}.package-info`,
+      kind: spec.TypeKind.Class,
+      name: 'package-info'
+    });
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
@@ -1011,14 +1016,14 @@ class JavaGenerator extends Generator {
   }
 
   /**
-     * We are now going to build a class that can be used as a proxy for untyped
-     * javascript objects that implement this interface. we want java code to be
-     * able to interact with them, so we will create a proxy class which
-     * implements this interface and has the same methods.
-     *
-     * These proxies are also used to extend abstract classes to allow the JSII
-     * engine to instantiate an abstract class in Java.
-     */
+   * We are now going to build a class that can be used as a proxy for untyped
+   * javascript objects that implement this interface. we want java code to be
+   * able to interact with them, so we will create a proxy class which
+   * implements this interface and has the same methods.
+   *
+   * These proxies are also used to extend abstract classes to allow the JSII
+   * engine to instantiate an abstract class in Java.
+   */
   private emitProxy(ifc: spec.InterfaceType | spec.ClassType) {
     const name = INTERFACE_PROXY_CLASS_NAME;
 
@@ -1516,8 +1521,8 @@ class JavaGenerator extends Generator {
       return;
     }
 
-    this.code.openFile(this.toJavaFilePath(type.fqn));
-    this.code.line(`package ${this.getNativeName(this.assembly, type.namespace)};`);
+    this.code.openFile(this.toJavaFilePath(this.assembly, type));
+    this.code.line(`package ${this.toNativeName(this.assembly, type).packageName};`);
     this.code.line();
   }
 
@@ -1525,7 +1530,7 @@ class JavaGenerator extends Generator {
     if (this.isNested(type)) {
       return;
     }
-    this.code.closeFile(this.toJavaFilePath(type.fqn));
+    this.code.closeFile(this.toJavaFilePath(this.assembly, type));
   }
 
   private isNested(type: spec.Type) {
@@ -1534,11 +1539,12 @@ class JavaGenerator extends Generator {
     return parent in this.assembly.types;
   }
 
-  private toJavaFilePath(fqn: string) {
-    const nativeFqn = this.toNativeFqn(fqn);
-    return `${path.join('src', 'main', 'java', ...nativeFqn.split('.'))}.java`;
+  private toJavaFilePath(assm: spec.Assembly, type: spec.Type) {
+    const { packageName, typeName } = this.toNativeName(assm, type);
+    return `${path.join('src', 'main', 'java', ...packageName.split('.'), typeName.split('.')[0])}.java`;
   }
 
+  // eslint-disable-next-line complexity
   private addJavaDocs(doc: spec.Documentable, defaultText?: string) {
     if (!defaultText && Object.keys(doc.docs ?? {}).length === 0
                          && !((doc as spec.Method).parameters ?? []).some(p => Object.keys(p.docs ?? {}).length !== 0)) {
@@ -1758,12 +1764,12 @@ class JavaGenerator extends Generator {
   }
 
   /**
-     * Wraps a collection into an unmodifiable collection else returns the existing statement.
-     * @param statement The statement to wrap if necessary.
-     * @param type The type of the object to wrap.
-     * @param optional Whether the value is optional (can be null/undefined) or not.
-     * @returns The modified or original statement.
-     */
+   * Wraps a collection into an unmodifiable collection else returns the existing statement.
+   * @param statement The statement to wrap if necessary.
+   * @param type The type of the object to wrap.
+   * @param optional Whether the value is optional (can be null/undefined) or not.
+   * @returns The modified or original statement.
+   */
   private wrapCollection(statement: string, type: spec.TypeReference, optional?: boolean): string {
     if (spec.isCollectionTypeReference(type)) {
       let wrapper: string;
@@ -1804,16 +1810,17 @@ class JavaGenerator extends Generator {
     return `${this.toNativeFqn(moduleName)}.${MODULE_CLASS_NAME}`;
   }
 
-  private makeModuleFqn(moduleName: string) {
-    return `${moduleName}.${MODULE_CLASS_NAME}`;
-  }
-
   private emitModuleFile(mod: spec.Assembly) {
     const moduleName = mod.name;
     const moduleClass = this.makeModuleClass(moduleName);
-    const moduleFile = this.toJavaFilePath(this.makeModuleFqn(moduleName));
+    const moduleFile = this.toJavaFilePath(mod, {
+      assembly: mod.name,
+      fqn: `${mod.name}.${MODULE_CLASS_NAME}`,
+      kind: spec.TypeKind.Class,
+      name: MODULE_CLASS_NAME,
+    });
     this.code.openFile(moduleFile);
-    this.code.line(`package ${this.toNativeFqn(moduleName)};`);
+    this.code.line(`package ${this.toNativeName(mod).packageName};`);
     this.code.line();
     if (Object.keys(mod.dependencies ?? {}).length > 0) {
       this.code.line('import static java.util.Arrays.asList;');
@@ -1875,17 +1882,17 @@ class JavaGenerator extends Generator {
   }
 
   /**
-     * Computes the java FQN for a JSII FQN:
-     * 1. Determine which assembly the FQN belongs to (first component of the FQN)
-     * 2. Locate the `targets.java.package` value for that assembly (this assembly, or one of the dependencies)
-     * 3. Return the java FQN: ``<module.targets.java.package>.<FQN stipped of first component>``
-     *
-     * @param fqn the JSII FQN to be used.
-     *
-     * @returns the corresponding Java FQN.
-     *
-     * @throws if the assembly the FQN belongs to does not have a `targets.java.package` set.
-     */
+   * Computes the java FQN for a JSII FQN:
+   * 1. Determine which assembly the FQN belongs to (first component of the FQN)
+   * 2. Locate the `targets.java.package` value for that assembly (this assembly, or one of the dependencies)
+   * 3. Return the java FQN: ``<module.targets.java.package>.<FQN stipped of first component>``
+   *
+   * @param fqn the JSII FQN to be used.
+   *
+   * @returns the corresponding Java FQN.
+   *
+   * @throws if the assembly the FQN belongs to does not have a `targets.java.package` set.
+   */
   private toNativeFqn(fqn: string): string {
     const [mod, ...name] = fqn.split('.');
     const depMod = this.findModule(mod);
@@ -1894,8 +1901,11 @@ class JavaGenerator extends Generator {
     // dependencies' dependency structure).
     if (mod !== this.assembly.name) {
       this.referencedModules[mod] = depMod;
+      return this.getNativeName(depMod, name.join('.'), mod);
     }
-    return this.getNativeName(depMod, name.join('.'), mod);
+
+    const { packageName, typeName } = this.toNativeName(this.assembly, this.assembly.types![fqn]);
+    return `${packageName}${typeName ? `.${typeName}` : ''}`;
   }
 
   private getNativeName(assm: spec.Assembly, name: string | undefined): string;
@@ -1910,9 +1920,33 @@ class JavaGenerator extends Generator {
     return `${javaPackage}${name ? `.${name}` : ''}`;
   }
 
+  private toNativeName(assm: spec.Assembly): { packageName: string };
+  private toNativeName(assm: spec.Assembly, type: spec.Type): { packageName: string, typeName: string };
+  private toNativeName(assm: spec.Assembly, type?: spec.Type): { packageName: string, typeName?: string } {
+    const javaPackage = assm.targets?.java?.package;
+    if (!javaPackage) { throw new Error(`The module ${assm.name} does not have a java.package setting`); }
+
+    if (type == null) {
+      return { packageName: javaPackage };
+    }
+
+    let ns = type.namespace;
+    let typeName = type.name;
+    while (ns != null && assm.types?.[`${assm.name}.${ns}`] != null) {
+      const nestingType = assm.types[`${assm.name}.${ns}`];
+      ns = nestingType.namespace;
+      typeName = `${nestingType.name}.${typeName}`;
+    }
+
+    const packageName = ns != null
+      ? `${javaPackage}.${ns.split('.').map(s => toSnakeCase(s)).join('.')}`
+      : javaPackage;
+    return { packageName, typeName };
+  }
+
   /**
-     * Emits an ``@Generated`` annotation honoring the ``this.emitFullGeneratorInfo`` setting.
-     */
+   * Emits an ``@Generated`` annotation honoring the ``this.emitFullGeneratorInfo`` setting.
+   */
   private emitGeneratedAnnotation() {
     const date = this.emitFullGeneratorInfo
       ? `, date = "${new Date().toISOString()}"`

@@ -190,7 +190,7 @@ export class Compiler implements Emitter {
       hasErrors = hasErrors || emitHasErrors(assmEmit, this.options.failOnWarnings);
       diagnostics.push(...assmEmit.diagnostics);
     } catch (e) {
-      LOG.error(`Error during type model analysis: ${e}`);
+      LOG.error(`Error during type model analysis: ${e}\n${e.stack}`);
     }
 
     return { emitSkipped: hasErrors, diagnostics, emittedFiles: emit.emittedFiles };

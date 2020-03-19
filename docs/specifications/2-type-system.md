@@ -311,6 +311,86 @@ document.
 }
 ```
 
+## Submodules
+
+> :construction: The *submodules* feature is still under active development and
+> the specific behavior around it (in particular with respects to code
+> generation) are still subject to change.
+
+### Overview
+
+Typescript allows grouping declarations together in *namespaces*, which are
+interpreted by *jsii* as *submodules*. *Submodules* names are the fully
+qualified name of the namespace from the package's root (if a package `foo`
+defines a namespace `ns1`, which itself contains `ns2`, the submodule for `ns2`
+will be named `foo.ns1.ns2`).
+
+*Submodules* may use different [code-generation configuration](#code-generation)
+than their parent submodule or package.
+
+> :construction: *Submodule*-level code-generation configuration is not yet
+> implemented.
+
+### Restrictions
+
+*Submodules* cannot be involved in dependency cycles. While it is possible to
+build such cycles in **JavaScript**, that configuration cannot be reliably
+reprensented in certain other programming languages (e.g: **Python**).
+
+> :construction: [`jsii`] does not currently check for circular submodule
+> dependencies. Invalid dependency patterns may result in errors at code
+> generation by [`jsii-pacmak`], or at runtime.
+
+Since this would result in ambiguity that cannot be consistently resolved, a
+given type can only be exported as part of one *submodule*.
+
+[`jsii`]: ../../packages/jsii
+[`jsii-pacmak`]: ../../packages/jsii-pacmak
+
+### Declaration
+
+There are two supported ways to introduce *submodules*:
+* Using the namespaced export syntax:
+  ```ts
+  export * as ns from './module';
+  ```
+* Using an explicit namespace declaration:
+  ```ts
+  export namespace ns { /* ... */ }
+  ```
+
+*Submodules* declared using the `export * as ns from './module';` syntax can be
+documented using a markdown document located at `./module/README.md`.
+
+> :construction: The `./module/README.md` file support is not yet implemented.
+
+### Code Generation
+
+In languages where this is relevant (e.g: **Python**), *submodules* are rendered
+as native *submodules*. In languages where a namespace system exists (**Java**
+uses *packages*, **C#** uses *namespaces*, ...), *submodules* are rendered using
+that.
+
+## Code Generation
+
+In order to generate code in various programming languages, [`jsii-pacmak`]
+needs configuration that provides naming directives (e.g: **Java** package
+names, **C#** namespaces, **Python** module names, ...). This configuration is
+language-specific and each language implementation specifies and documents its
+own configuration schema.
+
+Configuration is sourced in the `package.json` file at the root of the npm
+package, under the special `jsii` key. The general schema is described in the
+[configuration] document.
+
+> :construction: There is a proposition to allow this configuration to be placed
+> in a `.jsiirc.json` file, which would take precedence over what is specified
+> in `package.json`. *Submodules* introduced using the
+> `export * as ns from './module';` syntax would then be able to define
+> *submodule*-local configuration using the `./module/.jsiirc.json` file.
+
+[configuration]: ../configuration.md
+
 ## References
 
 The [**TypeScript** Handbook] describes the language's type system and syntax

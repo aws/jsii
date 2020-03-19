@@ -1,4 +1,4 @@
-package software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties;
+package software.amazon.jsii.tests.calculator.derived_class_has_no_properties;
 
 /**
  * EXPERIMENTAL

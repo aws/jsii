@@ -2,13 +2,13 @@ using Amazon.JSII.Runtime.Deputy;
 
 #pragma warning disable CS0672,CS0809,CS1591
 
-namespace Amazon.JSII.Tests.CalculatorNamespace.composition
+namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
 {
     /// <summary>Abstract operation composed from an expression of other operations.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
     public abstract class CompositeOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
     {
         protected CompositeOperation(): base(new DeputyProps(new object[]{}))
@@ -88,9 +88,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "stringStyle", typeJson: "{\"fqn\":\"jsii-calc.composition.CompositeOperation.CompositionStringStyle\"}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation.CompositionStringStyle StringStyle
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation.CompositionStringStyle StringStyle
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation.CompositionStringStyle>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation.CompositionStringStyle>();
             set => SetInstanceProperty(value);
         }
 
