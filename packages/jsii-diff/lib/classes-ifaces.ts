@@ -1,7 +1,7 @@
 import * as reflect from 'jsii-reflect';
 import * as log4js from 'log4js';
 import { compareStabilities } from './stability';
-import { Analysis, FailedAnalysis, isSuperType } from './type-analysis';
+import { Analysis, FailedAnalysis, isSuperType, isNominalSuperType } from './type-analysis';
 import { ComparisonContext } from './types';
 
 const LOG = log4js.getLogger('jsii-diff');
@@ -14,6 +14,15 @@ const LOG = log4js.getLogger('jsii-diff');
  */
 export function compareReferenceType<T extends reflect.ReferenceType>(original: T, updated: T, context: ComparisonContext) {
   compareStabilities(original, updated, context);
+
+  const ana = assignableToAllBaseTypes(original, updated);
+  if (!ana.success) {
+    context.mismatches.report({
+      ruleKey: 'base-types',
+      message: `not assignable to all base types anymore: ${ana.reasons.join(', ')}`,
+      violator: original,
+    });
+  }
 
   if (original.isClassType() && updated.isClassType()) {
     if (updated.abstract && !original.abstract) {
@@ -61,6 +70,15 @@ export function compareReferenceType<T extends reflect.ReferenceType>(original: 
 
 export function compareStruct(original: reflect.InterfaceType, updated: reflect.InterfaceType, context: ComparisonContext) {
   compareStabilities(original, updated, context);
+
+  const ana = assignableToAllBaseTypes(original, updated);
+  if (!ana.success) {
+    context.mismatches.report({
+      ruleKey: 'base-types',
+      message: `not assignable to all base types anymore: ${ana.reasons.join(', ')}`,
+      violator: original,
+    });
+  }
 
   // We don't compare structs here; they will be evaluated for compatibility
   // based on input and output positions.
@@ -296,3 +314,49 @@ function isCompatibleArgumentType(original: reflect.TypeReference, updated: refl
   // Input can never be void, so no need to check
   return isSuperType(updated, original, updated.system);
 }
+
+/**
+ * Verify assignability to supertypes
+ *
+ * For every base type B of type T, someone could have written:
+ *
+ * ```
+ * const variable: B = new T();
+ * ```
+ *
+ * This code needs to be valid in the updated assembly, so for each
+ * B an updated type B' needs to exist in the new assembly which is
+ * still a supertype of T'.
+ */
+function assignableToAllBaseTypes(original: reflect.ReferenceType, updated: reflect.ReferenceType): Analysis {
+  for (const B of baseTypes(original)) {
+    const result = isNominalSuperType(B.reference, updated.reference, updated.system);
+    if (!result.success) { return result; }
+  }
+  return { success: true };
+}
+
+
+/**
+ * Return all base types of the given reference type
+ */
+function baseTypes(type: reflect.ReferenceType) {
+  const ret = new Array<reflect.ReferenceType>();
+  const todo: reflect.ReferenceType[] = [type];
+  const seen = new Set<string>();
+
+  while (todo.length > 0) {
+    const next = todo.pop()!;
+    if (seen.has(next.fqn)) { continue; }
+    ret.push(next);
+    seen.add(next.fqn);
+
+    todo.push(...next.interfaces);
+    if (next.isClassType() && next.base) {
+      todo.push(next.base);
+    }
+  }
+
+  return ret;
+}
+
