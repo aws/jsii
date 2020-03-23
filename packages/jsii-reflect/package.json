@@ -35,7 +35,7 @@
   "dependencies": {
     "@jsii/spec": "^1.1.0",
     "colors": "^1.4.0",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "oo-ascii-tree": "^1.1.0",
     "yargs": "^15.3.1"
   },
