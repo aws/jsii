@@ -6,6 +6,7 @@ import { EnumType } from './enum';
 import { InterfaceType } from './interface';
 import { locationInRepository, SourceLocatable, SourceLocation } from './source';
 import { TypeSystem } from './type-system';
+import { TypeReference } from './type-ref';
 
 export abstract class Type implements Documentable, SourceLocatable {
   public constructor(
@@ -49,6 +50,15 @@ export abstract class Type implements Documentable, SourceLocatable {
 
   public get docs(): Docs {
     return new Docs(this.system, this, this.spec.docs ?? {});
+  }
+
+  /**
+   * A type reference to this type
+   */
+  public get reference(): TypeReference {
+    return new TypeReference(this.system, {
+      fqn: this.fqn,
+    });
   }
 
   /**

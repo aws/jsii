@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import * as reflect from 'jsii-reflect';
 import { flatMap } from './util';
 
@@ -93,7 +94,7 @@ export function isSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
 /**
  * Find types A and B in the updated type system, and check whether they have a supertype relationship in the type system
  */
-function isNominalSuperType(a: reflect.TypeReference, b: reflect.TypeReference, updatedSystem: reflect.TypeSystem): Analysis {
+export function isNominalSuperType(a: reflect.TypeReference, b: reflect.TypeReference, updatedSystem: reflect.TypeSystem): Analysis {
   if (a.fqn === undefined) {
     throw new Error(`I was expecting a named type, got '${a}'`);
   }
