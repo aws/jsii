@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import software.amazon.jsii.ComplianceSuiteHarness;
 import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.tests.calculator.*;
@@ -30,6 +32,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("deprecated")
+@ExtendWith(ComplianceSuiteHarness.class)
 public class ComplianceTest {
     /**
      * Verify that we can marshal and unmarshal objects without type information.

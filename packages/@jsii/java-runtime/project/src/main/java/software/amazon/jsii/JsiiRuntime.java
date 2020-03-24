@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,11 @@ public final class JsiiRuntime {
      * True to print server traces to STDERR.
      */
     private static boolean traceEnabled = false;
+
+    /**
+     *
+     */
+    static final ThreadLocal<MessageInspector> messageInspector = new ThreadLocal<>();
 
     /**
      * The HTTP client connected to this child process.
@@ -69,6 +75,7 @@ public final class JsiiRuntime {
      */
     JsonNode requestResponse(final JsonNode request) {
         try {
+            JsiiRuntime.notifyInspector(request, MessageInspector.MessageType.Request);
 
             // write request
             String str = request.toString();
@@ -219,27 +226,22 @@ public final class JsiiRuntime {
             throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)");
         }
 
-        try {
-            OutputStreamWriter stdinStream = new OutputStreamWriter(this.childProcess.getOutputStream(), "UTF-8");
-            InputStreamReader stdoutStream = new InputStreamReader(this.childProcess.getInputStream(), "UTF-8");
-            InputStreamReader stderrStream = new InputStreamReader(this.childProcess.getErrorStream(), "UTF-8");
+        OutputStreamWriter stdinStream = new OutputStreamWriter(this.childProcess.getOutputStream(), StandardCharsets.UTF_8);
+        InputStreamReader stdoutStream = new InputStreamReader(this.childProcess.getInputStream(), StandardCharsets.UTF_8);
+        InputStreamReader stderrStream = new InputStreamReader(this.childProcess.getErrorStream(), StandardCharsets.UTF_8);
 
-            this.stderr = new BufferedReader(stderrStream);
-            this.stdout = new BufferedReader(stdoutStream);
-            this.stdin = new BufferedWriter(stdinStream);
+        this.stderr = new BufferedReader(stderrStream);
+        this.stdout = new BufferedReader(stdoutStream);
+        this.stdin = new BufferedWriter(stdinStream);
 
-            handshake();
+        handshake();
 
-            this.client = new JsiiClient(this);
+        this.client = new JsiiClient(this);
 
-            // if trace is enabled, start a thread that continuously reads from the child process's
-            // STDERR and prints to my STDERR.
-            if (traceEnabled) {
-                startPipeErrorStreamThread();
-            }
-
-        } catch (IOException e) {
-            throw new JsiiException(e);
+        // if trace is enabled, start a thread that continuously reads from the child process's
+        // STDERR and prints to my STDERR.
+        if (traceEnabled) {
+            startPipeErrorStreamThread();
         }
     }
 
@@ -270,7 +272,9 @@ public final class JsiiRuntime {
                 String error = this.stderr.lines().collect(Collectors.joining("\n\t"));
                 throw new JsiiException("Child process exited unexpectedly: " + error);
             }
-            return JsiiObjectMapper.INSTANCE.readTree(responseLine);
+            final JsonNode response = JsiiObjectMapper.INSTANCE.readTree(responseLine);
+            JsiiRuntime.notifyInspector(response, MessageInspector.MessageType.Response);
+            return response;
         } catch (IOException e) {
             throw new JsiiException("Unable to read reply from jsii-runtime: " + e.toString(), e);
         }
@@ -353,4 +357,11 @@ public final class JsiiRuntime {
         }
     }
 
+    private static void notifyInspector(final JsonNode message, final MessageInspector.MessageType type) {
+        final MessageInspector inspector = JsiiRuntime.messageInspector.get();
+        if (inspector == null) {
+            return;
+        }
+        inspector.inspect(message, type);
+    }
 }
