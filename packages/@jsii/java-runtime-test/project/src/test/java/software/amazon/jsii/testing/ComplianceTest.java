@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import software.amazon.jsii.ComplianceSuiteHarness;
 import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
+import software.amazon.jsii.ReloadingClassLoader;
 import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
@@ -18,6 +19,11 @@ import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
@@ -974,12 +980,35 @@ public class ComplianceTest {
     }
 
     @Test
-    public void consts() {
-        assertEquals("hello", Statics.FOO);
-        DoubleTrouble obj = Statics.CONST_OBJ;
-        assertEquals("world", obj.hello());
-        assertEquals(1234, Statics.BAR);
-        assertEquals("world", Statics.ZOO_BAR.get("hello"));
+    @SuppressWarnings("unchecked")
+    public void consts() throws Exception {
+        /*
+         * Here be dragons: "consts" are actually pre-fetched when the class gets loaded, and they are static final
+         * properties (so we cannot reset those). Since those tests need to run with a new Engine process, what was
+         * loaded at this point may have been loaded by an engine that was long since disposed of. So we need to
+         * actually run this code through a classloader that'll get a brand _new_ instance of the class.
+         *
+         * This whole process relies on ClassLoader black magic because I don't know a better way.
+         */
+        final Class<ConstTestRunner> reloadedClass = ReloadingClassLoader.reload(this.getClass().getClassLoader(), ConstTestRunner.class, Statics.class);
+        final Constructor<ConstTestRunner> constructor = reloadedClass.getConstructor();
+        constructor.setAccessible(true);
+
+        final Runnable runnable = constructor.newInstance();
+        runnable.run();
+    }
+
+    private static final class ConstTestRunner implements Runnable {
+        public ConstTestRunner() {}
+
+        public final void run() {
+            assertEquals("hello", Statics.FOO);
+            DoubleTrouble obj = Statics.CONST_OBJ;
+            assertEquals("world", obj.hello());
+
+            assertEquals(1234, Statics.BAR);
+            assertEquals("world", Statics.ZOO_BAR.get("hello"));
+        }
     }
 
     @Test

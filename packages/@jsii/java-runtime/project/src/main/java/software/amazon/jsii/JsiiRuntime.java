@@ -13,6 +13,7 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.stream.Collectors;
 
 import static software.amazon.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
@@ -169,18 +170,33 @@ public final class JsiiRuntime {
 
     @Override
     protected void finalize() throws Throwable {
-        super.finalize();
+        try {
+            this.terminate();
+        } finally {
+            super.finalize();
+        }
+    }
 
+    public void terminate() throws InterruptedException, IOException {
         if (stderr != null) {
             stderr.close();
+            stderr = null;
         }
 
         if (stdout != null) {
             stdout.close();
+            stdout = null;
         }
 
         if (stdin != null) {
             stdin.close();
+            stdin = null;
+        }
+
+        if (childProcess != null) {
+            // Wait for the child process to complete
+            childProcess.waitFor();
+            childProcess = null;
         }
     }
 
@@ -346,12 +362,16 @@ public final class JsiiRuntime {
      */
     private String prepareBundledRuntime() {
         try {
-            String directory = Files.createTempDirectory("jsii-java-runtime").toString();
+            Path directory = Files.createTempDirectory("jsii-java-runtime");
+            directory.toFile().deleteOnExit();
 
-            String entrypoint = extractResource(getClass(), "jsii-runtime.js", directory);
-            extractResource(getClass(), "jsii-runtime.js.map", directory);
-            extractResource(getClass(), "mappings.wasm", directory);
-            return entrypoint;
+            Path entrypoint = extractResource(getClass(), "jsii-runtime.js", directory);
+            entrypoint.toFile().deleteOnExit();
+
+            extractResource(getClass(), "jsii-runtime.js.map", directory).toFile().deleteOnExit();
+            extractResource(getClass(), "mappings.wasm", directory).toFile().deleteOnExit();
+
+            return entrypoint.toString();
         } catch (IOException e) {
             throw new JsiiException("Unable to extract bundle of jsii-runtime.js from jar", e);
         }
