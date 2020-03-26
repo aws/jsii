@@ -2012,7 +2012,7 @@ babel-plugin-istanbul@^6.0.0:
     istanbul-lib-instrument "^4.0.0"
     test-exclude "^6.0.0"
 
-babel-plugin-jest-hoist@^25.1.0:
+babel-plugin-jest-hoist@^25.2.1:
   version "25.2.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-25.2.1.tgz#d0003a1f3d5caa281e1107fe03bbf16b799f9955"
   integrity sha512-HysbCQfJhxLlyxDbKcB2ucGYV0LjqK4h6dBoI3RtFuOxTiTWK6XGZMsHb0tGh8iJdV4hC6Z2GCHzVvDeh9i0lQ==
@@ -2020,13 +2020,13 @@ babel-plugin-jest-hoist@^25.1.0:
     "@types/babel__traverse" "^7.0.6"
 
 babel-preset-jest@^25.1.0:
-  version "25.1.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-25.1.0.tgz#d0aebfebb2177a21cde710996fce8486d34f1d33"
-  integrity sha512-eCGn64olaqwUMaugXsTtGAM2I0QTahjEtnRu0ql8Ie+gDWAc1N6wqN0k2NilnyTunM69Pad7gJY7LOtwLimoFQ==
+  version "25.2.1"
+  resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-25.2.1.tgz#4ccd0e577f69aa11b71806edfe8b25a5c3ac93a2"
+  integrity sha512-zXHJBM5iR8oEO4cvdF83AQqqJf3tJrXy3x8nfu2Nlqvn4cneg4Ca8M7cQvC5S9BzDDy1O0tZ9iXru9J6E3ym+A==
   dependencies:
     "@babel/plugin-syntax-bigint" "^7.0.0"
     "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
-    babel-plugin-jest-hoist "^25.1.0"
+    babel-plugin-jest-hoist "^25.2.1"
 
 babylon@^7.0.0-beta.39:
   version "7.0.0-beta.47"
