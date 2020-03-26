@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base-of-base",
-  "version": "1.1.0",
+  "version": "0.0.0",
   "private": true,
   "description": "An example transitive dependency for jsii-calc.",
   "license": "Apache-2.0",
@@ -30,9 +30,9 @@
   },
   "devDependencies": {
     "@types/node": "^10.17.17",
-    "jsii": "^1.1.0",
-    "jsii-build-tools": "^1.1.0",
-    "jsii-rosetta": "^1.1.0"
+    "jsii": "^0.0.0",
+    "jsii-build-tools": "^0.0.0",
+    "jsii-rosetta": "^0.0.0"
   },
   "jsii": {
     "outdir": "dist",
