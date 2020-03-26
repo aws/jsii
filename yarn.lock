@@ -556,6 +556,16 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@jest/types@^25.2.3":
+  version "25.2.3"
+  resolved "https://registry.yarnpkg.com/@jest/types/-/types-25.2.3.tgz#035c4fb94e2da472f359ff9a211915d59987f6b6"
+  integrity sha512-6oLQwO9mKif3Uph3RX5J1i3S7X7xtDHWBaaaoeKw8hOzV6YUd0qDcYcHZ6QXMHDIzSr7zzrEa51o2Ovlj6AtKQ==
+  dependencies:
+    "@types/istanbul-lib-coverage" "^2.0.0"
+    "@types/istanbul-reports" "^1.1.1"
+    "@types/yargs" "^15.0.0"
+    chalk "^3.0.0"
+
 "@lerna/add@3.20.0":
   version "3.20.0"
   resolved "https://registry.yarnpkg.com/@lerna/add/-/add-3.20.0.tgz#bea7edf36fc93fb72ec34cb9ba854c48d4abf309"
@@ -5264,21 +5274,13 @@ jest-jasmine2@^25.1.0, jest-jasmine2@^25.2.2:
     pretty-format "^25.2.1"
     throat "^5.0.0"
 
-jest-leak-detector@^25.1.0:
-  version "25.1.0"
-  resolved "https://registry.yarnpkg.com/jest-leak-detector/-/jest-leak-detector-25.1.0.tgz#ed6872d15aa1c72c0732d01bd073dacc7c38b5c6"
-  integrity sha512-3xRI264dnhGaMHRvkFyEKpDeaRzcEBhyNrOG5oT8xPxOyUAblIAQnpiR3QXu4wDor47MDTiHbiFcbypdLcLW5w==
-  dependencies:
-    jest-get-type "^25.1.0"
-    pretty-format "^25.1.0"
-
-jest-leak-detector@^25.2.1:
-  version "25.2.1"
-  resolved "https://registry.yarnpkg.com/jest-leak-detector/-/jest-leak-detector-25.2.1.tgz#77c55c59c32de9600f6bd9aab9540538b541b253"
-  integrity sha512-bsxjjFksjLWNqC8aLsN0KO2KQ3tiqPqmFpYt+0y4RLHc1dqaThQL68jra5y1f/yhX3dNC8ugksDvqnGxwxjo4w==
+jest-leak-detector@^25.1.0, jest-leak-detector@^25.2.1:
+  version "25.2.3"
+  resolved "https://registry.yarnpkg.com/jest-leak-detector/-/jest-leak-detector-25.2.3.tgz#4cf39f137925e0061c04c24ca65cae36465f0238"
+  integrity sha512-yblCMPE7NJKl7778Cf/73yyFWAas5St0iiEBwq7RDyaz6Xd4WPFnPz2j7yDb/Qce71A1IbDoLADlcwD8zT74Aw==
   dependencies:
     jest-get-type "^25.2.1"
-    pretty-format "^25.2.1"
+    pretty-format "^25.2.3"
 
 jest-matcher-utils@^25.2.1:
   version "25.2.1"
@@ -7114,12 +7116,12 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-pretty-format@^25.1.0, pretty-format@^25.2.1:
-  version "25.2.1"
-  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-25.2.1.tgz#3b8f7b9241faa6736cdbc32879bee18454d1318d"
-  integrity sha512-YS+e9oGYIbEeAFgqTU8qeZ3DN2Pz0iaD81ox+iUjLIXVJWeB7Ro/2AnfxRnl/yJJ5R674d7E3jLPuh6bwg0+qw==
+pretty-format@^25.1.0, pretty-format@^25.2.1, pretty-format@^25.2.3:
+  version "25.2.3"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-25.2.3.tgz#ba6e9603a0d80fa2e470b1fed55de1f9bfd81421"
+  integrity sha512-IP4+5UOAVGoyqC/DiomOeHBUKN6q00gfyT2qpAsRH64tgOKB2yF7FHJXC18OCiU0/YFierACup/zdCOWw0F/0w==
   dependencies:
-    "@jest/types" "^25.2.1"
+    "@jest/types" "^25.2.3"
     ansi-regex "^5.0.0"
     ansi-styles "^4.0.0"
     react-is "^16.12.0"
