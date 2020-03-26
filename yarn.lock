@@ -5237,12 +5237,12 @@ jest-jasmine2@^25.1.0:
     throat "^5.0.0"
 
 jest-leak-detector@^25.1.0:
-  version "25.1.0"
-  resolved "https://registry.yarnpkg.com/jest-leak-detector/-/jest-leak-detector-25.1.0.tgz#ed6872d15aa1c72c0732d01bd073dacc7c38b5c6"
-  integrity sha512-3xRI264dnhGaMHRvkFyEKpDeaRzcEBhyNrOG5oT8xPxOyUAblIAQnpiR3QXu4wDor47MDTiHbiFcbypdLcLW5w==
+  version "25.2.1"
+  resolved "https://registry.yarnpkg.com/jest-leak-detector/-/jest-leak-detector-25.2.1.tgz#77c55c59c32de9600f6bd9aab9540538b541b253"
+  integrity sha512-bsxjjFksjLWNqC8aLsN0KO2KQ3tiqPqmFpYt+0y4RLHc1dqaThQL68jra5y1f/yhX3dNC8ugksDvqnGxwxjo4w==
   dependencies:
-    jest-get-type "^25.1.0"
-    pretty-format "^25.1.0"
+    jest-get-type "^25.2.1"
+    pretty-format "^25.2.1"
 
 jest-matcher-utils@^25.1.0:
   version "25.1.0"
