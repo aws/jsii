@@ -5143,15 +5143,15 @@ jest-docblock@^25.1.0:
     detect-newline "^3.0.0"
 
 jest-each@^25.1.0:
-  version "25.1.0"
-  resolved "https://registry.yarnpkg.com/jest-each/-/jest-each-25.1.0.tgz#a6b260992bdf451c2d64a0ccbb3ac25e9b44c26a"
-  integrity sha512-R9EL8xWzoPySJ5wa0DXFTj7NrzKpRD40Jy+zQDp3Qr/2QmevJgkN9GqioCGtAJ2bW9P/MQRznQHQQhoeAyra7A==
+  version "25.2.1"
+  resolved "https://registry.yarnpkg.com/jest-each/-/jest-each-25.2.1.tgz#d96b4fc0c035fcddb852f19da42ea241b1943999"
+  integrity sha512-2vWAaf11IJsSwkEzGph3un4OMSG4v/3hpM2UqJdeU3peGUgUSn75TlXZGQnT0smbnAr4eE+URW1OpE8U9wl0TA==
   dependencies:
-    "@jest/types" "^25.1.0"
+    "@jest/types" "^25.2.1"
     chalk "^3.0.0"
-    jest-get-type "^25.1.0"
-    jest-util "^25.1.0"
-    pretty-format "^25.1.0"
+    jest-get-type "^25.2.1"
+    jest-util "^25.2.1"
+    pretty-format "^25.2.1"
 
 jest-environment-jsdom@^25.1.0:
   version "25.1.0"
@@ -5432,17 +5432,7 @@ jest-snapshot@^25.1.0, jest-snapshot@^25.2.1:
     pretty-format "^25.2.1"
     semver "^6.3.0"
 
-jest-util@^25.1.0:
-  version "25.1.0"
-  resolved "https://registry.yarnpkg.com/jest-util/-/jest-util-25.1.0.tgz#7bc56f7b2abd534910e9fa252692f50624c897d9"
-  integrity sha512-7did6pLQ++87Qsj26Fs/TIwZMUFBXQ+4XXSodRNy3luch2DnRXsSnmpVtxxQ0Yd6WTipGpbhh2IFP1mq6/fQGw==
-  dependencies:
-    "@jest/types" "^25.1.0"
-    chalk "^3.0.0"
-    is-ci "^2.0.0"
-    mkdirp "^0.5.1"
-
-jest-util@^25.2.1:
+jest-util@^25.1.0, jest-util@^25.2.1:
   version "25.2.1"
   resolved "https://registry.yarnpkg.com/jest-util/-/jest-util-25.2.1.tgz#96086efe850ce6d07c42ad5324b80a3ede4246e6"
   integrity sha512-oFVMSY/7flrSgEE/B+RApaBZOdLURXRnXCf4COV5td9uRidxudyjA64I1xk2h9Pf3jloSArm96e2FKAbFs0DYg==
