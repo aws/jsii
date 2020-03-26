@@ -15,6 +15,19 @@ import scope.jsii_calc_lib
 __jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "1.1.0", "jsii_calc", "jsii-calc@1.1.0.jsii.tgz")
 
 
+@jsii.enum(jsii_type="jsii-calc.submodule.child.Awesomeness")
+class Awesomeness(enum.Enum):
+    """
+    stability
+    :stability: experimental
+    """
+    AWESOME = "AWESOME"
+    """It was awesome!
+
+    stability
+    :stability: experimental
+    """
+
 @jsii.enum(jsii_type="jsii-calc.submodule.child.Goodness")
 class Goodness(enum.Enum):
     """
@@ -71,6 +84,6 @@ class Structure():
         return 'Structure(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["Goodness", "Structure", "__jsii_assembly__"]
+__all__ = ["Awesomeness", "Goodness", "Structure", "__jsii_assembly__"]
 
 publication.publish()

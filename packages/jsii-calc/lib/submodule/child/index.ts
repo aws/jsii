@@ -10,3 +10,9 @@ export enum Goodness {
   /** It's amazingly good */
   AMAZINGLY_GOOD
 }
+
+// There's only one way around these woods...
+export enum Awesomeness {
+  /** It was awesome! */
+  AWESOME
+}
