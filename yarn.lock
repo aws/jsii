@@ -3255,7 +3255,7 @@ dezalgo@^1.0.0:
     asap "^2.0.0"
     wrappy "1"
 
-diff-sequences@^25.1.0, diff-sequences@^25.2.1:
+diff-sequences@^25.2.1:
   version "25.2.1"
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-25.2.1.tgz#fcfe8aa07dd9b0c648396a478dabca8e76c6ab27"
   integrity sha512-foe7dXnGlSh3jR1ovJmdv+77VQj98eKCHHwJPbZ2eEf0fHwKbkZicpPxEch9smZ+n2dnF6QFwkOQdLq9hpeJUg==
@@ -5125,17 +5125,7 @@ jest-config@^25.1.0:
     pretty-format "^25.1.0"
     realpath-native "^1.1.0"
 
-jest-diff@^25.1.0:
-  version "25.1.0"
-  resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-25.1.0.tgz#58b827e63edea1bc80c1de952b80cec9ac50e1ad"
-  integrity sha512-nepXgajT+h017APJTreSieh4zCqnSHEJ1iT8HDlewu630lSJ4Kjjr9KNzm+kzGwwcpsDE6Snx1GJGzzsefaEHw==
-  dependencies:
-    chalk "^3.0.0"
-    diff-sequences "^25.1.0"
-    jest-get-type "^25.1.0"
-    pretty-format "^25.1.0"
-
-jest-diff@^25.2.1:
+jest-diff@^25.1.0, jest-diff@^25.2.1:
   version "25.2.1"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-25.2.1.tgz#8c073596cc88356227c86a50d71a23d8a9dfa81a"
   integrity sha512-e/TU8VLBBGQQS9tXA5B5LeT806jh7CHUeHbBfrU9UvA2zTbOTRz71UD6fAP1HAhzUEyCVLU2ZP5e8X16A9b0Fg==
