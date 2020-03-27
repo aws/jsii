@@ -14,7 +14,7 @@ import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
 
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "1.1.0", "jsii_calc", "jsii-calc@1.1.0.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.0.0", "jsii_calc", "jsii-calc@0.0.0.jsii.tgz")
 
 
 @jsii.implements(nested_submodule.deeplyNested.INamespaced)
@@ -29,6 +29,15 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         :stability: experimental
         """
         jsii.create(MyClass, self, [])
+
+    @builtins.property
+    @jsii.member(jsii_name="awesomeness")
+    def awesomeness(self) -> "child.Awesomeness":
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "awesomeness")
 
     @builtins.property
     @jsii.member(jsii_name="definedAt")

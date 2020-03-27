@@ -28,6 +28,14 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     /**
      * EXPERIMENTAL
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.submodule.child.Awesomeness getAwesomeness() {
+        return this.jsiiGet("awesomeness", software.amazon.jsii.tests.calculator.submodule.child.Awesomeness.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public @org.jetbrains.annotations.NotNull java.lang.String getDefinedAt() {

@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("jsii-calc", "1.1.0", $Module.class, "jsii-calc@1.1.0.jsii.tgz");
+        super("jsii-calc", "0.0.0", $Module.class, "jsii-calc@0.0.0.jsii.tgz");
     }
 
     @Override
@@ -209,6 +209,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.composition.CompositeOperation.CompositionStringStyle": return software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle.class;
             case "jsii-calc.submodule.MyClass": return software.amazon.jsii.tests.calculator.submodule.MyClass.class;
             case "jsii-calc.submodule.back_references.MyClassReference": return software.amazon.jsii.tests.calculator.submodule.back_references.MyClassReference.class;
+            case "jsii-calc.submodule.child.Awesomeness": return software.amazon.jsii.tests.calculator.submodule.child.Awesomeness.class;
             case "jsii-calc.submodule.child.Goodness": return software.amazon.jsii.tests.calculator.submodule.child.Goodness.class;
             case "jsii-calc.submodule.child.Structure": return software.amazon.jsii.tests.calculator.submodule.child.Structure.class;
             case "jsii-calc.submodule.nested_submodule.Namespaced": return software.amazon.jsii.tests.calculator.submodule.nested_submodule.Namespaced.class;

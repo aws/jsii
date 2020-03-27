@@ -82,6 +82,8 @@ exports[`jsii-tree --all 1`] = `
  │ │   │ │   │     ├── abstract
  │ │   │ │   │     ├── immutable
  │ │   │ │   │     └── type: boolean
+ │ │   │ │   ├─┬ enum Awesomeness (experimental)
+ │ │   │ │   │ └── AWESOME (experimental)
  │ │   │ │   └─┬ enum Goodness (experimental)
  │ │   │ │     ├── PRETTY_GOOD (experimental)
  │ │   │ │     ├── REALLY_GOOD (experimental)
@@ -112,6 +114,9 @@ exports[`jsii-tree --all 1`] = `
  │ │       ├── interfaces: INamespaced
  │ │       └─┬ members
  │ │         ├── <initializer>() initializer (experimental)
+ │ │         ├─┬ awesomeness property (experimental)
+ │ │         │ ├── immutable
+ │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
  │ │         ├─┬ definedAt property (experimental)
  │ │         │ ├── immutable
  │ │         │ └── type: string
@@ -2501,6 +2506,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │   │ ├─┬ child
  │ │   │ │ └─┬ types
  │ │   │ │   ├── interface Structure
+ │ │   │ │   ├── enum Awesomeness
  │ │   │ │   └── enum Goodness
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
@@ -2836,6 +2842,8 @@ exports[`jsii-tree --members 1`] = `
  │ │   │ │   ├─┬ interface Structure
  │ │   │ │   │ └─┬ members
  │ │   │ │   │   └── bool property
+ │ │   │ │   ├─┬ enum Awesomeness
+ │ │   │ │   │ └── AWESOME
  │ │   │ │   └─┬ enum Goodness
  │ │   │ │     ├── PRETTY_GOOD
  │ │   │ │     ├── REALLY_GOOD
@@ -2856,6 +2864,7 @@ exports[`jsii-tree --members 1`] = `
  │ │     └─┬ class MyClass
  │ │       └─┬ members
  │ │         ├── <initializer>() initializer
+ │ │         ├── awesomeness property
  │ │         ├── definedAt property
  │ │         ├── goodness property
  │ │         └── allTypes property
@@ -3932,6 +3941,7 @@ exports[`jsii-tree --types 1`] = `
  │ │   │ ├─┬ child
  │ │   │ │ └─┬ types
  │ │   │ │   ├── interface Structure
+ │ │   │ │   ├── enum Awesomeness
  │ │   │ │   └── enum Goodness
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
