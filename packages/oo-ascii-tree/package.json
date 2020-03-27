@@ -1,6 +1,6 @@
 {
   "name": "oo-ascii-tree",
-  "version": "1.1.0",
+  "version": "0.0.0",
   "description": "object-oriented ascii tree renderer",
   "license": "Apache-2.0",
   "author": {
@@ -34,7 +34,7 @@
     "@types/node": "^10.17.17",
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
-    "jsii-build-tools": "^1.1.0",
+    "jsii-build-tools": "^0.0.0",
     "typescript": "~3.8.3"
   },
   "jest": {
