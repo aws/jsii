@@ -608,3 +608,7 @@ object:
 ```ts
 interface SetResponse {}
 ```
+
+--------------------------------------------------------------------------------
+
+Continue to [Standard Compliance Suite](./4-standard-compliance-suite.md)
