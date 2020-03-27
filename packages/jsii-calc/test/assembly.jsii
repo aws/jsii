@@ -12183,6 +12183,20 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/my-class.ts",
+            "line": 8
+          },
+          "name": "awesomeness",
+          "type": {
+            "fqn": "jsii-calc.submodule.child.Awesomeness"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/my-class.ts",
             "line": 6
           },
           "name": "definedAt",
@@ -12211,7 +12225,7 @@
           },
           "locationInModule": {
             "filename": "lib/submodule/my-class.ts",
-            "line": 8
+            "line": 9
           },
           "name": "allTypes",
           "optional": true,
@@ -12252,6 +12266,29 @@
           }
         }
       ]
+    },
+    "jsii-calc.submodule.child.Awesomeness": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.submodule.child.Awesomeness",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/submodule/child/index.ts",
+        "line": 15
+      },
+      "members": [
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "It was awesome!"
+          },
+          "name": "AWESOME"
+        }
+      ],
+      "name": "Awesomeness",
+      "namespace": "submodule.child"
     },
     "jsii-calc.submodule.child.Goodness": {
       "assembly": "jsii-calc",
@@ -12405,5 +12442,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "SEfqfgRvf7Rdw2KRLONITu2b2JruUQ85Ur47eTy1KnA="
+  "fingerprint": "XNjL7+hJ5KwFtBCVEz4TZH4c2JtVW/gTPS7UNrw02Cg="
 }

@@ -319,10 +319,21 @@ export class Assembler implements Emitter {
    * @returns the FQN of the type, or some "unknown" marker.
    */
   private async _getFQN(type: ts.Type): Promise<string> {
-    const tsName = this._typeChecker.getFullyQualifiedName(type.symbol);
-    const groups = /^"([^"]+)"\.(.*)$/.exec(tsName);
-    let node = type.symbol.valueDeclaration;
+    const singleValuedEnum = isSingleValuedEnum(type, this._typeChecker);
+
+    const tsFullName = this._typeChecker.getFullyQualifiedName(type.symbol);
+    const tsName = singleValuedEnum
+      // If it's a single-valued enum, we need to remove the last qualifier to get back to the enum.
+      ? tsFullName.replace(/\.[^.]+$/, '')
+      : tsFullName;
+
+    let node = singleValuedEnum
+      // If it's a single-valued enum, we need to move to the parent to have the enum declaration
+      ? type.symbol.valueDeclaration.parent
+      : type.symbol.valueDeclaration;
     if (!node && type.symbol.declarations.length > 0) { node = type.symbol.declarations[0]; }
+
+    const groups = /^"([^"]+)"\.(.*)$/.exec(tsName);
     if (!groups) {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Cannot use private type ${tsName} in exported declarations`);
       return tsName;
@@ -334,7 +345,7 @@ export class Assembler implements Emitter {
       return `unknown.${typeName}`;
     }
 
-    let submodule = this._submoduleMap.get(type.symbol);
+    let submodule = this._submoduleMap.get( type.symbol);
     let submoduleNs = submodule?.name;
     // Submodules can be in submodules themselves, so we crawl up the tree...
     while (submodule != null && this._submoduleMap.has(submodule)) {
@@ -458,6 +469,12 @@ export class Assembler implements Emitter {
       if (decl != null) {
         if (ts.isClassDeclaration(decl) || ts.isInterfaceDeclaration(decl) || ts.isEnumDeclaration(decl)) {
           const type = this._typeChecker.getTypeAtLocation(decl);
+          if (isSingleValuedEnum(type, this._typeChecker)) {
+            // type.symbol !== symbol, because symbol is the enum itself, but
+            // since it's single-valued, the TypeChecker will only show us the
+            // value's symbol later on.
+            this._submoduleMap.set(type.symbol, ns);
+          }
           if (type.symbol.exports) {
             this._addToSubmodule(ns, symbol);
           }
@@ -1875,4 +1892,23 @@ function inferRootDir(program: ts.Program): string | undefined {
     }
     return result;
   }
+}
+
+/**
+ * Determines whether the provided type is a single-valued enum. It is necessary
+ * to check as enums are union-like in the type model, and single-valued enum
+ * types are actually reduced to the only available literal, which can trip
+ * the assembler.
+ *
+ * @param type        the type being checked.
+ * @param typeChecker the type checker to use to get more information.
+ *
+ * @return `true` if `type` is a single-valued enum type.
+ */
+function isSingleValuedEnum(type: ts.Type, typeChecker: ts.TypeChecker): type is ts.EnumType {
+  if (type.isLiteral() && _isEnumLike(type)) {
+    // Single-Valued enums are reduced to the only literal available.
+    return type === typeChecker.getBaseTypeOfLiteralType(type);
+  }
+  return false;
 }

@@ -31,6 +31,15 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         jsii.create(MyClass, self, [])
 
     @builtins.property
+    @jsii.member(jsii_name="awesomeness")
+    def awesomeness(self) -> "child.Awesomeness":
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "awesomeness")
+
+    @builtins.property
     @jsii.member(jsii_name="definedAt")
     def defined_at(self) -> str:
         """

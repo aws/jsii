@@ -34,6 +34,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
+        [JsiiProperty(name: "awesomeness", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.Awesomeness\"}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Awesomeness Awesomeness
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Awesomeness>();
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         [JsiiProperty(name: "definedAt", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string DefinedAt
         {
