@@ -29,7 +29,7 @@
     "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^8.1.0",
     "@types/jest": "^25.1.4",
-    "@types/node": "^10.17.17",
+    "@types/node": "^10.17.18",
     "@types/tar": "^4.0.3",
     "eslint": "^6.8.0",
     "typescript": "~3.8.3"
