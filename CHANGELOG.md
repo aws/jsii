@@ -1,7 +1,26 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [1.2.0](https://github.com/aws/jsii/compare/v1.0.0...v1.2.0) (2020-03-31)
+
+
+### Features
+
+* **jsii:** introduce submodules feature ([#1297](https://github.com/aws/jsii/issues/1297)) ([2df5d90](https://github.com/aws/jsii/commit/2df5d90f831808d02a4d697946a18065f3ae5ef2)), closes [#1286](https://github.com/aws/jsii/issues/1286)
+* add autobump script ([#1335](https://github.com/aws/jsii/issues/1335)) ([bdda569](https://github.com/aws/jsii/commit/bdda569729db83abe09edb9f9d922ba4194cd847))
+
+
+### Bug Fixes
+
+* **diff:** check super types ([#1354](https://github.com/aws/jsii/issues/1354)) ([b08f65f](https://github.com/aws/jsii/commit/b08f65feab97133ead27857233384d788676ce80))
+* **dotnet:** missing ? on nullable interface members ([#1287](https://github.com/aws/jsii/issues/1287)) ([9299db2](https://github.com/aws/jsii/commit/9299db25348504a4e413a047ce9ba914fb0f8856)), closes [#1285](https://github.com/aws/jsii/issues/1285)
+* **dotnet-analyzers:** unit test null reference ([#1341](https://github.com/aws/jsii/issues/1341)) ([6b88509](https://github.com/aws/jsii/commit/6b88509ef84891005d6dc904828bbce9c81a9cc3))
+* **jsii:** missing context on "Message" diagnostics ([#1298](https://github.com/aws/jsii/issues/1298)) ([c44f5f3](https://github.com/aws/jsii/commit/c44f5f30b77225e463d80c2e01e519e40d5601c5))
+* **jsii:** out-of-source builds are broken ([#1344](https://github.com/aws/jsii/issues/1344)) ([aecdc5e](https://github.com/aws/jsii/commit/aecdc5eecc540e11f91c761de41bcf36c2f88f20)), closes [#1273](https://github.com/aws/jsii/issues/1273)
+* **jsii:** single-valued enums are not processed correctly ([#1406](https://github.com/aws/jsii/issues/1406)) ([39425a4](https://github.com/aws/jsii/commit/39425a4caabcfe3d199f0dc04ee507b57905071d)), closes [aws/aws-cdk#6712](https://github.com/aws/aws-cdk/issues/6712) [aws/aws-cdk#6948](https://github.com/aws/aws-cdk/issues/6948)
+* **kernel:** "any" serialization breaks private type instances ([#1347](https://github.com/aws/jsii/issues/1347)) ([655adeb](https://github.com/aws/jsii/commit/655adeb9f3e9617049fbbe9160b9ef15218790be)), closes [aws/aws-cdk#6746](https://github.com/aws/aws-cdk/issues/6746)
+* **python-runtime:** KernelResponse missing types ([#1332](https://github.com/aws/jsii/issues/1332)) ([fcafab4](https://github.com/aws/jsii/commit/fcafab48c97e14ba76585d186041b0e8af79cf3a))
 
 # [1.1.0](https://github.com/aws/jsii/compare/v1.0.0...v1.1.0) (2020-03-10)
 
