@@ -1,14 +1,32 @@
 # Language Implementation Handbook
 
+This handbook provides an overview of the process that should be followed when
+looking to implement support for a new programming language in *jsii*. It
+attempts to provide a step-by-step procedure, while drawing the reader's
+attention on points that have been found to cause problems in the past.
+
+__Table of Contents__
+1. [Foreword](#foreword)
+1. [Scoping & Planning](#scoping-&-planning)
+   1. [Language Proposition RFC](#language-proposition-rfc)
+1. [Code Generation](#code-generation)
+1. [Host Library](#host-library)
+1. [Building & Packaging](#building-&-packaging)
+1. [Documentation](#documentation)
+1. [Developer Preview](#developer-preview)
+1. [General Availability](#general-availability)
+
+--------------------------------------------------------------------------------
+
 ## Foreword
 
 Implementing a new language in *jsii* is not just a matter of implementing code
-generation: mapping the *[jsii type system]* to a new programming language takes
-some amounts of API design, finding ways to represent APIs in the most idiomatic
-possible way. This is a craft that often requires trial and error, and the best
-(if not only) way to validate a proposal is to put it in front of users and
-seek feedback. As a consequence, this endeavor should be expected to span
-months, not weeks.
+generation. Mapping the *[jsii type system]* to a new programming language means
+finding how to represent an API originally designed in TypeScript to a form that
+is as idiomatic as possible in the new language. This is a craft that often
+requires trial and error, and the best (if not only) way to validate a proposal
+is to put it in front of users and seek feedback. As a consequence, this
+endeavor should be expected to span months, not weeks.
 
 
 ## Scoping & Planning
@@ -18,6 +36,27 @@ establishing a baseline plan to execute on. For contributors not yet familiar
 with *jsii*, the [specification] document is a great place to start. In
 particular, the [New Language Intake] document provides a high-level view of the
 recommended process for implementing new language support.
+
+The work of implementing support for a new language involves many different
+components:
+- The [`jsii`] compiler emits warnings when a language's reserved words are used
+  to name types, methods or properties; as this will later require slugification
+  or escaping in the generated code - usually resulting in a degraded developer
+  experience.
+- The [`jsii-pacmak`] tool includes code generators for all supported languages,
+  and a new implementation must be provided for the new language.
+- Code generation usually requires specific configuration to be provided in
+  order to be able to generate valid packages (for example, the **Java** code
+  generator requires a base java package to generate into, as well as a Maven
+  group and artifact ID for the package). The [`jsii-config`] tool needs to be
+  updated with support generating a configuration block with the required
+  entries for the new code generator.
+- [`jsii-rosetta`] tool translates **TypeScript** example code found in the
+  original documentation into the new target language. A new translation
+  implementation needs to be added for the new language.
+- Building and publishing infrastructure elements are provided by
+  [`aws-delivlib`] to make it easier for *jsii* users to publish their libraries
+  to all supported package registries.
 
 ### Language Proposition RFC
 
@@ -39,10 +78,14 @@ future users, and still helps identify challenges.
 The following questions should be answered as early as possible in the process,
 to avoid surprises later on that result in significant re-engineering effort:
 
-* What does the generated APIs look like, for the typical API idioms?
+* What do the generated APIs look like, for the typical API idioms?
   - *Classes* (constructors, properties, methods, inheritance strategy, abstract
     members, ...)
-    + Construction experience when last argument of constructor is a struct
+    + The [AWS CDK] (one of the main consumers of *jsii*) uses specific patterns
+      to offer a better experience in many programming languages. For example,
+      constructor signatures where the last argument is a *jsii struct* allows
+      for keyword argument lifting in **Python**, and convenient `Builder` APIs
+      in **Java**.
   - *Enums*
   - *Interfaces* and *Structs* (properties, methods, inheritance strategy,
     implementation, ...). In particular, how are new optional properties handled
@@ -51,30 +94,44 @@ to avoid surprises later on that result in significant re-engineering effort:
 * What information is needed in order for the code-generator to produce
   artifacts? What should the configuration block look like?
 * What is the standard way to publish packages for the new language?
-  - Is there any requirements (code signature, special metadata, ...) that need
+  - Are there any requirements (code signature, special metadata, ...) that need
     to be implemented in order to publish valid packages?
-  - How are dependencies modeled? If semantic versioning  is not the norm, what
-    is the strategy to correctly represent semantic version ranges?
+  - How are dependencies modeled? If [semantic versioning]  is not the norm,
+    what is the strategy to correctly represent semantic version ranges?
 * What are the toolchain and platform requirements?
+  - For example, **Java** requires an OpenJDK 8 distribution and `maven`,
+    **Python** requires `python` 3.6 or above, etc...
 
 ## Code Generation
 
-Before investing too much work towards the *host library* implementation, it is
-recommended to write a first version of the code generation for the new language.
+First, implement a first version of the code generation for the new language
+before getting to far into the *[host library](#host-library)* implementation.
+This top-down approach ensures the requirements for the lower level parts of
+the implementation are well defined before they're implemented (reducing the
+chances significant re-work has to be done), and enables using the [Standard
+Compliance Suite] to ensure the overall implementation is *correct* according
+to the [specification] (since the code necessary to implement the test cases
+will be available right from the start).
+
 This work happens within the [`jsii-pacmak`] package.
 
-Initially, focus on the API signatures: for example, generate code that throws
-a *not implemented* exception when called. Start by making sure a decent API is
-generated from the [`jsii-calc`] package and its dependencies, and use those to
-implement the tests form the [Standard Compliance Suite].
+Focus initially on the API signatures before getting into their implementation.
+The first version may even thrw a *not implemented* exception when called.
 
-## Host library
+The [`jsii-calc`] package, can be used as a sample consuming library which uses
+*jsii* to generate code in all traget languages. Start by making sure a decent
+API is generated from this package and its dependencies, and use those to
+implement the tests from the [Standard Compliance Suite]. You'll also get a
+feeling for whether the generated code achieves a good developer experience or
+not.
+
+## Host Library
 
 Now that we are generating "empty shell" APIs that represent the necessary
 entities to back the [Standard Compliance Suite] tests, start implementing the
-*host library* and update the code generator to make the tests pass until all
-of them pass. It's possible to start publishing artifacts before all the tests
-pass. As soon as some basic features are working, work on [Building and
+*host library* and update the code generator until all the tests pass. It's
+possible to publish artifacts even when tests in the suite are failing. As soon
+as basic features are working, work on [Building and
 Packaging](#building-and-packaging) can start, so early feedback can be
 gathered.
 
@@ -84,14 +141,24 @@ gathered.
 > in any programming languages (and thus, asbtracting away language
 > specificities).
 
-## Building and Packaging
+## Building & Packaging
 
 The necessary toolchains should be added to he [`jsii/superchain`] Docker image,
 so that the [`jsii-pacmak`] generation can be changed to support building ready
 to publish artifacts instead of just code.
 
-Additionally, new constructs have to be added to [`aws-delivlib`] in order to
-support building and publishing of those new artifacts.
+Before publishing any artifacts, ensure all packages (the *host library* as well
+as generated artifacts) are designated as *experimental* (e.g: **Python**
+packages were annotated with the `Development Status :: 4 - Beta` trove
+classifier on PyPI, and **NuGet** packages were published with a pre-release
+version such as `1.2.3-pre`).
+
+Additionally, [`aws-delivlib`] needs to be augmented to support publishing
+artifacts to the language's package repository.
+
+> :construction: The package publishing is being extracted from [`aws-delivlib`]
+> into a standalone library, currently hosted at
+> [`eladb/jsii-release`](https://github.com/eladb/jsii-release).
 
 ## Documentation
 
@@ -99,6 +166,8 @@ Before releasing the new language support to *Developer Preview*, basic
 documentation needs to be produced to explain how to configure a *jsii* project
 to support the new language, and any peculiarities in working with libraries
 generated by [`jsii-pacmak`] for this language.
+
+Support for example code translation should also be built into [`jsii-rosetta`].
 
 ## Developer Preview
 
@@ -108,7 +177,7 @@ the language bindings have been produced, the new language can be released to
 *Developer Preview*.
 
 It is recommended that new languages stay in *Developer Preview* for a minimum
-of 4 weeks, or until they have received sufficient usage to have built
+of 4 weeks, ideally until they have received sufficient usage to have built
 confidence that there are no major usability concerns: once out of *Developer
 Preview*, it will no longer be possible to introduce breaking changes to the
 generated code in order to address usability issues or bugs.
@@ -136,9 +205,13 @@ generated code.
 [specification]: ../specifications/1-introduction.md
 [New Language Intake]: ../specification/5-new-language-intake.md
 [CDK RFC repository]: https://github.com/awslabs/aws-cdk-rfcs#readme
-[`jsii-pacmak`]: ../../packgages/jsii-pacmak
+[`jsii`]: ../../packages/jsii
 [`jsii-calc`]: ../../packages/jsii-calc
+[`jsii-config`]: ../../packages/jsii-config
+[`jsii-pacmak`]: ../../packgages/jsii-pacmak
+[`jsii-rosetta`]: ../../packages/jsii-rosetta
 [Standard Compliance Suite]: ../specifications/4-standard-compliance-suite.md
 [`jsii/superchain`]: ../../superchain
 [`aws-delivlib`]: https://github.com/awslabs/aws-delivlib
 [AWS CDK]: https://github.com/aws/aws-cdk
+[semantic versioning]: https://semver.org
