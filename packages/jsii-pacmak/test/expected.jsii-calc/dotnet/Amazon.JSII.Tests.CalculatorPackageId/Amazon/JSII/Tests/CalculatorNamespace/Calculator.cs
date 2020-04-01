@@ -28,7 +28,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Console.WriteLine(calculator.Expression.Value);</code>
     /// </example>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"docs\":{\"summary\":\"Initialization properties.\"},\"name\":\"props\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
-    public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
+    public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
     {
         /// <summary>Creates a Calculator object.</summary>
         /// <param name="props">Initialization properties.</param>

@@ -9,8 +9,9 @@ import jsii.compat
 import publication
 
 import scope.jsii_calc_base
+import scope.jsii_calc_base_of_base
 
-__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-lib", "1.1.0", __name__, "jsii-calc-lib@1.1.0.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-lib", "0.0.0", "scope.jsii_calc_lib", "jsii-calc-lib@0.0.0.jsii.tgz")
 
 
 @jsii.enum(jsii_type="@scope/jsii-calc-lib.EnumFromScopedModule")

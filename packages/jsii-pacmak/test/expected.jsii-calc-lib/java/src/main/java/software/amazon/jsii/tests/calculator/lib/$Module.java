@@ -7,12 +7,12 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("@scope/jsii-calc-lib", "1.1.0", $Module.class, "jsii-calc-lib@1.1.0.jsii.tgz");
+        super("@scope/jsii-calc-lib", "0.0.0", $Module.class, "jsii-calc-lib@0.0.0.jsii.tgz");
     }
 
     @Override
     public List<Class<? extends JsiiModule>> getDependencies() {
-        return asList(software.amazon.jsii.tests.calculator.base.$Module.class);
+        return asList(software.amazon.jsii.tests.calculator.base.$Module.class, software.amazon.jsii.tests.calculator.baseofbase.$Module.class);
     }
 
     @Override

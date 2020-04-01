@@ -1,6 +1,7 @@
 {
   "private": true,
   "license": "Apache-2.0",
+  "version": "0.0.0",
   "scripts": {
     "build": "lerna run build --stream --sort --concurrency=1",
     "bump": "bash scripts/bump.sh",
@@ -11,13 +12,14 @@
     "test:update": "lerna run test:update --stream"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.23.0",
-    "@typescript-eslint/parser": "^2.23.0",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-import": "^2.20.1",
     "eslint-import-resolver-node": "^0.3.3",
     "eslint-import-resolver-typescript": "^2.0.0",
-    "lerna": "^3.20.2"
+    "eslint-plugin-import": "^2.20.2",
+    "lerna": "^3.20.2",
+    "standard-version": "^7.1.0"
   },
   "repository": {
     "type": "git",

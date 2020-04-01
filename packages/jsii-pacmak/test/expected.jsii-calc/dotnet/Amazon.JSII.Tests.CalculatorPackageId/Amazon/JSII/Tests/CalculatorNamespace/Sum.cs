@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Sum), fullyQualifiedName: "jsii-calc.Sum")]
-    public class Sum : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
+    public class Sum : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
     {
         /// <remarks>
         /// <strong>Stability</strong>: Experimental

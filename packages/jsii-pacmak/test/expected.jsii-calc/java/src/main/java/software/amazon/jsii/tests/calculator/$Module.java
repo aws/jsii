@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("jsii-calc", "1.1.0", $Module.class, "jsii-calc@1.1.0.jsii.tgz");
+        super("jsii-calc", "0.0.0", $Module.class, "jsii-calc@0.0.0.jsii.tgz");
     }
 
     @Override
@@ -56,8 +56,8 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.DeprecatedClass": return software.amazon.jsii.tests.calculator.DeprecatedClass.class;
             case "jsii-calc.DeprecatedEnum": return software.amazon.jsii.tests.calculator.DeprecatedEnum.class;
             case "jsii-calc.DeprecatedStruct": return software.amazon.jsii.tests.calculator.DeprecatedStruct.class;
-            case "jsii-calc.DerivedClassHasNoProperties.Base": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Base.class;
-            case "jsii-calc.DerivedClassHasNoProperties.Derived": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Derived.class;
+            case "jsii-calc.DerivedClassHasNoProperties.Base": return software.amazon.jsii.tests.calculator.derived_class_has_no_properties.Base.class;
+            case "jsii-calc.DerivedClassHasNoProperties.Derived": return software.amazon.jsii.tests.calculator.derived_class_has_no_properties.Derived.class;
             case "jsii-calc.DerivedStruct": return software.amazon.jsii.tests.calculator.DerivedStruct.class;
             case "jsii-calc.DiamondInheritanceBaseLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct.class;
             case "jsii-calc.DiamondInheritanceFirstMidLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct.class;
@@ -123,9 +123,9 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ImplictBaseOfBase": return software.amazon.jsii.tests.calculator.ImplictBaseOfBase.class;
             case "jsii-calc.InbetweenClass": return software.amazon.jsii.tests.calculator.InbetweenClass.class;
             case "jsii-calc.InterfaceCollections": return software.amazon.jsii.tests.calculator.InterfaceCollections.class;
-            case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Foo.class;
-            case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello.class;
-            case "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceOnlyInterface.Hello.class;
+            case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.interface_in_namespace_includes_classes.Foo.class;
+            case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.interface_in_namespace_includes_classes.Hello.class;
+            case "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": return software.amazon.jsii.tests.calculator.interface_in_namespace_only_interface.Hello.class;
             case "jsii-calc.InterfacesMaker": return software.amazon.jsii.tests.calculator.InterfacesMaker.class;
             case "jsii-calc.JSII417Derived": return software.amazon.jsii.tests.calculator.JSII417Derived.class;
             case "jsii-calc.JSII417PublicBaseOfBase": return software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase.class;
@@ -207,6 +207,13 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.WithPrivatePropertyInConstructor": return software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor.class;
             case "jsii-calc.composition.CompositeOperation": return software.amazon.jsii.tests.calculator.composition.CompositeOperation.class;
             case "jsii-calc.composition.CompositeOperation.CompositionStringStyle": return software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle.class;
+            case "jsii-calc.submodule.MyClass": return software.amazon.jsii.tests.calculator.submodule.MyClass.class;
+            case "jsii-calc.submodule.back_references.MyClassReference": return software.amazon.jsii.tests.calculator.submodule.back_references.MyClassReference.class;
+            case "jsii-calc.submodule.child.Awesomeness": return software.amazon.jsii.tests.calculator.submodule.child.Awesomeness.class;
+            case "jsii-calc.submodule.child.Goodness": return software.amazon.jsii.tests.calculator.submodule.child.Goodness.class;
+            case "jsii-calc.submodule.child.Structure": return software.amazon.jsii.tests.calculator.submodule.child.Structure.class;
+            case "jsii-calc.submodule.nested_submodule.Namespaced": return software.amazon.jsii.tests.calculator.submodule.nested_submodule.Namespaced.class;
+            case "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced": return software.amazon.jsii.tests.calculator.submodule.nested_submodule.deeply_nested.INamespaced.class;
             default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);
         }
     }

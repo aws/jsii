@@ -95,9 +95,9 @@ class _ReferenceMap:
             return data_type(**python_props)
         elif class_fqn in _enums:
             return _enums[class_fqn]
-        elif class_fqn == "Object" and ref.interfaces is not None:
+        elif class_fqn == "Object":
             # If any one interface is a struct, all of them are guaranteed to be (Kernel invariant)
-            if any(fqn in _data_types for fqn in ref.interfaces):
+            if ref.interfaces is not None and any(fqn in _data_types for fqn in ref.interfaces):
                 # Ugly delayed import here because I can't solve the cyclic
                 # package dependency right now :(.
                 from ._runtime import python_jsii_mapping
@@ -117,9 +117,7 @@ class _ReferenceMap:
         return self._refs[id]
 
     def build_interface_proxies_for_ref(self, ref):
-        if ref.interfaces is None:
-            raise AssertionError("Attempted to create interface proxies for ObjectRef without interfaces!")
-        ifaces = [_interfaces[fqn] for fqn in ref.interfaces]
+        ifaces = [_interfaces[fqn] for fqn in ref.interfaces or []]
         classes = [iface.__jsii_proxy_class__() for iface in ifaces]
         insts = [klass.__new__(klass) for klass in classes]
         for inst in insts:

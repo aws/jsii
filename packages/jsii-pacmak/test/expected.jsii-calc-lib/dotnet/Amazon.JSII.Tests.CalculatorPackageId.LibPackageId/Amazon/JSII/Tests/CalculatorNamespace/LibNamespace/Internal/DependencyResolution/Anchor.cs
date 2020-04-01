@@ -7,6 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Internal.Dependency
         public Anchor()
         {
             new Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Internal.DependencyResolution.Anchor();
+            new Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Internal.DependencyResolution.Anchor();
         }
     }
 }

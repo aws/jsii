@@ -58,7 +58,7 @@ function _defaultValidations(): ValidationFunction[] {
     _staticConstantNamesMustUseUpperSnakeCase,
     _memberNamesMustNotLookLikeJavaGettersOrSetters,
     _allTypeReferencesAreValid,
-    _inehritanceDoesNotChangeContracts
+    _inehritanceDoesNotChangeContracts,
   ];
 
   function _typeNamesMustUsePascalCase(_: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
