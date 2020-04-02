@@ -13,6 +13,7 @@ with open("README.md") as fp:
 setuptools.setup(
     name="jsii",
     version=metadata["version"],
+    license="Apache-2.0",
 
     description=metadata["description"],
     long_description=long_description,
@@ -28,11 +29,11 @@ setuptools.setup(
     },
 
     install_requires=[
-        "attrs>=18.2",
-        "cattrs>=1.0.0",
+        "attrs~=19.3.0",
+        "cattrs~=1.0.0",
         "importlib_resources ; python_version < '3.7'",
         "python-dateutil",
-        "typing_extensions>=3.6.4",
+        "typing_extensions~=3.7.4",
     ],
 
     python_requires=">=3.6",
