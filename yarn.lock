@@ -5167,9 +5167,9 @@ istanbul-lib-source-maps@^4.0.0:
     source-map "^0.6.1"
 
 istanbul-reports@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/istanbul-reports/-/istanbul-reports-3.0.1.tgz#1343217244ad637e0c3b18e7f6b746941a9b5e9a"
-  integrity sha512-Vm9xwCiQ8t2cNNnckyeAV0UdxKpcQUz4nMxsBvIu8n2kmPSiyb5uaF/8LpmKr+yqL/MdOXaX2Nmdo4Qyxium9Q==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/istanbul-reports/-/istanbul-reports-3.0.2.tgz#d593210e5000683750cb09fc0644e4b6e27fd53b"
+  integrity sha512-9tZvz7AiR3PEDNGiV9vIouQ/EAcqMXFmkcA1CDFTwOB98OZVDL0PH9glHotf5Ugp6GCOTypfzGWI/OqjWNCRUw==
   dependencies:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
