@@ -7,18 +7,18 @@
 #
 # @See https://help.github.com/articles/about-codeowners/
 
-*                               @aws/aws-cdk-team
-/packages/jsii-kernel           @aws/aws-cdk-team @RomainMuller
-/packages/jsii                  @aws/aws-cdk-team @RomainMuller
-/packages/@jsii/runtime         @aws/aws-cdk-team @MrArnoldPalmer
-/packages/@jsii/kernel          @aws/aws-cdk-team @RomainMuller
-/packages/@jsii/dotnet*         @aws/aws-cdk-team @MrArnoldPalmer
-/packages/@jsii/java*           @aws/aws-cdk-team @RomainMuller
-/packages/@jsii/python*         @aws/aws-cdk-team @MrArnoldPalmer
-/pacakges/jsii-diff             @aws/aws-cdk-team @MrArnoldPalmer
-/packages/jsii-runtime          @aws/aws-cdk-team @MrArnoldPalmer
-/packages/jsii-reflect          @aws/aws-cdk-team @MrArnoldPalmer
-/packages/jsii-rosetta          @aws/aws-cdk-team @MrArnoldPalmer
-/packages/jsii-spec             @aws/aws-cdk-team @MrArnoldPalmer
-/packages/jsii-pacmak           @aws/aws-cdk-team @MrArnoldPalmer
-/packages/codemaker             @aws/aws-cdk-team @MrArnoldPalmer
+*                               @RomainMuller
+/packages/jsii-kernel           @RomainMuller
+/packages/jsii                  @RomainMuller
+/packages/@jsii/runtime         @MrArnoldPalmer
+/packages/@jsii/kernel          @RomainMuller
+/packages/@jsii/dotnet*         @MrArnoldPalmer
+/packages/@jsii/java*           @RomainMuller
+/packages/@jsii/python*         @MrArnoldPalmer
+/pacakges/jsii-diff             @MrArnoldPalmer
+/packages/jsii-runtime          @MrArnoldPalmer
+/packages/jsii-reflect          @MrArnoldPalmer
+/packages/jsii-rosetta          @MrArnoldPalmer
+/packages/jsii-spec             @MrArnoldPalmer
+/packages/jsii-pacmak           @MrArnoldPalmer
+/packages/codemaker             @MrArnoldPalmer
