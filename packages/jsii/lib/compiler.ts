@@ -202,7 +202,7 @@ export class Compiler implements Emitter {
         jsx: COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
       },
       include: [pi.tsc && pi.tsc.rootDir ? `${pi.tsc.rootDir}/**/*.ts` : '**/*.ts'],
-      exclude: ['node_modules'].concat(pi.excludeTypescript),
+      exclude: ['node_modules'].concat(pi.exclude).concat(pi.excludeTypescript || []),
       // Change the references a little. We write 'originalpath' to the
       // file under the 'path' key, which is the same as what the
       // TypeScript compiler does. Make it relative so that the files are

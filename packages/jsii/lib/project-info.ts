@@ -45,7 +45,9 @@ export interface ProjectInfo {
   readonly description?: string;
   readonly homepage?: string;
   readonly contributors?: readonly spec.Person[];
-  readonly excludeTypescript: string[];
+  /** @deprecated - use excludes */
+  readonly excludeTypescript?: string[];
+  readonly exclude: string[];
   readonly projectReferences?: boolean;
   readonly tsc?: TSCompilerOptions;
 }
@@ -142,6 +144,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
             && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
 
     excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
+    exclude: (pkg.jsii && pkg.jsii.exclude) || [],
     projectReferences: pkg.jsii && pkg.jsii.projectReferences,
     tsc: {
       outDir: pkg.jsii && pkg.jsii.tsc && pkg.jsii.tsc.outDir,

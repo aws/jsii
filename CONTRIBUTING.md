@@ -31,7 +31,7 @@ $ cd jsii # go to the root of the jsii repo
 $ docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
 ```
 
-In the shell that pops up, the `npm run` commands in the following sections must
+In the shell that pops up, the `yarn` commands in the following sections must
 be executed.
 
 ### Alternative: Manually install the toolchain

@@ -19,7 +19,7 @@ const BASE_PROJECT = {
     targets: { foo: { bar: 'baz' } }
   },
   dependencies: { 'jsii-test-dep': '^1.2.3' },
-  peerDependencies: { 'jsii-test-dep': '^1.2.3' }
+  peerDependencies: { 'jsii-test-dep': '^1.2.3' },
 };
 
 describe('loadProjectInfo', () => {
@@ -137,6 +137,17 @@ describe('loadProjectInfo', () => {
     info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
   })
   );
+
+  test('exclude is correctly interpreted', async () => {
+    const projectSource = clone(BASE_PROJECT);
+    (projectSource.jsii as any).exclude = ['exclude-dir/exclude-file-1'];
+    (projectSource.jsii as any).excludeTypescript = ['exclude-dir/exclude-file-2'];
+    await _withTestProject(async (projectRoot) => {
+      const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
+      expect(info.exclude).toEqual(['exclude-dir/exclude-file-1']);
+      expect(info.excludeTypescript).toEqual(['exclude-dir/exclude-file-2']);
+    }, undefined, projectSource);
+  });
 });
 
 const TEST_DEP_ASSEMBLY: spec.Assembly = {
@@ -178,10 +189,11 @@ const TEST_DEP_DEP_ASSEMBLY: spec.Assembly = {
  *
  * @return the result of executing ``cb``.
  */
-async function _withTestProject<T>(cb: (projectRoot: string) => T | Promise<T>, gremlin?: (packageInfo: any) => void): Promise<T> {
+async function _withTestProject<T>(cb: (projectRoot: string) => T | Promise<T>, gremlin?: (packageInfo: any) => void,
+  projectSource: any = clone(BASE_PROJECT)): Promise<T> {
   const tmpdir = await fs.mkdtemp(path.join(os.tmpdir(), path.basename(__filename)));
   try {
-    const packageInfo = clone(BASE_PROJECT);
+    const packageInfo = projectSource;
     if (gremlin) { gremlin(packageInfo); }
     await fs.writeJson(path.join(tmpdir, 'package.json'), packageInfo, { spaces: 2 });
     await fs.writeFile(path.join(tmpdir, 'index.js'), '// There ought to be some javascript');
