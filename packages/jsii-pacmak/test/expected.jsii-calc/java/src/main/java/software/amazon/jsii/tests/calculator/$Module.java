@@ -162,6 +162,10 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.PropertyNamedProperty": return software.amazon.jsii.tests.calculator.PropertyNamedProperty.class;
             case "jsii-calc.PublicClass": return software.amazon.jsii.tests.calculator.PublicClass.class;
             case "jsii-calc.PythonReservedWords": return software.amazon.jsii.tests.calculator.PythonReservedWords.class;
+            case "jsii-calc.PythonSelf.ClassWithSelf": return software.amazon.jsii.tests.calculator.PythonSelf.ClassWithSelf.class;
+            case "jsii-calc.PythonSelf.ClassWithSelfKwarg": return software.amazon.jsii.tests.calculator.PythonSelf.ClassWithSelfKwarg.class;
+            case "jsii-calc.PythonSelf.IInterfaceWithSelf": return software.amazon.jsii.tests.calculator.PythonSelf.IInterfaceWithSelf.class;
+            case "jsii-calc.PythonSelf.StructWithSelf": return software.amazon.jsii.tests.calculator.PythonSelf.StructWithSelf.class;
             case "jsii-calc.ReferenceEnumFromScopedPackage": return software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage.class;
             case "jsii-calc.ReturnsPrivateImplementationOfInterface": return software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface.class;
             case "jsii-calc.RootStruct": return software.amazon.jsii.tests.calculator.RootStruct.class;

@@ -35,6 +35,8 @@ Array [
   "ClassWithJavaReservedWords",
   "ClassWithMutableObjectLiteralProperty",
   "ClassWithPrivateConstructorAndAutomaticProperties",
+  "ClassWithSelf",
+  "ClassWithSelfKwarg",
   "CompositeOperation",
   "ConfusingToJackson",
   "ConstructorPassesThisOut",

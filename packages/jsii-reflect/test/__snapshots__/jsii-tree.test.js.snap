@@ -1266,6 +1266,29 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: void
  │   │   └─┬ yield() method (experimental)
  │   │     └── returns: void
+ │   ├─┬ class ClassWithSelf (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(self) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ self
+ │   │   │     └── type: string
+ │   │   ├─┬ method(self) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ self
+ │   │   │ │   └── type: number
+ │   │   │ └── returns: string
+ │   │   └─┬ self property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ class ClassWithSelfKwarg (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(props) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ props
+ │   │   │     └── type: jsii-calc.PythonSelf.StructWithSelf
+ │   │   └─┬ props property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.PythonSelf.StructWithSelf
  │   ├─┬ class ReferenceEnumFromScopedPackage (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -2127,6 +2150,20 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ interface IInterfaceWithSelf (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ method(self) method (experimental)
+ │   │     ├── abstract
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ self
+ │   │     │   └── type: number
+ │   │     └── returns: string
+ │   ├─┬ interface StructWithSelf (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ self property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface RootStruct (experimental)
  │   │ └─┬ members
  │   │   ├─┬ stringProp property (experimental)
@@ -2520,6 +2557,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords
+ │   ├── class ClassWithSelf
+ │   ├── class ClassWithSelfKwarg
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RootStructValidator
@@ -2635,6 +2674,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
  │   ├── interface ParentStruct982
+ │   ├── interface IInterfaceWithSelf
+ │   ├── interface StructWithSelf
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface SmellyStruct
@@ -3253,6 +3294,15 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── while() method
  │   │   ├── with() method
  │   │   └── yield() method
+ │   ├─┬ class ClassWithSelf
+ │   │ └─┬ members
+ │   │   ├── <initializer>(self) initializer
+ │   │   ├── method(self) method
+ │   │   └── self property
+ │   ├─┬ class ClassWithSelfKwarg
+ │   │ └─┬ members
+ │   │   ├── <initializer>(props) initializer
+ │   │   └── props property
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3608,6 +3658,12 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface ParentStruct982
  │   │ └─┬ members
  │   │   └── foo property
+ │   ├─┬ interface IInterfaceWithSelf
+ │   │ └─┬ members
+ │   │   └── method(self) method
+ │   ├─┬ interface StructWithSelf
+ │   │ └─┬ members
+ │   │   └── self property
  │   ├─┬ interface RootStruct
  │   │ └─┬ members
  │   │   ├── stringProp property
@@ -3843,6 +3899,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords
+ │   ├── class ClassWithSelf
+ │   ├── class ClassWithSelfKwarg
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RootStructValidator
@@ -3928,6 +3986,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
  │   ├── interface ParentStruct982
+ │   ├── interface IInterfaceWithSelf
+ │   ├── interface StructWithSelf
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface SmellyStruct
