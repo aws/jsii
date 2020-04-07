@@ -1,22 +1,61 @@
-import { OptionalValue, PrimitiveType } from '@jsii/spec';
+import { CANONICAL_ANY, OptionalValue, PrimitiveType } from '@jsii/spec';
+import { TOKEN_REF } from '../lib/api';
 import { ObjectTable } from '../lib/objects';
 import { SerializationClass, SerializerHost, SERIALIZERS } from '../lib/serialization';
 
+const TYPE_ANY: OptionalValue = { type: CANONICAL_ANY };
 const TYPE_BOOLEAN: OptionalValue = { type: { primitive: PrimitiveType.Boolean } };
 const TYPE_NUMBER: OptionalValue = { type: { primitive: PrimitiveType.Number } };
 const TYPE_STRING: OptionalValue = { type: { primitive: PrimitiveType.String } };
 const TYPE_VOID = 'void';
 
+const lookupType: SerializerHost['lookupType'] = jest.fn().mockName('host.lookupType');
+const host: SerializerHost = {
+  debug: jest.fn().mockName('host.debug'),
+  findSymbol: jest.fn().mockName('host.findSymbol'),
+  lookupType,
+  objects: new ObjectTable(lookupType),
+  recurse: jest.fn().mockName('host.recurse'),
+};
+
+describe(SerializationClass.Any, () => {
+  const anySerializer = SERIALIZERS[SerializationClass.Any];
+  class PrivateType {
+    private readonly randomValue = Math.random();
+
+    public random() {
+      return this.randomValue;
+    }
+  }
+
+  beforeEach(done => {
+    (host.recurse as jest.Mock<any, any>).mockImplementation((x: any, type: OptionalValue) => {
+      expect(type).toEqual(TYPE_ANY);
+      return anySerializer.serialize(x, type, host);
+    });
+    done();
+  });
+
+  describe(anySerializer.serialize, () => {
+    test('by-value object literal', () => {
+      expect(anySerializer.serialize({ literal: { integer: 1337 } }, TYPE_ANY, host))
+        .toEqual({ literal: { integer: 1337 } });
+    });
+
+    test('non-exported type instance', () => {
+      expect(anySerializer.serialize(new PrivateType, TYPE_ANY, host))
+        .toEqual({ [TOKEN_REF]: 'Object@10000' });
+    });
+
+    test('arrays', () => {
+      expect(anySerializer.serialize([{ literal: { integer: 1337 } }], TYPE_ANY, host))
+        .toEqual([{ literal: { integer: 1337 } }]);
+    });
+  });
+});
+
 describe(SerializationClass.Scalar, () => {
   const scalarSerializer = SERIALIZERS[SerializationClass.Scalar];
-  const lookupType: SerializerHost['lookupType'] = jest.fn().mockName('host.lookupType');
-  const host: SerializerHost = {
-    debug: jest.fn().mockName('host.debug'),
-    findSymbol: jest.fn().mockName('host.findSymbol'),
-    lookupType,
-    objects: new ObjectTable(lookupType),
-    recurse: jest.fn().mockName('host.recurse'),
-  };
 
   describe(scalarSerializer.deserialize, () => {
     describe('void', () => {

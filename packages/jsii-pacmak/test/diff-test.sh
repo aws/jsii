@@ -2,7 +2,7 @@
 set -e
 cd $(dirname $0)
 
-workdir="$(mktemp -d)"
+workdir="$(mktemp -d -t jsii-diff-test.XXXXXXXXXX)"
 success=true
 
 function mktmpdir() {

@@ -59,7 +59,11 @@ export function compareEnums(original: reflect.Assembly, updated: reflect.Assemb
   }
 }
 
-function* typePairs<T extends reflect.Type>(xs: T[], updatedAssembly: reflect.Assembly, context: ComparisonContext): IterableIterator<[T, T]> {
+function* typePairs<T extends reflect.Type>(
+  xs: readonly T[],
+  updatedAssembly: reflect.Assembly,
+  context: ComparisonContext
+): IterableIterator<[T, T]> {
   for (const origType of xs) {
     LOG.trace(origType.fqn);
 

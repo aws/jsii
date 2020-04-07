@@ -9,6 +9,8 @@ import jsii.compat
 import publication
 
 import scope.jsii_calc_base
+import scope.jsii_calc_base_of_base
+
 __all__ = []
 
 publication.publish()

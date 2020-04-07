@@ -245,7 +245,8 @@ namespace TestHelper
                             Assert.True(location.IsInSource,
                                 $"Test base does not currently handle diagnostics in metadata locations. Diagnostic in metadata: {diagnostics[i]}\r\n");
 
-                            string resultMethodName = diagnostics[i].Location.SourceTree.FilePath.EndsWith(".cs") ? "GetCSharpResultAt" : "GetBasicResultAt";
+                            bool fileIsCSharp = diagnostics[i].Location.SourceTree?.FilePath.EndsWith(".cs") ?? false;
+                            string resultMethodName = fileIsCSharp ? "GetCSharpResultAt" : "GetBasicResultAt";
                             var linePosition = diagnostics[i].Location.GetLineSpan().StartLinePosition;
 
                             builder.AppendFormat("{0}({1}, {2}, {3}.{4})",

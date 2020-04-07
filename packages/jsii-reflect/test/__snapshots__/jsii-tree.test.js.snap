@@ -7,6 +7,163 @@ exports[`jsii-tree --all 1`] = `
  │ │ ├── @scope/jsii-calc-base
  │ │ ├── @scope/jsii-calc-base-of-base
  │ │ └── @scope/jsii-calc-lib
+ │ ├─┬ submodules
+ │ │ ├─┬ DerivedClassHasNoProperties
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base (experimental)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (experimental)
+ │ │ │   │   └─┬ prop property (experimental)
+ │ │ │   │     └── type: string
+ │ │ │   └─┬ class Derived (experimental)
+ │ │ │     ├── base: Base
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer (experimental)
+ │ │ ├─┬ InterfaceInNamespaceIncludesClasses
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Foo (experimental)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (experimental)
+ │ │ │   │   └─┬ bar property (experimental)
+ │ │ │   │     └── type: Optional<string>
+ │ │ │   └─┬ interface Hello (experimental)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ foo property (experimental)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
+ │ │ ├─┬ InterfaceInNamespaceOnlyInterface
+ │ │ │ └─┬ types
+ │ │ │   └─┬ interface Hello (experimental)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ foo property (experimental)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: number
+ │ │ ├─┬ PythonSelf
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class ClassWithSelf (experimental)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(self) initializer (experimental)
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ self
+ │ │ │   │   │     └── type: string
+ │ │ │   │   ├─┬ method(self) method (experimental)
+ │ │ │   │   │ ├─┬ parameters
+ │ │ │   │   │ │ └─┬ self
+ │ │ │   │   │ │   └── type: number
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   └─┬ self property (experimental)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: string
+ │ │ │   ├─┬ class ClassWithSelfKwarg (experimental)
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├─┬ <initializer>(props) initializer (experimental)
+ │ │ │   │   │ └─┬ parameters
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── type: jsii-calc.PythonSelf.StructWithSelf
+ │ │ │   │   └─┬ props property (experimental)
+ │ │ │   │     ├── immutable
+ │ │ │   │     └── type: jsii-calc.PythonSelf.StructWithSelf
+ │ │ │   ├─┬ interface IInterfaceWithSelf (experimental)
+ │ │ │   │ └─┬ members
+ │ │ │   │   └─┬ method(self) method (experimental)
+ │ │ │   │     ├── abstract
+ │ │ │   │     ├─┬ parameters
+ │ │ │   │     │ └─┬ self
+ │ │ │   │     │   └── type: number
+ │ │ │   │     └── returns: string
+ │ │ │   └─┬ interface StructWithSelf (experimental)
+ │ │ │     └─┬ members
+ │ │ │       └─┬ self property (experimental)
+ │ │ │         ├── abstract
+ │ │ │         ├── immutable
+ │ │ │         └── type: string
+ │ │ ├─┬ composition
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class CompositeOperation (experimental)
+ │ │ │   │ ├── base: Operation
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer (experimental)
+ │ │ │   │   ├─┬ toString() method (experimental)
+ │ │ │   │   │ └── returns: string
+ │ │ │   │   ├─┬ expression property (experimental)
+ │ │ │   │   │ ├── abstract
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │ │ │   │   ├─┬ value property (experimental)
+ │ │ │   │   │ ├── immutable
+ │ │ │   │   │ └── type: number
+ │ │ │   │   ├─┬ decorationPostfixes property (experimental)
+ │ │ │   │   │ └── type: Array<string>
+ │ │ │   │   ├─┬ decorationPrefixes property (experimental)
+ │ │ │   │   │ └── type: Array<string>
+ │ │ │   │   └─┬ stringStyle property (experimental)
+ │ │ │   │     └── type: jsii-calc.composition.CompositeOperation.CompositionStringStyle
+ │ │ │   └─┬ enum CompositionStringStyle (experimental)
+ │ │ │     ├── NORMAL (experimental)
+ │ │ │     └── DECORATED (experimental)
+ │ │ └─┬ submodule
+ │ │   ├─┬ submodules
+ │ │   │ ├─┬ back_references
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ interface MyClassReference (experimental)
+ │ │   │ │     └─┬ members
+ │ │   │ │       └─┬ reference property (experimental)
+ │ │   │ │         ├── abstract
+ │ │   │ │         ├── immutable
+ │ │   │ │         └── type: jsii-calc.submodule.MyClass
+ │ │   │ ├─┬ child
+ │ │   │ │ └─┬ types
+ │ │   │ │   ├─┬ interface Structure (experimental)
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └─┬ bool property (experimental)
+ │ │   │ │   │     ├── abstract
+ │ │   │ │   │     ├── immutable
+ │ │   │ │   │     └── type: boolean
+ │ │   │ │   ├─┬ enum Awesomeness (experimental)
+ │ │   │ │   │ └── AWESOME (experimental)
+ │ │   │ │   └─┬ enum Goodness (experimental)
+ │ │   │ │     ├── PRETTY_GOOD (experimental)
+ │ │   │ │     ├── REALLY_GOOD (experimental)
+ │ │   │ │     └── AMAZINGLY_GOOD (experimental)
+ │ │   │ └─┬ nested_submodule
+ │ │   │   ├─┬ submodules
+ │ │   │   │ └─┬ deeplyNested
+ │ │   │   │   └─┬ types
+ │ │   │   │     └─┬ interface INamespaced (experimental)
+ │ │   │   │       └─┬ members
+ │ │   │   │         └─┬ definedAt property (experimental)
+ │ │   │   │           ├── abstract
+ │ │   │   │           ├── immutable
+ │ │   │   │           └── type: string
+ │ │   │   └─┬ types
+ │ │   │     └─┬ class Namespaced (experimental)
+ │ │   │       ├── interfaces: INamespaced
+ │ │   │       └─┬ members
+ │ │   │         ├─┬ definedAt property (experimental)
+ │ │   │         │ ├── immutable
+ │ │   │         │ └── type: string
+ │ │   │         └─┬ goodness property (experimental)
+ │ │   │           ├── abstract
+ │ │   │           ├── immutable
+ │ │   │           └── type: jsii-calc.submodule.child.Goodness
+ │ │   └─┬ types
+ │ │     └─┬ class MyClass (experimental)
+ │ │       ├── interfaces: INamespaced
+ │ │       └─┬ members
+ │ │         ├── <initializer>() initializer (experimental)
+ │ │         ├─┬ awesomeness property (experimental)
+ │ │         │ ├── immutable
+ │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
+ │ │         ├─┬ definedAt property (experimental)
+ │ │         │ ├── immutable
+ │ │         │ └── type: string
+ │ │         ├─┬ goodness property (experimental)
+ │ │         │ ├── immutable
+ │ │         │ └── type: jsii-calc.submodule.child.Goodness
+ │ │         └─┬ allTypes property (experimental)
+ │ │           └── type: Optional<jsii-calc.AllTypes>
  │ └─┬ types
  │   ├─┬ class AbstractClass (experimental)
  │   │ ├── base: AbstractClassBase
@@ -531,15 +688,6 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: string
  │   │   └─┬ mutableProperty property (deprecated)
  │   │     └── type: Optional<number>
- │   ├─┬ class Base (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   └─┬ prop property (experimental)
- │   │     └── type: string
- │   ├─┬ class Derived (experimental)
- │   │ ├── base: Base
- │   │ └─┬ members
- │   │   └── <initializer>() initializer (experimental)
  │   ├─┬ class DisappointingCollectionSource (experimental)
  │   │ └─┬ members
  │   │   ├─┬ static maybeList property (experimental)
@@ -731,11 +879,6 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ static mapOfStructs() method (experimental)
  │   │     ├── static
  │   │     └── returns: Map<string => jsii-calc.StructA>
- │   ├─┬ class Foo (experimental)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   └─┬ bar property (experimental)
- │   │     └── type: Optional<string>
  │   ├─┬ class InterfacesMaker (experimental)
  │   │ └─┬ members
  │   │   └─┬ static makeInterfaces(count) method (experimental)
@@ -1266,29 +1409,6 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: void
  │   │   └─┬ yield() method (experimental)
  │   │     └── returns: void
- │   ├─┬ class ClassWithSelf (experimental)
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(self) initializer (experimental)
- │   │   │ └─┬ parameters
- │   │   │   └─┬ self
- │   │   │     └── type: string
- │   │   ├─┬ method(self) method (experimental)
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ self
- │   │   │ │   └── type: number
- │   │   │ └── returns: string
- │   │   └─┬ self property (experimental)
- │   │     ├── immutable
- │   │     └── type: string
- │   ├─┬ class ClassWithSelfKwarg (experimental)
- │   │ └─┬ members
- │   │   ├─┬ <initializer>(props) initializer (experimental)
- │   │   │ └─┬ parameters
- │   │   │   └─┬ props
- │   │   │     └── type: jsii-calc.PythonSelf.StructWithSelf
- │   │   └─┬ props property (experimental)
- │   │     ├── immutable
- │   │     └── type: jsii-calc.PythonSelf.StructWithSelf
  │   ├─┬ class ReferenceEnumFromScopedPackage (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1697,25 +1817,6 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ success property (experimental)
  │   │     ├── immutable
  │   │     └── type: boolean
- │   ├─┬ class CompositeOperation (experimental)
- │   │ ├── base: Operation
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ toString() method (experimental)
- │   │   │ └── returns: string
- │   │   ├─┬ expression property (experimental)
- │   │   │ ├── abstract
- │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ value property (experimental)
- │   │   │ ├── immutable
- │   │   │ └── type: number
- │   │   ├─┬ decorationPostfixes property (experimental)
- │   │   │ └── type: Array<string>
- │   │   ├─┬ decorationPrefixes property (experimental)
- │   │   │ └── type: Array<string>
- │   │   └─┬ stringStyle property (experimental)
- │   │     └── type: jsii-calc.composition.CompositeOperation.CompositionStringStyle
  │   ├─┬ interface CalculatorProps (experimental)
  │   │ └─┬ members
  │   │   ├─┬ initialValue property (experimental)
@@ -2088,18 +2189,6 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: date
- │   ├─┬ interface Hello (experimental)
- │   │ └─┬ members
- │   │   └─┬ foo property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: number
- │   ├─┬ interface Hello (experimental)
- │   │ └─┬ members
- │   │   └─┬ foo property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: number
  │   ├─┬ interface LoadBalancedFargateServiceProps (experimental)
  │   │ └─┬ members
  │   │   ├─┬ containerPort property (experimental)
@@ -2147,20 +2236,6 @@ exports[`jsii-tree --all 1`] = `
  │   ├─┬ interface ParentStruct982 (experimental)
  │   │ └─┬ members
  │   │   └─┬ foo property (experimental)
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: string
- │   ├─┬ interface IInterfaceWithSelf (experimental)
- │   │ └─┬ members
- │   │   └─┬ method(self) method (experimental)
- │   │     ├── abstract
- │   │     ├─┬ parameters
- │   │     │ └─┬ self
- │   │     │   └── type: number
- │   │     └── returns: string
- │   ├─┬ interface StructWithSelf (experimental)
- │   │ └─┬ members
- │   │   └─┬ self property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
@@ -2307,13 +2382,10 @@ exports[`jsii-tree --all 1`] = `
  │   ├─┬ enum StableEnum (stable)
  │   │ ├── OPTION_A (stable)
  │   │ └── OPTION_B (stable)
- │   ├─┬ enum StringEnum (experimental)
- │   │ ├── A (experimental)
- │   │ ├── B (experimental)
- │   │ └── C (experimental)
- │   └─┬ enum CompositionStringStyle (experimental)
- │     ├── NORMAL (experimental)
- │     └── DECORATED (experimental)
+ │   └─┬ enum StringEnum (experimental)
+ │     ├── A (experimental)
+ │     ├── B (experimental)
+ │     └── C (experimental)
  ├─┬ @scope/jsii-calc-base
  │ ├─┬ dependencies
  │ │ └── @scope/jsii-calc-base-of-base
@@ -2358,7 +2430,8 @@ exports[`jsii-tree --all 1`] = `
  │         └── type: @scope/jsii-calc-base-of-base.Very
  └─┬ @scope/jsii-calc-lib
    ├─┬ dependencies
-   │ └── @scope/jsii-calc-base
+   │ ├── @scope/jsii-calc-base
+   │ └── @scope/jsii-calc-base-of-base
    └─┬ types
      ├─┬ class Number (deprecated)
      │ ├── base: Value
@@ -2446,6 +2519,51 @@ exports[`jsii-tree --all 1`] = `
 exports[`jsii-tree --inheritance 1`] = `
 "assemblies
  ├─┬ jsii-calc
+ │ ├─┬ submodules
+ │ │ ├─┬ DerivedClassHasNoProperties
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   └─┬ class Derived
+ │ │ │     └── base: Base
+ │ │ ├─┬ InterfaceInNamespaceIncludesClasses
+ │ │ │ └─┬ types
+ │ │ │   ├── class Foo
+ │ │ │   └── interface Hello
+ │ │ ├─┬ InterfaceInNamespaceOnlyInterface
+ │ │ │ └─┬ types
+ │ │ │   └── interface Hello
+ │ │ ├─┬ PythonSelf
+ │ │ │ └─┬ types
+ │ │ │   ├── class ClassWithSelf
+ │ │ │   ├── class ClassWithSelfKwarg
+ │ │ │   ├── interface IInterfaceWithSelf
+ │ │ │   └── interface StructWithSelf
+ │ │ ├─┬ composition
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class CompositeOperation
+ │ │ │   │ └── base: Operation
+ │ │ │   └── enum CompositionStringStyle
+ │ │ └─┬ submodule
+ │ │   ├─┬ submodules
+ │ │   │ ├─┬ back_references
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface MyClassReference
+ │ │   │ ├─┬ child
+ │ │   │ │ └─┬ types
+ │ │   │ │   ├── interface Structure
+ │ │   │ │   ├── enum Awesomeness
+ │ │   │ │   └── enum Goodness
+ │ │   │ └─┬ nested_submodule
+ │ │   │   ├─┬ submodules
+ │ │   │   │ └─┬ deeplyNested
+ │ │   │   │   └─┬ types
+ │ │   │   │     └── interface INamespaced
+ │ │   │   └─┬ types
+ │ │   │     └─┬ class Namespaced
+ │ │   │       └── interfaces: INamespaced
+ │ │   └─┬ types
+ │ │     └─┬ class MyClass
+ │ │       └── interfaces: INamespaced
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
@@ -2490,9 +2608,6 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
- │   ├── class Base
- │   ├─┬ class Derived
- │   │ └── base: Base
  │   ├── class DisappointingCollectionSource
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
@@ -2517,7 +2632,6 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ ├── base: PublicClass
  │   │ └── interfaces: IPublicInterface2
  │   ├── class InterfaceCollections
- │   ├── class Foo
  │   ├── class InterfacesMaker
  │   ├─┬ class JSII417Derived
  │   │ └── base: JSII417PublicBaseOfBase
@@ -2557,8 +2671,6 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords
- │   ├── class ClassWithSelf
- │   ├── class ClassWithSelfKwarg
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RootStructValidator
@@ -2590,8 +2702,6 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
  │   ├── class WithPrivatePropertyInConstructor
- │   ├─┬ class CompositeOperation
- │   │ └── base: Operation
  │   ├── interface CalculatorProps
  │   ├─┬ interface ChildStruct982
  │   │ └─┬ interfaces
@@ -2667,15 +2777,11 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ interfaces
  │   │   └── BaseProps
- │   ├── interface Hello
- │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
  │   ├── interface ParentStruct982
- │   ├── interface IInterfaceWithSelf
- │   ├── interface StructWithSelf
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface SmellyStruct
@@ -2693,8 +2799,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── enum SingletonIntEnum
  │   ├── enum SingletonStringEnum
  │   ├── enum StableEnum
- │   ├── enum StringEnum
- │   └── enum CompositionStringStyle
+ │   └── enum StringEnum
  ├─┬ @scope/jsii-calc-base
  │ └─┬ types
  │   ├── class Base
@@ -2732,6 +2837,99 @@ exports[`jsii-tree --inheritance 1`] = `
 exports[`jsii-tree --members 1`] = `
 "assemblies
  ├─┬ jsii-calc
+ │ ├─┬ submodules
+ │ │ ├─┬ DerivedClassHasNoProperties
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Base
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── prop property
+ │ │ │   └─┬ class Derived
+ │ │ │     └─┬ members
+ │ │ │       └── <initializer>() initializer
+ │ │ ├─┬ InterfaceInNamespaceIncludesClasses
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class Foo
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   └── bar property
+ │ │ │   └─┬ interface Hello
+ │ │ │     └─┬ members
+ │ │ │       └── foo property
+ │ │ ├─┬ InterfaceInNamespaceOnlyInterface
+ │ │ │ └─┬ types
+ │ │ │   └─┬ interface Hello
+ │ │ │     └─┬ members
+ │ │ │       └── foo property
+ │ │ ├─┬ PythonSelf
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class ClassWithSelf
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>(self) initializer
+ │ │ │   │   ├── method(self) method
+ │ │ │   │   └── self property
+ │ │ │   ├─┬ class ClassWithSelfKwarg
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>(props) initializer
+ │ │ │   │   └── props property
+ │ │ │   ├─┬ interface IInterfaceWithSelf
+ │ │ │   │ └─┬ members
+ │ │ │   │   └── method(self) method
+ │ │ │   └─┬ interface StructWithSelf
+ │ │ │     └─┬ members
+ │ │ │       └── self property
+ │ │ ├─┬ composition
+ │ │ │ └─┬ types
+ │ │ │   ├─┬ class CompositeOperation
+ │ │ │   │ └─┬ members
+ │ │ │   │   ├── <initializer>() initializer
+ │ │ │   │   ├── toString() method
+ │ │ │   │   ├── expression property
+ │ │ │   │   ├── value property
+ │ │ │   │   ├── decorationPostfixes property
+ │ │ │   │   ├── decorationPrefixes property
+ │ │ │   │   └── stringStyle property
+ │ │ │   └─┬ enum CompositionStringStyle
+ │ │ │     ├── NORMAL
+ │ │ │     └── DECORATED
+ │ │ └─┬ submodule
+ │ │   ├─┬ submodules
+ │ │   │ ├─┬ back_references
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ interface MyClassReference
+ │ │   │ │     └─┬ members
+ │ │   │ │       └── reference property
+ │ │   │ ├─┬ child
+ │ │   │ │ └─┬ types
+ │ │   │ │   ├─┬ interface Structure
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └── bool property
+ │ │   │ │   ├─┬ enum Awesomeness
+ │ │   │ │   │ └── AWESOME
+ │ │   │ │   └─┬ enum Goodness
+ │ │   │ │     ├── PRETTY_GOOD
+ │ │   │ │     ├── REALLY_GOOD
+ │ │   │ │     └── AMAZINGLY_GOOD
+ │ │   │ └─┬ nested_submodule
+ │ │   │   ├─┬ submodules
+ │ │   │   │ └─┬ deeplyNested
+ │ │   │   │   └─┬ types
+ │ │   │   │     └─┬ interface INamespaced
+ │ │   │   │       └─┬ members
+ │ │   │   │         └── definedAt property
+ │ │   │   └─┬ types
+ │ │   │     └─┬ class Namespaced
+ │ │   │       └─┬ members
+ │ │   │         ├── definedAt property
+ │ │   │         └── goodness property
+ │ │   └─┬ types
+ │ │     └─┬ class MyClass
+ │ │       └─┬ members
+ │ │         ├── <initializer>() initializer
+ │ │         ├── awesomeness property
+ │ │         ├── definedAt property
+ │ │         ├── goodness property
+ │ │         └── allTypes property
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ └─┬ members
@@ -2945,13 +3143,6 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── method() method
  │   │   ├── readonlyProperty property
  │   │   └── mutableProperty property
- │   ├─┬ class Base
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └── prop property
- │   ├─┬ class Derived
- │   │ └─┬ members
- │   │   └── <initializer>() initializer
  │   ├─┬ class DisappointingCollectionSource
  │   │ └─┬ members
  │   │   ├── static maybeList property
@@ -3040,10 +3231,6 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static listOfStructs() method
  │   │   ├── static mapOfInterfaces() method
  │   │   └── static mapOfStructs() method
- │   ├─┬ class Foo
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └── bar property
  │   ├─┬ class InterfacesMaker
  │   │ └─┬ members
  │   │   └── static makeInterfaces(count) method
@@ -3294,15 +3481,6 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── while() method
  │   │   ├── with() method
  │   │   └── yield() method
- │   ├─┬ class ClassWithSelf
- │   │ └─┬ members
- │   │   ├── <initializer>(self) initializer
- │   │   ├── method(self) method
- │   │   └── self property
- │   ├─┬ class ClassWithSelfKwarg
- │   │ └─┬ members
- │   │   ├── <initializer>(props) initializer
- │   │   └── props property
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3457,15 +3635,6 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>(privateField) initializer
  │   │   └── success property
- │   ├─┬ class CompositeOperation
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├── toString() method
- │   │   ├── expression property
- │   │   ├── value property
- │   │   ├── decorationPostfixes property
- │   │   ├── decorationPrefixes property
- │   │   └── stringStyle property
  │   ├─┬ interface CalculatorProps
  │   │ └─┬ members
  │   │   ├── initialValue property
@@ -3632,12 +3801,6 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ members
  │   │   └── goo property
- │   ├─┬ interface Hello
- │   │ └─┬ members
- │   │   └── foo property
- │   ├─┬ interface Hello
- │   │ └─┬ members
- │   │   └── foo property
  │   ├─┬ interface LoadBalancedFargateServiceProps
  │   │ └─┬ members
  │   │   ├── containerPort property
@@ -3658,12 +3821,6 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface ParentStruct982
  │   │ └─┬ members
  │   │   └── foo property
- │   ├─┬ interface IInterfaceWithSelf
- │   │ └─┬ members
- │   │   └── method(self) method
- │   ├─┬ interface StructWithSelf
- │   │ └─┬ members
- │   │   └── self property
  │   ├─┬ interface RootStruct
  │   │ └─┬ members
  │   │   ├── stringProp property
@@ -3729,13 +3886,10 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ enum StableEnum
  │   │ ├── OPTION_A
  │   │ └── OPTION_B
- │   ├─┬ enum StringEnum
- │   │ ├── A
- │   │ ├── B
- │   │ └── C
- │   └─┬ enum CompositionStringStyle
- │     ├── NORMAL
- │     └── DECORATED
+ │   └─┬ enum StringEnum
+ │     ├── A
+ │     ├── B
+ │     └── C
  ├─┬ @scope/jsii-calc-base
  │ └─┬ types
  │   ├─┬ class Base
@@ -3803,7 +3957,20 @@ exports[`jsii-tree --members 1`] = `
 
 exports[`jsii-tree --signatures 1`] = `
 "assemblies
- ├── jsii-calc
+ ├─┬ jsii-calc
+ │ └─┬ submodules
+ │   ├── DerivedClassHasNoProperties
+ │   ├── InterfaceInNamespaceIncludesClasses
+ │   ├── InterfaceInNamespaceOnlyInterface
+ │   ├── PythonSelf
+ │   ├── composition
+ │   └─┬ submodule
+ │     └─┬ submodules
+ │       ├── back_references
+ │       ├── child
+ │       └─┬ nested_submodule
+ │         └─┬ submodules
+ │           └── deeplyNested
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └── @scope/jsii-calc-lib
@@ -3813,6 +3980,47 @@ exports[`jsii-tree --signatures 1`] = `
 exports[`jsii-tree --types 1`] = `
 "assemblies
  ├─┬ jsii-calc
+ │ ├─┬ submodules
+ │ │ ├─┬ DerivedClassHasNoProperties
+ │ │ │ └─┬ types
+ │ │ │   ├── class Base
+ │ │ │   └── class Derived
+ │ │ ├─┬ InterfaceInNamespaceIncludesClasses
+ │ │ │ └─┬ types
+ │ │ │   ├── class Foo
+ │ │ │   └── interface Hello
+ │ │ ├─┬ InterfaceInNamespaceOnlyInterface
+ │ │ │ └─┬ types
+ │ │ │   └── interface Hello
+ │ │ ├─┬ PythonSelf
+ │ │ │ └─┬ types
+ │ │ │   ├── class ClassWithSelf
+ │ │ │   ├── class ClassWithSelfKwarg
+ │ │ │   ├── interface IInterfaceWithSelf
+ │ │ │   └── interface StructWithSelf
+ │ │ ├─┬ composition
+ │ │ │ └─┬ types
+ │ │ │   ├── class CompositeOperation
+ │ │ │   └── enum CompositionStringStyle
+ │ │ └─┬ submodule
+ │ │   ├─┬ submodules
+ │ │   │ ├─┬ back_references
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface MyClassReference
+ │ │   │ ├─┬ child
+ │ │   │ │ └─┬ types
+ │ │   │ │   ├── interface Structure
+ │ │   │ │   ├── enum Awesomeness
+ │ │   │ │   └── enum Goodness
+ │ │   │ └─┬ nested_submodule
+ │ │   │   ├─┬ submodules
+ │ │   │   │ └─┬ deeplyNested
+ │ │   │   │   └─┬ types
+ │ │   │   │     └── interface INamespaced
+ │ │   │   └─┬ types
+ │ │   │     └── class Namespaced
+ │ │   └─┬ types
+ │ │     └── class MyClass
  │ └─┬ types
  │   ├── class AbstractClass
  │   ├── class AbstractClassBase
@@ -3846,8 +4054,6 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class DefaultedConstructorArgument
  │   ├── class Demonstrate982
  │   ├── class DeprecatedClass
- │   ├── class Base
- │   ├── class Derived
  │   ├── class DisappointingCollectionSource
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
@@ -3867,7 +4073,6 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ImplementsPrivateInterface
  │   ├── class InbetweenClass
  │   ├── class InterfaceCollections
- │   ├── class Foo
  │   ├── class InterfacesMaker
  │   ├── class JSII417Derived
  │   ├── class JSII417PublicBaseOfBase
@@ -3899,8 +4104,6 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class PropertyNamedProperty
  │   ├── class PublicClass
  │   ├── class PythonReservedWords
- │   ├── class ClassWithSelf
- │   ├── class ClassWithSelfKwarg
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RootStructValidator
@@ -3929,7 +4132,6 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
  │   ├── class WithPrivatePropertyInConstructor
- │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
  │   ├── interface ChildStruct982
  │   ├── interface ConfusingToJacksonStruct
@@ -3979,15 +4181,11 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IStableInterface
  │   ├── interface IStructReturningDelegate
  │   ├── interface ImplictBaseOfBase
- │   ├── interface Hello
- │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
  │   ├── interface ParentStruct982
- │   ├── interface IInterfaceWithSelf
- │   ├── interface StructWithSelf
  │   ├── interface RootStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface SmellyStruct
@@ -4005,8 +4203,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── enum SingletonIntEnum
  │   ├── enum SingletonStringEnum
  │   ├── enum StableEnum
- │   ├── enum StringEnum
- │   └── enum CompositionStringStyle
+ │   └── enum StringEnum
  ├─┬ @scope/jsii-calc-base
  │ └─┬ types
  │   ├── class Base
@@ -4033,7 +4230,20 @@ exports[`jsii-tree --types 1`] = `
 
 exports[`jsii-tree 1`] = `
 "assemblies
- ├── jsii-calc
+ ├─┬ jsii-calc
+ │ └─┬ submodules
+ │   ├── DerivedClassHasNoProperties
+ │   ├── InterfaceInNamespaceIncludesClasses
+ │   ├── InterfaceInNamespaceOnlyInterface
+ │   ├── PythonSelf
+ │   ├── composition
+ │   └─┬ submodule
+ │     └─┬ submodules
+ │       ├── back_references
+ │       ├── child
+ │       └─┬ nested_submodule
+ │         └─┬ submodules
+ │           └── deeplyNested
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └── @scope/jsii-calc-lib
