@@ -88,7 +88,11 @@ export class ClassType extends ReferenceType {
       out.push(...this.base.getInterfaces(inherited));
     }
     if (this.spec.interfaces) {
-      out.push(...this.spec.interfaces.map(iface => this.system.findInterface(iface)));
+      out.push(...flatten(
+        this.spec.interfaces
+        .map(fqn => this.system.findInterface(fqn))
+        .map(iface => [iface, ...inherited ? iface.getInterfaces(true) : []]),
+        ));
     }
     return out;
   }
@@ -110,4 +114,8 @@ export class ClassType extends ReferenceType {
       (this.spec.methods ?? []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
       m => m.name));
   }
+}
+
+function flatten<A>(xs: A[][]): A[] {
+  return Array.prototype.concat([], ...xs);
 }

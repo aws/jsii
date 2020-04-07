@@ -285,6 +285,58 @@ describe('implement base types need to be present in updated type system', () =>
     `)
   );
 
+  test('change direct implementation to inherited implementation via interface', () =>
+    expectNoError(
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export class Bebe implements IPapa {
+        readonly pipe: string = 'pff';
+        readonly pacifier: string = 'mmm';
+      }
+    `, `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export interface IInbetween extends IPapa {
+      }
+
+      export class Bebe implements IInbetween {
+        readonly pipe: string = 'pff';
+        readonly pacifier: string = 'mmm';
+      }
+    `)
+  );
+
+  test('change direct implementation to inherited implementation via base class', () =>
+    expectNoError(
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export class Bebe implements IPapa {
+        readonly pipe: string = 'pff';
+        readonly pacifier: string = 'mmm';
+      }
+    `, `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export class Inbetween implements IPapa {
+        readonly pipe: string = 'pff';
+      }
+
+      export class Bebe extends Inbetween {
+        readonly pacifier: string = 'mmm';
+      }
+    `)
+  );
+
 });
 
 // ----------------------------------------------------------------------
