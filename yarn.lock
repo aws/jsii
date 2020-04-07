@@ -365,7 +365,7 @@
     jest-util "^25.2.6"
     slash "^3.0.0"
 
-"@jest/core@^25.2.4", "@jest/core@^25.2.7":
+"@jest/core@^25.2.7":
   version "25.2.7"
   resolved "https://registry.yarnpkg.com/@jest/core/-/core-25.2.7.tgz#58d697687e94ee644273d15e4eed6a20e27187cd"
   integrity sha512-Nd6ELJyR+j0zlwhzkfzY70m04hAur0VnMwJXVe4VmmD/SaQ6DEyal++ERQ1sgyKIKKEqRuui6k/R0wHLez4P+g==
@@ -5183,7 +5183,7 @@ jest-changed-files@^25.2.6:
     execa "^3.2.0"
     throat "^5.0.0"
 
-jest-cli@^25.2.4:
+jest-cli@^25.2.7:
   version "25.2.7"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-25.2.7.tgz#515b61fee402c397ffa8d570532f7b039c3159f4"
   integrity sha512-OOAZwY4Jkd3r5WhVM5L3JeLNFaylvHUczMLxQDVLrrVyb1Cy+DNJ6MVsb5TLh6iBklB42m5TOP+IbOgKGGOtMw==
@@ -5522,14 +5522,14 @@ jest-worker@^25.2.6:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jest@^25.2.4:
-  version "25.2.4"
-  resolved "https://registry.yarnpkg.com/jest/-/jest-25.2.4.tgz#d10941948a2b57eb7accc2e7ae78af4a0e11b40a"
-  integrity sha512-Lu4LXxf4+durzN/IFilcAoQSisOwgHIXgl9vffopePpSSwFqfj1Pj4y+k3nL8oTbnvjxgDIsEcepy6he4bWqnQ==
+jest@^25.2.7:
+  version "25.2.7"
+  resolved "https://registry.yarnpkg.com/jest/-/jest-25.2.7.tgz#3929a5f35cdd496f7756876a206b99a94e1e09ae"
+  integrity sha512-XV1n/CE2McCikl4tfpCY950RytHYvxdo/wvtgmn/qwA8z1s16fuvgFL/KoPrrmkqJTaPMUlLVE58pwiaTX5TdA==
   dependencies:
-    "@jest/core" "^25.2.4"
+    "@jest/core" "^25.2.7"
     import-local "^3.0.2"
-    jest-cli "^25.2.4"
+    jest-cli "^25.2.7"
 
 js-tokens@^4.0.0:
   version "4.0.0"
