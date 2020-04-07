@@ -3,6 +3,7 @@ language: minimal
 branches:
   only:
     - master
+    - release
     - /^v\d+\.\d+.\d+$/
 
 cache:
