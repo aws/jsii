@@ -88,11 +88,10 @@ export class ClassType extends ReferenceType {
       out.push(...this.base.getInterfaces(inherited));
     }
     if (this.spec.interfaces) {
-      out.push(...flatten(
-        this.spec.interfaces
+      out.push(...flatten(this.spec.interfaces
         .map(fqn => this.system.findInterface(fqn))
         .map(iface => [iface, ...inherited ? iface.getInterfaces(true) : []]),
-        ));
+      ));
     }
     return out;
   }
