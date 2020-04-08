@@ -22,6 +22,7 @@ import { enabledWarnings } from './warnings';
 const sortJson = require('sort-json');
 
 const LOG = log4js.getLogger('jsii/assembler');
+const JSIIRC_FILENAME = '.jsiirc.json';
 
 /**
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
@@ -31,11 +32,14 @@ export class Assembler implements Emitter {
 
   private _diagnostics = new Array<Diagnostic>();
   private _deferred = new Array<DeferredRecord>();
-  private _types: { [fqn: string]: spec.Type } = {};
+  private _types: Record<string, spec.Type> = {};
+  private _submodules: Record<string, spec.AssemblyConfiguration> = {};
 
   /** Map of Symbol to namespace export Symbol */
-  private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
-  private readonly _submodules = new Set<ts.Symbol>();
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  readonly #submoduleMap = new Map<ts.Symbol, ts.Symbol>();
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  readonly #submodules = new Set<ts.Symbol>();
 
   /**
    * @param projectInfo information about the package being assembled
@@ -95,8 +99,10 @@ export class Assembler implements Emitter {
     }
     const docs = _loadDocs.call(this);
 
+    this._submodules = {};
     this._types = {};
     this._deferred = [];
+
     const visitPromises = new Array<Promise<any>>();
 
     const sourceFile = this.program.getSourceFile(this.mainFile);
@@ -152,6 +158,7 @@ export class Assembler implements Emitter {
       dependencies: noEmptyDict({ ...this.projectInfo.dependencies, ...this.projectInfo.peerDependencies }),
       dependencyClosure: noEmptyDict(toDependencyClosure(this.projectInfo.dependencyClosure)),
       bundled: this.projectInfo.bundleDependencies,
+      submodules: noEmptyDict(this._submodules),
       types: this._types,
       targets: this.projectInfo.targets,
       metadata: this.projectInfo.metadata,
@@ -345,11 +352,11 @@ export class Assembler implements Emitter {
       return `unknown.${typeName}`;
     }
 
-    let submodule = this._submoduleMap.get( type.symbol);
+    let submodule = this.#submoduleMap.get( type.symbol);
     let submoduleNs = submodule?.name;
     // Submodules can be in submodules themselves, so we crawl up the tree...
-    while (submodule != null && this._submoduleMap.has(submodule)) {
-      submodule = this._submoduleMap.get(submodule)!;
+    while (submodule != null && this.#submoduleMap.has(submodule)) {
+      submodule = this.#submoduleMap.get(submodule)!;
       submoduleNs = `${submodule.name}.${submoduleNs}`;
     }
 
@@ -374,12 +381,25 @@ export class Assembler implements Emitter {
     }
   }
 
-  private _registerNamespaces(symbol: ts.Symbol): void {
+  private _registerNamespaces(symbol: ts.Symbol, parent?: spec.AssemblyConfiguration): void {
     const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
-    if (declaration == null || !ts.isNamespaceExport(declaration)) {
+    if (declaration == null) {
       // Nothing to do here...
       return;
     }
+
+    if (ts.isModuleDeclaration(declaration)) {
+      this._registerSubmodule(symbol, undefined, parent);
+      // Not actually tagging members, because this is a `namespace {}` delcaration
+      // so it'll be correctly resolved from it's TypeScript fully qualified name.
+      return;
+    }
+
+    if (!ts.isNamespaceExport(declaration)) {
+      // Nothing to do here...
+      return;
+    }
+
     const moduleSpecifier = declaration.parent.moduleSpecifier;
     if (moduleSpecifier == null || !ts.isStringLiteral(moduleSpecifier)) {
       // There is a grammar error here, so we'll let tsc report this for us.
@@ -409,9 +429,21 @@ export class Assembler implements Emitter {
         this._diagnostic(declaration, ts.DiagnosticCategory.Error,
           `Submodule namespaces must be camelCased or snake_cased. Consider renaming to "${Case.camel(symbol.name)}".`);
       }
-      this._submodules.add(symbol);
-      this._addToSubmodule(symbol, sourceModule);
+      const submoduleConfig = this._registerSubmodule(symbol, sourceFile, parent);
+      this._addToSubmodule(symbol, sourceModule, submoduleConfig);
     }
+  }
+
+  private _registerSubmodule(symbol: ts.Symbol, source: ts.SourceFile | undefined, parent?: spec.AssemblyConfiguration): spec.AssemblyConfiguration {
+    this.#submodules.add(symbol);
+    const store = parent != null
+      ? parent.submodules = parent.submodules ?? {}
+      : this._submodules;
+
+    const configFile = source && path.resolve(source.fileName, '..', JSIIRC_FILENAME);
+    const config = configFile && fs.pathExistsSync(configFile) ? readSubmoduleConfig(configFile) : {};
+
+    return store[symbol.name] = config;
   }
 
   /**
@@ -421,12 +453,13 @@ export class Assembler implements Emitter {
    *
    * @param ns         the symbol that identifies the submodule.
    * @param moduleLike the module-like symbol bound to the submodule.
+   * @param config     the submodule's assembly configuration block.
    */
-  private _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol) {
+  private _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol, config: spec.AssemblyConfiguration) {
     // For each symbol exported by the moduleLike, map it to the ns submodule.
     for (const symbol of this._typeChecker.getExportsOfModule(moduleLike)) {
-      if (this._submoduleMap.has(symbol)) {
-        const currNs = this._submoduleMap.get(symbol)!;
+      if (this.#submoduleMap.has(symbol)) {
+        const currNs = this.#submoduleMap.get(symbol)!;
         // Checking if there's been two submodules exporting the same symbol,
         // which is illegal. We can tell if the currently registered symbol has
         // a different name than the one we're currently trying to register in.
@@ -459,7 +492,7 @@ export class Assembler implements Emitter {
         // been reported for us already anyway.
         continue;
       }
-      this._submoduleMap.set(symbol, ns);
+      this.#submoduleMap.set(symbol, ns);
 
       // If the exported symbol has any declaration, and that delcaration is of
       // an entity that can have nested declarations of interest to jsii
@@ -473,16 +506,17 @@ export class Assembler implements Emitter {
             // type.symbol !== symbol, because symbol is the enum itself, but
             // since it's single-valued, the TypeChecker will only show us the
             // value's symbol later on.
-            this._submoduleMap.set(type.symbol, ns);
+            this.#submoduleMap.set(type.symbol, ns);
           }
           if (type.symbol.exports) {
-            this._addToSubmodule(ns, symbol);
+            this._addToSubmodule(ns, symbol, config);
           }
         } else if (ts.isModuleDeclaration(decl)) {
-          this._addToSubmodule(ns, symbol);
+          const submoduleConfig = this._registerSubmodule(symbol, undefined, config);
+          this._addToSubmodule(ns, symbol, submoduleConfig);
         } else if (ts.isNamespaceExport(decl)) {
-          this._submoduleMap.set(symbol, ns);
-          this._registerNamespaces(symbol);
+          this.#submoduleMap.set(symbol, ns);
+          this._registerNamespaces(symbol, config);
         }
       }
     }
@@ -548,7 +582,7 @@ export class Assembler implements Emitter {
 
     // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
     // target language separately, so names cannot collide with case-variations.
-    for (const submodule of this._submodules) {
+    for (const submodule of this.#submodules) {
       const candidates = Array.from(new Set([
         submodule.name,
         Case.camel(submodule.name),
@@ -1911,4 +1945,16 @@ function isSingleValuedEnum(type: ts.Type, typeChecker: ts.TypeChecker): type is
     return type === typeChecker.getBaseTypeOfLiteralType(type);
   }
   return false;
+}
+
+/**
+ * Loads a submodule configuration from it's JSON file.
+ *
+ * @param file the path to the file holding the configuration.
+ *
+ * @returns the loaded configuration.
+ */
+function readSubmoduleConfig(file: string): spec.AssemblyConfiguration {
+  const data = fs.readJsonSync(file, { encoding: 'utf-8' });
+  return { targets: data.targets };
 }

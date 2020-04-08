@@ -156,6 +156,15 @@ export interface AssemblyConfiguration {
    * @default none
    */
   targets?: AssemblyTargets;
+
+  /**
+   * The submodules included in this Assembly or submodule. Submodules can
+   * include nested submodules, as denoted by the `AssemblyConfiguration` value
+   * in this map.
+   *
+   * @default none
+   */
+  submodules?: { [name: string]: AssemblyConfiguration };
 }
 
 /**

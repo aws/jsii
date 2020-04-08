@@ -5,7 +5,7 @@
 
 # Include .jsii
 !.jsii
-
+.jsiirc.json
 
 # Exclude jsii outdir
 dist

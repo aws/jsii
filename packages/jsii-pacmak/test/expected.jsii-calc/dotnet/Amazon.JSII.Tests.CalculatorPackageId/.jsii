@@ -137,6 +137,35 @@
     "url": "https://github.com/aws/jsii.git"
   },
   "schema": "jsii/0.10.0",
+  "submodules": {
+    "DerivedClassHasNoProperties": {},
+    "InterfaceInNamespaceIncludesClasses": {},
+    "InterfaceInNamespaceOnlyInterface": {},
+    "composition": {},
+    "submodule": {
+      "submodules": {
+        "back_references": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.JSII.Tests.CalculatorNamespace.RefersToParent"
+            },
+            "java": {
+              "package": "software.amazon.jsii.tests.calculator.refers_to_parent"
+            },
+            "python": {
+              "module": "refers_to_parent"
+            }
+          }
+        },
+        "child": {},
+        "nested_submodule": {
+          "submodules": {
+            "deeplyNested": {}
+          }
+        }
+      }
+    }
+  },
   "targets": {
     "dotnet": {
       "iconUrl": "https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png",
@@ -12442,5 +12471,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "XNjL7+hJ5KwFtBCVEz4TZH4c2JtVW/gTPS7UNrw02Cg="
+  "fingerprint": "jVt1E2uCNuzHBJb6CckI+38TV1XtCYbqdOwAYJMW8cI="
 }

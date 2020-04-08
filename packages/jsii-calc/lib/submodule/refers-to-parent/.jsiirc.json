@@ -1,0 +1,13 @@
+{
+  "targets": {
+    "java": {
+      "package": "software.amazon.jsii.tests.calculator.refers_to_parent"
+    },
+    "dotnet": {
+      "namespace": "Amazon.JSII.Tests.CalculatorNamespace.RefersToParent"
+    },
+    "python": {
+      "module": "refers_to_parent"
+    }
+  }
+}

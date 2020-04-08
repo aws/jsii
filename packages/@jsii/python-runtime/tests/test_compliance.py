@@ -1168,3 +1168,8 @@ def test_collection_of_interfaces_map_of_structs():
 def test_collection_of_interfaces_map_of_interfaces():
     for elt in InterfaceCollections.map_of_interfaces().values():
         assert getattr(elt, "ring") is not None
+
+def test_load_submodules():
+    import jsii_calc.submodule
+    import jsii_calc.submodule.nested_submodule
+    import jsii_calc.submodule.nested_submodule.deeply_nested

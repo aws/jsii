@@ -37,7 +37,9 @@ import jsii
 import jsii.compat
 import publication
 
-import jsii_calc.composition
+from .composition import (
+    CompositeOperation as _CompositeOperation_1c4d123b,
+)
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
@@ -741,7 +743,7 @@ class BinaryOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstract
 class _BinaryOperationProxy(BinaryOperation, jsii.proxy_for(scope.jsii_calc_lib.Operation)):
     pass
 
-class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
+class Calculator(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
     """A calculator which maintains a current value and allows adding operations.
 
     Here's how you use it::
@@ -5711,7 +5713,7 @@ class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
         return jsii.invoke(self, "sayHello", [friendly])
 
 
-class Power(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Power"):
+class Power(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Power"):
     """The power operation.
 
     stability
@@ -6963,7 +6965,7 @@ class StructWithJavaReservedWords():
         return 'StructWithJavaReservedWords(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Sum"):
+class Sum(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Sum"):
     """An operation that sums multiple values.
 
     stability

@@ -21,7 +21,7 @@ class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncl
     :stability: experimental
     """
     def __init__(self) -> None:
-        jsii.create(jsii_calc.InterfaceInNamespaceIncludesClasses.Foo, self, [])
+        jsii.create(Foo, self, [])
 
     @builtins.property
     @jsii.member(jsii_name="bar")
