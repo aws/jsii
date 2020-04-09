@@ -1085,7 +1085,7 @@ class EnumMember implements PythonBase {
 interface ModuleOpts {
   assembly: spec.Assembly;
   assemblyFilename: string;
-  loadAssembly: boolean;
+  loadAssembly?: boolean;
   package?: Package;
 }
 
@@ -1103,7 +1103,7 @@ class PythonModule implements PythonType {
   ) {
     this.assembly = opts.assembly;
     this.assemblyFilename = opts.assemblyFilename;
-    this.loadAssembly = opts.loadAssembly;
+    this.loadAssembly = !!opts.loadAssembly;
     this.package = opts.package;
   }
 
@@ -1148,10 +1148,18 @@ class PythonModule implements PythonType {
       const params = [
         `"${this.assembly.name}"`,
         `"${this.assembly.version}"`,
-        `"${this.assembly.targets!.python!.module}"`,
+        '__name__[0:-6]', // Removing the "._jsii" from the tail!
         `"${this.assemblyFilename}"`,
       ];
       code.line(`__jsii_assembly__ = jsii.JSIIAssembly.load(${params.join(', ')})`);
+    } else {
+      // Then we must import the ._jsii subpackage.
+      code.line();
+      let distanceFromRoot = 0;
+      for (let curr = this.fqn!; curr !== this.assembly.name; curr = curr.substring(0, curr.lastIndexOf('.'))) {
+        distanceFromRoot++;
+      }
+      code.line(`from ${'.'.repeat(distanceFromRoot + 1)}_jsii import *`);
     }
 
     code.line();
@@ -1785,7 +1793,7 @@ class PythonGenerator extends Generator {
       {
         assembly: assm,
         assemblyFilename: this.getAssemblyFileName(),
-        loadAssembly: false,
+        loadAssembly: true,
         package: this.package,
       },
     );
@@ -1815,7 +1823,6 @@ class PythonGenerator extends Generator {
       {
         assembly: this.assembly,
         assemblyFilename: this.getAssemblyFileName(),
-        loadAssembly: true,
         package: this.package,
       }
     );

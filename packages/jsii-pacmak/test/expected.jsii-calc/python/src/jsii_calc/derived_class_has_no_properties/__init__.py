@@ -12,7 +12,7 @@ import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
 
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.0.0", "jsii_calc", "jsii-calc@0.0.0.jsii.tgz")
+from .._jsii import *
 
 
 class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Base"):
@@ -46,6 +46,6 @@ class Derived(jsii_calc.DerivedClassHasNoProperties.Base, metaclass=jsii.JSIIMet
         jsii.create(jsii_calc.DerivedClassHasNoProperties.Derived, self, [])
 
 
-__all__ = ["Base", "Derived", "__jsii_assembly__"]
+__all__ = ["Base", "Derived"]
 
 publication.publish()
