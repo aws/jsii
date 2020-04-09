@@ -9457,10 +9457,10 @@ xml-name-validator@^3.0.0:
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
   integrity sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==
 
-xmlbuilder@^15.1.0:
-  version "15.1.0"
-  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-15.1.0.tgz#4c4c9109180937baeb839978b590250be09a4aef"
-  integrity sha512-xae5hmPQnmSFhpiuV3NGXq+FWGOvWy/rIzxVLnRtSSABbPZWltTQCe6WlHDpCq5pGvnGwNsWnS1FdkW7Tx9FNQ==
+xmlbuilder@^15.1.1:
+  version "15.1.1"
+  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-15.1.1.tgz#9dcdce49eea66d8d10b42cae94a79c3c8d0c2ec5"
+  integrity sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==
 
 xmlchars@^2.1.1:
   version "2.2.0"
