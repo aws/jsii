@@ -38,7 +38,7 @@
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^8.1.0",
     "@types/jest": "^25.2.1",
-    "@types/node": "^10.17.18",
+    "@types/node": "^10.17.19",
     "eslint": "^6.8.0",
     "jest": "^25.2.7",
     "typescript": "~3.8.3"
