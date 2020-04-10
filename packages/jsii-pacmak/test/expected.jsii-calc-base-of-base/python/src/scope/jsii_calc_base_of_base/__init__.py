@@ -8,7 +8,7 @@ import jsii
 import jsii.compat
 import publication
 
-__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base-of-base", "0.0.0", "scope.jsii_calc_base_of_base", "jsii-calc-base-of-base@0.0.0.jsii.tgz")
+from ._jsii import *
 
 
 @jsii.interface(jsii_type="@scope/jsii-calc-base-of-base.IVeryBaseInterface")
@@ -62,6 +62,6 @@ class VeryBaseProps():
         return 'VeryBaseProps(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["IVeryBaseInterface", "Very", "VeryBaseProps", "__jsii_assembly__"]
+__all__ = ["IVeryBaseInterface", "Very", "VeryBaseProps"]
 
 publication.publish()
