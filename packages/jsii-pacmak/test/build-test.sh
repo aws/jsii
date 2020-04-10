@@ -17,12 +17,22 @@ clean_dists() {
     for dir in $packagedirs; do rm -rf $dir/dist; done
 }
 
-# Single target, recursive build to a certain location
 outdir=$(mktemp -d)
+final_cleanup() {
+    rm -rf ${outdir}
+}
+trap final_cleanup EXIT
+
+# Prepare Python venv to avoid depending on system stuff
+venv="${outdir}/.env"
+python3 -m venv ${venv}
+. ${venv}/bin/activate
+pip install pip~=20.0.2 setuptools~=46.1.3 wheel~=0.34.2 twine~=3.1.1
+
+# Single target, recursive build to a certain location
 clean_dists
 echo "Testing SINGLE TARGET, RECURSIVE build."
 ../bin/jsii-pacmak -o ${outdir} --recurse ../../jsii-calc
-rm -rf ${outdir}
 
 # Multiple targets, build one-by-one into own directory
 clean_dists

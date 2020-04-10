@@ -11,7 +11,7 @@ import publication
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 
-__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-lib", "0.0.0", "scope.jsii_calc_lib", "jsii-calc-lib@0.0.0.jsii.tgz")
+from ._jsii import *
 
 
 @jsii.enum(jsii_type="@scope/jsii-calc-lib.EnumFromScopedModule")
@@ -384,6 +384,6 @@ class _OperationProxy(Operation, jsii.proxy_for(Value)):
         return jsii.invoke(self, "toString", [])
 
 
-__all__ = ["EnumFromScopedModule", "IDoublable", "IFriendly", "IThreeLevelsInterface", "MyFirstStruct", "Number", "Operation", "StructWithOnlyOptionals", "Value", "__jsii_assembly__"]
+__all__ = ["EnumFromScopedModule", "IDoublable", "IFriendly", "IThreeLevelsInterface", "MyFirstStruct", "Number", "Operation", "StructWithOnlyOptionals", "Value"]
 
 publication.publish()
