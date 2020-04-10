@@ -1,23 +1,18 @@
 import abc
 import builtins
-import datetime
-import enum
-import typing
 
 import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-
 from ..._jsii import *
+
+from .. import (MyClass as _MyClass_a2fdc0b6)
 
 
 @jsii.data_type(jsii_type="jsii-calc.submodule.back_references.MyClassReference", jsii_struct_bases=[], name_mapping={'reference': 'reference'})
 class MyClassReference():
-    def __init__(self, *, reference: jsii_calc.submodule.MyClass):
+    def __init__(self, *, reference: _MyClass_a2fdc0b6) -> None:
         """
         :param reference: 
 
@@ -29,7 +24,7 @@ class MyClassReference():
         }
 
     @builtins.property
-    def reference(self) -> jsii_calc.submodule.MyClass:
+    def reference(self) -> _MyClass_a2fdc0b6:
         """
         stability
         :stability: experimental

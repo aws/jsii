@@ -1,23 +1,19 @@
 import abc
 import builtins
-import datetime
-import enum
-import typing
 
 import jsii
 import jsii.compat
 import publication
 
-import jsii_calc
-import jsii_calc.submodule.child
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-
 from .._jsii import *
 
+import typing
+from .. import (AllTypes as _AllTypes_b08307c5)
+from .child import (Awesomeness as _Awesomeness_d37a24df, Goodness as _Goodness_2df26737)
+from .nested_submodule.deeplyNested import (INamespaced as _INamespaced_8958714a)
 
-@jsii.implements(nested_submodule.deeplyNested.INamespaced)
+
+@jsii.implements(_INamespaced_8958714a)
 class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
     """
     stability
@@ -32,7 +28,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
 
     @builtins.property
     @jsii.member(jsii_name="awesomeness")
-    def awesomeness(self) -> "child.Awesomeness":
+    def awesomeness(self) -> _Awesomeness_d37a24df:
         """
         stability
         :stability: experimental
@@ -50,7 +46,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
 
     @builtins.property
     @jsii.member(jsii_name="goodness")
-    def goodness(self) -> "child.Goodness":
+    def goodness(self) -> _Goodness_2df26737:
         """
         stability
         :stability: experimental
@@ -59,7 +55,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
 
     @builtins.property
     @jsii.member(jsii_name="allTypes")
-    def all_types(self) -> typing.Optional[jsii_calc.AllTypes]:
+    def all_types(self) -> typing.Optional[_AllTypes_b08307c5]:
         """
         stability
         :stability: experimental
@@ -67,7 +63,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         return jsii.get(self, "allTypes")
 
     @all_types.setter
-    def all_types(self, value: typing.Optional[jsii_calc.AllTypes]):
+    def all_types(self, value: typing.Optional[_AllTypes_b08307c5]) -> None:
         jsii.set(self, "allTypes", value)
 
 

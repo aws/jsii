@@ -1168,3 +1168,9 @@ def test_collection_of_interfaces_map_of_structs():
 def test_collection_of_interfaces_map_of_interfaces():
     for elt in InterfaceCollections.map_of_interfaces().values():
         assert getattr(elt, "ring") is not None
+
+
+@pytest.mark.skip # Currently broken because submodule names aren't case-adjusted correctly :(
+def test_load_submodules():
+    import jsii_calc.submodule
+    from jsii_calc.submodule import nested_submodule

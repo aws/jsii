@@ -1,18 +1,13 @@
 import abc
 import builtins
-import datetime
-import enum
-import typing
 
 import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-
 from .._jsii import *
+
+import typing
 
 
 class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Foo"):
@@ -21,7 +16,7 @@ class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncl
     :stability: experimental
     """
     def __init__(self) -> None:
-        jsii.create(jsii_calc.InterfaceInNamespaceIncludesClasses.Foo, self, [])
+        jsii.create(Foo, self, [])
 
     @builtins.property
     @jsii.member(jsii_name="bar")
@@ -33,13 +28,13 @@ class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncl
         return jsii.get(self, "bar")
 
     @bar.setter
-    def bar(self, value: typing.Optional[str]):
+    def bar(self, value: typing.Optional[str]) -> None:
         jsii.set(self, "bar", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Hello", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
 class Hello():
-    def __init__(self, *, foo: jsii.Number):
+    def __init__(self, *, foo: jsii.Number) -> None:
         """
         :param foo: 
 
