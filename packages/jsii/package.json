@@ -39,7 +39,7 @@
     "deep-equal": "^2.0.2",
     "fs-extra": "^9.0.0",
     "log4js": "^6.1.2",
-    "semver": "^7.2.2",
+    "semver": "^7.2.3",
     "semver-intersect": "^1.4.0",
     "sort-json": "^2.0.0",
     "spdx-license-list": "^6.1.0",
