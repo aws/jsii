@@ -204,3 +204,7 @@ Several tools are involved in making this possible:
 [`jsii-pacmak`]: ../../../packages/jsii-pacmak
 [`@jsii/kernel`]: ../../../packages/@jsii/kernel
 [`@jsii/runtime`]: ../../../packages/@jsii/runtime
+
+--------------------------------------------------------------------------------
+
+Continue to [Type System](./2-type-system.md)

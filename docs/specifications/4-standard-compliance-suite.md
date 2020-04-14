@@ -507,3 +507,7 @@ for (const item of Object.values(items)) {
 < {"ok":{"result":{"$jsii.map":{"foo":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.StructType"]}}}}}
 ```
 </details>
+
+--------------------------------------------------------------------------------
+
+Continue to [New Language Intake](./5-new-language-intake.md)
