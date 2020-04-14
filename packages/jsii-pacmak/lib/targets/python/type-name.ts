@@ -10,6 +10,11 @@ import {
 import { createHash } from 'crypto';
 import { die, toPythonIdentifier } from './util';
 
+/** The marker to import a complete package. */
+const IMPORT_ALL = new Set<string>(['']);
+/** The necessary block to emit "import typing" */
+const TYPING_ALL: PythonImports = { typing: IMPORT_ALL };
+
 export interface TypeName {
   pythonType(context: NamingContext): string;
   requiredImports(context: NamingContext): PythonImports;
@@ -116,7 +121,7 @@ class Dict implements TypeName {
   }
 
   public requiredImports(context: NamingContext) {
-    return mergePythonImports(this.#element.requiredImports(context), { typing: new Set(['']) });
+    return mergePythonImports(this.#element.requiredImports(context), TYPING_ALL);
   }
 }
 
@@ -133,7 +138,7 @@ class List implements TypeName {
   }
 
   public requiredImports(context: NamingContext) {
-    return mergePythonImports(this.#element.requiredImports(context), { typing: new Set(['']) });
+    return mergePythonImports(this.#element.requiredImports(context), TYPING_ALL);
   }
 }
 
@@ -158,18 +163,18 @@ class Optional implements TypeName {
     if (context.ignoreOptional) {
       return wrapped;
     }
-    return mergePythonImports(wrapped, { typing: new Set(['']) });
+    return mergePythonImports(wrapped, TYPING_ALL);
   }
 }
 
 class Primitive implements TypeName {
   private static readonly BOOL = new Primitive('bool', {});
-  private static readonly DATE = new Primitive('datetime.datetime', { 'datetime': new Set(['']) });
+  private static readonly DATE = new Primitive('datetime.datetime', { 'datetime': IMPORT_ALL });
   private static readonly JSII_NUMBER = new Primitive('jsii.Number', {}); // "jsii" is always already imported!
   private static readonly STR = new Primitive('str', {});
-  private static readonly JSON = new Primitive('typing.Mapping[typing.Any, typing.Any]', { 'typing': new Set(['']) });
+  private static readonly JSON = new Primitive('typing.Mapping[typing.Any, typing.Any]', { 'typing': IMPORT_ALL });
 
-  public static readonly ANY = new Primitive('typing.Any', { 'typing': new Set(['']) });
+  public static readonly ANY = new Primitive('typing.Any', { 'typing': IMPORT_ALL });
   public static readonly NONE = new Primitive('None', {});
 
   public static of(type: PrimitiveTypeReference): TypeName {
@@ -224,7 +229,7 @@ class Union implements TypeName {
   public requiredImports(context: NamingContext) {
     return mergePythonImports(
       ...this.#options.map(o => o.requiredImports(context)),
-      { typing: new Set(['']) },
+      TYPING_ALL,
     );
   }
 }
