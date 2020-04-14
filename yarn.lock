@@ -6779,9 +6779,11 @@ object-inspect@^1.7.0:
   integrity sha512-a7pEHdh1xKIAgTySUGgLMx/xwDZskN1Ud6egYYN3EdRW4ZMPNEDUTF+hwy2LUC+Bl+SyLXANnwz/jyh/qutKUw==
 
 object-is@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/object-is/-/object-is-1.0.2.tgz#6b80eb84fe451498f65007982f035a5b445edec4"
-  integrity sha512-Epah+btZd5wrrfjkJZq1AOB9O6OxUQto45hzFd7lXGrpHPGE0W1k+426yrZV+k6NJOzLNNW/nVsmZdIWsAqoOQ==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/object-is/-/object-is-1.1.1.tgz#9314b6dc7f649891a1fc7f499a6cd3b0a6c01543"
+  integrity sha512-9wFT2CEamBmkYN6TEqnXCOzexDKR/N3hyUOQwtxIxZCZOyvlTUhKUejftM6+nciflJX0x2VLh7wNFWvIpmKGNw==
+  dependencies:
+    define-properties "^1.1.3"
 
 object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   version "1.1.1"
