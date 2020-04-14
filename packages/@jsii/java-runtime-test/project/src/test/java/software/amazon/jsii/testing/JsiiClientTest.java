@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import software.amazon.jsii.JsiiClient;
 import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.JsiiObjectMapper;
@@ -15,18 +17,13 @@ import software.amazon.jsii.JsiiRuntime;
 import software.amazon.jsii.JsiiSerializable;
 import software.amazon.jsii.api.Callback;
 import software.amazon.jsii.api.JsiiOverride;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsiiClientTest {
     private ObjectMapper OM = new ObjectMapper();
@@ -34,7 +31,7 @@ public class JsiiClientTest {
     private JsiiClient client;
     private JsiiRuntime jsiiRuntime;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         jsiiRuntime = new JsiiRuntime();
         this.client = jsiiRuntime.getClient();
