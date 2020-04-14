@@ -1,5 +1,7 @@
 import * as base from '@scope/jsii-calc-base';
 
+export * as submodule from './submodule';
+
 /**
  * Abstract class which represents a numeric value.
  */
