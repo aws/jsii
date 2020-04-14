@@ -6037,10 +6037,10 @@ lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.2.
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
-log4js@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/log4js/-/log4js-6.1.2.tgz#04688e1f4b8080c127b7dccb0db1c759cbb25dc4"
-  integrity sha512-knS4Y30pC1e0n7rfx3VxcLOdBCsEo0o6/C7PVTGxdVK+5b1TYOSGQPn9FDcrhkoQBV29qwmA2mtkznPAQKnxQg==
+log4js@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/log4js/-/log4js-6.2.0.tgz#e7514cd139c09b7b81a98b71c1b1eebc8a96c1ad"
+  integrity sha512-4x14gHnFaWgkKEygGtIBAvAaHuJX1z86bLx4SQ76jdgQmYxaW3SF6EFoEn9nRG6fW7TuKvyERItG6vxgNOCeTA==
   dependencies:
     date-format "^3.0.0"
     debug "^4.1.1"
