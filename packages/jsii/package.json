@@ -38,7 +38,7 @@
     "colors": "^1.4.0",
     "deep-equal": "^2.0.2",
     "fs-extra": "^9.0.0",
-    "log4js": "^6.1.2",
+    "log4js": "^6.2.0",
     "semver": "^7.2.2",
     "semver-intersect": "^1.4.0",
     "sort-json": "^2.0.0",
