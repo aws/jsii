@@ -78,7 +78,7 @@ classes. *Interface* names must be prefixed with an `I` (e.g: `IFoo`).
 
 Attribute    | Type        | Description
 -------------|-------------|----------------------------------------------------
-`kind`       |`'inteface'` |Discriminator to identify interfaces
+`kind`       |`'interface'` |Discriminator to identify interfaces
 `assembly`   |`string`     |The name of the assembly this interface is a part of
 `fqn`        |`string`     |The fully-qualified name of the interface
 `interfaces` |`string[]`   |The fully-qualified names of interfaces extended by this inteface
@@ -146,7 +146,7 @@ Attribute    | Type         | Description
 Attribute    | Type          | Description
 -------------|---------------|--------------------------------------------------
 `abstract`   |`boolean`      |Whether this method is `abstract`
-`async`      |`boolean`      |Whether this method is asyncrhonous
+`async`      |`boolean`      |Whether this method is asynchronous
 `name`       |`string`       |The name of the method
 `overrides`  |`string`       |The fully-qualified name of the class/interface that declares the overridden method
 `parameters` |`Parameter[]`  |Parameters of this method
@@ -168,7 +168,7 @@ Attribute    | Type          | Description
 -------------|---------------|--------------------------------------------------
 `abstract`   |`boolean`      |Whether this property is `abstract`
 `const`      |`boolean`      |Whether this property is a constant (implies `static` and `immutable`)
-`immutable`  |`boolean`      |Whethert his property is immutable
+`immutable`  |`boolean`      |Whether this property is immutable
 `name`       |`string`       |The name of the property
 `optional`   |`boolean`      |Whether this property is optional
 `overrides`  |`string`       |The fully-qualified name of the class/interface that declares the overridden property
