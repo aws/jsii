@@ -70,9 +70,11 @@ from jsii_calc import (
     StructUnionConsumer,
     SomeTypeJsii976,
     StructParameterType,
-    AnonymousImplementationProvider
+    AnonymousImplementationProvider,
+    UpcasingReflectable,
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
+from scope.jsii_calc_lib.submodule import IReflectable, ReflectableEntry
 
 
 # Note: The names of these test functions have been chosen to map as closely to the
@@ -1170,7 +1172,14 @@ def test_collection_of_interfaces_map_of_interfaces():
         assert getattr(elt, "ring") is not None
 
 
+def test_dependency_submodule_types_are_usable():
+    subject = UpcasingReflectable({ 'foo': 'bar' })
+
+    assert UpcasingReflectable.REFLECTOR.as_map(subject) == { 'FOO': 'bar' }
+
+
 @pytest.mark.skip # Currently broken because submodule names aren't case-adjusted correctly :(
 def test_load_submodules():
     import jsii_calc.submodule
     from jsii_calc.submodule import nested_submodule
+

@@ -2475,7 +2475,7 @@ export class UpcasingReflectable implements submodule.IReflectable {
 
     public constructor(private readonly delegate: Record<string, unknown>) { }
 
-    public get entries() {
+    public get entries(): submodule.ReflectableEntry[] {
         return Object.entries(this.delegate)
             .map(([key, value]) => ({ key: key.toLocaleUpperCase(), value }));
     }

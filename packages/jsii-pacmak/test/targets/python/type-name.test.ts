@@ -15,7 +15,10 @@ const assembly: Assembly = {
   name: '@foo/bar',
   version: '1.2.3',
   dependencyClosure: {
-    '@remote/classes': { targets: { python: { module: REMOTE_MODULE } } },
+    '@remote/classes': {
+      submodules: { '@remote/classes.nested': { targets: { python: { module: `${REMOTE_MODULE}.submodule` } } } },
+      targets: { python: { module: REMOTE_MODULE } },
+    },
   },
   targets: { python: { module: LOCAL_MODULE } },
   types: {
@@ -124,9 +127,15 @@ describe(toTypeName, () => {
     // ############################### USER TYPES ##############################
     {
       name: 'User Type (Foreign)',
-      input: { fqn: '@remote/classes.namespace.FancyClass' },
-      pythonType: `${REMOTE_MODULE}.namespace.FancyClass`,
+      input: { fqn: '@remote/classes.FancyClass' },
+      pythonType: `${REMOTE_MODULE}.FancyClass`,
       requiredImports: { [REMOTE_MODULE]: new Set(['']) },
+    },
+    {
+      name: 'User Type (Foreign, Submodule)',
+      input: { fqn: '@remote/classes.nested.SubmoduledType' },
+      pythonType: `${REMOTE_MODULE}.submodule.SubmoduledType`,
+      requiredImports: { [`${REMOTE_MODULE}.submodule`]: new Set(['']) },
     },
     {
       name: 'User Type (Local)',

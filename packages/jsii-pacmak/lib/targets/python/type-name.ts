@@ -9,6 +9,7 @@ import {
 } from '@jsii/spec';
 import { createHash } from 'crypto';
 import { die, toPythonIdentifier } from './util';
+import { toSnakeCase } from 'codemaker';
 
 /** The marker to import a complete package. */
 const IMPORT_ALL = new Set<string>(['']);
@@ -255,13 +256,12 @@ class UserType implements TypeName {
   }
 
   private resolve({ assembly, submodule, nestingScope, typeAnnotation = true }: NamingContext) {
-    const { assemblyName, pythonFqn } = toPythonFqn(this.#fqn, assembly);
+    const { assemblyName, packageName, pythonFqn } = toPythonFqn(this.#fqn, assembly);
     if (assemblyName !== assembly.name) {
       return {
         pythonType: pythonFqn,
         requiredImport: {
-          // TODO: Migth we need to import a subpackage instead?
-          sourcePackage: toPythonFqn(assemblyName, assembly).pythonFqn,
+          sourcePackage: packageName,
           item: '',
         },
       };
@@ -303,14 +303,14 @@ class UserType implements TypeName {
 }
 
 function toPythonFqn(fqn: string, rootAssm: Assembly) {
-  const [assemblyName, ...qualifiedIdentifiers] = fqn.split('.');
-  const fqnParts: string[] = [moduleName(assemblyName, rootAssm)];
+  const { assemblyName, packageName, tail } = getPackageName(fqn, rootAssm);
+  const fqnParts: string[] = [packageName];
 
-  for (const part of qualifiedIdentifiers) {
+  for (const part of tail) {
     fqnParts.push(toPythonIdentifier(part));
   }
 
-  return { assemblyName, pythonFqn: fqnParts.join('.') };
+  return { assemblyName, packageName, pythonFqn: fqnParts.join('.') };
 }
 
 /**
@@ -336,15 +336,46 @@ function relativeImportPath(fromPkg: string, toPkg: string): string {
   return `.${relativeImportPath(fromPkgParent, toPkg)}`;
 }
 
-function moduleName(assmName: string, rootAssm: Assembly): string {
-  if (assmName === rootAssm.name) {
-    return rootAssm.targets?.python?.module
-      ?? die(`No Python target was configured in assembly "${assmName}"`);
+function getPackageName(fqn: string, rootAssm: Assembly) {
+  const segments = fqn.split('.');
+  const assemblyName = segments[0];
+  const config = assemblyName === rootAssm.name
+    ? rootAssm
+    : rootAssm.dependencyClosure?.[assemblyName] ?? die(`Unable to find configuration for assembly "${assemblyName}" in dependency closure`);
+  const rootPkg = config.targets?.python?.module ?? die(`No Python target was configured in assembly "${assemblyName}"`);
+
+  const pkg = new Array<string>();
+  const tail = new Array<string>();
+
+  for (let len = segments.length; len > 0; len--) {
+    const submodule = segments.slice(0, len).join('.');
+    if (submodule === assemblyName) {
+      pkg.unshift(rootPkg);
+      break;
+    }
+
+    const submoduleConfig = config.submodules?.[submodule];
+    if (submoduleConfig == null) {
+      // Not in a submodule - so the current lead name is not a package name part.
+      tail.unshift(segments[len - 1]);
+      continue;
+    }
+
+    const subPackage: string | undefined = submoduleConfig.targets?.python?.module;
+    if (subPackage != null) {
+      // Found a sub-package. Confirm it's nested right in, and make this the head end of our package name.
+      if (!subPackage.startsWith(`${rootPkg}.`)) {
+        die(`Submodule "${submodule}" is mapped to Python sub-package "${subPackage}" which isn't nested under "${rootPkg}"!`);
+      }
+      pkg.unshift(subPackage);
+      break;
+    }
+
+    // Just use whatever the default name is for this package name part.
+    pkg.unshift(toSnakeCase(toPythonIdentifier(segments[len - 1])));
   }
-  const depConfig = rootAssm.dependencyClosure?.[assmName]
-    ?? die(`Unable to find configuration for assembly "${assmName}" in dependency closure`);
-  return depConfig.targets?.python?.module
-    ?? die(`No Python target was configured in assembly "${assmName}"`);
+
+  return { assemblyName, packageName: pkg.join('.'), tail };
 }
 
 function findParentSubmodule(type: Type, assm: Assembly): string {

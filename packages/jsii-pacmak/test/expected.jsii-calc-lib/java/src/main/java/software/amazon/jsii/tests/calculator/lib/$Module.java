@@ -27,6 +27,9 @@ public final class $Module extends JsiiModule {
             case "@scope/jsii-calc-lib.Operation": return software.amazon.jsii.tests.calculator.lib.Operation.class;
             case "@scope/jsii-calc-lib.StructWithOnlyOptionals": return software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals.class;
             case "@scope/jsii-calc-lib.Value": return software.amazon.jsii.tests.calculator.lib.Value.class;
+            case "@scope/jsii-calc-lib.submodule.IReflectable": return software.amazon.jsii.tests.calculator.lib.submodule.IReflectable.class;
+            case "@scope/jsii-calc-lib.submodule.ReflectableEntry": return software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry.class;
+            case "@scope/jsii-calc-lib.submodule.Reflector": return software.amazon.jsii.tests.calculator.lib.submodule.Reflector.class;
             default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);
         }
     }

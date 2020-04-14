@@ -106,7 +106,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 97
+        "line": 99
       },
       "members": [
         {
@@ -134,7 +134,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 23
+        "line": 25
       },
       "name": "IDoublable",
       "properties": [
@@ -146,7 +146,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 24
+            "line": 26
           },
           "name": "doubleValue",
           "type": {
@@ -166,7 +166,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 58
+        "line": 60
       },
       "methods": [
         {
@@ -177,7 +177,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 62
+            "line": 64
           },
           "name": "hello",
           "returns": {
@@ -203,7 +203,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 108
+        "line": 110
       },
       "methods": [
         {
@@ -213,7 +213,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 109
+            "line": 111
           },
           "name": "baz"
         }
@@ -231,7 +231,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 68
+        "line": 70
       },
       "name": "MyFirstStruct",
       "properties": [
@@ -244,7 +244,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 77
+            "line": 79
           },
           "name": "anumber",
           "type": {
@@ -260,7 +260,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 72
+            "line": 74
           },
           "name": "astring",
           "type": {
@@ -275,7 +275,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 78
+            "line": 80
           },
           "name": "firstOptional",
           "optional": true,
@@ -321,7 +321,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 30
+        "line": 32
       },
       "name": "Number",
       "properties": [
@@ -333,7 +333,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 42
+            "line": 44
           },
           "name": "doubleValue",
           "overrides": "@scope/jsii-calc-lib.IDoublable",
@@ -349,7 +349,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 35
+            "line": 37
           },
           "name": "value",
           "overrides": "@scope/jsii-calc-lib.Value",
@@ -372,7 +372,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 50
+        "line": 52
       },
       "methods": [
         {
@@ -383,7 +383,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 51
+            "line": 53
           },
           "name": "toString",
           "overrides": "@scope/jsii-calc-lib.Value",
@@ -407,7 +407,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 84
+        "line": 86
       },
       "name": "StructWithOnlyOptionals",
       "properties": [
@@ -420,7 +420,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 88
+            "line": 90
           },
           "name": "optional1",
           "optional": true,
@@ -436,7 +436,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 89
+            "line": 91
           },
           "name": "optional2",
           "optional": true,
@@ -452,7 +452,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 90
+            "line": 92
           },
           "name": "optional3",
           "optional": true,
@@ -475,7 +475,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 6
+        "line": 8
       },
       "methods": [
         {
@@ -485,7 +485,7 @@
           },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 15
+            "line": 17
           },
           "name": "toString",
           "returns": {
@@ -506,7 +506,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 10
+            "line": 12
           },
           "name": "value",
           "type": {
@@ -514,8 +514,140 @@
           }
         }
       ]
+    },
+    "@scope/jsii-calc-lib.submodule.IReflectable": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.IReflectable",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 1
+      },
+      "name": "IReflectable",
+      "namespace": "submodule",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 2
+          },
+          "name": "entries",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.submodule.ReflectableEntry"
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.submodule.ReflectableEntry": {
+      "assembly": "@scope/jsii-calc-lib",
+      "datatype": true,
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.ReflectableEntry",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 5
+      },
+      "name": "ReflectableEntry",
+      "namespace": "submodule",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 6
+          },
+          "name": "key",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 7
+          },
+          "name": "value",
+          "type": {
+            "primitive": "any"
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.submodule.Reflector": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.Reflector",
+      "initializer": {
+        "docs": {
+          "stability": "deprecated"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 10
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 13
+          },
+          "name": "asMap",
+          "parameters": [
+            {
+              "name": "reflectable",
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.submodule.IReflectable"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "primitive": "any"
+                },
+                "kind": "map"
+              }
+            }
+          }
+        }
+      ],
+      "name": "Reflector",
+      "namespace": "submodule"
     }
   },
   "version": "0.0.0",
-  "fingerprint": "7VgHmQKZ2ceAa99bmuocZRLFxQths+Sf35amRt1SZpE="
+  "fingerprint": "1/Qp+mJgrl72GzdhwIYooggqSHFpnm5EE93szTgIam0="
 }

@@ -35,7 +35,7 @@ export class Assembler implements Emitter {
 
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
-  private readonly _submodules = new Set<ts.Symbol>();
+  private readonly _submodules = new Map<ts.Symbol, SubmoduleInfos>();
 
   /**
    * @param projectInfo information about the package being assembled
@@ -104,6 +104,8 @@ export class Assembler implements Emitter {
     if (sourceFile == null) {
       this._diagnostic(null, ts.DiagnosticCategory.Error, `Could not find "main" file: ${this.mainFile}`);
     } else {
+      this._registerDependenciesNamespaces(sourceFile);
+
       if (LOG.isTraceEnabled()) {
         LOG.trace(`Processing source file: ${colors.blue(path.relative(this.projectInfo.projectRoot, sourceFile.fileName))}`);
       }
@@ -111,7 +113,7 @@ export class Assembler implements Emitter {
       if (symbol) {
         const moduleExports = this._typeChecker.getExportsOfModule(symbol);
         for (const node of moduleExports) {
-          this._registerNamespaces(node);
+          this._registerNamespaces(node, { external: false });
         }
         for (const node of moduleExports) {
           visitPromises.push(this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability)));
@@ -152,6 +154,7 @@ export class Assembler implements Emitter {
       dependencies: noEmptyDict({ ...this.projectInfo.dependencies, ...this.projectInfo.peerDependencies }),
       dependencyClosure: noEmptyDict(toDependencyClosure(this.projectInfo.dependencyClosure)),
       bundled: this.projectInfo.bundleDependencies,
+      submodules: noEmptyDict(this.submodules),
       types: this._types,
       targets: this.projectInfo.targets,
       metadata: this.projectInfo.metadata,
@@ -200,6 +203,23 @@ export class Assembler implements Emitter {
       const stability = this.projectInfo.stability;
       return { deprecated, stability };
     }
+  }
+
+  private get submodules() {
+    const result: spec.Assembly['submodules'] = {};
+
+    for (const [symbol, infos] of this._submodules.entries()) {
+      if (infos.external) { continue; } // Only internal submodules should be referenced
+
+      const nameParts = [symbol.name];
+      for (let parent = this._submoduleMap.get(symbol); parent != null; parent = this._submoduleMap.get(parent)) {
+        nameParts.unshift(parent.name);
+      }
+      const fqn = [this.projectInfo.name, ...nameParts].join('.');
+      result[fqn] = {}; // We'll support customizing this... later.
+    }
+
+    return result;
   }
 
   /**
@@ -374,12 +394,45 @@ export class Assembler implements Emitter {
     }
   }
 
-  private _registerNamespaces(symbol: ts.Symbol): void {
+  /**
+   * For all modules in the dependency closure, crawl their exports to register
+   * the submodules they contain.
+   *
+   * @param entryPoint the main source file for the currently compiled module.
+   */
+  private _registerDependenciesNamespaces(entryPoint: ts.SourceFile) {
+    for (const assm of this.projectInfo.dependencyClosure) {
+      const resolved = ts.resolveModuleName(assm.name, entryPoint.fileName, this.program.getCompilerOptions(), ts.sys);
+      // If we can't resolve the module name, simply ignore it (TypeScript compilation likely failed)
+      if (resolved.resolvedModule == null) { continue; }
+      const source = this.program.getSourceFile(resolved.resolvedModule.resolvedFileName);
+      const depMod = source && this._typeChecker.getSymbolAtLocation(source);
+      // It's unlikely, but if we can't get the SourceFile here, ignore it (TypeScript compilation probably failed)
+      if (depMod == null) { continue; }
+
+      for (const symbol of this._typeChecker.getExportsOfModule(depMod)) {
+        this._registerNamespaces(symbol, { external: true });
+      }
+    }
+  }
+
+  private _registerNamespaces(symbol: ts.Symbol, opts: SubmoduleInfos): void {
     const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
-    if (declaration == null || !ts.isNamespaceExport(declaration)) {
+    if (declaration == null) {
       // Nothing to do here...
       return;
     }
+    if (ts.isModuleDeclaration(declaration)) {
+      this._submodules.set(symbol, opts);
+      // Not actually tagging members, because this is a `namespace {}` declaration
+      // so it'll be correctly resolved from its TypeScript fully qualified name.
+      return;
+    }
+    if (!ts.isNamespaceExport(declaration)) {
+      // Nothing to do here...
+      return;
+    }
+
     const moduleSpecifier = declaration.parent.moduleSpecifier;
     if (moduleSpecifier == null || !ts.isStringLiteral(moduleSpecifier)) {
       // There is a grammar error here, so we'll let tsc report this for us.
@@ -409,8 +462,8 @@ export class Assembler implements Emitter {
         this._diagnostic(declaration, ts.DiagnosticCategory.Error,
           `Submodule namespaces must be camelCased or snake_cased. Consider renaming to "${Case.camel(symbol.name)}".`);
       }
-      this._submodules.add(symbol);
-      this._addToSubmodule(symbol, sourceModule);
+      this._submodules.set(symbol, opts);
+      this._addToSubmodule(symbol, sourceModule, opts);
     }
   }
 
@@ -422,7 +475,7 @@ export class Assembler implements Emitter {
    * @param ns         the symbol that identifies the submodule.
    * @param moduleLike the module-like symbol bound to the submodule.
    */
-  private _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol) {
+  private _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol, opts: SubmoduleInfos) {
     // For each symbol exported by the moduleLike, map it to the ns submodule.
     for (const symbol of this._typeChecker.getExportsOfModule(moduleLike)) {
       if (this._submoduleMap.has(symbol)) {
@@ -476,13 +529,14 @@ export class Assembler implements Emitter {
             this._submoduleMap.set(type.symbol, ns);
           }
           if (type.symbol.exports) {
-            this._addToSubmodule(ns, symbol);
+            this._addToSubmodule(ns, symbol, opts);
           }
         } else if (ts.isModuleDeclaration(decl)) {
-          this._addToSubmodule(ns, symbol);
+          this._addToSubmodule(ns, symbol, opts);
+          this._registerNamespaces(symbol, opts);
         } else if (ts.isNamespaceExport(decl)) {
           this._submoduleMap.set(symbol, ns);
-          this._registerNamespaces(symbol);
+          this._registerNamespaces(symbol, opts);
         }
       }
     }
@@ -548,7 +602,7 @@ export class Assembler implements Emitter {
 
     // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
     // target language separately, so names cannot collide with case-variations.
-    for (const submodule of this._submodules) {
+    for (const submodule of this._submodules.keys()) {
       const candidates = Array.from(new Set([
         submodule.name,
         Case.camel(submodule.name),
@@ -1566,6 +1620,10 @@ export class Assembler implements Emitter {
   }
 }
 
+interface SubmoduleInfos {
+  readonly external: boolean;
+}
+
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
   delete assembly.fingerprint;
   assembly = sortJson(assembly);
@@ -1782,16 +1840,16 @@ function* intersect<T>(xs: Set<T>, ys: Set<T>) {
   }
 }
 
-function noEmptyDict<T>(xs: {[key: string]: T}): {[key: string]: T} | undefined {
-  if (Object.keys(xs).length === 0) { return undefined; }
+function noEmptyDict<T>(xs: {[key: string]: T} | undefined): {[key: string]: T} | undefined {
+  if (xs == null || Object.keys(xs).length === 0) { return undefined; }
   return xs;
 }
 
-function toDependencyClosure(assemblies: readonly spec.Assembly[]): { [name: string]: spec.AssemblyConfiguration } {
-  const result: { [name: string]: spec.AssemblyTargets } = {};
+function toDependencyClosure(assemblies: readonly spec.Assembly[]): spec.Assembly['dependencyClosure'] {
+  const result: spec.Assembly['dependencyClosure'] = {};
   for (const assembly of assemblies) {
     if (!assembly.targets) { continue; }
-    result[assembly.name] = { targets: assembly.targets };
+    result[assembly.name] = { submodules: assembly.submodules, targets: assembly.targets };
   }
   return result;
 }
