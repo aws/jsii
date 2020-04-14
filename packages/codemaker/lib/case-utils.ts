@@ -1,4 +1,4 @@
-import { default as camelcase } from 'camelcase';
+import * as camelcase from 'camelcase';
 import * as decamelize from 'decamelize';
 
 const COMMON_ABBREVIATIONS = [
