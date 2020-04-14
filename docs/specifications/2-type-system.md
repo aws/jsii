@@ -400,3 +400,7 @@ document.
 
 [**JavaScript** Fundamentals]: https://javascript.info/types
 [**TypeScript** Handbook]: https://www.typescriptlang.org/docs/handbook/basic-types.html
+
+--------------------------------------------------------------------------------
+
+Continue to [Kernel API](./3-kernel-api.md)
