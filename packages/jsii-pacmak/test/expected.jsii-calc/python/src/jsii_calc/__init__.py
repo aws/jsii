@@ -41,6 +41,7 @@ import enum
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
+import scope.jsii_calc_lib.submodule
 import typing
 from .composition import (CompositeOperation as _CompositeOperation_1c4d123b)
 
