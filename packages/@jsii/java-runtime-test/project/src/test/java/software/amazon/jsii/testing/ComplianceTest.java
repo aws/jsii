@@ -3,9 +3,12 @@ package software.amazon.jsii.testing;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import software.amazon.jsii.ComplianceSuiteHarness;
 import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
+import software.amazon.jsii.ReloadingClassLoader;
 import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
@@ -16,6 +19,11 @@ import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,15 +35,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("deprecated")
+@ExtendWith(ComplianceSuiteHarness.class)
 public class ComplianceTest {
     /**
      * Verify that we can marshal and unmarshal objects without type information.
@@ -364,6 +367,7 @@ public class ComplianceTest {
      * back without type information.
      */
     @Test
+    @SuppressWarnings("deprecated")
     public void creationOfNativeObjectsFromJavaScriptObjects() {
         AllTypes types = new AllTypes();
 
@@ -586,34 +590,40 @@ public class ComplianceTest {
         assertEquals(10 * 2, obj.getCallerIsProperty());
     }
 
-    @Test(expected = JsiiException.class)
+    @Test
     public void fail_syncOverrides_callsDoubleAsync_method() {
-        try {
-            JsiiEngine.setQuietMode(true);
+        assertThrows(JsiiException.class, () -> {
+            try {
+                JsiiEngine.setQuietMode(true);
 
+                SyncOverrides obj = new SyncOverrides();
+                obj.callAsync = true;
+
+                obj.callerIsMethod();
+            } finally {
+                JsiiEngine.setQuietMode(false);
+            }
+        });
+    }
+
+    @Test
+    public void fail_syncOverrides_callsDoubleAsync_propertyGetter() {
+        assertThrows(JsiiException.class, () -> {
             SyncOverrides obj = new SyncOverrides();
             obj.callAsync = true;
 
-            obj.callerIsMethod();
-        } finally {
-            JsiiEngine.setQuietMode(false);
-        }
+            obj.getCallerIsProperty();
+        });
     }
 
-    @Test(expected = JsiiException.class)
-    public void fail_syncOverrides_callsDoubleAsync_propertyGetter() {
-        SyncOverrides obj = new SyncOverrides();
-        obj.callAsync = true;
-
-        obj.getCallerIsProperty();
-    }
-
-    @Test(expected = JsiiException.class)
+    @Test
     public void fail_syncOverrides_callsDoubleAsync_propertySetter() {
-        SyncOverrides obj = new SyncOverrides();
-        obj.callAsync = true;
+        assertThrows(JsiiException.class, () -> {
+            SyncOverrides obj = new SyncOverrides();
+            obj.callAsync = true;
 
-        obj.setCallerIsProperty(12);
+            obj.setCallerIsProperty(12);
+        });
     }
 
     @Test
@@ -903,9 +913,10 @@ public class ComplianceTest {
         assertFalse(structA.hashCode() == structC.hashCode());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void structs_containsNullChecks() {
-        new MyFirstStruct.Builder().build();
+        assertThrows(NullPointerException.class,
+                () -> new MyFirstStruct.Builder().build());
     }
 
     @Test
@@ -969,12 +980,35 @@ public class ComplianceTest {
     }
 
     @Test
-    public void consts() {
-        assertEquals("hello", Statics.FOO);
-        DoubleTrouble obj = Statics.CONST_OBJ;
-        assertEquals("world", obj.hello());
-        assertEquals(1234, Statics.BAR);
-        assertEquals("world", Statics.ZOO_BAR.get("hello"));
+    @SuppressWarnings("unchecked")
+    public void consts() throws Exception {
+        /*
+         * Here be dragons: "consts" are actually pre-fetched when the class gets loaded, and they are static final
+         * properties (so we cannot reset those). Since those tests need to run with a new Engine process, what was
+         * loaded at this point may have been loaded by an engine that was long since disposed of. So we need to
+         * actually run this code through a classloader that'll get a brand _new_ instance of the class.
+         *
+         * This whole process relies on ClassLoader black magic because I don't know a better way.
+         */
+        final Class<ConstTestRunner> reloadedClass = ReloadingClassLoader.reload(this.getClass().getClassLoader(), ConstTestRunner.class, Statics.class);
+        final Constructor<ConstTestRunner> constructor = reloadedClass.getConstructor();
+        constructor.setAccessible(true);
+
+        final Runnable runnable = constructor.newInstance();
+        runnable.run();
+    }
+
+    private static final class ConstTestRunner implements Runnable {
+        public ConstTestRunner() {}
+
+        public final void run() {
+            assertEquals("hello", Statics.FOO);
+            DoubleTrouble obj = Statics.CONST_OBJ;
+            assertEquals("world", obj.hello());
+
+            assertEquals(1234, Statics.BAR);
+            assertEquals("world", Statics.ZOO_BAR.get("hello"));
+        }
     }
 
     @Test
@@ -1226,13 +1260,13 @@ public class ComplianceTest {
         assertNotNull(EnumDispenser.randomIntegerLikeEnum());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
     public void listInClassCannotBeModified() {
         List<String> modifiableList = Arrays.asList("one", "two");
 
         ClassWithCollections classWithCollections = new ClassWithCollections(Collections.emptyMap(), modifiableList);
 
-        classWithCollections.getArray().add("three");
+        assertThrows(UnsupportedOperationException.class,
+                () -> classWithCollections.getArray().add("three"));
     }
 
     @Test
@@ -1244,14 +1278,15 @@ public class ComplianceTest {
         assertThat(classWithCollections.getArray(), contains("one", "two"));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void mapInClassCannotBeModified() {
         Map<String, String> modifiableMap = new HashMap<>();
         modifiableMap.put("key", "value");
 
         ClassWithCollections classWithCollections = new ClassWithCollections(modifiableMap, Collections.emptyList());
 
-        classWithCollections.getMap().put("keyTwo", "valueTwo");
+        assertThrows(UnsupportedOperationException.class,
+                () -> classWithCollections.getMap().put("keyTwo", "valueTwo"));
     }
 
     @Test
@@ -1266,9 +1301,10 @@ public class ComplianceTest {
         assertThat(result.size(), is(1));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void staticListInClassCannotBeModified() {
-        ClassWithCollections.getStaticArray().add("three");
+        assertThrows(UnsupportedOperationException.class,
+                () -> ClassWithCollections.getStaticArray().add("three"));
     }
 
     @Test
@@ -1276,9 +1312,10 @@ public class ComplianceTest {
         assertThat(ClassWithCollections.getStaticArray(), contains("one", "two"));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void staticMapInClassCannotBeModified() {
-        ClassWithCollections.getStaticMap().put("keyTwo", "valueTwo");
+        assertThrows(UnsupportedOperationException.class,
+                () -> ClassWithCollections.getStaticMap().put("keyTwo", "valueTwo"));
     }
 
     @Test
@@ -1289,9 +1326,10 @@ public class ComplianceTest {
         assertThat(result.size(), is(2));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void arrayReturnedByMethodCannotBeModified() {
-        ClassWithCollections.createAList().add("three");
+        assertThrows(UnsupportedOperationException.class,
+                () -> ClassWithCollections.createAList().add("three"));
     }
 
     @Test
@@ -1299,9 +1337,10 @@ public class ComplianceTest {
         assertThat(ClassWithCollections.createAList(), contains("one", "two"));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void mapReturnedByMethodCannotBeModified() {
-        ClassWithCollections.createAMap().put("keyThree", "valueThree");
+        assertThrows(UnsupportedOperationException.class,
+                () -> ClassWithCollections.createAMap().put("keyThree", "valueThree"));
     }
 
     @Test
@@ -1695,28 +1734,28 @@ public class ComplianceTest {
     @Test
     public void collectionOfInterfaces_ListOfStructs() {
         for (final Object obj : InterfaceCollections.listOfStructs()) {
-            assertTrue(obj + " is an instance of " + StructA.class.getCanonicalName(), obj instanceof StructA);
+            assertTrue(obj instanceof StructA, () -> obj + " is an instance of " + StructA.class.getCanonicalName());
         }
     }
 
     @Test
     public void collectionOfInterfaces_ListOfInterfaces() {
         for (final Object obj : InterfaceCollections.listOfInterfaces()) {
-            assertTrue(obj + " is an instance of " + IBell.class.getCanonicalName(), obj instanceof IBell);
+            assertTrue(obj instanceof IBell, () -> obj + " is an instance of " + IBell.class.getCanonicalName());
         }
     }
 
     @Test
     public void collectionOfInterfaces_MapOfStructs() {
         for (final Object obj : InterfaceCollections.mapOfStructs().values()) {
-            assertTrue(obj + " is an instance of " + StructA.class.getCanonicalName(), obj instanceof StructA);
+            assertTrue(obj instanceof StructA, () -> obj + " is an instance of " + StructA.class.getCanonicalName());
         }
     }
 
     @Test
     public void collectionOfInterfaces_MapOfInterfaces() {
         for (final Object obj : InterfaceCollections.mapOfInterfaces().values()) {
-            assertTrue(obj + " is an instance of " + IBell.class.getCanonicalName(), obj instanceof IBell);
+            assertTrue(obj instanceof IBell, () -> obj + " is an instance of " + IBell.class.getCanonicalName());
         }
     }
 }

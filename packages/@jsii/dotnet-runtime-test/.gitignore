@@ -7,6 +7,9 @@ test/Directory.Build.props
 # consumed by generate.sh
 !*.t.js
 
+# Result of tests (xUnit format)
+TestResults.xml
+
 *.nupkg
 bin/
 cli/
