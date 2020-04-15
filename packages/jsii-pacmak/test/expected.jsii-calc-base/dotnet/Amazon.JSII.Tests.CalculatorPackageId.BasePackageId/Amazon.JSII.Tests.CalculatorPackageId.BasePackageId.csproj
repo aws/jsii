@@ -26,7 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Runtime" Version="[0.0.0,0.0.1)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[0.0.0,0.0.1)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="[0.0.0,0.0.1-0)" />
   </ItemGroup>
   <PropertyGroup>
     <NoWarn>0612,0618</NoWarn>
