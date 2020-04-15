@@ -45,6 +45,7 @@
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
+        "go": {},
         "java": {
           "maven": {
             "artifactId": "calculator-base",
@@ -67,6 +68,7 @@
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
+        "go": {},
         "java": {
           "maven": {
             "artifactId": "calculator-base-of-base",
@@ -90,6 +92,7 @@
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
           "versionSuffix": "-devpreview"
         },
+        "go": {},
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
@@ -143,6 +146,7 @@
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace",
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId"
     },
+    "go": {},
     "java": {
       "maven": {
         "artifactId": "calculator",
@@ -12442,5 +12446,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "XNjL7+hJ5KwFtBCVEz4TZH4c2JtVW/gTPS7UNrw02Cg="
+  "fingerprint": "S5j1ruyHKCiGccVmj8rlIRMN+kEFLfMOauyhoICl1V4="
 }

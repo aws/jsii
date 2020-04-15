@@ -12,40 +12,45 @@ import { VERSION_DESC } from './version';
  */
 export interface GeneratorOptions {
   /**
-     * If this property is set to 'true', union properties are "expanded" into multiple
-     * properties, each with a different type and a postfix based on the type name. This
-     * can be used by languages that don't have support for union types (e.g. Java).
-     */
+   * If this property is set to 'true', union properties are "expanded" into multiple
+   * properties, each with a different type and a postfix based on the type name. This
+   * can be used by languages that don't have support for union types (e.g. Java).
+   */
   expandUnionProperties?: boolean;
 
   /**
-     * If this property is set to 'true', methods that have optional arguments are duplicated
-     * and overloads are created with all parameters.
-     */
+   * If this property is set to 'true', methods that have optional arguments are duplicated
+   * and overloads are created with all parameters.
+   */
   generateOverloadsForMethodWithOptionals?: boolean;
 
   /**
-     * If this property is set, the generator will add "Base" to abstract class names
-     */
+   * If this property is set, the generator will add "Base" to abstract class names
+   */
   addBasePostfixToAbstractClassNames?: boolean;
 }
 
 export interface IGenerator {
+  /**
+   *
+   * @param fingerprint
+   */
   generate(fingerprint: boolean): void;
 
   /**
-     * Load a module into the generator.
-     * @param packageDir is the root directory of the module.
-     */
-  load(packageDir: string, assembly: reflect.Assembly): Promise<void>;
+   * Load a module into the generator.
+   * @param packageDir is the root directory of the module.
+   * @param assembly   a jsii-reflect Assembly
+   */
+  load(packageDir: string, assembly: reflect.Assembly): Promise<void> | void;
 
   /**
-     * Determine if the generated artifacts for this generator are already up-to-date.
-     * @param outDir the directory where generated artifacts would be placed.
-     * @return ``true`` if no generation is necessary
-     */
-  upToDate(outDir: string): Promise<boolean>;
-  save(outdir: string, tarball: string): Promise<any>;
+   * Determine if the generated artifacts for this generator are already up-to-date.
+   * @param outDir the directory where generated artifacts would be placed.
+   * @return ``true`` if no generation is necessary
+   */
+  upToDate(outDir: string): Promise<boolean> | boolean;
+  save(outdir: string, tarball: string): Promise<any> | any;
 }
 
 /**
