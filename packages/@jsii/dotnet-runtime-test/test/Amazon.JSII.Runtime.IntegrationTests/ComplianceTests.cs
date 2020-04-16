@@ -18,7 +18,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
     /// <summary>
     /// Ported from packages/jsii-java-runtime/src/test/java/org/jsii/testing/ComplianceTest.java.
     /// </summary>
-    public sealed class ComplianceTests : IClassFixture<ServiceContainerFixture>
+    public sealed class ComplianceTests : IClassFixture<ServiceContainerFixture>, IDisposable
     {
         class RuntimeException : Exception
         {
@@ -33,9 +33,17 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
         const string Prefix = nameof(IntegrationTests) + ".Compliance.";
 
+        private readonly IDisposable _serviceContainerFixture;
+        
         public ComplianceTests(ITestOutputHelper outputHelper, ServiceContainerFixture serviceContainerFixture)
         {
             serviceContainerFixture.SetOverride(outputHelper);
+            _serviceContainerFixture = serviceContainerFixture;
+        }
+
+        void IDisposable.Dispose()
+        {
+            _serviceContainerFixture.Dispose();
         }
 
         [Fact(DisplayName = Prefix + nameof(PrimitiveTypes))]

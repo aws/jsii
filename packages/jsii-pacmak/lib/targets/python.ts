@@ -756,7 +756,7 @@ class Struct extends BasePythonClassType {
 
     const constructorArguments = kwargs.length > 0 ? ['self', '*', ...kwargs] : ['self'];
 
-    code.openBlock(`def __init__(${constructorArguments.join(', ')})`);
+    code.openBlock(`def __init__(${constructorArguments.join(', ')}) -> None`);
     this.emitConstructorDocstring(code);
 
     // Re-type struct arguments that were passed as "dict"
@@ -1085,7 +1085,7 @@ class EnumMember implements PythonBase {
 interface ModuleOpts {
   assembly: spec.Assembly;
   assemblyFilename: string;
-  loadAssembly: boolean;
+  loadAssembly?: boolean;
   package?: Package;
 }
 
@@ -1103,7 +1103,7 @@ class PythonModule implements PythonType {
   ) {
     this.assembly = opts.assembly;
     this.assemblyFilename = opts.assemblyFilename;
-    this.loadAssembly = opts.loadAssembly;
+    this.loadAssembly = !!opts.loadAssembly;
     this.package = opts.package;
   }
 
@@ -1148,10 +1148,18 @@ class PythonModule implements PythonType {
       const params = [
         `"${this.assembly.name}"`,
         `"${this.assembly.version}"`,
-        `"${this.assembly.targets!.python!.module}"`,
+        '__name__[0:-6]', // Removing the "._jsii" from the tail!
         `"${this.assemblyFilename}"`,
       ];
       code.line(`__jsii_assembly__ = jsii.JSIIAssembly.load(${params.join(', ')})`);
+    } else {
+      // Then we must import the ._jsii subpackage.
+      code.line();
+      let distanceFromRoot = 0;
+      for (let curr = this.fqn!; curr !== this.assembly.name; curr = curr.substring(0, curr.lastIndexOf('.'))) {
+        distanceFromRoot++;
+      }
+      code.line(`from ${'.'.repeat(distanceFromRoot + 1)}_jsii import *`);
     }
 
     code.line();
@@ -1169,7 +1177,14 @@ class PythonModule implements PythonType {
     if (this.loadAssembly) {
       exportedMembers.push('"__jsii_assembly__"');
     }
-    code.line(`__all__ = [${exportedMembers.sort().join(', ')}]`);
+
+    // Declare the list of "public" members this module exports
+    code.indent('__all__ = [');
+    for (const member of exportedMembers.sort()) {
+      // Writing one by line might be _a lot_ of lines, but it'll make reviewing changes to the list easier. Trust me.
+      code.line(`${member},`);
+    }
+    code.unindent(']');
 
     // Finally, we'll use publication to ensure that all of the non-public names
     // get hidden from dir(), tab-complete, etc.
@@ -1602,7 +1617,7 @@ class TypeResolver {
     const elementPythonType = this.toPythonType(ref.collection.elementtype, { optional: false });
     switch (ref.collection.kind) {
       case spec.CollectionKind.Array: return `typing.List[${elementPythonType}]`;
-      case spec.CollectionKind.Map: return `typing.Mapping[str,${elementPythonType}]`;
+      case spec.CollectionKind.Map: return `typing.Mapping[str, ${elementPythonType}]`;
       default:
         throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
     }
@@ -1785,7 +1800,7 @@ class PythonGenerator extends Generator {
       {
         assembly: assm,
         assemblyFilename: this.getAssemblyFileName(),
-        loadAssembly: false,
+        loadAssembly: true,
         package: this.package,
       },
     );
@@ -1815,7 +1830,6 @@ class PythonGenerator extends Generator {
       {
         assembly: this.assembly,
         assemblyFilename: this.getAssemblyFileName(),
-        loadAssembly: true,
         package: this.package,
       }
     );

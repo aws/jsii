@@ -37,6 +37,7 @@ namespace Amazon.JSII.Runtime.Deputy
         protected DeputyBase(DeputyProps? props = null)
         {
             var type = GetType();
+            JsiiTypeAttributeBase.Load(type.Assembly);
 
             // If this is a native object, it won't have any jsii metadata.
             var attribute = ReflectionUtils.GetClassAttribute(type);
@@ -125,6 +126,8 @@ namespace Amazon.JSII.Runtime.Deputy
             type = type ?? throw new ArgumentNullException(nameof(type));
             propertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
 
+            JsiiTypeAttributeBase.Load(type.Assembly);
+            
             var classAttribute = ReflectionUtils.GetClassAttribute(type)!;
             var propertyAttribute = GetStaticPropertyAttribute(type, propertyName);
 
@@ -174,6 +177,8 @@ namespace Amazon.JSII.Runtime.Deputy
             type = type ?? throw new ArgumentNullException(nameof(type));
             propertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
 
+            JsiiTypeAttributeBase.Load(type.Assembly);
+            
             var classAttribute = ReflectionUtils.GetClassAttribute(type)!;
             var propertyAttribute = GetStaticPropertyAttribute(type, propertyName);
 
@@ -228,6 +233,8 @@ namespace Amazon.JSII.Runtime.Deputy
         [return: MaybeNull]
         protected static T InvokeStaticMethod<T>(System.Type type, System.Type[] parameterTypes, object[] arguments, [CallerMemberName] string methodName = "")
         {
+            JsiiTypeAttributeBase.Load(type.Assembly);
+            
             var methodAttribute = GetStaticMethodAttribute(type, methodName, parameterTypes);
             var classAttribute = ReflectionUtils.GetClassAttribute(type)!;
 

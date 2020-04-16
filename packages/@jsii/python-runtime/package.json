@@ -23,7 +23,7 @@
   "main": "index.js",
   "scripts": {
     "generate": "python3 bin/generate",
-    "deps": "python3 -m venv .env && .env/bin/pip install pip==19.0.1 setuptools==40.7.0 wheel==0.32.3 && .env/bin/pip install -r requirements.txt",
+    "deps": "python3 -m venv .env && .env/bin/pip install pip~=20.0.2 setuptools~=46.1.3 wheel~=0.34.2 && .env/bin/pip install -r requirements.txt",
     "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps && .env/bin/python setup.py sdist -d . bdist_wheel -d . && rm -rf build",
     "package": "package-python",
     "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy",
