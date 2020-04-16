@@ -1,5 +1,8 @@
 import abc
 import builtins
+import datetime
+import enum
+import typing
 
 import jsii
 import jsii.compat
@@ -7,9 +10,7 @@ import publication
 
 from .._jsii import *
 
-import enum
 import scope.jsii_calc_lib
-import typing
 
 
 class CompositeOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.composition.CompositeOperation"):

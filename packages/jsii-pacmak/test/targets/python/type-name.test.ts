@@ -1,5 +1,5 @@
 import { Assembly, SchemaVersion, TypeReference, PrimitiveType, CollectionKind } from '@jsii/spec';
-import { toTypeName, NamingContext, PythonImports, mergePythonImports } from '../../../lib/targets/python/type-name';
+import { toTypeName, NamingContext, PythonImports } from '../../../lib/targets/python/type-name';
 
 const BORING_TYPE = 'BoringClass';
 const NESTED_TYPE = 'NestedType';
@@ -79,7 +79,6 @@ describe(toTypeName, () => {
       name: 'Primitive: Date',
       input: { primitive: PrimitiveType.Date },
       pythonType: 'datetime.datetime',
-      requiredImports: { datetime: new Set(['']) },
     },
     {
       name: 'Primitive: Number',
@@ -95,34 +94,29 @@ describe(toTypeName, () => {
       name: 'Primitive: JSON',
       input: { primitive: PrimitiveType.Json },
       pythonType: 'typing.Mapping[typing.Any, typing.Any]',
-      requiredImports: { typing: new Set(['']) },
     },
     {
       name: 'Primitive: Any',
       input: { primitive: PrimitiveType.Any },
       pythonType: 'typing.Any',
       optionalPythonType: 'typing.Any',
-      requiredImports: { typing: new Set(['']) },
     },
     // ############################## COLLECTIONS ##############################
     {
       name: 'Array',
       input: { collection: { kind: CollectionKind.Array, elementtype: { primitive: PrimitiveType.String } } },
       pythonType: 'typing.List[str]',
-      requiredImports: { typing: new Set(['']) },
     },
     {
       name: 'Map',
       input: { collection: { kind: CollectionKind.Map, elementtype: { primitive: PrimitiveType.String } } },
       pythonType: 'typing.Mapping[str, str]',
-      requiredImports: { typing: new Set(['']) },
     },
     // ############################## TYPE UNIONS ##############################
     {
       name: 'Union',
       input: { union: { types: [{ primitive: PrimitiveType.String }, { primitive: PrimitiveType.Number }] } },
       pythonType: 'typing.Union[str, jsii.Number]',
-      requiredImports: { typing: new Set(['']) },
     },
     // ############################### USER TYPES ##############################
     {
@@ -206,8 +200,7 @@ describe(toTypeName, () => {
       });
 
       test('typeName.requiredImports(context)', () => {
-        expect(typeName.requiredImports(context))
-          .toEqual(mergePythonImports(example.requiredImports ?? {}, { typing: new Set(['']) }));
+        expect(typeName.requiredImports(context)).toEqual(example.requiredImports ?? {});
       });
     });
   }

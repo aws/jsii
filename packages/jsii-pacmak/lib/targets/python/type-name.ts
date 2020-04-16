@@ -11,11 +11,6 @@ import { createHash } from 'crypto';
 import { die, toPythonIdentifier } from './util';
 import { toSnakeCase } from 'codemaker';
 
-/** The marker to import a complete package. */
-const IMPORT_ALL = new Set<string>(['']);
-/** The necessary block to emit "import typing" */
-const TYPING_ALL: PythonImports = { typing: IMPORT_ALL };
-
 export interface TypeName {
   pythonType(context: NamingContext): string;
   requiredImports(context: NamingContext): PythonImports;
@@ -122,7 +117,7 @@ class Dict implements TypeName {
   }
 
   public requiredImports(context: NamingContext) {
-    return mergePythonImports(this.#element.requiredImports(context), TYPING_ALL);
+    return this.#element.requiredImports(context);
   }
 }
 
@@ -139,7 +134,7 @@ class List implements TypeName {
   }
 
   public requiredImports(context: NamingContext) {
-    return mergePythonImports(this.#element.requiredImports(context), TYPING_ALL);
+    return this.#element.requiredImports(context);
   }
 }
 
@@ -160,23 +155,19 @@ class Optional implements TypeName {
   }
 
   public requiredImports(context: NamingContext) {
-    const wrapped = this.#wrapped.requiredImports({ ...context, ignoreOptional: true });
-    if (context.ignoreOptional) {
-      return wrapped;
-    }
-    return mergePythonImports(wrapped, TYPING_ALL);
+    return this.#wrapped.requiredImports({ ...context, ignoreOptional: true });
   }
 }
 
 class Primitive implements TypeName {
-  private static readonly BOOL = new Primitive('bool', {});
-  private static readonly DATE = new Primitive('datetime.datetime', { 'datetime': IMPORT_ALL });
-  private static readonly JSII_NUMBER = new Primitive('jsii.Number', {}); // "jsii" is always already imported!
-  private static readonly STR = new Primitive('str', {});
-  private static readonly JSON = new Primitive('typing.Mapping[typing.Any, typing.Any]', { 'typing': IMPORT_ALL });
+  private static readonly BOOL = new Primitive('bool');
+  private static readonly DATE = new Primitive('datetime.datetime');
+  private static readonly JSII_NUMBER = new Primitive('jsii.Number'); // "jsii" is always already imported!
+  private static readonly STR = new Primitive('str');
+  private static readonly JSON = new Primitive('typing.Mapping[typing.Any, typing.Any]');
 
-  public static readonly ANY = new Primitive('typing.Any', { 'typing': IMPORT_ALL });
-  public static readonly NONE = new Primitive('None', {});
+  public static readonly ANY = new Primitive('typing.Any');
+  public static readonly NONE = new Primitive('None');
 
   public static of(type: PrimitiveTypeReference): TypeName {
     switch (type.primitive) {
@@ -198,12 +189,9 @@ class Primitive implements TypeName {
 
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   readonly #pythonType: string;
-  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  readonly #requiredImports: PythonImports;
 
-  private constructor(pythonType: string, requiredImports: PythonImports) {
+  private constructor(pythonType: string) {
     this.#pythonType = pythonType;
-    this.#requiredImports = requiredImports;
   }
 
   public pythonType() {
@@ -211,7 +199,7 @@ class Primitive implements TypeName {
   }
 
   public requiredImports() {
-    return this.#requiredImports;
+    return {};
   }
 }
 
@@ -230,7 +218,6 @@ class Union implements TypeName {
   public requiredImports(context: NamingContext) {
     return mergePythonImports(
       ...this.#options.map(o => o.requiredImports(context)),
-      TYPING_ALL,
     );
   }
 }

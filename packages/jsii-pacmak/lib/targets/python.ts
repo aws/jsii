@@ -997,10 +997,7 @@ class Enum extends BasePythonClassType {
   }
 
   public requiredImports(context: EmitContext): PythonImports {
-    return mergePythonImports(
-      super.requiredImports(context),
-      { 'enum': new Set(['']) }
-    );
+    return super.requiredImports(context);
   }
 }
 
@@ -1073,6 +1070,9 @@ class PythonModule implements PythonType {
     // is where we handle stuff like imports, any required initialization, etc.
     code.line('import abc');
     code.line('import builtins');
+    code.line('import datetime');
+    code.line('import enum');
+    code.line('import typing');
     code.line();
     code.line('import jsii');
     code.line('import jsii.compat');
