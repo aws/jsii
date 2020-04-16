@@ -514,8 +514,140 @@
           }
         }
       ]
+    },
+    "@scope/jsii-calc-lib.submodule.IReflectable": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.IReflectable",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 1
+      },
+      "name": "IReflectable",
+      "namespace": "submodule",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 2
+          },
+          "name": "entries",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.submodule.ReflectableEntry"
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.submodule.ReflectableEntry": {
+      "assembly": "@scope/jsii-calc-lib",
+      "datatype": true,
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.ReflectableEntry",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 5
+      },
+      "name": "ReflectableEntry",
+      "namespace": "submodule",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 6
+          },
+          "name": "key",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 7
+          },
+          "name": "value",
+          "type": {
+            "primitive": "any"
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.submodule.Reflector": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated"
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.Reflector",
+      "initializer": {
+        "docs": {
+          "stability": "deprecated"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 10
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 13
+          },
+          "name": "asMap",
+          "parameters": [
+            {
+              "name": "reflectable",
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.submodule.IReflectable"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "primitive": "any"
+                },
+                "kind": "map"
+              }
+            }
+          }
+        }
+      ],
+      "name": "Reflector",
+      "namespace": "submodule"
     }
   },
   "version": "0.0.0",
-  "fingerprint": "7VgHmQKZ2ceAa99bmuocZRLFxQths+Sf35amRt1SZpE="
+  "fingerprint": "e9GUYpBp7cvKOpwDNgQrUoC8Ai/ez7luGrf0+UxAmMk="
 }

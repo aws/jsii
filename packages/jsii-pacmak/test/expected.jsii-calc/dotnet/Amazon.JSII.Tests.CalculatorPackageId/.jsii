@@ -11463,6 +11463,79 @@
         }
       ]
     },
+    "jsii-calc.UpcasingReflectable": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Ensures submodule-imported types from dependencies can be used correctly."
+      },
+      "fqn": "jsii-calc.UpcasingReflectable",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "delegate",
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "primitive": "any"
+                },
+                "kind": "map"
+              }
+            }
+          }
+        ]
+      },
+      "interfaces": [
+        "@scope/jsii-calc-lib.submodule.IReflectable"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodules.ts",
+        "line": 6
+      },
+      "name": "UpcasingReflectable",
+      "properties": [
+        {
+          "const": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodules.ts",
+            "line": 7
+          },
+          "name": "reflector",
+          "static": true,
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.submodule.Reflector"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodules.ts",
+            "line": 11
+          },
+          "name": "entries",
+          "overrides": "@scope/jsii-calc-lib.submodule.IReflectable",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.submodule.ReflectableEntry"
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.UseBundledDependency": {
       "assembly": "jsii-calc",
       "docs": {
@@ -12442,5 +12515,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "XNjL7+hJ5KwFtBCVEz4TZH4c2JtVW/gTPS7UNrw02Cg="
+  "fingerprint": "Dtqi9hvNQJhZumJMY+Ttifsc34vRZW8tCZpizTkED1s="
 }

@@ -197,6 +197,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.TopLevelStruct": return software.amazon.jsii.tests.calculator.TopLevelStruct.class;
             case "jsii-calc.UnaryOperation": return software.amazon.jsii.tests.calculator.UnaryOperation.class;
             case "jsii-calc.UnionProperties": return software.amazon.jsii.tests.calculator.UnionProperties.class;
+            case "jsii-calc.UpcasingReflectable": return software.amazon.jsii.tests.calculator.UpcasingReflectable.class;
             case "jsii-calc.UseBundledDependency": return software.amazon.jsii.tests.calculator.UseBundledDependency.class;
             case "jsii-calc.UseCalcBase": return software.amazon.jsii.tests.calculator.UseCalcBase.class;
             case "jsii-calc.UsesInterfaceWithProperties": return software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties.class;

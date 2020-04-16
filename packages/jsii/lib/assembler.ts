@@ -104,6 +104,8 @@ export class Assembler implements Emitter {
     if (sourceFile == null) {
       this._diagnostic(null, ts.DiagnosticCategory.Error, `Could not find "main" file: ${this.mainFile}`);
     } else {
+      this._registerDependenciesNamespaces(sourceFile);
+
       if (LOG.isTraceEnabled()) {
         LOG.trace(`Processing source file: ${colors.blue(path.relative(this.projectInfo.projectRoot, sourceFile.fileName))}`);
       }
@@ -374,12 +376,45 @@ export class Assembler implements Emitter {
     }
   }
 
+  /**
+   * For all modules in the dependency closure, crawl their exports to register
+   * the submodules they contain.
+   *
+   * @param entryPoint the main source file for the currently compiled module.
+   */
+  private _registerDependenciesNamespaces(entryPoint: ts.SourceFile) {
+    for (const assm of this.projectInfo.dependencyClosure) {
+      const resolved = ts.resolveModuleName(assm.name, entryPoint.fileName, this.program.getCompilerOptions(), ts.sys);
+      // If we can't resolve the module name, simply ignore it (TypeScript compilation likely failed)
+      if (resolved.resolvedModule == null) { continue; }
+      const source = this.program.getSourceFile(resolved.resolvedModule.resolvedFileName);
+      const depMod = source && this._typeChecker.getSymbolAtLocation(source);
+      // It's unlikely, but if we can't get the SourceFile here, ignore it (TypeScript compilation probably failed)
+      if (depMod == null) { continue; }
+
+      for (const symbol of this._typeChecker.getExportsOfModule(depMod)) {
+        this._registerNamespaces(symbol);
+      }
+    }
+  }
+
   private _registerNamespaces(symbol: ts.Symbol): void {
     const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
-    if (declaration == null || !ts.isNamespaceExport(declaration)) {
+    if (declaration == null) {
       // Nothing to do here...
       return;
     }
+    if (ts.isModuleDeclaration(declaration)) {
+      this._submodules.add(symbol);
+      // Not actually tagging members, because this is a `namespace {}` declaration
+      // so it'll be correctly resolved from its TypeScript fully qualified name.
+      return;
+    }
+    if (!ts.isNamespaceExport(declaration)) {
+      // Nothing to do here...
+      return;
+    }
+
     const moduleSpecifier = declaration.parent.moduleSpecifier;
     if (moduleSpecifier == null || !ts.isStringLiteral(moduleSpecifier)) {
       // There is a grammar error here, so we'll let tsc report this for us.
@@ -480,6 +515,7 @@ export class Assembler implements Emitter {
           }
         } else if (ts.isModuleDeclaration(decl)) {
           this._addToSubmodule(ns, symbol);
+          this._registerNamespaces(symbol);
         } else if (ts.isNamespaceExport(decl)) {
           this._submoduleMap.set(symbol, ns);
           this._registerNamespaces(symbol);

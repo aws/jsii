@@ -108,3 +108,5 @@ export enum EnumFromScopedModule {
 export interface IThreeLevelsInterface extends base.IBaseInterface {
     baz(): void;
 }
+
+export * as submodule from './submodule';
