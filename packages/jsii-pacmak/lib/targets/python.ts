@@ -756,7 +756,7 @@ class Struct extends BasePythonClassType {
 
     const constructorArguments = kwargs.length > 0 ? ['self', '*', ...kwargs] : ['self'];
 
-    code.openBlock(`def __init__(${constructorArguments.join(', ')})`);
+    code.openBlock(`def __init__(${constructorArguments.join(', ')}) -> None`);
     this.emitConstructorDocstring(code);
 
     // Re-type struct arguments that were passed as "dict"
@@ -1610,7 +1610,7 @@ class TypeResolver {
     const elementPythonType = this.toPythonType(ref.collection.elementtype, { optional: false });
     switch (ref.collection.kind) {
       case spec.CollectionKind.Array: return `typing.List[${elementPythonType}]`;
-      case spec.CollectionKind.Map: return `typing.Mapping[str,${elementPythonType}]`;
+      case spec.CollectionKind.Map: return `typing.Mapping[str, ${elementPythonType}]`;
       default:
         throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
     }
