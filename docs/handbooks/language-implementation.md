@@ -70,7 +70,7 @@ to track learnings accumulated through the implementation process, as those will
 be tracked as comments or iterations on the RFC document.
 
 It is possible (and sometimes desirable) to start prototyping code-generation
-for the new language, as this can hlighlight implementation challenges that need
+for the new language, as this can highlight implementation challenges that need
 to be discussed in the RFC document. In any case, examples of the API signatures
 that are expected to be rendered allow early feedback to be provided by possible
 future users, and still helps identify challenges.
@@ -105,10 +105,10 @@ to avoid surprises later on that result in significant re-engineering effort:
 ## Code Generation
 
 First, implement a first version of the code generation for the new language
-before getting to far into the *[host library](#host-library)* implementation.
+before getting too far into the *[host library](#host-library)* implementation.
 This top-down approach ensures the requirements for the lower level parts of
-the implementation are well defined before they're implemented (reducing the
-chances significant re-work has to be done), and enables using the [Standard
+the implementation are well-defined before they are implemented (reducing the
+chances that significant re-work has to be done), and enables using the [Standard
 Compliance Suite] to ensure the overall implementation is *correct* according
 to the [specification] (since the code necessary to implement the test cases
 will be available right from the start).
@@ -116,10 +116,10 @@ will be available right from the start).
 This work happens within the [`jsii-pacmak`] package.
 
 Focus initially on the API signatures before getting into their implementation.
-The first version may even thrw a *not implemented* exception when called.
+The first version may even throw a *not implemented* exception when called.
 
 The [`jsii-calc`] package, can be used as a sample consuming library which uses
-*jsii* to generate code in all traget languages. Start by making sure a decent
+*jsii* to generate code in all target languages. Start by making sure a decent
 API is generated from this package and its dependencies, and use those to
 implement the tests from the [Standard Compliance Suite]. You'll also get a
 feeling for whether the generated code achieves a good developer experience or
@@ -129,7 +129,7 @@ not.
 
 Now that we are generating "empty shell" APIs that represent the necessary
 entities to back the [Standard Compliance Suite] tests, start implementing the
-*host library* and update the code generator until all the tests pass. It's
+*host library* and update the code generator until all the tests pass. It is
 possible to publish artifacts even when tests in the suite are failing. As soon
 as basic features are working, work on [Building and
 Packaging](#building-and-packaging) can start, so early feedback can be
@@ -138,7 +138,7 @@ gathered.
 > :construction: A standard architecture for the *host library* has not been
 > documented yet. Upcoming language implementations should contribute to this
 > process by documenting a general architecture that should be implementable
-> in any programming languages (and thus, asbtracting away language
+> in any programming languages (and thus, abstracting away language
 > specificities).
 
 ## Building & Packaging
@@ -194,21 +194,21 @@ with varied degrees of experience with the new language.
 
 ## General Availability
 
-Once the new language has been in *Developer Preview* wihout any significant
-usability issue or bug for long enough, and is used in real-world use-cases such
-as for [AWS CDK] applications, it becomes candidate to be declared *Generally
-Available*. At this point, breaking changes are no longer possible on the
-generated code.
+Once the new language has been in *Developer Preview* without any significant
+usability issues or bugs for a sufficient amount of time and is used in
+real-world use-cases such as for [AWS CDK] applications, it becomes a candidate
+to be declared *Generally Available*. At this point, breaking changes are no
+longer possible on the generated code.
 
 <!-- ######################### External References ######################### -->
 [jsii type system]: ../specifications/2-type-system.md
 [specification]: ../specifications/1-introduction.md
-[New Language Intake]: ../specification/5-new-language-intake.md
+[New Language Intake]: ../specifications/5-new-language-intake.md
 [CDK RFC repository]: https://github.com/awslabs/aws-cdk-rfcs#readme
 [`jsii`]: ../../packages/jsii
 [`jsii-calc`]: ../../packages/jsii-calc
 [`jsii-config`]: ../../packages/jsii-config
-[`jsii-pacmak`]: ../../packgages/jsii-pacmak
+[`jsii-pacmak`]: ../../packages/jsii-pacmak
 [`jsii-rosetta`]: ../../packages/jsii-rosetta
 [Standard Compliance Suite]: ../specifications/4-standard-compliance-suite.md
 [`jsii/superchain`]: ../../superchain
