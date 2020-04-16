@@ -17,7 +17,7 @@ from .._jsii import *
 
 @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceOnlyInterface.Hello", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
 class Hello():
-    def __init__(self, *, foo: jsii.Number):
+    def __init__(self, *, foo: jsii.Number) -> None:
         """
         :param foo: 
 

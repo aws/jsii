@@ -39,7 +39,7 @@ class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncl
 
 @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Hello", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
 class Hello():
-    def __init__(self, *, foo: jsii.Number):
+    def __init__(self, *, foo: jsii.Number) -> None:
         """
         :param foo: 
 
