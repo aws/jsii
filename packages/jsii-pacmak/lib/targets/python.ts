@@ -1177,7 +1177,14 @@ class PythonModule implements PythonType {
     if (this.loadAssembly) {
       exportedMembers.push('"__jsii_assembly__"');
     }
-    code.line(`__all__ = [${exportedMembers.sort().join(', ')}]`);
+
+    // Declare the list of "public" members this module exports
+    code.indent('__all__ = [');
+    for (const member of exportedMembers.sort()) {
+      // Writing one by line might be _a lot_ of lines, but it'll make reviewing changes to the list easier. Trust me.
+      code.line(`${member},`);
+    }
+    code.unindent(']');
 
     // Finally, we'll use publication to ensure that all of the non-public names
     // get hidden from dir(), tab-complete, etc.

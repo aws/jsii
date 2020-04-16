@@ -82,6 +82,10 @@ class _IBaseInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base_of_base.IVeryBase
         return jsii.invoke(self, "bar", [])
 
 
-__all__ = ["Base", "BaseProps", "IBaseInterface"]
+__all__ = [
+    "Base",
+    "BaseProps",
+    "IBaseInterface",
+]
 
 publication.publish()

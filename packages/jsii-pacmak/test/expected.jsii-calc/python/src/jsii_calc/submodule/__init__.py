@@ -71,6 +71,8 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         jsii.set(self, "allTypes", value)
 
 
-__all__ = ["MyClass"]
+__all__ = [
+    "MyClass",
+]
 
 publication.publish()
