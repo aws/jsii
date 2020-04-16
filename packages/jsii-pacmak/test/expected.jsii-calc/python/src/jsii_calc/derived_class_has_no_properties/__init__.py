@@ -46,6 +46,9 @@ class Derived(jsii_calc.DerivedClassHasNoProperties.Base, metaclass=jsii.JSIIMet
         jsii.create(jsii_calc.DerivedClassHasNoProperties.Derived, self, [])
 
 
-__all__ = ["Base", "Derived"]
+__all__ = [
+    "Base",
+    "Derived",
+]
 
 publication.publish()

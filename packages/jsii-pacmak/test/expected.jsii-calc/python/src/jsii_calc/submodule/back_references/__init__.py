@@ -17,7 +17,7 @@ from ..._jsii import *
 
 @jsii.data_type(jsii_type="jsii-calc.submodule.back_references.MyClassReference", jsii_struct_bases=[], name_mapping={'reference': 'reference'})
 class MyClassReference():
-    def __init__(self, *, reference: jsii_calc.submodule.MyClass):
+    def __init__(self, *, reference: jsii_calc.submodule.MyClass) -> None:
         """
         :param reference: 
 
@@ -46,6 +46,8 @@ class MyClassReference():
         return 'MyClassReference(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["MyClassReference"]
+__all__ = [
+    "MyClassReference",
+]
 
 publication.publish()

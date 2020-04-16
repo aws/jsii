@@ -17,7 +17,7 @@ from .._jsii import *
 
 @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceOnlyInterface.Hello", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
 class Hello():
-    def __init__(self, *, foo: jsii.Number):
+    def __init__(self, *, foo: jsii.Number) -> None:
         """
         :param foo: 
 
@@ -46,6 +46,8 @@ class Hello():
         return 'Hello(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["Hello"]
+__all__ = [
+    "Hello",
+]
 
 publication.publish()

@@ -57,6 +57,8 @@ class _NamespacedProxy(Namespaced):
         return jsii.get(self, "goodness")
 
 
-__all__ = ["Namespaced"]
+__all__ = [
+    "Namespaced",
+]
 
 publication.publish()
