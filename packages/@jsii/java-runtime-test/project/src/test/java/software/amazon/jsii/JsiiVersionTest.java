@@ -1,9 +1,8 @@
 package software.amazon.jsii;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static software.amazon.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
 
 public final class JsiiVersionTest {
@@ -15,19 +14,22 @@ public final class JsiiVersionTest {
         JsiiRuntime.assertVersionCompatible("0.7.0+cdfe0", "0.7.0+abcd111");
     }
 
-    @Test(expected = JsiiException.class)
+    @Test
     public void incompatibleVersions_1() {
-        JsiiRuntime.assertVersionCompatible("0.7.0", "0.7.1");
+        assertThrows(JsiiException.class,
+                () -> JsiiRuntime.assertVersionCompatible("0.7.0", "0.7.1"));
     }
 
-    @Test(expected = JsiiException.class)
+    @Test
     public void incompatibleVersions_2() {
-        JsiiRuntime.assertVersionCompatible("0.7.0", "0.7");
+        assertThrows(JsiiException.class,
+                () -> JsiiRuntime.assertVersionCompatible("0.7.0", "0.7"));
     }
 
-    @Test(expected = JsiiException.class)
+    @Test
     public void incompatibleVersions_3() {
-        JsiiRuntime.assertVersionCompatible("0.7.0+abcd", "1.2.0+abcd");
+        assertThrows(JsiiException.class,
+                () -> JsiiRuntime.assertVersionCompatible("0.7.0+abcd", "1.2.0+abcd"));
     }
 
     @Test

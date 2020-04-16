@@ -118,7 +118,7 @@ class Dict implements TypeName {
   }
 
   public pythonType(context: NamingContext) {
-    return `typing.Mapping[str,${this.#element.pythonType(context)}]`;
+    return `typing.Mapping[str, ${this.#element.pythonType(context)}]`;
   }
 
   public requiredImports(context: NamingContext) {

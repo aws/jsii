@@ -15,8 +15,6 @@ import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } f
 import { NamingContext, toTypeName, PythonImports, mergePythonImports } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 
-
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
 

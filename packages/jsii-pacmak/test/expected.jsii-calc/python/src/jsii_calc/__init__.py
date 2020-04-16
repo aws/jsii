@@ -254,7 +254,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
 
     @builtins.property
     @jsii.member(jsii_name="anyMapProperty")
-    def any_map_property(self) -> typing.Mapping[str,typing.Any]:
+    def any_map_property(self) -> typing.Mapping[str, typing.Any]:
         """
         stability
         :stability: experimental
@@ -262,7 +262,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "anyMapProperty")
 
     @any_map_property.setter
-    def any_map_property(self, value: typing.Mapping[str,typing.Any]) -> None:
+    def any_map_property(self, value: typing.Mapping[str, typing.Any]) -> None:
         jsii.set(self, "anyMapProperty", value)
 
     @builtins.property
@@ -345,7 +345,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
 
     @builtins.property
     @jsii.member(jsii_name="mapProperty")
-    def map_property(self) -> typing.Mapping[str,scope.jsii_calc_lib.Number]:
+    def map_property(self) -> typing.Mapping[str, scope.jsii_calc_lib.Number]:
         """
         stability
         :stability: experimental
@@ -353,7 +353,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "mapProperty")
 
     @map_property.setter
-    def map_property(self, value: typing.Mapping[str,scope.jsii_calc_lib.Number]) -> None:
+    def map_property(self, value: typing.Mapping[str, scope.jsii_calc_lib.Number]) -> None:
         jsii.set(self, "mapProperty", value)
 
     @builtins.property
@@ -397,7 +397,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
 
     @builtins.property
     @jsii.member(jsii_name="unionMapProperty")
-    def union_map_property(self) -> typing.Mapping[str,typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]:
+    def union_map_property(self) -> typing.Mapping[str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]:
         """
         stability
         :stability: experimental
@@ -405,7 +405,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unionMapProperty")
 
     @union_map_property.setter
-    def union_map_property(self, value: typing.Mapping[str,typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]) -> None:
+    def union_map_property(self, value: typing.Mapping[str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]) -> None:
         jsii.set(self, "unionMapProperty", value)
 
     @builtins.property
@@ -436,7 +436,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
 
     @builtins.property
     @jsii.member(jsii_name="unknownMapProperty")
-    def unknown_map_property(self) -> typing.Mapping[str,typing.Any]:
+    def unknown_map_property(self) -> typing.Mapping[str, typing.Any]:
         """
         stability
         :stability: experimental
@@ -444,7 +444,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unknownMapProperty")
 
     @unknown_map_property.setter
-    def unknown_map_property(self, value: typing.Mapping[str,typing.Any]) -> None:
+    def unknown_map_property(self, value: typing.Mapping[str, typing.Any]) -> None:
         jsii.set(self, "unknownMapProperty", value)
 
     @builtins.property
@@ -852,7 +852,7 @@ class Calculator(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_typ
 
     @builtins.property
     @jsii.member(jsii_name="operationsMap")
-    def operations_map(self) -> typing.Mapping[str,typing.List[scope.jsii_calc_lib.Value]]:
+    def operations_map(self) -> typing.Mapping[str, typing.List[scope.jsii_calc_lib.Value]]:
         """A map of per operation name of all operations performed.
 
         stability
@@ -960,7 +960,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
     stability
     :stability: experimental
     """
-    def __init__(self, map: typing.Mapping[str,str], array: typing.List[str]) -> None:
+    def __init__(self, map: typing.Mapping[str, str], array: typing.List[str]) -> None:
         """
         :param map: -
         :param array: -
@@ -981,7 +981,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
 
     @jsii.member(jsii_name="createAMap")
     @builtins.classmethod
-    def create_a_map(cls) -> typing.Mapping[str,str]:
+    def create_a_map(cls) -> typing.Mapping[str, str]:
         """
         stability
         :stability: experimental
@@ -1003,7 +1003,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="staticMap")
-    def static_map(cls) -> typing.Mapping[str,str]:
+    def static_map(cls) -> typing.Mapping[str, str]:
         """
         stability
         :stability: experimental
@@ -1011,7 +1011,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.sget(cls, "staticMap")
 
     @static_map.setter
-    def static_map(cls, value: typing.Mapping[str,str]) -> None:
+    def static_map(cls, value: typing.Mapping[str, str]) -> None:
         jsii.sset(cls, "staticMap", value)
 
     @builtins.property
@@ -1029,7 +1029,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
 
     @builtins.property
     @jsii.member(jsii_name="map")
-    def map(self) -> typing.Mapping[str,str]:
+    def map(self) -> typing.Mapping[str, str]:
         """
         stability
         :stability: experimental
@@ -1037,7 +1037,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.get(self, "map")
 
     @map.setter
-    def map(self, value: typing.Mapping[str,str]) -> None:
+    def map(self, value: typing.Mapping[str, str]) -> None:
         jsii.set(self, "map", value)
 
 
@@ -1476,7 +1476,7 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         return jsii.invoke(self, "render", [data])
 
     @jsii.member(jsii_name="renderArbitrary")
-    def render_arbitrary(self, data: typing.Mapping[str,typing.Any]) -> str:
+    def render_arbitrary(self, data: typing.Mapping[str, typing.Any]) -> str:
         """
         :param data: -
 
@@ -1486,7 +1486,7 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         return jsii.invoke(self, "renderArbitrary", [data])
 
     @jsii.member(jsii_name="renderMap")
-    def render_map(self, map: typing.Mapping[str,typing.Any]) -> str:
+    def render_map(self, map: typing.Mapping[str, typing.Any]) -> str:
         """
         :param map: -
 
@@ -1703,7 +1703,7 @@ class DeprecatedStruct():
 
 @jsii.data_type(jsii_type="jsii-calc.DerivedStruct", jsii_struct_bases=[scope.jsii_calc_lib.MyFirstStruct], name_mapping={'anumber': 'anumber', 'astring': 'astring', 'first_optional': 'firstOptional', 'another_required': 'anotherRequired', 'bool': 'bool', 'non_primitive': 'nonPrimitive', 'another_optional': 'anotherOptional', 'optional_any': 'optionalAny', 'optional_array': 'optionalArray'})
 class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
-    def __init__(self, *, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None) -> None:
+    def __init__(self, *, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None) -> None:
         """A struct which derives from another struct.
 
         :param anumber: An awesome number value.
@@ -1783,7 +1783,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
         return self._values.get('non_primitive')
 
     @builtins.property
-    def another_optional(self) -> typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]:
+    def another_optional(self) -> typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]]:
         """This is optional.
 
         stability
@@ -2013,7 +2013,7 @@ class DisappointingCollectionSource(metaclass=jsii.JSIIMeta, jsii_type="jsii-cal
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="maybeMap")
-    def MAYBE_MAP(cls) -> typing.Optional[typing.Mapping[str,jsii.Number]]:
+    def MAYBE_MAP(cls) -> typing.Optional[typing.Mapping[str, jsii.Number]]:
         """Some Map of strings to numbers, maybe?
 
         (Nah, just a billion dollars mistake!)
@@ -2188,7 +2188,7 @@ class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Era
 
     @jsii.member(jsii_name="prop1IsNull")
     @builtins.classmethod
-    def prop1_is_null(cls) -> typing.Mapping[str,typing.Any]:
+    def prop1_is_null(cls) -> typing.Mapping[str, typing.Any]:
         """We expect "prop1" to be erased.
 
         stability
@@ -2198,7 +2198,7 @@ class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Era
 
     @jsii.member(jsii_name="prop2IsUndefined")
     @builtins.classmethod
-    def prop2_is_undefined(cls) -> typing.Mapping[str,typing.Any]:
+    def prop2_is_undefined(cls) -> typing.Mapping[str, typing.Any]:
         """We expect "prop2" to be erased.
 
         stability
@@ -2416,7 +2416,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         jsii.create(GiveMeStructs, self, [])
 
     @jsii.member(jsii_name="derivedToFirst")
-    def derived_to_first(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> scope.jsii_calc_lib.MyFirstStruct:
+    def derived_to_first(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> scope.jsii_calc_lib.MyFirstStruct:
         """Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
 
         :param another_required: 
@@ -2437,7 +2437,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         return jsii.invoke(self, "derivedToFirst", [derived])
 
     @jsii.member(jsii_name="readDerivedNonPrimitive")
-    def read_derived_non_primitive(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> "DoubleTrouble":
+    def read_derived_non_primitive(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> "DoubleTrouble":
         """Returns the boolean from a DerivedStruct struct.
 
         :param another_required: 
@@ -4127,7 +4127,7 @@ class InterfaceCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Interfa
 
     @jsii.member(jsii_name="mapOfInterfaces")
     @builtins.classmethod
-    def map_of_interfaces(cls) -> typing.Mapping[str,"IBell"]:
+    def map_of_interfaces(cls) -> typing.Mapping[str, "IBell"]:
         """
         stability
         :stability: experimental
@@ -4136,7 +4136,7 @@ class InterfaceCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Interfa
 
     @jsii.member(jsii_name="mapOfStructs")
     @builtins.classmethod
-    def map_of_structs(cls) -> typing.Mapping[str,"StructA"]:
+    def map_of_structs(cls) -> typing.Mapping[str, "StructA"]:
         """
         stability
         :stability: experimental
@@ -5356,7 +5356,7 @@ class ObjectRefsInCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Obje
         return jsii.invoke(self, "sumFromArray", [values])
 
     @jsii.member(jsii_name="sumFromMap")
-    def sum_from_map(self, values: typing.Mapping[str,scope.jsii_calc_lib.Value]) -> jsii.Number:
+    def sum_from_map(self, values: typing.Mapping[str, scope.jsii_calc_lib.Value]) -> jsii.Number:
         """Returns the sum of all values in a map.
 
         :param values: -
@@ -6607,7 +6607,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="zooBar")
-    def ZOO_BAR(cls) -> typing.Mapping[str,str]:
+    def ZOO_BAR(cls) -> typing.Mapping[str, str]:
         """Constants can also use camelCase.
 
         stability
@@ -7419,7 +7419,7 @@ class UpcasingReflectable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Upcasing
     stability
     :stability: experimental
     """
-    def __init__(self, delegate: typing.Mapping[str,typing.Any]) -> None:
+    def __init__(self, delegate: typing.Mapping[str, typing.Any]) -> None:
         """
         :param delegate: -
 

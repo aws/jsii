@@ -7,7 +7,6 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
@@ -19,13 +18,12 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.MapType;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Provides a correctly configured JSON processor for handling JSII requests and responses.
  */
 public final class JsiiObjectMapper {
-  public static final long serialVersionUID = 1L;
-
   /**
    * An ObjectMapper that can be used to serialize and deserialize JSII requests and responses.
    */
@@ -73,13 +71,14 @@ public final class JsiiObjectMapper {
 
   private final ObjectMapper objectMapper;
 
+  @Nullable
   private final JsiiEngine jsiiEngine;
 
   private JsiiObjectMapper() {
-    this(JsiiEngine.getInstance());
+    this(null);
   }
 
-  JsiiObjectMapper(final JsiiEngine jsiiEngine) {
+  JsiiObjectMapper(@Nullable final JsiiEngine jsiiEngine) {
     this.jsiiEngine = jsiiEngine;
 
     this.objectMapper = new ObjectMapper();
@@ -89,7 +88,7 @@ public final class JsiiObjectMapper {
     module.setDeserializerModifier(new JsiiDeserializerModifier());
     module.setSerializers(new JsiiSerializers());
     module.addSerializer(Enum.class, new EnumSerializer());
-    module.addSerializer(Instant.class, new Instanterializer());
+    module.addSerializer(Instant.class, new InstantSerializer());
     module.addSerializer(JsiiSerializable.class, new JsiiSerializer());
 
     this.objectMapper.findAndRegisterModules();
@@ -98,6 +97,13 @@ public final class JsiiObjectMapper {
 
   ObjectMapper getObjectMapper() {
     return this.objectMapper;
+  }
+
+  private JsiiEngine getEngine() {
+    if (this.jsiiEngine != null) {
+      return this.jsiiEngine;
+    }
+    return JsiiEngine.getInstance();
   }
 
   /**
@@ -119,7 +125,7 @@ public final class JsiiObjectMapper {
     }
 
     @Override
-    public Object deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Object deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
       final JsonNode node = p.readValueAsTree();
 
       if (node.isObject()) {
@@ -127,10 +133,10 @@ public final class JsiiObjectMapper {
           return Instant.parse(node.get(TOKEN_DATE).textValue());
         }
         if (node.has(TOKEN_ENUM)) {
-          return jsiiEngine.findEnumValue(node.get(TOKEN_ENUM).textValue());
+          return getEngine().findEnumValue(node.get(TOKEN_ENUM).textValue());
         }
         if (node.has(TOKEN_REF)) {
-          return jsiiEngine.nativeFromObjRef(JsiiObjectRef.parse(node));
+          return getEngine().nativeFromObjRef(JsiiObjectRef.parse(node));
         }
         if (node.has(TOKEN_MAP)) {
           return getObjectMapper().treeToValue(node.get(TOKEN_MAP), Map.class);
@@ -211,7 +217,7 @@ public final class JsiiObjectMapper {
   private static final class EnumSerializer extends JsonSerializer<Enum> {
     @Override
     public void serialize(final Enum value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
-      Jsii jsii = this.tryGetJsiiAnnotation(value.getClass(), false);
+      Jsii jsii = this.tryGetJsiiAnnotation(value.getClass());
       if (jsii == null) {
         throw new JsiiException("Cannot serialize non-jsii enums");
       } else {
@@ -221,14 +227,8 @@ public final class JsiiObjectMapper {
       }
     }
 
-    private Jsii tryGetJsiiAnnotation(final Class<?> type, final boolean inherited) {
-      Jsii[] ann;
-
-      if (inherited) {
-        ann = (Jsii[]) type.getAnnotationsByType(Jsii.class);
-      } else {
-        ann = (Jsii[]) type.getDeclaredAnnotationsByType(Jsii.class);
-      }
+    private Jsii tryGetJsiiAnnotation(final Class<?> type) {
+      final Jsii[] ann = type.getDeclaredAnnotationsByType(Jsii.class);
 
       if (ann.length == 0) {
         return null;
@@ -241,7 +241,7 @@ public final class JsiiObjectMapper {
   /**
    * Serializer for Instants.
    */
-  private static final class Instanterializer extends JsonSerializer<Instant> {
+  private static final class InstantSerializer extends JsonSerializer<Instant> {
     @Override
     public void serialize(final Instant value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
       gen.writeStartObject();
@@ -250,12 +250,11 @@ public final class JsiiObjectMapper {
     }
   }
 
-  @SuppressWarnings("unchecked")
   private static final class JsiiSerializers extends SimpleSerializers {
     @Override
     public JsonSerializer<?> findMapSerializer(SerializationConfig config, MapType type, BeanDescription beanDesc, JsonSerializer<Object> keySerializer, TypeSerializer elementTypeSerializer, JsonSerializer<Object> elementValueSerializer) {
       final JsonSerializer<?> standard = super.findMapSerializer(config, type, beanDesc, keySerializer, elementTypeSerializer, elementValueSerializer);
-      return new JsiiMapSerializer(standard);
+      return new JsiiMapSerializer<>(standard);
     }
   }
 

@@ -25,11 +25,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.6.1</version>
             <scope>test</scope>
         </dependency>
 

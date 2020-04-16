@@ -100,7 +100,7 @@ class Reflector(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.submodu
         jsii.create(Reflector, self, [])
 
     @jsii.member(jsii_name="asMap")
-    def as_map(self, reflectable: "IReflectable") -> typing.Mapping[str,typing.Any]:
+    def as_map(self, reflectable: "IReflectable") -> typing.Mapping[str, typing.Any]:
         """
         :param reflectable: -
 

@@ -114,7 +114,7 @@ describe(toTypeName, () => {
     {
       name: 'Map',
       input: { collection: { kind: CollectionKind.Map, elementtype: { primitive: PrimitiveType.String } } },
-      pythonType: 'typing.Mapping[str,str]',
+      pythonType: 'typing.Mapping[str, str]',
       requiredImports: { typing: new Set(['']) },
     },
     // ############################## TYPE UNIONS ##############################
