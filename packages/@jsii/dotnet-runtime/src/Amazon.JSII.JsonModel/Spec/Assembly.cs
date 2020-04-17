@@ -1,4 +1,4 @@
-﻿using Amazon.JSII.JsonModel.Converters;
+using Amazon.JSII.JsonModel.Converters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
