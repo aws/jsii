@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/aws/jsii/compare/v1.2.0...v1.3.0) (2020-04-16)
+
+
+### Features
+
+* **compliance:** produce compliance test reports ([#1368](https://github.com/aws/jsii/issues/1368)) ([11ef55d](https://github.com/aws/jsii/commit/11ef55d2aee68b4c85aa0f5cd06477d5a34c31c4))
+
+
+### Bug Fixes
+
+* **jsii-diff:** detect interfaces inherited via interfaces ([#1492](https://github.com/aws/jsii/issues/1492)) ([e03a638](https://github.com/aws/jsii/commit/e03a63807856126c4efc84d6663a1b4ae8b15dba))
+* **python:** packages fail to load when relocated ([#1518](https://github.com/aws/jsii/issues/1518)) ([9db95e1](https://github.com/aws/jsii/commit/9db95e17b0cdb4d2e9b6502ee144c4a62ca30488)), closes [#1501](https://github.com/aws/jsii/issues/1501)
+
 ## [1.2.0](https://github.com/aws/jsii/compare/v1.0.0...v1.2.0) (2020-03-31)
 
 

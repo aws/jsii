@@ -114,6 +114,10 @@ class Reflector(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.submodu
         return jsii.invoke(self, "asMap", [reflectable])
 
 
-__all__ = ["IReflectable", "ReflectableEntry", "Reflector"]
+__all__ = [
+    "IReflectable",
+    "ReflectableEntry",
+    "Reflector",
+]
 
 publication.publish()
