@@ -379,9 +379,8 @@ export class Assembler implements Emitter {
     }
     if (ts.isModuleDeclaration(declaration)) {
       const { fqn, fqnResolutionPrefix } = qualifiedNameOf.call(this, symbol, true);
-      const targets = undefined; // This will be configurable in the future.
 
-      this._submodules.set(symbol, { fqn, fqnResolutionPrefix, targets });
+      this._submodules.set(symbol, { fqn, fqnResolutionPrefix });
       this._addToSubmodule(symbol, symbol);
       return;
     }
