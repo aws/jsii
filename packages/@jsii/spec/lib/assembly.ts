@@ -150,6 +150,23 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
  */
 export interface AssemblyConfiguration {
   /**
+   * Submodules declared in this assembly.
+   *
+   * @default none
+   */
+  submodules?: {
+    [fqn: string]: {
+      /**
+       * The specific code generation configuration for this submodule, if it
+       * differs from it's parent.
+       *
+       * @default - the parent submodule or assembly's configuration.
+       */
+      targets?: AssemblyTargets;
+    };
+  };
+
+  /**
    * A map of target name to configuration, which is used when generating
    * packages for various languages.
    *
@@ -157,6 +174,7 @@ export interface AssemblyConfiguration {
    */
   targets?: AssemblyTargets;
 }
+
 
 /**
  * Versions of the JSII Assembly Specification.
