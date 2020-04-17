@@ -1,6 +1,13 @@
 #!/bin/bash
 set -euo pipefail
-rm -fr dist/java
+
 mkdir -p dist/java
+mkdir -p maven-repo
+
+(
+  cd project
+  mvn -B deploy -D altDeploymentRepository=local::default::file://${PWD}/../maven-repo
+)
+
 rsync -av maven-repo/ dist/java/
 

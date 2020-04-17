@@ -12,7 +12,7 @@ phases:
   build:
     commands:
       - yarn build && yarn test
-      - rm -rf dist/*
+      - yarn dist-clean
       - /bin/bash ./scripts/align-version.sh
       - yarn build
   post_build:
