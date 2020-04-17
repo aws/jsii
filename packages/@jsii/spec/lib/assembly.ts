@@ -175,7 +175,6 @@ export interface AssemblyConfiguration {
   targets?: AssemblyTargets;
 }
 
-
 /**
  * Versions of the JSII Assembly Specification.
  */
