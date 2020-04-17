@@ -137,6 +137,17 @@
     "url": "https://github.com/aws/jsii.git"
   },
   "schema": "jsii/0.10.0",
+  "submodules": {
+    "jsii-calc.DerivedClassHasNoProperties": {},
+    "jsii-calc.InterfaceInNamespaceIncludesClasses": {},
+    "jsii-calc.InterfaceInNamespaceOnlyInterface": {},
+    "jsii-calc.composition": {},
+    "jsii-calc.submodule": {},
+    "jsii-calc.submodule.back_references": {},
+    "jsii-calc.submodule.child": {},
+    "jsii-calc.submodule.nested_submodule": {},
+    "jsii-calc.submodule.nested_submodule.deeplyNested": {}
+  },
   "targets": {
     "dotnet": {
       "iconUrl": "https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png",
@@ -12442,5 +12453,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "XNjL7+hJ5KwFtBCVEz4TZH4c2JtVW/gTPS7UNrw02Cg="
+  "fingerprint": "4Q+a0fGKWl6wIrpV76N462Ux3HDgzTeZ3NQrjw3x0Mo="
 }
