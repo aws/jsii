@@ -26,8 +26,9 @@
   "scripts": {
     "gen": "/bin/bash generate.sh",
     "deps": "cd project && bundle install --path vendor/bundle --binstubs vendor/bin",
+    "dist-clean": "rm -rf dist",
     "lint": "cd project && vendor/bin/rubocop",
-    "build": "npm run gen && npm run deps && npm run lint && gem build project/*.gemspec",
+    "build": "npm run gen && npm run deps && npm run lint",
     "test": "cd project && ruby test/suite.rb",
     "test:update": "UPDATE_DIFF=1 npm run test",
     "package": "package-ruby"
