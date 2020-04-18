@@ -20,7 +20,7 @@ export function toMavenVersionRange(semverRange: string, suffix?: string): strin
  * @see https://docs.microsoft.com/en-us/nuget/concepts/package-versioning#version-ranges-and-wildcards
  */
 export function toNuGetVersionRange(semverRange: string): string {
-  return toBracketNotation(semverRange);
+  return toBracketNotation(semverRange, undefined, { semver: false });
 }
 
 /**
