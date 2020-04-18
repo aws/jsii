@@ -1,5 +1,7 @@
 #!/bin/bash
 set -euo pipefail
-rm -fr dist/dotnet
+
 mkdir -p dist/dotnet
-cp *.nupkg *.snupkg dist/dotnet
+
+dotnet build --force -c Release $1
+dotnet pack --include-symbols --include-source --output dist/dotnet -c Release $1
