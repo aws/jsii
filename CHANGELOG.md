@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.2](https://github.com/aws/jsii/compare/v1.3.1...v1.3.2) (2020-04-20)
+
+
+### Bug Fixes
+
+* **python:** incorrect dependency on jsii ([#1582](https://github.com/aws/jsii/issues/1582)) ([c537bd7](https://github.com/aws/jsii/commit/c537bd7e700004b5a66124c1970f4fb540a427d6)), closes [#1573](https://github.com/aws/jsii/issues/1573)
+
 ## [1.3.1](https://github.com/aws/jsii/compare/v1.3.0...v1.3.1) (2020-04-18)
 
 

@@ -20,10 +20,15 @@ with open("src/jsii/_metadata.json", "w") as fp:
         {
             "version": data["version"],
             "description": data["description"],
+            "license": data["license"],
             "author": data["author"]["name"],
             "jsii-runtime": {"version": embedded_data["version"]},
+            "bugs": data["bugs"]["url"],
+            "homepage": data["homepage"],
+            "repository": data["repository"]["url"],
         },
         fp,
+        indent=2,
     )
 
 
