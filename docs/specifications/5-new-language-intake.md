@@ -106,7 +106,7 @@ support for the new languages' configuration block.
 It is possible to declare *Developer Preview* for a new language support as soon
 as the code generation and *host* runtime library are mature enough to be useful,
 and cover the majority of use-cases. While certain edge-cases may still be
-un-covered at the beginning of *Developer Preview*, a clear plan should exist
+uncovered at the beginning of *Developer Preview*, a clear plan should exist
 that ensures a path exists to address any known gaps. It is required to have
 implemented most of the standard compliance suite prior to declaring *Developer
 Preview*.
@@ -117,16 +117,16 @@ any significant change is dictated by the results of the user experience studies
 fluback studies should be performed in order to confirm that the desired impact
 has been achieved.
 
-> :construction: A standard set of user experience sutdy tasks is going to be
+> :construction: A standard set of user experience study tasks will be
 > developed, ensuring the learnings from previous experiences is factored into
 > subsequent studies conducted.
 
-Finally, it is essential to give time to the community to use & vet the new
+Finally, it is essential to give time to the community to use and vet the new
 language support prior to considering *General Availability*. A minimum of a
 full month without a major bug reported is advised. During this period,
 intentional hands-on usage of the product msut be performed by engineers
 familiar with the new language as well as engineers unfamilar with it. This
-ensures the new experience is considered holistically, in a manner un-biased by
+ensures the new experience is considered holistically, in a manner unbiased by
 knowledge of the implementation.
 
 ## General Availability
