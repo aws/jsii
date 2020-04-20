@@ -35,7 +35,7 @@ export class Assembler implements Emitter {
 
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
-  private readonly _submodules = new Set<ts.Symbol>();
+  private readonly _submodules = new Map<ts.Symbol, SubmoduleSpec>();
 
   /**
    * @param projectInfo information about the package being assembled
@@ -153,6 +153,7 @@ export class Assembler implements Emitter {
       dependencyClosure: noEmptyDict(toDependencyClosure(this.projectInfo.dependencyClosure)),
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
+      submodules: noEmptyDict(toSubmoduleDeclarations(this._submodules.values())),
       targets: this.projectInfo.targets,
       metadata: this.projectInfo.metadata,
       docs,
@@ -345,17 +346,13 @@ export class Assembler implements Emitter {
       return `unknown.${typeName}`;
     }
 
-    let submodule = this._submoduleMap.get( type.symbol);
-    let submoduleNs = submodule?.name;
-    // Submodules can be in submodules themselves, so we crawl up the tree...
-    while (submodule != null && this._submoduleMap.has(submodule)) {
-      submodule = this._submoduleMap.get(submodule)!;
-      submoduleNs = `${submodule.name}.${submoduleNs}`;
+    const submodule = this._submoduleMap.get(type.symbol);
+    if (submodule != null) {
+      const submoduleNs = this._submodules.get(submodule)!.fqnResolutionPrefix;
+      return `${submoduleNs}.${typeName}`;
     }
 
-    const fqn = submoduleNs != null
-      ? `${pkg.name}.${submoduleNs}.${typeName}`
-      : `${pkg.name}.${typeName}`;
+    const fqn = `${pkg.name}.${typeName}`;
     if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn }, type.symbol.valueDeclaration)) {
       this._diagnostic(node,
         ts.DiagnosticCategory.Error,
@@ -376,10 +373,22 @@ export class Assembler implements Emitter {
 
   private _registerNamespaces(symbol: ts.Symbol): void {
     const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
-    if (declaration == null || !ts.isNamespaceExport(declaration)) {
+    if (declaration == null) {
       // Nothing to do here...
       return;
     }
+    if (ts.isModuleDeclaration(declaration)) {
+      const { fqn, fqnResolutionPrefix } = qualifiedNameOf.call(this, symbol, true);
+
+      this._submodules.set(symbol, { fqn, fqnResolutionPrefix, locationInModule: this.declarationLocation(declaration) });
+      this._addToSubmodule(symbol, symbol);
+      return;
+    }
+    if (!ts.isNamespaceExport(declaration)) {
+      // Nothing to do here...
+      return;
+    }
+
     const moduleSpecifier = declaration.parent.moduleSpecifier;
     if (moduleSpecifier == null || !ts.isStringLiteral(moduleSpecifier)) {
       // There is a grammar error here, so we'll let tsc report this for us.
@@ -409,8 +418,28 @@ export class Assembler implements Emitter {
         this._diagnostic(declaration, ts.DiagnosticCategory.Error,
           `Submodule namespaces must be camelCased or snake_cased. Consider renaming to "${Case.camel(symbol.name)}".`);
       }
-      this._submodules.add(symbol);
+
+      const { fqn, fqnResolutionPrefix } = qualifiedNameOf.call(this, symbol);
+      const targets = undefined; // This will be configurable in the future.
+
+      this._submodules.set(symbol, { fqn, fqnResolutionPrefix, targets, locationInModule: this.declarationLocation(declaration) });
       this._addToSubmodule(symbol, sourceModule);
+    }
+
+    function qualifiedNameOf(this: Assembler, sym: ts.Symbol, inlineNamespace = false): { fqn: string, fqnResolutionPrefix: string } {
+      if (this._submoduleMap.has(sym)) {
+        const parent = this._submodules.get(this._submoduleMap.get(sym)!)!;
+        const fqn = `${parent.fqn}.${sym.name}`;
+        return {
+          fqn,
+          fqnResolutionPrefix: inlineNamespace ? parent.fqnResolutionPrefix : fqn,
+        };
+      }
+      const fqn = `${this.projectInfo.name}.${sym.name}`;
+      return {
+        fqn,
+        fqnResolutionPrefix: inlineNamespace ? this.projectInfo.name : fqn,
+      };
     }
   }
 
@@ -479,9 +508,8 @@ export class Assembler implements Emitter {
             this._addToSubmodule(ns, symbol);
           }
         } else if (ts.isModuleDeclaration(decl)) {
-          this._addToSubmodule(ns, symbol);
+          this._registerNamespaces(symbol);
         } else if (ts.isNamespaceExport(decl)) {
-          this._submoduleMap.set(symbol, ns);
           this._registerNamespaces(symbol);
         }
       }
@@ -548,7 +576,7 @@ export class Assembler implements Emitter {
 
     // Let's quickly verify the declaration does not collide with a submodule. Submodules get case-adjusted for each
     // target language separately, so names cannot collide with case-variations.
-    for (const submodule of this._submodules) {
+    for (const submodule of this._submodules.keys()) {
       const candidates = Array.from(new Set([
         submodule.name,
         Case.camel(submodule.name),
@@ -1566,6 +1594,30 @@ export class Assembler implements Emitter {
   }
 }
 
+interface SubmoduleSpec {
+  /**
+   * The submodule's fully qualified name.
+   */
+  readonly fqn: string;
+
+  /**
+   * The submodule's fully qualified name prefix to use when resolving type FQNs. This does not
+   * include "inline namespace" names as those are already represented in the TypeCheckers' view of
+   * the type names.
+   */
+  readonly fqnResolutionPrefix: string;
+
+  /**
+   * The location of the submodule definition in the source.
+   */
+  readonly locationInModule: spec.SourceLocation;
+
+  /**
+   * Any customized configuration for the currentl submodule.
+   */
+  readonly targets?: spec.AssemblyTargets;
+}
+
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
   delete assembly.fingerprint;
   assembly = sortJson(assembly);
@@ -1782,8 +1834,8 @@ function* intersect<T>(xs: Set<T>, ys: Set<T>) {
   }
 }
 
-function noEmptyDict<T>(xs: {[key: string]: T}): {[key: string]: T} | undefined {
-  if (Object.keys(xs).length === 0) { return undefined; }
+function noEmptyDict<T>(xs: Record<string, T> | undefined): Record<string, T> | undefined {
+  if (xs == null || Object.keys(xs).length === 0) { return undefined; }
   return xs;
 }
 
@@ -1791,8 +1843,24 @@ function toDependencyClosure(assemblies: readonly spec.Assembly[]): { [name: str
   const result: { [name: string]: spec.AssemblyTargets } = {};
   for (const assembly of assemblies) {
     if (!assembly.targets) { continue; }
-    result[assembly.name] = { targets: assembly.targets };
+    result[assembly.name] = {
+      submodules: assembly.submodules,
+      targets: assembly.targets,
+    };
   }
+  return result;
+}
+
+function toSubmoduleDeclarations(submodules: IterableIterator<SubmoduleSpec>): spec.Assembly['submodules'] {
+  const result: spec.Assembly['submodules'] = {};
+
+  for (const submodule of submodules) {
+    result[submodule.fqn] = {
+      locationInModule: submodule.locationInModule,
+      targets: submodule.targets,
+    };
+  }
+
   return result;
 }
 
