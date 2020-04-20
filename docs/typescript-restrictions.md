@@ -1,7 +1,7 @@
 # Restrictions over vanilla **TypeScript**
 
 `jsii` can only accept APIs that can be represented in all the supported target
-languagues, and **TypeScript** is a feature-rich, modern programming language. As a
+languages, and **TypeScript** is a feature-rich, modern programming language. As a
 consequence, `jsii` needs to impose restrictions on what **TypeScript** language
 features can be used. Certain common **Javascript** idioms are also interpreted
 specially by `jsii` in order to support providing a more consistent developer
@@ -69,8 +69,8 @@ derived from [`jsii/lib/reserved-words.ts`] is:
 `volatile`     |                |
 
 Code generators from `jsii-pacmak` will try to work around those reserved words
-when they are encoutered, but may resort to using names that could clash with
-other identifiers used in your api, or result in sub-optimal experience for
+when they are encountered, but may resort to using names that could clash with
+other identifiers used in your API, or result in suboptimal experience for
 users in languages with conflicts.
 
 [`jsii/lib/reserved-words.ts`]: ../packages/jsii/lib/reserved-words.ts
@@ -86,7 +86,7 @@ and *Behavioral Interfaces*. Both of those entities are represeted using
 Behavioral interfaces are the specification of a contract that a type can elect
 to adhere to. They can define a number of `public` members which can be
 properties or methods. `jsii` requires that behavioral interfaces have names
-prefixed with an upper-case `I`.
+prefixed with an uppercase `I`.
 
 ```ts
 // ⛔️ Illegal name
@@ -112,8 +112,8 @@ Structs, on the other hand, are pure data constructs. They may not declare
 methods, only `readonly` properties. Those types model what **Javascript**
 developers use to model keyword arguments, where they typically pass an object
 literal with configuration values to a method or constructor. Structs do not
-have names starting with an upper-case `I` (making it possible to define a
-behavioral interface that only declares read-only properties as part of it's
+have names starting with an uppercase `I` (making it possible to define a
+behavioral interface that only declares read-only properties as part of its
 contract).
 
 ```ts
@@ -140,8 +140,8 @@ export interface SomeStruct extends OtherStruct { /* ... */ }
 export class BazImpl implements Baz { /* ... */ }
 ```
 
-Structs can be extended by other structs, but may not extend (or be extende by)
-behavioral interfaces nor be implemented by classes.
+Structs can be extended by other structs, but may not extend (or be extended by)
+behavioral interfaces, nor can they be implemented by classes.
 
 ## Parameterized Types (a.k.a. "Generics")
 
