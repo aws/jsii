@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/aws/jsii/compare/v1.1.0...v1.1.1) (2020-04-20)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** invalid dotnet version suffixes ([#1568](https://github.com/aws/jsii/issues/1568)) ([fac53d9](https://github.com/aws/jsii/commit/fac53d9681a82eb96be29902bd781c865ec7a083))
+* **python:** incorrect dependency on jsii ([#1582](https://github.com/aws/jsii/issues/1582)) ([eed53ed](https://github.com/aws/jsii/commit/eed53edea45cad22e4a67115052e7b49b021919c)), closes [#1573](https://github.com/aws/jsii/issues/1573)
+
+
+
+
+
 # [1.1.0](https://github.com/aws/jsii/compare/v1.0.0...v1.1.0) (2020-03-10)
 
 

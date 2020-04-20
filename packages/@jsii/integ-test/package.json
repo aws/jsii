@@ -1,6 +1,6 @@
 {
   "name": "@jsii/integ-test",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A suite of integration tests for JSII and related modules.",
   "private": true,
   "scripts": {
@@ -20,9 +20,9 @@
     "dotenv": "^8.2.0",
     "fs-extra": "^8.1.0",
     "jest": "^25.1.0",
-    "jsii": "^1.1.0",
-    "jsii-pacmak": "^1.1.0",
-    "jsii-rosetta": "^1.1.0",
+    "jsii": "^1.1.1",
+    "jsii-pacmak": "^1.1.1",
+    "jsii-rosetta": "^1.1.1",
     "tar": "^6.0.1"
   },
   "devDependencies": {
