@@ -1212,7 +1212,7 @@ class Package {
       packages: modules.map(m => m.pythonName),
       package_data: packageData,
       python_requires: '>=3.6',
-      install_requires: [`jsii~=${jsiiVersionSimple}`, 'publication>=0.0.3'].concat(dependencies),
+      install_requires: [`jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`, 'publication>=0.0.3'].concat(dependencies),
       classifiers: [
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
