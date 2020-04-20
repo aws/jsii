@@ -78,7 +78,7 @@ classes. *Interface* names must be prefixed with an `I` (e.g: `IFoo`).
 
 Attribute    | Type        | Description
 -------------|-------------|----------------------------------------------------
-`kind`       |`'interface'` |Discriminator to identify interfaces
+`kind`       |`'interface'`|Discriminator to identify interfaces
 `assembly`   |`string`     |The name of the assembly this interface is a part of
 `fqn`        |`string`     |The fully-qualified name of the interface
 `interfaces` |`string[]`   |The fully-qualified names of interfaces extended by this inteface
