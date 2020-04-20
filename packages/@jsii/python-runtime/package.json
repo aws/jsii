@@ -8,13 +8,13 @@
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
   },
-  "homepage": "git://github.com/aws/jsii",
+  "homepage": "https://github.com/aws/jsii",
   "bugs": {
-    "url": "git://github.com/aws/jsii"
+    "url": "https://github.com/aws/jsii"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/aws/jsii",
+    "url": "https://github.com/aws/jsii.git",
     "directory": "packages/@jsii/python-runtime"
   },
   "engines": {
