@@ -36,7 +36,7 @@
     "package": "package-dotnet ./src/Amazon.JSII.JsonModel/Amazon.JSII.JsonModel.csproj"
   },
   "devDependencies": {
-    "@types/node": "^10.17.19",
+    "@types/node": "^10.17.20",
     "jsii-build-tools": "^0.0.0",
     "typescript": "~3.8.3"
   }
