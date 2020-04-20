@@ -138,15 +138,60 @@
   },
   "schema": "jsii/0.10.0",
   "submodules": {
-    "jsii-calc.DerivedClassHasNoProperties": {},
-    "jsii-calc.InterfaceInNamespaceIncludesClasses": {},
-    "jsii-calc.InterfaceInNamespaceOnlyInterface": {},
-    "jsii-calc.composition": {},
-    "jsii-calc.submodule": {},
-    "jsii-calc.submodule.back_references": {},
-    "jsii-calc.submodule.child": {},
-    "jsii-calc.submodule.nested_submodule": {},
-    "jsii-calc.submodule.nested_submodule.deeplyNested": {}
+    "jsii-calc.DerivedClassHasNoProperties": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 309
+      }
+    },
+    "jsii-calc.InterfaceInNamespaceIncludesClasses": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1057
+      }
+    },
+    "jsii-calc.InterfaceInNamespaceOnlyInterface": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1048
+      }
+    },
+    "jsii-calc.composition": {
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 127
+      }
+    },
+    "jsii-calc.submodule": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 7
+      }
+    },
+    "jsii-calc.submodule.back_references": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 4
+      }
+    },
+    "jsii-calc.submodule.child": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 1
+      }
+    },
+    "jsii-calc.submodule.nested_submodule": {
+      "locationInModule": {
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 3
+      }
+    },
+    "jsii-calc.submodule.nested_submodule.deeplyNested": {
+      "locationInModule": {
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 4
+      }
+    }
   },
   "targets": {
     "dotnet": {
@@ -12453,5 +12498,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "4Q+a0fGKWl6wIrpV76N462Ux3HDgzTeZ3NQrjw3x0Mo="
+  "fingerprint": "LPI1XbecdL/VPbXVTmbAHHV0ox1k1cAxzrWF/f0rIxI="
 }

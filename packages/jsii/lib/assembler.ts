@@ -380,7 +380,7 @@ export class Assembler implements Emitter {
     if (ts.isModuleDeclaration(declaration)) {
       const { fqn, fqnResolutionPrefix } = qualifiedNameOf.call(this, symbol, true);
 
-      this._submodules.set(symbol, { fqn, fqnResolutionPrefix });
+      this._submodules.set(symbol, { fqn, fqnResolutionPrefix, locationInModule: this.declarationLocation(declaration) });
       this._addToSubmodule(symbol, symbol);
       return;
     }
@@ -422,7 +422,7 @@ export class Assembler implements Emitter {
       const { fqn, fqnResolutionPrefix } = qualifiedNameOf.call(this, symbol);
       const targets = undefined; // This will be configurable in the future.
 
-      this._submodules.set(symbol, { fqn, fqnResolutionPrefix, targets });
+      this._submodules.set(symbol, { fqn, fqnResolutionPrefix, targets, locationInModule: this.declarationLocation(declaration) });
       this._addToSubmodule(symbol, sourceModule);
     }
 
@@ -1608,6 +1608,11 @@ interface SubmoduleSpec {
   readonly fqnResolutionPrefix: string;
 
   /**
+   * The location of the submodule definition in the source.
+   */
+  readonly locationInModule: spec.SourceLocation;
+
+  /**
    * Any customized configuration for the currentl submodule.
    */
   readonly targets?: spec.AssemblyTargets;
@@ -1851,6 +1856,7 @@ function toSubmoduleDeclarations(submodules: IterableIterator<SubmoduleSpec>): s
 
   for (const submodule of submodules) {
     result[submodule.fqn] = {
+      locationInModule: submodule.locationInModule,
       targets: submodule.targets,
     };
   }
