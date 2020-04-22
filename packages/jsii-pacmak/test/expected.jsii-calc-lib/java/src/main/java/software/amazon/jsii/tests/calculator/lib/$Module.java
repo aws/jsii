@@ -2,10 +2,47 @@ package software.amazon.jsii.tests.calculator.lib;
 
 import static java.util.Arrays.asList;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+
+import java.nio.charset.StandardCharsets;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
+    private static final Map<String, String> MODULE_TYPES = load();
+
+    private static Map<String, String> load() {
+        final Map<String, String> result = new HashMap<>();
+        final ClassLoader cl = $Module.class.getClassLoader();
+        try (final InputStream is = cl.getResourceAsStream("software/amazon/jsii/tests/calculator/lib/$Module.txt");
+             final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);
+             final BufferedReader br = new BufferedReader(rd)) {
+            br.lines()
+              .filter(line -> !line.trim().isEmpty())
+              .forEach(line ->  {
+                final String[] parts = line.split("=", 2);
+                final String fqn = parts[0];
+                final String className = parts[1];
+                result.put(fqn, className);
+            });
+        }
+        catch (final IOException exception) {
+            throw new UncheckedIOException(exception);
+        }
+        return result;
+    }
+
+    private final Map<String, Class<?>> cache = new HashMap<>();
+
     public $Module() {
         super("@scope/jsii-calc-lib", "0.0.0", $Module.class, "jsii-calc-lib@0.0.0.jsii.tgz");
     }
@@ -17,17 +54,18 @@ public final class $Module extends JsiiModule {
 
     @Override
     protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
-        switch (fqn) {
-            case "@scope/jsii-calc-lib.EnumFromScopedModule": return software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class;
-            case "@scope/jsii-calc-lib.IDoublable": return software.amazon.jsii.tests.calculator.lib.IDoublable.class;
-            case "@scope/jsii-calc-lib.IFriendly": return software.amazon.jsii.tests.calculator.lib.IFriendly.class;
-            case "@scope/jsii-calc-lib.IThreeLevelsInterface": return software.amazon.jsii.tests.calculator.lib.IThreeLevelsInterface.class;
-            case "@scope/jsii-calc-lib.MyFirstStruct": return software.amazon.jsii.tests.calculator.lib.MyFirstStruct.class;
-            case "@scope/jsii-calc-lib.Number": return software.amazon.jsii.tests.calculator.lib.Number.class;
-            case "@scope/jsii-calc-lib.Operation": return software.amazon.jsii.tests.calculator.lib.Operation.class;
-            case "@scope/jsii-calc-lib.StructWithOnlyOptionals": return software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals.class;
-            case "@scope/jsii-calc-lib.Value": return software.amazon.jsii.tests.calculator.lib.Value.class;
-            default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        if (!MODULE_TYPES.containsKey(fqn)) {
+            throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        }
+        return this.cache.computeIfAbsent(MODULE_TYPES.get(fqn), this::findClass);
+    }
+
+    private Class<?> findClass(final String binaryName) {
+        try {
+            return Class.forName(binaryName);
+        }
+        catch (final ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
         }
     }
 }
