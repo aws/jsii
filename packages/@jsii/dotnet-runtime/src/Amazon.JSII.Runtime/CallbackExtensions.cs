@@ -6,7 +6,6 @@ using Amazon.JSII.Runtime.Services;
 using Amazon.JSII.Runtime.Services.Converters;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;

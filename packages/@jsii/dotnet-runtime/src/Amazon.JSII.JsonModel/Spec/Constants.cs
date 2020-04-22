@@ -1,4 +1,4 @@
-﻿namespace Amazon.JSII.JsonModel.Spec
+namespace Amazon.JSII.JsonModel.Spec
 {
     public static class Constants
     {
