@@ -13,7 +13,13 @@ with open("README.md") as fp:
 setuptools.setup(
     name="jsii",
     version=metadata["version"],
-    license="Apache-2.0",
+    license=metadata["license"],
+
+    url=metadata["homepage"],
+    project_urls={
+        "Bug Tracker": metadata["bugs"],
+        "Source": metadata["repository"],
+    },
 
     description=metadata["description"],
     long_description=long_description,

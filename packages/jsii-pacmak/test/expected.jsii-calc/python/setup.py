@@ -39,7 +39,7 @@ kwargs = json.loads("""
     },
     "python_requires": ">=3.6",
     "install_requires": [
-        "jsii~=0.0.0",
+        "jsii>=0.0.0, <0.0.1",
         "publication>=0.0.3",
         "scope.jsii-calc-base>=0.0.0, <0.0.1",
         "scope.jsii-calc-base-of-base>=0.0.0, <0.0.1",

@@ -3,7 +3,6 @@ import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
 import * as os from 'os';
 import * as path from 'path';
-import * as semver from 'semver';
 import * as logging from './logging';
 
 export interface ShellOptions extends SpawnOptions {
@@ -132,29 +131,6 @@ export class Scratch<A> {
     }
   }
 }
-
-/**
- * Determines the next major version from a given current version. This honors
- * the specificities of pre-1.0.0 releases, too.
- *
- * @param version the current version from which to bump.
- *
- * @returns the next Major Version string.
- */
-export function nextMajorVersion(version: string): string {
-  const v = semver.parse(version);
-  if (!v) {
-    throw new Error(`Invalid semantic version identifier: ${version}`);
-  }
-  if (v.major !== 0) {
-    return v.inc('major').version;
-  }
-  if (v.minor !== 0) {
-    return v.inc('minor').version;
-  }
-  return v.inc('patch').version;
-}
-
 
 export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
   for (const el of els) {
