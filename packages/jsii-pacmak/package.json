@@ -38,7 +38,7 @@
     "clone": "^2.1.2",
     "codemaker": "^0.0.0",
     "commonmark": "^0.29.1",
-    "escape-string-regexp": "^3.0.0",
+    "escape-string-regexp": "^4.0.0",
     "fs-extra": "^9.0.0",
     "jsii-reflect": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
