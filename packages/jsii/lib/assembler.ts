@@ -104,15 +104,15 @@ export class Assembler implements Emitter {
     if (sourceFile == null) {
       this._diagnostic(null, ts.DiagnosticCategory.Error, `Could not find "main" file: ${this.mainFile}`);
     } else {
+      await this._registerDependenciesNamespaces(sourceFile);
+
       if (LOG.isTraceEnabled()) {
         LOG.trace(`Processing source file: ${colors.blue(path.relative(this.projectInfo.projectRoot, sourceFile.fileName))}`);
       }
       const symbol = this._typeChecker.getSymbolAtLocation(sourceFile);
       if (symbol) {
         const moduleExports = this._typeChecker.getExportsOfModule(symbol);
-        for (const node of moduleExports) {
-          this._registerNamespaces(node);
-        }
+        await Promise.all(moduleExports.map(this._registerNamespaces.bind(this)));
         for (const node of moduleExports) {
           visitPromises.push(this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability)));
         }
@@ -340,7 +340,7 @@ export class Assembler implements Emitter {
       return tsName;
     }
     const [, modulePath, typeName,] = groups;
-    const pkg = await _findPackageInfo(modulePath);
+    const pkg = await findPackageInfo(modulePath);
     if (!pkg) {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
       return `unknown.${typeName}`;
@@ -359,29 +359,42 @@ export class Assembler implements Emitter {
         `Use of foreign type not present in the ${pkg.name}'s assembly: ${fqn}`);
     }
     return fqn;
+  }
 
-    async function _findPackageInfo(fromDir: string): Promise<any> {
-      const filePath = path.join(fromDir, 'package.json');
-      if (await fs.pathExists(filePath)) {
-        return fs.readJson(filePath);
+  /**
+   * For all modules in the dependency closure, crawl their exports to register
+   * the submodules they contain.
+   *
+   * @param entryPoint the main source file for the currently compiled module.
+   */
+  private async _registerDependenciesNamespaces(entryPoint: ts.SourceFile) {
+    for (const assm of this.projectInfo.dependencyClosure) {
+      const resolved = ts.resolveModuleName(assm.name, entryPoint.fileName, this.program.getCompilerOptions(), ts.sys);
+      // If we can't resolve the module name, simply ignore it (TypeScript compilation likely failed)
+      if (resolved.resolvedModule == null) { continue; }
+      const source = this.program.getSourceFile(resolved.resolvedModule.resolvedFileName);
+      const depMod = source && this._typeChecker.getSymbolAtLocation(source);
+      // It's unlikely, but if we can't get the SourceFile here, ignore it (TypeScript compilation probably failed)
+      if (depMod == null) { continue; }
+
+      for (const symbol of this._typeChecker.getExportsOfModule(depMod)) {
+        // eslint-disable-next-line no-await-in-loop
+        await this._registerNamespaces(symbol);
       }
-      const parent = path.dirname(fromDir);
-      if (parent === fromDir) { return undefined; }
-      return _findPackageInfo(parent);
     }
   }
 
-  private _registerNamespaces(symbol: ts.Symbol): void {
+  private async _registerNamespaces(symbol: ts.Symbol): Promise<void> {
     const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
     if (declaration == null) {
       // Nothing to do here...
       return;
     }
     if (ts.isModuleDeclaration(declaration)) {
-      const { fqn, fqnResolutionPrefix } = qualifiedNameOf.call(this, symbol, true);
+      const { fqn, fqnResolutionPrefix } = await qualifiedNameOf.call(this, symbol, true);
 
       this._submodules.set(symbol, { fqn, fqnResolutionPrefix, locationInModule: this.declarationLocation(declaration) });
-      this._addToSubmodule(symbol, symbol);
+      await this._addToSubmodule(symbol, symbol);
       return;
     }
     if (!ts.isNamespaceExport(declaration)) {
@@ -419,14 +432,14 @@ export class Assembler implements Emitter {
           `Submodule namespaces must be camelCased or snake_cased. Consider renaming to "${Case.camel(symbol.name)}".`);
       }
 
-      const { fqn, fqnResolutionPrefix } = qualifiedNameOf.call(this, symbol);
+      const { fqn, fqnResolutionPrefix } = await qualifiedNameOf.call(this, symbol);
       const targets = undefined; // This will be configurable in the future.
 
       this._submodules.set(symbol, { fqn, fqnResolutionPrefix, targets, locationInModule: this.declarationLocation(declaration) });
-      this._addToSubmodule(symbol, sourceModule);
+      await this._addToSubmodule(symbol, sourceModule);
     }
 
-    function qualifiedNameOf(this: Assembler, sym: ts.Symbol, inlineNamespace = false): { fqn: string, fqnResolutionPrefix: string } {
+    async function qualifiedNameOf(this: Assembler, sym: ts.Symbol, inlineNamespace = false): Promise<{ fqn: string, fqnResolutionPrefix: string }> {
       if (this._submoduleMap.has(sym)) {
         const parent = this._submodules.get(this._submoduleMap.get(sym)!)!;
         const fqn = `${parent.fqn}.${sym.name}`;
@@ -435,7 +448,10 @@ export class Assembler implements Emitter {
           fqnResolutionPrefix: inlineNamespace ? parent.fqnResolutionPrefix : fqn,
         };
       }
-      const fqn = `${this.projectInfo.name}.${sym.name}`;
+      const symbolLocation = sym.getDeclarations()?.[0]?.getSourceFile()?.fileName;
+      const pkgInfo = symbolLocation && await findPackageInfo(symbolLocation);
+      const assemblyName: string = pkgInfo?.name ?? this.projectInfo.name;
+      const fqn = `${assemblyName}.${sym.name}`;
       return {
         fqn,
         fqnResolutionPrefix: inlineNamespace ? this.projectInfo.name : fqn,
@@ -451,7 +467,7 @@ export class Assembler implements Emitter {
    * @param ns         the symbol that identifies the submodule.
    * @param moduleLike the module-like symbol bound to the submodule.
    */
-  private _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol) {
+  private async _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol) {
     // For each symbol exported by the moduleLike, map it to the ns submodule.
     for (const symbol of this._typeChecker.getExportsOfModule(moduleLike)) {
       if (this._submoduleMap.has(symbol)) {
@@ -505,12 +521,15 @@ export class Assembler implements Emitter {
             this._submoduleMap.set(type.symbol, ns);
           }
           if (type.symbol.exports) {
-            this._addToSubmodule(ns, symbol);
+            // eslint-disable-next-line no-await-in-loop
+            await this._addToSubmodule(ns, symbol);
           }
         } else if (ts.isModuleDeclaration(decl)) {
-          this._registerNamespaces(symbol);
+          // eslint-disable-next-line no-await-in-loop
+          await this._registerNamespaces(symbol);
         } else if (ts.isNamespaceExport(decl)) {
-          this._registerNamespaces(symbol);
+          // eslint-disable-next-line no-await-in-loop
+          await this._registerNamespaces(symbol);
         }
       }
     }
@@ -834,10 +853,12 @@ export class Assembler implements Emitter {
 
         // eslint-disable-next-line no-await-in-loop
         if (ts.isMethodDeclaration(memberDecl) || ts.isMethodSignature(memberDecl)) {
+          // eslint-disable-next-line no-await-in-loop
           await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else if (ts.isPropertyDeclaration(memberDecl)
           || ts.isPropertySignature(memberDecl)
           || ts.isAccessor(memberDecl)) {
+          // eslint-disable-next-line no-await-in-loop
           await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs?.stability));
         } else {
           this._diagnostic(memberDecl,
@@ -1979,4 +2000,14 @@ function isSingleValuedEnum(type: ts.Type, typeChecker: ts.TypeChecker): type is
     return type === typeChecker.getBaseTypeOfLiteralType(type);
   }
   return false;
+}
+
+async function findPackageInfo(fromDir: string): Promise<any> {
+  const filePath = path.join(fromDir, 'package.json');
+  if (await fs.pathExists(filePath)) {
+    return fs.readJson(filePath);
+  }
+  const parent = path.dirname(fromDir);
+  if (parent === fromDir) { return undefined; }
+  return findPackageInfo(parent);
 }

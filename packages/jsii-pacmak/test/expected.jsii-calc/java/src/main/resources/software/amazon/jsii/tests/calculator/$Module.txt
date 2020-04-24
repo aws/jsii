@@ -177,6 +177,7 @@ jsii-calc.Thrower=software.amazon.jsii.tests.calculator.Thrower
 jsii-calc.TopLevelStruct=software.amazon.jsii.tests.calculator.TopLevelStruct
 jsii-calc.UnaryOperation=software.amazon.jsii.tests.calculator.UnaryOperation
 jsii-calc.UnionProperties=software.amazon.jsii.tests.calculator.UnionProperties
+jsii-calc.UpcasingReflectable=software.amazon.jsii.tests.calculator.UpcasingReflectable
 jsii-calc.UseBundledDependency=software.amazon.jsii.tests.calculator.UseBundledDependency
 jsii-calc.UseCalcBase=software.amazon.jsii.tests.calculator.UseCalcBase
 jsii-calc.UsesInterfaceWithProperties=software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties

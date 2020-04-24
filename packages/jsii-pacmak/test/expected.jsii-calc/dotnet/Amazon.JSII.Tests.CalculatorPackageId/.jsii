@@ -84,6 +84,14 @@
       }
     },
     "@scope/jsii-calc-lib": {
+      "submodules": {
+        "@scope/jsii-calc-lib.submodule": {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 112
+          }
+        }
+      },
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -138,6 +146,12 @@
   },
   "schema": "jsii/0.10.0",
   "submodules": {
+    "@scope/jsii-calc-lib.submodule": {
+      "locationInModule": {
+        "filename": "../@scope/jsii-calc-lib/build/index.d.ts",
+        "line": 94
+      }
+    },
     "jsii-calc.DerivedClassHasNoProperties": {
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -165,7 +179,7 @@
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 7
+        "line": 8
       }
     },
     "jsii-calc.submodule.back_references": {
@@ -11519,6 +11533,79 @@
         }
       ]
     },
+    "jsii-calc.UpcasingReflectable": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Ensures submodule-imported types from dependencies can be used correctly."
+      },
+      "fqn": "jsii-calc.UpcasingReflectable",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "delegate",
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "primitive": "any"
+                },
+                "kind": "map"
+              }
+            }
+          }
+        ]
+      },
+      "interfaces": [
+        "@scope/jsii-calc-lib.submodule.IReflectable"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodules.ts",
+        "line": 6
+      },
+      "name": "UpcasingReflectable",
+      "properties": [
+        {
+          "const": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodules.ts",
+            "line": 7
+          },
+          "name": "reflector",
+          "static": true,
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.submodule.Reflector"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodules.ts",
+            "line": 11
+          },
+          "name": "entries",
+          "overrides": "@scope/jsii-calc-lib.submodule.IReflectable",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.submodule.ReflectableEntry"
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.UseBundledDependency": {
       "assembly": "jsii-calc",
       "docs": {
@@ -12498,5 +12585,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "LPI1XbecdL/VPbXVTmbAHHV0ox1k1cAxzrWF/f0rIxI="
+  "fingerprint": "DX1QMQgQSTuLzsXpnv5YcFSvPRw/30xHOP5U+5pQY0o="
 }

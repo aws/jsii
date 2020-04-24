@@ -41,6 +41,7 @@ import jsii_calc.composition
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
+import scope.jsii_calc_lib.submodule
 
 from ._jsii import *
 
@@ -7411,6 +7412,41 @@ class UnionProperties():
         return 'UnionProperties(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
+@jsii.implements(scope.jsii_calc_lib.submodule.IReflectable)
+class UpcasingReflectable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UpcasingReflectable"):
+    """Ensures submodule-imported types from dependencies can be used correctly.
+
+    stability
+    :stability: experimental
+    """
+    def __init__(self, delegate: typing.Mapping[str, typing.Any]) -> None:
+        """
+        :param delegate: -
+
+        stability
+        :stability: experimental
+        """
+        jsii.create(UpcasingReflectable, self, [delegate])
+
+    @jsii.python.classproperty
+    @jsii.member(jsii_name="reflector")
+    def REFLECTOR(cls) -> scope.jsii_calc_lib.submodule.Reflector:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sget(cls, "reflector")
+
+    @builtins.property
+    @jsii.member(jsii_name="entries")
+    def entries(self) -> typing.List[scope.jsii_calc_lib.submodule.ReflectableEntry]:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "entries")
+
+
 class UseBundledDependency(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UseBundledDependency"):
     """
     stability
@@ -8529,6 +8565,7 @@ __all__ = [
     "TopLevelStruct",
     "UnaryOperation",
     "UnionProperties",
+    "UpcasingReflectable",
     "UseBundledDependency",
     "UseCalcBase",
     "UsesInterfaceWithProperties",
