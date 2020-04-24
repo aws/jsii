@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.1](https://github.com/aws/jsii/compare/v1.4.0...v1.4.1) (2020-04-22)
+
+
+### Bug Fixes
+
+* **java:** compilation fails with "code too large" ([#1605](https://github.com/aws/jsii/issues/1605)) ([b9ec853](https://github.com/aws/jsii/commit/b9ec85384c53567e77bed4ab1a02910a297fff02))
+
+## [1.4.0](https://github.com/aws/jsii/compare/v1.3.2...v1.4.0) (2020-04-22)
+
+
+### Features
+
+* **python:** improve metadata of jsii package ([#1587](https://github.com/aws/jsii/issues/1587)) ([7dd04fe](https://github.com/aws/jsii/commit/7dd04fe9987bbba7b1360162b7afc2caf15a50e6))
+* **spec:** model submodules in the Assembly schema ([#1563](https://github.com/aws/jsii/issues/1563)) ([de2689b](https://github.com/aws/jsii/commit/de2689b0e3a9218c22c3c0cc046f98be029a1707)), closes [#1528](https://github.com/aws/jsii/issues/1528) [#1557](https://github.com/aws/jsii/issues/1557)
+
+## [1.3.2](https://github.com/aws/jsii/compare/v1.3.1...v1.3.2) (2020-04-20)
+
+
+### Bug Fixes
+
+* **python:** incorrect dependency on jsii ([#1582](https://github.com/aws/jsii/issues/1582)) ([c537bd7](https://github.com/aws/jsii/commit/c537bd7e700004b5a66124c1970f4fb540a427d6)), closes [#1573](https://github.com/aws/jsii/issues/1573)
+
+## [1.3.1](https://github.com/aws/jsii/compare/v1.3.0...v1.3.1) (2020-04-18)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** invalid dotnet version suffixes ([#1568](https://github.com/aws/jsii/issues/1568)) ([9ef8f17](https://github.com/aws/jsii/commit/9ef8f17e11fa3403043c3237463c16e08020c696))
+
 ## [1.3.0](https://github.com/aws/jsii/compare/v1.2.0...v1.3.0) (2020-04-16)
 
 

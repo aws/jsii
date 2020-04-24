@@ -1,6 +1,5 @@
 ﻿using Amazon.JSII.JsonModel.Spec;
 using System;
-using Newtonsoft.Json.Linq;
 
 namespace Amazon.JSII.Runtime.Services.Converters
 {

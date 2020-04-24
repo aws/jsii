@@ -84,6 +84,14 @@
       }
     },
     "@scope/jsii-calc-lib": {
+      "submodules": {
+        "@scope/jsii-calc-lib.submodule": {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 112
+          }
+        }
+      },
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -137,6 +145,68 @@
     "url": "https://github.com/aws/jsii.git"
   },
   "schema": "jsii/0.10.0",
+  "submodules": {
+    "@scope/jsii-calc-lib.submodule": {
+      "locationInModule": {
+        "filename": "../@scope/jsii-calc-lib/build/index.d.ts",
+        "line": 94
+      }
+    },
+    "jsii-calc.DerivedClassHasNoProperties": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 309
+      }
+    },
+    "jsii-calc.InterfaceInNamespaceIncludesClasses": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1057
+      }
+    },
+    "jsii-calc.InterfaceInNamespaceOnlyInterface": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1048
+      }
+    },
+    "jsii-calc.composition": {
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 127
+      }
+    },
+    "jsii-calc.submodule": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 8
+      }
+    },
+    "jsii-calc.submodule.back_references": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 4
+      }
+    },
+    "jsii-calc.submodule.child": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 1
+      }
+    },
+    "jsii-calc.submodule.nested_submodule": {
+      "locationInModule": {
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 3
+      }
+    },
+    "jsii-calc.submodule.nested_submodule.deeplyNested": {
+      "locationInModule": {
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 4
+      }
+    }
+  },
   "targets": {
     "dotnet": {
       "iconUrl": "https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png",
@@ -12515,5 +12585,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "Dtqi9hvNQJhZumJMY+Ttifsc34vRZW8tCZpizTkED1s="
+  "fingerprint": "DX1QMQgQSTuLzsXpnv5YcFSvPRw/30xHOP5U+5pQY0o="
 }

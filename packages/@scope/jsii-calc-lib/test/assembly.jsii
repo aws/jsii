@@ -72,6 +72,14 @@
     "url": "https://github.com/aws/jsii.git"
   },
   "schema": "jsii/0.10.0",
+  "submodules": {
+    "@scope/jsii-calc-lib.submodule": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 112
+      }
+    }
+  },
   "targets": {
     "dotnet": {
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -649,5 +657,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "e9GUYpBp7cvKOpwDNgQrUoC8Ai/ez7luGrf0+UxAmMk="
+  "fingerprint": "+7cEXNA9wAn/mht3AcwDtIFLvsfZoQhQGBQ4J1pPCO4="
 }
