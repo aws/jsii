@@ -13,6 +13,7 @@ import jsii_calc.submodule.child
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
+import scope.jsii_calc_lib.submodule
 
 from .._jsii import *
 
