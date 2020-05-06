@@ -2132,6 +2132,7 @@ function onelineDescription(docs: spec.Docs | undefined) {
 }
 
 function shouldMentionStability(s: Stability) {
+  // Don't render "stable" or "external", those are both stable by implication.
   return s === Stability.Deprecated || s === Stability.Experimental;
 }
 

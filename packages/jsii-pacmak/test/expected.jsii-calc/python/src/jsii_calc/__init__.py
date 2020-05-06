@@ -2407,6 +2407,120 @@ class ExtendsInternalInterface():
         return 'ExtendsInternalInterface(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
+class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"):
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    def __init__(self, readonly_string: str, mutable_number: typing.Optional[jsii.Number]=None) -> None:
+        """
+        :param readonly_string: -
+        :param mutable_number: -
+
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        jsii.create(ExternalClass, self, [readonly_string, mutable_number])
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.invoke(self, "method", [])
+
+    @builtins.property
+    @jsii.member(jsii_name="readonlyProperty")
+    def readonly_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.get(self, "readonlyProperty")
+
+    @builtins.property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        jsii.set(self, "mutableProperty", value)
+
+
+@jsii.enum(jsii_type="jsii-calc.ExternalEnum")
+class ExternalEnum(enum.Enum):
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    OPTION_A = "OPTION_A"
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    OPTION_B = "OPTION_B"
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+
+@jsii.data_type(jsii_type="jsii-calc.ExternalStruct", jsii_struct_bases=[], name_mapping={'readonly_property': 'readonlyProperty'})
+class ExternalStruct():
+    def __init__(self, *, readonly_property: str) -> None:
+        """
+        :param readonly_property: 
+
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        self._values = {
+            'readonly_property': readonly_property,
+        }
+
+    @builtins.property
+    def readonly_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return self._values.get('readonly_property')
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'ExternalStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
 class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"):
     """
     stability
@@ -2997,6 +3111,78 @@ class _IExtendsPrivateInterfaceProxy():
     @private.setter
     def private(self, value: str):
         jsii.set(self, "private", value)
+
+
+@jsii.interface(jsii_type="jsii-calc.IExternalInterface")
+class IExternalInterface(jsii.compat.Protocol):
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    @builtins.staticmethod
+    def __jsii_proxy_class__():
+        return _IExternalInterfaceProxy
+
+    @builtins.property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        ...
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        ...
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        ...
+
+
+class _IExternalInterfaceProxy():
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    __jsii_type__ = "jsii-calc.IExternalInterface"
+    @builtins.property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        jsii.set(self, "mutableProperty", value)
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.invoke(self, "method", [])
 
 
 @jsii.interface(jsii_type="jsii-calc.IFriendlier")
@@ -8448,6 +8634,9 @@ __all__ = [
     "ExperimentalStruct",
     "ExportedBaseClass",
     "ExtendsInternalInterface",
+    "ExternalClass",
+    "ExternalEnum",
+    "ExternalStruct",
     "GiveMeStructs",
     "Greetee",
     "GreetingAugmenter",
@@ -8460,6 +8649,7 @@ __all__ = [
     "IDeprecatedInterface",
     "IExperimentalInterface",
     "IExtendsPrivateInterface",
+    "IExternalInterface",
     "IFriendlier",
     "IFriendlyRandomGenerator",
     "IInterfaceImplementedByAbstractClass",

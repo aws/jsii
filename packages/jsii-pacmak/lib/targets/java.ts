@@ -1110,7 +1110,9 @@ class JavaGenerator extends Generator {
         case spec.Stability.Experimental:
           return 'Experimental';
         case spec.Stability.External:
-          return 'External';
+          // Rendering 'External' out as publicly visible state is confusing. As far
+          // as users are concerned we just advertise this as stable.
+          return 'Stable';
         case spec.Stability.Stable:
           return 'Stable';
         default:
