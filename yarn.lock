@@ -1533,10 +1533,10 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/jest-expect-message@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@types/jest-expect-message/-/jest-expect-message-1.0.1.tgz#a1c5d18fa32be141b06d60f54a66b23da68e6cd5"
-  integrity sha512-6WK4iQ/iVW4otNDNJEvCnIJ3keGeYtS04t4S/lA0ftF8hdHJnjY9rZrgHCz+LPsudd1DdwmGT5i6j4J5xU1S9A==
+"@types/jest-expect-message@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/jest-expect-message/-/jest-expect-message-1.0.2.tgz#5e354d78f01db717ff280fdca5bc48be19eccce0"
+  integrity sha512-a6En2I1lLW0oW1FmukuPR056n+zGBN6CIctrQN9znBrC+6/GsBRg1ICtZUzHtRn9U0hd4vXjRMd2D2BMefMy2Q==
   dependencies:
     "@types/jest" "*"
 
