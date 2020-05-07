@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/aws/jsii/compare/v1.4.1...v1.5.0) (2020-05-07)
+
+
+### Bug Fixes
+
+* **jsii:** unable to use type from dependencies' submodules ([#1557](https://github.com/aws/jsii/issues/1557)) ([ba7fac2](https://github.com/aws/jsii/commit/ba7fac25c4e625f4beb1bcc74a39d1c5e75441c1))
+
 ## [1.4.1](https://github.com/aws/jsii/compare/v1.4.0...v1.4.1) (2020-04-22)
 
 
