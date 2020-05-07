@@ -16,14 +16,14 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@octokit/rest": "^17.5.1",
+    "@octokit/rest": "^17.7.0",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.0",
-    "jest": "^25.4.0",
+    "jest": "^26.0.1",
     "jsii": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "tar": "^6.0.1"
+    "tar": "^6.0.2"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",

@@ -1209,7 +1209,14 @@ class PythonModule implements PythonType {
     // We need to make sure direct dependencies are always loaded...
     for (const dep of Object.keys(this.assembly.dependencies ?? {})) {
       const depConfig = this.assembly.dependencyClosure![dep];
-      deps.add(depConfig.targets!.python!.module);
+
+      const packageName = depConfig.targets!.python!.module;
+      deps.add(packageName);
+
+      for (const [submoduleName] of Object.entries(depConfig.submodules ?? {})) {
+        const [, ...parts] = submoduleName.split('.');
+        deps.add([packageName, ...parts.map(part => toSnakeCase(part))].join('.'));
+      }
     }
 
     // Now actually write the import statements...

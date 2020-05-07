@@ -18,7 +18,8 @@ kwargs = json.loads("""
     },
     "packages": [
         "scope.jsii_calc_lib",
-        "scope.jsii_calc_lib._jsii"
+        "scope.jsii_calc_lib._jsii",
+        "scope.jsii_calc_lib.submodule"
     ],
     "package_data": {
         "scope.jsii_calc_lib._jsii": [
