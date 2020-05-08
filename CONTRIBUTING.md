@@ -137,9 +137,9 @@ The jsii runtime client library usually includes the following components:
 > More documentation should be added here. In the meantime, refer to the Java
 > implementation as a reference:
 >
-> - [Process manager](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiRuntime.java)
-> - [Protocol layer](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiClient.java)
-> - [Proxy layer](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiEngine.java)
+> - [Process manager](./packages/%40jsii/java-runtime/project/src/main/java/software/amazon/jsii/JsiiRuntime.java)
+> - [Protocol layer](./packages/%40jsii/java-runtime/project/src/main/java/software/amazon/jsii/JsiiClient.java)
+> - [Proxy layer](./packages/%40jsii/java-runtime/project/src/main/java/software/amazon/jsii/JsiiEngine.java)
 
 ### Package Generator
 
