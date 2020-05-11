@@ -34,7 +34,7 @@ class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProper
         return jsii.get(self, "prop")
 
     @prop.setter
-    def prop(self, value: str):
+    def prop(self, value: str) -> None:
         jsii.set(self, "prop", value)
 
 

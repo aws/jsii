@@ -34,7 +34,7 @@ class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncl
         return jsii.get(self, "bar")
 
     @bar.setter
-    def bar(self, value: typing.Optional[str]):
+    def bar(self, value: typing.Optional[str]) -> None:
         jsii.set(self, "bar", value)
 
 

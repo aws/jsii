@@ -633,7 +633,7 @@ abstract class BaseProperty implements PythonBase {
       if (renderAbstract && this.abstract) {
         code.line('@abc.abstractmethod');
       }
-      code.openBlock(`def ${this.pythonName}(${this.implicitParameter}, value: ${pythonType})`);
+      code.openBlock(`def ${this.pythonName}(${this.implicitParameter}, value: ${pythonType}) -> None`);
       if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
         code.line(`jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
       } else {

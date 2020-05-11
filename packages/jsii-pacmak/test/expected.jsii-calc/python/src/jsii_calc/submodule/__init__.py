@@ -68,7 +68,7 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         return jsii.get(self, "allTypes")
 
     @all_types.setter
-    def all_types(self, value: typing.Optional[jsii_calc.AllTypes]):
+    def all_types(self, value: typing.Optional[jsii_calc.AllTypes]) -> None:
         jsii.set(self, "allTypes", value)
 
 
