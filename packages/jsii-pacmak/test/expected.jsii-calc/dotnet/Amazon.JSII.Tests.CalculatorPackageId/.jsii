@@ -4455,6 +4455,169 @@
         }
       ]
     },
+    "jsii-calc.ExternalClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "custom": {
+          "external": "true"
+        },
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ExternalClass",
+      "initializer": {
+        "docs": {
+          "custom": {
+            "external": "true"
+          },
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "readonlyString",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "mutableNumber",
+            "optional": true,
+            "type": {
+              "primitive": "number"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 119
+      },
+      "methods": [
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 130
+          },
+          "name": "method"
+        }
+      ],
+      "name": "ExternalClass",
+      "properties": [
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 121
+          },
+          "name": "readonlyProperty",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 123
+          },
+          "name": "mutableProperty",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ExternalEnum": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "custom": {
+          "external": "true"
+        },
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ExternalEnum",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 133
+      },
+      "members": [
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "name": "OPTION_A"
+        },
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "name": "OPTION_B"
+        }
+      ],
+      "name": "ExternalEnum"
+    },
+    "jsii-calc.ExternalStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "custom": {
+          "external": "true"
+        },
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ExternalStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 107
+      },
+      "name": "ExternalStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 109
+          },
+          "name": "readonlyProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
       "docs": {
@@ -4988,6 +5151,58 @@
           "name": "private",
           "type": {
             "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IExternalInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "custom": {
+          "external": "true"
+        },
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.IExternalInterface",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 112
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 116
+          },
+          "name": "method"
+        }
+      ],
+      "name": "IExternalInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 114
+          },
+          "name": "mutableProperty",
+          "optional": true,
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -12585,5 +12800,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "DX1QMQgQSTuLzsXpnv5YcFSvPRw/30xHOP5U+5pQY0o="
+  "fingerprint": "sBk+g8M/UxDdbco/a9UXJtumXd2eCRRLsERa1ajaJvo="
 }
