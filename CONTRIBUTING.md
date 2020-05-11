@@ -113,7 +113,7 @@ jsii language bindings consist of two main components:
 
 1. __A runtime client library__: a library implemented for each language. This
    library is responsible to manage the child
-   [`jsii-runtime`](./packages/jsii-runtime/README.md) process and interact with
+   [`@jsii/runtime`](./packages/@jsii/runtime/README.md) process and interact with
    the [@jsii/kernel](./packages/@jsii/kernel/README.md).
 2. __A `jsii-pacmak` generator__: extend the jsii-pacmak project to be able to
    generate proxy classes for a jsii module.
@@ -123,23 +123,23 @@ jsii language bindings consist of two main components:
 ### Runtime Client Library
 
 The runtime client library should be implemented as a module under
-`packages/jsii-<lang>-runtime`.
+`packages/@jsii/<lang>-runtime`.
 
 The jsii runtime client library usually includes the following components:
 
-- Child process manager: responsible to start/stop the jsii-runtime child
+- Child process manager: responsible to start/stop the **@jsii/runtime** child
   process.
 - Protocol layer: implements the STDIN/STDOUT protocol that interacts with the
-  jsii-runtime.
+  **@jsii/runtime**.
 - Proxy layer: includes base classes and serialization utilities to implement
   the generated proxy classes.
 
 > More documentation should be added here. In the meantime, refer to the Java
 > implementation as a reference:
 >
-> - [Process manager](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiRuntime.java)
-> - [Protocol layer](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiClient.java)
-> - [Proxy layer](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiEngine.java)
+> - [Process manager](./packages/@jsii/java-runtime/project/src/main/java/software/amazon/jsii/JsiiRuntime.java)
+> - [Protocol layer](./packages/@jsii/java-runtime/project/src/main/java/software/amazon/jsii/JsiiClient.java)
+> - [Proxy layer](./packages/@jsii/java-runtime/project/src/main/java/software/amazon/jsii/JsiiEngine.java)
 
 ### Package Generator
 
