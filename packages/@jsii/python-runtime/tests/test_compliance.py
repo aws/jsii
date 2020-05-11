@@ -1178,8 +1178,7 @@ def test_dependency_submodule_types_are_usable():
     assert UpcasingReflectable.REFLECTOR.as_map(subject) == { 'FOO': 'bar' }
 
 
-@pytest.mark.skip # Currently broken because submodule names aren't case-adjusted correctly :(
 def test_load_submodules():
-    import jsii_calc.submodule
     from jsii_calc.submodule import nested_submodule
+    import jsii_calc.submodule
 
