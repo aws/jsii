@@ -2459,7 +2459,7 @@ class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
 
@@ -3137,7 +3137,7 @@ class IExternalInterface(jsii.compat.Protocol):
         ...
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
     @jsii.member(jsii_name="method")
@@ -3171,7 +3171,7 @@ class _IExternalInterfaceProxy():
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
     @jsii.member(jsii_name="method")
