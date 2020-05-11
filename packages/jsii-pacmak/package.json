@@ -59,7 +59,7 @@
     "@types/node": "^10.17.21",
     "@types/semver": "^7.1.0",
     "@types/yargs": "^15.0.4",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "jest": "^26.0.1",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
