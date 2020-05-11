@@ -8,8 +8,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// The docs are great. They're a bunch of tags.
     /// 
-    /// <strong>Stability</strong>: Stable
-    /// 
     /// <strong>See</strong>: https://aws.amazon.com/
     /// 
     /// <strong>CustomAttribute</strong>: hasAValue

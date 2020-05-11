@@ -61,6 +61,7 @@ Array [
   "jsii-calc.EraseUndefinedHashValues",
   "jsii-calc.ExperimentalClass",
   "jsii-calc.ExportedBaseClass",
+  "jsii-calc.ExternalClass",
   "jsii-calc.GiveMeStructs",
   "jsii-calc.GreetingAugmenter",
   "jsii-calc.ImplementInternalInterface",
