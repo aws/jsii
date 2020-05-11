@@ -16,7 +16,6 @@ import { IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './ca
 
 const bundled = require('@fixtures/jsii-calc-bundled');
 import * as base from '@scope/jsii-calc-base';
-import { submodule } from '@scope/jsii-calc-lib';
 
 const readFile = promisify(fs.readFile);
 
@@ -2465,18 +2464,4 @@ export class InterfaceCollections {
  */
 export interface IOptionalMethod {
     optional(): string | undefined;
-}
-
-/**
- * Ensures submodule-imported types from dependencies can be used correctly.
- */
-export class UpcasingReflectable implements submodule.IReflectable {
-    public static readonly reflector = new submodule.Reflector();
-
-    public constructor(private readonly delegate: Record<string, unknown>) { }
-
-    public get entries(): submodule.ReflectableEntry[] {
-        return Object.entries(this.delegate)
-            .map(([key, value]) => ({ key: key.toLocaleUpperCase(), value }));
-    }
 }
