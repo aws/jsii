@@ -4,9 +4,19 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterface(nativeType: typeof(IStableInterface), fullyQualifiedName: "jsii-calc.IStableInterface")]
-    public interface IStableInterface
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// 
+    /// <strong>External</strong>: true
+    /// </remarks>
+    [JsiiInterface(nativeType: typeof(IExternalInterface), fullyQualifiedName: "jsii-calc.IExternalInterface")]
+    public interface IExternalInterface
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// 
+        /// <strong>External</strong>: true
+        /// </remarks>
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         [Amazon.JSII.Runtime.Deputy.JsiiOptional]
         double? MutableProperty
@@ -20,6 +30,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 throw new System.NotSupportedException("'set' for 'MutableProperty' is not implemented");
             }
         }
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// 
+        /// <strong>External</strong>: true
+        /// </remarks>
         [JsiiMethod(name: "method")]
         void Method();
     }
