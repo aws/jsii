@@ -1,4 +1,4 @@
-﻿using Amazon.JSII.JsonModel.Api;
+using Amazon.JSII.JsonModel.Api;
 using Amazon.JSII.JsonModel.Api.Response;
 using Amazon.JSII.JsonModel.Spec;
 using Amazon.JSII.Runtime.Services;

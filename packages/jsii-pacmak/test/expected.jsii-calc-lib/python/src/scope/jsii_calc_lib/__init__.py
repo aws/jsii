@@ -383,6 +383,16 @@ class _OperationProxy(Operation, jsii.proxy_for(Value)):
         return jsii.invoke(self, "toString", [])
 
 
-__all__ = ["EnumFromScopedModule", "IDoublable", "IFriendly", "IThreeLevelsInterface", "MyFirstStruct", "Number", "Operation", "StructWithOnlyOptionals", "Value"]
+__all__ = [
+    "EnumFromScopedModule",
+    "IDoublable",
+    "IFriendly",
+    "IThreeLevelsInterface",
+    "MyFirstStruct",
+    "Number",
+    "Operation",
+    "StructWithOnlyOptionals",
+    "Value",
+]
 
 publication.publish()

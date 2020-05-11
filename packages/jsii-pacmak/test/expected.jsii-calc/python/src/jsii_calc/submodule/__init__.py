@@ -12,10 +12,10 @@ from .._jsii import *
 
 from .. import (AllTypes as _AllTypes_b08307c5)
 from .child import (Awesomeness as _Awesomeness_d37a24df, Goodness as _Goodness_2df26737)
-from .nested_submodule.deeplyNested import (INamespaced as _INamespaced_8958714a)
+from .nested_submodule.deeply_nested import (INamespaced as _INamespaced_e2f386ad)
 
 
-@jsii.implements(_INamespaced_8958714a)
+@jsii.implements(_INamespaced_e2f386ad)
 class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
     """
     stability
@@ -69,6 +69,8 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         jsii.set(self, "allTypes", value)
 
 
-__all__ = ["MyClass"]
+__all__ = [
+    "MyClass",
+]
 
 publication.publish()

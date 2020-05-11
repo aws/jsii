@@ -80,6 +80,10 @@ class Structure():
         return 'Structure(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["Awesomeness", "Goodness", "Structure"]
+__all__ = [
+    "Awesomeness",
+    "Goodness",
+    "Structure",
+]
 
 publication.publish()

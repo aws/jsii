@@ -85,7 +85,12 @@
     },
     "@scope/jsii-calc-lib": {
       "submodules": {
-        "@scope/jsii-calc-lib.submodule": {}
+        "@scope/jsii-calc-lib.submodule": {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 112
+          }
+        }
       },
       "targets": {
         "dotnet": {
@@ -141,15 +146,66 @@
   },
   "schema": "jsii/0.10.0",
   "submodules": {
-    "jsii-calc.DerivedClassHasNoProperties": {},
-    "jsii-calc.InterfaceInNamespaceIncludesClasses": {},
-    "jsii-calc.InterfaceInNamespaceOnlyInterface": {},
-    "jsii-calc.composition": {},
-    "jsii-calc.submodule": {},
-    "jsii-calc.submodule.back_references": {},
-    "jsii-calc.submodule.child": {},
-    "jsii-calc.submodule.deeplyNested": {},
-    "jsii-calc.submodule.nested_submodule": {}
+    "@scope/jsii-calc-lib.submodule": {
+      "locationInModule": {
+        "filename": "../@scope/jsii-calc-lib/build/index.d.ts",
+        "line": 94
+      }
+    },
+    "jsii-calc.DerivedClassHasNoProperties": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 310
+      }
+    },
+    "jsii-calc.InterfaceInNamespaceIncludesClasses": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1058
+      }
+    },
+    "jsii-calc.InterfaceInNamespaceOnlyInterface": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1049
+      }
+    },
+    "jsii-calc.composition": {
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 127
+      }
+    },
+    "jsii-calc.submodule": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 7
+      }
+    },
+    "jsii-calc.submodule.back_references": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 4
+      }
+    },
+    "jsii-calc.submodule.child": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 1
+      }
+    },
+    "jsii-calc.submodule.nested_submodule": {
+      "locationInModule": {
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 3
+      }
+    },
+    "jsii-calc.submodule.nested_submodule.deeplyNested": {
+      "locationInModule": {
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 4
+      }
+    }
   },
   "targets": {
     "dotnet": {
@@ -12529,5 +12585,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "iNJa3eF8Ghbe8b82ceEiS4X0KxQIMQeVjf3ds4YoGwQ="
+  "fingerprint": "VVeWqPwADIdeQ1G3y+ndqdPwQuxVKPF0tEv+tx5RBYo="
 }

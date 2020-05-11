@@ -26,15 +26,16 @@
   "scripts": {
     "gen": "/bin/bash generate.sh",
     "deps": "cd project && bundle install --path vendor/bundle --binstubs vendor/bin",
+    "dist-clean": "rm -rf dist",
     "lint": "cd project && vendor/bin/rubocop",
-    "build": "npm run gen && npm run deps && npm run lint && gem build project/*.gemspec",
+    "build": "npm run gen && npm run deps && npm run lint",
     "test": "cd project && ruby test/suite.rb",
     "test:update": "UPDATE_DIFF=1 npm run test",
     "package": "package-ruby"
   },
   "devDependencies": {
     "@jsii/runtime": "^0.0.0",
-    "@types/node": "^10.17.19",
+    "@types/node": "^10.17.21",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",

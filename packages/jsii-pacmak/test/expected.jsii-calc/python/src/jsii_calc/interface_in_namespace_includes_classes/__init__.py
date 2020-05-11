@@ -64,6 +64,9 @@ class Hello():
         return 'Hello(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["Foo", "Hello"]
+__all__ = [
+    "Foo",
+    "Hello",
+]
 
 publication.publish()

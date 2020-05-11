@@ -148,7 +148,19 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
 /**
  * Shareable configuration of a jsii Assembly.
  */
-export interface AssemblyConfiguration {
+export interface AssemblyConfiguration extends Targetable {
+  /**
+   * Submodules declared in this assembly.
+   *
+   * @default none
+   */
+  submodules?: { [fqn: string]: SourceLocatable & Targetable };
+}
+
+/**
+ * An entity on which targets may be configured.
+ */
+export interface Targetable {
   /**
    * Submodules defined in this assembly, if any, associated with their
    * designated targets configuration.

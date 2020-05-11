@@ -47,6 +47,8 @@ class _INamespacedProxy():
         return jsii.get(self, "definedAt")
 
 
-__all__ = ["INamespaced"]
+__all__ = [
+    "INamespaced",
+]
 
 publication.publish()

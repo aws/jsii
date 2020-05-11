@@ -2,10 +2,47 @@ package software.amazon.jsii.tests.calculator;
 
 import static java.util.Arrays.asList;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+
+import java.nio.charset.StandardCharsets;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
+    private static final Map<String, String> MODULE_TYPES = load();
+
+    private static Map<String, String> load() {
+        final Map<String, String> result = new HashMap<>();
+        final ClassLoader cl = $Module.class.getClassLoader();
+        try (final InputStream is = cl.getResourceAsStream("software/amazon/jsii/tests/calculator/$Module.txt");
+             final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);
+             final BufferedReader br = new BufferedReader(rd)) {
+            br.lines()
+              .filter(line -> !line.trim().isEmpty())
+              .forEach(line ->  {
+                final String[] parts = line.split("=", 2);
+                final String fqn = parts[0];
+                final String className = parts[1];
+                result.put(fqn, className);
+            });
+        }
+        catch (final IOException exception) {
+            throw new UncheckedIOException(exception);
+        }
+        return result;
+    }
+
+    private final Map<String, Class<?>> cache = new HashMap<>();
+
     public $Module() {
         super("jsii-calc", "0.0.0", $Module.class, "jsii-calc@0.0.0.jsii.tgz");
     }
@@ -17,205 +54,18 @@ public final class $Module extends JsiiModule {
 
     @Override
     protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
-        switch (fqn) {
-            case "jsii-calc.AbstractClass": return software.amazon.jsii.tests.calculator.AbstractClass.class;
-            case "jsii-calc.AbstractClassBase": return software.amazon.jsii.tests.calculator.AbstractClassBase.class;
-            case "jsii-calc.AbstractClassReturner": return software.amazon.jsii.tests.calculator.AbstractClassReturner.class;
-            case "jsii-calc.AbstractSuite": return software.amazon.jsii.tests.calculator.AbstractSuite.class;
-            case "jsii-calc.Add": return software.amazon.jsii.tests.calculator.Add.class;
-            case "jsii-calc.AllTypes": return software.amazon.jsii.tests.calculator.AllTypes.class;
-            case "jsii-calc.AllTypesEnum": return software.amazon.jsii.tests.calculator.AllTypesEnum.class;
-            case "jsii-calc.AllowedMethodNames": return software.amazon.jsii.tests.calculator.AllowedMethodNames.class;
-            case "jsii-calc.AmbiguousParameters": return software.amazon.jsii.tests.calculator.AmbiguousParameters.class;
-            case "jsii-calc.AnonymousImplementationProvider": return software.amazon.jsii.tests.calculator.AnonymousImplementationProvider.class;
-            case "jsii-calc.AsyncVirtualMethods": return software.amazon.jsii.tests.calculator.AsyncVirtualMethods.class;
-            case "jsii-calc.AugmentableClass": return software.amazon.jsii.tests.calculator.AugmentableClass.class;
-            case "jsii-calc.BaseJsii976": return software.amazon.jsii.tests.calculator.BaseJsii976.class;
-            case "jsii-calc.Bell": return software.amazon.jsii.tests.calculator.Bell.class;
-            case "jsii-calc.BinaryOperation": return software.amazon.jsii.tests.calculator.BinaryOperation.class;
-            case "jsii-calc.Calculator": return software.amazon.jsii.tests.calculator.Calculator.class;
-            case "jsii-calc.CalculatorProps": return software.amazon.jsii.tests.calculator.CalculatorProps.class;
-            case "jsii-calc.ChildStruct982": return software.amazon.jsii.tests.calculator.ChildStruct982.class;
-            case "jsii-calc.ClassThatImplementsTheInternalInterface": return software.amazon.jsii.tests.calculator.ClassThatImplementsTheInternalInterface.class;
-            case "jsii-calc.ClassThatImplementsThePrivateInterface": return software.amazon.jsii.tests.calculator.ClassThatImplementsThePrivateInterface.class;
-            case "jsii-calc.ClassWithCollections": return software.amazon.jsii.tests.calculator.ClassWithCollections.class;
-            case "jsii-calc.ClassWithDocs": return software.amazon.jsii.tests.calculator.ClassWithDocs.class;
-            case "jsii-calc.ClassWithJavaReservedWords": return software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords.class;
-            case "jsii-calc.ClassWithMutableObjectLiteralProperty": return software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty.class;
-            case "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": return software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class;
-            case "jsii-calc.ConfusingToJackson": return software.amazon.jsii.tests.calculator.ConfusingToJackson.class;
-            case "jsii-calc.ConfusingToJacksonStruct": return software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct.class;
-            case "jsii-calc.ConstructorPassesThisOut": return software.amazon.jsii.tests.calculator.ConstructorPassesThisOut.class;
-            case "jsii-calc.Constructors": return software.amazon.jsii.tests.calculator.Constructors.class;
-            case "jsii-calc.ConsumePureInterface": return software.amazon.jsii.tests.calculator.ConsumePureInterface.class;
-            case "jsii-calc.ConsumerCanRingBell": return software.amazon.jsii.tests.calculator.ConsumerCanRingBell.class;
-            case "jsii-calc.ConsumersOfThisCrazyTypeSystem": return software.amazon.jsii.tests.calculator.ConsumersOfThisCrazyTypeSystem.class;
-            case "jsii-calc.DataRenderer": return software.amazon.jsii.tests.calculator.DataRenderer.class;
-            case "jsii-calc.DefaultedConstructorArgument": return software.amazon.jsii.tests.calculator.DefaultedConstructorArgument.class;
-            case "jsii-calc.Demonstrate982": return software.amazon.jsii.tests.calculator.Demonstrate982.class;
-            case "jsii-calc.DeprecatedClass": return software.amazon.jsii.tests.calculator.DeprecatedClass.class;
-            case "jsii-calc.DeprecatedEnum": return software.amazon.jsii.tests.calculator.DeprecatedEnum.class;
-            case "jsii-calc.DeprecatedStruct": return software.amazon.jsii.tests.calculator.DeprecatedStruct.class;
-            case "jsii-calc.DerivedClassHasNoProperties.Base": return software.amazon.jsii.tests.calculator.derived_class_has_no_properties.Base.class;
-            case "jsii-calc.DerivedClassHasNoProperties.Derived": return software.amazon.jsii.tests.calculator.derived_class_has_no_properties.Derived.class;
-            case "jsii-calc.DerivedStruct": return software.amazon.jsii.tests.calculator.DerivedStruct.class;
-            case "jsii-calc.DiamondInheritanceBaseLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct.class;
-            case "jsii-calc.DiamondInheritanceFirstMidLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct.class;
-            case "jsii-calc.DiamondInheritanceSecondMidLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceSecondMidLevelStruct.class;
-            case "jsii-calc.DiamondInheritanceTopLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceTopLevelStruct.class;
-            case "jsii-calc.DisappointingCollectionSource": return software.amazon.jsii.tests.calculator.DisappointingCollectionSource.class;
-            case "jsii-calc.DoNotOverridePrivates": return software.amazon.jsii.tests.calculator.DoNotOverridePrivates.class;
-            case "jsii-calc.DoNotRecognizeAnyAsOptional": return software.amazon.jsii.tests.calculator.DoNotRecognizeAnyAsOptional.class;
-            case "jsii-calc.DocumentedClass": return software.amazon.jsii.tests.calculator.DocumentedClass.class;
-            case "jsii-calc.DontComplainAboutVariadicAfterOptional": return software.amazon.jsii.tests.calculator.DontComplainAboutVariadicAfterOptional.class;
-            case "jsii-calc.DoubleTrouble": return software.amazon.jsii.tests.calculator.DoubleTrouble.class;
-            case "jsii-calc.EnumDispenser": return software.amazon.jsii.tests.calculator.EnumDispenser.class;
-            case "jsii-calc.EraseUndefinedHashValues": return software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class;
-            case "jsii-calc.EraseUndefinedHashValuesOptions": return software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions.class;
-            case "jsii-calc.ExperimentalClass": return software.amazon.jsii.tests.calculator.ExperimentalClass.class;
-            case "jsii-calc.ExperimentalEnum": return software.amazon.jsii.tests.calculator.ExperimentalEnum.class;
-            case "jsii-calc.ExperimentalStruct": return software.amazon.jsii.tests.calculator.ExperimentalStruct.class;
-            case "jsii-calc.ExportedBaseClass": return software.amazon.jsii.tests.calculator.ExportedBaseClass.class;
-            case "jsii-calc.ExtendsInternalInterface": return software.amazon.jsii.tests.calculator.ExtendsInternalInterface.class;
-            case "jsii-calc.GiveMeStructs": return software.amazon.jsii.tests.calculator.GiveMeStructs.class;
-            case "jsii-calc.Greetee": return software.amazon.jsii.tests.calculator.Greetee.class;
-            case "jsii-calc.GreetingAugmenter": return software.amazon.jsii.tests.calculator.GreetingAugmenter.class;
-            case "jsii-calc.IAnonymousImplementationProvider": return software.amazon.jsii.tests.calculator.IAnonymousImplementationProvider.class;
-            case "jsii-calc.IAnonymouslyImplementMe": return software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class;
-            case "jsii-calc.IAnotherPublicInterface": return software.amazon.jsii.tests.calculator.IAnotherPublicInterface.class;
-            case "jsii-calc.IBell": return software.amazon.jsii.tests.calculator.IBell.class;
-            case "jsii-calc.IBellRinger": return software.amazon.jsii.tests.calculator.IBellRinger.class;
-            case "jsii-calc.IConcreteBellRinger": return software.amazon.jsii.tests.calculator.IConcreteBellRinger.class;
-            case "jsii-calc.IDeprecatedInterface": return software.amazon.jsii.tests.calculator.IDeprecatedInterface.class;
-            case "jsii-calc.IExperimentalInterface": return software.amazon.jsii.tests.calculator.IExperimentalInterface.class;
-            case "jsii-calc.IExtendsPrivateInterface": return software.amazon.jsii.tests.calculator.IExtendsPrivateInterface.class;
-            case "jsii-calc.IFriendlier": return software.amazon.jsii.tests.calculator.IFriendlier.class;
-            case "jsii-calc.IFriendlyRandomGenerator": return software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator.class;
-            case "jsii-calc.IInterfaceImplementedByAbstractClass": return software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass.class;
-            case "jsii-calc.IInterfaceThatShouldNotBeADataType": return software.amazon.jsii.tests.calculator.IInterfaceThatShouldNotBeADataType.class;
-            case "jsii-calc.IInterfaceWithInternal": return software.amazon.jsii.tests.calculator.IInterfaceWithInternal.class;
-            case "jsii-calc.IInterfaceWithMethods": return software.amazon.jsii.tests.calculator.IInterfaceWithMethods.class;
-            case "jsii-calc.IInterfaceWithOptionalMethodArguments": return software.amazon.jsii.tests.calculator.IInterfaceWithOptionalMethodArguments.class;
-            case "jsii-calc.IInterfaceWithProperties": return software.amazon.jsii.tests.calculator.IInterfaceWithProperties.class;
-            case "jsii-calc.IInterfaceWithPropertiesExtension": return software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension.class;
-            case "jsii-calc.IJSII417Derived": return software.amazon.jsii.tests.calculator.IJSII417Derived.class;
-            case "jsii-calc.IJSII417PublicBaseOfBase": return software.amazon.jsii.tests.calculator.IJSII417PublicBaseOfBase.class;
-            case "jsii-calc.IJsii487External": return software.amazon.jsii.tests.calculator.IJsii487External.class;
-            case "jsii-calc.IJsii487External2": return software.amazon.jsii.tests.calculator.IJsii487External2.class;
-            case "jsii-calc.IJsii496": return software.amazon.jsii.tests.calculator.IJsii496.class;
-            case "jsii-calc.IMutableObjectLiteral": return software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class;
-            case "jsii-calc.INonInternalInterface": return software.amazon.jsii.tests.calculator.INonInternalInterface.class;
-            case "jsii-calc.IObjectWithProperty": return software.amazon.jsii.tests.calculator.IObjectWithProperty.class;
-            case "jsii-calc.IOptionalMethod": return software.amazon.jsii.tests.calculator.IOptionalMethod.class;
-            case "jsii-calc.IPrivatelyImplemented": return software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class;
-            case "jsii-calc.IPublicInterface": return software.amazon.jsii.tests.calculator.IPublicInterface.class;
-            case "jsii-calc.IPublicInterface2": return software.amazon.jsii.tests.calculator.IPublicInterface2.class;
-            case "jsii-calc.IRandomNumberGenerator": return software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class;
-            case "jsii-calc.IReturnJsii976": return software.amazon.jsii.tests.calculator.IReturnJsii976.class;
-            case "jsii-calc.IReturnsNumber": return software.amazon.jsii.tests.calculator.IReturnsNumber.class;
-            case "jsii-calc.IStableInterface": return software.amazon.jsii.tests.calculator.IStableInterface.class;
-            case "jsii-calc.IStructReturningDelegate": return software.amazon.jsii.tests.calculator.IStructReturningDelegate.class;
-            case "jsii-calc.ImplementInternalInterface": return software.amazon.jsii.tests.calculator.ImplementInternalInterface.class;
-            case "jsii-calc.Implementation": return software.amazon.jsii.tests.calculator.Implementation.class;
-            case "jsii-calc.ImplementsInterfaceWithInternal": return software.amazon.jsii.tests.calculator.ImplementsInterfaceWithInternal.class;
-            case "jsii-calc.ImplementsInterfaceWithInternalSubclass": return software.amazon.jsii.tests.calculator.ImplementsInterfaceWithInternalSubclass.class;
-            case "jsii-calc.ImplementsPrivateInterface": return software.amazon.jsii.tests.calculator.ImplementsPrivateInterface.class;
-            case "jsii-calc.ImplictBaseOfBase": return software.amazon.jsii.tests.calculator.ImplictBaseOfBase.class;
-            case "jsii-calc.InbetweenClass": return software.amazon.jsii.tests.calculator.InbetweenClass.class;
-            case "jsii-calc.InterfaceCollections": return software.amazon.jsii.tests.calculator.InterfaceCollections.class;
-            case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.interface_in_namespace_includes_classes.Foo.class;
-            case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.interface_in_namespace_includes_classes.Hello.class;
-            case "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": return software.amazon.jsii.tests.calculator.interface_in_namespace_only_interface.Hello.class;
-            case "jsii-calc.InterfacesMaker": return software.amazon.jsii.tests.calculator.InterfacesMaker.class;
-            case "jsii-calc.JSII417Derived": return software.amazon.jsii.tests.calculator.JSII417Derived.class;
-            case "jsii-calc.JSII417PublicBaseOfBase": return software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase.class;
-            case "jsii-calc.JSObjectLiteralForInterface": return software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface.class;
-            case "jsii-calc.JSObjectLiteralToNative": return software.amazon.jsii.tests.calculator.JSObjectLiteralToNative.class;
-            case "jsii-calc.JSObjectLiteralToNativeClass": return software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass.class;
-            case "jsii-calc.JavaReservedWords": return software.amazon.jsii.tests.calculator.JavaReservedWords.class;
-            case "jsii-calc.Jsii487Derived": return software.amazon.jsii.tests.calculator.Jsii487Derived.class;
-            case "jsii-calc.Jsii496Derived": return software.amazon.jsii.tests.calculator.Jsii496Derived.class;
-            case "jsii-calc.JsiiAgent": return software.amazon.jsii.tests.calculator.JsiiAgent.class;
-            case "jsii-calc.JsonFormatter": return software.amazon.jsii.tests.calculator.JsonFormatter.class;
-            case "jsii-calc.LoadBalancedFargateServiceProps": return software.amazon.jsii.tests.calculator.LoadBalancedFargateServiceProps.class;
-            case "jsii-calc.MethodNamedProperty": return software.amazon.jsii.tests.calculator.MethodNamedProperty.class;
-            case "jsii-calc.Multiply": return software.amazon.jsii.tests.calculator.Multiply.class;
-            case "jsii-calc.Negate": return software.amazon.jsii.tests.calculator.Negate.class;
-            case "jsii-calc.NestedStruct": return software.amazon.jsii.tests.calculator.NestedStruct.class;
-            case "jsii-calc.NodeStandardLibrary": return software.amazon.jsii.tests.calculator.NodeStandardLibrary.class;
-            case "jsii-calc.NullShouldBeTreatedAsUndefined": return software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined.class;
-            case "jsii-calc.NullShouldBeTreatedAsUndefinedData": return software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData.class;
-            case "jsii-calc.NumberGenerator": return software.amazon.jsii.tests.calculator.NumberGenerator.class;
-            case "jsii-calc.ObjectRefsInCollections": return software.amazon.jsii.tests.calculator.ObjectRefsInCollections.class;
-            case "jsii-calc.ObjectWithPropertyProvider": return software.amazon.jsii.tests.calculator.ObjectWithPropertyProvider.class;
-            case "jsii-calc.Old": return software.amazon.jsii.tests.calculator.Old.class;
-            case "jsii-calc.OptionalArgumentInvoker": return software.amazon.jsii.tests.calculator.OptionalArgumentInvoker.class;
-            case "jsii-calc.OptionalConstructorArgument": return software.amazon.jsii.tests.calculator.OptionalConstructorArgument.class;
-            case "jsii-calc.OptionalStruct": return software.amazon.jsii.tests.calculator.OptionalStruct.class;
-            case "jsii-calc.OptionalStructConsumer": return software.amazon.jsii.tests.calculator.OptionalStructConsumer.class;
-            case "jsii-calc.OverridableProtectedMember": return software.amazon.jsii.tests.calculator.OverridableProtectedMember.class;
-            case "jsii-calc.OverrideReturnsObject": return software.amazon.jsii.tests.calculator.OverrideReturnsObject.class;
-            case "jsii-calc.ParentStruct982": return software.amazon.jsii.tests.calculator.ParentStruct982.class;
-            case "jsii-calc.PartiallyInitializedThisConsumer": return software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer.class;
-            case "jsii-calc.Polymorphism": return software.amazon.jsii.tests.calculator.Polymorphism.class;
-            case "jsii-calc.Power": return software.amazon.jsii.tests.calculator.Power.class;
-            case "jsii-calc.PropertyNamedProperty": return software.amazon.jsii.tests.calculator.PropertyNamedProperty.class;
-            case "jsii-calc.PublicClass": return software.amazon.jsii.tests.calculator.PublicClass.class;
-            case "jsii-calc.PythonReservedWords": return software.amazon.jsii.tests.calculator.PythonReservedWords.class;
-            case "jsii-calc.ReferenceEnumFromScopedPackage": return software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage.class;
-            case "jsii-calc.ReturnsPrivateImplementationOfInterface": return software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface.class;
-            case "jsii-calc.RootStruct": return software.amazon.jsii.tests.calculator.RootStruct.class;
-            case "jsii-calc.RootStructValidator": return software.amazon.jsii.tests.calculator.RootStructValidator.class;
-            case "jsii-calc.RuntimeTypeChecking": return software.amazon.jsii.tests.calculator.RuntimeTypeChecking.class;
-            case "jsii-calc.SecondLevelStruct": return software.amazon.jsii.tests.calculator.SecondLevelStruct.class;
-            case "jsii-calc.SingleInstanceTwoTypes": return software.amazon.jsii.tests.calculator.SingleInstanceTwoTypes.class;
-            case "jsii-calc.SingletonInt": return software.amazon.jsii.tests.calculator.SingletonInt.class;
-            case "jsii-calc.SingletonIntEnum": return software.amazon.jsii.tests.calculator.SingletonIntEnum.class;
-            case "jsii-calc.SingletonString": return software.amazon.jsii.tests.calculator.SingletonString.class;
-            case "jsii-calc.SingletonStringEnum": return software.amazon.jsii.tests.calculator.SingletonStringEnum.class;
-            case "jsii-calc.SmellyStruct": return software.amazon.jsii.tests.calculator.SmellyStruct.class;
-            case "jsii-calc.SomeTypeJsii976": return software.amazon.jsii.tests.calculator.SomeTypeJsii976.class;
-            case "jsii-calc.StableClass": return software.amazon.jsii.tests.calculator.StableClass.class;
-            case "jsii-calc.StableEnum": return software.amazon.jsii.tests.calculator.StableEnum.class;
-            case "jsii-calc.StableStruct": return software.amazon.jsii.tests.calculator.StableStruct.class;
-            case "jsii-calc.StaticContext": return software.amazon.jsii.tests.calculator.StaticContext.class;
-            case "jsii-calc.Statics": return software.amazon.jsii.tests.calculator.Statics.class;
-            case "jsii-calc.StringEnum": return software.amazon.jsii.tests.calculator.StringEnum.class;
-            case "jsii-calc.StripInternal": return software.amazon.jsii.tests.calculator.StripInternal.class;
-            case "jsii-calc.StructA": return software.amazon.jsii.tests.calculator.StructA.class;
-            case "jsii-calc.StructB": return software.amazon.jsii.tests.calculator.StructB.class;
-            case "jsii-calc.StructParameterType": return software.amazon.jsii.tests.calculator.StructParameterType.class;
-            case "jsii-calc.StructPassing": return software.amazon.jsii.tests.calculator.StructPassing.class;
-            case "jsii-calc.StructUnionConsumer": return software.amazon.jsii.tests.calculator.StructUnionConsumer.class;
-            case "jsii-calc.StructWithJavaReservedWords": return software.amazon.jsii.tests.calculator.StructWithJavaReservedWords.class;
-            case "jsii-calc.Sum": return software.amazon.jsii.tests.calculator.Sum.class;
-            case "jsii-calc.SupportsNiceJavaBuilder": return software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder.class;
-            case "jsii-calc.SupportsNiceJavaBuilderProps": return software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps.class;
-            case "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps": return software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps.class;
-            case "jsii-calc.SyncVirtualMethods": return software.amazon.jsii.tests.calculator.SyncVirtualMethods.class;
-            case "jsii-calc.Thrower": return software.amazon.jsii.tests.calculator.Thrower.class;
-            case "jsii-calc.TopLevelStruct": return software.amazon.jsii.tests.calculator.TopLevelStruct.class;
-            case "jsii-calc.UnaryOperation": return software.amazon.jsii.tests.calculator.UnaryOperation.class;
-            case "jsii-calc.UnionProperties": return software.amazon.jsii.tests.calculator.UnionProperties.class;
-            case "jsii-calc.UpcasingReflectable": return software.amazon.jsii.tests.calculator.UpcasingReflectable.class;
-            case "jsii-calc.UseBundledDependency": return software.amazon.jsii.tests.calculator.UseBundledDependency.class;
-            case "jsii-calc.UseCalcBase": return software.amazon.jsii.tests.calculator.UseCalcBase.class;
-            case "jsii-calc.UsesInterfaceWithProperties": return software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties.class;
-            case "jsii-calc.VariadicInvoker": return software.amazon.jsii.tests.calculator.VariadicInvoker.class;
-            case "jsii-calc.VariadicMethod": return software.amazon.jsii.tests.calculator.VariadicMethod.class;
-            case "jsii-calc.VirtualMethodPlayground": return software.amazon.jsii.tests.calculator.VirtualMethodPlayground.class;
-            case "jsii-calc.VoidCallback": return software.amazon.jsii.tests.calculator.VoidCallback.class;
-            case "jsii-calc.WithPrivatePropertyInConstructor": return software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor.class;
-            case "jsii-calc.composition.CompositeOperation": return software.amazon.jsii.tests.calculator.composition.CompositeOperation.class;
-            case "jsii-calc.composition.CompositeOperation.CompositionStringStyle": return software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle.class;
-            case "jsii-calc.submodule.MyClass": return software.amazon.jsii.tests.calculator.submodule.MyClass.class;
-            case "jsii-calc.submodule.back_references.MyClassReference": return software.amazon.jsii.tests.calculator.submodule.back_references.MyClassReference.class;
-            case "jsii-calc.submodule.child.Awesomeness": return software.amazon.jsii.tests.calculator.submodule.child.Awesomeness.class;
-            case "jsii-calc.submodule.child.Goodness": return software.amazon.jsii.tests.calculator.submodule.child.Goodness.class;
-            case "jsii-calc.submodule.child.Structure": return software.amazon.jsii.tests.calculator.submodule.child.Structure.class;
-            case "jsii-calc.submodule.nested_submodule.Namespaced": return software.amazon.jsii.tests.calculator.submodule.nested_submodule.Namespaced.class;
-            case "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced": return software.amazon.jsii.tests.calculator.submodule.nested_submodule.deeply_nested.INamespaced.class;
-            default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        if (!MODULE_TYPES.containsKey(fqn)) {
+            throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        }
+        return this.cache.computeIfAbsent(MODULE_TYPES.get(fqn), this::findClass);
+    }
+
+    private Class<?> findClass(final String binaryName) {
+        try {
+            return Class.forName(binaryName);
+        }
+        catch (final ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
         }
     }
 }

@@ -135,6 +135,8 @@ class _CompositeOperationProxy(CompositeOperation, jsii.proxy_for(scope.jsii_cal
         return jsii.get(self, "expression")
 
 
-__all__ = ["CompositeOperation"]
+__all__ = [
+    "CompositeOperation",
+]
 
 publication.publish()

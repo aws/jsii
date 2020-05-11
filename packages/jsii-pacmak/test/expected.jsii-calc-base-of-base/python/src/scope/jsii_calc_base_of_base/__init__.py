@@ -62,6 +62,10 @@ class VeryBaseProps():
         return 'VeryBaseProps(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["IVeryBaseInterface", "Very", "VeryBaseProps"]
+__all__ = [
+    "IVeryBaseInterface",
+    "Very",
+    "VeryBaseProps",
+]
 
 publication.publish()

@@ -1,6 +1,6 @@
 # Configuration
 
-The configuration for `jsii` is recoded in the `package.json` file, which is
+The configuration for `jsii` is recorded in the `package.json` file, which is
 the standard package manifest for NPM packages. This document describes the
 constraints and extensions `jsii` adds to the [package.json schema].
 
@@ -301,7 +301,7 @@ the [`dependencies`][npm-reps] section of `package.json`.
 
 ### Dependencies that are `jsii` modules
 
-Node modules are conventionally versionned using [semantic versioning], but that
+Node modules are conventionally versioned using [semantic versioning], but that
 is not true of all package managers that `jsii` is able to target. Additionally,
 only one version of the `jsii` runtime and kernel can be used within a given
 application. In order to avoid version resolution surprises at run-time, `jsii`
