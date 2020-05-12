@@ -34,7 +34,7 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
      * @param others other elements to be included in the array. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public @org.jetbrains.annotations.NotNull java.util.List<? extends java.lang.Number> asArray(final @org.jetbrains.annotations.NotNull java.lang.Number first, final @org.jetbrains.annotations.NotNull java.lang.Number... others) {
+    public @org.jetbrains.annotations.NotNull java.util.List<java.lang.Number> asArray(final @org.jetbrains.annotations.NotNull java.lang.Number first, final @org.jetbrains.annotations.NotNull java.lang.Number... others) {
         return java.util.Collections.unmodifiableList(this.jsiiCall("asArray", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.Number.class)), java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(first, "first is required") }), java.util.Arrays.<Object>stream(others)).toArray(Object[]::new)));
     }
 }

@@ -13,7 +13,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @org.jetbrains.annotations.NotNull java.util.List<? extends java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
+    @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
 
     /**
      * EXPERIMENTAL
@@ -35,7 +35,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static final class Builder {
-        private java.util.List<? extends java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        private java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
         private java.lang.Object thisShouldBeUndefined;
 
         /**
@@ -44,8 +44,9 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @SuppressWarnings("unchecked")
         public Builder arrayWithThreeElementsAndUndefinedAsSecondArgument(java.util.List<? extends java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument) {
-            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = arrayWithThreeElementsAndUndefinedAsSecondArgument;
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = (java.util.List<java.lang.Object>)arrayWithThreeElementsAndUndefinedAsSecondArgument;
             return this;
         }
 
@@ -76,7 +77,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements NullShouldBeTreatedAsUndefinedData {
-        private final java.util.List<? extends java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        private final java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
         private final java.lang.Object thisShouldBeUndefined;
 
         /**
@@ -92,14 +93,15 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
+        @SuppressWarnings("unchecked")
         private Jsii$Proxy(final java.util.List<? extends java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument, final java.lang.Object thisShouldBeUndefined) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = (java.util.List<java.lang.Object>)java.util.Objects.requireNonNull(arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
             this.thisShouldBeUndefined = thisShouldBeUndefined;
         }
 
         @Override
-        public java.util.List<? extends java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument() {
+        public java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument() {
             return this.arrayWithThreeElementsAndUndefinedAsSecondArgument;
         }
 

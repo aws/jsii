@@ -33,7 +33,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.IPublicInterface> hiddenInterfaces() {
+    public static @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> hiddenInterfaces() {
         return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenInterfaces", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IPublicInterface.class))));
     }
 
@@ -41,7 +41,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.IPublicInterface> hiddenSubInterfaces() {
+    public static @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> hiddenSubInterfaces() {
         return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenSubInterfaces", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IPublicInterface.class))));
     }
 
@@ -73,7 +73,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.IPublicInterface> makeInterfaces() {
+    public static @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> makeInterfaces() {
         return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "makeInterfaces", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IPublicInterface.class))));
     }
 }

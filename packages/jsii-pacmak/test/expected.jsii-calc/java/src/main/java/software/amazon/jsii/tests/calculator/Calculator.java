@@ -136,7 +136,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.lib.Value> getOperationsLog() {
+    public @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getOperationsLog() {
         return java.util.Collections.unmodifiableList(this.jsiiGet("operationsLog", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class))));
     }
 
@@ -146,7 +146,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.util.List<? extends software.amazon.jsii.tests.calculator.lib.Value>> getOperationsMap() {
+    public @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.util.List<software.amazon.jsii.tests.calculator.lib.Value>> getOperationsMap() {
         return java.util.Collections.unmodifiableMap(this.jsiiGet("operationsMap", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class)))));
     }
 

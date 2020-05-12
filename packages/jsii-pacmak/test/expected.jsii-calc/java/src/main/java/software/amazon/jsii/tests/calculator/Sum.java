@@ -46,7 +46,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.lib.Value> getParts() {
+    public @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getParts() {
         return java.util.Collections.unmodifiableList(this.jsiiGet("parts", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.Value.class))));
     }
 

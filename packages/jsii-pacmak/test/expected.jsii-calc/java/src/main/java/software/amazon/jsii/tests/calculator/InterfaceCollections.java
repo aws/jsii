@@ -24,7 +24,7 @@ public class InterfaceCollections extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.IBell> listOfInterfaces() {
+    public static @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.IBell> listOfInterfaces() {
         return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.InterfaceCollections.class, "listOfInterfaces", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IBell.class))));
     }
 
@@ -32,7 +32,7 @@ public class InterfaceCollections extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.StructA> listOfStructs() {
+    public static @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.StructA> listOfStructs() {
         return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.InterfaceCollections.class, "listOfStructs", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StructA.class))));
     }
 
@@ -40,7 +40,7 @@ public class InterfaceCollections extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.IBell> mapOfInterfaces() {
+    public static @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.IBell> mapOfInterfaces() {
         return java.util.Collections.unmodifiableMap(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.InterfaceCollections.class, "mapOfInterfaces", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.IBell.class))));
     }
 
@@ -48,7 +48,7 @@ public class InterfaceCollections extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.StructA> mapOfStructs() {
+    public static @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.StructA> mapOfStructs() {
         return java.util.Collections.unmodifiableMap(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.InterfaceCollections.class, "mapOfStructs", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.StructA.class))));
     }
 }
