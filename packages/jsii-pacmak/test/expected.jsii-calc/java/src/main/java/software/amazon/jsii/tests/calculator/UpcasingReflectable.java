@@ -28,7 +28,7 @@ public class UpcasingReflectable extends software.amazon.jsii.JsiiObject impleme
      * @param delegate This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public UpcasingReflectable(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> delegate) {
+    public UpcasingReflectable(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends java.lang.Object> delegate) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(delegate, "delegate is required") });
     }
@@ -44,7 +44,7 @@ public class UpcasingReflectable extends software.amazon.jsii.JsiiObject impleme
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry> getEntries() {
+    public @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry> getEntries() {
         return java.util.Collections.unmodifiableList(this.jsiiGet("entries", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry.class))));
     }
 }

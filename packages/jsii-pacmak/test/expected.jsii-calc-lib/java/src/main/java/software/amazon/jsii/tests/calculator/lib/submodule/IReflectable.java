@@ -13,7 +13,7 @@ public interface IReflectable extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry> getEntries();
+    @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry> getEntries();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -28,7 +28,7 @@ public interface IReflectable extends software.amazon.jsii.JsiiSerializable {
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
-        public @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry> getEntries() {
+        public @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry> getEntries() {
             return java.util.Collections.unmodifiableList(this.jsiiGet("entries", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry.class))));
         }
     }

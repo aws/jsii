@@ -1698,10 +1698,18 @@ class JavaGenerator extends Generator {
   private toJavaCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean) {
     const elementJavaType = this.toJavaType(ref.collection.elementtype);
     switch (ref.collection.kind) {
-      case spec.CollectionKind.Array: return forMarshalling ? 'java.util.List' : `java.util.List<${elementJavaType}>`;
-      case spec.CollectionKind.Map: return forMarshalling ? 'java.util.Map' : `java.util.Map<java.lang.String, ${elementJavaType}>`;
+      case spec.CollectionKind.Array: return forMarshalling ? 'java.util.List' : `java.util.List<${typeConstraintFor(elementJavaType)}>`;
+      case spec.CollectionKind.Map: return forMarshalling ? 'java.util.Map' : `java.util.Map<java.lang.String, ${typeConstraintFor(elementJavaType)}>`;
       default:
         throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
+    }
+
+    function typeConstraintFor(javaType: string): string {
+      // Don't emit a covariant expression for String (it's `final` in Java), or generic types (List<X>, Map<String,X>, ...)
+      if (javaType === 'java.lang.String' || javaType.includes('<')) {
+        return javaType;
+      }
+      return `? extends ${javaType}`;
     }
   }
 

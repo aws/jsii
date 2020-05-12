@@ -56,7 +56,7 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setUnionProperty(final @org.jetbrains.annotations.Nullable java.util.List<java.lang.Object> value) {
+    public void setUnionProperty(final @org.jetbrains.annotations.Nullable java.util.List<? extends java.lang.Object> value) {
         this.jsiiSet("unionProperty", value);
     }
 }
