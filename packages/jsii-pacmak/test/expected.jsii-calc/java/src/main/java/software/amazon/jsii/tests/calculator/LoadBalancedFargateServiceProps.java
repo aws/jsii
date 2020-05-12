@@ -108,7 +108,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * A builder for {@link LoadBalancedFargateServiceProps}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<LoadBalancedFargateServiceProps> {
         private java.lang.Number containerPort;
         private java.lang.String cpu;
         private java.lang.String memoryMiB;
@@ -199,6 +199,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public LoadBalancedFargateServiceProps build() {
             return new Jsii$Proxy(containerPort, cpu, memoryMiB, publicLoadBalancer, publicTasks);
         }

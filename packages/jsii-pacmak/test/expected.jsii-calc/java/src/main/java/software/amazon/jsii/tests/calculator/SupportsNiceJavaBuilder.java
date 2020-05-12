@@ -53,7 +53,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
      * A fluent builder for {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder}.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder> {
         /**
          * EXPERIMENTAL
          * <p>
@@ -122,6 +122,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
          * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder build() {
             return new software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder(
                 this.id,
