@@ -44,8 +44,9 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder arrayWithThreeElementsAndUndefinedAsSecondArgument(java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument) {
-            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        @SuppressWarnings("unchecked")
+        public Builder arrayWithThreeElementsAndUndefinedAsSecondArgument(java.util.List<? extends java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument) {
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = (java.util.List<java.lang.Object>)arrayWithThreeElementsAndUndefinedAsSecondArgument;
             return this;
         }
 
@@ -92,9 +93,10 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(final java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument, final java.lang.Object thisShouldBeUndefined) {
+        @SuppressWarnings("unchecked")
+        private Jsii$Proxy(final java.util.List<? extends java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument, final java.lang.Object thisShouldBeUndefined) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = (java.util.List<java.lang.Object>)java.util.Objects.requireNonNull(arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
             this.thisShouldBeUndefined = thisShouldBeUndefined;
         }
 
