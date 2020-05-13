@@ -939,7 +939,7 @@ class JavaGenerator extends Generator {
 
   private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides = !!prop.overrides) {
     const getterType = this.toDecoratedJavaType(prop);
-    const setterTypes = this.toDecoratedJavaTypes(prop);
+    const setterTypes = this.toDecoratedJavaTypes(prop, { covariant: prop.static });
     const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
     const access = this.renderAccessLevel(prop);
     const statc = prop.static ? 'static ' : '';
@@ -1840,7 +1840,8 @@ class JavaGenerator extends Generator {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
-        params.push(`final ${this.toDecoratedJavaType(p)}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
+        // We can render covariant parameters only for methods that aren't overridable... so only for static methods currently.
+        params.push(`final ${this.toDecoratedJavaType(p, { covariant: (method as spec.Method).static })}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
       }
     }
     return params.join(', ');
