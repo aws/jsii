@@ -19,7 +19,7 @@
     "eslint-import-resolver-node": "^0.3.3",
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.20.2",
-    "lerna": "^3.20.2",
+    "lerna": "^3.21.0",
     "standard-version": "^8.0.0"
   },
   "repository": {
