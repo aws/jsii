@@ -36,7 +36,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
      * A builder for {@link EraseUndefinedHashValuesOptions}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<EraseUndefinedHashValuesOptions> {
         private java.lang.String option1;
         private java.lang.String option2;
 
@@ -68,6 +68,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public EraseUndefinedHashValuesOptions build() {
             return new Jsii$Proxy(option1, option2);
         }

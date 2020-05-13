@@ -34,7 +34,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link UnionProperties}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<UnionProperties> {
         private java.lang.Object bar;
         private java.lang.Object foo;
 
@@ -99,6 +99,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public UnionProperties build() {
             return new Jsii$Proxy(bar, foo);
         }

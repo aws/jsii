@@ -34,7 +34,7 @@ public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<ReflectableEntry> {
         private java.lang.String key;
         private java.lang.Object value;
 
@@ -69,6 +69,7 @@ public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable 
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @Override
         public ReflectableEntry build() {
             return new Jsii$Proxy(key, value);
         }
