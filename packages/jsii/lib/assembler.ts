@@ -112,7 +112,7 @@ export class Assembler implements Emitter {
       const symbol = this._typeChecker.getSymbolAtLocation(sourceFile);
       if (symbol) {
         const moduleExports = this._typeChecker.getExportsOfModule(symbol);
-        await Promise.all(moduleExports.map(this._registerNamespaces.bind(this)));
+        await Promise.all(moduleExports.map(item => this._registerNamespaces(item, this.projectInfo.projectRoot)));
         for (const node of moduleExports) {
           visitPromises.push(this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability)));
         }
@@ -377,14 +377,24 @@ export class Assembler implements Emitter {
       // It's unlikely, but if we can't get the SourceFile here, ignore it (TypeScript compilation probably failed)
       if (depMod == null) { continue; }
 
+      const depRoot = packageRoot(resolved.resolvedModule.resolvedFileName);
+
       for (const symbol of this._typeChecker.getExportsOfModule(depMod)) {
         // eslint-disable-next-line no-await-in-loop
-        await this._registerNamespaces(symbol);
+        await this._registerNamespaces(symbol, depRoot);
       }
+    }
+
+    function packageRoot(file: string): string {
+      const parent = path.dirname(file);
+      if (path.basename(parent) === 'node_modules' || parent === file) {
+        return file;
+      }
+      return packageRoot(parent);
     }
   }
 
-  private async _registerNamespaces(symbol: ts.Symbol): Promise<void> {
+  private async _registerNamespaces(symbol: ts.Symbol, packageRoot: string): Promise<void> {
     const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
     if (declaration == null) {
       // Nothing to do here...
@@ -394,7 +404,7 @@ export class Assembler implements Emitter {
       const { fqn, fqnResolutionPrefix } = await qualifiedNameOf.call(this, symbol, true);
 
       this._submodules.set(symbol, { fqn, fqnResolutionPrefix, locationInModule: this.declarationLocation(declaration) });
-      await this._addToSubmodule(symbol, symbol);
+      await this._addToSubmodule(symbol, symbol, packageRoot);
       return;
     }
     if (!ts.isNamespaceExport(declaration)) {
@@ -417,12 +427,21 @@ export class Assembler implements Emitter {
       // Unresolvable module... We'll let tsc report this for us.
       return;
     }
-    if (resolution.resolvedModule.isExternalLibraryImport) {
+    if (
+      // We're not looking into a dependency's namespace exports, and the resolution says it's external
+      (packageRoot === this.projectInfo.projectRoot && resolution.resolvedModule.isExternalLibraryImport)
+      // Or the module resolves outside of the current dependency's tree entirely
+      || !resolution.resolvedModule.resolvedFileName.startsWith(packageRoot)
+      // Or the module is under one the current dependency's node_modules subtree
+      || resolution.resolvedModule.resolvedFileName.split(path.sep).filter(entry => entry === 'node_modules').length
+          !== packageRoot.split(path.sep).filter(entry => entry === 'node_modules').length
+    ) {
       // External re-exports are "pure-javascript" sugar; they need not be
       // represented in the jsii Assembly since the types in there will be
       // resolved through dependencies.
       return;
     }
+
     const sourceFile = this.program.getSourceFile(resolution.resolvedModule.resolvedFileName)!;
     const sourceModule = this._typeChecker.getSymbolAtLocation(sourceFile);
     // If there's no module, it's a syntax error, and tsc will have reported it for us.
@@ -436,7 +455,7 @@ export class Assembler implements Emitter {
       const targets = undefined; // This will be configurable in the future.
 
       this._submodules.set(symbol, { fqn, fqnResolutionPrefix, targets, locationInModule: this.declarationLocation(declaration) });
-      await this._addToSubmodule(symbol, sourceModule);
+      await this._addToSubmodule(symbol, sourceModule, packageRoot);
     }
 
     async function qualifiedNameOf(this: Assembler, sym: ts.Symbol, inlineNamespace = false): Promise<{ fqn: string, fqnResolutionPrefix: string }> {
@@ -464,10 +483,11 @@ export class Assembler implements Emitter {
    * declarations exported by an `export * as ns from 'moduleLike';` statement
    * so that they can subsequently be correctly namespaced.
    *
-   * @param ns         the symbol that identifies the submodule.
-   * @param moduleLike the module-like symbol bound to the submodule.
+   * @param ns          the symbol that identifies the submodule.
+   * @param moduleLike  the module-like symbol bound to the submodule.
+   * @param packageRoot the root of the package being traversed.
    */
-  private async _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol) {
+  private async _addToSubmodule(ns: ts.Symbol, moduleLike: ts.Symbol, packageRoot: string) {
     // For each symbol exported by the moduleLike, map it to the ns submodule.
     for (const symbol of this._typeChecker.getExportsOfModule(moduleLike)) {
       if (this._submoduleMap.has(symbol)) {
@@ -522,14 +542,14 @@ export class Assembler implements Emitter {
           }
           if (type.symbol.exports) {
             // eslint-disable-next-line no-await-in-loop
-            await this._addToSubmodule(ns, symbol);
+            await this._addToSubmodule(ns, symbol, packageRoot);
           }
         } else if (ts.isModuleDeclaration(decl)) {
           // eslint-disable-next-line no-await-in-loop
-          await this._registerNamespaces(symbol);
+          await this._registerNamespaces(symbol, packageRoot);
         } else if (ts.isNamespaceExport(decl)) {
           // eslint-disable-next-line no-await-in-loop
-          await this._registerNamespaces(symbol);
+          await this._registerNamespaces(symbol, packageRoot);
         }
       }
     }
