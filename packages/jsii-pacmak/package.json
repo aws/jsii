@@ -64,7 +64,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "mock-fs": "^4.12.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.9.2"
   },
   "keywords": [
     "jsii",

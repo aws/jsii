@@ -41,7 +41,7 @@
     "@types/node": "^10.17.21",
     "eslint": "^7.0.0",
     "jest": "^26.0.1",
-    "typescript": "~3.8.3"
+    "typescript": "~3.9.2"
   },
   "jest": {
     "collectCoverage": true,

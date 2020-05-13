@@ -50,7 +50,7 @@
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.9.2"
   },
   "jest": {
     "collectCoverage": true,

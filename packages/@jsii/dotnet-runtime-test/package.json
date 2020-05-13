@@ -34,6 +34,6 @@
     "@types/node": "^10.17.21",
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.9.2"
   }
 }
