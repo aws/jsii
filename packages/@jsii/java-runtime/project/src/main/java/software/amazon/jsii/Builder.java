@@ -3,7 +3,7 @@ package software.amazon.jsii;
 /**
  * A superinterface common to instance builders.
  */
- @FunctionalInterface
+@FunctionalInterface
 public interface Builder<T> {
   /**
    * Builds the instance given the current builder configuration.
