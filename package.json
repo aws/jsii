@@ -13,7 +13,7 @@
     "test:update": "lerna run test:update --stream"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.32.0",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "eslint": "^7.0.0",
     "eslint-import-resolver-node": "^0.3.3",
