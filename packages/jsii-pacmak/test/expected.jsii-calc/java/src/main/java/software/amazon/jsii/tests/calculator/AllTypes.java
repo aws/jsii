@@ -74,7 +74,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setAnyArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<? extends java.lang.Object> value) {
+    public void setAnyArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
         this.jsiiSet("anyArrayProperty", java.util.Objects.requireNonNull(value, "anyArrayProperty is required"));
     }
 
@@ -90,7 +90,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setAnyMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends java.lang.Object> value) {
+    public void setAnyMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> value) {
         this.jsiiSet("anyMapProperty", java.util.Objects.requireNonNull(value, "anyMapProperty is required"));
     }
 
@@ -202,7 +202,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.lib.Number> value) {
+    public void setMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Number> value) {
         this.jsiiSet("mapProperty", java.util.Objects.requireNonNull(value, "mapProperty is required"));
     }
 
@@ -250,7 +250,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setUnionArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<? extends java.lang.Object> value) {
+    public void setUnionArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
         this.jsiiSet("unionArrayProperty", java.util.Objects.requireNonNull(value, "unionArrayProperty is required"));
     }
 
@@ -266,7 +266,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setUnionMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends java.lang.Object> value) {
+    public void setUnionMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> value) {
         this.jsiiSet("unionMapProperty", java.util.Objects.requireNonNull(value, "unionMapProperty is required"));
     }
 
@@ -322,7 +322,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setUnknownArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<? extends java.lang.Object> value) {
+    public void setUnknownArrayProperty(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> value) {
         this.jsiiSet("unknownArrayProperty", java.util.Objects.requireNonNull(value, "unknownArrayProperty is required"));
     }
 
@@ -338,7 +338,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setUnknownMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends java.lang.Object> value) {
+    public void setUnknownMapProperty(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> value) {
         this.jsiiSet("unknownMapProperty", java.util.Objects.requireNonNull(value, "unknownMapProperty is required"));
     }
 

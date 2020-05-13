@@ -635,7 +635,7 @@ class JavaGenerator extends Generator {
     }
 
     if (!prop.immutable) {
-      const setterTypes = this.toDecoratedJavaTypes(prop, { covariant: true });
+      const setterTypes = this.toDecoratedJavaTypes(prop);
       for (const type of setterTypes) {
         this.code.line();
         this.addJavaDocs(prop);
@@ -939,7 +939,7 @@ class JavaGenerator extends Generator {
 
   private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides = !!prop.overrides) {
     const getterType = this.toDecoratedJavaType(prop);
-    const setterTypes = this.toDecoratedJavaTypes(prop, { covariant: true });
+    const setterTypes = this.toDecoratedJavaTypes(prop);
     const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
     const access = this.renderAccessLevel(prop);
     const statc = prop.static ? 'static ' : '';
@@ -1840,7 +1840,7 @@ class JavaGenerator extends Generator {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
-        params.push(`final ${this.toDecoratedJavaType(p, { covariant: true })}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
+        params.push(`final ${this.toDecoratedJavaType(p)}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
       }
     }
     return params.join(', ');

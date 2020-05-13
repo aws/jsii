@@ -56,7 +56,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setParts(final @org.jetbrains.annotations.NotNull java.util.List<? extends software.amazon.jsii.tests.calculator.lib.Value> value) {
+    public void setParts(final @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.Value> value) {
         this.jsiiSet("parts", java.util.Objects.requireNonNull(value, "parts is required"));
     }
 }

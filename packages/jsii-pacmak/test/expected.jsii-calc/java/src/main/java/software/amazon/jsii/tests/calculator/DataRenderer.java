@@ -51,7 +51,7 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
      * @param data This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public @org.jetbrains.annotations.NotNull java.lang.String renderArbitrary(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends java.lang.Object> data) {
+    public @org.jetbrains.annotations.NotNull java.lang.String renderArbitrary(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> data) {
         return this.jsiiCall("renderArbitrary", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(data, "data is required") });
     }
 
@@ -61,7 +61,7 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
      * @param map This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public @org.jetbrains.annotations.NotNull java.lang.String renderMap(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, ? extends java.lang.Object> map) {
+    public @org.jetbrains.annotations.NotNull java.lang.String renderMap(final @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> map) {
         return this.jsiiCall("renderMap", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(map, "map is required") });
     }
 }
