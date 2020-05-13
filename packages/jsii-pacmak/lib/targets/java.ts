@@ -1181,7 +1181,7 @@ class JavaGenerator extends Generator {
     this.code.line(` * A fluent builder for {@link ${builtType}}.`);
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
-    this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
+    this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME} implements software.amazon.jsii.Builder<${builtType}>`);
 
     // Static factory method(s)
     for (const params of computeOverrides(positionalParams)) {
@@ -1251,6 +1251,7 @@ class JavaGenerator extends Generator {
     this.code.line(` * @returns a newly built instance of {@link ${builtType}}.`);
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
+    this.code.line('@Override');
     this.code.openBlock(`public ${builtType} build()`);
     const params = cls.initializer.parameters.map(param => {
       if (param === firstStruct) {
@@ -1334,7 +1335,7 @@ class JavaGenerator extends Generator {
     this.code.line(` * A builder for {@link ${classSpec.name}}`);
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
-    this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
+    this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME} implements software.amazon.jsii.Builder<${classSpec.name}>`);
 
     props.forEach(prop => this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`));
     props.forEach(prop => this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec.name));
@@ -1347,6 +1348,7 @@ class JavaGenerator extends Generator {
     this.code.line(' * @throws NullPointerException if any required attribute was not provided');
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
+    this.code.line('@Override');
     this.code.openBlock(`public ${classSpec.name} build()`);
 
     const propFields = props.map(prop => prop.fieldName).join(', ');

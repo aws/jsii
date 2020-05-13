@@ -48,7 +48,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link CalculatorProps}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<CalculatorProps> {
         private java.lang.Number initialValue;
         private java.lang.Number maximumValue;
 
@@ -81,6 +81,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public CalculatorProps build() {
             return new Jsii$Proxy(initialValue, maximumValue);
         }
