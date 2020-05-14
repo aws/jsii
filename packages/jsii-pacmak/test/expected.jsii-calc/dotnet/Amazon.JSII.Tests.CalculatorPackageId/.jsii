@@ -86,6 +86,14 @@
       }
     },
     "@scope/jsii-calc-lib": {
+      "submodules": {
+        "@scope/jsii-calc-lib.submodule": {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 112
+          }
+        }
+      },
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -140,6 +148,68 @@
     "url": "https://github.com/aws/jsii.git"
   },
   "schema": "jsii/0.10.0",
+  "submodules": {
+    "@scope/jsii-calc-lib.submodule": {
+      "locationInModule": {
+        "filename": "../@scope/jsii-calc-lib/build/index.d.ts",
+        "line": 94
+      }
+    },
+    "jsii-calc.DerivedClassHasNoProperties": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 309
+      }
+    },
+    "jsii-calc.InterfaceInNamespaceIncludesClasses": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1057
+      }
+    },
+    "jsii-calc.InterfaceInNamespaceOnlyInterface": {
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1048
+      }
+    },
+    "jsii-calc.composition": {
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 127
+      }
+    },
+    "jsii-calc.submodule": {
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 8
+      }
+    },
+    "jsii-calc.submodule.back_references": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 4
+      }
+    },
+    "jsii-calc.submodule.child": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 1
+      }
+    },
+    "jsii-calc.submodule.nested_submodule": {
+      "locationInModule": {
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 3
+      }
+    },
+    "jsii-calc.submodule.nested_submodule.deeplyNested": {
+      "locationInModule": {
+        "filename": "lib/submodule/nested_submodule.ts",
+        "line": 4
+      }
+    }
+  },
   "targets": {
     "dotnet": {
       "iconUrl": "https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png",
@@ -4389,6 +4459,169 @@
         }
       ]
     },
+    "jsii-calc.ExternalClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "custom": {
+          "external": "true"
+        },
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ExternalClass",
+      "initializer": {
+        "docs": {
+          "custom": {
+            "external": "true"
+          },
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "readonlyString",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "mutableNumber",
+            "optional": true,
+            "type": {
+              "primitive": "number"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 119
+      },
+      "methods": [
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 130
+          },
+          "name": "method"
+        }
+      ],
+      "name": "ExternalClass",
+      "properties": [
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 121
+          },
+          "name": "readonlyProperty",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 123
+          },
+          "name": "mutableProperty",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ExternalEnum": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "custom": {
+          "external": "true"
+        },
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ExternalEnum",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 133
+      },
+      "members": [
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "name": "OPTION_A"
+        },
+        {
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "name": "OPTION_B"
+        }
+      ],
+      "name": "ExternalEnum"
+    },
+    "jsii-calc.ExternalStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "custom": {
+          "external": "true"
+        },
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ExternalStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 107
+      },
+      "name": "ExternalStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 109
+          },
+          "name": "readonlyProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
       "docs": {
@@ -4922,6 +5155,58 @@
           "name": "private",
           "type": {
             "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IExternalInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "custom": {
+          "external": "true"
+        },
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.IExternalInterface",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 112
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 116
+          },
+          "name": "method"
+        }
+      ],
+      "name": "IExternalInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "custom": {
+              "external": "true"
+            },
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 114
+          },
+          "name": "mutableProperty",
+          "optional": true,
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -11467,6 +11752,79 @@
         }
       ]
     },
+    "jsii-calc.UpcasingReflectable": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Ensures submodule-imported types from dependencies can be used correctly."
+      },
+      "fqn": "jsii-calc.UpcasingReflectable",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "delegate",
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "primitive": "any"
+                },
+                "kind": "map"
+              }
+            }
+          }
+        ]
+      },
+      "interfaces": [
+        "@scope/jsii-calc-lib.submodule.IReflectable"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodules.ts",
+        "line": 6
+      },
+      "name": "UpcasingReflectable",
+      "properties": [
+        {
+          "const": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodules.ts",
+            "line": 7
+          },
+          "name": "reflector",
+          "static": true,
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.submodule.Reflector"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodules.ts",
+            "line": 11
+          },
+          "name": "entries",
+          "overrides": "@scope/jsii-calc-lib.submodule.IReflectable",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.submodule.ReflectableEntry"
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.UseBundledDependency": {
       "assembly": "jsii-calc",
       "docs": {
@@ -12446,5 +12804,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "S5j1ruyHKCiGccVmj8rlIRMN+kEFLfMOauyhoICl1V4="
+  "fingerprint": "eUQcdWdfbPGKM9OpWlmvQnY7s0w83q5MvIP501ACZSI="
 }

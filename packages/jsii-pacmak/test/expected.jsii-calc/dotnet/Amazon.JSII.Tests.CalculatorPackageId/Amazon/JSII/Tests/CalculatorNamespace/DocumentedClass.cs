@@ -10,8 +10,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// multiple lines and multiple paragraphs.
     /// 
     /// Multiple paragraphs are separated by an empty line.
-    /// 
-    /// <strong>Stability</strong>: Stable
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
@@ -40,8 +38,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// This will print out a friendly greeting intended for
         /// the indicated person.
-        /// 
-        /// <strong>Stability</strong>: Stable
         /// </remarks>
         [JsiiMethod(name: "greet", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"docs\":{\"summary\":\"The person to be greeted.\"},\"name\":\"greetee\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.Greetee\"}}]")]
         public virtual double Greet(Amazon.JSII.Tests.CalculatorNamespace.IGreetee? greetee = null)

@@ -99,7 +99,9 @@ export class DotNetDocGenerator {
     // All the "tags" need to be rendered with empyt lines between them or they'll be word wrapped.
 
     if (docs.default) { emitDocAttribute('default', docs.default); }
-    if (docs.stability) { emitDocAttribute('stability', this.nameutils.capitalizeWord(docs.stability)); }
+    if (docs.stability && shouldMentionStability(docs.stability)) {
+      emitDocAttribute('stability', this.nameutils.capitalizeWord(docs.stability));
+    }
     if (docs.see) { emitDocAttribute('see', docs.see); }
     if (docs.subclassable) { emitDocAttribute('subclassable', ''); }
     for (const [k, v] of Object.entries(docs.custom || {})) {
@@ -166,4 +168,9 @@ export class DotNetDocGenerator {
  */
 function ucFirst(x: string) {
   return x.substr(0, 1).toUpperCase() + x.substr(1);
+}
+
+function shouldMentionStability(s: spec.Stability) {
+  // Don't render "stable" or "external", those are both stable by implication
+  return s === spec.Stability.Deprecated || s === spec.Stability.Experimental;
 }

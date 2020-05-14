@@ -8,10 +8,6 @@ import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-
 from ..._jsii import *
 
 
@@ -55,7 +51,7 @@ class Goodness(enum.Enum):
 
 @jsii.data_type(jsii_type="jsii-calc.submodule.child.Structure", jsii_struct_bases=[], name_mapping={'bool': 'bool'})
 class Structure():
-    def __init__(self, *, bool: bool):
+    def __init__(self, *, bool: bool) -> None:
         """
         :param bool: 
 
@@ -84,6 +80,10 @@ class Structure():
         return 'Structure(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["Awesomeness", "Goodness", "Structure"]
+__all__ = [
+    "Awesomeness",
+    "Goodness",
+    "Structure",
+]
 
 publication.publish()

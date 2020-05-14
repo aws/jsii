@@ -16,22 +16,22 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@octokit/rest": "^17.2.1",
+    "@octokit/rest": "^17.9.0",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.0",
-    "jest": "^25.3.0",
+    "jest": "^26.0.1",
     "jsii": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "tar": "^6.0.1"
+    "tar": "^6.0.2"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^8.1.0",
     "@types/jest": "^25.2.1",
-    "@types/node": "^10.17.19",
+    "@types/node": "^10.17.21",
     "@types/tar": "^4.0.3",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "typescript": "~3.8.3"
   },
   "jest": {

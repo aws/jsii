@@ -23,7 +23,7 @@ namespace Amazon.JSII.Runtime.Deputy
             Load(nativeType.Assembly);
         }
 
-        private static void Load(Assembly assembly)
+        internal static void Load(Assembly assembly)
         {
             if (ProcessedAssemblies.Contains(GetAssemblyKey(assembly)))
             {
@@ -60,6 +60,15 @@ namespace Amazon.JSII.Runtime.Deputy
             ProcessedAssemblies.Add(GetAssemblyKey(assembly));
 
             string GetAssemblyKey(Assembly assemblyReference) => assemblyReference.GetName().FullName;
+        }
+
+        /// <summary>
+        /// This method is here for the test harness to be able to fully reset the execution engine, and trigger a
+        /// reload of all assemblies. This should not be called by anything other than compliance tests.
+        /// </summary>
+        internal static void Reset()
+        {
+            ProcessedAssemblies.Clear();
         }
 
         public string FullyQualifiedName { get; }

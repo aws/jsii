@@ -40,7 +40,7 @@ class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Ver
 
 @jsii.data_type(jsii_type="@scope/jsii-calc-base-of-base.VeryBaseProps", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
 class VeryBaseProps():
-    def __init__(self, *, foo: "Very"):
+    def __init__(self, *, foo: "Very") -> None:
         """
         :param foo: -
         """
@@ -62,6 +62,10 @@ class VeryBaseProps():
         return 'VeryBaseProps(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["IVeryBaseInterface", "Very", "VeryBaseProps"]
+__all__ = [
+    "IVeryBaseInterface",
+    "Very",
+    "VeryBaseProps",
+]
 
 publication.publish()

@@ -764,6 +764,21 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ success property (experimental)
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ class ExternalClass (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── type: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── type: Optional<number>
+ │   │   ├─┬ method() method (experimental)
+ │   │   │ └── returns: void
+ │   │   ├─┬ readonlyProperty property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ mutableProperty property (experimental)
+ │   │     └── type: Optional<number>
  │   ├─┬ class GiveMeStructs (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1668,6 +1683,21 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ operand property (experimental)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Value
+ │   ├─┬ class UpcasingReflectable (experimental)
+ │   │ ├── interfaces: IReflectable
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(delegate) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ delegate
+ │   │   │     └── type: Map<string => any>
+ │   │   ├─┬ static reflector property (experimental)
+ │   │   │ ├── const
+ │   │   │ ├── immutable
+ │   │   │ ├── static
+ │   │   │ └── type: @scope/jsii-calc-lib.submodule.Reflector
+ │   │   └─┬ entries property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: Array<@scope/jsii-calc-lib.submodule.ReflectableEntry>
  │   ├─┬ class UseBundledDependency (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1893,6 +1923,12 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ interface ExternalStruct (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ readonlyProperty property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface Greetee (experimental)
  │   │ └─┬ members
  │   │   └─┬ name property (experimental)
@@ -1967,6 +2003,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ private property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
+ │   ├─┬ interface IExternalInterface (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ method() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ mutableProperty property (experimental)
+ │   │     ├── abstract
+ │   │     └── type: Optional<number>
  │   ├─┬ interface IFriendlier (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── IFriendly
@@ -2336,6 +2380,9 @@ exports[`jsii-tree --all 1`] = `
  │   ├─┬ enum ExperimentalEnum (experimental)
  │   │ ├── OPTION_A (experimental)
  │   │ └── OPTION_B (experimental)
+ │   ├─┬ enum ExternalEnum (experimental)
+ │   │ ├── OPTION_A (experimental)
+ │   │ └── OPTION_B (experimental)
  │   ├─┬ enum SingletonIntEnum (experimental)
  │   │ └── SINGLETON_INT (experimental)
  │   ├─┬ enum SingletonStringEnum (experimental)
@@ -2393,6 +2440,33 @@ exports[`jsii-tree --all 1`] = `
    ├─┬ dependencies
    │ ├── @scope/jsii-calc-base
    │ └── @scope/jsii-calc-base-of-base
+   ├─┬ submodules
+   │ └─┬ submodule
+   │   └─┬ types
+   │     ├─┬ class Reflector (deprecated)
+   │     │ └─┬ members
+   │     │   ├── <initializer>() initializer (deprecated)
+   │     │   └─┬ asMap(reflectable) method (deprecated)
+   │     │     ├─┬ parameters
+   │     │     │ └─┬ reflectable
+   │     │     │   └── type: @scope/jsii-calc-lib.submodule.IReflectable
+   │     │     └── returns: Map<string => any>
+   │     ├─┬ interface IReflectable (deprecated)
+   │     │ └─┬ members
+   │     │   └─┬ entries property (deprecated)
+   │     │     ├── abstract
+   │     │     ├── immutable
+   │     │     └── type: Array<@scope/jsii-calc-lib.submodule.ReflectableEntry>
+   │     └─┬ interface ReflectableEntry (deprecated)
+   │       └─┬ members
+   │         ├─┬ key property (deprecated)
+   │         │ ├── abstract
+   │         │ ├── immutable
+   │         │ └── type: string
+   │         └─┬ value property (deprecated)
+   │           ├── abstract
+   │           ├── immutable
+   │           └── type: any
    └─┬ types
      ├─┬ class Number (deprecated)
      │ ├── base: Value
@@ -2574,6 +2648,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass
+ │   ├── class ExternalClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
@@ -2649,6 +2724,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class Thrower
  │   ├─┬ class UnaryOperation
  │   │ └── base: Operation
+ │   ├─┬ class UpcasingReflectable
+ │   │ └── interfaces: IReflectable
  │   ├── class UseBundledDependency
  │   ├── class UseCalcBase
  │   ├── class UsesInterfaceWithProperties
@@ -2680,6 +2757,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
+ │   ├── interface ExternalStruct
  │   ├── interface Greetee
  │   ├── interface IAnonymousImplementationProvider
  │   ├── interface IAnonymouslyImplementMe
@@ -2690,6 +2768,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IDeprecatedInterface
  │   ├── interface IExperimentalInterface
  │   ├── interface IExtendsPrivateInterface
+ │   ├── interface IExternalInterface
  │   ├─┬ interface IFriendlier
  │   │ └─┬ interfaces
  │   │   └── IFriendly
@@ -2751,6 +2830,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── enum AllTypesEnum
  │   ├── enum DeprecatedEnum
  │   ├── enum ExperimentalEnum
+ │   ├── enum ExternalEnum
  │   ├── enum SingletonIntEnum
  │   ├── enum SingletonStringEnum
  │   ├── enum StableEnum
@@ -2770,6 +2850,12 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IVeryBaseInterface
  │   └── interface VeryBaseProps
  └─┬ @scope/jsii-calc-lib
+   ├─┬ submodules
+   │ └─┬ submodule
+   │   └─┬ types
+   │     ├── class Reflector
+   │     ├── interface IReflectable
+   │     └── interface ReflectableEntry
    └─┬ types
      ├─┬ class Number
      │ ├── base: Value
@@ -3129,6 +3215,12 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>(success) initializer
  │   │   └── success property
+ │   ├─┬ class ExternalClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├── method() method
+ │   │   ├── readonlyProperty property
+ │   │   └── mutableProperty property
  │   ├─┬ class GiveMeStructs
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3532,6 +3624,11 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>(operand) initializer
  │   │   └── operand property
+ │   ├─┬ class UpcasingReflectable
+ │   │ └─┬ members
+ │   │   ├── <initializer>(delegate) initializer
+ │   │   ├── static reflector property
+ │   │   └── entries property
  │   ├─┬ class UseBundledDependency
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3617,6 +3714,9 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── boom property
  │   │   └── prop property
+ │   ├─┬ interface ExternalStruct
+ │   │ └─┬ members
+ │   │   └── readonlyProperty property
  │   ├─┬ interface Greetee
  │   │ └─┬ members
  │   │   └── name property
@@ -3652,6 +3752,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── moreThings property
  │   │   └── private property
+ │   ├─┬ interface IExternalInterface
+ │   │ └─┬ members
+ │   │   ├── method() method
+ │   │   └── mutableProperty property
  │   ├─┬ interface IFriendlier
  │   │ └─┬ members
  │   │   ├── farewell() method
@@ -3817,6 +3921,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ enum ExperimentalEnum
  │   │ ├── OPTION_A
  │   │ └── OPTION_B
+ │   ├─┬ enum ExternalEnum
+ │   │ ├── OPTION_A
+ │   │ └── OPTION_B
  │   ├─┬ enum SingletonIntEnum
  │   │ └── SINGLETON_INT
  │   ├─┬ enum SingletonStringEnum
@@ -3853,6 +3960,20 @@ exports[`jsii-tree --members 1`] = `
  │     └─┬ members
  │       └── foo property
  └─┬ @scope/jsii-calc-lib
+   ├─┬ submodules
+   │ └─┬ submodule
+   │   └─┬ types
+   │     ├─┬ class Reflector
+   │     │ └─┬ members
+   │     │   ├── <initializer>() initializer
+   │     │   └── asMap(reflectable) method
+   │     ├─┬ interface IReflectable
+   │     │ └─┬ members
+   │     │   └── entries property
+   │     └─┬ interface ReflectableEntry
+   │       └─┬ members
+   │         ├── key property
+   │         └── value property
    └─┬ types
      ├─┬ class Number
      │ └─┬ members
@@ -3910,7 +4031,9 @@ exports[`jsii-tree --signatures 1`] = `
  │           └── deeplyNested
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
- └── @scope/jsii-calc-lib
+ └─┬ @scope/jsii-calc-lib
+   └─┬ submodules
+     └── submodule
 "
 `;
 
@@ -3995,6 +4118,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass
+ │   ├── class ExternalClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
@@ -4055,6 +4179,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
  │   ├── class UnaryOperation
+ │   ├── class UpcasingReflectable
  │   ├── class UseBundledDependency
  │   ├── class UseCalcBase
  │   ├── class UsesInterfaceWithProperties
@@ -4075,6 +4200,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
+ │   ├── interface ExternalStruct
  │   ├── interface Greetee
  │   ├── interface IAnonymousImplementationProvider
  │   ├── interface IAnonymouslyImplementMe
@@ -4085,6 +4211,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IDeprecatedInterface
  │   ├── interface IExperimentalInterface
  │   ├── interface IExtendsPrivateInterface
+ │   ├── interface IExternalInterface
  │   ├── interface IFriendlier
  │   ├── interface IFriendlyRandomGenerator
  │   ├── interface IInterfaceImplementedByAbstractClass
@@ -4131,6 +4258,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── enum AllTypesEnum
  │   ├── enum DeprecatedEnum
  │   ├── enum ExperimentalEnum
+ │   ├── enum ExternalEnum
  │   ├── enum SingletonIntEnum
  │   ├── enum SingletonStringEnum
  │   ├── enum StableEnum
@@ -4146,6 +4274,12 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IVeryBaseInterface
  │   └── interface VeryBaseProps
  └─┬ @scope/jsii-calc-lib
+   ├─┬ submodules
+   │ └─┬ submodule
+   │   └─┬ types
+   │     ├── class Reflector
+   │     ├── interface IReflectable
+   │     └── interface ReflectableEntry
    └─┬ types
      ├── class Number
      ├── class Operation
@@ -4176,6 +4310,8 @@ exports[`jsii-tree 1`] = `
  │           └── deeplyNested
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
- └── @scope/jsii-calc-lib
+ └─┬ @scope/jsii-calc-lib
+   └─┬ submodules
+     └── submodule
 "
 `;

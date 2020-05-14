@@ -8,9 +8,9 @@ import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base_of_base
-
 from ._jsii import *
+
+import scope.jsii_calc_base_of_base
 
 
 class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Base"):
@@ -36,7 +36,7 @@ class _BaseProxy(Base):
 
 @jsii.data_type(jsii_type="@scope/jsii-calc-base.BaseProps", jsii_struct_bases=[scope.jsii_calc_base_of_base.VeryBaseProps], name_mapping={'foo': 'foo', 'bar': 'bar'})
 class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
-    def __init__(self, *, foo: scope.jsii_calc_base_of_base.Very, bar: str):
+    def __init__(self, *, foo: scope.jsii_calc_base_of_base.Very, bar: str) -> None:
         """
         :param foo: -
         :param bar: -
@@ -82,6 +82,10 @@ class _IBaseInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base_of_base.IVeryBase
         return jsii.invoke(self, "bar", [])
 
 
-__all__ = ["Base", "BaseProps", "IBaseInterface"]
+__all__ = [
+    "Base",
+    "BaseProps",
+    "IBaseInterface",
+]
 
 publication.publish()

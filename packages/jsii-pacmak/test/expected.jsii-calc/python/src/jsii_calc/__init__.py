@@ -37,12 +37,13 @@ import jsii
 import jsii.compat
 import publication
 
-import jsii_calc.composition
+from ._jsii import *
+
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
-
-from ._jsii import *
+import scope.jsii_calc_lib.submodule
+from .composition import (CompositeOperation as _CompositeOperation_1c4d123b)
 
 
 class AbstractClassBase(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"):
@@ -160,7 +161,7 @@ class AbstractSuite(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Abstr
 
     @_property.setter
     @abc.abstractmethod
-    def _property(self, value: str):
+    def _property(self, value: str) -> None:
         ...
 
 
@@ -185,7 +186,7 @@ class _AbstractSuiteProxy(AbstractSuite):
         return jsii.get(self, "property")
 
     @_property.setter
-    def _property(self, value: str):
+    def _property(self, value: str) -> None:
         jsii.set(self, "property", value)
 
 
@@ -248,12 +249,12 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "anyArrayProperty")
 
     @any_array_property.setter
-    def any_array_property(self, value: typing.List[typing.Any]):
+    def any_array_property(self, value: typing.List[typing.Any]) -> None:
         jsii.set(self, "anyArrayProperty", value)
 
     @builtins.property
     @jsii.member(jsii_name="anyMapProperty")
-    def any_map_property(self) -> typing.Mapping[str,typing.Any]:
+    def any_map_property(self) -> typing.Mapping[str, typing.Any]:
         """
         stability
         :stability: experimental
@@ -261,7 +262,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "anyMapProperty")
 
     @any_map_property.setter
-    def any_map_property(self, value: typing.Mapping[str,typing.Any]):
+    def any_map_property(self, value: typing.Mapping[str, typing.Any]) -> None:
         jsii.set(self, "anyMapProperty", value)
 
     @builtins.property
@@ -274,7 +275,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "anyProperty")
 
     @any_property.setter
-    def any_property(self, value: typing.Any):
+    def any_property(self, value: typing.Any) -> None:
         jsii.set(self, "anyProperty", value)
 
     @builtins.property
@@ -287,7 +288,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "arrayProperty")
 
     @array_property.setter
-    def array_property(self, value: typing.List[str]):
+    def array_property(self, value: typing.List[str]) -> None:
         jsii.set(self, "arrayProperty", value)
 
     @builtins.property
@@ -300,7 +301,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "booleanProperty")
 
     @boolean_property.setter
-    def boolean_property(self, value: bool):
+    def boolean_property(self, value: bool) -> None:
         jsii.set(self, "booleanProperty", value)
 
     @builtins.property
@@ -313,7 +314,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "dateProperty")
 
     @date_property.setter
-    def date_property(self, value: datetime.datetime):
+    def date_property(self, value: datetime.datetime) -> None:
         jsii.set(self, "dateProperty", value)
 
     @builtins.property
@@ -326,7 +327,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "enumProperty")
 
     @enum_property.setter
-    def enum_property(self, value: "AllTypesEnum"):
+    def enum_property(self, value: "AllTypesEnum") -> None:
         jsii.set(self, "enumProperty", value)
 
     @builtins.property
@@ -339,12 +340,12 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "jsonProperty")
 
     @json_property.setter
-    def json_property(self, value: typing.Mapping[typing.Any, typing.Any]):
+    def json_property(self, value: typing.Mapping[typing.Any, typing.Any]) -> None:
         jsii.set(self, "jsonProperty", value)
 
     @builtins.property
     @jsii.member(jsii_name="mapProperty")
-    def map_property(self) -> typing.Mapping[str,scope.jsii_calc_lib.Number]:
+    def map_property(self) -> typing.Mapping[str, scope.jsii_calc_lib.Number]:
         """
         stability
         :stability: experimental
@@ -352,7 +353,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "mapProperty")
 
     @map_property.setter
-    def map_property(self, value: typing.Mapping[str,scope.jsii_calc_lib.Number]):
+    def map_property(self, value: typing.Mapping[str, scope.jsii_calc_lib.Number]) -> None:
         jsii.set(self, "mapProperty", value)
 
     @builtins.property
@@ -365,7 +366,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "numberProperty")
 
     @number_property.setter
-    def number_property(self, value: jsii.Number):
+    def number_property(self, value: jsii.Number) -> None:
         jsii.set(self, "numberProperty", value)
 
     @builtins.property
@@ -378,7 +379,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "stringProperty")
 
     @string_property.setter
-    def string_property(self, value: str):
+    def string_property(self, value: str) -> None:
         jsii.set(self, "stringProperty", value)
 
     @builtins.property
@@ -391,12 +392,12 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unionArrayProperty")
 
     @union_array_property.setter
-    def union_array_property(self, value: typing.List[typing.Union[jsii.Number, scope.jsii_calc_lib.Value]]):
+    def union_array_property(self, value: typing.List[typing.Union[jsii.Number, scope.jsii_calc_lib.Value]]) -> None:
         jsii.set(self, "unionArrayProperty", value)
 
     @builtins.property
     @jsii.member(jsii_name="unionMapProperty")
-    def union_map_property(self) -> typing.Mapping[str,typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]:
+    def union_map_property(self) -> typing.Mapping[str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]:
         """
         stability
         :stability: experimental
@@ -404,7 +405,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unionMapProperty")
 
     @union_map_property.setter
-    def union_map_property(self, value: typing.Mapping[str,typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]):
+    def union_map_property(self, value: typing.Mapping[str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]) -> None:
         jsii.set(self, "unionMapProperty", value)
 
     @builtins.property
@@ -417,7 +418,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Union[str, jsii.Number, "Multiply", scope.jsii_calc_lib.Number]):
+    def union_property(self, value: typing.Union[str, jsii.Number, "Multiply", scope.jsii_calc_lib.Number]) -> None:
         jsii.set(self, "unionProperty", value)
 
     @builtins.property
@@ -430,12 +431,12 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unknownArrayProperty")
 
     @unknown_array_property.setter
-    def unknown_array_property(self, value: typing.List[typing.Any]):
+    def unknown_array_property(self, value: typing.List[typing.Any]) -> None:
         jsii.set(self, "unknownArrayProperty", value)
 
     @builtins.property
     @jsii.member(jsii_name="unknownMapProperty")
-    def unknown_map_property(self) -> typing.Mapping[str,typing.Any]:
+    def unknown_map_property(self) -> typing.Mapping[str, typing.Any]:
         """
         stability
         :stability: experimental
@@ -443,7 +444,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unknownMapProperty")
 
     @unknown_map_property.setter
-    def unknown_map_property(self, value: typing.Mapping[str,typing.Any]):
+    def unknown_map_property(self, value: typing.Mapping[str, typing.Any]) -> None:
         jsii.set(self, "unknownMapProperty", value)
 
     @builtins.property
@@ -456,7 +457,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unknownProperty")
 
     @unknown_property.setter
-    def unknown_property(self, value: typing.Any):
+    def unknown_property(self, value: typing.Any) -> None:
         jsii.set(self, "unknownProperty", value)
 
     @builtins.property
@@ -469,7 +470,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "optionalEnumValue")
 
     @optional_enum_value.setter
-    def optional_enum_value(self, value: typing.Optional["StringEnum"]):
+    def optional_enum_value(self, value: typing.Optional["StringEnum"]) -> None:
         jsii.set(self, "optionalEnumValue", value)
 
 
@@ -741,7 +742,7 @@ class BinaryOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstract
 class _BinaryOperationProxy(BinaryOperation, jsii.proxy_for(scope.jsii_calc_lib.Operation)):
     pass
 
-class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
+class Calculator(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
     """A calculator which maintains a current value and allows adding operations.
 
     Here's how you use it::
@@ -851,7 +852,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
 
     @builtins.property
     @jsii.member(jsii_name="operationsMap")
-    def operations_map(self) -> typing.Mapping[str,typing.List[scope.jsii_calc_lib.Value]]:
+    def operations_map(self) -> typing.Mapping[str, typing.List[scope.jsii_calc_lib.Value]]:
         """A map of per operation name of all operations performed.
 
         stability
@@ -870,7 +871,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
         return jsii.get(self, "curr")
 
     @curr.setter
-    def curr(self, value: scope.jsii_calc_lib.Value):
+    def curr(self, value: scope.jsii_calc_lib.Value) -> None:
         jsii.set(self, "curr", value)
 
     @builtins.property
@@ -884,12 +885,12 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
         return jsii.get(self, "maxValue")
 
     @max_value.setter
-    def max_value(self, value: typing.Optional[jsii.Number]):
+    def max_value(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "maxValue", value)
 
     @builtins.property
     @jsii.member(jsii_name="unionProperty")
-    def union_property(self) -> typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]:
+    def union_property(self) -> typing.Optional[typing.Union["Add", "Multiply", "Power"]]:
         """Example of a property that accepts a union of types.
 
         stability
@@ -898,13 +899,13 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]):
+    def union_property(self, value: typing.Optional[typing.Union["Add", "Multiply", "Power"]]) -> None:
         jsii.set(self, "unionProperty", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.CalculatorProps", jsii_struct_bases=[], name_mapping={'initial_value': 'initialValue', 'maximum_value': 'maximumValue'})
 class CalculatorProps():
-    def __init__(self, *, initial_value: typing.Optional[jsii.Number]=None, maximum_value: typing.Optional[jsii.Number]=None):
+    def __init__(self, *, initial_value: typing.Optional[jsii.Number]=None, maximum_value: typing.Optional[jsii.Number]=None) -> None:
         """Properties for Calculator.
 
         :param initial_value: The initial value of the calculator. NOTE: Any number works here, it's fine. Default: 0
@@ -959,7 +960,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
     stability
     :stability: experimental
     """
-    def __init__(self, map: typing.Mapping[str,str], array: typing.List[str]) -> None:
+    def __init__(self, map: typing.Mapping[str, str], array: typing.List[str]) -> None:
         """
         :param map: -
         :param array: -
@@ -980,7 +981,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
 
     @jsii.member(jsii_name="createAMap")
     @builtins.classmethod
-    def create_a_map(cls) -> typing.Mapping[str,str]:
+    def create_a_map(cls) -> typing.Mapping[str, str]:
         """
         stability
         :stability: experimental
@@ -997,12 +998,12 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.sget(cls, "staticArray")
 
     @static_array.setter
-    def static_array(cls, value: typing.List[str]):
+    def static_array(cls, value: typing.List[str]) -> None:
         jsii.sset(cls, "staticArray", value)
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="staticMap")
-    def static_map(cls) -> typing.Mapping[str,str]:
+    def static_map(cls) -> typing.Mapping[str, str]:
         """
         stability
         :stability: experimental
@@ -1010,7 +1011,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.sget(cls, "staticMap")
 
     @static_map.setter
-    def static_map(cls, value: typing.Mapping[str,str]):
+    def static_map(cls, value: typing.Mapping[str, str]) -> None:
         jsii.sset(cls, "staticMap", value)
 
     @builtins.property
@@ -1023,12 +1024,12 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.get(self, "array")
 
     @array.setter
-    def array(self, value: typing.List[str]):
+    def array(self, value: typing.List[str]) -> None:
         jsii.set(self, "array", value)
 
     @builtins.property
     @jsii.member(jsii_name="map")
-    def map(self) -> typing.Mapping[str,str]:
+    def map(self) -> typing.Mapping[str, str]:
         """
         stability
         :stability: experimental
@@ -1036,7 +1037,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.get(self, "map")
 
     @map.setter
-    def map(self, value: typing.Mapping[str,str]):
+    def map(self, value: typing.Mapping[str, str]) -> None:
         jsii.set(self, "map", value)
 
 
@@ -1112,7 +1113,7 @@ class ClassWithMutableObjectLiteralProperty(metaclass=jsii.JSIIMeta, jsii_type="
         return jsii.get(self, "mutableObject")
 
     @mutable_object.setter
-    def mutable_object(self, value: "IMutableObjectLiteral"):
+    def mutable_object(self, value: "IMutableObjectLiteral") -> None:
         jsii.set(self, "mutableObject", value)
 
 
@@ -1144,7 +1145,7 @@ class ConfusingToJackson(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Confusing
 
     @builtins.property
     @jsii.member(jsii_name="unionProperty")
-    def union_property(self) -> typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]:
+    def union_property(self) -> typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]:
         """
         stability
         :stability: experimental
@@ -1152,13 +1153,13 @@ class ConfusingToJackson(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Confusing
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]):
+    def union_property(self, value: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]) -> None:
         jsii.set(self, "unionProperty", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.ConfusingToJacksonStruct", jsii_struct_bases=[], name_mapping={'union_property': 'unionProperty'})
 class ConfusingToJacksonStruct():
-    def __init__(self, *, union_property: typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]=None):
+    def __init__(self, *, union_property: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]=None) -> None:
         """
         :param union_property: 
 
@@ -1170,7 +1171,7 @@ class ConfusingToJacksonStruct():
         if union_property is not None: self._values["union_property"] = union_property
 
     @builtins.property
-    def union_property(self) -> typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]:
+    def union_property(self) -> typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]:
         """
         stability
         :stability: experimental
@@ -1475,7 +1476,7 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         return jsii.invoke(self, "render", [data])
 
     @jsii.member(jsii_name="renderArbitrary")
-    def render_arbitrary(self, data: typing.Mapping[str,typing.Any]) -> str:
+    def render_arbitrary(self, data: typing.Mapping[str, typing.Any]) -> str:
         """
         :param data: -
 
@@ -1485,7 +1486,7 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         return jsii.invoke(self, "renderArbitrary", [data])
 
     @jsii.member(jsii_name="renderMap")
-    def render_map(self, map: typing.Mapping[str,typing.Any]) -> str:
+    def render_map(self, map: typing.Mapping[str, typing.Any]) -> str:
         """
         :param map: -
 
@@ -1633,7 +1634,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
 
@@ -1665,7 +1666,7 @@ class DeprecatedEnum(enum.Enum):
 
 @jsii.data_type(jsii_type="jsii-calc.DeprecatedStruct", jsii_struct_bases=[], name_mapping={'readonly_property': 'readonlyProperty'})
 class DeprecatedStruct():
-    def __init__(self, *, readonly_property: str):
+    def __init__(self, *, readonly_property: str) -> None:
         """
         :param readonly_property: 
 
@@ -1702,7 +1703,7 @@ class DeprecatedStruct():
 
 @jsii.data_type(jsii_type="jsii-calc.DerivedStruct", jsii_struct_bases=[scope.jsii_calc_lib.MyFirstStruct], name_mapping={'anumber': 'anumber', 'astring': 'astring', 'first_optional': 'firstOptional', 'another_required': 'anotherRequired', 'bool': 'bool', 'non_primitive': 'nonPrimitive', 'another_optional': 'anotherOptional', 'optional_any': 'optionalAny', 'optional_array': 'optionalArray'})
 class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
-    def __init__(self, *, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None):
+    def __init__(self, *, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None) -> None:
         """A struct which derives from another struct.
 
         :param anumber: An awesome number value.
@@ -1782,7 +1783,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
         return self._values.get('non_primitive')
 
     @builtins.property
-    def another_optional(self) -> typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]:
+    def another_optional(self) -> typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]]:
         """This is optional.
 
         stability
@@ -1818,7 +1819,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
 @jsii.data_type(jsii_type="jsii-calc.DiamondInheritanceBaseLevelStruct", jsii_struct_bases=[], name_mapping={'base_level_property': 'baseLevelProperty'})
 class DiamondInheritanceBaseLevelStruct():
-    def __init__(self, *, base_level_property: str):
+    def __init__(self, *, base_level_property: str) -> None:
         """
         :param base_level_property: 
 
@@ -1849,7 +1850,7 @@ class DiamondInheritanceBaseLevelStruct():
 
 @jsii.data_type(jsii_type="jsii-calc.DiamondInheritanceFirstMidLevelStruct", jsii_struct_bases=[DiamondInheritanceBaseLevelStruct], name_mapping={'base_level_property': 'baseLevelProperty', 'first_mid_level_property': 'firstMidLevelProperty'})
 class DiamondInheritanceFirstMidLevelStruct(DiamondInheritanceBaseLevelStruct):
-    def __init__(self, *, base_level_property: str, first_mid_level_property: str):
+    def __init__(self, *, base_level_property: str, first_mid_level_property: str) -> None:
         """
         :param base_level_property: 
         :param first_mid_level_property: 
@@ -1890,7 +1891,7 @@ class DiamondInheritanceFirstMidLevelStruct(DiamondInheritanceBaseLevelStruct):
 
 @jsii.data_type(jsii_type="jsii-calc.DiamondInheritanceSecondMidLevelStruct", jsii_struct_bases=[DiamondInheritanceBaseLevelStruct], name_mapping={'base_level_property': 'baseLevelProperty', 'second_mid_level_property': 'secondMidLevelProperty'})
 class DiamondInheritanceSecondMidLevelStruct(DiamondInheritanceBaseLevelStruct):
-    def __init__(self, *, base_level_property: str, second_mid_level_property: str):
+    def __init__(self, *, base_level_property: str, second_mid_level_property: str) -> None:
         """
         :param base_level_property: 
         :param second_mid_level_property: 
@@ -1931,7 +1932,7 @@ class DiamondInheritanceSecondMidLevelStruct(DiamondInheritanceBaseLevelStruct):
 
 @jsii.data_type(jsii_type="jsii-calc.DiamondInheritanceTopLevelStruct", jsii_struct_bases=[DiamondInheritanceFirstMidLevelStruct, DiamondInheritanceSecondMidLevelStruct], name_mapping={'base_level_property': 'baseLevelProperty', 'first_mid_level_property': 'firstMidLevelProperty', 'second_mid_level_property': 'secondMidLevelProperty', 'top_level_property': 'topLevelProperty'})
 class DiamondInheritanceTopLevelStruct(DiamondInheritanceFirstMidLevelStruct, DiamondInheritanceSecondMidLevelStruct):
-    def __init__(self, *, base_level_property: str, first_mid_level_property: str, second_mid_level_property: str, top_level_property: str):
+    def __init__(self, *, base_level_property: str, first_mid_level_property: str, second_mid_level_property: str, top_level_property: str) -> None:
         """
         :param base_level_property: 
         :param first_mid_level_property: 
@@ -2012,7 +2013,7 @@ class DisappointingCollectionSource(metaclass=jsii.JSIIMeta, jsii_type="jsii-cal
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="maybeMap")
-    def MAYBE_MAP(cls) -> typing.Optional[typing.Mapping[str,jsii.Number]]:
+    def MAYBE_MAP(cls) -> typing.Optional[typing.Mapping[str, jsii.Number]]:
         """Some Map of strings to numbers, maybe?
 
         (Nah, just a billion dollars mistake!)
@@ -2187,7 +2188,7 @@ class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Era
 
     @jsii.member(jsii_name="prop1IsNull")
     @builtins.classmethod
-    def prop1_is_null(cls) -> typing.Mapping[str,typing.Any]:
+    def prop1_is_null(cls) -> typing.Mapping[str, typing.Any]:
         """We expect "prop1" to be erased.
 
         stability
@@ -2197,7 +2198,7 @@ class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Era
 
     @jsii.member(jsii_name="prop2IsUndefined")
     @builtins.classmethod
-    def prop2_is_undefined(cls) -> typing.Mapping[str,typing.Any]:
+    def prop2_is_undefined(cls) -> typing.Mapping[str, typing.Any]:
         """We expect "prop2" to be erased.
 
         stability
@@ -2208,7 +2209,7 @@ class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Era
 
 @jsii.data_type(jsii_type="jsii-calc.EraseUndefinedHashValuesOptions", jsii_struct_bases=[], name_mapping={'option1': 'option1', 'option2': 'option2'})
 class EraseUndefinedHashValuesOptions():
-    def __init__(self, *, option1: typing.Optional[str]=None, option2: typing.Optional[str]=None):
+    def __init__(self, *, option1: typing.Optional[str]=None, option2: typing.Optional[str]=None) -> None:
         """
         :param option1: 
         :param option2: 
@@ -2289,7 +2290,7 @@ class ExperimentalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Experiment
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
 
@@ -2312,7 +2313,7 @@ class ExperimentalEnum(enum.Enum):
 
 @jsii.data_type(jsii_type="jsii-calc.ExperimentalStruct", jsii_struct_bases=[], name_mapping={'readonly_property': 'readonlyProperty'})
 class ExperimentalStruct():
-    def __init__(self, *, readonly_property: str):
+    def __init__(self, *, readonly_property: str) -> None:
         """
         :param readonly_property: 
 
@@ -2367,7 +2368,7 @@ class ExportedBaseClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExportedBa
 
 @jsii.data_type(jsii_type="jsii-calc.ExtendsInternalInterface", jsii_struct_bases=[], name_mapping={'boom': 'boom', 'prop': 'prop'})
 class ExtendsInternalInterface():
-    def __init__(self, *, boom: bool, prop: str):
+    def __init__(self, *, boom: bool, prop: str) -> None:
         """
         :param boom: 
         :param prop: 
@@ -2406,6 +2407,120 @@ class ExtendsInternalInterface():
         return 'ExtendsInternalInterface(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
+class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"):
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    def __init__(self, readonly_string: str, mutable_number: typing.Optional[jsii.Number]=None) -> None:
+        """
+        :param readonly_string: -
+        :param mutable_number: -
+
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        jsii.create(ExternalClass, self, [readonly_string, mutable_number])
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.invoke(self, "method", [])
+
+    @builtins.property
+    @jsii.member(jsii_name="readonlyProperty")
+    def readonly_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.get(self, "readonlyProperty")
+
+    @builtins.property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
+        jsii.set(self, "mutableProperty", value)
+
+
+@jsii.enum(jsii_type="jsii-calc.ExternalEnum")
+class ExternalEnum(enum.Enum):
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    OPTION_A = "OPTION_A"
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    OPTION_B = "OPTION_B"
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+
+@jsii.data_type(jsii_type="jsii-calc.ExternalStruct", jsii_struct_bases=[], name_mapping={'readonly_property': 'readonlyProperty'})
+class ExternalStruct():
+    def __init__(self, *, readonly_property: str) -> None:
+        """
+        :param readonly_property: 
+
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        self._values = {
+            'readonly_property': readonly_property,
+        }
+
+    @builtins.property
+    def readonly_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return self._values.get('readonly_property')
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'ExternalStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
 class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"):
     """
     stability
@@ -2415,7 +2530,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         jsii.create(GiveMeStructs, self, [])
 
     @jsii.member(jsii_name="derivedToFirst")
-    def derived_to_first(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> scope.jsii_calc_lib.MyFirstStruct:
+    def derived_to_first(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> scope.jsii_calc_lib.MyFirstStruct:
         """Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
 
         :param another_required: 
@@ -2436,7 +2551,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         return jsii.invoke(self, "derivedToFirst", [derived])
 
     @jsii.member(jsii_name="readDerivedNonPrimitive")
-    def read_derived_non_primitive(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> "DoubleTrouble":
+    def read_derived_non_primitive(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> "DoubleTrouble":
         """Returns the boolean from a DerivedStruct struct.
 
         :param another_required: 
@@ -2483,7 +2598,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
 
 @jsii.data_type(jsii_type="jsii-calc.Greetee", jsii_struct_bases=[], name_mapping={'name': 'name'})
 class Greetee():
-    def __init__(self, *, name: typing.Optional[str]=None):
+    def __init__(self, *, name: typing.Optional[str]=None) -> None:
         """These are some arguments you can pass to a method.
 
         :param name: The name of the greetee. Default: world
@@ -2660,7 +2775,7 @@ class IAnotherPublicInterface(jsii.compat.Protocol):
         ...
 
     @a.setter
-    def a(self, value: str):
+    def a(self, value: str) -> None:
         ...
 
 
@@ -2680,7 +2795,7 @@ class _IAnotherPublicInterfaceProxy():
         return jsii.get(self, "a")
 
     @a.setter
-    def a(self, value: str):
+    def a(self, value: str) -> None:
         jsii.set(self, "a", value)
 
 
@@ -2824,7 +2939,7 @@ class IDeprecatedInterface(jsii.compat.Protocol):
         ...
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
     @jsii.member(jsii_name="method")
@@ -2861,7 +2976,7 @@ class _IDeprecatedInterfaceProxy():
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
     @jsii.member(jsii_name="method")
@@ -2896,7 +3011,7 @@ class IExperimentalInterface(jsii.compat.Protocol):
         ...
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
     @jsii.member(jsii_name="method")
@@ -2924,7 +3039,7 @@ class _IExperimentalInterfaceProxy():
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
     @jsii.member(jsii_name="method")
@@ -2965,7 +3080,7 @@ class IExtendsPrivateInterface(jsii.compat.Protocol):
         ...
 
     @private.setter
-    def private(self, value: str):
+    def private(self, value: str) -> None:
         ...
 
 
@@ -2994,8 +3109,80 @@ class _IExtendsPrivateInterfaceProxy():
         return jsii.get(self, "private")
 
     @private.setter
-    def private(self, value: str):
+    def private(self, value: str) -> None:
         jsii.set(self, "private", value)
+
+
+@jsii.interface(jsii_type="jsii-calc.IExternalInterface")
+class IExternalInterface(jsii.compat.Protocol):
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    @builtins.staticmethod
+    def __jsii_proxy_class__():
+        return _IExternalInterfaceProxy
+
+    @builtins.property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        ...
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
+        ...
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        ...
+
+
+class _IExternalInterfaceProxy():
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    __jsii_type__ = "jsii-calc.IExternalInterface"
+    @builtins.property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
+        jsii.set(self, "mutableProperty", value)
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.invoke(self, "method", [])
 
 
 @jsii.interface(jsii_type="jsii-calc.IFriendlier")
@@ -3255,7 +3442,7 @@ class IInterfaceWithProperties(jsii.compat.Protocol):
         ...
 
     @read_write_string.setter
-    def read_write_string(self, value: str):
+    def read_write_string(self, value: str) -> None:
         ...
 
 
@@ -3284,7 +3471,7 @@ class _IInterfaceWithPropertiesProxy():
         return jsii.get(self, "readWriteString")
 
     @read_write_string.setter
-    def read_write_string(self, value: str):
+    def read_write_string(self, value: str) -> None:
         jsii.set(self, "readWriteString", value)
 
 
@@ -3308,7 +3495,7 @@ class IInterfaceWithPropertiesExtension(IInterfaceWithProperties, jsii.compat.Pr
         ...
 
     @foo.setter
-    def foo(self, value: jsii.Number):
+    def foo(self, value: jsii.Number) -> None:
         ...
 
 
@@ -3328,7 +3515,7 @@ class _IInterfaceWithPropertiesExtensionProxy(jsii.proxy_for(IInterfaceWithPrope
         return jsii.get(self, "foo")
 
     @foo.setter
-    def foo(self, value: jsii.Number):
+    def foo(self, value: jsii.Number) -> None:
         jsii.set(self, "foo", value)
 
 
@@ -3464,7 +3651,7 @@ class IMutableObjectLiteral(jsii.compat.Protocol):
         ...
 
     @value.setter
-    def value(self, value: str):
+    def value(self, value: str) -> None:
         ...
 
 
@@ -3484,7 +3671,7 @@ class _IMutableObjectLiteralProxy():
         return jsii.get(self, "value")
 
     @value.setter
-    def value(self, value: str):
+    def value(self, value: str) -> None:
         jsii.set(self, "value", value)
 
 
@@ -3508,7 +3695,7 @@ class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
         ...
 
     @b.setter
-    def b(self, value: str):
+    def b(self, value: str) -> None:
         ...
 
     @builtins.property
@@ -3521,7 +3708,7 @@ class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
         ...
 
     @c.setter
-    def c(self, value: str):
+    def c(self, value: str) -> None:
         ...
 
 
@@ -3541,7 +3728,7 @@ class _INonInternalInterfaceProxy(jsii.proxy_for(IAnotherPublicInterface)):
         return jsii.get(self, "b")
 
     @b.setter
-    def b(self, value: str):
+    def b(self, value: str) -> None:
         jsii.set(self, "b", value)
 
     @builtins.property
@@ -3554,7 +3741,7 @@ class _INonInternalInterfaceProxy(jsii.proxy_for(IAnotherPublicInterface)):
         return jsii.get(self, "c")
 
     @c.setter
-    def c(self, value: str):
+    def c(self, value: str) -> None:
         jsii.set(self, "c", value)
 
 
@@ -3579,7 +3766,7 @@ class IObjectWithProperty(jsii.compat.Protocol):
         ...
 
     @property.setter
-    def property(self, value: str):
+    def property(self, value: str) -> None:
         ...
 
     @jsii.member(jsii_name="wasSet")
@@ -3608,7 +3795,7 @@ class _IObjectWithPropertyProxy():
         return jsii.get(self, "property")
 
     @property.setter
-    def property(self, value: str):
+    def property(self, value: str) -> None:
         jsii.set(self, "property", value)
 
     @jsii.member(jsii_name="wasSet")
@@ -3906,7 +4093,7 @@ class IStableInterface(jsii.compat.Protocol):
         ...
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
     @jsii.member(jsii_name="method")
@@ -3922,7 +4109,7 @@ class _IStableInterfaceProxy():
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
     @jsii.member(jsii_name="method")
@@ -3984,7 +4171,7 @@ class ImplementInternalInterface(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.I
         return jsii.get(self, "prop")
 
     @prop.setter
-    def prop(self, value: str):
+    def prop(self, value: str) -> None:
         jsii.set(self, "prop", value)
 
 
@@ -4051,13 +4238,13 @@ class ImplementsPrivateInterface(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.I
         return jsii.get(self, "private")
 
     @private.setter
-    def private(self, value: str):
+    def private(self, value: str) -> None:
         jsii.set(self, "private", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.ImplictBaseOfBase", jsii_struct_bases=[scope.jsii_calc_base.BaseProps], name_mapping={'foo': 'foo', 'bar': 'bar', 'goo': 'goo'})
 class ImplictBaseOfBase(scope.jsii_calc_base.BaseProps):
-    def __init__(self, *, foo: scope.jsii_calc_base_of_base.Very, bar: str, goo: datetime.datetime):
+    def __init__(self, *, foo: scope.jsii_calc_base_of_base.Very, bar: str, goo: datetime.datetime) -> None:
         """
         :param foo: -
         :param bar: -
@@ -4126,7 +4313,7 @@ class InterfaceCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Interfa
 
     @jsii.member(jsii_name="mapOfInterfaces")
     @builtins.classmethod
-    def map_of_interfaces(cls) -> typing.Mapping[str,"IBell"]:
+    def map_of_interfaces(cls) -> typing.Mapping[str, "IBell"]:
         """
         stability
         :stability: experimental
@@ -4135,7 +4322,7 @@ class InterfaceCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Interfa
 
     @jsii.member(jsii_name="mapOfStructs")
     @builtins.classmethod
-    def map_of_structs(cls) -> typing.Mapping[str,"StructA"]:
+    def map_of_structs(cls) -> typing.Mapping[str, "StructA"]:
         """
         stability
         :stability: experimental
@@ -4256,7 +4443,7 @@ class JSObjectLiteralToNativeClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc
         return jsii.get(self, "propA")
 
     @prop_a.setter
-    def prop_a(self, value: str):
+    def prop_a(self, value: str) -> None:
         jsii.set(self, "propA", value)
 
     @builtins.property
@@ -4269,7 +4456,7 @@ class JSObjectLiteralToNativeClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc
         return jsii.get(self, "propB")
 
     @prop_b.setter
-    def prop_b(self, value: jsii.Number):
+    def prop_b(self, value: jsii.Number) -> None:
         jsii.set(self, "propB", value)
 
 
@@ -4707,7 +4894,7 @@ class JavaReservedWords(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JavaReserv
         return jsii.get(self, "while")
 
     @while_.setter
-    def while_(self, value: str):
+    def while_(self, value: str) -> None:
         jsii.set(self, "while", value)
 
 
@@ -4890,7 +5077,7 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
 
 @jsii.data_type(jsii_type="jsii-calc.LoadBalancedFargateServiceProps", jsii_struct_bases=[], name_mapping={'container_port': 'containerPort', 'cpu': 'cpu', 'memory_mib': 'memoryMiB', 'public_load_balancer': 'publicLoadBalancer', 'public_tasks': 'publicTasks'})
 class LoadBalancedFargateServiceProps():
-    def __init__(self, *, container_port: typing.Optional[jsii.Number]=None, cpu: typing.Optional[str]=None, memory_mib: typing.Optional[str]=None, public_load_balancer: typing.Optional[bool]=None, public_tasks: typing.Optional[bool]=None):
+    def __init__(self, *, container_port: typing.Optional[jsii.Number]=None, cpu: typing.Optional[str]=None, memory_mib: typing.Optional[str]=None, public_load_balancer: typing.Optional[bool]=None, public_tasks: typing.Optional[bool]=None) -> None:
         """jsii#298: show default values in sphinx documentation, and respect newlines.
 
         :param container_port: The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping. Default: 80
@@ -5099,7 +5286,7 @@ class Multiply(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Mu
 
 @jsii.data_type(jsii_type="jsii-calc.NestedStruct", jsii_struct_bases=[], name_mapping={'number_prop': 'numberProp'})
 class NestedStruct():
-    def __init__(self, *, number_prop: jsii.Number):
+    def __init__(self, *, number_prop: jsii.Number) -> None:
         """
         :param number_prop: When provided, must be > 0.
 
@@ -5242,13 +5429,13 @@ class NullShouldBeTreatedAsUndefined(metaclass=jsii.JSIIMeta, jsii_type="jsii-ca
         return jsii.get(self, "changeMeToUndefined")
 
     @change_me_to_undefined.setter
-    def change_me_to_undefined(self, value: typing.Optional[str]):
+    def change_me_to_undefined(self, value: typing.Optional[str]) -> None:
         jsii.set(self, "changeMeToUndefined", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.NullShouldBeTreatedAsUndefinedData", jsii_struct_bases=[], name_mapping={'array_with_three_elements_and_undefined_as_second_argument': 'arrayWithThreeElementsAndUndefinedAsSecondArgument', 'this_should_be_undefined': 'thisShouldBeUndefined'})
 class NullShouldBeTreatedAsUndefinedData():
-    def __init__(self, *, array_with_three_elements_and_undefined_as_second_argument: typing.List[typing.Any], this_should_be_undefined: typing.Any=None):
+    def __init__(self, *, array_with_three_elements_and_undefined_as_second_argument: typing.List[typing.Any], this_should_be_undefined: typing.Any=None) -> None:
         """
         :param array_with_three_elements_and_undefined_as_second_argument: 
         :param this_should_be_undefined: 
@@ -5330,7 +5517,7 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
         return jsii.get(self, "generator")
 
     @generator.setter
-    def generator(self, value: "IRandomNumberGenerator"):
+    def generator(self, value: "IRandomNumberGenerator") -> None:
         jsii.set(self, "generator", value)
 
 
@@ -5355,7 +5542,7 @@ class ObjectRefsInCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Obje
         return jsii.invoke(self, "sumFromArray", [values])
 
     @jsii.member(jsii_name="sumFromMap")
-    def sum_from_map(self, values: typing.Mapping[str,scope.jsii_calc_lib.Value]) -> jsii.Number:
+    def sum_from_map(self, values: typing.Mapping[str, scope.jsii_calc_lib.Value]) -> jsii.Number:
         """Returns the sum of all values in a map.
 
         :param values: -
@@ -5480,7 +5667,7 @@ class OptionalConstructorArgument(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.
 
 @jsii.data_type(jsii_type="jsii-calc.OptionalStruct", jsii_struct_bases=[], name_mapping={'field': 'field'})
 class OptionalStruct():
-    def __init__(self, *, field: typing.Optional[str]=None):
+    def __init__(self, *, field: typing.Optional[str]=None) -> None:
         """
         :param field: 
 
@@ -5597,7 +5784,7 @@ class OverridableProtectedMember(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.O
         return jsii.get(self, "overrideReadWrite")
 
     @_override_read_write.setter
-    def _override_read_write(self, value: str):
+    def _override_read_write(self, value: str) -> None:
         jsii.set(self, "overrideReadWrite", value)
 
 
@@ -5622,7 +5809,7 @@ class OverrideReturnsObject(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Overri
 
 @jsii.data_type(jsii_type="jsii-calc.ParentStruct982", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
 class ParentStruct982():
-    def __init__(self, *, foo: str):
+    def __init__(self, *, foo: str) -> None:
         """https://github.com/aws/jsii/issues/982.
 
         :param foo: 
@@ -5711,7 +5898,7 @@ class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
         return jsii.invoke(self, "sayHello", [friendly])
 
 
-class Power(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Power"):
+class Power(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Power"):
     """The power operation.
 
     stability
@@ -6108,7 +6295,7 @@ class ReferenceEnumFromScopedPackage(metaclass=jsii.JSIIMeta, jsii_type="jsii-ca
         return jsii.get(self, "foo")
 
     @foo.setter
-    def foo(self, value: typing.Optional[scope.jsii_calc_lib.EnumFromScopedModule]):
+    def foo(self, value: typing.Optional[scope.jsii_calc_lib.EnumFromScopedModule]) -> None:
         jsii.set(self, "foo", value)
 
 
@@ -6138,7 +6325,7 @@ class ReturnsPrivateImplementationOfInterface(metaclass=jsii.JSIIMeta, jsii_type
 
 @jsii.data_type(jsii_type="jsii-calc.RootStruct", jsii_struct_bases=[], name_mapping={'string_prop': 'stringProp', 'nested_struct': 'nestedStruct'})
 class RootStruct():
-    def __init__(self, *, string_prop: str, nested_struct: typing.Optional["NestedStruct"]=None):
+    def __init__(self, *, string_prop: str, nested_struct: typing.Optional["NestedStruct"]=None) -> None:
         """This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
 
         This is cheating with the (current) declared types, but this is the "more
@@ -6249,7 +6436,7 @@ class RuntimeTypeChecking(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.RuntimeT
 
 @jsii.data_type(jsii_type="jsii-calc.SecondLevelStruct", jsii_struct_bases=[], name_mapping={'deeper_required_prop': 'deeperRequiredProp', 'deeper_optional_prop': 'deeperOptionalProp'})
 class SecondLevelStruct():
-    def __init__(self, *, deeper_required_prop: str, deeper_optional_prop: typing.Optional[str]=None):
+    def __init__(self, *, deeper_required_prop: str, deeper_optional_prop: typing.Optional[str]=None) -> None:
         """
         :param deeper_required_prop: It's long and required.
         :param deeper_optional_prop: It's long, but you'll almost never pass it.
@@ -6388,7 +6575,7 @@ class SingletonStringEnum(enum.Enum):
 
 @jsii.data_type(jsii_type="jsii-calc.SmellyStruct", jsii_struct_bases=[], name_mapping={'property': 'property', 'yet_anoter_one': 'yetAnoterOne'})
 class SmellyStruct():
-    def __init__(self, *, property: str, yet_anoter_one: bool):
+    def __init__(self, *, property: str, yet_anoter_one: bool) -> None:
         """
         :param property: 
         :param yet_anoter_one: 
@@ -6477,7 +6664,7 @@ class StableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StableClass"):
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
 
@@ -6488,7 +6675,7 @@ class StableEnum(enum.Enum):
 
 @jsii.data_type(jsii_type="jsii-calc.StableStruct", jsii_struct_bases=[], name_mapping={'readonly_property': 'readonlyProperty'})
 class StableStruct():
-    def __init__(self, *, readonly_property: str):
+    def __init__(self, *, readonly_property: str) -> None:
         """
         :param readonly_property: 
         """
@@ -6537,7 +6724,7 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
         return jsii.sget(cls, "staticVariable")
 
     @static_variable.setter
-    def static_variable(cls, value: bool):
+    def static_variable(cls, value: bool) -> None:
         jsii.sset(cls, "staticVariable", value)
 
 
@@ -6606,7 +6793,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="zooBar")
-    def ZOO_BAR(cls) -> typing.Mapping[str,str]:
+    def ZOO_BAR(cls) -> typing.Mapping[str, str]:
         """Constants can also use camelCase.
 
         stability
@@ -6627,7 +6814,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
         return jsii.sget(cls, "instance")
 
     @instance.setter
-    def instance(cls, value: "Statics"):
+    def instance(cls, value: "Statics") -> None:
         jsii.sset(cls, "instance", value)
 
     @jsii.python.classproperty
@@ -6640,7 +6827,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
         return jsii.sget(cls, "nonConstStatic")
 
     @non_const_static.setter
-    def non_const_static(cls, value: jsii.Number):
+    def non_const_static(cls, value: jsii.Number) -> None:
         jsii.sset(cls, "nonConstStatic", value)
 
     @builtins.property
@@ -6693,13 +6880,13 @@ class StripInternal(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StripInternal"
         return jsii.get(self, "youSeeMe")
 
     @you_see_me.setter
-    def you_see_me(self, value: str):
+    def you_see_me(self, value: str) -> None:
         jsii.set(self, "youSeeMe", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.StructA", jsii_struct_bases=[], name_mapping={'required_string': 'requiredString', 'optional_number': 'optionalNumber', 'optional_string': 'optionalString'})
 class StructA():
-    def __init__(self, *, required_string: str, optional_number: typing.Optional[jsii.Number]=None, optional_string: typing.Optional[str]=None):
+    def __init__(self, *, required_string: str, optional_number: typing.Optional[jsii.Number]=None, optional_string: typing.Optional[str]=None) -> None:
         """We can serialize and deserialize structs without silently ignoring optional fields.
 
         :param required_string: 
@@ -6751,7 +6938,7 @@ class StructA():
 
 @jsii.data_type(jsii_type="jsii-calc.StructB", jsii_struct_bases=[], name_mapping={'required_string': 'requiredString', 'optional_boolean': 'optionalBoolean', 'optional_struct_a': 'optionalStructA'})
 class StructB():
-    def __init__(self, *, required_string: str, optional_boolean: typing.Optional[bool]=None, optional_struct_a: typing.Optional["StructA"]=None):
+    def __init__(self, *, required_string: str, optional_boolean: typing.Optional[bool]=None, optional_struct_a: typing.Optional["StructA"]=None) -> None:
         """This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
 
         :param required_string: 
@@ -6804,7 +6991,7 @@ class StructB():
 
 @jsii.data_type(jsii_type="jsii-calc.StructParameterType", jsii_struct_bases=[], name_mapping={'scope': 'scope', 'props': 'props'})
 class StructParameterType():
-    def __init__(self, *, scope: str, props: typing.Optional[bool]=None):
+    def __init__(self, *, scope: str, props: typing.Optional[bool]=None) -> None:
         """Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
 
         See: https://github.com/aws/aws-cdk/issues/4302
@@ -6904,7 +7091,7 @@ class StructUnionConsumer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructUn
 
 @jsii.data_type(jsii_type="jsii-calc.StructWithJavaReservedWords", jsii_struct_bases=[], name_mapping={'default': 'default', 'assert_': 'assert', 'result': 'result', 'that': 'that'})
 class StructWithJavaReservedWords():
-    def __init__(self, *, default: str, assert_: typing.Optional[str]=None, result: typing.Optional[str]=None, that: typing.Optional[str]=None):
+    def __init__(self, *, default: str, assert_: typing.Optional[str]=None, result: typing.Optional[str]=None, that: typing.Optional[str]=None) -> None:
         """
         :param default: 
         :param assert_: 
@@ -6963,7 +7150,7 @@ class StructWithJavaReservedWords():
         return 'StructWithJavaReservedWords(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Sum"):
+class Sum(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Sum"):
     """An operation that sums multiple values.
 
     stability
@@ -6999,13 +7186,13 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.get(self, "parts")
 
     @parts.setter
-    def parts(self, value: typing.List[scope.jsii_calc_lib.Value]):
+    def parts(self, value: typing.List[scope.jsii_calc_lib.Value]) -> None:
         jsii.set(self, "parts", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.SupportsNiceJavaBuilderProps", jsii_struct_bases=[], name_mapping={'bar': 'bar', 'id': 'id'})
 class SupportsNiceJavaBuilderProps():
-    def __init__(self, *, bar: jsii.Number, id: typing.Optional[str]=None):
+    def __init__(self, *, bar: jsii.Number, id: typing.Optional[str]=None) -> None:
         """
         :param bar: Some number, like 42.
         :param id: An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. But here we are, doing it like we didn't care.
@@ -7211,7 +7398,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "a")
 
     @a.setter
-    def a(self, value: jsii.Number):
+    def a(self, value: jsii.Number) -> None:
         jsii.set(self, "a", value)
 
     @builtins.property
@@ -7224,7 +7411,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "callerIsProperty")
 
     @caller_is_property.setter
-    def caller_is_property(self, value: jsii.Number):
+    def caller_is_property(self, value: jsii.Number) -> None:
         jsii.set(self, "callerIsProperty", value)
 
     @builtins.property
@@ -7237,7 +7424,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "otherProperty")
 
     @other_property.setter
-    def other_property(self, value: str):
+    def other_property(self, value: str) -> None:
         jsii.set(self, "otherProperty", value)
 
     @builtins.property
@@ -7250,7 +7437,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "theProperty")
 
     @the_property.setter
-    def the_property(self, value: str):
+    def the_property(self, value: str) -> None:
         jsii.set(self, "theProperty", value)
 
     @builtins.property
@@ -7263,7 +7450,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "valueOfOtherProperty")
 
     @value_of_other_property.setter
-    def value_of_other_property(self, value: str):
+    def value_of_other_property(self, value: str) -> None:
         jsii.set(self, "valueOfOtherProperty", value)
 
 
@@ -7286,7 +7473,7 @@ class Thrower(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Thrower"):
 
 @jsii.data_type(jsii_type="jsii-calc.TopLevelStruct", jsii_struct_bases=[], name_mapping={'required': 'required', 'second_level': 'secondLevel', 'optional': 'optional'})
 class TopLevelStruct():
-    def __init__(self, *, required: str, second_level: typing.Union[jsii.Number, "SecondLevelStruct"], optional: typing.Optional[str]=None):
+    def __init__(self, *, required: str, second_level: typing.Union[jsii.Number, "SecondLevelStruct"], optional: typing.Optional[str]=None) -> None:
         """
         :param required: This is a required field.
         :param second_level: A union to really stress test our serialization.
@@ -7372,7 +7559,7 @@ class _UnaryOperationProxy(UnaryOperation, jsii.proxy_for(scope.jsii_calc_lib.Op
 
 @jsii.data_type(jsii_type="jsii-calc.UnionProperties", jsii_struct_bases=[], name_mapping={'bar': 'bar', 'foo': 'foo'})
 class UnionProperties():
-    def __init__(self, *, bar: typing.Union[str, jsii.Number, "AllTypes"], foo: typing.Optional[typing.Union[typing.Optional[str], typing.Optional[jsii.Number]]]=None):
+    def __init__(self, *, bar: typing.Union[str, jsii.Number, "AllTypes"], foo: typing.Optional[typing.Union[str, jsii.Number]]=None) -> None:
         """
         :param bar: 
         :param foo: 
@@ -7394,7 +7581,7 @@ class UnionProperties():
         return self._values.get('bar')
 
     @builtins.property
-    def foo(self) -> typing.Optional[typing.Union[typing.Optional[str], typing.Optional[jsii.Number]]]:
+    def foo(self) -> typing.Optional[typing.Union[str, jsii.Number]]:
         """
         stability
         :stability: experimental
@@ -7409,6 +7596,41 @@ class UnionProperties():
 
     def __repr__(self) -> str:
         return 'UnionProperties(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
+@jsii.implements(scope.jsii_calc_lib.submodule.IReflectable)
+class UpcasingReflectable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UpcasingReflectable"):
+    """Ensures submodule-imported types from dependencies can be used correctly.
+
+    stability
+    :stability: experimental
+    """
+    def __init__(self, delegate: typing.Mapping[str, typing.Any]) -> None:
+        """
+        :param delegate: -
+
+        stability
+        :stability: experimental
+        """
+        jsii.create(UpcasingReflectable, self, [delegate])
+
+    @jsii.python.classproperty
+    @jsii.member(jsii_name="reflector")
+    def REFLECTOR(cls) -> scope.jsii_calc_lib.submodule.Reflector:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.sget(cls, "reflector")
+
+    @builtins.property
+    @jsii.member(jsii_name="entries")
+    def entries(self) -> typing.List[scope.jsii_calc_lib.submodule.ReflectableEntry]:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "entries")
 
 
 class UseBundledDependency(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UseBundledDependency"):
@@ -7831,13 +8053,13 @@ class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
         return jsii.get(self, "rung")
 
     @rung.setter
-    def rung(self, value: bool):
+    def rung(self, value: bool) -> None:
         jsii.set(self, "rung", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.ChildStruct982", jsii_struct_bases=[ParentStruct982], name_mapping={'foo': 'foo', 'bar': 'bar'})
 class ChildStruct982(ParentStruct982):
-    def __init__(self, *, foo: str, bar: jsii.Number):
+    def __init__(self, *, foo: str, bar: jsii.Number) -> None:
         """
         :param foo: 
         :param bar: 
@@ -7895,7 +8117,7 @@ class ClassThatImplementsTheInternalInterface(metaclass=jsii.JSIIMeta, jsii_type
         return jsii.get(self, "a")
 
     @a.setter
-    def a(self, value: str):
+    def a(self, value: str) -> None:
         jsii.set(self, "a", value)
 
     @builtins.property
@@ -7908,7 +8130,7 @@ class ClassThatImplementsTheInternalInterface(metaclass=jsii.JSIIMeta, jsii_type
         return jsii.get(self, "b")
 
     @b.setter
-    def b(self, value: str):
+    def b(self, value: str) -> None:
         jsii.set(self, "b", value)
 
     @builtins.property
@@ -7921,7 +8143,7 @@ class ClassThatImplementsTheInternalInterface(metaclass=jsii.JSIIMeta, jsii_type
         return jsii.get(self, "c")
 
     @c.setter
-    def c(self, value: str):
+    def c(self, value: str) -> None:
         jsii.set(self, "c", value)
 
     @builtins.property
@@ -7934,7 +8156,7 @@ class ClassThatImplementsTheInternalInterface(metaclass=jsii.JSIIMeta, jsii_type
         return jsii.get(self, "d")
 
     @d.setter
-    def d(self, value: str):
+    def d(self, value: str) -> None:
         jsii.set(self, "d", value)
 
 
@@ -7957,7 +8179,7 @@ class ClassThatImplementsThePrivateInterface(metaclass=jsii.JSIIMeta, jsii_type=
         return jsii.get(self, "a")
 
     @a.setter
-    def a(self, value: str):
+    def a(self, value: str) -> None:
         jsii.set(self, "a", value)
 
     @builtins.property
@@ -7970,7 +8192,7 @@ class ClassThatImplementsThePrivateInterface(metaclass=jsii.JSIIMeta, jsii_type=
         return jsii.get(self, "b")
 
     @b.setter
-    def b(self, value: str):
+    def b(self, value: str) -> None:
         jsii.set(self, "b", value)
 
     @builtins.property
@@ -7983,7 +8205,7 @@ class ClassThatImplementsThePrivateInterface(metaclass=jsii.JSIIMeta, jsii_type=
         return jsii.get(self, "c")
 
     @c.setter
-    def c(self, value: str):
+    def c(self, value: str) -> None:
         jsii.set(self, "c", value)
 
     @builtins.property
@@ -7996,7 +8218,7 @@ class ClassThatImplementsThePrivateInterface(metaclass=jsii.JSIIMeta, jsii_type=
         return jsii.get(self, "e")
 
     @e.setter
-    def e(self, value: str):
+    def e(self, value: str) -> None:
         jsii.set(self, "e", value)
 
 
@@ -8038,7 +8260,7 @@ class ClassWithPrivateConstructorAndAutomaticProperties(metaclass=jsii.JSIIMeta,
         return jsii.get(self, "readWriteString")
 
     @read_write_string.setter
-    def read_write_string(self, value: str):
+    def read_write_string(self, value: str) -> None:
         jsii.set(self, "readWriteString", value)
 
 
@@ -8354,6 +8576,194 @@ class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"
         return jsii.invoke(self, "next", [])
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "AbstractSuite", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AmbiguousParameters", "AnonymousImplementationProvider", "AsyncVirtualMethods", "AugmentableClass", "BaseJsii976", "Bell", "BinaryOperation", "Calculator", "CalculatorProps", "ChildStruct982", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithCollections", "ClassWithDocs", "ClassWithJavaReservedWords", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConfusingToJackson", "ConfusingToJacksonStruct", "ConstructorPassesThisOut", "Constructors", "ConsumePureInterface", "ConsumerCanRingBell", "ConsumersOfThisCrazyTypeSystem", "DataRenderer", "DefaultedConstructorArgument", "Demonstrate982", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedStruct", "DiamondInheritanceBaseLevelStruct", "DiamondInheritanceFirstMidLevelStruct", "DiamondInheritanceSecondMidLevelStruct", "DiamondInheritanceTopLevelStruct", "DisappointingCollectionSource", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EnumDispenser", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnonymousImplementationProvider", "IAnonymouslyImplementMe", "IAnotherPublicInterface", "IBell", "IBellRinger", "IConcreteBellRinger", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IObjectWithProperty", "IOptionalMethod", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnJsii976", "IReturnsNumber", "IStableInterface", "IStructReturningDelegate", "ImplementInternalInterface", "Implementation", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceCollections", "InterfacesMaker", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "JsonFormatter", "LoadBalancedFargateServiceProps", "MethodNamedProperty", "Multiply", "Negate", "NestedStruct", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "ObjectWithPropertyProvider", "Old", "OptionalArgumentInvoker", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverridableProtectedMember", "OverrideReturnsObject", "ParentStruct982", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PropertyNamedProperty", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RootStruct", "RootStructValidator", "RuntimeTypeChecking", "SecondLevelStruct", "SingleInstanceTwoTypes", "SingletonInt", "SingletonIntEnum", "SingletonString", "SingletonStringEnum", "SmellyStruct", "SomeTypeJsii976", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "StructA", "StructB", "StructParameterType", "StructPassing", "StructUnionConsumer", "StructWithJavaReservedWords", "Sum", "SupportsNiceJavaBuilder", "SupportsNiceJavaBuilderProps", "SupportsNiceJavaBuilderWithRequiredProps", "SyncVirtualMethods", "Thrower", "TopLevelStruct", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicInvoker", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "WithPrivatePropertyInConstructor"]
+__all__ = [
+    "AbstractClass",
+    "AbstractClassBase",
+    "AbstractClassReturner",
+    "AbstractSuite",
+    "Add",
+    "AllTypes",
+    "AllTypesEnum",
+    "AllowedMethodNames",
+    "AmbiguousParameters",
+    "AnonymousImplementationProvider",
+    "AsyncVirtualMethods",
+    "AugmentableClass",
+    "BaseJsii976",
+    "Bell",
+    "BinaryOperation",
+    "Calculator",
+    "CalculatorProps",
+    "ChildStruct982",
+    "ClassThatImplementsTheInternalInterface",
+    "ClassThatImplementsThePrivateInterface",
+    "ClassWithCollections",
+    "ClassWithDocs",
+    "ClassWithJavaReservedWords",
+    "ClassWithMutableObjectLiteralProperty",
+    "ClassWithPrivateConstructorAndAutomaticProperties",
+    "ConfusingToJackson",
+    "ConfusingToJacksonStruct",
+    "ConstructorPassesThisOut",
+    "Constructors",
+    "ConsumePureInterface",
+    "ConsumerCanRingBell",
+    "ConsumersOfThisCrazyTypeSystem",
+    "DataRenderer",
+    "DefaultedConstructorArgument",
+    "Demonstrate982",
+    "DeprecatedClass",
+    "DeprecatedEnum",
+    "DeprecatedStruct",
+    "DerivedStruct",
+    "DiamondInheritanceBaseLevelStruct",
+    "DiamondInheritanceFirstMidLevelStruct",
+    "DiamondInheritanceSecondMidLevelStruct",
+    "DiamondInheritanceTopLevelStruct",
+    "DisappointingCollectionSource",
+    "DoNotOverridePrivates",
+    "DoNotRecognizeAnyAsOptional",
+    "DocumentedClass",
+    "DontComplainAboutVariadicAfterOptional",
+    "DoubleTrouble",
+    "EnumDispenser",
+    "EraseUndefinedHashValues",
+    "EraseUndefinedHashValuesOptions",
+    "ExperimentalClass",
+    "ExperimentalEnum",
+    "ExperimentalStruct",
+    "ExportedBaseClass",
+    "ExtendsInternalInterface",
+    "ExternalClass",
+    "ExternalEnum",
+    "ExternalStruct",
+    "GiveMeStructs",
+    "Greetee",
+    "GreetingAugmenter",
+    "IAnonymousImplementationProvider",
+    "IAnonymouslyImplementMe",
+    "IAnotherPublicInterface",
+    "IBell",
+    "IBellRinger",
+    "IConcreteBellRinger",
+    "IDeprecatedInterface",
+    "IExperimentalInterface",
+    "IExtendsPrivateInterface",
+    "IExternalInterface",
+    "IFriendlier",
+    "IFriendlyRandomGenerator",
+    "IInterfaceImplementedByAbstractClass",
+    "IInterfaceThatShouldNotBeADataType",
+    "IInterfaceWithInternal",
+    "IInterfaceWithMethods",
+    "IInterfaceWithOptionalMethodArguments",
+    "IInterfaceWithProperties",
+    "IInterfaceWithPropertiesExtension",
+    "IJSII417Derived",
+    "IJSII417PublicBaseOfBase",
+    "IJsii487External",
+    "IJsii487External2",
+    "IJsii496",
+    "IMutableObjectLiteral",
+    "INonInternalInterface",
+    "IObjectWithProperty",
+    "IOptionalMethod",
+    "IPrivatelyImplemented",
+    "IPublicInterface",
+    "IPublicInterface2",
+    "IRandomNumberGenerator",
+    "IReturnJsii976",
+    "IReturnsNumber",
+    "IStableInterface",
+    "IStructReturningDelegate",
+    "ImplementInternalInterface",
+    "Implementation",
+    "ImplementsInterfaceWithInternal",
+    "ImplementsInterfaceWithInternalSubclass",
+    "ImplementsPrivateInterface",
+    "ImplictBaseOfBase",
+    "InbetweenClass",
+    "InterfaceCollections",
+    "InterfacesMaker",
+    "JSII417Derived",
+    "JSII417PublicBaseOfBase",
+    "JSObjectLiteralForInterface",
+    "JSObjectLiteralToNative",
+    "JSObjectLiteralToNativeClass",
+    "JavaReservedWords",
+    "Jsii487Derived",
+    "Jsii496Derived",
+    "JsiiAgent",
+    "JsonFormatter",
+    "LoadBalancedFargateServiceProps",
+    "MethodNamedProperty",
+    "Multiply",
+    "Negate",
+    "NestedStruct",
+    "NodeStandardLibrary",
+    "NullShouldBeTreatedAsUndefined",
+    "NullShouldBeTreatedAsUndefinedData",
+    "NumberGenerator",
+    "ObjectRefsInCollections",
+    "ObjectWithPropertyProvider",
+    "Old",
+    "OptionalArgumentInvoker",
+    "OptionalConstructorArgument",
+    "OptionalStruct",
+    "OptionalStructConsumer",
+    "OverridableProtectedMember",
+    "OverrideReturnsObject",
+    "ParentStruct982",
+    "PartiallyInitializedThisConsumer",
+    "Polymorphism",
+    "Power",
+    "PropertyNamedProperty",
+    "PublicClass",
+    "PythonReservedWords",
+    "ReferenceEnumFromScopedPackage",
+    "ReturnsPrivateImplementationOfInterface",
+    "RootStruct",
+    "RootStructValidator",
+    "RuntimeTypeChecking",
+    "SecondLevelStruct",
+    "SingleInstanceTwoTypes",
+    "SingletonInt",
+    "SingletonIntEnum",
+    "SingletonString",
+    "SingletonStringEnum",
+    "SmellyStruct",
+    "SomeTypeJsii976",
+    "StableClass",
+    "StableEnum",
+    "StableStruct",
+    "StaticContext",
+    "Statics",
+    "StringEnum",
+    "StripInternal",
+    "StructA",
+    "StructB",
+    "StructParameterType",
+    "StructPassing",
+    "StructUnionConsumer",
+    "StructWithJavaReservedWords",
+    "Sum",
+    "SupportsNiceJavaBuilder",
+    "SupportsNiceJavaBuilderProps",
+    "SupportsNiceJavaBuilderWithRequiredProps",
+    "SyncVirtualMethods",
+    "Thrower",
+    "TopLevelStruct",
+    "UnaryOperation",
+    "UnionProperties",
+    "UpcasingReflectable",
+    "UseBundledDependency",
+    "UseCalcBase",
+    "UsesInterfaceWithProperties",
+    "VariadicInvoker",
+    "VariadicMethod",
+    "VirtualMethodPlayground",
+    "VoidCallback",
+    "WithPrivatePropertyInConstructor",
+]
 
 publication.publish()

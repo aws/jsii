@@ -10,7 +10,6 @@ process.stdout.write(`<Project>
   <PropertyGroup>
     <JsiiVersion>${version}</JsiiVersion>
     <JsiiVersionRange>[${version},${nextMajor})</JsiiVersionRange>
-    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 </Project>
 `);

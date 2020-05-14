@@ -56,7 +56,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
      * A fluent builder for {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.OptionalStructConsumer> {
         /**
          * EXPERIMENTAL
          * <p>
@@ -88,6 +88,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
          * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public software.amazon.jsii.tests.calculator.OptionalStructConsumer build() {
             return new software.amazon.jsii.tests.calculator.OptionalStructConsumer(
                 this.optionalStruct != null ? this.optionalStruct.build() : null

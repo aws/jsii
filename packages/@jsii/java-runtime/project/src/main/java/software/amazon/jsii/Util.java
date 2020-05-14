@@ -1,5 +1,6 @@
 package software.amazon.jsii;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -132,13 +133,13 @@ final class Util {
      * @return The full path of the saved resource
      * @throws IOException If there was an I/O error
      */
-    static String extractResource(final Class<?> klass, final String resourceName, final String outputDirectory) throws IOException {
-        String directory = outputDirectory;
+    static Path extractResource(final Class<?> klass, final String resourceName, final Path outputDirectory) throws IOException {
+        Path directory = outputDirectory;
         if (directory == null) {
-            directory = Files.createTempDirectory("jsii-java-runtime-resource").toString();
+            directory = Files.createTempDirectory("jsii-java-runtime-resource");
         }
 
-        Path target = Paths.get(directory, resourceName);
+        Path target = directory.resolve(resourceName);
 
         // make sure directory tree is created, for the case of "@scoped/deps"
         Files.createDirectories(target.getParent());
@@ -147,6 +148,6 @@ final class Util {
             Files.copy(inputStream, target);
         }
 
-        return target.toAbsolutePath().toString();
+        return target;
     }
 }
