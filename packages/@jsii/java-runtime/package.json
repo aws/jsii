@@ -29,7 +29,7 @@
     "dist-clean": "rm -rf dist maven-repo && cd project && mvn -B clean",
     "test": "echo 'Tests are run as part of the build target'",
     "test:update": "UPDATE_DIFF=1 npm run test",
-    "package": "package-java"
+    "package": "package-java && package-private"
   },
   "devDependencies": {
     "@jsii/runtime": "^0.0.0",
