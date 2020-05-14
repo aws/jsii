@@ -8,16 +8,13 @@ import jsii
 import jsii.compat
 import publication
 
-import jsii_calc.submodule.child
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-import scope.jsii_calc_lib.submodule
-
 from ..._jsii import *
 
+from ..child import (Goodness as _Goodness_2df26737)
+from .deeply_nested import (INamespaced as _INamespaced_e2f386ad)
 
-@jsii.implements(deeplyNested.INamespaced)
+
+@jsii.implements(_INamespaced_e2f386ad)
 class Namespaced(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.submodule.nested_submodule.Namespaced"):
     """
     stability
@@ -39,7 +36,7 @@ class Namespaced(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.submodul
     @builtins.property
     @jsii.member(jsii_name="goodness")
     @abc.abstractmethod
-    def goodness(self) -> jsii_calc.submodule.child.Goodness:
+    def goodness(self) -> _Goodness_2df26737:
         """
         stability
         :stability: experimental
@@ -50,7 +47,7 @@ class Namespaced(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.submodul
 class _NamespacedProxy(Namespaced):
     @builtins.property
     @jsii.member(jsii_name="goodness")
-    def goodness(self) -> jsii_calc.submodule.child.Goodness:
+    def goodness(self) -> _Goodness_2df26737:
         """
         stability
         :stability: experimental

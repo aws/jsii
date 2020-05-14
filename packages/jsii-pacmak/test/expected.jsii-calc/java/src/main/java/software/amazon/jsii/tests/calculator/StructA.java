@@ -44,7 +44,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link StructA}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<StructA> {
         private java.lang.String requiredString;
         private java.lang.Number optionalNumber;
         private java.lang.String optionalString;
@@ -88,6 +88,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public StructA build() {
             return new Jsii$Proxy(requiredString, optionalNumber, optionalString);
         }
