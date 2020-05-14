@@ -17,13 +17,13 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getScope();
+    @org.jetbrains.annotations.NotNull java.lang.String getScope();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Boolean getProps() {
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getProps() {
         return null;
     }
 
@@ -38,7 +38,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
      * A builder for {@link StructParameterType}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<StructParameterType> {
         private java.lang.String scope;
         private java.lang.Boolean props;
 
@@ -70,6 +70,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public StructParameterType build() {
             return new Jsii$Proxy(scope, props);
         }

@@ -1,5 +1,5 @@
 import * as clone from 'clone';
-import { toPascalCase } from 'codemaker/lib/case-utils';
+import { toPascalCase, toSnakeCase } from 'codemaker/lib/case-utils';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import {
@@ -471,6 +471,9 @@ interface JavaProp {
   // The java type for the property (eg: 'List<String>')
   fieldJavaType: string;
 
+  // The java type for the parameter (e.g: 'List<? extends SomeType>')
+  paramJavaType: string;
+
   // The NativeType representation of the property's type
   fieldNativeType: string;
 
@@ -824,7 +827,7 @@ class JavaGenerator extends Generator {
   protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
     this.code.line();
     const returnType = method.returns
-      ? this.toJavaType(method.returns.type)
+      ? this.toDecoratedJavaType(method.returns)
       : 'void';
     this.addJavaDocs(method);
     this.emitStabilityAnnotations(method);
@@ -842,8 +845,7 @@ class JavaGenerator extends Generator {
   }
 
   protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
-    const getterType = this.toJavaType(prop.type);
-    const setterTypes = this.toJavaTypes(prop.type);
+    const getterType = this.toDecoratedJavaType(prop);
     const propName = this.code.toPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
     );
@@ -861,6 +863,7 @@ class JavaGenerator extends Generator {
     }
 
     if (!prop.immutable) {
+      const setterTypes = this.toDecoratedJavaTypes(prop);
       for (const type of setterTypes) {
         this.code.line();
         this.addJavaDocs(prop);
@@ -885,8 +888,13 @@ class JavaGenerator extends Generator {
       return;
     }
 
-    const packageName = this.getNativeName(mod, undefined);
-    const packageInfoFile = this.toJavaFilePath(`${mod.name}.package-info`);
+    const { packageName } = this.toNativeName(mod);
+    const packageInfoFile = this.toJavaFilePath(mod, {
+      assembly: mod.name,
+      fqn: `${mod.name}.package-info`,
+      kind: spec.TypeKind.Class,
+      name: 'package-info',
+    });
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
@@ -990,7 +998,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-source-plugin',
-                      version: '3.2.0',
+                      version: '3.2.1',
                       executions: {
                         execution: {
                           id: 'attach-sources',
@@ -1023,6 +1031,30 @@ class JavaGenerator extends Generator {
                           '-J-XX:+TieredCompilation',
                           '-J-XX:TieredStopAtLevel=1',
                         ],
+                      },
+                    },
+                    {
+                      groupId: 'org.apache.maven.plugins',
+                      artifactId: 'maven-enforcer-plugin',
+                      version: '3.0.0-M3',
+                      executions: {
+                        execution: {
+                          id: 'enforce-maven',
+                          goals: { goal: 'enforce' },
+                          configuration: {
+                            rules: {
+                              requireMavenVersion: { version: '3.6' },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    {
+                      groupId: 'org.codehaus.mojo',
+                      artifactId: 'versions-maven-plugin',
+                      version: '2.7',
+                      configuration: {
+                        generateBackupPoms: false,
                       },
                     },
                   ],
@@ -1086,7 +1118,16 @@ class JavaGenerator extends Generator {
       dependencies.push({
         groupId: 'org.jetbrains',
         artifactId: 'annotations',
-        version: '[18.0.0,19.0.0)',
+        version: '[16.0.3,20.0.0)',
+      });
+
+      // Provides @javax.annotation.Generated for JDKs >= 9
+      dependencies.push({
+        '#comment': 'Provides @javax.annotation.Generated for JDKs >= 9',
+        groupId: 'javax.annotation',
+        artifactId: 'javax.annotation-api',
+        version: '[1.3.2,1.4.0)',
+        scope: 'compile',
       });
 
       return dependencies;
@@ -1142,7 +1183,7 @@ class JavaGenerator extends Generator {
 
     for (const prop of consts) {
       const constName = this.renderConstName(prop);
-      const propType = this.toNativeType(prop.type, true);
+      const propType = this.toNativeType(prop.type, { forMarshalling: true });
       const statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propType})`;
       this.code.line(
         `${constName} = ${this.wrapCollection(
@@ -1178,7 +1219,9 @@ class JavaGenerator extends Generator {
     overrides = !!prop.overrides,
   ) {
     const getterType = this.toDecoratedJavaType(prop);
-    const setterTypes = this.toDecoratedJavaTypes(prop);
+    const setterTypes = this.toDecoratedJavaTypes(prop, {
+      covariant: prop.static,
+    });
     const propName = this.code.toPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
     );
@@ -1207,7 +1250,9 @@ class JavaGenerator extends Generator {
           statement = 'this.jsiiGet(';
         }
 
-        statement += `"${prop.name}", ${this.toNativeType(prop.type, true)})`;
+        statement += `"${prop.name}", ${this.toNativeType(prop.type, {
+          forMarshalling: true,
+        })})`;
 
         this.code.line(
           `return ${this.wrapCollection(statement, prop.type, prop.optional)};`,
@@ -1402,7 +1447,9 @@ class JavaGenerator extends Generator {
         case spec.Stability.Experimental:
           return 'Experimental';
         case spec.Stability.External:
-          return 'External';
+          // Rendering 'External' out as publicly visible state is confusing. As far
+          // as users are concerned we just advertise this as stable.
+          return 'Stable';
         case spec.Stability.Stable:
           return 'Stable';
         default:
@@ -1423,9 +1470,12 @@ class JavaGenerator extends Generator {
       nullable: !!property.optional,
       fieldName: this.code.toCamelCase(safeName),
       fieldJavaType: this.toJavaType(property.type),
+      paramJavaType: this.toJavaType(property.type, { covariant: true }),
       fieldNativeType: this.toNativeType(property.type),
-      fieldJavaClass: `${this.toJavaType(property.type, true)}.class`,
-      javaTypes: this.toJavaTypes(property.type),
+      fieldJavaClass: `${this.toJavaType(property.type, {
+        forMarshalling: true,
+      })}.class`,
+      javaTypes: this.toJavaTypes(property.type, { covariant: true }),
       immutable: property.immutable || false,
       inherited,
     };
@@ -1479,7 +1529,7 @@ class JavaGenerator extends Generator {
         fieldName: this.code.toCamelCase(
           JavaGenerator.safeJavaPropertyName(param.name),
         ),
-        javaType: this.toJavaType(param.type),
+        javaType: this.toJavaType(param.type, { covariant: true }),
       }));
 
     const builtType = this.toJavaType(cls);
@@ -1489,7 +1539,9 @@ class JavaGenerator extends Generator {
     this.code.line(` * A fluent builder for {@link ${builtType}}.`);
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
-    this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
+    this.code.openBlock(
+      `public static final class ${BUILDER_CLASS_NAME} implements software.amazon.jsii.Builder<${builtType}>`,
+    );
 
     // Static factory method(s)
     for (const params of computeOverrides(positionalParams)) {
@@ -1577,7 +1629,9 @@ class JavaGenerator extends Generator {
           },
         ],
       };
-      for (const javaType of this.toJavaTypes(prop.type.spec!)) {
+      for (const javaType of this.toJavaTypes(prop.type.spec!, {
+        covariant: true,
+      })) {
         this.addJavaDocs(setter);
         this.emitStabilityAnnotations(prop.spec);
         this.code.openBlock(
@@ -1601,6 +1655,7 @@ class JavaGenerator extends Generator {
     );
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
+    this.code.line('@Override');
     this.code.openBlock(`public ${builtType} build()`);
     const params = cls.initializer.parameters.map(param => {
       if (param === firstStruct) {
@@ -1662,10 +1717,23 @@ class JavaGenerator extends Generator {
       }
       this.code.line(' */');
       this.emitStabilityAnnotations(prop.spec);
+      // We add an explicit cast if both types are generic but they are not identical (one is covariant, the other isn't)
+      const explicitCast =
+        type.includes('<') &&
+        prop.fieldJavaType.includes('<') &&
+        type !== prop.fieldJavaType
+          ? `(${prop.fieldJavaType})`
+          : '';
+      if (explicitCast !== '') {
+        // We'll be doing a safe, but unchecked cast, so suppress that warning
+        this.code.line('@SuppressWarnings("unchecked")');
+      }
       this.code.openBlock(
         `public ${builderName} ${prop.fieldName}(${type} ${prop.fieldName})`,
       );
-      this.code.line(`this.${prop.fieldName} = ${prop.fieldName};`);
+      this.code.line(
+        `this.${prop.fieldName} = ${explicitCast}${prop.fieldName};`,
+      );
       this.code.line('return this;');
       this.code.closeBlock();
     }
@@ -1699,7 +1767,9 @@ class JavaGenerator extends Generator {
     this.code.line(` * A builder for {@link ${classSpec.name}}`);
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
-    this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
+    this.code.openBlock(
+      `public static final class ${BUILDER_CLASS_NAME} implements software.amazon.jsii.Builder<${classSpec.name}>`,
+    );
 
     props.forEach(prop =>
       this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`),
@@ -1718,6 +1788,7 @@ class JavaGenerator extends Generator {
     );
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
+    this.code.line('@Override');
     this.code.openBlock(`public ${classSpec.name} build()`);
 
     const propFields = props.map(prop => prop.fieldName).join(', ');
@@ -1802,8 +1873,11 @@ class JavaGenerator extends Generator {
       ' * Constructor that initializes the object based on literal property values passed by the {@link Builder}.',
     );
     this.code.line(' */');
+    if (props.some(prop => prop.fieldJavaType !== prop.paramJavaType)) {
+      this.code.line('@SuppressWarnings("unchecked")');
+    }
     const constructorArgs = props
-      .map(prop => `final ${prop.fieldJavaType} ${prop.fieldName}`)
+      .map(prop => `final ${prop.paramJavaType} ${prop.fieldName}`)
       .join(', ');
     this.code.openBlock(
       `private ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`,
@@ -1812,8 +1886,12 @@ class JavaGenerator extends Generator {
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
     );
     props.forEach(prop => {
+      const explicitCast =
+        prop.fieldJavaType !== prop.paramJavaType
+          ? `(${prop.fieldJavaType})`
+          : '';
       this.code.line(
-        `this.${prop.fieldName} = ${_validateIfNonOptional(
+        `this.${prop.fieldName} = ${explicitCast}${_validateIfNonOptional(
           prop.fieldName,
           prop,
         )};`,
@@ -1965,9 +2043,9 @@ class JavaGenerator extends Generator {
       return;
     }
 
-    this.code.openFile(this.toJavaFilePath(type.fqn));
+    this.code.openFile(this.toJavaFilePath(this.assembly, type));
     this.code.line(
-      `package ${this.getNativeName(this.assembly, type.namespace)};`,
+      `package ${this.toNativeName(this.assembly, type).packageName};`,
     );
     this.code.line();
   }
@@ -1976,7 +2054,7 @@ class JavaGenerator extends Generator {
     if (this.isNested(type)) {
       return;
     }
-    this.code.closeFile(this.toJavaFilePath(type.fqn));
+    this.code.closeFile(this.toJavaFilePath(this.assembly, type));
   }
 
   private isNested(type: spec.Type) {
@@ -1987,11 +2065,35 @@ class JavaGenerator extends Generator {
     return parent in this.assembly.types;
   }
 
-  private toJavaFilePath(fqn: string) {
-    const nativeFqn = this.toNativeFqn(fqn);
-    return `${path.join('src', 'main', 'java', ...nativeFqn.split('.'))}.java`;
+  private toJavaFilePath(assm: spec.Assembly, type: spec.Type) {
+    const { packageName, typeName } = this.toNativeName(assm, type);
+    return `${path.join(
+      'src',
+      'main',
+      'java',
+      ...packageName.split('.'),
+      typeName.split('.')[0],
+    )}.java`;
   }
 
+  private toJavaResourcePath(assm: spec.Assembly, fqn: string, ext = '.txt') {
+    const { packageName, typeName } = this.toNativeName(assm, {
+      fqn,
+      kind: spec.TypeKind.Class,
+      assembly: assm.name,
+      name: fqn.replace(/.*\.([^.]+)$/, '$1'),
+    });
+
+    const name = `${path.join(
+      ...packageName.split('.'),
+      typeName.split('.')[0],
+    )}${ext}`;
+    const filePath = path.join('src', 'main', 'resources', name);
+
+    return { filePath, name };
+  }
+
+  // eslint-disable-next-line complexity
   private addJavaDocs(doc: spec.Documentable, defaultText?: string) {
     if (
       !defaultText &&
@@ -2088,8 +2190,11 @@ class JavaGenerator extends Generator {
     return this.toJavaType({ fqn: cls.base });
   }
 
-  private toDecoratedJavaType(optionalValue: spec.OptionalValue): string {
-    const result = this.toDecoratedJavaTypes(optionalValue);
+  private toDecoratedJavaType(
+    optionalValue: spec.OptionalValue,
+    { covariant = false } = {},
+  ): string {
+    const result = this.toDecoratedJavaTypes(optionalValue, { covariant });
     if (result.length > 1) {
       return `${
         optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL
@@ -2098,15 +2203,21 @@ class JavaGenerator extends Generator {
     return result[0];
   }
 
-  private toDecoratedJavaTypes(optionalValue: spec.OptionalValue): string[] {
-    return this.toJavaTypes(optionalValue.type).map(
+  private toDecoratedJavaTypes(
+    optionalValue: spec.OptionalValue,
+    { covariant = false } = {},
+  ): string[] {
+    return this.toJavaTypes(optionalValue.type, { covariant }).map(
       nakedType =>
         `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`,
     );
   }
 
-  private toJavaType(type: spec.TypeReference, forMarshalling = false): string {
-    const types = this.toJavaTypes(type, forMarshalling);
+  private toJavaType(
+    type: spec.TypeReference,
+    opts?: { forMarshalling?: boolean; covariant?: boolean },
+  ): string {
+    const types = this.toJavaTypes(type, opts);
     if (types.length > 1) {
       return 'java.lang.Object';
     }
@@ -2115,15 +2226,14 @@ class JavaGenerator extends Generator {
 
   private toNativeType(
     type: spec.TypeReference,
-    forMarshalling = false,
-    recursing = false,
+    { forMarshalling = false, covariant = false, recursing = false } = {},
   ): string {
     if (spec.isCollectionTypeReference(type)) {
-      const nativeElementType = this.toNativeType(
-        type.collection.elementtype,
+      const nativeElementType = this.toNativeType(type.collection.elementtype, {
         forMarshalling,
-        true,
-      );
+        covariant,
+        recursing: true,
+      });
       switch (type.collection.kind) {
         case spec.CollectionKind.Array:
           return `software.amazon.jsii.NativeType.listOf(${nativeElementType})`;
@@ -2136,27 +2246,30 @@ class JavaGenerator extends Generator {
       }
     }
     return recursing
-      ? `software.amazon.jsii.NativeType.forClass(${this.toJavaType(
-          type,
+      ? `software.amazon.jsii.NativeType.forClass(${this.toJavaType(type, {
           forMarshalling,
-        )}.class)`
-      : `${this.toJavaType(type, forMarshalling)}.class`;
+          covariant,
+        })}.class)`
+      : `${this.toJavaType(type, { forMarshalling, covariant })}.class`;
   }
 
   private toJavaTypes(
     typeref: spec.TypeReference,
-    forMarshalling = false,
+    { forMarshalling = false, covariant = false } = {},
   ): string[] {
     if (spec.isPrimitiveTypeReference(typeref)) {
       return [this.toJavaPrimitive(typeref.primitive)];
     } else if (spec.isCollectionTypeReference(typeref)) {
-      return [this.toJavaCollection(typeref, forMarshalling)];
+      return [this.toJavaCollection(typeref, { forMarshalling, covariant })];
     } else if (spec.isNamedTypeReference(typeref)) {
       return [this.toNativeFqn(typeref.fqn)];
     } else if (typeref.union) {
       const types = new Array<string>();
       for (const subtype of typeref.union.types) {
-        for (const t of this.toJavaTypes(subtype, forMarshalling)) {
+        for (const t of this.toJavaTypes(subtype, {
+          forMarshalling,
+          covariant,
+        })) {
           types.push(t);
         }
       }
@@ -2167,20 +2280,36 @@ class JavaGenerator extends Generator {
 
   private toJavaCollection(
     ref: spec.CollectionTypeReference,
-    forMarshalling: boolean,
+    {
+      forMarshalling,
+      covariant,
+    }: { forMarshalling: boolean; covariant: boolean },
   ) {
-    const elementJavaType = this.toJavaType(ref.collection.elementtype);
+    const elementJavaType = this.toJavaType(ref.collection.elementtype, {
+      covariant,
+    });
+    const typeConstraint = covariant
+      ? makeCovariant(elementJavaType)
+      : elementJavaType;
     switch (ref.collection.kind) {
       case spec.CollectionKind.Array:
         return forMarshalling
           ? 'java.util.List'
-          : `java.util.List<${elementJavaType}>`;
+          : `java.util.List<${typeConstraint}>`;
       case spec.CollectionKind.Map:
         return forMarshalling
           ? 'java.util.Map'
-          : `java.util.Map<java.lang.String, ${elementJavaType}>`;
+          : `java.util.Map<java.lang.String, ${typeConstraint}>`;
       default:
         throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
+    }
+
+    function makeCovariant(javaType: string): string {
+      // Don't emit a covariant expression for String (it's `final` in Java), or generic types (List<X>, Map<String,X>, ...)
+      if (javaType === 'java.lang.String' || javaType.includes('<')) {
+        return javaType;
+      }
+      return `? extends ${javaType}`;
     }
   }
 
@@ -2253,7 +2382,9 @@ class JavaGenerator extends Generator {
     statement += `"${method.name}"`;
 
     if (method.returns) {
-      statement += `, ${this.toNativeType(method.returns.type, true)}`;
+      statement += `, ${this.toNativeType(method.returns.type, {
+        forMarshalling: true,
+      })}`;
     } else {
       statement += ', software.amazon.jsii.NativeType.VOID';
     }
@@ -2314,10 +2445,13 @@ class JavaGenerator extends Generator {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
+        // We can render covariant parameters only for methods that aren't overridable... so only for static methods currently.
         params.push(
-          `final ${this.toDecoratedJavaType(p)}${
-            p.variadic ? '...' : ''
-          } ${JavaGenerator.safeJavaPropertyName(p.name)}`,
+          `final ${this.toDecoratedJavaType(p, {
+            covariant: (method as spec.Method).static,
+          })}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(
+            p.name,
+          )}`,
         );
       }
     }
@@ -2332,28 +2466,94 @@ class JavaGenerator extends Generator {
     return `${this.toNativeFqn(moduleName)}.${MODULE_CLASS_NAME}`;
   }
 
-  private makeModuleFqn(moduleName: string) {
-    return `${moduleName}.${MODULE_CLASS_NAME}`;
-  }
-
   private emitModuleFile(mod: spec.Assembly) {
     const moduleName = mod.name;
     const moduleClass = this.makeModuleClass(moduleName);
-    const moduleFile = this.toJavaFilePath(this.makeModuleFqn(moduleName));
+
+    const {
+      filePath: moduleResFile,
+      name: moduleResName,
+    } = this.toJavaResourcePath(mod, `${mod.name}.${MODULE_CLASS_NAME}`);
+    this.code.openFile(moduleResFile);
+    for (const fqn of Object.keys(this.assembly.types ?? {})) {
+      this.code.line(`${fqn}=${this.toNativeFqn(fqn, { binaryName: true })}`);
+    }
+    this.code.closeFile(moduleResFile);
+
+    const moduleFile = this.toJavaFilePath(mod, {
+      assembly: mod.name,
+      fqn: `${mod.name}.${MODULE_CLASS_NAME}`,
+      kind: spec.TypeKind.Class,
+      name: MODULE_CLASS_NAME,
+    });
+
     this.code.openFile(moduleFile);
-    this.code.line(`package ${this.toNativeFqn(moduleName)};`);
+    this.code.line(`package ${this.toNativeName(mod).packageName};`);
     this.code.line();
     if (Object.keys(mod.dependencies ?? {}).length > 0) {
       this.code.line('import static java.util.Arrays.asList;');
       this.code.line();
+    }
+    this.code.line('import java.io.BufferedReader;');
+    this.code.line('import java.io.InputStream;');
+    this.code.line('import java.io.InputStreamReader;');
+    this.code.line('import java.io.IOException;');
+    this.code.line('import java.io.Reader;');
+    this.code.line('import java.io.UncheckedIOException;');
+    this.code.line();
+    this.code.line('import java.nio.charset.StandardCharsets;');
+    this.code.line();
+    this.code.line('import java.util.HashMap;');
+    if (Object.keys(mod.dependencies ?? {}).length > 0) {
       this.code.line('import java.util.List;');
     }
+    this.code.line('import java.util.Map;');
+    this.code.line();
     this.code.line('import software.amazon.jsii.JsiiModule;');
     this.code.line();
 
     this.code.openBlock(
       `public final class ${MODULE_CLASS_NAME} extends JsiiModule`,
     );
+    this.code.line(
+      'private static final Map<String, String> MODULE_TYPES = load();',
+    );
+    this.code.line();
+
+    this.code.openBlock('private static Map<String, String> load()');
+    this.code.line('final Map<String, String> result = new HashMap<>();');
+    this.code.line(
+      `final ClassLoader cl = ${MODULE_CLASS_NAME}.class.getClassLoader();`,
+    );
+    this.code.line(
+      `try (final InputStream is = cl.getResourceAsStream("${moduleResName}");`,
+    );
+    this.code.line(
+      '     final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);',
+    );
+    this.code.openBlock(
+      '     final BufferedReader br = new BufferedReader(rd))',
+    );
+    this.code.line('br.lines()');
+    this.code.line('  .filter(line -> !line.trim().isEmpty())');
+    this.code.openBlock('  .forEach(line -> ');
+    this.code.line('final String[] parts = line.split("=", 2);');
+    this.code.line('final String fqn = parts[0];');
+    this.code.line('final String className = parts[1];');
+    this.code.line('result.put(fqn, className);');
+    this.code.unindent('});'); // Proxy for closeBlock
+    this.code.closeBlock();
+    this.code.openBlock('catch (final IOException exception)');
+    this.code.line('throw new UncheckedIOException(exception);');
+    this.code.closeBlock();
+    this.code.line('return result;');
+    this.code.closeBlock();
+    this.code.line();
+
+    this.code.line(
+      'private final Map<String, Class<?>> cache = new HashMap<>();',
+    );
+    this.code.line();
 
     // ctor
     this.code.openBlock(`public ${MODULE_CLASS_NAME}()`);
@@ -2385,13 +2585,23 @@ class JavaGenerator extends Generator {
     this.code.openBlock(
       'protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException',
     );
-    this.code.openBlock('switch (fqn)');
-    for (const type of Object.keys(this.assembly.types ?? {})) {
-      this.code.line(`case "${type}": return ${this.toNativeFqn(type)}.class;`);
-    }
+    this.code.openBlock('if (!MODULE_TYPES.containsKey(fqn))');
     this.code.line(
-      'default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);',
+      'throw new ClassNotFoundException("Unknown JSII type: " + fqn);',
     );
+    this.code.closeBlock();
+    this.code.line(
+      'return this.cache.computeIfAbsent(MODULE_TYPES.get(fqn), this::findClass);',
+    );
+    this.code.closeBlock();
+
+    this.code.line();
+    this.code.openBlock('private Class<?> findClass(final String binaryName)');
+    this.code.openBlock('try');
+    this.code.line('return Class.forName(binaryName);');
+    this.code.closeBlock();
+    this.code.openBlock('catch (final ClassNotFoundException exception)');
+    this.code.line('throw new RuntimeException(exception);');
     this.code.closeBlock();
     this.code.closeBlock();
 
@@ -2430,7 +2640,10 @@ class JavaGenerator extends Generator {
    *
    * @throws if the assembly the FQN belongs to does not have a `targets.java.package` set.
    */
-  private toNativeFqn(fqn: string): string {
+  private toNativeFqn(
+    fqn: string,
+    { binaryName }: { binaryName: boolean } = { binaryName: false },
+  ): string {
     const [mod, ...name] = fqn.split('.');
     const depMod = this.findModule(mod);
     // Make sure any dependency (direct or transitive) of which any type is explicitly referenced by the generated
@@ -2438,8 +2651,16 @@ class JavaGenerator extends Generator {
     // dependencies' dependency structure).
     if (mod !== this.assembly.name) {
       this.referencedModules[mod] = depMod;
+      return this.getNativeName(depMod, name.join('.'), mod);
     }
-    return this.getNativeName(depMod, name.join('.'), mod);
+
+    const { packageName, typeName } = this.toNativeName(
+      this.assembly,
+      this.assembly.types![fqn],
+    );
+    const className =
+      typeName && binaryName ? typeName.replace('.', '$') : typeName;
+    return `${packageName}${className ? `.${className}` : ''}`;
   }
 
   private getNativeName(assm: spec.Assembly, name: string | undefined): string;
@@ -2460,6 +2681,44 @@ class JavaGenerator extends Generator {
       );
     }
     return `${javaPackage}${name ? `.${name}` : ''}`;
+  }
+
+  private toNativeName(assm: spec.Assembly): { packageName: string };
+  private toNativeName(
+    assm: spec.Assembly,
+    type: spec.Type,
+  ): { packageName: string; typeName: string };
+  private toNativeName(
+    assm: spec.Assembly,
+    type?: spec.Type,
+  ): { packageName: string; typeName?: string } {
+    const javaPackage = assm.targets?.java?.package;
+    if (!javaPackage) {
+      throw new Error(
+        `The module ${assm.name} does not have a java.package setting`,
+      );
+    }
+
+    if (type == null) {
+      return { packageName: javaPackage };
+    }
+
+    let ns = type.namespace;
+    let typeName = type.name;
+    while (ns != null && assm.types?.[`${assm.name}.${ns}`] != null) {
+      const nestingType = assm.types[`${assm.name}.${ns}`];
+      ns = nestingType.namespace;
+      typeName = `${nestingType.name}.${typeName}`;
+    }
+
+    const packageName =
+      ns != null
+        ? `${javaPackage}.${ns
+            .split('.')
+            .map(s => toSnakeCase(s))
+            .join('.')}`
+        : javaPackage;
+    return { packageName, typeName };
   }
 
   /**
@@ -2521,6 +2780,8 @@ interface MavenDependency {
   scope?: 'compile' | 'provided' | 'runtime' | 'test' | 'system';
   systemPath?: string;
   optional?: boolean;
+
+  '#comment'?: string;
 }
 
 /**

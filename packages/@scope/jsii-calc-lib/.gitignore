@@ -1,5 +1,6 @@
 tsconfig.json
-dist
+build/
+dist/
 .jsii
 *.tgz
 

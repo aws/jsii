@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc",
-  "version": "0.22.0",
+  "version": "0.0.0",
   "private": true,
   "description": "A simple calcuator built on JSII.",
   "stability": "experimental",
@@ -37,22 +37,22 @@
   },
   "dependencies": {
     "@fixtures/jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled",
-    "@scope/jsii-calc-base": "^0.22.0",
-    "@scope/jsii-calc-base-of-base": "^0.22.0",
-    "@scope/jsii-calc-lib": "^0.22.0"
+    "@scope/jsii-calc-base": "^0.0.0",
+    "@scope/jsii-calc-base-of-base": "^0.0.0",
+    "@scope/jsii-calc-lib": "^0.0.0"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base": "^0.22.0",
-    "@scope/jsii-calc-base-of-base": "^0.22.0",
-    "@scope/jsii-calc-lib": "^0.22.0"
+    "@scope/jsii-calc-base": "^0.0.0",
+    "@scope/jsii-calc-base-of-base": "^0.0.0",
+    "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.15",
+    "@types/node": "^10.17.21",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "jsii": "^0.22.0",
-    "jsii-build-tools": "^0.22.0",
-    "jsii-rosetta": "^0.22.0",
+    "jsii": "^0.0.0",
+    "jsii-build-tools": "^0.0.0",
+    "jsii-rosetta": "^0.0.0",
     "prettier": "^1.19.1"
   },
   "jsii": {

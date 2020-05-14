@@ -102,3 +102,37 @@ export enum DeprecatedEnum {
   /** @deprecated option B is kinda bad, too */
   OPTION_B
 }
+
+/** @external */
+export interface ExternalStruct {
+  /** @external */
+  readonly readonlyProperty: string;
+}
+/** @external */
+export interface IExternalInterface {
+  /** @external */
+  mutableProperty?: number;
+  /** @external */
+  method(): void;
+}
+/** @external */
+export class ExternalClass {
+  /** @external */
+  public readonly readonlyProperty: string = 'wazoo';
+  /** @external */
+  public mutableProperty?: number;
+  /** @external */
+  constructor(readonlyString: string, mutableNumber?: number) {
+    this.readonlyProperty = readonlyString;
+    this.mutableProperty = mutableNumber;
+  }
+  /** @external */
+  public method(): void { return; }
+}
+/** @external */
+export enum ExternalEnum {
+  /** @external */
+  OPTION_A,
+  /** @external */
+  OPTION_B
+}

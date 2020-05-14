@@ -2,18 +2,24 @@ import * as jsii from '@jsii/spec';
 import { ClassType } from './class';
 import { Dependency } from './dependency';
 import { EnumType } from './enum';
+import { ModuleLike } from './module-like';
 import { InterfaceType } from './interface';
+import { Submodule } from './submodule';
 import { Type } from './type';
 import { TypeSystem } from './type-system';
 
-export class Assembly {
+export class Assembly extends ModuleLike {
   private _typeCache?: { [fqn: string]: Type };
+  private _submoduleCache?: { [fqn: string]: Submodule };
   private _dependencyCache?: { [name: string]: Dependency };
 
-  public constructor(
-    public readonly system: TypeSystem,
-    public readonly spec: jsii.Assembly,
-  ) {}
+  public constructor(system: TypeSystem, public readonly spec: jsii.Assembly) {
+    super(system);
+  }
+
+  public get fqn(): string {
+    return this.spec.name;
+  }
 
   /**
    * The version of the spec schema
@@ -55,7 +61,11 @@ export class Assembly {
    * The module repository, maps to "repository" from package.json
    * This is required since some package managers (like Maven) require it.
    */
-  public get repository(): { type: string; url: string; directory?: string } {
+  public get repository(): {
+    readonly type: string;
+    readonly url: string;
+    readonly directory?: string;
+  } {
     return this.spec.repository;
   }
 
@@ -69,7 +79,7 @@ export class Assembly {
   /**
    * Additional contributors to this package.
    */
-  public get contributors(): jsii.Person[] {
+  public get contributors(): readonly jsii.Person[] {
     return this.spec.contributors ?? [];
   }
 
@@ -105,7 +115,7 @@ export class Assembly {
   /**
    * Dependencies on other assemblies (with semver), the key is the JSII assembly name.
    */
-  public get dependencies(): Dependency[] {
+  public get dependencies(): readonly Dependency[] {
     return Object.keys(this._dependencies).map(
       name => this._dependencies[name],
     );
@@ -122,7 +132,7 @@ export class Assembly {
   /**
    * List if bundled dependencies (these are not expected to be jsii assemblies).
    */
-  public get bundled(): { [module: string]: string } {
+  public get bundled(): { readonly [module: string]: string } {
     return this.spec.bundled ?? {};
   }
 
@@ -133,41 +143,25 @@ export class Assembly {
     return this.spec.readme;
   }
 
+  public get submodules(): readonly Submodule[] {
+    const { submodules } = this._types;
+    return Object.values(submodules);
+  }
+
   /**
-   * All types in the assembly, keyed by their fully-qualified-name
+   * All types in the assembly
    */
-  public get types(): Type[] {
-    return Object.keys(this._types).map(key => this._types[key]);
-  }
-
-  public get classes(): ClassType[] {
-    return this.types
-      .filter(t => t instanceof ClassType)
-      .map(t => t as ClassType);
-  }
-
-  public get interfaces(): InterfaceType[] {
-    return this.types
-      .filter(t => t instanceof InterfaceType)
-      .map(t => t as InterfaceType);
-  }
-
-  public get enums(): EnumType[] {
-    return this.types
-      .filter(t => t instanceof EnumType)
-      .map(t => t as EnumType);
+  public get types(): readonly Type[] {
+    const { types } = this._types;
+    return Object.values(types);
   }
 
   public findType(fqn: string) {
-    const type = this._types[fqn];
+    const type = this.tryFindType(fqn);
     if (!type) {
       throw new Error(`Type '${fqn}' not found in assembly ${this.name}`);
     }
     return type;
-  }
-
-  public tryFindType(fqn: string): Type | undefined {
-    return this._types[fqn];
   }
 
   /**
@@ -198,31 +192,85 @@ export class Assembly {
   }
 
   private get _types() {
-    if (!this._typeCache) {
+    if (!this._typeCache || !this._submoduleCache) {
       this._typeCache = {};
+
+      const submodules: { [fullName: string]: SubmoduleMap } = {};
 
       const ts = this.spec.types ?? {};
       for (const fqn of Object.keys(ts)) {
-        const type = ts[fqn];
-        switch (type.kind) {
+        const typeSpec = ts[fqn];
+
+        let submodule = typeSpec.namespace;
+        while (submodule != null && `${this.spec.name}.${submodule}` in ts) {
+          submodule = ts[`${this.spec.name}.${submodule}`].namespace;
+        }
+
+        let type: Type;
+        switch (typeSpec.kind) {
           case jsii.TypeKind.Class:
-            this._typeCache[fqn] = new ClassType(this.system, this, type);
+            type = new ClassType(this.system, this, typeSpec);
             break;
 
           case jsii.TypeKind.Interface:
-            this._typeCache[fqn] = new InterfaceType(this.system, this, type);
+            type = new InterfaceType(this.system, this, typeSpec);
             break;
 
           case jsii.TypeKind.Enum:
-            this._typeCache[fqn] = new EnumType(this.system, this, type);
+            type = new EnumType(this.system, this, typeSpec);
             break;
 
           default:
             throw new Error('Unknown type kind');
         }
+
+        if (submodule != null) {
+          const [root, ...parts] = submodule.split('.');
+          let container = (submodules[root] = submodules[root] ?? {
+            submodules: {},
+            types: [],
+          });
+          for (const part of parts) {
+            container = container.submodules[part] = container.submodules[
+              part
+            ] ?? { submodules: {}, types: [] };
+          }
+          container.types.push(type);
+        } else {
+          this._typeCache[fqn] = type;
+        }
+      }
+
+      this._submoduleCache = {};
+      for (const [name, map] of Object.entries(submodules)) {
+        this._submoduleCache[name] = makeSubmodule(
+          this.system,
+          map,
+          `${this.name}.${name}`,
+        );
       }
     }
 
-    return this._typeCache;
+    return { types: this._typeCache, submodules: this._submoduleCache };
   }
+}
+
+interface SubmoduleMap {
+  readonly submodules: { [fullName: string]: SubmoduleMap };
+  readonly types: Type[];
+}
+
+function makeSubmodule(
+  system: TypeSystem,
+  map: SubmoduleMap,
+  fullName: string,
+): Submodule {
+  return new Submodule(
+    system,
+    fullName,
+    Object.entries(map.submodules).map(([name, subMap]) =>
+      makeSubmodule(system, subMap, `${fullName}.${name}`),
+    ),
+    map.types,
+  );
 }

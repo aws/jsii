@@ -1,20 +1,27 @@
 # See https://doc.mergify.io
 
 pull_request_rules:
+  - name: label core
+    actions:
+      label:
+        add: [ contribution/core ]
+    conditions:
+      - author~=^(eladb|RomainMuller|garnaat|nija-at|shivlaks|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo)$
+      - -label~="contribution/core"
   - name: Tell them we're good now
     actions:
       comment:
         message: >-
           Thank you for contributing! :heart: I will now look into making sure the PR is up-to-date, then proceed to try and merge it!
       label:
-        add: [pr-status/ready-to-merge]
+        add: [pr/ready-to-merge]
     conditions:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
-      - label!=blocked
-      - label!=do-not-merge
-      - label!=pr-status/ready-to-merge
+      - label!=pr/blocked
+      - label!=pr/do-not-merge
+      - label!=pr/ready-to-merge
       - -merged
       - -closed
       - -approved-reviews-by~=author
@@ -25,7 +32,7 @@ pull_request_rules:
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
 
-  - name: Synchronize that PR to upstream and merge it
+  - name: Synchronize that PR to upstream and merge it (squash)
     actions:
       dismiss_reviews:
         approved: true
@@ -34,13 +41,16 @@ pull_request_rules:
         strict: smart
         method: squash
         strict_method: merge
+      comment:
+        message: Merging (with squash)...
     conditions:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
-      - label!=blocked
-      - label!=do-not-merge
-      - label=pr-status/ready-to-merge
+      - label!=pr/blocked
+      - label!=pr/do-not-merge
+      - label=pr/ready-to-merge
+      - label!=pr/no-squash
       - -merged
       - -closed
       - -approved-reviews-by~=author
@@ -50,6 +60,35 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
+      
+  - name: Synchronize that PR to upstream and merge it (no-squash)
+    actions:
+      dismiss_reviews:
+        approved: true
+        changes_requested: false
+      merge:
+        strict: smart
+        method: merge
+        strict_method: merge
+      comment:
+        message: Merging (no-squash)...
+    conditions:
+      - author!=dependabot[bot]
+      - author!=dependabot-preview[bot]
+      - -title~=(WIP|wip)
+      - label!=pr/blocked
+      - label!=pr/do-not-merge
+      - label=pr/ready-to-merge
+      - label=pr/no-squash
+      - -merged
+      - -closed
+      - -approved-reviews-by~=author
+      - "#approved-reviews-by>=1"
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - status-success~=AWS CodeBuild us-east-1
+      - status-success=continuous-integration/travis-ci/pr
+      - status-success=Semantic Pull Request      
 
   - name: Clean branch up
     actions:
@@ -60,7 +99,7 @@ pull_request_rules:
   - name: Remove Label
     actions:
       label:
-        remove: [pr-status/ready-to-merge]
+        remove: [pr/ready-to-merge]
     conditions:
       - merged
 
@@ -73,17 +112,7 @@ pull_request_rules:
       - base=master
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
-      # List of people with push permissions on the repository
-      - author!=eladb
-      - author!=RomainMuller
-      - author!=garnaat
-      - author!=nija-at
-      - author!=shivlaks
-      - author!=skinny85
-      - author!=rix0rrr
-      - author!=NGL321
-      - author!=Jerry-AWS
-      - author!=SomayaB
+      - label!=contribution/core
 
   - name: Let them know the PR title doesn't look right
     actions:

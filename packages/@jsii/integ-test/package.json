@@ -1,13 +1,14 @@
 {
   "name": "@jsii/integ-test",
-  "version": "0.22.0",
+  "version": "0.0.0",
   "description": "A suite of integration tests for JSII and related modules.",
   "private": true,
   "scripts": {
     "build": "tsc --build && npm run lint",
     "lint": "eslint . --ext .ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test:integ": "jest"
+    "test:integ": "jest",
+    "package": "package-private"
   },
   "keywords": [],
   "author": {
@@ -16,24 +17,26 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "tar": "^6.0.1"
+    "@octokit/rest": "^17.9.0",
+    "dotenv": "^8.2.0",
+    "fs-extra": "^9.0.0",
+    "jest": "^26.0.1",
+    "jsii": "^0.0.0",
+    "jsii-pacmak": "^0.0.0",
+    "jsii-rosetta": "^0.0.0",
+    "tar": "^6.0.2"
   },
   "devDependencies": {
-    "@octokit/rest": "^16.36.0",
     "@types/dotenv": "^8.2.0",
-    "@types/fs-extra": "^8.0.1",
+    "@types/fs-extra": "^8.1.0",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^10.17.21",
     "@types/tar": "^4.0.3",
-    "dotenv": "^8.2.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "fs-extra": "^8.1.0",
-    "jest": "^25.1.0",
-    "jsii": "^0.22.0",
-    "jsii-pacmak": "^0.22.0",
-    "jsii-rosetta": "^0.22.0",
     "prettier": "^1.19.1",
-    "typescript": "~3.7.5"
+    "typescript": "~3.8.3"
   },
   "jest": {
     "errorOnDeprecated": true,

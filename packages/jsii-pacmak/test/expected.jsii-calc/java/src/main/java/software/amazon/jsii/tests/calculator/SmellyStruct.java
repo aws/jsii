@@ -13,13 +13,13 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getYetAnoterOne();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getYetAnoterOne();
 
     /**
      * @return a {@link Builder} of {@link SmellyStruct}
@@ -32,7 +32,7 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link SmellyStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<SmellyStruct> {
         private java.lang.String property;
         private java.lang.Boolean yetAnoterOne;
 
@@ -64,6 +64,7 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public SmellyStruct build() {
             return new Jsii$Proxy(property, yetAnoterOne);
         }

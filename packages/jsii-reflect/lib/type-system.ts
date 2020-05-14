@@ -7,6 +7,7 @@ import { ClassType } from './class';
 import { EnumType } from './enum';
 import { InterfaceType } from './interface';
 import { Method } from './method';
+import { ModuleLike } from './module-like';
 import { Property } from './property';
 import { Type } from './type';
 
@@ -254,26 +255,26 @@ export class TypeSystem {
     return out;
   }
 
-  public get classes() {
+  public get classes(): readonly ClassType[] {
     const out = new Array<ClassType>();
     this.assemblies.forEach(a => {
-      out.push(...a.classes);
+      out.push(...collectTypes(a, item => item.classes));
     });
     return out;
   }
 
-  public get interfaces() {
+  public get interfaces(): readonly InterfaceType[] {
     const out = new Array<InterfaceType>();
     this.assemblies.forEach(a => {
-      out.push(...a.interfaces);
+      out.push(...collectTypes(a, item => item.interfaces));
     });
     return out;
   }
 
-  public get enums() {
+  public get enums(): readonly EnumType[] {
     const out = new Array<EnumType>();
     this.assemblies.forEach(a => {
-      out.push(...a.enums);
+      out.push(...collectTypes(a, item => item.enums));
     });
     return out;
   }
@@ -303,4 +304,16 @@ function dependenciesOf(packageJson: any) {
   Object.keys(packageJson.dependencies ?? {}).forEach(deps.add.bind(deps));
   Object.keys(packageJson.peerDependencies ?? {}).forEach(deps.add.bind(deps));
   return Array.from(deps);
+}
+
+function collectTypes<T extends Type>(
+  module: ModuleLike,
+  getter: (module: ModuleLike) => readonly T[],
+): readonly T[] {
+  const result = new Array<T>();
+  for (const submodule of module.submodules) {
+    result.push(...collectTypes(submodule, getter));
+  }
+  result.push(...getter(module));
+  return result;
 }

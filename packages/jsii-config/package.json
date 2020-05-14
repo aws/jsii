@@ -1,6 +1,6 @@
 {
   "name": "jsii-config",
-  "version": "0.22.0",
+  "version": "0.0.0",
   "description": "CLI tool for configuring jsii module configuration in package.json",
   "main": "lib/index.js",
   "repository": "https://github.com/aws/jsii",
@@ -20,22 +20,22 @@
   },
   "devDependencies": {
     "@types/inquirer": "^6.5.0",
-    "@types/jest": "^25.1.2",
-    "@types/jest-expect-message": "^1.0.1",
-    "@types/node": "^10.17.15",
-    "@types/yargs": "^15.0.3",
-    "eslint": "^6.8.0",
+    "@types/jest": "^25.2.1",
+    "@types/jest-expect-message": "^1.0.2",
+    "@types/node": "^10.17.21",
+    "@types/yargs": "^15.0.4",
+    "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^25.1.0",
+    "jest": "^26.0.1",
     "jest-expect-message": "^1.0.2",
     "prettier": "^1.19.1",
-    "typescript": "~3.7.5"
+    "typescript": "~3.8.3"
   },
   "dependencies": {
-    "@jsii/spec": "^0.22.0",
-    "inquirer": "^7.0.4",
-    "yargs": "^15.1.0"
+    "@jsii/spec": "^0.0.0",
+    "inquirer": "^7.1.0",
+    "yargs": "^15.3.1"
   },
   "jest": {
     "collectCoverage": true,

@@ -15,7 +15,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getRequired();
+    @org.jetbrains.annotations.NotNull java.lang.String getRequired();
 
     /**
      * A union to really stress test our serialization.
@@ -23,7 +23,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Object getSecondLevel();
+    @org.jetbrains.annotations.NotNull java.lang.Object getSecondLevel();
 
     /**
      * You don't have to pass this.
@@ -31,7 +31,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getOptional() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getOptional() {
         return null;
     }
 
@@ -46,7 +46,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link TopLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<TopLevelStruct> {
         private java.lang.String required;
         private java.lang.Object secondLevel;
         private java.lang.String optional;
@@ -101,6 +101,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public TopLevelStruct build() {
             return new Jsii$Proxy(required, secondLevel, optional);
         }

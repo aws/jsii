@@ -13,13 +13,13 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getBoom();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getBoom();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getProp();
+    @org.jetbrains.annotations.NotNull java.lang.String getProp();
 
     /**
      * @return a {@link Builder} of {@link ExtendsInternalInterface}
@@ -32,7 +32,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
      * A builder for {@link ExtendsInternalInterface}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<ExtendsInternalInterface> {
         private java.lang.Boolean boom;
         private java.lang.String prop;
 
@@ -64,6 +64,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public ExtendsInternalInterface build() {
             return new Jsii$Proxy(boom, prop);
         }

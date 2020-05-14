@@ -8,7 +8,10 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -43,12 +46,17 @@ public final class JsiiClient {
      */
     public void loadModule(final JsiiModule module) {
         try {
-            String tarball = extractResource(module.getModuleClass(), module.getBundleResourceName(), null);
-            ObjectNode req = makeRequest("load");
-            req.put("tarball", tarball);
-            req.put("name", module.getModuleName());
-            req.put("version", module.getModuleVersion());
-            this.runtime.requestResponse(req);
+            Path tarball = extractResource(module.getModuleClass(), module.getBundleResourceName(), null);
+            try {
+                ObjectNode req = makeRequest("load");
+                req.put("tarball", tarball.toString());
+                req.put("name", module.getModuleName());
+                req.put("version", module.getModuleVersion());
+                this.runtime.requestResponse(req);
+            } finally {
+                Files.delete(tarball);
+                Files.delete(tarball.getParent());
+            }
         } catch (IOException e) {
             throw new JsiiException("Unable to extract resource " + module.getBundleResourceName(), e);
         }

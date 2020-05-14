@@ -97,7 +97,7 @@ export function compareEnums(
 }
 
 function* typePairs<T extends reflect.Type>(
-  xs: T[],
+  xs: readonly T[],
   updatedAssembly: reflect.Assembly,
   context: ComparisonContext,
 ): IterableIterator<[T, T]> {

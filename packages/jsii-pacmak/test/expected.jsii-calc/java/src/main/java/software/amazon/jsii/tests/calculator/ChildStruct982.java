@@ -13,7 +13,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getBar();
+    @org.jetbrains.annotations.NotNull java.lang.Number getBar();
 
     /**
      * @return a {@link Builder} of {@link ChildStruct982}
@@ -26,7 +26,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
      * A builder for {@link ChildStruct982}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<ChildStruct982> {
         private java.lang.Number bar;
         private java.lang.String foo;
 
@@ -58,6 +58,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public ChildStruct982 build() {
             return new Jsii$Proxy(bar, foo);
         }

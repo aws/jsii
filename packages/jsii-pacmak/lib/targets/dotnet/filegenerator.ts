@@ -4,7 +4,6 @@ import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
 import { DotNetNameUtils } from './nameutils';
 import * as logging from '../../logging';
-import { nextMajorVersion } from '../../util';
 import { TARGET_FRAMEWORK } from '../dotnet';
 import { toNuGetVersionRange } from '../version-utils';
 
@@ -114,12 +113,11 @@ export class FileGenerator {
 
     // Strip " (build abcdef)" from the jsii version
     const jsiiVersion = assembly.jsiiVersion.replace(/ .*$/, '');
-    const jsiiVersionNextMajor = nextMajorVersion(jsiiVersion);
 
     const itemGroup2 = rootNode.ele('ItemGroup');
     const packageReference = itemGroup2.ele('PackageReference');
     packageReference.att('Include', 'Amazon.JSII.Runtime');
-    packageReference.att('Version', `[${jsiiVersion},${jsiiVersionNextMajor})`);
+    packageReference.att('Version', toNuGetVersionRange(`^${jsiiVersion}`));
 
     dependencies.forEach((value: DotNetDependency) => {
       if (value.partOfCompilation) {

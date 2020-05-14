@@ -8,6 +8,7 @@ import software.amazon.jsii.api.SetRequest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.*;
@@ -24,7 +25,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     /**
      * The singleton instance.
      */
-    private static final JsiiEngine INSTANCE = new JsiiEngine();
+    private static JsiiEngine INSTANCE = null;
 
     /**
      * The suffix for interface proxy classes.
@@ -50,7 +51,25 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @return The singleton instance.
      */
     public static JsiiEngine getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new JsiiEngine();
+        }
         return INSTANCE;
+    }
+
+    /**
+     * Resets the singleton instance of JsiiEngine. This will cause a new process to be spawned (the previous process
+     * will terminate itself). This method is intended to be used by compliance tests to ensure a complete and
+     * reproductible kernel trace is obtained.
+     */
+    static void reset() throws InterruptedException, IOException {
+        final JsiiEngine toTerminate = INSTANCE;
+
+        INSTANCE = null;
+
+        if (toTerminate != null) {
+            toTerminate.runtime.terminate();
+        }
     }
 
     /**

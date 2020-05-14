@@ -13,7 +13,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Object getUnionProperty() {
+    default @org.jetbrains.annotations.Nullable java.lang.Object getUnionProperty() {
         return null;
     }
 
@@ -28,7 +28,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
      * A builder for {@link ConfusingToJacksonStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<ConfusingToJacksonStruct> {
         private java.lang.Object unionProperty;
 
         /**
@@ -48,7 +48,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder unionProperty(java.util.List<java.lang.Object> unionProperty) {
+        public Builder unionProperty(java.util.List<? extends java.lang.Object> unionProperty) {
             this.unionProperty = unionProperty;
             return this;
         }
@@ -59,6 +59,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public ConfusingToJacksonStruct build() {
             return new Jsii$Proxy(unionProperty);
         }

@@ -10,20 +10,6 @@ update_configs:
     default_labels:
       - dependencies
 
-  - directory: /packages/@jsii/dotnet-analyzers/src
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
-  - directory: /packages/@jsii/dotnet-jsonmodel/src
-    package_manager: dotnet:nuget
-    update_schedule: daily
-    default_labels:
-      - dependencies
-      - language/dotnet
-
   - directory: /packages/@jsii/dotnet-runtime/src
     package_manager: dotnet:nuget
     update_schedule: daily

@@ -182,6 +182,183 @@ test('cannot make a member less visible', () =>
 
 // ----------------------------------------------------------------------
 
+describe('implement base types need to be present in updated type system', () => {
+  test('for interfaces', () =>
+    expectError(
+      /not assignable to all base types anymore/,
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export interface IBebe extends IPapa {
+        readonly pacifier: string;
+      }
+    `,
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export interface IBebe {
+        readonly pacifier: string;
+      }
+    `,
+    ));
+
+  test('for structs', () =>
+    expectError(
+      /not assignable to all base types anymore/,
+      `
+      export interface Papa {
+        readonly pipe: string;
+      }
+
+      export interface Bebe extends Papa {
+        readonly pacifier: string;
+      }
+    `,
+      `
+      export interface Papa {
+        readonly pipe: string;
+      }
+
+      export interface Bebe {
+        readonly pacifier: string;
+      }
+    `,
+    ));
+
+  test('for classes', () =>
+    expectError(
+      /not assignable to all base types anymore/,
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export class Bebe implements IPapa {
+        readonly pipe: string = 'pff';
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export class Bebe {
+        readonly pipe: string = 'pff';
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+    ));
+
+  test('for base classes', () =>
+    expectError(
+      /not assignable to all base types anymore/,
+      `
+      export class Papa {
+        readonly pipe: string = 'pff';
+      }
+
+      export class Bebe extends Papa {
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+      `
+      export class Papa {
+        readonly pipe: string = 'pff';
+      }
+
+      export class Bebe {
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+    ));
+
+  test('new levels of inheritance are allowed', () =>
+    expectNoError(
+      `
+      export class Papa {
+        readonly pipe: string = 'pff';
+      }
+
+      export class Bebe extends Papa {
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+      `
+      export class Papa {
+        readonly pipe: string = 'pff';
+      }
+
+      export class Inbetween extends Papa {
+      }
+
+      export class Bebe extends Inbetween {
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+    ));
+
+  test('change direct implementation to inherited implementation via interface', () =>
+    expectNoError(
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export class Bebe implements IPapa {
+        readonly pipe: string = 'pff';
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export interface IInbetween extends IPapa {
+      }
+
+      export class Bebe implements IInbetween {
+        readonly pipe: string = 'pff';
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+    ));
+
+  test('change direct implementation to inherited implementation via base class', () =>
+    expectNoError(
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export class Bebe implements IPapa {
+        readonly pipe: string = 'pff';
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+      `
+      export interface IPapa {
+        readonly pipe: string;
+      }
+
+      export class Inbetween implements IPapa {
+        readonly pipe: string = 'pff';
+      }
+
+      export class Bebe extends Inbetween {
+        readonly pacifier: string = 'mmm';
+      }
+    `,
+    ));
+});
+
+// ----------------------------------------------------------------------
+
 test('cannot make a class property optional', () =>
   expectError(
     /prop.*henk.*type Optional<string> \(formerly string\): output type is now optional/i,

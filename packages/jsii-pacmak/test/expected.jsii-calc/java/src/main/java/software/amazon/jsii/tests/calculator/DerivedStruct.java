@@ -15,13 +15,13 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.time.Instant getAnotherRequired();
+    @org.jetbrains.annotations.NotNull java.time.Instant getAnotherRequired();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getBool();
+    @org.jetbrains.annotations.NotNull java.lang.Boolean getBool();
 
     /**
      * An example of a non primitive property.
@@ -29,7 +29,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive();
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive();
 
     /**
      * This is optional.
@@ -37,7 +37,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional() {
+    default @org.jetbrains.annotations.Nullable java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional() {
         return null;
     }
 
@@ -45,7 +45,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.Object getOptionalAny() {
+    default @org.jetbrains.annotations.Nullable java.lang.Object getOptionalAny() {
         return null;
     }
 
@@ -53,7 +53,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.util.List<java.lang.String> getOptionalArray() {
+    default @org.jetbrains.annotations.Nullable java.util.List<java.lang.String> getOptionalArray() {
         return null;
     }
 
@@ -68,7 +68,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * A builder for {@link DerivedStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<DerivedStruct> {
         private java.time.Instant anotherRequired;
         private java.lang.Boolean bool;
         private software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive;
@@ -118,8 +118,9 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder anotherOptional(java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> anotherOptional) {
-            this.anotherOptional = anotherOptional;
+        @SuppressWarnings("unchecked")
+        public Builder anotherOptional(java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.lib.Value> anotherOptional) {
+            this.anotherOptional = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value>)anotherOptional;
             return this;
         }
 
@@ -187,6 +188,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public DerivedStruct build() {
             return new Jsii$Proxy(anotherRequired, bool, nonPrimitive, anotherOptional, optionalAny, optionalArray, anumber, astring, firstOptional);
         }
@@ -227,12 +229,13 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(final java.time.Instant anotherRequired, final java.lang.Boolean bool, final software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive, final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> anotherOptional, final java.lang.Object optionalAny, final java.util.List<java.lang.String> optionalArray, final java.lang.Number anumber, final java.lang.String astring, final java.util.List<java.lang.String> firstOptional) {
+        @SuppressWarnings("unchecked")
+        private Jsii$Proxy(final java.time.Instant anotherRequired, final java.lang.Boolean bool, final software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive, final java.util.Map<java.lang.String, ? extends software.amazon.jsii.tests.calculator.lib.Value> anotherOptional, final java.lang.Object optionalAny, final java.util.List<java.lang.String> optionalArray, final java.lang.Number anumber, final java.lang.String astring, final java.util.List<java.lang.String> firstOptional) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.anotherRequired = java.util.Objects.requireNonNull(anotherRequired, "anotherRequired is required");
             this.bool = java.util.Objects.requireNonNull(bool, "bool is required");
             this.nonPrimitive = java.util.Objects.requireNonNull(nonPrimitive, "nonPrimitive is required");
-            this.anotherOptional = anotherOptional;
+            this.anotherOptional = (java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value>)anotherOptional;
             this.optionalAny = optionalAny;
             this.optionalArray = optionalArray;
             this.anumber = java.util.Objects.requireNonNull(anumber, "anumber is required");

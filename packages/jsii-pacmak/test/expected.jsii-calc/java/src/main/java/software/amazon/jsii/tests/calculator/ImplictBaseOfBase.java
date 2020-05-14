@@ -13,7 +13,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.time.Instant getGoo();
+    @org.jetbrains.annotations.NotNull java.time.Instant getGoo();
 
     /**
      * @return a {@link Builder} of {@link ImplictBaseOfBase}
@@ -26,7 +26,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
      * A builder for {@link ImplictBaseOfBase}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<ImplictBaseOfBase> {
         private java.time.Instant goo;
         private java.lang.String bar;
         private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
@@ -68,6 +68,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public ImplictBaseOfBase build() {
             return new Jsii$Proxy(goo, bar, foo);
         }

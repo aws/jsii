@@ -13,7 +13,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getTopLevelProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getTopLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceTopLevelStruct}
@@ -26,7 +26,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
      * A builder for {@link DiamondInheritanceTopLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceTopLevelStruct> {
         private java.lang.String topLevelProperty;
         private java.lang.String firstMidLevelProperty;
         private java.lang.String baseLevelProperty;
@@ -82,6 +82,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public DiamondInheritanceTopLevelStruct build() {
             return new Jsii$Proxy(topLevelProperty, firstMidLevelProperty, baseLevelProperty, secondMidLevelProperty);
         }

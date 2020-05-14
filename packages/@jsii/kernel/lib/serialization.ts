@@ -633,7 +633,9 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       // If this is or should be a reference type, pass or make the reference
       // (Like regular reftype serialization, but without the type derivation to an interface)
-      const jsiiType = jsiiTypeFqn(value);
+      const jsiiType =
+        jsiiTypeFqn(value) ??
+        (isByReferenceOnly(value) ? EMPTY_OBJECT_FQN : undefined);
       if (jsiiType) {
         return host.objects.registerObject(value, jsiiType);
       }
@@ -973,4 +975,39 @@ function compareSerializationClasses(
     SerializationClass.Any,
   ];
   return order.indexOf(l) - order.indexOf(r);
+}
+
+/**
+ * Determines whether `obj` must be passed by-reference or if by-value is acceptable. For example,
+ * objects with methods, or dynamic getters (or setters) should be passed by-reference as a matter
+ * of security. The behavior in non-JS runtimes could otherwise differ from that in pure JS (if
+ * getters are not stable, etc...).
+ *
+ * @param obj the object to be tested.
+ *
+ * @returns true if `obj` must be passed by-reference.
+ */
+function isByReferenceOnly(obj: any): boolean {
+  if (Array.isArray(obj)) {
+    return false;
+  }
+
+  let curr = obj;
+  // Crawl up the prototype chain to look for dynamic properties or methods.
+  do {
+    for (const prop of Object.getOwnPropertyNames(curr)) {
+      const descr = Object.getOwnPropertyDescriptor(curr, prop);
+      if (
+        descr?.get != null ||
+        descr?.set != null ||
+        typeof descr?.value === 'function'
+      ) {
+        // Property has a dynamic getter, setter or is a constructor/method, so by-ref required!
+        return true;
+      }
+    }
+    // End when the parent proto is `Object`, which has no parent proto itself.
+  } while (Object.getPrototypeOf((curr = Object.getPrototypeOf(curr))) != null);
+
+  return false;
 }

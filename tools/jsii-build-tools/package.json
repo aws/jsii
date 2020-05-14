@@ -1,6 +1,6 @@
 {
   "name": "jsii-build-tools",
-  "version": "0.22.0",
+  "version": "0.0.0",
   "private": true,
   "description": "Internal repository-level tools",
   "license": "Apache-2.0",
@@ -26,7 +26,8 @@
     "package-java": "bin/package-java",
     "package-dotnet": "bin/package-dotnet",
     "package-ruby": "bin/package-ruby",
-    "package-python": "bin/package-python"
+    "package-python": "bin/package-python",
+    "package-private": "bin/package-private"
   },
   "scripts": {
     "build": "chmod +x bin/*"

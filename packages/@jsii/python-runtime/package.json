@@ -1,6 +1,6 @@
 {
   "name": "@jsii/python-runtime",
-  "version": "0.22.0",
+  "version": "0.0.0",
   "private": true,
   "description": "Python client for jsii runtime",
   "license": "Apache-2.0",
@@ -8,13 +8,13 @@
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
   },
-  "homepage": "git://github.com/aws/jsii",
+  "homepage": "https://github.com/aws/jsii",
   "bugs": {
-    "url": "git://github.com/aws/jsii"
+    "url": "https://github.com/aws/jsii"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/aws/jsii",
+    "url": "https://github.com/aws/jsii.git",
     "directory": "packages/@jsii/python-runtime"
   },
   "engines": {
@@ -23,16 +23,17 @@
   "main": "index.js",
   "scripts": {
     "generate": "python3 bin/generate",
-    "deps": "python3 -m venv .env && .env/bin/pip install pip==19.0.1 setuptools==40.7.0 wheel==0.32.3 && .env/bin/pip install -r requirements.txt",
-    "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps && .env/bin/python setup.py sdist -d . bdist_wheel -d . && rm -rf build",
+    "deps": "python3 -m venv .env && .env/bin/pip install pip~=20.0.2 setuptools~=46.1.3 wheel~=0.34.2 && .env/bin/pip install -r requirements.txt",
+    "dist-clean": "rm -rf dist",
+    "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps",
     "package": "package-python",
     "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy",
     "test:update": "UPDATE_DIFF=1 .env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
   },
   "dependencies": {
-    "@jsii/runtime": "^0.22.0",
-    "jsii-build-tools": "^0.22.0",
-    "jsii-calc": "^0.22.0",
-    "jsii-pacmak": "^0.22.0"
+    "@jsii/runtime": "^0.0.0",
+    "jsii-build-tools": "^0.0.0",
+    "jsii-calc": "^0.0.0",
+    "jsii-pacmak": "^0.0.0"
   }
 }

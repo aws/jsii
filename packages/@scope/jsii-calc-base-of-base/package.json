@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base-of-base",
-  "version": "0.22.0",
+  "version": "0.0.0",
   "private": true,
   "description": "An example transitive dependency for jsii-calc.",
   "license": "Apache-2.0",
@@ -29,12 +29,12 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
-    "@types/node": "^10.17.15",
+    "@types/node": "^10.17.21",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "jsii": "^0.22.0",
-    "jsii-build-tools": "^0.22.0",
-    "jsii-rosetta": "^0.22.0",
+    "jsii": "^0.0.0",
+    "jsii-build-tools": "^0.0.0",
+    "jsii-rosetta": "^0.0.0",
     "prettier": "^1.19.1"
   },
   "jsii": {

@@ -8,7 +8,9 @@ describe('jsii-config', () => {
   const readJsonMock = jest.fn();
 
   beforeEach(() => {
+    // eslint-disable-next-line no-import-assign
     Object.defineProperty(fs, 'readFile', { value: readJsonMock });
+    // eslint-disable-next-line no-import-assign
     Object.defineProperty(inquirer, 'prompt', { value: promptMock });
   });
 

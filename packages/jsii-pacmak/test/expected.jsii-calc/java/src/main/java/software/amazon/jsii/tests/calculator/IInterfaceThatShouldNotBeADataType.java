@@ -15,7 +15,7 @@ public interface IInterfaceThatShouldNotBeADataType extends software.amazon.jsii
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getOtherValue();
+    @org.jetbrains.annotations.NotNull java.lang.String getOtherValue();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

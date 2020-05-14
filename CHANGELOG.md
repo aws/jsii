@@ -1,7 +1,100 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [1.5.0](https://github.com/aws/jsii/compare/v1.4.1...v1.5.0) (2020-05-07)
+
+
+### Bug Fixes
+
+* **jsii:** unable to use type from dependencies' submodules ([#1557](https://github.com/aws/jsii/issues/1557)) ([ba7fac2](https://github.com/aws/jsii/commit/ba7fac25c4e625f4beb1bcc74a39d1c5e75441c1))
+
+## [1.4.1](https://github.com/aws/jsii/compare/v1.4.0...v1.4.1) (2020-04-22)
+
+
+### Bug Fixes
+
+* **java:** compilation fails with "code too large" ([#1605](https://github.com/aws/jsii/issues/1605)) ([b9ec853](https://github.com/aws/jsii/commit/b9ec85384c53567e77bed4ab1a02910a297fff02))
+
+## [1.4.0](https://github.com/aws/jsii/compare/v1.3.2...v1.4.0) (2020-04-22)
+
+
+### Features
+
+* **python:** improve metadata of jsii package ([#1587](https://github.com/aws/jsii/issues/1587)) ([7dd04fe](https://github.com/aws/jsii/commit/7dd04fe9987bbba7b1360162b7afc2caf15a50e6))
+* **spec:** model submodules in the Assembly schema ([#1563](https://github.com/aws/jsii/issues/1563)) ([de2689b](https://github.com/aws/jsii/commit/de2689b0e3a9218c22c3c0cc046f98be029a1707)), closes [#1528](https://github.com/aws/jsii/issues/1528) [#1557](https://github.com/aws/jsii/issues/1557)
+
+## [1.3.2](https://github.com/aws/jsii/compare/v1.3.1...v1.3.2) (2020-04-20)
+
+
+### Bug Fixes
+
+* **python:** incorrect dependency on jsii ([#1582](https://github.com/aws/jsii/issues/1582)) ([c537bd7](https://github.com/aws/jsii/commit/c537bd7e700004b5a66124c1970f4fb540a427d6)), closes [#1573](https://github.com/aws/jsii/issues/1573)
+
+## [1.3.1](https://github.com/aws/jsii/compare/v1.3.0...v1.3.1) (2020-04-18)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** invalid dotnet version suffixes ([#1568](https://github.com/aws/jsii/issues/1568)) ([9ef8f17](https://github.com/aws/jsii/commit/9ef8f17e11fa3403043c3237463c16e08020c696))
+
+## [1.3.0](https://github.com/aws/jsii/compare/v1.2.0...v1.3.0) (2020-04-16)
+
+
+### Features
+
+* **compliance:** produce compliance test reports ([#1368](https://github.com/aws/jsii/issues/1368)) ([11ef55d](https://github.com/aws/jsii/commit/11ef55d2aee68b4c85aa0f5cd06477d5a34c31c4))
+
+
+### Bug Fixes
+
+* **jsii-diff:** detect interfaces inherited via interfaces ([#1492](https://github.com/aws/jsii/issues/1492)) ([e03a638](https://github.com/aws/jsii/commit/e03a63807856126c4efc84d6663a1b4ae8b15dba))
+* **python:** packages fail to load when relocated ([#1518](https://github.com/aws/jsii/issues/1518)) ([9db95e1](https://github.com/aws/jsii/commit/9db95e17b0cdb4d2e9b6502ee144c4a62ca30488)), closes [#1501](https://github.com/aws/jsii/issues/1501)
+
+## [1.2.0](https://github.com/aws/jsii/compare/v1.0.0...v1.2.0) (2020-03-31)
+
+
+### Features
+
+* **jsii:** introduce submodules feature ([#1297](https://github.com/aws/jsii/issues/1297)) ([2df5d90](https://github.com/aws/jsii/commit/2df5d90f831808d02a4d697946a18065f3ae5ef2)), closes [#1286](https://github.com/aws/jsii/issues/1286)
+* add autobump script ([#1335](https://github.com/aws/jsii/issues/1335)) ([bdda569](https://github.com/aws/jsii/commit/bdda569729db83abe09edb9f9d922ba4194cd847))
+
+
+### Bug Fixes
+
+* **diff:** check super types ([#1354](https://github.com/aws/jsii/issues/1354)) ([b08f65f](https://github.com/aws/jsii/commit/b08f65feab97133ead27857233384d788676ce80))
+* **dotnet:** missing ? on nullable interface members ([#1287](https://github.com/aws/jsii/issues/1287)) ([9299db2](https://github.com/aws/jsii/commit/9299db25348504a4e413a047ce9ba914fb0f8856)), closes [#1285](https://github.com/aws/jsii/issues/1285)
+* **dotnet-analyzers:** unit test null reference ([#1341](https://github.com/aws/jsii/issues/1341)) ([6b88509](https://github.com/aws/jsii/commit/6b88509ef84891005d6dc904828bbce9c81a9cc3))
+* **jsii:** missing context on "Message" diagnostics ([#1298](https://github.com/aws/jsii/issues/1298)) ([c44f5f3](https://github.com/aws/jsii/commit/c44f5f30b77225e463d80c2e01e519e40d5601c5))
+* **jsii:** out-of-source builds are broken ([#1344](https://github.com/aws/jsii/issues/1344)) ([aecdc5e](https://github.com/aws/jsii/commit/aecdc5eecc540e11f91c761de41bcf36c2f88f20)), closes [#1273](https://github.com/aws/jsii/issues/1273)
+* **jsii:** single-valued enums are not processed correctly ([#1406](https://github.com/aws/jsii/issues/1406)) ([39425a4](https://github.com/aws/jsii/commit/39425a4caabcfe3d199f0dc04ee507b57905071d)), closes [aws/aws-cdk#6712](https://github.com/aws/aws-cdk/issues/6712) [aws/aws-cdk#6948](https://github.com/aws/aws-cdk/issues/6948)
+* **kernel:** "any" serialization breaks private type instances ([#1347](https://github.com/aws/jsii/issues/1347)) ([655adeb](https://github.com/aws/jsii/commit/655adeb9f3e9617049fbbe9160b9ef15218790be)), closes [aws/aws-cdk#6746](https://github.com/aws/aws-cdk/issues/6746)
+* **python-runtime:** KernelResponse missing types ([#1332](https://github.com/aws/jsii/issues/1332)) ([fcafab4](https://github.com/aws/jsii/commit/fcafab48c97e14ba76585d186041b0e8af79cf3a))
+
+# [1.1.0](https://github.com/aws/jsii/compare/v1.0.0...v1.1.0) (2020-03-10)
+
+
+### Bug Fixes
+
+* **dotnet:** missing ? on nullable interface members ([#1287](https://github.com/aws/jsii/issues/1287)) ([9299db2](https://github.com/aws/jsii/commit/9299db25348504a4e413a047ce9ba914fb0f8856)), closes [#1285](https://github.com/aws/jsii/issues/1285)
+* **jsii:** missing context on "Message" diagnostics ([#1298](https://github.com/aws/jsii/issues/1298)) ([c44f5f3](https://github.com/aws/jsii/commit/c44f5f30b77225e463d80c2e01e519e40d5601c5))
+
+
+
+
+
+## [1.0.0](https://github.com/aws/jsii/compare/v0.22.0...v1.0.0) (2020-02-17)
+
+
+### Features
+
+* CDK Build Integration Test ([#1219](https://github.com/aws/jsii/issues/1219)) ([e99d722](https://github.com/aws/jsii/commit/e99d722fb7b12d6a87b423980aca70077c0ad1cb)), closes [#1209](https://github.com/aws/jsii/issues/1209)
+* **csharp:** enable nullable reference types ([#1246](https://github.com/aws/jsii/issues/1246)) ([cbc7258](https://github.com/aws/jsii/commit/cbc72588b7a70fb2cb1d6d3012bec53d27263001))
+* **dotnet:** upgrade target framework to netcoreapp3.1 ([#1241](https://github.com/aws/jsii/issues/1241)) ([c324439](https://github.com/aws/jsii/commit/c32443979548faa283894d5aaf4f4baf31350063))
+
+
+
+
 
 ## [0.22.0](https://github.com/aws/jsii/compare/v0.21.2...v0.22.0) (2020-02-06)
 

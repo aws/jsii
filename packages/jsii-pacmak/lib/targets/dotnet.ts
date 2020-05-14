@@ -170,15 +170,6 @@ export class DotnetBuilder implements TargetBuilder {
 
     const localRepos = Array.from(allDepsOutputDirs);
 
-    // If dotnet-jsonmodel is checked-out and we can find a local repository, add it to the list.
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
-      const jsiiDotNetJsonModel = require('@jsii/dotnet-jsonmodel');
-      localRepos.push(jsiiDotNetJsonModel.repository);
-    } catch {
-      // Couldn't locate @jsii/dotnet-jsonmodel, which is owkay!
-    }
-
     // If dotnet-runtime is checked-out and we can find a local repository, add it to the list.
     try {
       // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies

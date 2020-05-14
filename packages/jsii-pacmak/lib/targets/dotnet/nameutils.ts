@@ -1,5 +1,5 @@
-import { default as camelcase } from 'camelcase';
 import * as spec from '@jsii/spec';
+import { toCamelCase } from 'codemaker';
 
 export class DotNetNameUtils {
   public convertPropertyName(original: string) {
@@ -82,7 +82,7 @@ export class DotNetNameUtils {
     if (this.isInvalidName(original)) {
       throw new Error(`Invalid parameter name: ${original}`);
     }
-    const name = camelcase(original);
+    const name = toCamelCase(original);
     return this.escapeParameterName(name);
   }
 

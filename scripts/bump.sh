@@ -1,29 +1,23 @@
 #!/bin/bash
-scriptdir="$(cd $(dirname $0) && pwd)"
+# --------------------------------------------------------------------------------------------------
+#
+# This script is intended to be used to bump the version of the CDK modules, update package.json,
+# package-lock.json, and create a commit.
+#
+# to start a version bump, run:
+#     bump.sh <version | version Type>
+#
+# If a version is not provided, the 'minor' version will be bumped.
+# The version can be an explicit version _or_ one of:
+# 'major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', or 'prerelease'.
+#
+# --------------------------------------------------------------------------------------------------
 set -euo pipefail
+version=${1:-minor}
 
-# the reason we require a manual version is because we lerna doesn't respect pre 1.0
-# version bumps, so any minor change will cause the "Y" component (in X.Y.Z) to be bumped
-# and in pre-1.0 this is considered a major version bump.
-ver=${1:-}
-if [ -z "${ver}" ]; then
-  echo "usage: ./bump.sh <version>"
-  exit 1
-fi
+echo "Starting ${version} version bump"
 
-git clean -fqdx
+# /bin/bash ./install.sh
 
-yarn install
-
-node_modules/.bin/lerna publish --force-publish=* --skip-npm --skip-git --conventional-commits --repo-version ${ver}
-
-# update all "peerDependencies" sections in package.json files
-# to match their corresponding "dependencies" version requirement
-find . -name package.json | grep -v node_modules | xargs node scripts/sync-peer-deps.js
-
-# rebuild everything
-yarn build
-
-# update test expectations
-yarn test:update
-
+# Generate CHANGELOG and create a commit (see .versionrc.json)
+npx standard-version --release-as ${version}

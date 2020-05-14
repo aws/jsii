@@ -21,7 +21,7 @@ test('TypeSystem.assemblies lists all the loaded assemblies', () =>
   expect(typesys.assemblies.map(a => a.name).sort()).toMatchSnapshot());
 
 test('TypeSystem.classes lists all the classes in the typesystem', () =>
-  expect(typesys.classes.map(c => c.name).sort()).toMatchSnapshot());
+  expect(typesys.classes.map(c => c.fqn).sort()).toMatchSnapshot());
 
 test('findClass', () => {
   const calc = typesys.findClass('jsii-calc.Calculator');

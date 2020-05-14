@@ -1,6 +1,6 @@
 {
   "name": "jsii-diff",
-  "version": "0.22.0",
+  "version": "0.0.0",
   "description": "Assembly comparison for jsii",
   "license": "Apache-2.0",
   "author": {
@@ -33,27 +33,27 @@
     "package": "package-js"
   },
   "dependencies": {
-    "@jsii/spec": "^0.22.0",
-    "fs-extra": "^8.1.0",
-    "jsii-reflect": "^0.22.0",
-    "log4js": "^6.1.2",
-    "typescript": "~3.7.5",
-    "yargs": "^15.1.0"
+    "@jsii/spec": "^0.0.0",
+    "fs-extra": "^9.0.0",
+    "jsii-reflect": "^0.0.0",
+    "log4js": "^6.2.1",
+    "typescript": "~3.8.3",
+    "yargs": "^15.3.1"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.0.1",
-    "@types/jest": "^25.1.2",
-    "@types/jest-expect-message": "^1.0.1",
-    "@types/node": "^10.17.15",
-    "@types/tar-fs": "^1.16.2",
-    "@types/yargs": "^15.0.3",
-    "eslint": "^6.8.0",
+    "@types/fs-extra": "^8.1.0",
+    "@types/jest": "^25.2.1",
+    "@types/jest-expect-message": "^1.0.2",
+    "@types/node": "^10.17.21",
+    "@types/tar-fs": "^2.0.0",
+    "@types/yargs": "^15.0.4",
+    "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^25.1.0",
+    "jest": "^26.0.1",
     "jest-expect-message": "^1.0.2",
-    "jsii": "^0.22.0",
-    "jsii-build-tools": "^0.22.0",
+    "jsii": "^0.0.0",
+    "jsii-build-tools": "^0.0.0",
     "prettier": "^1.19.1"
   },
   "jest": {

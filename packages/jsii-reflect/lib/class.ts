@@ -97,7 +97,14 @@ export class ClassType extends ReferenceType {
     }
     if (this.spec.interfaces) {
       out.push(
-        ...this.spec.interfaces.map(iface => this.system.findInterface(iface)),
+        ...flatten(
+          this.spec.interfaces
+            .map(fqn => this.system.findInterface(fqn))
+            .map(iface => [
+              iface,
+              ...(inherited ? iface.getInterfaces(true) : []),
+            ]),
+        ),
       );
     }
     return out;
@@ -144,4 +151,8 @@ export class ClassType extends ReferenceType {
       ),
     );
   }
+}
+
+function flatten<A>(xs: A[][]): A[] {
+  return Array.prototype.concat([], ...xs);
 }

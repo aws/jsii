@@ -15,7 +15,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.lang.String getOptional1() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getOptional1() {
         return null;
     }
 
@@ -23,7 +23,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.lang.Number getOptional2() {
+    default @org.jetbrains.annotations.Nullable java.lang.Number getOptional2() {
         return null;
     }
 
@@ -31,7 +31,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.lang.Boolean getOptional3() {
+    default @org.jetbrains.annotations.Nullable java.lang.Boolean getOptional3() {
         return null;
     }
 
@@ -48,7 +48,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<StructWithOnlyOptionals> {
         private java.lang.String optional1;
         private java.lang.Number optional2;
         private java.lang.Boolean optional3;
@@ -96,6 +96,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @Override
         public StructWithOnlyOptionals build() {
             return new Jsii$Proxy(optional1, optional2, optional3);
         }

@@ -339,7 +339,9 @@ function _tryResolveAssembly(
     const paths = [searchPath, path.join(searchPath, 'node_modules')];
     return require.resolve(path.join(mod, '.jsii'), { paths });
   } catch {
-    throw new Error(`Unable to locate module: ${mod}`);
+    throw new Error(
+      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies.`,
+    );
   }
 }
 

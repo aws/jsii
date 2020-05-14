@@ -13,7 +13,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getReadonlyProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty();
 
     /**
      * @return a {@link Builder} of {@link ExperimentalStruct}
@@ -26,7 +26,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
      * A builder for {@link ExperimentalStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<ExperimentalStruct> {
         private java.lang.String readonlyProperty;
 
         /**
@@ -46,6 +46,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public ExperimentalStruct build() {
             return new Jsii$Proxy(readonlyProperty);
         }

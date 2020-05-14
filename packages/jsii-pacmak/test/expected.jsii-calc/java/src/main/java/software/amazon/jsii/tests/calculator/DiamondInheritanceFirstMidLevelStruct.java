@@ -13,7 +13,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getFirstMidLevelProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getFirstMidLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceFirstMidLevelStruct}
@@ -26,7 +26,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
      * A builder for {@link DiamondInheritanceFirstMidLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceFirstMidLevelStruct> {
         private java.lang.String firstMidLevelProperty;
         private java.lang.String baseLevelProperty;
 
@@ -58,6 +58,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public DiamondInheritanceFirstMidLevelStruct build() {
             return new Jsii$Proxy(firstMidLevelProperty, baseLevelProperty);
         }

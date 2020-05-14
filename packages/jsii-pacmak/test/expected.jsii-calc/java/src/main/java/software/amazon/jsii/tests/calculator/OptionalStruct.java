@@ -13,7 +13,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    default java.lang.String getField() {
+    default @org.jetbrains.annotations.Nullable java.lang.String getField() {
         return null;
     }
 
@@ -28,7 +28,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link OptionalStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<OptionalStruct> {
         private java.lang.String field;
 
         /**
@@ -48,6 +48,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public OptionalStruct build() {
             return new Jsii$Proxy(field);
         }

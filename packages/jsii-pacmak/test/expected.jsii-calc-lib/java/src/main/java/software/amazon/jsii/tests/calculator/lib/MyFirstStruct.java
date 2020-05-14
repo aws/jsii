@@ -15,20 +15,20 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.Number getAnumber();
+    @org.jetbrains.annotations.NotNull java.lang.Number getAnumber();
 
     /**
      * A string value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    java.lang.String getAstring();
+    @org.jetbrains.annotations.NotNull java.lang.String getAstring();
 
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    default java.util.List<java.lang.String> getFirstOptional() {
+    default @org.jetbrains.annotations.Nullable java.util.List<java.lang.String> getFirstOptional() {
         return null;
     }
 
@@ -45,7 +45,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<MyFirstStruct> {
         private java.lang.Number anumber;
         private java.lang.String astring;
         private java.util.List<java.lang.String> firstOptional;
@@ -93,6 +93,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @Override
         public MyFirstStruct build() {
             return new Jsii$Proxy(anumber, astring, firstOptional);
         }

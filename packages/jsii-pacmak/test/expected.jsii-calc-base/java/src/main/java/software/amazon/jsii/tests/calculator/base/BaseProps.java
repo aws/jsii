@@ -5,7 +5,7 @@ package software.amazon.jsii.tests.calculator.base;
 @software.amazon.jsii.Jsii.Proxy(BaseProps.Jsii$Proxy.class)
 public interface BaseProps extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.baseofbase.VeryBaseProps {
 
-    java.lang.String getBar();
+    @org.jetbrains.annotations.NotNull java.lang.String getBar();
 
     /**
      * @return a {@link Builder} of {@link BaseProps}
@@ -16,7 +16,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
     /**
      * A builder for {@link BaseProps}
      */
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<BaseProps> {
         private java.lang.String bar;
         private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
@@ -45,6 +45,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
          * @return a new instance of {@link BaseProps}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @Override
         public BaseProps build() {
             return new Jsii$Proxy(bar, foo);
         }

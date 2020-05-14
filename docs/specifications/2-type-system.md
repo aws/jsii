@@ -50,7 +50,7 @@ produced each time it is passed through the process boundary.
 
 ### Enum
 As in many languages, `enum` can be used to represent a group of related
-constants. Whle **TypeScript** `enum` entries are associated with a value that
+constants. While **TypeScript** `enum` entries are associated with a value that
 is either a `string` or a `number`, the *jsii* type system does not allow for
 those to be down-casted to their value type (e.g: a `string`-valued `enum` entry
 cannot be directly passed into a `string` parameter).
@@ -63,6 +63,9 @@ cannot be directly passed into a `string` parameter).
 represent a value of arbitary type. The difference between them is that while
 `any` is assignable to any other type, `unknown` requires a type assertion or
 explicit cast to be performed before it can be assigned.
+
+Both of these types map to an `Any` *primitive type* in the *jsii* type system,
+and the subtle distinction between `any` and `unknown` is lost in the process.
 
 > :information_source: It is important to note that, contrary to the other types
 > in the **TypeScript** type system, `any` and `unknown` types are inherently
@@ -86,7 +89,7 @@ consequently considers `null` and `undefined` are semantically equivalent.
 
 ### Object
 **TypeScript**'s `object` type denotes anything that is not a *primitive* type,
-meaning anything other than a `number`, `srting`, `boolean`, `biging`, `symbol`,
+meaning anything other than a `number`, `string`, `boolean`, `bigint`, `symbol`,
 `null` or `undefined`.
 
 In the *jsii* type model, `object` indicates a block of structured data that can
@@ -116,9 +119,9 @@ the *jsii* type model does not support the following **TypeScript** entities:
 
 
 ## Complex Types
-The goal of *jsii* is to enable cross-language re-use of class libraries.
-**TypeScript** enables representing classic object-oriented concepts such as
-*classes*, *interfaces* and such. The *jsii* type system supports some
+The goal of the *jsii* is to enable cross-language re-use of class libraries.
+**TypeScript** enables representing classic object-oriented concepts, such as
+*classes* and *interfaces*. The *jsii* type system supports some
 additional nuances on top of those, to better represent **TypeScript** and
 **JavaScript** idioms in a way that enables generating convenient APIs in other
 languages.
@@ -169,10 +172,10 @@ example, in **Java**, those are returned as `java.lang.Object`).
 
 When used as inputs (parameters, or properties of a *struct*), it may be
 possible to generate method overloads that will allow for a convenient API in
-languages that support overloards.
+languages that support overloads.
 
 In general however, *type unions* are discouraged and should only be used when
-there is no alternate way to model the API.
+there is no alternative way to model the API.
 
 
 ## Serialization Behavior
@@ -198,8 +201,11 @@ term *primitive* encompasses `boolean`, `string`, and `number`.
 `interface` | `undefined` | :x:         | :x:         | :x:         | [Reference] | [Reference]
 `struct`    | `undefined` | :x:         | :x:         | :x:         | :x:         | [Value]
 `class`     | `undefined` | :x:         | :x:         | :x:         | [Reference] | [Reference]
-`any`       | `undefined` | [Date]      | [Identity]  | [Array]     | [Reference] | [Mapping]
+`any`       | `undefined` | [Date]      | [Identity]  | [Array]     | [Reference] | [Value] or [Reference]
 
+In the case of `object` being passed though `any`, the value may be serialized
+by [Value] only if the value being passed does not have any method or dynamic
+accessor. Otherwise, it must be passed by [Reference] instead.
 
 > :warning: The serialization behavior around `undefined` values is affected by
 > the `optional` attribute of the declared type. As discussed earlier, the `any`
@@ -269,7 +275,7 @@ element type of the mapping, combined with the dynamic type of the value itself:
 [Reference]: #reference-serialization
 
 Objects serialized by reference are passed using a special object that provides
-sufficient information to tie back to the instance within it's owning process.
+sufficient information to tie back to the instance within its owning process.
 It includes a `$jsii.byref` key associated with a string that uniquely
 identifies the instance, and an optional `$jsii.interfaces` key that provides a
 list of interfaces that the object implements.
@@ -305,6 +311,86 @@ document.
 }
 ```
 
+## Submodules
+
+> :construction: The *submodules* feature is still under active development and
+> the specific behavior around it (in particular with respects to code
+> generation) are still subject to change.
+
+### Overview
+
+Typescript allows grouping declarations together in *namespaces*, which are
+interpreted by *jsii* as *submodules*. *Submodules* names are the fully
+qualified name of the namespace from the package's root (if a package `foo`
+defines a namespace `ns1`, which itself contains `ns2`, the submodule for `ns2`
+will be named `foo.ns1.ns2`).
+
+*Submodules* may use different [code-generation configuration](#code-generation)
+than their parent submodule or package.
+
+> :construction: *Submodule*-level code-generation configuration is not yet
+> implemented.
+
+### Restrictions
+
+*Submodules* cannot be involved in dependency cycles. While it is possible to
+build such cycles in **JavaScript**, that configuration cannot be reliably
+reprensented in certain other programming languages (e.g: **Python**).
+
+> :construction: [`jsii`] does not currently check for circular submodule
+> dependencies. Invalid dependency patterns may result in errors at code
+> generation by [`jsii-pacmak`], or at runtime.
+
+Since this would result in ambiguity that cannot be consistently resolved, a
+given type can only be exported as part of one *submodule*.
+
+[`jsii`]: ../../packages/jsii
+[`jsii-pacmak`]: ../../packages/jsii-pacmak
+
+### Declaration
+
+There are two supported ways to introduce *submodules*:
+* Using the namespaced export syntax:
+  ```ts
+  export * as ns from './module';
+  ```
+* Using an explicit namespace declaration:
+  ```ts
+  export namespace ns { /* ... */ }
+  ```
+
+*Submodules* declared using the `export * as ns from './module';` syntax can be
+documented using a markdown document located at `./module/README.md`.
+
+> :construction: The `./module/README.md` file support is not yet implemented.
+
+### Code Generation
+
+In languages where this is relevant (e.g: **Python**), *submodules* are rendered
+as native *submodules*. In languages where a namespace system exists (**Java**
+uses *packages*, **C#** uses *namespaces*, ...), *submodules* are rendered using
+that.
+
+## Code Generation
+
+In order to generate code in various programming languages, [`jsii-pacmak`]
+needs configuration that provides naming directives (e.g: **Java** package
+names, **C#** namespaces, **Python** module names, ...). This configuration is
+language-specific and each language implementation specifies and documents its
+own configuration schema.
+
+Configuration is sourced in the `package.json` file at the root of the npm
+package, under the special `jsii` key. The general schema is described in the
+[configuration] document.
+
+> :construction: There is a proposition to allow this configuration to be placed
+> in a `.jsiirc.json` file, which would take precedence over what is specified
+> in `package.json`. *Submodules* introduced using the
+> `export * as ns from './module';` syntax would then be able to define
+> *submodule*-local configuration using the `./module/.jsiirc.json` file.
+
+[configuration]: ../configuration.md
+
 ## References
 
 The [**TypeScript** Handbook] describes the language's type system and syntax
@@ -314,3 +400,7 @@ document.
 
 [**JavaScript** Fundamentals]: https://javascript.info/types
 [**TypeScript** Handbook]: https://www.typescriptlang.org/docs/handbook/basic-types.html
+
+--------------------------------------------------------------------------------
+
+Continue to [Kernel API](./3-kernel-api.md)

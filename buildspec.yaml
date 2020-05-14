@@ -12,6 +12,9 @@ phases:
   build:
     commands:
       - yarn build && yarn test
+      - yarn dist-clean
+      - /bin/bash ./scripts/align-version.sh
+      - yarn build
   post_build:
     commands:
       - '[ ${CODEBUILD_BUILD_SUCCEEDING} = 1 ] && yarn package'

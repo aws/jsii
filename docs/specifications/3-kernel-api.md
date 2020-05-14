@@ -1,6 +1,6 @@
 # The *jsii* kernel API
 This document describes the API for the `@jsii/kernel` module, which is to be
-used by all *host* libraries. It provides the fundational features necesarry for
+used by all *host* libraries. It provides the fundamental features necessary for
 *host* processes to interact with the original module's code.
 
 > :construction: Currently, `@jsii/kernel` contains the bulk of the logic,
@@ -283,7 +283,7 @@ execute code that is defined in the *host* app, when the code path traverses a
 method or property that was implemented or overridden in the *host* app.
 
 Such cases will result in a callback request substituting itself to the response
-of the original call being made; execution fo which will resume once the
+of the original call being made; execution of which will resume once the
 callback response is provided.
 
 A callback request is sent from the `@jsii/kernel`'s `node` process to the
@@ -330,7 +330,7 @@ methods - including delegating to the `super` implementation, ...). Such calls
 will behave as they otherwise would (including the possible introduction of
 further callback requests).
 
-Once the *host* happ has fulfilled the request, it must signal the result of
+Once the *host* app has fulfilled the request, it must signal the result of
 that execution back to the `@jsii/kernel` process by using the `complete` call:
 
 ```ts
@@ -348,7 +348,7 @@ interface CallbackSuccess extends CompleteBase {
 }
 
 interface CallbackFailure extends CompleteBase {
-  /** The error that was raised during fulfilling */
+  /** The error that was raised during fulfillment */
   err: string;
 }
 
@@ -382,7 +382,7 @@ interface CallbacksResponse {
 Once the *host* app no longer needs a particular object, it can be discarded.
 This can happen for example when the *host* reference to an object is garbage
 collected or freed. In order to allow the **JavaScript** process to also
-recclaim the associated memory footprint, the `del` API must be used:
+reclaim the associated memory footprint, the `del` API must be used:
 
 ```ts
 interface DelRequest {
@@ -395,7 +395,7 @@ interface DelRequest {
 ```
 
 > **:warning:** Failure to use the `del` API will result in memory leakage as
-> the **JavaScript** process accumulates garbage in it's Kernel instance. This
+> the **JavaScript** process accumulates garbage in its Kernel instance. This
 > can eventually result in a *Javascript heap out of memory* error, and the
 > abnormal termination of the `node` process, and consequently of the *host* app.
 
@@ -458,22 +458,22 @@ Both the `invoke` and `sinvoke` calls result in the same response:
 
 ```ts
 interface InvokeResponse {
-  /** The result of the method invokation. */
+  /** The result of the method invocation. */
   result: any;
 }
 ```
 
-When the method's return type is `void`, the `result` value should typicaly be
-`undefined`, however it may not be (**TypeScript** may in certain circumstances
+When the method's return type is `void`, the `result` value should typically be
+`undefined`, however it may not be ?? (**TypeScript** may in certain circumstances
 allow returning a value from a `void` method): the *host* app should ignore such
 values.
 
 #### Asynchronous method invocation
 The `invoke` call can only be used to invoke *synchronous* methods. In order to
 invoke *asynchronous* methods, the `begin` and `end` calls must be used instead.
-Once the *host* app has entered an asynchronous workflow (after it made the
+Once the *host* app has entered an asynchronous workflow (after it makes the
 first `begin` call), and until it has completed all asynchronous operations
-(after all `begin` calss were matched with an `end` call), no *synchronous*
+(after all `begin` class are matched with an `end` call), no *synchronous*
 operation (including synchronous callbacks) may be initiated.
 
 ```ts
@@ -608,3 +608,7 @@ object:
 ```ts
 interface SetResponse {}
 ```
+
+--------------------------------------------------------------------------------
+
+Continue to [Standard Compliance Suite](./4-standard-compliance-suite.md)

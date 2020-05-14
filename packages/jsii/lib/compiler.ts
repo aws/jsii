@@ -237,7 +237,7 @@ export class Compiler implements Emitter {
         hasErrors || emitHasErrors(assmEmit, this.options.failOnWarnings);
       diagnostics.push(...assmEmit.diagnostics);
     } catch (e) {
-      LOG.error(`Error during type model analysis: ${e}`);
+      LOG.error(`Error during type model analysis: ${e}\n${e.stack}`);
     }
 
     return {
@@ -267,7 +267,7 @@ export class Compiler implements Emitter {
         ...pi.tsc,
         ...COMPILER_OPTIONS,
         composite,
-        // Need to stip the `lib.` prefix and `.d.ts` suffix
+        // Need to strip the `lib.` prefix and `.d.ts` suffix
         lib: COMPILER_OPTIONS.lib?.map(name => name.slice(4, name.length - 5)),
         // Those int-enums, we need to output the names instead
         module:
@@ -277,8 +277,18 @@ export class Compiler implements Emitter {
         jsx:
           COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
       },
-      include: [pi.tsc?.rootDir ? `${pi.tsc.rootDir}/**/*.ts` : '**/*.ts'],
-      exclude: ['node_modules'].concat(pi.excludeTypescript),
+      include: [
+        pi.tsc?.rootDir != null
+          ? path.join(pi.tsc.rootDir, '**', '*.ts')
+          : path.join('**', '*.ts'),
+      ],
+      exclude: [
+        'node_modules',
+        ...pi.excludeTypescript,
+        ...(pi.tsc?.outDir != null
+          ? [path.join(pi.tsc.outDir, '**', '*.ts')]
+          : []),
+      ],
       // Change the references a little. We write 'originalpath' to the
       // file under the 'path' key, which is the same as what the
       // TypeScript compiler does. Make it relative so that the files are
@@ -290,7 +300,7 @@ export class Compiler implements Emitter {
   /**
    * Creates a `tsconfig.json` file to improve the IDE experience.
    *
-   * @return the fully qualified path to the ``tsconfig.json`` file
+   * @return the fully qualified path to the `tsconfig.json` file
    */
   private async writeTypeScriptConfig(): Promise<void> {
     const commentKey = '_generated_by_jsii_';

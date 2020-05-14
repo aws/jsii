@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../NuGet.Metadata.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>Amazon.JSII.JsonModel</PackageId>
+    <Title>.NET JsonModel for JSII</Title>
+    <PackageIcon>icon.png</PackageIcon>
+
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../../../../logo/png/128x128.png" Pack="true" PackagePath="icon.png" />
+  </ItemGroup>
+</Project>

@@ -9,7 +9,7 @@ needs to be available in order to execute code that depends on *jsii* libraries.
 The generated libraries have a dependency on a *Runtime client* library for the
 language, which contains the necessary logic to start a child `node` process
 with the `jsii-runtime`. The `jsii-runtime` manages JSON-based inter-process
-communication over it's `STDIN` and `STDOUT`, and manages a `@jsii/kernel`
+communication over its `STDIN` and `STDOUT`, and manages a `@jsii/kernel`
 instance that acts as a container for the **Javascript** code that backs the
 *jsii* libraries.
 
@@ -28,7 +28,7 @@ A simplified representation of the execution environment of an application using
 │     │Generated Bindings│             │      @jsii/runtime       │
 │     │                  │             │                          │
 │     ├──────────────────┤             ├────────┬─────────────────┤
-│     │                  ├────────────▶│ SDTIN  │                 │
+│     │                  ├────────────▶│ STDIN  │                 │
 │     │Host jsii Runtime │    JSON     ├────────┤                 │
 │     │                  │◀────────────┤ STDOUT │   node          │
 ├─────┴──────────────────┤             ├────────┘                 │

@@ -55,10 +55,7 @@ export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
   };
 
   const message =
-    diagnostic.category === ts.DiagnosticCategory.Message &&
-    typeof diagnostic.messageText === 'string'
-      ? diagnostic.messageText
-      : diagnostic.file
+    diagnostic.file != null
       ? ts.formatDiagnosticsWithColorAndContext(
           [diagnostic],
           formatDiagnosticsHost,

@@ -8,6 +8,8 @@ import sys
 # and pip will complain.
 subprocess.run(['rm', '-rf', '.env/jsii-calc'], check=True)
 
+venv = os.path.join(os.getcwd(), '.env')
+
 subprocess.run(
     [
         "jsii-pacmak",
@@ -19,6 +21,12 @@ subprocess.run(
         "../../jsii-calc",
     ],
     check=True,
+    env={
+        **os.environ,
+        # Make sure we run within the virtual environment provisioned here...
+        'PATH': "%s:%s" % (os.path.join(venv, 'bin'), os.environ['PATH']),
+        'VIRTUAL_ENV': venv,
+    },
 )
 subprocess.run(
     [

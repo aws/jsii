@@ -118,7 +118,7 @@ export class DotNetDocGenerator {
     if (docs.default) {
       emitDocAttribute('default', docs.default);
     }
-    if (docs.stability) {
+    if (docs.stability && shouldMentionStability(docs.stability)) {
       emitDocAttribute(
         'stability',
         this.nameutils.capitalizeWord(docs.stability),
@@ -209,4 +209,9 @@ export class DotNetDocGenerator {
  */
 function ucFirst(x: string) {
   return x.substr(0, 1).toUpperCase() + x.substr(1);
+}
+
+function shouldMentionStability(s: spec.Stability) {
+  // Don't render "stable" or "external", those are both stable by implication
+  return s === spec.Stability.Deprecated || s === spec.Stability.Experimental;
 }

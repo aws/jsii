@@ -11,7 +11,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    java.lang.String getReadonlyProperty();
+    @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty();
 
     /**
      * @return a {@link Builder} of {@link StableStruct}
@@ -24,7 +24,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link StableStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<StableStruct> {
         private java.lang.String readonlyProperty;
 
         /**
@@ -44,6 +44,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
         public StableStruct build() {
             return new Jsii$Proxy(readonlyProperty);
         }

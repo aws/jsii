@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import { toPascalCase } from 'codemaker';
 import { DotNetDependency } from './filegenerator';
 import { DotNetNameUtils } from './nameutils';
 
@@ -50,6 +51,7 @@ export class DotNetTypeResolver {
     }
     const [mod] = fqn.split('.');
     const depMod = this.findModule(mod);
+
     const dotnetNamespace = depMod.targets?.dotnet?.namespace;
     if (!dotnetNamespace) {
       throw new Error('The module does not have a dotnet.namespace setting');
@@ -63,7 +65,10 @@ export class DotNetTypeResolver {
         const actualNamespace = this.toDotNetType(this.findType(namespaceFqn));
         return `${actualNamespace}.${typeName}`;
       }
-      return `${dotnetNamespace}.${type.namespace}.${typeName}`;
+      return `${dotnetNamespace}.${type.namespace
+        .split('.')
+        .map(s => toPascalCase(s))
+        .join('.')}.${typeName}`;
     }
     // When undefined, the type is located at the root of the assembly
     return `${dotnetNamespace}.${typeName}`;
