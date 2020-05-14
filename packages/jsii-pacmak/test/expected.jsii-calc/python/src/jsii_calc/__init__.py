@@ -37,13 +37,13 @@ import jsii
 import jsii.compat
 import publication
 
-import jsii_calc.composition
+from ._jsii import *
+
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
 import scope.jsii_calc_lib.submodule
-
-from ._jsii import *
+from .composition import (CompositeOperation as _CompositeOperation_1c4d123b)
 
 
 class AbstractClassBase(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"):
@@ -742,7 +742,7 @@ class BinaryOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstract
 class _BinaryOperationProxy(BinaryOperation, jsii.proxy_for(scope.jsii_calc_lib.Operation)):
     pass
 
-class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
+class Calculator(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
     """A calculator which maintains a current value and allows adding operations.
 
     Here's how you use it::
@@ -890,7 +890,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
 
     @builtins.property
     @jsii.member(jsii_name="unionProperty")
-    def union_property(self) -> typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]:
+    def union_property(self) -> typing.Optional[typing.Union["Add", "Multiply", "Power"]]:
         """Example of a property that accepts a union of types.
 
         stability
@@ -899,7 +899,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]) -> None:
+    def union_property(self, value: typing.Optional[typing.Union["Add", "Multiply", "Power"]]) -> None:
         jsii.set(self, "unionProperty", value)
 
 
@@ -1145,7 +1145,7 @@ class ConfusingToJackson(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Confusing
 
     @builtins.property
     @jsii.member(jsii_name="unionProperty")
-    def union_property(self) -> typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]:
+    def union_property(self) -> typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]:
         """
         stability
         :stability: experimental
@@ -1153,13 +1153,13 @@ class ConfusingToJackson(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Confusing
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]) -> None:
+    def union_property(self, value: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]) -> None:
         jsii.set(self, "unionProperty", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.ConfusingToJacksonStruct", jsii_struct_bases=[], name_mapping={'union_property': 'unionProperty'})
 class ConfusingToJacksonStruct():
-    def __init__(self, *, union_property: typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]=None) -> None:
+    def __init__(self, *, union_property: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]=None) -> None:
         """
         :param union_property: 
 
@@ -1171,7 +1171,7 @@ class ConfusingToJacksonStruct():
         if union_property is not None: self._values["union_property"] = union_property
 
     @builtins.property
-    def union_property(self) -> typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]:
+    def union_property(self) -> typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]:
         """
         stability
         :stability: experimental
@@ -5898,7 +5898,7 @@ class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
         return jsii.invoke(self, "sayHello", [friendly])
 
 
-class Power(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Power"):
+class Power(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Power"):
     """The power operation.
 
     stability
@@ -7150,7 +7150,7 @@ class StructWithJavaReservedWords():
         return 'StructWithJavaReservedWords(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Sum"):
+class Sum(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Sum"):
     """An operation that sums multiple values.
 
     stability
@@ -7559,7 +7559,7 @@ class _UnaryOperationProxy(UnaryOperation, jsii.proxy_for(scope.jsii_calc_lib.Op
 
 @jsii.data_type(jsii_type="jsii-calc.UnionProperties", jsii_struct_bases=[], name_mapping={'bar': 'bar', 'foo': 'foo'})
 class UnionProperties():
-    def __init__(self, *, bar: typing.Union[str, jsii.Number, "AllTypes"], foo: typing.Optional[typing.Union[typing.Optional[str], typing.Optional[jsii.Number]]]=None) -> None:
+    def __init__(self, *, bar: typing.Union[str, jsii.Number, "AllTypes"], foo: typing.Optional[typing.Union[str, jsii.Number]]=None) -> None:
         """
         :param bar: 
         :param foo: 
@@ -7581,7 +7581,7 @@ class UnionProperties():
         return self._values.get('bar')
 
     @builtins.property
-    def foo(self) -> typing.Optional[typing.Union[typing.Optional[str], typing.Optional[jsii.Number]]]:
+    def foo(self) -> typing.Optional[typing.Union[str, jsii.Number]]:
         """
         stability
         :stability: experimental
