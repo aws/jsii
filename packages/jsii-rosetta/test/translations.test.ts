@@ -53,10 +53,10 @@ const SUPPORTED_LANGUAGES = new Array<SupportedLanguage>(
 function makeTests() {
   const translationsRoot = path.join(__dirname, 'translations');
   const typeScriptTests = allFiles(translationsRoot)
-    .filter(f => f.endsWith('.ts') && !f.endsWith('.d.ts'))
-    .filter(f => !f.endsWith('.test.ts')); // Exclude self and other jest tests in this dir
+    .filter((f) => f.endsWith('.ts') && !f.endsWith('.d.ts'))
+    .filter((f) => !f.endsWith('.test.ts')); // Exclude self and other jest tests in this dir
 
-  typeScriptTests.forEach(typeScriptTest => {
+  typeScriptTests.forEach((typeScriptTest) => {
     describe(`Translating ${path.relative(
       translationsRoot,
       typeScriptTest,
@@ -82,7 +82,7 @@ function makeTests() {
         (translator as any) = undefined; // Need this to properly release memory
       });
 
-      SUPPORTED_LANGUAGES.forEach(supportedLanguage => {
+      SUPPORTED_LANGUAGES.forEach((supportedLanguage) => {
         const languageFile = replaceExtension(
           typeScriptTest,
           supportedLanguage.extension,
@@ -138,11 +138,11 @@ function replaceExtension(x: string, newExtension: string) {
 function stripCommonWhitespace(x: string) {
   const lines = x.split('\n');
   const whitespaces = lines
-    .filter(l => !emptyLine(l.trim()))
+    .filter((l) => !emptyLine(l.trim()))
     /* eslint-disable-next-line @typescript-eslint/prefer-regexp-exec */
-    .map(l => l.match(/(\s*)/)![1].length);
+    .map((l) => l.match(/(\s*)/)![1].length);
   const minWS = Math.min(...whitespaces);
-  return lines.map(l => l.substr(minWS)).join('\n');
+  return lines.map((l) => l.substr(minWS)).join('\n');
 }
 
 function stripEmptyLines(x: string) {

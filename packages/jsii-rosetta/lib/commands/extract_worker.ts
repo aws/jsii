@@ -26,7 +26,9 @@ function translateSnippet(request: TranslateRequest): TranslateResponse {
 
   return {
     diagnostics: result.diagnostics,
-    translatedSnippetSchemas: result.translatedSnippets.map(s => s.toSchema()),
+    translatedSnippetSchemas: result.translatedSnippets.map((s) =>
+      s.toSchema(),
+    ),
   };
 }
 

@@ -49,8 +49,9 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public link(node: cm.Node, context: RendererContext) {
-    return `<a href="${ESCAPE.attribute(node.destination) ??
-      ''}">${context.content()}</a>`;
+    return `<a href="${
+      ESCAPE.attribute(node.destination) ?? ''
+    }">${context.content()}</a>`;
   }
 
   public document(_node: cm.Node, context: RendererContext) {
@@ -72,9 +73,9 @@ export class JavaDocRenderer extends MarkdownRenderer {
   }
 
   public image(node: cm.Node, context: RendererContext) {
-    return `<img alt="${ESCAPE.text2attr(
-      context.content(),
-    )}" src="${ESCAPE.attribute(node.destination) ?? ''}">`;
+    return `<img alt="${ESCAPE.text2attr(context.content())}" src="${
+      ESCAPE.attribute(node.destination) ?? ''
+    }">`;
   }
 
   public emph(_node: cm.Node, context: RendererContext) {

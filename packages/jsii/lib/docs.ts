@@ -236,7 +236,7 @@ function summaryLine(str: string) {
   return paras[0];
 }
 
-const PUNCTUATION = ['!', '?', '.', ';'].map(s => `\\${s}`).join('');
+const PUNCTUATION = ['!', '?', '.', ';'].map((s) => `\\${s}`).join('');
 const ENDS_WITH_PUNCTUATION_REGEX = new RegExp(`[${PUNCTUATION}]$`);
 const FIRST_SENTENCE_REGEX = new RegExp(
   `^([^${PUNCTUATION}]+[${PUNCTUATION}][ \n\r])`,

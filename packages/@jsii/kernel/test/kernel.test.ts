@@ -35,13 +35,13 @@ const calcVersion = require('jsii-calc/package.json').version.replace(
 );
 
 // Do this so that regexes stringify nicely in approximate tests
-(RegExp.prototype as any).toJSON = function() {
+(RegExp.prototype as any).toJSON = function () {
   return this.source;
 };
 
 process.setMaxListeners(9999); // since every kernel instance adds an `on('exit')` handler.
 
-process.on('unhandledRejection', e => {
+process.on('unhandledRejection', (e) => {
   console.error((e as Error).stack);
   process.exit(1);
 });
@@ -68,14 +68,14 @@ function defineTest(
   });
 }
 
-defineTest.skip = function(
+defineTest.skip = function (
   name: string,
   method: (sandbox: Kernel) => Promise<any> | any,
 ) {
   return defineTest(name, method, test.skip);
 };
 
-defineTest('stats() return sandbox statistics', sandbox => {
+defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({});
   expect(stats.objectCount).toBe(0);
 
@@ -86,7 +86,7 @@ defineTest('stats() return sandbox statistics', sandbox => {
   expect(sandbox.stats({}).objectCount).toBe(100);
 });
 
-defineTest('deleteObject will remove the reference', sandbox => {
+defineTest('deleteObject will remove the reference', (sandbox) => {
   const objects = new Array<any>();
 
   for (let i = 0; i < 100; ++i) {
@@ -108,7 +108,7 @@ defineTest('deleteObject will remove the reference', sandbox => {
   ).toThrow();
 });
 
-defineTest('in/out primitive types', sandbox => {
+defineTest('in/out primitive types', (sandbox) => {
   const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes', args: [] });
 
   sandbox.set({ objref: alltypes, property: 'booleanProperty', value: true });
@@ -146,7 +146,7 @@ defineTest('in/out primitive types', sandbox => {
   sandbox.invoke({ objref: alltypes, method: 'anyIn', args: [ret] });
 });
 
-defineTest('in/out objects', sandbox => {
+defineTest('in/out objects', (sandbox) => {
   const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
 
   const num = sandbox.create({
@@ -159,7 +159,7 @@ defineTest('in/out objects', sandbox => {
   ).toEqual(num);
 });
 
-defineTest('in/out collections', sandbox => {
+defineTest('in/out collections', (sandbox) => {
   const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes', args: [] });
 
   const array = ['1', '2', '3', '4'];
@@ -187,7 +187,7 @@ defineTest('in/out collections', sandbox => {
   ).toEqual(map);
 });
 
-defineTest('in/out date values', sandbox => {
+defineTest('in/out date values', (sandbox) => {
   const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
 
   const date = new Date('2018-01-18T00:00:32.347Z');
@@ -201,7 +201,7 @@ defineTest('in/out date values', sandbox => {
   ).toEqual({ [api.TOKEN_DATE]: '2018-01-18T00:00:32.347Z' });
 });
 
-defineTest('in/out enum values', sandbox => {
+defineTest('in/out enum values', (sandbox) => {
   const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
 
   sandbox.set({
@@ -234,7 +234,7 @@ defineTest('in/out enum values', sandbox => {
 });
 
 describe('in/out json values', () => {
-  defineTest('with a plain object', sandbox => {
+  defineTest('with a plain object', (sandbox) => {
     const allTypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
     sandbox.set({
       objref: allTypes,
@@ -245,7 +245,7 @@ describe('in/out json values', () => {
       sandbox.get({ objref: allTypes, property: 'jsonProperty' }).value,
     ).toEqual({ foo: 'bar', baz: 1337 });
   });
-  defineTest('with a simple mapping', sandbox => {
+  defineTest('with a simple mapping', (sandbox) => {
     const allTypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
     sandbox.set({
       objref: allTypes,
@@ -256,7 +256,7 @@ describe('in/out json values', () => {
       sandbox.get({ objref: allTypes, property: 'jsonProperty' }).value,
     ).toEqual({ foo: 'bar', baz: 1337 });
   });
-  defineTest('with a nested mapping', sandbox => {
+  defineTest('with a nested mapping', (sandbox) => {
     const allTypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
     sandbox.set({
       objref: allTypes,
@@ -274,7 +274,7 @@ describe('in/out json values', () => {
   });
 });
 
-defineTest('enum values from @scoped packages awslabs/jsii#138', sandbox => {
+defineTest('enum values from @scoped packages awslabs/jsii#138', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'jsii-calc.ReferenceEnumFromScopedPackage',
   });
@@ -309,7 +309,7 @@ defineTest('enum values from @scoped packages awslabs/jsii#138', sandbox => {
   });
 });
 
-defineTest('fails for invalid enum member name', sandbox => {
+defineTest('fails for invalid enum member name', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'jsii-calc.ReferenceEnumFromScopedPackage',
   });
@@ -325,21 +325,21 @@ defineTest('fails for invalid enum member name', sandbox => {
   }).toThrow(/No enum member named ValueX/);
 });
 
-defineTest('set for a non existing property', sandbox => {
+defineTest('set for a non existing property', (sandbox) => {
   const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods' });
   expect(() =>
     sandbox.set({ objref: obj, property: 'idontexist', value: 'Foo' }),
   ).toThrow();
 });
 
-defineTest('set for a readonly property', sandbox => {
+defineTest('set for a readonly property', (sandbox) => {
   const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods' });
   expect(() =>
     sandbox.set({ objref: obj, property: 'readonlyProperty', value: 'Foo' }),
   ).toThrow();
 });
 
-defineTest('create object with ctor overloads', sandbox => {
+defineTest('create object with ctor overloads', (sandbox) => {
   sandbox.create({ fqn: 'jsii-calc.Calculator' });
   sandbox.create({
     fqn: 'jsii-calc.Calculator',
@@ -349,7 +349,7 @@ defineTest('create object with ctor overloads', sandbox => {
 
 defineTest(
   'objects created inside the sandbox are returned with type info and new objid',
-  sandbox => {
+  (sandbox) => {
     const calc = sandbox.create({
       fqn: 'jsii-calc.Calculator',
       args: [{ initialValue: 100 }],
@@ -363,7 +363,7 @@ defineTest(
 
 defineTest(
   'naming allows returns the module name for different languages',
-  sandbox => {
+  (sandbox) => {
     expect(sandbox.naming({ assembly: 'jsii-calc' }).naming).toEqual({
       dotnet: {
         iconUrl:
@@ -406,7 +406,7 @@ defineTest(
   },
 );
 
-defineTest('collection of objects', sandbox => {
+defineTest('collection of objects', (sandbox) => {
   const sum = sandbox.create({ fqn: 'jsii-calc.Sum' });
 
   const n1 = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [10] });
@@ -429,13 +429,13 @@ defineTest('collection of objects', sandbox => {
   expect(sandbox.get({ objref: expr, property: 'value' }).value).toBe(10014);
 });
 
-defineTest('class not found', sandbox => {
+defineTest('class not found', (sandbox) => {
   expect(() => sandbox.create({ fqn: 'NotFound', args: [] })).toThrow();
 });
 
 defineTest(
   'type-checking: method and property names are validated against class and base classes',
-  sandbox => {
+  (sandbox) => {
     const obj = sandbox.create({ fqn: 'jsii-calc.Calculator' });
 
     sandbox.get({ objref: obj, property: 'stringStyle' }); // property from CompositeOperation
@@ -452,13 +452,13 @@ defineTest(
   },
 );
 
-defineTest('type-checking; module not found', sandbox => {
+defineTest('type-checking; module not found', (sandbox) => {
   expect(() => sandbox.create({ fqn: 'jsii$boo.Foo' })).toThrow(
     /Module 'jsii\$boo' not found/,
   );
 });
 
-defineTest('type-checking: type not found', sandbox => {
+defineTest('type-checking: type not found', (sandbox) => {
   expect(() => sandbox.create({ fqn: 'jsii-calc.Unknown' })).toThrow(
     /Type 'jsii-calc.Unknown' not found/,
   );
@@ -466,7 +466,7 @@ defineTest('type-checking: type not found', sandbox => {
 
 defineTest(
   'type-checking: try to create an object from a non-class type',
-  sandbox => {
+  (sandbox) => {
     expect(() => sandbox.create({ fqn: 'jsii-calc.AllTypesEnum' })).toThrow(
       /Unexpected FQN kind/,
     );
@@ -475,7 +475,7 @@ defineTest(
 
 defineTest(
   'type-checking: argument count in methods and initializers',
-  sandbox => {
+  (sandbox) => {
     // ctor has one optional argument
     sandbox.create({ fqn: 'jsii-calc.Calculator' });
     sandbox.create({ fqn: 'jsii-calc.Calculator', args: [{}] });
@@ -535,22 +535,26 @@ defineTest(
   },
 );
 
-defineTest('verify object literals are converted to real classes', sandbox => {
-  const obj = sandbox.create({ fqn: 'jsii-calc.JSObjectLiteralToNative' });
-  const obj2 = sandbox.invoke({ objref: obj, method: 'returnLiteral' }).result;
+defineTest(
+  'verify object literals are converted to real classes',
+  (sandbox) => {
+    const obj = sandbox.create({ fqn: 'jsii-calc.JSObjectLiteralToNative' });
+    const obj2 = sandbox.invoke({ objref: obj, method: 'returnLiteral' })
+      .result;
 
-  expect(obj2[api.TOKEN_REF]).toBeTruthy(); // verify that we received a ref as a result;
+    expect(obj2[api.TOKEN_REF]).toBeTruthy(); // verify that we received a ref as a result;
 
-  const objid: string = obj2[api.TOKEN_REF];
-  expect(
-    objid.startsWith('jsii-calc.JSObjectLiteralToNativeClass@'),
-    `${objid} does not have the intended prefix`,
-  ).toBeTruthy(); // verify the type of the returned object'
-});
+    const objid: string = obj2[api.TOKEN_REF];
+    expect(
+      objid.startsWith('jsii-calc.JSObjectLiteralToNativeClass@'),
+      `${objid} does not have the intended prefix`,
+    ).toBeTruthy(); // verify the type of the returned object'
+  },
+);
 
 defineTest(
   'get a property from an type that only has base class properties',
-  sandbox => {
+  (sandbox) => {
     const obj = sandbox.create({
       fqn: 'jsii-calc.DerivedClassHasNoProperties.Derived',
     });
@@ -561,7 +565,7 @@ defineTest(
 
 defineTest(
   'async overrides: ignores overrides for unknown methods (to allow derived class to just pass all local method names)',
-  sandbox => {
+  (sandbox) => {
     sandbox.create({
       fqn: 'jsii-calc.AsyncVirtualMethods',
       overrides: [{ method: 'notFound' }],
@@ -569,7 +573,7 @@ defineTest(
   },
 );
 
-defineTest('async overrides: override a method', async sandbox => {
+defineTest('async overrides: override a method', async (sandbox) => {
   // first call without an override and expect pendingCallbacks to return
   // an empty array.
   const obj1 = sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods' });
@@ -620,12 +624,12 @@ defineTest('async overrides: override a method', async sandbox => {
     return (await sandbox.end(promise2)).result;
   }
 
-  expect(await callWithOverride(_ => 600)).toBe(608);
-  expect(await callWithOverride(x => 2 * x)).toBe(28);
+  expect(await callWithOverride((_) => 600)).toBe(608);
+  expect(await callWithOverride((x) => 2 * x)).toBe(28);
 
   // override throws
   return expect(
-    callWithOverride(_ => {
+    callWithOverride((_) => {
       throw new Error('Bla');
     }),
   ).rejects.toThrow('Bla');
@@ -633,7 +637,7 @@ defineTest('async overrides: override a method', async sandbox => {
 
 defineTest(
   'async overrides: directly call a method with an override from native code should invoke the "super.method" since it can only be done by the derived class',
-  async sandbox => {
+  async (sandbox) => {
     const obj = sandbox.create({
       fqn: 'jsii-calc.AsyncVirtualMethods',
       overrides: [{ method: 'overrideMe', cookie: 'myCookie' }],
@@ -650,7 +654,7 @@ defineTest(
   },
 );
 
-defineTest('async overrides: two overrides', async sandbox => {
+defineTest('async overrides: two overrides', async (sandbox) => {
   const obj = sandbox.create({
     fqn: 'jsii-calc.AsyncVirtualMethods',
     overrides: [
@@ -694,7 +698,7 @@ defineTest('async overrides: two overrides', async sandbox => {
  */
 defineTest(
   'async overrides - process promises after "begin"',
-  async sandbox => {
+  async (sandbox) => {
     const obj = sandbox.create({
       fqn: 'jsii-calc.AsyncVirtualMethods',
       overrides: [
@@ -773,7 +777,7 @@ function processPendingPromises(sandbox: Kernel) {
   );
 }
 
-defineTest('sync overrides', async sandbox => {
+defineTest('sync overrides', async (sandbox) => {
   const pre = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods' });
 
   // without override
@@ -786,7 +790,7 @@ defineTest('sync overrides', async sandbox => {
   const p = sandbox.begin({ objref: pre, method: 'callerIsAsync' });
   expect((await sandbox.end({ promiseid: p.promiseid })).result).toBe(20);
 
-  sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
     expect(callback.cookie).toBe('myCookie');
     expect(callback.invoke!.objref[TOKEN_REF]).toMatch(
       /jsii-calc\.SyncVirtualMethods/,
@@ -822,7 +826,7 @@ defineTest('sync overrides', async sandbox => {
 
   // verify callbacks can also be called by setters.
   let called = false;
-  sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
     expect(callback.invoke!.args![0]).toBe(999);
     called = true;
     return callback.invoke!.args![0];
@@ -832,8 +836,8 @@ defineTest('sync overrides', async sandbox => {
   expect(called).toBeTruthy();
 });
 
-defineTest('sync overrides with async caller', async sandbox => {
-  sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+defineTest('sync overrides with async caller', async (sandbox) => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
     expect(callback.cookie).toBe('myCookie');
     expect(callback.invoke!.objref[TOKEN_REF]).toMatch(
       /jsii-calc\.SyncVirtualMethods/,
@@ -863,14 +867,14 @@ defineTest('sync overrides with async caller', async sandbox => {
   expect((await sandbox.end({ promiseid: p2.promiseid })).result).toBe(22);
 });
 
-defineTest('sync overrides: properties - readwrite', sandbox => {
+defineTest('sync overrides: properties - readwrite', (sandbox) => {
   const obj = sandbox.create({
     fqn: 'jsii-calc.SyncVirtualMethods',
     overrides: [{ property: 'theProperty', cookie: 'myCookie1234' }],
   });
 
   let setValue;
-  sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
     expect(callback.cookie).toBe('myCookie1234');
     if (callback.get) {
       expect(callback.get.property).toBe('theProperty');
@@ -900,14 +904,14 @@ defineTest('sync overrides: properties - readwrite', sandbox => {
 
 defineTest(
   'sync overrides: properties - readwrite (backed by functions)',
-  sandbox => {
+  (sandbox) => {
     const obj = sandbox.create({
       fqn: 'jsii-calc.SyncVirtualMethods',
       overrides: [{ property: 'otherProperty', cookie: 'myCookie1234' }],
     });
 
     let setValue;
-    sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+    sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
       expect(callback.cookie).toBe('myCookie1234');
       if (callback.get) {
         expect(callback.get.property).toBe('otherProperty');
@@ -938,7 +942,7 @@ defineTest(
 
 defineTest(
   'sync overrides: duplicate overrides for the same property',
-  sandbox => {
+  (sandbox) => {
     expect(() =>
       sandbox.create({
         fqn: 'jsii-calc.SyncVirtualMethods',
@@ -951,13 +955,13 @@ defineTest(
   },
 );
 
-defineTest('sync overrides: properties - readonly', sandbox => {
+defineTest('sync overrides: properties - readonly', (sandbox) => {
   const obj = sandbox.create({
     fqn: 'jsii-calc.SyncVirtualMethods',
     overrides: [{ property: 'readonlyProperty', cookie: 'myCookie1234' }],
   });
 
-  sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
     expect(callback.cookie).toBe('myCookie1234');
     expect(callback.get).toBeTruthy();
     expect(callback.get!.property).toBe('readonlyProperty');
@@ -976,13 +980,13 @@ defineTest('sync overrides: properties - readonly', sandbox => {
   ).toThrow();
 });
 
-defineTest('sync overrides: properties - get calls super', sandbox => {
+defineTest('sync overrides: properties - get calls super', (sandbox) => {
   const obj = sandbox.create({
     fqn: 'jsii-calc.SyncVirtualMethods',
     overrides: [{ property: 'theProperty' }],
   });
 
-  sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
     expect(callback.get!.property).toBe('theProperty');
     const superValue = sandbox.get({ objref: obj, property: 'theProperty' });
     return `override, super=${superValue.value}`;
@@ -995,13 +999,13 @@ defineTest('sync overrides: properties - get calls super', sandbox => {
   expect(value).toEqual({ result: 'override, super=initial value' });
 });
 
-defineTest('sync overrides: properties - set calls super', sandbox => {
+defineTest('sync overrides: properties - set calls super', (sandbox) => {
   const obj = sandbox.create({
     fqn: 'jsii-calc.SyncVirtualMethods',
     overrides: [{ property: 'theProperty' }],
   });
 
-  sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
     if (callback.get) {
       return sandbox.get({ objref: obj, property: 'theProperty' }).value;
     }
@@ -1031,7 +1035,7 @@ defineTest('sync overrides: properties - set calls super', sandbox => {
 
 defineTest(
   'sync overrides: properties - verify keys are enumerable',
-  sandbox => {
+  (sandbox) => {
     const obj = sandbox.create({
       fqn: 'Object',
       overrides: [{ property: 'foo' }, { property: 'readOnlyString' }],
@@ -1041,7 +1045,7 @@ defineTest(
       args: [obj],
     });
 
-    sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+    sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
       if (callback.get?.property === 'foo') {
         return 999;
       }
@@ -1064,7 +1068,7 @@ defineTest(
   },
 );
 
-defineTest('sync overrides: returns an object', sandbox => {
+defineTest('sync overrides: returns an object', (sandbox) => {
   const returnsNumber = sandbox.create({
     fqn: 'Object',
     overrides: [{ method: 'obtainNumber' }, { property: 'numberProp' }],
@@ -1080,7 +1084,7 @@ defineTest('sync overrides: returns an object', sandbox => {
     args: [500],
   });
 
-  sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
     if (callback.invoke?.method === 'obtainNumber') {
       return number100;
     }
@@ -1100,7 +1104,7 @@ defineTest('sync overrides: returns an object', sandbox => {
   expect(ret).toEqual({ result: 100 * 2 + 500 * 2 });
 });
 
-defineTest('fail to begin async from sync - method', sandbox => {
+defineTest('fail to begin async from sync - method', (sandbox) => {
   const obj = sandbox.create({
     fqn: 'jsii-calc.SyncVirtualMethods',
     overrides: [{ method: 'virtualMethod', cookie: 'myCookie' }],
@@ -1108,7 +1112,7 @@ defineTest('fail to begin async from sync - method', sandbox => {
 
   let called = 0;
 
-  sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((_) => {
     const innerObj = sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods' });
     expect(() =>
       sandbox.begin({ objref: innerObj, method: 'callMe' }),
@@ -1130,13 +1134,13 @@ defineTest('fail to begin async from sync - method', sandbox => {
 
 defineTest(
   'the "Object" FQN can be used to allow creating empty objects with overrides which comply with an interface',
-  sandbox => {
+  (sandbox) => {
     const obj = sandbox.create({ fqn: 'jsii-calc.Polymorphism' });
     const friendly = sandbox.create({
       fqn: 'Object',
       overrides: [{ method: 'hello' }],
     });
-    sandbox.callbackHandler = makeSyncCallbackHandler(_ => 'oh, hello');
+    sandbox.callbackHandler = makeSyncCallbackHandler((_) => 'oh, hello');
     const ret = sandbox.invoke({
       objref: obj,
       method: 'sayHello',
@@ -1148,7 +1152,7 @@ defineTest(
 
 defineTest(
   'literal objects can be returned when an interface is expected, and they will be adorned with jsii metadata so they can be interacted with',
-  sandbox => {
+  (sandbox) => {
     const obj = sandbox.create({
       fqn: 'jsii-calc.JSObjectLiteralForInterface',
     });
@@ -1173,7 +1177,7 @@ defineTest(
 
 defineTest(
   'exceptions include a stack trace into the original source code',
-  sandbox => {
+  (sandbox) => {
     const obj = sandbox.create({ fqn: 'jsii-calc.Thrower' });
     expect(() => {
       try {
@@ -1187,7 +1191,7 @@ defineTest(
   },
 );
 
-defineTest('variadic methods can be called', sandbox => {
+defineTest('variadic methods can be called', (sandbox) => {
   const obj = sandbox.create({ fqn: 'jsii-calc.VariadicMethod' });
   expect(
     sandbox.invoke({ objref: obj, method: 'asArray', args: [1, 2, 3, 4] })
@@ -1195,7 +1199,7 @@ defineTest('variadic methods can be called', sandbox => {
   ).toEqual([1, 2, 3, 4]);
 });
 
-defineTest('variadic methods can be called without any vararg', sandbox => {
+defineTest('variadic methods can be called without any vararg', (sandbox) => {
   const obj = sandbox.create({
     fqn: 'jsii-calc.VariadicMethod',
     args: [1, 2, 3],
@@ -1205,18 +1209,18 @@ defineTest('variadic methods can be called without any vararg', sandbox => {
   ).toEqual([1, 2, 3, 4]);
 });
 
-defineTest('static properties - get', sandbox => {
+defineTest('static properties - get', (sandbox) => {
   const value = sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'Foo' });
   expect(value).toEqual({ value: 'hello' });
 });
 
-defineTest('fails: static properties - set readonly', sandbox => {
+defineTest('fails: static properties - set readonly', (sandbox) => {
   expect(() =>
     sandbox.sset({ fqn: 'jsii-calc.Statics', property: 'Foo', value: 123 }),
   ).toThrow();
 });
 
-defineTest('static properties - set', sandbox => {
+defineTest('static properties - set', (sandbox) => {
   const defaultInstance = sandbox.sget({
     fqn: 'jsii-calc.Statics',
     property: 'instance',
@@ -1240,7 +1244,7 @@ defineTest('static properties - set', sandbox => {
   ).toEqual({ value: 'MyInstance' });
 });
 
-defineTest('fails: static properties - get/set non-static', sandbox => {
+defineTest('fails: static properties - get/set non-static', (sandbox) => {
   expect(() =>
     sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'value' }),
   ).toThrow(/is not static/);
@@ -1249,7 +1253,7 @@ defineTest('fails: static properties - get/set non-static', sandbox => {
   ).toThrow(/is not static/);
 });
 
-defineTest('fails: static properties - get/set not found', sandbox => {
+defineTest('fails: static properties - get/set not found', (sandbox) => {
   expect(() =>
     sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'zoo' }),
   ).toThrow(/doesn't have a property/);
@@ -1258,7 +1262,7 @@ defineTest('fails: static properties - get/set not found', sandbox => {
   ).toThrow(/doesn't have a property/);
 });
 
-defineTest('static methods', sandbox => {
+defineTest('static methods', (sandbox) => {
   const result = sandbox.sinvoke({
     fqn: 'jsii-calc.Statics',
     method: 'staticMethod',
@@ -1267,7 +1271,7 @@ defineTest('static methods', sandbox => {
   expect(result).toEqual({ result: 'hello ,Jsii!' });
 });
 
-defineTest('fails: static methods - not found', sandbox => {
+defineTest('fails: static methods - not found', (sandbox) => {
   expect(() =>
     sandbox.sinvoke({
       fqn: 'jsii-calc.Statics',
@@ -1277,7 +1281,7 @@ defineTest('fails: static methods - not found', sandbox => {
   ).toThrow(/doesn't have a method/);
 });
 
-defineTest('fails: static methods - not static', sandbox => {
+defineTest('fails: static methods - not static', (sandbox) => {
   expect(() =>
     sandbox.sinvoke({
       fqn: 'jsii-calc.Statics',
@@ -1287,7 +1291,7 @@ defineTest('fails: static methods - not static', sandbox => {
   ).toThrow(/is not a static method/);
 });
 
-defineTest('loading a module twice idepotently succeeds', async sandbox => {
+defineTest('loading a module twice idepotently succeeds', async (sandbox) => {
   sandbox.load({
     tarball: await preparePackage('jsii-calc', false),
     name: 'jsii-calc',
@@ -1297,7 +1301,7 @@ defineTest('loading a module twice idepotently succeeds', async sandbox => {
 
 defineTest(
   'fails if trying to load two different versions of the same module',
-  async sandbox => {
+  async (sandbox) => {
     const tarball = await preparePackage('jsii-calc', false);
     return expect(() =>
       sandbox.load({ tarball, name: 'jsii-calc', version: '99.999.9' }),
@@ -1307,7 +1311,7 @@ defineTest(
   },
 );
 
-defineTest('node.js standard library', async sandbox => {
+defineTest('node.js standard library', async (sandbox) => {
   const objref = sandbox.create({ fqn: 'jsii-calc.NodeStandardLibrary' });
   const promise = sandbox.begin({ objref, method: 'fsReadFile' });
   await processPendingPromises(sandbox);
@@ -1327,7 +1331,7 @@ defineTest('node.js standard library', async sandbox => {
 });
 
 // @see awslabs/jsii#248
-defineTest('object literals are returned by reference', sandbox => {
+defineTest('object literals are returned by reference', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'jsii-calc.ClassWithMutableObjectLiteralProperty',
   });
@@ -1348,7 +1352,7 @@ defineTest('object literals are returned by reference', sandbox => {
 
 defineTest(
   'overrides: method instead of property with the same name',
-  sandbox => {
+  (sandbox) => {
     expect(() => {
       sandbox.create({
         fqn: 'jsii-calc.SyncVirtualMethods',
@@ -1360,7 +1364,7 @@ defineTest(
 
 defineTest(
   'overrides: property instead of method with the same name',
-  sandbox => {
+  (sandbox) => {
     expect(() => {
       sandbox.create({
         fqn: 'jsii-calc.SyncVirtualMethods',
@@ -1370,13 +1374,13 @@ defineTest(
   },
 );
 
-defineTest('overrides: skip overrides of private methods', sandbox => {
+defineTest('overrides: skip overrides of private methods', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'jsii-calc.DoNotOverridePrivates',
     overrides: [{ method: 'privateMethod' }],
   });
 
-  sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((_) => {
     throw new Error('override callback should not be called');
   });
 
@@ -1384,13 +1388,13 @@ defineTest('overrides: skip overrides of private methods', sandbox => {
   expect(result.result).toBe('privateMethod');
 });
 
-defineTest('overrides: skip overrides of private properties', sandbox => {
+defineTest('overrides: skip overrides of private properties', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'jsii-calc.DoNotOverridePrivates',
     overrides: [{ property: 'privateProperty' }],
   });
 
-  sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((_) => {
     throw new Error('override callback should not be called');
   });
 
@@ -1398,14 +1402,14 @@ defineTest('overrides: skip overrides of private properties', sandbox => {
   expect(result.result).toBe('privateProperty');
 });
 
-defineTest('nulls are converted to undefined - ctor', sandbox => {
+defineTest('nulls are converted to undefined - ctor', (sandbox) => {
   sandbox.create({
     fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined',
     args: ['foo', null],
   });
 });
 
-defineTest('nulls are converted to undefined - method arguments', sandbox => {
+defineTest('nulls are converted to undefined - method arguments', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined',
     args: ['foo'],
@@ -1413,7 +1417,7 @@ defineTest('nulls are converted to undefined - method arguments', sandbox => {
   sandbox.invoke({ objref, method: 'giveMeUndefined', args: [null] });
 });
 
-defineTest('nulls are converted to undefined - inside objects', sandbox => {
+defineTest('nulls are converted to undefined - inside objects', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined',
     args: ['foo'],
@@ -1434,7 +1438,7 @@ defineTest('nulls are converted to undefined - inside objects', sandbox => {
   });
 });
 
-defineTest('nulls are converted to undefined - properties', sandbox => {
+defineTest('nulls are converted to undefined - properties', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined',
     args: ['foo'],
@@ -1443,13 +1447,13 @@ defineTest('nulls are converted to undefined - properties', sandbox => {
   sandbox.invoke({ objref, method: 'verifyPropertyIsUndefined' });
 });
 
-defineTest('JSII_AGENT is undefined in node.js', sandbox => {
+defineTest('JSII_AGENT is undefined in node.js', (sandbox) => {
   expect(
     sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'jsiiAgent' }).value,
   ).toBe(undefined);
 });
 
-defineTest('ObjRefs are labeled with the "most correct" type', sandbox => {
+defineTest('ObjRefs are labeled with the "most correct" type', (sandbox) => {
   typeMatches('makeClass', { [TOKEN_REF]: /^jsii-calc.InbetweenClass@/ });
   typeMatches('makeInterface', {
     [TOKEN_REF]: /^jsii-calc.InbetweenClass@/,
@@ -1499,21 +1503,21 @@ defineTest('ObjRefs are labeled with the "most correct" type', sandbox => {
  *
  * https://github.com/awslabs/aws-cdk/issues/2304
  */
-defineTest('sinvoke allows access to the static context', sandbox => {
+defineTest('sinvoke allows access to the static context', (sandbox) => {
   const response = sandbox.sinvoke({
     fqn: 'jsii-calc.StaticContext',
     method: 'canAccessStaticContext',
   });
   expect(response.result).toBe(true);
 });
-defineTest('sget allows access to the static context', sandbox => {
+defineTest('sget allows access to the static context', (sandbox) => {
   const response = sandbox.sget({
     fqn: 'jsii-calc.StaticContext',
     property: 'staticVariable',
   });
   expect(response.value).toBe(true);
 });
-defineTest('sset allows access to the static context', sandbox => {
+defineTest('sset allows access to the static context', (sandbox) => {
   sandbox.sset({
     fqn: 'jsii-calc.StaticContext',
     property: 'staticVariable',
@@ -1548,7 +1552,7 @@ defineTest('A single instance can be returned under two types', (sandbox) => {
 
 defineTest(
   'toSandbox: "null" in hash values send to JS should be treated as non-existing key',
-  sandbox => {
+  (sandbox) => {
     const input = { option1: null, option2: 'hello' };
     const option1Exists = sandbox.sinvoke({
       fqn: 'jsii-calc.EraseUndefinedHashValues',
@@ -1568,7 +1572,7 @@ defineTest(
 
 defineTest(
   'toSandbox: "undefined" in hash values sent to JS should be treated as non-existing key',
-  sandbox => {
+  (sandbox) => {
     const input = { option1: undefined, option2: 'hello' };
     const option1Exists = sandbox.sinvoke({
       fqn: 'jsii-calc.EraseUndefinedHashValues',
@@ -1585,7 +1589,7 @@ defineTest(
   },
 );
 
-defineTest('calculator can set and retrieve union properties', sandbox => {
+defineTest('calculator can set and retrieve union properties', (sandbox) => {
   const calculator = create(sandbox, 'jsii-calc.Calculator')();
 
   const mul = create(sandbox, 'jsii-calc.Multiply');
@@ -1610,7 +1614,7 @@ defineTest('calculator can set and retrieve union properties', sandbox => {
   ).toBeTruthy();
 });
 
-defineTest('can set and retrieve union properties', sandbox => {
+defineTest('can set and retrieve union properties', (sandbox) => {
   const types = create(sandbox, 'jsii-calc.AllTypes')();
   const typesSet = set(sandbox, types);
   const typesGet = get(sandbox, types);
@@ -1638,21 +1642,24 @@ defineTest('can set and retrieve union properties', sandbox => {
   expect(get(sandbox, unionArray[1])('value')).toBe(33);
 });
 
-defineTest('require presence of required properties -- top level', sandbox => {
-  expect(() => {
-    sandbox.sinvoke({
-      fqn: 'jsii-calc.StructPassing',
-      method: 'roundTrip',
-      args: [123, { incomplete: true }],
-    });
-  }).toThrow(
-    /Missing required properties for jsii-calc.TopLevelStruct: required,secondLevel/,
-  );
-});
+defineTest(
+  'require presence of required properties -- top level',
+  (sandbox) => {
+    expect(() => {
+      sandbox.sinvoke({
+        fqn: 'jsii-calc.StructPassing',
+        method: 'roundTrip',
+        args: [123, { incomplete: true }],
+      });
+    }).toThrow(
+      /Missing required properties for jsii-calc.TopLevelStruct: required,secondLevel/,
+    );
+  },
+);
 
 defineTest(
   'require presence of required properties -- deeper level',
-  sandbox => {
+  (sandbox) => {
     expect(() => {
       sandbox.sinvoke({
         fqn: 'jsii-calc.StructPassing',
@@ -1671,7 +1678,7 @@ defineTest(
   },
 );
 
-defineTest('notice when an array is passed instead of varargs', sandbox => {
+defineTest('notice when an array is passed instead of varargs', (sandbox) => {
   expect(() => {
     sandbox.sinvoke({
       fqn: 'jsii-calc.StructPassing',
@@ -1683,8 +1690,8 @@ defineTest('notice when an array is passed instead of varargs', sandbox => {
 
 defineTest(
   'Object ID does not get re-allocated when the constructor passes "this" out',
-  sandbox => {
-    sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
+  (sandbox) => {
+    sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
       expect(callback.invoke?.method).toBe('consumePartiallyInitializedThis');
       expect(callback.invoke?.args).toEqual([
         {
@@ -1719,7 +1726,7 @@ defineTest(
 
 defineTest(
   'struct: empty object is turned to undefined by deserialization',
-  sandbox => {
+  (sandbox) => {
     const object = sandbox.create({
       fqn: 'jsii-calc.OptionalStructConsumer',
       args: [{}],
@@ -1732,7 +1739,7 @@ defineTest(
   },
 );
 
-defineTest('struct: non-empty object deserializes properly', sandbox => {
+defineTest('struct: non-empty object deserializes properly', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'jsii-calc.OptionalStructConsumer',
     args: [{ field: 'foo' }],
@@ -1743,17 +1750,20 @@ defineTest('struct: non-empty object deserializes properly', sandbox => {
   expect(field.value).toBe('foo');
 });
 
-defineTest('erased base: can receive an instance of private type', sandbox => {
-  const objref = sandbox.sinvoke({
-    fqn: 'jsii-calc.JSII417PublicBaseOfBase',
-    method: 'makeInstance',
-  });
-  expect(objref.result).toEqual({
-    [api.TOKEN_REF]: 'jsii-calc.JSII417PublicBaseOfBase@10000',
-  });
-});
+defineTest(
+  'erased base: can receive an instance of private type',
+  (sandbox) => {
+    const objref = sandbox.sinvoke({
+      fqn: 'jsii-calc.JSII417PublicBaseOfBase',
+      method: 'makeInstance',
+    });
+    expect(objref.result).toEqual({
+      [api.TOKEN_REF]: 'jsii-calc.JSII417PublicBaseOfBase@10000',
+    });
+  },
+);
 
-defineTest('deserialize a struct by reference', sandbox => {
+defineTest('deserialize a struct by reference', (sandbox) => {
   sandbox.callbackHandler = makeSyncCallbackHandler(() => 'xoxoxox');
   const objref = sandbox.create({
     fqn: 'Object',
@@ -1767,7 +1777,7 @@ defineTest('deserialize a struct by reference', sandbox => {
   expect(value).toEqual({ value: 'xoxoxox' });
 });
 
-defineTest('correctly passes enum values across', sandbox => {
+defineTest('correctly passes enum values across', (sandbox) => {
   const stringLike = sandbox.sinvoke({
     fqn: 'jsii-calc.EnumDispenser',
     method: 'randomStringLikeEnum',
@@ -1783,7 +1793,7 @@ defineTest('correctly passes enum values across', sandbox => {
   });
 });
 
-defineTest('registers interfaces requested', sandbox => {
+defineTest('registers interfaces requested', (sandbox) => {
   const interfaces = [
     'jsii-calc.IReturnsNumber',
     'jsii-calc.IInterfaceWithOptionalMethodArguments',
@@ -1795,8 +1805,8 @@ defineTest('registers interfaces requested', sandbox => {
   });
 });
 
-defineTest('retains the type of object literals', sandbox => {
-  sandbox.callbackHandler = makeSyncCallbackHandler(cb => {
+defineTest('retains the type of object literals', (sandbox) => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((cb) => {
     expect(cb.invoke?.method).toBe('provideAsInterface');
     expect(cb.invoke?.objref).toMatchObject({ [TOKEN_REF]: 'Object@10000' });
     const realObject = sandbox.create({
@@ -1824,7 +1834,7 @@ defineTest('retains the type of object literals', sandbox => {
   });
 });
 
-defineTest('correctly deserializes struct unions', sandbox => {
+defineTest('correctly deserializes struct unions', (sandbox) => {
   const unionConsumer = 'jsii-calc.StructUnionConsumer';
   const structA0: WireStruct = {
     [TOKEN_STRUCT]: {
@@ -1874,7 +1884,7 @@ defineTest('correctly deserializes struct unions', sandbox => {
   }
 });
 
-defineTest('ANY deserializer: decorated structs', sandbox => {
+defineTest('ANY deserializer: decorated structs', (sandbox) => {
   const input = {
     '$jsii.struct': {
       fqn: 'jsii-calc.StructB',
@@ -1887,7 +1897,7 @@ defineTest('ANY deserializer: decorated structs', sandbox => {
   });
 });
 
-defineTest('ANY deserializer: primitives', sandbox => {
+defineTest('ANY deserializer: primitives', (sandbox) => {
   expect(deserializeAny(sandbox, -100)).toStrictEqual(-100);
   expect(deserializeAny(sandbox, 0)).toStrictEqual(0);
   expect(deserializeAny(sandbox, 1234)).toStrictEqual(1234);
@@ -1897,7 +1907,7 @@ defineTest('ANY deserializer: primitives', sandbox => {
   expect(deserializeAny(sandbox, false)).toStrictEqual(false);
 });
 
-defineTest('ANY deserializer: array', sandbox => {
+defineTest('ANY deserializer: array', (sandbox) => {
   expect(deserializeAny(sandbox, [1, 2, 3, 'four'])).toStrictEqual([
     1,
     2,
@@ -1906,18 +1916,18 @@ defineTest('ANY deserializer: array', sandbox => {
   ]);
 });
 
-defineTest('ANY deserializer: undefined/null', sandbox => {
+defineTest('ANY deserializer: undefined/null', (sandbox) => {
   expect(deserializeAny(sandbox, null)).toStrictEqual(undefined);
   expect(deserializeAny(sandbox, undefined)).toStrictEqual(undefined);
 });
 
-defineTest('ANY deserializer: wire date', sandbox => {
+defineTest('ANY deserializer: wire date', (sandbox) => {
   expect(
     deserializeAny(sandbox, { '$jsii.date': '2019-11-18T13:01:20.515Z' }),
   ).toStrictEqual('2019-11-18T13:01:20.515Z');
 });
 
-defineTest('ANY deserializer: enum', sandbox => {
+defineTest('ANY deserializer: enum', (sandbox) => {
   expect(
     deserializeAny(sandbox, {
       '$jsii.enum': 'jsii-calc.AllTypesEnum/YOUR_ENUM_VALUE',
@@ -1925,7 +1935,7 @@ defineTest('ANY deserializer: enum', sandbox => {
   ).toStrictEqual(100);
 });
 
-defineTest('ANY deserializer: wire map', sandbox => {
+defineTest('ANY deserializer: wire map', (sandbox) => {
   const input = {
     '$jsii.map': {
       foo: 123,
@@ -1938,7 +1948,7 @@ defineTest('ANY deserializer: wire map', sandbox => {
   });
 });
 
-defineTest('ANY deserializer: by value', sandbox => {
+defineTest('ANY deserializer: by value', (sandbox) => {
   const ref = sandbox.create({
     fqn: '@scope/jsii-calc-lib.Number',
     args: [444],
@@ -1967,24 +1977,24 @@ defineTest('ANY deserializer: by value', sandbox => {
   });
 });
 
-defineTest('ANY serializer: null/undefined', sandbox => {
+defineTest('ANY serializer: null/undefined', (sandbox) => {
   expect(serializeAny(sandbox, 'anyNull')).toStrictEqual(undefined);
   expect(serializeAny(sandbox, 'anyUndefined')).toStrictEqual(undefined);
 });
 
-defineTest('ANY serializer: function (fails)', sandbox => {
+defineTest('ANY serializer: function (fails)', (sandbox) => {
   expect(() => serializeAny(sandbox, 'anyFunction')).toThrow(
     /JSII Kernel is unable to serialize `function`. An instance with methods might have been returned by an `any` method\?/,
   );
 });
 
-defineTest('ANY serializer: date', sandbox => {
+defineTest('ANY serializer: date', (sandbox) => {
   expect(serializeAny(sandbox, 'anyDate')).toStrictEqual({
     '$jsii.date': '2019-11-18T13:01:20.515Z',
   });
 });
 
-defineTest('ANY serializer: primitives', sandbox => {
+defineTest('ANY serializer: primitives', (sandbox) => {
   expect(serializeAny(sandbox, 'anyNumber')).toStrictEqual(123);
   expect(serializeAny(sandbox, 'anyZero')).toStrictEqual(0);
   expect(serializeAny(sandbox, 'anyString')).toStrictEqual('foo');
@@ -1993,7 +2003,7 @@ defineTest('ANY serializer: primitives', sandbox => {
   expect(serializeAny(sandbox, 'anyBooleanFalse')).toStrictEqual(false);
 });
 
-defineTest('ANY serializer: array', sandbox => {
+defineTest('ANY serializer: array', (sandbox) => {
   expect(serializeAny(sandbox, 'anyArray')).toEqual([
     1,
     2,
@@ -2006,7 +2016,7 @@ defineTest('ANY serializer: array', sandbox => {
   ]);
 });
 
-defineTest('ANY serializer: hash', sandbox => {
+defineTest('ANY serializer: hash', (sandbox) => {
   expect(serializeAny(sandbox, 'anyHash')).toStrictEqual({
     hello: 1234,
     world: {
@@ -2016,7 +2026,7 @@ defineTest('ANY serializer: hash', sandbox => {
   });
 });
 
-defineTest('ANY serializer: ref', sandbox => {
+defineTest('ANY serializer: ref', (sandbox) => {
   expect(serializeAny(sandbox, 'anyRef')).toStrictEqual({
     '$jsii.byref': '@scope/jsii-calc-lib.Number@10000',
     '$jsii.interfaces': undefined,
@@ -2085,7 +2095,7 @@ async function preparePackage(module: string, useCache = true) {
       stdio: ['ignore', 'pipe', 'ignore'],
     });
     const stdout = new Array<Buffer>();
-    child.stdout.on('data', chunk => stdout.push(Buffer.from(chunk)));
+    child.stdout.on('data', (chunk) => stdout.push(Buffer.from(chunk)));
     child.once('exit', (code, signal) => {
       if (code === 0) {
         return ok();
@@ -2109,7 +2119,7 @@ function findPackageRoot(pkg: string) {
  * all the information needed to perform the callback and return the result.
  */
 function makeSyncCallbackHandler(logic: (callback: Callback) => any) {
-  return function(this: Kernel, callback: Callback) {
+  return function (this: Kernel, callback: Callback) {
     // since sync callbacks must be handled at host level, we will "fake"
     // how @jsii/runtime and a client will interact when a callback is requested
     const recording: fs.WriteStream = (this as any).logfile;

@@ -9,7 +9,7 @@ export async function closeRecording(kernel: Kernel): Promise<void> {
 
   logfile.end();
 
-  return new Promise(ok => {
+  return new Promise((ok) => {
     logfile.once('finish', () => {
       ok();
     });
@@ -31,8 +31,8 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
   (kernel as any).logfile = logfile;
 
   Object.getOwnPropertyNames(Kernel.prototype)
-    .filter(p => !p.startsWith('_'))
-    .forEach(api => {
+    .filter((p) => !p.startsWith('_'))
+    .forEach((api) => {
       const old = Object.getOwnPropertyDescriptor(Kernel.prototype, api)!;
 
       Object.defineProperty(kernel, api, {

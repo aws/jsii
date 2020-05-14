@@ -43,7 +43,7 @@ export function md2rst(text: string) {
       // If we're coming out of a paragraph that's being followed by
       // a code block, make sure the current line ends in '::':
       if (!entering && node.next && node.next?.type === 'code_block') {
-        doc.transformLastLine(lastLine => {
+        doc.transformLastLine((lastLine) => {
           const appended = lastLine.replace(/[\W]$/, '::');
           if (appended !== lastLine) {
             return appended;
@@ -117,9 +117,7 @@ export function md2rst(text: string) {
 
       doc.pushBulletPrefix('   ');
 
-      for (const l of textOf(node)
-        .replace(/\n+$/, '')
-        .split('\n')) {
+      for (const l of textOf(node).replace(/\n+$/, '').split('\n')) {
         doc.appendLine(l);
       }
 
@@ -207,10 +205,7 @@ class DocumentBuilder {
   }
 
   public toString() {
-    return this.lines
-      .map(partsToString)
-      .join('\n')
-      .replace(/\n+$/, '');
+    return this.lines.map(partsToString).join('\n').replace(/\n+$/, '');
   }
 
   private flushQueuedNewline() {

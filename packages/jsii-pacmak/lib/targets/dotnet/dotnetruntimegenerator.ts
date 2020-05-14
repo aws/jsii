@@ -194,7 +194,7 @@ export class DotNetRuntimeGenerator {
       }
     }
     const hasOptional =
-      method.parameters?.find(param => param.optional) != null ? '?' : '';
+      method.parameters?.find((param) => param.optional) != null ? '?' : '';
     return `${invokeMethodName}${returnType}(${typeofStatement}new System.Type[]{${paramTypes.join(
       ', ',
     )}}, new object${hasOptional}[]{${params.join(', ')}});`;

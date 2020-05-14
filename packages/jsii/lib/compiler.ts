@@ -133,14 +133,14 @@ export class Compiler implements Emitter {
       );
     }
     const orig = host.afterProgramCreate;
-    host.afterProgramCreate = async builderProgram => {
+    host.afterProgramCreate = async (builderProgram) => {
       const emitResult = await this._consumeProgram(
         builderProgram.getProgram(),
         host.getDefaultLibLocation!(),
       );
 
       for (const diag of emitResult.diagnostics.filter(
-        d => d.code === JSII_DIAGNOSTICS_CODE,
+        (d) => d.code === JSII_DIAGNOSTICS_CODE,
       )) {
         utils.logDiagnostic(diag, projectRoot);
       }
@@ -191,7 +191,7 @@ export class Compiler implements Emitter {
       rootNames: this.rootFiles.concat(_pathOfLibraries(this.compilerHost)),
       options: { ...pi.tsc, ...COMPILER_OPTIONS },
       // Make the references absolute for the compiler
-      projectReferences: tsconf.references?.map(ref => ({
+      projectReferences: tsconf.references?.map((ref) => ({
         path: path.resolve(ref.path),
       })),
       host: this.compilerHost,
@@ -268,7 +268,9 @@ export class Compiler implements Emitter {
         ...COMPILER_OPTIONS,
         composite,
         // Need to strip the `lib.` prefix and `.d.ts` suffix
-        lib: COMPILER_OPTIONS.lib?.map(name => name.slice(4, name.length - 5)),
+        lib: COMPILER_OPTIONS.lib?.map((name) =>
+          name.slice(4, name.length - 5),
+        ),
         // Those int-enums, we need to output the names instead
         module:
           COMPILER_OPTIONS.module && ts.ModuleKind[COMPILER_OPTIONS.module],
@@ -293,7 +295,7 @@ export class Compiler implements Emitter {
       // file under the 'path' key, which is the same as what the
       // TypeScript compiler does. Make it relative so that the files are
       // movable. Not strictly required but looks better.
-      references: references?.map(p => ({ path: p })),
+      references: references?.map((p) => ({ path: p })),
     } as any;
   }
 
@@ -354,7 +356,7 @@ export class Compiler implements Emitter {
     }
 
     for (const tsconfigFile of await Promise.all(
-      Array.from(dependencyNames).map(depName =>
+      Array.from(dependencyNames).map((depName) =>
         this.findMonorepoPeerTsconfig(depName),
       ),
     )) {
@@ -498,7 +500,7 @@ function _pathOfLibraries(
       )}`,
     );
   }
-  return COMPILER_OPTIONS.lib.map(name => path.join(lib, name));
+  return COMPILER_OPTIONS.lib.map((name) => path.join(lib, name));
 }
 
 /**
@@ -523,7 +525,7 @@ function parseConfigHostFromCompilerHost(
   // Copied from upstream
   // https://github.com/Microsoft/TypeScript/blob/9e05abcfd3f8bb3d6775144ede807daceab2e321/src/compiler/program.ts#L3105
   return {
-    fileExists: f => host.fileExists(f),
+    fileExists: (f) => host.fileExists(f),
     readDirectory(root, extensions, excludes, includes, depth) {
       if (host.readDirectory === undefined) {
         throw new Error(
@@ -532,16 +534,16 @@ function parseConfigHostFromCompilerHost(
       }
       return host.readDirectory(root, extensions, excludes, includes, depth);
     },
-    readFile: f => host.readFile(f),
+    readFile: (f) => host.readFile(f),
     useCaseSensitiveFileNames: host.useCaseSensitiveFileNames(),
-    trace: host.trace ? s => host.trace!(s) : undefined,
+    trace: host.trace ? (s) => host.trace!(s) : undefined,
   };
 }
 
 function emitHasErrors(result: ts.EmitResult, includeWarnings?: boolean) {
   return (
     result.diagnostics.some(
-      d =>
+      (d) =>
         d.category === ts.DiagnosticCategory.Error ||
         (includeWarnings && d.category === ts.DiagnosticCategory.Warning),
     ) || result.emitSkipped

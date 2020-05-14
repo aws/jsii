@@ -19,12 +19,12 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
   const visited = new Set<string>();
 
   const toVisit = directories.length > 0 ? directories : ['.'];
-  await Promise.all(toVisit.map(dir => visitPackage(dir, true)));
+  await Promise.all(toVisit.map((dir) => visitPackage(dir, true)));
 
   return topologicalSort(
     ret,
-    m => m.name,
-    m => m.dependencyNames,
+    (m) => m.name,
+    (m) => m.dependencyNames,
   );
 
   async function visitPackage(dir: string, isRoot: boolean) {
@@ -61,8 +61,8 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
     if (recurse) {
       await Promise.all(
         dependencyNames
-          .map(dep => resolveDependencyDirectory(realPath, dep))
-          .map(depDir => visitPackage(depDir, false)),
+          .map((dep) => resolveDependencyDirectory(realPath, dep))
+          .map((depDir) => visitPackage(depDir, false)),
       );
     }
 
@@ -85,7 +85,7 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
 
 export async function updateAllNpmIgnores(packages: JsiiModule[]) {
   await Promise.all(
-    packages.map(pkg =>
+    packages.map((pkg) =>
       updateNpmIgnore(pkg.moduleDirectory, pkg.outputDirectory),
     ),
   );
@@ -132,7 +132,7 @@ async function updateNpmIgnore(
   }
 
   function includePattern(comment: string, ...patterns: string[]) {
-    excludePattern(comment, ...patterns.map(p => `!${p}`));
+    excludePattern(comment, ...patterns.map((p) => `!${p}`));
   }
 
   function excludePattern(comment: string, ...patterns: string[]) {

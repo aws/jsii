@@ -36,7 +36,7 @@ describe(Compiler, () => {
         // Ignore watch status reporting (not to pollute test console output)
         reportWatchStatus: () => null,
         // Verify everything goes according to plan
-        compilationComplete: async emitResult => {
+        compilationComplete: async (emitResult) => {
           try {
             expect(emitResult.emitSkipped).toBeFalsy();
             const output = await readFile(join(sourceDir, '.jsii'), {

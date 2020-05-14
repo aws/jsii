@@ -116,7 +116,7 @@ export async function findLocalBuildDirs(
 
     // now descend to dependencies
     await Promise.all(
-      Object.keys(pkg.dependencies ?? {}).map(dependencyName => {
+      Object.keys(pkg.dependencies ?? {}).map((dependencyName) => {
         const dependencyDir = resolveDependencyDirectory(
           packageDir,
           dependencyName,

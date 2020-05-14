@@ -7,7 +7,7 @@ async function main() {
     .usage(
       '$0 [JSII-FILE | MODULE-DIR...]',
       'Prints an ASCII tree representation of a jsii type system.',
-      args =>
+      (args) =>
         args
           .positional('JSII-FILE', {
             type: 'string',
@@ -89,7 +89,7 @@ async function main() {
   }
 
   await Promise.all(
-    ((options.jsiiFile as string[]) ?? []).map(fileOrDirectory =>
+    ((options.jsiiFile as string[]) ?? []).map((fileOrDirectory) =>
       typesys.load(fileOrDirectory, { validate: options.validate }),
     ),
   );
@@ -108,7 +108,7 @@ async function main() {
   tst.printTree();
 }
 
-main().catch(e => {
+main().catch((e) => {
   console.log(colors.red(e));
   process.exit(1);
 });

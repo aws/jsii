@@ -10,7 +10,9 @@ export function typeWithoutUndefinedUnion(
   if (!type || !type.isUnion()) {
     return type;
   }
-  const remaining = type.types.filter(t => t.flags !== ts.TypeFlags.Undefined);
+  const remaining = type.types.filter(
+    (t) => t.flags !== ts.TypeFlags.Undefined,
+  );
   if (remaining.length > 1) {
     return undefined;
   }
@@ -75,7 +77,7 @@ export function mapElementType(
     if (type.symbol.name === '__object') {
       // Derived map type from object literal: typeof({ k: "value" })
       // For every property, get the node that created it (PropertyAssignment), and get the type of the initializer of that node
-      const initializerTypes = type.getProperties().map(p => {
+      const initializerTypes = type.getProperties().map((p) => {
         if (ts.isPropertyAssignment(p.valueDeclaration)) {
           return renderer.typeOfExpression(p.valueDeclaration.initializer);
         }
@@ -96,7 +98,7 @@ export function inferMapElementType(
   renderer: AstRenderer<any>,
 ): ts.Type | undefined {
   return typeIfSame(
-    elements.map(el =>
+    elements.map((el) =>
       ts.isPropertyAssignment(el)
         ? renderer.typeOfExpression(el.initializer)
         : undefined,

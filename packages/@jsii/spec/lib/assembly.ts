@@ -162,6 +162,14 @@ export interface AssemblyConfiguration extends Targetable {
  */
 export interface Targetable {
   /**
+   * Submodules defined in this assembly, if any, associated with their
+   * designated targets configuration.
+   *
+   * @default none
+   */
+  submodules?: { [fqn: string]: { targets?: AssemblyTargets } };
+
+  /**
    * A map of target name to configuration, which is used when generating
    * packages for various languages.
    *

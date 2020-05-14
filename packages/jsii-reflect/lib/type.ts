@@ -107,10 +107,10 @@ export abstract class Type implements Documentable, SourceLocatable {
       (this.isInterfaceType() || this.isClassType()) &&
       base.isInterfaceType()
     ) {
-      return this.getInterfaces(true).some(iface => iface === base);
+      return this.getInterfaces(true).some((iface) => iface === base);
     }
     if (this.isClassType() && base.isClassType()) {
-      return this.getAncestors().some(clazz => clazz === base);
+      return this.getAncestors().some((clazz) => clazz === base);
     }
     return false;
   }
@@ -128,8 +128,8 @@ export abstract class Type implements Documentable, SourceLocatable {
   public get allImplementations(): Type[] {
     if (this.isClassType() || this.isInterfaceType()) {
       return [
-        ...this.system.classes.filter(c => c.extends(this)),
-        ...this.system.interfaces.filter(i => i.extends(this)),
+        ...this.system.classes.filter((c) => c.extends(this)),
+        ...this.system.interfaces.filter((i) => i.extends(this)),
       ];
     }
     return [];

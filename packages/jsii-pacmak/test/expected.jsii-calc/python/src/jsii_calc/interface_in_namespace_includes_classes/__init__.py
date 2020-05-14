@@ -8,11 +8,6 @@ import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-import scope.jsii_calc_lib.submodule
-
 from .._jsii import *
 
 
@@ -22,7 +17,7 @@ class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncl
     :stability: experimental
     """
     def __init__(self) -> None:
-        jsii.create(jsii_calc.InterfaceInNamespaceIncludesClasses.Foo, self, [])
+        jsii.create(Foo, self, [])
 
     @builtins.property
     @jsii.member(jsii_name="bar")

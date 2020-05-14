@@ -77,8 +77,8 @@ export class Timers {
   }
 
   public display(): string {
-    const timers = this.timers.filter(t => t.isSet());
+    const timers = this.timers.filter((t) => t.isSet());
     timers.sort((a: Timer, b: Timer) => b.timeMs! - a.timeMs!);
-    return timers.map(t => `${t.label} (${t.humanTime()})`).join(' | ');
+    return timers.map((t) => `${t.label} (${t.humanTime()})`).join(' | ');
   }
 }

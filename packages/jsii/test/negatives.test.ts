@@ -30,13 +30,13 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
       const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
       expect(emitResult.emitSkipped).toBeTruthy();
       const errors = emitResult.diagnostics.filter(
-        diag =>
+        (diag) =>
           diag.category === ts.DiagnosticCategory.Error ||
           (strict && diag.category === ts.DiagnosticCategory.Warning),
       );
       for (const expectation of expectations) {
         expect(
-          errors.find(e => _messageText(e).includes(expectation)),
+          errors.find((e) => _messageText(e).includes(expectation)),
           `No error contained: ${expectation}. Errors: \n${errors
             .map((e, i) => `[${i}] ${e.messageText}`)
             .join('\n')}`,
@@ -45,7 +45,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
 
       // Cleaning up...
       return Promise.all(
-        (await fs.readdir(SOURCE_DIR)).map(file => {
+        (await fs.readdir(SOURCE_DIR)).map((file) => {
           const promises = new Array<Promise<any>>();
           if (
             file.startsWith('neg.') &&
@@ -73,9 +73,9 @@ async function _getExpectedErrorMessage(
   const data = await fs.readFile(file, { encoding: 'utf8' });
   const lines = data.split('\n');
   const matches = lines
-    .filter(line => line.startsWith(MATCH_ERROR_MARKER))
-    .map(line => line.substr(MATCH_ERROR_MARKER.length).trim());
-  const strict = lines.some(line => line.startsWith(STRICT_MARKER));
+    .filter((line) => line.startsWith(MATCH_ERROR_MARKER))
+    .map((line) => line.substr(MATCH_ERROR_MARKER.length).trim());
+  const strict = lines.some((line) => line.startsWith(STRICT_MARKER));
   return [matches, strict];
 }
 

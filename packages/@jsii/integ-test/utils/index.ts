@@ -65,7 +65,7 @@ export class ProcessManager {
     process.stdout.write(`Running command: ${cmdString}\n`);
 
     const promise = new Promise<void>((ok, ko) => {
-      proc.once('exit', code => {
+      proc.once('exit', (code) => {
         const message = `child process exited with code: ${code}\n`;
         if (code === 0) {
           process.stdout.write(message);
@@ -79,7 +79,7 @@ export class ProcessManager {
         this.remove(proc);
       });
 
-      proc.once('error', error => {
+      proc.once('error', (error) => {
         process.stderr.write(`Command failed: ${cmdString}\n`);
         process.stderr.write(`Process ${proc.pid} error: ${error}`);
         ko();

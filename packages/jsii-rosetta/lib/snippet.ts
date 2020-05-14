@@ -73,8 +73,8 @@ function parametersFromSourceDirectives(
     const paramClauses = m[1]
       .trim()
       .split(' ')
-      .map(s => s.trim())
-      .filter(s => s !== '');
+      .map((s) => s.trim())
+      .filter((s) => s !== '');
     return [rest, parseKeyValueList(paramClauses)];
   }
 

@@ -131,13 +131,13 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
   await timers.recordAsync('npm pack', () => {
     logging.info('Packaging NPM bundles');
-    return Promise.all(modulesToPackage.map(m => m.npmPack()));
+    return Promise.all(modulesToPackage.map((m) => m.npmPack()));
   });
 
   await timers.recordAsync('load jsii', () => {
     logging.info('Loading jsii assemblies and translations');
     return Promise.all(
-      modulesToPackage.map(async m => {
+      modulesToPackage.map(async (m) => {
         await m.load();
         await rosetta.addAssembly(m.assembly.spec, m.moduleDirectory);
       }),
@@ -145,14 +145,14 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
   });
 
   try {
-    const requestedTargets = argv.targets?.map(t => `${t}`);
+    const requestedTargets = argv.targets?.map((t) => `${t}`);
     const targetSets = sliceTargets(
       modulesToPackage,
       requestedTargets,
       argv['force-target'],
     );
 
-    if (targetSets.every(s => s.modules.length === 0)) {
+    if (targetSets.every((s) => s.modules.length === 0)) {
       throw new Error(
         `None of the requested packages had any targets to build for '${requestedTargets}' (use --force-target to force)`,
       );
@@ -163,7 +163,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
     // We run all target sets in parallel for minimal wall clock time
     await Promise.all(
-      targetSets.map(async targetSet => {
+      targetSets.map(async (targetSet) => {
         logging.info(
           `Packaging '${targetSet.targetType}' for ${describePackages(
             targetSet,
@@ -183,7 +183,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
     if (argv.clean) {
       logging.debug('Cleaning up');
       await timers.recordAsync('cleanup', () =>
-        Promise.all(modulesToPackage.map(m => m.cleanup())),
+        Promise.all(modulesToPackage.map((m) => m.cleanup())),
       );
     } else {
       logging.debug('Temporary directories retained (--no-clean)');
@@ -213,7 +213,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
       languageSubdirectory: perLanguageDirectory,
     }).buildModules();
   }
-})().catch(err => {
+})().catch((err) => {
   process.stderr.write(`${err.stack}\n`);
   process.exit(1);
 });
@@ -240,7 +240,7 @@ function sliceTargets(
     ret.push({
       targetType: target,
       modules: modules.filter(
-        m => force || m.availableTargets.includes(target),
+        (m) => force || m.availableTargets.includes(target),
       ),
     });
   }
@@ -260,7 +260,7 @@ function allAvailableTargets(modules: JsiiModule[]) {
 
 function describePackages(target: TargetSet) {
   if (target.modules.length > 0 && target.modules.length < 5) {
-    return target.modules.map(m => m.name).join(', ');
+    return target.modules.map((m) => m.name).join(', ');
   }
   return `${target.modules.length} modules`;
 }

@@ -39,7 +39,7 @@ export class InterfaceType extends ReferenceType {
     for (const iface of this.spec.interfaces) {
       const ifaceType = this.system.findInterface(iface);
       if (!result.has(ifaceType) && inherited) {
-        ifaceType.getInterfaces(inherited).forEach(i => result.add(i));
+        ifaceType.getInterfaces(inherited).forEach((i) => result.add(i));
       }
       result.add(ifaceType);
     }
@@ -84,9 +84,9 @@ export class InterfaceType extends ReferenceType {
       base,
       indexBy(
         (this.spec.properties ?? []).map(
-          p => new Property(this.system, this.assembly, parentType, this, p),
+          (p) => new Property(this.system, this.assembly, parentType, this, p),
         ),
-        p => p.name,
+        (p) => p.name,
       ),
     );
   }
@@ -105,9 +105,9 @@ export class InterfaceType extends ReferenceType {
       base,
       indexBy(
         (this.spec.methods ?? []).map(
-          m => new Method(this.system, this.assembly, parentType, this, m),
+          (m) => new Method(this.system, this.assembly, parentType, this, m),
         ),
-        m => m.name,
+        (m) => m.name,
       ),
     );
   }

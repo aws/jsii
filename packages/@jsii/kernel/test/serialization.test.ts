@@ -40,7 +40,7 @@ describe(SerializationClass.Any, () => {
     }
   }
 
-  beforeEach(done => {
+  beforeEach((done) => {
     (host.recurse as jest.Mock<any, any>).mockImplementation(
       (x: any, type: OptionalValue) => {
         expect(type).toEqual(TYPE_ANY);
@@ -125,8 +125,8 @@ describe(SerializationClass.Scalar, () => {
         }
 
         const invalidValues = scalarTypes
-          .filter(t => t.name !== example.name)
-          .map(t => t.validValues)
+          .filter((t) => t.name !== example.name)
+          .map((t) => t.validValues)
           .reduce((acc, elt) => [...acc, ...elt], new Array<any>());
         for (const invalidValue of invalidValues) {
           test(`rejects: ${invalidValue}`, () =>

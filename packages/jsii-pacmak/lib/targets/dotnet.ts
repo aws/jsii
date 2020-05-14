@@ -35,7 +35,7 @@ export class DotnetBuilder implements TargetBuilder {
     if (this.options.codeOnly) {
       // Simple, just generate code to respective output dirs
       await Promise.all(
-        this.modules.map(module =>
+        this.modules.map((module) =>
           this.generateModuleCode(
             module,
             this.outputDir(module.outputDirectory),
@@ -64,7 +64,7 @@ export class DotnetBuilder implements TargetBuilder {
     } catch (e) {
       logging.warn(
         `Exception occurred, not cleaning up ${scratchDirs.map(
-          s => s.directory,
+          (s) => s.directory,
         )}`,
       );
       throw e;
@@ -81,7 +81,7 @@ export class DotnetBuilder implements TargetBuilder {
       const ret: TemporaryDotnetPackage[] = [];
 
       // Code generator will make its own subdirectory
-      const generatedModules = modules.map(mod =>
+      const generatedModules = modules.map((mod) =>
         this.generateModuleCode(mod, tmpDir).then(() => mod),
       );
 
@@ -153,7 +153,7 @@ export class DotnetBuilder implements TargetBuilder {
     // This enables building against local modules.
     const allDepsOutputDirs = new Set<string>();
 
-    const resolvedModules = this.modules.map(async module => ({
+    const resolvedModules = this.modules.map(async (module) => ({
       module,
       localBuildDirs: await findLocalBuildDirs(
         module.moduleDirectory,
@@ -220,7 +220,7 @@ export class DotnetBuilder implements TargetBuilder {
         arguments: this.options.arguments,
         rosetta: this.options.rosetta,
       },
-      this.modules.map(m => m.name),
+      this.modules.map((m) => m.name),
     );
   }
 }

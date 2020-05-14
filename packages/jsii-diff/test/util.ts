@@ -21,7 +21,7 @@ export async function expectError(
 
   const msgs = Array.from(mms.messages());
   expect(
-    msgs.some(m => error.test(m)),
+    msgs.some((m) => error.test(m)),
     `Expected error like ${error}, got ${msgs}`,
   ).toBeTruthy();
 }

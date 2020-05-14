@@ -327,7 +327,7 @@ export abstract class Generator implements IGenerator {
     const visitChildren = () => {
       Object.keys(node.children)
         .sort()
-        .forEach(name => {
+        .forEach((name) => {
           this.visit(node.children[name], names.concat(name));
         });
     };
@@ -446,13 +446,13 @@ export abstract class Generator implements IGenerator {
 
   private visitInterface(ifc: spec.InterfaceType) {
     if (ifc.properties) {
-      ifc.properties.forEach(prop => {
+      ifc.properties.forEach((prop) => {
         this.onInterfaceProperty(ifc, prop);
       });
     }
 
     if (ifc.methods) {
-      ifc.methods.forEach(method => {
+      ifc.methods.forEach((method) => {
         this.onInterfaceMethod(ifc, method);
 
         for (const overload of this.createOverloadsForOptionals(method)) {
@@ -476,7 +476,7 @@ export abstract class Generator implements IGenerator {
     // if running in 'pure' mode and the class has methods, emit them as abstract methods.
     if (cls.methods) {
       this.onBeginMethods(cls);
-      cls.methods.forEach(method => {
+      cls.methods.forEach((method) => {
         if (!method.static) {
           this.onMethod(cls, method);
 
@@ -496,7 +496,7 @@ export abstract class Generator implements IGenerator {
 
     if (cls.properties) {
       this.onBeginProperties(cls);
-      cls.properties.forEach(prop => {
+      cls.properties.forEach((prop) => {
         if (this.hasField(cls, prop)) {
           this.onField(
             cls,
@@ -506,7 +506,7 @@ export abstract class Generator implements IGenerator {
         }
       });
 
-      cls.properties.forEach(prop => {
+      cls.properties.forEach((prop) => {
         if (!spec.isUnionTypeReference(prop.type)) {
           if (!prop.static) {
             this.onProperty(cls, prop);
@@ -564,7 +564,7 @@ export abstract class Generator implements IGenerator {
 
     return (
       index ===
-      ref.union.types.findIndex(t => {
+      ref.union.types.findIndex((t) => {
         if (spec.isPrimitiveTypeReference(t)) {
           return true;
         }
@@ -576,7 +576,7 @@ export abstract class Generator implements IGenerator {
 
   private visitEnum(enumSpec: spec.EnumType) {
     if (enumSpec.members) {
-      enumSpec.members.forEach(spec => this.onEnumMember(enumSpec, spec));
+      enumSpec.members.forEach((spec) => this.onEnumMember(enumSpec, spec));
     }
   }
 
@@ -603,7 +603,7 @@ export abstract class Generator implements IGenerator {
 
     const union = spec.isUnionTypeReference(type) && type.union;
     if (union) {
-      return union.types.map(t => this.displayNameForType(t)).join('Or');
+      return union.types.map((t) => this.displayNameForType(t)).join('Or');
     }
 
     throw new Error(

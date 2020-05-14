@@ -70,7 +70,7 @@ export class StructureRenderer implements CommonMarkRenderer {
   private handle(name: string, node: cm.Node, context: RendererContext) {
     const contents = context.content();
 
-    const enterText = [name, inspectNode(node)].filter(x => x).join(' ');
+    const enterText = [name, inspectNode(node)].filter((x) => x).join(' ');
 
     if (contents) {
       return `(${enterText}\n${prefixLines('  ', contents)})\n`;

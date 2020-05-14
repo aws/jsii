@@ -54,7 +54,7 @@ export class JsiiModule {
    * Prepare an NPM package from this source module
    */
   public async npmPack() {
-    this._tarball = await Scratch.make(async tmpdir => {
+    this._tarball = await Scratch.make(async (tmpdir) => {
       logging.debug(`Running "npm pack ${this.moduleDirectory}" in ${tmpdir}`);
       const args = ['pack', this.moduleDirectory];
       if (logging.level >= logging.LEVEL_VERBOSE) {

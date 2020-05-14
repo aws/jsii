@@ -27,7 +27,7 @@ export abstract class Callable
    */
   public get parameters(): Parameter[] {
     return (this.spec.parameters ?? []).map(
-      p => new Parameter(this.system, this.parentType, this, p),
+      (p) => new Parameter(this.system, this.parentType, this, p),
     );
   }
 

@@ -87,7 +87,7 @@ export class TypeSystemTree extends AsciiTree {
       if (typesys.assemblies.length > 0) {
         const assemblies = new TitleNode('assemblies');
         assemblies.add(
-          ...typesys.assemblies.map(a => new AssemblyNode(a, options)),
+          ...typesys.assemblies.map((a) => new AssemblyNode(a, options)),
         );
         this.add(assemblies);
       }
@@ -103,7 +103,7 @@ class AssemblyNode extends AsciiTree {
       const deps = new TitleNode('dependencies');
       this.add(deps);
       deps.add(
-        ...assembly.dependencies.map(d => new DependencyNode(d, options)),
+        ...assembly.dependencies.map((d) => new DependencyNode(d, options)),
       );
     }
 
@@ -111,15 +111,17 @@ class AssemblyNode extends AsciiTree {
     if (submodules.length > 0) {
       const title = new TitleNode('submodules');
       this.add(title);
-      title.add(...submodules.map(s => new SubmoduleNode(s, options)));
+      title.add(...submodules.map((s) => new SubmoduleNode(s, options)));
     }
 
     if (options.types) {
       const types = new TitleNode('types');
       this.add(types);
-      types.add(...assembly.classes.map(c => new ClassNode(c, options)));
-      types.add(...assembly.interfaces.map(c => new InterfaceNode(c, options)));
-      types.add(...assembly.enums.map(c => new EnumNode(c, options)));
+      types.add(...assembly.classes.map((c) => new ClassNode(c, options)));
+      types.add(
+        ...assembly.interfaces.map((c) => new InterfaceNode(c, options)),
+      );
+      types.add(...assembly.enums.map((c) => new EnumNode(c, options)));
     }
   }
 }
@@ -132,24 +134,24 @@ class SubmoduleNode extends AsciiTree {
     if (submodules.length > 0) {
       const title = new TitleNode('submodules');
       this.add(title);
-      title.add(...submodules.map(s => new SubmoduleNode(s, options)));
+      title.add(...submodules.map((s) => new SubmoduleNode(s, options)));
     }
 
     if (options.types) {
       const types = new TitleNode('types');
       this.add(types);
-      types.add(...submodule.classes.map(c => new ClassNode(c, options)));
+      types.add(...submodule.classes.map((c) => new ClassNode(c, options)));
       types.add(
-        ...submodule.interfaces.map(i => new InterfaceNode(i, options)),
+        ...submodule.interfaces.map((i) => new InterfaceNode(i, options)),
       );
-      types.add(...submodule.enums.map(e => new EnumNode(e, options)));
+      types.add(...submodule.enums.map((e) => new EnumNode(e, options)));
     }
   }
 }
 
 class MethodNode extends AsciiTree {
   public constructor(method: Method, options: TypeSystemTreeOptions) {
-    const args = method.parameters.map(p => p.name).join(',');
+    const args = method.parameters.map((p) => p.name).join(',');
     super(
       `${maybeStatic(method)}${method.name}(${args}) ${colors.gray(
         'method',
@@ -177,7 +179,7 @@ class MethodNode extends AsciiTree {
         const params = new TitleNode('parameters');
         this.add(params);
         params.add(
-          ...method.parameters.map(p => new ParameterNode(p, options)),
+          ...method.parameters.map((p) => new ParameterNode(p, options)),
         );
       }
 
@@ -192,7 +194,7 @@ class MethodNode extends AsciiTree {
 
 class InitializerNode extends AsciiTree {
   public constructor(initializer: Initializer, options: TypeSystemTreeOptions) {
-    const args = initializer.parameters.map(p => p.name).join(',');
+    const args = initializer.parameters.map((p) => p.name).join(',');
     super(
       `${initializer.name}(${args}) ${colors.gray(
         'initializer',
@@ -212,7 +214,7 @@ class InitializerNode extends AsciiTree {
         const params = new TitleNode('parameters');
         this.add(params);
         params.add(
-          ...initializer.parameters.map(p => new ParameterNode(p, options)),
+          ...initializer.parameters.map((p) => new ParameterNode(p, options)),
         );
       }
     }
@@ -295,7 +297,7 @@ class ClassNode extends AsciiTree {
       this.add(
         new KeyValueNode(
           'interfaces',
-          type.interfaces.map(i => i.name).join(','),
+          type.interfaces.map((i) => i.name).join(','),
         ),
       );
     }
@@ -306,8 +308,10 @@ class ClassNode extends AsciiTree {
       if (type.initializer) {
         members.add(new InitializerNode(type.initializer, options));
       }
-      members.add(...type.ownMethods.map(m => new MethodNode(m, options)));
-      members.add(...type.ownProperties.map(p => new PropertyNode(p, options)));
+      members.add(...type.ownMethods.map((m) => new MethodNode(m, options)));
+      members.add(
+        ...type.ownProperties.map((p) => new PropertyNode(p, options)),
+      );
     }
   }
 }
@@ -324,13 +328,15 @@ class InterfaceNode extends AsciiTree {
     if (options.inheritance && type.interfaces.length > 0) {
       const interfaces = new TitleNode('interfaces');
       this.add(interfaces);
-      interfaces.add(...type.interfaces.map(i => new TextNode(i.name)));
+      interfaces.add(...type.interfaces.map((i) => new TextNode(i.name)));
     }
 
     if (options.members) {
       const members = new TitleNode('members');
-      members.add(...type.ownMethods.map(m => new MethodNode(m, options)));
-      members.add(...type.ownProperties.map(p => new PropertyNode(p, options)));
+      members.add(...type.ownMethods.map((m) => new MethodNode(m, options)));
+      members.add(
+        ...type.ownProperties.map((p) => new PropertyNode(p, options)),
+      );
       this.add(members);
     }
   }
@@ -346,7 +352,7 @@ class EnumNode extends AsciiTree {
     );
 
     if (options.members) {
-      enumType.members.forEach(mem => {
+      enumType.members.forEach((mem) => {
         this.add(new AsciiTree(mem.name + describeStability(mem, options)));
       });
     }

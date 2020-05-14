@@ -20,13 +20,14 @@ export class TypeScriptCompiler {
     );
 
     return {
-      fileExists: filePath =>
+      fileExists: (filePath) =>
         filePath === sourcePath || realHost.fileExists(filePath),
       directoryExists: realHost.directoryExists?.bind(realHost),
       getCurrentDirectory: () =>
         currentDirectory || realHost.getCurrentDirectory(),
       getDirectories: realHost.getDirectories?.bind(realHost),
-      getCanonicalFileName: fileName => realHost.getCanonicalFileName(fileName),
+      getCanonicalFileName: (fileName) =>
+        realHost.getCanonicalFileName(fileName),
       getNewLine: realHost.getNewLine.bind(realHost),
       getDefaultLibFileName: realHost.getDefaultLibFileName.bind(realHost),
       getSourceFile: (
@@ -43,7 +44,7 @@ export class TypeScriptCompiler {
               onError,
               shouldCreateNewSourceFile,
             ),
-      readFile: filePath =>
+      readFile: (filePath) =>
         filePath === sourcePath ? sourceContents : realHost.readFile(filePath),
       useCaseSensitiveFileNames: () => realHost.useCaseSensitiveFileNames(),
       writeFile(_fileName, _data) {
@@ -74,7 +75,7 @@ export class TypeScriptCompiler {
 
     const rootFiles = program
       .getSourceFiles()
-      .filter(f => f.fileName === filename);
+      .filter((f) => f.fileName === filename);
     if (rootFiles.length === 0) {
       throw new Error("Oopsie -- couldn't find root file back");
     }

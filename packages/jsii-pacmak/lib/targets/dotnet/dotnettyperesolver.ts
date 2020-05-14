@@ -67,7 +67,7 @@ export class DotNetTypeResolver {
       }
       return `${dotnetNamespace}.${type.namespace
         .split('.')
-        .map(s => toPascalCase(s))
+        .map((s) => toPascalCase(s))
         .join('.')}.${typeName}`;
     }
     // When undefined, the type is located at the root of the assembly

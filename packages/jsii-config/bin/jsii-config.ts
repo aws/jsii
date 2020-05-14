@@ -40,7 +40,7 @@ main()
     console.log('Success!');
     process.exit(0);
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err.message);
     process.exit(100);
   });

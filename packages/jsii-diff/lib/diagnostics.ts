@@ -32,7 +32,7 @@ export function formatDiagnostic(
 }
 
 export function hasErrors(diags: Diagnostic[]) {
-  return diags.some(diag => diag.level === DiagLevel.Error);
+  return diags.some((diag) => diag.level === DiagLevel.Error);
 }
 
 /**
@@ -43,7 +43,7 @@ export function classifyDiagnostics(
   experimentalErrors: boolean,
   skipFilter: Set<string>,
 ): Diagnostic[] {
-  const ret = mismatches.mismatches.map(mis => ({
+  const ret = mismatches.mismatches.map((mis) => ({
     level: level(mis),
     message: mis.message,
     suppressionKey: mis.violationKey,

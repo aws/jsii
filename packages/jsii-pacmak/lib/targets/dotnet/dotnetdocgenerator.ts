@@ -45,7 +45,7 @@ export class DotNetDocGenerator {
     // Handling parameters only if the obj is a method
     const objMethod = obj as spec.Method;
     if (objMethod.parameters) {
-      objMethod.parameters.forEach(param => {
+      objMethod.parameters.forEach((param) => {
         // Remove any slug `@` from the parameter name - it's not supposed to show up here.
         const paramName = this.nameutils
           .convertParameterName(param.name)
@@ -71,7 +71,7 @@ export class DotNetDocGenerator {
     const remarks = this.renderRemarks(docs);
     if (remarks.length > 0) {
       this.code.line('/// <remarks>');
-      remarks.forEach(r => this.code.line(`/// ${r}`));
+      remarks.forEach((r) => this.code.line(`/// ${r}`));
       this.code.line('/// </remarks>');
     }
 
@@ -166,7 +166,7 @@ export class DotNetDocGenerator {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
       'csharp',
-      trans => ({
+      (trans) => ({
         language: trans.language,
         source: this.prefixDisclaimer(trans),
       }),
@@ -198,7 +198,7 @@ export class DotNetDocGenerator {
     }
     const xmlstring = xml.end({ allowEmpty: true, pretty: false });
 
-    for (const line of xmlstring.split('\n').map(x => x.trim())) {
+    for (const line of xmlstring.split('\n').map((x) => x.trim())) {
       this.code.line(`/// ${line}`);
     }
   }

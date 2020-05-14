@@ -20,7 +20,7 @@ export default function validatePackageJson(packageJson: any): BasePackageJson {
     throw new Error(
       // Not the prettiest way to control indentation on multiline strings
       `package.json is missing required fields:${'\n'}${missingKeys
-        .map(k => `- ${k}\n`)
+        .map((k) => `- ${k}\n`)
         .join(
           '',
         )}${''}run "npm init" or configure manually and retry jsii-config`,

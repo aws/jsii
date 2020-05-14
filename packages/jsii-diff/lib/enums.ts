@@ -10,7 +10,9 @@ export function compareEnum(
   compareStabilities(original, updated, context);
 
   for (const origMember of original.members) {
-    const updatedMember = updated.members.find(m => m.name === origMember.name);
+    const updatedMember = updated.members.find(
+      (m) => m.name === origMember.name,
+    );
     if (!updatedMember) {
       context.mismatches.report({
         ruleKey: 'removed',

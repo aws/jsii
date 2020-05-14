@@ -79,7 +79,7 @@ export function visitCommonMarkTree(node: cm.Node, visitor: CommonMarkVisitor) {
 export function prefixLines(prefix: string, x: string) {
   return x
     .split('\n')
-    .map(l => prefix + l)
+    .map((l) => prefix + l)
     .join('\n');
 }
 

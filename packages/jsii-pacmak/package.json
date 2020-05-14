@@ -67,7 +67,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "mock-fs": "^4.12.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.5",
     "typescript": "~3.8.3"
   },
   "keywords": [

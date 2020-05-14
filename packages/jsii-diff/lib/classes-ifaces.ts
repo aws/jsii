@@ -126,9 +126,9 @@ function noNewAbstractMembers<T extends reflect.ReferenceType>(
   context: ComparisonContext,
 ) {
   const absMemberNames = new Set(
-    updated.allMembers.filter(m => m.abstract).map(m => m.name),
+    updated.allMembers.filter((m) => m.abstract).map((m) => m.name),
   );
-  const originalMemberNames = new Set(original.allMembers.map(m => m.name));
+  const originalMemberNames = new Set(original.allMembers.map((m) => m.name));
   for (const name of absMemberNames) {
     if (!originalMemberNames.has(name)) {
       context.mismatches.report({
@@ -334,7 +334,7 @@ function* memberPairs<
     LOG.trace(`${origClass.fqn}#${origMember.name}`);
 
     const updatedMember = updatedClass.allMembers.find(
-      m => m.name === origMember.name,
+      (m) => m.name === origMember.name,
     );
     if (!updatedMember) {
       context.mismatches.report({

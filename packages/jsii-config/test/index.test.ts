@@ -66,7 +66,7 @@ describe('jsii-config', () => {
       'author',
     ];
 
-    requiredNpmFields.forEach(field => {
+    requiredNpmFields.forEach((field) => {
       it(`warns user on missing ${field} in package.json and exits`, async () => {
         mockMissingField(field);
         await expect(jsiiConfig('./package.json')).rejects.toThrow(
@@ -280,7 +280,7 @@ describe('jsii-config', () => {
       'jsii.targets.dotnet.namespace',
       'jsii.targets.dotnet.packageId',
       'jsii.targets.dotnet.assemblyOriginatorKeyFile',
-    ].forEach(field => {
+    ].forEach((field) => {
       it(`shows error message when empty ${field} is submitted`, async () => {
         await jsiiConfig('./package.json');
         const questions = promptMock.mock.calls[0][0];

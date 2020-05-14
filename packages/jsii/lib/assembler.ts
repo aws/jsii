@@ -149,7 +149,7 @@ export class Assembler implements Emitter {
     // Skip emitting if any diagnostic message is an error
     if (
       this._diagnostics.find(
-        diag => diag.category === ts.DiagnosticCategory.Error,
+        (diag) => diag.category === ts.DiagnosticCategory.Error,
       ) != null
     ) {
       LOG.debug('Skipping emit due to errors.');
@@ -270,14 +270,14 @@ export class Assembler implements Emitter {
       cb();
       return;
     }
-    const baseFqns = baseTypes.map(bt =>
+    const baseFqns = baseTypes.map((bt) =>
       typeof bt === 'string' ? bt : bt.fqn,
     );
 
     this._defer(fqn, baseFqns, () => {
       const resolved = baseFqns
-        .map(x => this._dereference(x, referencingNode))
-        .filter(x => x !== undefined);
+        .map((x) => this._dereference(x, referencingNode))
+        .filter((x) => x !== undefined);
       if (resolved.length > 0) {
         cb(...(resolved as spec.Type[]));
       }
@@ -321,7 +321,7 @@ export class Assembler implements Emitter {
       type = this._types[ref];
     } else {
       const assembly = this.projectInfo.dependencyClosure.find(
-        dep => dep.name === assm,
+        (dep) => dep.name === assm,
       );
       type = assembly?.types?.[ref];
 
@@ -788,7 +788,7 @@ export class Assembler implements Emitter {
         ]),
       );
       const colliding = candidates.find(
-        name => `${this.projectInfo.name}.${name}` === jsiiType!.fqn,
+        (name) => `${this.projectInfo.name}.${name}` === jsiiType!.fqn,
       );
       if (colliding != null) {
         const submoduleDecl =
@@ -828,8 +828,8 @@ export class Assembler implements Emitter {
       const nestedContext = context.appendNamespace(type.symbol.name);
       const visitedNodes = this._typeChecker
         .getExportsOfModule(type.symbol)
-        .filter(s => s.declarations)
-        .map(exportedNode =>
+        .filter((s) => s.declarations)
+        .map((exportedNode) =>
           this._visitNode(exportedNode.declarations[0], nestedContext),
         );
       for (const nestedTypes of await Promise.all(visitedNodes)) {
@@ -884,7 +884,7 @@ export class Assembler implements Emitter {
 
     processBaseTypes(baseTypes);
 
-    const typeRefs = Array.from(baseInterfaces).map(async iface => {
+    const typeRefs = Array.from(baseInterfaces).map(async (iface) => {
       const decl = iface.symbol.valueDeclaration;
       const typeRef = await this._typeReference(iface, decl);
       return { decl, typeRef };
@@ -901,7 +901,7 @@ export class Assembler implements Emitter {
         continue;
       }
 
-      this._deferUntilTypesAvailable(fqn, [typeRef], decl, deref => {
+      this._deferUntilTypesAvailable(fqn, [typeRef], decl, (deref) => {
         if (!spec.isInterfaceType(deref)) {
           this._diagnostic(
             decl,
@@ -1005,7 +1005,7 @@ export class Assembler implements Emitter {
         fqn,
         [ref],
         base.symbol.valueDeclaration,
-        deref => {
+        (deref) => {
           if (!spec.isClassType(deref)) {
             this._diagnostic(
               base.symbol.valueDeclaration,
@@ -1027,7 +1027,7 @@ export class Assembler implements Emitter {
     // erased base types (because otherwise we lose them, see jsii#487)
     const implementsClauses = new Array<ts.HeritageClause>();
     for (const heritage of [type, ...erasedBases].map(
-      t =>
+      (t) =>
         (t.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses ??
         [],
     )) {
@@ -1050,10 +1050,10 @@ export class Assembler implements Emitter {
 
     // process all "implements" clauses
     const allInterfaces = new Set<string>();
-    const baseInterfaces = implementsClauses.map(clause =>
+    const baseInterfaces = implementsClauses.map((clause) =>
       this._processBaseInterfaces(
         fqn,
-        clause.types.map(t => this._getTypeFromTypeNode(t)),
+        clause.types.map((t) => this._getTypeFromTypeNode(t)),
       ),
     );
     for (const { interfaces } of await Promise.all(baseInterfaces)) {
@@ -1091,12 +1091,12 @@ export class Assembler implements Emitter {
     const allDeclarations: Array<{
       decl: ts.Declaration;
       type: ts.InterfaceType | ts.BaseType;
-    }> = type.symbol.declarations.map(decl => ({ decl, type }));
+    }> = type.symbol.declarations.map((decl) => ({ decl, type }));
 
     // Considering erased bases' declarations, too, so they are "blended in"
     for (const base of erasedBases) {
       allDeclarations.push(
-        ...base.symbol.declarations.map(decl => ({ decl, type: base })),
+        ...base.symbol.declarations.map((decl) => ({ decl, type: base })),
       );
     }
 
@@ -1114,7 +1114,7 @@ export class Assembler implements Emitter {
 
         if (
           !(declaringType.symbol.getDeclarations() ?? []).find(
-            d => d === memberDecl.parent,
+            (d) => d === memberDecl.parent,
           )
         ) {
           continue;
@@ -1169,7 +1169,7 @@ export class Assembler implements Emitter {
     // Find the first defined constructor in this class, or it's erased bases
     const constructor = [type, ...erasedBases]
       .map(getConstructor)
-      .find(ctor => ctor != null);
+      .find((ctor) => ctor != null);
     const ctorDeclaration =
       constructor && (constructor.declarations[0] as ts.ConstructorDeclaration);
     if (constructor && ctorDeclaration) {
@@ -1195,7 +1195,7 @@ export class Assembler implements Emitter {
               ),
             );
             jsiiType.initializer.variadic =
-              jsiiType.initializer?.parameters?.some(p => !!p.variadic) ||
+              jsiiType.initializer?.parameters?.some((p) => !!p.variadic) ||
               undefined;
             jsiiType.initializer.protected =
               (ts.getCombinedModifierFlags(ctorDeclaration) &
@@ -1233,7 +1233,7 @@ export class Assembler implements Emitter {
         fqn,
         [jsiiType.base],
         type.symbol.valueDeclaration,
-        baseType => {
+        (baseType) => {
           if (spec.isClassType(baseType)) {
             jsiiType.initializer = baseType.initializer;
           } else {
@@ -1279,14 +1279,14 @@ export class Assembler implements Emitter {
     const statics = new Set(
       (klass.methods ?? [])
         .concat(klass.properties ?? [])
-        .filter(x => x.static)
-        .map(x => x.name),
+        .filter((x) => x.static)
+        .map((x) => x.name),
     );
     const nonStatics = new Set(
       (klass.methods ?? [])
         .concat(klass.properties ?? [])
-        .filter(x => !x.static)
-        .map(x => x.name),
+        .filter((x) => !x.static)
+        .map((x) => x.name),
     );
     // Intersect
     for (const member of intersect(statics, nonStatics)) {
@@ -1338,7 +1338,7 @@ export class Assembler implements Emitter {
     cb: (base: spec.ClassType, recurse: () => void) => void,
   ) {
     if (klass.base) {
-      this._deferUntilTypesAvailable(klass.fqn, [klass.base], decl, base => {
+      this._deferUntilTypesAvailable(klass.fqn, [klass.base], decl, (base) => {
         if (!spec.isClassType(base)) {
           throw new Error('Oh no');
         }
@@ -1446,7 +1446,7 @@ export class Assembler implements Emitter {
         symbol.name
       }`,
       kind: spec.TypeKind.Enum,
-      members: members.map(m => ({
+      members: members.map((m) => ({
         name: m.symbol.name,
         docs: this._visitDocumentation(m.symbol, typeContext),
       })),
@@ -1476,7 +1476,9 @@ export class Assembler implements Emitter {
       result.docs.stability = context.stability;
     }
 
-    const allUndefined = Object.values(result.docs).every(v => v === undefined);
+    const allUndefined = Object.values(result.docs).every(
+      (v) => v === undefined,
+    );
     return !allUndefined ? result.docs : undefined;
   }
 
@@ -1488,7 +1490,7 @@ export class Assembler implements Emitter {
     methodSym: ts.Symbol,
   ) {
     const params = getReferencedDocParams(methodSym);
-    const actualNames = new Set((method.parameters ?? []).map(p => p.name));
+    const actualNames = new Set((method.parameters ?? []).map((p) => p.name));
     for (const param of params) {
       if (!actualNames.has(param)) {
         this._diagnostic(
@@ -1535,13 +1537,13 @@ export class Assembler implements Emitter {
       fqn,
       type.getBaseTypes(),
     );
-    jsiiType.interfaces = apply(interfaces, arr => arr.map(i => i.fqn));
+    jsiiType.interfaces = apply(interfaces, (arr) => arr.map((i) => i.fqn));
 
     for (const declaringType of [type, ...erasedBases]) {
       for (const member of declaringType.getProperties()) {
         if (
           !(declaringType.symbol.getDeclarations() ?? []).find(
-            decl => decl === member.valueDeclaration.parent,
+            (decl) => decl === member.valueDeclaration.parent,
           )
         ) {
           continue;
@@ -1727,7 +1729,7 @@ export class Assembler implements Emitter {
     this._warnAboutReservedWords(symbol);
 
     const parameters = await Promise.all(
-      signature.getParameters().map(p => this._toParameter(p, ctx)),
+      signature.getParameters().map((p) => this._toParameter(p, ctx)),
     );
 
     const returnType = signature.getReturnType();
@@ -1743,7 +1745,7 @@ export class Assembler implements Emitter {
       static: _isStatic(symbol) || undefined,
       locationInModule: this.declarationLocation(declaration),
     };
-    method.variadic = method.parameters?.some(p => !!p.variadic) || undefined;
+    method.variadic = method.parameters?.some((p) => !!p.variadic) || undefined;
 
     this._verifyConsecutiveOptionals(declaration, method.parameters);
 
@@ -1752,14 +1754,14 @@ export class Assembler implements Emitter {
     // If the last parameter is a datatype, verify that it does not share any field names with
     // other function arguments, so that it can be turned into keyword arguments by jsii frontends
     // that support such.
-    const lastParamTypeRef = apply(last(parameters), x => x.type);
+    const lastParamTypeRef = apply(last(parameters), (x) => x.type);
     const lastParamSymbol = last(signature.getParameters());
     if (lastParamTypeRef && spec.isNamedTypeReference(lastParamTypeRef)) {
       this._deferUntilTypesAvailable(
         symbol.name,
         [lastParamTypeRef],
         lastParamSymbol!.declarations[0],
-        lastParamType => {
+        (lastParamType) => {
           if (!spec.isInterfaceType(lastParamType) || !lastParamType.datatype) {
             return;
           }
@@ -1767,7 +1769,7 @@ export class Assembler implements Emitter {
           // Liftable datatype, make sure no parameter names match any of the properties in the datatype
           const propNames = this.allProperties(lastParamType);
           const paramNames = new Set(
-            parameters.slice(0, parameters.length - 1).map(x => x.name),
+            parameters.slice(0, parameters.length - 1).map((x) => x.name),
           );
           const sharedNames = intersection(propNames, paramNames);
 
@@ -1789,7 +1791,7 @@ export class Assembler implements Emitter {
     type.methods = type.methods ?? [];
     if (
       type.methods.find(
-        m => m.name === method.name && m.static === method.static,
+        (m) => m.name === method.name && m.static === method.static,
       ) != null
     ) {
       LOG.trace(
@@ -1826,7 +1828,7 @@ export class Assembler implements Emitter {
     type: spec.ClassType | spec.InterfaceType,
     ctx: EmitContext,
   ) {
-    if (type.properties?.find(p => p.name === symbol.name)) {
+    if (type.properties?.find((p) => p.name === symbol.name)) {
       /*
        * Second declaration of the same property. For example, if code specifies a getter & setter signature,
        * there will be one pass for each of the signatures, but we can process only the first encountered. The
@@ -1873,7 +1875,7 @@ export class Assembler implements Emitter {
     if (ts.isGetAccessor(signature)) {
       const decls = symbol.getDeclarations() ?? [];
       property.immutable =
-        !decls.some(decl => ts.isSetAccessor(decl)) || undefined;
+        !decls.some((decl) => ts.isSetAccessor(decl)) || undefined;
     } else {
       property.immutable =
         (ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !==
@@ -1898,7 +1900,8 @@ export class Assembler implements Emitter {
     type.properties = type.properties ?? [];
     if (
       type.properties.find(
-        prop => prop.name === property.name && prop.static === property.static,
+        (prop) =>
+          prop.name === property.name && prop.static === property.static,
       ) != null
     ) {
       LOG.trace(
@@ -2117,7 +2120,7 @@ export class Assembler implements Emitter {
         }
         // eslint-disable-next-line no-await-in-loop
         const resolvedType = await this._typeReference(subType, declaration);
-        if (types.find(ref => deepEqual(ref, resolvedType)) != null) {
+        if (types.find((ref) => deepEqual(ref, resolvedType)) != null) {
           continue;
         }
         types.push(resolvedType);
@@ -2135,7 +2138,7 @@ export class Assembler implements Emitter {
       // All fqns in dependency lists that don't have any pending
       // deferreds themselves can be executed now, so are removed from
       // dependency lists.
-      const pendingFqns = new Set<string>(this._deferred.map(x => x.fqn));
+      const pendingFqns = new Set<string>(this._deferred.map((x) => x.fqn));
       for (const deferred of this._deferred) {
         restrictDependenciesTo(deferred, pendingFqns);
       }
@@ -2213,7 +2216,7 @@ export class Assembler implements Emitter {
     while (remaining.length > 0) {
       const current = remaining.pop()!;
       if (current.optional) {
-        const offender = remaining.find(p => !p.optional && !p.variadic);
+        const offender = remaining.find((p) => !p.optional && !p.variadic);
         if (offender == null) {
           continue;
         }
@@ -2460,7 +2463,7 @@ function intersection<T>(xs: Set<T>, ys: Set<T>): Set<T> {
  * Returns empty string for a non-interface type.
  */
 function memberNames(jsiiType: spec.InterfaceType | spec.ClassType): string[] {
-  return Object.keys(typeMembers(jsiiType)).filter(n => n !== '');
+  return Object.keys(typeMembers(jsiiType)).filter((n) => n !== '');
 }
 
 function typeMembers(
@@ -2616,7 +2619,7 @@ async function flattenPromises<T>(promises: Array<Promise<T[]>>): Promise<T[]> {
 function inferRootDir(program: ts.Program): string | undefined {
   const directories = program
     .getRootFileNames()
-    .filter(fileName => {
+    .filter((fileName) => {
       const sourceFile = program.getSourceFile(fileName);
       return (
         sourceFile != null &&
@@ -2624,18 +2627,18 @@ function inferRootDir(program: ts.Program): string | undefined {
         !program.isSourceFileDefaultLibrary(sourceFile)
       );
     })
-    .map(fileName =>
+    .map((fileName) =>
       path.relative(program.getCurrentDirectory(), path.dirname(fileName)),
     )
     .map(segmentPath);
 
   const maxPrefix = Math.min(
-    ...directories.map(segments => segments.length - 1),
+    ...directories.map((segments) => segments.length - 1),
   );
   let commonIndex = -1;
   while (
     commonIndex < maxPrefix &&
-    new Set(directories.map(segments => segments[commonIndex + 1])).size === 1
+    new Set(directories.map((segments) => segments[commonIndex + 1])).size === 1
   ) {
     commonIndex++;
   }

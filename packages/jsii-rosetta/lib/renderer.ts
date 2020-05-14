@@ -563,7 +563,7 @@ export function nimpl<C>(
   context: AstRenderer<C>,
   options: { additionalInfo?: string } = {},
 ) {
-  const children = nodeChildren(node).map(c => context.convert(c));
+  const children = nodeChildren(node).map((c) => context.convert(c));
 
   let syntaxKind = ts.SyntaxKind[node.kind];
   if (syntaxKind === 'FirstPunctuation') {
@@ -606,7 +606,7 @@ interface ClassifiedNode {
 
 function filterVisible(nodes: readonly ts.Node[]): ts.Node[] {
   return assignVisibility(nodes)
-    .map(c => (c.visible ? c.node : c.maskingVoid))
+    .map((c) => (c.visible ? c.node : c.maskingVoid))
     .filter(notUndefined);
 }
 

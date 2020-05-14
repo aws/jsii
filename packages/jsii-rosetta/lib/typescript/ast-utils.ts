@@ -9,7 +9,7 @@ export interface MarkedSpan {
 }
 
 export function calculateVisibleSpans(source: string): Span[] {
-  return calculateMarkedSpans(source).filter(s => s.visible);
+  return calculateMarkedSpans(source).filter((s) => s.visible);
 }
 
 export function calculateMarkedSpans(source: string): MarkedSpan[] {
@@ -40,7 +40,7 @@ export function calculateMarkedSpans(source: string): MarkedSpan[] {
   ret.push({ start: spanStart || 0, end: source.length, visible });
 
   // Filter empty spans and return
-  return ret.filter(s => s.start !== s.end);
+  return ret.filter((s) => s.start !== s.end);
 }
 
 export function stripCommentMarkers(comment: string, multiline: boolean) {
@@ -91,7 +91,7 @@ export type AstMatcher<A> = (nodes?: ts.Node[]) => A | undefined;
  */
 export function nodeChildren(node: ts.Node): ts.Node[] {
   const ret = new Array<ts.Node>();
-  node.forEachChild(n => {
+  node.forEachChild((n) => {
     ret.push(n);
   });
   return ret;
@@ -138,7 +138,7 @@ export function nodeOfType<
     ? nodeTypeOrChildren
     : syntaxKindOrCaptureName;
 
-  return nodes => {
+  return (nodes) => {
     for (const node of nodes ?? []) {
       if (node.kind === realSyntaxKind) {
         const ret = realNext(nodeChildren(node));
@@ -164,7 +164,7 @@ export function anyNode<A>(
   children?: AstMatcher<A>,
 ): AstMatcher<A> | AstMatcher<{}> {
   const realNext = children || DONE;
-  return nodes => {
+  return (nodes) => {
     for (const node of nodes ?? []) {
       const m = realNext(nodeChildren(node));
       if (m) {
@@ -185,7 +185,7 @@ export function allOfType<S extends keyof CapturableNodes, N extends string, A>(
   type ReturnType = { [key in N]: ArrayType };
   const realNext = children || DONE;
 
-  return nodes => {
+  return (nodes) => {
     let ret: ReturnType | undefined;
     for (const node of nodes ?? []) {
       if (node.kind === s) {
@@ -236,8 +236,8 @@ export function matchAst<A>(
 export function countNakedNewlines(str: string) {
   let ret = 0;
   scanText(str, 0, str.length)
-    .filter(s => s.type === 'other' || s.type === 'blockcomment')
-    .forEach(s => {
+    .filter((s) => s.type === 'other' || s.type === 'blockcomment')
+    .forEach((s) => {
       if (s.type === 'other') {
         // Count newlines in non-comments
         for (let i = s.pos; i < s.end; i++) {
@@ -271,7 +271,7 @@ export function extractComments(
   start: number,
 ): ts.CommentRange[] {
   return scanText(text, start)
-    .filter(s => s.type === 'blockcomment' || s.type === 'linecomment')
+    .filter((s) => s.type === 'blockcomment' || s.type === 'linecomment')
     .map(commentRangeFromTextRange);
 }
 
@@ -534,10 +534,10 @@ export function privatePropertyNames(
   members: readonly ts.ClassElement[],
   renderer: AstRenderer<any>,
 ): string[] {
-  const props = members.filter(m =>
+  const props = members.filter((m) =>
     ts.isPropertyDeclaration(m),
   ) as ts.PropertyDeclaration[];
   return props
-    .filter(m => visibility(m) === 'private')
-    .map(m => renderer.textOf(m.name));
+    .filter((m) => visibility(m) === 'private')
+    .map((m) => renderer.textOf(m.name));
 }

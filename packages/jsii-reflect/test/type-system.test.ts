@@ -18,15 +18,15 @@ test('TypeSystem.hasAssembly', () => {
 });
 
 test('TypeSystem.assemblies lists all the loaded assemblies', () =>
-  expect(typesys.assemblies.map(a => a.name).sort()).toMatchSnapshot());
+  expect(typesys.assemblies.map((a) => a.name).sort()).toMatchSnapshot());
 
 test('TypeSystem.classes lists all the classes in the typesystem', () =>
-  expect(typesys.classes.map(c => c.fqn).sort()).toMatchSnapshot());
+  expect(typesys.classes.map((c) => c.fqn).sort()).toMatchSnapshot());
 
 test('findClass', () => {
   const calc = typesys.findClass('jsii-calc.Calculator');
   const actual = new Array<string>();
-  Object.values(calc.getMethods(/* inherited */ true)).forEach(method => {
+  Object.values(calc.getMethods(/* inherited */ true)).forEach((method) => {
     actual.push(`${method.name} from ${method.parentType.name}`);
   });
 
@@ -162,7 +162,7 @@ test('Three Inheritance Levels', () => {
   const iface = typesys.findInterface(
     '@scope/jsii-calc-lib.IThreeLevelsInterface',
   );
-  const methodnames = iface.allMethods.map(m => m.name);
+  const methodnames = iface.allMethods.map((m) => m.name);
   methodnames.sort();
   expect(methodnames).toEqual(['bar', 'baz', 'foo']);
 });
@@ -201,8 +201,8 @@ test('overridden member knows about both parent types', async () => {
 
   const superType = ts.findClass('testpkg.Foo');
   const subType = ts.findClass('testpkg.SubFoo');
-  const fooMethod = subType.allMethods.find(m => m.name === 'foo')!;
-  const booMethod = subType.allMethods.find(m => m.name === 'boo')!;
+  const fooMethod = subType.allMethods.find((m) => m.name === 'foo')!;
+  const booMethod = subType.allMethods.find((m) => m.name === 'boo')!;
 
   expect(fooMethod.parentType).toBe(subType);
   expect(fooMethod.definingType).toBe(superType);
@@ -256,7 +256,7 @@ describe('Stability', () => {
       `);
       const classType = ts.findClass('testpkg.SubFoo');
       const initializer = classType.initializer!;
-      const method = classType.allMethods.find(m => m.name === 'foo')!;
+      const method = classType.allMethods.find((m) => m.name === 'foo')!;
 
       expect(initializer.docs.stability).toEqual(Stability.Experimental);
       expect(method.docs.stability).toEqual(Stability.Experimental);
@@ -292,7 +292,7 @@ describe('Stability', () => {
 
       const classType = ts.findClass('testpkg.SubFoo');
       const initializer = classType.initializer!;
-      const method = classType.allMethods.find(m => m.name === 'foo')!;
+      const method = classType.allMethods.find((m) => m.name === 'foo')!;
 
       expect(initializer.docs.stability).toEqual(Stability.Experimental);
       expect(method.docs.stability).toEqual(Stability.Experimental);
@@ -328,7 +328,7 @@ describe('Stability', () => {
 
       const classType = ts.findClass('testpkg.SubFoo');
       const initializer = classType.initializer!;
-      const method = classType.allMethods.find(m => m.name === 'foo')!;
+      const method = classType.allMethods.find((m) => m.name === 'foo')!;
 
       expect(initializer.docs.stability).toEqual(Stability.Experimental);
       expect(method.docs.stability).toEqual(Stability.Experimental);
@@ -353,7 +353,7 @@ describe('Stability', () => {
       `);
 
       const classType = ts.findClass('testpkg.SubFoo');
-      const method = classType.allMethods.find(m => m.name === 'foo')!;
+      const method = classType.allMethods.find((m) => m.name === 'foo')!;
 
       expect(method.docs.stability).toEqual(Stability.External);
     });

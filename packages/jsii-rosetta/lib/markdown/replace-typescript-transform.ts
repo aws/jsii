@@ -18,7 +18,7 @@ export class ReplaceTypeScriptTransform extends ReplaceCodeTransform {
 
   public constructor(wherePrefix: string, replacer: TypeScriptReplacer) {
     let count = 0;
-    super(block => {
+    super((block) => {
       const languageParts = block.language ? block.language.split(' ') : [];
       if (languageParts[0] !== 'typescript' && languageParts[0] !== 'ts') {
         return block;

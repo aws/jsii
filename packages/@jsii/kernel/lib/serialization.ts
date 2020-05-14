@@ -319,7 +319,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       const arrayType = optionalValue.type as spec.CollectionTypeReference;
 
-      return value.map(x =>
+      return value.map((x) =>
         host.recurse(x, { type: arrayType.collection.elementtype }),
       );
     },
@@ -337,7 +337,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       const arrayType = optionalValue.type as spec.CollectionTypeReference;
 
-      return value.map(x =>
+      return value.map((x) =>
         host.recurse(x, { type: arrayType.collection.elementtype }),
       );
     },
@@ -355,7 +355,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       const mapType = optionalValue.type as spec.CollectionTypeReference;
       return {
-        [TOKEN_MAP]: mapValues(value, v =>
+        [TOKEN_MAP]: mapValues(value, (v) =>
           host.recurse(v, { type: mapType.collection.elementtype }),
         ),
       };
@@ -371,11 +371,11 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       const mapType = optionalValue.type as spec.CollectionTypeReference;
       if (!isWireMap(value)) {
         // Compatibility mode with older versions that didn't wrap in [TOKEN_MAP]
-        return mapValues(value, v =>
+        return mapValues(value, (v) =>
           host.recurse(v, { type: mapType.collection.elementtype }),
         );
       }
-      const result = mapValues(value[TOKEN_MAP], v =>
+      const result = mapValues(value[TOKEN_MAP], (v) =>
         host.recurse(v, { type: mapType.collection.elementtype }),
       );
       Object.defineProperty(result, SYMBOL_WIRE_TYPE, {
@@ -578,7 +578,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         return value;
       }
       if (Array.isArray(value)) {
-        return value.map(e => host.recurse(e, { type: spec.CANONICAL_ANY }));
+        return value.map((e) => host.recurse(e, { type: spec.CANONICAL_ANY }));
       }
 
       // Note: no case for "ENUM" here, without type declaration we can't tell the difference
@@ -646,7 +646,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       // We will serialize by-value, but recurse for serialization so that if
       // the object contains reference objects, they will be serialized appropriately.
       // (Basically, serialize anything else as a map of 'any').
-      return mapValues(value, v =>
+      return mapValues(value, (v) =>
         host.recurse(v, { type: spec.CANONICAL_ANY }),
       );
     },
@@ -666,7 +666,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
       }
       if (Array.isArray(value)) {
         host.debug('ANY is an Array');
-        return value.map(e => host.recurse(e, { type: spec.CANONICAL_ANY }));
+        return value.map((e) => host.recurse(e, { type: spec.CANONICAL_ANY }));
       }
 
       if (isWireEnum(value)) {
@@ -707,7 +707,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
 
       // At this point again, deserialize by-value.
       host.debug('ANY is a Map');
-      return mapValues(value, v =>
+      return mapValues(value, (v) =>
         host.recurse(v, { type: spec.CANONICAL_ANY }),
       );
     },
@@ -787,7 +787,7 @@ export function serializationType(
     ];
   }
   if (spec.isUnionTypeReference(typeRef.type)) {
-    const compoundTypes = flatMap(typeRef.type.union.types, t =>
+    const compoundTypes = flatMap(typeRef.type.union.types, (t) =>
       serializationType({ type: t }, lookup),
     );
     // Propagate the top-level 'optional' field to each individual subtype
@@ -931,7 +931,7 @@ function isAssignable(
   }
   if (spec.isClassOrInterfaceType(actualType) && actualType.interfaces) {
     return (
-      actualType.interfaces.find(iface =>
+      actualType.interfaces.find((iface) =>
         isAssignable(iface, requiredType, lookup),
       ) != null
     );
@@ -946,8 +946,8 @@ function validateRequiredProps(
 ) {
   // Check for required properties
   const missingRequiredProps = Object.keys(specProps)
-    .filter(name => !specProps[name].optional)
-    .filter(name => !(name in actualProps));
+    .filter((name) => !specProps[name].optional)
+    .filter((name) => !(name in actualProps));
 
   if (missingRequiredProps.length > 0) {
     throw new Error(

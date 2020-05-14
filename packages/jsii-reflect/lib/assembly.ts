@@ -117,7 +117,7 @@ export class Assembly extends ModuleLike {
    */
   public get dependencies(): readonly Dependency[] {
     return Object.keys(this._dependencies).map(
-      name => this._dependencies[name],
+      (name) => this._dependencies[name],
     );
   }
 

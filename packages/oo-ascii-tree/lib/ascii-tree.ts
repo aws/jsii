@@ -107,7 +107,7 @@ export class AsciiTree {
    * Returns a copy of the children array.
    */
   public get children() {
-    return this._children.map(x => x);
+    return this._children.map((x) => x);
   }
 
   /**

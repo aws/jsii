@@ -141,7 +141,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       const statements = [];
       const [withoutAlias, withAlias] = partition(
         importStatement.imports.elements,
-        im => im.alias === undefined,
+        (im) => im.alias === undefined,
       );
 
       // If there's at least one import without an alias, emit a namespace import.
@@ -149,7 +149,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
         statements.push(`using ${namespace};`);
         setExtend(
           this.importedModuleSymbols,
-          withoutAlias.map(w => w.sourceName),
+          withoutAlias.map((w) => w.sourceName),
         );
       }
 
@@ -320,7 +320,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
             '$"',
             new OTree(
               [],
-              args.map(a => new OTree(['{', renderer.convert(a), '}'])),
+              args.map((a) => new OTree(['{', renderer.convert(a), '}'])),
               { separator: ' ' },
             ),
             '"',
@@ -679,7 +679,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
         ts.SyntaxKind.VariableDeclarationList,
         nodeOfType('var', ts.SyntaxKind.VariableDeclaration),
       ),
-      bindings => {
+      (bindings) => {
         variableName = renderer.textOf(bindings.var.name);
       },
     );
@@ -778,7 +778,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
       resolvedNamespace ||
       ref
         .split(/[^a-zA-Z0-9]+/g)
-        .filter(s => s !== '')
+        .filter((s) => s !== '')
         .map(ucFirst)
         .join('.')
     );
@@ -840,8 +840,8 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     renderer: CSharpRenderer,
   ) {
     const heritage = flat(
-      Array.from(node.heritageClauses || []).map(h => Array.from(h.types)),
-    ).map(t => renderer.convert(t.expression));
+      Array.from(node.heritageClauses || []).map((h) => Array.from(h.types)),
+    ).map((t) => renderer.convert(t.expression));
 
     return heritage.length > 0
       ? [' : ', new OTree([], heritage, { separator: ', ' })]

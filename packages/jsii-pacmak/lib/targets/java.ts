@@ -62,7 +62,7 @@ export class JavaBuilder implements TargetBuilder {
     if (this.options.codeOnly) {
       // Simple, just generate code to respective output dirs
       await Promise.all(
-        this.modules.map(module =>
+        this.modules.map((module) =>
           this.generateModuleCode(
             module,
             this.options,
@@ -85,7 +85,7 @@ export class JavaBuilder implements TargetBuilder {
       // Need any old module object to make a target to be able to invoke build, though none of its settings
       // will be used.
       const target = this.makeTarget(this.modules[0], this.options);
-      const tempOutputDir = await Scratch.make(async dir => {
+      const tempOutputDir = await Scratch.make(async (dir) => {
         logging.debug(`Building Java code to ${dir}`);
         await target.build(tempSourceDir.directory, dir);
       });
@@ -102,7 +102,7 @@ export class JavaBuilder implements TargetBuilder {
     } catch (e) {
       logging.warn(
         `Exception occurred, not cleaning up ${scratchDirs.map(
-          s => s.directory,
+          (s) => s.directory,
         )}`,
       );
       throw e;
@@ -128,7 +128,7 @@ export class JavaBuilder implements TargetBuilder {
       const ret: TemporaryJavaPackage[] = [];
 
       const generatedModules = modules
-        .map(module => ({ module, relativeName: slugify(module.name) }))
+        .map((module) => ({ module, relativeName: slugify(module.name) }))
         .map(({ module, relativeName }) => ({
           module,
           relativeName,
@@ -151,7 +151,7 @@ export class JavaBuilder implements TargetBuilder {
 
       await this.generateAggregatePom(
         tmpDir,
-        ret.map(m => m.relativeSourceDir),
+        ret.map((m) => m.relativeSourceDir),
       );
       await this.generateMavenSettingsForLocalDeps(tmpDir);
 
@@ -207,7 +207,7 @@ export class JavaBuilder implements TargetBuilder {
     // the whole path in the target directory.
 
     await Promise.all(
-      packages.map(async pkg => {
+      packages.map(async (pkg) => {
         const artifactsSource = path.join(
           artifactsRoot,
           pkg.relativeArtifactsDir,
@@ -247,7 +247,7 @@ export class JavaBuilder implements TargetBuilder {
     // repositories or linked modules).
     const allDepsOutputDirs = new Set<string>();
 
-    const resolvedModules = this.modules.map(async mod => ({
+    const resolvedModules = this.modules.map(async (mod) => ({
       module: mod,
       localBuildDirs: await findLocalBuildDirs(
         mod.moduleDirectory,
@@ -436,8 +436,9 @@ export default class Java extends Target {
         env: {
           // Twiddle the JVM settings a little for Maven. Delaying JIT compilation
           // brings down Maven execution time by about 1/3rd (15->10s, 30->20s)
-          MAVEN_OPTS: `${process.env.MAVEN_OPTS ??
-            ''} -XX:+TieredCompilation -XX:TieredStopAtLevel=1`,
+          MAVEN_OPTS: `${
+            process.env.MAVEN_OPTS ?? ''
+          } -XX:+TieredCompilation -XX:TieredStopAtLevel=1`,
         },
       },
     );
@@ -628,7 +629,7 @@ class JavaGenerator extends Generator {
 
     let implementsExpr = '';
     if (cls.interfaces?.length ?? 0 > 0) {
-      implementsExpr = ` implements ${cls.interfaces!.map(x =>
+      implementsExpr = ` implements ${cls.interfaces!.map((x) =>
         this.toNativeFqn(x),
       )}`;
     }
@@ -793,7 +794,7 @@ class JavaGenerator extends Generator {
     const interfaces = ifc.interfaces ?? [];
     const bases = [
       'software.amazon.jsii.JsiiSerializable',
-      ...interfaces.map(x => this.toNativeFqn(x)),
+      ...interfaces.map((x) => this.toNativeFqn(x)),
     ].join(', ');
 
     const nested = this.isNested(ifc);
@@ -1171,7 +1172,7 @@ class JavaGenerator extends Generator {
   }
 
   private emitStaticInitializer(cls: spec.ClassType) {
-    const consts = (cls.properties ?? []).filter(x => x.const);
+    const consts = (cls.properties ?? []).filter((x) => x.const);
     if (consts.length === 0) {
       return;
     }
@@ -1375,7 +1376,7 @@ class JavaGenerator extends Generator {
 
       const bases = new Array<spec.NamedTypeReference>();
       bases.push(
-        ...(currentType.interfaces ?? []).map(iface => this.findType(iface)),
+        ...(currentType.interfaces ?? []).map((iface) => this.findType(iface)),
       );
       if (currentType.kind === spec.TypeKind.Class && currentType.base) {
         bases.push(this.findType(currentType.base));
@@ -1499,7 +1500,7 @@ class JavaGenerator extends Generator {
     }
 
     // Find the first struct parameter of the constructor (if any)
-    const firstStruct = cls.initializer.parameters.find(param => {
+    const firstStruct = cls.initializer.parameters.find((param) => {
       if (!spec.isNamedTypeReference(param.type)) {
         return false;
       }
@@ -1523,8 +1524,8 @@ class JavaGenerator extends Generator {
     )}.${BUILDER_CLASS_NAME}`;
 
     const positionalParams = cls.initializer.parameters
-      .filter(p => p !== firstStruct)
-      .map(param => ({
+      .filter((p) => p !== firstStruct)
+      .map((param) => ({
         param,
         fieldName: this.code.toCamelCase(
           JavaGenerator.safeJavaPropertyName(param.name),
@@ -1551,14 +1552,14 @@ class JavaGenerator extends Generator {
           returns: `a new instance of {@link ${BUILDER_CLASS_NAME}}.`,
         },
         name: 'create',
-        parameters: params.map(param => param.param),
+        parameters: params.map((param) => param.param),
       };
       this.addJavaDocs(dummyMethod);
       this.emitStabilityAnnotations(cls.initializer);
       this.code.openBlock(
         `public static ${BUILDER_CLASS_NAME} create(${params
           .map(
-            param =>
+            (param) =>
               `final ${param.javaType}${param.param.variadic ? '...' : ''} ${
                 param.fieldName
               }`,
@@ -1593,7 +1594,7 @@ class JavaGenerator extends Generator {
     this.code.openBlock(
       `private ${BUILDER_CLASS_NAME}(${positionalParams
         .map(
-          param =>
+          (param) =>
             `final ${param.javaType}${param.param.variadic ? '...' : ''} ${
               param.fieldName
             }`,
@@ -1657,13 +1658,15 @@ class JavaGenerator extends Generator {
     this.emitStabilityAnnotations(cls.initializer);
     this.code.line('@Override');
     this.code.openBlock(`public ${builtType} build()`);
-    const params = cls.initializer.parameters.map(param => {
+    const params = cls.initializer.parameters.map((param) => {
       if (param === firstStruct) {
         return firstStruct.optional
           ? `this.${structParamName} != null ? this.${structParamName}.build() : null`
           : `this.${structParamName}.build()`;
       }
-      return `this.${positionalParams.find(p => param === p.param)!.fieldName}`;
+      return `this.${
+        positionalParams.find((p) => param === p.param)!.fieldName
+      }`;
     });
     this.code.indent(`return new ${builtType}(`);
     params.forEach((param, idx) =>
@@ -1771,10 +1774,10 @@ class JavaGenerator extends Generator {
       `public static final class ${BUILDER_CLASS_NAME} implements software.amazon.jsii.Builder<${classSpec.name}>`,
     );
 
-    props.forEach(prop =>
+    props.forEach((prop) =>
       this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`),
     );
-    props.forEach(prop =>
+    props.forEach((prop) =>
       this.emitBuilderSetter(prop, BUILDER_CLASS_NAME, classSpec.name),
     );
 
@@ -1791,7 +1794,7 @@ class JavaGenerator extends Generator {
     this.code.line('@Override');
     this.code.openBlock(`public ${classSpec.name} build()`);
 
-    const propFields = props.map(prop => prop.fieldName).join(', ');
+    const propFields = props.map((prop) => prop.fieldName).join(', ');
 
     this.code.line(`return new ${constructorName}(${propFields});`);
     this.code.closeBlock();
@@ -1842,7 +1845,7 @@ class JavaGenerator extends Generator {
     );
 
     // Immutable properties
-    props.forEach(prop =>
+    props.forEach((prop) =>
       this.code.line(`private final ${prop.fieldJavaType} ${prop.fieldName};`),
     );
 
@@ -1858,7 +1861,7 @@ class JavaGenerator extends Generator {
       `protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`,
     );
     this.code.line('super(objRef);');
-    props.forEach(prop =>
+    props.forEach((prop) =>
       this.code.line(
         `this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldNativeType});`,
       ),
@@ -1873,11 +1876,11 @@ class JavaGenerator extends Generator {
       ' * Constructor that initializes the object based on literal property values passed by the {@link Builder}.',
     );
     this.code.line(' */');
-    if (props.some(prop => prop.fieldJavaType !== prop.paramJavaType)) {
+    if (props.some((prop) => prop.fieldJavaType !== prop.paramJavaType)) {
       this.code.line('@SuppressWarnings("unchecked")');
     }
     const constructorArgs = props
-      .map(prop => `final ${prop.paramJavaType} ${prop.fieldName}`)
+      .map((prop) => `final ${prop.paramJavaType} ${prop.fieldName}`)
       .join(', ');
     this.code.openBlock(
       `private ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`,
@@ -1885,7 +1888,7 @@ class JavaGenerator extends Generator {
     this.code.line(
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
     );
-    props.forEach(prop => {
+    props.forEach((prop) => {
       const explicitCast =
         prop.fieldJavaType !== prop.paramJavaType
           ? `(${prop.fieldJavaType})`
@@ -1901,7 +1904,7 @@ class JavaGenerator extends Generator {
     // End literal constructor
 
     // Getters
-    props.forEach(prop => {
+    props.forEach((prop) => {
       this.code.line();
       this.code.line('@Override');
       this.code.openBlock(`public ${prop.fieldJavaType} get${prop.propName}()`);
@@ -1993,7 +1996,7 @@ class JavaGenerator extends Generator {
     const initialProps = props.slice(0, props.length - 1);
     const finalProp = props[props.length - 1];
 
-    initialProps.forEach(prop => {
+    initialProps.forEach((prop) => {
       const predicate = prop.nullable
         ? `this.${prop.fieldName} != null ? !this.${prop.fieldName}.equals(that.${prop.fieldName}) : that.${prop.fieldName} != null`
         : `!${prop.fieldName}.equals(that.${prop.fieldName})`;
@@ -2025,7 +2028,7 @@ class JavaGenerator extends Generator {
     const remainingProps = props.slice(1);
 
     this.code.line(`int result = ${_hashCodeForProp(firstProp)};`);
-    remainingProps.forEach(prop =>
+    remainingProps.forEach((prop) =>
       this.code.line(`result = 31 * result + (${_hashCodeForProp(prop)});`),
     );
     this.code.line('return result;');
@@ -2099,7 +2102,7 @@ class JavaGenerator extends Generator {
       !defaultText &&
       Object.keys(doc.docs ?? {}).length === 0 &&
       !((doc as spec.Method).parameters ?? []).some(
-        p => Object.keys(p.docs ?? {}).length !== 0,
+        (p) => Object.keys(p.docs ?? {}).length !== 0,
       )
     ) {
       return;
@@ -2172,7 +2175,7 @@ class JavaGenerator extends Generator {
       if (lines.length > 0) {
         lines.push('<p>');
       }
-      lines.push(...para.split('\n').filter(l => l !== ''));
+      lines.push(...para.split('\n').filter((l) => l !== ''));
     }
 
     this.code.line('/**');
@@ -2208,7 +2211,7 @@ class JavaGenerator extends Generator {
     { covariant = false } = {},
   ): string[] {
     return this.toJavaTypes(optionalValue.type, { covariant }).map(
-      nakedType =>
+      (nakedType) =>
         `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`,
     );
   }
@@ -2336,7 +2339,7 @@ class JavaGenerator extends Generator {
     if (!method.parameters || method.parameters.length === 0) {
       return '';
     }
-    const regularParams = method.parameters.filter(p => !p.variadic);
+    const regularParams = method.parameters.filter((p) => !p.variadic);
     const values = regularParams.map(_renderParameter);
     const valueStr = `new Object[] { ${values.join(', ')} }`;
     if (method.variadic) {
@@ -2715,7 +2718,7 @@ class JavaGenerator extends Generator {
       ns != null
         ? `${javaPackage}.${ns
             .split('.')
-            .map(s => toSnakeCase(s))
+            .map((s) => toSnakeCase(s))
             .join('.')}`
         : javaPackage;
     return { packageName, typeName };
@@ -2749,7 +2752,7 @@ class JavaGenerator extends Generator {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
       'java',
-      trans => ({
+      (trans) => ({
         language: trans.language,
         source: this.prefixDisclaimer(trans),
       }),
@@ -2839,7 +2842,7 @@ function computeOverrides<T extends { param: spec.Parameter }>(
   allParams: T[],
 ): Iterable<T[]> {
   return {
-    [Symbol.iterator]: function*() {
+    [Symbol.iterator]: function* () {
       yield allParams;
       while (allParams.length > 0) {
         const lastParam = allParams[allParams.length - 1];

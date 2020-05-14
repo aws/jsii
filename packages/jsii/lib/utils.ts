@@ -50,7 +50,7 @@ export function diagnosticsLogger(
 export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
   const formatDiagnosticsHost: ts.FormatDiagnosticsHost = {
     getCurrentDirectory: () => projectRoot,
-    getCanonicalFileName: fileName => fileName,
+    getCanonicalFileName: (fileName) => fileName,
     getNewLine: () => ts.sys.newLine,
   };
 

@@ -24,7 +24,7 @@ test('can load libraries from within a callback', () => {
     { complete: { cbid: 'jsii::callback::20000', result: 'SUCCESS!' } },
   ]);
   const host = new KernelHost(inout, { noStack: true, debug: false });
-  return new Promise<void>(ok => {
+  return new Promise<void>((ok) => {
     host.on('exit', () => ok(inout.expectCompleted()));
     host.run();
   });

@@ -58,28 +58,28 @@ export function isSuperType(
 
   // Every element of B can be assigned to A
   if (b.unionOfTypes !== undefined) {
-    const analyses = b.unionOfTypes.map(bbb =>
+    const analyses = b.unionOfTypes.map((bbb) =>
       isSuperType(a, bbb, updatedSystem),
     );
-    if (analyses.every(x => x.success)) {
+    if (analyses.every((x) => x.success)) {
       return { success: true };
     }
     return failure(
       `some of ${b} are not assignable to ${a}`,
-      ...flatMap(analyses, x => (x.success ? [] : x.reasons)),
+      ...flatMap(analyses, (x) => (x.success ? [] : x.reasons)),
     );
   }
   // There should be an element of A which can accept all of B
   if (a.unionOfTypes !== undefined) {
-    const analyses = a.unionOfTypes.map(aaa =>
+    const analyses = a.unionOfTypes.map((aaa) =>
       isSuperType(aaa, b, updatedSystem),
     );
-    if (analyses.some(x => x.success)) {
+    if (analyses.some((x) => x.success)) {
       return { success: true };
     }
     return failure(
       `none of ${b} are assignable to ${a}`,
-      ...flatMap(analyses, x => (x.success ? [] : x.reasons)),
+      ...flatMap(analyses, (x) => (x.success ? [] : x.reasons)),
     );
   }
 

@@ -57,7 +57,7 @@ async function main(): Promise<number> {
       default: false,
       desc: 'Validate the assemblies that are being loaded',
     })
-    .usage('$0 <original> [updated]', 'Compare two JSII assemblies.', args =>
+    .usage('$0 <original> [updated]', 'Compare two JSII assemblies.', (args) =>
       args
         .positional('original', {
           description:
@@ -166,7 +166,7 @@ async function loadAssembly(
         resolved += '@latest';
       }
 
-      const download = await downloadNpmPackage(pkg, f =>
+      const download = await downloadNpmPackage(pkg, (f) =>
         loadFromFilesystem(f, options),
       );
       if (download.success) {
@@ -240,10 +240,10 @@ async function loadFromFilesystem(name: string, options: LoadOptions) {
 }
 
 main()
-  .then(n => {
+  .then((n) => {
     process.exit(n);
   })
-  .catch(e => {
+  .catch((e) => {
     console.error(e);
     process.exit(100);
   });
@@ -286,8 +286,8 @@ async function loadFilter(filterFilename?: string): Promise<Set<string>> {
     return new Set(
       (await fs.readFile(filterFilename, { encoding: 'utf-8' }))
         .split('\n')
-        .map(x => x.trim())
-        .filter(x => !x.startsWith('#')),
+        .map((x) => x.trim())
+        .filter((x) => !x.startsWith('#')),
     );
   } catch (e) {
     if (e.code !== 'ENOENT') {

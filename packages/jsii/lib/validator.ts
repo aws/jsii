@@ -28,7 +28,7 @@ export class Validator implements Emitter {
       return Promise.resolve({
         diagnostics: this._diagnostics,
         emitSkipped: this._diagnostics.some(
-          diag => diag.category === ts.DiagnosticCategory.Error,
+          (diag) => diag.category === ts.DiagnosticCategory.Error,
         ),
       });
     } finally {
@@ -195,7 +195,7 @@ function _defaultValidations(): ValidationFunction[] {
         continue;
       }
       const foreignAssm = validator.projectInfo.dependencyClosure.find(
-        dep => dep.name === assm,
+        (dep) => dep.name === assm,
       );
       if (!foreignAssm) {
         diagnostic(
@@ -260,7 +260,7 @@ function _defaultValidations(): ValidationFunction[] {
         return false;
       }
       const overridden = (baseType.methods ?? []).find(
-        m => m.name === method.name,
+        (m) => m.name === method.name,
       );
       if (!overridden) {
         return _validateMethodOverride(method, baseType);
@@ -291,7 +291,7 @@ function _defaultValidations(): ValidationFunction[] {
         return false;
       }
       const overridden = (baseType.properties ?? []).find(
-        p => p.name === property.name,
+        (p) => p.name === property.name,
       );
       if (!overridden) {
         return _validatePropertyOverride(property, baseType);
@@ -327,7 +327,7 @@ function _defaultValidations(): ValidationFunction[] {
           validator,
         ) as spec.InterfaceType;
         const implemented = (ifaceType.methods ?? []).find(
-          m => m.name === method.name,
+          (m) => m.name === method.name,
         );
         if (implemented) {
           _assertSignaturesMatch(
@@ -367,7 +367,7 @@ function _defaultValidations(): ValidationFunction[] {
           validator,
         ) as spec.InterfaceType;
         const implemented = (ifaceType.properties ?? []).find(
-          p => p.name === property.name,
+          (p) => p.name === property.name,
         );
         if (implemented) {
           _assertPropertiesMatch(
@@ -483,7 +483,7 @@ function _allMethods(assm: spec.Assembly): spec.Method[] {
     if (!type.methods) {
       continue;
     }
-    type.methods.forEach(method => methods.push(method));
+    type.methods.forEach((method) => methods.push(method));
   }
   return methods;
 }
@@ -497,7 +497,7 @@ function _allProperties(assm: spec.Assembly): spec.Property[] {
     if (!type.properties) {
       continue;
     }
-    type.properties.forEach(property => properties.push(property));
+    type.properties.forEach((property) => properties.push(property));
   }
   return properties;
 }
@@ -516,7 +516,7 @@ function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
       typeReferences.push({ fqn: type.base });
     }
     if (type.interfaces) {
-      type.interfaces.forEach(iface => typeReferences.push({ fqn: iface }));
+      type.interfaces.forEach((iface) => typeReferences.push({ fqn: iface }));
     }
   }
   for (const prop of _allProperties(assm)) {
@@ -556,7 +556,7 @@ function _dereference(
     return assembly.types?.[typeRef];
   }
   const foreignAssm = validator.projectInfo.dependencyClosure.find(
-    dep => dep.name === assm,
+    (dep) => dep.name === assm,
   );
   return foreignAssm?.types?.[typeRef];
 }

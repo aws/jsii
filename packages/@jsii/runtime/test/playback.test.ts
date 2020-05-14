@@ -9,7 +9,7 @@ import { InputOutput, KernelHost, Input, Output } from '../lib';
 const recordsDir = createRecords();
 const records = fs
   .readdirSync(recordsDir)
-  .map(file => path.join(recordsDir, file));
+  .map((file) => path.join(recordsDir, file));
 
 test('are present', () => {
   expect(records).not.toEqual([]);
@@ -21,7 +21,7 @@ describe(`replay records in ${recordsDir}`, () => {
       const inout = new PlaybackInputOutput(record);
       const host = new KernelHost(inout, { noStack: true, debug: false });
 
-      return new Promise<void>(ok => {
+      return new Promise<void>((ok) => {
         host.on('exit', () => {
           ok(inout.expectCompleted());
         });
@@ -81,12 +81,12 @@ class PlaybackInputOutput extends InputOutput {
       .readFileSync(recordPath, { encoding: 'utf-8' })
       .split('\n');
     this.inputCommands = inputLines
-      .filter(line => line.startsWith('>'))
-      .map(line => JSON.parse(line.substring(1)))
+      .filter((line) => line.startsWith('>'))
+      .map((line) => JSON.parse(line.substring(1)))
       .reverse();
     this.expectedOutputs = inputLines
-      .filter(line => line.startsWith('<'))
-      .map(line => JSON.parse(line.substring(1)))
+      .filter((line) => line.startsWith('<'))
+      .map((line) => JSON.parse(line.substring(1)))
       .reverse();
   }
 

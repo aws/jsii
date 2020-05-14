@@ -35,9 +35,9 @@ export function toNuGetVersionRange(semverRange: string): string {
 export function toPythonVersionRange(semverRange: string): string {
   const range = new Range(semverRange);
   return range.set
-    .map(set =>
+    .map((set) =>
       set
-        .map(comp => {
+        .map((comp) => {
           const versionId = comp.semver.raw?.replace(/-0$/, '') ?? '0.0.0';
           switch (comp.operator) {
             case '':
@@ -62,7 +62,7 @@ function toBracketNotation(
 ): string {
   const range = new Range(semverRange);
   return range.set
-    .map(set => {
+    .map((set) => {
       if (set.length === 1) {
         const version = set[0].semver.raw;
         switch (set[0].operator || '=') {
@@ -90,7 +90,7 @@ function toBracketNotation(
       }
       throw new Error(
         `Unsupported SemVer range set in ${semverRange}: ${set
-          .map(comp => comp.value)
+          .map((comp) => comp.value)
           .join(', ')}`,
       );
     })

@@ -27,8 +27,8 @@ export function topologicalSort<T>(
   const ret = new Array<T>();
   while (remaining.size > 0) {
     // All elements with no more deps in the set can be ordered
-    const selectable = Array.from(remaining.values()).filter(e =>
-      e.dependencies.every(d => !remaining.has(d)),
+    const selectable = Array.from(remaining.values()).filter((e) =>
+      e.dependencies.every((d) => !remaining.has(d)),
     );
 
     selectable.sort((a, b) => (a.key < b.key ? -1 : b.key < a.key ? 1 : 0));

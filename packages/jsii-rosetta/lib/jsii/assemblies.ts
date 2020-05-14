@@ -63,19 +63,19 @@ export function allSnippetSources(
   }
 
   if (assembly.types) {
-    Object.values(assembly.types).forEach(type => {
+    Object.values(assembly.types).forEach((type) => {
       emitDocs(type.docs, `${assembly.name}.${type.name}`);
 
       if (spec.isEnumType(type)) {
-        type.members.forEach(m =>
+        type.members.forEach((m) =>
           emitDocs(m.docs, `${assembly.name}.${type.name}.${m.name}`),
         );
       }
       if (spec.isClassOrInterfaceType(type)) {
-        (type.methods ?? []).forEach(m =>
+        (type.methods ?? []).forEach((m) =>
           emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`),
         );
-        (type.properties ?? []).forEach(m =>
+        (type.properties ?? []).forEach((m) =>
           emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`),
         );
       }

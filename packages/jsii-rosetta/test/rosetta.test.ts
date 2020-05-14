@@ -91,7 +91,7 @@ test('Rosetta object can do translation and annotation of snippets in MarkDown',
       'That was it, thank you for your attention.',
     ].join('\n'),
     'python',
-    trans => {
+    (trans) => {
       return {
         ...trans,
         source: `# We translated something!\n${trans.source}`,

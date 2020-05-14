@@ -29,8 +29,8 @@ test('source files', async () => {
 
   // change indentation and block chars
   sources.indentation = 10;
-  sources.openBlockFormatter = s => `(--- ${s} ---`;
-  sources.closeBlockFormatter = s => `--- ${s} ---)`;
+  sources.openBlockFormatter = (s) => `(--- ${s} ---`;
+  sources.closeBlockFormatter = (s) => `--- ${s} ---)`;
 
   sources.openBlock('block1');
   sources.line('block1.line1');
@@ -81,7 +81,7 @@ test('close file mismatch', () => {
 test('custom multi-line block', async () => {
   const maker = new CodeMaker();
 
-  maker.openBlock = s => {
+  maker.openBlock = (s) => {
     maker.line(s);
     maker.open('{');
   };

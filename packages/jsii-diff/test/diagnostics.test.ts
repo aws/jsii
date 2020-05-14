@@ -117,7 +117,7 @@ test('changing stable to experimental is breaking', async () => {
 
   expect(diags.length).toBeGreaterThan(0);
   expect(
-    diags.some(d =>
+    diags.some((d) =>
       /stability not allowed to go from 'stable' to 'experimental'/.exec(
         d.message,
       ),

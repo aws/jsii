@@ -27,7 +27,7 @@ function main() {
     .command(
       'snippet FILE',
       'Translate a single snippet',
-      command =>
+      (command) =>
         command
           .positional('file', {
             type: 'string',
@@ -38,7 +38,7 @@ function main() {
             boolean: true,
             description: 'Translate snippets to Python',
           }),
-      wrapHandler(async args => {
+      wrapHandler(async (args) => {
         const result = translateTypeScript(
           await makeFileSource(args.file ?? '-', 'stdin.ts'),
           makeVisitor(args),
@@ -49,7 +49,7 @@ function main() {
     .command(
       'markdown FILE',
       'Translate a MarkDown file',
-      command =>
+      (command) =>
         command
           .positional('file', {
             type: 'string',
@@ -60,7 +60,7 @@ function main() {
             boolean: true,
             description: 'Translate snippets to Python',
           }),
-      wrapHandler(async args => {
+      wrapHandler(async (args) => {
         const result = translateMarkdown(
           await makeFileSource(args.file ?? '-', 'stdin.md'),
           makeVisitor(args),
@@ -71,7 +71,7 @@ function main() {
     .command(
       ['extract [ASSEMBLY..]', '$0 [ASSEMBLY..]'],
       'Extract code snippets from one or more assemblies into a language tablets',
-      command =>
+      (command) =>
         command
           .positional('ASSEMBLY', {
             type: 'string',
@@ -108,7 +108,7 @@ function main() {
             describe: 'Fail if there are compilation errors',
             default: false,
           }),
-      wrapHandler(async args => {
+      wrapHandler(async (args) => {
         // Easiest way to get a fixed working directory (for sources) in is to
         // chdir, since underneath the in-memory layer we're using a regular TS
         // compilerhost. Have to make all file references absolute before we chdir
@@ -116,7 +116,7 @@ function main() {
         const absAssemblies = (args.ASSEMBLY.length > 0
           ? args.ASSEMBLY
           : ['.']
-        ).map(x => path.resolve(x));
+        ).map((x) => path.resolve(x));
         const absOutput = path.resolve(args.output);
         if (args.directory) {
           process.chdir(args.directory);
@@ -144,7 +144,7 @@ function main() {
     .command(
       'read <TABLET> [KEY] [LANGUAGE]',
       'Display snippets in a language tablet file',
-      command =>
+      (command) =>
         command
           .positional('TABLET', {
             type: 'string',
@@ -160,7 +160,7 @@ function main() {
             describe: 'Language ID to read',
           })
           .demandOption('TABLET'),
-      wrapHandler(async args => {
+      wrapHandler(async (args) => {
         await readTablet(args.TABLET, args.KEY, args.LANGUAGE);
       }),
     )
@@ -184,7 +184,7 @@ function wrapHandler<A extends { verbose?: number }, R>(
 ) {
   return (argv: A) => {
     logging.configure({ level: argv.verbose !== undefined ? argv.verbose : 0 });
-    handler(argv).catch(e => {
+    handler(argv).catch((e) => {
       throw e;
     });
   };

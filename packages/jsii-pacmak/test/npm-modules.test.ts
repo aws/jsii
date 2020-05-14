@@ -28,7 +28,7 @@ test('findJsiiModules is sorted topologically', async () => {
 
   try {
     const mods = await findJsiiModules(['/packageA', '/packageB'], false);
-    expect(mods.map(m => m.name)).toEqual(['packageB', 'packageA']);
+    expect(mods.map((m) => m.name)).toEqual(['packageB', 'packageA']);
   } finally {
     mockfs.restore();
   }
@@ -58,7 +58,7 @@ test('findJsiiModules without deps loads packages in given order', async () => {
 
   try {
     const mods = await findJsiiModules(['/packageA', '/packageB'], false);
-    expect(mods.map(m => m.name)).toEqual(['packageA', 'packageB']);
+    expect(mods.map((m) => m.name)).toEqual(['packageA', 'packageB']);
   } finally {
     mockfs.restore();
   }

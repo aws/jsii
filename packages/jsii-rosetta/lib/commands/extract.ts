@@ -170,7 +170,7 @@ async function workerBasedTranslateAll(
   // Run workers
   const responses = await Promise.all(
     groups
-      .map(snippets => ({ snippets, includeCompilerDiagnostics }))
+      .map((snippets) => ({ snippets, includeCompilerDiagnostics }))
       .map(runWorker),
   );
 
@@ -187,7 +187,7 @@ async function workerBasedTranslateAll(
   // Hydrate TranslatedSnippets from data back to objects
   return {
     diagnostics: x.diagnostics,
-    translatedSnippets: x.translatedSnippetSchemas.map(s =>
+    translatedSnippets: x.translatedSnippetSchemas.map((s) =>
       TranslatedSnippet.fromSchema(s),
     ),
   };
@@ -204,7 +204,7 @@ async function workerBasedTranslateAll(
       });
       wrk.on('message', resolve);
       wrk.on('error', reject);
-      wrk.on('exit', code => {
+      wrk.on('exit', (code) => {
         if (code !== 0) {
           reject(new Error(`Worker exited with code ${code}`));
         }

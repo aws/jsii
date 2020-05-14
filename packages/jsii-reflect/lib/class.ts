@@ -99,8 +99,8 @@ export class ClassType extends ReferenceType {
       out.push(
         ...flatten(
           this.spec.interfaces
-            .map(fqn => this.system.findInterface(fqn))
-            .map(iface => [
+            .map((fqn) => this.system.findInterface(fqn))
+            .map((iface) => [
               iface,
               ...(inherited ? iface.getInterfaces(true) : []),
             ]),
@@ -126,9 +126,9 @@ export class ClassType extends ReferenceType {
       base,
       indexBy(
         (this.spec.properties ?? []).map(
-          p => new Property(this.system, this.assembly, parentType, this, p),
+          (p) => new Property(this.system, this.assembly, parentType, this, p),
         ),
-        p => p.name,
+        (p) => p.name,
       ),
     );
   }
@@ -145,9 +145,9 @@ export class ClassType extends ReferenceType {
       base,
       indexBy(
         (this.spec.methods ?? []).map(
-          m => new Method(this.system, this.assembly, parentType, this, m),
+          (m) => new Method(this.system, this.assembly, parentType, this, m),
         ),
-        m => m.name,
+        (m) => m.name,
       ),
     );
   }

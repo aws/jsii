@@ -90,7 +90,7 @@ const warningTypes = Object.keys(enabledWarnings);
       process.exit(1);
     }
   })
-  .catch(e => {
+  .catch((e) => {
     console.error(`Error: ${e.stack}`);
     process.exit(-1);
   });

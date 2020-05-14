@@ -161,7 +161,7 @@ export class Rosetta {
     return transformMarkdown(
       markdown,
       new MarkdownRenderer(),
-      new ReplaceTypeScriptTransform('markdown', tsSnip => {
+      new ReplaceTypeScriptTransform('markdown', (tsSnip) => {
         const translated = this.translateSnippet(tsSnip, targetLang);
         if (!translated) {
           return undefined;

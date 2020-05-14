@@ -47,13 +47,13 @@ export async function shell(
       });
       const stdout = new Array<Buffer>();
       const stderr = new Array<Buffer>();
-      child.stdout.on('data', chunk => {
+      child.stdout.on('data', (chunk) => {
         if (logging.level >= logging.LEVEL_VERBOSE) {
           process.stderr.write(chunk); // notice - we emit all build output to stderr
         }
         stdout.push(Buffer.from(chunk));
       });
-      child.stderr.on('data', chunk => {
+      child.stderr.on('data', (chunk) => {
         if (logging.level >= logging.LEVEL_VERBOSE) {
           process.stderr.write(chunk);
         }
@@ -139,7 +139,7 @@ export class Scratch<A> {
   }
 
   public static async cleanupAll<A>(tempDirs: Array<Scratch<A>>) {
-    await Promise.all(tempDirs.map(t => t.cleanup()));
+    await Promise.all(tempDirs.map((t) => t.cleanup()));
   }
 
   private constructor(
@@ -166,7 +166,7 @@ export async function filterAsync<A>(
   pred: (x: A) => Promise<boolean>,
 ): Promise<A[]> {
   const mapped = await Promise.all(
-    xs.map(async x => ({ x, pred: await pred(x) })),
+    xs.map(async (x) => ({ x, pred: await pred(x) })),
   );
   return mapped.filter(({ pred }) => pred).map(({ x }) => x);
 }

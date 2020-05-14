@@ -65,7 +65,7 @@ export class OneByOneBuilder implements TargetBuilder {
   ) {}
 
   public async buildModules(): Promise<void> {
-    const promises = this.modules.map(module =>
+    const promises = this.modules.map((module) =>
       this.options.codeOnly
         ? this.generateModuleCode(module, this.options)
         : this.buildModule(module, this.options),
@@ -86,7 +86,7 @@ export class OneByOneBuilder implements TargetBuilder {
     const target = this.makeTarget(module, options);
     const outputDir = this.finalOutputDir(module, options);
 
-    const src = await Scratch.make(tmpdir => {
+    const src = await Scratch.make((tmpdir) => {
       logging.debug(`Generating ${this.targetName} code into ${tmpdir}`);
       return target.generateCode(tmpdir, module.tarball);
     });

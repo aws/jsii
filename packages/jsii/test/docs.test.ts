@@ -278,7 +278,7 @@ test('can mark external', async () => {
   `);
 
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
-  const method = classType.methods!.find(m => m.name === 'floop');
+  const method = classType.methods!.find((m) => m.name === 'floop');
 
   expect(classType.docs!.stability).toBe(spec.Stability.External);
   expect(method!.docs!.stability).toBe(spec.Stability.External);
@@ -344,7 +344,7 @@ test('stability is inherited from parent type', async () => {
 
     const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
     const initializer = classType.initializer!;
-    const method = classType.methods!.find(m => m.name === 'foo')!;
+    const method = classType.methods!.find((m) => m.name === 'foo')!;
 
     expect(classType.docs!.stability).toBe(stability);
     expect(initializer.docs!.stability).toBe(stability);

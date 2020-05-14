@@ -104,7 +104,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     );
     const hashLines = commentText
       .split('\n')
-      .map(l => `# ${l}`)
+      .map((l) => `# ${l}`)
       .join('\n');
     const needsAdditionalTrailer = comment.hasTrailingNewLine;
 
@@ -138,7 +138,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       );
     }
     if (node.imports.import === 'selective') {
-      const imports = node.imports.elements.map(im =>
+      const imports = node.imports.elements.map((im) =>
         im.alias
           ? `${mangleIdentifier(im.sourceName)} as ${mangleIdentifier(
               im.alias,
@@ -184,7 +184,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       return new OTree(
         [],
         propertiesOfStruct(explodedParameter.type, context).map(
-          prop => new OTree([prop.name, '=', prop.name]),
+          (prop) => new OTree([prop.name, '=', prop.name]),
         ),
         { separator: ', ' },
       );
@@ -478,7 +478,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     matchAst(
       node.name,
       nodeOfType('stringLiteral', ts.SyntaxKind.StringLiteral),
-      captured => {
+      (captured) => {
         name = new OTree([mangleIdentifier(captured.stringLiteral.text)]);
       },
     );
@@ -560,7 +560,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         ts.SyntaxKind.VariableDeclarationList,
         nodeOfType('var', ts.SyntaxKind.VariableDeclaration),
       ),
-      bindings => {
+      (bindings) => {
         variableName = mangleIdentifier(context.textOf(bindings.var.name));
       },
     );
@@ -577,8 +577,8 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     context: PythonVisitorContext,
   ): OTree {
     const heritage = flat(
-      Array.from(node.heritageClauses ?? []).map(h => Array.from(h.types)),
-    ).map(t => context.convert(t.expression));
+      Array.from(node.heritageClauses ?? []).map((h) => Array.from(h.types)),
+    ).map((t) => context.convert(t.expression));
     const hasHeritage = heritage.length > 0;
 
     const members = context
@@ -704,10 +704,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
 
     return (
       resolvedPackage ||
-      ref
-        .replace(/^@/, '')
-        .replace(/\//g, '.')
-        .replace(/-/g, '_')
+      ref.replace(/^@/, '').replace(/\//g, '.').replace(/-/g, '_')
     );
   }
 
@@ -781,7 +778,7 @@ function mangleIdentifier(originalIdentifier: string) {
   // Turn into snake-case
   return originalIdentifier.replace(
     /[^A-Z][A-Z]/g,
-    m => `${m[0].substr(0, 1)}_${m.substr(1).toLowerCase()}`,
+    (m) => `${m[0].substr(0, 1)}_${m.substr(1).toLowerCase()}`,
   );
 }
 

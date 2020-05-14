@@ -93,7 +93,7 @@ describe('Build CDK', () => {
 
       // assert against cdk dist dir
       await Promise.all(
-        ['js', 'dotnet', 'python', 'java'].map(async distDir => {
+        ['js', 'dotnet', 'python', 'java'].map(async (distDir) => {
           const items = await readdir(path.join(srcDir, 'dist', distDir));
           expect(items.length).toBeGreaterThanOrEqual(1);
         }),

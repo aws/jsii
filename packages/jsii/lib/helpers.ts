@@ -34,7 +34,7 @@ export async function sourceToAssemblyHelper(
     const emitResult = await compiler.emit();
 
     const errors = emitResult.diagnostics.filter(
-      d => d.category === DiagnosticCategory.Error,
+      (d) => d.category === DiagnosticCategory.Error,
     );
     for (const error of errors) {
       console.error(error.messageText);

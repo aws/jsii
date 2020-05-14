@@ -35,7 +35,7 @@ export function analyzeImportEquals(
   matchAst(
     node.moduleReference,
     nodeOfType('ref', ts.SyntaxKind.ExternalModuleReference),
-    bindings => {
+    (bindings) => {
       moduleName = stringFromLiteral(bindings.ref.expression);
     },
   );
@@ -92,7 +92,7 @@ export function analyzeImportDeclaration(
   const elements: ImportBinding[] = [];
   if (namedBindings) {
     elements.push(
-      ...namedBindings.specifiers.map(spec =>
+      ...namedBindings.specifiers.map((spec) =>
         // regular import { name }, renamed import { propertyName, name }
         spec.propertyName
           ? {

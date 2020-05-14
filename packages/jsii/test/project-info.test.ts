@@ -28,7 +28,7 @@ const BASE_PROJECT = {
 
 describe('loadProjectInfo', () => {
   test('loads valid project', () =>
-    _withTestProject(async projectRoot => {
+    _withTestProject(async (projectRoot) => {
       const info = await loadProjectInfo(projectRoot, {
         fixPeerDependencies: false,
       });
@@ -61,26 +61,26 @@ describe('loadProjectInfo', () => {
 
   test('loads valid project (UNLICENSED)', () =>
     _withTestProject(
-      async projectRoot => {
+      async (projectRoot) => {
         const info = await loadProjectInfo(projectRoot, {
           fixPeerDependencies: false,
         });
         expect(info?.license).toBe('UNLICENSED');
       },
-      info => {
+      (info) => {
         info.license = 'UNLICENSED';
       },
     ));
 
   test('loads valid project (using bundleDependencies)', () =>
     _withTestProject(
-      async projectRoot => {
+      async (projectRoot) => {
         const info = await loadProjectInfo(projectRoot, {
           fixPeerDependencies: false,
         });
         expect(info.bundleDependencies).toEqual({ bundled: '^1.2.3' });
       },
-      info => {
+      (info) => {
         info.dependencies.bundled = '^1.2.3';
         info.bundleDependencies = ['bundled'];
       },
@@ -88,13 +88,13 @@ describe('loadProjectInfo', () => {
 
   test('loads valid project (using bundledDependencies)', () =>
     _withTestProject(
-      async projectRoot => {
+      async (projectRoot) => {
         const info = await loadProjectInfo(projectRoot, {
           fixPeerDependencies: false,
         });
         expect(info.bundleDependencies).toEqual({ bundled: '^1.2.3' });
       },
-      info => {
+      (info) => {
         info.dependencies.bundled = '^1.2.3';
         info.bundledDependencies = ['bundled'];
       },
@@ -103,49 +103,49 @@ describe('loadProjectInfo', () => {
   test('loads valid project (with contributors)', () => {
     const contributors = [{ name: 'foo', email: 'nobody@amazon.com' }];
     return _withTestProject(
-      async projectRoot => {
+      async (projectRoot) => {
         const info = await loadProjectInfo(projectRoot, {
           fixPeerDependencies: false,
         });
         expect(info?.contributors?.map(_stripUndefined)).toEqual(
-          contributors.map(c => ({ ...c, roles: ['contributor'] })),
+          contributors.map((c) => ({ ...c, roles: ['contributor'] })),
         );
       },
-      info => (info.contributors = contributors),
+      (info) => (info.contributors = contributors),
     );
   });
 
   test('rejects un-declared dependency in bundleDependencies', () =>
     _withTestProject(
-      projectRoot =>
+      (projectRoot) =>
         expect(
           loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
         ).rejects.toThrow(/not declared in "dependencies"/i),
-      info => {
+      (info) => {
         info.bundledDependencies = ['bundled'];
       },
     ));
 
   test('rejects invalid license', () =>
     _withTestProject(
-      projectRoot =>
+      (projectRoot) =>
         expect(
           loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
         ).rejects.toThrow(/invalid license identifier/i),
-      info => {
+      (info) => {
         info.license = 'Not an SPDX licence ID';
       },
     ));
 
   test('rejects incompatible dependency version', () =>
     _withTestProject(
-      projectRoot =>
+      (projectRoot) =>
         expect(
           loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
         ).rejects.toThrow(
           /declared dependency on version .+ but version .+ was found/i,
         ),
-      info => {
+      (info) => {
         info.dependencies[TEST_DEP_ASSEMBLY.name] = '^1.2.5';
         info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^1.2.5';
       },
@@ -153,52 +153,52 @@ describe('loadProjectInfo', () => {
 
   test('fails to load with missing peerDependency (refusing to auto-fix)', () =>
     _withTestProject(
-      projectRoot =>
+      (projectRoot) =>
         expect(
           loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
         ).rejects.toThrow(
           `The "package.json" file has "${TEST_DEP_ASSEMBLY.name}" in "dependencies", but not in "peerDependencies"`,
         ),
-      info => {
+      (info) => {
         delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
       },
     ));
 
   test('loads with missing peerDependency (when auto-fixing)', () =>
     _withTestProject(
-      async projectRoot => {
+      async (projectRoot) => {
         await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
         // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
         const info = require(path.join(projectRoot, 'package.json'));
         expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
       },
-      info => {
+      (info) => {
         delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
       },
     ));
 
   test('fails to load with inconsistent peerDependency (refusing to auto-fix)', () =>
     _withTestProject(
-      projectRoot =>
+      (projectRoot) =>
         expect(
           loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
         ).rejects.toThrow(
           `The "package.json" file has different version requirements for "${TEST_DEP_ASSEMBLY.name}" in "dependencies" (^1.2.3) versus "peerDependencies" (^42.1337.0)`,
         ),
-      info => {
+      (info) => {
         info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
       },
     ));
 
   test('loads with inconsistent peerDependency (when auto-fixing)', () =>
     _withTestProject(
-      async projectRoot => {
+      async (projectRoot) => {
         await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
         // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
         const info = require(path.join(projectRoot, 'package.json'));
         expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
       },
-      info => {
+      (info) => {
         info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
       },
     ));

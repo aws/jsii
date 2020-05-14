@@ -19,6 +19,13 @@ import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
 } from '.';
+import {
+  NamingContext,
+  toTypeName,
+  PythonImports,
+  mergePythonImports,
+} from './python/type-name';
+import { die, toPythonIdentifier } from './python/util';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -80,56 +87,13 @@ export default class Python extends Target {
 // # CODE GENERATOR #
 // ##################
 
-const PYTHON_BUILTIN_TYPES = ['bool', 'str', 'None'];
-
-const PYTHON_KEYWORDS = [
-  'False',
-  'None',
-  'True',
-  'and',
-  'as',
-  'assert',
-  'async',
-  'await',
-  'break',
-  'class',
-  'continue',
-  'def',
-  'del',
-  'elif',
-  'else',
-  'except',
-  'finally',
-  'for',
-  'from',
-  'global',
-  'if',
-  'import',
-  'in',
-  'is',
-  'lambda',
-  'nonlocal',
-  'not',
-  'or',
-  'pass',
-  'raise',
-  'return',
-  'try',
-  'while',
-  'with',
-  'yield',
-];
+interface EmitContext extends NamingContext {
+  /** @deprecated The TypeResolver */
+  readonly resolver: TypeResolver;
+}
 
 const pythonModuleNameToFilename = (name: string): string => {
   return path.join(...name.split('.'));
-};
-
-const toPythonIdentifier = (name: string): string => {
-  if (PYTHON_KEYWORDS.includes(name)) {
-    return `${name}_`;
-  }
-
-  return name;
 };
 
 const toPythonMethodName = (name: string, protectedItem = false): string => {
@@ -220,7 +184,7 @@ const sortMembers = (
   while (sortable.length > 0) {
     for (const { member, dependsOn } of sortable) {
       const diff = setDifference(dependsOn, seen);
-      if ([...diff].find(dep => !(dep instanceof PythonModule)) == null) {
+      if ([...diff].find((dep) => !(dep instanceof PythonModule)) == null) {
         sorted.push(member);
         seen.add(member);
       }
@@ -230,7 +194,7 @@ const sortMembers = (
     if (leftover.length === sortable.length) {
       throw new Error(
         `Could not sort members (circular dependency?). Leftover: ${leftover
-          .map(lo => lo.member.pythonName)
+          .map((lo) => lo.member.pythonName)
           .join(', ')}`,
       );
     } else {
@@ -244,16 +208,9 @@ const sortMembers = (
 interface PythonBase {
   readonly pythonName: string;
 
-  emit(code: CodeMaker, resolver: TypeResolver, opts?: any): void;
+  emit(code: CodeMaker, context: EmitContext, opts?: any): void;
 
-  /**
-   * Determines what modules a particular sortable entity depends on.
-   *
-   * @param resolver a TypeResolver.
-   *
-   * @returns the pythonNames of modules this entity depends on.
-   */
-  dependsOnModules(resolver: TypeResolver): Set<string>;
+  requiredImports(context: EmitContext): PythonImports;
 }
 
 interface PythonType extends PythonBase {
@@ -326,27 +283,21 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return dependencies;
   }
 
-  public dependsOnModules(resolver: TypeResolver): Set<string> {
-    const result = new Set<string>();
-    const thisModule = resolver.getDefiningPythonModule(this.fqn!);
-    for (const base of this.bases) {
-      if (!spec.isNamedTypeReference(base)) {
-        continue;
-      }
-      const definingModule = resolver.getDefiningPythonModule(base);
-      if (thisModule !== definingModule) {
-        result.add(definingModule);
-      }
-    }
-    return result;
+  public requiredImports(context: EmitContext): PythonImports {
+    return mergePythonImports(
+      ...this.bases.map((base) => toTypeName(base).requiredImports(context)),
+      ...this.members.map((mem) => mem.requiredImports(context)),
+    );
   }
 
   public addMember(member: PythonBase) {
     this.members.push(member);
   }
 
-  public emit(code: CodeMaker, resolver: TypeResolver) {
-    const classParams = this.getClassParams(resolver);
+  public emit(code: CodeMaker, context: EmitContext) {
+    context = { ...context, nestingScope: this.fqn! };
+
+    const classParams = this.getClassParams(context);
     const bases = classParams.length > 0 ? `(${classParams.join(', ')})` : '';
 
     code.openBlock(`class ${this.pythonName}${bases}`);
@@ -354,12 +305,12 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
       documentableItem: `class-${this.pythonName}`,
     });
 
-    this.emitPreamble(code, resolver);
+    this.emitPreamble(code, context);
 
     if (this.members.length > 0) {
-      resolver = this.boundResolver(resolver);
+      const resolver = this.boundResolver(context.resolver);
       for (const member of sortMembers(this.members, resolver)) {
-        member.emit(code, resolver);
+        member.emit(code, { ...context, resolver });
       }
     } else {
       code.line('pass');
@@ -375,9 +326,9 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     return resolver.bind(this.fqn);
   }
 
-  protected abstract getClassParams(resolver: TypeResolver): string[];
+  protected abstract getClassParams(context: EmitContext): string[];
 
-  protected emitPreamble(_code: CodeMaker, _resolver: TypeResolver) {
+  protected emitPreamble(_code: CodeMaker, _context: EmitContext) {
     return;
   }
 }
@@ -420,41 +371,23 @@ abstract class BaseMethod implements PythonBase {
     this.parent = opts.parent;
   }
 
-  public dependsOnModules(resolver: TypeResolver) {
-    const result = new Set<string>();
-    const thisModule = resolver.getDefiningPythonModule(this.parent);
-    if (this.returns && spec.isNamedTypeReference(this.returns.type)) {
-      const definingModule = resolver.getDefiningPythonModule(
-        this.returns.type,
-      );
-      if (thisModule !== definingModule) {
-        result.add(definingModule);
-      }
-    }
-    for (const param of this.parameters) {
-      if (spec.isNamedTypeReference(param.type)) {
-        const definingModule = resolver.getDefiningPythonModule(param.type);
-        if (thisModule !== definingModule) {
-          result.add(definingModule);
-        }
-      }
-    }
-    return result;
+  public requiredImports(context: EmitContext): PythonImports {
+    return mergePythonImports(
+      toTypeName(this.returns).requiredImports(context),
+      ...this.parameters.map((param) =>
+        toTypeName(param).requiredImports(context),
+      ),
+    );
   }
 
   public emit(
     code: CodeMaker,
-    resolver: TypeResolver,
+    context: EmitContext,
     opts?: BaseMethodEmitOpts,
   ) {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
 
-    let returnType: string;
-    if (this.returns !== undefined) {
-      returnType = resolver.resolve(this.returns, { forwardReferences: false });
-    } else {
-      returnType = 'None';
-    }
+    const returnType: string = toTypeName(this.returns).pythonType(context);
 
     // We cannot (currently?) blindly use the names given to us by the JSII for
     // initializers, because our keyword lifting will allow two names to clash.
@@ -482,7 +415,7 @@ abstract class BaseMethod implements PythonBase {
         liftedPropNames,
       );
 
-      const paramType = resolver.resolve(param, { forwardReferences: false });
+      const paramType = toTypeName(param).pythonType(context);
       const paramDefault = param.optional ? '=None' : '';
 
       pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
@@ -493,7 +426,7 @@ abstract class BaseMethod implements PythonBase {
       .filter((_, index) =>
         this.liftedProp != null ? index < this.parameters.length - 1 : true,
       )
-      .map(param => ({
+      .map((param) => ({
         ...param,
         name: toPythonParameterName(param.name, liftedPropNames),
       }));
@@ -504,7 +437,7 @@ abstract class BaseMethod implements PythonBase {
     if (this.liftedProp !== undefined) {
       // Remove our last item.
       pythonParams.pop();
-      const liftedProperties = this.getLiftedProperties(resolver);
+      const liftedProperties = this.getLiftedProperties(context.resolver);
 
       if (liftedProperties.length >= 1) {
         // All of these parameters are keyword only arguments, so we'll mark them
@@ -514,9 +447,7 @@ abstract class BaseMethod implements PythonBase {
         // Iterate over all of our props, and reflect them into our params.
         for (const prop of liftedProperties) {
           const paramName = toPythonParameterName(prop.name);
-          const paramType = resolver.resolve(prop, {
-            forwardReferences: false,
-          });
+          const paramType = toTypeName(prop).pythonType(context);
           const paramDefault = prop.optional ? '=None' : '';
 
           pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
@@ -536,10 +467,7 @@ abstract class BaseMethod implements PythonBase {
 
       const lastParameter = this.parameters.slice(-1)[0];
       const paramName = toPythonParameterName(lastParameter.name);
-      const paramType = resolver.resolve(lastParameter, {
-        forwardReferences: false,
-        ignoreOptional: true,
-      });
+      const paramType = toTypeName(lastParameter.type).pythonType(context);
 
       pythonParams.push(`*${paramName}: ${paramType}`);
     }
@@ -565,7 +493,7 @@ abstract class BaseMethod implements PythonBase {
     });
     this.emitBody(
       code,
-      resolver,
+      context,
       renderAbstract,
       forceEmitBody,
       liftedPropNames,
@@ -575,7 +503,7 @@ abstract class BaseMethod implements PythonBase {
 
   private emitBody(
     code: CodeMaker,
-    resolver: TypeResolver,
+    context: EmitContext,
     renderAbstract: boolean,
     forceEmitBody: boolean,
     liftedPropNames: Set<string>,
@@ -587,30 +515,33 @@ abstract class BaseMethod implements PythonBase {
       code.line('...');
     } else {
       if (this.liftedProp !== undefined) {
-        this.emitAutoProps(code, resolver, liftedPropNames);
+        this.emitAutoProps(code, context, liftedPropNames);
       }
 
-      this.emitJsiiMethodCall(code, resolver, liftedPropNames);
+      this.emitJsiiMethodCall(code, context, liftedPropNames);
     }
   }
 
   private emitAutoProps(
     code: CodeMaker,
-    resolver: TypeResolver,
+    context: EmitContext,
     liftedPropNames: Set<string>,
   ) {
     const lastParameter = this.parameters.slice(-1)[0];
     const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
-    const typeName = resolver.resolve(lastParameter, { ignoreOptional: true });
+    const typeName = toTypeName(lastParameter.type).pythonType({
+      ...context,
+      typeAnnotation: false,
+    });
 
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specifiy to start with in our dictionary literal.
-    const liftedProps = this.getLiftedProperties(resolver).map(
-      p => new StructField(this.generator, p, this.parent),
+    const liftedProps = this.getLiftedProperties(context.resolver).map(
+      (p) => new StructField(this.generator, p),
     );
     const assignments = liftedProps
-      .map(p => p.pythonName)
-      .map(v => `${v}=${v}`);
+      .map((p) => p.pythonName)
+      .map((v) => `${v}=${v}`);
 
     code.line(`${argName} = ${typeName}(${assignments.join(', ')})`);
     code.line();
@@ -618,7 +549,7 @@ abstract class BaseMethod implements PythonBase {
 
   private emitJsiiMethodCall(
     code: CodeMaker,
-    resolver: TypeResolver,
+    context: EmitContext,
     liftedPropNames: Set<string>,
   ) {
     const methodPrefix: string = this.returnFromJSIIMethod ? 'return ' : '';
@@ -628,7 +559,12 @@ abstract class BaseMethod implements PythonBase {
       if (this.parent === undefined) {
         throw new Error('Parent not known.');
       }
-      jsiiMethodParams.push(resolver.resolve({ type: this.parent }));
+      jsiiMethodParams.push(
+        toTypeName(this.parent).pythonType({
+          ...context,
+          typeAnnotation: false,
+        }),
+      );
     }
     jsiiMethodParams.push(this.implicitParameter);
     if (this.jsName !== undefined) {
@@ -662,7 +598,7 @@ abstract class BaseMethod implements PythonBase {
       if (current.interfaces !== undefined) {
         stack.push(
           ...current.interfaces.map(
-            ifc => resolver.dereference(ifc) as spec.InterfaceType,
+            (ifc) => resolver.dereference(ifc) as spec.InterfaceType,
           ),
         );
       }
@@ -701,7 +637,6 @@ abstract class BaseProperty implements PythonBase {
   protected readonly shouldEmitBody: boolean = true;
 
   private readonly immutable: boolean;
-  private readonly parent: spec.NamedTypeReference;
 
   public constructor(
     private readonly generator: PythonGenerator,
@@ -715,30 +650,19 @@ abstract class BaseProperty implements PythonBase {
 
     this.abstract = abstract;
     this.immutable = immutable;
-    this.parent = opts.parent;
   }
 
-  public dependsOnModules(resolver: TypeResolver) {
-    const result = new Set<string>();
-    const thisModule = resolver.getDefiningPythonModule(this.parent);
-    if (spec.isNamedTypeReference(this.type.type)) {
-      const definingModule = resolver.getDefiningPythonModule(this.type.type);
-      if (definingModule !== thisModule) {
-        result.add(definingModule);
-      }
-    }
-    return result;
+  public requiredImports(context: EmitContext): PythonImports {
+    return toTypeName(this.type).requiredImports(context);
   }
 
   public emit(
     code: CodeMaker,
-    resolver: TypeResolver,
+    context: EmitContext,
     opts?: BasePropertyEmitOpts,
   ) {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
-    const pythonType = resolver.resolve(this.type, {
-      forwardReferences: false,
-    });
+    const pythonType = toTypeName(this.type).pythonType(context);
 
     code.line(`@${this.decorator}`);
     code.line(`@jsii.member(jsii_name="${this.jsName}")`);
@@ -787,16 +711,20 @@ abstract class BaseProperty implements PythonBase {
 }
 
 class Interface extends BasePythonClassType {
-  public emit(code: CodeMaker, resolver: TypeResolver) {
+  public emit(code: CodeMaker, context: EmitContext) {
+    context = { ...context, nestingScope: this.fqn! };
     code.line(`@jsii.interface(jsii_type="${this.fqn}")`);
 
     // First we do our normal class logic for emitting our members.
-    super.emit(code, resolver);
+    super.emit(code, context);
 
     // Then, we have to emit a Proxy class which implements our proxy interface.
-    resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
     const proxyBases: string[] = this.bases.map(
-      b => `jsii.proxy_for(${resolver.resolve({ type: b })})`,
+      (b) =>
+        `jsii.proxy_for(${toTypeName(b).pythonType({
+          ...context,
+          typeAnnotation: false,
+        })})`,
     );
     code.openBlock(
       `class ${this.getProxyClassName()}(${proxyBases.join(', ')})`,
@@ -808,7 +736,7 @@ class Interface extends BasePythonClassType {
 
     if (this.members.length > 0) {
       for (const member of this.members) {
-        member.emit(code, resolver, { forceEmitBody: true });
+        member.emit(code, context, { forceEmitBody: true });
       }
     } else {
       code.line('pass');
@@ -817,15 +745,17 @@ class Interface extends BasePythonClassType {
     code.closeBlock();
   }
 
-  protected getClassParams(resolver: TypeResolver): string[] {
-    const params: string[] = this.bases.map(b => resolver.resolve({ type: b }));
+  protected getClassParams(context: EmitContext): string[] {
+    const params: string[] = this.bases.map((b) =>
+      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+    );
 
     params.push('jsii.compat.Protocol');
 
     return params;
   }
 
-  protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
+  protected emitPreamble(code: CodeMaker, _context: EmitContext) {
     code.line('@builtins.staticmethod');
     code.openBlock('def __jsii_proxy_class__()');
     code.line(`return ${this.getProxyClassName()}`);
@@ -861,10 +791,9 @@ class Struct extends BasePythonClassType {
     this.directMembers.push(member);
   }
 
-  public emit(code: CodeMaker, resolver: TypeResolver) {
-    resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
-
-    const baseInterfaces = this.getClassParams(resolver);
+  public emit(code: CodeMaker, context: EmitContext) {
+    context = { ...context, nestingScope: this.fqn! };
+    const baseInterfaces = this.getClassParams(context);
 
     code.line(
       `@jsii.data_type(jsii_type="${
@@ -874,10 +803,10 @@ class Struct extends BasePythonClassType {
       )}], name_mapping=${this.propertyMap()})`,
     );
     code.openBlock(`class ${this.pythonName}(${baseInterfaces.join(', ')})`);
-    this.emitConstructor(code, resolver);
+    this.emitConstructor(code, context);
 
     for (const member of this.allMembers) {
-      this.emitGetter(member, code, resolver);
+      this.emitGetter(member, code, context);
     }
 
     this.emitMagicMethods(code);
@@ -885,8 +814,17 @@ class Struct extends BasePythonClassType {
     code.closeBlock();
   }
 
-  protected getClassParams(resolver: TypeResolver): string[] {
-    return this.bases.map(b => resolver.resolve({ type: b }));
+  public requiredImports(context: EmitContext) {
+    return mergePythonImports(
+      super.requiredImports(context),
+      ...this.allMembers.map((mem) => mem.requiredImports(context)),
+    );
+  }
+
+  protected getClassParams(context: EmitContext): string[] {
+    return this.bases.map((b) =>
+      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+    );
   }
 
   /**
@@ -894,7 +832,7 @@ class Struct extends BasePythonClassType {
    */
   private get allMembers(): StructField[] {
     return this.thisInterface.allProperties.map(
-      x => new StructField(this.generator, x.spec, this.thisInterface),
+      (x) => new StructField(this.generator, x.spec),
     );
   }
 
@@ -905,10 +843,10 @@ class Struct extends BasePythonClassType {
     return this.generator.reflectAssembly.system.findInterface(this.fqn);
   }
 
-  private emitConstructor(code: CodeMaker, resolver: TypeResolver) {
+  private emitConstructor(code: CodeMaker, context: EmitContext) {
     const members = this.allMembers;
 
-    const kwargs = members.map(m => m.constructorDecl(resolver));
+    const kwargs = members.map((m) => m.constructorDecl(context));
 
     const constructorArguments =
       kwargs.length > 0 ? ['self', '*', ...kwargs] : ['self'];
@@ -917,9 +855,12 @@ class Struct extends BasePythonClassType {
     this.emitConstructorDocstring(code);
 
     // Re-type struct arguments that were passed as "dict"
-    for (const member of members.filter(m => m.isStruct(this.generator))) {
+    for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = resolver.resolve(member.type, { ignoreOptional: true });
+      const typeName = toTypeName(member.type.type).pythonType({
+        ...context,
+        typeAnnotation: false,
+      });
       code.line(
         `if isinstance(${member.pythonName}, dict): ${member.pythonName} = ${typeName}(**${member.pythonName})`,
       );
@@ -927,13 +868,13 @@ class Struct extends BasePythonClassType {
 
     // Required properties, those will always be put into the dict
     code.line('self._values = {');
-    for (const member of members.filter(m => !m.optional)) {
+    for (const member of members.filter((m) => !m.optional)) {
       code.line(`    '${member.pythonName}': ${member.pythonName},`);
     }
     code.line('}');
 
     // Optional properties, will only be put into the dict if they're not None
-    for (const member of members.filter(m => m.optional)) {
+    for (const member of members.filter((m) => m.optional)) {
       code.line(
         `if ${member.pythonName} is not None: self._values["${member.pythonName}"] = ${member.pythonName}`,
       );
@@ -943,7 +884,7 @@ class Struct extends BasePythonClassType {
   }
 
   private emitConstructorDocstring(code: CodeMaker) {
-    const args: DocumentableArgument[] = this.allMembers.map(m => ({
+    const args: DocumentableArgument[] = this.allMembers.map((m) => ({
       name: m.pythonName,
       docs: m.docs,
     }));
@@ -956,11 +897,11 @@ class Struct extends BasePythonClassType {
   private emitGetter(
     member: StructField,
     code: CodeMaker,
-    resolver: TypeResolver,
+    context: EmitContext,
   ) {
     code.line('@builtins.property');
     code.openBlock(
-      `def ${member.pythonName}(self) -> ${member.typeAnnotation(resolver)}`,
+      `def ${member.pythonName}(self) -> ${member.typeAnnotation(context)}`,
     );
     member.emitDocString(code);
     code.line(`return self._values.get('${member.pythonName}')`);
@@ -1003,7 +944,6 @@ class StructField implements PythonBase {
   public constructor(
     private readonly generator: PythonGenerator,
     public readonly prop: spec.Property,
-    private readonly parent: spec.NamedTypeReference,
   ) {
     this.pythonName = toPythonPropertyName(prop.name);
     this.jsiiName = prop.name;
@@ -1015,32 +955,24 @@ class StructField implements PythonBase {
     return !!this.type.optional;
   }
 
-  public dependsOnModules(resolver: TypeResolver) {
-    const result = new Set<string>();
-    const thisModule = resolver.getDefiningPythonModule(this.parent);
-    if (spec.isNamedTypeReference(this.type.type)) {
-      const definingModule = resolver.getDefiningPythonModule(this.type.type);
-      if (thisModule !== definingModule) {
-        result.add(definingModule);
-      }
-    }
-    return result;
+  public requiredImports(context: EmitContext): PythonImports {
+    return toTypeName(this.type).requiredImports(context);
   }
 
   public isStruct(generator: PythonGenerator): boolean {
     return isStruct(generator.reflectAssembly.system, this.type.type);
   }
 
-  public constructorDecl(resolver: TypeResolver) {
+  public constructorDecl(context: EmitContext) {
     const opt = this.optional ? '=None' : '';
-    return `${this.pythonName}: ${this.typeAnnotation(resolver)}${opt}`;
+    return `${this.pythonName}: ${this.typeAnnotation(context)}${opt}`;
   }
 
   /**
    * Return the Python type annotation for this type
    */
-  public typeAnnotation(resolver: TypeResolver) {
-    return resolver.resolve(this.type, { forwardReferences: false });
+  public typeAnnotation(context: EmitContext) {
+    return toTypeName(this.type).pythonType(context);
   }
 
   public emitDocString(code: CodeMaker) {
@@ -1049,8 +981,8 @@ class StructField implements PythonBase {
     });
   }
 
-  public emit(code: CodeMaker, resolver: TypeResolver) {
-    const resolvedType = this.typeAnnotation(resolver);
+  public emit(code: CodeMaker, context: EmitContext) {
+    const resolvedType = this.typeAnnotation(context);
     code.line(`${this.pythonName}: ${resolvedType}`);
     this.emitDocString(code);
   }
@@ -1114,39 +1046,41 @@ class Class extends BasePythonClassType implements ISortableType {
     return dependencies;
   }
 
-  public dependsOnModules(resolver: TypeResolver): Set<string> {
-    const result = super.dependsOnModules(resolver);
-
-    for (const member of this.members) {
-      for (const dep of member.dependsOnModules(resolver)) {
-        result.add(dep);
-      }
-    }
-
-    return result;
+  public requiredImports(context: EmitContext): PythonImports {
+    return mergePythonImports(
+      super.requiredImports(context), // Takes care of base & members
+      ...this.interfaces.map((base) =>
+        toTypeName(base).requiredImports(context),
+      ),
+    );
   }
 
-  public emit(code: CodeMaker, resolver: TypeResolver) {
+  public emit(code: CodeMaker, context: EmitContext) {
     // First we emit our implments decorator
     if (this.interfaces.length > 0) {
-      const interfaces: string[] = this.interfaces.map(b =>
-        resolver.resolve({ type: b }),
+      const interfaces: string[] = this.interfaces.map((b) =>
+        toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
       );
       code.line(`@jsii.implements(${interfaces.join(', ')})`);
     }
 
     // Then we do our normal class logic for emitting our members.
-    super.emit(code, resolver);
+    super.emit(code, context);
 
     // Then, if our class is Abstract, we have to go through and redo all of
     // this logic, except only emiting abstract methods and properties as non
     // abstract, and subclassing our initial class.
     if (this.abstract) {
-      resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
+      context = { ...context, nestingScope: this.fqn! };
 
       const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
-        proxyBases.push(`jsii.proxy_for(${resolver.resolve({ type: base })})`);
+        proxyBases.push(
+          `jsii.proxy_for(${toTypeName(base).pythonType({
+            ...context,
+            typeAnnotation: false,
+          })})`,
+        );
       }
 
       code.openBlock(
@@ -1156,12 +1090,12 @@ class Class extends BasePythonClassType implements ISortableType {
       // Filter our list of members to *only* be abstract members, and not any
       // other types.
       const abstractMembers = this.members.filter(
-        m =>
+        (m) =>
           (m instanceof BaseMethod || m instanceof BaseProperty) && m.abstract,
       );
       if (abstractMembers.length > 0) {
         for (const member of abstractMembers) {
-          member.emit(code, resolver, { renderAbstract: false });
+          member.emit(code, context, { renderAbstract: false });
         }
       } else {
         code.line('pass');
@@ -1171,7 +1105,7 @@ class Class extends BasePythonClassType implements ISortableType {
     }
   }
 
-  protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
+  protected emitPreamble(code: CodeMaker, _context: EmitContext) {
     if (this.abstract) {
       code.line('@builtins.staticmethod');
       code.openBlock('def __jsii_proxy_class__()');
@@ -1180,8 +1114,10 @@ class Class extends BasePythonClassType implements ISortableType {
     }
   }
 
-  protected getClassParams(resolver: TypeResolver): string[] {
-    const params: string[] = this.bases.map(b => resolver.resolve({ type: b }));
+  protected getClassParams(context: EmitContext): string[] {
+    const params: string[] = this.bases.map((b) =>
+      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+    );
     const metaclass: string = this.abstract ? 'JSIIAbstractClass' : 'JSIIMeta';
 
     params.push(`metaclass=jsii.${metaclass}`);
@@ -1233,13 +1169,18 @@ class Property extends BaseProperty {
 }
 
 class Enum extends BasePythonClassType {
-  public emit(code: CodeMaker, resolver: TypeResolver) {
+  public emit(code: CodeMaker, context: EmitContext) {
+    context = { ...context, nestingScope: this.fqn! };
     code.line(`@jsii.enum(jsii_type="${this.fqn}")`);
-    return super.emit(code, resolver);
+    return super.emit(code, context);
   }
 
-  protected getClassParams(_resolver: TypeResolver): string[] {
+  protected getClassParams(_context: EmitContext): string[] {
     return ['enum.Enum'];
+  }
+
+  public requiredImports(context: EmitContext): PythonImports {
+    return super.requiredImports(context);
   }
 }
 
@@ -1258,11 +1199,15 @@ class EnumMember implements PythonBase {
     return new Set<string>();
   }
 
-  public emit(code: CodeMaker, _resolver: TypeResolver) {
+  public emit(code: CodeMaker, _context: EmitContext) {
     code.line(`${this.pythonName} = "${this.value}"`);
     this.generator.emitDocString(code, this.docs, {
       documentableItem: `enum-${this.pythonName}`,
     });
+  }
+
+  public requiredImports(_context: EmitContext): PythonImports {
+    return {};
   }
 }
 
@@ -1295,21 +1240,23 @@ class PythonModule implements PythonType {
     this.members.push(member);
   }
 
-  public dependsOnModules(resolver: TypeResolver) {
-    resolver = this.fqn ? resolver.bind(this.fqn, this.pythonName) : resolver;
-    const result = new Set<string>();
-    for (const mem of this.members) {
-      for (const dep of mem.dependsOnModules(resolver)) {
-        result.add(dep);
-      }
-    }
-    return result;
+  public requiredImports(context: EmitContext): PythonImports {
+    return mergePythonImports(
+      ...this.members.map((mem) => mem.requiredImports(context)),
+    );
   }
 
-  public emit(code: CodeMaker, resolver: TypeResolver) {
+  public emit(code: CodeMaker, context: EmitContext) {
     this.emitModuleDocumentation(code);
 
-    resolver = this.fqn ? resolver.bind(this.fqn, this.pythonName) : resolver;
+    const resolver = this.fqn
+      ? context.resolver.bind(this.fqn, this.pythonName)
+      : context.resolver;
+    context = {
+      ...context,
+      submodule: this.fqn ?? context.submodule,
+      resolver,
+    };
 
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
@@ -1323,11 +1270,10 @@ class PythonModule implements PythonType {
     code.line('import jsii.compat');
     code.line('import publication');
 
-    // Go over all of the modules that we need to import, and import them.
-    this.emitDependencyImports(code, resolver);
-
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
+      this.emitDependencyImports(code);
+
       code.line();
       const params = [
         `"${this.assembly.name}"`,
@@ -1350,6 +1296,8 @@ class PythonModule implements PythonType {
         distanceFromRoot++;
       }
       code.line(`from ${'.'.repeat(distanceFromRoot + 1)}_jsii import *`);
+
+      this.emitRequiredImports(code, context);
     }
 
     code.line();
@@ -1359,11 +1307,11 @@ class PythonModule implements PythonType {
 
     // Emit all of our members.
     for (const member of sortMembers(this.members, resolver)) {
-      member.emit(code, resolver);
+      member.emit(code, context);
     }
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
-    const exportedMembers = this.members.map(m => `"${m.pythonName}"`);
+    const exportedMembers = this.members.map((m) => `"${m.pythonName}"`);
     if (this.loadAssembly) {
       exportedMembers.push('"__jsii_assembly__"');
     }
@@ -1397,32 +1345,61 @@ class PythonModule implements PythonType {
     }
   }
 
-  private emitDependencyImports(code: CodeMaker, resolver: TypeResolver) {
-    const deps = this.dependsOnModules(resolver);
-
-    // We need to make sure direct dependencies are always loaded...
-    for (const dep of Object.keys(this.assembly.dependencies ?? {})) {
-      const depConfig = this.assembly.dependencyClosure![dep];
-
-      const packageName = depConfig.targets!.python!.module;
-      deps.add(packageName);
-
-      for (const [submoduleName] of Object.entries(
-        depConfig.submodules ?? {},
-      )) {
-        const [, ...parts] = submoduleName.split('.');
-        deps.add(
-          [packageName, ...parts.map(part => toSnakeCase(part))].join('.'),
-        );
-      }
-    }
+  private emitDependencyImports(code: CodeMaker) {
+    // Collect all the (direct) dependencies' ._jsii packages.
+    const deps = Object.keys(this.assembly.dependencies ?? {})
+      .map(
+        (dep) =>
+          this.assembly.dependencyClosure?.[dep]?.targets?.python?.module ??
+          die(`No Python target was configrued for the dependency "${dep}".`),
+      )
+      .map((mod) => `${mod}._jsii`)
+      .sort();
 
     // Now actually write the import statements...
-    if (deps.size > 0) {
+    if (deps.length > 0) {
       code.line();
-      for (const moduleName of Array.from(deps).sort()) {
+      for (const moduleName of deps) {
         code.line(`import ${moduleName}`);
       }
+    }
+  }
+
+  private emitRequiredImports(code: CodeMaker, context: EmitContext) {
+    const requiredImports = this.requiredImports(context);
+    const statements = Object.entries(requiredImports)
+      .map(([sourcePackage, items]) => toImportStatements(sourcePackage, items))
+      .reduce((acc, elt) => [...acc, ...elt], new Array<string>())
+      .sort(importComparator);
+
+    if (statements.length > 0) {
+      code.line();
+    }
+    for (const statement of statements) {
+      code.line(statement);
+    }
+
+    function toImportStatements(
+      sourcePkg: string,
+      items: ReadonlySet<string>,
+    ): string[] {
+      const result = new Array<string>();
+      if (items.has('')) {
+        result.push(`import ${sourcePkg}`);
+      }
+      const pieceMeal = Array.from(items).filter((i) => i !== '');
+      if (pieceMeal.length > 0) {
+        result.push(`from ${sourcePkg} import (${pieceMeal.join(', ')})`);
+      }
+      return result;
+    }
+
+    function importComparator(left: string, right: string) {
+      if (left.startsWith('import') === right.startsWith('import')) {
+        return left.localeCompare(right);
+      }
+      // We want "from .foo import (...)" to be *after* "import bar"
+      return right.localeCompare(left);
     }
   }
 }
@@ -1465,7 +1442,7 @@ class Package {
     this.data.get(module.pythonName)!.push({ filename, data });
   }
 
-  public write(code: CodeMaker, resolver: TypeResolver) {
+  public write(code: CodeMaker, context: EmitContext) {
     if (this.metadata.readme) {
       // Conversion is expensive, so cache the result in a variable (we need it twice)
       this.convertedReadme = this.generator
@@ -1486,7 +1463,7 @@ class Package {
       );
 
       code.openFile(filename);
-      mod.emit(code, resolver);
+      mod.emit(code, context);
       code.closeFile(filename);
     }
 
@@ -1507,7 +1484,7 @@ class Package {
         }
       }
 
-      packageData[mod] = pdata.map(pd => pd.filename);
+      packageData[mod] = pdata.map((pd) => pd.filename);
     }
 
     // Compute our list of dependencies
@@ -1545,7 +1522,7 @@ class Package {
         Source: this.metadata.repository.url,
       },
       package_dir: { '': 'src' },
-      packages: modules.map(m => m.pythonName),
+      packages: modules.map((m) => m.pythonName),
       package_data: packageData,
       python_requires: '>=3.6',
       install_requires: [
@@ -1624,14 +1601,7 @@ class Package {
 type FindModuleCallback = (fqn: string) => spec.AssemblyConfiguration;
 type FindTypeCallback = (fqn: string) => spec.Type;
 
-interface TypeResolverOpts {
-  forwardReferences?: boolean;
-  ignoreOptional?: boolean;
-}
-
 class TypeResolver {
-  private static readonly STD_TYPES_REGEX = /^(datetime\.datetime|typing\.[A-Z][a-z]+|jsii\.Number)$/;
-
   private readonly types: Map<string, PythonType>;
   private readonly boundTo?: string;
   private readonly boundRe!: RegExp;
@@ -1747,144 +1717,6 @@ class TypeResolver {
     return this.findType(typeRef);
   }
 
-  public resolve(
-    typeInstance: spec.OptionalValue,
-    opts: TypeResolverOpts = { forwardReferences: true, ignoreOptional: false },
-  ): string {
-    const { forwardReferences = true } = opts;
-
-    const optional = opts.ignoreOptional ? false : !!typeInstance.optional;
-    // First, we need to resolve our given type reference into the Python type.
-    let pythonType = this.toPythonType(typeInstance.type, { optional });
-
-    // If we split our types by any of the "special" characters that can't appear in
-    // identifiers (like "[],") then we will get a list of all of the identifiers,
-    // no matter how nested they are. The downside is we might get trailing/leading
-    // spaces or empty items so we'll need to trim and filter this list.
-    const types = pythonType
-      .split(/[[\],]/)
-      .map((s: string) => s.trim())
-      .filter(s => s !== '');
-
-    for (const innerType of types) {
-      // Built in types do not need formatted in any particular way.
-      if (PYTHON_BUILTIN_TYPES.includes(innerType)) {
-        continue;
-      }
-
-      // These are not exactly built in types, but they're also not types that
-      // this resolver has to worry about.
-      if (TypeResolver.STD_TYPES_REGEX.test(innerType)) {
-        continue;
-      }
-
-      // If our resolver is bound to the same module as the type we're trying to
-      // resolve, then we'll implement the needed logic to use module relative naming
-      // and to handle forward references (if needed).
-      if (this.isInModule(innerType)) {
-        // If our type is part of the same namespace, then we'll return a namespace
-        // relative name, otherwise a module relative name.
-        let typeName: string;
-        if (this.isInNamespace(innerType)) {
-          [, , typeName] = this.boundRe.exec(innerType) as string[];
-        } else {
-          [, , typeName] = this.moduleRe.exec(innerType) as string[];
-        }
-
-        // This re will look for the entire type, boxed by either the start/end of
-        // a string, a comma, a space, a quote, or open/closing brackets. This will
-        // ensure that we only match whole type names, and not partial ones.
-        const re = new RegExp(
-          `((?:^|[[,\\s])"?)${innerType}("?(?:$|[\\],\\s]))`,
-        );
-
-        // We need to handle forward references, our caller knows if we're able to
-        // use them in the current context or not, so if not, we'll wrap our forward
-        // reference in quotes.
-        // We have special logic here for checking if our thing is actually *in*
-        // our module, behond what we've already done, because our other logic will
-        // work for submodules, but this can't.
-        if (!forwardReferences && this.isInModule(innerType)) {
-          pythonType = pythonType.replace(re, `$1"${innerType}"$2`);
-        }
-
-        // Now that we've gotten forward references out of the way, we will want
-        // to replace the entire type string, with just the type portion.
-        pythonType = pythonType.replace(re, `$1${typeName}$2`);
-      }
-    }
-
-    return pythonType;
-  }
-
-  private toPythonType(
-    typeRef: spec.TypeReference,
-    opts: { optional: boolean },
-  ): string {
-    let pythonType: string;
-
-    // Get the underlying python type.
-    if (spec.isPrimitiveTypeReference(typeRef)) {
-      pythonType = this.toPythonPrimitive(typeRef.primitive);
-    } else if (spec.isCollectionTypeReference(typeRef)) {
-      pythonType = this.toPythonCollection(typeRef);
-    } else if (spec.isNamedTypeReference(typeRef)) {
-      pythonType = this.toPythonFQN(typeRef.fqn);
-    } else if (typeRef.union) {
-      const types = new Array<string>();
-      for (const subtype of typeRef.union.types) {
-        types.push(this.toPythonType(subtype, opts));
-      }
-      pythonType = `typing.Union[${types.join(', ')}]`;
-    } else {
-      throw new Error(`Invalid type reference: ${JSON.stringify(typeRef)}`);
-    }
-
-    // If our type is Optional, then we'll wrap our underlying type with typing.Optional
-    // However, if we're not respecting optionals, then we'll just skip over this.
-    // We explicitly don't emit this when our type is typing.Any, because typing.Any
-    // already implied that None is an accepted type.
-    // See: https://github.com/aws/jsii/issues/284
-    if (opts.optional && pythonType !== 'typing.Any') {
-      pythonType = `typing.Optional[${pythonType}]`;
-    }
-
-    return pythonType;
-  }
-
-  private toPythonPrimitive(primitive: spec.PrimitiveType): string {
-    switch (primitive) {
-      case spec.PrimitiveType.Boolean:
-        return 'bool';
-      case spec.PrimitiveType.Date:
-        return 'datetime.datetime';
-      case spec.PrimitiveType.Json:
-        return 'typing.Mapping[typing.Any, typing.Any]';
-      case spec.PrimitiveType.Number:
-        return 'jsii.Number';
-      case spec.PrimitiveType.String:
-        return 'str';
-      case spec.PrimitiveType.Any:
-        return 'typing.Any';
-      default:
-        throw new Error(`Unknown primitive type: ${primitive}`);
-    }
-  }
-
-  private toPythonCollection(ref: spec.CollectionTypeReference): string {
-    const elementPythonType = this.toPythonType(ref.collection.elementtype, {
-      optional: false,
-    });
-    switch (ref.collection.kind) {
-      case spec.CollectionKind.Array:
-        return `typing.List[${elementPythonType}]`;
-      case spec.CollectionKind.Map:
-        return `typing.Mapping[str, ${elementPythonType}]`;
-      default:
-        throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
-    }
-  }
-
   private toPythonFQN(fqn: string): string {
     const [assemblyName, ...qualifiedIdentifiers] = fqn.split('.');
     const fqnParts: string[] = [
@@ -1909,8 +1741,8 @@ class PythonGenerator extends Generator {
   ) {
     super(options);
 
-    this.code.openBlockFormatter = s => `${s}:`;
-    this.code.closeBlockFormatter = _s => '';
+    this.code.openBlockFormatter = (s) => `${s}:`;
+    this.code.closeBlockFormatter = (_s) => '';
 
     this.types = new Map();
   }
@@ -2059,7 +1891,7 @@ class PythonGenerator extends Generator {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
       'python',
-      trans => ({
+      (trans) => ({
         language: trans.language,
         source: this.prefixDisclaimer(trans),
       }),
@@ -2117,13 +1949,17 @@ class PythonGenerator extends Generator {
     this.package.addData(assemblyModule, this.getAssemblyFileName(), null);
   }
 
-  protected onEndAssembly(_assm: spec.Assembly, _fingerprint: boolean) {
+  protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
     const resolver = new TypeResolver(
       this.types,
       (fqn: string) => this.findModule(fqn),
       (fqn: string) => this.findType(fqn),
     );
-    this.package.write(this.code, resolver);
+    this.package.write(this.code, {
+      assembly: assm,
+      submodule: assm.name,
+      resolver,
+    });
   }
 
   protected onBeginNamespace(ns: string) {
@@ -2134,7 +1970,7 @@ class PythonGenerator extends Generator {
           .split('.')
           .slice(1)
           .map(toPythonIdentifier)
-          .map(s => toSnakeCase(s)),
+          .map((s) => toSnakeCase(s)),
       ].join('.'),
       ns,
       {
@@ -2160,7 +1996,7 @@ class PythonGenerator extends Generator {
       {
         abstract,
         bases: cls.base ? [this.findType(cls.base)] : undefined,
-        interfaces: cls.interfaces?.map(base => this.findType(base)),
+        interfaces: cls.interfaces?.map((base) => this.findType(base)),
         abstractBases: abstract ? this.getAbstractBases(cls) : [],
       },
       cls.docs,
@@ -2285,7 +2121,7 @@ class PythonGenerator extends Generator {
         this,
         toPythonIdentifier(ifc.name),
         ifc.fqn,
-        { bases: ifc.interfaces?.map(base => this.findType(base)) },
+        { bases: ifc.interfaces?.map((base) => this.findType(base)) },
         ifc.docs,
       );
     } else {
@@ -2293,7 +2129,7 @@ class PythonGenerator extends Generator {
         this,
         toPythonIdentifier(ifc.name),
         ifc.fqn,
-        { bases: ifc.interfaces?.map(base => this.findType(base)) },
+        { bases: ifc.interfaces?.map((base) => this.findType(base)) },
         ifc.docs,
       );
     }
@@ -2325,7 +2161,7 @@ class PythonGenerator extends Generator {
     let ifaceProperty: InterfaceProperty | StructField;
 
     if (ifc.datatype) {
-      ifaceProperty = new StructField(this, prop, ifc);
+      ifaceProperty = new StructField(this, prop);
     } else {
       ifaceProperty = new InterfaceProperty(
         this,

@@ -183,7 +183,7 @@ export class TypeSystem {
   }
 
   public isRoot(name: string) {
-    return this.roots.map(r => r.name).includes(name);
+    return this.roots.map((r) => r.name).includes(name);
   }
 
   public findAssembly(name: string) {
@@ -239,42 +239,42 @@ export class TypeSystem {
    */
   public get methods() {
     const out = new Array<Method>();
-    this.assemblies.forEach(a => {
-      a.interfaces.forEach(t => out.push(...t.ownMethods));
-      a.classes.forEach(t => out.push(...t.ownMethods));
+    this.assemblies.forEach((a) => {
+      a.interfaces.forEach((t) => out.push(...t.ownMethods));
+      a.classes.forEach((t) => out.push(...t.ownMethods));
     });
     return out;
   }
 
   public get properties() {
     const out = new Array<Property>();
-    this.assemblies.forEach(a => {
-      a.interfaces.forEach(t => out.push(...t.ownProperties));
-      a.classes.forEach(t => out.push(...t.ownProperties));
+    this.assemblies.forEach((a) => {
+      a.interfaces.forEach((t) => out.push(...t.ownProperties));
+      a.classes.forEach((t) => out.push(...t.ownProperties));
     });
     return out;
   }
 
   public get classes(): readonly ClassType[] {
     const out = new Array<ClassType>();
-    this.assemblies.forEach(a => {
-      out.push(...collectTypes(a, item => item.classes));
+    this.assemblies.forEach((a) => {
+      out.push(...collectTypes(a, (item) => item.classes));
     });
     return out;
   }
 
   public get interfaces(): readonly InterfaceType[] {
     const out = new Array<InterfaceType>();
-    this.assemblies.forEach(a => {
-      out.push(...collectTypes(a, item => item.interfaces));
+    this.assemblies.forEach((a) => {
+      out.push(...collectTypes(a, (item) => item.interfaces));
     });
     return out;
   }
 
   public get enums(): readonly EnumType[] {
     const out = new Array<EnumType>();
-    this.assemblies.forEach(a => {
-      out.push(...collectTypes(a, item => item.enums));
+    this.assemblies.forEach((a) => {
+      out.push(...collectTypes(a, (item) => item.enums));
     });
     return out;
   }
@@ -293,7 +293,7 @@ export class TypeSystem {
   }
 
   private addRoot(asm: Assembly) {
-    if (!this.roots.map(r => r.name).includes(asm.name)) {
+    if (!this.roots.map((r) => r.name).includes(asm.name)) {
       this.roots.push(asm);
     }
   }

@@ -37,7 +37,7 @@ export class DotNetGenerator extends Generator {
     super();
 
     // Override the openBlock to get a correct C# looking code block with the curly brace after the line
-    this.code.openBlock = function(text) {
+    this.code.openBlock = function (text) {
       this.line(text);
       this.open('{');
     };
@@ -121,7 +121,7 @@ export class DotNetGenerator extends Generator {
     this.openFileIfNeeded('Anchor', namespace, false, false);
     this.code.openBlock('public sealed class Anchor');
     this.code.openBlock('public Anchor()');
-    this.typeresolver.namespaceDependencies.forEach(value =>
+    this.typeresolver.namespaceDependencies.forEach((value) =>
       this.code.line(
         `new ${value.namespace}.Internal.DependencyResolution.Anchor();`,
       ),
@@ -328,7 +328,7 @@ export class DotNetGenerator extends Generator {
       const visibility = cls.abstract ? 'protected' : 'public';
 
       const hasOptional =
-        initializer.parameters?.find(param => param.optional) != null
+        initializer.parameters?.find((param) => param.optional) != null
           ? '?'
           : '';
       this.code.openBlock(
@@ -470,7 +470,7 @@ export class DotNetGenerator extends Generator {
       ns = nesting.namespace;
     }
     if (ns != null) {
-      parts.push(...ns.split('.').map(n => toPascalCase(n)));
+      parts.push(...ns.split('.').map((n) => toPascalCase(n)));
     }
     return parts.join('.');
   }
@@ -575,7 +575,7 @@ export class DotNetGenerator extends Generator {
         if (baseType.properties) {
           if (
             baseType.properties.filter(
-              property => property.name === member.name,
+              (property) => property.name === member.name,
             ).length > 0
           ) {
             // property found in base parent
@@ -689,7 +689,7 @@ export class DotNetGenerator extends Generator {
     const isNested = this.isNested(ifc);
     this.openFileIfNeeded(name, namespace, isNested);
 
-    if (ifc.properties?.find(prop => !prop.optional) != null) {
+    if (ifc.properties?.find((prop) => !prop.optional) != null) {
       // We don't want to be annoyed by the lack of initialization of non-nullable fields in this case.
       this.code.line('#pragma warning disable CS8618');
       this.code.line();
@@ -744,7 +744,7 @@ export class DotNetGenerator extends Generator {
       for (const method of currentType.methods ?? []) {
         let methodParameters = '';
         if (method.parameters) {
-          method.parameters.forEach(param => {
+          method.parameters.forEach((param) => {
             methodParameters += `;${this.typeresolver.toDotNetType(
               param.type,
             )}`;
@@ -761,7 +761,7 @@ export class DotNetGenerator extends Generator {
 
       const bases = new Array<spec.NamedTypeReference>();
       bases.push(
-        ...(currentType.interfaces ?? []).map(iface => this.findType(iface)),
+        ...(currentType.interfaces ?? []).map((iface) => this.findType(iface)),
       );
       if (currentType.kind === spec.TypeKind.Class && currentType.base) {
         bases.push(this.findType(currentType.base));

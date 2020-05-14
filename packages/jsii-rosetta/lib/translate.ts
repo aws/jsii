@@ -176,9 +176,9 @@ function filterVisibleDiagnostics(
   visibleSpans: Span[],
 ): ts.Diagnostic[] {
   return diags.filter(
-    d =>
+    (d) =>
       d.source !== 'rosetta' ||
       d.start === undefined ||
-      visibleSpans.some(s => spanContains(s, d.start!)),
+      visibleSpans.some((s) => spanContains(s, d.start!)),
   );
 }

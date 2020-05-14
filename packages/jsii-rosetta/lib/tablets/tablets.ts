@@ -78,7 +78,7 @@ export class LanguageTablet {
     return {
       version: '1',
       toolVersion: TOOL_VERSION,
-      snippets: mapValues(this.snippets, s => s.toSchema()),
+      snippets: mapValues(this.snippets, (s) => s.toSchema()),
     };
   }
 }
@@ -154,7 +154,7 @@ export class TranslatedSnippet {
 
   public get languages(): TargetLanguage[] {
     return Object.keys(this.translations).filter(
-      x => x !== ORIGINAL_SNIPPET_KEY,
+      (x) => x !== ORIGINAL_SNIPPET_KEY,
     ) as TargetLanguage[];
   }
 

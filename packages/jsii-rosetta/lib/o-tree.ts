@@ -174,7 +174,7 @@ export class OTreeSink {
       get wroteNonWhitespaceSinceMark(): boolean {
         return self.fragments
           .slice(markIndex)
-          .some(s => /[^\s]/.exec(s) != null);
+          .some((s) => /[^\s]/.exec(s) != null);
       },
     };
   }
@@ -196,7 +196,9 @@ export class OTreeSink {
 
   public renderingForSpan(span?: Span): boolean {
     if (span && this.options.visibleSpans) {
-      this.rendering = this.options.visibleSpans.some(v => spanInside(span, v));
+      this.rendering = this.options.visibleSpans.some((v) =>
+        spanInside(span, v),
+      );
     }
     return this.rendering;
   }

@@ -110,7 +110,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(
       [],
       importStatement.imports.elements.map(
-        importEl => `import ${namespace}.${importEl.sourceName};`,
+        (importEl) => `import ${namespace}.${importEl.sourceName};`,
       ),
       { canBreakLine: true, separator: '\n' },
     );
@@ -405,7 +405,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
         ts.SyntaxKind.VariableDeclarationList,
         nodeOfType('var', ts.SyntaxKind.VariableDeclaration),
       ),
-      bindings => {
+      (bindings) => {
         variableName = renderer.textOf(bindings.var.name);
       },
     );
@@ -736,7 +736,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       resolvedNamespace ||
       packageName
         .split(/[^a-zA-Z0-9]+/g)
-        .filter(s => s !== '')
+        .filter((s) => s !== '')
         .join('.')
     );
   }
@@ -794,10 +794,10 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     outputKeyword: string,
   ): Array<OTree | string | undefined> {
     const heritageClause = (node.heritageClauses || []).find(
-      hc => hc.token === heritageKeyword,
+      (hc) => hc.token === heritageKeyword,
     );
     const superTypes = heritageClause
-      ? heritageClause.types.map(t => renderer.convert(t.expression))
+      ? heritageClause.types.map((t) => renderer.convert(t.expression))
       : [];
     return superTypes.length > 0
       ? [` ${outputKeyword} `, new OTree([], superTypes, { separator: ', ' })]
@@ -916,7 +916,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
               new OTree(
                 ['\n', callExpr, '('],
                 [
-                  ...parametersUpToIth.map(param =>
+                  ...parametersUpToIth.map((param) =>
                     renderer.convert(param.name),
                   ),
                   param.initializer

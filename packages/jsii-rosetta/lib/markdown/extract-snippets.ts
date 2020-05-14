@@ -19,7 +19,7 @@ export function extractTypescriptSnippetsFromMarkdown(
 
   visitCommonMarkTree(
     doc,
-    new ReplaceTypeScriptTransform(wherePrefix, ts => {
+    new ReplaceTypeScriptTransform(wherePrefix, (ts) => {
       ret.push(ts);
       return undefined;
     }),

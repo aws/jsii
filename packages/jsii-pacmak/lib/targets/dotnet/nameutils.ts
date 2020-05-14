@@ -49,7 +49,7 @@ export class DotNetNameUtils {
     // Tentatively get the class name
     let name = this.capitalizeWord(original.name);
     if (original.methods) {
-      original.methods.forEach(method => {
+      original.methods.forEach((method) => {
         if (method.name.toLowerCase() === original.name.toLowerCase()) {
           // This class has a member with the same name, need to slugify the class name
           name = this.capitalizeWord(this.slugify(original.name));
@@ -57,7 +57,7 @@ export class DotNetNameUtils {
       });
     }
     if (original.properties) {
-      original.properties.forEach(property => {
+      original.properties.forEach((property) => {
         if (property.name.toLowerCase() === original.name.toLowerCase()) {
           // This class has a member with the same name, need to slugify the class name
           name = this.capitalizeWord(this.slugify(original.name));

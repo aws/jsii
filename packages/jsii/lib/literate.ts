@@ -118,14 +118,14 @@ export async function loadFromFile(fileName: string): Promise<string[]> {
  * Turn file content string into an array of lines ready for processing using the other functions
  */
 export function contentToLines(content: string): string[] {
-  return content.split('\n').map(x => x.trimRight());
+  return content.split('\n').map((x) => x.trimRight());
 }
 
 /**
  * Return a file system loader given a base directory
  */
 export function fileSystemLoader(directory: string): FileLoader {
-  return fileName => loadFromFile(path.resolve(directory, fileName));
+  return (fileName) => loadFromFile(path.resolve(directory, fileName));
 }
 
 const RELEVANT_TAG = '/// !show';
@@ -166,9 +166,9 @@ function findRelevantLines(lines: string[]): string[] {
  */
 function stripCommonIndent(lines: string[]): string[] {
   const leadingWhitespace = /^(\s*)/;
-  const indents = lines.map(l => leadingWhitespace.exec(l)![1].length);
+  const indents = lines.map((l) => leadingWhitespace.exec(l)![1].length);
   const commonIndent = Math.min(...indents);
-  return lines.map(l => l.substr(commonIndent));
+  return lines.map((l) => l.substr(commonIndent));
 }
 
 /**

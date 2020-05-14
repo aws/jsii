@@ -30,7 +30,7 @@ export function propertiesOfStruct(
   context: AstRenderer<any>,
 ): StructProperty[] {
   return type.isClassOrInterface()
-    ? type.getProperties().map(s => {
+    ? type.getProperties().map((s) => {
         let propType;
         let questionMark = false;
 

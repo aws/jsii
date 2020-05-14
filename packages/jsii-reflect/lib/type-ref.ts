@@ -26,7 +26,7 @@ export class TypeReference {
       return `Map<string => ${this.mapOfType}>`;
     }
     if (this.unionOfTypes) {
-      return this.unionOfTypes.map(x => x.toString()).join(' | ');
+      return this.unionOfTypes.map((x) => x.toString()).join(' | ');
     }
 
     throw new Error('Invalid type reference');
@@ -89,6 +89,6 @@ export class TypeReference {
       return undefined;
     }
 
-    return this.spec.union.types.map(t => new TypeReference(this.system, t));
+    return this.spec.union.types.map((t) => new TypeReference(this.system, t));
   }
 }

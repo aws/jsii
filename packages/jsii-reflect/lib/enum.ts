@@ -14,7 +14,7 @@ export class EnumType extends Type {
   }
 
   public get members() {
-    return this.spec.members.map(m => new EnumMember(this, m));
+    return this.spec.members.map((m) => new EnumMember(this, m));
   }
 
   public isEnumType() {

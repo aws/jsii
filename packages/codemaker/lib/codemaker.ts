@@ -19,7 +19,7 @@ export class CodeMaker {
   /**
    * Formats an block open statement.
    */
-  public openBlockFormatter: (s?: string) => string = s => `${s} {`;
+  public openBlockFormatter: (s?: string) => string = (s) => `${s} {`;
 
   /**
    * Formats a block close statement.
@@ -33,8 +33,8 @@ export class CodeMaker {
    */
   public async save(rootDir: string) {
     const paths = this.files
-      .filter(file => !this.excludes.includes(file.filePath))
-      .map(file => file.save(rootDir));
+      .filter((file) => !this.excludes.includes(file.filePath))
+      .map((file) => file.save(rootDir));
     return (await Promise.all(paths)).sort();
   }
 

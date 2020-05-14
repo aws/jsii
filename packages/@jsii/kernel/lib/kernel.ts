@@ -343,7 +343,7 @@ export class Kernel {
     // since we are planning to resolve this promise in a different scope
     // we need to handle rejections here [1]
     // [1]: https://stackoverflow.com/questions/40920179/should-i-refrain-from-handling-promise-rejection-asynchronously/40921505
-    promise.catch(_ => undefined);
+    promise.catch((_) => undefined);
 
     const prid = this._makeprid();
     this.promises[prid] = {
@@ -378,7 +378,7 @@ export class Kernel {
 
   public callbacks(_req?: api.CallbacksRequest): api.CallbacksResponse {
     this._debug('callbacks');
-    const ret = Object.keys(this.cbs).map(cbid => {
+    const ret = Object.keys(this.cbs).map((cbid) => {
       const cb = this.cbs[cbid];
       this.waiting[cbid] = cb; // move to waiting
       const callback: api.Callback = {
@@ -822,8 +822,9 @@ export class Kernel {
         for (let j = i; j < params.length; j++) {
           if (!param.optional && params[j] === undefined) {
             throw new Error(
-              `Unexpected 'undefined' value at index ${j -
-                i} of variadic argument '${
+              `Unexpected 'undefined' value at index ${
+                j - i
+              } of variadic argument '${
                 param.name
               }' of type '${spec.describeTypeReference(param.type)}'`,
             );
@@ -1226,7 +1227,7 @@ function mapSource(
       ...oldFrames
         .slice(
           0,
-          oldFrames.findIndex(frame => frame.startsWith(topFrame)),
+          oldFrames.findIndex((frame) => frame.startsWith(topFrame)),
         )
         .map(applyMaps),
       ...realFrames,

@@ -134,10 +134,7 @@ export class FileGenerator {
     });
 
     // Suppress warnings about [Obsolete] members, this is the author's choice!
-    rootNode
-      .ele('PropertyGroup')
-      .ele('NoWarn')
-      .text('0612,0618');
+    rootNode.ele('PropertyGroup').ele('NoWarn').text('0612,0618');
 
     const xml = rootNode.end({ pretty: true, spaceBeforeSlash: true });
 
@@ -157,7 +154,7 @@ export class FileGenerator {
     const packageId: string = this.assm.targets!.dotnet!.packageId;
     const filePath: string = path.join(packageId, 'AssemblyInfo.cs');
     this.code.openFile(filePath);
-    this.assemblyInfoNamespaces.map(n => this.code.line(`using ${n};`));
+    this.assemblyInfoNamespaces.map((n) => this.code.line(`using ${n};`));
     this.code.line();
     const assembly = `[assembly: JsiiAssembly("${this.assm.name}", "${this.assm.version}", "${this.tarballFileName}")]`;
     this.code.line(assembly);
