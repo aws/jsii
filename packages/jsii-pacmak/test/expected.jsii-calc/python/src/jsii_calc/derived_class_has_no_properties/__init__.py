@@ -8,11 +8,6 @@ import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-import scope.jsii_calc_lib.submodule
-
 from .._jsii import *
 
 
@@ -22,7 +17,7 @@ class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProper
     :stability: experimental
     """
     def __init__(self) -> None:
-        jsii.create(jsii_calc.DerivedClassHasNoProperties.Base, self, [])
+        jsii.create(Base, self, [])
 
     @builtins.property
     @jsii.member(jsii_name="prop")
@@ -38,13 +33,13 @@ class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProper
         jsii.set(self, "prop", value)
 
 
-class Derived(jsii_calc.DerivedClassHasNoProperties.Base, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Derived"):
+class Derived(Base, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Derived"):
     """
     stability
     :stability: experimental
     """
     def __init__(self) -> None:
-        jsii.create(jsii_calc.DerivedClassHasNoProperties.Derived, self, [])
+        jsii.create(Derived, self, [])
 
 
 __all__ = [

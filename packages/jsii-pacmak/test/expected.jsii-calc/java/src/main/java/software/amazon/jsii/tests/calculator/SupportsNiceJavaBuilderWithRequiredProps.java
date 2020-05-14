@@ -60,7 +60,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
      * A fluent builder for {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps> {
         /**
          * EXPERIMENTAL
          * <p>
@@ -114,6 +114,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
          * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps build() {
             return new software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps(
                 this.id,

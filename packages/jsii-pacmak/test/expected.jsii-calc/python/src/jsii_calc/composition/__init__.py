@@ -8,12 +8,9 @@ import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-import scope.jsii_calc_lib.submodule
-
 from .._jsii import *
+
+import scope.jsii_calc_lib
 
 
 class CompositeOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.composition.CompositeOperation"):
