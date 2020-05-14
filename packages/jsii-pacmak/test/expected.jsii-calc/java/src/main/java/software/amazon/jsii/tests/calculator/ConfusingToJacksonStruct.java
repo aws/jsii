@@ -48,7 +48,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder unionProperty(java.util.List<? extends java.lang.Object> unionProperty) {
+        public Builder unionProperty(java.util.List<java.lang.Object> unionProperty) {
             this.unionProperty = unionProperty;
             return this;
         }
