@@ -13,7 +13,10 @@ export class OptionalValue {
     return description;
   }
 
-  public constructor(public readonly system: TypeSystem, public readonly spec?: jsii.OptionalValue) { }
+  public constructor(
+    public readonly system: TypeSystem,
+    public readonly spec?: jsii.OptionalValue,
+  ) {}
 
   public toString(): string {
     return OptionalValue.describe(this);

@@ -88,7 +88,7 @@ export class AsciiTree {
   public toString() {
     let out = '';
     this.printTree({
-      write: (data: any) => out += data
+      write: (data: any) => (out += data),
     } as any);
     return out;
   }
@@ -107,7 +107,7 @@ export class AsciiTree {
    * Returns a copy of the children array.
    */
   public get children() {
-    return this._children.map(x => x);
+    return this._children.map((x) => x);
   }
 
   /**
@@ -124,7 +124,9 @@ export class AsciiTree {
     if (!this.parent) {
       return true;
     }
-    return this.parent.children.indexOf(this) === this.parent.children.length - 1;
+    return (
+      this.parent.children.indexOf(this) === this.parent.children.length - 1
+    );
   }
 
   /**

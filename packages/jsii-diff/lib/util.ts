@@ -23,7 +23,9 @@ export async function inTempDir<T>(block: () => T | Promise<T>): Promise<T> {
 
 export type DownloadFailure = 'no_such_package';
 
-export type NpmDownloadResult<T> = { success: true, result: T } | { success: false, reason: DownloadFailure };
+export type NpmDownloadResult<T> =
+  | { success: true; result: T }
+  | { success: false; reason: DownloadFailure };
 
 export function showDownloadFailure(f: DownloadFailure) {
   switch (f) {
@@ -34,7 +36,10 @@ export function showDownloadFailure(f: DownloadFailure) {
   }
 }
 
-export async function downloadNpmPackage<T>(pkg: string, block: (dir: string) => Promise<T>): Promise<NpmDownloadResult<T>> {
+export async function downloadNpmPackage<T>(
+  pkg: string,
+  block: (dir: string) => Promise<T>,
+): Promise<NpmDownloadResult<T>> {
   return inTempDir(async () => {
     LOG.info(`Fetching NPM package ${pkg}`);
 
@@ -44,18 +49,22 @@ export async function downloadNpmPackage<T>(pkg: string, block: (dir: string) =>
       await exec(`npm install --silent --prefix . ${pkg}`);
     } catch (e) {
       // If this fails, might be because the package doesn't exist
-      if (!isSubprocesFailedError(e)) { throw e; }
+      if (!isSubprocesFailedError(e)) {
+        throw e;
+      }
       if (await npmPackageExists(pkg)) {
         throw new Error(`NPM fetch failed: ${e}. Please try again.`);
       }
       LOG.warn(`NPM package ${pkg} does not exist.`);
-      return { success: false, reason: 'no_such_package' } as NpmDownloadResult<T>;
+      return { success: false, reason: 'no_such_package' } as NpmDownloadResult<
+        T
+      >;
     }
 
     const pkgDir = trimVersionString(pkg);
     return {
       success: true,
-      result: await block(path.join(process.cwd(), 'node_modules', pkgDir))
+      result: await block(path.join(process.cwd(), 'node_modules', pkgDir)),
     } as NpmDownloadResult<T>;
   });
 }
@@ -70,7 +79,9 @@ async function npmPackageExists(pkg: string): Promise<boolean> {
     await exec(`npm show --silent ${pkg}`);
     return true;
   } catch (e) {
-    if (!isSubprocesFailedError(e)) { throw e; }
+    if (!isSubprocesFailedError(e)) {
+      throw e;
+    }
     return false;
   }
 }
@@ -86,6 +97,8 @@ function trimVersionString(pkg: string) {
 
 export function flatMap<T, U>(xs: T[], fn: (x: T) => U[]): U[] {
   const ret = new Array<U>();
-  for (const x of xs) { ret.push(...fn(x)); }
+  for (const x of xs) {
+    ret.push(...fn(x));
+  }
   return ret;
 }

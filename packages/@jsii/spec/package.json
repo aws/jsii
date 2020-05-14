@@ -25,6 +25,7 @@
     "build": "tsc --build && bash generate-json-schema.sh && npm run lint",
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
     "package": "package-js"
@@ -36,8 +37,11 @@
     "@types/jest": "^25.2.1",
     "@types/node": "^10.17.21",
     "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jest": "^26.0.1",
     "jsii-build-tools": "^0.0.0",
+    "prettier": "^1.19.1",
     "typescript": "~3.8.3",
     "typescript-json-schema": "^0.42.0"
   },

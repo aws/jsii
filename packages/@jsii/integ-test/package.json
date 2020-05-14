@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc --build && npm run lint",
     "lint": "eslint . --ext .ts --ignore-path=.gitignore",
+    "lint:fix": "yarn lint --fix",
     "test:integ": "jest",
     "package": "package-private"
   },
@@ -32,6 +33,9 @@
     "@types/node": "^10.17.21",
     "@types/tar": "^4.0.3",
     "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1",
     "typescript": "~3.8.3"
   },
   "jest": {

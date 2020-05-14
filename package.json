@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "build": "lerna run build --stream --sort --concurrency=1",
+    "lint": "lerna run lint --stream --sort",
+    "lint:fix": "lerna run lint:fix --stream --sort",
     "bump": "bash scripts/bump.sh",
     "dist-clean": "lerna run dist-clean --stream && rm -rf dist",
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",

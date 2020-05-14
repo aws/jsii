@@ -28,6 +28,7 @@
     "build": "cp ../../README.md . && bash ./generate.sh && tsc --build && npm run lint",
     "watch": "bash ./generate.sh && tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
+    "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
     "package": "package-js"
@@ -57,9 +58,12 @@
     "@types/yargs": "^15.0.4",
     "clone": "^2.1.2",
     "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jest": "^26.0.1",
     "jest-expect-message": "^1.0.2",
-    "jsii-build-tools": "^0.0.0"
+    "jsii-build-tools": "^0.0.0",
+    "prettier": "^2.0.5"
   },
   "jest": {
     "collectCoverage": true,

@@ -7,7 +7,9 @@ import * as process from 'process';
 import { InputOutput, KernelHost, Input, Output } from '../lib';
 
 const recordsDir = createRecords();
-const records = fs.readdirSync(recordsDir).map(file => path.join(recordsDir, file));
+const records = fs
+  .readdirSync(recordsDir)
+  .map((file) => path.join(recordsDir, file));
 
 test('are present', () => {
   expect(records).not.toEqual([]);
@@ -19,7 +21,7 @@ describe(`replay records in ${recordsDir}`, () => {
       const inout = new PlaybackInputOutput(record);
       const host = new KernelHost(inout, { noStack: true, debug: false });
 
-      return new Promise<void>(ok => {
+      return new Promise<void>((ok) => {
         host.on('exit', () => {
           ok(inout.expectCompleted());
         });
@@ -31,7 +33,9 @@ describe(`replay records in ${recordsDir}`, () => {
 });
 
 function createRecords(): string {
-  const records = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel.recording.'));
+  const records = fs.mkdtempSync(
+    path.join(os.tmpdir(), 'jsii-kernel.recording.'),
+  );
   const result = child.spawnSync(
     require.resolve('jest/bin/jest'),
     [require.resolve('@jsii/kernel/test/kernel.test.js')],
@@ -39,7 +43,11 @@ function createRecords(): string {
       env: { ...process.env, JSII_RECORD: records, JSII_NOSTACK: '1' },
       shell: true,
       stdio: ['inherit', 'pipe', 'pipe'],
-      cwd: path.resolve(require.resolve('@jsii/kernel/test/kernel.test.js'), '..', '..'),
+      cwd: path.resolve(
+        require.resolve('@jsii/kernel/test/kernel.test.js'),
+        '..',
+        '..',
+      ),
     },
   );
 
@@ -69,14 +77,16 @@ class PlaybackInputOutput extends InputOutput {
 
   public constructor(recordPath: string) {
     super();
-    const inputLines = fs.readFileSync(recordPath, { encoding: 'utf-8' }).split('\n');
+    const inputLines = fs
+      .readFileSync(recordPath, { encoding: 'utf-8' })
+      .split('\n');
     this.inputCommands = inputLines
-      .filter(line => line.startsWith('>'))
-      .map(line => JSON.parse(line.substring(1)))
+      .filter((line) => line.startsWith('>'))
+      .map((line) => JSON.parse(line.substring(1)))
       .reverse();
     this.expectedOutputs = inputLines
-      .filter(line => line.startsWith('<'))
-      .map(line => JSON.parse(line.substring(1)))
+      .filter((line) => line.startsWith('<'))
+      .map((line) => JSON.parse(line.substring(1)))
       .reverse();
   }
 

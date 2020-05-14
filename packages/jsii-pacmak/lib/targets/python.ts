@@ -9,10 +9,22 @@ import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
-import { Translation, Rosetta, typeScriptSnippetFromSource } from 'jsii-rosetta';
+import {
+  Translation,
+  Rosetta,
+  typeScriptSnippetFromSource,
+} from 'jsii-rosetta';
 import { toPythonVersionRange } from './version-utils';
-import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '.';
-import { NamingContext, toTypeName, PythonImports, mergePythonImports } from './python/type-name';
+import {
+  INCOMPLETE_DISCLAIMER_COMPILING,
+  INCOMPLETE_DISCLAIMER_NONCOMPILING,
+} from '.';
+import {
+  NamingContext,
+  toTypeName,
+  PythonImports,
+  mergePythonImports,
+} from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
@@ -35,13 +47,21 @@ export default class Python extends Target {
     // await shell("black", ["--py36", sourceDir], {});
 
     // Actually package up our code, both as a sdist and a wheel for publishing.
-    await shell('python3', ['setup.py', 'sdist', '--dist-dir', outDir], { cwd: sourceDir });
-    await shell('python3', ['setup.py', 'bdist_wheel', '--dist-dir', outDir], { cwd: sourceDir });
+    await shell('python3', ['setup.py', 'sdist', '--dist-dir', outDir], {
+      cwd: sourceDir,
+    });
+    await shell('python3', ['setup.py', 'bdist_wheel', '--dist-dir', outDir], {
+      cwd: sourceDir,
+    });
     if (await twineIsPresent()) {
-      await shell('twine', ['check', path.join(outDir, '*')], { cwd: sourceDir });
+      await shell('twine', ['check', path.join(outDir, '*')], {
+        cwd: sourceDir,
+      });
     } else {
-      warn('Unable to validate distribution packages because `twine` is not present. '
-                + 'Run `pip3 install twine` to enable distribution package validation.');
+      warn(
+        'Unable to validate distribution packages because `twine` is not present. ' +
+          'Run `pip3 install twine` to enable distribution package validation.',
+      );
     }
 
     // Approximating existence check using `which`, falling back on `pip3 show`. If that fails, assume twine is not there.
@@ -51,7 +71,9 @@ export default class Python extends Target {
         return true;
       } catch {
         try {
-          const output = await shell('pip3', ['show', 'twine'], { cwd: sourceDir });
+          const output = await shell('pip3', ['show', 'twine'], {
+            cwd: sourceDir,
+          });
           return output.trim() !== '';
         } catch {
           return false;
@@ -59,7 +81,6 @@ export default class Python extends Target {
       }
     }
   }
-
 }
 
 // ##################
@@ -83,7 +104,11 @@ const toPythonMethodName = (name: string, protectedItem = false): string => {
   return value;
 };
 
-const toPythonPropertyName = (name: string, constant = false, protectedItem = false): string => {
+const toPythonPropertyName = (
+  name: string,
+  constant = false,
+  protectedItem = false,
+): string => {
   let value = toPythonIdentifier(toSnakeCase(name));
 
   if (constant) {
@@ -108,7 +133,10 @@ const toPythonPropertyName = (name: string, constant = false, protectedItem = fa
  * @param liftedParamNames  the list of "lifted" keyword parameters in this signature. This must be
  *                          omitted when generating a name for a parameter that **is** lifted.
  */
-function toPythonParameterName(name: string, liftedParamNames = new Set<string>()): string {
+function toPythonParameterName(
+  name: string,
+  liftedParamNames = new Set<string>(),
+): string {
   let result = toPythonIdentifier(toSnakeCase(name));
 
   while (liftedParamNames.has(result)) {
@@ -128,8 +156,14 @@ const setDifference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
   return result;
 };
 
-const sortMembers = (members: PythonBase[], resolver: TypeResolver): PythonBase[] => {
-  let sortable = new Array<{ member: PythonBase & ISortableType, dependsOn: Set<PythonType> }>();
+const sortMembers = (
+  members: PythonBase[],
+  resolver: TypeResolver,
+): PythonBase[] => {
+  let sortable = new Array<{
+    member: PythonBase & ISortableType;
+    dependsOn: Set<PythonType>;
+  }>();
   const sorted = new Array<PythonBase>();
   const seen = new Set<PythonBase>();
 
@@ -150,7 +184,7 @@ const sortMembers = (members: PythonBase[], resolver: TypeResolver): PythonBase[
   while (sortable.length > 0) {
     for (const { member, dependsOn } of sortable) {
       const diff = setDifference(dependsOn, seen);
-      if ([...diff].find(dep => !(dep instanceof PythonModule)) == null) {
+      if ([...diff].find((dep) => !(dep instanceof PythonModule)) == null) {
         sorted.push(member);
         seen.add(member);
       }
@@ -158,7 +192,11 @@ const sortMembers = (members: PythonBase[], resolver: TypeResolver): PythonBase[
 
     const leftover = sortable.filter(({ member }) => !seen.has(member));
     if (leftover.length === sortable.length) {
-      throw new Error(`Could not sort members (circular dependency?). Leftover: ${leftover.map(lo => lo.member.pythonName).join(', ')}`);
+      throw new Error(
+        `Could not sort members (circular dependency?). Leftover: ${leftover
+          .map((lo) => lo.member.pythonName)
+          .join(', ')}`,
+      );
     } else {
       sortable = leftover;
     }
@@ -204,10 +242,9 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     public readonly pythonName: string,
     public readonly fqn: string | null,
     opts: PythonTypeOpts,
-    protected readonly docs: spec.Docs | undefined) {
-    const {
-      bases = [],
-    } = opts;
+    protected readonly docs: spec.Docs | undefined,
+  ) {
+    const { bases = [] } = opts;
 
     this.bases = bases;
     this.members = [];
@@ -248,8 +285,8 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 
   public requiredImports(context: EmitContext): PythonImports {
     return mergePythonImports(
-      ...this.bases.map(base => toTypeName(base).requiredImports(context)),
-      ...this.members.map(mem => mem.requiredImports(context)),
+      ...this.bases.map((base) => toTypeName(base).requiredImports(context)),
+      ...this.members.map((mem) => mem.requiredImports(context)),
     );
   }
 
@@ -264,7 +301,9 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     const bases = classParams.length > 0 ? `(${classParams.join(', ')})` : '';
 
     code.openBlock(`class ${this.pythonName}${bases}`);
-    this.generator.emitDocString(code, this.docs, { documentableItem: `class-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, {
+      documentableItem: `class-${this.pythonName}`,
+    });
 
     this.emitPreamble(code, context);
 
@@ -289,7 +328,9 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 
   protected abstract getClassParams(context: EmitContext): string[];
 
-  protected emitPreamble(_code: CodeMaker, _context: EmitContext) { return; }
+  protected emitPreamble(_code: CodeMaker, _context: EmitContext) {
+    return;
+  }
 }
 
 interface BaseMethodOpts {
@@ -306,7 +347,7 @@ interface BaseMethodEmitOpts {
 abstract class BaseMethod implements PythonBase {
   public readonly abstract: boolean;
 
-  protected readonly abstract implicitParameter: string;
+  protected abstract readonly implicitParameter: string;
   protected readonly jsiiMethod!: string;
   protected readonly decorator?: string;
   protected readonly classAsFirstParameter: boolean = false;
@@ -316,13 +357,15 @@ abstract class BaseMethod implements PythonBase {
   private readonly liftedProp?: spec.InterfaceType;
   private readonly parent: spec.NamedTypeReference;
 
-  public constructor(protected readonly generator: PythonGenerator,
+  public constructor(
+    protected readonly generator: PythonGenerator,
     public readonly pythonName: string,
     private readonly jsName: string | undefined,
     private readonly parameters: spec.Parameter[],
     private readonly returns: spec.OptionalValue | undefined,
     private readonly docs: spec.Docs | undefined,
-    opts: BaseMethodOpts) {
+    opts: BaseMethodOpts,
+  ) {
     this.abstract = !!opts.abstract;
     this.liftedProp = opts.liftedProp;
     this.parent = opts.parent;
@@ -331,11 +374,17 @@ abstract class BaseMethod implements PythonBase {
   public requiredImports(context: EmitContext): PythonImports {
     return mergePythonImports(
       toTypeName(this.returns).requiredImports(context),
-      ...this.parameters.map(param => toTypeName(param).requiredImports(context)),
+      ...this.parameters.map((param) =>
+        toTypeName(param).requiredImports(context),
+      ),
     );
   }
 
-  public emit(code: CodeMaker, context: EmitContext, opts?: BaseMethodEmitOpts) {
+  public emit(
+    code: CodeMaker,
+    context: EmitContext,
+    opts?: BaseMethodEmitOpts,
+  ) {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
 
     const returnType: string = toTypeName(this.returns).pythonType(context);
@@ -361,7 +410,10 @@ abstract class BaseMethod implements PythonBase {
       // initializers, because our keyword lifting will allow two names to clash.
       // This can hopefully be removed once we get https://github.com/aws/jsii/issues/288
       // resolved.
-      const paramName: string = toPythonParameterName(param.name, liftedPropNames);
+      const paramName: string = toPythonParameterName(
+        param.name,
+        liftedPropNames,
+      );
 
       const paramType = toTypeName(param).pythonType(context);
       const paramDefault = param.optional ? '=None' : '';
@@ -371,8 +423,13 @@ abstract class BaseMethod implements PythonBase {
 
     const documentableArgs = this.parameters
       // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
-      .filter((_, index) => this.liftedProp != null ? index < this.parameters.length - 1 : true)
-      .map(param => ({ ...param, name: toPythonParameterName(param.name, liftedPropNames) }));
+      .filter((_, index) =>
+        this.liftedProp != null ? index < this.parameters.length - 1 : true,
+      )
+      .map((param) => ({
+        ...param,
+        name: toPythonParameterName(param.name, liftedPropNames),
+      }));
 
     // If we have a lifted parameter, then we'll drop the last argument to our params
     // and then we'll lift all of the params of the lifted type as keyword arguments
@@ -399,7 +456,10 @@ abstract class BaseMethod implements PythonBase {
 
       // Document them as keyword arguments
       documentableArgs.push(...liftedProperties);
-    } else if (this.parameters.length >= 1 && this.parameters[this.parameters.length - 1].variadic) {
+    } else if (
+      this.parameters.length >= 1 &&
+      this.parameters[this.parameters.length - 1].variadic
+    ) {
       // Another situation we could be in, is that instead of having a plain parameter
       // we have a variadic parameter where we need to expand the last parameter as a
       // *args.
@@ -424,9 +484,20 @@ abstract class BaseMethod implements PythonBase {
       code.line('@abc.abstractmethod');
     }
 
-    code.openBlock(`def ${this.pythonName}(${pythonParams.join(', ')}) -> ${returnType}`);
-    this.generator.emitDocString(code, this.docs, { arguments: documentableArgs, documentableItem: `method-${this.pythonName}` });
-    this.emitBody(code, context, renderAbstract, forceEmitBody, liftedPropNames);
+    code.openBlock(
+      `def ${this.pythonName}(${pythonParams.join(', ')}) -> ${returnType}`,
+    );
+    this.generator.emitDocString(code, this.docs, {
+      arguments: documentableArgs,
+      documentableItem: `method-${this.pythonName}`,
+    });
+    this.emitBody(
+      code,
+      context,
+      renderAbstract,
+      forceEmitBody,
+      liftedPropNames,
+    );
     code.closeBlock();
   }
 
@@ -435,9 +506,12 @@ abstract class BaseMethod implements PythonBase {
     context: EmitContext,
     renderAbstract: boolean,
     forceEmitBody: boolean,
-    liftedPropNames: Set<string>
+    liftedPropNames: Set<string>,
   ) {
-    if ((!this.shouldEmitBody && !forceEmitBody) || (renderAbstract && this.abstract)) {
+    if (
+      (!this.shouldEmitBody && !forceEmitBody) ||
+      (renderAbstract && this.abstract)
+    ) {
       code.line('...');
     } else {
       if (this.liftedProp !== undefined) {
@@ -448,23 +522,36 @@ abstract class BaseMethod implements PythonBase {
     }
   }
 
-  private emitAutoProps(code: CodeMaker, context: EmitContext, liftedPropNames: Set<string>) {
+  private emitAutoProps(
+    code: CodeMaker,
+    context: EmitContext,
+    liftedPropNames: Set<string>,
+  ) {
     const lastParameter = this.parameters.slice(-1)[0];
     const argName = toPythonParameterName(lastParameter.name, liftedPropNames);
-    const typeName = toTypeName(lastParameter.type).pythonType({ ...context, typeAnnotation: false });
+    const typeName = toTypeName(lastParameter.type).pythonType({
+      ...context,
+      typeAnnotation: false,
+    });
 
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specifiy to start with in our dictionary literal.
-    const liftedProps = this.getLiftedProperties(context.resolver).map(p => new StructField(this.generator, p));
+    const liftedProps = this.getLiftedProperties(context.resolver).map(
+      (p) => new StructField(this.generator, p),
+    );
     const assignments = liftedProps
-      .map(p => p.pythonName)
-      .map(v => `${v}=${v}`);
+      .map((p) => p.pythonName)
+      .map((v) => `${v}=${v}`);
 
     code.line(`${argName} = ${typeName}(${assignments.join(', ')})`);
     code.line();
   }
 
-  private emitJsiiMethodCall(code: CodeMaker, context: EmitContext, liftedPropNames: Set<string>) {
+  private emitJsiiMethodCall(
+    code: CodeMaker,
+    context: EmitContext,
+    liftedPropNames: Set<string>,
+  ) {
     const methodPrefix: string = this.returnFromJSIIMethod ? 'return ' : '';
 
     const jsiiMethodParams: string[] = [];
@@ -472,7 +559,12 @@ abstract class BaseMethod implements PythonBase {
       if (this.parent === undefined) {
         throw new Error('Parent not known.');
       }
-      jsiiMethodParams.push(toTypeName(this.parent).pythonType({ ...context, typeAnnotation: false }));
+      jsiiMethodParams.push(
+        toTypeName(this.parent).pythonType({
+          ...context,
+          typeAnnotation: false,
+        }),
+      );
     }
     jsiiMethodParams.push(this.implicitParameter);
     if (this.jsName !== undefined) {
@@ -483,11 +575,17 @@ abstract class BaseMethod implements PythonBase {
     const params: string[] = [];
     for (const param of this.parameters) {
       let expr = toPythonParameterName(param.name, liftedPropNames);
-      if (param.variadic) { expr = `*${expr}`; }
+      if (param.variadic) {
+        expr = `*${expr}`;
+      }
       params.push(expr);
     }
 
-    code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(', ')}, [${params.join(', ')}])`);
+    code.line(
+      `${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(
+        ', ',
+      )}, [${params.join(', ')}])`,
+    );
   }
 
   private getLiftedProperties(resolver: TypeResolver): spec.Property[] {
@@ -498,7 +596,11 @@ abstract class BaseMethod implements PythonBase {
     while (current !== undefined) {
       // Add any interfaces that this interface depends on, to the list.
       if (current.interfaces !== undefined) {
-        stack.push(...current.interfaces.map(ifc => resolver.dereference(ifc) as spec.InterfaceType));
+        stack.push(
+          ...current.interfaces.map(
+            (ifc) => resolver.dereference(ifc) as spec.InterfaceType,
+          ),
+        );
       }
 
       // Add all of the properties of this interface to our list of properties.
@@ -528,8 +630,8 @@ interface BasePropertyEmitOpts {
 abstract class BaseProperty implements PythonBase {
   public readonly abstract: boolean;
 
-  protected readonly abstract decorator: string;
-  protected readonly abstract implicitParameter: string;
+  protected abstract readonly decorator: string;
+  protected abstract readonly implicitParameter: string;
   protected readonly jsiiGetMethod!: string;
   protected readonly jsiiSetMethod!: string;
   protected readonly shouldEmitBody: boolean = true;
@@ -542,11 +644,9 @@ abstract class BaseProperty implements PythonBase {
     private readonly jsName: string,
     private readonly type: spec.OptionalValue,
     private readonly docs: spec.Docs | undefined,
-    opts: BasePropertyOpts) {
-    const {
-      abstract = false,
-      immutable = false,
-    } = opts;
+    opts: BasePropertyOpts,
+  ) {
+    const { abstract = false, immutable = false } = opts;
 
     this.abstract = abstract;
     this.immutable = immutable;
@@ -556,7 +656,11 @@ abstract class BaseProperty implements PythonBase {
     return toTypeName(this.type).requiredImports(context);
   }
 
-  public emit(code: CodeMaker, context: EmitContext, opts?: BasePropertyEmitOpts) {
+  public emit(
+    code: CodeMaker,
+    context: EmitContext,
+    opts?: BasePropertyEmitOpts,
+  ) {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
     const pythonType = toTypeName(this.type).pythonType(context);
 
@@ -565,10 +669,19 @@ abstract class BaseProperty implements PythonBase {
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
     }
-    code.openBlock(`def ${this.pythonName}(${this.implicitParameter}) -> ${pythonType}`);
-    this.generator.emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
-    if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
-      code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
+    code.openBlock(
+      `def ${this.pythonName}(${this.implicitParameter}) -> ${pythonType}`,
+    );
+    this.generator.emitDocString(code, this.docs, {
+      documentableItem: `prop-${this.pythonName}`,
+    });
+    if (
+      (this.shouldEmitBody || forceEmitBody) &&
+      (!renderAbstract || !this.abstract)
+    ) {
+      code.line(
+        `return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`,
+      );
     } else {
       code.line('...');
     }
@@ -579,9 +692,16 @@ abstract class BaseProperty implements PythonBase {
       if (renderAbstract && this.abstract) {
         code.line('@abc.abstractmethod');
       }
-      code.openBlock(`def ${this.pythonName}(${this.implicitParameter}, value: ${pythonType}) -> None`);
-      if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
-        code.line(`jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
+      code.openBlock(
+        `def ${this.pythonName}(${this.implicitParameter}, value: ${pythonType}) -> None`,
+      );
+      if (
+        (this.shouldEmitBody || forceEmitBody) &&
+        (!renderAbstract || !this.abstract)
+      ) {
+        code.line(
+          `jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`,
+        );
       } else {
         code.line('...');
       }
@@ -591,7 +711,6 @@ abstract class BaseProperty implements PythonBase {
 }
 
 class Interface extends BasePythonClassType {
-
   public emit(code: CodeMaker, context: EmitContext) {
     context = { ...context, nestingScope: this.fqn! };
     code.line(`@jsii.interface(jsii_type="${this.fqn}")`);
@@ -600,9 +719,19 @@ class Interface extends BasePythonClassType {
     super.emit(code, context);
 
     // Then, we have to emit a Proxy class which implements our proxy interface.
-    const proxyBases: string[] = this.bases.map(b => `jsii.proxy_for(${toTypeName(b).pythonType({ ...context, typeAnnotation: false })})`);
-    code.openBlock(`class ${this.getProxyClassName()}(${proxyBases.join(', ')})`);
-    this.generator.emitDocString(code, this.docs, { documentableItem: `class-${this.pythonName}` });
+    const proxyBases: string[] = this.bases.map(
+      (b) =>
+        `jsii.proxy_for(${toTypeName(b).pythonType({
+          ...context,
+          typeAnnotation: false,
+        })})`,
+    );
+    code.openBlock(
+      `class ${this.getProxyClassName()}(${proxyBases.join(', ')})`,
+    );
+    this.generator.emitDocString(code, this.docs, {
+      documentableItem: `class-${this.pythonName}`,
+    });
     code.line(`__jsii_type__ = "${this.fqn}"`);
 
     if (this.members.length > 0) {
@@ -617,7 +746,9 @@ class Interface extends BasePythonClassType {
   }
 
   protected getClassParams(context: EmitContext): string[] {
-    const params: string[] = this.bases.map(b => toTypeName(b).pythonType({ ...context, typeAnnotation: false }));
+    const params: string[] = this.bases.map((b) =>
+      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+    );
 
     params.push('jsii.compat.Protocol');
 
@@ -634,7 +765,6 @@ class Interface extends BasePythonClassType {
   private getProxyClassName(): string {
     return `_${this.pythonName}Proxy`;
   }
-
 }
 
 class InterfaceMethod extends BaseMethod {
@@ -665,7 +795,13 @@ class Struct extends BasePythonClassType {
     context = { ...context, nestingScope: this.fqn! };
     const baseInterfaces = this.getClassParams(context);
 
-    code.line(`@jsii.data_type(jsii_type="${this.fqn}", jsii_struct_bases=[${baseInterfaces.join(', ')}], name_mapping=${this.propertyMap()})`);
+    code.line(
+      `@jsii.data_type(jsii_type="${
+        this.fqn
+      }", jsii_struct_bases=[${baseInterfaces.join(
+        ', ',
+      )}], name_mapping=${this.propertyMap()})`,
+    );
     code.openBlock(`class ${this.pythonName}(${baseInterfaces.join(', ')})`);
     this.emitConstructor(code, context);
 
@@ -681,69 +817,92 @@ class Struct extends BasePythonClassType {
   public requiredImports(context: EmitContext) {
     return mergePythonImports(
       super.requiredImports(context),
-      ...this.allMembers.map(mem => mem.requiredImports(context)),
+      ...this.allMembers.map((mem) => mem.requiredImports(context)),
     );
   }
 
   protected getClassParams(context: EmitContext): string[] {
-    return this.bases.map(b => toTypeName(b).pythonType({ ...context, typeAnnotation: false }));
+    return this.bases.map((b) =>
+      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+    );
   }
 
   /**
-     * Find all fields (inherited as well)
-     */
+   * Find all fields (inherited as well)
+   */
   private get allMembers(): StructField[] {
-    return this.thisInterface.allProperties.map(x => new StructField(this.generator, x.spec));
+    return this.thisInterface.allProperties.map(
+      (x) => new StructField(this.generator, x.spec),
+    );
   }
 
   private get thisInterface() {
-    if (this.fqn === null) { throw new Error('FQN not set'); }
+    if (this.fqn === null) {
+      throw new Error('FQN not set');
+    }
     return this.generator.reflectAssembly.system.findInterface(this.fqn);
   }
 
   private emitConstructor(code: CodeMaker, context: EmitContext) {
     const members = this.allMembers;
 
-    const kwargs = members.map(m => m.constructorDecl(context));
+    const kwargs = members.map((m) => m.constructorDecl(context));
 
-    const constructorArguments = kwargs.length > 0 ? ['self', '*', ...kwargs] : ['self'];
+    const constructorArguments =
+      kwargs.length > 0 ? ['self', '*', ...kwargs] : ['self'];
 
     code.openBlock(`def __init__(${constructorArguments.join(', ')}) -> None`);
     this.emitConstructorDocstring(code);
 
     // Re-type struct arguments that were passed as "dict"
-    for (const member of members.filter(m => m.isStruct(this.generator))) {
+    for (const member of members.filter((m) => m.isStruct(this.generator))) {
       // Note that "None" is NOT an instance of dict (that's convenient!)
-      const typeName = toTypeName(member.type.type).pythonType({ ...context, typeAnnotation: false });
-      code.line(`if isinstance(${member.pythonName}, dict): ${member.pythonName} = ${typeName}(**${member.pythonName})`);
+      const typeName = toTypeName(member.type.type).pythonType({
+        ...context,
+        typeAnnotation: false,
+      });
+      code.line(
+        `if isinstance(${member.pythonName}, dict): ${member.pythonName} = ${typeName}(**${member.pythonName})`,
+      );
     }
 
     // Required properties, those will always be put into the dict
     code.line('self._values = {');
-    for (const member of members.filter(m => !m.optional)) {
+    for (const member of members.filter((m) => !m.optional)) {
       code.line(`    '${member.pythonName}': ${member.pythonName},`);
     }
     code.line('}');
 
     // Optional properties, will only be put into the dict if they're not None
-    for (const member of members.filter(m => m.optional)) {
-      code.line(`if ${member.pythonName} is not None: self._values["${member.pythonName}"] = ${member.pythonName}`);
+    for (const member of members.filter((m) => m.optional)) {
+      code.line(
+        `if ${member.pythonName} is not None: self._values["${member.pythonName}"] = ${member.pythonName}`,
+      );
     }
 
     code.closeBlock();
   }
 
   private emitConstructorDocstring(code: CodeMaker) {
-    const args: DocumentableArgument[] = this.allMembers.map(m => ({
+    const args: DocumentableArgument[] = this.allMembers.map((m) => ({
       name: m.pythonName,
       docs: m.docs,
     }));
-    this.generator.emitDocString(code, this.docs, { arguments: args, documentableItem: `class-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, {
+      arguments: args,
+      documentableItem: `class-${this.pythonName}`,
+    });
   }
 
-  private emitGetter(member: StructField, code: CodeMaker, context: EmitContext) {
+  private emitGetter(
+    member: StructField,
+    code: CodeMaker,
+    context: EmitContext,
+  ) {
     code.line('@builtins.property');
-    code.openBlock(`def ${member.pythonName}(self) -> ${member.typeAnnotation(context)}`);
+    code.openBlock(
+      `def ${member.pythonName}(self) -> ${member.typeAnnotation(context)}`,
+    );
     member.emitDocString(code);
     code.line(`return self._values.get('${member.pythonName}')`);
     code.closeBlock();
@@ -751,7 +910,9 @@ class Struct extends BasePythonClassType {
 
   private emitMagicMethods(code: CodeMaker) {
     code.openBlock('def __eq__(self, rhs) -> bool');
-    code.line('return isinstance(rhs, self.__class__) and rhs._values == self._values');
+    code.line(
+      'return isinstance(rhs, self.__class__) and rhs._values == self._values',
+    );
     code.closeBlock();
 
     code.openBlock('def __ne__(self, rhs) -> bool');
@@ -759,7 +920,9 @@ class Struct extends BasePythonClassType {
     code.closeBlock();
 
     code.openBlock('def __repr__(self) -> str');
-    code.line(`return '${this.pythonName}(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())`);
+    code.line(
+      `return '${this.pythonName}(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())`,
+    );
     code.closeBlock();
   }
 
@@ -806,14 +969,16 @@ class StructField implements PythonBase {
   }
 
   /**
-     * Return the Python type annotation for this type
-     */
+   * Return the Python type annotation for this type
+   */
   public typeAnnotation(context: EmitContext) {
     return toTypeName(this.type).pythonType(context);
   }
 
   public emitDocString(code: CodeMaker) {
-    this.generator.emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, {
+      documentableItem: `prop-${this.pythonName}`,
+    });
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
@@ -830,12 +995,17 @@ interface ClassOpts extends PythonTypeOpts {
 }
 
 class Class extends BasePythonClassType implements ISortableType {
-
   private readonly abstract: boolean;
   private readonly abstractBases: spec.ClassType[];
   private readonly interfaces: spec.NamedTypeReference[];
 
-  public constructor(generator: PythonGenerator, name: string, fqn: string, opts: ClassOpts, docs: spec.Docs | undefined) {
+  public constructor(
+    generator: PythonGenerator,
+    name: string,
+    fqn: string,
+    opts: ClassOpts,
+    docs: spec.Docs | undefined,
+  ) {
     super(generator, name, fqn, opts, docs);
 
     const { abstract = false, interfaces = [], abstractBases = [] } = opts;
@@ -879,14 +1049,18 @@ class Class extends BasePythonClassType implements ISortableType {
   public requiredImports(context: EmitContext): PythonImports {
     return mergePythonImports(
       super.requiredImports(context), // Takes care of base & members
-      ...this.interfaces.map(base => toTypeName(base).requiredImports(context)),
+      ...this.interfaces.map((base) =>
+        toTypeName(base).requiredImports(context),
+      ),
     );
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
     // First we emit our implments decorator
     if (this.interfaces.length > 0) {
-      const interfaces: string[] = this.interfaces.map(b => toTypeName(b).pythonType({ ...context, typeAnnotation: false }));
+      const interfaces: string[] = this.interfaces.map((b) =>
+        toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+      );
       code.line(`@jsii.implements(${interfaces.join(', ')})`);
     }
 
@@ -901,15 +1075,23 @@ class Class extends BasePythonClassType implements ISortableType {
 
       const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
-        proxyBases.push(`jsii.proxy_for(${toTypeName(base).pythonType({ ...context, typeAnnotation: false })})`);
+        proxyBases.push(
+          `jsii.proxy_for(${toTypeName(base).pythonType({
+            ...context,
+            typeAnnotation: false,
+          })})`,
+        );
       }
 
-      code.openBlock(`class ${this.getProxyClassName()}(${proxyBases.join(', ')})`);
+      code.openBlock(
+        `class ${this.getProxyClassName()}(${proxyBases.join(', ')})`,
+      );
 
       // Filter our list of members to *only* be abstract members, and not any
       // other types.
       const abstractMembers = this.members.filter(
-        m => (m instanceof BaseMethod || m instanceof BaseProperty) && m.abstract
+        (m) =>
+          (m instanceof BaseMethod || m instanceof BaseProperty) && m.abstract,
       );
       if (abstractMembers.length > 0) {
         for (const member of abstractMembers) {
@@ -933,7 +1115,9 @@ class Class extends BasePythonClassType implements ISortableType {
   }
 
   protected getClassParams(context: EmitContext): string[] {
-    const params: string[] = this.bases.map(b => toTypeName(b).pythonType({ ...context, typeAnnotation: false }));
+    const params: string[] = this.bases.map((b) =>
+      toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
+    );
     const metaclass: string = this.abstract ? 'JSIIAbstractClass' : 'JSIIMeta';
 
     params.push(`metaclass=jsii.${metaclass}`);
@@ -985,7 +1169,6 @@ class Property extends BaseProperty {
 }
 
 class Enum extends BasePythonClassType {
-
   public emit(code: CodeMaker, context: EmitContext) {
     context = { ...context, nestingScope: this.fqn! };
     code.line(`@jsii.enum(jsii_type="${this.fqn}")`);
@@ -1006,7 +1189,8 @@ class EnumMember implements PythonBase {
     private readonly generator: PythonGenerator,
     public readonly pythonName: string,
     private readonly value: string,
-    private readonly docs: spec.Docs | undefined) {
+    private readonly docs: spec.Docs | undefined,
+  ) {
     this.pythonName = pythonName;
     this.value = value;
   }
@@ -1017,7 +1201,9 @@ class EnumMember implements PythonBase {
 
   public emit(code: CodeMaker, _context: EmitContext) {
     code.line(`${this.pythonName} = "${this.value}"`);
-    this.generator.emitDocString(code, this.docs, { documentableItem: `enum-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, {
+      documentableItem: `enum-${this.pythonName}`,
+    });
   }
 
   public requiredImports(_context: EmitContext): PythonImports {
@@ -1042,7 +1228,7 @@ class PythonModule implements PythonType {
   public constructor(
     public readonly pythonName: string,
     public readonly fqn: string | null,
-    opts: ModuleOpts
+    opts: ModuleOpts,
   ) {
     this.assembly = opts.assembly;
     this.assemblyFilename = opts.assemblyFilename;
@@ -1056,15 +1242,21 @@ class PythonModule implements PythonType {
 
   public requiredImports(context: EmitContext): PythonImports {
     return mergePythonImports(
-      ...this.members.map(mem => mem.requiredImports(context)),
+      ...this.members.map((mem) => mem.requiredImports(context)),
     );
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
     this.emitModuleDocumentation(code);
 
-    const resolver = this.fqn ? context.resolver.bind(this.fqn, this.pythonName) : context.resolver;
-    context = { ...context, submodule: this.fqn ?? context.submodule, resolver };
+    const resolver = this.fqn
+      ? context.resolver.bind(this.fqn, this.pythonName)
+      : context.resolver;
+    context = {
+      ...context,
+      submodule: this.fqn ?? context.submodule,
+      resolver,
+    };
 
     // Before we write anything else, we need to write out our module headers, this
     // is where we handle stuff like imports, any required initialization, etc.
@@ -1089,12 +1281,18 @@ class PythonModule implements PythonType {
         '__name__[0:-6]', // Removing the "._jsii" from the tail!
         `"${this.assemblyFilename}"`,
       ];
-      code.line(`__jsii_assembly__ = jsii.JSIIAssembly.load(${params.join(', ')})`);
+      code.line(
+        `__jsii_assembly__ = jsii.JSIIAssembly.load(${params.join(', ')})`,
+      );
     } else {
       // Then we must import the ._jsii subpackage.
       code.line();
       let distanceFromRoot = 0;
-      for (let curr = this.fqn!; curr !== this.assembly.name; curr = curr.substring(0, curr.lastIndexOf('.'))) {
+      for (
+        let curr = this.fqn!;
+        curr !== this.assembly.name;
+        curr = curr.substring(0, curr.lastIndexOf('.'))
+      ) {
         distanceFromRoot++;
       }
       code.line(`from ${'.'.repeat(distanceFromRoot + 1)}_jsii import *`);
@@ -1113,7 +1311,7 @@ class PythonModule implements PythonType {
     }
 
     // Whatever names we've exported, we'll write out our __all__ that lists them.
-    const exportedMembers = this.members.map(m => `"${m.pythonName}"`);
+    const exportedMembers = this.members.map((m) => `"${m.pythonName}"`);
     if (this.loadAssembly) {
       exportedMembers.push('"__jsii_assembly__"');
     }
@@ -1136,7 +1334,11 @@ class PythonModule implements PythonType {
    * Emit the README as module docstring if this is the entry point module (it loads the assembly)
    */
   private emitModuleDocumentation(code: CodeMaker) {
-    if (this.package && this.fqn === this.assembly.name && this.package.convertedReadme.trim().length > 0) {
+    if (
+      this.package &&
+      this.fqn === this.assembly.name &&
+      this.package.convertedReadme.trim().length > 0
+    ) {
       code.line('"""');
       code.line(this.package.convertedReadme);
       code.line('"""');
@@ -1146,9 +1348,12 @@ class PythonModule implements PythonType {
   private emitDependencyImports(code: CodeMaker) {
     // Collect all the (direct) dependencies' ._jsii packages.
     const deps = Object.keys(this.assembly.dependencies ?? {})
-      .map(dep => this.assembly.dependencyClosure?.[dep]?.targets?.python?.module
-        ?? die(`No Python target was configrued for the dependency "${dep}".`))
-      .map(mod => `${mod}._jsii`)
+      .map(
+        (dep) =>
+          this.assembly.dependencyClosure?.[dep]?.targets?.python?.module ??
+          die(`No Python target was configrued for the dependency "${dep}".`),
+      )
+      .map((mod) => `${mod}._jsii`)
       .sort();
 
     // Now actually write the import statements...
@@ -1174,12 +1379,15 @@ class PythonModule implements PythonType {
       code.line(statement);
     }
 
-    function toImportStatements(sourcePkg: string, items: ReadonlySet<string>): string[] {
+    function toImportStatements(
+      sourcePkg: string,
+      items: ReadonlySet<string>,
+    ): string[] {
       const result = new Array<string>();
       if (items.has('')) {
         result.push(`import ${sourcePkg}`);
       }
-      const pieceMeal = Array.from(items).filter(i => i !== '');
+      const pieceMeal = Array.from(items).filter((i) => i !== '');
       if (pieceMeal.length > 0) {
         result.push(`from ${sourcePkg} import (${pieceMeal.join(', ')})`);
       }
@@ -1211,7 +1419,12 @@ class Package {
   private readonly modules = new Map<string, PythonModule>();
   private readonly data = new Map<string, PackageData[]>();
 
-  public constructor(private readonly generator: PythonGenerator, name: string, version: string, metadata: spec.Assembly) {
+  public constructor(
+    private readonly generator: PythonGenerator,
+    name: string,
+    version: string,
+    metadata: spec.Assembly,
+  ) {
     this.name = name;
     this.version = version;
     this.metadata = metadata;
@@ -1232,14 +1445,22 @@ class Package {
   public write(code: CodeMaker, context: EmitContext) {
     if (this.metadata.readme) {
       // Conversion is expensive, so cache the result in a variable (we need it twice)
-      this.convertedReadme = this.generator.convertMarkdown(this.metadata.readme.markdown).trim();
+      this.convertedReadme = this.generator
+        .convertMarkdown(this.metadata.readme.markdown)
+        .trim();
     }
 
-    const modules = [...this.modules.values()].sort((a, b) => a.pythonName.localeCompare(b.pythonName));
+    const modules = [...this.modules.values()].sort((a, b) =>
+      a.pythonName.localeCompare(b.pythonName),
+    );
 
     // Iterate over all of our modules, and write them out to disk.
     for (const mod of modules) {
-      const filename = path.join('src', pythonModuleNameToFilename(mod.pythonName), '__init__.py');
+      const filename = path.join(
+        'src',
+        pythonModuleNameToFilename(mod.pythonName),
+        '__init__.py',
+      );
 
       code.openFile(filename);
       mod.emit(code, context);
@@ -1247,11 +1468,15 @@ class Package {
     }
 
     // Handle our package data.
-    const packageData: {[key: string]: string[]} = {};
+    const packageData: { [key: string]: string[] } = {};
     for (const [mod, pdata] of this.data) {
       for (const data of pdata) {
         if (data.data != null) {
-          const filepath = path.join('src', pythonModuleNameToFilename(mod), data.filename);
+          const filepath = path.join(
+            'src',
+            pythonModuleNameToFilename(mod),
+            data.filename,
+          );
 
           code.openFile(filepath);
           code.line(data.data);
@@ -1259,14 +1484,18 @@ class Package {
         }
       }
 
-      packageData[mod] = pdata.map(pd => pd.filename);
+      packageData[mod] = pdata.map((pd) => pd.filename);
     }
 
     // Compute our list of dependencies
     const dependencies: string[] = [];
-    for (const [depName, version] of Object.entries(this.metadata.dependencies ?? {})) {
+    for (const [depName, version] of Object.entries(
+      this.metadata.dependencies ?? {},
+    )) {
       const depInfo = this.metadata.dependencyClosure![depName];
-      dependencies.push(`${depInfo.targets!.python!.distName}${toPythonVersionRange(version)}`);
+      dependencies.push(
+        `${depInfo.targets!.python!.distName}${toPythonVersionRange(version)}`,
+      );
     }
 
     code.openFile('README.md');
@@ -1284,17 +1513,22 @@ class Package {
       license: this.metadata.license,
       url: this.metadata.homepage,
       long_description_content_type: 'text/markdown',
-      author: this.metadata.author.name + (
-        this.metadata.author.email !== undefined ? `<${this.metadata.author.email}>` : ''
-      ),
+      author:
+        this.metadata.author.name +
+        (this.metadata.author.email !== undefined
+          ? `<${this.metadata.author.email}>`
+          : ''),
       project_urls: {
         Source: this.metadata.repository.url,
       },
       package_dir: { '': 'src' },
-      packages: modules.map(m => m.pythonName),
+      packages: modules.map((m) => m.pythonName),
       package_data: packageData,
       python_requires: '>=3.6',
-      install_requires: [`jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`, 'publication>=0.0.3'].concat(dependencies),
+      install_requires: [
+        `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
+        'publication>=0.0.3',
+      ].concat(dependencies),
       classifiers: [
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
@@ -1303,7 +1537,7 @@ class Package {
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-        'Typing :: Typed'
+        'Typing :: Typed',
       ],
     };
     /* eslint-enable @typescript-eslint/camelcase */
@@ -1313,13 +1547,15 @@ class Package {
         setupKwargs.classifiers.push('Development Status :: 4 - Beta');
         break;
       case spec.Stability.Stable:
-        setupKwargs.classifiers.push('Development Status :: 5 - Production/Stable');
+        setupKwargs.classifiers.push(
+          'Development Status :: 5 - Production/Stable',
+        );
         break;
       case spec.Stability.Deprecated:
         setupKwargs.classifiers.push('Development Status :: 7 - Inactive');
         break;
       default:
-        // No 'Development Status' trove classifier for you!
+      // No 'Development Status' trove classifier for you!
     }
 
     if (spdxLicenseList[this.metadata.license]?.osiApproved) {
@@ -1374,11 +1610,13 @@ class TypeResolver {
   private readonly findModule: FindModuleCallback;
   private readonly findType: FindTypeCallback;
 
-  public constructor(types: Map<string, PythonType>,
+  public constructor(
+    types: Map<string, PythonType>,
     findModule: FindModuleCallback,
     findType: FindTypeCallback,
     boundTo?: string,
-    moduleName?: string) {
+    moduleName?: string,
+  ) {
     this.types = types;
     this.findModule = findModule;
     this.findType = findType;
@@ -1386,11 +1624,15 @@ class TypeResolver {
     this.boundTo = boundTo !== undefined ? this.toPythonFQN(boundTo) : boundTo;
 
     if (this.moduleName !== undefined) {
-      this.moduleRe = new RegExp(`^(${escapeStringRegexp(this.moduleName)})\\.(.+)$`);
+      this.moduleRe = new RegExp(
+        `^(${escapeStringRegexp(this.moduleName)})\\.(.+)$`,
+      );
     }
 
     if (this.boundTo !== undefined) {
-      this.boundRe = new RegExp(`^(${escapeStringRegexp(this.boundTo)})\\.(.+)$`);
+      this.boundRe = new RegExp(
+        `^(${escapeStringRegexp(this.boundTo)})\\.(.+)$`,
+      );
     }
   }
 
@@ -1401,18 +1643,22 @@ class TypeResolver {
       this.findType,
       fqn,
       moduleName !== undefined
-        ? moduleName.startsWith('.') ? `${this.moduleName}${moduleName}` : moduleName
+        ? moduleName.startsWith('.')
+          ? `${this.moduleName}${moduleName}`
+          : moduleName
         : this.moduleName,
     );
   }
 
   public isInModule(typeRef: spec.NamedTypeReference | string): boolean {
-    const pythonType = typeof typeRef !== 'string' ? this.toPythonFQN(typeRef.fqn) : typeRef;
+    const pythonType =
+      typeof typeRef !== 'string' ? this.toPythonFQN(typeRef.fqn) : typeRef;
     return this.moduleRe.test(pythonType);
   }
 
   public isInNamespace(typeRef: spec.NamedTypeReference | string): boolean {
-    const pythonType = typeof typeRef !== 'string' ? this.toPythonFQN(typeRef.fqn) : typeRef;
+    const pythonType =
+      typeof typeRef !== 'string' ? this.toPythonFQN(typeRef.fqn) : typeRef;
     return this.boundRe.test(pythonType);
   }
 
@@ -1432,7 +1678,9 @@ class TypeResolver {
     return parent;
   }
 
-  public getDefiningPythonModule(typeRef: spec.NamedTypeReference | string): string {
+  public getDefiningPythonModule(
+    typeRef: spec.NamedTypeReference | string,
+  ): string {
     const fqn = typeof typeRef !== 'string' ? typeRef.fqn : typeRef;
     const parent = this.types.get(fqn);
 
@@ -1471,7 +1719,9 @@ class TypeResolver {
 
   private toPythonFQN(fqn: string): string {
     const [assemblyName, ...qualifiedIdentifiers] = fqn.split('.');
-    const fqnParts: string[] = [this.findModule(assemblyName).targets!.python!.module];
+    const fqnParts: string[] = [
+      this.findModule(assemblyName).targets!.python!.module,
+    ];
 
     for (const part of qualifiedIdentifiers) {
       fqnParts.push(toPythonIdentifier(part));
@@ -1485,11 +1735,14 @@ class PythonGenerator extends Generator {
   private package!: Package;
   private readonly types: Map<string, PythonType>;
 
-  public constructor(private readonly rosetta: Rosetta, options: GeneratorOptions = {}) {
+  public constructor(
+    private readonly rosetta: Rosetta,
+    options: GeneratorOptions = {},
+  ) {
     super(options);
 
-    this.code.openBlockFormatter = s => `${s}:`;
-    this.code.closeBlockFormatter = _s => '';
+    this.code.openBlockFormatter = (s) => `${s}:`;
+    this.code.closeBlockFormatter = (_s) => '';
 
     this.types = new Map();
   }
@@ -1501,10 +1754,14 @@ class PythonGenerator extends Generator {
     options: {
       arguments?: DocumentableArgument[];
       documentableItem?: string;
-    } = {}
+    } = {},
   ) {
-    if ((!docs || Object.keys(docs).length === 0) && !options.arguments) { return; }
-    if (!docs) { docs = {}; }
+    if ((!docs || Object.keys(docs).length === 0) && !options.arguments) {
+      return;
+    }
+    if (!docs) {
+      docs = {};
+    }
 
     const lines = new Array<string>();
 
@@ -1516,11 +1773,15 @@ class PythonGenerator extends Generator {
     }
 
     function brk() {
-      if (lines.length > 0 && lines[lines.length - 1].trim() !== '') { lines.push(''); }
+      if (lines.length > 0 && lines[lines.length - 1].trim() !== '') {
+        lines.push('');
+      }
     }
 
     function block(heading: string, content: string, doBrk = true) {
-      if (doBrk) { brk(); }
+      if (doBrk) {
+        brk();
+      }
       lines.push(heading);
       const contentLines = md2rst(content).split('\n');
       if (contentLines.length <= 1) {
@@ -1532,12 +1793,16 @@ class PythonGenerator extends Generator {
           lines.push(`${line}`);
         }
       }
-      if (doBrk) { brk(); }
+      if (doBrk) {
+        brk();
+      }
     }
 
     if (docs.remarks) {
       brk();
-      lines.push(...md2rst(this.convertMarkdown(docs.remarks ?? '')).split('\n'));
+      lines.push(
+        ...md2rst(this.convertMarkdown(docs.remarks ?? '')).split('\n'),
+      );
       brk();
     }
 
@@ -1546,17 +1811,33 @@ class PythonGenerator extends Generator {
       for (const param of options.arguments!) {
         // Add a line for every argument. Even if there is no description, we need
         // the docstring so that the Sphinx extension can add the type annotations.
-        lines.push(`:param ${toPythonParameterName(param.name)}: ${onelineDescription(param.docs)}`);
+        lines.push(
+          `:param ${toPythonParameterName(param.name)}: ${onelineDescription(
+            param.docs,
+          )}`,
+        );
       }
       brk();
     }
 
-    if (docs.default) { block('default', docs.default); }
-    if (docs.returns) { block('return', docs.returns); }
-    if (docs.deprecated) { block('deprecated', docs.deprecated); }
-    if (docs.see) { block('see', docs.see, false); }
-    if (docs.stability && shouldMentionStability(docs.stability)) { block('stability', docs.stability, false); }
-    if (docs.subclassable) { block('subclassable', 'Yes'); }
+    if (docs.default) {
+      block('default', docs.default);
+    }
+    if (docs.returns) {
+      block('return', docs.returns);
+    }
+    if (docs.deprecated) {
+      block('deprecated', docs.deprecated);
+    }
+    if (docs.see) {
+      block('see', docs.see, false);
+    }
+    if (docs.stability && shouldMentionStability(docs.stability)) {
+      block('stability', docs.stability, false);
+    }
+    if (docs.subclassable) {
+      block('subclassable', 'Yes');
+    }
 
     for (const [k, v] of Object.entries(docs.custom ?? {})) {
       block(`${k}:`, v, false);
@@ -1574,9 +1855,13 @@ class PythonGenerator extends Generator {
       brk();
     }
 
-    while (lines.length > 0 && lines[lines.length - 1] === '') { lines.pop(); }
+    while (lines.length > 0 && lines[lines.length - 1] === '') {
+      lines.pop();
+    }
 
-    if (lines.length === 0) { return; }
+    if (lines.length === 0) {
+      return;
+    }
 
     if (lines.length === 1) {
       code.line(`"""${lines[0]}"""`);
@@ -1596,15 +1881,21 @@ class PythonGenerator extends Generator {
   public convertExample(example: string): string {
     const snippet = typeScriptSnippetFromSource(example, 'example');
     const translated = this.rosetta.translateSnippet(snippet, 'python');
-    if (!translated) { return example; }
+    if (!translated) {
+      return example;
+    }
     return this.prefixDisclaimer(translated);
   }
 
   public convertMarkdown(markdown: string): string {
-    return this.rosetta.translateSnippetsInMarkdown(markdown, 'python', trans => ({
-      language: trans.language,
-      source: this.prefixDisclaimer(trans)
-    }));
+    return this.rosetta.translateSnippetsInMarkdown(
+      markdown,
+      'python',
+      (trans) => ({
+        language: trans.language,
+        source: this.prefixDisclaimer(trans),
+      }),
+    );
   }
 
   private prefixDisclaimer(translated: Translation) {
@@ -1628,7 +1919,10 @@ class PythonGenerator extends Generator {
   }
 
   protected getAssemblyOutputDir(assm: spec.Assembly) {
-    return path.join('src', pythonModuleNameToFilename(this.getAssemblyModuleName(assm)));
+    return path.join(
+      'src',
+      pythonModuleNameToFilename(this.getAssemblyModuleName(assm)),
+    );
   }
 
   protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
@@ -1661,23 +1955,29 @@ class PythonGenerator extends Generator {
       (fqn: string) => this.findModule(fqn),
       (fqn: string) => this.findType(fqn),
     );
-    this.package.write(this.code, { assembly: assm, submodule: assm.name, resolver });
+    this.package.write(this.code, {
+      assembly: assm,
+      submodule: assm.name,
+      resolver,
+    });
   }
 
   protected onBeginNamespace(ns: string) {
     const module = new PythonModule(
       [
         this.assembly.targets!.python!.module,
-        ...ns.split('.').slice(1)
+        ...ns
+          .split('.')
+          .slice(1)
           .map(toPythonIdentifier)
-          .map(s => toSnakeCase(s))
+          .map((s) => toSnakeCase(s)),
       ].join('.'),
       ns,
       {
         assembly: this.assembly,
         assemblyFilename: this.getAssemblyFileName(),
         package: this.package,
-      }
+      },
     );
 
     this.package.addModule(module);
@@ -1696,7 +1996,7 @@ class PythonGenerator extends Generator {
       {
         abstract,
         bases: cls.base ? [this.findType(cls.base)] : undefined,
-        interfaces: cls.interfaces?.map(base => this.findType(base)),
+        interfaces: cls.interfaces?.map((base) => this.findType(base)),
         abstractBases: abstract ? this.getAbstractBases(cls) : [],
       },
       cls.docs,
@@ -1714,7 +2014,7 @@ class PythonGenerator extends Generator {
           undefined,
           cls.initializer.docs,
           { liftedProp: this.getliftedProp(cls.initializer), parent: cls },
-        )
+        ),
       );
     }
 
@@ -1732,8 +2032,12 @@ class PythonGenerator extends Generator {
         parameters,
         method.returns,
         method.docs,
-        { abstract: method.abstract, liftedProp: this.getliftedProp(method), parent: cls },
-      )
+        {
+          abstract: method.abstract,
+          liftedProp: this.getliftedProp(method),
+          parent: cls,
+        },
+      ),
     );
   }
 
@@ -1746,7 +2050,7 @@ class PythonGenerator extends Generator {
         prop,
         prop.docs,
         { abstract: prop.abstract, immutable: prop.immutable, parent: cls },
-      )
+      ),
     );
   }
 
@@ -1762,8 +2066,12 @@ class PythonGenerator extends Generator {
           parameters,
           method.returns,
           method.docs,
-          { abstract: method.abstract, liftedProp: this.getliftedProp(method), parent: cls },
-        )
+          {
+            abstract: method.abstract,
+            liftedProp: this.getliftedProp(method),
+            parent: cls,
+          },
+        ),
       );
     } else {
       this.getPythonType(cls.fqn).addMember(
@@ -1774,8 +2082,12 @@ class PythonGenerator extends Generator {
           parameters,
           method.returns,
           method.docs,
-          { abstract: method.abstract, liftedProp: this.getliftedProp(method), parent: cls },
-        )
+          {
+            abstract: method.abstract,
+            liftedProp: this.getliftedProp(method),
+            parent: cls,
+          },
+        ),
       );
     }
   }
@@ -1789,11 +2101,15 @@ class PythonGenerator extends Generator {
         prop,
         prop.docs,
         { abstract: prop.abstract, immutable: prop.immutable, parent: cls },
-      )
+      ),
     );
   }
 
-  protected onUnionProperty(cls: spec.ClassType, prop: spec.Property, _union: spec.UnionTypeReference) {
+  protected onUnionProperty(
+    cls: spec.ClassType,
+    prop: spec.Property,
+    _union: spec.UnionTypeReference,
+  ) {
     this.onProperty(cls, prop);
   }
 
@@ -1805,7 +2121,7 @@ class PythonGenerator extends Generator {
         this,
         toPythonIdentifier(ifc.name),
         ifc.fqn,
-        { bases: ifc.interfaces?.map(base => this.findType(base)) },
+        { bases: ifc.interfaces?.map((base) => this.findType(base)) },
         ifc.docs,
       );
     } else {
@@ -1813,7 +2129,7 @@ class PythonGenerator extends Generator {
         this,
         toPythonIdentifier(ifc.name),
         ifc.fqn,
-        { bases: ifc.interfaces?.map(base => this.findType(base)) },
+        { bases: ifc.interfaces?.map((base) => this.findType(base)) },
         ifc.docs,
       );
     }
@@ -1821,7 +2137,9 @@ class PythonGenerator extends Generator {
     this.addPythonType(iface);
   }
 
-  protected onEndInterface(_ifc: spec.InterfaceType) { return; }
+  protected onEndInterface(_ifc: spec.InterfaceType) {
+    return;
+  }
 
   protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
     const { parameters = [] } = method;
@@ -1835,7 +2153,7 @@ class PythonGenerator extends Generator {
         method.returns,
         method.docs,
         { liftedProp: this.getliftedProp(method), parent: ifc },
-      )
+      ),
     );
   }
 
@@ -1859,7 +2177,9 @@ class PythonGenerator extends Generator {
   }
 
   protected onBeginEnum(enm: spec.EnumType) {
-    this.addPythonType(new Enum(this, toPythonIdentifier(enm.name), enm.fqn, {}, enm.docs));
+    this.addPythonType(
+      new Enum(this, toPythonIdentifier(enm.name), enm.fqn, {}, enm.docs),
+    );
   }
 
   protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) {
@@ -1869,19 +2189,31 @@ class PythonGenerator extends Generator {
         toPythonIdentifier(member.name),
         member.name,
         member.docs,
-      )
+      ),
     );
   }
 
-  protected onInterfaceMethodOverload(_ifc: spec.InterfaceType, _overload: spec.Method, _originalMethod: spec.Method) {
+  protected onInterfaceMethodOverload(
+    _ifc: spec.InterfaceType,
+    _overload: spec.Method,
+    _originalMethod: spec.Method,
+  ) {
     throw new Error('Unhandled Type: InterfaceMethodOverload');
   }
 
-  protected onMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) {
+  protected onMethodOverload(
+    _cls: spec.ClassType,
+    _overload: spec.Method,
+    _originalMethod: spec.Method,
+  ) {
     throw new Error('Unhandled Type: MethodOverload');
   }
 
-  protected onStaticMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) {
+  protected onStaticMethodOverload(
+    _cls: spec.ClassType,
+    _overload: spec.Method,
+    _originalMethod: spec.Method,
+  ) {
     throw new Error('Unhandled Type: StaticMethodOverload');
   }
 
@@ -1912,15 +2244,23 @@ class PythonGenerator extends Generator {
     this.types.set(type.fqn, type);
   }
 
-  private getliftedProp(method: spec.Method | spec.Initializer): spec.InterfaceType | undefined {
+  private getliftedProp(
+    method: spec.Method | spec.Initializer,
+  ): spec.InterfaceType | undefined {
     // If there are parameters to this method, and if the last parameter's type is
     // a datatype interface, then we want to lift the members of that last paramter
     // as keyword arguments to this function.
     if (method.parameters?.length ?? 0 >= 1) {
       const lastParameter = method.parameters!.slice(-1)[0];
-      if (!lastParameter.variadic && spec.isNamedTypeReference(lastParameter.type)) {
+      if (
+        !lastParameter.variadic &&
+        spec.isNamedTypeReference(lastParameter.type)
+      ) {
         const lastParameterType = this.findType(lastParameter.type.fqn);
-        if (spec.isInterfaceType(lastParameterType) && lastParameterType.datatype) {
+        if (
+          spec.isInterfaceType(lastParameterType) &&
+          lastParameterType.datatype
+        ) {
           return lastParameterType;
         }
       }
@@ -1961,12 +2301,20 @@ interface DocumentableArgument {
  */
 function onelineDescription(docs: spec.Docs | undefined) {
   // Only consider a subset of fields here, we don't have a lot of formatting space
-  if (!docs) { return '-'; }
+  if (!docs) {
+    return '-';
+  }
 
   const parts = [];
-  if (docs.summary) { parts.push(md2rst(docs.summary)); }
-  if (docs.remarks) { parts.push(md2rst(docs.remarks)); }
-  if (docs.default) { parts.push(`Default: ${md2rst(docs.default)}`); }
+  if (docs.summary) {
+    parts.push(md2rst(docs.summary));
+  }
+  if (docs.remarks) {
+    parts.push(md2rst(docs.remarks));
+  }
+  if (docs.default) {
+    parts.push(`Default: ${md2rst(docs.default)}`);
+  }
   return parts.join(' ').replace(/\s+/g, ' ');
 }
 
@@ -1975,8 +2323,13 @@ function shouldMentionStability(s: Stability) {
   return s === Stability.Deprecated || s === Stability.Experimental;
 }
 
-function isStruct(typeSystem: reflect.TypeSystem, ref: spec.TypeReference): boolean {
-  if (!spec.isNamedTypeReference(ref)) { return false; }
+function isStruct(
+  typeSystem: reflect.TypeSystem,
+  ref: spec.TypeReference,
+): boolean {
+  if (!spec.isNamedTypeReference(ref)) {
+    return false;
+  }
   const type = typeSystem.tryFindFqn(ref.fqn);
   return !!(type?.isInterfaceType() && type?.isDataType());
 }

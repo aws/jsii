@@ -30,7 +30,7 @@ export interface Config {
        * generated maven package name
        */
       package: string;
-      
+
       /**
        * groupId and artifactId for generated maven package.
        */
@@ -112,15 +112,17 @@ export interface PackageJson {
    * module's current semantic version number
    */
   version: string;
-  
+
   /**
    * module's source code repository information
    */
-  repository: string | {
-    url: string;
-    type?: string;
-    directory?: string;
-  };
+  repository:
+    | string
+    | {
+        url: string;
+        type?: string;
+        directory?: string;
+      };
 
   /**
    * main module entrypoint file
@@ -130,12 +132,14 @@ export interface PackageJson {
   /**
    * module's primary author information
    */
-  author: string | {
-    name: string;
-    email?: string;
-    url?: string;
-    organization?: boolean;
-  };
+  author:
+    | string
+    | {
+        name: string;
+        email?: string;
+        url?: string;
+        organization?: boolean;
+      };
 
   /**
    * jsii compiler configuration

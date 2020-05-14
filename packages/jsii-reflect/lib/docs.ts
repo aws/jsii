@@ -15,15 +15,17 @@ export class Docs {
     spec: jsii.Docs,
     private readonly parentDocs?: Docs,
   ) {
-
     this.docs = spec ?? {};
-
   }
 
   public toString() {
     const ret = new Array<string>();
-    if (this.docs.summary) { ret.push(this.docs.summary); }
-    if (this.docs.remarks) { ret.push('', this.docs.remarks); }
+    if (this.docs.summary) {
+      ret.push(this.docs.summary);
+    }
+    if (this.docs.remarks) {
+      ret.push('', this.docs.remarks);
+    }
     return ret.join('\n');
   }
 
@@ -35,8 +37,12 @@ export class Docs {
    * Return the reason for deprecation of this type
    */
   public get deprecationReason(): string | undefined {
-    if (this.docs.deprecated !== undefined) { return this.docs.deprecated; }
-    if (this.parentDocs) { return this.parentDocs.deprecationReason; }
+    if (this.docs.deprecated !== undefined) {
+      return this.docs.deprecated;
+    }
+    if (this.parentDocs) {
+      return this.parentDocs.deprecationReason;
+    }
     return undefined;
   }
 
@@ -75,7 +81,11 @@ const stabilityPrecedence = {
 };
 
 function lowestStability(a?: Stability, b?: Stability): Stability | undefined {
-  if (a === undefined) { return b; }
-  if (b === undefined) { return a; }
+  if (a === undefined) {
+    return b;
+  }
+  if (b === undefined) {
+    return a;
+  }
   return stabilityPrecedence[a] < stabilityPrecedence[b] ? a : b;
 }
