@@ -41,7 +41,7 @@
     "@types/jest": "^25.2.2",
     "@types/node": "^10.17.21",
     "eslint": "^7.0.0",
-    "eslint-config-prettier": "^6.10.0",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
