@@ -174,7 +174,7 @@ export class DotnetBuilder implements TargetBuilder {
     try {
       // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
       const jsiiDotNetRuntime = require('@jsii/dotnet-runtime');
-      logging.info(`Uning local version of the DotNet jsii runtime package at: ${jsiiDotNetRuntime.repository}`);
+      logging.info(`Using local version of the DotNet jsii runtime package at: ${jsiiDotNetRuntime.repository}`);
       localRepos.push(jsiiDotNetRuntime.repository);
     } catch {
       // Couldn't locate @jsii/dotnet-runtime, which is owkay!
