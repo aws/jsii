@@ -2724,7 +2724,7 @@ interface MavenDependency {
 }
 
 /**
- * Looks up the `jsii-java-runtime` package from the local repository.
+ * Looks up the `@jsii/java-runtime` package from the local repository.
  * If it contains a "maven-repo" directory, it will be added as a local maven repo
  * so when we build locally, we build against it and not against the one published
  * to Maven Central.
@@ -2732,7 +2732,8 @@ interface MavenDependency {
 function findJavaRuntimeLocalRepository() {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
-    const javaRuntime = require('jsii-java-runtime');
+    const javaRuntime = require('@jsii/java-runtime');
+    logging.info(`Uning local version of the Java jsii runtime package at: ${javaRuntime.repository}`);
     return javaRuntime.repository;
   } catch {
     return undefined;
