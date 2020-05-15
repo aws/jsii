@@ -6,16 +6,18 @@ export const packageJsonObject: BasePackageJson = {
   repository: {
     url: 'https://github.com/aws/jsii',
     type: 'git',
-    directory: '/packages/jsii-config'
+    directory: '/packages/jsii-config',
   },
   main: 'bin/jsii-config',
   author: {
     name: 'Amazon Web Services',
     url: 'https://aws.amazon.com',
-    organization: true
-  }
+    organization: true,
+  },
 };
 
-export const findQuestion = (key: string, questions: any[]) => questions.find((question: any) => question.name === key);
+export const findQuestion = (key: string, questions: any[]) =>
+  questions.find((question: any) => question.name === key);
 
-export const findQuestions = (keys: string[], question: any[]) => keys.map(key => findQuestion(key, question));
+export const findQuestions = (keys: string[], question: any[]) =>
+  keys.map((key) => findQuestion(key, question));

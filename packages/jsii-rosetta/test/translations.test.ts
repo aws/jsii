@@ -53,12 +53,17 @@ const SUPPORTED_LANGUAGES = new Array<SupportedLanguage>(
 function makeTests() {
   const translationsRoot = path.join(__dirname, 'translations');
   const typeScriptTests = allFiles(translationsRoot)
-    .filter(f => f.endsWith('.ts') && !f.endsWith('.d.ts'))
-    .filter(f => !f.endsWith('.test.ts')); // Exclude self and other jest tests in this dir
+    .filter((f) => f.endsWith('.ts') && !f.endsWith('.d.ts'))
+    .filter((f) => !f.endsWith('.test.ts')); // Exclude self and other jest tests in this dir
 
-  typeScriptTests.forEach(typeScriptTest => {
-    describe(`Translating ${path.relative(translationsRoot, typeScriptTest)}`, () => {
-      const typeScriptSource = fs.readFileSync(typeScriptTest, { encoding: 'utf-8' });
+  typeScriptTests.forEach((typeScriptTest) => {
+    describe(`Translating ${path.relative(
+      translationsRoot,
+      typeScriptTest,
+    )}`, () => {
+      const typeScriptSource = fs.readFileSync(typeScriptTest, {
+        encoding: 'utf-8',
+      });
 
       let translator: SnippetTranslator;
       let anyFailed = false;
@@ -77,8 +82,11 @@ function makeTests() {
         (translator as any) = undefined; // Need this to properly release memory
       });
 
-      SUPPORTED_LANGUAGES.forEach(supportedLanguage => {
-        const languageFile = replaceExtension(typeScriptTest, supportedLanguage.extension);
+      SUPPORTED_LANGUAGES.forEach((supportedLanguage) => {
+        const languageFile = replaceExtension(
+          typeScriptTest,
+          supportedLanguage.extension,
+        );
 
         // Use 'test.skip' if the file doesn't exist so that we can clearly see it's missing.
         const testConstructor = fs.existsSync(languageFile) ? test : test.skip;
@@ -86,9 +94,13 @@ function makeTests() {
         testConstructor(`to ${supportedLanguage.name}`, () => {
           const expected = fs.readFileSync(languageFile, { encoding: 'utf-8' });
           try {
-            const translation = translator.renderUsing(supportedLanguage.visitor);
-            expect(stripEmptyLines(translation)).toEqual(stripEmptyLines(stripCommonWhitespace(expected)));
-          } catch(e) {
+            const translation = translator.renderUsing(
+              supportedLanguage.visitor,
+            );
+            expect(stripEmptyLines(translation)).toEqual(
+              stripEmptyLines(stripCommonWhitespace(expected)),
+            );
+          } catch (e) {
             anyFailed = true;
             throw e;
           }
@@ -101,7 +113,7 @@ function makeTests() {
 makeTests();
 
 function allFiles(root: string) {
-  const ret: string [] = [];
+  const ret: string[] = [];
   recurse(root);
   return ret;
 
@@ -125,16 +137,22 @@ function replaceExtension(x: string, newExtension: string) {
 
 function stripCommonWhitespace(x: string) {
   const lines = x.split('\n');
-  /* eslint-disable-next-line @typescript-eslint/prefer-regexp-exec */
-  const whitespaces = lines.filter(l => !emptyLine(l.trim())).map(l => l.match(/(\s*)/)![1].length);
+  const whitespaces = lines
+    .filter((l) => !emptyLine(l.trim()))
+    /* eslint-disable-next-line @typescript-eslint/prefer-regexp-exec */
+    .map((l) => l.match(/(\s*)/)![1].length);
   const minWS = Math.min(...whitespaces);
-  return lines.map(l => l.substr(minWS)).join('\n');
+  return lines.map((l) => l.substr(minWS)).join('\n');
 }
 
 function stripEmptyLines(x: string) {
   const lines = x.split('\n');
-  while (lines.length > 0 && emptyLine(lines[0])) { lines.splice(0, 1); }
-  while (lines.length > 0 && emptyLine(lines[lines.length - 1])) { lines.pop(); }
+  while (lines.length > 0 && emptyLine(lines[0])) {
+    lines.splice(0, 1);
+  }
+  while (lines.length > 0 && emptyLine(lines[lines.length - 1])) {
+    lines.pop();
+  }
   return lines.join('\n');
 }
 

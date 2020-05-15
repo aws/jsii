@@ -24,7 +24,7 @@ export interface JsiiModuleOptions {
 
   /**
    * Output directory where to package everything
-  */
+   */
   defaultOutputDirectory: string;
 
   /**
@@ -54,7 +54,7 @@ export class JsiiModule {
    * Prepare an NPM package from this source module
    */
   public async npmPack() {
-    this._tarball = await Scratch.make(async tmpdir => {
+    this._tarball = await Scratch.make(async (tmpdir) => {
       logging.debug(`Running "npm pack ${this.moduleDirectory}" in ${tmpdir}`);
       const args = ['pack', this.moduleDirectory];
       if (logging.level >= logging.LEVEL_VERBOSE) {
@@ -68,7 +68,11 @@ export class JsiiModule {
       const lastLine = lines[lines.length - 1].trim();
 
       if (!lastLine.endsWith('.tgz') && !lastLine.endsWith('.tar.gz')) {
-        throw new Error(`npm pack did not produce tarball from ${this.moduleDirectory} into ${tmpdir} (output was ${JSON.stringify(lines)})`);
+        throw new Error(
+          `npm pack did not produce tarball from ${
+            this.moduleDirectory
+          } into ${tmpdir} (output was ${JSON.stringify(lines)})`,
+        );
       }
 
       return path.resolve(tmpdir, lastLine);

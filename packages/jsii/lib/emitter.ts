@@ -5,10 +5,10 @@ import * as ts from 'typescript';
  */
 export interface Emitter {
   /**
-     * Attempts to emit stuff.
-     *
-     * @return the result of attempting to emit stuff.
-     */
+   * Attempts to emit stuff.
+   *
+   * @return the result of attempting to emit stuff.
+   */
   emit(): Promise<EmitResult>;
 }
 
@@ -25,8 +25,8 @@ export interface EmitResult extends ts.EmitResult {
  */
 export interface Diagnostic extends ts.Diagnostic {
   /**
-     * The domain of the diagnostic message.
-     */
+   * The domain of the diagnostic message.
+   */
   domain: string;
 }
 
@@ -37,6 +37,8 @@ export interface Diagnostic extends ts.Diagnostic {
  *
  * @returns ``true`` if ``diagnostic`` has a domain.
  */
-export function hasDomain(diagnostic: ts.Diagnostic | Diagnostic): diagnostic is Diagnostic {
+export function hasDomain(
+  diagnostic: ts.Diagnostic | Diagnostic,
+): diagnostic is Diagnostic {
   return !!(diagnostic as Diagnostic).domain;
 }

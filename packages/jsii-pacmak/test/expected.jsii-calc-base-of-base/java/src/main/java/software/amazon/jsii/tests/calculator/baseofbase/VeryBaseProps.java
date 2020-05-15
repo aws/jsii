@@ -16,7 +16,7 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
     /**
      * A builder for {@link VeryBaseProps}
      */
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<VeryBaseProps> {
         private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
@@ -34,6 +34,7 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link VeryBaseProps}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @Override
         public VeryBaseProps build() {
             return new Jsii$Proxy(foo);
         }

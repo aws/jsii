@@ -19,21 +19,30 @@ import { loadProjectInfo, ProjectInfo } from './project-info';
  *
  * Only usable for trivial cases and tests.
  */
-export async function sourceToAssemblyHelper(source: string, cb?: (obj: PackageInfo) => void): Promise<spec.Assembly> {
+export async function sourceToAssemblyHelper(
+  source: string,
+  cb?: (obj: PackageInfo) => void,
+): Promise<spec.Assembly> {
   // Easiest way to get the source into the compiler is to write it to disk somewhere.
   // I guess we could make an in-memory compiler host but that seems like work...
   return inTempDir(async () => {
     const fileName = 'index.ts';
     await fs.writeFile(fileName, source, { encoding: 'utf-8' });
-    const compiler = new Compiler({ projectInfo: await makeProjectInfo(fileName, cb) });
+    const compiler = new Compiler({
+      projectInfo: await makeProjectInfo(fileName, cb),
+    });
     const emitResult = await compiler.emit();
 
-    const errors = emitResult.diagnostics.filter(d => d.category === DiagnosticCategory.Error);
+    const errors = emitResult.diagnostics.filter(
+      (d) => d.category === DiagnosticCategory.Error,
+    );
     for (const error of errors) {
       console.error(error.messageText);
       // logDiagnostic() doesn't work out of the box, so console.error() it is.
     }
-    if (errors.length > 0) { throw new Error('There were compiler errors'); }
+    if (errors.length > 0) {
+      throw new Error('There were compiler errors');
+    }
     return fs.readJSON('.jsii', { encoding: 'utf-8' });
   });
 }
@@ -57,7 +66,10 @@ async function inTempDir<T>(block: () => Promise<T>): Promise<T> {
  * Most consistent behavior seems to be to write a package.json to disk and
  * then calling the same functions as the CLI would.
  */
-async function makeProjectInfo(types: string, cb?: (obj: PackageInfo) => Promise<void> | void): Promise<ProjectInfo> {
+async function makeProjectInfo(
+  types: string,
+  cb?: (obj: PackageInfo) => Promise<void> | void,
+): Promise<ProjectInfo> {
   const packageInfo: PackageInfo = {
     types,
     main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),
@@ -72,9 +84,15 @@ async function makeProjectInfo(types: string, cb?: (obj: PackageInfo) => Promise
     await cb(packageInfo);
   }
 
-  await fs.writeJson('package.json', packageInfo, { encoding: 'utf-8', replacer: (_: string, v: any) => v, spaces: 2 });
+  await fs.writeJson('package.json', packageInfo, {
+    encoding: 'utf-8',
+    replacer: (_: string, v: any) => v,
+    spaces: 2,
+  });
 
-  return loadProjectInfo(path.resolve(process.cwd(), '.'), { fixPeerDependencies: true });
+  return loadProjectInfo(path.resolve(process.cwd(), '.'), {
+    fixPeerDependencies: true,
+  });
 }
 
 export type PackageInfo = {

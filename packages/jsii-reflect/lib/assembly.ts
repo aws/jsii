@@ -61,7 +61,11 @@ export class Assembly extends ModuleLike {
    * The module repository, maps to "repository" from package.json
    * This is required since some package managers (like Maven) require it.
    */
-  public get repository(): { readonly type: string, readonly url: string, readonly directory?: string } {
+  public get repository(): {
+    readonly type: string;
+    readonly url: string;
+    readonly directory?: string;
+  } {
     return this.spec.repository;
   }
 
@@ -112,7 +116,9 @@ export class Assembly extends ModuleLike {
    * Dependencies on other assemblies (with semver), the key is the JSII assembly name.
    */
   public get dependencies(): readonly Dependency[] {
-    return Object.keys(this._dependencies).map(name => this._dependencies[name]);
+    return Object.keys(this._dependencies).map(
+      (name) => this._dependencies[name],
+    );
   }
 
   public findDependency(name: string) {
@@ -127,7 +133,7 @@ export class Assembly extends ModuleLike {
    * List if bundled dependencies (these are not expected to be jsii assemblies).
    */
   public get bundled(): { readonly [module: string]: string } {
-    return this.spec.bundled ?? { };
+    return this.spec.bundled ?? {};
   }
 
   /**
@@ -170,10 +176,14 @@ export class Assembly extends ModuleLike {
 
   private get _dependencies() {
     if (!this._dependencyCache) {
-      this._dependencyCache = { };
+      this._dependencyCache = {};
       if (this.spec.dependencies) {
         for (const name of Object.keys(this.spec.dependencies)) {
-          this._dependencyCache[name] = new Dependency(this.system, name, this.spec.dependencies[name]);
+          this._dependencyCache[name] = new Dependency(
+            this.system,
+            name,
+            this.spec.dependencies[name],
+          );
         }
       }
     }
@@ -187,7 +197,7 @@ export class Assembly extends ModuleLike {
 
       const submodules: { [fullName: string]: SubmoduleMap } = {};
 
-      const ts = this.spec.types ?? { };
+      const ts = this.spec.types ?? {};
       for (const fqn of Object.keys(ts)) {
         const typeSpec = ts[fqn];
 
@@ -216,9 +226,14 @@ export class Assembly extends ModuleLike {
 
         if (submodule != null) {
           const [root, ...parts] = submodule.split('.');
-          let container = submodules[root] = submodules[root] ?? { submodules: {}, types: [] };
+          let container = (submodules[root] = submodules[root] ?? {
+            submodules: {},
+            types: [],
+          });
           for (const part of parts) {
-            container = container.submodules[part] = container.submodules[part] ?? { submodules: {}, types: [] };
+            container = container.submodules[part] = container.submodules[
+              part
+            ] ?? { submodules: {}, types: [] };
           }
           container.types.push(type);
         } else {
@@ -228,7 +243,11 @@ export class Assembly extends ModuleLike {
 
       this._submoduleCache = {};
       for (const [name, map] of Object.entries(submodules)) {
-        this._submoduleCache[name] = makeSubmodule(this.system, map, `${this.name}.${name}`);
+        this._submoduleCache[name] = makeSubmodule(
+          this.system,
+          map,
+          `${this.name}.${name}`,
+        );
       }
     }
 
@@ -241,11 +260,17 @@ interface SubmoduleMap {
   readonly types: Type[];
 }
 
-function makeSubmodule(system: TypeSystem, map: SubmoduleMap, fullName: string): Submodule {
+function makeSubmodule(
+  system: TypeSystem,
+  map: SubmoduleMap,
+  fullName: string,
+): Submodule {
   return new Submodule(
     system,
     fullName,
-    Object.entries(map.submodules).map(([name, subMap]) => makeSubmodule(system, subMap, `${fullName}.${name}`)),
+    Object.entries(map.submodules).map(([name, subMap]) =>
+      makeSubmodule(system, subMap, `${fullName}.${name}`),
+    ),
     map.types,
   );
 }

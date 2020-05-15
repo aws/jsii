@@ -11,7 +11,8 @@ export abstract class ReferenceType extends Type {
   public constructor(
     public system: TypeSystem,
     public assembly: Assembly,
-    spec: jsii.Type) {
+    spec: jsii.Type,
+  ) {
     super(system, assembly, spec);
   }
 
@@ -58,10 +59,10 @@ export abstract class ReferenceType extends Type {
     return Object.values(this.getMembers(true));
   }
 
-  public getMembers(inherited = false): {[name: string]: TypeMember} {
+  public getMembers(inherited = false): { [name: string]: TypeMember } {
     return Object.assign(
       this.getMethods(inherited),
-      this.getProperties(inherited)
+      this.getProperties(inherited),
     );
   }
 
@@ -75,11 +76,13 @@ export abstract class ReferenceType extends Type {
    * Lists all properties in this class.
    * @param inherited include all properties inherited from base classes (default: false)
    */
-  public abstract getProperties(inherited?: boolean): {[name: string]: Property};
+  public abstract getProperties(
+    inherited?: boolean,
+  ): { [name: string]: Property };
 
   /**
    * List all methods in this class.
    * @param inherited include all methods inherited from base classes (default: false)
    */
-  public abstract getMethods(inherited?: boolean): {[name: string]: Method};
+  public abstract getMethods(inherited?: boolean): { [name: string]: Method };
 }

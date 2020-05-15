@@ -2,7 +2,6 @@ import * as spec from '@jsii/spec';
 import { toCamelCase } from 'codemaker';
 
 export class DotNetNameUtils {
-
   public convertPropertyName(original: string) {
     if (this.isInvalidName(original)) {
       throw new Error(`Invalid property name: ${original}`);
@@ -41,7 +40,6 @@ export class DotNetNameUtils {
     }
     // Non datatype interfaces are guaranteed by JSII to be prefixed by I already
     return this.capitalizeWord(original.name);
-
   }
 
   public convertClassName(original: spec.ClassType | spec.InterfaceType) {
@@ -74,7 +72,10 @@ export class DotNetNameUtils {
     if (this.isInvalidName(original)) {
       throw new Error(`Invalid package name: ${original}`);
     }
-    return original.split('-').map((s: string) => this.capitalizeWord(s)).join('.');
+    return original
+      .split('-')
+      .map((s: string) => this.capitalizeWord(s))
+      .join('.');
   }
 
   public convertParameterName(original: string) {
@@ -93,7 +94,12 @@ export class DotNetNameUtils {
   private isInvalidName(str: string) {
     // Can not be empty, or contains $
     // Can only start with a letter or an underscore
-    return str === null || /^\s*$/.exec(str) !== null || str.includes('$') || !/^[A-Za-z_]/.exec(str);
+    return (
+      str === null ||
+      /^\s*$/.exec(str) !== null ||
+      str.includes('$') ||
+      !/^[A-Za-z_]/.exec(str)
+    );
   }
 
   private escapeParameterName(name: string): string {
@@ -104,7 +110,6 @@ export class DotNetNameUtils {
       return `@${name}`;
     }
     return name;
-
   }
 
   private slugify(name: string): string {
@@ -118,11 +123,82 @@ export class DotNetNameUtils {
 // Pulled from https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/
 const RESERVED_KEYWORDS = [
   // For some reason the old generator does not slugify the keyword base?
-  'abstract', 'as', 'base', 'bool', 'break', 'byte', 'case', 'catch', 'char', 'checked', 'class',
-  'const', 'continue', 'decimal', 'default', 'delegate', 'double', 'do', 'else', 'enum', 'event', 'explicit',
-  'extern', 'false', 'finally', 'fixed', 'float', 'for', 'foreach', 'goto', 'if', 'implicit', 'in',
-  'int', 'interface', 'internal', 'is', 'lock', 'long', 'namespace', 'new', 'null', 'object', 'operator', 'out',
-  'override', 'params', 'private', 'protected', 'public', 'readonly', 'ref', 'return', 'sbyte', 'sealed', 'short',
-  'sizeof', 'stackalloc', 'static', 'string', 'struct', 'switch', 'this', 'throw', 'true', 'try', 'typeof', 'uint',
-  'ulong', 'unchecked', 'unsafe', 'ushort', 'using', 'value', 'virtual', 'void', 'volatile', 'while'
+  'abstract',
+  'as',
+  'base',
+  'bool',
+  'break',
+  'byte',
+  'case',
+  'catch',
+  'char',
+  'checked',
+  'class',
+  'const',
+  'continue',
+  'decimal',
+  'default',
+  'delegate',
+  'double',
+  'do',
+  'else',
+  'enum',
+  'event',
+  'explicit',
+  'extern',
+  'false',
+  'finally',
+  'fixed',
+  'float',
+  'for',
+  'foreach',
+  'goto',
+  'if',
+  'implicit',
+  'in',
+  'int',
+  'interface',
+  'internal',
+  'is',
+  'lock',
+  'long',
+  'namespace',
+  'new',
+  'null',
+  'object',
+  'operator',
+  'out',
+  'override',
+  'params',
+  'private',
+  'protected',
+  'public',
+  'readonly',
+  'ref',
+  'return',
+  'sbyte',
+  'sealed',
+  'short',
+  'sizeof',
+  'stackalloc',
+  'static',
+  'string',
+  'struct',
+  'switch',
+  'this',
+  'throw',
+  'true',
+  'try',
+  'typeof',
+  'uint',
+  'ulong',
+  'unchecked',
+  'unsafe',
+  'ushort',
+  'using',
+  'value',
+  'virtual',
+  'void',
+  'volatile',
+  'while',
 ];

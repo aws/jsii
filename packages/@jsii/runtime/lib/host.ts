@@ -6,7 +6,10 @@ export class KernelHost {
   private readonly kernel = new Kernel(this.callbackHandler.bind(this));
   private readonly eventEmitter = new EventEmitter();
 
-  public constructor(private readonly inout: InputOutput, private readonly opts: { debug?: boolean, noStack?: boolean } = { }) {
+  public constructor(
+    private readonly inout: InputOutput,
+    private readonly opts: { debug?: boolean; noStack?: boolean } = {},
+  ) {
     this.kernel.traceEnabled = opts.debug ? true : false;
   }
 
@@ -29,7 +32,6 @@ export class KernelHost {
   }
 
   private callbackHandler(callback: api.Callback) {
-
     // write a "callback" response, which is a special response that tells
     // the client that there's synchonous callback it needs to invoke and
     // bring back the result via a "complete" request.
@@ -46,7 +48,10 @@ export class KernelHost {
       // if this is a completion for the current callback, then we can
       // finally stop this nonsense and return the result.
       const completeReq = req as { complete: api.CompleteRequest };
-      if ('complete' in completeReq && completeReq.complete.cbid === callback.cbid) {
+      if (
+        'complete' in completeReq &&
+        completeReq.complete.cbid === callback.cbid
+      ) {
         if (completeReq.complete.err) {
           throw new Error(completeReq.complete.err);
         }
@@ -58,27 +63,33 @@ export class KernelHost {
       // our callback to be completed. sync=true to enforce that `completeCallback`
       // will be called synchronously and return value will be chained back so we can
       // return it to the callback handler.
-      return this.processRequest(req, completeCallback.bind(this), /* sync */ true);
+      return this.processRequest(
+        req,
+        completeCallback.bind(this),
+        /* sync */ true,
+      );
     }
   }
 
   /**
-     * Processes the input request `req` and writes the output response to
-     * stdout. This method invokes `next` when the request was fully processed.
-     * This either happens synchronously or asynchronously depending on the api
-     * (e.g. the "end" api will wait for an async promise to be fulfilled before
-     * it writes the response)
-     *
-     * @param req The input request
-     * @param next A callback to invoke to continue
-     * @param sync If this is 'true', "next" must be called synchronously. This means
-     *             that we won't process any async activity (begin/complete). The kernel
-     *             doesn't allow any async operations during a sync callback, so this shouldn't
-     *             happen, so we assert in this case to find bugs.
-     */
+   * Processes the input request `req` and writes the output response to
+   * stdout. This method invokes `next` when the request was fully processed.
+   * This either happens synchronously or asynchronously depending on the api
+   * (e.g. the "end" api will wait for an async promise to be fulfilled before
+   * it writes the response)
+   *
+   * @param req The input request
+   * @param next A callback to invoke to continue
+   * @param sync If this is 'true', "next" must be called synchronously. This means
+   *             that we won't process any async activity (begin/complete). The kernel
+   *             doesn't allow any async operations during a sync callback, so this shouldn't
+   *             happen, so we assert in this case to find bugs.
+   */
   private processRequest(req: Input, next: () => void, sync = false) {
     if ('callback' in req) {
-      throw new Error('Unexpected `callback` result. This request should have been processed by a callback handler');
+      throw new Error(
+        'Unexpected `callback` result. This request should have been processed by a callback handler',
+      );
     }
 
     if (!('api' in req)) {
@@ -120,12 +131,12 @@ export class KernelHost {
 
         const promise = ret;
         promise
-          .then(val => {
+          .then((val) => {
             this.debug('promise succeeded:', val);
             this.writeOkay(val);
             next();
           })
-          .catch(e => {
+          .catch((e) => {
             this.debug('promise failed:', e);
             this.writeError(e);
             next();
@@ -144,22 +155,24 @@ export class KernelHost {
 
     function checkIfAsyncIsAllowed() {
       if (sync) {
-        throw new Error('Cannot handle async operations while waiting for a sync callback to return');
+        throw new Error(
+          'Cannot handle async operations while waiting for a sync callback to return',
+        );
       }
     }
   }
 
   /**
-     * Writes an "ok" result to stdout.
-     */
+   * Writes an "ok" result to stdout.
+   */
   private writeOkay(result: any) {
     const res = { ok: result };
     this.inout.write(res);
   }
 
   /**
-     * Writes an "error" result to stdout.
-     */
+   * Writes an "error" result to stdout.
+   */
   private writeError(error: any) {
     const res = { error: error.message, stack: undefined };
     if (!this.opts.noStack) {
@@ -169,15 +182,15 @@ export class KernelHost {
   }
 
   /**
-     * Returns true if the value is a promise.
-     */
+   * Returns true if the value is a promise.
+   */
   private isPromise(v: any): v is Promise<any> {
     return typeof v?.then === 'function';
   }
 
   /**
-     * Given a kernel api name, returns the function to invoke.
-     */
+   * Given a kernel api name, returns the function to invoke.
+   */
   private findApi(apiName: string): (this: Kernel, arg: Input) => any {
     const fn = (this.kernel as any)[apiName];
     if (typeof fn !== 'function') {

@@ -82,10 +82,23 @@ All packages within this repository have the following scripts:
   running `tsc --watch`.
 - `test` - executes all unit tests for the current package.
 - `package` - emits publishable artifacts to `dist`.
+- `lint` - run linter against source
+- `lint:fix` - lint and auto-correct formatting issues when possible
 
 Each one of these scripts can be executed either from the root of the repo using
 `npx lerna run <script> --scope <package>` or from individual modules using
 `yarn <script>`.
+
+#### Linting & Formatting
+
+Eslint and Prettier are used to lint and format our typescript code. The `lint`
+and `lint:fix` scripts can be run from the root or from a specific module.
+
+You can integrate the linting and formatting workflow with your editor or ide by
+installing the approporiate eslint plugin. For example, when using Visual Studio
+Code, the [eslint plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+exposes a number of options including "fix on save". This will auto correct lint
+and formatting errors whenever possible while saving a document.
 
 ### Bump
 

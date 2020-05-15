@@ -25,6 +25,7 @@
     "build": "tsc --build && npm run lint",
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
     "package": "rm -fr dist/js && mkdir -p dist/js && mv $(npm pack) dist/js"
@@ -37,10 +38,13 @@
   "devDependencies": {
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^8.1.0",
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^25.2.2",
     "@types/node": "^10.17.21",
     "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jest": "^26.0.1",
+    "prettier": "^2.0.5",
     "typescript": "~3.8.3"
   },
   "jest": {

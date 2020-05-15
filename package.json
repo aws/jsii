@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "build": "lerna run build --stream --sort --concurrency=1",
+    "lint": "lerna run lint --stream --sort",
+    "lint:fix": "lerna run lint:fix --stream --sort",
     "bump": "bash scripts/bump.sh",
     "dist-clean": "lerna run dist-clean --stream && rm -rf dist",
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
@@ -13,13 +15,13 @@
     "test:update": "lerna run test:update --stream"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.31.0",
-    "@typescript-eslint/parser": "^2.31.0",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
     "eslint": "^7.0.0",
     "eslint-import-resolver-node": "^0.3.3",
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.20.2",
-    "lerna": "^3.20.2",
+    "lerna": "^3.21.0",
     "standard-version": "^8.0.0"
   },
   "repository": {

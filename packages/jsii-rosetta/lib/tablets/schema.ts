@@ -22,7 +22,7 @@ export interface TabletSchema {
   /**
    * All the snippets in the tablet
    */
-  snippets: {[key: string]: TranslatedSnippetSchema};
+  snippets: { [key: string]: TranslatedSnippetSchema };
 }
 
 export const ORIGINAL_SNIPPET_KEY = '$';
@@ -37,7 +37,7 @@ export interface TranslatedSnippetSchema {
    * Since TypeScript is a valid output translation, the original will be
    * listed under the key '$'.
    */
-  translations: {[key: string]: TranslationSchema};
+  translations: { [key: string]: TranslationSchema };
 
   /**
    * A human-readable description of the location this code snippet was found
