@@ -41,7 +41,7 @@
     "yargs": "^15.3.1"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.1.0",
+    "@types/fs-extra": "^9.0.0",
     "@types/jest": "^25.2.2",
     "@types/jest-expect-message": "^1.0.2",
     "@types/node": "^10.17.21",
