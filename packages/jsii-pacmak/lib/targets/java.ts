@@ -2733,7 +2733,9 @@ function findJavaRuntimeLocalRepository() {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
     const javaRuntime = require('@jsii/java-runtime');
-    logging.info(`Using local version of the Java jsii runtime package at: ${javaRuntime.repository}`);
+    logging.info(
+      `Using local version of the Java jsii runtime package at: ${javaRuntime.repository}`,
+    );
     return javaRuntime.repository;
   } catch {
     return undefined;
