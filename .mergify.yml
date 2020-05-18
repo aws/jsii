@@ -43,6 +43,7 @@ pull_request_rules:
         strict_method: merge
       comment:
         message: Merging (with squash)...
+      commit_message: title+body
     conditions:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
@@ -60,7 +61,7 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
-      
+
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
       dismiss_reviews:
@@ -72,6 +73,7 @@ pull_request_rules:
         strict_method: merge
       comment:
         message: Merging (no-squash)...
+      commit_message: title+body
     conditions:
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
@@ -88,7 +90,7 @@ pull_request_rules:
       - "#changes-requested-reviews-by=0"
       - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
-      - status-success=Semantic Pull Request      
+      - status-success=Semantic Pull Request
 
   - name: Clean branch up
     actions:
