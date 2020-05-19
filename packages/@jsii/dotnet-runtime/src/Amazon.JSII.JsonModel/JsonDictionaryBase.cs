@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Amazon.JSII.JsonModel
 {
@@ -69,7 +70,7 @@ namespace Amazon.JSII.JsonModel
             return _members.Remove(item);
         }
 
-        public bool TryGetValue(TKey key, out TValue value)
+        public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
         {
             return _members.TryGetValue(key, out value);
         }
