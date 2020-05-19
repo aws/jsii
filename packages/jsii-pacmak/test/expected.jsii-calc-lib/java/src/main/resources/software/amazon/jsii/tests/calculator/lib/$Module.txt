@@ -7,6 +7,6 @@
 @scope/jsii-calc-lib.Operation=software.amazon.jsii.tests.calculator.lib.Operation
 @scope/jsii-calc-lib.StructWithOnlyOptionals=software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals
 @scope/jsii-calc-lib.Value=software.amazon.jsii.tests.calculator.lib.Value
-@scope/jsii-calc-lib.submodule.IReflectable=software.amazon.jsii.tests.calculator.lib.submodule.IReflectable
-@scope/jsii-calc-lib.submodule.ReflectableEntry=software.amazon.jsii.tests.calculator.lib.submodule.ReflectableEntry
-@scope/jsii-calc-lib.submodule.Reflector=software.amazon.jsii.tests.calculator.lib.submodule.Reflector
+@scope/jsii-calc-lib.submodule.IReflectable=software.amazon.jsii.tests.calculator.custom_submodule_name.IReflectable
+@scope/jsii-calc-lib.submodule.ReflectableEntry=software.amazon.jsii.tests.calculator.custom_submodule_name.ReflectableEntry
+@scope/jsii-calc-lib.submodule.Reflector=software.amazon.jsii.tests.calculator.custom_submodule_name.Reflector
