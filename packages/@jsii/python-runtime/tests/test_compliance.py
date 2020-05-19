@@ -74,7 +74,7 @@ from jsii_calc import (
     UpcasingReflectable,
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
-from scope.jsii_calc_lib.submodule import IReflectable, ReflectableEntry
+from scope.jsii_calc_lib.custom_submodule_name import IReflectable, ReflectableEntry
 
 
 # Note: The names of these test functions have been chosen to map as closely to the
