@@ -63,10 +63,13 @@ export class Compiler implements Emitter {
   private readonly projectReferences: boolean;
 
   public constructor(private readonly options: CompilerOptions) {
-    this.compilerHost = ts.createIncrementalCompilerHost(BASE_COMPILER_OPTIONS, {
-      ...ts.sys,
-      getCurrentDirectory: () => this.options.projectInfo.projectRoot,
-    });
+    this.compilerHost = ts.createIncrementalCompilerHost(
+      BASE_COMPILER_OPTIONS,
+      {
+        ...ts.sys,
+        getCurrentDirectory: () => this.options.projectInfo.projectRoot,
+      },
+    );
 
     this.configPath = path.join(
       this.options.projectInfo.projectRoot,
