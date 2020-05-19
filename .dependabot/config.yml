@@ -31,11 +31,3 @@ update_configs:
     default_labels:
       - dependencies
       - language/python
-
-  - directory: /packages/@jsii/ruby-runtime/project
-    package_manager: ruby:bundler
-    update_schedule: live
-    version_requirement_updates: increase_versions
-    default_labels:
-      - dependencies
-      - language/ruby
