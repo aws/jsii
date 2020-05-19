@@ -266,7 +266,8 @@ export class Compiler implements Emitter {
     let incremental: boolean | undefined;
     if (this.projectReferences) {
       references = await this.findProjectReferences();
-      composite = incremental = true;
+      composite = true;
+      incremental = true;
     }
 
     const pi = this.options.projectInfo;
