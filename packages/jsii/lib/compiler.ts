@@ -9,7 +9,7 @@ import { EmitResult, Emitter } from './emitter';
 import { ProjectInfo } from './project-info';
 import * as utils from './utils';
 
-const COMPILER_OPTIONS: ts.CompilerOptions = {
+const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   alwaysStrict: true,
   charset: 'utf8',
   declaration: true,
@@ -63,9 +63,11 @@ export class Compiler implements Emitter {
   private readonly projectReferences: boolean;
 
   public constructor(private readonly options: CompilerOptions) {
-    this.compilerHost = ts.createCompilerHost(COMPILER_OPTIONS);
-    this.compilerHost.getCurrentDirectory = () =>
-      this.options.projectInfo.projectRoot;
+    this.compilerHost = ts.createIncrementalCompilerHost(BASE_COMPILER_OPTIONS, {
+      ...ts.sys,
+      getCurrentDirectory: () => this.options.projectInfo.projectRoot,
+    });
+
     this.configPath = path.join(
       this.options.projectInfo.projectRoot,
       'tsconfig.json',
@@ -114,7 +116,7 @@ export class Compiler implements Emitter {
       this.configPath,
       {
         ...pi.tsc,
-        ...COMPILER_OPTIONS,
+        ...BASE_COMPILER_OPTIONS,
         noEmitOnError: false,
       },
       {
@@ -187,9 +189,12 @@ export class Compiler implements Emitter {
     const tsconf = this.typescriptConfig!;
     const pi = this.options.projectInfo;
 
-    const prog = ts.createProgram({
+    const prog = ts.createIncrementalProgram({
       rootNames: this.rootFiles.concat(_pathOfLibraries(this.compilerHost)),
-      options: { ...pi.tsc, ...COMPILER_OPTIONS },
+      options: {
+        ...pi.tsc,
+        ...(tsconf?.compilerOptions ?? BASE_COMPILER_OPTIONS),
+      },
       // Make the references absolute for the compiler
       projectReferences: tsconf.references?.map((ref) => ({
         path: path.resolve(ref.path),
@@ -198,7 +203,7 @@ export class Compiler implements Emitter {
     });
 
     return this._consumeProgram(
-      prog,
+      prog.getProgram(),
       this.compilerHost.getDefaultLibLocation(),
     );
   }
@@ -255,9 +260,10 @@ export class Compiler implements Emitter {
   private async buildTypeScriptConfig() {
     let references: string[] | undefined;
     let composite: boolean | undefined;
+    let incremental: boolean | undefined;
     if (this.projectReferences) {
       references = await this.findProjectReferences();
-      composite = true;
+      composite = incremental = true;
     }
 
     const pi = this.options.projectInfo;
@@ -265,19 +271,11 @@ export class Compiler implements Emitter {
     this.typescriptConfig = {
       compilerOptions: {
         ...pi.tsc,
-        ...COMPILER_OPTIONS,
+        ...BASE_COMPILER_OPTIONS,
         composite,
-        // Need to strip the `lib.` prefix and `.d.ts` suffix
-        lib: COMPILER_OPTIONS.lib?.map((name) =>
-          name.slice(4, name.length - 5),
-        ),
-        // Those int-enums, we need to output the names instead
-        module:
-          COMPILER_OPTIONS.module && ts.ModuleKind[COMPILER_OPTIONS.module],
-        target:
-          COMPILER_OPTIONS.target && ts.ScriptTarget[COMPILER_OPTIONS.target],
-        jsx:
-          COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
+        incremental,
+        // When incremental, configure a tsbuildinfo file
+        tsBuildInfoFile: incremental ? './tsconfig.tsbuildinfo' : undefined,
       },
       include: [
         pi.tsc?.rootDir != null
@@ -296,7 +294,7 @@ export class Compiler implements Emitter {
       // TypeScript compiler does. Make it relative so that the files are
       // movable. Not strictly required but looks better.
       references: references?.map((p) => ({ path: p })),
-    } as any;
+    };
   }
 
   /**
@@ -319,8 +317,29 @@ export class Compiler implements Emitter {
         );
       }
     }
+
+    const outputConfig = {
+      ...this.typescriptConfig,
+      compilerOptions: {
+        ...this.typescriptConfig?.compilerOptions,
+        lib: this.typescriptConfig?.compilerOptions?.lib?.map((lib) =>
+          // Drop the "lib." prefix and ".d.ts" suffix before writing up the tsconfig.json file
+          lib.slice(4, lib.length - 5),
+        ),
+        // Re-write the module, targets & jsx to be the JSON format instead of Programmatic API
+        module: (this.typescriptConfig?.compilerOptions?.module &&
+          ts.ModuleKind[this.typescriptConfig.compilerOptions.module]) as any,
+        target: (this.typescriptConfig?.compilerOptions?.target &&
+          ts.ScriptTarget[this.typescriptConfig.compilerOptions.target]) as any,
+        jsx: (this.typescriptConfig?.compilerOptions?.jsx &&
+          Case.snake(
+            ts.JsxEmit[this.typescriptConfig.compilerOptions.jsx],
+          )) as any,
+      },
+    };
+
     LOG.debug(`Creating or updating ${colors.blue(this.configPath)}`);
-    await fs.writeJson(this.configPath, this.typescriptConfig, {
+    await fs.writeJson(this.configPath, outputConfig, {
       encoding: 'utf8',
       spaces: 2,
     });
@@ -489,18 +508,18 @@ export interface NonBlockingWatchOptions {
 function _pathOfLibraries(
   host: ts.CompilerHost | ts.WatchCompilerHost<any>,
 ): string[] {
-  if (!COMPILER_OPTIONS.lib || COMPILER_OPTIONS.lib.length === 0) {
+  if (!BASE_COMPILER_OPTIONS.lib || BASE_COMPILER_OPTIONS.lib.length === 0) {
     return [];
   }
   const lib = host.getDefaultLibLocation?.();
   if (!lib) {
     throw new Error(
-      `Compiler host doesn't have a default library directory available for ${COMPILER_OPTIONS.lib.join(
+      `Compiler host doesn't have a default library directory available for ${BASE_COMPILER_OPTIONS.lib.join(
         ', ',
       )}`,
     );
   }
-  return COMPILER_OPTIONS.lib.map((name) => path.join(lib, name));
+  return BASE_COMPILER_OPTIONS.lib.map((name) => path.join(lib, name));
 }
 
 /**
