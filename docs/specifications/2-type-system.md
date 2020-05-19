@@ -325,11 +325,13 @@ qualified name of the namespace from the package's root (if a package `foo`
 defines a namespace `ns1`, which itself contains `ns2`, the submodule for `ns2`
 will be named `foo.ns1.ns2`).
 
-*Submodules* may use different [code-generation configuration](#code-generation)
-than their parent submodule or package.
+*Submodules* are delcared in the *jsii* assembly under the `submodules` key.
+This is also where specific [configuration](#submodule-configuration)
+is registered, if different from the parent submodule or package.
 
-> :construction: *Submodule*-level code-generation configuration is not yet
-> implemented.
+*Submodules* are hierarchical, and their fully qualified name is representative
+of the relationship. For example the `assm.foo.bar` submodule is considered to
+be nested under the `assm.foo` submodule.
 
 ### Restrictions
 
@@ -364,12 +366,24 @@ documented using a markdown document located at `./module/README.md`.
 
 > :construction: The `./module/README.md` file support is not yet implemented.
 
-### Code Generation
+### Submodule Configuration
 
 In languages where this is relevant (e.g: **Python**), *submodules* are rendered
 as native *submodules*. In languages where a namespace system exists (**Java**
 uses *packages*, **C#** uses *namespaces*, ...), *submodules* are rendered using
 that.
+
+By default, *submodule* names are rendered appropriately in the target language
+(this typically involves adjusting the case of *submodule* name fragments to the
+idiomatic form in the language). In certain cases however, a developer can
+choose to use a different configuration by defining the *submodule* using the
+namespaced-export syntax (`export * as namespace from './module-name';`) ny
+placing a `.jsiirc.json` file next to the entry point of the namespaced module.
+For example, if `./module-name`'s entry point is `foo/bar/module-name/index.ts`,
+the *submodule* configuration resides in `foo/bar/module-name/.jsiirc.json`.
+
+Since *submodules* are hierarchical, the configuration of a given *submodule*
+defines the default configuration of *submodules* nested under it.
 
 ## Code Generation
 
