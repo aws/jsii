@@ -26,7 +26,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
      * A builder for {@link DiamondInheritanceSecondMidLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceSecondMidLevelStruct> {
         private java.lang.String secondMidLevelProperty;
         private java.lang.String baseLevelProperty;
 
@@ -58,6 +58,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public DiamondInheritanceSecondMidLevelStruct build() {
             return new Jsii$Proxy(secondMidLevelProperty, baseLevelProperty);
         }

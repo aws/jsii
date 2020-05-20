@@ -26,7 +26,7 @@ public interface MyClassReference extends software.amazon.jsii.JsiiSerializable 
      * A builder for {@link MyClassReference}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<MyClassReference> {
         private software.amazon.jsii.tests.calculator.submodule.MyClass reference;
 
         /**
@@ -46,6 +46,7 @@ public interface MyClassReference extends software.amazon.jsii.JsiiSerializable 
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public MyClassReference build() {
             return new Jsii$Proxy(reference);
         }

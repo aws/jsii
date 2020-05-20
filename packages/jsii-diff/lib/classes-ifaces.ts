@@ -1,7 +1,12 @@
 import * as reflect from 'jsii-reflect';
 import * as log4js from 'log4js';
 import { compareStabilities } from './stability';
-import { Analysis, FailedAnalysis, isSuperType, isNominalSuperType } from './type-analysis';
+import {
+  Analysis,
+  FailedAnalysis,
+  isSuperType,
+  isNominalSuperType,
+} from './type-analysis';
 import { ComparisonContext } from './types';
 
 const LOG = log4js.getLogger('jsii-diff');
@@ -12,14 +17,20 @@ const LOG = log4js.getLogger('jsii-diff');
  * We require that all stable properties and methods on the original are
  * present on the new type, and that they match in turn.
  */
-export function compareReferenceType<T extends reflect.ReferenceType>(original: T, updated: T, context: ComparisonContext) {
+export function compareReferenceType<T extends reflect.ReferenceType>(
+  original: T,
+  updated: T,
+  context: ComparisonContext,
+) {
   compareStabilities(original, updated, context);
 
   const ana = assignableToAllBaseTypes(original, updated);
   if (!ana.success) {
     context.mismatches.report({
       ruleKey: 'base-types',
-      message: `not assignable to all base types anymore: ${ana.reasons.join(', ')}`,
+      message: `not assignable to all base types anymore: ${ana.reasons.join(
+        ', ',
+      )}`,
       violator: original,
     });
   }
@@ -47,13 +58,23 @@ export function compareReferenceType<T extends reflect.ReferenceType>(original: 
     });
   }
 
-  for (const [origMethod, updatedElement] of memberPairs(original, original.allMethods, updated, context)) {
+  for (const [origMethod, updatedElement] of memberPairs(
+    original,
+    original.allMethods,
+    updated,
+    context,
+  )) {
     if (reflect.isMethod(origMethod) && reflect.isMethod(updatedElement)) {
       compareMethod(origMethod, updatedElement, context);
     }
   }
 
-  for (const [origProp, updatedElement] of memberPairs(original, original.allProperties, updated, context)) {
+  for (const [origProp, updatedElement] of memberPairs(
+    original,
+    original.allProperties,
+    updated,
+    context,
+  )) {
     if (reflect.isProperty(origProp) && reflect.isProperty(updatedElement)) {
       compareProperty(origProp, updatedElement, context);
     }
@@ -68,14 +89,20 @@ export function compareReferenceType<T extends reflect.ReferenceType>(original: 
   }
 }
 
-export function compareStruct(original: reflect.InterfaceType, updated: reflect.InterfaceType, context: ComparisonContext) {
+export function compareStruct(
+  original: reflect.InterfaceType,
+  updated: reflect.InterfaceType,
+  context: ComparisonContext,
+) {
   compareStabilities(original, updated, context);
 
   const ana = assignableToAllBaseTypes(original, updated);
   if (!ana.success) {
     context.mismatches.report({
       ruleKey: 'base-types',
-      message: `not assignable to all base types anymore: ${ana.reasons.join(', ')}`,
+      message: `not assignable to all base types anymore: ${ana.reasons.join(
+        ', ',
+      )}`,
       violator: original,
     });
   }
@@ -93,31 +120,42 @@ export function compareStruct(original: reflect.InterfaceType, updated: reflect.
   Array.from(memberPairs(original, original.allProperties, updated, context));
 }
 
-function noNewAbstractMembers<T extends reflect.ReferenceType>(original: T, updated: T, context: ComparisonContext) {
-  const absMemberNames = new Set(updated.allMembers.filter(m => m.abstract).map(m => m.name));
-  const originalMemberNames = new Set(original.allMembers.map(m => m.name));
+function noNewAbstractMembers<T extends reflect.ReferenceType>(
+  original: T,
+  updated: T,
+  context: ComparisonContext,
+) {
+  const absMemberNames = new Set(
+    updated.allMembers.filter((m) => m.abstract).map((m) => m.name),
+  );
+  const originalMemberNames = new Set(original.allMembers.map((m) => m.name));
   for (const name of absMemberNames) {
     if (!originalMemberNames.has(name)) {
       context.mismatches.report({
         ruleKey: 'new-abstract-member',
         message: `adds requirement for subclasses to implement '${name}'.`,
-        violator: updated.getMembers(true)[name]
+        violator: updated.getMembers(true)[name],
       });
     }
   }
 }
 
-function describeOptionalValueMatchingFailure(origType: reflect.OptionalValue, updatedType: reflect.OptionalValue, analysis: FailedAnalysis) {
+function describeOptionalValueMatchingFailure(
+  origType: reflect.OptionalValue,
+  updatedType: reflect.OptionalValue,
+  analysis: FailedAnalysis,
+) {
   const origDescr = reflect.OptionalValue.describe(origType);
   const updaDescr = reflect.OptionalValue.describe(updatedType);
   if (origDescr !== updaDescr) {
-    return `${updaDescr} (formerly ${origDescr}): ${analysis.reasons.join(', ')}`;
+    return `${updaDescr} (formerly ${origDescr}): ${analysis.reasons.join(
+      ', ',
+    )}`;
   }
   return `${updaDescr}: ${analysis.reasons.join(', ')}`;
-
 }
 
-function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
+function compareMethod<T extends reflect.Method | reflect.Initializer>(
   original: T,
   updated: T,
   context: ComparisonContext,
@@ -132,7 +170,7 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
       context.mismatches.report({
         ruleKey: 'changed-static',
         violator: original,
-        message: `was ${origQual}, is now ${updQual}.`
+        message: `was ${origQual}, is now ${updQual}.`,
       });
     }
 
@@ -142,7 +180,7 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
       context.mismatches.report({
         ruleKey: 'changed-async',
         violator: original,
-        message: `was ${origQual}, is now ${updQual}`
+        message: `was ${origQual}, is now ${updQual}`,
       });
     }
   }
@@ -152,7 +190,7 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
     context.mismatches.report({
       ruleKey: 'changed-variadic',
       violator: original,
-      message: 'used to be variadic, not variadic anymore.'
+      message: 'used to be variadic, not variadic anymore.',
     });
   }
 
@@ -162,7 +200,11 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
       context.mismatches.report({
         ruleKey: 'change-return-type',
         violator: original,
-        message: `returns ${describeOptionalValueMatchingFailure(original.returns, updated.returns, retAna)}`
+        message: `returns ${describeOptionalValueMatchingFailure(
+          original.returns,
+          updated.returns,
+          retAna,
+        )}`,
       });
     }
   }
@@ -174,7 +216,7 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
       context.mismatches.report({
         ruleKey: 'removed-argument',
         violator: original,
-        message: `argument ${param.name}, not accepted anymore.`
+        message: `argument ${param.name}, not accepted anymore.`,
       });
       return;
     }
@@ -184,7 +226,13 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
       context.mismatches.report({
         ruleKey: 'incompatible-argument',
         violator: original,
-        message: `argument ${param.name}, takes ${describeOptionalValueMatchingFailure(param, updatedParam, argAna)}`
+        message: `argument ${
+          param.name
+        }, takes ${describeOptionalValueMatchingFailure(
+          param,
+          updatedParam,
+          argAna,
+        )}`,
       });
       return;
     }
@@ -192,14 +240,16 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
 
   // Check that no new required parameters got added.
   updated.parameters.forEach((param, i) => {
-    if (param.optional) { return; }
+    if (param.optional) {
+      return;
+    }
 
     const origParam = findParam(original.parameters, i);
     if (!origParam || origParam.optional) {
       context.mismatches.report({
         ruleKey: 'new-argument',
         violator: original,
-        message: `argument ${param.name}, newly required argument.`
+        message: `argument ${param.name}, newly required argument.`,
       });
     }
   });
@@ -217,21 +267,35 @@ function subclassableType(x: reflect.Documentable) {
  *
  * May return the last parameter if it's variadic
  */
-function findParam(parameters: reflect.Parameter[], i: number): reflect.Parameter | undefined {
-  if (i < parameters.length) { return parameters[i]; }
-  const lastParam = parameters.length > 0 ? parameters[parameters.length - 1] : undefined;
-  if (lastParam && lastParam.variadic) { return lastParam; }
+function findParam(
+  parameters: reflect.Parameter[],
+  i: number,
+): reflect.Parameter | undefined {
+  if (i < parameters.length) {
+    return parameters[i];
+  }
+  const lastParam =
+    parameters.length > 0 ? parameters[parameters.length - 1] : undefined;
+  if (lastParam && lastParam.variadic) {
+    return lastParam;
+  }
   return undefined;
 }
 
-function compareProperty(original: reflect.Property, updated: reflect.Property, context: ComparisonContext) {
+function compareProperty(
+  original: reflect.Property,
+  updated: reflect.Property,
+  context: ComparisonContext,
+) {
   compareStabilities(original, updated, context);
 
   if (original.static !== updated.static) {
     context.mismatches.report({
       ruleKey: 'changed-static',
       violator: original,
-      message: `used to be ${original.static ? 'static' : 'not static'}, is now ${updated.static ? 'static' : 'not static'}`
+      message: `used to be ${
+        original.static ? 'static' : 'not static'
+      }, is now ${updated.static ? 'static' : 'not static'}`,
     });
   }
 
@@ -240,7 +304,11 @@ function compareProperty(original: reflect.Property, updated: reflect.Property, 
     context.mismatches.report({
       ruleKey: 'changed-type',
       violator: original,
-      message: `type ${describeOptionalValueMatchingFailure(original, updated, ana)}`
+      message: `type ${describeOptionalValueMatchingFailure(
+        original,
+        updated,
+        ana,
+      )}`,
     });
   }
 
@@ -248,26 +316,31 @@ function compareProperty(original: reflect.Property, updated: reflect.Property, 
     context.mismatches.report({
       ruleKey: 'removed-mutability',
       violator: original,
-      message: 'used to be mutable, is now immutable'
+      message: 'used to be mutable, is now immutable',
     });
   }
 }
 
-function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceType>(
+function* memberPairs<
+  T extends reflect.TypeMember,
+  U extends reflect.ReferenceType
+>(
   origClass: U,
   xs: T[],
   updatedClass: U,
-  context: ComparisonContext
+  context: ComparisonContext,
 ): IterableIterator<[T, reflect.TypeMember]> {
   for (const origMember of xs) {
     LOG.trace(`${origClass.fqn}#${origMember.name}`);
 
-    const updatedMember = updatedClass.allMembers.find(m => m.name === origMember.name);
+    const updatedMember = updatedClass.allMembers.find(
+      (m) => m.name === origMember.name,
+    );
     if (!updatedMember) {
       context.mismatches.report({
         ruleKey: 'removed',
         violator: origMember,
-        message: 'has been removed'
+        message: 'has been removed',
       });
       continue;
     }
@@ -276,7 +349,7 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
       context.mismatches.report({
         ruleKey: 'changed-kind',
         violator: origMember,
-        message: `changed from ${origMember.kind} to ${updatedMember.kind}`
+        message: `changed from ${origMember.kind} to ${updatedMember.kind}`,
       });
     }
 
@@ -284,7 +357,7 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
       context.mismatches.report({
         ruleKey: 'hidden',
         violator: origMember,
-        message: "changed from 'public' to 'protected'"
+        message: "changed from 'public' to 'protected'",
       });
     }
 
@@ -297,9 +370,16 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
  *
  * Strengthening output values is allowed!
  */
-function isCompatibleReturnType(original: reflect.OptionalValue, updated: reflect.OptionalValue): Analysis {
-  if (original.type.void) { return { success: true }; }  // If we didn't use to return anything, returning something now is fine
-  if (updated.type.void) { return { success: false, reasons: ["now returning 'void'"] }; } // If we used to return something, we can't stop doing that
+function isCompatibleReturnType(
+  original: reflect.OptionalValue,
+  updated: reflect.OptionalValue,
+): Analysis {
+  if (original.type.void) {
+    return { success: true };
+  } // If we didn't use to return anything, returning something now is fine
+  if (updated.type.void) {
+    return { success: false, reasons: ["now returning 'void'"] };
+  } // If we used to return something, we can't stop doing that
   if (!original.optional && updated.optional) {
     return { success: false, reasons: ['output type is now optional'] };
   }
@@ -311,7 +391,10 @@ function isCompatibleReturnType(original: reflect.OptionalValue, updated: reflec
  *
  * Weakening preconditions is allowed!
  */
-function isCompatibleArgumentType(original: reflect.TypeReference, updated: reflect.TypeReference): Analysis {
+function isCompatibleArgumentType(
+  original: reflect.TypeReference,
+  updated: reflect.TypeReference,
+): Analysis {
   // Input can never be void, so no need to check
   return isSuperType(updated, original, updated.system);
 }
@@ -329,14 +412,22 @@ function isCompatibleArgumentType(original: reflect.TypeReference, updated: refl
  * B an updated type B' needs to exist in the new assembly which is
  * still a supertype of T'.
  */
-function assignableToAllBaseTypes(original: reflect.ReferenceType, updated: reflect.ReferenceType): Analysis {
+function assignableToAllBaseTypes(
+  original: reflect.ReferenceType,
+  updated: reflect.ReferenceType,
+): Analysis {
   for (const B of baseTypes(original)) {
-    const result = isNominalSuperType(B.reference, updated.reference, updated.system);
-    if (!result.success) { return result; }
+    const result = isNominalSuperType(
+      B.reference,
+      updated.reference,
+      updated.system,
+    );
+    if (!result.success) {
+      return result;
+    }
   }
   return { success: true };
 }
-
 
 /**
  * Return all base types of the given reference type
@@ -348,7 +439,9 @@ function baseTypes(type: reflect.ReferenceType) {
 
   while (todo.length > 0) {
     const next = todo.pop()!;
-    if (seen.has(next.fqn)) { continue; }
+    if (seen.has(next.fqn)) {
+      continue;
+    }
     ret.push(next);
     seen.add(next.fqn);
 
@@ -360,4 +453,3 @@ function baseTypes(type: reflect.ReferenceType) {
 
   return ret;
 }
-

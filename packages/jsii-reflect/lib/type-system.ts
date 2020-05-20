@@ -25,7 +25,7 @@ export class TypeSystem {
    */
   public readonly roots = new Array<Assembly>();
 
-  private readonly _assemblyLookup: { [name: string]: Assembly } = { };
+  private readonly _assemblyLookup: { [name: string]: Assembly } = {};
 
   /**
    * Load all JSII dependencies of the given NPM package directory.
@@ -33,16 +33,23 @@ export class TypeSystem {
    * The NPM package itself does *not* have to be a jsii package, and does
    * NOT have to declare a JSII dependency on any of the packages.
    */
-  public async loadNpmDependencies(packageRoot: string, options: { validate?: boolean } = {}): Promise<void> {
+  public async loadNpmDependencies(
+    packageRoot: string,
+    options: { validate?: boolean } = {},
+  ): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
     const pkg = require(path.resolve(packageRoot, 'package.json'));
 
     for (const dep of dependenciesOf(pkg)) {
       // Filter jsii dependencies
-      const depPkgJsonPath = require.resolve(`${dep}/package.json`, { paths: [packageRoot] });
+      const depPkgJsonPath = require.resolve(`${dep}/package.json`, {
+        paths: [packageRoot],
+      });
       // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
       const depPkgJson = require(depPkgJsonPath);
-      if (!depPkgJson.jsii) { continue; }
+      if (!depPkgJson.jsii) {
+        continue;
+      }
 
       // eslint-disable-next-line no-await-in-loop
       await this.loadModule(path.dirname(depPkgJsonPath), options);
@@ -61,15 +68,20 @@ export class TypeSystem {
    * @param fileOrDirectory A .jsii file path or a module directory
    * @param validate Whether or not to validate the assembly while loading it.
    */
-  public async load(fileOrDirectory: string, options: { validate?: boolean } = {}) {
+  public async load(
+    fileOrDirectory: string,
+    options: { validate?: boolean } = {},
+  ) {
     if ((await stat(fileOrDirectory)).isDirectory()) {
       return this.loadModule(fileOrDirectory, options);
     }
     return this.loadFile(fileOrDirectory, { ...options, isRoot: true });
-
   }
 
-  public async loadModule(dir: string, options: { validate?: boolean } = {}): Promise<Assembly> {
+  public async loadModule(
+    dir: string,
+    options: { validate?: boolean } = {},
+  ): Promise<Assembly> {
     const out = await _loadModule.call(this, dir, true);
     if (!out) {
       throw new Error(`Unable to load module from directory: ${dir}`);
@@ -77,7 +89,11 @@ export class TypeSystem {
 
     return out;
 
-    async function _loadModule(this: TypeSystem, moduleDirectory: string, isRoot = false) {
+    async function _loadModule(
+      this: TypeSystem,
+      moduleDirectory: string,
+      isRoot = false,
+    ) {
       const filePath = path.join(moduleDirectory, 'package.json');
       const pkg = JSON.parse((await readFile(filePath)).toString());
       if (!pkg.jsii) {
@@ -87,11 +103,16 @@ export class TypeSystem {
       // Load the assembly, but don't recurse if we already have an assembly with the same name.
       // Validation is not an insignificant time sink, and loading IS insignificant, so do a
       // load without validation first. This saves about 2/3rds of processing time.
-      const asm = await this.loadAssembly(path.join(moduleDirectory, '.jsii'), false);
+      const asm = await this.loadAssembly(
+        path.join(moduleDirectory, '.jsii'),
+        false,
+      );
       if (this.includesAssembly(asm.name)) {
         const existing = this.findAssembly(asm.name);
         if (existing.version !== asm.version) {
-          throw new Error(`Conflicting versions of ${asm.name} in type system: previously loaded ${existing.version}, trying to load ${asm.version}`);
+          throw new Error(
+            `Conflicting versions of ${asm.name} in type system: previously loaded ${existing.version}, trying to load ${asm.version}`,
+          );
         }
         // Make sure that we mark this thing as root after all if it wasn't yet.
         if (isRoot) {
@@ -108,13 +129,16 @@ export class TypeSystem {
       const root = this.addAssembly(asm, { isRoot });
       // Using || instead of ?? because npmjs.com will alter the package.json file and possibly put `false` in pkg.bundleDependencies.
       // This is actually non compliant to the package.json specification, but that's how it is...
-      const bundled: string[] = pkg.bundledDependencies || pkg.bundleDependencies || [];
+      const bundled: string[] =
+        pkg.bundledDependencies || pkg.bundleDependencies || [];
 
       for (const name of dependenciesOf(pkg)) {
-        if (bundled.includes(name)) { continue; }
+        if (bundled.includes(name)) {
+          continue;
+        }
 
         const depDir = require.resolve(`${name}/package.json`, {
-          paths: [moduleDirectory]
+          paths: [moduleDirectory],
         });
         // eslint-disable-next-line no-await-in-loop
         await _loadModule.call(this, path.dirname(depDir));
@@ -124,7 +148,10 @@ export class TypeSystem {
     }
   }
 
-  public async loadFile(file: string, options: { isRoot?: boolean, validate?: boolean } = {}) {
+  public async loadFile(
+    file: string,
+    options: { isRoot?: boolean; validate?: boolean } = {},
+  ) {
     const assembly = await this.loadAssembly(file, options.validate !== false);
     return this.addAssembly(assembly, options);
   }
@@ -156,7 +183,7 @@ export class TypeSystem {
   }
 
   public isRoot(name: string) {
-    return this.roots.map(r => r.name).includes(name);
+    return this.roots.map((r) => r.name).includes(name);
   }
 
   public findAssembly(name: string) {
@@ -212,42 +239,42 @@ export class TypeSystem {
    */
   public get methods() {
     const out = new Array<Method>();
-    this.assemblies.forEach(a => {
-      a.interfaces.forEach(t => out.push(...t.ownMethods));
-      a.classes.forEach(t => out.push(...t.ownMethods));
+    this.assemblies.forEach((a) => {
+      a.interfaces.forEach((t) => out.push(...t.ownMethods));
+      a.classes.forEach((t) => out.push(...t.ownMethods));
     });
     return out;
   }
 
   public get properties() {
     const out = new Array<Property>();
-    this.assemblies.forEach(a => {
-      a.interfaces.forEach(t => out.push(...t.ownProperties));
-      a.classes.forEach(t => out.push(...t.ownProperties));
+    this.assemblies.forEach((a) => {
+      a.interfaces.forEach((t) => out.push(...t.ownProperties));
+      a.classes.forEach((t) => out.push(...t.ownProperties));
     });
     return out;
   }
 
   public get classes(): readonly ClassType[] {
     const out = new Array<ClassType>();
-    this.assemblies.forEach(a => {
-      out.push(...collectTypes(a, item => item.classes));
+    this.assemblies.forEach((a) => {
+      out.push(...collectTypes(a, (item) => item.classes));
     });
     return out;
   }
 
   public get interfaces(): readonly InterfaceType[] {
     const out = new Array<InterfaceType>();
-    this.assemblies.forEach(a => {
-      out.push(...collectTypes(a, item => item.interfaces));
+    this.assemblies.forEach((a) => {
+      out.push(...collectTypes(a, (item) => item.interfaces));
     });
     return out;
   }
 
   public get enums(): readonly EnumType[] {
     const out = new Array<EnumType>();
-    this.assemblies.forEach(a => {
-      out.push(...collectTypes(a, item => item.enums));
+    this.assemblies.forEach((a) => {
+      out.push(...collectTypes(a, (item) => item.enums));
     });
     return out;
   }
@@ -259,12 +286,14 @@ export class TypeSystem {
    */
   private async loadAssembly(file: string, validate = true) {
     const spec = JSON.parse((await readFile(file)).toString());
-    const ass = validate ? jsii.validateAssembly(spec) : spec as jsii.Assembly;
+    const ass = validate
+      ? jsii.validateAssembly(spec)
+      : (spec as jsii.Assembly);
     return new Assembly(this, ass);
   }
 
   private addRoot(asm: Assembly) {
-    if (!this.roots.map(r => r.name).includes(asm.name)) {
+    if (!this.roots.map((r) => r.name).includes(asm.name)) {
       this.roots.push(asm);
     }
   }
@@ -277,7 +306,10 @@ function dependenciesOf(packageJson: any) {
   return Array.from(deps);
 }
 
-function collectTypes<T extends Type>(module: ModuleLike, getter: (module: ModuleLike) => readonly T[]): readonly T[] {
+function collectTypes<T extends Type>(
+  module: ModuleLike,
+  getter: (module: ModuleLike) => readonly T[],
+): readonly T[] {
   const result = new Array<T>();
   for (const submodule of module.submodules) {
     result.push(...collectTypes(submodule, getter));

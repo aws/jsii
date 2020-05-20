@@ -74,10 +74,10 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 var structInfo = new JObject();
                 structInfo.Add(new JProperty("fqn", byValueAttribute.FullyQualifiedName));
                 structInfo.Add(new JProperty("data", data));
-                
+
                 var resultObject = new JObject();
                 resultObject.Add(new JProperty("$jsii.struct", structInfo));
-                
+
                 result = resultObject;
                 return true;
             }
@@ -253,8 +253,8 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return true;
             }
 
-            Type valueType = value.GetType()!;
-            Type dictionaryInterface = valueType.GetInterfaces()
+            Type dictionaryInterface = value.GetType()!
+                .GetInterfaces()
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
 
             if (dictionaryInterface == null ||
@@ -264,8 +264,8 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return false;
             }
 
-            IEnumerable<string> keys = (IEnumerable<string>) valueType.GetProperty("Keys")!.GetValue(value)!;
-            PropertyInfo indexer = ReflectionUtils.GetIndexer(valueType);
+            IEnumerable<string> keys = (IEnumerable<string>)dictionaryInterface.GetProperty("Keys")!.GetValue(value)!;
+            PropertyInfo indexer = ReflectionUtils.GetIndexer(dictionaryInterface);
 
             JObject resultObject = new JObject();
             foreach (string key in keys)
@@ -408,7 +408,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                     (
                         kind: CollectionKind.Map,
                         elementType: typeof(Object) == elementType
-                            ? new TypeReference(primitive: PrimitiveType.Any) 
+                            ? new TypeReference(primitive: PrimitiveType.Any)
                             : InferType(referenceMap, elementType)
                     )
                 );

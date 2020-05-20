@@ -28,7 +28,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link NestedStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<NestedStruct> {
         private java.lang.Number numberProp;
 
         /**
@@ -48,6 +48,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public NestedStruct build() {
             return new Jsii$Proxy(numberProp);
         }

@@ -1,11 +1,4 @@
-<!--
-Explain what changed and why.
 
-Please read the [Contribution guidelines][1] and follow the pull-request
-checklist.
-
-[1]: https://github.com/aws/jsii/blob/master/CONTRIBUTING.md
--->
 
 ---
 

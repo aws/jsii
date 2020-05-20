@@ -12,15 +12,15 @@ import * as wire from './serialization';
 
 export class Kernel {
   /**
-     * Set to true for verbose debugging.
-     */
+   * Set to true for verbose debugging.
+   */
   public traceEnabled = false;
 
-  private assemblies: { [name: string]: Assembly } = { };
+  private assemblies: { [name: string]: Assembly } = {};
   private readonly objects = new ObjectTable(this._typeInfoForFqn.bind(this));
-  private cbs: { [cbid: string]: Callback } = { };
-  private waiting: { [cbid: string]: Callback } = { };
-  private promises: { [prid: string]: AsyncInvocation } = { };
+  private cbs: { [cbid: string]: Callback } = {};
+  private waiting: { [cbid: string]: Callback } = {};
+  private promises: { [prid: string]: AsyncInvocation } = {};
   private nextid = 20000; // incrementing counter for objid, cbid, promiseid
   private syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
   private installDir?: string;
@@ -29,12 +29,12 @@ export class Kernel {
   private readonly sourceMaps: { [assm: string]: SourceMapConsumer } = {};
 
   /**
-     * Creates a jsii kernel object.
-     *
-     * @param callbackHandler This handler is invoked when a synchronous callback is called.
-     *                        It's responsibility is to execute the callback and return it's
-     *                        result (or throw an error).
-     */
+   * Creates a jsii kernel object.
+   *
+   * @param callbackHandler This handler is invoked when a synchronous callback is called.
+   *                        It's responsibility is to execute the callback and return it's
+   *                        result (or throw an error).
+   */
   public constructor(public callbackHandler: (callback: api.Callback) => any) {
     // `setImmediate` is required for tests to pass (it is otherwise
     // impossible to wait for in-VM promises to complete)
@@ -53,7 +53,7 @@ export class Kernel {
     this.sandbox = vm.createContext({
       Buffer, // to use simple-resource-bundler
       setImmediate, // async tests
-      require: nodeRequire // modules need to "require"
+      require: nodeRequire, // modules need to "require"
     });
   }
 
@@ -61,7 +61,9 @@ export class Kernel {
     this._debug('load', req);
 
     if ('assembly' in req) {
-      throw new Error('`assembly` field is deprecated for "load", use `name`, `version` and `tarball` instead');
+      throw new Error(
+        '`assembly` field is deprecated for "load", use `name`, `version` and `tarball` instead',
+      );
     }
 
     if (!this.installDir) {
@@ -86,9 +88,11 @@ export class Kernel {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
       if (epkg.version !== pkgver) {
-        throw new Error(`Multiple versions ${pkgver} and ${epkg.version} of the `
-                + `package '${pkgname}' cannot be loaded together since this is unsupported by `
-                + 'some runtime environments');
+        throw new Error(
+          `Multiple versions ${pkgver} and ${epkg.version} of the ` +
+            `package '${pkgname}' cannot be loaded together since this is unsupported by ` +
+            'some runtime environments',
+        );
       }
 
       // same version, no-op
@@ -102,14 +106,27 @@ export class Kernel {
     }
     // untar the archive to a staging directory, read the jsii spec from it
     // and then move it to the node_modules directory of the kernel.
-    const staging = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-install-staging-'));
+    const staging = fs.mkdtempSync(
+      path.join(os.tmpdir(), 'jsii-kernel-install-staging-'),
+    );
     try {
-      tar.extract({ strict: true, file: req.tarball, cwd: staging, sync: true });
+      tar.extract({
+        strict: true,
+        file: req.tarball,
+        cwd: staging,
+        sync: true,
+      });
 
       // read .jsii metadata from the root of the package
-      const jsiiMetadataFile = path.join(staging, 'package', spec.SPEC_FILE_NAME);
+      const jsiiMetadataFile = path.join(
+        staging,
+        'package',
+        spec.SPEC_FILE_NAME,
+      );
       if (!fs.pathExistsSync(jsiiMetadataFile)) {
-        throw new Error(`Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`);
+        throw new Error(
+          `Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`,
+        );
       }
       const assmSpec = fs.readJsonSync(jsiiMetadataFile) as spec.Assembly;
 
@@ -117,7 +134,10 @@ export class Kernel {
       fs.moveSync(path.join(staging, 'package'), packageDir);
 
       // load the module and capture it's closure
-      const closure = this._execute(`require(String.raw\`${packageDir}\`)`, packageDir);
+      const closure = this._execute(
+        `require(String.raw\`${packageDir}\`)`,
+        packageDir,
+      );
       const assm = new Assembly(assmSpec, closure);
       this._addAssembly(assm);
 
@@ -129,7 +149,6 @@ export class Kernel {
       this._debug('removing staging directory:', staging);
       fs.removeSync(staging);
     }
-
   }
 
   public create(req: api.CreateRequest): api.CreateResponse {
@@ -142,7 +161,7 @@ export class Kernel {
     this._debug('del', objref);
     this.objects.deleteObject(objref);
 
-    return { };
+    return {};
   }
 
   public sget(req: api.StaticGetRequest): api.GetResponse {
@@ -158,7 +177,8 @@ export class Kernel {
     const prototype = this._findSymbol(fqn);
 
     const value = this._ensureSync(`property ${property}`, () =>
-      this._wrapSandboxCode(() => prototype[property]));
+      this._wrapSandboxCode(() => prototype[property]),
+    );
 
     this._debug('value:', value);
     const ret = this._fromSandbox(value, ti);
@@ -183,7 +203,10 @@ export class Kernel {
     const prototype = this._findSymbol(fqn);
 
     this._ensureSync(`property ${property}`, () =>
-      this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value, ti)));
+      this._wrapSandboxCode(
+        () => (prototype[property] = this._toSandbox(value, ti)),
+      ),
+    );
 
     return {};
   }
@@ -203,12 +226,14 @@ export class Kernel {
 
     // make the actual "get", and block any async calls that might be performed
     // by jsii overrides.
-    const value = this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToGet}'`,
-      () => this._wrapSandboxCode(() => instance[propertyToGet]));
+    const value = this._ensureSync(
+      `property '${objref[TOKEN_REF]}.${propertyToGet}'`,
+      () => this._wrapSandboxCode(() => instance[propertyToGet]),
+    );
     this._debug('value:', value);
     const ret = this._fromSandbox(value, ti);
     this._debug('ret:', ret);
-    return { value:  ret };
+    return { value: ret };
   }
 
   public set(req: api.SetRequest): api.SetResponse {
@@ -219,15 +244,20 @@ export class Kernel {
     const propInfo = this._typeInfoForProperty(req.property, fqn, interfaces);
 
     if (propInfo.immutable) {
-      throw new Error(`Cannot set value of immutable property ${req.property} to ${req.value}`);
+      throw new Error(
+        `Cannot set value of immutable property ${req.property} to ${req.value}`,
+      );
     }
 
     const propertyToSet = this._findPropertyTarget(instance, property);
 
-    this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToSet}'`,
-      () => this._wrapSandboxCode(() => instance[propertyToSet] = this._toSandbox(value, propInfo)));
+    this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToSet}'`, () =>
+      this._wrapSandboxCode(
+        () => (instance[propertyToSet] = this._toSandbox(value, propInfo)),
+      ),
+    );
 
-    return { };
+    return {};
   }
 
   public invoke(req: api.InvokeRequest): api.InvokeResponse {
@@ -242,9 +272,14 @@ export class Kernel {
       throw new Error(`${method} is an async method, use "begin" instead`);
     }
 
-    const ret = this._ensureSync(`method '${objref[TOKEN_REF]}.${method}'`, () => {
-      return this._wrapSandboxCode(() => fn.apply(obj, this._toSandboxValues(args, ti.parameters)));
-    });
+    const ret = this._ensureSync(
+      `method '${objref[TOKEN_REF]}.${method}'`,
+      () => {
+        return this._wrapSandboxCode(() =>
+          fn.apply(obj, this._toSandboxValues(args, ti.parameters)),
+        );
+      },
+    );
 
     const result = this._fromSandbox(ret, ti.returns ?? 'void');
     this._debug('invoke result', result);
@@ -273,7 +308,9 @@ export class Kernel {
     const fn = prototype[method] as (...params: any[]) => any;
 
     const ret = this._ensureSync(`method '${fqn}.${method}'`, () => {
-      return this._wrapSandboxCode(() => fn.apply(prototype, this._toSandboxValues(args, ti.parameters)));
+      return this._wrapSandboxCode(() =>
+        fn.apply(prototype, this._toSandboxValues(args, ti.parameters)),
+      );
     });
 
     this._debug('method returned:', ret);
@@ -287,7 +324,9 @@ export class Kernel {
     this._debug('begin', objref, method, args);
 
     if (this.syncInProgress) {
-      throw new Error(`Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${this.syncInProgress} is being processed`);
+      throw new Error(
+        `Cannot invoke async method '${req.objref[TOKEN_REF]}.${req.method}' while sync ${this.syncInProgress} is being processed`,
+      );
     }
 
     const { ti, obj, fn } = this._findInvokeTarget(objref, method, args);
@@ -297,17 +336,19 @@ export class Kernel {
       throw new Error(`Method ${method} is expected to be an async method`);
     }
 
-    const promise = this._wrapSandboxCode(() => fn.apply(obj, this._toSandboxValues(args, ti.parameters))) as Promise<any>;
+    const promise = this._wrapSandboxCode(() =>
+      fn.apply(obj, this._toSandboxValues(args, ti.parameters)),
+    ) as Promise<any>;
 
     // since we are planning to resolve this promise in a different scope
     // we need to handle rejections here [1]
     // [1]: https://stackoverflow.com/questions/40920179/should-i-refrain-from-handling-promise-rejection-asynchronously/40921505
-    promise.catch(_ => undefined);
+    promise.catch((_) => undefined);
 
     const prid = this._makeprid();
     this.promises[prid] = {
       promise,
-      method: ti
+      method: ti,
     };
 
     return { promiseid: prid };
@@ -337,7 +378,7 @@ export class Kernel {
 
   public callbacks(_req?: api.CallbacksRequest): api.CallbacksResponse {
     this._debug('callbacks');
-    const ret = Object.keys(this.cbs).map(cbid => {
+    const ret = Object.keys(this.cbs).map((cbid) => {
       const cb = this.cbs[cbid];
       this.waiting[cbid] = cb; // move to waiting
       const callback: api.Callback = {
@@ -346,14 +387,14 @@ export class Kernel {
         invoke: {
           objref: cb.objref,
           method: cb.override.method,
-          args: cb.args
+          args: cb.args,
         },
       };
       return callback;
     });
 
     // move all callbacks to the wait queue and clean the callback queue.
-    this.cbs = { };
+    this.cbs = {};
     return { callbacks: ret };
   }
 
@@ -371,7 +412,10 @@ export class Kernel {
       this._debug('completed with error:', err);
       cb.fail(new Error(err));
     } else {
-      const sandoxResult = this._toSandbox(result, cb.expectedReturnType ?? 'void');
+      const sandoxResult = this._toSandbox(
+        result,
+        cb.expectedReturnType ?? 'void',
+      );
       this._debug('completed with result:', sandoxResult);
       cb.succeed(sandoxResult);
     }
@@ -382,9 +426,9 @@ export class Kernel {
   }
 
   /**
-     * Returns the language-specific names for a jsii module.
-     * @param assemblyName The name of the jsii module (i.e. jsii$jsii_calculator_lib$)
-     */
+   * Returns the language-specific names for a jsii module.
+   * @param assemblyName The name of the jsii module (i.e. jsii$jsii_calculator_lib$)
+   */
   public naming(req: api.NamingRequest): api.NamingResponse {
     const assemblyName = req.assembly;
 
@@ -401,7 +445,7 @@ export class Kernel {
 
   public stats(_req?: api.StatsRequest): api.StatsResponse {
     return {
-      objectCount: this.objects.count
+      objectCount: this.objects.count,
     };
   }
 
@@ -424,7 +468,10 @@ export class Kernel {
   }
 
   // find the javascript constructor function for a jsii FQN.
-  private _findCtor(fqn: string, args: any[]): { ctor: any, parameters?: spec.Parameter[] } {
+  private _findCtor(
+    fqn: string,
+    args: any[],
+  ): { ctor: any; parameters?: spec.Parameter[] } {
     if (fqn === wire.EMPTY_OBJECT_FQN) {
       return { ctor: Object };
     }
@@ -435,10 +482,15 @@ export class Kernel {
       case spec.TypeKind.Class:
         const classType = typeinfo as spec.ClassType;
         this._validateMethodArguments(classType.initializer, args);
-        return { ctor: this._findSymbol(fqn), parameters: classType.initializer && classType.initializer.parameters };
+        return {
+          ctor: this._findSymbol(fqn),
+          parameters: classType.initializer && classType.initializer.parameters,
+        };
 
       case spec.TypeKind.Interface:
-        throw new Error(`Cannot create an object with an FQN of an interface: ${fqn}`);
+        throw new Error(
+          `Cannot create an object with an FQN of an interface: ${fqn}`,
+        );
 
       default:
         throw new Error(`Unexpected FQN kind: ${fqn}`);
@@ -455,7 +507,10 @@ export class Kernel {
 
     const ctorResult = this._findCtor(fqn, requestArgs);
     const ctor = ctorResult.ctor;
-    const obj = this._wrapSandboxCode(() => new ctor(...this._toSandboxValues(requestArgs, ctorResult.parameters)));
+    const obj = this._wrapSandboxCode(
+      () =>
+        new ctor(...this._toSandboxValues(requestArgs, ctorResult.parameters)),
+    );
     const objref = this.objects.registerObject(obj, fqn, req.interfaces ?? []);
 
     // overrides: for each one of the override method names, installs a
@@ -464,20 +519,33 @@ export class Kernel {
     if (overrides) {
       this._debug('overrides', overrides);
 
-      const overrideTypeErrorMessage = 'Override can either be "method" or "property"';
+      const overrideTypeErrorMessage =
+        'Override can either be "method" or "property"';
       const methods = new Set<string>();
       const properties = new Set<string>();
 
       for (const override of overrides) {
         if (api.isMethodOverride(override)) {
-          if (api.isPropertyOverride(override)) { throw new Error(overrideTypeErrorMessage); }
-          if (methods.has(override.method)) { throw new Error(`Duplicate override for method '${override.method}'`); }
+          if (api.isPropertyOverride(override)) {
+            throw new Error(overrideTypeErrorMessage);
+          }
+          if (methods.has(override.method)) {
+            throw new Error(
+              `Duplicate override for method '${override.method}'`,
+            );
+          }
           methods.add(override.method);
 
           this._applyMethodOverride(obj, objref, fqn, interfaces, override);
         } else if (api.isPropertyOverride(override)) {
-          if (api.isMethodOverride(override)) { throw new Error(overrideTypeErrorMessage); }
-          if (properties.has(override.property)) { throw Error(`Duplicate override for property '${override.property}'`); }
+          if (api.isMethodOverride(override)) {
+            throw new Error(overrideTypeErrorMessage);
+          }
+          if (properties.has(override.property)) {
+            throw Error(
+              `Duplicate override for property '${override.property}'`,
+            );
+          }
           properties.add(override.property);
 
           this._applyPropertyOverride(obj, objref, fqn, interfaces, override);
@@ -494,13 +562,25 @@ export class Kernel {
     return `$jsii$super$${name}$`;
   }
 
-  private _applyPropertyOverride(obj: any, objref: api.ObjRef, typeFqn: string, interfaces: string[] | undefined, override: api.PropertyOverride) {
+  private _applyPropertyOverride(
+    obj: any,
+    objref: api.ObjRef,
+    typeFqn: string,
+    interfaces: string[] | undefined,
+    override: api.PropertyOverride,
+  ) {
     // error if we can find a method with this name
     if (this._tryTypeInfoForMethod(override.property, typeFqn, interfaces)) {
-      throw new Error(`Trying to override method '${override.property}' as a property`);
+      throw new Error(
+        `Trying to override method '${override.property}' as a property`,
+      );
     }
 
-    let propInfo = this._tryTypeInfoForProperty(override.property, typeFqn, interfaces);
+    let propInfo = this._tryTypeInfoForProperty(
+      override.property,
+      typeFqn,
+      interfaces,
+    );
     // if this is a private property (i.e. doesn't have `propInfo` the object has a key)
     if (!propInfo && override.property in obj) {
       this._debug(`Skipping override of private property ${override.property}`);
@@ -523,7 +603,12 @@ export class Kernel {
     this._defineOverridenProperty(obj, objref, override, propInfo);
   }
 
-  private _defineOverridenProperty(obj: any, objref: api.ObjRef, override: api.PropertyOverride, propInfo: spec.Property) {
+  private _defineOverridenProperty(
+    obj: any,
+    objref: api.ObjRef,
+    override: api.PropertyOverride,
+    propInfo: spec.Property,
+  ) {
     const propertyName = override.property;
 
     this._debug('apply override', propertyName);
@@ -534,7 +619,7 @@ export class Kernel {
       value: undefined,
       writable: true,
       enumerable: true,
-      configurable: true
+      configurable: true,
     };
 
     const prevEnumerable = prev.enumerable;
@@ -548,33 +633,53 @@ export class Kernel {
       enumerable: prevEnumerable,
       configurable: prev.configurable,
       get: () => {
-        this._debug('virtual get', objref, propertyName, { cookie: override.cookie });
+        this._debug('virtual get', objref, propertyName, {
+          cookie: override.cookie,
+        });
         const result = this.callbackHandler({
           cookie: override.cookie,
           cbid: this._makecbid(),
-          get: { objref, property: propertyName }
+          get: { objref, property: propertyName },
         });
         this._debug('callback returned', result);
         return this._toSandbox(result, propInfo);
       },
       set: (value: any) => {
-        this._debug('virtual set', objref, propertyName, { cookie: override.cookie });
+        this._debug('virtual set', objref, propertyName, {
+          cookie: override.cookie,
+        });
         this.callbackHandler({
           cookie: override.cookie,
           cbid: this._makecbid(),
-          set: { objref, property: propertyName, value: this._fromSandbox(value, propInfo) }
+          set: {
+            objref,
+            property: propertyName,
+            value: this._fromSandbox(value, propInfo),
+          },
         });
-      }
+      },
     });
   }
 
-  private _applyMethodOverride(obj: any, objref: api.ObjRef, typeFqn: string, interfaces: string[] | undefined, override: api.MethodOverride) {
+  private _applyMethodOverride(
+    obj: any,
+    objref: api.ObjRef,
+    typeFqn: string,
+    interfaces: string[] | undefined,
+    override: api.MethodOverride,
+  ) {
     // error if we can find a property with this name
     if (this._tryTypeInfoForProperty(override.method, typeFqn, interfaces)) {
-      throw new Error(`Trying to override property '${override.method}' as a method`);
+      throw new Error(
+        `Trying to override property '${override.method}' as a method`,
+      );
     }
 
-    let methodInfo = this._tryTypeInfoForMethod(override.method, typeFqn, interfaces);
+    let methodInfo = this._tryTypeInfoForMethod(
+      override.method,
+      typeFqn,
+      interfaces,
+    );
 
     // If this is a private method (doesn't have methodInfo, key resolves on the object), we
     // are going to skip the override.
@@ -590,19 +695,26 @@ export class Kernel {
       methodInfo = {
         name: override.method,
         returns: { type: spec.CANONICAL_ANY },
-        parameters: [{
-          name: 'args',
-          type: spec.CANONICAL_ANY,
-          variadic: true
-        }],
-        variadic: true
+        parameters: [
+          {
+            name: 'args',
+            type: spec.CANONICAL_ANY,
+            variadic: true,
+          },
+        ],
+        variadic: true,
       };
     }
 
     this._defineOverridenMethod(obj, objref, override, methodInfo);
   }
 
-  private _defineOverridenMethod(obj: any, objref: api.ObjRef, override: api.MethodOverride, methodInfo: spec.Method) {
+  private _defineOverridenMethod(
+    obj: any,
+    objref: api.ObjRef,
+    override: api.MethodOverride,
+    methodInfo: spec.Method,
+  ) {
     const methodName = override.method;
 
     if (methodInfo.async) {
@@ -623,10 +735,10 @@ export class Kernel {
               args,
               expectedReturnType: methodInfo.returns ?? 'void',
               succeed,
-              fail
+              fail,
             };
           });
-        }
+        },
       });
     } else {
       // sync method override (method info is not required)
@@ -635,7 +747,12 @@ export class Kernel {
         configurable: false,
         writable: false,
         value: (...methodArgs: any[]) => {
-          this._debug('invoke sync method override', override, 'args', methodArgs);
+          this._debug(
+            'invoke sync method override',
+            override,
+            'args',
+            methodArgs,
+          );
           // We should be validating the actual arguments according to the
           // declared parameters here, but let's just assume the JSII runtime on the
           // other end has done its work.
@@ -646,16 +763,20 @@ export class Kernel {
               objref,
               method: methodName,
               args: this._fromSandboxValues(methodArgs, methodInfo.parameters),
-            }
+            },
           });
           this._debug('Result', result);
           return this._toSandbox(result, methodInfo.returns ?? 'void');
-        }
+        },
       });
     }
   }
 
-  private _findInvokeTarget(objref: api.ObjRef, methodName: string, args: any[]) {
+  private _findInvokeTarget(
+    objref: api.ObjRef,
+    methodName: string,
+    args: any[],
+  ) {
     const { instance, fqn, interfaces } = this.objects.findObject(objref);
     const ti = this._typeInfoForMethod(methodName, fqn, interfaces);
     this._validateMethodArguments(ti, args);
@@ -677,12 +798,17 @@ export class Kernel {
     return { ti, obj: instance, fn };
   }
 
-  private _validateMethodArguments(method: spec.Callable | undefined, args: any[]) {
+  private _validateMethodArguments(
+    method: spec.Callable | undefined,
+    args: any[],
+  ) {
     const params: spec.Parameter[] = method?.parameters ?? [];
 
     // error if args > params
     if (args.length > params.length && !(method && method.variadic)) {
-      throw new Error(`Too many arguments (method accepts ${params.length} parameters, got ${args.length} arguments)`);
+      throw new Error(
+        `Too many arguments (method accepts ${params.length} parameters, got ${args.length} arguments)`,
+      );
     }
 
     for (let i = 0; i < params.length; ++i) {
@@ -690,14 +816,26 @@ export class Kernel {
       const arg = args[i];
 
       if (param.variadic) {
-        if (params.length <= i) { return; } // No vararg was provided
-        for (let j = i ; j < params.length ; j++) {
+        if (params.length <= i) {
+          return;
+        } // No vararg was provided
+        for (let j = i; j < params.length; j++) {
           if (!param.optional && params[j] === undefined) {
-            throw new Error(`Unexpected 'undefined' value at index ${j - i} of variadic argument '${param.name}' of type '${spec.describeTypeReference(param.type)}'`);
+            throw new Error(
+              `Unexpected 'undefined' value at index ${
+                j - i
+              } of variadic argument '${
+                param.name
+              }' of type '${spec.describeTypeReference(param.type)}'`,
+            );
           }
         }
       } else if (!param.optional && arg === undefined) {
-        throw new Error(`Not enough arguments. Missing argument for the required parameter '${param.name}' of type '${spec.describeTypeReference(param.type)}'`);
+        throw new Error(
+          `Not enough arguments. Missing argument for the required parameter '${
+            param.name
+          }' of type '${spec.describeTypeReference(param.type)}'`,
+        );
       }
     }
   }
@@ -747,23 +885,37 @@ export class Kernel {
     return fqnInfo;
   }
 
-  private _typeInfoForMethod(methodName: string, fqn: string, interfaces?: string[]): spec.Method {
+  private _typeInfoForMethod(
+    methodName: string,
+    fqn: string,
+    interfaces?: string[],
+  ): spec.Method {
     const ti = this._tryTypeInfoForMethod(methodName, fqn, interfaces);
     if (!ti) {
-      const addendum = interfaces && interfaces.length > 0
-        ? ` or interface(s) ${interfaces.join(', ')}`
-        : '';
-      throw new Error(`Class ${fqn}${addendum} doesn't have a method '${methodName}'`);
+      const addendum =
+        interfaces && interfaces.length > 0
+          ? ` or interface(s) ${interfaces.join(', ')}`
+          : '';
+      throw new Error(
+        `Class ${fqn}${addendum} doesn't have a method '${methodName}'`,
+      );
     }
     return ti;
   }
 
-  private _tryTypeInfoForMethod(methodName: string, classFqn: string, interfaces: string[] = []): spec.Method | undefined {
+  private _tryTypeInfoForMethod(
+    methodName: string,
+    classFqn: string,
+    interfaces: string[] = [],
+  ): spec.Method | undefined {
     for (const fqn of [classFqn, ...interfaces]) {
-      if (fqn === 'Object') { continue; }
+      if (fqn === 'Object') {
+        continue;
+      }
       const typeinfo = this._typeInfoForFqn(fqn);
 
-      const methods = (typeinfo as (spec.ClassType | spec.InterfaceType)).methods ?? [];
+      const methods =
+        (typeinfo as spec.ClassType | spec.InterfaceType).methods ?? [];
 
       for (const m of methods) {
         if (m.name === methodName) {
@@ -772,9 +924,14 @@ export class Kernel {
       }
 
       // recursion to parent type (if exists)
-      const bases = [(typeinfo as spec.ClassType).base, ...(typeinfo as spec.InterfaceType).interfaces ?? []];
+      const bases = [
+        (typeinfo as spec.ClassType).base,
+        ...((typeinfo as spec.InterfaceType).interfaces ?? []),
+      ];
       for (const base of bases) {
-        if (!base) { continue; }
+        if (!base) {
+          continue;
+        }
 
         const found = this._tryTypeInfoForMethod(methodName, base);
         if (found) {
@@ -786,9 +943,15 @@ export class Kernel {
     return undefined;
   }
 
-  private _tryTypeInfoForProperty(property: string, classFqn: string, interfaces: string[] = []): spec.Property | undefined {
+  private _tryTypeInfoForProperty(
+    property: string,
+    classFqn: string,
+    interfaces: string[] = [],
+  ): spec.Property | undefined {
     for (const fqn of [classFqn, ...interfaces]) {
-      if (fqn === wire.EMPTY_OBJECT_FQN) { continue; }
+      if (fqn === wire.EMPTY_OBJECT_FQN) {
+        continue;
+      }
       const typeInfo = this._typeInfoForFqn(fqn);
 
       let properties;
@@ -803,7 +966,9 @@ export class Kernel {
         properties = interfaceTypeInfo.properties;
         bases = interfaceTypeInfo.interfaces ?? [];
       } else {
-        throw new Error(`Type of kind ${typeInfo.kind} does not have properties`);
+        throw new Error(
+          `Type of kind ${typeInfo.kind} does not have properties`,
+        );
       }
 
       for (const p of properties ?? []) {
@@ -824,19 +989,29 @@ export class Kernel {
     return undefined;
   }
 
-  private _typeInfoForProperty(property: string, fqn: string, interfaces?: string[]): spec.Property {
+  private _typeInfoForProperty(
+    property: string,
+    fqn: string,
+    interfaces?: string[],
+  ): spec.Property {
     const typeInfo = this._tryTypeInfoForProperty(property, fqn, interfaces);
     if (!typeInfo) {
-      const addendum = interfaces && interfaces.length > 0
-        ? ` or interface(s) ${interfaces.join(', ')}`
-        : '';
-      throw new Error(`Type ${fqn}${addendum} doesn't have a property '${property}'`);
+      const addendum =
+        interfaces && interfaces.length > 0
+          ? ` or interface(s) ${interfaces.join(', ')}`
+          : '';
+      throw new Error(
+        `Type ${fqn}${addendum} doesn't have a property '${property}'`,
+      );
     }
     return typeInfo;
   }
 
   private _toSandbox(v: any, expectedType: wire.OptionalValueOrVoid): any {
-    const serTypes = wire.serializationType(expectedType, this._typeInfoForFqn.bind(this));
+    const serTypes = wire.serializationType(
+      expectedType,
+      this._typeInfoForFqn.bind(this),
+    );
     this._debug('toSandbox', v, JSON.stringify(serTypes));
 
     const host: wire.SerializerHost = {
@@ -850,10 +1025,16 @@ export class Kernel {
     const errors = new Array<string>();
     for (const { serializationClass, typeRef } of serTypes) {
       try {
-        return wire.SERIALIZERS[serializationClass].deserialize(v, typeRef, host);
+        return wire.SERIALIZERS[serializationClass].deserialize(
+          v,
+          typeRef,
+          host,
+        );
       } catch (e) {
         // If no union (99% case), rethrow immediately to preserve stack trace
-        if (serTypes.length === 1) { throw e; }
+        if (serTypes.length === 1) {
+          throw e;
+        }
         errors.push(e.message);
       }
     }
@@ -862,7 +1043,10 @@ export class Kernel {
   }
 
   private _fromSandbox(v: any, targetType: wire.OptionalValueOrVoid): any {
-    const serTypes = wire.serializationType(targetType, this._typeInfoForFqn.bind(this));
+    const serTypes = wire.serializationType(
+      targetType,
+      this._typeInfoForFqn.bind(this),
+    );
     this._debug('fromSandbox', v, JSON.stringify(serTypes));
 
     const host: wire.SerializerHost = {
@@ -879,7 +1063,9 @@ export class Kernel {
         return wire.SERIALIZERS[serializationClass].serialize(v, typeRef, host);
       } catch (e) {
         // If no union (99% case), rethrow immediately to preserve stack trace
-        if (serTypes.length === 1) { throw e; }
+        if (serTypes.length === 1) {
+          throw e;
+        }
         errors.push(e.message);
       }
     }
@@ -892,18 +1078,33 @@ export class Kernel {
   }
 
   private _fromSandboxValues(xs: any[], parameters?: spec.Parameter[]) {
-    return this._boxUnboxParameters(xs, parameters, this._fromSandbox.bind(this));
+    return this._boxUnboxParameters(
+      xs,
+      parameters,
+      this._fromSandbox.bind(this),
+    );
   }
 
-  private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: wire.OptionalValueOrVoid) => any) {
-    parameters = [...parameters ?? []];
-    const variadic = parameters.length > 0 && !!parameters[parameters.length - 1].variadic;
+  private _boxUnboxParameters(
+    xs: any[],
+    parameters: spec.Parameter[] | undefined,
+    boxUnbox: (x: any, t: wire.OptionalValueOrVoid) => any,
+  ) {
+    parameters = [...(parameters ?? [])];
+    const variadic =
+      parameters.length > 0 && !!parameters[parameters.length - 1].variadic;
     // Repeat the last (variadic) type to match the number of actual arguments
     while (variadic && parameters.length < xs.length) {
       parameters.push(parameters[parameters.length - 1]);
     }
     if (xs.length > parameters.length) {
-      throw new Error(`Argument list (${JSON.stringify(xs)}) not same size as expected argument list (length ${parameters.length})`);
+      throw new Error(
+        `Argument list (${JSON.stringify(
+          xs,
+        )}) not same size as expected argument list (length ${
+          parameters.length
+        })`,
+      );
     }
     return xs.map((x, i) => boxUnbox(x, parameters![i]));
   }
@@ -915,9 +1116,9 @@ export class Kernel {
   }
 
   /**
-     * Ensures that `fn` is called and defends against beginning to invoke
-     * async methods until fn finishes (successfully or not).
-     */
+   * Ensures that `fn` is called and defends against beginning to invoke
+   * async methods until fn finishes (successfully or not).
+   */
   private _ensureSync<T>(desc: string, fn: () => T): T {
     this.syncInProgress = desc;
     try {
@@ -933,7 +1134,6 @@ export class Kernel {
       return superProp;
     }
     return property;
-
   }
 
   //
@@ -957,15 +1157,15 @@ export class Kernel {
   }
 
   /**
-     * Executes arbitrary code in a VM sandbox.
-     *
-     * @param code       JavaScript code to be executed in the VM
-     * @param sandbox    a VM context to use for running the code
-     * @param sourceMaps source maps to be used in case an exception is thrown
-     * @param filename   the file name to use for the executed code
-     *
-     * @returns the result of evaluating the code
-     */
+   * Executes arbitrary code in a VM sandbox.
+   *
+   * @param code       JavaScript code to be executed in the VM
+   * @param sandbox    a VM context to use for running the code
+   * @param sourceMaps source maps to be used in case an exception is thrown
+   * @param filename   the file name to use for the executed code
+   *
+   * @returns the result of evaluating the code
+   */
   private _execute(code: string, filename: string) {
     const script = new vm.Script(code, { filename });
     try {
@@ -993,9 +1193,10 @@ interface AsyncInvocation {
 }
 
 class Assembly {
-  public constructor(public readonly metadata: spec.Assembly,
-    public readonly closure: any) {
-  }
+  public constructor(
+    public readonly metadata: spec.Assembly,
+    public readonly closure: any,
+  ) {}
 }
 
 /**
@@ -1007,8 +1208,13 @@ class Assembly {
  *
  * @returns the mapped error
  */
-function mapSource(err: Error, sourceMaps: { [assm: string]: SourceMapConsumer }): Error {
-  if (!err.stack) { return err; }
+function mapSource(
+  err: Error,
+  sourceMaps: { [assm: string]: SourceMapConsumer },
+): Error {
+  if (!err.stack) {
+    return err;
+  }
   const oldFrames = err.stack.split('\n');
   const obj = { stack: '' };
   const previousLimit = Error.stackTraceLimit;
@@ -1018,8 +1224,13 @@ function mapSource(err: Error, sourceMaps: { [assm: string]: SourceMapConsumer }
     const realFrames = obj.stack.split('\n').slice(1);
     const topFrame = realFrames[0].substring(0, realFrames[0].indexOf(' ('));
     err.stack = [
-      ...oldFrames.slice(0, oldFrames.findIndex(frame => frame.startsWith(topFrame))).map(applyMaps),
-      ...realFrames
+      ...oldFrames
+        .slice(
+          0,
+          oldFrames.findIndex((frame) => frame.startsWith(topFrame)),
+        )
+        .map(applyMaps),
+      ...realFrames,
     ].join('\n');
     return err;
   } finally {
@@ -1029,9 +1240,13 @@ function mapSource(err: Error, sourceMaps: { [assm: string]: SourceMapConsumer }
   function applyMaps(frame: string): string {
     const mappable = /^(\s*at\s+.+)\(jsii\/(.+)\.js:(\d+):(\d+)\)$/;
     const matches = mappable.exec(frame);
-    if (!matches) { return frame; }
+    if (!matches) {
+      return frame;
+    }
     const assm = matches[2];
-    if (!(assm in sourceMaps)) { return frame; }
+    if (!(assm in sourceMaps)) {
+      return frame;
+    }
     const prefix = matches[1];
     const line = parseInt(matches[3], 10);
     const column = parseInt(matches[4], 10);

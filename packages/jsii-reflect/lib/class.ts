@@ -12,7 +12,8 @@ export class ClassType extends ReferenceType {
   public constructor(
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
-    public readonly spec: jsii.ClassType) {
+    public readonly spec: jsii.ClassType,
+  ) {
     super(system, assembly, spec);
   }
 
@@ -26,7 +27,9 @@ export class ClassType extends ReferenceType {
 
     const type = this.system.findFqn(this.spec.base);
     if (!(type instanceof ClassType)) {
-      throw new Error(`FQN for base class points to a non-class type: ${this.spec.base}`);
+      throw new Error(
+        `FQN for base class points to a non-class type: ${this.spec.base}`,
+      );
     }
 
     return type;
@@ -40,7 +43,12 @@ export class ClassType extends ReferenceType {
       return undefined;
     }
 
-    return new Initializer(this.system, this.assembly, this, this.spec.initializer);
+    return new Initializer(
+      this.system,
+      this.assembly,
+      this,
+      this.spec.initializer,
+    );
   }
 
   /**
@@ -66,7 +74,7 @@ export class ClassType extends ReferenceType {
    * Lists all properties in this class.
    * @param inherited include all properties inherited from base classes (default: false)
    */
-  public getProperties(inherited = false): {[name: string]: Property} {
+  public getProperties(inherited = false): { [name: string]: Property } {
     return this._getProperties(inherited, this);
   }
 
@@ -74,7 +82,7 @@ export class ClassType extends ReferenceType {
    * List all methods in this class.
    * @param inherited include all methods inherited from base classes (default: false)
    */
-  public getMethods(inherited = false): {[name: string]: Method} {
+  public getMethods(inherited = false): { [name: string]: Method } {
     return this._getMethods(inherited, this);
   }
 
@@ -88,10 +96,16 @@ export class ClassType extends ReferenceType {
       out.push(...this.base.getInterfaces(inherited));
     }
     if (this.spec.interfaces) {
-      out.push(...flatten(this.spec.interfaces
-        .map(fqn => this.system.findInterface(fqn))
-        .map(iface => [iface, ...inherited ? iface.getInterfaces(true) : []]),
-      ));
+      out.push(
+        ...flatten(
+          this.spec.interfaces
+            .map((fqn) => this.system.findInterface(fqn))
+            .map((iface) => [
+              iface,
+              ...(inherited ? iface.getInterfaces(true) : []),
+            ]),
+        ),
+      );
     }
     return out;
   }
@@ -100,18 +114,42 @@ export class ClassType extends ReferenceType {
     return true;
   }
 
-  private _getProperties(inherited: boolean, parentType: ReferenceType): {[name: string]: Property} {
-    const base = inherited && this.base ? this.base._getProperties(inherited, parentType) : {};
-    return Object.assign(base, indexBy(
-      (this.spec.properties ?? []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
-      p => p.name));
+  private _getProperties(
+    inherited: boolean,
+    parentType: ReferenceType,
+  ): { [name: string]: Property } {
+    const base =
+      inherited && this.base
+        ? this.base._getProperties(inherited, parentType)
+        : {};
+    return Object.assign(
+      base,
+      indexBy(
+        (this.spec.properties ?? []).map(
+          (p) => new Property(this.system, this.assembly, parentType, this, p),
+        ),
+        (p) => p.name,
+      ),
+    );
   }
 
-  private _getMethods(inherited: boolean, parentType: ReferenceType): {[name: string]: Method} {
-    const base = inherited && this.base ? this.base._getMethods(inherited, parentType) : {};
-    return Object.assign(base, indexBy(
-      (this.spec.methods ?? []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
-      m => m.name));
+  private _getMethods(
+    inherited: boolean,
+    parentType: ReferenceType,
+  ): { [name: string]: Method } {
+    const base =
+      inherited && this.base
+        ? this.base._getMethods(inherited, parentType)
+        : {};
+    return Object.assign(
+      base,
+      indexBy(
+        (this.spec.methods ?? []).map(
+          (m) => new Method(this.system, this.assembly, parentType, this, m),
+        ),
+        (m) => m.name,
+      ),
+    );
   }
 }
 

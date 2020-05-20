@@ -27,6 +27,7 @@
     "build": "bash ./generate.sh && tsc --build && npm run lint",
     "watch": "bash ./generate.sh && tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
     "package": "package-js"
@@ -41,16 +42,19 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^25.2.3",
     "@types/jest-expect-message": "^1.0.2",
-    "@types/node": "^10.17.21",
+    "@types/node": "^10.17.24",
     "@types/tar-fs": "^2.0.0",
-    "@types/yargs": "^15.0.4",
+    "@types/yargs": "^15.0.5",
     "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jest": "^26.0.1",
     "jest-expect-message": "^1.0.2",
     "jsii": "^0.0.0",
-    "jsii-build-tools": "^0.0.0"
+    "jsii-build-tools": "^0.0.0",
+    "prettier": "^2.0.5"
   },
   "jest": {
     "collectCoverage": true,

@@ -3,12 +3,17 @@ import { Assembly } from './assembly';
 import { Docs, Documentable } from './docs';
 import { OptionalValue } from './optional-value';
 import { Overridable } from './overridable';
-import { locationInRepository, SourceLocatable, SourceLocation } from './source';
+import {
+  locationInRepository,
+  SourceLocatable,
+  SourceLocation,
+} from './source';
 import { Type } from './type';
 import { MemberKind, TypeMember } from './type-member';
 import { TypeSystem } from './type-system';
 
-export class Property extends OptionalValue implements Documentable, Overridable, TypeMember, SourceLocatable {
+export class Property extends OptionalValue
+  implements Documentable, Overridable, TypeMember, SourceLocatable {
   public readonly kind = MemberKind.Property;
 
   public constructor(
@@ -16,7 +21,8 @@ export class Property extends OptionalValue implements Documentable, Overridable
     public readonly assembly: Assembly,
     public readonly parentType: Type,
     public readonly definingType: Type,
-    public readonly spec: jsii.Property) {
+    public readonly spec: jsii.Property,
+  ) {
     super(system, spec);
   }
 
@@ -77,7 +83,12 @@ export class Property extends OptionalValue implements Documentable, Overridable
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs ?? {}, this.parentType.docs);
+    return new Docs(
+      this.system,
+      this,
+      this.spec.docs ?? {},
+      this.parentType.docs,
+    );
   }
 
   /**

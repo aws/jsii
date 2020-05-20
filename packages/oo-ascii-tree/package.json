@@ -25,16 +25,20 @@
     "build": "tsc --build && npm run lint",
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "lint:fix": "yarn lint --fix",
     "test": "jest",
     "test:update": "jest -u",
     "package": "package-js"
   },
   "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "@types/node": "^10.17.21",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^10.17.24",
     "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jest": "^26.0.1",
     "jsii-build-tools": "^0.0.0",
+    "prettier": "^2.0.5",
     "typescript": "~3.9.3"
   },
   "jest": {

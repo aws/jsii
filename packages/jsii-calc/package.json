@@ -30,8 +30,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "jsii --silence-warnings reserved-word && jsii-rosetta --compile",
-    "watch": "jsii -w",
+    "build": "jsii --project-references --silence-warnings reserved-word && jsii-rosetta --compile",
+    "watch": "jsii --project-references -w",
     "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
@@ -47,10 +47,13 @@
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.21",
+    "@types/node": "^10.17.24",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^0.0.0"
+    "jsii-rosetta": "^0.0.0",
+    "prettier": "^2.0.5"
   },
   "jsii": {
     "outdir": "dist",

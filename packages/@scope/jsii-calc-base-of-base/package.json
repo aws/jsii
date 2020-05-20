@@ -24,15 +24,18 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "jsii && jsii-rosetta",
+    "build": "jsii --project-references && jsii-rosetta",
     "test": "diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
-    "@types/node": "^10.17.21",
+    "@types/node": "^10.17.24",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
-    "jsii-rosetta": "^0.0.0"
+    "jsii-rosetta": "^0.0.0",
+    "prettier": "^1.19.1"
   },
   "jsii": {
     "outdir": "dist",
