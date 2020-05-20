@@ -117,7 +117,11 @@ function describeOptionalValueMatchingFailure(origType: reflect.OptionalValue, u
 
 }
 
-function compareMethod(original: reflect.Callable, updated: reflect.Callable, context: ComparisonContext) {
+function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
+  original: T,
+  updated: T,
+  context: ComparisonContext,
+) {
   compareStabilities(original, updated, context);
 
   // Type guards on original are duplicated on updated to help tsc... They are required to be the same type by the declaration.
