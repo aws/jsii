@@ -65,6 +65,10 @@ function toBracketNotation(
     .map((set) => {
       if (set.length === 1) {
         const version = set[0].semver.raw;
+        if (!version) {
+          // Case where version is '*'
+          return `(0.0.0,]`;
+        }
         switch (set[0].operator || '=') {
           // "[version]" => means exactly version
           case '=':
