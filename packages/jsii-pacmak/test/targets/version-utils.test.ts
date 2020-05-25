@@ -66,14 +66,14 @@ const examples: Record<
 
   // Somewhat unusual ranges
   '*': {
-    maven: '(0.0.0,]',
-    nuget: '(0.0.0,]',
+    maven: '[0.0.0,]',
+    nuget: '[0.0.0,]',
     python: '>=0.0.0',
   },
-  '^1.2.*': {
-    maven: '[1.2.0,2.0.0)',
-    nuget: '[1.2.0,2.0.0)',
-    python: '>=1.2.0, <2.0.0',
+  '1.2.*': {
+    maven: '[1.2.0,1.3.0)',
+    nuget: '[1.2.0,1.3.0)',
+    python: '>=1.2.0, <1.3.0',
   },
 };
 
