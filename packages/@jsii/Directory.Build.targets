@@ -1,5 +1,7 @@
 <Project>
   <ItemGroup>
+    <!-- Central configuration of dependency versions for all DotNet packages -->
+
     <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.6.0" />
     <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
     <PackageReference Update="Microsoft.Extensions.Logging" Version="3.1.4" />
@@ -9,8 +11,9 @@
     <PackageReference Update="NSubstitute" Version="4.2.1" />
     <PackageReference Update="xunit" Version="2.4.1" />
     <PackageReference Update="xunit.runner.visualstudio" Version="2.4.1" />
-    <DotNetCliToolReference Update="dotnet-xunit" Version="2.3.1" />
 
     <PackageReference Update="Newtonsoft.Json" Version="12.0.3" />
+
+    <DotNetCliToolReference Update="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 </Project>
