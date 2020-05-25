@@ -527,7 +527,12 @@ abstract class BaseMethod implements PythonBase {
         this.emitAutoProps(code, context, liftedPropNames);
       }
 
-      this.emitJsiiMethodCall(code, context, liftedPropNames, implicitParameter);
+      this.emitJsiiMethodCall(
+        code,
+        context,
+        liftedPropNames,
+        implicitParameter,
+      );
     }
   }
 
