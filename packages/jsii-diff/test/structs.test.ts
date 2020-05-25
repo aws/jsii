@@ -14,7 +14,8 @@ test('cannot add required fields to an input struct', () =>
         Array.isArray(arg1);
       }
     }
-  `, `
+  `,
+    `
     export interface Henk {
       readonly henk: string;
       readonly super: string;
@@ -24,13 +25,14 @@ test('cannot add required fields to an input struct', () =>
         Array.isArray(arg1);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('can add required fields to an output struct', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export interface Henk {
       readonly henk: string;
     }
@@ -39,7 +41,8 @@ test('can add required fields to an output struct', () =>
         return { henk: 'henk' };
       }
     }
-  `, `
+  `,
+    `
     export interface Henk {
       readonly henk: string;
       readonly super: string;
@@ -49,13 +52,14 @@ test('can add required fields to an output struct', () =>
         return { henk: 'henk', super: 'super' };
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('can change argument type to a supertype if it adds only optional fields', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export interface Henk {
       readonly henk: string;
     }
@@ -64,7 +68,8 @@ test('can change argument type to a supertype if it adds only optional fields', 
         Array.isArray(arg1);
       }
     }
-  `, `
+  `,
+    `
     export interface Super {
       readonly super?: string;
     }
@@ -76,8 +81,8 @@ test('can change argument type to a supertype if it adds only optional fields', 
         Array.isArray(arg1);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -95,7 +100,8 @@ test('cannot take fields away from input struct', () =>
         Array.isArray(arg1);
       }
     }
-  `, `
+  `,
+    `
     export interface Henk {
       readonly henk: string;
     }
@@ -104,8 +110,8 @@ test('cannot take fields away from input struct', () =>
         Array.isArray(arg1);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -122,7 +128,8 @@ test('cannot take fields away from output struct', () =>
         return { henk: 'henk', piet: 'piet' };
       }
     }
-  `, `
+  `,
+    `
     export interface Henk {
       readonly henk: string;
     }
@@ -131,8 +138,8 @@ test('cannot take fields away from output struct', () =>
         return { henk: 'henk' };
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -148,7 +155,8 @@ test('cannot change argument type to a supertype it adds required fields', () =>
         Array.isArray(arg1);
       }
     }
-  `, `
+  `,
+    `
     export interface Super {
       readonly super: string;
     }
@@ -160,28 +168,30 @@ test('cannot change argument type to a supertype it adds required fields', () =>
         Array.isArray(arg1);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('can make an input struct property optional', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export interface Henk {
       readonly henk: string;
     }
     export class Actions {
       useHenk(henk: Henk) { Array.isArray(henk); }
     }
-  `, `
+  `,
+    `
     export interface Henk {
       readonly henk?: string;
     }
     export class Actions {
       useHenk(henk: Henk) { Array.isArray(henk); }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -195,15 +205,16 @@ test('cannot make an input struct property required', () =>
     export class Actions {
       useHenk(henk: Henk) { Array.isArray(henk); }
     }
-  `, `
+  `,
+    `
     export interface Henk {
       readonly henk: string;
     }
     export class Actions {
       useHenk(henk: Henk) { Array.isArray(henk); }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -217,20 +228,22 @@ test('cannot make an output struct property optional', () =>
     export class Actions {
       returnHenk(): Henk { return { henk: 'henk' }; }
     }
-  `, `
+  `,
+    `
     export interface Henk {
       readonly henk?: string;
     }
     export class Actions {
       returnHenk(): Henk { return {}; }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('can handle recursive type references', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export interface LinkedList {
       readonly name: string;
       readonly next?: LinkedList;
@@ -241,7 +254,8 @@ test('can handle recursive type references', () =>
         Array.isArray(list);
       }
     }
-  `, `
+  `,
+    `
     export interface LinkedList {
       readonly name: string;
       readonly next?: LinkedList;
@@ -252,13 +266,14 @@ test('can handle recursive type references', () =>
         Array.isArray(list);
       }
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
 test('can handle mutually recursive type references', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export interface A {
       readonly name: string;
       readonly next?: B;
@@ -274,7 +289,8 @@ test('can handle mutually recursive type references', () =>
         Array.isArray(list);
       }
     }
-  `, `
+  `,
+    `
     export interface A {
       readonly name: string;
       readonly next?: B;
@@ -290,5 +306,5 @@ test('can handle mutually recursive type references', () =>
         Array.isArray(list);
       }
     }
-  `)
-);
+  `,
+  ));

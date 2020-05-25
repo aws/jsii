@@ -3,7 +3,12 @@ import * as spec from '@jsii/spec';
 import * as path from 'path';
 import * as logging from '../logging';
 import * as xmlbuilder from 'xmlbuilder';
-import { PackageInfo, Target, TargetOptions, findLocalBuildDirs } from '../target';
+import {
+  PackageInfo,
+  Target,
+  TargetOptions,
+  findLocalBuildDirs,
+} from '../target';
 import { shell, Scratch, setExtend, filterAsync } from '../util';
 import { DotNetGenerator } from './dotnet/dotnetgenerator';
 import { TargetBuilder, BuildOptions } from '../builder';
@@ -17,15 +22,26 @@ export const TARGET_FRAMEWORK = 'netcoreapp3.1';
 export class DotnetBuilder implements TargetBuilder {
   private readonly targetName = 'dotnet';
 
-  public constructor(private readonly modules: JsiiModule[], private readonly options: BuildOptions) {
-  }
+  public constructor(
+    private readonly modules: JsiiModule[],
+    private readonly options: BuildOptions,
+  ) {}
 
   public async buildModules(): Promise<void> {
-    if (this.modules.length === 0) { return; }
+    if (this.modules.length === 0) {
+      return;
+    }
 
     if (this.options.codeOnly) {
       // Simple, just generate code to respective output dirs
-      await Promise.all(this.modules.map(module => this.generateModuleCode(module, this.outputDir(module.outputDirectory))));
+      await Promise.all(
+        this.modules.map((module) =>
+          this.generateModuleCode(
+            module,
+            this.outputDir(module.outputDirectory),
+          ),
+        ),
+      );
       return;
     }
 
@@ -37,19 +53,27 @@ export class DotnetBuilder implements TargetBuilder {
 
       // Build solution
       logging.debug('Building .NET');
-      await shell('dotnet', ['build', '-c', 'Release'], { cwd: tempSourceDir.directory });
+      await shell('dotnet', ['build', '-c', 'Release'], {
+        cwd: tempSourceDir.directory,
+      });
 
       await this.copyOutArtifacts(tempSourceDir.object);
       if (this.options.clean) {
         await Scratch.cleanupAll(scratchDirs);
       }
-    } catch(e) {
-      logging.warn(`Exception occurred, not cleaning up ${scratchDirs.map(s => s.directory)}`);
+    } catch (e) {
+      logging.warn(
+        `Exception occurred, not cleaning up ${scratchDirs.map(
+          (s) => s.directory,
+        )}`,
+      );
       throw e;
     }
   }
 
-  private async generateAggregateSourceDir(modules: JsiiModule[]): Promise<Scratch<TemporaryDotnetPackage[]>> {
+  private async generateAggregateSourceDir(
+    modules: JsiiModule[],
+  ): Promise<Scratch<TemporaryDotnetPackage[]>> {
     return Scratch.make(async (tmpDir: string) => {
       logging.debug(`Generating aggregate .NET source dir at ${tmpDir}`);
 
@@ -57,14 +81,16 @@ export class DotnetBuilder implements TargetBuilder {
       const ret: TemporaryDotnetPackage[] = [];
 
       // Code generator will make its own subdirectory
-      const generatedModules = modules.map(mod => this.generateModuleCode(mod, tmpDir).then(() => mod));
+      const generatedModules = modules.map((mod) =>
+        this.generateModuleCode(mod, tmpDir).then(() => mod),
+      );
 
       for await (const mod of generatedModules) {
         const loc = projectLocation(mod);
         csProjs.push(loc.projectFile);
         ret.push({
           outputTargetDirectory: mod.outputDirectory,
-          artifactsDir: path.join(tmpDir, loc.projectDir, 'bin', 'Release')
+          artifactsDir: path.join(tmpDir, loc.projectDir, 'bin', 'Release'),
         });
       }
 
@@ -83,7 +109,10 @@ export class DotnetBuilder implements TargetBuilder {
 
     await Promise.all(packages.map(copyOutIndividualArtifacts.bind(this)));
 
-    async function copyOutIndividualArtifacts(this: DotnetBuilder, pkg: TemporaryDotnetPackage) {
+    async function copyOutIndividualArtifacts(
+      this: DotnetBuilder,
+      pkg: TemporaryDotnetPackage,
+    ) {
       const targetDirectory = this.outputDir(pkg.outputTargetDirectory);
 
       await fs.mkdirp(targetDirectory);
@@ -96,7 +125,10 @@ export class DotnetBuilder implements TargetBuilder {
     }
   }
 
-  private async generateModuleCode(module: JsiiModule, where: string): Promise<void> {
+  private async generateModuleCode(
+    module: JsiiModule,
+    where: string,
+  ): Promise<void> {
     const target = this.makeTarget(module);
     logging.debug(`Generating ${this.targetName} code into ${where}`);
     await target.generateCode(where, module.tarball);
@@ -106,7 +138,9 @@ export class DotnetBuilder implements TargetBuilder {
    * Decide whether or not to append 'dotnet' to the given output directory
    */
   private outputDir(declaredDir: string) {
-    return this.options.languageSubdirectory ? path.join(declaredDir, this.targetName) : declaredDir;
+    return this.options.languageSubdirectory
+      ? path.join(declaredDir, this.targetName)
+      : declaredDir;
   }
 
   /**
@@ -119,9 +153,12 @@ export class DotnetBuilder implements TargetBuilder {
     // This enables building against local modules.
     const allDepsOutputDirs = new Set<string>();
 
-    const resolvedModules = this.modules.map(async module => ({
+    const resolvedModules = this.modules.map(async (module) => ({
       module,
-      localBuildDirs: await findLocalBuildDirs(module.moduleDirectory, this.targetName),
+      localBuildDirs: await findLocalBuildDirs(
+        module.moduleDirectory,
+        this.targetName,
+      ),
     }));
     for await (const { module, localBuildDirs } of resolvedModules) {
       setExtend(allDepsOutputDirs, localBuildDirs);
@@ -133,19 +170,13 @@ export class DotnetBuilder implements TargetBuilder {
 
     const localRepos = Array.from(allDepsOutputDirs);
 
-    // If dotnet-jsonmodel is checked-out and we can find a local repository, add it to the list.
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
-      const jsiiDotNetJsonModel = require('@jsii/dotnet-jsonmodel');
-      localRepos.push(jsiiDotNetJsonModel.repository);
-    } catch {
-      // Couldn't locate @jsii/dotnet-jsonmodel, which is owkay!
-    }
-
     // If dotnet-runtime is checked-out and we can find a local repository, add it to the list.
     try {
       // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports,import/no-extraneous-dependencies
       const jsiiDotNetRuntime = require('@jsii/dotnet-runtime');
+      logging.info(
+        `Using local version of the DotNet jsii runtime package at: ${jsiiDotNetRuntime.repository}`,
+      );
       localRepos.push(jsiiDotNetRuntime.repository);
     } catch {
       // Couldn't locate @jsii/dotnet-runtime, which is owkay!
@@ -157,7 +188,9 @@ export class DotnetBuilder implements TargetBuilder {
     logging.debug('local NuGet repos:', existingLocalRepos);
 
     // Construct XML content.
-    const configuration = xmlbuilder.create('configuration', { encoding: 'UTF-8' });
+    const configuration = xmlbuilder.create('configuration', {
+      encoding: 'UTF-8',
+    });
     const packageSources = configuration.ele('packageSources');
 
     const nugetOrgAdd = packageSources.ele('add');
@@ -180,15 +213,18 @@ export class DotnetBuilder implements TargetBuilder {
   }
 
   private makeTarget(module: JsiiModule): Dotnet {
-    return new Dotnet({
-      targetName: this.targetName,
-      packageDir: module.moduleDirectory,
-      assembly: module.assembly,
-      fingerprint: this.options.fingerprint,
-      force: this.options.force,
-      arguments: this.options.arguments,
-      rosetta: this.options.rosetta,
-    }, this.modules.map(m => m.name));
+    return new Dotnet(
+      {
+        targetName: this.targetName,
+        packageDir: module.moduleDirectory,
+        assembly: module.assembly,
+        fingerprint: this.options.fingerprint,
+        force: this.options.force,
+        arguments: this.options.arguments,
+        rosetta: this.options.rosetta,
+      },
+      this.modules.map((m) => m.name),
+    );
   }
 }
 
@@ -208,47 +244,55 @@ function projectLocation(module: JsiiModule) {
   const packageId: string = module.assembly.targets!.dotnet!.packageId;
   return {
     projectDir: packageId,
-    projectFile: path.join(packageId, `${packageId}.csproj`)
+    projectFile: path.join(packageId, `${packageId}.csproj`),
   };
 }
 
 export default class Dotnet extends Target {
-  public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
+  public static toPackageInfos(
+    assm: spec.Assembly,
+  ): { [language: string]: PackageInfo } {
     const packageId = assm.targets!.dotnet!.packageId;
     const version = assm.version;
     const packageInfo: PackageInfo = {
       repository: 'Nuget',
       url: `https://www.nuget.org/packages/${packageId}/${version}`,
       usage: {
-        'csproj': {
+        csproj: {
           language: 'xml',
-          code: `<PackageReference Include="${packageId}" Version="${version}" />`
+          code: `<PackageReference Include="${packageId}" Version="${version}" />`,
         },
-        'dotnet': {
+        dotnet: {
           language: 'console',
-          code: `dotnet add package ${packageId} --version ${version}`
+          code: `dotnet add package ${packageId} --version ${version}`,
         },
         'packages.config': {
           language: 'xml',
-          code: `<package id="${packageId}" version="${version}" />`
-        }
-      }
+          code: `<package id="${packageId}" version="${version}" />`,
+        },
+      },
     };
     return { 'C#': packageInfo };
   }
 
   public static toNativeReference(_type: spec.Type, options: any) {
     return {
-      'c#': `using ${options.namespace};`
+      'c#': `using ${options.namespace};`,
     };
   }
 
   protected readonly generator: DotNetGenerator;
 
-  public constructor(options: TargetOptions, assembliesCurrentlyBeingCompiled: string[]) {
+  public constructor(
+    options: TargetOptions,
+    assembliesCurrentlyBeingCompiled: string[],
+  ) {
     super(options);
 
-    this.generator = new DotNetGenerator(assembliesCurrentlyBeingCompiled, options.rosetta);
+    this.generator = new DotNetGenerator(
+      assembliesCurrentlyBeingCompiled,
+      options.rosetta,
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await

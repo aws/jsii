@@ -10,22 +10,28 @@ export abstract class ModuleLike {
   public abstract readonly submodules: readonly Submodule[];
   public abstract readonly types: readonly Type[];
 
-  protected constructor(public readonly system: TypeSystem) { }
+  protected constructor(public readonly system: TypeSystem) {}
 
   public get classes(): readonly ClassType[] {
-    return this.types.filter(t => t instanceof ClassType).map(t => t as ClassType);
+    return this.types
+      .filter((t) => t instanceof ClassType)
+      .map((t) => t as ClassType);
   }
 
   public get interfaces(): readonly InterfaceType[] {
-    return this.types.filter(t => t instanceof InterfaceType).map(t => t as InterfaceType);
+    return this.types
+      .filter((t) => t instanceof InterfaceType)
+      .map((t) => t as InterfaceType);
   }
 
   public get enums(): readonly EnumType[] {
-    return this.types.filter(t => t instanceof EnumType).map(t => t as EnumType);
+    return this.types
+      .filter((t) => t instanceof EnumType)
+      .map((t) => t as EnumType);
   }
 
   public tryFindType(fqn: string): Type | undefined {
-    const ownType = this.types.find(type => type.fqn === fqn);
+    const ownType = this.types.find((type) => type.fqn === fqn);
     if (ownType != null) {
       return ownType;
     }
@@ -35,7 +41,7 @@ export abstract class ModuleLike {
     }
 
     const [subName] = fqn.slice(this.fqn.length + 1).split('.');
-    const sub = this.submodules.find(sub => sub.name === subName);
+    const sub = this.submodules.find((sub) => sub.name === subName);
     return sub?.tryFindType(fqn);
   }
 }

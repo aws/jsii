@@ -33,9 +33,9 @@ end of the document, or whenever another `H2` title is reached.
 ### Test Case
 Within a category title, test cases are delimited by `H4` (`#### `) titles,
 which correspond to the test case name. The test case name should be kept
-concise (dieally within 75 characters) and try to be as descriptive as possible.
+concise (ideally within 75 characters) and try to be as descriptive as possible.
 
-Immediately after the `H4` title is an english language description of the test
+Immediately after the `H4` title is an English language description of the test
 case that explains the property the test is designed to validate in as much
 detail as possible. As much as possible, test case descriptions should be
 self-sufficient.
@@ -59,10 +59,10 @@ exchanged between the *host* and `node` processes during the execution of the
 test case, such that implementations can assert coherent behavior.
 
 Initial messages corresponding to the `hello` and `load` calls can be omitted at
-the beginning of the kernel trace. Those messages are typically identicall
-across tests and there is little value in asserting around those. Any `load`
+the beginning of the kernel trace. Those messages are typically identical
+across tests and there is little value in asserting around those. However, any `load`
 call happening after the first call that is neither the `hello` message or
-another `load` call **must** however be included.
+another `load` call **must** be included.
 
 The dialogue is the sequence of JSON formatted messages, from the perspective of
 the *host* app, using the following notation:
@@ -82,7 +82,7 @@ the *host* app, using the following notation:
 * Blank lines can be added to logically group trace elements
 
 > :question: is there a need to support some form of a capture mechanism to
-> provision for non-deterministric results, or non-normative elements such as
+> provision for non-deterministic results, or non-normative elements such as
 > the exact Object IDs issued for created instances?
 
 <details><summary>Show Template</summary>
@@ -136,7 +136,7 @@ following schema:
 interface TestReport {
   /** The report is broken down by test category, using the name as-is */
   [category: string]: {
-    /** For each test in the category, using it's name as-is */
+    /** For each test in the category, using its name as-is */
     [test: string]: {
       /** Whether the test passed or failed */
       status: 'PASS' | 'FAIL';
@@ -507,3 +507,7 @@ for (const item of Object.values(items)) {
 < {"ok":{"result":{"$jsii.map":{"foo":{"$jsii.byref":"Object@10000","$jsii.interfaces":["test.StructType"]}}}}}
 ```
 </details>
+
+--------------------------------------------------------------------------------
+
+Continue to [New Language Intake](./5-new-language-intake.md)

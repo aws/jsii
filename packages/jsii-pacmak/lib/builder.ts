@@ -61,28 +61,32 @@ export class OneByOneBuilder implements TargetBuilder {
     private readonly targetName: string,
     private readonly targetConstructor: TargetConstructor,
     private readonly modules: JsiiModule[],
-    private readonly options: BuildOptions) {
-
-  }
+    private readonly options: BuildOptions,
+  ) {}
 
   public async buildModules(): Promise<void> {
-    const promises = this.modules.map(module => this.options.codeOnly
-      ? this.generateModuleCode(module, this.options)
-      : this.buildModule(module, this.options));
+    const promises = this.modules.map((module) =>
+      this.options.codeOnly
+        ? this.generateModuleCode(module, this.options)
+        : this.buildModule(module, this.options),
+    );
     await Promise.all(promises);
   }
 
   private async generateModuleCode(module: JsiiModule, options: BuildOptions) {
     const outputDir = this.finalOutputDir(module, options);
     logging.debug(`Generating ${this.targetName} code into ${outputDir}`);
-    await this.makeTarget(module, options).generateCode(outputDir, module.tarball);
+    await this.makeTarget(module, options).generateCode(
+      outputDir,
+      module.tarball,
+    );
   }
 
   private async buildModule(module: JsiiModule, options: BuildOptions) {
     const target = this.makeTarget(module, options);
     const outputDir = this.finalOutputDir(module, options);
 
-    const src = await Scratch.make(tmpdir => {
+    const src = await Scratch.make((tmpdir) => {
       logging.debug(`Generating ${this.targetName} code into ${tmpdir}`);
       return target.generateCode(tmpdir, module.tarball);
     });
@@ -90,13 +94,14 @@ export class OneByOneBuilder implements TargetBuilder {
     try {
       logging.debug(`Building ${src.directory} into ${outputDir}`);
       await target.build(src.directory, outputDir);
-
     } finally {
       if (options.clean) {
         logging.debug(`Cleaning ${src.directory}`);
         await src.cleanup();
       } else {
-        logging.info(`Generated code for ${this.targetName} retained at ${src.directory}`);
+        logging.info(
+          `Generated code for ${this.targetName} retained at ${src.directory}`,
+        );
       }
     }
   }

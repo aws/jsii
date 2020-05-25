@@ -1,6 +1,6 @@
 # Introduction
 
-This document provides a high level overview of *jsii*, starting with it's
+This document provides a high level overview of *jsii*, starting with its
 design tenets. It introduces the concepts and components that compose *jsii*.
 
 
@@ -40,9 +40,9 @@ that is proposed:
   followed when introducing changes to the behavior of any component of *jsii*:
   new features, breaking changes to existing features, ...
 - [:mag: Addressing Gaps](#addressing-gaps) is the process used for adding
-  specification around existing but un-specified behavior.
+  specification around existing but unspecified behavior.
 - [:thumbsup: Trivial Changes](#trivial) explains how to propose changes that
-  improve the specification without changing it's meaning.
+  improve the specification without changing its meaning.
 
 #### <a id="new-behavior"/> :warning: Changing Behavior
 
@@ -77,8 +77,8 @@ the proposal (including alternatives considered, risks, ...).
 
 #### <a id="addressing-gaps"/> :mag: Addressing Gaps
 
-Proposal that increase the specification's coverage (desribing behavior that
-already exists) are handled as GitHub pull request that must contain the
+Proposals that increase the specification's coverage (desribing behavior that
+already exists) are handled as GitHub pull requests that must contain the
 following elements:
 
 - Relevant additions to the specification documents
@@ -204,3 +204,7 @@ Several tools are involved in making this possible:
 [`jsii-pacmak`]: ../../../packages/jsii-pacmak
 [`@jsii/kernel`]: ../../../packages/@jsii/kernel
 [`@jsii/runtime`]: ../../../packages/@jsii/runtime
+
+--------------------------------------------------------------------------------
+
+Continue to [Type System](./2-type-system.md)

@@ -234,7 +234,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * A fluent builder for {@link software.amazon.jsii.tests.calculator.Calculator}.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.Calculator> {
         /**
          * EXPERIMENTAL
          * <p>
@@ -288,6 +288,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
          * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.Calculator}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public software.amazon.jsii.tests.calculator.Calculator build() {
             return new software.amazon.jsii.tests.calculator.Calculator(
                 this.props != null ? this.props.build() : null

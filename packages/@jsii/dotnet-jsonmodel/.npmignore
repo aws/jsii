@@ -1,7 +1,0 @@
-# by default, exclude everything
-*
-
-# bundle only...
-!*.nupkg
-!package.json
-!lib/index.js

@@ -65,11 +65,11 @@ export class NameTree {
   }
 
   /**
-     * Adds a type to this ``NameTree``.
-     *
-     * @param type the type to be added.
-     * @param path the path at which to add the node under this tree.
-     */
+   * Adds a type to this ``NameTree``.
+   *
+   * @param type the type to be added.
+   * @param path the path at which to add the node under this tree.
+   */
   private register(fqn: string, path: string[] = fqn.split('.')): this {
     if (path.length === 0) {
       this._fqn = fqn;

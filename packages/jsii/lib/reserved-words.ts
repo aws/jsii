@@ -182,5 +182,5 @@ export const PYTHON_RESERVED = new Set([
   'except',
   'in',
   'raise',
-  'self'
+  'self',
 ]);

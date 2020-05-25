@@ -8,11 +8,7 @@ import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.0.0", "jsii_calc", "jsii-calc@0.0.0.jsii.tgz")
+from .._jsii import *
 
 
 class ClassWithSelf(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.ClassWithSelf"):
@@ -27,7 +23,7 @@ class ClassWithSelf(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.Cla
         stability
         :stability: experimental
         """
-        jsii.create(jsii_calc.PythonSelf.ClassWithSelf, self, [self])
+        jsii.create(ClassWithSelf, self, [self])
 
     @jsii.member(jsii_name="method")
     def method(self_, self: jsii.Number) -> str:
@@ -61,13 +57,13 @@ class ClassWithSelfKwarg(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSel
         stability
         :stability: experimental
         """
-        props = jsii_calc.PythonSelf.StructWithSelf(self=self)
+        props = StructWithSelf(self=self)
 
-        jsii.create(jsii_calc.PythonSelf.ClassWithSelfKwarg, self, [props])
+        jsii.create(ClassWithSelfKwarg, self, [props])
 
     @builtins.property
     @jsii.member(jsii_name="props")
-    def props(self) -> jsii_calc.PythonSelf.StructWithSelf:
+    def props(self) -> "StructWithSelf":
         """
         stability
         :stability: experimental
@@ -115,7 +111,7 @@ class _IInterfaceWithSelfProxy():
 
 @jsii.data_type(jsii_type="jsii-calc.PythonSelf.StructWithSelf", jsii_struct_bases=[], name_mapping={'self': 'self'})
 class StructWithSelf():
-    def __init__(self_, *, self: str):
+    def __init__(self_, *, self: str) -> None:
         """
         :param self: 
 
@@ -144,6 +140,11 @@ class StructWithSelf():
         return 'StructWithSelf(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-__all__ = ["ClassWithSelf", "ClassWithSelfKwarg", "IInterfaceWithSelf", "StructWithSelf", "__jsii_assembly__"]
+__all__ = [
+    "ClassWithSelf",
+    "ClassWithSelfKwarg",
+    "IInterfaceWithSelf",
+    "StructWithSelf",
+]
 
 publication.publish()

@@ -50,7 +50,7 @@ produced each time it is passed through the process boundary.
 
 ### Enum
 As in many languages, `enum` can be used to represent a group of related
-constants. Whle **TypeScript** `enum` entries are associated with a value that
+constants. While **TypeScript** `enum` entries are associated with a value that
 is either a `string` or a `number`, the *jsii* type system does not allow for
 those to be down-casted to their value type (e.g: a `string`-valued `enum` entry
 cannot be directly passed into a `string` parameter).
@@ -89,7 +89,7 @@ consequently considers `null` and `undefined` are semantically equivalent.
 
 ### Object
 **TypeScript**'s `object` type denotes anything that is not a *primitive* type,
-meaning anything other than a `number`, `srting`, `boolean`, `biging`, `symbol`,
+meaning anything other than a `number`, `string`, `boolean`, `bigint`, `symbol`,
 `null` or `undefined`.
 
 In the *jsii* type model, `object` indicates a block of structured data that can
@@ -119,9 +119,9 @@ the *jsii* type model does not support the following **TypeScript** entities:
 
 
 ## Complex Types
-The goal of *jsii* is to enable cross-language re-use of class libraries.
-**TypeScript** enables representing classic object-oriented concepts such as
-*classes*, *interfaces* and such. The *jsii* type system supports some
+The goal of the *jsii* is to enable cross-language re-use of class libraries.
+**TypeScript** enables representing classic object-oriented concepts, such as
+*classes* and *interfaces*. The *jsii* type system supports some
 additional nuances on top of those, to better represent **TypeScript** and
 **JavaScript** idioms in a way that enables generating convenient APIs in other
 languages.
@@ -172,10 +172,10 @@ example, in **Java**, those are returned as `java.lang.Object`).
 
 When used as inputs (parameters, or properties of a *struct*), it may be
 possible to generate method overloads that will allow for a convenient API in
-languages that support overloards.
+languages that support overloads.
 
 In general however, *type unions* are discouraged and should only be used when
-there is no alternate way to model the API.
+there is no alternative way to model the API.
 
 
 ## Serialization Behavior
@@ -275,7 +275,7 @@ element type of the mapping, combined with the dynamic type of the value itself:
 [Reference]: #reference-serialization
 
 Objects serialized by reference are passed using a special object that provides
-sufficient information to tie back to the instance within it's owning process.
+sufficient information to tie back to the instance within its owning process.
 It includes a `$jsii.byref` key associated with a string that uniquely
 identifies the instance, and an optional `$jsii.interfaces` key that provides a
 list of interfaces that the object implements.
@@ -400,3 +400,7 @@ document.
 
 [**JavaScript** Fundamentals]: https://javascript.info/types
 [**TypeScript** Handbook]: https://www.typescriptlang.org/docs/handbook/basic-types.html
+
+--------------------------------------------------------------------------------
+
+Continue to [Kernel API](./3-kernel-api.md)

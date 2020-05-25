@@ -3,7 +3,12 @@ import { Stability } from '@jsii/spec';
 import * as log4js from 'log4js';
 import { compareReferenceType, compareStruct } from './classes-ifaces';
 import { compareEnum } from './enums';
-import { ComparisonContext, ComparisonOptions, describeType, Mismatches } from './types';
+import {
+  ComparisonContext,
+  ComparisonOptions,
+  describeType,
+  Mismatches,
+} from './types';
 
 const LOG = log4js.getLogger('jsii-diff');
 
@@ -15,9 +20,15 @@ const LOG = log4js.getLogger('jsii-diff');
  * item whether it's still available and has the same shape (or
  * bigger) in the new API.
  */
-export function compareAssemblies(original: reflect.Assembly, updated: reflect.Assembly, options: ComparisonOptions = {}): Mismatches {
+export function compareAssemblies(
+  original: reflect.Assembly,
+  updated: reflect.Assembly,
+  options: ComparisonOptions = {},
+): Mismatches {
   const mismatches = new Mismatches({
-    defaultStability: options.defaultExperimental ? Stability.Experimental : Stability.Stable
+    defaultStability: options.defaultExperimental
+      ? Stability.Experimental
+      : Stability.Stable,
   });
 
   const context = { ...options, mismatches };
@@ -29,19 +40,37 @@ export function compareAssemblies(original: reflect.Assembly, updated: reflect.A
   return context.mismatches;
 }
 
-export function compareClasses(original: reflect.Assembly, updated: reflect.Assembly, context: ComparisonContext) {
-  for (const [origClass, updatedClass] of typePairs(original.classes, updated, context)) {
+export function compareClasses(
+  original: reflect.Assembly,
+  updated: reflect.Assembly,
+  context: ComparisonContext,
+) {
+  for (const [origClass, updatedClass] of typePairs(
+    original.classes,
+    updated,
+    context,
+  )) {
     compareReferenceType(origClass, updatedClass, context);
   }
 }
 
-export function compareInterfaces(original: reflect.Assembly, updated: reflect.Assembly, context: ComparisonContext) {
-  for (const [origIface, updatedIface] of typePairs(original.interfaces, updated, context)) {
+export function compareInterfaces(
+  original: reflect.Assembly,
+  updated: reflect.Assembly,
+  context: ComparisonContext,
+) {
+  for (const [origIface, updatedIface] of typePairs(
+    original.interfaces,
+    updated,
+    context,
+  )) {
     if (origIface.datatype !== updatedIface.datatype) {
       context.mismatches.report({
         ruleKey: 'iface-type',
         violator: origIface,
-        message: `used to be a ${interfaceType(origIface.datatype)}, is now a ${interfaceType(updatedIface.datatype)}.`,
+        message: `used to be a ${interfaceType(
+          origIface.datatype,
+        )}, is now a ${interfaceType(updatedIface.datatype)}.`,
       });
       continue;
     }
@@ -53,8 +82,16 @@ export function compareInterfaces(original: reflect.Assembly, updated: reflect.A
   }
 }
 
-export function compareEnums(original: reflect.Assembly, updated: reflect.Assembly, context: ComparisonContext) {
-  for (const [origEnum, updatedEnum] of typePairs(original.enums, updated, context)) {
+export function compareEnums(
+  original: reflect.Assembly,
+  updated: reflect.Assembly,
+  context: ComparisonContext,
+) {
+  for (const [origEnum, updatedEnum] of typePairs(
+    original.enums,
+    updated,
+    context,
+  )) {
     compareEnum(origEnum, updatedEnum, context);
   }
 }
@@ -62,7 +99,7 @@ export function compareEnums(original: reflect.Assembly, updated: reflect.Assemb
 function* typePairs<T extends reflect.Type>(
   xs: readonly T[],
   updatedAssembly: reflect.Assembly,
-  context: ComparisonContext
+  context: ComparisonContext,
 ): IterableIterator<[T, T]> {
   for (const origType of xs) {
     LOG.trace(origType.fqn);
@@ -72,7 +109,7 @@ function* typePairs<T extends reflect.Type>(
       context.mismatches.report({
         ruleKey: 'removed',
         violator: origType,
-        message: 'has been removed'
+        message: 'has been removed',
       });
       continue;
     }
@@ -81,7 +118,7 @@ function* typePairs<T extends reflect.Type>(
       context.mismatches.report({
         ruleKey: 'struct-change',
         violator: origType,
-        message: `has been turned into a ${describeType(updatedType)}`
+        message: `has been turned into a ${describeType(updatedType)}`,
       });
       continue;
     }

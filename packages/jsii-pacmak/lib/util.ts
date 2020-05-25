@@ -3,15 +3,14 @@ import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
 import * as os from 'os';
 import * as path from 'path';
-import * as semver from 'semver';
 import * as logging from './logging';
 
 export interface ShellOptions extends SpawnOptions {
   /**
-     * Retry execution up to 3 times if it fails
-     *
-     * @default false
-     */
+   * Retry execution up to 3 times if it fails
+   *
+   * @default false
+   */
   retry?: boolean;
 }
 
@@ -21,12 +20,21 @@ export interface ShellOptions extends SpawnOptions {
  * @param dependencyName the name of the dependency to be resolved.
  * @return the resolved directory path.
  */
-export function resolveDependencyDirectory(packageDir: string, dependencyName: string): string {
+export function resolveDependencyDirectory(
+  packageDir: string,
+  dependencyName: string,
+): string {
   const lookupPaths = [path.join(packageDir, 'node_modules')];
-  return path.dirname(require.resolve(`${dependencyName}/package.json`, { paths: lookupPaths }));
+  return path.dirname(
+    require.resolve(`${dependencyName}/package.json`, { paths: lookupPaths }),
+  );
 }
 
-export async function shell(cmd: string, args: string[], options: ShellOptions): Promise<string> {
+export async function shell(
+  cmd: string,
+  args: string[],
+  options: ShellOptions,
+): Promise<string> {
   // eslint-disable-next-line @typescript-eslint/require-await
   async function spawn1() {
     logging.debug(cmd, args.join(' '), JSON.stringify(options));
@@ -34,18 +42,18 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
       const child = spawn(cmd, args, {
         ...options,
         shell: true,
-        env: { ...process.env, ...options.env ?? {} },
-        stdio: ['ignore', 'pipe', 'pipe']
+        env: { ...process.env, ...(options.env ?? {}) },
+        stdio: ['ignore', 'pipe', 'pipe'],
       });
       const stdout = new Array<Buffer>();
       const stderr = new Array<Buffer>();
-      child.stdout.on('data', chunk => {
+      child.stdout.on('data', (chunk) => {
         if (logging.level >= logging.LEVEL_VERBOSE) {
           process.stderr.write(chunk); // notice - we emit all build output to stderr
         }
         stdout.push(Buffer.from(chunk));
       });
-      child.stderr.on('data', chunk => {
+      child.stderr.on('data', (chunk) => {
         if (logging.level >= logging.LEVEL_VERBOSE) {
           process.stderr.write(chunk);
         }
@@ -57,10 +65,18 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
       // I/O pipes, which we will miss if we return at that point.
       child.once('close', (code, signal) => {
         const out = Buffer.concat(stdout).toString('utf-8');
-        if (code === 0) { return ok(out); }
+        if (code === 0) {
+          return ok(out);
+        }
         const err = Buffer.concat(stderr).toString('utf-8');
-        if (code != null) { return ko(new Error(`Process exited with status ${code}\n${out}\n${err}`)); }
-        return ko(new Error(`Process terminated by signal ${signal}\n${out}\n${err}`));
+        if (code != null) {
+          return ko(
+            new Error(`Process exited with status ${code}\n${out}\n${err}`),
+          );
+        }
+        return ko(
+          new Error(`Process terminated by signal ${signal}\n${out}\n${err}`),
+        );
       });
     });
   }
@@ -72,7 +88,9 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
     try {
       return spawn1();
     } catch (e) {
-      if (attempts === 0) { throw e; }
+      if (attempts === 0) {
+        throw e;
+      }
       logging.info(`${e.message} (retrying)`);
     }
   }
@@ -90,7 +108,7 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
  */
 export async function loadAssembly(modulePath: string): Promise<spec.Assembly> {
   const assmPath = path.join(modulePath, spec.SPEC_FILE_NAME);
-  if (!await fs.pathExists(assmPath)) {
+  if (!(await fs.pathExists(assmPath))) {
     throw new Error(`Could not find ${assmPath}. Was the module built?`);
   }
   return spec.validateAssembly(await fs.readJson(assmPath));
@@ -107,7 +125,9 @@ export function slugify(x: string) {
  * Class that makes a temporary directory and holds on to an operation object
  */
 export class Scratch<A> {
-  public static async make<A>(factory: (dir: string) => Promise<A>): Promise<Scratch<A>>;
+  public static async make<A>(
+    factory: (dir: string) => Promise<A>,
+  ): Promise<Scratch<A>>;
   public static async make<A>(factory: (dir: string) => A): Promise<Scratch<A>>;
   public static async make<A>(factory: (dir: string) => A | Promise<A>) {
     const tmpdir = await fs.mkdtemp(path.join(os.tmpdir(), 'npm-pack'));
@@ -119,12 +139,14 @@ export class Scratch<A> {
   }
 
   public static async cleanupAll<A>(tempDirs: Array<Scratch<A>>) {
-    await Promise.all(tempDirs
-      .map(t => t.cleanup()));
+    await Promise.all(tempDirs.map((t) => t.cleanup()));
   }
 
-  private constructor(public readonly directory: string, public readonly object: A, private readonly fake: boolean) {
-  }
+  private constructor(
+    public readonly directory: string,
+    public readonly object: A,
+    private readonly fake: boolean,
+  ) {}
 
   public async cleanup() {
     if (!this.fake) {
@@ -133,36 +155,18 @@ export class Scratch<A> {
   }
 }
 
-/**
- * Determines the next major version from a given current version. This honors
- * the specificities of pre-1.0.0 releases, too.
- *
- * @param version the current version from which to bump.
- *
- * @returns the next Major Version string.
- */
-export function nextMajorVersion(version: string): string {
-  const v = semver.parse(version);
-  if (!v) {
-    throw new Error(`Invalid semantic version identifier: ${version}`);
-  }
-  if (v.major !== 0) {
-    return v.inc('major').version;
-  }
-  if (v.minor !== 0) {
-    return v.inc('minor').version;
-  }
-  return v.inc('patch').version;
-}
-
-
 export function setExtend<A>(xs: Set<A>, els: Iterable<A>) {
   for (const el of els) {
     xs.add(el);
   }
 }
 
-export async function filterAsync<A>(xs: A[], pred: (x: A) => Promise<boolean>): Promise<A[]> {
-  const mapped = await Promise.all(xs.map(async x => ({ x, pred: await pred(x) })));
+export async function filterAsync<A>(
+  xs: A[],
+  pred: (x: A) => Promise<boolean>,
+): Promise<A[]> {
+  const mapped = await Promise.all(
+    xs.map(async (x) => ({ x, pred: await pred(x) })),
+  );
   return mapped.filter(({ pred }) => pred).map(({ x }) => x);
 }

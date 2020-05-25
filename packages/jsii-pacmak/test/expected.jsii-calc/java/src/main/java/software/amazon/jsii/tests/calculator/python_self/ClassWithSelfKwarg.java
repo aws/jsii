@@ -39,7 +39,7 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
      * A fluent builder for {@link software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg}.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg> {
         /**
          * EXPERIMENTAL
          * <p>
@@ -72,6 +72,7 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
          * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg build() {
             return new software.amazon.jsii.tests.calculator.python_self.ClassWithSelfKwarg(
                 this.props.build()

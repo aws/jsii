@@ -38,7 +38,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
      * A builder for {@link SecondLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<SecondLevelStruct> {
         private java.lang.String deeperRequiredProp;
         private java.lang.String deeperOptionalProp;
 
@@ -70,6 +70,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public SecondLevelStruct build() {
             return new Jsii$Proxy(deeperRequiredProp, deeperOptionalProp);
         }

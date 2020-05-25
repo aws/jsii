@@ -2,16 +2,30 @@ import * as logging from './logging';
 import * as ts from 'typescript';
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
 import { renderTree, Span, spanContains } from './o-tree';
-import { TypeScriptCompiler, CompilationResult } from './typescript/ts-compiler';
+import {
+  TypeScriptCompiler,
+  CompilationResult,
+} from './typescript/ts-compiler';
 import { TranslatedSnippet } from './tablets/tablets';
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';
 import { calculateVisibleSpans } from './typescript/ast-utils';
 import { File } from './util';
-import { TypeScriptSnippet, completeSource, SnippetParameters } from './snippet';
+import {
+  TypeScriptSnippet,
+  completeSource,
+  SnippetParameters,
+} from './snippet';
 import { snippetKey } from './tablets/key';
 
-export function translateTypeScript(source: File, visitor: AstHandler<any>, options: SnippetTranslatorOptions = {}): TranslateResult {
-  const translator = new SnippetTranslator({ visibleSource: source.contents, where: source.fileName }, options);
+export function translateTypeScript(
+  source: File,
+  visitor: AstHandler<any>,
+  options: SnippetTranslatorOptions = {},
+): TranslateResult {
+  const translator = new SnippetTranslator(
+    { visibleSource: source.contents, where: source.fileName },
+    options,
+  );
   const translated = translator.renderUsing(visitor);
 
   return {
@@ -19,7 +33,6 @@ export function translateTypeScript(source: File, visitor: AstHandler<any>, opti
     diagnostics: translator.diagnostics,
   };
 }
-
 
 /**
  * Translate one or more TypeScript snippets into other languages
@@ -31,13 +44,24 @@ export class Translator {
   private readonly compiler = new TypeScriptCompiler();
   public readonly diagnostics: ts.Diagnostic[] = [];
 
-  public constructor(private readonly includeCompilerDiagnostics: boolean) {
-  }
+  public constructor(private readonly includeCompilerDiagnostics: boolean) {}
 
-  public translate(snip: TypeScriptSnippet, languages = Object.keys(TARGET_LANGUAGES) as TargetLanguage[]) {
-    logging.debug(`Translating ${snippetKey(snip)} ${Object.entries(snip.parameters ?? {})}`);
+  public translate(
+    snip: TypeScriptSnippet,
+    languages = Object.keys(TARGET_LANGUAGES) as TargetLanguage[],
+  ) {
+    logging.debug(
+      `Translating ${snippetKey(snip)} ${Object.entries(
+        snip.parameters ?? {},
+      )}`,
+    );
     const translator = this.translatorFor(snip);
-    const snippet = TranslatedSnippet.fromSnippet(snip, this.includeCompilerDiagnostics ? translator.compileDiagnostics.length === 0 : undefined);
+    const snippet = TranslatedSnippet.fromSnippet(
+      snip,
+      this.includeCompilerDiagnostics
+        ? translator.compileDiagnostics.length === 0
+        : undefined,
+    );
 
     for (const lang of languages) {
       const languageConverterFactory = TARGET_LANGUAGES[lang];
@@ -95,12 +119,20 @@ export class SnippetTranslator {
   private readonly visibleSpans: Span[];
   private readonly compilation!: CompilationResult;
 
-  public constructor(snippet: TypeScriptSnippet, private readonly options: SnippetTranslatorOptions = {}) {
+  public constructor(
+    snippet: TypeScriptSnippet,
+    private readonly options: SnippetTranslatorOptions = {},
+  ) {
     const compiler = options.compiler || new TypeScriptCompiler();
     const source = completeSource(snippet);
 
-    const fakeCurrentDirectory = snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY];
-    this.compilation = compiler.compileInMemory(snippet.where, source, fakeCurrentDirectory);
+    const fakeCurrentDirectory =
+      snippet.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY];
+    this.compilation = compiler.compileInMemory(
+      snippet.where,
+      source,
+      fakeCurrentDirectory,
+    );
 
     // Respect '/// !hide' and '/// !show' directives
     this.visibleSpans = calculateVisibleSpans(source);
@@ -112,15 +144,22 @@ export class SnippetTranslator {
         ...program.getGlobalDiagnostics(),
         ...program.getSyntacticDiagnostics(),
         ...program.getDeclarationDiagnostics(),
-        ...program.getSemanticDiagnostics()
+        ...program.getSemanticDiagnostics(),
       );
     }
   }
 
   public renderUsing(visitor: AstHandler<any>) {
-    const converter = new AstRenderer(this.compilation.rootFile, this.compilation.program.getTypeChecker(), visitor, this.options);
+    const converter = new AstRenderer(
+      this.compilation.rootFile,
+      this.compilation.program.getTypeChecker(),
+      visitor,
+      this.options,
+    );
     const converted = converter.convert(this.compilation.rootFile);
-    this.translateDiagnostics.push(...filterVisibleDiagnostics(converter.diagnostics, this.visibleSpans));
+    this.translateDiagnostics.push(
+      ...filterVisibleDiagnostics(converter.diagnostics, this.visibleSpans),
+    );
     return renderTree(converted, { visibleSpans: this.visibleSpans });
   }
 
@@ -132,6 +171,14 @@ export class SnippetTranslator {
 /**
  * Hide diagnostics that are rosetta-sourced if they are reported against a non-visible span
  */
-function filterVisibleDiagnostics(diags: ts.Diagnostic[], visibleSpans: Span[]): ts.Diagnostic[] {
-  return diags.filter(d => d.source !== 'rosetta' || d.start === undefined || visibleSpans.some(s => spanContains(s, d.start!)));
+function filterVisibleDiagnostics(
+  diags: ts.Diagnostic[],
+  visibleSpans: Span[],
+): ts.Diagnostic[] {
+  return diags.filter(
+    (d) =>
+      d.source !== 'rosetta' ||
+      d.start === undefined ||
+      visibleSpans.some((s) => spanContains(s, d.start!)),
+  );
 }

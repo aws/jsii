@@ -34,7 +34,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      * A builder for {@link NullShouldBeTreatedAsUndefinedData}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<NullShouldBeTreatedAsUndefinedData> {
         private java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
         private java.lang.Object thisShouldBeUndefined;
 
@@ -66,6 +66,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public NullShouldBeTreatedAsUndefinedData build() {
             return new Jsii$Proxy(arrayWithThreeElementsAndUndefinedAsSecondArgument, thisShouldBeUndefined);
         }

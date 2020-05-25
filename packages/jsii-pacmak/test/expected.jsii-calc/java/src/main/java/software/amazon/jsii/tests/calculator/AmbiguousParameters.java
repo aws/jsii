@@ -48,7 +48,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
      * A fluent builder for {@link software.amazon.jsii.tests.calculator.AmbiguousParameters}.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.AmbiguousParameters> {
         /**
          * EXPERIMENTAL
          * <p>
@@ -96,6 +96,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
          * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.AmbiguousParameters}.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public software.amazon.jsii.tests.calculator.AmbiguousParameters build() {
             return new software.amazon.jsii.tests.calculator.AmbiguousParameters(
                 this.scope,

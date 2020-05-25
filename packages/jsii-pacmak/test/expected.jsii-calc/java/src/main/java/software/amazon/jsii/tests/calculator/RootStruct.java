@@ -41,7 +41,7 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link RootStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<RootStruct> {
         private java.lang.String stringProp;
         private software.amazon.jsii.tests.calculator.NestedStruct nestedStruct;
 
@@ -73,6 +73,7 @@ public interface RootStruct extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public RootStruct build() {
             return new Jsii$Proxy(stringProp, nestedStruct);
         }

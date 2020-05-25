@@ -8,11 +8,7 @@ import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.0.0", "jsii_calc", "jsii-calc@0.0.0.jsii.tgz")
+from .._jsii import *
 
 
 class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Base"):
@@ -21,7 +17,7 @@ class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProper
     :stability: experimental
     """
     def __init__(self) -> None:
-        jsii.create(jsii_calc.DerivedClassHasNoProperties.Base, self, [])
+        jsii.create(Base, self, [])
 
     @builtins.property
     @jsii.member(jsii_name="prop")
@@ -33,19 +29,22 @@ class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProper
         return jsii.get(self, "prop")
 
     @prop.setter
-    def prop(self, value: str):
+    def prop(self, value: str) -> None:
         jsii.set(self, "prop", value)
 
 
-class Derived(jsii_calc.DerivedClassHasNoProperties.Base, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Derived"):
+class Derived(Base, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Derived"):
     """
     stability
     :stability: experimental
     """
     def __init__(self) -> None:
-        jsii.create(jsii_calc.DerivedClassHasNoProperties.Derived, self, [])
+        jsii.create(Derived, self, [])
 
 
-__all__ = ["Base", "Derived", "__jsii_assembly__"]
+__all__ = [
+    "Base",
+    "Derived",
+]
 
 publication.publish()
