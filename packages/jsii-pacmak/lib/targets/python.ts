@@ -504,6 +504,7 @@ abstract class BaseMethod implements PythonBase {
       renderAbstract,
       forceEmitBody,
       liftedPropNames,
+      pythonParams[0],
     );
     code.closeBlock();
   }
@@ -514,6 +515,7 @@ abstract class BaseMethod implements PythonBase {
     renderAbstract: boolean,
     forceEmitBody: boolean,
     liftedPropNames: Set<string>,
+    implicitParameter: string,
   ) {
     if (
       (!this.shouldEmitBody && !forceEmitBody) ||
@@ -525,7 +527,7 @@ abstract class BaseMethod implements PythonBase {
         this.emitAutoProps(code, context, liftedPropNames);
       }
 
-      this.emitJsiiMethodCall(code, context, liftedPropNames);
+      this.emitJsiiMethodCall(code, context, liftedPropNames, implicitParameter);
     }
   }
 
@@ -558,6 +560,7 @@ abstract class BaseMethod implements PythonBase {
     code: CodeMaker,
     context: EmitContext,
     liftedPropNames: Set<string>,
+    implicitParameter: string,
   ) {
     const methodPrefix: string = this.returnFromJSIIMethod ? 'return ' : '';
 
@@ -573,7 +576,7 @@ abstract class BaseMethod implements PythonBase {
         }),
       );
     }
-    jsiiMethodParams.push(this.implicitParameter);
+    jsiiMethodParams.push(implicitParameter);
     if (this.jsName !== undefined) {
       jsiiMethodParams.push(`"${this.jsName}"`);
     }

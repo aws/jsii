@@ -73,6 +73,10 @@ from jsii_calc import (
     AnonymousImplementationProvider,
     UpcasingReflectable,
 )
+from jsii_calc.python_self import (
+    ClassWithSelf,
+    ClassWithSelfKwarg,
+)
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 from scope.jsii_calc_lib.submodule import IReflectable, ReflectableEntry
 
@@ -1182,3 +1186,13 @@ def test_load_submodules():
     from jsii_calc.submodule import nested_submodule
     import jsii_calc.submodule
 
+
+def test_parameter_named_self_ClassWithSelf():
+    subject = ClassWithSelf('Howdy!')
+    assert subject.self == 'Howdy!'
+    assert subject.method(1337) == '1337'
+
+
+def test_parameter_named_self_ClassWithSelfKwarg():
+    subject = ClassWithSelfKwarg(self='Howdy!')
+    assert subject.props.self == 'Howdy!'

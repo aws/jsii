@@ -23,7 +23,7 @@ class ClassWithSelf(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.Cla
         stability
         :stability: experimental
         """
-        jsii.create(ClassWithSelf, self, [self])
+        jsii.create(ClassWithSelf, self_, [self])
 
     @jsii.member(jsii_name="method")
     def method(self_, self: jsii.Number) -> str:
@@ -33,7 +33,7 @@ class ClassWithSelf(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.Cla
         stability
         :stability: experimental
         """
-        return jsii.invoke(self, "method", [self])
+        return jsii.invoke(self_, "method", [self])
 
     @builtins.property
     @jsii.member(jsii_name="self")
@@ -59,7 +59,7 @@ class ClassWithSelfKwarg(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSel
         """
         props = StructWithSelf(self=self)
 
-        jsii.create(ClassWithSelfKwarg, self, [props])
+        jsii.create(ClassWithSelfKwarg, self_, [props])
 
     @builtins.property
     @jsii.member(jsii_name="props")
@@ -106,7 +106,7 @@ class _IInterfaceWithSelfProxy():
         stability
         :stability: experimental
         """
-        return jsii.invoke(self, "method", [self])
+        return jsii.invoke(self_, "method", [self])
 
 
 @jsii.data_type(jsii_type="jsii-calc.PythonSelf.StructWithSelf", jsii_struct_bases=[], name_mapping={'self': 'self'})
