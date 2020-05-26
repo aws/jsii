@@ -4,8 +4,9 @@ import { CodeMaker } from '../lib';
 
 test('cannot write before opening a file', () => {
   const sources = new CodeMaker();
-  expect(() => sources.line('Nope!'))
-    .toThrow(/Cannot emit source lines without openning a file/);
+  expect(() => sources.line('Nope!')).toThrow(
+    /Cannot emit source lines without openning a file/,
+  );
 });
 
 test('source files', async () => {
@@ -21,14 +22,15 @@ test('source files', async () => {
   sources.close(']');
   sources.closeFile('myfile.js');
 
-  const yourfileRelativePath = './relative/subdirs/are/also/supported/yourfile.js';
+  const yourfileRelativePath =
+    './relative/subdirs/are/also/supported/yourfile.js';
   sources.openFile(yourfileRelativePath);
   sources.line('this is your file speaking');
 
   // change indentation and block chars
   sources.indentation = 10;
-  sources.openBlockFormatter = s => `(--- ${s} ---`;
-  sources.closeBlockFormatter = s => `--- ${s} ---)`;
+  sources.openBlockFormatter = (s) => `(--- ${s} ---`;
+  sources.closeBlockFormatter = (s) => `--- ${s} ---)`;
 
   sources.openBlock('block1');
   sources.line('block1.line1');
@@ -79,7 +81,7 @@ test('close file mismatch', () => {
 test('custom multi-line block', async () => {
   const maker = new CodeMaker();
 
-  maker.openBlock = s => {
+  maker.openBlock = (s) => {
     maker.line(s);
     maker.open('{');
   };

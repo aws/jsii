@@ -4,7 +4,11 @@ import { ClassType } from './class';
 import { Docs, Documentable } from './docs';
 import { EnumType } from './enum';
 import { InterfaceType } from './interface';
-import { locationInRepository, SourceLocatable, SourceLocation } from './source';
+import {
+  locationInRepository,
+  SourceLocatable,
+  SourceLocation,
+} from './source';
 import { TypeSystem } from './type-system';
 import { TypeReference } from './type-ref';
 
@@ -12,7 +16,8 @@ export abstract class Type implements Documentable, SourceLocatable {
   public constructor(
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
-    public readonly spec: jsii.Type) { }
+    public readonly spec: jsii.Type,
+  ) {}
 
   public toString(): string {
     return `${this.kind} ${this.fqn}`;
@@ -98,11 +103,14 @@ export abstract class Type implements Documentable, SourceLocatable {
     if (this === base) {
       return true;
     }
-    if ((this.isInterfaceType() || this.isClassType()) && base.isInterfaceType()) {
-      return this.getInterfaces(true).some(iface => iface === base);
+    if (
+      (this.isInterfaceType() || this.isClassType()) &&
+      base.isInterfaceType()
+    ) {
+      return this.getInterfaces(true).some((iface) => iface === base);
     }
     if (this.isClassType() && base.isClassType()) {
-      return this.getAncestors().some(clazz => clazz === base);
+      return this.getAncestors().some((clazz) => clazz === base);
     }
     return false;
   }
@@ -120,8 +128,8 @@ export abstract class Type implements Documentable, SourceLocatable {
   public get allImplementations(): Type[] {
     if (this.isClassType() || this.isInterfaceType()) {
       return [
-        ...this.system.classes.filter(c => c.extends(this)),
-        ...this.system.interfaces.filter(i => i.extends(this)),
+        ...this.system.classes.filter((c) => c.extends(this)),
+        ...this.system.interfaces.filter((i) => i.extends(this)),
       ];
     }
     return [];

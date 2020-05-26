@@ -10,7 +10,7 @@ export class Package {
     this.packageName = this.assembly.name
       .replace('@', '')
       .replace(/\//g, '.')
-      .replace(/[^a-z0-9_.]/ig, '_');
+      .replace(/[^a-z0-9_.]/gi, '_');
   }
 
   public emit({ code }: EmitContext): void {

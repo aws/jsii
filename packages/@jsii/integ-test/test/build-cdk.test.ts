@@ -1,16 +1,21 @@
 import { Octokit } from '@octokit/rest';
 import * as dotenv from 'dotenv';
-import { readdir, mkdtemp, remove } from 'fs-extra';
+import { mkdtemp, readdir, remove } from 'fs-extra';
+import { tmpdir } from 'os';
 import * as path from 'path';
-import { downloadReleaseAsset, minutes, ProcessManager, extractFileStream } from '../utils';
+import {
+  downloadReleaseAsset,
+  minutes,
+  ProcessManager,
+  extractFileStream,
+} from '../utils';
 
 dotenv.config();
-const JSII_DIR = path.dirname(require.resolve('jsii/package.json'));
-const JSII_PACMAK_DIR = path.dirname(require.resolve('jsii-pacmak/package.json'));
-const JSII_ROSETTA_DIR = path.dirname(require.resolve('jsii-rosetta/package.json'));
+const JSII_CMD = require.resolve('jsii/bin/jsii');
+const JSII_PACMAK_CMD = require.resolve('jsii-pacmak/bin/jsii-pacmak');
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN
+  auth: process.env.GITHUB_TOKEN,
 });
 
 describe('Build CDK', () => {
@@ -19,7 +24,7 @@ describe('Build CDK', () => {
 
   beforeAll(async () => {
     processes = new ProcessManager();
-    buildDir = await mkdtemp(path.join(__dirname, 'build'));
+    buildDir = await mkdtemp(path.resolve(tmpdir(), 'jsii-integ-test-'));
   });
 
   afterAll(async () => {
@@ -27,50 +32,93 @@ describe('Build CDK', () => {
     await remove(buildDir);
   });
 
-  test('can build latest cdk release', async () => {
-    // download latest release info
-    const release = await octokit.repos.getLatestRelease({
-      owner: 'aws',
-      repo: 'aws-cdk'
-    });
+  test(
+    'can build latest cdk release',
+    async () => {
+      // download latest release info
+      const release = await octokit.repos.getLatestRelease({
+        owner: 'aws',
+        repo: 'aws-cdk',
+      });
 
-    // download and extract code
-    const code = await downloadReleaseAsset(`https://api.github.com/repos/aws/aws-cdk/tarball/${release.data.tag_name}`);
-    const srcDir = path.join(buildDir, `aws-aws-cdk-${release.data.target_commitish.substring(0, 7)}`);
-    await extractFileStream(code, buildDir);
+      // download and extract code
+      const code = await downloadReleaseAsset(
+        `https://api.github.com/repos/aws/aws-cdk/tarball/${release.data.tag_name}`,
+      );
+      const srcDir = path.join(
+        buildDir,
+        `aws-aws-cdk-${release.data.target_commitish.substring(0, 7)}`,
+      );
+      await extractFileStream(code, buildDir);
 
-    // install cdk dependencies
-    await processes.spawn('yarn', ['install', '--frozen-lockfile'], {
-      cwd: srcDir
-    });
+      // Make it a git repository, with a phony HEAD commit (parts of the build script wants a commit ID)
+      await processes.spawn('git', ['init'], { cwd: srcDir });
+      await processes.spawn(
+        'git',
+        [
+          'commit',
+          '--allow-empty',
+          '--no-gpg-sign',
+          '-m',
+          'Phony initial commit',
+        ],
+        {
+          cwd: srcDir,
+          env: {
+            ...process.env,
+            // Provide those so Git doesn't risk failing because it doesn't know what to use instead...
+            GIT_AUTHOR_NAME: 'jsii-integ-test',
+            GIT_AUTHOR_EMAIL: 'jsii-integ-test@localhost',
+            GIT_COMMITTER_NAME: 'jsii-integ-test',
+            GIT_COMMITTER_EMAIL: 'jsii-integ-test@localhost',
+          },
+        },
+      );
 
-    // install local version of jsii
-    await processes.spawn('yarn', ['workspace', 'cdk-build-tools', 'add', JSII_DIR, JSII_PACMAK_DIR], {
-      cwd: srcDir
-    });
-    await processes.spawn('yarn', ['add', '-W', JSII_DIR, JSII_ROSETTA_DIR, JSII_PACMAK_DIR], {
-      cwd: srcDir
-    });
+      // install cdk dependencies
+      await processes.spawn(
+        'yarn',
+        ['install', '--frozen-lockfile', '--non-interactive'],
+        {
+          cwd: srcDir,
+        },
+      );
 
-    // align versions for packaging
-    await processes.spawn('./scripts/align-version.sh', [], {
-      cwd: srcDir
-    });
+      // align versions for packaging
+      await processes.spawn('./scripts/align-version.sh', [], {
+        cwd: srcDir,
+      });
 
-    // build cdk modules
-    await processes.spawn('npx', ['lerna', 'run', 'build'], {
-      cwd: srcDir
-    });
+      // build cdk modules
+      await processes.spawn(
+        path.join(srcDir, 'node_modules', '.bin', 'lerna'),
+        ['run', 'build', '--stream'],
+        {
+          cwd: srcDir,
+          env: {
+            ...process.env,
+            CDK_BUILD_JSII: JSII_CMD,
+          },
+        },
+      );
 
-    // package modules with pacmak
-    await processes.spawn('yarn', ['run', 'pack'], {
-      cwd: srcDir
-    });
+      // package modules with pacmak
+      await processes.spawn('yarn', ['run', 'pack'], {
+        cwd: srcDir,
+        env: {
+          ...process.env,
+          CDK_PACKAGE_JSII_PACMAK: JSII_PACMAK_CMD,
+        },
+      });
 
-    // assert against cdk dist dir
-    await Promise.all(['js', 'dotnet', 'python', 'java'].map(async (distDir) => {
-      const items = await readdir(path.join(srcDir, 'dist', distDir));
-      expect(items.length).toBeGreaterThanOrEqual(1);
-    }));
-  }, minutes(60));
+      // assert against cdk dist dir
+      await Promise.all(
+        ['js', 'dotnet', 'python', 'java'].map(async (distDir) => {
+          const items = await readdir(path.join(srcDir, 'dist', distDir));
+          expect(items.length).toBeGreaterThanOrEqual(1);
+        }),
+      );
+    },
+    minutes(60),
+  );
 });

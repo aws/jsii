@@ -12,20 +12,25 @@ export interface TranslateMarkdownOptions extends AstRendererOptions {
   languageIdentifier?: string;
 }
 
-
-export function translateMarkdown(markdown: File, visitor: AstHandler<any>, options: TranslateMarkdownOptions = {}): TranslateResult {
+export function translateMarkdown(
+  markdown: File,
+  visitor: AstHandler<any>,
+  options: TranslateMarkdownOptions = {},
+): TranslateResult {
   const translator = new Translator(false);
 
   const translatedMarkdown = transformMarkdown(
     markdown.contents,
     new MarkdownRenderer(),
-    new ReplaceTypeScriptTransform(markdown.fileName, tsSnippet => {
-      const translated = translator.translatorFor(tsSnippet).renderUsing(visitor);
+    new ReplaceTypeScriptTransform(markdown.fileName, (tsSnippet) => {
+      const translated = translator
+        .translatorFor(tsSnippet)
+        .renderUsing(visitor);
       return {
         language: options.languageIdentifier ?? '',
         source: translated,
       };
-    })
+    }),
   );
 
   return {
@@ -33,4 +38,3 @@ export function translateMarkdown(markdown: File, visitor: AstHandler<any>, opti
     diagnostics: translator.diagnostics,
   };
 }
-

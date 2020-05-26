@@ -11,7 +11,7 @@ interface PromptAnswers extends PackageJson {
 function getPassThroughValues(current: BasePackageJson): object {
   const metadata = getNestedValue(['jsii', 'metadata'], current);
   return {
-    ...metadata ? { metadata } : {}
+    ...(metadata ? { metadata } : {}),
   };
 }
 
@@ -20,21 +20,29 @@ function getPassThroughValues(current: BasePackageJson): object {
  *
  * Uses any values already present as defaults for the prompt
  */
-export default async function getAnswers(current: BasePackageJson): Promise<PackageJson> {
-  const answers = await inquirer.prompt(getQuestions(current)) as PromptAnswers;
+export default async function getAnswers(
+  current: BasePackageJson,
+): Promise<PackageJson> {
+  const answers = (await inquirer.prompt(
+    getQuestions(current),
+  )) as PromptAnswers;
   const { jsiiTargets: _, ...config } = removeEmptyValues(answers);
   const confirmInput = await inquirer.prompt({
     type: 'confirm',
-    message: `Confirm Jsii Config\n${JSON.stringify(config, null, 2)}\nSelect no to revise`,
-    name: 'confirm'
+    message: `Confirm Jsii Config\n${JSON.stringify(
+      config,
+      null,
+      2,
+    )}\nSelect no to revise`,
+    name: 'confirm',
   });
 
   const newConfig = {
     ...config,
     jsii: {
       ...config.jsii,
-      ...getPassThroughValues(current)
-    }
+      ...getPassThroughValues(current),
+    },
   };
 
   if (confirmInput.confirm) {

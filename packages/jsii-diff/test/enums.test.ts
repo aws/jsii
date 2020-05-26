@@ -7,19 +7,21 @@ import { expectError, expectNoError } from './util';
 jest.setTimeout(15_000);
 
 test('okay to add a member to an enum', () =>
-  expectNoError(`
+  expectNoError(
+    `
     export enum Foo {
       BAR,
       BAZ,
     }
-  `, `
+  `,
+    `
     export enum Foo {
       BAR,
       BAZ,
       QUUX
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -32,13 +34,14 @@ test('not okay to remove a member from an enum', () =>
       BAZ,
       QUUX
     }
-  `, `
+  `,
+    `
     export enum Foo {
       BAR,
       BAZ
     }
-  `)
-);
+  `,
+  ));
 
 // ----------------------------------------------------------------------
 
@@ -51,6 +54,7 @@ test('does not crash when removing enum', () =>
       BAZ,
       QUUX
     }
-  `, `
-  `)
-);
+  `,
+    `
+  `,
+  ));

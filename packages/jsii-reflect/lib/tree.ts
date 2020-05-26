@@ -70,7 +70,7 @@ export interface TypeSystemTreeOptions {
  * Visualizes a `TypeSystem` as an ASCII tree.
  */
 export class TypeSystemTree extends AsciiTree {
-  public constructor(typesys: TypeSystem, options: TypeSystemTreeOptions = { }) {
+  public constructor(typesys: TypeSystem, options: TypeSystemTreeOptions = {}) {
     super();
 
     if (options.showAll) {
@@ -81,11 +81,14 @@ export class TypeSystemTree extends AsciiTree {
       options.types = true;
     }
 
-    const shouldUseColors = options.colors === undefined ? true : options.colors;
+    const shouldUseColors =
+      options.colors === undefined ? true : options.colors;
     withColors(shouldUseColors, () => {
       if (typesys.assemblies.length > 0) {
         const assemblies = new TitleNode('assemblies');
-        assemblies.add(...typesys.assemblies.map(a => new AssemblyNode(a, options)));
+        assemblies.add(
+          ...typesys.assemblies.map((a) => new AssemblyNode(a, options)),
+        );
         this.add(assemblies);
       }
     });
@@ -99,22 +102,26 @@ class AssemblyNode extends AsciiTree {
     if (options.dependencies && assembly.dependencies.length > 0) {
       const deps = new TitleNode('dependencies');
       this.add(deps);
-      deps.add(...assembly.dependencies.map(d => new DependencyNode(d, options)));
+      deps.add(
+        ...assembly.dependencies.map((d) => new DependencyNode(d, options)),
+      );
     }
 
     const submodules = assembly.submodules;
     if (submodules.length > 0) {
       const title = new TitleNode('submodules');
       this.add(title);
-      title.add(...submodules.map(s => new SubmoduleNode(s, options)));
+      title.add(...submodules.map((s) => new SubmoduleNode(s, options)));
     }
 
     if (options.types) {
       const types = new TitleNode('types');
       this.add(types);
-      types.add(...assembly.classes.map(c => new ClassNode(c, options)));
-      types.add(...assembly.interfaces.map(c => new InterfaceNode(c, options)));
-      types.add(...assembly.enums.map(c => new EnumNode(c, options)));
+      types.add(...assembly.classes.map((c) => new ClassNode(c, options)));
+      types.add(
+        ...assembly.interfaces.map((c) => new InterfaceNode(c, options)),
+      );
+      types.add(...assembly.enums.map((c) => new EnumNode(c, options)));
     }
   }
 }
@@ -127,23 +134,29 @@ class SubmoduleNode extends AsciiTree {
     if (submodules.length > 0) {
       const title = new TitleNode('submodules');
       this.add(title);
-      title.add(...submodules.map(s => new SubmoduleNode(s, options)));
+      title.add(...submodules.map((s) => new SubmoduleNode(s, options)));
     }
 
     if (options.types) {
       const types = new TitleNode('types');
       this.add(types);
-      types.add(...submodule.classes.map(c => new ClassNode(c, options)));
-      types.add(...submodule.interfaces.map(i => new InterfaceNode(i, options)));
-      types.add(...submodule.enums.map(e => new EnumNode(e, options)));
+      types.add(...submodule.classes.map((c) => new ClassNode(c, options)));
+      types.add(
+        ...submodule.interfaces.map((i) => new InterfaceNode(i, options)),
+      );
+      types.add(...submodule.enums.map((e) => new EnumNode(e, options)));
     }
   }
 }
 
 class MethodNode extends AsciiTree {
   public constructor(method: Method, options: TypeSystemTreeOptions) {
-    const args = method.parameters.map(p => p.name).join(',');
-    super(`${maybeStatic(method)}${method.name}(${args}) ${colors.gray('method')}${describeStability(method, options)}`);
+    const args = method.parameters.map((p) => p.name).join(',');
+    super(
+      `${maybeStatic(method)}${method.name}(${args}) ${colors.gray(
+        'method',
+      )}${describeStability(method, options)}`,
+    );
 
     if (options.signatures) {
       if (method.abstract) {
@@ -165,18 +178,28 @@ class MethodNode extends AsciiTree {
       if (method.parameters.length > 0) {
         const params = new TitleNode('parameters');
         this.add(params);
-        params.add(...method.parameters.map(p => new ParameterNode(p, options)));
+        params.add(
+          ...method.parameters.map((p) => new ParameterNode(p, options)),
+        );
       }
 
-      this.add(new OptionalValueNode('returns', method.returns, { asPromise: method.async }));
+      this.add(
+        new OptionalValueNode('returns', method.returns, {
+          asPromise: method.async,
+        }),
+      );
     }
   }
 }
 
 class InitializerNode extends AsciiTree {
   public constructor(initializer: Initializer, options: TypeSystemTreeOptions) {
-    const args = initializer.parameters.map(p => p.name).join(',');
-    super(`${initializer.name}(${args}) ${colors.gray('initializer')}${describeStability(initializer, options)}`);
+    const args = initializer.parameters.map((p) => p.name).join(',');
+    super(
+      `${initializer.name}(${args}) ${colors.gray(
+        'initializer',
+      )}${describeStability(initializer, options)}`,
+    );
 
     if (options.signatures) {
       if (initializer.protected) {
@@ -190,7 +213,9 @@ class InitializerNode extends AsciiTree {
       if (initializer.parameters.length > 0) {
         const params = new TitleNode('parameters');
         this.add(params);
-        params.add(...initializer.parameters.map(p => new ParameterNode(p, options)));
+        params.add(
+          ...initializer.parameters.map((p) => new ParameterNode(p, options)),
+        );
       }
     }
   }
@@ -209,7 +234,11 @@ class ParameterNode extends AsciiTree {
 
 class PropertyNode extends AsciiTree {
   public constructor(property: Property, options: TypeSystemTreeOptions) {
-    super(`${maybeStatic(property)}${property.name} ${colors.gray('property')}${describeStability(property, options)}`);
+    super(
+      `${maybeStatic(property)}${property.name} ${colors.gray(
+        'property',
+      )}${describeStability(property, options)}`,
+    );
 
     if (options.signatures) {
       if (property.abstract) {
@@ -238,7 +267,11 @@ class PropertyNode extends AsciiTree {
 }
 
 class OptionalValueNode extends AsciiTree {
-  public constructor(name: string, optionalValue: OptionalValue, { asPromise } = { asPromise: false }) {
+  public constructor(
+    name: string,
+    optionalValue: OptionalValue,
+    { asPromise } = { asPromise: false },
+  ) {
     let type = OptionalValue.describe(optionalValue);
     if (asPromise) {
       type = `Promise<${type}>`;
@@ -249,14 +282,24 @@ class OptionalValueNode extends AsciiTree {
 
 class ClassNode extends AsciiTree {
   public constructor(type: ClassType, options: TypeSystemTreeOptions) {
-    super(`${colors.gray('class')} ${colors.cyan(type.name)}${describeStability(type, options)}`);
+    super(
+      `${colors.gray('class')} ${colors.cyan(type.name)}${describeStability(
+        type,
+        options,
+      )}`,
+    );
 
     if (options.inheritance && type.base) {
       this.add(new KeyValueNode('base', type.base.name));
     }
 
     if (options.inheritance && type.interfaces.length > 0) {
-      this.add(new KeyValueNode('interfaces', type.interfaces.map(i => i.name).join(',')));
+      this.add(
+        new KeyValueNode(
+          'interfaces',
+          type.interfaces.map((i) => i.name).join(','),
+        ),
+      );
     }
 
     if (options.members) {
@@ -265,26 +308,35 @@ class ClassNode extends AsciiTree {
       if (type.initializer) {
         members.add(new InitializerNode(type.initializer, options));
       }
-      members.add(...type.ownMethods.map(m => new MethodNode(m, options)));
-      members.add(...type.ownProperties.map(p => new PropertyNode(p, options)));
+      members.add(...type.ownMethods.map((m) => new MethodNode(m, options)));
+      members.add(
+        ...type.ownProperties.map((p) => new PropertyNode(p, options)),
+      );
     }
   }
 }
 
 class InterfaceNode extends AsciiTree {
   public constructor(type: InterfaceType, options: TypeSystemTreeOptions) {
-    super(`${colors.gray('interface')} ${colors.cyan(type.name)}${describeStability(type, options)}`);
+    super(
+      `${colors.gray('interface')} ${colors.cyan(type.name)}${describeStability(
+        type,
+        options,
+      )}`,
+    );
 
     if (options.inheritance && type.interfaces.length > 0) {
       const interfaces = new TitleNode('interfaces');
       this.add(interfaces);
-      interfaces.add(...type.interfaces.map(i => new TextNode(i.name)));
+      interfaces.add(...type.interfaces.map((i) => new TextNode(i.name)));
     }
 
     if (options.members) {
       const members = new TitleNode('members');
-      members.add(...type.ownMethods.map(m => new MethodNode(m, options)));
-      members.add(...type.ownProperties.map(p => new PropertyNode(p, options)));
+      members.add(...type.ownMethods.map((m) => new MethodNode(m, options)));
+      members.add(
+        ...type.ownProperties.map((p) => new PropertyNode(p, options)),
+      );
       this.add(members);
     }
   }
@@ -292,10 +344,15 @@ class InterfaceNode extends AsciiTree {
 
 class EnumNode extends AsciiTree {
   public constructor(enumType: EnumType, options: TypeSystemTreeOptions) {
-    super(`${colors.gray('enum')} ${colors.cyan(enumType.name)}${describeStability(enumType, options)}`);
+    super(
+      `${colors.gray('enum')} ${colors.cyan(enumType.name)}${describeStability(
+        enumType,
+        options,
+      )}`,
+    );
 
     if (options.members) {
-      enumType.members.forEach(mem => {
+      enumType.members.forEach((mem) => {
         this.add(new AsciiTree(mem.name + describeStability(mem, options)));
       });
     }
@@ -320,9 +377,7 @@ class KeyValueNode extends AsciiTree {
   }
 }
 
-class TextNode extends AsciiTree {
-
-}
+class TextNode extends AsciiTree {}
 
 class FlagNode extends AsciiTree {
   public constructor(flag: string) {
@@ -352,13 +407,21 @@ function withColors(enabled: boolean, block: () => void) {
   }
 }
 
-function describeStability(thing: Documentable, options: TypeSystemTreeOptions) {
-  if (!options.stabilities) { return ''; }
+function describeStability(
+  thing: Documentable,
+  options: TypeSystemTreeOptions,
+) {
+  if (!options.stabilities) {
+    return '';
+  }
 
   switch (thing.docs.stability) {
-    case Stability.Stable: return ` (${colors.green('stable')})`;
-    case Stability.Experimental: return ` (${colors.yellow('experimental')})`;
-    case Stability.Deprecated: return ` (${colors.red('deprecated')})`;
+    case Stability.Stable:
+      return ` (${colors.green('stable')})`;
+    case Stability.Experimental:
+      return ` (${colors.yellow('experimental')})`;
+    case Stability.Deprecated:
+      return ` (${colors.red('deprecated')})`;
   }
 
   return '';
@@ -366,8 +429,12 @@ function describeStability(thing: Documentable, options: TypeSystemTreeOptions) 
 
 function maybeStatic(mem: Property | Method) {
   let isStatic;
-  if (mem instanceof Property) { isStatic = !!mem.static; }
-  if (mem instanceof Method) { isStatic = !!mem.static; }
+  if (mem instanceof Property) {
+    isStatic = !!mem.static;
+  }
+  if (mem instanceof Method) {
+    isStatic = !!mem.static;
+  }
 
   return isStatic ? `${colors.grey('static')} ` : '';
 }

@@ -1,9 +1,13 @@
 import {
   Assembly,
-  OptionalValue, TypeReference,
-  isCollectionTypeReference, CollectionKind,
+  OptionalValue,
+  TypeReference,
+  isCollectionTypeReference,
+  CollectionKind,
   isNamedTypeReference,
-  isPrimitiveTypeReference, PrimitiveType, PrimitiveTypeReference,
+  isPrimitiveTypeReference,
+  PrimitiveType,
+  PrimitiveTypeReference,
   isUnionTypeReference,
   Type,
 } from '@jsii/spec';
@@ -85,7 +89,9 @@ export function toTypeName(ref?: OptionalValue | TypeReference): TypeName {
   return optional ? new Optional(result) : result;
 }
 
-export function mergePythonImports(...pythonImports: readonly PythonImports[]): PythonImports {
+export function mergePythonImports(
+  ...pythonImports: readonly PythonImports[]
+): PythonImports {
   const result: Record<string, Set<string>> = {};
   for (const bag of pythonImports) {
     for (const [packageName, items] of Object.entries(bag)) {
@@ -100,8 +106,10 @@ export function mergePythonImports(...pythonImports: readonly PythonImports[]): 
   return result;
 }
 
-function isOptionalValue(type: OptionalValue | TypeReference): type is OptionalValue {
-  return (type as unknown as OptionalValue).type != null;
+function isOptionalValue(
+  type: OptionalValue | TypeReference,
+): type is OptionalValue {
+  return ((type as unknown) as OptionalValue).type != null;
 }
 
 class Dict implements TypeName {
@@ -147,7 +155,10 @@ class Optional implements TypeName {
   }
 
   public pythonType(context: NamingContext) {
-    const optionalType = this.#wrapped.pythonType({ ...context, ignoreOptional: true });
+    const optionalType = this.#wrapped.pythonType({
+      ...context,
+      ignoreOptional: true,
+    });
     if (context.ignoreOptional || this.#wrapped === Primitive.ANY) {
       return optionalType;
     }
@@ -164,7 +175,9 @@ class Primitive implements TypeName {
   private static readonly DATE = new Primitive('datetime.datetime');
   private static readonly JSII_NUMBER = new Primitive('jsii.Number'); // "jsii" is always already imported!
   private static readonly STR = new Primitive('str');
-  private static readonly JSON = new Primitive('typing.Mapping[typing.Any, typing.Any]');
+  private static readonly JSON = new Primitive(
+    'typing.Mapping[typing.Any, typing.Any]',
+  );
 
   public static readonly ANY = new Primitive('typing.Any');
   public static readonly NONE = new Primitive('None');
@@ -212,12 +225,14 @@ class Union implements TypeName {
   }
 
   public pythonType(context: NamingContext) {
-    return `typing.Union[${this.#options.map(o => o.pythonType(context)).join(', ')}]`;
+    return `typing.Union[${this.#options
+      .map((o) => o.pythonType(context))
+      .join(', ')}]`;
   }
 
   public requiredImports(context: NamingContext) {
     return mergePythonImports(
-      ...this.#options.map(o => o.requiredImports(context)),
+      ...this.#options.map((o) => o.requiredImports(context)),
     );
   }
 }
@@ -242,8 +257,16 @@ class UserType implements TypeName {
     return { [requiredImport.sourcePackage]: new Set([requiredImport.item]) };
   }
 
-  private resolve({ assembly, submodule, nestingScope, typeAnnotation = true }: NamingContext) {
-    const { assemblyName, packageName, pythonFqn } = toPythonFqn(this.#fqn, assembly);
+  private resolve({
+    assembly,
+    submodule,
+    nestingScope,
+    typeAnnotation = true,
+  }: NamingContext) {
+    const { assemblyName, packageName, pythonFqn } = toPythonFqn(
+      this.#fqn,
+      assembly,
+    );
     if (assemblyName !== assembly.name) {
       return {
         pythonType: pythonFqn,
@@ -255,22 +278,29 @@ class UserType implements TypeName {
     }
 
     const submodulePythonName = toPythonFqn(submodule, assembly).pythonFqn;
-    const typeSubmodulePythonName = toPythonFqn(findParentSubmodule(assembly.types![this.#fqn], assembly), assembly).pythonFqn;
+    const typeSubmodulePythonName = toPythonFqn(
+      findParentSubmodule(assembly.types![this.#fqn], assembly),
+      assembly,
+    ).pythonFqn;
 
     if (typeSubmodulePythonName === submodulePythonName) {
       // Submodule-local type, so we'll just drop the submodule name prefix here, unless we are
       // referencing a type within the current nesting context, where we'll want to make a context
       // local reference by dropping the nesting type's name prefix.
-      const nestingParent = nestingScope && toPythonFqn(nestingScope, assembly).pythonFqn;
-      const localName = nestingParent && pythonFqn.startsWith(`${nestingParent}.`)
-        ? pythonFqn.substring(nestingParent.length + 1)
-        : pythonFqn.substring(typeSubmodulePythonName.length + 1);
+      const nestingParent =
+        nestingScope && toPythonFqn(nestingScope, assembly).pythonFqn;
+      const localName =
+        nestingParent && pythonFqn.startsWith(`${nestingParent}.`)
+          ? pythonFqn.substring(nestingParent.length + 1)
+          : pythonFqn.substring(typeSubmodulePythonName.length + 1);
       return {
         pythonType: typeAnnotation ? JSON.stringify(localName) : localName,
       };
     }
 
-    const [toImport, ...nested] = pythonFqn.substring(typeSubmodulePythonName.length + 1).split('.');
+    const [toImport, ...nested] = pythonFqn
+      .substring(typeSubmodulePythonName.length + 1)
+      .split('.');
     const aliasSuffix = createHash('sha256')
       .update(typeSubmodulePythonName)
       .update('.')
@@ -282,7 +312,10 @@ class UserType implements TypeName {
     return {
       pythonType: [alias, ...nested].join('.'),
       requiredImport: {
-        sourcePackage: relativeImportPath(submodulePythonName, typeSubmodulePythonName),
+        sourcePackage: relativeImportPath(
+          submodulePythonName,
+          typeSubmodulePythonName,
+        ),
         item: `${toImport} as ${alias}`,
       },
     };
@@ -326,10 +359,16 @@ function relativeImportPath(fromPkg: string, toPkg: string): string {
 function getPackageName(fqn: string, rootAssm: Assembly) {
   const segments = fqn.split('.');
   const assemblyName = segments[0];
-  const config = assemblyName === rootAssm.name
-    ? rootAssm
-    : rootAssm.dependencyClosure?.[assemblyName] ?? die(`Unable to find configuration for assembly "${assemblyName}" in dependency closure`);
-  const rootPkg = config.targets?.python?.module ?? die(`No Python target was configured in assembly "${assemblyName}"`);
+  const config =
+    assemblyName === rootAssm.name
+      ? rootAssm
+      : rootAssm.dependencyClosure?.[assemblyName] ??
+        die(
+          `Unable to find configuration for assembly "${assemblyName}" in dependency closure`,
+        );
+  const rootPkg =
+    config.targets?.python?.module ??
+    die(`No Python target was configured in assembly "${assemblyName}"`);
 
   const pkg = new Array<string>();
   const tail = new Array<string>();
@@ -348,11 +387,14 @@ function getPackageName(fqn: string, rootAssm: Assembly) {
       continue;
     }
 
-    const subPackage: string | undefined = submoduleConfig.targets?.python?.module;
+    const subPackage: string | undefined =
+      submoduleConfig.targets?.python?.module;
     if (subPackage != null) {
       // Found a sub-package. Confirm it's nested right in, and make this the head end of our package name.
       if (!subPackage.startsWith(`${rootPkg}.`)) {
-        die(`Submodule "${submodule}" is mapped to Python sub-package "${subPackage}" which isn't nested under "${rootPkg}"!`);
+        die(
+          `Submodule "${submodule}" is mapped to Python sub-package "${subPackage}" which isn't nested under "${rootPkg}"!`,
+        );
       }
       pkg.unshift(subPackage);
       break;

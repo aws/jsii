@@ -28,19 +28,28 @@ export interface TypeScriptSnippet {
  *
  * Will parse parameters from a directive in the given source.
  */
-export function typeScriptSnippetFromSource(typeScriptSource: string, where: string, parameters: Record<string, string> = {}) {
-  const [source, sourceParameters] = parametersFromSourceDirectives(typeScriptSource);
+export function typeScriptSnippetFromSource(
+  typeScriptSource: string,
+  where: string,
+  parameters: Record<string, string> = {},
+) {
+  const [source, sourceParameters] = parametersFromSourceDirectives(
+    typeScriptSource,
+  );
   return {
     visibleSource: source.trimRight(),
     where,
-    parameters: Object.assign({}, parameters, sourceParameters)
+    parameters: Object.assign({}, parameters, sourceParameters),
   };
 }
 
-export function updateParameters(snippet: TypeScriptSnippet, params: Record<string, string>): TypeScriptSnippet {
+export function updateParameters(
+  snippet: TypeScriptSnippet,
+  params: Record<string, string>,
+): TypeScriptSnippet {
   return {
     ...snippet,
-    parameters: Object.assign({}, snippet.parameters ?? {}, params)
+    parameters: Object.assign({}, snippet.parameters ?? {}, params),
   };
 }
 
@@ -54,12 +63,18 @@ export function completeSource(snippet: TypeScriptSnippet) {
 /**
  * Extract snippet parameters from the first line of the source if it's a compiler directive
  */
-function parametersFromSourceDirectives(source: string): [string, Record<string, string>] {
+function parametersFromSourceDirectives(
+  source: string,
+): [string, Record<string, string>] {
   const [firstLine, rest] = source.split('\n', 2);
   // Also extract parameters from an initial line starting with '/// ' (getting rid of that line).
   const m = /\/\/\/(.*)$/.exec(firstLine);
   if (m) {
-    const paramClauses = m[1].trim().split(' ').map(s => s.trim()).filter(s => s !== '');
+    const paramClauses = m[1]
+      .trim()
+      .split(' ')
+      .map((s) => s.trim())
+      .filter((s) => s !== '');
     return [rest, parseKeyValueList(paramClauses)];
   }
 
@@ -69,7 +84,9 @@ function parametersFromSourceDirectives(source: string): [string, Record<string,
 /**
  * Parse a set of 'param param=value' directives into an object
  */
-export function parseKeyValueList(parameters: string[]): Record<string, string> {
+export function parseKeyValueList(
+  parameters: string[],
+): Record<string, string> {
   const ret: Record<string, string> = {};
   for (const param of parameters) {
     const parts = param.split('=', 2);

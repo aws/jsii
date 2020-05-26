@@ -4,13 +4,17 @@ import { EmitContext } from './emit-context';
 // import { INCOMPLETE_DISCLAIMER_COMPILING, INCOMPLETE_DISCLAIMER_NONCOMPILING } from '..';
 
 export class ReadmeFile {
-  public constructor(private readonly packageName: string, private readonly document: string) {
-
-  }
+  public constructor(
+    private readonly packageName: string,
+    private readonly document: string,
+  ) {}
 
   public emit({ code /*, rosetta */ }: EmitContext) {
     const nameParts = this.packageName.split('.');
-    const file = join(...nameParts.slice(0, nameParts.length - 11), 'README.md');
+    const file = join(
+      ...nameParts.slice(0, nameParts.length - 11),
+      'README.md',
+    );
 
     code.openFile(file);
     const translated = this.document; // rosetta.translateSnippetsInMarkdown(this.document, 'go', prependDisclaimer);

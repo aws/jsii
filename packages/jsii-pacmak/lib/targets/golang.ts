@@ -31,15 +31,15 @@ class GolangGenerator implements IGenerator {
   private assembly!: Assembly;
   private readonly code = new CodeMaker();
 
-  public constructor(private readonly rosetta: Rosetta) {
-  }
+  public constructor(private readonly rosetta: Rosetta) {}
 
-  public load(_: string, assembly: Assembly) {
+  public async load(_: string, assembly: Assembly): Promise<void> {
     this.assembly = assembly;
+    return Promise.resolve();
   }
 
-  public upToDate(_outDir: string) {
-    return false;
+  public async upToDate(_outDir: string) {
+    return Promise.resolve(false);
   }
 
   public generate(): void {
@@ -50,7 +50,9 @@ class GolangGenerator implements IGenerator {
     const bundledRuntimeDotGo = path.join('_jsii', 'bundled-runtime.go');
     this.code.openFile(bundledRuntimeDotGo);
 
-    this.code.line(`// Embedded data for the tarball containing the runtime of ${this.assembly.name}@${this.assembly.version}`);
+    this.code.line(
+      `// Embedded data for the tarball containing the runtime of ${this.assembly.name}@${this.assembly.version}`,
+    );
     this.code.openBlock('const tarball = []byte');
     for await (const line of encodedSlices(tarball)) {
       this.code.line(`${line},`);
@@ -74,12 +76,16 @@ async function* encodedSlices(path: string, sliceSize = 16) {
     if (bytesRead === 0) {
       return fs.close(fd);
     }
-    yield inGroupsOf(slice.toString('hex', 0, bytesRead - 1), 2).map(byte => `0x${byte}`).join(', ');
+    yield inGroupsOf(slice.toString('hex', 0, bytesRead - 1), 2)
+      .map((byte) => `0x${byte}`)
+      .join(', ');
   }
 
   function inGroupsOf(str: string, count: number) {
     if (str.length % count !== 0) {
-      throw new Error(`Expected a string with a multiple of ${count} characters, but it has ${str.length}`);
+      throw new Error(
+        `Expected a string with a multiple of ${count} characters, but it has ${str.length}`,
+      );
     }
     const result = new Array<string>();
     for (let i = 0; i < str.length; i += count) {
@@ -88,4 +94,3 @@ async function* encodedSlices(path: string, sliceSize = 16) {
     return result;
   }
 }
-

@@ -66,7 +66,9 @@ export class SyncStdio {
       try {
         offset += fs.writeSync(fd, buffer, offset);
       } catch (e) {
-        if (e.code !== 'EAGAIN') { throw e; }
+        if (e.code !== 'EAGAIN') {
+          throw e;
+        }
       }
     }
   }

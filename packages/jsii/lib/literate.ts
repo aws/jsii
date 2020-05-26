@@ -62,7 +62,10 @@ import * as path from 'path';
 /**
  * Convert an annotated TypeScript source file to MarkDown
  */
-export function typescriptSourceToMarkdown(lines: string[], codeBlockAnnotations: string[]): string[] {
+export function typescriptSourceToMarkdown(
+  lines: string[],
+  codeBlockAnnotations: string[],
+): string[] {
   const relevantLines = findRelevantLines(lines);
   const markdownLines = markdownify(relevantLines, codeBlockAnnotations);
   return markdownLines;
@@ -78,7 +81,10 @@ export type FileLoader = (relativePath: string) => string[] | Promise<string[]>;
  *
  *     [example](test/integ.bucket.ts)
  */
-export async function includeAndRenderExamples(lines: string[], loader: FileLoader): Promise<string[]> {
+export async function includeAndRenderExamples(
+  lines: string[],
+  loader: FileLoader,
+): Promise<string[]> {
   const ret: string[] = [];
 
   const regex = /^\[([^\]]*)\]\(([^)]+\.lit\.ts)\)/i;
@@ -112,14 +118,14 @@ export async function loadFromFile(fileName: string): Promise<string[]> {
  * Turn file content string into an array of lines ready for processing using the other functions
  */
 export function contentToLines(content: string): string[] {
-  return content.split('\n').map(x => x.trimRight());
+  return content.split('\n').map((x) => x.trimRight());
 }
 
 /**
  * Return a file system loader given a base directory
  */
 export function fileSystemLoader(directory: string): FileLoader {
-  return fileName => loadFromFile(path.resolve(directory, fileName));
+  return (fileName) => loadFromFile(path.resolve(directory, fileName));
 }
 
 const RELEVANT_TAG = '/// !show';
@@ -145,7 +151,9 @@ function findRelevantLines(lines: string[]): string[] {
     } else if (line.trim() === DETAIL_TAG) {
       inRelevant = false;
     } else {
-      if (inRelevant) { ret.push(line); }
+      if (inRelevant) {
+        ret.push(line);
+      }
     }
   }
 
@@ -158,15 +166,18 @@ function findRelevantLines(lines: string[]): string[] {
  */
 function stripCommonIndent(lines: string[]): string[] {
   const leadingWhitespace = /^(\s*)/;
-  const indents = lines.map(l => leadingWhitespace.exec(l)![1].length);
+  const indents = lines.map((l) => leadingWhitespace.exec(l)![1].length);
   const commonIndent = Math.min(...indents);
-  return lines.map(l => l.substr(commonIndent));
+  return lines.map((l) => l.substr(commonIndent));
 }
 
 /**
  * Turn source lines into Markdown, starting in TypeScript mode
  */
-function markdownify(lines: string[], codeBlockAnnotations: string[]): string[] {
+function markdownify(
+  lines: string[],
+  codeBlockAnnotations: string[],
+): string[] {
   const typescriptLines: string[] = [];
   const ret: string[] = [];
 
@@ -191,7 +202,15 @@ function markdownify(lines: string[], codeBlockAnnotations: string[]): string[] 
   function flushTS() {
     if (typescriptLines.length !== 0) {
       // eslint-disable-next-line prefer-template
-      ret.push('```ts' + (codeBlockAnnotations.length > 0 ? ' ' + codeBlockAnnotations.join(' ') : ''), ...typescriptLines, '```');
+      ret.push(
+        `\`\`\`ts${
+          codeBlockAnnotations.length > 0
+            ? ` ${codeBlockAnnotations.join(' ')}`
+            : ''
+        }`,
+        ...typescriptLines,
+        '```',
+      );
       typescriptLines.splice(0); // Clear
     }
   }

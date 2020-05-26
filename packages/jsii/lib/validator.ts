@@ -12,8 +12,10 @@ export class Validator implements Emitter {
 
   private _diagnostics: Diagnostic[] = [];
 
-  public constructor(public readonly projectInfo: ProjectInfo,
-    public readonly assembly: spec.Assembly) {}
+  public constructor(
+    public readonly projectInfo: ProjectInfo,
+    public readonly assembly: spec.Assembly,
+  ) {}
 
   public async emit(): Promise<EmitResult> {
     this._diagnostics = [];
@@ -25,7 +27,9 @@ export class Validator implements Emitter {
     try {
       return Promise.resolve({
         diagnostics: this._diagnostics,
-        emitSkipped: this._diagnostics.some(diag => diag.category === ts.DiagnosticCategory.Error)
+        emitSkipped: this._diagnostics.some(
+          (diag) => diag.category === ts.DiagnosticCategory.Error,
+        ),
       });
     } finally {
       // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
@@ -36,19 +40,25 @@ export class Validator implements Emitter {
   private _diagnostic(category: ts.DiagnosticCategory, messageText: string) {
     this._diagnostics.push({
       domain: 'JSII',
-      category, code: 0,
+      category,
+      code: 0,
       messageText,
       file: undefined,
       start: undefined,
-      length: undefined
+      length: undefined,
     });
   }
 }
 
-export type DiagnosticEmitter = (category: ts.DiagnosticCategory, messageText: string) => void;
-export type ValidationFunction = (validator: Validator,
+export type DiagnosticEmitter = (
+  category: ts.DiagnosticCategory,
+  messageText: string,
+) => void;
+export type ValidationFunction = (
+  validator: Validator,
   assembly: spec.Assembly,
-  diagnostic: DiagnosticEmitter) => void;
+  diagnostic: DiagnosticEmitter,
+) => void;
 
 function _defaultValidations(): ValidationFunction[] {
   return [
@@ -61,89 +71,153 @@ function _defaultValidations(): ValidationFunction[] {
     _inehritanceDoesNotChangeContracts,
   ];
 
-  function _typeNamesMustUsePascalCase(_: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
+  function _typeNamesMustUsePascalCase(
+    _: Validator,
+    assembly: spec.Assembly,
+    diagnostic: DiagnosticEmitter,
+  ) {
     for (const type of _allTypes(assembly)) {
       if (type.name !== Case.pascal(type.name)) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          `Type names must use PascalCase: ${type.name}`);
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `Type names must use PascalCase: ${type.name}`,
+        );
       }
     }
   }
 
-  function _enumMembersMustUserUpperSnakeCase(_: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
+  function _enumMembersMustUserUpperSnakeCase(
+    _: Validator,
+    assembly: spec.Assembly,
+    diagnostic: DiagnosticEmitter,
+  ) {
     for (const type of _allTypes(assembly)) {
-      if (!spec.isEnumType(type)) { continue; }
+      if (!spec.isEnumType(type)) {
+        continue;
+      }
 
       for (const member of type.members) {
         if (member.name && member.name !== Case.constant(member.name)) {
-          diagnostic(ts.DiagnosticCategory.Error,
-            `Enum members must use ALL_CAPS: ${member.name}`);
+          diagnostic(
+            ts.DiagnosticCategory.Error,
+            `Enum members must use ALL_CAPS: ${member.name}`,
+          );
         }
       }
     }
   }
 
-  function _memberNamesMustUseCamelCase(_: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
+  function _memberNamesMustUseCamelCase(
+    _: Validator,
+    assembly: spec.Assembly,
+    diagnostic: DiagnosticEmitter,
+  ) {
     for (const member of _allMembers(assembly)) {
-      if (member.static && (member as spec.Property).const) { continue; }
+      if (member.static && (member as spec.Property).const) {
+        continue;
+      }
       if (member.name && member.name !== Case.camel(member.name)) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          `Method and non-static non-readonly property names must use camelCase: ${member.name}`);
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `Method and non-static non-readonly property names must use camelCase: ${member.name}`,
+        );
       }
     }
   }
 
-  function _staticConstantNamesMustUseUpperSnakeCase(_: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
+  function _staticConstantNamesMustUseUpperSnakeCase(
+    _: Validator,
+    assembly: spec.Assembly,
+    diagnostic: DiagnosticEmitter,
+  ) {
     for (const member of _allMembers(assembly)) {
-      if (!member.static || !(member as spec.Property).const) { continue; }
-      if (member.name
-                && member.name !== Case.constant(member.name)
-                && member.name !== Case.pascal(member.name)
-                && member.name !== Case.camel(member.name)) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          `Static constant names must use TRUMP_CASE, PascalCase or camelCase: ${member.name}`);
+      if (!member.static || !(member as spec.Property).const) {
+        continue;
+      }
+      if (
+        member.name &&
+        member.name !== Case.constant(member.name) &&
+        member.name !== Case.pascal(member.name) &&
+        member.name !== Case.camel(member.name)
+      ) {
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `Static constant names must use TRUMP_CASE, PascalCase or camelCase: ${member.name}`,
+        );
       }
     }
   }
 
-  function _memberNamesMustNotLookLikeJavaGettersOrSetters(_: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
+  function _memberNamesMustNotLookLikeJavaGettersOrSetters(
+    _: Validator,
+    assembly: spec.Assembly,
+    diagnostic: DiagnosticEmitter,
+  ) {
     for (const member of _allMembers(assembly)) {
-      if (!member.name) { continue; }
+      if (!member.name) {
+        continue;
+      }
       const snakeName = Case.snake(member.name);
-      if (snakeName.startsWith('get_') && _isEmpty((member as spec.Method).parameters)) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          'Methods and properties cannot have names like getXxx() - those conflict with Java property getters by the same name');
-      } else if (snakeName.startsWith('set_') && ((member as spec.Method).parameters ?? []).length === 1) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          'Methods and properties cannot have names like setXxx() - those conflict with Java property setters by the same name');
+      if (
+        snakeName.startsWith('get_') &&
+        _isEmpty((member as spec.Method).parameters)
+      ) {
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          'Methods and properties cannot have names like getXxx() - those conflict with Java property getters by the same name',
+        );
+      } else if (
+        snakeName.startsWith('set_') &&
+        ((member as spec.Method).parameters ?? []).length === 1
+      ) {
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          'Methods and properties cannot have names like setXxx() - those conflict with Java property setters by the same name',
+        );
       }
     }
   }
 
-  function _allTypeReferencesAreValid(validator: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
+  function _allTypeReferencesAreValid(
+    validator: Validator,
+    assembly: spec.Assembly,
+    diagnostic: DiagnosticEmitter,
+  ) {
     for (const typeRef of _allTypeReferences(assembly)) {
-      const [assm,] = typeRef.fqn.split('.');
+      const [assm] = typeRef.fqn.split('.');
       if (assembly.name === assm) {
         if (!(typeRef.fqn in (assembly.types ?? {}))) {
-          diagnostic(ts.DiagnosticCategory.Error,
-            `Exported APIs cannot use un-exported type ${typeRef.fqn}`);
+          diagnostic(
+            ts.DiagnosticCategory.Error,
+            `Exported APIs cannot use un-exported type ${typeRef.fqn}`,
+          );
         }
         continue;
       }
-      const foreignAssm = validator.projectInfo.dependencyClosure.find(dep => dep.name === assm);
+      const foreignAssm = validator.projectInfo.dependencyClosure.find(
+        (dep) => dep.name === assm,
+      );
       if (!foreignAssm) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          `Type reference is rooted in unknown module: ${assm}`);
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `Type reference is rooted in unknown module: ${assm}`,
+        );
         continue;
       }
       if (!(typeRef.fqn in (foreignAssm.types ?? {}))) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          `Type reference not found in ${assm}: ${typeRef.fqn}`);
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `Type reference not found in ${assm}: ${typeRef.fqn}`,
+        );
       }
     }
   }
 
-  function _inehritanceDoesNotChangeContracts(validator: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
+  function _inehritanceDoesNotChangeContracts(
+    validator: Validator,
+    assembly: spec.Assembly,
+    diagnostic: DiagnosticEmitter,
+  ) {
     for (const type of _allTypes(assembly)) {
       if (spec.isClassType(type)) {
         for (const method of type.methods ?? []) {
@@ -153,10 +227,15 @@ function _defaultValidations(): ValidationFunction[] {
           _validatePropertyOverride(property, type);
         }
       }
-      if (spec.isClassOrInterfaceType(type) && (type.interfaces?.length ?? 0) > 0) {
+      if (
+        spec.isClassOrInterfaceType(type) &&
+        (type.interfaces?.length ?? 0) > 0
+      ) {
         for (const method of type.methods ?? []) {
           // Overrides "win" over implementations
-          if (method.overrides) { continue; }
+          if (method.overrides) {
+            continue;
+          }
           _validateMethodImplementation(method, type);
         }
         for (const property of type.properties ?? []) {
@@ -165,45 +244,98 @@ function _defaultValidations(): ValidationFunction[] {
       }
     }
 
-    function _validateMethodOverride(method: spec.Method, type: spec.ClassType): boolean {
-      if (!type.base) { return false; }
-      const baseType = _dereference(type.base, assembly, validator) as spec.ClassType;
-      if (!baseType) { return false; }
-      const overridden = (baseType.methods ?? []).find(m => m.name === method.name);
+    function _validateMethodOverride(
+      method: spec.Method,
+      type: spec.ClassType,
+    ): boolean {
+      if (!type.base) {
+        return false;
+      }
+      const baseType = _dereference(
+        type.base,
+        assembly,
+        validator,
+      ) as spec.ClassType;
+      if (!baseType) {
+        return false;
+      }
+      const overridden = (baseType.methods ?? []).find(
+        (m) => m.name === method.name,
+      );
       if (!overridden) {
         return _validateMethodOverride(method, baseType);
       }
-      _assertSignaturesMatch(overridden, method, `${type.fqn}#${method.name}`, `overriding ${baseType.fqn}`);
+      _assertSignaturesMatch(
+        overridden,
+        method,
+        `${type.fqn}#${method.name}`,
+        `overriding ${baseType.fqn}`,
+      );
       method.overrides = baseType.fqn;
       return true;
     }
 
-    function _validatePropertyOverride(property: spec.Property, type: spec.ClassType): boolean {
-      if (!type.base) { return false; }
-      const baseType = _dereference(type.base, assembly, validator) as spec.ClassType;
-      if (!baseType) { return false; }
-      const overridden = (baseType.properties ?? []).find(p => p.name === property.name);
+    function _validatePropertyOverride(
+      property: spec.Property,
+      type: spec.ClassType,
+    ): boolean {
+      if (!type.base) {
+        return false;
+      }
+      const baseType = _dereference(
+        type.base,
+        assembly,
+        validator,
+      ) as spec.ClassType;
+      if (!baseType) {
+        return false;
+      }
+      const overridden = (baseType.properties ?? []).find(
+        (p) => p.name === property.name,
+      );
       if (!overridden) {
         return _validatePropertyOverride(property, baseType);
       }
-      _assertPropertiesMatch(overridden, property, `${type.fqn}#${property.name}`, `overriding ${baseType.fqn}`);
+      _assertPropertiesMatch(
+        overridden,
+        property,
+        `${type.fqn}#${property.name}`,
+        `overriding ${baseType.fqn}`,
+      );
       property.overrides = baseType.fqn;
       return true;
     }
 
-    function _validateMethodImplementation(method: spec.Method, type: spec.ClassType | spec.InterfaceType): boolean {
+    function _validateMethodImplementation(
+      method: spec.Method,
+      type: spec.ClassType | spec.InterfaceType,
+    ): boolean {
       if (!type.interfaces) {
         // Abstract classes may not directly implement all members, need to check their supertypes...
         if (spec.isClassType(type) && type.base && type.abstract) {
-          return _validateMethodImplementation(method, _dereference(type.base, assembly, validator) as spec.ClassType);
+          return _validateMethodImplementation(
+            method,
+            _dereference(type.base, assembly, validator) as spec.ClassType,
+          );
         }
         return false;
       }
       for (const iface of type.interfaces) {
-        const ifaceType = _dereference(iface, assembly, validator) as spec.InterfaceType;
-        const implemented = (ifaceType.methods ?? []).find(m => m.name === method.name);
+        const ifaceType = _dereference(
+          iface,
+          assembly,
+          validator,
+        ) as spec.InterfaceType;
+        const implemented = (ifaceType.methods ?? []).find(
+          (m) => m.name === method.name,
+        );
         if (implemented) {
-          _assertSignaturesMatch(implemented, method, `${type.fqn}#${method.name}`, `implementing ${ifaceType.fqn}`);
+          _assertSignaturesMatch(
+            implemented,
+            method,
+            `${type.fqn}#${method.name}`,
+            `implementing ${ifaceType.fqn}`,
+          );
           method.overrides = iface;
           return true;
         }
@@ -214,19 +346,36 @@ function _defaultValidations(): ValidationFunction[] {
       return false;
     }
 
-    function _validatePropertyImplementation(property: spec.Property, type: spec.ClassType | spec.InterfaceType): boolean {
+    function _validatePropertyImplementation(
+      property: spec.Property,
+      type: spec.ClassType | spec.InterfaceType,
+    ): boolean {
       if (!type.interfaces) {
         // Abstract classes may not directly implement all members, need to check their supertypes...
         if (spec.isClassType(type) && type.base && type.abstract) {
-          return _validatePropertyImplementation(property, _dereference(type.base, assembly, validator) as spec.ClassType);
+          return _validatePropertyImplementation(
+            property,
+            _dereference(type.base, assembly, validator) as spec.ClassType,
+          );
         }
         return false;
       }
       for (const iface of type.interfaces) {
-        const ifaceType = _dereference(iface, assembly, validator) as spec.InterfaceType;
-        const implemented = (ifaceType.properties ?? []).find(p => p.name === property.name);
+        const ifaceType = _dereference(
+          iface,
+          assembly,
+          validator,
+        ) as spec.InterfaceType;
+        const implemented = (ifaceType.properties ?? []).find(
+          (p) => p.name === property.name,
+        );
         if (implemented) {
-          _assertPropertiesMatch(implemented, property, `${type.fqn}#${property.name}`, `implementing ${ifaceType.fqn}`);
+          _assertPropertiesMatch(
+            implemented,
+            property,
+            `${type.fqn}#${property.name}`,
+            `implementing ${ifaceType.fqn}`,
+          );
           property.overrides = ifaceType.fqn;
           return true;
         }
@@ -237,55 +386,85 @@ function _defaultValidations(): ValidationFunction[] {
       return false;
     }
 
-    function _assertSignaturesMatch(expected: spec.Method, actual: spec.Method, label: string, action: string) {
+    function _assertSignaturesMatch(
+      expected: spec.Method,
+      actual: spec.Method,
+      label: string,
+      action: string,
+    ) {
       if (!deepEqual(actual.returns, expected.returns)) {
         const expType = spec.describeTypeReference(expected.returns?.type);
         const actType = spec.describeTypeReference(actual.returns?.type);
-        diagnostic(ts.DiagnosticCategory.Error,
-          `${label} changes the return type when ${action} (expected ${expType}, found ${actType})`);
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `${label} changes the return type when ${action} (expected ${expType}, found ${actType})`,
+        );
       }
       const expectedParams = expected.parameters ?? [];
       const actualParams = actual.parameters ?? [];
       if (expectedParams.length !== actualParams.length) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          `${label} changes argument count when ${action} (expected ${expectedParams.length}, found ${actualParams.length})`);
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `${label} changes argument count when ${action} (expected ${expectedParams.length}, found ${actualParams.length})`,
+        );
         return;
       }
-      for (let i = 0 ; i < expectedParams.length ; i++) {
+      for (let i = 0; i < expectedParams.length; i++) {
         const expParam = expectedParams[i];
         const actParam = actualParams[i];
         if (!deepEqual(expParam.type, actParam.type)) {
           const expType = spec.describeTypeReference(expParam.type);
           const actType = spec.describeTypeReference(actParam.type);
-          diagnostic(ts.DiagnosticCategory.Error,
-            `${label} changes type of argument ${actParam.name} when ${action} (expected ${expType}, found ${actType}`);
+          diagnostic(
+            ts.DiagnosticCategory.Error,
+            `${label} changes type of argument ${actParam.name} when ${action} (expected ${expType}, found ${actType}`,
+          );
         }
         // Not-ing those to force the values to a strictly boolean context (they're optional, undefined means false)
         if (expParam.variadic !== actParam.variadic) {
-          diagnostic(ts.DiagnosticCategory.Error,
-            `${label} changes the variadicity of parameter ${actParam.name} when ${action} (expected ${!!expParam.variadic}, found ${!!actParam.variadic})`);
+          diagnostic(
+            ts.DiagnosticCategory.Error,
+            `${label} changes the variadicity of parameter ${
+              actParam.name
+            } when ${action} (expected ${!!expParam.variadic}, found ${!!actParam.variadic})`,
+          );
         }
         if (expParam.optional !== actParam.optional) {
-          diagnostic(ts.DiagnosticCategory.Error,
-            `${label} changes the optionality of paramerter ${actParam.name} when ${action} (expected ${!!expParam.optional}, found ${!!actParam.optional})`);
+          diagnostic(
+            ts.DiagnosticCategory.Error,
+            `${label} changes the optionality of paramerter ${
+              actParam.name
+            } when ${action} (expected ${!!expParam.optional}, found ${!!actParam.optional})`,
+          );
         }
       }
     }
 
-    function _assertPropertiesMatch(expected: spec.Property, actual: spec.Property, label: string, action: string) {
+    function _assertPropertiesMatch(
+      expected: spec.Property,
+      actual: spec.Property,
+      label: string,
+      action: string,
+    ) {
       if (!deepEqual(expected.type, actual.type)) {
         const expType = spec.describeTypeReference(expected.type);
         const actType = spec.describeTypeReference(actual.type);
-        diagnostic(ts.DiagnosticCategory.Error,
-          `${label} changes the type of property when ${action} (expected ${expType}, found ${actType})`);
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `${label} changes the type of property when ${action} (expected ${expType}, found ${actType})`,
+        );
       }
       if (expected.immutable !== actual.immutable) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          `${label} changes immutability of property when ${action}`);
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `${label} changes immutability of property when ${action}`,
+        );
       }
       if (expected.optional !== actual.optional) {
-        diagnostic(ts.DiagnosticCategory.Error,
-          `${label} changes optionality of property when ${action}`);
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `${label} changes optionality of property when ${action}`,
+        );
       }
     }
   }
@@ -298,9 +477,13 @@ function _allTypes(assm: spec.Assembly): spec.Type[] {
 function _allMethods(assm: spec.Assembly): spec.Method[] {
   const methods = new Array<spec.Method>();
   for (const type of _allTypes(assm)) {
-    if (!spec.isClassOrInterfaceType(type)) { continue; }
-    if (!type.methods) { continue; }
-    type.methods.forEach(method => methods.push(method));
+    if (!spec.isClassOrInterfaceType(type)) {
+      continue;
+    }
+    if (!type.methods) {
+      continue;
+    }
+    type.methods.forEach((method) => methods.push(method));
   }
   return methods;
 }
@@ -308,9 +491,13 @@ function _allMethods(assm: spec.Assembly): spec.Method[] {
 function _allProperties(assm: spec.Assembly): spec.Property[] {
   const properties = new Array<spec.Property>();
   for (const type of _allTypes(assm)) {
-    if (!spec.isClassOrInterfaceType(type)) { continue; }
-    if (!type.properties) { continue; }
-    type.properties.forEach(property => properties.push(property));
+    if (!spec.isClassOrInterfaceType(type)) {
+      continue;
+    }
+    if (!type.properties) {
+      continue;
+    }
+    type.properties.forEach((property) => properties.push(property));
   }
   return properties;
 }
@@ -322,12 +509,14 @@ function _allMembers(assm: spec.Assembly): Array<spec.Property | spec.Method> {
 function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
   const typeReferences = new Array<spec.NamedTypeReference>();
   for (const type of _allTypes(assm)) {
-    if (!spec.isClassOrInterfaceType(type)) { continue; }
+    if (!spec.isClassOrInterfaceType(type)) {
+      continue;
+    }
     if (spec.isClassType(type) && type.base) {
       typeReferences.push({ fqn: type.base });
     }
     if (type.interfaces) {
-      type.interfaces.forEach(iface => typeReferences.push({ fqn: iface }));
+      type.interfaces.forEach((iface) => typeReferences.push({ fqn: iface }));
     }
   }
   for (const prop of _allProperties(assm)) {
@@ -354,15 +543,21 @@ function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
   }
 }
 
-function _dereference(typeRef: string | spec.NamedTypeReference, assembly: spec.Assembly, validator: Validator): spec.Type | undefined {
+function _dereference(
+  typeRef: string | spec.NamedTypeReference,
+  assembly: spec.Assembly,
+  validator: Validator,
+): spec.Type | undefined {
   if (typeof typeRef !== 'string') {
     typeRef = typeRef.fqn;
   }
-  const [assm,] = typeRef.split('.');
+  const [assm] = typeRef.split('.');
   if (assembly.name === assm) {
     return assembly.types?.[typeRef];
   }
-  const foreignAssm = validator.projectInfo.dependencyClosure.find(dep => dep.name === assm);
+  const foreignAssm = validator.projectInfo.dependencyClosure.find(
+    (dep) => dep.name === assm,
+  );
   return foreignAssm?.types?.[typeRef];
 }
 

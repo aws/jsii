@@ -7,10 +7,12 @@ class FakeInputOutput extends InputOutput {
   public debug = false;
   private count = 0;
 
-  public write(_: Output) { /* noop */ }
+  public write(_: Output) {
+    /* noop */
+  }
 
   public read(): Input | undefined {
-    if(this.count === requestCount) {
+    if (this.count === requestCount) {
       return undefined;
     }
 

@@ -51,7 +51,10 @@ export interface ProjectInfo {
   readonly tsc?: TSCompilerOptions;
 }
 
-export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies }: { fixPeerDependencies: boolean }): Promise<ProjectInfo> {
+export async function loadProjectInfo(
+  projectRoot: string,
+  { fixPeerDependencies }: { fixPeerDependencies: boolean },
+): Promise<ProjectInfo> {
   const packageJsonPath = path.join(projectRoot, 'package.json');
   // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
   const pkg = require(packageJsonPath);
@@ -60,11 +63,15 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
   for (const name of pkg.bundleDependencies ?? pkg.bundledDependencies ?? []) {
     const version = pkg.dependencies?.[name];
     if (!version) {
-      throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
+      throw new Error(
+        `The "package.json" file has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`,
+      );
     }
 
     if (pkg.peerDependencies && name in pkg.peerDependencies) {
-      throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", and also in "peerDependencies"`);
+      throw new Error(
+        `The "package.json" file has "${name}" in "bundleDependencies", and also in "peerDependencies"`,
+      );
     }
 
     bundleDependencies = bundleDependencies ?? {};
@@ -78,18 +85,25 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
     }
     version = _resolveVersion(version as any, projectRoot).version;
     pkg.peerDependencies = pkg.peerDependencies ?? {};
-    const peerVersion = _resolveVersion(pkg.peerDependencies[name], projectRoot).version;
+    const peerVersion = _resolveVersion(pkg.peerDependencies[name], projectRoot)
+      .version;
     if (peerVersion === version) {
       return;
     }
     if (!fixPeerDependencies) {
       if (peerVersion) {
-        throw new Error(`The "package.json" file has different version requirements for "${name}" in "dependencies" (${version}) versus "peerDependencies" (${peerVersion})`);
+        throw new Error(
+          `The "package.json" file has different version requirements for "${name}" in "dependencies" (${version}) versus "peerDependencies" (${peerVersion})`,
+        );
       }
-      throw new Error(`The "package.json" file has "${name}" in "dependencies", but not in "peerDependencies"`);
+      throw new Error(
+        `The "package.json" file has "${name}" in "dependencies", but not in "peerDependencies"`,
+      );
     }
     if (peerVersion) {
-      LOG.warn(`Changing "peerDependency" on "${name}" from "${peerVersion}" to ${version}`);
+      LOG.warn(
+        `Changing "peerDependency" on "${name}" from "${peerVersion}" to ${version}`,
+      );
     } else {
       LOG.warn(`Recording missing "peerDependency" on "${name}" at ${version}`);
     }
@@ -103,10 +117,17 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
   }
 
   const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
-  const dependencies =
-        await _loadDependencies(pkg.dependencies, projectRoot, transitiveAssemblies, new Set<string>(Object.keys(bundleDependencies ?? {})));
-  const peerDependencies =
-        await _loadDependencies(pkg.peerDependencies, projectRoot, transitiveAssemblies);
+  const dependencies = await _loadDependencies(
+    pkg.dependencies,
+    projectRoot,
+    transitiveAssemblies,
+    new Set<string>(Object.keys(bundleDependencies ?? {})),
+  );
+  const peerDependencies = await _loadDependencies(
+    pkg.peerDependencies,
+    projectRoot,
+    transitiveAssemblies,
+  );
 
   const transitiveDependencies = Object.values(transitiveAssemblies);
 
@@ -114,76 +135,120 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
     projectRoot,
     packageJson: pkg,
 
-    name: _required(pkg.name, 'The "package.json" file must specify the "name" attribute'),
-    version: _required(pkg.version, 'The "package.json" file must specify the "version" attribute'),
+    name: _required(
+      pkg.name,
+      'The "package.json" file must specify the "name" attribute',
+    ),
+    version: _required(
+      pkg.version,
+      'The "package.json" file must specify the "version" attribute',
+    ),
     deprecated: pkg.deprecated,
     stability: _validateStability(pkg.stability, pkg.deprecated),
-    author: _toPerson(_required(pkg.author, 'The "package.json" file must specify the "author" attribute'), 'author'),
-    repository: _toRepository(_required(pkg.repository, 'The "package.json" file must specify the "repository" attribute')),
+    author: _toPerson(
+      _required(
+        pkg.author,
+        'The "package.json" file must specify the "author" attribute',
+      ),
+      'author',
+    ),
+    repository: _toRepository(
+      _required(
+        pkg.repository,
+        'The "package.json" file must specify the "repository" attribute',
+      ),
+    ),
     license: _validateLicense(pkg.license),
     keywords: pkg.keywords,
 
-    main: _required(pkg.main, 'The "package.json" file must specify the "main" attribute'),
-    types: _required(pkg.types, 'The "package.json" file must specify the "types" attribute'),
+    main: _required(
+      pkg.main,
+      'The "package.json" file must specify the "main" attribute',
+    ),
+    types: _required(
+      pkg.types,
+      'The "package.json" file must specify the "types" attribute',
+    ),
 
     dependencies,
     peerDependencies,
     dependencyClosure: transitiveDependencies,
     bundleDependencies,
     targets: {
-      ..._required(pkg.jsii, 'The "package.json" file must specify the "jsii" attribute').targets,
-      js: { npm: pkg.name }
+      ..._required(
+        pkg.jsii,
+        'The "package.json" file must specify the "jsii" attribute',
+      ).targets,
+      js: { npm: pkg.name },
     },
     metadata: pkg.jsii?.metadata,
     jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat ?? 'full'),
 
     description: pkg.description,
     homepage: pkg.homepage,
-    contributors: (pkg.contributors as any[])?.map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
+    contributors: (pkg.contributors as any[])?.map((contrib, index) =>
+      _toPerson(contrib, `contributors[${index}]`, 'contributor'),
+    ),
 
     excludeTypescript: pkg.jsii?.excludeTypescript ?? [],
     projectReferences: pkg.jsii?.projectReferences,
     tsc: {
       outDir: pkg.jsii?.tsc?.outDir,
       rootDir: pkg.jsii?.tsc?.rootDir,
-    }
+    },
   };
 }
 
 function _guessRepositoryType(url: string): string {
-  if (url.endsWith('.git')) { return 'git'; }
+  if (url.endsWith('.git')) {
+    return 'git';
+  }
   const parts = /^([^:]+):\/\//.exec(url);
   if (parts?.[1] !== 'http' && parts?.[1] !== 'https') {
     return parts![1];
   }
-  throw new Error(`The "package.json" file must specify the "repository.type" attribute (could not guess from ${url})`);
+  throw new Error(
+    `The "package.json" file must specify the "repository.type" attribute (could not guess from ${url})`,
+  );
 }
 
 async function _loadDependencies(
   dependencies: { [name: string]: string } | undefined,
   searchPath: string,
   transitiveAssemblies: { [name: string]: spec.Assembly },
-  bundled = new Set<string>()
+  bundled = new Set<string>(),
 ): Promise<{ [name: string]: string }> {
-  if (!dependencies) { return {}; }
+  if (!dependencies) {
+    return {};
+  }
   const packageVersions: { [name: string]: string } = {};
   for (const name of Object.keys(dependencies)) {
-    if (bundled.has(name)) { continue; }
-    const { version: versionString, localPackage } = _resolveVersion(dependencies[name], searchPath);
+    if (bundled.has(name)) {
+      continue;
+    }
+    const { version: versionString, localPackage } = _resolveVersion(
+      dependencies[name],
+      searchPath,
+    );
     const version = new semver.Range(versionString!);
     if (!version) {
-      throw new Error(`Invalid semver expression for ${name}: ${versionString}`);
+      throw new Error(
+        `Invalid semver expression for ${name}: ${versionString}`,
+      );
     }
     const pkg = _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop
     const assm = await loadAndValidateAssembly(pkg);
     if (!version.intersects(new semver.Range(assm.version))) {
-      throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
+      throw new Error(
+        `Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`,
+      );
     }
-    packageVersions[assm.name] = packageVersions[assm.name] != null
-      ? intersect(versionString!, packageVersions[assm.name])
-      : versionString!;
+    packageVersions[assm.name] =
+      packageVersions[assm.name] != null
+        ? intersect(versionString!, packageVersions[assm.name])
+        : versionString!;
     transitiveAssemblies[assm.name] = assm;
     const pkgDir = path.dirname(pkg);
     if (assm.dependencies) {
@@ -199,10 +264,15 @@ const ASSEMBLY_CACHE = new Map<string, spec.Assembly>();
 /**
  * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
  */
-async function loadAndValidateAssembly(jsiiFileName: string): Promise<spec.Assembly> {
+async function loadAndValidateAssembly(
+  jsiiFileName: string,
+): Promise<spec.Assembly> {
   if (!ASSEMBLY_CACHE.has(jsiiFileName)) {
     try {
-      ASSEMBLY_CACHE.set(jsiiFileName, spec.validateAssembly(await fs.readJson(jsiiFileName)));
+      ASSEMBLY_CACHE.set(
+        jsiiFileName,
+        spec.validateAssembly(await fs.readJson(jsiiFileName)),
+      );
     } catch (e) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }
@@ -217,31 +287,47 @@ function _required<T>(value: T, message: string): T {
   return value;
 }
 
-function _toPerson(value: any, field: string, defaultRole: string = field): spec.Person {
+function _toPerson(
+  value: any,
+  field: string,
+  defaultRole: string = field,
+): spec.Person {
   if (typeof value === 'string') {
     value = parsePerson(value);
   }
   return {
-    name: _required(value.name, `The "package.json" file must specify the "${field}.name" attribute`),
+    name: _required(
+      value.name,
+      `The "package.json" file must specify the "${field}.name" attribute`,
+    ),
     roles: value.roles ? [...new Set(value.roles as string[])] : [defaultRole],
     email: value.email,
     url: value.url,
-    organization: value.organization ? value.organization : undefined
+    organization: value.organization ? value.organization : undefined,
   };
 }
 
-function _toRepository(value: any): { type: string, url: string, directory?: string } {
+function _toRepository(
+  value: any,
+): { type: string; url: string; directory?: string } {
   if (typeof value === 'string') {
     value = parseRepository(value);
   }
   return {
-    url: _required(value.url, 'The "package.json" file must specify the "repository.url" attribute'),
+    url: _required(
+      value.url,
+      'The "package.json" file must specify the "repository.url" attribute',
+    ),
     type: value.type || _guessRepositoryType(value.url),
     directory: value.directory,
   };
 }
 
-function _tryResolveAssembly(mod: string, localPackage: string | undefined, searchPath: string): string {
+function _tryResolveAssembly(
+  mod: string,
+  localPackage: string | undefined,
+  searchPath: string,
+): string {
   if (localPackage) {
     const result = path.join(localPackage, '.jsii');
     if (!fs.existsSync(result)) {
@@ -253,41 +339,61 @@ function _tryResolveAssembly(mod: string, localPackage: string | undefined, sear
     const paths = [searchPath, path.join(searchPath, 'node_modules')];
     return require.resolve(path.join(mod, '.jsii'), { paths });
   } catch {
-    throw new Error(`Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies.`);
+    throw new Error(
+      `Unable to locate jsii assembly for "${mod}". If this module is not jsii-enabled, it must also be declared under bundledDependencies.`,
+    );
   }
 }
 
 function _validateLicense(id: string): string {
-  if (id === 'UNLICENSED') { return id; }
+  if (id === 'UNLICENSED') {
+    return id;
+  }
   if (!spdx.has(id)) {
-    throw new Error(`Invalid license identifier "${id}", see valid license identifiers at https://spdx.org/licenses/`);
+    throw new Error(
+      `Invalid license identifier "${id}", see valid license identifiers at https://spdx.org/licenses/`,
+    );
   }
   return id;
 }
 
 function _validateVersionFormat(format: string): 'short' | 'full' {
   if (format !== 'short' && format !== 'full') {
-    throw new Error(`Invalid jsii.versionFormat "${format}", it must be either "short" or "full" (the default)`);
+    throw new Error(
+      `Invalid jsii.versionFormat "${format}", it must be either "short" or "full" (the default)`,
+    );
   }
   return format;
 }
 
-function _validateStability(stability: string | undefined, deprecated: string | undefined): spec.Stability | undefined {
+function _validateStability(
+  stability: string | undefined,
+  deprecated: string | undefined,
+): spec.Stability | undefined {
   if (!stability && deprecated) {
     stability = spec.Stability.Deprecated;
   } else if (deprecated && stability !== spec.Stability.Deprecated) {
-    throw new Error(`Package is deprecated (${deprecated}), but it's stability is ${stability} and not ${spec.Stability.Deprecated}`);
+    throw new Error(
+      `Package is deprecated (${deprecated}), but it's stability is ${stability} and not ${spec.Stability.Deprecated}`,
+    );
   }
   if (!stability) {
     return undefined;
   }
   if (!Object.values(spec.Stability).includes(stability as any)) {
-    throw new Error(`Invalid stability "${stability}", it must be one of ${Object.values(spec.Stability).join(', ')}`);
+    throw new Error(
+      `Invalid stability "${stability}", it must be one of ${Object.values(
+        spec.Stability,
+      ).join(', ')}`,
+    );
   }
   return stability as spec.Stability;
 }
 
-function _resolveVersion(dep: string, searchPath: string): { version: string | undefined, localPackage?: string } {
+function _resolveVersion(
+  dep: string,
+  searchPath: string,
+): { version: string | undefined; localPackage?: string } {
   const matches = /^file:(.+)$/.exec(dep);
   if (!matches) {
     return { version: dep };
