@@ -103,6 +103,8 @@ Array [
   "jsii-calc.PropertyNamedProperty",
   "jsii-calc.PublicClass",
   "jsii-calc.PythonReservedWords",
+  "jsii-calc.PythonSelf.ClassWithSelf",
+  "jsii-calc.PythonSelf.ClassWithSelfKwarg",
   "jsii-calc.ReferenceEnumFromScopedPackage",
   "jsii-calc.ReturnsPrivateImplementationOfInterface",
   "jsii-calc.RootStructValidator",
