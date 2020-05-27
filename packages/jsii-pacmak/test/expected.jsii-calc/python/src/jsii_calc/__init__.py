@@ -42,7 +42,7 @@ from ._jsii import *
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
-import scope.jsii_calc_lib.submodule
+import scope.jsii_calc_lib.custom_submodule_name
 from .composition import (CompositeOperation as _CompositeOperation_1c4d123b)
 
 
@@ -7598,7 +7598,7 @@ class UnionProperties():
         return 'UnionProperties(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-@jsii.implements(scope.jsii_calc_lib.submodule.IReflectable)
+@jsii.implements(scope.jsii_calc_lib.custom_submodule_name.IReflectable)
 class UpcasingReflectable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UpcasingReflectable"):
     """Ensures submodule-imported types from dependencies can be used correctly.
 
@@ -7616,7 +7616,7 @@ class UpcasingReflectable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Upcasing
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="reflector")
-    def REFLECTOR(cls) -> scope.jsii_calc_lib.submodule.Reflector:
+    def REFLECTOR(cls) -> scope.jsii_calc_lib.custom_submodule_name.Reflector:
         """
         stability
         :stability: experimental
@@ -7625,7 +7625,7 @@ class UpcasingReflectable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Upcasing
 
     @builtins.property
     @jsii.member(jsii_name="entries")
-    def entries(self) -> typing.List[scope.jsii_calc_lib.submodule.ReflectableEntry]:
+    def entries(self) -> typing.List[scope.jsii_calc_lib.custom_submodule_name.ReflectableEntry]:
         """
         stability
         :stability: experimental

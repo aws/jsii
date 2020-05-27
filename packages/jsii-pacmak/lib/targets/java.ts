@@ -2613,13 +2613,8 @@ class JavaGenerator extends Generator {
     name: string | undefined,
     assmName: string = (assm as spec.Assembly).name,
   ): string {
-    const javaPackage = assm.targets?.java?.package;
-    if (!javaPackage) {
-      throw new Error(
-        `The module ${assmName} does not have a java.package setting`,
-      );
-    }
-    return `${javaPackage}${name ? `.${name}` : ''}`;
+    const { javaPackage, tail } = resolvePackageName(assmName, assm, name);
+    return `${javaPackage}${tail ? `.${tail}` : ''}`;
   }
 
   private toNativeName(assm: spec.Assembly): { packageName: string };
@@ -2650,13 +2645,8 @@ class JavaGenerator extends Generator {
       typeName = `${nestingType.name}.${typeName}`;
     }
 
-    const packageName =
-      ns != null
-        ? `${javaPackage}.${ns
-            .split('.')
-            .map((s) => toSnakeCase(s))
-            .join('.')}`
-        : javaPackage;
+    const packageName = resolvePackageName(assm.name, assm, ns).javaPackage;
+
     return { packageName, typeName };
   }
 
@@ -2797,4 +2787,38 @@ function computeOverrides<T extends { param: spec.Parameter }>(
       }
     },
   };
+}
+
+function resolvePackageName(
+  assmName: string,
+  config: spec.AssemblyConfiguration,
+  ns: string | undefined,
+): { javaPackage: string; tail?: string } {
+  const rootPackage: string = config.targets?.java?.package;
+  if (!rootPackage) {
+    throw new Error(
+      `Assembly ${assmName} does not have a targets.java.package configured!`,
+    );
+  }
+  if (!ns) {
+    return { javaPackage: rootPackage };
+  }
+
+  const segments = ns.split('.');
+  let javaPackage = rootPackage;
+  for (let i = 0; i < segments.length; i++) {
+    const submoduleName = `${assmName}.${segments.slice(0, i + 1).join('.')}`;
+    const submodule = config.submodules?.[submoduleName];
+    if (submodule == null) {
+      // We have reached a type name at this stage, so the rest is "tail".
+      return { javaPackage, tail: segments.slice(i).join('.') };
+    }
+    const override = submodule.targets?.java?.package;
+    if (override) {
+      javaPackage = override;
+    } else {
+      javaPackage = `${javaPackage}.${toSnakeCase(segments[i])}`;
+    }
+  }
+  return { javaPackage };
 }

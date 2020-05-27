@@ -24,6 +24,7 @@ import {
   toTypeName,
   PythonImports,
   mergePythonImports,
+  toPackageName,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 
@@ -1984,22 +1985,11 @@ class PythonGenerator extends Generator {
   }
 
   protected onBeginNamespace(ns: string) {
-    const module = new PythonModule(
-      [
-        this.assembly.targets!.python!.module,
-        ...ns
-          .split('.')
-          .slice(1)
-          .map(toPythonIdentifier)
-          .map((s) => toSnakeCase(s)),
-      ].join('.'),
-      ns,
-      {
-        assembly: this.assembly,
-        assemblyFilename: this.getAssemblyFileName(),
-        package: this.package,
-      },
-    );
+    const module = new PythonModule(toPackageName(ns, this.assembly), ns, {
+      assembly: this.assembly,
+      assemblyFilename: this.getAssemblyFileName(),
+      package: this.package,
+    });
 
     this.package.addModule(module);
     this.types.set(ns, module);

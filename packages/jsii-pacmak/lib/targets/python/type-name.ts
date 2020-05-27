@@ -89,6 +89,16 @@ export function toTypeName(ref?: OptionalValue | TypeReference): TypeName {
   return optional ? new Optional(result) : result;
 }
 
+/**
+ * Obtains the Python package name for a given submodule FQN.
+ *
+ * @param fqn      the submodule FQN for which a package name is needed.
+ * @param rootAssm the assembly this FQN belongs to.
+ */
+export function toPackageName(fqn: string, rootAssm: Assembly): string {
+  return getPackageName(fqn, rootAssm).packageName;
+}
+
 export function mergePythonImports(
   ...pythonImports: readonly PythonImports[]
 ): PythonImports {

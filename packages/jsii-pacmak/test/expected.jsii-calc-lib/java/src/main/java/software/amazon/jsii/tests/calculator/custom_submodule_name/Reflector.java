@@ -1,4 +1,4 @@
-package software.amazon.jsii.tests.calculator.lib.submodule;
+package software.amazon.jsii.tests.calculator.custom_submodule_name;
 
 /**
  */
@@ -30,7 +30,7 @@ public class Reflector extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
-    public @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> asMap(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.submodule.IReflectable reflectable) {
+    public @org.jetbrains.annotations.NotNull java.util.Map<java.lang.String, java.lang.Object> asMap(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.custom_submodule_name.IReflectable reflectable) {
         return java.util.Collections.unmodifiableMap(this.jsiiCall("asMap", software.amazon.jsii.NativeType.mapOf(software.amazon.jsii.NativeType.forClass(java.lang.Object.class)), new Object[] { java.util.Objects.requireNonNull(reflectable, "reflectable is required") }));
     }
 }
