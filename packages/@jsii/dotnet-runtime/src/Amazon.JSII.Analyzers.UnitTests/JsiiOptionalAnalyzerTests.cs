@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Xunit;
-using TestHelper;
+using Amazon.JSII.Analyzers.UnitTests.Helpers;
+using Amazon.JSII.Analyzers.UnitTests.Verifiers;
 
 namespace Amazon.JSII.Analyzers.UnitTests
 {

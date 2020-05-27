@@ -50,8 +50,6 @@ in your development environment.
   + [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
   + [`wheel`](https://pypi.org/project/wheel/)
   + *Recommended:* [`twine`](https://pypi.org/project/twine/)
-- [Ruby `2.4.4p296`] or later
-  + [`bundler ~> 1.17.2`](https://bundler.io)
 
 [Node `8.11.0`]: https://nodejs.org/download/release/v8.11.0/
 [Yarn `1.19.1`]: https://yarnpkg.com/en/docs/install
@@ -59,7 +57,6 @@ in your development environment.
 [Amazon Corretto 8]: https://aws.amazon.com/corretto/
 [.NET Core `2.0`]: https://www.microsoft.com/net/download
 [Python `3.6.5`]: https://www.python.org/downloads/release/python-365/
-[Ruby `2.4.4p296`]: https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/
 
 ## Getting Started
 ### Bootstrapping

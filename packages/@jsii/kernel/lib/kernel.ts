@@ -104,51 +104,39 @@ export class Kernel {
         types: Object.keys(assm.metadata.types ?? {}).length,
       };
     }
-    // untar the archive to a staging directory, read the jsii spec from it
-    // and then move it to the node_modules directory of the kernel.
-    const staging = fs.mkdtempSync(
-      path.join(os.tmpdir(), 'jsii-kernel-install-staging-'),
-    );
-    try {
-      tar.extract({
-        strict: true,
-        file: req.tarball,
-        cwd: staging,
-        sync: true,
-      });
 
-      // read .jsii metadata from the root of the package
-      const jsiiMetadataFile = path.join(
-        staging,
-        'package',
-        spec.SPEC_FILE_NAME,
+    // Create the install directory (there may be several path components for @scoped/packages)
+    fs.mkdirpSync(packageDir);
+    // untar the archive to its final location
+    tar.extract({
+      strict: true,
+      file: req.tarball,
+      cwd: packageDir,
+      strip: 1, // Removes the 'package/' path element from entries
+      sync: true,
+    });
+
+    // read .jsii metadata from the root of the package
+    const jsiiMetadataFile = path.join(packageDir, spec.SPEC_FILE_NAME);
+    if (!fs.pathExistsSync(jsiiMetadataFile)) {
+      throw new Error(
+        `Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`,
       );
-      if (!fs.pathExistsSync(jsiiMetadataFile)) {
-        throw new Error(
-          `Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`,
-        );
-      }
-      const assmSpec = fs.readJsonSync(jsiiMetadataFile) as spec.Assembly;
-
-      // "install" to "node_modules" directory
-      fs.moveSync(path.join(staging, 'package'), packageDir);
-
-      // load the module and capture it's closure
-      const closure = this._execute(
-        `require(String.raw\`${packageDir}\`)`,
-        packageDir,
-      );
-      const assm = new Assembly(assmSpec, closure);
-      this._addAssembly(assm);
-
-      return {
-        assembly: assmSpec.name,
-        types: Object.keys(assmSpec.types ?? {}).length,
-      };
-    } finally {
-      this._debug('removing staging directory:', staging);
-      fs.removeSync(staging);
     }
+    const assmSpec = fs.readJsonSync(jsiiMetadataFile) as spec.Assembly;
+
+    // load the module and capture it's closure
+    const closure = this._execute(
+      `require(String.raw\`${packageDir}\`)`,
+      packageDir,
+    );
+    const assm = new Assembly(assmSpec, closure);
+    this._addAssembly(assm);
+
+    return {
+      assembly: assmSpec.name,
+      types: Object.keys(assmSpec.types ?? {}).length,
+    };
   }
 
   public create(req: api.CreateRequest): api.CreateResponse {
