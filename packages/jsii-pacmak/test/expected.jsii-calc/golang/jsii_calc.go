@@ -1,2 +1,0 @@
-package jsii_calc
-
