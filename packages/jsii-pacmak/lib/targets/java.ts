@@ -37,6 +37,7 @@ export class JavaBuilder implements TargetBuilder {
   private readonly targetName = 'java';
 
   public constructor(private readonly modules: JsiiModule[], private readonly options: BuildOptions) {
+    console.log('Hi Eli and Neta!');
   }
 
   public async buildModules(): Promise<void> {
@@ -1923,7 +1924,11 @@ class JavaGenerator extends Generator {
     this.code.openBlock('if (!MODULE_TYPES.containsKey(fqn))');
     this.code.line('throw new ClassNotFoundException("Unknown JSII type: " + fqn);');
     this.code.closeBlock();
-    this.code.line('return this.cache.computeIfAbsent(MODULE_TYPES.get(fqn), this::findClass);');
+    this.code.line('String className = MODULE_TYPES.get(fqn);');
+    this.code.openBlock('if (!this.cache.containsKey(className))');
+    this.code.line('this.cache.put(className, this.findClass(className));');
+    this.code.closeBlock();
+    this.code.line('return this.cache.get(className);');
     this.code.closeBlock();
 
     this.code.line();
