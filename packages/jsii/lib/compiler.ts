@@ -246,6 +246,7 @@ export class Compiler implements Emitter {
       diagnostics.push(...assmEmit.diagnostics);
     } catch (e) {
       LOG.error(`Error during type model analysis: ${e}\n${e.stack}`);
+      hasErrors = true;
     }
 
     return {
