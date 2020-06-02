@@ -40,7 +40,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
      * A builder for {@link SupportsNiceJavaBuilderProps}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<SupportsNiceJavaBuilderProps> {
         private java.lang.Number bar;
         private java.lang.String id;
 
@@ -73,6 +73,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public SupportsNiceJavaBuilderProps build() {
             return new Jsii$Proxy(bar, id);
         }

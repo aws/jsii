@@ -3,20 +3,26 @@ import { markDownToStructure, markDownToJavaDoc } from '../../lib';
 const DEBUG = false;
 
 test('inserts paragraph breaks between text but not code samples', () => {
-  expectOutput(`
+  expectOutput(
+    `
 # Hello
 
 Here's a paragraph.
 
 Here's one more.
 
-` + '```' + `
+` +
+      '```' +
+      `
 some_code();
 
 with_newlines();
-` + '```' + `
+` +
+      '```' +
+      `
 Some more text here.
-`, `
+`,
+    `
 <h1>Hello</h1>
 <p>
 Here's a paragraph.
@@ -30,11 +36,13 @@ with_newlines();
 </pre></blockquote>
 <p>
 Some more text here.
-`);
+`,
+  );
 });
 
 test('common formatting tags', () => {
-  expectOutput(`
+  expectOutput(
+    `
 # Hello
 ## Bye
 
@@ -42,7 +50,8 @@ This is *very* **cool**.
 
 * Yes
 * Really
-`, `
+`,
+    `
 <h1>Hello</h1>
 <p>
 <h2>Bye</h2>
@@ -53,19 +62,24 @@ This is <em>very</em> <strong>cool</strong>.
 <li>Yes</li>
 <li>Really</li>
 </ul>
-`);
+`,
+  );
 });
 
 test('special characters are escaped', () => {
-  expectOutput(`
+  expectOutput(
+    `
   Escape this & and this < and this > and also @
 
-  ` + '```' + `
+  ` +
+      '```' +
+      `
   if (x < 3) {
     System.Console.WriteLn("bloep");
   }
-  ` + '```'
-  , `
+  ` +
+      '```',
+    `
 Escape this &amp; and this &lt; and this &gt; and also &#64;
 <p>
 <blockquote><pre>
@@ -73,21 +87,24 @@ if (x &lt; 3) {
   System.Console.WriteLn("bloep");
 }
 </pre></blockquote>
-  `);
+  `,
+  );
 });
 
 test('quotes are escaped inside attributes', () => {
-  expectOutput(`
+  expectOutput(
+    `
   ['tis but a "scratch"](http://bla.ck/"kni"gh&t)
 
   ![nay merely a "flesh wound" &cet](http://bla.ck/"kni"gh&t.jpg)
-  `, `
+  `,
+    `
 <a href="http://bla.ck/%22kni%22gh&amp;t">'tis but a "scratch"</a>
 <p>
 <img alt="nay merely a &quot;flesh wound&quot; &amp;cet" src="http://bla.ck/%22kni%22gh&amp;t.jpg">
-  `);
+  `,
+  );
 });
-
 
 function expectOutput(source: string, expected: string) {
   if (DEBUG) {

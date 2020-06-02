@@ -41,6 +41,7 @@ pull_request_rules:
         strict: smart
         method: squash
         strict_method: merge
+        commit_message: title+body
       comment:
         message: Merging (with squash)...
     conditions:
@@ -60,7 +61,7 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
-      
+
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
       dismiss_reviews:
@@ -70,6 +71,7 @@ pull_request_rules:
         strict: smart
         method: merge
         strict_method: merge
+        commit_message: title+body
       comment:
         message: Merging (no-squash)...
     conditions:
@@ -88,7 +90,7 @@ pull_request_rules:
       - "#changes-requested-reviews-by=0"
       - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
-      - status-success=Semantic Pull Request      
+      - status-success=Semantic Pull Request
 
   - name: Clean branch up
     actions:

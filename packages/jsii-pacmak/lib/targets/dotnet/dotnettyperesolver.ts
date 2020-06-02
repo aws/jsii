@@ -9,17 +9,21 @@ type FindTypeCallback = (fqn: string) => spec.Type;
 export class DotNetTypeResolver {
   // The dependency tree for the current jsii input model.
   // This is later used to output the csproj
-  public namespaceDependencies: Map<string, DotNetDependency> = new Map<string, DotNetDependency>();
+  public namespaceDependencies: Map<string, DotNetDependency> = new Map<
+    string,
+    DotNetDependency
+  >();
 
   private readonly findModule: FindModuleCallback;
   private readonly findType: FindTypeCallback;
   private readonly assembly: spec.Assembly;
   private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  public constructor(assembly: spec.Assembly,
+  public constructor(
+    assembly: spec.Assembly,
     findModule: FindModuleCallback,
     findType: FindTypeCallback,
-    private readonly assembliesCurrentlyBeingCompiled: string[]
+    private readonly assembliesCurrentlyBeingCompiled: string[],
   ) {
     this.assembly = assembly;
     this.findModule = findModule;
@@ -27,8 +31,8 @@ export class DotNetTypeResolver {
   }
 
   /**
-     * Translates a type fqn to a native .NET full type
-     */
+   * Translates a type fqn to a native .NET full type
+   */
   public toNativeFqn(fqn: string): string {
     const type = this.findType(fqn);
     let typeName = '';
@@ -50,7 +54,9 @@ export class DotNetTypeResolver {
 
     const dotnetNamespace = depMod.targets?.dotnet?.namespace;
     if (!dotnetNamespace) {
-      throw new Error('The module does not have a dotnet.namespace setting');
+      throw new Error(
+        `The assembly ${mod} does not have a dotnet.namespace setting`,
+      );
     }
     if (type.namespace) {
       // If the type is declared in an additional namespace.
@@ -61,17 +67,16 @@ export class DotNetTypeResolver {
         const actualNamespace = this.toDotNetType(this.findType(namespaceFqn));
         return `${actualNamespace}.${typeName}`;
       }
-      return `${dotnetNamespace}.${type.namespace.split('.').map(s => toPascalCase(s)).join('.')}.${typeName}`;
+      const ns = this.resolveNamespace(depMod, mod, type.namespace);
+      return `${ns}.${typeName}`;
     }
     // When undefined, the type is located at the root of the assembly
     return `${dotnetNamespace}.${typeName}`;
-
-
   }
 
   /**
-     * Resolves the namespaces dependencies by looking at the .jsii model
-     */
+   * Resolves the namespaces dependencies by looking at the .jsii model
+   */
   public resolveNamespacesDependencies(): void {
     const assmDependencies = this.assembly.dependencies ?? {};
     const assmConfigurations = this.assembly.dependencyClosure ?? {};
@@ -83,22 +88,28 @@ export class DotNetTypeResolver {
         const packageId = dotnetInfo.packageId;
         const suffix = depInfo.targets!.dotnet!.versionSuffix;
 
-        this.namespaceDependencies.set(depName, new DotNetDependency(
-          namespace,
-          packageId,
+        this.namespaceDependencies.set(
           depName,
-          // suffix, when present, is guaranteed to start with a leading `-`
-          suffix ? `${version}${suffix}` : version,
-          this.assembliesCurrentlyBeingCompiled.includes(depName)));
+          new DotNetDependency(
+            namespace,
+            packageId,
+            depName,
+            // suffix, when present, is guaranteed to start with a leading `-`
+            suffix ? `${version}${suffix}` : version,
+            this.assembliesCurrentlyBeingCompiled.includes(depName),
+          ),
+        );
       }
     }
   }
 
   /**
-     * Loops through the implemented interfaces and returns the fully qualified .NET types of the interfaces
-     *
-     */
-  public resolveImplementedInterfaces(ifc: spec.InterfaceType | spec.ClassType): string[] {
+   * Loops through the implemented interfaces and returns the fully qualified .NET types of the interfaces
+   *
+   */
+  public resolveImplementedInterfaces(
+    ifc: spec.InterfaceType | spec.ClassType,
+  ): string[] {
     const interfaces = ifc.interfaces ?? [];
     const baseTypeNames: string[] = [];
 
@@ -111,8 +122,8 @@ export class DotNetTypeResolver {
   }
 
   /**
-     * Translates any jsii type to its corresponding .NET type
-     */
+   * Translates any jsii type to its corresponding .NET type
+   */
   public toDotNetType(typeref: spec.TypeReference): string {
     if (spec.isPrimitiveTypeReference(typeref)) {
       return this.toDotNetPrimitive(typeref.primitive);
@@ -124,12 +135,35 @@ export class DotNetTypeResolver {
       return 'object';
     }
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
+  }
 
+  public resolveNamespace(
+    assm: spec.AssemblyConfiguration,
+    assmName: string,
+    ns: string,
+  ): string {
+    let resolved = assm.targets?.dotnet?.namespace;
+    if (!resolved) {
+      throw new Error(
+        `Assembly ${assmName} does not have targets.dotnet.namespace configured!`,
+      );
+    }
+    const segments = ns.split('.');
+    for (let i = 0; i < segments.length; i++) {
+      const submoduleName = `${assmName}.${segments.slice(0, i + 1).join('.')}`;
+      const submodule = assm.submodules?.[submoduleName];
+      if (submodule && submodule.targets?.dotnet?.namespace) {
+        resolved = submodule.targets.dotnet.namespace;
+      } else {
+        resolved = `${resolved}.${toPascalCase(segments[i])}`;
+      }
+    }
+    return resolved;
   }
 
   /**
-     * Translates a primitive in jsii to a native .NET primitive
-     */
+   * Translates a primitive in jsii to a native .NET primitive
+   */
   private toDotNetPrimitive(primitive: spec.PrimitiveType): string {
     switch (primitive) {
       case spec.PrimitiveType.Boolean:
@@ -150,8 +184,8 @@ export class DotNetTypeResolver {
   }
 
   /**
-     * Translates a collection in jsii to a native .NET collection
-     */
+   * Translates a collection in jsii to a native .NET collection
+   */
   private toDotNetCollection(ref: spec.CollectionTypeReference): string {
     const elementDotNetType = this.toDotNetType(ref.collection.elementtype);
     switch (ref.collection.kind) {

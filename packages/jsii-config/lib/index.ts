@@ -9,6 +9,6 @@ export default async function jsiiConfig(packageJsonLocation: string) {
   const answers = await prompt(packageJson);
   return {
     ...packageJson,
-    ...answers
+    ...answers,
   };
 }

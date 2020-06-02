@@ -10,7 +10,8 @@ export class Parameter extends OptionalValue implements Documentable {
     system: TypeSystem,
     public readonly parentType: Type,
     public readonly method: Callable,
-    public readonly spec: jsii.Parameter) {
+    public readonly spec: jsii.Parameter,
+  ) {
     super(system, spec);
   }
 

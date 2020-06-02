@@ -1,5 +1,10 @@
 import * as cm from 'commonmark';
-import { cmNodeChildren, CommonMarkRenderer, prefixLines, RendererContext } from './markdown';
+import {
+  cmNodeChildren,
+  CommonMarkRenderer,
+  prefixLines,
+  RendererContext,
+} from './markdown';
 
 /* eslint-disable @typescript-eslint/camelcase */
 /**
@@ -74,7 +79,9 @@ export class MarkdownRenderer implements CommonMarkRenderer {
 
       const rendered = context.recurse(item);
       // Prefix the first line with a different text than subsequent lines
-      const prefixed = firstLinePrefix + prefixLines(hangingPrefix, rendered).substr(hangingPrefix.length);
+      const prefixed =
+        firstLinePrefix +
+        prefixLines(hangingPrefix, rendered).substr(hangingPrefix.length);
 
       items.push(prefixed);
 
@@ -116,8 +123,12 @@ export function para(x: string) {
  * Collapse paragraph markers
  */
 export function collapsePara(x: string, brk = '\n\n') {
-  /* eslint-disable-next-line no-control-regex */
-  return x.replace(/^\u001d+/, '').replace(/\u001d+$/, '').replace(/\u001d+/g, brk);
+  /* eslint-disable no-control-regex */
+  return x
+    .replace(/^\u001d+/, '')
+    .replace(/\u001d+$/, '')
+    .replace(/\u001d+/g, brk);
+  /* eslint-enable no-control-regex */
 }
 
 /**

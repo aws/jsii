@@ -162,6 +162,14 @@ export interface AssemblyConfiguration extends Targetable {
  */
 export interface Targetable {
   /**
+   * Submodules defined in this assembly, if any, associated with their
+   * designated targets configuration.
+   *
+   * @default none
+   */
+  submodules?: { [fqn: string]: { targets?: AssemblyTargets } };
+
+  /**
    * A map of target name to configuration, which is used when generating
    * packages for various languages.
    *
@@ -174,7 +182,7 @@ export interface Targetable {
  * Versions of the JSII Assembly Specification.
  */
 export enum SchemaVersion {
-  LATEST = 'jsii/0.10.0'
+  LATEST = 'jsii/0.10.0',
 }
 
 /**
@@ -338,7 +346,7 @@ export interface Docs {
    *
    * @default none
    */
-  custom?: {[tag: string]: string};
+  custom?: { [tag: string]: string };
 }
 
 /**
@@ -451,7 +459,7 @@ export enum PrimitiveType {
    * Value with "any" or "unknown" type (aka Object). Values typed `any` may
    * be `null` or `undefined`.
    */
-  Any = 'any'
+  Any = 'any',
 }
 
 /**
@@ -474,12 +482,18 @@ export interface OptionalValue {
 /**
  * A reference to a type (primitive, collection or fqn).
  */
-export type TypeReference = NamedTypeReference | PrimitiveTypeReference | CollectionTypeReference | UnionTypeReference;
+export type TypeReference =
+  | NamedTypeReference
+  | PrimitiveTypeReference
+  | CollectionTypeReference
+  | UnionTypeReference;
 
 /**
  * The standard representation of the `any` type (includes optionality marker).
  */
-export const CANONICAL_ANY: Readonly<PrimitiveTypeReference> = { primitive: PrimitiveType.Any };
+export const CANONICAL_ANY: Readonly<PrimitiveTypeReference> = {
+  primitive: PrimitiveType.Any,
+};
 
 /**
  * Reference to a named type, defined by this assembly or one of its
@@ -492,7 +506,9 @@ export interface NamedTypeReference {
    */
   fqn: FQN;
 }
-export function isNamedTypeReference(ref: TypeReference | undefined): ref is NamedTypeReference {
+export function isNamedTypeReference(
+  ref: TypeReference | undefined,
+): ref is NamedTypeReference {
   return !!(ref as NamedTypeReference)?.fqn;
 }
 
@@ -506,7 +522,9 @@ export interface PrimitiveTypeReference {
    */
   primitive: PrimitiveType;
 }
-export function isPrimitiveTypeReference(ref: TypeReference | undefined): ref is PrimitiveTypeReference {
+export function isPrimitiveTypeReference(
+  ref: TypeReference | undefined,
+): ref is PrimitiveTypeReference {
   return !!(ref as PrimitiveTypeReference)?.primitive;
 }
 
@@ -516,17 +534,19 @@ export function isPrimitiveTypeReference(ref: TypeReference | undefined): ref is
 export interface CollectionTypeReference {
   collection: {
     /**
-      * The kind of collection.
-      */
+     * The kind of collection.
+     */
     kind: CollectionKind;
 
     /**
-      * The type of an element (map keys are always strings).
-      */
+     * The type of an element (map keys are always strings).
+     */
     elementtype: TypeReference;
   };
 }
-export function isCollectionTypeReference(ref: TypeReference | undefined): ref is CollectionTypeReference {
+export function isCollectionTypeReference(
+  ref: TypeReference | undefined,
+): ref is CollectionTypeReference {
   return !!(ref as CollectionTypeReference)?.collection;
 }
 
@@ -540,14 +560,16 @@ export interface UnionTypeReference {
    */
   union: {
     /**
-      * All the possible types (including the primary type).
-      *
-      * @minItems 2
-      */
+     * All the possible types (including the primary type).
+     *
+     * @minItems 2
+     */
     types: TypeReference[];
   };
 }
-export function isUnionTypeReference(ref: TypeReference | undefined): ref is UnionTypeReference {
+export function isUnionTypeReference(
+  ref: TypeReference | undefined,
+): ref is UnionTypeReference {
   return !!(ref as UnionTypeReference)?.union;
 }
 
@@ -569,7 +591,11 @@ export interface Overridable {
 /**
  * A class property.
  */
-export interface Property extends Documentable, OptionalValue, Overridable, SourceLocatable {
+export interface Property
+  extends Documentable,
+    OptionalValue,
+    Overridable,
+    SourceLocatable {
   /**
    * The name of the property.
    *
@@ -619,7 +645,6 @@ export interface Property extends Documentable, OptionalValue, Overridable, Sour
  * Represents a method parameter.
  */
 export interface Parameter extends Documentable, OptionalValue {
-
   /**
    * The name of the parameter.
    *
@@ -769,7 +794,7 @@ export interface TypeBase extends Documentable, SourceLocatable {
 export enum TypeKind {
   Class = 'class',
   Enum = 'enum',
-  Interface = 'interface'
+  Interface = 'interface',
 }
 
 /**
@@ -896,7 +921,9 @@ export function isEnumType(type: Type | undefined): type is EnumType {
 /**
  * Return whether this type is a class or interface type
  */
-export function isClassOrInterfaceType(type: Type | undefined): type is (InterfaceType | ClassType) {
+export function isClassOrInterfaceType(
+  type: Type | undefined,
+): type is InterfaceType | ClassType {
   return isClassType(type) || isInterfaceType(type);
 }
 
@@ -904,7 +931,9 @@ export function isClassOrInterfaceType(type: Type | undefined): type is (Interfa
  * Return a string representation of the given type reference.
  */
 export function describeTypeReference(type?: TypeReference): string {
-  if (type === undefined) { return 'void'; }
+  if (type === undefined) {
+    return 'void';
+  }
 
   if (isNamedTypeReference(type)) {
     return type.fqn;
@@ -915,7 +944,9 @@ export function describeTypeReference(type?: TypeReference): string {
   }
 
   if (isCollectionTypeReference(type)) {
-    return `${type.collection.kind}<${describeTypeReference(type.collection.elementtype)}>`;
+    return `${type.collection.kind}<${describeTypeReference(
+      type.collection.elementtype,
+    )}>`;
   }
 
   if (isUnionTypeReference(type)) {
