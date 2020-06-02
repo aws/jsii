@@ -17,6 +17,7 @@ import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
 import software.amazon.jsii.tests.calculator.lib.Number;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
+import software.amazon.jsii.tests.calculator.submodule.child.OuterClass;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -1757,5 +1758,11 @@ public class ComplianceTest {
         for (final Object obj : InterfaceCollections.mapOfInterfaces().values()) {
             assertTrue(obj instanceof IBell, () -> obj + " is an instance of " + IBell.class.getCanonicalName());
         }
+    }
+
+    @Test
+    public void classesCanSelfReferenceDuringClassInitialization() {
+        final OuterClass outerClass = new OuterClass();
+        assertNotNull(outerClass.getInnerClass());
     }
 }
