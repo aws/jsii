@@ -37,7 +37,6 @@ export class JavaBuilder implements TargetBuilder {
   private readonly targetName = 'java';
 
   public constructor(private readonly modules: JsiiModule[], private readonly options: BuildOptions) {
-    console.log('Hi Eli and Neta!');
   }
 
   public async buildModules(): Promise<void> {
