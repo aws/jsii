@@ -3,5 +3,5 @@
  * enabled, and can be silenced through the --silence-warning option.
  */
 export const enabledWarnings: { [name: string]: boolean } = {
-  'reserved-word': true
+  'reserved-word': true,
 };

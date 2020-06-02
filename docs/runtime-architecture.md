@@ -28,7 +28,7 @@ A simplified representation of the execution environment of an application using
 │     │Generated Bindings│             │      @jsii/runtime       │
 │     │                  │             │                          │
 │     ├──────────────────┤             ├────────┬─────────────────┤
-│     │                  ├────────────▶│ SDTIN  │                 │
+│     │                  ├────────────▶│ STDIN  │                 │
 │     │Host jsii Runtime │    JSON     ├────────┤                 │
 │     │                  │◀────────────┤ STDOUT │   node          │
 ├─────┴──────────────────┤             ├────────┘                 │

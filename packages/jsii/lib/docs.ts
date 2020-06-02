@@ -51,8 +51,13 @@ enum DocTag {
   STABILITY = 'stability',
 }
 
-export function parseSymbolDocumentation(sym: ts.Symbol, typeChecker: ts.TypeChecker): DocsParsingResult {
-  const comment = ts.displayPartsToString(sym.getDocumentationComment(typeChecker)).trim();
+export function parseSymbolDocumentation(
+  sym: ts.Symbol,
+  typeChecker: ts.TypeChecker,
+): DocsParsingResult {
+  const comment = ts
+    .displayPartsToString(sym.getDocumentationComment(typeChecker))
+    .trim();
   const tags = reabsorbExampleTags(sym.getJsDocTags());
 
   // Right here we'll just guess that the first declaration site is the most important one.
@@ -73,7 +78,10 @@ export function getReferencedDocParams(sym: ts.Symbol): string[] {
   return ret;
 }
 
-function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): DocsParsingResult {
+function parseDocParts(
+  comments: string | undefined,
+  tags: ts.JSDocTagInfo[],
+): DocsParsingResult {
   const diagnostics = new Array<string>();
   const docs: spec.Docs = {};
 
@@ -82,7 +90,9 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
   const tagNames = new Map<string, string | undefined>();
   for (const tag of tags) {
     // 'param' gets parsed as a tag and as a comment for a method
-    if (tag.name !== DocTag.PARAM) { tagNames.set(tag.name, tag.text); }
+    if (tag.name !== DocTag.PARAM) {
+      tagNames.set(tag.name, tag.text);
+    }
   }
 
   function eatTag(...names: string[]): string | undefined {
@@ -101,7 +111,8 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
   docs.example = eatTag(DocTag.EXAMPLE);
   docs.returns = eatTag(DocTag.RETURNS, DocTag.RETURN);
   docs.see = eatTag(DocTag.SEE);
-  docs.subclassable = eatTag(DocTag.SUBCLASSABLE) !== undefined ? true : undefined;
+  docs.subclassable =
+    eatTag(DocTag.SUBCLASSABLE) !== undefined ? true : undefined;
 
   docs.stability = parseStability(eatTag(DocTag.STABILITY), diagnostics);
   //  @experimental is a shorthand for '@stability experimental', same for '@stable'
@@ -111,13 +122,22 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
   if (countBools(docs.stability !== undefined, experimental, stable) > 1) {
     diagnostics.push('Use only one of @stability, @experimental or @stable');
   }
-  if (experimental) { docs.stability = spec.Stability.Experimental; }
-  if (stable) { docs.stability = spec.Stability.Stable; }
+  if (experimental) {
+    docs.stability = spec.Stability.Experimental;
+  }
+  if (stable) {
+    docs.stability = spec.Stability.Stable;
+  }
 
   // Can combine '@stability deprecated' with '@deprecated <reason>'
   if (docs.deprecated !== undefined) {
-    if (docs.stability !== undefined && docs.stability !== spec.Stability.Deprecated) {
-      diagnostics.push("@deprecated tag requires '@stability deprecated' or no @stability at all.");
+    if (
+      docs.stability !== undefined &&
+      docs.stability !== spec.Stability.Deprecated
+    ) {
+      diagnostics.push(
+        "@deprecated tag requires '@stability deprecated' or no @stability at all.",
+      );
     }
     docs.stability = spec.Stability.Deprecated;
   }
@@ -128,17 +148,21 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
     // which I tend to agree with, but that hasn't become a widely used standard yet.
     //
     // So we conform to existing reality.
-    diagnostics.push('@example must be code only, no code block fences allowed.');
+    diagnostics.push(
+      '@example must be code only, no code block fences allowed.',
+    );
   }
 
   if (docs.deprecated?.trim() === '') {
-    diagnostics.push('@deprecated tag needs a reason and/or suggested alternatives.');
+    diagnostics.push(
+      '@deprecated tag needs a reason and/or suggested alternatives.',
+    );
   }
 
   if (tagNames.size > 0) {
     docs.custom = {};
     for (const [key, value] of tagNames.entries()) {
-      docs.custom[key] = value ?? 'true';  // Key must have a value or it will be stripped from the assembly
+      docs.custom[key] = value ?? 'true'; // Key must have a value or it will be stripped from the assembly
     }
   }
 
@@ -158,8 +182,12 @@ export interface DocsParsingResult {
  * the docstring. If we detect that situation, we will try and extract the first sentence (using
  * a period) as the summary.
  */
-export function splitSummary(docBlock: string | undefined): [string | undefined, string | undefined] {
-  if (!docBlock) { return [undefined, undefined]; }
+export function splitSummary(
+  docBlock: string | undefined,
+): [string | undefined, string | undefined] {
+  if (!docBlock) {
+    return [undefined, undefined];
+  }
   const summary = summaryLine(docBlock);
   const remarks = uberTrim(docBlock.substr(summary.length));
   return [endWithPeriod(noNewlines(summary.trim())), remarks];
@@ -196,17 +224,23 @@ const SUMMARY_MAX_WORDS = 20;
  */
 function summaryLine(str: string) {
   const paras = str.split('\n\n');
-  if (paras.length > 1 && paras[0].split(' ').length < SUMMARY_MAX_WORDS) { return paras[0]; }
+  if (paras.length > 1 && paras[0].split(' ').length < SUMMARY_MAX_WORDS) {
+    return paras[0];
+  }
 
   const m = FIRST_SENTENCE_REGEX.exec(str);
-  if (m) { return m[1]; }
+  if (m) {
+    return m[1];
+  }
 
   return paras[0];
 }
 
-const PUNCTUATION = ['!', '?', '.', ';'].map(s => `\\${s}`).join('');
+const PUNCTUATION = ['!', '?', '.', ';'].map((s) => `\\${s}`).join('');
 const ENDS_WITH_PUNCTUATION_REGEX = new RegExp(`[${PUNCTUATION}]$`);
-const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+[${PUNCTUATION}][ \n\r])`); // Needs a whitespace after the punctuation.
+const FIRST_SENTENCE_REGEX = new RegExp(
+  `^([^${PUNCTUATION}]+[${PUNCTUATION}][ \n\r])`,
+); // Needs a whitespace after the punctuation.
 
 function intBool(x: boolean): number {
   return x ? 1 : 0;
@@ -216,19 +250,27 @@ function countBools(...x: boolean[]) {
   return x.map(intBool).reduce((a, b) => a + b, 0);
 }
 
-function parseStability(s: string | undefined, diagnostics: string[]): spec.Stability | undefined {
-  if (s === undefined) { return undefined; }
+function parseStability(
+  s: string | undefined,
+  diagnostics: string[],
+): spec.Stability | undefined {
+  if (s === undefined) {
+    return undefined;
+  }
 
   switch (s) {
-    case 'stable': return spec.Stability.Stable;
-    case 'experimental': return spec.Stability.Experimental;
-    case 'external': return spec.Stability.External;
-    case 'deprecated': return spec.Stability.Deprecated;
+    case 'stable':
+      return spec.Stability.Stable;
+    case 'experimental':
+      return spec.Stability.Experimental;
+    case 'external':
+      return spec.Stability.External;
+    case 'deprecated':
+      return spec.Stability.Deprecated;
   }
   diagnostics.push(`Unrecognized @stability: '${s}'`);
   return undefined;
 }
-
 
 /**
  * Unrecognized tags that follow an '@ example' tag will be absorbed back into the example value

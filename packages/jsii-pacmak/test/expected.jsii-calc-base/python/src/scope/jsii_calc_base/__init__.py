@@ -8,9 +8,9 @@ import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base_of_base
-
 from ._jsii import *
+
+import scope.jsii_calc_base_of_base
 
 
 class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Base"):

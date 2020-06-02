@@ -8,12 +8,9 @@ import jsii
 import jsii.compat
 import publication
 
-import scope.jsii_calc_base
-import scope.jsii_calc_base_of_base
-import scope.jsii_calc_lib
-import scope.jsii_calc_lib.submodule
-
 from .._jsii import *
+
+import scope.jsii_calc_lib
 
 
 class CompositeOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.composition.CompositeOperation"):
@@ -72,7 +69,7 @@ class CompositeOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstr
         return jsii.get(self, "decorationPostfixes")
 
     @decoration_postfixes.setter
-    def decoration_postfixes(self, value: typing.List[str]):
+    def decoration_postfixes(self, value: typing.List[str]) -> None:
         jsii.set(self, "decorationPostfixes", value)
 
     @builtins.property
@@ -86,7 +83,7 @@ class CompositeOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstr
         return jsii.get(self, "decorationPrefixes")
 
     @decoration_prefixes.setter
-    def decoration_prefixes(self, value: typing.List[str]):
+    def decoration_prefixes(self, value: typing.List[str]) -> None:
         jsii.set(self, "decorationPrefixes", value)
 
     @builtins.property
@@ -100,7 +97,7 @@ class CompositeOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstr
         return jsii.get(self, "stringStyle")
 
     @string_style.setter
-    def string_style(self, value: "CompositionStringStyle"):
+    def string_style(self, value: "CompositionStringStyle") -> None:
         jsii.set(self, "stringStyle", value)
 
     @jsii.enum(jsii_type="jsii-calc.composition.CompositeOperation.CompositionStringStyle")

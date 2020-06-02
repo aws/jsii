@@ -6,6 +6,7 @@ mkdir -p conf
 
 # generate pom.xml and JsiiVersion.java with version from package.json
 /usr/bin/env node ./pom.xml.t.js > ${project}/pom.xml
+/usr/bin/env node ./user.xml.t.js > ${project}/user.xml
 /usr/bin/env node JsiiVersion.t.js > ${project}/src/main/java/software/amazon/jsii/JsiiVersion.java
 
 # embed @jsii/runtime as a resource

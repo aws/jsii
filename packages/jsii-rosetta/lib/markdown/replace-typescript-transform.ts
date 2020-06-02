@@ -1,8 +1,14 @@
 import { ReplaceCodeTransform } from './replace-code-renderer';
-import { TypeScriptSnippet, typeScriptSnippetFromSource, parseKeyValueList } from '../snippet';
+import {
+  TypeScriptSnippet,
+  typeScriptSnippetFromSource,
+  parseKeyValueList,
+} from '../snippet';
 import { CodeBlock } from './types';
 
-export type TypeScriptReplacer = (code: TypeScriptSnippet) => CodeBlock | undefined;
+export type TypeScriptReplacer = (
+  code: TypeScriptSnippet,
+) => CodeBlock | undefined;
 
 /**
  * A specialization of ReplaceCodeTransform that maintains state about TypeScript snippets
@@ -12,15 +18,17 @@ export class ReplaceTypeScriptTransform extends ReplaceCodeTransform {
 
   public constructor(wherePrefix: string, replacer: TypeScriptReplacer) {
     let count = 0;
-    super(block => {
+    super((block) => {
       const languageParts = block.language ? block.language.split(' ') : [];
-      if (languageParts[0] !== 'typescript' && languageParts[0] !== 'ts') { return block; }
+      if (languageParts[0] !== 'typescript' && languageParts[0] !== 'ts') {
+        return block;
+      }
 
       count += 1;
       const tsSnippet = typeScriptSnippetFromSource(
         block.source,
         this.addSnippetNumber(count),
-        parseKeyValueList(languageParts.slice(1))
+        parseKeyValueList(languageParts.slice(1)),
       );
 
       return replacer(tsSnippet) || block;
@@ -31,7 +39,9 @@ export class ReplaceTypeScriptTransform extends ReplaceCodeTransform {
 
   private addSnippetNumber(snippetNumber: number) {
     // First snippet (most cases) will not be numbered
-    if (snippetNumber === 1) { return this.wherePrefix; }
+    if (snippetNumber === 1) {
+      return this.wherePrefix;
+    }
 
     return `${this.wherePrefix}-snippet${snippetNumber}`;
   }

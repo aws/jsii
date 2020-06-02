@@ -6,6 +6,7 @@ env:
 plugins:
   - '@typescript-eslint'
   - import
+  - prettier
 
 parser: '@typescript-eslint/parser'
 parserOptions:
@@ -19,6 +20,9 @@ extends:
   - plugin:@typescript-eslint/recommended
   - plugin:@typescript-eslint/recommended-requiring-type-checking
   - plugin:import/typescript
+  - prettier
+  - prettier/@typescript-eslint
+  - plugin:prettier/recommended
 
 settings:
   import/parsers:
@@ -31,6 +35,9 @@ settings:
 
 rules:
   # Custom Configurations
+
+  'prettier/prettier':
+    - error
 
   '@typescript-eslint/array-type':
     - error
@@ -48,19 +55,6 @@ rules:
   '@typescript-eslint/explicit-member-accessibility':
     - error
 
-  '@typescript-eslint/indent':
-    - error
-    - 2
-
-  '@typescript-eslint/member-delimiter-style':
-    - error
-    - multiline:
-        delimiter: semi
-        requireLast: true
-      singleline:
-        delimiter: comma
-        requireLast: false
-
   '@typescript-eslint/member-ordering':
     - warn
     - default:
@@ -73,12 +67,6 @@ rules:
   '@typescript-eslint/no-empty-function':
     - error
     - allow: [constructors]
-
-  '@typescript-eslint/no-extra-parens':
-    - error
-    - all
-    - conditionalAssign: false
-      nestedBinaryExpressions: false
 
   '@typescript-eslint/no-floating-promises':
     - error
@@ -110,25 +98,8 @@ rules:
     - error
     - checkArrowFunctions: false
 
-  '@typescript-eslint/quotes':
-    - error
-    - single
-    - avoidEscape: true
-      allowTemplateLiterals: false
-
   '@typescript-eslint/require-await':
     - error
-
-  '@typescript-eslint/semi':
-    - error
-    - 'always'
-
-  '@typescript-eslint/type-annotation-spacing':
-    - error
-
-  'array-bracket-spacing':
-    - error
-    - never
 
   'complexity':
     - warn
@@ -136,14 +107,6 @@ rules:
 
   'consistent-return':
     - error
-
-  'curly':
-    - error
-    - all
-
-  'dot-location':
-    - error
-    - property
 
   'dot-notation':
     - error
@@ -161,13 +124,6 @@ rules:
 
   'import/no-unresolved':
     - error
-
-  'max-len':
-    - error
-    - code: 150
-      ignoreStrings: true
-      ignoreTemplateLiterals: true
-      tabWidth: 2
 
   'no-alert':
     - error
@@ -194,10 +150,6 @@ rules:
   'no-lone-blocks':
     - error
 
-  'no-multi-spaces':
-    - error
-    - ignoreEOLComments: true
-
   'no-new-symbol':
     - error
 
@@ -219,18 +171,15 @@ rules:
   'no-var':
     - error
 
-  'object-curly-spacing':
-    - error
-    - always
-
   'prefer-const':
     - error
 
   'prefer-template':
     - error
 
-  'template-curly-spacing':
+  'eol-last':
     - error
+    - always
 
   # Disabled rules
   '@typescript-eslint/explicit-function-return-type': off

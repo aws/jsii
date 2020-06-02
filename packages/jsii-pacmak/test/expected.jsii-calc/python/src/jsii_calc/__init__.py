@@ -37,13 +37,13 @@ import jsii
 import jsii.compat
 import publication
 
-import jsii_calc.composition
+from ._jsii import *
+
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
-import scope.jsii_calc_lib.submodule
-
-from ._jsii import *
+import scope.jsii_calc_lib.custom_submodule_name
+from .composition import (CompositeOperation as _CompositeOperation_1c4d123b)
 
 
 class AbstractClassBase(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"):
@@ -161,7 +161,7 @@ class AbstractSuite(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Abstr
 
     @_property.setter
     @abc.abstractmethod
-    def _property(self, value: str):
+    def _property(self, value: str) -> None:
         ...
 
 
@@ -186,7 +186,7 @@ class _AbstractSuiteProxy(AbstractSuite):
         return jsii.get(self, "property")
 
     @_property.setter
-    def _property(self, value: str):
+    def _property(self, value: str) -> None:
         jsii.set(self, "property", value)
 
 
@@ -249,7 +249,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "anyArrayProperty")
 
     @any_array_property.setter
-    def any_array_property(self, value: typing.List[typing.Any]):
+    def any_array_property(self, value: typing.List[typing.Any]) -> None:
         jsii.set(self, "anyArrayProperty", value)
 
     @builtins.property
@@ -262,7 +262,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "anyMapProperty")
 
     @any_map_property.setter
-    def any_map_property(self, value: typing.Mapping[str, typing.Any]):
+    def any_map_property(self, value: typing.Mapping[str, typing.Any]) -> None:
         jsii.set(self, "anyMapProperty", value)
 
     @builtins.property
@@ -275,7 +275,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "anyProperty")
 
     @any_property.setter
-    def any_property(self, value: typing.Any):
+    def any_property(self, value: typing.Any) -> None:
         jsii.set(self, "anyProperty", value)
 
     @builtins.property
@@ -288,7 +288,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "arrayProperty")
 
     @array_property.setter
-    def array_property(self, value: typing.List[str]):
+    def array_property(self, value: typing.List[str]) -> None:
         jsii.set(self, "arrayProperty", value)
 
     @builtins.property
@@ -301,7 +301,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "booleanProperty")
 
     @boolean_property.setter
-    def boolean_property(self, value: bool):
+    def boolean_property(self, value: bool) -> None:
         jsii.set(self, "booleanProperty", value)
 
     @builtins.property
@@ -314,7 +314,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "dateProperty")
 
     @date_property.setter
-    def date_property(self, value: datetime.datetime):
+    def date_property(self, value: datetime.datetime) -> None:
         jsii.set(self, "dateProperty", value)
 
     @builtins.property
@@ -327,7 +327,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "enumProperty")
 
     @enum_property.setter
-    def enum_property(self, value: "AllTypesEnum"):
+    def enum_property(self, value: "AllTypesEnum") -> None:
         jsii.set(self, "enumProperty", value)
 
     @builtins.property
@@ -340,7 +340,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "jsonProperty")
 
     @json_property.setter
-    def json_property(self, value: typing.Mapping[typing.Any, typing.Any]):
+    def json_property(self, value: typing.Mapping[typing.Any, typing.Any]) -> None:
         jsii.set(self, "jsonProperty", value)
 
     @builtins.property
@@ -353,7 +353,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "mapProperty")
 
     @map_property.setter
-    def map_property(self, value: typing.Mapping[str, scope.jsii_calc_lib.Number]):
+    def map_property(self, value: typing.Mapping[str, scope.jsii_calc_lib.Number]) -> None:
         jsii.set(self, "mapProperty", value)
 
     @builtins.property
@@ -366,7 +366,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "numberProperty")
 
     @number_property.setter
-    def number_property(self, value: jsii.Number):
+    def number_property(self, value: jsii.Number) -> None:
         jsii.set(self, "numberProperty", value)
 
     @builtins.property
@@ -379,7 +379,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "stringProperty")
 
     @string_property.setter
-    def string_property(self, value: str):
+    def string_property(self, value: str) -> None:
         jsii.set(self, "stringProperty", value)
 
     @builtins.property
@@ -392,7 +392,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unionArrayProperty")
 
     @union_array_property.setter
-    def union_array_property(self, value: typing.List[typing.Union[jsii.Number, scope.jsii_calc_lib.Value]]):
+    def union_array_property(self, value: typing.List[typing.Union[jsii.Number, scope.jsii_calc_lib.Value]]) -> None:
         jsii.set(self, "unionArrayProperty", value)
 
     @builtins.property
@@ -405,7 +405,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unionMapProperty")
 
     @union_map_property.setter
-    def union_map_property(self, value: typing.Mapping[str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]):
+    def union_map_property(self, value: typing.Mapping[str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]) -> None:
         jsii.set(self, "unionMapProperty", value)
 
     @builtins.property
@@ -418,7 +418,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Union[str, jsii.Number, "Multiply", scope.jsii_calc_lib.Number]):
+    def union_property(self, value: typing.Union[str, jsii.Number, "Multiply", scope.jsii_calc_lib.Number]) -> None:
         jsii.set(self, "unionProperty", value)
 
     @builtins.property
@@ -431,7 +431,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unknownArrayProperty")
 
     @unknown_array_property.setter
-    def unknown_array_property(self, value: typing.List[typing.Any]):
+    def unknown_array_property(self, value: typing.List[typing.Any]) -> None:
         jsii.set(self, "unknownArrayProperty", value)
 
     @builtins.property
@@ -444,7 +444,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unknownMapProperty")
 
     @unknown_map_property.setter
-    def unknown_map_property(self, value: typing.Mapping[str, typing.Any]):
+    def unknown_map_property(self, value: typing.Mapping[str, typing.Any]) -> None:
         jsii.set(self, "unknownMapProperty", value)
 
     @builtins.property
@@ -457,7 +457,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "unknownProperty")
 
     @unknown_property.setter
-    def unknown_property(self, value: typing.Any):
+    def unknown_property(self, value: typing.Any) -> None:
         jsii.set(self, "unknownProperty", value)
 
     @builtins.property
@@ -470,7 +470,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.get(self, "optionalEnumValue")
 
     @optional_enum_value.setter
-    def optional_enum_value(self, value: typing.Optional["StringEnum"]):
+    def optional_enum_value(self, value: typing.Optional["StringEnum"]) -> None:
         jsii.set(self, "optionalEnumValue", value)
 
 
@@ -742,7 +742,7 @@ class BinaryOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstract
 class _BinaryOperationProxy(BinaryOperation, jsii.proxy_for(scope.jsii_calc_lib.Operation)):
     pass
 
-class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
+class Calculator(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
     """A calculator which maintains a current value and allows adding operations.
 
     Here's how you use it::
@@ -871,7 +871,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
         return jsii.get(self, "curr")
 
     @curr.setter
-    def curr(self, value: scope.jsii_calc_lib.Value):
+    def curr(self, value: scope.jsii_calc_lib.Value) -> None:
         jsii.set(self, "curr", value)
 
     @builtins.property
@@ -885,12 +885,12 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
         return jsii.get(self, "maxValue")
 
     @max_value.setter
-    def max_value(self, value: typing.Optional[jsii.Number]):
+    def max_value(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "maxValue", value)
 
     @builtins.property
     @jsii.member(jsii_name="unionProperty")
-    def union_property(self) -> typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]:
+    def union_property(self) -> typing.Optional[typing.Union["Add", "Multiply", "Power"]]:
         """Example of a property that accepts a union of types.
 
         stability
@@ -899,7 +899,7 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]):
+    def union_property(self, value: typing.Optional[typing.Union["Add", "Multiply", "Power"]]) -> None:
         jsii.set(self, "unionProperty", value)
 
 
@@ -998,7 +998,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.sget(cls, "staticArray")
 
     @static_array.setter
-    def static_array(cls, value: typing.List[str]):
+    def static_array(cls, value: typing.List[str]) -> None:
         jsii.sset(cls, "staticArray", value)
 
     @jsii.python.classproperty
@@ -1011,7 +1011,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.sget(cls, "staticMap")
 
     @static_map.setter
-    def static_map(cls, value: typing.Mapping[str, str]):
+    def static_map(cls, value: typing.Mapping[str, str]) -> None:
         jsii.sset(cls, "staticMap", value)
 
     @builtins.property
@@ -1024,7 +1024,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.get(self, "array")
 
     @array.setter
-    def array(self, value: typing.List[str]):
+    def array(self, value: typing.List[str]) -> None:
         jsii.set(self, "array", value)
 
     @builtins.property
@@ -1037,7 +1037,7 @@ class ClassWithCollections(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWi
         return jsii.get(self, "map")
 
     @map.setter
-    def map(self, value: typing.Mapping[str, str]):
+    def map(self, value: typing.Mapping[str, str]) -> None:
         jsii.set(self, "map", value)
 
 
@@ -1113,7 +1113,7 @@ class ClassWithMutableObjectLiteralProperty(metaclass=jsii.JSIIMeta, jsii_type="
         return jsii.get(self, "mutableObject")
 
     @mutable_object.setter
-    def mutable_object(self, value: "IMutableObjectLiteral"):
+    def mutable_object(self, value: "IMutableObjectLiteral") -> None:
         jsii.set(self, "mutableObject", value)
 
 
@@ -1145,7 +1145,7 @@ class ConfusingToJackson(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Confusing
 
     @builtins.property
     @jsii.member(jsii_name="unionProperty")
-    def union_property(self) -> typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]:
+    def union_property(self) -> typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]:
         """
         stability
         :stability: experimental
@@ -1153,13 +1153,13 @@ class ConfusingToJackson(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Confusing
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]):
+    def union_property(self, value: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]) -> None:
         jsii.set(self, "unionProperty", value)
 
 
 @jsii.data_type(jsii_type="jsii-calc.ConfusingToJacksonStruct", jsii_struct_bases=[], name_mapping={'union_property': 'unionProperty'})
 class ConfusingToJacksonStruct():
-    def __init__(self, *, union_property: typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]=None) -> None:
+    def __init__(self, *, union_property: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]=None) -> None:
         """
         :param union_property: 
 
@@ -1171,7 +1171,7 @@ class ConfusingToJacksonStruct():
         if union_property is not None: self._values["union_property"] = union_property
 
     @builtins.property
-    def union_property(self) -> typing.Optional[typing.Union[typing.Optional[scope.jsii_calc_lib.IFriendly], typing.Optional[typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]]:
+    def union_property(self) -> typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]]]]:
         """
         stability
         :stability: experimental
@@ -1634,7 +1634,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
 
@@ -2290,7 +2290,7 @@ class ExperimentalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Experiment
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
 
@@ -2405,6 +2405,120 @@ class ExtendsInternalInterface():
 
     def __repr__(self) -> str:
         return 'ExtendsInternalInterface(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
+class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"):
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    def __init__(self, readonly_string: str, mutable_number: typing.Optional[jsii.Number]=None) -> None:
+        """
+        :param readonly_string: -
+        :param mutable_number: -
+
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        jsii.create(ExternalClass, self, [readonly_string, mutable_number])
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.invoke(self, "method", [])
+
+    @builtins.property
+    @jsii.member(jsii_name="readonlyProperty")
+    def readonly_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.get(self, "readonlyProperty")
+
+    @builtins.property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
+        jsii.set(self, "mutableProperty", value)
+
+
+@jsii.enum(jsii_type="jsii-calc.ExternalEnum")
+class ExternalEnum(enum.Enum):
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    OPTION_A = "OPTION_A"
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    OPTION_B = "OPTION_B"
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+
+@jsii.data_type(jsii_type="jsii-calc.ExternalStruct", jsii_struct_bases=[], name_mapping={'readonly_property': 'readonlyProperty'})
+class ExternalStruct():
+    def __init__(self, *, readonly_property: str) -> None:
+        """
+        :param readonly_property: 
+
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        self._values = {
+            'readonly_property': readonly_property,
+        }
+
+    @builtins.property
+    def readonly_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return self._values.get('readonly_property')
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'ExternalStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
 class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"):
@@ -2661,7 +2775,7 @@ class IAnotherPublicInterface(jsii.compat.Protocol):
         ...
 
     @a.setter
-    def a(self, value: str):
+    def a(self, value: str) -> None:
         ...
 
 
@@ -2681,7 +2795,7 @@ class _IAnotherPublicInterfaceProxy():
         return jsii.get(self, "a")
 
     @a.setter
-    def a(self, value: str):
+    def a(self, value: str) -> None:
         jsii.set(self, "a", value)
 
 
@@ -2825,7 +2939,7 @@ class IDeprecatedInterface(jsii.compat.Protocol):
         ...
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
     @jsii.member(jsii_name="method")
@@ -2862,7 +2976,7 @@ class _IDeprecatedInterfaceProxy():
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
     @jsii.member(jsii_name="method")
@@ -2897,7 +3011,7 @@ class IExperimentalInterface(jsii.compat.Protocol):
         ...
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
     @jsii.member(jsii_name="method")
@@ -2925,7 +3039,7 @@ class _IExperimentalInterfaceProxy():
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
     @jsii.member(jsii_name="method")
@@ -2966,7 +3080,7 @@ class IExtendsPrivateInterface(jsii.compat.Protocol):
         ...
 
     @private.setter
-    def private(self, value: str):
+    def private(self, value: str) -> None:
         ...
 
 
@@ -2995,8 +3109,80 @@ class _IExtendsPrivateInterfaceProxy():
         return jsii.get(self, "private")
 
     @private.setter
-    def private(self, value: str):
+    def private(self, value: str) -> None:
         jsii.set(self, "private", value)
+
+
+@jsii.interface(jsii_type="jsii-calc.IExternalInterface")
+class IExternalInterface(jsii.compat.Protocol):
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    @builtins.staticmethod
+    def __jsii_proxy_class__():
+        return _IExternalInterfaceProxy
+
+    @builtins.property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        ...
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
+        ...
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        ...
+
+
+class _IExternalInterfaceProxy():
+    """
+    stability
+    :stability: experimental
+    external:
+    :external:: true
+    """
+    __jsii_type__ = "jsii-calc.IExternalInterface"
+    @builtins.property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
+        jsii.set(self, "mutableProperty", value)
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        stability
+        :stability: experimental
+        external:
+        :external:: true
+        """
+        return jsii.invoke(self, "method", [])
 
 
 @jsii.interface(jsii_type="jsii-calc.IFriendlier")
@@ -3256,7 +3442,7 @@ class IInterfaceWithProperties(jsii.compat.Protocol):
         ...
 
     @read_write_string.setter
-    def read_write_string(self, value: str):
+    def read_write_string(self, value: str) -> None:
         ...
 
 
@@ -3285,7 +3471,7 @@ class _IInterfaceWithPropertiesProxy():
         return jsii.get(self, "readWriteString")
 
     @read_write_string.setter
-    def read_write_string(self, value: str):
+    def read_write_string(self, value: str) -> None:
         jsii.set(self, "readWriteString", value)
 
 
@@ -3309,7 +3495,7 @@ class IInterfaceWithPropertiesExtension(IInterfaceWithProperties, jsii.compat.Pr
         ...
 
     @foo.setter
-    def foo(self, value: jsii.Number):
+    def foo(self, value: jsii.Number) -> None:
         ...
 
 
@@ -3329,7 +3515,7 @@ class _IInterfaceWithPropertiesExtensionProxy(jsii.proxy_for(IInterfaceWithPrope
         return jsii.get(self, "foo")
 
     @foo.setter
-    def foo(self, value: jsii.Number):
+    def foo(self, value: jsii.Number) -> None:
         jsii.set(self, "foo", value)
 
 
@@ -3465,7 +3651,7 @@ class IMutableObjectLiteral(jsii.compat.Protocol):
         ...
 
     @value.setter
-    def value(self, value: str):
+    def value(self, value: str) -> None:
         ...
 
 
@@ -3485,7 +3671,7 @@ class _IMutableObjectLiteralProxy():
         return jsii.get(self, "value")
 
     @value.setter
-    def value(self, value: str):
+    def value(self, value: str) -> None:
         jsii.set(self, "value", value)
 
 
@@ -3509,7 +3695,7 @@ class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
         ...
 
     @b.setter
-    def b(self, value: str):
+    def b(self, value: str) -> None:
         ...
 
     @builtins.property
@@ -3522,7 +3708,7 @@ class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
         ...
 
     @c.setter
-    def c(self, value: str):
+    def c(self, value: str) -> None:
         ...
 
 
@@ -3542,7 +3728,7 @@ class _INonInternalInterfaceProxy(jsii.proxy_for(IAnotherPublicInterface)):
         return jsii.get(self, "b")
 
     @b.setter
-    def b(self, value: str):
+    def b(self, value: str) -> None:
         jsii.set(self, "b", value)
 
     @builtins.property
@@ -3555,7 +3741,7 @@ class _INonInternalInterfaceProxy(jsii.proxy_for(IAnotherPublicInterface)):
         return jsii.get(self, "c")
 
     @c.setter
-    def c(self, value: str):
+    def c(self, value: str) -> None:
         jsii.set(self, "c", value)
 
 
@@ -3580,7 +3766,7 @@ class IObjectWithProperty(jsii.compat.Protocol):
         ...
 
     @property.setter
-    def property(self, value: str):
+    def property(self, value: str) -> None:
         ...
 
     @jsii.member(jsii_name="wasSet")
@@ -3609,7 +3795,7 @@ class _IObjectWithPropertyProxy():
         return jsii.get(self, "property")
 
     @property.setter
-    def property(self, value: str):
+    def property(self, value: str) -> None:
         jsii.set(self, "property", value)
 
     @jsii.member(jsii_name="wasSet")
@@ -3907,7 +4093,7 @@ class IStableInterface(jsii.compat.Protocol):
         ...
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         ...
 
     @jsii.member(jsii_name="method")
@@ -3923,7 +4109,7 @@ class _IStableInterfaceProxy():
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
     @jsii.member(jsii_name="method")
@@ -3985,7 +4171,7 @@ class ImplementInternalInterface(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.I
         return jsii.get(self, "prop")
 
     @prop.setter
-    def prop(self, value: str):
+    def prop(self, value: str) -> None:
         jsii.set(self, "prop", value)
 
 
@@ -4052,7 +4238,7 @@ class ImplementsPrivateInterface(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.I
         return jsii.get(self, "private")
 
     @private.setter
-    def private(self, value: str):
+    def private(self, value: str) -> None:
         jsii.set(self, "private", value)
 
 
@@ -4257,7 +4443,7 @@ class JSObjectLiteralToNativeClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc
         return jsii.get(self, "propA")
 
     @prop_a.setter
-    def prop_a(self, value: str):
+    def prop_a(self, value: str) -> None:
         jsii.set(self, "propA", value)
 
     @builtins.property
@@ -4270,7 +4456,7 @@ class JSObjectLiteralToNativeClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc
         return jsii.get(self, "propB")
 
     @prop_b.setter
-    def prop_b(self, value: jsii.Number):
+    def prop_b(self, value: jsii.Number) -> None:
         jsii.set(self, "propB", value)
 
 
@@ -4708,7 +4894,7 @@ class JavaReservedWords(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JavaReserv
         return jsii.get(self, "while")
 
     @while_.setter
-    def while_(self, value: str):
+    def while_(self, value: str) -> None:
         jsii.set(self, "while", value)
 
 
@@ -5243,7 +5429,7 @@ class NullShouldBeTreatedAsUndefined(metaclass=jsii.JSIIMeta, jsii_type="jsii-ca
         return jsii.get(self, "changeMeToUndefined")
 
     @change_me_to_undefined.setter
-    def change_me_to_undefined(self, value: typing.Optional[str]):
+    def change_me_to_undefined(self, value: typing.Optional[str]) -> None:
         jsii.set(self, "changeMeToUndefined", value)
 
 
@@ -5331,7 +5517,7 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
         return jsii.get(self, "generator")
 
     @generator.setter
-    def generator(self, value: "IRandomNumberGenerator"):
+    def generator(self, value: "IRandomNumberGenerator") -> None:
         jsii.set(self, "generator", value)
 
 
@@ -5598,7 +5784,7 @@ class OverridableProtectedMember(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.O
         return jsii.get(self, "overrideReadWrite")
 
     @_override_read_write.setter
-    def _override_read_write(self, value: str):
+    def _override_read_write(self, value: str) -> None:
         jsii.set(self, "overrideReadWrite", value)
 
 
@@ -5712,7 +5898,7 @@ class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
         return jsii.invoke(self, "sayHello", [friendly])
 
 
-class Power(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Power"):
+class Power(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Power"):
     """The power operation.
 
     stability
@@ -6109,7 +6295,7 @@ class ReferenceEnumFromScopedPackage(metaclass=jsii.JSIIMeta, jsii_type="jsii-ca
         return jsii.get(self, "foo")
 
     @foo.setter
-    def foo(self, value: typing.Optional[scope.jsii_calc_lib.EnumFromScopedModule]):
+    def foo(self, value: typing.Optional[scope.jsii_calc_lib.EnumFromScopedModule]) -> None:
         jsii.set(self, "foo", value)
 
 
@@ -6478,7 +6664,7 @@ class StableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StableClass"):
         return jsii.get(self, "mutableProperty")
 
     @mutable_property.setter
-    def mutable_property(self, value: typing.Optional[jsii.Number]):
+    def mutable_property(self, value: typing.Optional[jsii.Number]) -> None:
         jsii.set(self, "mutableProperty", value)
 
 
@@ -6538,7 +6724,7 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
         return jsii.sget(cls, "staticVariable")
 
     @static_variable.setter
-    def static_variable(cls, value: bool):
+    def static_variable(cls, value: bool) -> None:
         jsii.sset(cls, "staticVariable", value)
 
 
@@ -6628,7 +6814,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
         return jsii.sget(cls, "instance")
 
     @instance.setter
-    def instance(cls, value: "Statics"):
+    def instance(cls, value: "Statics") -> None:
         jsii.sset(cls, "instance", value)
 
     @jsii.python.classproperty
@@ -6641,7 +6827,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
         return jsii.sget(cls, "nonConstStatic")
 
     @non_const_static.setter
-    def non_const_static(cls, value: jsii.Number):
+    def non_const_static(cls, value: jsii.Number) -> None:
         jsii.sset(cls, "nonConstStatic", value)
 
     @builtins.property
@@ -6694,7 +6880,7 @@ class StripInternal(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StripInternal"
         return jsii.get(self, "youSeeMe")
 
     @you_see_me.setter
-    def you_see_me(self, value: str):
+    def you_see_me(self, value: str) -> None:
         jsii.set(self, "youSeeMe", value)
 
 
@@ -6964,7 +7150,7 @@ class StructWithJavaReservedWords():
         return 'StructWithJavaReservedWords(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Sum"):
+class Sum(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Sum"):
     """An operation that sums multiple values.
 
     stability
@@ -7000,7 +7186,7 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.get(self, "parts")
 
     @parts.setter
-    def parts(self, value: typing.List[scope.jsii_calc_lib.Value]):
+    def parts(self, value: typing.List[scope.jsii_calc_lib.Value]) -> None:
         jsii.set(self, "parts", value)
 
 
@@ -7212,7 +7398,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "a")
 
     @a.setter
-    def a(self, value: jsii.Number):
+    def a(self, value: jsii.Number) -> None:
         jsii.set(self, "a", value)
 
     @builtins.property
@@ -7225,7 +7411,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "callerIsProperty")
 
     @caller_is_property.setter
-    def caller_is_property(self, value: jsii.Number):
+    def caller_is_property(self, value: jsii.Number) -> None:
         jsii.set(self, "callerIsProperty", value)
 
     @builtins.property
@@ -7238,7 +7424,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "otherProperty")
 
     @other_property.setter
-    def other_property(self, value: str):
+    def other_property(self, value: str) -> None:
         jsii.set(self, "otherProperty", value)
 
     @builtins.property
@@ -7251,7 +7437,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "theProperty")
 
     @the_property.setter
-    def the_property(self, value: str):
+    def the_property(self, value: str) -> None:
         jsii.set(self, "theProperty", value)
 
     @builtins.property
@@ -7264,7 +7450,7 @@ class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtu
         return jsii.get(self, "valueOfOtherProperty")
 
     @value_of_other_property.setter
-    def value_of_other_property(self, value: str):
+    def value_of_other_property(self, value: str) -> None:
         jsii.set(self, "valueOfOtherProperty", value)
 
 
@@ -7373,7 +7559,7 @@ class _UnaryOperationProxy(UnaryOperation, jsii.proxy_for(scope.jsii_calc_lib.Op
 
 @jsii.data_type(jsii_type="jsii-calc.UnionProperties", jsii_struct_bases=[], name_mapping={'bar': 'bar', 'foo': 'foo'})
 class UnionProperties():
-    def __init__(self, *, bar: typing.Union[str, jsii.Number, "AllTypes"], foo: typing.Optional[typing.Union[typing.Optional[str], typing.Optional[jsii.Number]]]=None) -> None:
+    def __init__(self, *, bar: typing.Union[str, jsii.Number, "AllTypes"], foo: typing.Optional[typing.Union[str, jsii.Number]]=None) -> None:
         """
         :param bar: 
         :param foo: 
@@ -7395,7 +7581,7 @@ class UnionProperties():
         return self._values.get('bar')
 
     @builtins.property
-    def foo(self) -> typing.Optional[typing.Union[typing.Optional[str], typing.Optional[jsii.Number]]]:
+    def foo(self) -> typing.Optional[typing.Union[str, jsii.Number]]:
         """
         stability
         :stability: experimental
@@ -7412,7 +7598,7 @@ class UnionProperties():
         return 'UnionProperties(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
-@jsii.implements(scope.jsii_calc_lib.submodule.IReflectable)
+@jsii.implements(scope.jsii_calc_lib.custom_submodule_name.IReflectable)
 class UpcasingReflectable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UpcasingReflectable"):
     """Ensures submodule-imported types from dependencies can be used correctly.
 
@@ -7430,7 +7616,7 @@ class UpcasingReflectable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Upcasing
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="reflector")
-    def REFLECTOR(cls) -> scope.jsii_calc_lib.submodule.Reflector:
+    def REFLECTOR(cls) -> scope.jsii_calc_lib.custom_submodule_name.Reflector:
         """
         stability
         :stability: experimental
@@ -7439,7 +7625,7 @@ class UpcasingReflectable(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Upcasing
 
     @builtins.property
     @jsii.member(jsii_name="entries")
-    def entries(self) -> typing.List[scope.jsii_calc_lib.submodule.ReflectableEntry]:
+    def entries(self) -> typing.List[scope.jsii_calc_lib.custom_submodule_name.ReflectableEntry]:
         """
         stability
         :stability: experimental
@@ -7867,7 +8053,7 @@ class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
         return jsii.get(self, "rung")
 
     @rung.setter
-    def rung(self, value: bool):
+    def rung(self, value: bool) -> None:
         jsii.set(self, "rung", value)
 
 
@@ -7931,7 +8117,7 @@ class ClassThatImplementsTheInternalInterface(metaclass=jsii.JSIIMeta, jsii_type
         return jsii.get(self, "a")
 
     @a.setter
-    def a(self, value: str):
+    def a(self, value: str) -> None:
         jsii.set(self, "a", value)
 
     @builtins.property
@@ -7944,7 +8130,7 @@ class ClassThatImplementsTheInternalInterface(metaclass=jsii.JSIIMeta, jsii_type
         return jsii.get(self, "b")
 
     @b.setter
-    def b(self, value: str):
+    def b(self, value: str) -> None:
         jsii.set(self, "b", value)
 
     @builtins.property
@@ -7957,7 +8143,7 @@ class ClassThatImplementsTheInternalInterface(metaclass=jsii.JSIIMeta, jsii_type
         return jsii.get(self, "c")
 
     @c.setter
-    def c(self, value: str):
+    def c(self, value: str) -> None:
         jsii.set(self, "c", value)
 
     @builtins.property
@@ -7970,7 +8156,7 @@ class ClassThatImplementsTheInternalInterface(metaclass=jsii.JSIIMeta, jsii_type
         return jsii.get(self, "d")
 
     @d.setter
-    def d(self, value: str):
+    def d(self, value: str) -> None:
         jsii.set(self, "d", value)
 
 
@@ -7993,7 +8179,7 @@ class ClassThatImplementsThePrivateInterface(metaclass=jsii.JSIIMeta, jsii_type=
         return jsii.get(self, "a")
 
     @a.setter
-    def a(self, value: str):
+    def a(self, value: str) -> None:
         jsii.set(self, "a", value)
 
     @builtins.property
@@ -8006,7 +8192,7 @@ class ClassThatImplementsThePrivateInterface(metaclass=jsii.JSIIMeta, jsii_type=
         return jsii.get(self, "b")
 
     @b.setter
-    def b(self, value: str):
+    def b(self, value: str) -> None:
         jsii.set(self, "b", value)
 
     @builtins.property
@@ -8019,7 +8205,7 @@ class ClassThatImplementsThePrivateInterface(metaclass=jsii.JSIIMeta, jsii_type=
         return jsii.get(self, "c")
 
     @c.setter
-    def c(self, value: str):
+    def c(self, value: str) -> None:
         jsii.set(self, "c", value)
 
     @builtins.property
@@ -8032,7 +8218,7 @@ class ClassThatImplementsThePrivateInterface(metaclass=jsii.JSIIMeta, jsii_type=
         return jsii.get(self, "e")
 
     @e.setter
-    def e(self, value: str):
+    def e(self, value: str) -> None:
         jsii.set(self, "e", value)
 
 
@@ -8074,7 +8260,7 @@ class ClassWithPrivateConstructorAndAutomaticProperties(metaclass=jsii.JSIIMeta,
         return jsii.get(self, "readWriteString")
 
     @read_write_string.setter
-    def read_write_string(self, value: str):
+    def read_write_string(self, value: str) -> None:
         jsii.set(self, "readWriteString", value)
 
 
@@ -8448,6 +8634,9 @@ __all__ = [
     "ExperimentalStruct",
     "ExportedBaseClass",
     "ExtendsInternalInterface",
+    "ExternalClass",
+    "ExternalEnum",
+    "ExternalStruct",
     "GiveMeStructs",
     "Greetee",
     "GreetingAugmenter",
@@ -8460,6 +8649,7 @@ __all__ = [
     "IDeprecatedInterface",
     "IExperimentalInterface",
     "IExtendsPrivateInterface",
+    "IExternalInterface",
     "IFriendlier",
     "IFriendlyRandomGenerator",
     "IInterfaceImplementedByAbstractClass",

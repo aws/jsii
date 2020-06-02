@@ -70,9 +70,15 @@ from jsii_calc import (
     StructUnionConsumer,
     SomeTypeJsii976,
     StructParameterType,
-    AnonymousImplementationProvider
+    AnonymousImplementationProvider,
+    UpcasingReflectable,
+)
+from jsii_calc.python_self import (
+    ClassWithSelf,
+    ClassWithSelfKwarg,
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
+from scope.jsii_calc_lib.custom_submodule_name import IReflectable, ReflectableEntry
 
 
 # Note: The names of these test functions have been chosen to map as closely to the
@@ -1168,3 +1174,25 @@ def test_collection_of_interfaces_map_of_structs():
 def test_collection_of_interfaces_map_of_interfaces():
     for elt in InterfaceCollections.map_of_interfaces().values():
         assert getattr(elt, "ring") is not None
+
+
+def test_dependency_submodule_types_are_usable():
+    subject = UpcasingReflectable({ 'foo': 'bar' })
+
+    assert UpcasingReflectable.REFLECTOR.as_map(subject) == { 'FOO': 'bar' }
+
+
+def test_load_submodules():
+    from jsii_calc.submodule import nested_submodule
+    import jsii_calc.submodule
+
+
+def test_parameter_named_self_ClassWithSelf():
+    subject = ClassWithSelf('Howdy!')
+    assert subject.self == 'Howdy!'
+    assert subject.method(1337) == '1337'
+
+
+def test_parameter_named_self_ClassWithSelfKwarg():
+    subject = ClassWithSelfKwarg(self='Howdy!')
+    assert subject.props.self == 'Howdy!'

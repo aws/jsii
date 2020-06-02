@@ -4,7 +4,8 @@ import { Overridable } from './overridable';
 import { SourceLocatable } from './source';
 import { MemberKind, TypeMember } from './type-member';
 
-export class Initializer extends Callable implements Documentable, Overridable, TypeMember, SourceLocatable {
+export class Initializer extends Callable
+  implements Documentable, Overridable, TypeMember, SourceLocatable {
   public static isInitializer(x: Callable): x is Initializer {
     return x instanceof Initializer;
   }

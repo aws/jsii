@@ -28,7 +28,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
      * A builder for {@link ParentStruct982}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static final class Builder {
+    public static final class Builder implements software.amazon.jsii.Builder<ParentStruct982> {
         private java.lang.String foo;
 
         /**
@@ -48,6 +48,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
          * @throws NullPointerException if any required attribute was not provided
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
         public ParentStruct982 build() {
             return new Jsii$Proxy(foo);
         }

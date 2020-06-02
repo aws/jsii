@@ -9,7 +9,7 @@ export interface MarkedSpan {
 }
 
 export function calculateVisibleSpans(source: string): Span[] {
-  return calculateMarkedSpans(source).filter(s => s.visible);
+  return calculateMarkedSpans(source).filter((s) => s.visible);
 }
 
 export function calculateMarkedSpans(source: string): MarkedSpan[] {
@@ -40,7 +40,7 @@ export function calculateMarkedSpans(source: string): MarkedSpan[] {
   ret.push({ start: spanStart || 0, end: source.length, visible });
 
   // Filter empty spans and return
-  return ret.filter(s => s.start !== s.end);
+  return ret.filter((s) => s.start !== s.end);
 }
 
 export function stripCommentMarkers(comment: string, multiline: boolean) {
@@ -48,14 +48,14 @@ export function stripCommentMarkers(comment: string, multiline: boolean) {
     // The text *must* start with '/*' and end with '*/'.
     // Strip leading '*' from every remaining line (first line because of '**',
     // other lines because of continuations.
-    return comment.substring(2, comment.length - 2)
-      .replace(/^[ \t]+/g, '')  // Strip all leading whitepace
-      .replace(/[ \t]+$/g, '')  // Strip all trailing whitepace
+    return comment
+      .substring(2, comment.length - 2)
+      .replace(/^[ \t]+/g, '') // Strip all leading whitepace
+      .replace(/[ \t]+$/g, '') // Strip all trailing whitepace
       .replace(/^[ \t]*\*[ \t]?/gm, ''); // Strip "* " from start of line
   }
   // The text *must* start with '//'
   return comment.replace(/^\/\/[ \t]?/gm, '');
-
 }
 
 export function stringFromLiteral(expr: ts.Expression) {
@@ -91,7 +91,9 @@ export type AstMatcher<A> = (nodes?: ts.Node[]) => A | undefined;
  */
 export function nodeChildren(node: ts.Node): ts.Node[] {
   const ret = new Array<ts.Node>();
-  node.forEachChild(n => { ret.push(n); });
+  node.forEachChild((n) => {
+    ret.push(n);
+  });
   return ret;
 }
 
@@ -103,25 +105,51 @@ export function nodeChildren(node: ts.Node): ts.Node[] {
  *
  * Looks like SyntaxList nodes appear in the printed AST, but they don't actually appear
  */
-export function nodeOfType<A>(syntaxKind: ts.SyntaxKind, children?: AstMatcher<A>): AstMatcher<A>;
+export function nodeOfType<A>(
+  syntaxKind: ts.SyntaxKind,
+  children?: AstMatcher<A>,
+): AstMatcher<A>;
 // eslint-disable-next-line max-len
-export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>(capture: N, capturableNodeType: S, children?: AstMatcher<A>): AstMatcher<Omit<A, N> & { [key in N]: CapturableNodes[S] }>;
+export function nodeOfType<
+  S extends keyof CapturableNodes,
+  N extends string,
+  A
+>(
+  capture: N,
+  capturableNodeType: S,
+  children?: AstMatcher<A>,
+): AstMatcher<Omit<A, N> & { [key in N]: CapturableNodes[S] }>;
 // eslint-disable-next-line max-len
-export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>(syntaxKindOrCaptureName: ts.SyntaxKind | N, nodeTypeOrChildren?: S | AstMatcher<A>, children?: AstMatcher<A>): AstMatcher<A> | AstMatcher<A & { [key in N]: CapturableNodes[S] }> {
-  const capturing = typeof syntaxKindOrCaptureName === 'string';  // Determine which overload we're in (SyntaxKind is a number)
+export function nodeOfType<
+  S extends keyof CapturableNodes,
+  N extends string,
+  A
+>(
+  syntaxKindOrCaptureName: ts.SyntaxKind | N,
+  nodeTypeOrChildren?: S | AstMatcher<A>,
+  children?: AstMatcher<A>,
+): AstMatcher<A> | AstMatcher<A & { [key in N]: CapturableNodes[S] }> {
+  const capturing = typeof syntaxKindOrCaptureName === 'string'; // Determine which overload we're in (SyntaxKind is a number)
 
-  const realNext = (capturing ? children : nodeTypeOrChildren as AstMatcher<A>) || DONE;
-  const realCapture = capturing ? syntaxKindOrCaptureName as N : undefined;
-  const realSyntaxKind = capturing ? nodeTypeOrChildren : syntaxKindOrCaptureName;
+  const realNext =
+    (capturing ? children : (nodeTypeOrChildren as AstMatcher<A>)) || DONE;
+  const realCapture = capturing ? (syntaxKindOrCaptureName as N) : undefined;
+  const realSyntaxKind = capturing
+    ? nodeTypeOrChildren
+    : syntaxKindOrCaptureName;
 
   return (nodes) => {
     for (const node of nodes ?? []) {
       if (node.kind === realSyntaxKind) {
         const ret = realNext(nodeChildren(node));
-        if (!ret) { continue; }
+        if (!ret) {
+          continue;
+        }
 
         if (realCapture) {
-          return Object.assign(ret, { [realCapture]: node as CapturableNodes[S] }) as any;
+          return Object.assign(ret, {
+            [realCapture]: node as CapturableNodes[S],
+          }) as any;
         }
         return ret;
       }
@@ -132,12 +160,16 @@ export function nodeOfType<S extends keyof CapturableNodes, N extends string, A>
 
 export function anyNode(): AstMatcher<{}>;
 export function anyNode<A>(children: AstMatcher<A>): AstMatcher<A>;
-export function anyNode<A>(children?: AstMatcher<A>): AstMatcher<A> | AstMatcher<{}> {
+export function anyNode<A>(
+  children?: AstMatcher<A>,
+): AstMatcher<A> | AstMatcher<{}> {
   const realNext = children || DONE;
-  return nodes => {
+  return (nodes) => {
     for (const node of nodes ?? []) {
       const m = realNext(nodeChildren(node));
-      if (m) { return m; }
+      if (m) {
+        return m;
+      }
     }
     return undefined;
   };
@@ -147,18 +179,20 @@ export function anyNode<A>(children?: AstMatcher<A>): AstMatcher<A> | AstMatcher
 export function allOfType<S extends keyof CapturableNodes, N extends string, A>(
   s: S,
   name: N,
-  children?: AstMatcher<A>
+  children?: AstMatcher<A>,
 ): AstMatcher<{ [key in N]: Array<CapturableNodes[S]> }> {
   type ArrayType = Array<CapturableNodes[S]>;
-  type ReturnType = {[key in N]: ArrayType};
+  type ReturnType = { [key in N]: ArrayType };
   const realNext = children || DONE;
 
-  return nodes => {
+  return (nodes) => {
     let ret: ReturnType | undefined;
     for (const node of nodes ?? []) {
       if (node.kind === s) {
         if (realNext(nodeChildren(node))) {
-          if (!ret) { ret = { [name]: new Array<CapturableNodes[S]>() } as ReturnType; }
+          if (!ret) {
+            ret = { [name]: new Array<CapturableNodes[S]>() } as ReturnType;
+          }
           ret[name].push(node as any);
         }
       }
@@ -172,12 +206,25 @@ export const DONE: AstMatcher<{}> = () => ({});
 /**
  * Run a matcher against a node and return (or invoke a callback with) the accumulated bindings
  */
-export function matchAst<A>(node: ts.Node, matcher: AstMatcher<A>): A | undefined;
-export function matchAst<A>(node: ts.Node, matcher: AstMatcher<A>, cb: (bindings: A) => void): boolean;
-export function matchAst<A>(node: ts.Node, matcher: AstMatcher<A>, cb?: (bindings: A) => void): boolean | A | undefined {
+export function matchAst<A>(
+  node: ts.Node,
+  matcher: AstMatcher<A>,
+): A | undefined;
+export function matchAst<A>(
+  node: ts.Node,
+  matcher: AstMatcher<A>,
+  cb: (bindings: A) => void,
+): boolean;
+export function matchAst<A>(
+  node: ts.Node,
+  matcher: AstMatcher<A>,
+  cb?: (bindings: A) => void,
+): boolean | A | undefined {
   const matched = matcher([node]);
   if (cb) {
-    if (matched) { cb(matched); }
+    if (matched) {
+      cb(matched);
+    }
     return !!matched;
   }
   return matched;
@@ -189,16 +236,20 @@ export function matchAst<A>(node: ts.Node, matcher: AstMatcher<A>, cb?: (binding
 export function countNakedNewlines(str: string) {
   let ret = 0;
   scanText(str, 0, str.length)
-    .filter(s => s.type === 'other' || s.type === 'blockcomment')
-    .forEach(s => {
+    .filter((s) => s.type === 'other' || s.type === 'blockcomment')
+    .forEach((s) => {
       if (s.type === 'other') {
         // Count newlines in non-comments
         for (let i = s.pos; i < s.end; i++) {
-          if (str[i] === '\n') { ret++; }
+          if (str[i] === '\n') {
+            ret++;
+          }
         }
       } else {
         // Discount newlines at the end of block comments
-        if (s.hasTrailingNewLine) { ret--; }
+        if (s.hasTrailingNewLine) {
+          ret--;
+        }
       }
     });
   return ret;
@@ -215,18 +266,24 @@ const WHITESPACE = [' ', '\t', '\r', '\n'];
  *
  * Rewritten because I can't get ts.getLeadingComments and ts.getTrailingComments to do what I want.
  */
-export function extractComments(text: string, start: number): ts.CommentRange[] {
+export function extractComments(
+  text: string,
+  start: number,
+): ts.CommentRange[] {
   return scanText(text, start)
-    .filter(s => s.type === 'blockcomment' || s.type === 'linecomment')
+    .filter((s) => s.type === 'blockcomment' || s.type === 'linecomment')
     .map(commentRangeFromTextRange);
 }
 
 export function commentRangeFromTextRange(rng: TextRange): ts.CommentRange {
   return {
-    kind: rng.type === 'blockcomment' ? ts.SyntaxKind.MultiLineCommentTrivia : ts.SyntaxKind.SingleLineCommentTrivia,
+    kind:
+      rng.type === 'blockcomment'
+        ? ts.SyntaxKind.MultiLineCommentTrivia
+        : ts.SyntaxKind.SingleLineCommentTrivia,
     pos: rng.pos,
     end: rng.end,
-    hasTrailingNewLine: rng.type !== 'blockcomment' && rng.hasTrailingNewLine
+    hasTrailingNewLine: rng.type !== 'blockcomment' && rng.hasTrailingNewLine,
   };
 }
 
@@ -243,16 +300,25 @@ interface TextRange {
  * Stop at 'end' when given, or the first non-whitespace character in a
  * non-comment if not given.
  */
-export function scanText(text: string, start: number, end?: number): TextRange[] {
+export function scanText(
+  text: string,
+  start: number,
+  end?: number,
+): TextRange[] {
   const ret: TextRange[] = [];
 
   let pos = start;
   const stopAtCode = end === undefined;
-  if (end === undefined) { end = text.length; }
+  if (end === undefined) {
+    end = text.length;
+  }
   while (pos < end) {
     const ch = text[pos];
 
-    if (WHITESPACE.includes(ch)) { pos++; continue; }
+    if (WHITESPACE.includes(ch)) {
+      pos++;
+      continue;
+    }
 
     if (ch === '/' && text[pos + 1] === '/') {
       accumulateTextBlock();
@@ -285,7 +351,7 @@ export function scanText(text: string, start: number, end?: number): TextRange[]
       type: 'blockcomment',
       hasTrailingNewLine: ['\n', '\r'].includes(text[endOfComment + 2]),
       pos,
-      end: endOfComment + 2
+      end: endOfComment + 2,
     });
     pos = endOfComment + 2;
     start = pos;
@@ -300,7 +366,7 @@ export function scanText(text: string, start: number, end?: number): TextRange[]
         type: 'directive',
         hasTrailingNewLine: true,
         pos: pos + 1,
-        end: nl
+        end: nl,
       });
     } else {
       // Regular // comment
@@ -308,7 +374,7 @@ export function scanText(text: string, start: number, end?: number): TextRange[]
         type: 'linecomment',
         hasTrailingNewLine: true,
         pos,
-        end: nl
+        end: nl,
       });
     }
     pos = nl + 1;
@@ -321,7 +387,7 @@ export function scanText(text: string, start: number, end?: number): TextRange[]
         type: 'other',
         hasTrailingNewLine: false,
         pos: start,
-        end: pos
+        end: pos,
       });
       start = pos;
     }
@@ -329,26 +395,42 @@ export function scanText(text: string, start: number, end?: number): TextRange[]
 
   function findNext(sub: string, startPos: number) {
     const f = text.indexOf(sub, startPos);
-    if (f === -1) { return text.length; }
+    if (f === -1) {
+      return text.length;
+    }
     return f;
   }
 }
 
 const VOID_SHOW_KEYWORD = 'show';
 
-export function extractMaskingVoidExpression(node: ts.Node): ts.VoidExpression | undefined {
+export function extractMaskingVoidExpression(
+  node: ts.Node,
+): ts.VoidExpression | undefined {
   const expr = extractVoidExpression(node);
-  if (!expr) { return undefined; }
-  if (ts.isStringLiteral(expr.expression) && expr.expression.text === VOID_SHOW_KEYWORD) {
+  if (!expr) {
+    return undefined;
+  }
+  if (
+    ts.isStringLiteral(expr.expression) &&
+    expr.expression.text === VOID_SHOW_KEYWORD
+  ) {
     return undefined;
   }
   return expr;
 }
 
-export function extractShowingVoidExpression(node: ts.Node): ts.VoidExpression | undefined {
+export function extractShowingVoidExpression(
+  node: ts.Node,
+): ts.VoidExpression | undefined {
   const expr = extractVoidExpression(node);
-  if (!expr) { return undefined; }
-  if (ts.isStringLiteral(expr.expression) && expr.expression.text === VOID_SHOW_KEYWORD) {
+  if (!expr) {
+    return undefined;
+  }
+  if (
+    ts.isStringLiteral(expr.expression) &&
+    expr.expression.text === VOID_SHOW_KEYWORD
+  ) {
     return expr;
   }
   return undefined;
@@ -357,19 +439,36 @@ export function extractShowingVoidExpression(node: ts.Node): ts.VoidExpression |
 /**
  * Return the string argument to a void expression if it exists
  */
-export function voidExpressionString(node: ts.VoidExpression): string | undefined {
-  if (ts.isStringLiteral(node.expression)) { return node.expression.text; }
+export function voidExpressionString(
+  node: ts.VoidExpression,
+): string | undefined {
+  if (ts.isStringLiteral(node.expression)) {
+    return node.expression.text;
+  }
   return undefined;
 }
 
 /**
  * We use void directives as pragmas. Extract the void directives here
  */
-export function extractVoidExpression(node: ts.Node): ts.VoidExpression | undefined {
-  if (ts.isVoidExpression(node)) { return node; }
-  if (ts.isExpressionStatement(node)) { return extractVoidExpression(node.expression); }
-  if (ts.isParenthesizedExpression(node)) { return extractVoidExpression(node.expression); }
-  if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.CommaToken) { return extractVoidExpression(node.left); }
+export function extractVoidExpression(
+  node: ts.Node,
+): ts.VoidExpression | undefined {
+  if (ts.isVoidExpression(node)) {
+    return node;
+  }
+  if (ts.isExpressionStatement(node)) {
+    return extractVoidExpression(node.expression);
+  }
+  if (ts.isParenthesizedExpression(node)) {
+    return extractVoidExpression(node.expression);
+  }
+  if (
+    ts.isBinaryExpression(node) &&
+    node.operatorToken.kind === ts.SyntaxKind.CommaToken
+  ) {
+    return extractVoidExpression(node.left);
+  }
   return undefined;
 }
 
@@ -377,7 +476,9 @@ export function quoteStringLiteral(x: string) {
   return x.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
-export function visibility(x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclarationBase) {
+export function visibility(
+  x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclarationBase,
+) {
   const flags = ts.getCombinedModifierFlags(x);
   if (flags & ts.ModifierFlags.Private) {
     return 'private';
@@ -388,7 +489,9 @@ export function visibility(x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclar
   return 'public';
 }
 
-export function isReadOnly(x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclarationBase) {
+export function isReadOnly(
+  x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclarationBase,
+) {
   const flags = ts.getCombinedModifierFlags(x);
   return (flags & ts.ModifierFlags.Readonly) !== 0;
 }
@@ -396,11 +499,16 @@ export function isReadOnly(x: ts.PropertyLikeDeclaration | ts.FunctionLikeDeclar
 /**
  * Return the super() call from a method body if found
  */
-export function findSuperCall(node: ts.Block | ts.Expression | undefined, renderer: AstRenderer<any>): ts.SuperCall | undefined {
-  if (node === undefined) { return undefined; }
+export function findSuperCall(
+  node: ts.Block | ts.Expression | undefined,
+  renderer: AstRenderer<any>,
+): ts.SuperCall | undefined {
+  if (node === undefined) {
+    return undefined;
+  }
   if (ts.isCallExpression(node)) {
     if (renderer.textOf(node.expression) === 'super') {
-      return node as unknown as ts.SuperCall;
+      return (node as unknown) as ts.SuperCall;
     }
   }
   if (ts.isExpressionStatement(node)) {
@@ -410,7 +518,9 @@ export function findSuperCall(node: ts.Block | ts.Expression | undefined, render
     for (const statement of node.statements) {
       if (ts.isExpressionStatement(statement)) {
         const s = findSuperCall(statement.expression, renderer);
-        if (s) { return s; }
+        if (s) {
+          return s;
+        }
       }
     }
   }
@@ -420,7 +530,14 @@ export function findSuperCall(node: ts.Block | ts.Expression | undefined, render
 /**
  * Return the names of all private property declarations
  */
-export function privatePropertyNames(members: readonly ts.ClassElement[], renderer: AstRenderer<any>): string[] {
-  const props = members.filter(m => ts.isPropertyDeclaration(m)) as ts.PropertyDeclaration[];
-  return props.filter(m => visibility(m) === 'private').map(m => renderer.textOf(m.name));
+export function privatePropertyNames(
+  members: readonly ts.ClassElement[],
+  renderer: AstRenderer<any>,
+): string[] {
+  const props = members.filter((m) =>
+    ts.isPropertyDeclaration(m),
+  ) as ts.PropertyDeclaration[];
+  return props
+    .filter((m) => visibility(m) === 'private')
+    .map((m) => renderer.textOf(m.name));
 }

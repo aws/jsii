@@ -14,7 +14,8 @@ import { TypeSystem } from './type-system';
  */
 export const INITIALIZER_NAME = '<initializer>';
 
-export class Method extends Callable implements Documentable, Overridable, TypeMember, SourceLocatable {
+export class Method extends Callable
+  implements Documentable, Overridable, TypeMember, SourceLocatable {
   public static isMethod(x: Callable): x is Method {
     return x instanceof Method;
   }
@@ -26,7 +27,8 @@ export class Method extends Callable implements Documentable, Overridable, TypeM
     assembly: Assembly,
     parentType: Type,
     public readonly definingType: Type,
-    public readonly spec: jsii.Method) {
+    public readonly spec: jsii.Method,
+  ) {
     super(system, assembly, parentType, spec);
   }
 

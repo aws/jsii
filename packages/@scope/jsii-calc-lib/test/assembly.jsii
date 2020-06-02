@@ -77,6 +77,17 @@
       "locationInModule": {
         "filename": "lib/index.ts",
         "line": 112
+      },
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
+        },
+        "java": {
+          "package": "software.amazon.jsii.tests.calculator.custom_submodule_name"
+        },
+        "python": {
+          "module": "scope.jsii_calc_lib.custom_submodule_name"
+        }
       }
     }
   },
@@ -657,5 +668,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "+7cEXNA9wAn/mht3AcwDtIFLvsfZoQhQGBQ4J1pPCO4="
+  "fingerprint": "w6/8Kda6/JitSbpMK3LGPK5JGRxJ50gflR5S4sUEHKk="
 }

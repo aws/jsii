@@ -8,7 +8,9 @@ describe('jsii-config', () => {
   const readJsonMock = jest.fn();
 
   beforeEach(() => {
+    // eslint-disable-next-line no-import-assign
     Object.defineProperty(fs, 'readFile', { value: readJsonMock });
+    // eslint-disable-next-line no-import-assign
     Object.defineProperty(inquirer, 'prompt', { value: promptMock });
   });
 
@@ -36,37 +38,42 @@ describe('jsii-config', () => {
         cb(null, Buffer.from('INVALID JSON STRING'));
       });
 
-      await expect(jsiiConfig('package.json')).rejects.toThrow('Unexpected token I in JSON at position 0');
+      await expect(jsiiConfig('package.json')).rejects.toThrow(
+        'Unexpected token I in JSON at position 0',
+      );
     });
   });
 
   describe('missing top level package fields', () => {
-    const mockMissingField = (field: string) => readJsonMock.mockImplementation((_path, cb) => {
-      cb(null, Buffer.from(JSON.stringify({
-        ...packageJsonObject,
-        [field]: undefined
-      })));
-    });
+    const mockMissingField = (field: string) =>
+      readJsonMock.mockImplementation((_path, cb) => {
+        cb(
+          null,
+          Buffer.from(
+            JSON.stringify({
+              ...packageJsonObject,
+              [field]: undefined,
+            }),
+          ),
+        );
+      });
 
     const requiredNpmFields = [
       'name',
       'version',
       'repository',
       'main',
-      'author'
+      'author',
     ];
 
-    requiredNpmFields.forEach(field => {
+    requiredNpmFields.forEach((field) => {
       it(`warns user on missing ${field} in package.json and exits`, async () => {
         mockMissingField(field);
         await expect(jsiiConfig('./package.json')).rejects.toThrow(
-          `package.json is missing required fields:${'\n'
-          }- ${field}${'\n'
-          }run "npm init" or configure manually and retry jsii-config`
+          `package.json is missing required fields:${'\n'}- ${field}${'\n'}run "npm init" or configure manually and retry jsii-config`,
         );
       });
     });
-
   });
 
   describe('no existing jsii configuration', () => {
@@ -82,27 +89,29 @@ describe('jsii-config', () => {
             maven: {
               groupId: 'software.amazon.module',
               artifactId: 'core',
-              versionSuffix: ''
-            }
+              versionSuffix: '',
+            },
           },
           dotnet: {
             namespace: 'Amazon.Module',
             packageId: 'Amazon.Module',
             iconUrl: undefined,
             versionSuffix: '',
-            signAssembly: false
-          }
-        }
-      }
+            signAssembly: false,
+          },
+        },
+      },
     };
 
     beforeEach(() => {
-      promptMock.mockResolvedValueOnce({
-        jsiiTargets: [],
-        ...configAnswers
-      }).mockResolvedValueOnce({
-        confirm: true
-      });
+      promptMock
+        .mockResolvedValueOnce({
+          jsiiTargets: [],
+          ...configAnswers,
+        })
+        .mockResolvedValueOnce({
+          confirm: true,
+        });
 
       readJsonMock.mockImplementation((_path, cb) => {
         cb(null, Buffer.from(JSON.stringify(packageJsonObject)));
@@ -112,21 +121,23 @@ describe('jsii-config', () => {
     it('prompts user for top level jsii config and language targets', async () => {
       await jsiiConfig('./package.json');
       const questions = promptMock.mock.calls[0][0];
-      const [
-        stability,
-        types,
-        outdir,
-        versionFormat,
-        targets
-      ] = findQuestions([
-        'stability',
-        'types',
-        'jsii.outdir',
-        'jsii.versionFormat',
-        'jsiiTargets'
-      ], questions);
+      const [stability, types, outdir, versionFormat, targets] = findQuestions(
+        [
+          'stability',
+          'types',
+          'jsii.outdir',
+          'jsii.versionFormat',
+          'jsiiTargets',
+        ],
+        questions,
+      );
       expect(stability).toHaveProperty('type', 'list');
-      expect(stability).toHaveProperty('choices', ['deprecated', 'experimental', 'stable', 'external']);
+      expect(stability).toHaveProperty('choices', [
+        'deprecated',
+        'experimental',
+        'stable',
+        'external',
+      ]);
       expect(stability).toHaveProperty('default', 'experimental');
 
       expect(types).toHaveProperty('type', 'input');
@@ -148,12 +159,15 @@ describe('jsii-config', () => {
       const enabled = { jsiiTargets: ['java'] };
       const disabled = { jsiiTargets: [] };
       const questions = promptMock.mock.calls[0][0];
-      const subject = findQuestions([
-        'jsii.targets.java.package',
-        'jsii.targets.java.maven.groupId',
-        'jsii.targets.java.maven.artifactId',
-        'jsii.targets.java.maven.versionSuffix'
-      ], questions);
+      const subject = findQuestions(
+        [
+          'jsii.targets.java.package',
+          'jsii.targets.java.maven.groupId',
+          'jsii.targets.java.maven.artifactId',
+          'jsii.targets.java.maven.versionSuffix',
+        ],
+        questions,
+      );
 
       subject.forEach((question: any) => {
         expect(question.when(enabled)).toBe(true);
@@ -169,10 +183,10 @@ describe('jsii-config', () => {
       const enabled = { jsiiTargets: ['python'] };
       const disabled = { jsiiTargets: [] };
       const questions = promptMock.mock.calls[0][0];
-      const subject = findQuestions([
-        'jsii.targets.python.module',
-        'jsii.targets.python.distName'
-      ], questions);
+      const subject = findQuestions(
+        ['jsii.targets.python.module', 'jsii.targets.python.distName'],
+        questions,
+      );
 
       subject.forEach((question: any) => {
         expect(question.when(enabled)).toBe(true);
@@ -188,13 +202,16 @@ describe('jsii-config', () => {
       const enabled = { jsiiTargets: ['dotnet'] };
       const disabled = { jsiiTargets: [] };
       const questions = promptMock.mock.calls[0][0];
-      const subject = findQuestions([
-        'jsii.targets.dotnet.namespace',
-        'jsii.targets.dotnet.packageId',
-        'jsii.targets.dotnet.iconUrl',
-        'jsii.targets.dotnet.versionSuffix',
-        'jsii.targets.dotnet.signAssembly'
-      ], questions);
+      const subject = findQuestions(
+        [
+          'jsii.targets.dotnet.namespace',
+          'jsii.targets.dotnet.packageId',
+          'jsii.targets.dotnet.iconUrl',
+          'jsii.targets.dotnet.versionSuffix',
+          'jsii.targets.dotnet.signAssembly',
+        ],
+        questions,
+      );
 
       subject.forEach((question: any) => {
         expect(question.when(enabled)).toBe(true);
@@ -208,16 +225,19 @@ describe('jsii-config', () => {
     it('prompts for dotnet assembly originator file when target and signAssembly are enabled', async () => {
       await jsiiConfig('./package.json');
       const questions = promptMock.mock.calls[0][0];
-      const subject = findQuestion('jsii.targets.dotnet.assemblyOriginatorKeyFile', questions);
+      const subject = findQuestion(
+        'jsii.targets.dotnet.assemblyOriginatorKeyFile',
+        questions,
+      );
       const enabled = {
         jsiiTargets: ['dotnet'],
         jsii: {
           targets: {
             dotnet: {
-              signAssembly: true
-            }
-          }
-        }
+              signAssembly: true,
+            },
+          },
+        },
       };
 
       const disabled = {
@@ -225,10 +245,10 @@ describe('jsii-config', () => {
         jsii: {
           targets: {
             dotnet: {
-              signAssembly: false
-            }
-          }
-        }
+              signAssembly: false,
+            },
+          },
+        },
       };
 
       expect(subject.when(enabled)).toBe(true);
@@ -245,7 +265,7 @@ describe('jsii-config', () => {
 
       expect(subject).toEqual({
         ...packageJsonObject,
-        ...expected
+        ...expected,
       });
     });
 
@@ -259,8 +279,8 @@ describe('jsii-config', () => {
       'jsii.targets.python.module',
       'jsii.targets.dotnet.namespace',
       'jsii.targets.dotnet.packageId',
-      'jsii.targets.dotnet.assemblyOriginatorKeyFile'
-    ].forEach(field => {
+      'jsii.targets.dotnet.assemblyOriginatorKeyFile',
+    ].forEach((field) => {
       it(`shows error message when empty ${field} is submitted`, async () => {
         await jsiiConfig('./package.json');
         const questions = promptMock.mock.calls[0][0];
@@ -274,9 +294,14 @@ describe('jsii-config', () => {
     it('shows error message when dotnet version suffix is submitted empty or without a "-"', async () => {
       await jsiiConfig('./package.json');
       const questions = promptMock.mock.calls[0][0];
-      const subject = findQuestion('jsii.targets.dotnet.versionSuffix', questions);
+      const subject = findQuestion(
+        'jsii.targets.dotnet.versionSuffix',
+        questions,
+      );
 
-      expect(subject.validate('xxx')).toEqual('versionSuffix must begin with "-"');
+      expect(subject.validate('xxx')).toEqual(
+        'versionSuffix must begin with "-"',
+      );
       expect(subject.validate('-xxx')).toEqual(true);
     });
   });
@@ -293,24 +318,24 @@ describe('jsii-config', () => {
             package: 'JAVA_PACKAGE',
             maven: {
               groupId: 'JAVA_MAVEN_GROUPID',
-              artifactId: 'JAVA_MAVEN_ARTIFACTID'
-            }
+              artifactId: 'JAVA_MAVEN_ARTIFACTID',
+            },
           },
           dotnet: {
             namespace: 'DOTNET_NAMESPACE',
             packageId: 'DOTNET_PACKAGEID',
-            iconUrl: 'DOTNET_ICONURL'
+            iconUrl: 'DOTNET_ICONURL',
           },
           python: {
             distName: 'PYTHON_DISTNAME',
-            module: 'PYTHON_MODULE'
-          }
+            module: 'PYTHON_MODULE',
+          },
         },
         metadata: {
           'jsii:boolean': true,
-          'jsii:number': 1337
-        }
-      }
+          'jsii:number': 1337,
+        },
+      },
     };
 
     const configAnswers = {
@@ -318,22 +343,25 @@ describe('jsii-config', () => {
       types: 'new_types.d.ts',
       jsii: {
         outdir: 'dist',
-        versionFormat: 'short'
-      }
+        versionFormat: 'short',
+      },
     };
 
     beforeEach(() => {
-      promptMock
-        .mockResolvedValueOnce(configAnswers)
-        .mockResolvedValueOnce({
-          confirm: true
-        });
+      promptMock.mockResolvedValueOnce(configAnswers).mockResolvedValueOnce({
+        confirm: true,
+      });
 
       readJsonMock.mockImplementation((_path, cb) => {
-        cb(null, Buffer.from(JSON.stringify({
-          ...packageJsonObject,
-          ...existingConfig
-        })));
+        cb(
+          null,
+          Buffer.from(
+            JSON.stringify({
+              ...packageJsonObject,
+              ...existingConfig,
+            }),
+          ),
+        );
       });
     });
 
@@ -352,7 +380,7 @@ describe('jsii-config', () => {
         ['jsii.targets.python.module']: 'PYTHON_MODULE',
         ['jsii.targets.dotnet.namespace']: 'DOTNET_NAMESPACE',
         ['jsii.targets.dotnet.packageId']: 'DOTNET_PACKAGEID',
-        ['jsii.targets.dotnet.iconUrl']: 'DOTNET_ICONURL'
+        ['jsii.targets.dotnet.iconUrl']: 'DOTNET_ICONURL',
       };
       const questions = promptMock.mock.calls[0][0];
 
@@ -373,9 +401,9 @@ describe('jsii-config', () => {
           ...configAnswers.jsii,
           metadata: {
             'jsii:boolean': true,
-            'jsii:number': 1337
-          }
-        }
+            'jsii:number': 1337,
+          },
+        },
       });
     });
   });
@@ -389,21 +417,21 @@ describe('jsii-config', () => {
         targets: {
           python: {
             distName: 'PYTHON_DISTNAME',
-            module: 'PYTHON_MODULE'
-          }
-        }
-      }
+            module: 'PYTHON_MODULE',
+          },
+        },
+      },
     };
 
     beforeEach(() => {
       promptMock
         .mockResolvedValueOnce(answers)
         .mockResolvedValueOnce({
-          confirm: false
+          confirm: false,
         })
         .mockResolvedValueOnce(answers)
         .mockResolvedValueOnce({
-          confirm: true
+          confirm: true,
         });
 
       readJsonMock.mockImplementation((_path, cb) => {

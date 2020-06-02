@@ -9,7 +9,8 @@ import { Type } from './type';
 import { MemberKind, TypeMember } from './type-member';
 import { TypeSystem } from './type-system';
 
-export abstract class Callable implements Documentable, Overridable, TypeMember, SourceLocatable {
+export abstract class Callable
+  implements Documentable, Overridable, TypeMember, SourceLocatable {
   public abstract readonly kind: MemberKind;
   public abstract readonly name: string;
   public abstract readonly abstract: boolean;
@@ -18,13 +19,16 @@ export abstract class Callable implements Documentable, Overridable, TypeMember,
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
     public readonly parentType: Type,
-    public readonly spec: jsii.Callable) {}
+    public readonly spec: jsii.Callable,
+  ) {}
 
   /**
    * The parameters of the method/initializer
    */
   public get parameters(): Parameter[] {
-    return (this.spec.parameters ?? []).map(p => new Parameter(this.system, this.parentType, this, p));
+    return (this.spec.parameters ?? []).map(
+      (p) => new Parameter(this.system, this.parentType, this, p),
+    );
   }
 
   /**
@@ -51,7 +55,12 @@ export abstract class Callable implements Documentable, Overridable, TypeMember,
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs ?? {}, this.parentType.docs);
+    return new Docs(
+      this.system,
+      this,
+      this.spec.docs ?? {},
+      this.parentType.docs,
+    );
   }
 
   /**

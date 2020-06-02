@@ -10,6 +10,7 @@
     "build": "tsc --build && npm run lint",
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
+    "lint:fix": "yarn lint --fix",
     "test": "jest",
     "package": "package-js",
     "exec": "npm run build && node bin/jsii-config.js"
@@ -19,13 +20,16 @@
   },
   "devDependencies": {
     "@types/inquirer": "^6.5.0",
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^25.2.3",
     "@types/jest-expect-message": "^1.0.2",
-    "@types/node": "^10.17.21",
-    "@types/yargs": "^15.0.4",
-    "eslint": "^6.8.0",
+    "@types/node": "^10.17.24",
+    "@types/yargs": "^15.0.5",
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
     "jest": "^26.0.1",
     "jest-expect-message": "^1.0.2",
+    "prettier": "^2.0.5",
     "typescript": "~3.8.3"
   },
   "dependencies": {
