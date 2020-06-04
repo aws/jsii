@@ -24,6 +24,7 @@ import {
   toTypeName,
   PythonImports,
   mergePythonImports,
+  toPackageName,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
 
@@ -404,7 +405,7 @@ abstract class BaseMethod implements PythonBase {
     // We need to turn a list of JSII parameters, into Python style arguments with
     // gradual typing, so we'll have to iterate over the list of parameters, and
     // build the list, converting as we go.
-    const pythonParams: string[] = [this.implicitParameter];
+    const pythonParams: string[] = [];
     for (const param of this.parameters) {
       // We cannot (currently?) blindly use the names given to us by the JSII for
       // initializers, because our keyword lifting will allow two names to clash.
@@ -484,6 +485,13 @@ abstract class BaseMethod implements PythonBase {
       code.line('@abc.abstractmethod');
     }
 
+    pythonParams.unshift(
+      slugifyAsNeeded(
+        this.implicitParameter,
+        pythonParams.map((param) => param.split(':')[0].trim()),
+      ),
+    );
+
     code.openBlock(
       `def ${this.pythonName}(${pythonParams.join(', ')}) -> ${returnType}`,
     );
@@ -497,6 +505,7 @@ abstract class BaseMethod implements PythonBase {
       renderAbstract,
       forceEmitBody,
       liftedPropNames,
+      pythonParams[0],
     );
     code.closeBlock();
   }
@@ -507,6 +516,7 @@ abstract class BaseMethod implements PythonBase {
     renderAbstract: boolean,
     forceEmitBody: boolean,
     liftedPropNames: Set<string>,
+    implicitParameter: string,
   ) {
     if (
       (!this.shouldEmitBody && !forceEmitBody) ||
@@ -518,7 +528,12 @@ abstract class BaseMethod implements PythonBase {
         this.emitAutoProps(code, context, liftedPropNames);
       }
 
-      this.emitJsiiMethodCall(code, context, liftedPropNames);
+      this.emitJsiiMethodCall(
+        code,
+        context,
+        liftedPropNames,
+        implicitParameter,
+      );
     }
   }
 
@@ -551,6 +566,7 @@ abstract class BaseMethod implements PythonBase {
     code: CodeMaker,
     context: EmitContext,
     liftedPropNames: Set<string>,
+    implicitParameter: string,
   ) {
     const methodPrefix: string = this.returnFromJSIIMethod ? 'return ' : '';
 
@@ -566,7 +582,7 @@ abstract class BaseMethod implements PythonBase {
         }),
       );
     }
-    jsiiMethodParams.push(this.implicitParameter);
+    jsiiMethodParams.push(implicitParameter);
     if (this.jsName !== undefined) {
       jsiiMethodParams.push(`"${this.jsName}"`);
     }
@@ -848,8 +864,14 @@ class Struct extends BasePythonClassType {
 
     const kwargs = members.map((m) => m.constructorDecl(context));
 
+    const implicitParameter = slugifyAsNeeded(
+      'self',
+      members.map((m) => m.pythonName),
+    );
     const constructorArguments =
-      kwargs.length > 0 ? ['self', '*', ...kwargs] : ['self'];
+      kwargs.length > 0
+        ? [implicitParameter, '*', ...kwargs]
+        : [implicitParameter];
 
     code.openBlock(`def __init__(${constructorArguments.join(', ')}) -> None`);
     this.emitConstructorDocstring(code);
@@ -867,7 +889,7 @@ class Struct extends BasePythonClassType {
     }
 
     // Required properties, those will always be put into the dict
-    code.line('self._values = {');
+    code.line(`${implicitParameter}._values = {`);
     for (const member of members.filter((m) => !m.optional)) {
       code.line(`    '${member.pythonName}': ${member.pythonName},`);
     }
@@ -876,7 +898,7 @@ class Struct extends BasePythonClassType {
     // Optional properties, will only be put into the dict if they're not None
     for (const member of members.filter((m) => m.optional)) {
       code.line(
-        `if ${member.pythonName} is not None: self._values["${member.pythonName}"] = ${member.pythonName}`,
+        `if ${member.pythonName} is not None: ${implicitParameter}._values["${member.pythonName}"] = ${member.pythonName}`,
       );
     }
 
@@ -1963,22 +1985,11 @@ class PythonGenerator extends Generator {
   }
 
   protected onBeginNamespace(ns: string) {
-    const module = new PythonModule(
-      [
-        this.assembly.targets!.python!.module,
-        ...ns
-          .split('.')
-          .slice(1)
-          .map(toPythonIdentifier)
-          .map((s) => toSnakeCase(s)),
-      ].join('.'),
-      ns,
-      {
-        assembly: this.assembly,
-        assemblyFilename: this.getAssemblyFileName(),
-        package: this.package,
-      },
-    );
+    const module = new PythonModule(toPackageName(ns, this.assembly), ns, {
+      assembly: this.assembly,
+      assemblyFilename: this.getAssemblyFileName(),
+      package: this.package,
+    });
 
     this.package.addModule(module);
     this.types.set(ns, module);
@@ -2332,4 +2343,21 @@ function isStruct(
   }
   const type = typeSystem.tryFindFqn(ref.fqn);
   return !!(type?.isInterfaceType() && type?.isDataType());
+}
+
+/**
+ * Appends `_` at the end of `name` until it no longer conflicts with any of the
+ * entries in `inUse`.
+ *
+ * @param name  the name to be slugified.
+ * @param inUse the names that are already being used.
+ *
+ * @returns the slugified name.
+ */
+function slugifyAsNeeded(name: string, inUse: readonly string[]): string {
+  const inUseSet = new Set(inUse);
+  while (inUseSet.has(name)) {
+    name = `${name}_`;
+  }
+  return name;
 }

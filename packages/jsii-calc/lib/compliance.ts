@@ -960,6 +960,31 @@ export class PythonReservedWords {
     public yield() {}
 }
 
+// "self" is technically not a keyword in Python. It's the conventional name of
+// the "this instance" reference. We can slugify this to our heart's content,
+// without much impact on the developer experience - but it needs to happen!
+export namespace PythonSelf {
+    export class ClassWithSelf {
+        public constructor(public readonly self: string) { }
+
+        public method(self: number): string {
+            return self.toString();
+        }
+    }
+
+    export class ClassWithSelfKwarg {
+        public constructor(public readonly props: StructWithSelf) { }
+    }
+
+    export interface StructWithSelf {
+        readonly self: string;
+    }
+
+    export interface IInterfaceWithSelf {
+        method(self: number): string;
+    }
+}
+
 export interface UnionProperties {
     readonly foo?: string | number;
     readonly bar: AllTypes | string | number;

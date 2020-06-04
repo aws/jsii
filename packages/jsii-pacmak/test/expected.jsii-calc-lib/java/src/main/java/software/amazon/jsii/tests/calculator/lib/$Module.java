@@ -57,7 +57,11 @@ public final class $Module extends JsiiModule {
         if (!MODULE_TYPES.containsKey(fqn)) {
             throw new ClassNotFoundException("Unknown JSII type: " + fqn);
         }
-        return this.cache.computeIfAbsent(MODULE_TYPES.get(fqn), this::findClass);
+        String className = MODULE_TYPES.get(fqn);
+        if (!this.cache.containsKey(className)) {
+            this.cache.put(className, this.findClass(className));
+        }
+        return this.cache.get(className);
     }
 
     private Class<?> findClass(final String binaryName) {

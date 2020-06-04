@@ -23,6 +23,7 @@ kwargs = json.loads("""
         "jsii_calc.derived_class_has_no_properties",
         "jsii_calc.interface_in_namespace_includes_classes",
         "jsii_calc.interface_in_namespace_only_interface",
+        "jsii_calc.python_self",
         "jsii_calc.submodule",
         "jsii_calc.submodule.back_references",
         "jsii_calc.submodule.child",

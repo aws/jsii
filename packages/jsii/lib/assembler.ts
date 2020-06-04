@@ -567,7 +567,7 @@ export class Assembler implements Emitter {
         this,
         symbol,
       );
-      const targets = undefined; // This will be configurable in the future.
+      const targets = await loadSubmoduleTargetConfig(sourceFile.fileName);
 
       this._submodules.set(symbol, {
         fqn,
@@ -602,6 +602,17 @@ export class Assembler implements Emitter {
         fqn,
         fqnResolutionPrefix: inlineNamespace ? this.projectInfo.name : fqn,
       };
+    }
+
+    async function loadSubmoduleTargetConfig(
+      submoduleMain: string,
+    ): Promise<SubmoduleSpec['targets']> {
+      const jsiirc = path.resolve(submoduleMain, '..', '.jsiirc.json');
+      if (!(await fs.pathExists(jsiirc))) {
+        return undefined;
+      }
+      const data = await fs.readJson(jsiirc);
+      return data.targets;
     }
   }
 

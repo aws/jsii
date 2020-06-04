@@ -1,4 +1,4 @@
-package software.amazon.jsii.tests.calculator.lib.submodule;
+package software.amazon.jsii.tests.calculator.custom_submodule_name;
 
 /**
  */
