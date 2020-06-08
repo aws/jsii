@@ -742,6 +742,59 @@ class BinaryOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstract
 class _BinaryOperationProxy(BinaryOperation, jsii.proxy_for(scope.jsii_calc_lib.Operation)):
     pass
 
+class BurriedAnonymousObject(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.BurriedAnonymousObject"):
+    """See https://github.com/aws/aws-cdk/issues/7977.
+
+    stability
+    :stability: experimental
+    """
+    @builtins.staticmethod
+    def __jsii_proxy_class__():
+        return _BurriedAnonymousObjectProxy
+
+    def __init__(self) -> None:
+        jsii.create(BurriedAnonymousObject, self, [])
+
+    @jsii.member(jsii_name="check")
+    def check(self) -> bool:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "check", [])
+
+    @jsii.member(jsii_name="giveItBack")
+    @abc.abstractmethod
+    def give_it_back(self, value: typing.Any) -> typing.Any:
+        """Implement this method and have it return it's parameter.
+
+        :param value: the value that should be returned.
+
+        return
+        :return: ``value``
+
+        stability
+        :stability: experimental
+        """
+        ...
+
+
+class _BurriedAnonymousObjectProxy(BurriedAnonymousObject):
+    @jsii.member(jsii_name="giveItBack")
+    def give_it_back(self, value: typing.Any) -> typing.Any:
+        """Implement this method and have it return it's parameter.
+
+        :param value: the value that should be returned.
+
+        return
+        :return: ``value``
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "giveItBack", [value])
+
+
 class Calculator(_CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Calculator"):
     """A calculator which maintains a current value and allows adding operations.
 
@@ -8592,6 +8645,7 @@ __all__ = [
     "BaseJsii976",
     "Bell",
     "BinaryOperation",
+    "BurriedAnonymousObject",
     "Calculator",
     "CalculatorProps",
     "ChildStruct982",

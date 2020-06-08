@@ -13,6 +13,7 @@ jsii-calc.AugmentableClass=software.amazon.jsii.tests.calculator.AugmentableClas
 jsii-calc.BaseJsii976=software.amazon.jsii.tests.calculator.BaseJsii976
 jsii-calc.Bell=software.amazon.jsii.tests.calculator.Bell
 jsii-calc.BinaryOperation=software.amazon.jsii.tests.calculator.BinaryOperation
+jsii-calc.BurriedAnonymousObject=software.amazon.jsii.tests.calculator.BurriedAnonymousObject
 jsii-calc.Calculator=software.amazon.jsii.tests.calculator.Calculator
 jsii-calc.CalculatorProps=software.amazon.jsii.tests.calculator.CalculatorProps
 jsii-calc.ChildStruct982=software.amazon.jsii.tests.calculator.ChildStruct982

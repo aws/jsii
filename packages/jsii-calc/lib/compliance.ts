@@ -2490,3 +2490,23 @@ export class InterfaceCollections {
 export interface IOptionalMethod {
     optional(): string | undefined;
 }
+
+/**
+ * See https://github.com/aws/aws-cdk/issues/7977
+ */
+export abstract class BurriedAnonymousObject {
+    public check(): boolean {
+        const anonymousObject = { method() { return true; } };
+        const result = this.giveItBack({ anonymousObject });
+        return anonymousObject === result.anonymousObject;
+    }
+
+    /**
+     * Implement this method and have it return it's parameter.
+     *
+     * @param value the value that should be returned.
+     *
+     * @returns `value`
+     */
+    public abstract giveItBack(value: any): any;
+}

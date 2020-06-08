@@ -414,6 +414,17 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ rhs property (experimental)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Value
+ │   ├─┬ class BurriedAnonymousObject (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ check() method (experimental)
+ │   │   │ └── returns: boolean
+ │   │   └─┬ giveItBack(value) method (experimental)
+ │   │     ├── abstract
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ value
+ │   │     │   └── type: any
+ │   │     └── returns: any
  │   ├─┬ class Calculator (experimental)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -2686,6 +2697,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class BinaryOperation
  │   │ ├── base: Operation
  │   │ └── interfaces: IFriendly
+ │   ├── class BurriedAnonymousObject
  │   ├─┬ class Calculator
  │   │ └── base: CompositeOperation
  │   ├─┬ class ClassThatImplementsTheInternalInterface
@@ -3153,6 +3165,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── hello() method
  │   │   ├── lhs property
  │   │   └── rhs property
+ │   ├─┬ class BurriedAnonymousObject
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── check() method
+ │   │   └── giveItBack(value) method
  │   ├─┬ class Calculator
  │   │ └─┬ members
  │   │   ├── <initializer>(props) initializer
@@ -4202,6 +4219,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class BaseJsii976
  │   ├── class Bell
  │   ├── class BinaryOperation
+ │   ├── class BurriedAnonymousObject
  │   ├── class Calculator
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
