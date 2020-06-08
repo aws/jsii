@@ -54,7 +54,7 @@ class CreateRequest:
     fqn: str
     args: List[Any] = attr.Factory(list)
     overrides: List[Override] = attr.Factory(list)
-    interfaces: Optional[List[str]] = attr.Factory(Optional[list])
+    interfaces: Optional[List[str]] = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
