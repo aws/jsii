@@ -33,7 +33,7 @@
   "dependencies": {
     "camelcase": "^6.0.0",
     "decamelize": "^1.2.0",
-    "fs-extra": "^9.0.0"
+    "fs-extra": "^9.0.1"
   },
   "devDependencies": {
     "@types/decamelize": "^1.2.0",
