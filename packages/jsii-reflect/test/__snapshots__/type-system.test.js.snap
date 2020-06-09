@@ -73,6 +73,7 @@ Array [
   "jsii-calc.InterfaceCollections",
   "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
   "jsii-calc.InterfacesMaker",
+  "jsii-calc.Isomorphism",
   "jsii-calc.JSII417Derived",
   "jsii-calc.JSII417PublicBaseOfBase",
   "jsii-calc.JSObjectLiteralForInterface",
