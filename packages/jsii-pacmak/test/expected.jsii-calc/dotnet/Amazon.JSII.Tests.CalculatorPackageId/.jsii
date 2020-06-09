@@ -6566,6 +6566,40 @@
       ],
       "name": "InterfacesMaker"
     },
+    "jsii-calc.Isomorphism": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "Create a subclass of this, and assert that `this.myself()` actually returns\n`this` from within the constructor.",
+        "stability": "experimental",
+        "summary": "Checks the \"same instance\" isomorphism is preserved within the constructor."
+      },
+      "fqn": "jsii-calc.Isomorphism",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2500
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2501
+          },
+          "name": "myself",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.Isomorphism"
+            }
+          }
+        }
+      ],
+      "name": "Isomorphism"
+    },
     "jsii-calc.JSII417Derived": {
       "assembly": "jsii-calc",
       "base": "jsii-calc.JSII417PublicBaseOfBase",
@@ -13128,5 +13162,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "5SbCJfv1kDW24DUhPcwzoQ1k7Moq+rKOB+Q4TSZlKPE="
+  "fingerprint": "miVjqwWxNOLMY7fR23c/SVvfiGqkgqLgG+18qp4f8MM="
 }

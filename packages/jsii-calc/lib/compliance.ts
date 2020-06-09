@@ -2490,3 +2490,15 @@ export class InterfaceCollections {
 export interface IOptionalMethod {
     optional(): string | undefined;
 }
+
+/**
+ * Checks the "same instance" isomorphism is preserved within the constructor.
+ *
+ * Create a subclass of this, and assert that `this.myself()` actually returns
+ * `this` from within the constructor.
+ */
+export abstract class Isomorphism {
+    public myself(): Isomorphism {
+        return this;
+    }
+}

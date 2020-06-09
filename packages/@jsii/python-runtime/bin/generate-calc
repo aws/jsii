@@ -34,7 +34,6 @@ subprocess.run(
         "-m",
         "pip",
         "install",
-        "--force-reinstall",
         "--upgrade",
     ]
     +
