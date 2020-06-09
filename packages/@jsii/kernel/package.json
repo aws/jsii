@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@jsii/spec": "^0.0.0",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^9.0.1",
     "source-map": "^0.7.3",
     "tar": "^6.0.2"
   },
