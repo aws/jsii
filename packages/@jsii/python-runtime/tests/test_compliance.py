@@ -37,6 +37,7 @@ from jsii_calc import (
     InterfaceCollections,
     IInterfaceWithProperties,
     IStructReturningDelegate,
+    Isomorphism,
     JsiiAgent,
     JSObjectLiteralForInterface,
     JSObjectLiteralToNative,
@@ -1196,3 +1197,12 @@ def test_parameter_named_self_ClassWithSelf():
 def test_parameter_named_self_ClassWithSelfKwarg():
     subject = ClassWithSelfKwarg(self='Howdy!')
     assert subject.props.self == 'Howdy!'
+
+
+def test_isomorphism_within_constructor():
+    class Subject(Isomorphism):
+        def __init__(self):
+            super().__init__()
+            assert self == self.myself()
+
+    Subject()

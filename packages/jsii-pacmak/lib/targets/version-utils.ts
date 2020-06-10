@@ -60,11 +60,18 @@ function toBracketNotation(
   suffix?: string,
   { semver = true }: { semver?: boolean } = {},
 ): string {
+  if (semverRange === '*') {
+    semverRange = '>=0.0.0';
+  }
   const range = new Range(semverRange);
   return range.set
     .map((set) => {
       if (set.length === 1) {
         const version = set[0].semver.raw;
+        if (!version && range.raw === '>=0.0.0') {
+          // Case where version is '*'
+          return `[0.0.0,]`;
+        }
         switch (set[0].operator || '=') {
           // "[version]" => means exactly version
           case '=':

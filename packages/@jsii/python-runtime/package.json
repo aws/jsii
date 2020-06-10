@@ -27,8 +27,10 @@
     "dist-clean": "rm -rf dist",
     "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps",
     "package": "package-python && package-private",
-    "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy",
-    "test:update": "UPDATE_DIFF=1 .env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
+    "test": "npm run test:gen && npm run test:run",
+    "test:gen": ".env/bin/python bin/generate-calc",
+    "test:run": ".env/bin/py.test -v --mypy",
+    "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
     "@jsii/runtime": "^0.0.0"
