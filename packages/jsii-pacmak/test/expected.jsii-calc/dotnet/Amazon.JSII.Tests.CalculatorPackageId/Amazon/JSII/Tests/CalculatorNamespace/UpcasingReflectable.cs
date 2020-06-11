@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UpcasingReflectable), fullyQualifiedName: "jsii-calc.UpcasingReflectable", parametersJson: "[{\"name\":\"delegate\",\"type\":{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}}]")]
-    public class UpcasingReflectable : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Submodule.IReflectable
+    public class UpcasingReflectable : DeputyBase, Amazon.JSII.Tests.CustomSubmoduleName.IReflectable
     {
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
@@ -36,19 +36,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "reflector", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.submodule.Reflector\"}")]
-        public static Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Submodule.Reflector Reflector
+        public static Amazon.JSII.Tests.CustomSubmoduleName.Reflector Reflector
         {
             get;
         }
-        = GetStaticProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Submodule.Reflector>(typeof(Amazon.JSII.Tests.CalculatorNamespace.UpcasingReflectable));
+        = GetStaticProperty<Amazon.JSII.Tests.CustomSubmoduleName.Reflector>(typeof(Amazon.JSII.Tests.CalculatorNamespace.UpcasingReflectable));
 
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "entries", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.submodule.ReflectableEntry\"},\"kind\":\"array\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Submodule.IReflectableEntry[] Entries
+        public virtual Amazon.JSII.Tests.CustomSubmoduleName.IReflectableEntry[] Entries
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Submodule.IReflectableEntry[]>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CustomSubmoduleName.IReflectableEntry[]>();
         }
     }
 }

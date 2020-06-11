@@ -37,6 +37,7 @@ from jsii_calc import (
     InterfaceCollections,
     IInterfaceWithProperties,
     IStructReturningDelegate,
+    Isomorphism,
     JsiiAgent,
     JSObjectLiteralForInterface,
     JSObjectLiteralToNative,
@@ -78,7 +79,7 @@ from jsii_calc.python_self import (
     ClassWithSelfKwarg,
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
-from scope.jsii_calc_lib.submodule import IReflectable, ReflectableEntry
+from scope.jsii_calc_lib.custom_submodule_name import IReflectable, ReflectableEntry
 
 
 # Note: The names of these test functions have been chosen to map as closely to the
@@ -1196,3 +1197,12 @@ def test_parameter_named_self_ClassWithSelf():
 def test_parameter_named_self_ClassWithSelfKwarg():
     subject = ClassWithSelfKwarg(self='Howdy!')
     assert subject.props.self == 'Howdy!'
+
+
+def test_isomorphism_within_constructor():
+    class Subject(Isomorphism):
+        def __init__(self):
+            super().__init__()
+            assert self == self.myself()
+
+    Subject()

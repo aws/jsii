@@ -41,7 +41,7 @@ export class Package {
 
   private emitType(code: CodeMaker, type: Type): void {
     if (type.isInterfaceType()) {
-      return this.emitInterface(code, type);
+      this.emitInterface(code, type);
     }
   }
 

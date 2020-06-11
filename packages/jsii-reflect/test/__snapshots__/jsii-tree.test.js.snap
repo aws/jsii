@@ -115,6 +115,26 @@ exports[`jsii-tree --all 1`] = `
  │ │   │ │         └── type: jsii-calc.submodule.MyClass
  │ │   │ ├─┬ child
  │ │   │ │ └─┬ types
+ │ │   │ │   ├─┬ class InnerClass (experimental)
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   ├── <initializer>() initializer (experimental)
+ │ │   │ │   │   └─┬ static staticProp property (experimental)
+ │ │   │ │   │     ├── const
+ │ │   │ │   │     ├── immutable
+ │ │   │ │   │     ├── static
+ │ │   │ │   │     └── type: jsii-calc.submodule.child.SomeStruct
+ │ │   │ │   ├─┬ class OuterClass (experimental)
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   ├── <initializer>() initializer (experimental)
+ │ │   │ │   │   └─┬ innerClass property (experimental)
+ │ │   │ │   │     ├── immutable
+ │ │   │ │   │     └── type: jsii-calc.submodule.child.InnerClass
+ │ │   │ │   ├─┬ interface SomeStruct (experimental)
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └─┬ prop property (experimental)
+ │ │   │ │   │     ├── abstract
+ │ │   │ │   │     ├── immutable
+ │ │   │ │   │     └── type: jsii-calc.submodule.child.SomeEnum
  │ │   │ │   ├─┬ interface Structure (experimental)
  │ │   │ │   │ └─┬ members
  │ │   │ │   │   └─┬ bool property (experimental)
@@ -123,10 +143,12 @@ exports[`jsii-tree --all 1`] = `
  │ │   │ │   │     └── type: boolean
  │ │   │ │   ├─┬ enum Awesomeness (experimental)
  │ │   │ │   │ └── AWESOME (experimental)
- │ │   │ │   └─┬ enum Goodness (experimental)
- │ │   │ │     ├── PRETTY_GOOD (experimental)
- │ │   │ │     ├── REALLY_GOOD (experimental)
- │ │   │ │     └── AMAZINGLY_GOOD (experimental)
+ │ │   │ │   ├─┬ enum Goodness (experimental)
+ │ │   │ │   │ ├── PRETTY_GOOD (experimental)
+ │ │   │ │   │ ├── REALLY_GOOD (experimental)
+ │ │   │ │   │ └── AMAZINGLY_GOOD (experimental)
+ │ │   │ │   └─┬ enum SomeEnum (experimental)
+ │ │   │ │     └── SOME (experimental)
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -902,6 +924,11 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ count
  │   │     │   └── type: number
  │   │     └── returns: Array<@scope/jsii-calc-lib.IDoublable>
+ │   ├─┬ class Isomorphism (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ myself() method (experimental)
+ │   │     └── returns: jsii-calc.Isomorphism
  │   ├─┬ class JSII417Derived (experimental)
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
@@ -2624,9 +2651,13 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │   │ │   └── interface MyClassReference
  │ │   │ ├─┬ child
  │ │   │ │ └─┬ types
+ │ │   │ │   ├── class InnerClass
+ │ │   │ │   ├── class OuterClass
+ │ │   │ │   ├── interface SomeStruct
  │ │   │ │   ├── interface Structure
  │ │   │ │   ├── enum Awesomeness
- │ │   │ │   └── enum Goodness
+ │ │   │ │   ├── enum Goodness
+ │ │   │ │   └── enum SomeEnum
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -2708,6 +2739,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IPublicInterface2
  │   ├── class InterfaceCollections
  │   ├── class InterfacesMaker
+ │   ├── class Isomorphism
  │   ├─┬ class JSII417Derived
  │   │ └── base: JSII417PublicBaseOfBase
  │   ├── class JSII417PublicBaseOfBase
@@ -2987,15 +3019,28 @@ exports[`jsii-tree --members 1`] = `
  │ │   │ │       └── reference property
  │ │   │ ├─┬ child
  │ │   │ │ └─┬ types
+ │ │   │ │   ├─┬ class InnerClass
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   ├── <initializer>() initializer
+ │ │   │ │   │   └── static staticProp property
+ │ │   │ │   ├─┬ class OuterClass
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   ├── <initializer>() initializer
+ │ │   │ │   │   └── innerClass property
+ │ │   │ │   ├─┬ interface SomeStruct
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └── prop property
  │ │   │ │   ├─┬ interface Structure
  │ │   │ │   │ └─┬ members
  │ │   │ │   │   └── bool property
  │ │   │ │   ├─┬ enum Awesomeness
  │ │   │ │   │ └── AWESOME
- │ │   │ │   └─┬ enum Goodness
- │ │   │ │     ├── PRETTY_GOOD
- │ │   │ │     ├── REALLY_GOOD
- │ │   │ │     └── AMAZINGLY_GOOD
+ │ │   │ │   ├─┬ enum Goodness
+ │ │   │ │   │ ├── PRETTY_GOOD
+ │ │   │ │   │ ├── REALLY_GOOD
+ │ │   │ │   │ └── AMAZINGLY_GOOD
+ │ │   │ │   └─┬ enum SomeEnum
+ │ │   │ │     └── SOME
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -3326,6 +3371,10 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class InterfacesMaker
  │   │ └─┬ members
  │   │   └── static makeInterfaces(count) method
+ │   ├─┬ class Isomorphism
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── myself() method
  │   ├─┬ class JSII417Derived
  │   │ └─┬ members
  │   │   ├── <initializer>(property) initializer
@@ -4132,9 +4181,13 @@ exports[`jsii-tree --types 1`] = `
  │ │   │ │   └── interface MyClassReference
  │ │   │ ├─┬ child
  │ │   │ │ └─┬ types
+ │ │   │ │   ├── class InnerClass
+ │ │   │ │   ├── class OuterClass
+ │ │   │ │   ├── interface SomeStruct
  │ │   │ │   ├── interface Structure
  │ │   │ │   ├── enum Awesomeness
- │ │   │ │   └── enum Goodness
+ │ │   │ │   ├── enum Goodness
+ │ │   │ │   └── enum SomeEnum
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -4198,6 +4251,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class InbetweenClass
  │   ├── class InterfaceCollections
  │   ├── class InterfacesMaker
+ │   ├── class Isomorphism
  │   ├── class JSII417Derived
  │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface

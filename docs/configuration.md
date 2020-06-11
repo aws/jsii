@@ -48,7 +48,7 @@ Field       | Required | Extensions
     // ...
   }
   ```
-  The `organization` field is an extention from the [package.json schema] that
+  The `organization` field is an extension from the [package.json schema] that
   can be used to signal the `author` field refers to an `organization` and not
   and individual person.
 * The [`license`][npm-license] field must be set to a valid [SPDX license id].
@@ -95,7 +95,7 @@ which a stability declaration is not found can be configured using the
 `stability` field of the `package.json` file. It can be set to one of the
 following values: `experimental`, `stable`, `deprecated` and `external`. While
 the exact semantic value of those fields is defined by the package maintainer,
-the generic interepretation for those on packages is:
+the generic interpretation for those on packages is:
 
 * `experimental` - the package is not yet ready for production usage, as it is
   still in the early stages if it's development.
@@ -103,7 +103,7 @@ the generic interepretation for those on packages is:
   expected to adhere to [semantic versioning].
 * `deprecated` - the package should no longer be used and may no longer be
   maintained. It is a good practice to set the `deprecated` field in
-  `packgae.json` with an explanation of how consumers of the package should
+  `package.json` with an explanation of how consumers of the package should
   update their dependencies.
 * `external` - the package includes APIs that are derived from external
   artifacts, and the owners of those artifacts control their stability.
@@ -126,7 +126,7 @@ Field              | Type       | Required | Default
 ### `excludeTypescript`
 
 By default, `jsii` will include _all_ `*.ts` files (except `.d.ts` files) in the
-`TypeScript` compier input. This can be problematic for example when the
+`TypeScript` compiler input. This can be problematic for example when the
 package's build or test procedure generates `.ts` files that cannot be compiled
 with `jsii`'s compiler settings.
 
@@ -315,7 +315,7 @@ into the [`peerDependencies`][npm-peer-deps] section.
 
 The `jsii` runtimes in non-**javascript** languages do not use `npm install`,
 and as a consequence cannot rely on `npm install` bringing in a package's
-dependecies. As a consequence, dependencies that are not themselves `jsii`
+dependencies. As a consequence, dependencies that are not themselves `jsii`
 modules, __must__ also be referenced in the [`bundledDependencies`][npm-bundled]
 section, so that they are bundled within the NPM package.
 

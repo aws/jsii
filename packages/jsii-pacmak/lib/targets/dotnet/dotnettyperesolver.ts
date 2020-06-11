@@ -54,7 +54,9 @@ export class DotNetTypeResolver {
 
     const dotnetNamespace = depMod.targets?.dotnet?.namespace;
     if (!dotnetNamespace) {
-      throw new Error('The module does not have a dotnet.namespace setting');
+      throw new Error(
+        `The assembly ${mod} does not have a dotnet.namespace setting`,
+      );
     }
     if (type.namespace) {
       // If the type is declared in an additional namespace.
@@ -65,10 +67,8 @@ export class DotNetTypeResolver {
         const actualNamespace = this.toDotNetType(this.findType(namespaceFqn));
         return `${actualNamespace}.${typeName}`;
       }
-      return `${dotnetNamespace}.${type.namespace
-        .split('.')
-        .map((s) => toPascalCase(s))
-        .join('.')}.${typeName}`;
+      const ns = this.resolveNamespace(depMod, mod, type.namespace);
+      return `${ns}.${typeName}`;
     }
     // When undefined, the type is located at the root of the assembly
     return `${dotnetNamespace}.${typeName}`;
@@ -135,6 +135,30 @@ export class DotNetTypeResolver {
       return 'object';
     }
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
+  }
+
+  public resolveNamespace(
+    assm: spec.AssemblyConfiguration,
+    assmName: string,
+    ns: string,
+  ): string {
+    let resolved = assm.targets?.dotnet?.namespace;
+    if (!resolved) {
+      throw new Error(
+        `Assembly ${assmName} does not have targets.dotnet.namespace configured!`,
+      );
+    }
+    const segments = ns.split('.');
+    for (let i = 0; i < segments.length; i++) {
+      const submoduleName = `${assmName}.${segments.slice(0, i + 1).join('.')}`;
+      const submodule = assm.submodules?.[submoduleName];
+      if (submodule && submodule.targets?.dotnet?.namespace) {
+        resolved = submodule.targets.dotnet.namespace;
+      } else {
+        resolved = `${resolved}.${toPascalCase(segments[i])}`;
+      }
+    }
+    return resolved;
   }
 
   /**

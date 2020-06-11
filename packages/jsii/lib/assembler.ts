@@ -567,7 +567,7 @@ export class Assembler implements Emitter {
         this,
         symbol,
       );
-      const targets = undefined; // This will be configurable in the future.
+      const targets = await loadSubmoduleTargetConfig(sourceFile.fileName);
 
       this._submodules.set(symbol, {
         fqn,
@@ -602,6 +602,17 @@ export class Assembler implements Emitter {
         fqn,
         fqnResolutionPrefix: inlineNamespace ? this.projectInfo.name : fqn,
       };
+    }
+
+    async function loadSubmoduleTargetConfig(
+      submoduleMain: string,
+    ): Promise<SubmoduleSpec['targets']> {
+      const jsiirc = path.resolve(submoduleMain, '..', '.jsiirc.json');
+      if (!(await fs.pathExists(jsiirc))) {
+        return undefined;
+      }
+      const data = await fs.readJson(jsiirc);
+      return data.targets;
     }
   }
 
@@ -747,12 +758,14 @@ export class Assembler implements Emitter {
 
     if (ts.isClassDeclaration(node) && _isExported(node)) {
       // export class Name { ... }
+      this._validateHeritageClauses(node.heritageClauses);
       jsiiType = await this._visitClass(
         this._typeChecker.getTypeAtLocation(node),
         context,
       );
     } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) {
       // export interface Name { ... }
+      this._validateHeritageClauses(node.heritageClauses);
       jsiiType = await this._visitInterface(
         this._typeChecker.getTypeAtLocation(node),
         context,
@@ -879,6 +892,45 @@ export class Assembler implements Emitter {
     }
 
     return [jsiiType];
+  }
+
+  private _validateHeritageClauses(clauses?: ts.NodeArray<ts.HeritageClause>) {
+    if (clauses == null || clauses.length === 0) {
+      // Nothing to do.
+      return;
+    }
+    for (const clause of clauses) {
+      for (const node of clause.types) {
+        const parentType = this._typeChecker.getTypeAtLocation(node);
+        // For some reason, we cannot trust parentType.isClassOrInterface()
+        const badDecl = parentType.symbol.declarations.find(
+          (decl) =>
+            !ts.isClassDeclaration(decl) && // <-- local classes
+            !ts.isInterfaceDeclaration(decl) && // <-- local interfaces
+            !ts.isModuleDeclaration(decl), // <-- imported types
+        );
+        if (badDecl != null) {
+          this._diagnostic(
+            node,
+            ts.DiagnosticCategory.Error,
+            `Illegal "${clauseType(clause.token)}" value for an exported API: ${
+              ts.SyntaxKind[badDecl.kind]
+            }`,
+          );
+        }
+      }
+    }
+
+    function clauseType(token: ts.SyntaxKind): string {
+      switch (token) {
+        case ts.SyntaxKind.ExtendsKeyword:
+          return 'extends';
+        case ts.SyntaxKind.ImplementsKeyword:
+          return 'implements';
+        default:
+          return ts.SyntaxKind[token];
+      }
+    }
   }
 
   private declarationLocation(node: ts.Declaration): spec.SourceLocation {
@@ -1576,7 +1628,7 @@ export class Assembler implements Emitter {
       for (const member of declaringType.getProperties()) {
         if (
           !(declaringType.symbol.getDeclarations() ?? []).find(
-            (decl) => decl === member.valueDeclaration.parent,
+            (decl) => decl === member.valueDeclaration?.parent,
           )
         ) {
           continue;
@@ -2093,7 +2145,7 @@ export class Assembler implements Emitter {
         this._diagnostic(
           declaration,
           ts.DiagnosticCategory.Error,
-          'Only string index maps are supported',
+          'Only string-indexed map types are supported',
         );
         elementtype = spec.CANONICAL_ANY;
       }

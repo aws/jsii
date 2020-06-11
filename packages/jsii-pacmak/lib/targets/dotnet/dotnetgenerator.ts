@@ -1,5 +1,4 @@
 import * as clone from 'clone';
-import { toPascalCase } from 'codemaker';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
@@ -463,16 +462,15 @@ export class DotNetGenerator extends Generator {
   }
 
   private namespaceFor(assm: spec.Assembly, type: spec.Type): string {
-    const parts = [assm.targets!.dotnet!.namespace];
     let ns = type.namespace;
     while (ns != null && assm.types?.[`${assm.name}.${ns}`] != null) {
       const nesting = assm.types[`${assm.name}.${ns}`];
       ns = nesting.namespace;
     }
     if (ns != null) {
-      parts.push(...ns.split('.').map((n) => toPascalCase(n)));
+      return this.typeresolver.resolveNamespace(assm, assm.name, ns);
     }
-    return parts.join('.');
+    return assm.targets!.dotnet!.namespace;
   }
 
   private emitMethod(

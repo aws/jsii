@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/aws/jsii/compare/v1.5.0...v1.6.0) (2020-06-02)
+
+
+### Features
+
+* **java:** add a Builder<T> interface implemented by all builders ([#1654](https://github.com/aws/jsii/issues/1654)) ([52e73b5](https://github.com/aws/jsii/commit/52e73b511ffc3a2887ca96dec98482bcdd86cc8d)), closes [#1652](https://github.com/aws/jsii/issues/1652)
+* **java:** use covariant types for collection elements ([#1653](https://github.com/aws/jsii/issues/1653)) ([bc5e200](https://github.com/aws/jsii/commit/bc5e20085b26af6d8662fb30b2add95459f93875)), closes [#1517](https://github.com/aws/jsii/issues/1517)
+* **jsii:** use incremental builders ([aaa7593](https://github.com/aws/jsii/commit/aaa75934c989965d49490f8090e9d908d1aa5ffe))
+* allow per-submodule naming configuration ([#1690](https://github.com/aws/jsii/issues/1690)) ([b2aa424](https://github.com/aws/jsii/commit/b2aa4247b550a4ce627d3bb4a05b45002b7d912a)), closes [#1286](https://github.com/aws/jsii/issues/1286)
+* **pacmak/java:** isolate maven repositories ([#1709](https://github.com/aws/jsii/issues/1709)) ([4904cd8](https://github.com/aws/jsii/commit/4904cd80dfa47090e4ff2235fc0fd693703571da))
+* **python:** add explicit return type to setters ([#1645](https://github.com/aws/jsii/issues/1645)) ([0f3c6e2](https://github.com/aws/jsii/commit/0f3c6e23d42a097786143ccac9ee0ccbef059fdc))
+
+
+### Bug Fixes
+
+* **dotnet:** F# dictionaries cause NullReferenceException ([#1655](https://github.com/aws/jsii/issues/1655)) ([50c656c](https://github.com/aws/jsii/commit/50c656c4be6856b843fd2e56895c0d57ca8f1554)), closes [#1322](https://github.com/aws/jsii/issues/1322)
+* **jsii:** dependency submodules are not tagged ([#1663](https://github.com/aws/jsii/issues/1663)) ([18e3702](https://github.com/aws/jsii/commit/18e3702ed1a621cf0a71c328b37f11fa73c8cb05))
+* package runtimes as private for integ test ([#1677](https://github.com/aws/jsii/issues/1677)) ([7afe761](https://github.com/aws/jsii/commit/7afe7619ceded745a6fcc9e95fff172ca6f6a28e))
+* **jsii-pacmak:** computeIfAbsent throws ConcurrentModificationException ([#1706](https://github.com/aws/jsii/issues/1706)) ([fa60b7f](https://github.com/aws/jsii/commit/fa60b7f3d4268cd426d519bab9c738507c1ae503))
+* **kernel:** error raised during rename operation on win32 ([#1702](https://github.com/aws/jsii/issues/1702)) ([38ee336](https://github.com/aws/jsii/commit/38ee336cd9fd5ceed3a19c85cd106a82d7073264)), closes [#992](https://github.com/aws/jsii/issues/992)
+* **pacmak:** label "External" stability as "Stable" ([#1633](https://github.com/aws/jsii/issues/1633)) ([8569c00](https://github.com/aws/jsii/commit/8569c00045f8ee25356e8fa3074674558ec41732))
+* **python:** `self` as property name leads to assignment error ([#1330](https://github.com/aws/jsii/issues/1330)) ([a877f34](https://github.com/aws/jsii/commit/a877f34c5dc4cbfcd615ed521f345c86501b0c56))
+* **python:** imports between subpackages are broken ([#1528](https://github.com/aws/jsii/issues/1528)) ([84e0f48](https://github.com/aws/jsii/commit/84e0f4892e6da680f24dc8793322d228a0203e9e))
+
 ## [1.5.0](https://github.com/aws/jsii/compare/v1.4.1...v1.5.0) (2020-05-07)
 
 
