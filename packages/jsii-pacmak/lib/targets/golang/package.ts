@@ -1,8 +1,9 @@
-import { Assembly, InterfaceType, Type, Method } from 'jsii-reflect';
+import { Assembly, Type } from 'jsii-reflect';
 import { join } from 'path';
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
 import { CodeMaker } from 'codemaker';
+import { Interface, Class } from './interface';
 
 export class Package {
   public readonly packageName: string;
@@ -34,38 +35,17 @@ export class Package {
   }
 
   private emitRootModule(code: CodeMaker) {
-    Object.values(this.assembly.types).forEach((type: Type) => {
+    this.assembly.types.forEach((type: Type) => {
       this.emitType(code, type);
     });
   }
 
   private emitType(code: CodeMaker, type: Type): void {
     if (type.isInterfaceType()) {
-      this.emitInterface(code, type);
+      new Interface(code, type).emit();
+    } else if (type.isClassType()) {
+      new Class(code, type).emit();
     }
-  }
-
-  private goNameFromJs(name: string): string {
-    return name.replace(/[^a-z0-9_.]/gi, '').toLowerCase();
-  }
-
-  private emitInterface(code: CodeMaker, type: InterfaceType): void {
-    const names = type.fqn.split('.');
-    const goInterfaceName = this.goNameFromJs(names[names.length - 1]);
-    code.openBlock(`type ${goInterfaceName} interface`);
-    Object.values(type.getMethods()).forEach((method) =>
-      this.emitInterfaceMethod(code, method),
-    );
-    code.closeBlock();
-  }
-
-  private emitInterfaceMethod(code: CodeMaker, method: Method) {
-    const returns =
-      method.returns.toString() === 'void'
-        ? ''
-        : ` ${method.returns.toString()}`;
-    code.line(`${this.goNameFromJs(method.name)}()${returns}`);
-    code.line();
   }
 
   private generateSubmoduleFiles(code: CodeMaker) {
