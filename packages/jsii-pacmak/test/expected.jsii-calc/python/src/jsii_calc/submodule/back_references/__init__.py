@@ -10,11 +10,15 @@ import publication
 
 from ..._jsii import *
 
-from .. import (MyClass as _MyClass_a2fdc0b6)
+from .. import MyClass as _MyClass_a2fdc0b6
 
 
-@jsii.data_type(jsii_type="jsii-calc.submodule.back_references.MyClassReference", jsii_struct_bases=[], name_mapping={'reference': 'reference'})
-class MyClassReference():
+@jsii.data_type(
+    jsii_type="jsii-calc.submodule.back_references.MyClassReference",
+    jsii_struct_bases=[],
+    name_mapping={"reference": "reference"},
+)
+class MyClassReference:
     def __init__(self, *, reference: _MyClass_a2fdc0b6) -> None:
         """
         :param reference: 
@@ -23,7 +27,7 @@ class MyClassReference():
         :stability: experimental
         """
         self._values = {
-            'reference': reference,
+            "reference": reference,
         }
 
     @builtins.property
@@ -32,7 +36,7 @@ class MyClassReference():
         stability
         :stability: experimental
         """
-        return self._values.get('reference')
+        return self._values.get("reference")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -41,7 +45,9 @@ class MyClassReference():
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'MyClassReference(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "MyClassReference(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 __all__ = [

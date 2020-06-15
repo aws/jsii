@@ -1,7 +1,8 @@
 import json
 import setuptools
 
-kwargs = json.loads("""
+kwargs = json.loads(
+    """
 {
     "name": "scope.jsii-calc-base-of-base",
     "version": "0.0.0",
@@ -45,10 +46,11 @@ kwargs = json.loads("""
         "License :: OSI Approved"
     ]
 }
-""")
+"""
+)
 
-with open('README.md') as fp:
-    kwargs['long_description'] = fp.read()
+with open("README.md") as fp:
+    kwargs["long_description"] = fp.read()
 
 
 setuptools.setup(**kwargs)
