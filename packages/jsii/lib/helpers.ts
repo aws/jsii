@@ -12,7 +12,7 @@ import * as os from 'os';
 import * as path from 'path';
 import { DiagnosticCategory } from 'typescript';
 import { Compiler } from './compiler';
-import { loadProjectInfo, ProjectInfo } from './project-info';
+import { ProjectInfo } from './project-info';
 
 /**
  * Compile a piece of source and return the JSII assembly for it
@@ -90,7 +90,7 @@ async function makeProjectInfo(
     spaces: 2,
   });
 
-  return loadProjectInfo(path.resolve(process.cwd(), '.'), {
+  return ProjectInfo.load(path.resolve(process.cwd(), '.'), {
     fixPeerDependencies: true,
   });
 }

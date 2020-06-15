@@ -1,4 +1,6 @@
 import * as log4js from 'log4js';
+import * as path from 'path';
+import * as supportsColor from 'supports-color';
 import * as ts from 'typescript';
 
 /**
@@ -50,17 +52,14 @@ export function diagnosticsLogger(
 export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
   const formatDiagnosticsHost: ts.FormatDiagnosticsHost = {
     getCurrentDirectory: () => projectRoot,
-    getCanonicalFileName: (fileName) => fileName,
+    getCanonicalFileName: path.resolve,
     getNewLine: () => ts.sys.newLine,
   };
 
-  const message =
-    diagnostic.file != null
-      ? ts.formatDiagnosticsWithColorAndContext(
-          [diagnostic],
-          formatDiagnosticsHost,
-        )
-      : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
+  const formatter = supportsColor.stderr
+    ? ts.formatDiagnosticsWithColorAndContext
+    : ts.formatDiagnostics;
+  const message = formatter([diagnostic], formatDiagnosticsHost);
 
   const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
   if (!logFunc) {
@@ -97,21 +96,21 @@ export function parsePerson(value: string) {
 }
 
 const REPOSITORY_REGEX = /^(?:(github|gist|bitbucket|gitlab):)?([A-Za-z\d_-]+\/[A-Za-z\d_-]+)$/;
-export function parseRepository(value: string): { url: string } {
+export function parseRepository(value: string): { type: string; url: string } {
   const match = REPOSITORY_REGEX.exec(value);
   if (!match) {
-    return { url: value };
+    return { type: '', url: value };
   }
   const [, host, slug] = match;
   switch (host ?? 'github') {
     case 'github':
-      return { url: `https://github.com/${slug}.git` };
+      return { type: 'git', url: `https://github.com/${slug}.git` };
     case 'gist':
-      return { url: `https://gist.github.com/${slug}.git` };
+      return { type: 'git', url: `https://gist.github.com/${slug}.git` };
     case 'bitbucket':
-      return { url: `https://bitbucket.org/${slug}.git` };
+      return { type: 'git', url: `https://bitbucket.org/${slug}.git` };
     case 'gitlab':
-      return { url: `https://gitlab.com/${slug}.git` };
+      return { type: 'git', url: `https://gitlab.com/${slug}.git` };
     default:
       throw new Error(`Unknown host service: ${host}`);
   }

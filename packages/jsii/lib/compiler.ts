@@ -76,12 +76,7 @@ export class Compiler implements Emitter {
       'tsconfig.json',
     );
 
-    this.projectReferences =
-      options.projectReferences !== undefined
-        ? options.projectReferences
-        : options.projectInfo.projectReferences !== undefined
-        ? options.projectInfo.projectReferences
-        : false;
+    this.projectReferences = options.projectReferences ?? false;
   }
 
   /**
@@ -217,7 +212,10 @@ export class Compiler implements Emitter {
   ): Promise<EmitResult> {
     const emit = program.emit();
     let hasErrors = emitHasErrors(emit, this.options.failOnWarnings);
-    const diagnostics = [...emit.diagnostics];
+    const diagnostics = [
+      ...this.options.projectInfo.diagnostics,
+      ...emit.diagnostics,
+    ];
 
     if (hasErrors) {
       LOG.error(
@@ -289,7 +287,7 @@ export class Compiler implements Emitter {
       ],
       exclude: [
         'node_modules',
-        ...pi.excludeTypescript,
+        ...(pi.excludeTypescript ?? []),
         ...(pi.tsc?.outDir != null
           ? [path.join(pi.tsc.outDir, '**', '*.ts')]
           : []),
@@ -361,15 +359,13 @@ export class Compiler implements Emitter {
    * tree)
    */
   private async findProjectReferences(): Promise<string[]> {
-    const pkg = this.options.projectInfo.packageJson;
-
     const ret = new Array<string>();
 
     const dependencyNames = new Set<string>();
     for (const dependencyMap of [
-      pkg.dependencies,
-      pkg.devDependencies,
-      pkg.peerDependencies,
+      this.options.projectInfo.dependencies,
+      this.options.projectInfo.devDependencies,
+      this.options.projectInfo.peerDependencies,
     ]) {
       if (dependencyMap === undefined) {
         continue;

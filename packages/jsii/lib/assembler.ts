@@ -82,14 +82,14 @@ export class Assembler implements Emitter {
     if (!this.projectInfo.description) {
       this._diagnostic(
         null,
-        ts.DiagnosticCategory.Suggestion,
+        ts.DiagnosticCategory.Message,
         'A "description" field should be specified in "package.json"',
       );
     }
     if (!this.projectInfo.homepage) {
       this._diagnostic(
         null,
-        ts.DiagnosticCategory.Suggestion,
+        ts.DiagnosticCategory.Message,
         'A "homepage" field should be specified in "package.json"',
       );
     }
@@ -97,7 +97,7 @@ export class Assembler implements Emitter {
     if (readme == null) {
       this._diagnostic(
         null,
-        ts.DiagnosticCategory.Suggestion,
+        ts.DiagnosticCategory.Message,
         'There is no "README.md" file. It is recommended to have one.',
       );
     }
@@ -174,7 +174,7 @@ export class Assembler implements Emitter {
       version: this.projectInfo.version,
       description: this.projectInfo.description || this.projectInfo.name,
       license: this.projectInfo.license,
-      keywords: this.projectInfo.keywords,
+      keywords: this.projectInfo.keywords && [...this.projectInfo.keywords],
       homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
       author: this.projectInfo.author,
       contributors: this.projectInfo.contributors && [
@@ -188,7 +188,7 @@ export class Assembler implements Emitter {
       dependencyClosure: noEmptyDict(
         toDependencyClosure(this.projectInfo.dependencyClosure),
       ),
-      bundled: this.projectInfo.bundleDependencies,
+      bundled: noEmptyDict(this.projectInfo.bundleDependencies),
       types: this._types,
       submodules: noEmptyDict(
         toSubmoduleDeclarations(this._submodules.values()),

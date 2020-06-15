@@ -69,9 +69,9 @@ describe(Compiler, () => {
 });
 
 function _makeProjectInfo(sourceDir: string, types: string): ProjectInfo {
-  return {
+  return ({
+    diagnostics: [],
     projectRoot: sourceDir,
-    packageJson: undefined,
     types,
     main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),
     name: 'jsii', // That's what package.json would tell if we look up...
@@ -85,6 +85,5 @@ function _makeProjectInfo(sourceDir: string, types: string): ProjectInfo {
     dependencyClosure: [],
     bundleDependencies: {},
     targets: {},
-    excludeTypescript: [],
-  };
+  } as any) as ProjectInfo;
 }

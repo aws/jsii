@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as process from 'process';
 import * as yargs from 'yargs';
 import { Compiler } from '../lib/compiler';
-import { loadProjectInfo } from '../lib/project-info';
+import { ProjectInfo } from '../lib/project-info';
 import * as utils from '../lib/utils';
 import { VERSION } from '../lib/version';
 import { enabledWarnings } from '../lib/warnings';
@@ -58,7 +58,7 @@ const warningTypes = Object.keys(enabledWarnings);
     path.resolve(process.cwd(), argv._[0] ?? '.'),
   );
 
-  const projectInfo = await loadProjectInfo(projectRoot, {
+  const projectInfo = await ProjectInfo.load(projectRoot, {
     fixPeerDependencies: argv['fix-peer-dependencies'],
   });
 

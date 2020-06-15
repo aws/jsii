@@ -3,7 +3,9 @@ import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
 import * as os from 'os';
 import * as path from 'path';
-import { loadProjectInfo } from '../lib/project-info';
+import * as ts from 'typescript';
+import { inspect } from 'util';
+import { ProjectInfo } from '../lib/project-info';
 import { VERSION } from '../lib/version';
 
 const BASE_PROJECT = {
@@ -23,15 +25,91 @@ const BASE_PROJECT = {
     targets: { foo: { bar: 'baz' } },
   },
   dependencies: { 'jsii-test-dep': '^1.2.3' } as { [name: string]: string },
-  peerDependencies: { 'jsii-test-dep': '^1.2.3' } as { [name: string]: string },
+  peerDependencies: { 'jsii-test-dep': '^1.2.3' } as {
+    [name: string]: string;
+  },
 };
 
-describe('loadProjectInfo', () => {
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace jest {
+    interface Matchers<R, T> {
+      toHaveDiagnostics(): R;
+      toHaveError(expectedMessage: RegExp | string): R;
+      toHaveWarning(expectedMessage: RegExp | string): R;
+    }
+  }
+}
+
+function renderDiagnostic(diag: ts.Diagnostic) {
+  return ts.formatDiagnosticsWithColorAndContext([diag], {
+    getCanonicalFileName: path.resolve,
+    getCurrentDirectory: () => path.dirname(diag.file!.fileName),
+    getNewLine: () => ts.sys.newLine,
+  });
+}
+
+function toHave(
+  actual: ProjectInfo,
+  category: ts.DiagnosticCategory,
+  expectedMessage: RegExp | string,
+) {
+  const error = actual.diagnostics.find((diag) => {
+    if (diag.category !== category) {
+      return false;
+    }
+    const message = ts.flattenDiagnosticMessageText(
+      diag.messageText,
+      ts.sys.newLine,
+    );
+    if (typeof expectedMessage === 'string') {
+      return message === expectedMessage;
+    }
+    return expectedMessage.test(message);
+  });
+  return {
+    pass: error != null,
+    message: () => {
+      const diagText =
+        actual.diagnostics.length === 0
+          ? 'no diagnostics'
+          : `\n${actual.diagnostics.map(renderDiagnostic).join('\n')}`;
+      return `Expected a ${ts.DiagnosticCategory[category]} matching ${inspect(
+        expectedMessage,
+      )}, but found ${diagText}`;
+    },
+  };
+}
+
+expect.extend({
+  toHaveDiagnostics(actual: ProjectInfo) {
+    return {
+      pass: actual.diagnostics.length !== 0,
+      message: () =>
+        actual.diagnostics.length === 0
+          ? `no diagnostics`
+          : `Found diagnostics:\n${actual.diagnostics
+              .map(renderDiagnostic)
+              .join('\n')}`,
+    };
+  },
+  toHaveError(actual: ProjectInfo, expectedMessage: RegExp | string) {
+    return toHave(actual, ts.DiagnosticCategory.Error, expectedMessage);
+  },
+  toHaveWarning(actual: ProjectInfo, expectedMessage: RegExp | string) {
+    return toHave(actual, ts.DiagnosticCategory.Warning, expectedMessage);
+  },
+});
+
+describe(ProjectInfo.load, () => {
   test('loads valid project', () =>
     _withTestProject(async (projectRoot) => {
-      const info = await loadProjectInfo(projectRoot, {
+      const info = await ProjectInfo.load(projectRoot, {
         fixPeerDependencies: false,
       });
+
+      expect(info).not.toHaveDiagnostics();
+
       expect(info.name).toBe(BASE_PROJECT.name);
       expect(info.version).toBe(BASE_PROJECT.version);
       expect(info.description).toBe(BASE_PROJECT.description);
@@ -62,7 +140,7 @@ describe('loadProjectInfo', () => {
   test('loads valid project (UNLICENSED)', () =>
     _withTestProject(
       async (projectRoot) => {
-        const info = await loadProjectInfo(projectRoot, {
+        const info = await ProjectInfo.load(projectRoot, {
           fixPeerDependencies: false,
         });
         expect(info?.license).toBe('UNLICENSED');
@@ -75,7 +153,7 @@ describe('loadProjectInfo', () => {
   test('loads valid project (using bundleDependencies)', () =>
     _withTestProject(
       async (projectRoot) => {
-        const info = await loadProjectInfo(projectRoot, {
+        const info = await ProjectInfo.load(projectRoot, {
           fixPeerDependencies: false,
         });
         expect(info.bundleDependencies).toEqual({ bundled: '^1.2.3' });
@@ -89,7 +167,7 @@ describe('loadProjectInfo', () => {
   test('loads valid project (using bundledDependencies)', () =>
     _withTestProject(
       async (projectRoot) => {
-        const info = await loadProjectInfo(projectRoot, {
+        const info = await ProjectInfo.load(projectRoot, {
           fixPeerDependencies: false,
         });
         expect(info.bundleDependencies).toEqual({ bundled: '^1.2.3' });
@@ -104,7 +182,7 @@ describe('loadProjectInfo', () => {
     const contributors = [{ name: 'foo', email: 'nobody@amazon.com' }];
     return _withTestProject(
       async (projectRoot) => {
-        const info = await loadProjectInfo(projectRoot, {
+        const info = await ProjectInfo.load(projectRoot, {
           fixPeerDependencies: false,
         });
         expect(info?.contributors?.map(_stripUndefined)).toEqual(
@@ -115,12 +193,27 @@ describe('loadProjectInfo', () => {
     );
   });
 
+  test('rejects invalid jsii versionFormat', () =>
+    _withTestProject(
+      (projectRoot) =>
+        expect(
+          ProjectInfo.load(projectRoot, { fixPeerDependencies: false }),
+        ).resolves.toHaveError(
+          /Unsupported value \(only "full" and "short" are allowed\)/,
+        ),
+      (info) => {
+        info.jsii.versionFormat = 'invalid';
+      },
+    ));
+
   test('rejects un-declared dependency in bundleDependencies', () =>
     _withTestProject(
       (projectRoot) =>
         expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(/not declared in "dependencies"/i),
+          ProjectInfo.load(projectRoot, { fixPeerDependencies: false }),
+        ).resolves.toHaveError(
+          /Bundled dependencies must also be declared as devDependencies/i,
+        ),
       (info) => {
         info.bundledDependencies = ['bundled'];
       },
@@ -130,8 +223,8 @@ describe('loadProjectInfo', () => {
     _withTestProject(
       (projectRoot) =>
         expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(/invalid license identifier/i),
+          ProjectInfo.load(projectRoot, { fixPeerDependencies: false }),
+        ).resolves.toHaveError(/invalid license identifier/i),
       (info) => {
         info.license = 'Not an SPDX licence ID';
       },
@@ -141,9 +234,9 @@ describe('loadProjectInfo', () => {
     _withTestProject(
       (projectRoot) =>
         expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(
-          /declared dependency on version .+ but version .+ was found/i,
+          ProjectInfo.load(projectRoot, { fixPeerDependencies: false }),
+        ).resolves.toHaveError(
+          /The \.jsii assembly for this dependency has version [\d.]+, which is incompatible with the requirement of/i,
         ),
       (info) => {
         info.dependencies[TEST_DEP_ASSEMBLY.name] = '^1.2.5';
@@ -155,9 +248,9 @@ describe('loadProjectInfo', () => {
     _withTestProject(
       (projectRoot) =>
         expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(
-          `The "package.json" file has "${TEST_DEP_ASSEMBLY.name}" in "dependencies", but not in "peerDependencies"`,
+          ProjectInfo.load(projectRoot, { fixPeerDependencies: false }),
+        ).resolves.toHaveWarning(
+          /Runtime dependencies should also be peer dependencies/i,
         ),
       (info) => {
         delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
@@ -167,10 +260,13 @@ describe('loadProjectInfo', () => {
   test('loads with missing peerDependency (when auto-fixing)', () =>
     _withTestProject(
       async (projectRoot) => {
-        await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
+        await ProjectInfo.load(projectRoot, { fixPeerDependencies: true });
         // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
         const info = require(path.join(projectRoot, 'package.json'));
-        expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
+        expect(info.dependencies[TEST_DEP_ASSEMBLY.name]).toBe('^42.1337.0');
+        expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe(
+          '^42.1337.0',
+        );
       },
       (info) => {
         delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
@@ -181,9 +277,9 @@ describe('loadProjectInfo', () => {
     _withTestProject(
       (projectRoot) =>
         expect(
-          loadProjectInfo(projectRoot, { fixPeerDependencies: false }),
-        ).rejects.toThrow(
-          `The "package.json" file has different version requirements for "${TEST_DEP_ASSEMBLY.name}" in "dependencies" (^1.2.3) versus "peerDependencies" (^42.1337.0)`,
+          ProjectInfo.load(projectRoot, { fixPeerDependencies: false }),
+        ).resolves.toHaveWarning(
+          /The peer dependency declares a different version range/,
         ),
       (info) => {
         info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
@@ -193,10 +289,12 @@ describe('loadProjectInfo', () => {
   test('loads with inconsistent peerDependency (when auto-fixing)', () =>
     _withTestProject(
       async (projectRoot) => {
-        await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
+        await ProjectInfo.load(projectRoot, { fixPeerDependencies: true });
         // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
         const info = require(path.join(projectRoot, 'package.json'));
-        expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
+        expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe(
+          '^42.1337.0',
+        );
       },
       (info) => {
         info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
@@ -282,6 +380,11 @@ async function _withTestProject<T>(
     const jsiiTestDep = path.join(tmpdir, 'node_modules', 'jsii-test-dep');
     await fs.mkdirs(jsiiTestDep);
     await fs.writeJson(path.join(jsiiTestDep, '.jsii'), TEST_DEP_ASSEMBLY);
+    await fs.writeJson(path.join(jsiiTestDep, 'package.json'), {
+      name: TEST_DEP_ASSEMBLY.name,
+      version: TEST_DEP_ASSEMBLY.version,
+    });
+
     const jsiiTestDepDep = path.join(
       jsiiTestDep,
       'node_modules',
@@ -292,6 +395,10 @@ async function _withTestProject<T>(
       path.join(jsiiTestDepDep, '.jsii'),
       TEST_DEP_DEP_ASSEMBLY,
     );
+    await fs.writeJson(path.join(jsiiTestDepDep, 'package.json'), {
+      name: TEST_DEP_DEP_ASSEMBLY.name,
+      version: TEST_DEP_DEP_ASSEMBLY.version,
+    });
 
     return await cb(tmpdir);
   } finally {
