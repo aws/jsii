@@ -25,7 +25,6 @@ updates:
     labels:
       - dependencies
       - language/dotnet
-    versioning-strategy: increase
 
   - package-ecosystem: nuget
     directory: "/packages/@jsii/dotnet-runtime-test/test"
@@ -35,7 +34,6 @@ updates:
     labels:
       - dependencies
       - language/dotnet
-    versioning-strategy: increase
 
   - package-ecosystem: pip
     directory: "/packages/@jsii/python-runtime"
@@ -45,4 +43,3 @@ updates:
     labels:
       - dependencies
       - language/python
-    versioning-strategy: increase
