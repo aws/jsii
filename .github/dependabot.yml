@@ -1,0 +1,60 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/packages/@jsii/dotnet-runtime/src"
+  schedule:
+    interval: daily
+    time: '13:00'
+  open-pull-requests-limit: 10
+  labels:
+  - dependencies
+  - language/dotnet
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: '13:00'
+  open-pull-requests-limit: 10
+  labels:
+  - dependencies
+  versioning-strategy: increase
+  ignore:
+  - dependency-name: "@octokit/rest"
+    versions:
+    - ">= 17.1.a, < 17.2"
+  - dependency-name: typescript
+    versions:
+    - ">= 3.9.a, < 3.10"
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 11.a, < 12"
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 12.a, < 13"
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 13.1.a, < 13.2"
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 13.a, < 14"
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 14.a, < 15"
+- package-ecosystem: nuget
+  directory: "/packages/@jsii/dotnet-runtime-test/test"
+  schedule:
+    interval: daily
+    time: '13:00'
+  open-pull-requests-limit: 10
+  labels:
+  - dependencies
+  - language/dotnet
+- package-ecosystem: pip
+  directory: "/packages/@jsii/python-runtime"
+  schedule:
+    interval: daily
+    time: '13:00'
+  open-pull-requests-limit: 10
+  labels:
+  - dependencies
+  - language/python
