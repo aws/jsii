@@ -4348,6 +4348,34 @@ class InterfacesMaker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfacesMa
         return jsii.sinvoke(cls, "makeInterfaces", [count])
 
 
+class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorphism"):
+    """Checks the "same instance" isomorphism is preserved within the constructor.
+
+    Create a subclass of this, and assert that ``this.myself()`` actually returns
+    ``this`` from within the constructor.
+
+    stability
+    :stability: experimental
+    """
+    @builtins.staticmethod
+    def __jsii_proxy_class__():
+        return _IsomorphismProxy
+
+    def __init__(self) -> None:
+        jsii.create(Isomorphism, self, [])
+
+    @jsii.member(jsii_name="myself")
+    def myself(self) -> "Isomorphism":
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "myself", [])
+
+
+class _IsomorphismProxy(Isomorphism):
+    pass
+
 class JSII417PublicBaseOfBase(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JSII417PublicBaseOfBase"):
     """
     stability
@@ -8685,6 +8713,7 @@ __all__ = [
     "InbetweenClass",
     "InterfaceCollections",
     "InterfacesMaker",
+    "Isomorphism",
     "JSII417Derived",
     "JSII417PublicBaseOfBase",
     "JSObjectLiteralForInterface",

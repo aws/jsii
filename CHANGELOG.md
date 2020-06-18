@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/aws/jsii/compare/v1.6.0...v1.7.0) (2020-06-18)
+
+
+### Features
+
+* **jsii-pacmak:** add maven and nuget support for * dependencies ([#1696](https://github.com/aws/jsii/issues/1696)) ([13667f6](https://github.com/aws/jsii/commit/13667f6e22a4548c8bcbd9e1c589582f6c3417b5)), closes [aws/jsii#1678](https://github.com/aws/jsii/issues/1678)
+* turn off assembly validation ([#1751](https://github.com/aws/jsii/issues/1751)) ([c6d5f8a](https://github.com/aws/jsii/commit/c6d5f8a9d57602c6187374e753dcc1ecd01a93b6))
+
+
+### Bug Fixes
+
+* **@jsii/runtime:** "maximum call stack size exceeded" in SyncStdio.readLine ([#1717](https://github.com/aws/jsii/issues/1717)) ([6348226](https://github.com/aws/jsii/commit/6348226d9060c0145c62792f04373ed84361dcf9)), closes [aws/aws-cdk#8288](https://github.com/aws/aws-cdk/issues/8288) [aws/aws-cdk#5187](https://github.com/aws/aws-cdk/issues/5187) [aws/aws-cdk#8397](https://github.com/aws/aws-cdk/issues/8397)
+* **jsii:** build succeeds using Omit<T, K> ([#1708](https://github.com/aws/jsii/issues/1708)) ([a46fdb1](https://github.com/aws/jsii/commit/a46fdb1110188356ab6ec3188b552a3fe685ca7d)), closes [#1707](https://github.com/aws/jsii/issues/1707)
+* **python:** no overload variant of "Factory" matches argument type "object" ([#1716](https://github.com/aws/jsii/issues/1716)) ([eee8ea5](https://github.com/aws/jsii/commit/eee8ea534157823856201478266ca8019b48a22b))
+* **python:** reference isomorphism is broken within __init__ ([#1724](https://github.com/aws/jsii/issues/1724)) ([b7be1c6](https://github.com/aws/jsii/commit/b7be1c6efec8867e37192e1df2233331986b11b5)), closes [aws/aws-cdk#8262](https://github.com/aws/aws-cdk/issues/8262)
+
 ## [1.6.0](https://github.com/aws/jsii/compare/v1.5.0...v1.6.0) (2020-06-02)
 
 

@@ -269,10 +269,7 @@ async function loadAndValidateAssembly(
 ): Promise<spec.Assembly> {
   if (!ASSEMBLY_CACHE.has(jsiiFileName)) {
     try {
-      ASSEMBLY_CACHE.set(
-        jsiiFileName,
-        spec.validateAssembly(await fs.readJson(jsiiFileName)),
-      );
+      ASSEMBLY_CACHE.set(jsiiFileName, await fs.readJson(jsiiFileName));
     } catch (e) {
       throw new Error(`Error loading ${jsiiFileName}: ${e}`);
     }

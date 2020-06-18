@@ -233,6 +233,10 @@ class Kernel(metaclass=Singleton):
             obj.__jsii_ref__ =  _callback_till_result(self, response, CreateResponse)
         else:
             obj.__jsii_ref__ = response
+
+        # Register this to the reference map already (so it's available within the rest of the __init__)
+        _reference_map.register_reference(obj)
+
         return obj.__jsii_ref__
 
     def delete(self, ref: ObjRef) -> None:
