@@ -3,7 +3,7 @@ package scopejsiicalcbase
 type Base struct {
 }
 
-func (b *Base) typename()  any {
+func (b *Base) typename() any {
     // jsiiruntime.methodcall(b)
 }
 

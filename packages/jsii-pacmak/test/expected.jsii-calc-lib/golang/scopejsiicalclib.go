@@ -30,7 +30,7 @@ type Number struct {
 type Operation struct {
 }
 
-func (o *Operation) tostring()  string {
+func (o *Operation) tostring() string {
     // jsiiruntime.methodcall(o)
 }
 
@@ -47,7 +47,7 @@ type Value struct {
     value number
 }
 
-func (v *Value) tostring()  string {
+func (v *Value) tostring() string {
     // jsiiruntime.methodcall(v)
 }
 

@@ -7,7 +7,7 @@ type IVeryBaseInterface interface {
 type Very struct {
 }
 
-func (v *Very) hey()  number {
+func (v *Very) hey() number {
     // jsiiruntime.methodcall(v)
 }
 
