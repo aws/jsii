@@ -130,7 +130,7 @@ export class Class extends BaseGoType {
 
     // TODO: Method Arguments
     this.code.openBlock(
-      `func (${instanceArg} *${this.localName}) ${name}() ${returns}`,
+      `func (${instanceArg} *${this.localName}) ${name}()${returns}`,
     );
     this.code.line(`// jsiiruntime.methodcall(${instanceArg})`);
     this.code.closeBlock();
