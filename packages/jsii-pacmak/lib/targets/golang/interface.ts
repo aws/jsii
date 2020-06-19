@@ -14,22 +14,8 @@ import { CodeMaker } from 'codemaker';
 //   NUMBER,
 // }
 
-export class BaseGoType {
-  // @ts-ignore
-  private readonly scopes: string[];
-  private readonly name: string;
-
-  public constructor(public fqn: string) {
-    const path = this.fqn.split('.');
-    this.name = path.pop()!;
-    this.scopes = path;
-  }
-
-  public get localName() {
-    return goNameFromJs(this.name);
-  }
-}
-
+// FIXME - will be replaced by AST/symbol table for streamlined lookup of
+// references to imported objects
 export class TypeMapper {
   public constructor(public value: TypeReference) {}
 
@@ -44,6 +30,28 @@ export class TypeMapper {
   }
 }
 
+/*
+ * BaseGoType provides the base constructor for Go types, namely custom struct types (representing classes) and interfaces.
+ */
+export class BaseGoType {
+  // @ts-ignore
+  private readonly scopes: string[];
+  private readonly name: string;
+
+  public constructor(public fqn: string) {
+    const path = this.fqn.split('.');
+    this.name = path.pop()!;
+    this.scopes = path;
+  }
+
+  public get localName() {
+    return this.name;
+  }
+}
+
+/*
+ * Interface wraps a Typescript interface in a Go interface
+ */
 export class Interface extends BaseGoType {
   public constructor(public code: CodeMaker, public type: InterfaceType) {
     super(type.fqn);
@@ -63,16 +71,19 @@ export class Interface extends BaseGoType {
   }
 
   private emitInterfaceProperty(property: Property) {
-    const name = goNameFromJs(property.name);
-    const type = new TypeMapper(property.type).mapType();
+    const name = property.name;
+    const propertyType = new TypeMapper(property.type).mapType();
 
-    this.code.line(`get${name}() ${type}`);
+    this.code.line(`get${name}() ${propertyType}`);
     if (!property.protected) {
       this.code.line(`set${name}()`);
     }
   }
 
   private emitInterfaceMethod(method: Method) {
+    // const returns = method.returns.toString() === 'void'
+    //   ? ''
+    //   : ` ${method.returns.toString()}`;
     const returns = method.returns.type.void
       ? ''
       : ` ${new TypeMapper(method.returns.type).mapType()}`;
@@ -80,6 +91,9 @@ export class Interface extends BaseGoType {
   }
 }
 
+/*
+ * Class wraps a Typescript class as a Go custom struct type  TODO rename?
+ */
 export class Class extends BaseGoType {
   public constructor(public code: CodeMaker, public type: ClassType) {
     super(type.fqn);
@@ -112,7 +126,8 @@ export class Class extends BaseGoType {
     const returns = method.returns.type.void
       ? ''
       : ` ${new TypeMapper(method.returns.type).mapType()}`;
-    const instanceArg = this.localName.substring(0, 1);
+    const instanceArg = this.localName.substring(0, 1).toLowerCase();
+
     // TODO: Method Arguments
     this.code.openBlock(
       `func (${instanceArg} *${this.localName}) ${name}() ${returns}`,

@@ -1,18 +1,18 @@
 package scopejsiicalcbaseofbase
 
-type iverybaseinterface interface {
+type IVeryBaseInterface interface {
     foo()
 }
 
-type very struct {
+type Very struct {
 }
 
-func (v *very) hey()  number {
+func (v *Very) hey()  number {
     // jsiiruntime.methodcall(v)
 }
 
-type verybaseprops interface {
-    getfoo() very
+type VeryBaseProps interface {
+    getfoo() Very
     setfoo()
 }
 

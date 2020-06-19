@@ -1,40 +1,40 @@
 package scopejsiicalclib
 
-type idoublable interface {
-    getdoublevalue() number
-    setdoublevalue()
+type IDoublable interface {
+    getdoubleValue() number
+    setdoubleValue()
 }
 
-type ifriendly interface {
+type IFriendly interface {
     hello() string
 }
 
-type ithreelevelsinterface interface {
+type IThreeLevelsInterface interface {
     baz()
 }
 
-type myfirststruct interface {
+type MyFirstStruct interface {
     getanumber() number
     setanumber()
     getastring() string
     setastring()
-    getfirstoptional() Array<string>
-    setfirstoptional()
+    getfirstOptional() Array<string>
+    setfirstOptional()
 }
 
-type number struct {
+type Number struct {
     doublevalue number
     value number
 }
 
-type operation struct {
+type Operation struct {
 }
 
-func (o *operation) tostring()  string {
+func (o *Operation) tostring()  string {
     // jsiiruntime.methodcall(o)
 }
 
-type structwithonlyoptionals interface {
+type StructWithOnlyOptionals interface {
     getoptional1() string
     setoptional1()
     getoptional2() number
@@ -43,11 +43,11 @@ type structwithonlyoptionals interface {
     setoptional3()
 }
 
-type value struct {
+type Value struct {
     value number
 }
 
-func (v *value) tostring()  string {
+func (v *Value) tostring()  string {
     // jsiiruntime.methodcall(v)
 }
 

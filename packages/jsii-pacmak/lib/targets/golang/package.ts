@@ -1,4 +1,4 @@
-import { Assembly, InterfaceType, Method, Property, Type } from 'jsii-reflect';
+import { Assembly, Type } from 'jsii-reflect';
 import { join } from 'path';
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
@@ -31,7 +31,6 @@ export class Package {
     code.closeFile(packageFile);
 
     this.generateSubmoduleFiles(code);
-    // TODO: Code for the contents of the package, sub-packages, etc...
   }
 
   private emitRootModule(code: CodeMaker) {
@@ -46,45 +45,6 @@ export class Package {
     } else if (type.isClassType()) {
       new Class(code, type).emit();
     }
-
-    if (type.isInterfaceType()) {
-      return this.emitInterface(code, type);
-    }
-  }
-
-  // TODO fix - account for exported methods? all classes/interfaces are public?
-  private goNameFromJs(name: string): string {
-    return name.replace(/[^a-z0-9_.]/gi, '').toLowerCase();
-  }
-
-  private emitInterface(code: CodeMaker, type: InterfaceType): void {
-    const fqn = type.fqn.split('.');
-    const goInterfaceName = fqn[fqn.length - 1];
-    code.openBlock(`type ${goInterfaceName} interface`);
-    Object.values(type.getMethods()).forEach((method) =>
-      this.emitInterfaceMethod(code, method),
-    );
-    Object.values(type.getProperties()).forEach((prop) =>
-      this.emitInterfaceProperty(code, prop),
-    );
-
-    code.closeBlock();
-  }
-
-  private emitInterfaceMethod(code: CodeMaker, method: Method) {
-    const returns =
-      method.returns.toString() === 'void'
-        ? ''
-        : ` ${method.returns.toString()}`;
-    code.line(`${this.goNameFromJs(method.name)}()${returns}`);
-    code.line();
-  }
-
-  // TODO: would have to be a getter/setter method?
-  private emitInterfaceProperty(code: CodeMaker, prop: Property) {
-    const propType = "" // TODO
-    code.line(`${this.goNameFromJs(prop.name)}()${propType}`);
-    code.line();
   }
 
   private generateSubmoduleFiles(code: CodeMaker) {
