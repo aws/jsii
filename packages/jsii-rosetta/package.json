@@ -22,7 +22,7 @@
     "@types/mock-fs": "^4.10.0",
     "@types/node": "^10.17.26",
     "@types/yargs": "^15.0.5",
-    "eslint": "^7.2.0",
+    "eslint": "^7.3.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.0.1",
