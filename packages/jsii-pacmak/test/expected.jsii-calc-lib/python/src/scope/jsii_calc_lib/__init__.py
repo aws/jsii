@@ -22,6 +22,7 @@ class EnumFromScopedModule(enum.Enum):
     stability
     :stability: deprecated
     """
+
     VALUE1 = "VALUE1"
     """
     stability
@@ -33,6 +34,7 @@ class EnumFromScopedModule(enum.Enum):
     :stability: deprecated
     """
 
+
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.IDoublable")
 class IDoublable(jsii.compat.Protocol):
     """The general contract for a concrete number.
@@ -40,6 +42,7 @@ class IDoublable(jsii.compat.Protocol):
     stability
     :stability: deprecated
     """
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IDoublableProxy
@@ -54,13 +57,15 @@ class IDoublable(jsii.compat.Protocol):
         ...
 
 
-class _IDoublableProxy():
+class _IDoublableProxy:
     """The general contract for a concrete number.
 
     stability
     :stability: deprecated
     """
+
     __jsii_type__ = "@scope/jsii-calc-lib.IDoublable"
+
     @builtins.property
     @jsii.member(jsii_name="doubleValue")
     def double_value(self) -> jsii.Number:
@@ -81,6 +86,7 @@ class IFriendly(jsii.compat.Protocol):
     stability
     :stability: deprecated
     """
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IFriendlyProxy
@@ -95,7 +101,7 @@ class IFriendly(jsii.compat.Protocol):
         ...
 
 
-class _IFriendlyProxy():
+class _IFriendlyProxy:
     """Applies to classes that are considered friendly.
 
     These classes can be greeted with
@@ -104,7 +110,9 @@ class _IFriendlyProxy():
     stability
     :stability: deprecated
     """
+
     __jsii_type__ = "@scope/jsii-calc-lib.IFriendly"
+
     @jsii.member(jsii_name="hello")
     def hello(self) -> str:
         """Say hello!
@@ -125,6 +133,7 @@ class IThreeLevelsInterface(scope.jsii_calc_base.IBaseInterface, jsii.compat.Pro
     stability
     :stability: deprecated
     """
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IThreeLevelsInterfaceProxy
@@ -147,7 +156,9 @@ class _IThreeLevelsInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base.IBaseInter
     stability
     :stability: deprecated
     """
+
     __jsii_type__ = "@scope/jsii-calc-lib.IThreeLevelsInterface"
+
     @jsii.member(jsii_name="baz")
     def baz(self) -> None:
         """
@@ -157,9 +168,23 @@ class _IThreeLevelsInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base.IBaseInter
         return jsii.invoke(self, "baz", [])
 
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-lib.MyFirstStruct", jsii_struct_bases=[], name_mapping={'anumber': 'anumber', 'astring': 'astring', 'first_optional': 'firstOptional'})
-class MyFirstStruct():
-    def __init__(self, *, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> None:
+@jsii.data_type(
+    jsii_type="@scope/jsii-calc-lib.MyFirstStruct",
+    jsii_struct_bases=[],
+    name_mapping={
+        "anumber": "anumber",
+        "astring": "astring",
+        "first_optional": "firstOptional",
+    },
+)
+class MyFirstStruct:
+    def __init__(
+        self,
+        *,
+        anumber: jsii.Number,
+        astring: str,
+        first_optional: typing.Optional[typing.List[str]] = None,
+    ) -> None:
         """This is the first struct we have created in jsii.
 
         :param anumber: An awesome number value.
@@ -170,10 +195,11 @@ class MyFirstStruct():
         :stability: deprecated
         """
         self._values = {
-            'anumber': anumber,
-            'astring': astring,
+            "anumber": anumber,
+            "astring": astring,
         }
-        if first_optional is not None: self._values["first_optional"] = first_optional
+        if first_optional is not None:
+            self._values["first_optional"] = first_optional
 
     @builtins.property
     def anumber(self) -> jsii.Number:
@@ -182,7 +208,7 @@ class MyFirstStruct():
         stability
         :stability: deprecated
         """
-        return self._values.get('anumber')
+        return self._values.get("anumber")
 
     @builtins.property
     def astring(self) -> str:
@@ -191,7 +217,7 @@ class MyFirstStruct():
         stability
         :stability: deprecated
         """
-        return self._values.get('astring')
+        return self._values.get("astring")
 
     @builtins.property
     def first_optional(self) -> typing.Optional[typing.List[str]]:
@@ -199,7 +225,7 @@ class MyFirstStruct():
         stability
         :stability: deprecated
         """
-        return self._values.get('first_optional')
+        return self._values.get("first_optional")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -208,12 +234,28 @@ class MyFirstStruct():
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'MyFirstStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "MyFirstStruct(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-lib.StructWithOnlyOptionals", jsii_struct_bases=[], name_mapping={'optional1': 'optional1', 'optional2': 'optional2', 'optional3': 'optional3'})
-class StructWithOnlyOptionals():
-    def __init__(self, *, optional1: typing.Optional[str]=None, optional2: typing.Optional[jsii.Number]=None, optional3: typing.Optional[bool]=None) -> None:
+@jsii.data_type(
+    jsii_type="@scope/jsii-calc-lib.StructWithOnlyOptionals",
+    jsii_struct_bases=[],
+    name_mapping={
+        "optional1": "optional1",
+        "optional2": "optional2",
+        "optional3": "optional3",
+    },
+)
+class StructWithOnlyOptionals:
+    def __init__(
+        self,
+        *,
+        optional1: typing.Optional[str] = None,
+        optional2: typing.Optional[jsii.Number] = None,
+        optional3: typing.Optional[bool] = None,
+    ) -> None:
         """This is a struct with only optional properties.
 
         :param optional1: The first optional!
@@ -223,11 +265,13 @@ class StructWithOnlyOptionals():
         stability
         :stability: deprecated
         """
-        self._values = {
-        }
-        if optional1 is not None: self._values["optional1"] = optional1
-        if optional2 is not None: self._values["optional2"] = optional2
-        if optional3 is not None: self._values["optional3"] = optional3
+        self._values = {}
+        if optional1 is not None:
+            self._values["optional1"] = optional1
+        if optional2 is not None:
+            self._values["optional2"] = optional2
+        if optional3 is not None:
+            self._values["optional3"] = optional3
 
     @builtins.property
     def optional1(self) -> typing.Optional[str]:
@@ -236,7 +280,7 @@ class StructWithOnlyOptionals():
         stability
         :stability: deprecated
         """
-        return self._values.get('optional1')
+        return self._values.get("optional1")
 
     @builtins.property
     def optional2(self) -> typing.Optional[jsii.Number]:
@@ -244,7 +288,7 @@ class StructWithOnlyOptionals():
         stability
         :stability: deprecated
         """
-        return self._values.get('optional2')
+        return self._values.get("optional2")
 
     @builtins.property
     def optional3(self) -> typing.Optional[bool]:
@@ -252,7 +296,7 @@ class StructWithOnlyOptionals():
         stability
         :stability: deprecated
         """
-        return self._values.get('optional3')
+        return self._values.get("optional3")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -261,15 +305,22 @@ class StructWithOnlyOptionals():
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'StructWithOnlyOptionals(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "StructWithOnlyOptionals(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
-class Value(scope.jsii_calc_base.Base, metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-lib.Value"):
+class Value(
+    scope.jsii_calc_base.Base,
+    metaclass=jsii.JSIIAbstractClass,
+    jsii_type="@scope/jsii-calc-lib.Value",
+):
     """Abstract class which represents a numeric value.
 
     stability
     :stability: deprecated
     """
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _ValueProxy
@@ -317,6 +368,7 @@ class Number(Value, metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.Num
     stability
     :stability: deprecated
     """
+
     def __init__(self, value: jsii.Number) -> None:
         """Creates a Number object.
 
@@ -348,12 +400,15 @@ class Number(Value, metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.Num
         return jsii.get(self, "value")
 
 
-class Operation(Value, metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-lib.Operation"):
+class Operation(
+    Value, metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-lib.Operation"
+):
     """Represents an operation on values.
 
     stability
     :stability: deprecated
     """
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _OperationProxy

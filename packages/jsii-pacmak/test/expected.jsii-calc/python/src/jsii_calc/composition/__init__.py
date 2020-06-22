@@ -13,12 +13,17 @@ from .._jsii import *
 import scope.jsii_calc_lib
 
 
-class CompositeOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.composition.CompositeOperation"):
+class CompositeOperation(
+    scope.jsii_calc_lib.Operation,
+    metaclass=jsii.JSIIAbstractClass,
+    jsii_type="jsii-calc.composition.CompositeOperation",
+):
     """Abstract operation composed from an expression of other operations.
 
     stability
     :stability: experimental
     """
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _CompositeOperationProxy
@@ -100,13 +105,16 @@ class CompositeOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstr
     def string_style(self, value: "CompositionStringStyle") -> None:
         jsii.set(self, "stringStyle", value)
 
-    @jsii.enum(jsii_type="jsii-calc.composition.CompositeOperation.CompositionStringStyle")
+    @jsii.enum(
+        jsii_type="jsii-calc.composition.CompositeOperation.CompositionStringStyle"
+    )
     class CompositionStringStyle(enum.Enum):
         """Style of .toString() output for CompositeOperation.
 
         stability
         :stability: experimental
         """
+
         NORMAL = "NORMAL"
         """Normal string expression.
 
@@ -121,7 +129,9 @@ class CompositeOperation(scope.jsii_calc_lib.Operation, metaclass=jsii.JSIIAbstr
         """
 
 
-class _CompositeOperationProxy(CompositeOperation, jsii.proxy_for(scope.jsii_calc_lib.Operation)):
+class _CompositeOperationProxy(
+    CompositeOperation, jsii.proxy_for(scope.jsii_calc_lib.Operation)
+):
     @builtins.property
     @jsii.member(jsii_name="expression")
     def expression(self) -> scope.jsii_calc_lib.Value:

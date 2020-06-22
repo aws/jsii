@@ -11,11 +11,14 @@ import publication
 from .._jsii import *
 
 
-class ClassWithSelf(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.ClassWithSelf"):
+class ClassWithSelf(
+    metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.ClassWithSelf"
+):
     """
     stability
     :stability: experimental
     """
+
     def __init__(self_, self: str) -> None:
         """
         :param self: -
@@ -45,11 +48,14 @@ class ClassWithSelf(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.Cla
         return jsii.get(self, "self")
 
 
-class ClassWithSelfKwarg(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.ClassWithSelfKwarg"):
+class ClassWithSelfKwarg(
+    metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.ClassWithSelfKwarg"
+):
     """
     stability
     :stability: experimental
     """
+
     def __init__(self_, *, self: str) -> None:
         """
         :param self: 
@@ -77,6 +83,7 @@ class IInterfaceWithSelf(jsii.compat.Protocol):
     stability
     :stability: experimental
     """
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IInterfaceWithSelfProxy
@@ -92,12 +99,14 @@ class IInterfaceWithSelf(jsii.compat.Protocol):
         ...
 
 
-class _IInterfaceWithSelfProxy():
+class _IInterfaceWithSelfProxy:
     """
     stability
     :stability: experimental
     """
+
     __jsii_type__ = "jsii-calc.PythonSelf.IInterfaceWithSelf"
+
     @jsii.member(jsii_name="method")
     def method(self_, self: jsii.Number) -> str:
         """
@@ -109,8 +118,12 @@ class _IInterfaceWithSelfProxy():
         return jsii.invoke(self_, "method", [self])
 
 
-@jsii.data_type(jsii_type="jsii-calc.PythonSelf.StructWithSelf", jsii_struct_bases=[], name_mapping={'self': 'self'})
-class StructWithSelf():
+@jsii.data_type(
+    jsii_type="jsii-calc.PythonSelf.StructWithSelf",
+    jsii_struct_bases=[],
+    name_mapping={"self": "self"},
+)
+class StructWithSelf:
     def __init__(self_, *, self: str) -> None:
         """
         :param self: 
@@ -119,7 +132,7 @@ class StructWithSelf():
         :stability: experimental
         """
         self_._values = {
-            'self': self,
+            "self": self,
         }
 
     @builtins.property
@@ -128,7 +141,7 @@ class StructWithSelf():
         stability
         :stability: experimental
         """
-        return self._values.get('self')
+        return self._values.get("self")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -137,7 +150,9 @@ class StructWithSelf():
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'StructWithSelf(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "StructWithSelf(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 __all__ = [

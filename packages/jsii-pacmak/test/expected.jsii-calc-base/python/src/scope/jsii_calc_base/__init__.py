@@ -15,6 +15,7 @@ import scope.jsii_calc_base_of_base
 
 class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Base"):
     """A base class."""
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _BaseProxy
@@ -34,7 +35,12 @@ class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Ba
 class _BaseProxy(Base):
     pass
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-base.BaseProps", jsii_struct_bases=[scope.jsii_calc_base_of_base.VeryBaseProps], name_mapping={'foo': 'foo', 'bar': 'bar'})
+
+@jsii.data_type(
+    jsii_type="@scope/jsii-calc-base.BaseProps",
+    jsii_struct_bases=[scope.jsii_calc_base_of_base.VeryBaseProps],
+    name_mapping={"foo": "foo", "bar": "bar"},
+)
 class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
     def __init__(self, *, foo: scope.jsii_calc_base_of_base.Very, bar: str) -> None:
         """
@@ -42,17 +48,17 @@ class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
         :param bar: -
         """
         self._values = {
-            'foo': foo,
-            'bar': bar,
+            "foo": foo,
+            "bar": bar,
         }
 
     @builtins.property
     def foo(self) -> scope.jsii_calc_base_of_base.Very:
-        return self._values.get('foo')
+        return self._values.get("foo")
 
     @builtins.property
     def bar(self) -> str:
-        return self._values.get('bar')
+        return self._values.get("bar")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -61,11 +67,15 @@ class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'BaseProps(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "BaseProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 @jsii.interface(jsii_type="@scope/jsii-calc-base.IBaseInterface")
-class IBaseInterface(scope.jsii_calc_base_of_base.IVeryBaseInterface, jsii.compat.Protocol):
+class IBaseInterface(
+    scope.jsii_calc_base_of_base.IVeryBaseInterface, jsii.compat.Protocol
+):
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IBaseInterfaceProxy
@@ -75,8 +85,11 @@ class IBaseInterface(scope.jsii_calc_base_of_base.IVeryBaseInterface, jsii.compa
         ...
 
 
-class _IBaseInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base_of_base.IVeryBaseInterface)):
+class _IBaseInterfaceProxy(
+    jsii.proxy_for(scope.jsii_calc_base_of_base.IVeryBaseInterface)
+):
     __jsii_type__ = "@scope/jsii-calc-base.IBaseInterface"
+
     @jsii.member(jsii_name="bar")
     def bar(self) -> None:
         return jsii.invoke(self, "bar", [])

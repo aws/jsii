@@ -11,11 +11,15 @@ import publication
 from .._jsii import *
 
 
-class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Foo"):
+class Foo(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
+):
     """
     stability
     :stability: experimental
     """
+
     def __init__(self) -> None:
         jsii.create(Foo, self, [])
 
@@ -33,8 +37,12 @@ class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncl
         jsii.set(self, "bar", value)
 
 
-@jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Hello", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
-class Hello():
+@jsii.data_type(
+    jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Hello",
+    jsii_struct_bases=[],
+    name_mapping={"foo": "foo"},
+)
+class Hello:
     def __init__(self, *, foo: jsii.Number) -> None:
         """
         :param foo: 
@@ -43,7 +51,7 @@ class Hello():
         :stability: experimental
         """
         self._values = {
-            'foo': foo,
+            "foo": foo,
         }
 
     @builtins.property
@@ -52,7 +60,7 @@ class Hello():
         stability
         :stability: experimental
         """
-        return self._values.get('foo')
+        return self._values.get("foo")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -61,7 +69,9 @@ class Hello():
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'Hello(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "Hello(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 __all__ = [
