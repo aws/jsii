@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { CANONICAL_ANY, OptionalValue, PrimitiveType } from '@jsii/spec';
 import { TOKEN_REF } from '../lib/api';
 import { ObjectTable } from '../lib/objects';

@@ -9,6 +9,9 @@ if [ -z "${commit}" ]; then
 fi
 
 cat > lib/version.ts <<HERE
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // Generated at $(date -u +"%Y-%m-%dT%H:%M:%SZ") by generate.sh
 
 /** The qualified version number for jsii */

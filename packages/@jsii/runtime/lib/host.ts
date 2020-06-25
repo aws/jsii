@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { api, Kernel } from '@jsii/kernel';
 import { Input, InputOutput } from './in-out';
 import { EventEmitter } from 'events';

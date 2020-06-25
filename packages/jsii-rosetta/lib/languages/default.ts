@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as ts from 'typescript';
 import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { OTree, NO_SYNTAX } from '../o-tree';

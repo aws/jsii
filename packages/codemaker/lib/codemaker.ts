@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as util from 'util';
 import * as caseutils from './case-utils';
 import FileBuffer from './filebuff';

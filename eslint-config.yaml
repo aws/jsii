@@ -7,6 +7,7 @@ plugins:
   - '@typescript-eslint'
   - import
   - prettier
+  - header
 
 parser: '@typescript-eslint/parser'
 parserOptions:
@@ -38,6 +39,11 @@ rules:
 
   'prettier/prettier':
     - error
+
+  header/header:
+    - error
+    - line
+    - " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.\n SPDX-License-Identifier: Apache-2.0"
 
   '@typescript-eslint/array-type':
     - error

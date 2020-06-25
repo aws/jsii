@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { classifyDiagnostics, hasErrors } from '../lib/diagnostics';
 import { compare } from './util';
 

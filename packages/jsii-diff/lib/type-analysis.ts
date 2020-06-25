@@ -1,4 +1,8 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /* eslint-disable complexity */
+
 import * as reflect from 'jsii-reflect';
 import { flatMap } from './util';
 

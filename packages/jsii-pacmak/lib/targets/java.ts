@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as clone from 'clone';
 import { toPascalCase, toSnakeCase } from 'codemaker/lib/case-utils';
 import * as fs from 'fs-extra';

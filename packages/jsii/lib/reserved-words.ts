@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 export function isReservedName(name: string): string[] | undefined {
   const reserved = new Array<string>();
   if (CSHARP_RESERVED.has(name)) {

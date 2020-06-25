@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as colors from 'colors/safe';
 import * as yargs from 'yargs';
 import { TypeSystem, TypeSystemTree } from '../lib';

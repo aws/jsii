@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as reflect from 'jsii-reflect';
 import * as log4js from 'log4js';
 import { compareStabilities } from './stability';

@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as jsii from '@jsii/spec';
 import { Type } from './type';
 import { TypeSystem } from './type-system';

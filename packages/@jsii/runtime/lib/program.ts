@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as packageInfo from '../package.json';
 import { KernelHost } from './host';
 import { InputOutput } from './in-out';

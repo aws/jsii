@@ -1,4 +1,7 @@
-/**
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+/*
  * A piece of TypeScript code found in an assembly, ready to be translated
  */
 export interface TypeScriptSnippet {

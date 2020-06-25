@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { ClassType } from './class';
 import { EnumType } from './enum';
 import { InterfaceType } from './interface';

@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
 import { sourceToAssemblyHelper as compile } from '../lib';

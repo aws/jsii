@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
 import * as logging from '../logging';
 import * as os from 'os';

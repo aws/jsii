@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { transformMarkdown } from '../../lib/markdown/markdown';
 import { MarkdownRenderer } from '../../lib/markdown/markdown-renderer';
 import { StructureRenderer } from '../../lib/markdown/structure-renderer';

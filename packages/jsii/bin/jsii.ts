@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as process from 'process';

@@ -1,4 +1,7 @@
-/**
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+/*
  * Handling of types in JSII
  *
  * Types will be serialized according to the following table:

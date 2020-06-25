@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import FileBuffer from '../lib/filebuff';

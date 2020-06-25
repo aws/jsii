@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
 import { ApiElement, ComparisonContext } from './types';

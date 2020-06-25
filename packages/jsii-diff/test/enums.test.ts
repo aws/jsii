@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { expectError, expectNoError } from './util';
 
 // Note: an enum with one value behaves weirdly in TypeScript -- it does type analysis to the singleton element.

@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { Documentable } from './docs';
 import { Initializer } from './initializer';
 import { Method } from './method';

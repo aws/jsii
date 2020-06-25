@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as Case from 'case';
 import * as spec from '@jsii/spec';
 import * as ts from 'typescript';

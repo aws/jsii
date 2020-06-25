@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { Callable } from './callable';
 import { Documentable } from './docs';
 import { Overridable } from './overridable';

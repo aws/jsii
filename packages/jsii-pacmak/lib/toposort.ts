@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 export type KeyFunc<T> = (x: T) => string;
 export type DepFunc<T> = (x: T) => string[];
 

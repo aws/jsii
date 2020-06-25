@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as cm from 'commonmark';
 import { CommonMarkRenderer, prefixLines, RendererContext } from './markdown';
 

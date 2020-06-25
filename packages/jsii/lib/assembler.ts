@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as Case from 'case';
 import * as colors from 'colors/safe';
 import * as crypto from 'crypto';

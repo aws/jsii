@@ -1,4 +1,7 @@
-/**
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+/*
  * Resolve a package name in an example to a JSII assembly
  *
  * We assume we've changed directory to the directory where we need to resolve from.

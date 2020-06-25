@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as spec from '@jsii/spec';
 import * as api from './api';
 import { EMPTY_OBJECT_FQN } from './serialization';

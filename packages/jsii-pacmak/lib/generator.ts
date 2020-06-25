@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as clone from 'clone';
 import { CodeMaker } from 'codemaker';
 import * as crypto from 'crypto';

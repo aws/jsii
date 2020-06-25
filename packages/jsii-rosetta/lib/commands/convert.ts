@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { AstHandler, AstRendererOptions } from '../renderer';
 import { TranslateResult, Translator } from '../translate';
 import { MarkdownRenderer } from '../markdown/markdown-renderer';
