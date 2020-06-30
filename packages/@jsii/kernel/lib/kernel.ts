@@ -109,7 +109,7 @@ export class Kernel {
     fs.mkdirpSync(packageDir);
 
     // Force umask to have npm-install-like permissions
-    const umask = process.umask(0o022);
+    const originalUmask = process.umask(0o022);
     try {
       // untar the archive to its final location
       tar.extract({
@@ -122,7 +122,7 @@ export class Kernel {
       });
     } finally {
       // Reset umask to the initial value
-      process.umask(umask);
+      process.umask(originalUmask);
     }
 
     // read .jsii metadata from the root of the package
