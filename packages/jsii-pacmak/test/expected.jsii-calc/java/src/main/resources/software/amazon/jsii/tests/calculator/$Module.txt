@@ -184,6 +184,7 @@ jsii-calc.SupportsNiceJavaBuilderWithRequiredProps=software.amazon.jsii.tests.ca
 jsii-calc.SyncVirtualMethods=software.amazon.jsii.tests.calculator.SyncVirtualMethods
 jsii-calc.Thrower=software.amazon.jsii.tests.calculator.Thrower
 jsii-calc.TopLevelStruct=software.amazon.jsii.tests.calculator.TopLevelStruct
+jsii-calc.UmaskCheck=software.amazon.jsii.tests.calculator.UmaskCheck
 jsii-calc.UnaryOperation=software.amazon.jsii.tests.calculator.UnaryOperation
 jsii-calc.UnionProperties=software.amazon.jsii.tests.calculator.UnionProperties
 jsii-calc.UpcasingReflectable=software.amazon.jsii.tests.calculator.UpcasingReflectable
