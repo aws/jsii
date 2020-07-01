@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 #pragma warning disable CS0672,CS0809,CS1591
 
-namespace Amazon.JSII.Tests.CustomSubmoduleName
+namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Submodule
 {
     #pragma warning disable CS8618
 
@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiByValue(fqn: "@scope/jsii-calc-lib.submodule.ReflectableEntry")]
-    public class ReflectableEntry : Amazon.JSII.Tests.CustomSubmoduleName.IReflectableEntry
+    public class ReflectableEntry : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Submodule.IReflectableEntry
     {
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
