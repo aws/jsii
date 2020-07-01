@@ -1,5 +1,6 @@
-import { default as camelcase } from 'camelcase';
-import { default as decamelize } from 'decamelize';
+import * as camelcase from 'camelcase';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import decamelize = require('decamelize');
 
 const COMMON_ABBREVIATIONS = ['KiB', 'MiB', 'GiB'];
 
