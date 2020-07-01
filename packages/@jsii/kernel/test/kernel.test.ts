@@ -75,6 +75,28 @@ defineTest.skip = function (
   return defineTest(name, method, test.skip);
 };
 
+test('load preserves file permissions', async () => {
+  // Changing the umask to 077 (which would neutralize group/other permissions)
+  const originalUmask = process.umask(0o077);
+
+  try {
+    const kernel = await createCalculatorSandbox(
+      'load_preserves_file_permissions',
+    );
+
+    const result = kernel.sinvoke({
+      fqn: 'jsii-calc.UmaskCheck',
+      method: 'mode',
+    });
+    expect(result.result).toBe(0o644);
+
+    return closeRecording(kernel);
+  } finally {
+    // Restore the original umask
+    process.umask(originalUmask);
+  }
+});
+
 defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({});
   expect(stats.objectCount).toBe(0);

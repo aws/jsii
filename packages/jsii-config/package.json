@@ -20,14 +20,14 @@
   },
   "devDependencies": {
     "@types/inquirer": "^6.5.0",
-    "@types/jest": "^26.0.0",
+    "@types/jest": "^26.0.3",
     "@types/jest-expect-message": "^1.0.2",
     "@types/node": "^10.17.26",
     "@types/yargs": "^15.0.5",
-    "eslint": "^7.2.0",
+    "eslint": "^7.3.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.0.1",
+    "jest": "^26.1.0",
     "jest-expect-message": "^1.0.2",
     "prettier": "^2.0.5",
     "typescript": "~3.9.5"

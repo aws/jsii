@@ -107,14 +107,23 @@ export class Kernel {
 
     // Create the install directory (there may be several path components for @scoped/packages)
     fs.mkdirpSync(packageDir);
-    // untar the archive to its final location
-    tar.extract({
-      strict: true,
-      file: req.tarball,
-      cwd: packageDir,
-      strip: 1, // Removes the 'package/' path element from entries
-      sync: true,
-    });
+
+    // Force umask to have npm-install-like permissions
+    const originalUmask = process.umask(0o022);
+    try {
+      // untar the archive to its final location
+      tar.extract({
+        cwd: packageDir,
+        file: req.tarball,
+        strict: true,
+        strip: 1, // Removes the 'package/' path element from entries
+        sync: true,
+        unlink: true,
+      });
+    } finally {
+      // Reset umask to the initial value
+      process.umask(originalUmask);
+    }
 
     // read .jsii metadata from the root of the package
     const jsiiMetadataFile = path.join(packageDir, spec.SPEC_FILE_NAME);
