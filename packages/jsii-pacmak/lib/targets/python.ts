@@ -402,6 +402,9 @@ abstract class BaseMethod implements PythonBase {
       ...this.parameters.map((param) =>
         toTypeName(param).requiredImports(context),
       ),
+      ...(this.liftedProp?.properties?.map((prop) =>
+        toTypeName(prop.type).requiredImports(context),
+      ) ?? []),
     );
   }
 
