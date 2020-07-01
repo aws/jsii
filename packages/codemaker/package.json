@@ -38,7 +38,7 @@
   "devDependencies": {
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^8.1.0",
-    "@types/jest": "^26.0.0",
+    "@types/jest": "^26.0.3",
     "@types/node": "^10.17.26",
     "eslint": "^7.3.1",
     "eslint-config-prettier": "^6.11.0",
