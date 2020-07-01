@@ -1,5 +1,5 @@
 import { nested_submodule } from './nested_submodule';
-import { Awesomeness, Goodness } from './child';
+import { Awesomeness, Goodness, SomeStruct } from './child';
 import { AllTypes } from '..';
 
 export class MyClass implements nested_submodule.deeplyNested.INamespaced {
@@ -8,5 +8,5 @@ export class MyClass implements nested_submodule.deeplyNested.INamespaced {
   public readonly awesomeness = Awesomeness.AWESOME;
   public allTypes?: AllTypes;
 
-  public constructor() { }
+  public constructor(public readonly props: SomeStruct) { }
 }

@@ -174,7 +174,10 @@ exports[`jsii-tree --all 1`] = `
  │ │     └─┬ class MyClass (experimental)
  │ │       ├── interfaces: INamespaced
  │ │       └─┬ members
- │ │         ├── <initializer>() initializer (experimental)
+ │ │         ├─┬ <initializer>(props) initializer (experimental)
+ │ │         │ └─┬ parameters
+ │ │         │   └─┬ props
+ │ │         │     └── type: jsii-calc.submodule.child.SomeStruct
  │ │         ├─┬ awesomeness property (experimental)
  │ │         │ ├── immutable
  │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
@@ -184,6 +187,9 @@ exports[`jsii-tree --all 1`] = `
  │ │         ├─┬ goodness property (experimental)
  │ │         │ ├── immutable
  │ │         │ └── type: jsii-calc.submodule.child.Goodness
+ │ │         ├─┬ props property (experimental)
+ │ │         │ ├── immutable
+ │ │         │ └── type: jsii-calc.submodule.child.SomeStruct
  │ │         └─┬ allTypes property (experimental)
  │ │           └── type: Optional<jsii-calc.AllTypes>
  │ └─┬ types
@@ -3062,10 +3068,11 @@ exports[`jsii-tree --members 1`] = `
  │ │   └─┬ types
  │ │     └─┬ class MyClass
  │ │       └─┬ members
- │ │         ├── <initializer>() initializer
+ │ │         ├── <initializer>(props) initializer
  │ │         ├── awesomeness property
  │ │         ├── definedAt property
  │ │         ├── goodness property
+ │ │         ├── props property
  │ │         └── allTypes property
  │ └─┬ types
  │   ├─┬ class AbstractClass

@@ -12789,7 +12789,15 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
-        }
+        },
+        "parameters": [
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.submodule.child.SomeStruct"
+            }
+          }
+        ]
       },
       "interfaces": [
         "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced"
@@ -12843,6 +12851,20 @@
           "name": "goodness",
           "type": {
             "fqn": "jsii-calc.submodule.child.Goodness"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/my-class.ts",
+            "line": 11
+          },
+          "name": "props",
+          "type": {
+            "fqn": "jsii-calc.submodule.child.SomeStruct"
           }
         },
         {
@@ -13196,5 +13218,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "/0S7DMfFaE1kfja4CpY5k0Gl6j6opo50SUPCiBgy3Zg="
+  "fingerprint": "5Tv5ECDhqPZgUeGoaL8LTa8pvOZnosdszen+rYjvQ8s="
 }
