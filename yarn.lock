@@ -1466,10 +1466,12 @@
   resolved "https://registry.yarnpkg.com/@types/commonmark/-/commonmark-0.27.4.tgz#8f42990e5cf3b6b95bd99eaa452e157aab679b82"
   integrity sha512-7koSjp08QxKoS1/+3T15+kD7+vqOUvZRHvM8PutF3Xsk5aAEkdlIGRsHJ3/XsC3izoqTwBdRW/vH7rzCKkIicA==
 
-"@types/decamelize@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@types/decamelize/-/decamelize-1.2.0.tgz#aabc2306e6c229356636cab7fcb823cfe170f056"
-  integrity sha512-viw/LG++yGW9GP7ggfDpR+qpBz/NHFEbRTWNumTzebeUlURwfX+sjQfdfbiEoxXgJrj+1G8p4VN/bLquur7Hmg==
+"@types/decamelize@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/decamelize/-/decamelize-3.0.3.tgz#1731fead0b603b73ca9ba6e2d576387bc46e1b99"
+  integrity sha512-/3tNtOiXzhfd29p1mzvimDrxE4Wpw2GYFtpC7WRyk+wwa3T920nlU9pW5517up2rUFhr8OXi0ZlbkVeypgGLQA==
+  dependencies:
+    decamelize "*"
 
 "@types/deep-equal@^1.0.1":
   version "1.0.1"
@@ -3336,15 +3338,15 @@ decamelize-keys@^1.0.0:
     decamelize "^1.1.0"
     map-obj "^1.0.0"
 
+decamelize@*, decamelize@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-4.0.0.tgz#aa472d7bf660eb15f3494efd531cab7f2a709837"
+  integrity sha512-9iE1PgSik9HeIIw2JO94IidnE3eBoQrFJ3w7sFuzSX4DpmZ3v5sZpUiV5Swcf6mQEF+Y0ru8Neo+p+nyh2J+hQ==
+
 decamelize@^1.1.0, decamelize@^1.1.2, decamelize@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
   integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
-
-decamelize@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-4.0.0.tgz#aa472d7bf660eb15f3494efd531cab7f2a709837"
-  integrity sha512-9iE1PgSik9HeIIw2JO94IidnE3eBoQrFJ3w7sFuzSX4DpmZ3v5sZpUiV5Swcf6mQEF+Y0ru8Neo+p+nyh2J+hQ==
 
 decimal.js@^10.2.0:
   version "10.2.0"
