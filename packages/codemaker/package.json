@@ -36,7 +36,6 @@
     "fs-extra": "^9.0.1"
   },
   "devDependencies": {
-    "@types/decamelize": "^3.0.3",
     "@types/fs-extra": "^8.1.0",
     "@types/jest": "^26.0.3",
     "@types/node": "^10.17.26",
