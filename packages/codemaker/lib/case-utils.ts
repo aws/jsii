@@ -1,5 +1,5 @@
-import * as camelcase from 'camelcase';
-import * as decamelize from 'decamelize';
+import { default as camelcase } from 'camelcase';
+import { default as decamelize } from 'decamelize';
 
 const COMMON_ABBREVIATIONS = ['KiB', 'MiB', 'GiB'];
 
