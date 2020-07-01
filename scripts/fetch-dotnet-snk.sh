@@ -46,6 +46,8 @@ TMP_DIR=$(mktemp -d)
 TMP_KEY="$TMP_DIR/key.snk"
 node -p "(${SNK_SECRET}).SecretBinary" | base64 --decode > $TMP_KEY
 
-cp $TMP_KEY packages/@jsii/dotnet-runtime/src/Amazon.JSII.Runtime/
+cp $TMP_KEY packages/@jsii/dotnet-runtime/src/Amazon.JSII.Analyzers/key.snk
+cp $TMP_KEY packages/@jsii/dotnet-runtime/src/Amazon.JSII.JsonModel/key.snk
+cp $TMP_KEY packages/@jsii/dotnet-runtime/src/Amazon.JSII.Runtime/key.snk
 
 rm -rf $TMP_DIR
