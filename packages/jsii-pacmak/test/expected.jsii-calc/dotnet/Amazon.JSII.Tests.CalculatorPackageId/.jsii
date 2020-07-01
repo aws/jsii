@@ -11869,6 +11869,40 @@
         }
       ]
     },
+    "jsii-calc.UmaskCheck": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/1765",
+        "stability": "experimental",
+        "summary": "Checks the current file permissions are cool (no funky UMASK down-scoping happened)."
+      },
+      "fqn": "jsii-calc.UmaskCheck",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2511
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "This should return 0o644 (-rw-r--r--)."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2515
+          },
+          "name": "mode",
+          "returns": {
+            "type": {
+              "primitive": "number"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "UmaskCheck"
+    },
     "jsii-calc.UnaryOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -13162,5 +13196,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "miVjqwWxNOLMY7fR23c/SVvfiGqkgqLgG+18qp4f8MM="
+  "fingerprint": "/0S7DMfFaE1kfja4CpY5k0Gl6j6opo50SUPCiBgy3Zg="
 }

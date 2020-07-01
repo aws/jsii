@@ -2502,3 +2502,20 @@ export abstract class Isomorphism {
         return this;
     }
 }
+
+/**
+ * Checks the current file permissions are cool (no funky UMASK down-scoping happened)
+ *
+ * @see https://github.com/aws/jsii/issues/1765
+ */
+export class UmaskCheck {
+    /**
+     * This should return 0o644 (-rw-r--r--)
+     */
+    public static mode(): number {
+        // The bit-masking is to remove the file type information from .mode
+        return fs.statSync(__filename).mode & 0o0777;
+    }
+
+    private constructor() {}
+}
