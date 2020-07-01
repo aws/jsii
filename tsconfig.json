@@ -11,8 +11,6 @@
     { "path": "packages/jsii-rosetta" },
     { "path": "packages/jsii" },
     { "path": "packages/oo-ascii-tree" },
-    { "path": "packages/@jsii/dotnet-analyzers" },
-    { "path": "packages/@jsii/dotnet-jsonmodel" },
     { "path": "packages/@jsii/dotnet-runtime-test" },
     { "path": "packages/@jsii/dotnet-runtime" },
     { "path": "packages/@jsii/integ-test" },
