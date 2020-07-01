@@ -1,17 +1,17 @@
 package scopejsiicalcbase
-type base struct {
+type Base struct {
 }
 
-func (b *base) typename()  any {
-    // jsiiruntime.methodcall(b)
+func (B *Base) typeName() any {
+    // jsiiruntime.methodcall(B)
 }
 
-type baseprops interface {
+type BaseProps interface {
     getbar() string
     setbar()
 }
 
-type ibaseinterface interface {
+type IBaseInterface interface {
     bar()
 }
 

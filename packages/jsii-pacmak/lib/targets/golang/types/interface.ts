@@ -12,8 +12,7 @@ export class TypeMapper {
       return type.localName;
     }
 
-    const typeString = this.value.toString();
-    return typeString;
+    return this.value.toString();
   }
 }
 

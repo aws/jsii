@@ -22,6 +22,7 @@ export class Package extends Module {
     const packageFile = `${join(...this.packageName.split('.'))}.go`;
     code.openFile(packageFile);
     code.line(`package ${this.packageName}`);
+    code.line();
     this.emitTypes(code);
     code.closeFile(packageFile);
   }

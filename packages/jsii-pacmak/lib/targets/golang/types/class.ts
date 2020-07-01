@@ -2,7 +2,6 @@ import { Method, Property, ClassType } from 'jsii-reflect';
 import { CodeMaker } from 'codemaker';
 import { TypeMapper } from './interface';
 import { GoType } from './go-type';
-import { goNameFromJs } from '../util';
 
 export class GoClass extends GoType {
   public constructor(public type: ClassType) {
@@ -25,21 +24,21 @@ export class GoClass extends GoType {
   }
 
   private emitClassProperty(code: CodeMaker, property: Property) {
-    const name = goNameFromJs(property.name);
     const type = new TypeMapper(property.type).mapType();
 
-    code.line(`${name} ${type}`);
+    code.line(`${property.name} ${type}`);
   }
 
   private emitClassMethod(code: CodeMaker, method: Method) {
-    const name = goNameFromJs(method.name);
     const returns = method.returns.type.void
       ? ''
       : ` ${new TypeMapper(method.returns.type).mapType()}`;
     const instanceArg = this.localName.substring(0, 1);
+
     // TODO: Method Arguments
+    // NOTE: May need to capitalize method name
     code.openBlock(
-      `func (${instanceArg} *${this.localName}) ${name}() ${returns}`,
+      `func (${instanceArg} *${this.localName}) ${method.name}()${returns}`,
     );
     code.line(`// jsiiruntime.methodcall(${instanceArg})`);
     code.closeBlock();

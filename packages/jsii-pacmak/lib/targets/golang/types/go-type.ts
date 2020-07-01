@@ -1,5 +1,4 @@
 import { Type } from 'jsii-reflect';
-import { goNameFromJs } from '../util';
 
 export class GoType {
   private readonly name: string;
@@ -9,6 +8,6 @@ export class GoType {
   }
 
   public get localName() {
-    return goNameFromJs(this.name);
+    return this.name;
   }
 }
