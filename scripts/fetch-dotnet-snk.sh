@@ -16,6 +16,11 @@ if [ -z "${DOTNET_STRONG_NAME_ENABLED:-}" ]; then
     exit 0
 fi
 
+# TODO: FIXME LATER
+echo "!!! STRONG NAME SIGNING TEMPORARILY DISABLED !!!"
+exit 0
+# END OF TODO
+
 echo "Retrieving SNK..."
 
 if [ -z "${DOTNET_STRONG_NAME_ROLE_ARN:-}" ]; then
