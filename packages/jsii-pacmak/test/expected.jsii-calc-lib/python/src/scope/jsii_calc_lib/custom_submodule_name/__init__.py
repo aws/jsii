@@ -17,6 +17,7 @@ class IReflectable(jsii.compat.Protocol):
     stability
     :stability: deprecated
     """
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IReflectableProxy
@@ -31,12 +32,14 @@ class IReflectable(jsii.compat.Protocol):
         ...
 
 
-class _IReflectableProxy():
+class _IReflectableProxy:
     """
     stability
     :stability: deprecated
     """
+
     __jsii_type__ = "@scope/jsii-calc-lib.submodule.IReflectable"
+
     @builtins.property
     @jsii.member(jsii_name="entries")
     def entries(self) -> typing.List["ReflectableEntry"]:
@@ -47,8 +50,12 @@ class _IReflectableProxy():
         return jsii.get(self, "entries")
 
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-lib.submodule.ReflectableEntry", jsii_struct_bases=[], name_mapping={'key': 'key', 'value': 'value'})
-class ReflectableEntry():
+@jsii.data_type(
+    jsii_type="@scope/jsii-calc-lib.submodule.ReflectableEntry",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "value": "value"},
+)
+class ReflectableEntry:
     def __init__(self, *, key: str, value: typing.Any) -> None:
         """
         :param key: 
@@ -58,8 +65,8 @@ class ReflectableEntry():
         :stability: deprecated
         """
         self._values = {
-            'key': key,
-            'value': value,
+            "key": key,
+            "value": value,
         }
 
     @builtins.property
@@ -68,7 +75,7 @@ class ReflectableEntry():
         stability
         :stability: deprecated
         """
-        return self._values.get('key')
+        return self._values.get("key")
 
     @builtins.property
     def value(self) -> typing.Any:
@@ -76,7 +83,7 @@ class ReflectableEntry():
         stability
         :stability: deprecated
         """
-        return self._values.get('value')
+        return self._values.get("value")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -85,14 +92,19 @@ class ReflectableEntry():
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'ReflectableEntry(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "ReflectableEntry(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
-class Reflector(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.submodule.Reflector"):
+class Reflector(
+    metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.submodule.Reflector"
+):
     """
     stability
     :stability: deprecated
     """
+
     def __init__(self) -> None:
         """
         stability

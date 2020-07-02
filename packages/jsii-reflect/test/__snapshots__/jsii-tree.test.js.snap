@@ -174,7 +174,10 @@ exports[`jsii-tree --all 1`] = `
  │ │     └─┬ class MyClass (experimental)
  │ │       ├── interfaces: INamespaced
  │ │       └─┬ members
- │ │         ├── <initializer>() initializer (experimental)
+ │ │         ├─┬ <initializer>(props) initializer (experimental)
+ │ │         │ └─┬ parameters
+ │ │         │   └─┬ props
+ │ │         │     └── type: jsii-calc.submodule.child.SomeStruct
  │ │         ├─┬ awesomeness property (experimental)
  │ │         │ ├── immutable
  │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
@@ -184,6 +187,9 @@ exports[`jsii-tree --all 1`] = `
  │ │         ├─┬ goodness property (experimental)
  │ │         │ ├── immutable
  │ │         │ └── type: jsii-calc.submodule.child.Goodness
+ │ │         ├─┬ props property (experimental)
+ │ │         │ ├── immutable
+ │ │         │ └── type: jsii-calc.submodule.child.SomeStruct
  │ │         └─┬ allTypes property (experimental)
  │ │           └── type: Optional<jsii-calc.AllTypes>
  │ └─┬ types
@@ -1739,6 +1745,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ throwError() method (experimental)
  │   │     └── returns: void
+ │   ├─┬ class UmaskCheck (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ static mode() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: number
  │   ├─┬ class UnaryOperation (experimental)
  │   │ ├── base: Operation
  │   │ └─┬ members
@@ -2799,6 +2810,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
+ │   ├── class UmaskCheck
  │   ├─┬ class UnaryOperation
  │   │ └── base: Operation
  │   ├─┬ class UpcasingReflectable
@@ -3056,10 +3068,11 @@ exports[`jsii-tree --members 1`] = `
  │ │   └─┬ types
  │ │     └─┬ class MyClass
  │ │       └─┬ members
- │ │         ├── <initializer>() initializer
+ │ │         ├── <initializer>(props) initializer
  │ │         ├── awesomeness property
  │ │         ├── definedAt property
  │ │         ├── goodness property
+ │ │         ├── props property
  │ │         └── allTypes property
  │ └─┬ types
  │   ├─┬ class AbstractClass
@@ -3731,6 +3744,9 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── throwError() method
+ │   ├─┬ class UmaskCheck
+ │   │ └─┬ members
+ │   │   └── static mode() method
  │   ├─┬ class UnaryOperation
  │   │ └─┬ members
  │   │   ├── <initializer>(operand) initializer
@@ -4301,6 +4317,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
+ │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable
  │   ├── class UseBundledDependency

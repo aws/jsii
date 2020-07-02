@@ -7,13 +7,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.MyClass), fullyQualifiedName: "jsii-calc.submodule.MyClass")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.MyClass), fullyQualifiedName: "jsii-calc.submodule.MyClass", parametersJson: "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.submodule.child.SomeStruct\"}}]")]
     public class MyClass : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.DeeplyNested.INamespaced
     {
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public MyClass(): base(new DeputyProps(new object[]{}))
+        public MyClass(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct props): base(new DeputyProps(new object[]{props}))
         {
         }
 
@@ -56,6 +56,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
         public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Goodness Goodness
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Goodness>();
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiProperty(name: "props", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.SomeStruct\"}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct Props
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct>();
         }
 
         /// <remarks>

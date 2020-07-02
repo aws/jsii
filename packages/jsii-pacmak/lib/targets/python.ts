@@ -1,6 +1,8 @@
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
+import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
+import * as os from 'os';
 import * as path from 'path';
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
@@ -40,13 +42,35 @@ export default class Python extends Target {
     this.generator = new PythonGenerator(options.rosetta);
   }
 
-  public async build(sourceDir: string, outDir: string): Promise<void> {
-    // Format our code to make it easier to read, we do this here instead of trying
-    // to do it in the code generation phase, because attempting to mix style and
-    // function makes the code generation harder to maintain and read, while doing
-    // this here is easy.
-    // await shell("black", ["--py36", sourceDir], {});
+  public async generateCode(outDir: string, tarball: string): Promise<void> {
+    await super.generateCode(outDir, tarball);
 
+    // We'll just run "black" on that now, to make the generated code a little more readable.
+    const blackRoot = await fs.mkdtemp(
+      path.join(os.tmpdir(), 'jsii-pacmak-black-'),
+    );
+    try {
+      await shell('python3', ['-m', 'venv', path.join(blackRoot, '.env')], {
+        cwd: blackRoot,
+      });
+      await shell(
+        path.join(blackRoot, '.env', 'bin', 'pip'),
+        ['install', 'black'],
+        { cwd: blackRoot },
+      );
+      await shell(
+        path.join(blackRoot, '.env', 'bin', 'black'),
+        ['--py36', outDir],
+        {
+          cwd: outDir,
+        },
+      );
+    } finally {
+      await fs.remove(blackRoot);
+    }
+  }
+
+  public async build(sourceDir: string, outDir: string): Promise<void> {
     // Actually package up our code, both as a sdist and a wheel for publishing.
     await shell('python3', ['setup.py', 'sdist', '--dist-dir', outDir], {
       cwd: sourceDir,
@@ -378,6 +402,9 @@ abstract class BaseMethod implements PythonBase {
       ...this.parameters.map((param) =>
         toTypeName(param).requiredImports(context),
       ),
+      ...(this.liftedProp?.properties?.map((prop) =>
+        toTypeName(prop.type).requiredImports(context),
+      ) ?? []),
     );
   }
 
