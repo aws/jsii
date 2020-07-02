@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/aws/jsii/compare/v1.7.0...v1.8.0) (2020-07-02)
+
+
+### Bug Fixes
+
+* **kernel:** tarball unpacking does not behave like 'npm install' ([#1766](https://github.com/aws/jsii/issues/1766)) ([2dc1b21](https://github.com/aws/jsii/commit/2dc1b2127295c7b91e95571e6cba246785d98ea3)), closes [aws/aws-cdk#8233](https://github.com/aws/aws-cdk/issues/8233) [#1765](https://github.com/aws/jsii/issues/1765)
+* **python:** relative import missing for kwargs types ([#1768](https://github.com/aws/jsii/issues/1768)) ([c174ac5](https://github.com/aws/jsii/commit/c174ac5822d9923c904ec38b3f7d0513310ef973))
+
 ## [1.7.0](https://github.com/aws/jsii/compare/v1.6.0...v1.7.0) (2020-06-18)
 
 
