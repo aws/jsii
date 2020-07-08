@@ -238,23 +238,35 @@ export class TypeSystem {
    * All methods in the type system.
    */
   public get methods() {
-    const out = new Array<Method>();
-    this.assemblies.forEach((a) => {
-      a.interfaces.forEach((t) => out.push(...t.ownMethods));
-      a.classes.forEach((t) => out.push(...t.ownMethods));
-    });
-    return out;
+    const getMethods = (mod: ModuleLike): readonly Method[] => {
+      return [
+        ...flatMap(mod.submodules, getMethods),
+        ...flatMap(mod.interfaces, (iface) => iface.ownMethods),
+        ...flatMap(mod.classes, (clazz) => clazz.ownMethods),
+      ];
+    };
+
+    return flatMap(this.assemblies, getMethods);
   }
 
+  /**
+   * All properties in the type system.
+   */
   public get properties() {
-    const out = new Array<Property>();
-    this.assemblies.forEach((a) => {
-      a.interfaces.forEach((t) => out.push(...t.ownProperties));
-      a.classes.forEach((t) => out.push(...t.ownProperties));
-    });
-    return out;
+    const getProperties = (mod: ModuleLike): readonly Property[] => {
+      return [
+        ...flatMap(mod.submodules, getProperties),
+        ...flatMap(mod.interfaces, (iface) => iface.ownProperties),
+        ...flatMap(mod.classes, (clazz) => clazz.ownProperties),
+      ];
+    };
+
+    return flatMap(this.assemblies, getProperties);
   }
 
+  /**
+   * All classes in the type system.
+   */
   public get classes(): readonly ClassType[] {
     const out = new Array<ClassType>();
     this.assemblies.forEach((a) => {
@@ -263,6 +275,9 @@ export class TypeSystem {
     return out;
   }
 
+  /**
+   * All interfaces in the type system.
+   */
   public get interfaces(): readonly InterfaceType[] {
     const out = new Array<InterfaceType>();
     this.assemblies.forEach((a) => {
@@ -271,6 +286,9 @@ export class TypeSystem {
     return out;
   }
 
+  /**
+   * All enums in the type system.
+   */
   public get enums(): readonly EnumType[] {
     const out = new Array<EnumType>();
     this.assemblies.forEach((a) => {
@@ -316,4 +334,13 @@ function collectTypes<T extends Type>(
   }
   result.push(...getter(module));
   return result;
+}
+
+function flatMap<T, R>(
+  collection: readonly T[],
+  mapper: (value: T) => readonly R[],
+): readonly R[] {
+  return collection
+    .map(mapper)
+    .reduce((acc, elt) => acc.concat(elt), new Array<R>());
 }
