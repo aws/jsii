@@ -57,7 +57,7 @@
     "@types/semver": "^7.3.1",
     "@types/yargs": "^15.0.5",
     "clone": "^2.1.2",
-    "eslint": "^7.3.1",
+    "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.1.0",
