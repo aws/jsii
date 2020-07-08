@@ -31,7 +31,7 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.3",
+    "@types/jest": "^26.0.4",
     "@types/node": "^10.17.26",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
