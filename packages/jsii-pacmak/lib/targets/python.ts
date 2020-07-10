@@ -34,11 +34,6 @@ import { die, toPythonIdentifier } from './python/util';
 const spdxLicenseList = require('spdx-license-list');
 
 export default class Python extends Target {
-  private static readonly BLACK_INSTALL_DIR: string = path.join(
-    os.homedir(),
-    'python-black',
-  );
-
   protected readonly generator: PythonGenerator;
 
   public constructor(options: TargetOptions) {
@@ -81,26 +76,31 @@ export default class Python extends Target {
       return 'black';
     }
 
-    const exists = await fs.pathExists(Python.BLACK_INSTALL_DIR);
+    const blackInstallDir = path.join(
+      os.homedir(),
+      '.jsii-cache',
+      'python-black',
+    );
+    const exists = await fs.pathExists(blackInstallDir);
     if (!exists) {
       info(
-        `No existing black installation. Install afresh at ${Python.BLACK_INSTALL_DIR}...`,
+        `No existing black installation. Install afresh at ${blackInstallDir}...`,
       );
-      await fs.mkdir(Python.BLACK_INSTALL_DIR);
+      await fs.mkdirp(blackInstallDir);
       await shell(
         'python3',
-        ['-m', 'venv', path.join(Python.BLACK_INSTALL_DIR, '.env')],
+        ['-m', 'venv', path.join(blackInstallDir, '.env')],
         {
-          cwd: Python.BLACK_INSTALL_DIR,
+          cwd: blackInstallDir,
         },
       );
       await shell(
-        path.join(Python.BLACK_INSTALL_DIR, '.env', 'bin', 'pip'),
+        path.join(blackInstallDir, '.env', 'bin', 'pip'),
         ['install', 'black'],
-        { cwd: Python.BLACK_INSTALL_DIR },
+        { cwd: blackInstallDir },
       );
     }
-    return path.join(Python.BLACK_INSTALL_DIR, '.env', 'bin', 'black');
+    return path.join(blackInstallDir, '.env', 'bin', 'black');
   }
 }
 
