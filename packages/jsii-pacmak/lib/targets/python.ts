@@ -34,6 +34,8 @@ import { die, toPythonIdentifier } from './python/util';
 const spdxLicenseList = require('spdx-license-list');
 
 export default class Python extends Target {
+  private static BLACK_PATH?: Promise<string>;
+
   protected readonly generator: PythonGenerator;
 
   public constructor(options: TargetOptions) {
@@ -45,8 +47,13 @@ export default class Python extends Target {
   public async generateCode(outDir: string, tarball: string): Promise<void> {
     await super.generateCode(outDir, tarball);
 
+    // Using a static variable as a lock to prevent racing. Since blackPath() uses
+    // Promise APIs from fs and os modules (that use libuv), an additional lock is required.
+    if (Python.BLACK_PATH === undefined) {
+      Python.BLACK_PATH = this.blackPath();
+    }
     // We'll just run "black" on that now, to make the generated code a little more readable.
-    await shell(await this.blackPath(), ['--py36', outDir], {
+    await shell(await Python.BLACK_PATH, ['--py36', outDir], {
       cwd: outDir,
     });
   }
