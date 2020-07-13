@@ -34,7 +34,7 @@ import { die, toPythonIdentifier } from './python/util';
 const spdxLicenseList = require('spdx-license-list');
 
 export default class Python extends Target {
-  private static BLACK_PATH: Promise<string> | undefined;
+  private static BLACK_PATH?: Promise<string>;
 
   protected readonly generator: PythonGenerator;
 
