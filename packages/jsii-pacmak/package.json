@@ -46,7 +46,7 @@
     "semver": "^7.3.2",
     "spdx-license-list": "^6.2.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^15.4.0"
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",

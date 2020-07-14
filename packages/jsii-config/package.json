@@ -35,7 +35,7 @@
   "dependencies": {
     "@jsii/spec": "^0.0.0",
     "inquirer": "^7.3.0",
-    "yargs": "^15.4.0"
+    "yargs": "^15.4.1"
   },
   "jest": {
     "collectCoverage": true,
