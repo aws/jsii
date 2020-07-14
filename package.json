@@ -22,7 +22,7 @@
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.22.0",
     "lerna": "^3.22.1",
-    "standard-version": "^8.0.0"
+    "standard-version": "^8.0.2"
   },
   "repository": {
     "type": "git",
