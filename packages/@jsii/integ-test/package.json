@@ -30,7 +30,7 @@
     "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.4",
-    "@types/node": "^10.17.26",
+    "@types/node": "^10.17.27",
     "@types/tar": "^4.0.3",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
