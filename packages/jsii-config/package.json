@@ -30,7 +30,7 @@
     "jest": "^26.1.0",
     "jest-expect-message": "^1.0.2",
     "prettier": "^2.0.5",
-    "typescript": "~3.9.6"
+    "typescript": "~3.9.7"
   },
   "dependencies": {
     "@jsii/spec": "^0.0.0",
