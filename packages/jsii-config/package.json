@@ -20,11 +20,11 @@
   },
   "devDependencies": {
     "@types/inquirer": "^6.5.0",
-    "@types/jest": "^26.0.3",
+    "@types/jest": "^26.0.4",
     "@types/jest-expect-message": "^1.0.2",
     "@types/node": "^10.17.26",
     "@types/yargs": "^15.0.5",
-    "eslint": "^7.3.1",
+    "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.1.0",
@@ -35,7 +35,7 @@
   "dependencies": {
     "@jsii/spec": "^0.0.0",
     "inquirer": "^7.3.0",
-    "yargs": "^15.3.1"
+    "yargs": "^15.4.0"
   },
   "jest": {
     "collectCoverage": true,

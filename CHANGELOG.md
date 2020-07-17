@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/aws/jsii/compare/v1.8.0...v1.9.0) (2020-07-16)
+
+
+### Bug Fixes
+
+* **jsii-reflect:** TypeSystem.methods and .properties ignores submodules ([#1779](https://github.com/aws/jsii/issues/1779)) ([bdb5483](https://github.com/aws/jsii/commit/bdb5483e95e0e0ec6b556f5a06b92018bfe1a642))
+* **pacmak:** python pack fails when installing 'black' via pip ([#1782](https://github.com/aws/jsii/issues/1782)) ([d83e004](https://github.com/aws/jsii/commit/d83e0043f3a8a40dcf79b60ffce4837721617149))
+* **pacmak:** race condition in python packing when run over multiple packages ([#1783](https://github.com/aws/jsii/issues/1783)) ([7807027](https://github.com/aws/jsii/commit/7807027d6751fcdaaa06544a3755215937e8d9e9))
+
 ## [1.8.0](https://github.com/aws/jsii/compare/v1.7.0...v1.8.0) (2020-07-02)
 
 

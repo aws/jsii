@@ -7,7 +7,7 @@ import * as path from 'path';
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
 import { Generator, GeneratorOptions } from '../generator';
-import { warn } from '../logging';
+import { info, warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
@@ -34,6 +34,8 @@ import { die, toPythonIdentifier } from './python/util';
 const spdxLicenseList = require('spdx-license-list');
 
 export default class Python extends Target {
+  private static BLACK_PATH?: Promise<string>;
+
   protected readonly generator: PythonGenerator;
 
   public constructor(options: TargetOptions) {
@@ -45,29 +47,15 @@ export default class Python extends Target {
   public async generateCode(outDir: string, tarball: string): Promise<void> {
     await super.generateCode(outDir, tarball);
 
-    // We'll just run "black" on that now, to make the generated code a little more readable.
-    const blackRoot = await fs.mkdtemp(
-      path.join(os.tmpdir(), 'jsii-pacmak-black-'),
-    );
-    try {
-      await shell('python3', ['-m', 'venv', path.join(blackRoot, '.env')], {
-        cwd: blackRoot,
-      });
-      await shell(
-        path.join(blackRoot, '.env', 'bin', 'pip'),
-        ['install', 'black'],
-        { cwd: blackRoot },
-      );
-      await shell(
-        path.join(blackRoot, '.env', 'bin', 'black'),
-        ['--py36', outDir],
-        {
-          cwd: outDir,
-        },
-      );
-    } finally {
-      await fs.remove(blackRoot);
+    // Using a static variable as a lock to prevent racing. Since blackPath() uses
+    // Promise APIs from fs and os modules (that use libuv), an additional lock is required.
+    if (Python.BLACK_PATH === undefined) {
+      Python.BLACK_PATH = this.blackPath();
     }
+    // We'll just run "black" on that now, to make the generated code a little more readable.
+    await shell(await Python.BLACK_PATH, ['--py36', outDir], {
+      cwd: outDir,
+    });
   }
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
@@ -78,7 +66,7 @@ export default class Python extends Target {
     await shell('python3', ['setup.py', 'bdist_wheel', '--dist-dir', outDir], {
       cwd: sourceDir,
     });
-    if (await twineIsPresent()) {
+    if (await isPresent('twine', sourceDir)) {
       await shell('twine', ['check', path.join(outDir, '*')], {
         cwd: sourceDir,
       });
@@ -88,22 +76,56 @@ export default class Python extends Target {
           'Run `pip3 install twine` to enable distribution package validation.',
       );
     }
+  }
 
-    // Approximating existence check using `which`, falling back on `pip3 show`. If that fails, assume twine is not there.
-    async function twineIsPresent(): Promise<boolean> {
-      try {
-        await shell('which', ['twine'], { cwd: sourceDir });
-        return true;
-      } catch {
-        try {
-          const output = await shell('pip3', ['show', 'twine'], {
-            cwd: sourceDir,
-          });
-          return output.trim() !== '';
-        } catch {
-          return false;
-        }
-      }
+  private async blackPath(): Promise<string> {
+    if (await isPresent('black')) {
+      return 'black';
+    }
+
+    const blackInstallDir = path.join(
+      os.homedir(),
+      '.jsii-cache',
+      'python-black',
+    );
+    const exists = await fs.pathExists(blackInstallDir);
+    if (!exists) {
+      info(
+        `No existing black installation. Install afresh at ${blackInstallDir}...`,
+      );
+      await fs.mkdirp(blackInstallDir);
+      await shell(
+        'python3',
+        ['-m', 'venv', path.join(blackInstallDir, '.env')],
+        {
+          cwd: blackInstallDir,
+        },
+      );
+      await shell(
+        path.join(blackInstallDir, '.env', 'bin', 'pip'),
+        ['install', 'black'],
+        { cwd: blackInstallDir },
+      );
+    }
+    return path.join(blackInstallDir, '.env', 'bin', 'black');
+  }
+}
+
+// Approximating existence check using `which`, falling back on `pip3 show`.
+async function isPresent(binary: string, sourceDir?: string): Promise<boolean> {
+  try {
+    await shell('which', [binary], {
+      cwd: sourceDir,
+    });
+    return true;
+  } catch {
+    try {
+      const output = await shell('pip3', ['show', binary], {
+        cwd: sourceDir,
+      });
+      return output.trim() !== '';
+    } catch {
+      return false;
     }
   }
 }

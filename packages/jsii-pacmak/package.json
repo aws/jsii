@@ -30,7 +30,7 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest",
+    "test": "jest && /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh",
     "test:update": "UPDATE_DIFF=1 /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest -u",
     "package": "package-js"
   },
@@ -46,7 +46,7 @@
     "semver": "^7.3.2",
     "spdx-license-list": "^6.2.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^15.3.1"
+    "yargs": "^15.4.0"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
@@ -54,13 +54,13 @@
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/clone": "^0.1.30",
     "@types/commonmark": "^0.27.4",
-    "@types/fs-extra": "^8.1.0",
-    "@types/jest": "^26.0.3",
+    "@types/fs-extra": "^8.1.1",
+    "@types/jest": "^26.0.4",
     "@types/mock-fs": "^4.10.0",
     "@types/node": "^10.17.26",
     "@types/semver": "^7.3.1",
     "@types/yargs": "^15.0.5",
-    "eslint": "^7.3.1",
+    "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.1.0",
