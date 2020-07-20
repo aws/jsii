@@ -1674,7 +1674,7 @@ defineTest(
         args: [123, { incomplete: true }],
       });
     }).toThrow(
-      /Missing required properties for jsii-calc.TopLevelStruct: required,secondLevel/,
+      /Missing required properties for jsii-calc.TopLevelStruct: required, secondLevel/,
     );
   },
 );
