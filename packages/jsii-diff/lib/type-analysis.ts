@@ -31,28 +31,28 @@ export function isSuperType(
     if (a.primitive === b.primitive) {
       return { success: true };
     }
-    return failure(`${b} is not assignable to ${a}`);
+    return failure(`${b.toString()} is not assignable to ${a.toString()}`);
   }
 
   if (a.arrayOfType !== undefined) {
     // Arrays are covariant
     if (b.arrayOfType === undefined) {
-      return failure(`${b} is not an array type`);
+      return failure(`${b.toString()} is not an array type`);
     }
     return prependReason(
       isSuperType(a.arrayOfType, b.arrayOfType, updatedSystem),
-      `${b} is not assignable to ${a}`,
+      `${b.toString()} is not assignable to ${a.toString()}`,
     );
   }
 
   if (a.mapOfType !== undefined) {
     // Maps are covariant (are they?)
     if (b.mapOfType === undefined) {
-      return failure(`${b} is not a map type`);
+      return failure(`${b.toString()} is not a map type`);
     }
     return prependReason(
       isSuperType(a.mapOfType, b.mapOfType, updatedSystem),
-      `${b} is not assignable to ${a}`,
+      `${b.toString()} is not assignable to ${a.toString()}`,
     );
   }
 
@@ -65,7 +65,7 @@ export function isSuperType(
       return { success: true };
     }
     return failure(
-      `some of ${b} are not assignable to ${a}`,
+      `some of ${b.toString()} are not assignable to ${a.toString()}`,
       ...flatMap(analyses, (x) => (x.success ? [] : x.reasons)),
     );
   }
@@ -78,7 +78,7 @@ export function isSuperType(
       return { success: true };
     }
     return failure(
-      `none of ${b} are assignable to ${a}`,
+      `none of ${b.toString()} are assignable to ${a.toString()}`,
       ...flatMap(analyses, (x) => (x.success ? [] : x.reasons)),
     );
   }
@@ -133,12 +133,12 @@ export function isNominalSuperType(
   updatedSystem: reflect.TypeSystem,
 ): Analysis {
   if (a.fqn === undefined) {
-    throw new Error(`I was expecting a named type, got '${a}'`);
+    throw new Error(`I was expecting a named type, got '${a.toString()}'`);
   }
 
   // Named type vs a non-named type
   if (b.fqn === undefined) {
-    return failure(`${b} is not assignable to ${a}`);
+    return failure(`${b.toString()} is not assignable to ${a.toString()}`);
   }
 
   // Short-circuit of the types are the same name, saves us some lookup
@@ -152,25 +152,25 @@ export function isNominalSuperType(
   const A = updatedSystem.tryFindFqn(a.fqn);
 
   if (!B) {
-    return failure(`could not find type ${b}`);
+    return failure(`could not find type ${b.toString()}`);
   }
   if (!A) {
-    return failure(`could not find type ${a}`);
+    return failure(`could not find type ${a.toString()}`);
   }
 
   // If they're enums, they should have been exactly the same (tested above)
   // enums are never subtypes of any other type.
   if (A.isEnumType()) {
-    return failure(`${a} is an enum different from ${b}`);
+    return failure(`${a.toString()} is an enum different from ${b.toString()}`);
   }
   if (B.isEnumType()) {
-    return failure(`${b} is an enum different from ${a}`);
+    return failure(`${b.toString()} is an enum different from ${a.toString()}`);
   }
 
   if (B.extends(A)) {
     return { success: true };
   }
-  return failure(`${b} does not extend ${a}`);
+  return failure(`${b.toString()} does not extend ${a.toString()}`);
 }
 
 /**

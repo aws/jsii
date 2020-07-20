@@ -1576,7 +1576,6 @@ class Package {
     // Strip " (build abcdef)" from the jsii version
     const jsiiVersionSimple = this.metadata.jsiiVersion.replace(/ .*$/, '');
 
-    /* eslint-disable @typescript-eslint/camelcase */
     const setupKwargs = {
       name: this.name,
       version: this.version,
@@ -1611,7 +1610,6 @@ class Package {
         'Typing :: Typed',
       ],
     };
-    /* eslint-enable @typescript-eslint/camelcase */
 
     switch (this.metadata.docs?.stability) {
       case spec.Stability.Experimental:

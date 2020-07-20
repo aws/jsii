@@ -46,7 +46,7 @@ export class Kernel {
     // let loaded modules to use the native node "require" method.
     // I wonder if webpack has some pragma that allows opting-out at certain points
     // in the code.
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
     const moduleLoad = require('module').Module._load;
     const nodeRequire = (p: string) => moduleLoad(p, module, false);
 
@@ -1036,7 +1036,9 @@ export class Kernel {
       }
     }
 
-    throw new Error(`Value did not match any type in union: ${errors}`);
+    throw new Error(
+      `Value did not match any type in union: ${errors.join(', ')}`,
+    );
   }
 
   private _fromSandbox(v: any, targetType: wire.OptionalValueOrVoid): any {
@@ -1067,7 +1069,9 @@ export class Kernel {
       }
     }
 
-    throw new Error(`Value did not match any type in union: ${errors}`);
+    throw new Error(
+      `Value did not match any type in union: ${errors.join(', ')}`,
+    );
   }
 
   private _toSandboxValues(xs: any[], parameters?: spec.Parameter[]) {

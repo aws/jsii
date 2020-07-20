@@ -38,7 +38,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
         expect(
           errors.find((e) => _messageText(e).includes(expectation)),
           `No error contained: ${expectation}. Errors: \n${errors
-            .map((e, i) => `[${i}] ${e.messageText}`)
+            .map((e, i) => `[${i}] ${e.messageText.toString()}`)
             .join('\n')}`,
         ).toBeDefined();
       }

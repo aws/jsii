@@ -951,7 +951,9 @@ function validateRequiredProps(
 
   if (missingRequiredProps.length > 0) {
     throw new Error(
-      `Missing required properties for ${typeName}: ${missingRequiredProps}`,
+      `Missing required properties for ${typeName}: ${missingRequiredProps.join(
+        ', ',
+      )}`,
     );
   }
 
