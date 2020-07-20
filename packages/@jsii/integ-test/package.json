@@ -32,7 +32,7 @@
     "@types/jest": "^26.0.5",
     "@types/node": "^10.17.26",
     "@types/tar": "^4.0.3",
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^1.19.1",
