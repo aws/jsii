@@ -33,7 +33,7 @@ export function jsiiTypeFqn(obj: any): string | undefined {
  *
  * This is to retain object identity across invocations.
  */
-export function objectReference(obj: object): api.AnnotatedObjRef | undefined {
+export function objectReference(obj: unknown): api.AnnotatedObjRef | undefined {
   // If this object as already returned
   if ((obj as any)[OBJID_SYMBOL]) {
     return {
@@ -50,7 +50,7 @@ type ManagedObject = {
   [IFACES_SYMBOL]?: string[];
 };
 
-function tagObject(obj: object, objid: string, interfaces?: string[]) {
+function tagObject(obj: unknown, objid: string, interfaces?: string[]) {
   const managed = obj as ManagedObject;
   managed[OBJID_SYMBOL] = objid;
   managed[IFACES_SYMBOL] = interfaces;
@@ -88,7 +88,7 @@ export class ObjectTable {
    * Return the existing registration if available.
    */
   public registerObject(
-    obj: object,
+    obj: unknown,
     fqn: string,
     interfaces?: string[],
   ): api.AnnotatedObjRef {

@@ -158,11 +158,11 @@ export function nodeOfType<
   };
 }
 
-export function anyNode(): AstMatcher<{}>;
+export function anyNode(): AstMatcher<Record<string, unknown>>;
 export function anyNode<A>(children: AstMatcher<A>): AstMatcher<A>;
 export function anyNode<A>(
   children?: AstMatcher<A>,
-): AstMatcher<A> | AstMatcher<{}> {
+): AstMatcher<A> | AstMatcher<any> {
   const realNext = children || DONE;
   return (nodes) => {
     for (const node of nodes ?? []) {
@@ -201,7 +201,7 @@ export function allOfType<S extends keyof CapturableNodes, N extends string, A>(
   };
 }
 
-export const DONE: AstMatcher<{}> = () => ({});
+export const DONE: AstMatcher<Record<string, unknown>> = () => ({});
 
 /**
  * Run a matcher against a node and return (or invoke a callback with) the accumulated bindings

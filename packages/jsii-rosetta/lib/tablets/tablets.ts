@@ -9,7 +9,7 @@ import { snippetKey } from './key';
 import { TargetLanguage } from '../languages';
 import { TypeScriptSnippet } from '../snippet';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const TOOL_VERSION = require('../../package.json').version;
 
 export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';

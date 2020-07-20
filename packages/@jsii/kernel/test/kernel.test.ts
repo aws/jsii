@@ -18,17 +18,17 @@ import { closeRecording, recordInteraction } from './recording';
 /* eslint-disable require-atomic-updates */
 
 // extract versions of fixtures
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcBaseVersion = require('@scope/jsii-calc-base/package.json').version.replace(
   /\+.+$/,
   '',
 );
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcLibVersion = require('@scope/jsii-calc-lib/package.json').version.replace(
   /\+.+$/,
   '',
 );
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcVersion = require('jsii-calc/package.json').version.replace(
   /\+.+$/,
   '',
@@ -1674,7 +1674,7 @@ defineTest(
         args: [123, { incomplete: true }],
       });
     }).toThrow(
-      /Missing required properties for jsii-calc.TopLevelStruct: required,secondLevel/,
+      /Missing required properties for jsii-calc.TopLevelStruct: required, secondLevel/,
     );
   },
 );

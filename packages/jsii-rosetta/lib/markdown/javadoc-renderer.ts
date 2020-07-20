@@ -11,8 +11,6 @@ import { makeJavaEscaper } from './escapes';
 
 const ESCAPE = makeJavaEscaper();
 
-/* eslint-disable @typescript-eslint/camelcase */
-
 /**
  * A renderer that will render a CommonMark tree to JavaDoc comments
  *
@@ -37,7 +35,6 @@ export class JavaDocRenderer extends MarkdownRenderer {
    * care about writability, the most robust option seems to be <pre>
    * tags with escaping of bad characters.
    */
-  /* eslint-disable-next-line @typescript-eslint/camelcase */
   public code_block(node: cm.Node, _context: RendererContext) {
     return para(
       `<blockquote><pre>\n${ESCAPE.text(node.literal)}</pre></blockquote>`,
@@ -86,7 +83,6 @@ export class JavaDocRenderer extends MarkdownRenderer {
     return `<strong>${context.content()}</strong>`;
   }
 
-  /* eslint-disable-next-line @typescript-eslint/camelcase */
   public thematic_break(_node: cm.Node, _context: RendererContext) {
     return para('<hr>');
   }

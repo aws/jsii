@@ -115,7 +115,7 @@ export class OTree implements OTree {
   }
 
   public toString() {
-    return `<INCORRECTLY STRINGIFIED ${this.prefix}>`;
+    return `<INCORRECTLY STRINGIFIED ${this.prefix.toString()}>`;
   }
 }
 

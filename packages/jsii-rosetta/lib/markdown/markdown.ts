@@ -19,7 +19,6 @@ export interface RendererContext {
   content(): string;
 }
 
-/* eslint-disable @typescript-eslint/camelcase */
 export interface CommonMarkRenderer {
   block_quote(node: cm.Node, context: RendererContext): string;
   code(node: cm.Node, context: RendererContext): string;
@@ -42,7 +41,6 @@ export interface CommonMarkRenderer {
   custom_block(node: cm.Node, context: RendererContext): string;
   custom_inline(node: cm.Node, context: RendererContext): string;
 }
-/* eslint-enable @typescript-eslint/camelcase */
 
 export function renderCommonMarkTree(
   node: cm.Node,
@@ -89,7 +87,6 @@ export function* cmNodeChildren(node: cm.Node): IterableIterator<cm.Node> {
   }
 }
 
-/* eslint-disable @typescript-eslint/camelcase */
 export interface CommonMarkVisitor {
   block_quote(node: cm.Node): void;
   code(node: cm.Node): void;
@@ -112,4 +109,3 @@ export interface CommonMarkVisitor {
   custom_block(node: cm.Node): void;
   custom_inline(node: cm.Node): void;
 }
-/* eslint-enable @typescript-eslint/camelcase */

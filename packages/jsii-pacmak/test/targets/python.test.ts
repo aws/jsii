@@ -42,7 +42,9 @@ describe('python', () => {
           if (cmd === 'which' && args[0] === 'black') {
             ok('/path/to/black');
           } else {
-            badShellCommand = `Unexpected call to shell [${cmd} ${args}]`;
+            badShellCommand = `Unexpected call to shell [${cmd} ${args.join(
+              ' ',
+            )}]`;
             ko(badShellCommand);
           }
         });

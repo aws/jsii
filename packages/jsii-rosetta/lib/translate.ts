@@ -1,5 +1,6 @@
 import * as logging from './logging';
 import * as ts from 'typescript';
+import { inspect } from 'util';
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
 import { renderTree, Span, spanContains } from './o-tree';
 import {
@@ -51,9 +52,7 @@ export class Translator {
     languages = Object.keys(TARGET_LANGUAGES) as TargetLanguage[],
   ) {
     logging.debug(
-      `Translating ${snippetKey(snip)} ${Object.entries(
-        snip.parameters ?? {},
-      )}`,
+      `Translating ${snippetKey(snip)} ${inspect(snip.parameters ?? {})}`,
     );
     const translator = this.translatorFor(snip);
     const snippet = TranslatedSnippet.fromSnippet(
