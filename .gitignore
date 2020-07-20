@@ -9,3 +9,4 @@ dist/
 *.tsbuildinfo
 *.tabl.json
 *.swp
+*.snk

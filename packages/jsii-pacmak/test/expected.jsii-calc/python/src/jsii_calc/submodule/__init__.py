@@ -10,9 +10,14 @@ import publication
 
 from .._jsii import *
 
-from .. import (AllTypes as _AllTypes_b08307c5)
-from .child import (Awesomeness as _Awesomeness_d37a24df, Goodness as _Goodness_2df26737)
-from .nested_submodule.deeply_nested import (INamespaced as _INamespaced_e2f386ad)
+from .. import AllTypes as _AllTypes_b08307c5
+from .child import (
+    SomeStruct as _SomeStruct_91627123,
+    SomeEnum as _SomeEnum_b2e41d92,
+    Awesomeness as _Awesomeness_d37a24df,
+    Goodness as _Goodness_2df26737,
+)
+from .nested_submodule.deeply_nested import INamespaced as _INamespaced_e2f386ad
 
 
 @jsii.implements(_INamespaced_e2f386ad)
@@ -21,12 +26,17 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
     stability
     :stability: experimental
     """
-    def __init__(self) -> None:
+
+    def __init__(self, *, prop: _SomeEnum_b2e41d92) -> None:
         """
+        :param prop: 
+
         stability
         :stability: experimental
         """
-        jsii.create(MyClass, self, [])
+        props = _SomeStruct_91627123(prop=prop)
+
+        jsii.create(MyClass, self, [props])
 
     @builtins.property
     @jsii.member(jsii_name="awesomeness")
@@ -54,6 +64,15 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         :stability: experimental
         """
         return jsii.get(self, "goodness")
+
+    @builtins.property
+    @jsii.member(jsii_name="props")
+    def props(self) -> _SomeStruct_91627123:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "props")
 
     @builtins.property
     @jsii.member(jsii_name="allTypes")

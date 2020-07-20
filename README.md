@@ -60,6 +60,36 @@ like any other class:
   ```
 - ... and more to come!
 
+## Toolchain
+
+__jsii__ consists of multiple single-purposed programs which can be used to compose various workflows.
+
+> We are considering creating an "umbrella entrypoint" to make it easier to consume.
+
+ Name            | Stability    | Description
+-----------------|--------------|-----------------------------------------------------------------------------------
+[`jsii`]         | Stable       | Compiles TypeScript to jsii module
+[`jsii-pacmak`]  | Stable       | Creates ready-to-publish language-specific packages from jsii modules
+[`jsii-reflect`] | Stable       | Strong-typed reflection library for jsii type systems
+[`jsii-diff`]    | Stable       | API backwards compatibility checker
+[`jsii-rosetta`] | Experimental | Transpile code snippets (in docs) from TypeScript to jsii languages
+[`jsii-config`]  | Experimental | Interactive tool for generating jsii configuration 
+[`jsii-release`] | Community    | Publishes jsii modules to all supported package managers
+[`jsii-srcmak`]  | Community    | Generates relocatable source code in jsii languages from typescript
+[`jsii-docgen`]  | Community    | Generates markdown API documentation for jsii modules
+
+[`jsii`]: https://github.com/aws/jsii/tree/master/packages/jsii
+[`jsii-pacmak`]: https://github.com/aws/jsii/tree/master/packages/jsii-pacmak
+[`jsii-reflect`]: https://github.com/aws/jsii/tree/master/packages/jsii-reflect
+[`jsii-config`]: https://github.com/aws/jsii/tree/master/packages/jsii-config
+[`jsii-diff`]: https://github.com/aws/jsii/tree/master/packages/jsii-diff
+[`jsii-rosetta`]: https://github.com/aws/jsii/tree/master/packages/jsii-rosetta
+[`jsii-release`]: https://github.com/eladb/jsii-release
+[`jsii-srcmak`]: https://github.com/eladb/jsii-srcmak
+[`jsii-docgen`]: https://github.com/eladb/jsii-docgen
+
+> *"Community"*: a community-maintained project, not officially supported by the jsii team.
+
 ## Getting Started
 
 Let's create our first jsii TypeScript module (actual outputs may slightly
@@ -315,6 +345,7 @@ That's it. You are ready to rock!
 
 See the [configuration](./docs/configuration.md#targets) documentation for more
 information on configuring the various targets.
+
 
 # Contributing
 

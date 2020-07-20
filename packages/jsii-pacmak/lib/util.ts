@@ -33,7 +33,7 @@ export function resolveDependencyDirectory(
 export async function shell(
   cmd: string,
   args: string[],
-  options: ShellOptions,
+  options: ShellOptions = {},
 ): Promise<string> {
   // eslint-disable-next-line @typescript-eslint/require-await
   async function spawn1() {

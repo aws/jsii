@@ -16,10 +16,12 @@ if [ -z "${DOTNET_STRONG_NAME_ENABLED:-}" ]; then
     exit 0
 fi
 
-echo "Retrieving SNK..."
+# TODO: FIXME LATER
+echo "!!! STRONG NAME SIGNING TEMPORARILY DISABLED !!!"
+exit 0
+# END OF TODO
 
-apt update -y
-apt install jq -y
+echo "Retrieving SNK..."
 
 if [ -z "${DOTNET_STRONG_NAME_ROLE_ARN:-}" ]; then
     echo "Strong name signing is enabled, but DOTNET_STRONG_NAME_ROLE_ARN is not set."
@@ -40,16 +42,17 @@ if [ -z "${DOTNET_STRONG_NAME_SECRET_ID:-}" ]; then
 fi
 
 ROLE=$(aws sts assume-role --region ${DOTNET_STRONG_NAME_SECRET_REGION:-} --role-arn ${DOTNET_STRONG_NAME_ROLE_ARN:-} --role-session-name "jsii-dotnet-snk")
-export AWS_ACCESS_KEY_ID=$(echo $ROLE | jq -r .Credentials.AccessKeyId)
-export AWS_SECRET_ACCESS_KEY=$(echo $ROLE | jq -r .Credentials.SecretAccessKey)
-export AWS_SESSION_TOKEN=$(echo $ROLE | jq .Credentials.SessionToken)
+export AWS_ACCESS_KEY_ID=$(node -p "(${ROLE}).Credentials.AccessKeyId")
+export AWS_SECRET_ACCESS_KEY=$(node -p "(${ROLE}).Credentials.SecretAccessKey")
+export AWS_SESSION_TOKEN=$(node -p "(${ROLE}).Credentials.SessionToken")
 
 SNK_SECRET=$(aws secretsmanager get-secret-value --region ${DOTNET_STRONG_NAME_SECRET_REGION:-} --secret-id ${DOTNET_STRONG_NAME_SECRET_ID:-})
 TMP_DIR=$(mktemp -d)
 TMP_KEY="$TMP_DIR/key.snk"
-echo $SNK_SECRET | jq -r .SecretBinary | base64 --decode > $TMP_KEY
+node -p "(${SNK_SECRET}).SecretBinary" | base64 --decode > $TMP_KEY
 
-cp $TMP_KEY packages/jsii-dotnet-jsonmodel/src/Amazon.JSII.JsonModel/
-cp $TMP_KEY packages/jsii-dotnet-runtime/src/Amazon.JSII.Runtime/
+cp $TMP_KEY packages/@jsii/dotnet-runtime/src/Amazon.JSII.Analyzers/key.snk
+cp $TMP_KEY packages/@jsii/dotnet-runtime/src/Amazon.JSII.JsonModel/key.snk
+cp $TMP_KEY packages/@jsii/dotnet-runtime/src/Amazon.JSII.Runtime/key.snk
 
 rm -rf $TMP_DIR

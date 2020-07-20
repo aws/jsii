@@ -6,6 +6,7 @@
     "strict": true,                        /* Enable all strict type-checking options. */
     "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
     "declaration": true,                   /* Generates corresponding '.d.ts' file. */
+    "esModuleInterop": false,              /* Turn on babel and typesystem compatibility with ES modules */
     "inlineSourceMap": true,               /* Emit a single file with source maps instead of having a separate file. */
     "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file. */
     "noUnusedLocals": true,                /* Report errors on unused locals. */

@@ -1,2 +1,4 @@
 # by default, exclude everything
 *
+# include built dotnet package binaries
+!bin/**/*

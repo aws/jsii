@@ -17,6 +17,7 @@ class Awesomeness(enum.Enum):
     stability
     :stability: experimental
     """
+
     AWESOME = "AWESOME"
     """It was awesome!
 
@@ -24,12 +25,14 @@ class Awesomeness(enum.Enum):
     :stability: experimental
     """
 
+
 @jsii.enum(jsii_type="jsii-calc.submodule.child.Goodness")
 class Goodness(enum.Enum):
     """
     stability
     :stability: experimental
     """
+
     PRETTY_GOOD = "PRETTY_GOOD"
     """It's pretty good.
 
@@ -49,11 +52,15 @@ class Goodness(enum.Enum):
     :stability: experimental
     """
 
-class InnerClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.child.InnerClass"):
+
+class InnerClass(
+    metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.child.InnerClass"
+):
     """
     stability
     :stability: experimental
     """
+
     def __init__(self) -> None:
         """
         stability
@@ -71,7 +78,9 @@ class InnerClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.child.I
         return jsii.sget(cls, "staticProp")
 
 
-class OuterClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.child.OuterClass"):
+class OuterClass(
+    metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.child.OuterClass"
+):
     """Checks that classes can self-reference during initialization.
 
     see
@@ -79,6 +88,7 @@ class OuterClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.child.O
     stability
     :stability: experimental
     """
+
     def __init__(self) -> None:
         """
         stability
@@ -102,14 +112,20 @@ class SomeEnum(enum.Enum):
     stability
     :stability: experimental
     """
+
     SOME = "SOME"
     """
     stability
     :stability: experimental
     """
 
-@jsii.data_type(jsii_type="jsii-calc.submodule.child.SomeStruct", jsii_struct_bases=[], name_mapping={'prop': 'prop'})
-class SomeStruct():
+
+@jsii.data_type(
+    jsii_type="jsii-calc.submodule.child.SomeStruct",
+    jsii_struct_bases=[],
+    name_mapping={"prop": "prop"},
+)
+class SomeStruct:
     def __init__(self, *, prop: "SomeEnum") -> None:
         """
         :param prop: 
@@ -118,7 +134,7 @@ class SomeStruct():
         :stability: experimental
         """
         self._values = {
-            'prop': prop,
+            "prop": prop,
         }
 
     @builtins.property
@@ -127,7 +143,7 @@ class SomeStruct():
         stability
         :stability: experimental
         """
-        return self._values.get('prop')
+        return self._values.get("prop")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -136,11 +152,17 @@ class SomeStruct():
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'SomeStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "SomeStruct(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
-@jsii.data_type(jsii_type="jsii-calc.submodule.child.Structure", jsii_struct_bases=[], name_mapping={'bool': 'bool'})
-class Structure():
+@jsii.data_type(
+    jsii_type="jsii-calc.submodule.child.Structure",
+    jsii_struct_bases=[],
+    name_mapping={"bool": "bool"},
+)
+class Structure:
     def __init__(self, *, bool: bool) -> None:
         """
         :param bool: 
@@ -149,7 +171,7 @@ class Structure():
         :stability: experimental
         """
         self._values = {
-            'bool': bool,
+            "bool": bool,
         }
 
     @builtins.property
@@ -158,7 +180,7 @@ class Structure():
         stability
         :stability: experimental
         """
-        return self._values.get('bool')
+        return self._values.get("bool")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -167,7 +189,9 @@ class Structure():
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'Structure(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "Structure(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 __all__ = [

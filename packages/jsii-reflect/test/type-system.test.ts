@@ -360,6 +360,34 @@ describe('Stability', () => {
   });
 });
 
+test('TypeSystem.properties', async () => {
+  const ts = await typeSystemFromSource(`
+  export namespace submodule {
+    export class Foo {
+      public readonly test = 'TEST';
+    }
+    export interface Bar {
+      readonly baz: number;
+    }
+  }
+  `);
+  expect(ts.properties).toHaveLength(2);
+});
+
+test('TypeSystem.methods', async () => {
+  const ts = await typeSystemFromSource(`
+  export namespace submodule {
+    export class Foo {
+      public method(): void {}
+    }
+    export interface IBar {
+      baz(): number;
+    }
+  }
+  `);
+  expect(ts.methods).toHaveLength(2);
+});
+
 function resolveModuleDir(name: string) {
   return path.dirname(require.resolve(`${name}/package.json`));
 }
