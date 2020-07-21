@@ -322,6 +322,10 @@
           "stability": "deprecated",
           "summary": "Creates a Number object."
         },
+        "locationInModule": {
+          "filename": "lib/index.ts",
+          "line": 35
+        },
         "parameters": [
           {
             "docs": {
@@ -626,6 +630,10 @@
       "initializer": {
         "docs": {
           "stability": "deprecated"
+        },
+        "locationInModule": {
+          "filename": "lib/submodule/index.ts",
+          "line": 11
         }
       },
       "kind": "class",
@@ -668,5 +676,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "w6/8Kda6/JitSbpMK3LGPK5JGRxJ50gflR5S4sUEHKk="
+  "fingerprint": "fVfpIK7xUajlT1zkHIJ8uYJPvy0gLgEe5BM8afu1mVg="
 }
