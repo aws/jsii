@@ -517,6 +517,10 @@
           "stability": "experimental",
           "summary": "Creates a BinaryOperation."
         },
+        "locationInModule": {
+          "filename": "lib/calculator.ts",
+          "line": 43
+        },
         "parameters": [
           {
             "docs": {
@@ -1145,6 +1149,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2451
+        },
         "parameters": [
           {
             "name": "scope",
@@ -1479,6 +1487,10 @@
           "stability": "experimental",
           "summary": "Creates a BinaryOperation."
         },
+        "locationInModule": {
+          "filename": "lib/calculator.ts",
+          "line": 43
+        },
         "parameters": [
           {
             "docs": {
@@ -1575,6 +1587,10 @@
         "docs": {
           "stability": "experimental",
           "summary": "Creates a Calculator object."
+        },
+        "locationInModule": {
+          "filename": "lib/calculator.ts",
+          "line": 279
         },
         "parameters": [
           {
@@ -2047,6 +2063,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1915
+        },
         "parameters": [
           {
             "name": "map",
@@ -2229,6 +2249,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1864
         },
         "parameters": [
           {
@@ -2549,6 +2573,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1654
+        },
         "parameters": [
           {
             "name": "consumer",
@@ -2717,6 +2745,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2432
         },
         "parameters": [
           {
@@ -3045,6 +3077,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1792
         }
       },
       "kind": "class",
@@ -3146,6 +3182,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 303
+        },
         "parameters": [
           {
             "name": "arg1",
@@ -3233,6 +3273,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2292
         }
       },
       "kind": "class",
@@ -3289,6 +3333,10 @@
         "docs": {
           "deprecated": "this constructor is \"just\" okay",
           "stability": "deprecated"
+        },
+        "locationInModule": {
+          "filename": "lib/stability.ts",
+          "line": 91
         },
         "parameters": [
           {
@@ -4261,6 +4309,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/stability.ts",
+          "line": 22
+        },
         "parameters": [
           {
             "name": "readonlyString",
@@ -4394,6 +4446,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1357
+        },
         "parameters": [
           {
             "name": "success",
@@ -4487,6 +4543,10 @@
             "external": "true"
           },
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/stability.ts",
+          "line": 125
         },
         "parameters": [
           {
@@ -6611,6 +6671,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/erasures.ts",
+          "line": 15
+        },
         "parameters": [
           {
             "name": "property",
@@ -7884,6 +7948,10 @@
           "stability": "experimental",
           "summary": "Creates a BinaryOperation."
         },
+        "locationInModule": {
+          "filename": "lib/calculator.ts",
+          "line": 43
+        },
         "parameters": [
           {
             "docs": {
@@ -8015,6 +8083,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/calculator.ts",
+          "line": 94
         },
         "parameters": [
           {
@@ -8252,6 +8324,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1232
+        },
         "parameters": [
           {
             "name": "_param1",
@@ -8402,6 +8478,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 494
         },
         "parameters": [
           {
@@ -8619,6 +8699,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1101
+        },
         "parameters": [
           {
             "name": "delegate",
@@ -8666,6 +8750,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 296
         },
         "parameters": [
           {
@@ -8782,6 +8870,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1670
         },
         "parameters": [
           {
@@ -9095,6 +9187,10 @@
         "docs": {
           "stability": "experimental",
           "summary": "Creates a Power operation."
+        },
+        "locationInModule": {
+          "filename": "lib/calculator.ts",
+          "line": 218
         },
         "parameters": [
           {
@@ -9590,6 +9686,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 968
+        },
         "parameters": [
           {
             "name": "self",
@@ -9657,6 +9757,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 976
         },
         "parameters": [
           {
@@ -10374,6 +10478,10 @@
         "docs": {
           "stability": "stable"
         },
+        "locationInModule": {
+          "filename": "lib/stability.ts",
+          "line": 57
+        },
         "parameters": [
           {
             "name": "readonlyString",
@@ -10555,6 +10663,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 682
         },
         "parameters": [
           {
@@ -11224,6 +11336,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/calculator.ts",
+          "line": 195
         }
       },
       "kind": "class",
@@ -11281,6 +11397,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1975
         },
         "parameters": [
           {
@@ -11429,6 +11549,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1960
         },
         "parameters": [
           {
@@ -11916,6 +12040,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/calculator.ts",
+          "line": 94
+        },
         "parameters": [
           {
             "name": "operand",
@@ -12026,6 +12154,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/submodules.ts",
+          "line": 9
         },
         "parameters": [
           {
@@ -12162,6 +12294,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 588
+        },
         "parameters": [
           {
             "name": "obj",
@@ -12267,6 +12403,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 673
+        },
         "parameters": [
           {
             "name": "method",
@@ -12324,6 +12464,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 659
         },
         "parameters": [
           {
@@ -12592,6 +12736,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 1747
+        },
         "parameters": [
           {
             "name": "privateField",
@@ -12790,6 +12938,10 @@
         "docs": {
           "stability": "experimental"
         },
+        "locationInModule": {
+          "filename": "lib/submodule/my-class.ts",
+          "line": 11
+        },
         "parameters": [
           {
             "name": "props",
@@ -12984,6 +13136,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/submodule/child/index.ts",
+          "line": 40
         }
       },
       "kind": "class",
@@ -13023,6 +13179,10 @@
       "initializer": {
         "docs": {
           "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/submodule/child/index.ts",
+          "line": 27
         }
       },
       "kind": "class",
@@ -13218,5 +13378,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "5Tv5ECDhqPZgUeGoaL8LTa8pvOZnosdszen+rYjvQ8s="
+  "fingerprint": "KrxhHrcWUKwxL1npAlOFVhDgFnYyrYUdmZw4cPNNAw0="
 }

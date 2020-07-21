@@ -1267,7 +1267,9 @@ export class Assembler implements Emitter {
           ts.ModifierFlags.Private) ===
         0
       ) {
-        jsiiType.initializer = {};
+        jsiiType.initializer = {
+          locationInModule: this.declarationLocation(ctorDeclaration),
+        };
         if (signature) {
           for (const param of signature.getParameters()) {
             jsiiType.initializer.parameters =
