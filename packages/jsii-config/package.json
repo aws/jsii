@@ -19,7 +19,7 @@
     "jsii-config": "bin/jsii-config"
   },
   "devDependencies": {
-    "@types/inquirer": "^6.5.0",
+    "@types/inquirer": "^7.3.0",
     "@types/jest": "^26.0.5",
     "@types/jest-expect-message": "^1.0.2",
     "@types/node": "^10.17.26",
