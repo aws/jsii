@@ -11,6 +11,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ObjectRefsInCollections), fullyQualifiedName: "jsii-calc.ObjectRefsInCollections")]
     public class ObjectRefsInCollections : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public ObjectRefsInCollections(): base(new DeputyProps(new object[]{}))
         {
         }

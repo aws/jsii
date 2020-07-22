@@ -10,6 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClassBase), fullyQualifiedName: "jsii-calc.AbstractClassBase")]
     public abstract class AbstractClassBase : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         protected AbstractClassBase(): base(new DeputyProps(new object[]{}))
         {
         }

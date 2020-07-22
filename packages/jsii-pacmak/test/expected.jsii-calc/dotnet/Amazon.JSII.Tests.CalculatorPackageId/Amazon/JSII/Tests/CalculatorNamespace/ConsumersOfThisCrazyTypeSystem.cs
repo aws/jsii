@@ -10,6 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumersOfThisCrazyTypeSystem), fullyQualifiedName: "jsii-calc.ConsumersOfThisCrazyTypeSystem")]
     public class ConsumersOfThisCrazyTypeSystem : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public ConsumersOfThisCrazyTypeSystem(): base(new DeputyProps(new object[]{}))
         {
         }

@@ -16,6 +16,10 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
         super(initializationMode);
     }
 
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected PartiallyInitializedThisConsumer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);

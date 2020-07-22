@@ -11,6 +11,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PropertyNamedProperty), fullyQualifiedName: "jsii-calc.PropertyNamedProperty")]
     public class PropertyNamedProperty : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public PropertyNamedProperty(): base(new DeputyProps(new object[]{}))
         {
         }

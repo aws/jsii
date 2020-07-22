@@ -11,6 +11,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ReferenceEnumFromScopedPackage), fullyQualifiedName: "jsii-calc.ReferenceEnumFromScopedPackage")]
     public class ReferenceEnumFromScopedPackage : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public ReferenceEnumFromScopedPackage(): base(new DeputyProps(new object[]{}))
         {
         }

@@ -14,6 +14,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes), fullyQualifiedName: "jsii-calc.AllTypes")]
     public class AllTypes : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public AllTypes(): base(new DeputyProps(new object[]{}))
         {
         }

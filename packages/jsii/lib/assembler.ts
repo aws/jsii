@@ -1333,7 +1333,9 @@ export class Assembler implements Emitter {
         },
       );
     } else {
-      jsiiType.initializer = {};
+      jsiiType.initializer = {
+        docs: ctx.stability && { stability: ctx.stability },
+      };
     }
 
     this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);

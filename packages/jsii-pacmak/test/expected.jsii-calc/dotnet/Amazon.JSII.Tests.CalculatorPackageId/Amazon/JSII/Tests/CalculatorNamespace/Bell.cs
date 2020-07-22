@@ -10,6 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Bell), fullyQualifiedName: "jsii-calc.Bell")]
     public class Bell : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IBell
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public Bell(): base(new DeputyProps(new object[]{}))
         {
         }

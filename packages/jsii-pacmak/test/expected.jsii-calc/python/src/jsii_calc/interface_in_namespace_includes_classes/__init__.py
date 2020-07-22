@@ -21,6 +21,10 @@ class Foo(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Foo, self, [])
 
     @builtins.property

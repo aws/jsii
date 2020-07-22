@@ -10,6 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VirtualMethodPlayground), fullyQualifiedName: "jsii-calc.VirtualMethodPlayground")]
     public class VirtualMethodPlayground : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public VirtualMethodPlayground(): base(new DeputyProps(new object[]{}))
         {
         }
