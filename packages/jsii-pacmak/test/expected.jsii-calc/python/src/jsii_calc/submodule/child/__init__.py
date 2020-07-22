@@ -194,10 +194,59 @@ class Structure:
         )
 
 
+@jsii.data_type(
+    jsii_type="jsii-calc.submodule.child.KwargsProps",
+    jsii_struct_bases=[SomeStruct],
+    name_mapping={"prop": "prop", "extra": "extra"},
+)
+class KwargsProps(SomeStruct):
+    def __init__(self, *, prop: "SomeEnum", extra: typing.Optional[str] = None) -> None:
+        """
+        :param prop: 
+        :param extra: 
+
+        stability
+        :stability: experimental
+        """
+        self._values = {
+            "prop": prop,
+        }
+        if extra is not None:
+            self._values["extra"] = extra
+
+    @builtins.property
+    def prop(self) -> "SomeEnum":
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get("prop")
+
+    @builtins.property
+    def extra(self) -> typing.Optional[str]:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get("extra")
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "KwargsProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
 __all__ = [
     "Awesomeness",
     "Goodness",
     "InnerClass",
+    "KwargsProps",
     "OuterClass",
     "SomeEnum",
     "SomeStruct",

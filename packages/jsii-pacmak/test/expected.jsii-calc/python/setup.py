@@ -28,6 +28,7 @@ kwargs = json.loads(
         "jsii_calc.submodule",
         "jsii_calc.submodule.back_references",
         "jsii_calc.submodule.child",
+        "jsii_calc.submodule.isolated",
         "jsii_calc.submodule.nested_submodule",
         "jsii_calc.submodule.nested_submodule.deeply_nested"
     ],

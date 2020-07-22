@@ -37,3 +37,7 @@ export interface SomeStruct {
 export class InnerClass {
   public static readonly staticProp: SomeStruct = { prop: SomeEnum.SOME };
 }
+
+export interface KwargsProps extends SomeStruct {
+  readonly extra?: string;
+}
