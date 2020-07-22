@@ -59,6 +59,10 @@ class AbstractClassBase(
         return _AbstractClassBaseProxy
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(AbstractClassBase, self, [])
 
     @builtins.property
@@ -92,6 +96,10 @@ class AbstractClassReturner(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(AbstractClassReturner, self, [])
 
     @jsii.member(jsii_name="giveMeAbstract")
@@ -134,6 +142,10 @@ class AbstractSuite(
         return _AbstractSuiteProxy
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(AbstractSuite, self, [])
 
     @jsii.member(jsii_name="someMethod")
@@ -210,6 +222,10 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(AllTypes, self, [])
 
     @jsii.member(jsii_name="anyIn")
@@ -537,6 +553,10 @@ class AllowedMethodNames(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(AllowedMethodNames, self, [])
 
     @jsii.member(jsii_name="getBar")
@@ -637,6 +657,10 @@ class AsyncVirtualMethods(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(AsyncVirtualMethods, self, [])
 
     @jsii.member(jsii_name="callMe")
@@ -703,6 +727,10 @@ class AugmentableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Augmentable
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(AugmentableClass, self, [])
 
     @jsii.member(jsii_name="methodOne")
@@ -729,6 +757,10 @@ class BaseJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.BaseJsii976"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(BaseJsii976, self, [])
 
 
@@ -1147,6 +1179,10 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ClassWithDocs, self, [])
 
 
@@ -1196,6 +1232,10 @@ class ClassWithMutableObjectLiteralProperty(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ClassWithMutableObjectLiteralProperty, self, [])
 
     @builtins.property
@@ -1352,6 +1392,10 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Constructors, self, [])
 
     @jsii.member(jsii_name="hiddenInterface")
@@ -1457,6 +1501,10 @@ class ConsumerCanRingBell(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ConsumerCanRingBell, self, [])
 
     @jsii.member(jsii_name="staticImplementedByObjectLiteral")
@@ -1577,6 +1625,10 @@ class ConsumersOfThisCrazyTypeSystem(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ConsumersOfThisCrazyTypeSystem, self, [])
 
     @jsii.member(jsii_name="consumeAnotherPublicInterface")
@@ -2306,6 +2358,10 @@ class DoNotOverridePrivates(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(DoNotOverridePrivates, self, [])
 
     @jsii.member(jsii_name="changePrivatePropertyValue")
@@ -2345,6 +2401,10 @@ class DoNotRecognizeAnyAsOptional(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(DoNotRecognizeAnyAsOptional, self, [])
 
     @jsii.member(jsii_name="method")
@@ -2377,6 +2437,10 @@ class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedCl
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(DocumentedClass, self, [])
 
     @jsii.member(jsii_name="greet")
@@ -2415,6 +2479,10 @@ class DontComplainAboutVariadicAfterOptional(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(DontComplainAboutVariadicAfterOptional, self, [])
 
     @jsii.member(jsii_name="optionalAndVariadic")
@@ -2465,6 +2533,10 @@ class EraseUndefinedHashValues(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(EraseUndefinedHashValues, self, [])
 
     @jsii.member(jsii_name="doesKeyExist")
@@ -2870,6 +2942,10 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(GiveMeStructs, self, [])
 
     @jsii.member(jsii_name="derivedToFirst")
@@ -3044,6 +3120,10 @@ class GreetingAugmenter(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(GreetingAugmenter, self, [])
 
     @jsii.member(jsii_name="betterGreeting")
@@ -4668,6 +4748,10 @@ class ImplementInternalInterface(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ImplementInternalInterface, self, [])
 
     @builtins.property
@@ -4691,6 +4775,10 @@ class Implementation(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Implementatio
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Implementation, self, [])
 
     @builtins.property
@@ -4713,6 +4801,10 @@ class ImplementsInterfaceWithInternal(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ImplementsInterfaceWithInternal, self, [])
 
     @jsii.member(jsii_name="visible")
@@ -4735,6 +4827,10 @@ class ImplementsInterfaceWithInternalSubclass(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ImplementsInterfaceWithInternalSubclass, self, [])
 
 
@@ -4747,6 +4843,10 @@ class ImplementsPrivateInterface(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ImplementsPrivateInterface, self, [])
 
     @builtins.property
@@ -4902,6 +5002,10 @@ class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorp
         return _IsomorphismProxy
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Isomorphism, self, [])
 
     @jsii.member(jsii_name="myself")
@@ -4926,6 +5030,10 @@ class JSII417PublicBaseOfBase(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(JSII417PublicBaseOfBase, self, [])
 
     @jsii.member(jsii_name="makeInstance")
@@ -4964,6 +5072,10 @@ class JSObjectLiteralForInterface(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(JSObjectLiteralForInterface, self, [])
 
     @jsii.member(jsii_name="giveMeFriendly")
@@ -4992,6 +5104,10 @@ class JSObjectLiteralToNative(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(JSObjectLiteralToNative, self, [])
 
     @jsii.member(jsii_name="returnLiteral")
@@ -5012,6 +5128,10 @@ class JSObjectLiteralToNativeClass(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(JSObjectLiteralToNativeClass, self, [])
 
     @builtins.property
@@ -5050,6 +5170,10 @@ class JavaReservedWords(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(JavaReservedWords, self, [])
 
     @jsii.member(jsii_name="abstract")
@@ -5490,6 +5614,10 @@ class Jsii487Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii487Derive
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Jsii487Derived, self, [])
 
 
@@ -5501,6 +5629,10 @@ class Jsii496Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii496Derive
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Jsii496Derived, self, [])
 
 
@@ -5512,6 +5644,10 @@ class JsiiAgent(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsiiAgent"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(JsiiAgent, self, [])
 
     @jsii.python.classproperty
@@ -5814,6 +5950,10 @@ class MethodNamedProperty(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(MethodNamedProperty, self, [])
 
     @jsii.member(jsii_name="property")
@@ -5952,6 +6092,10 @@ class NodeStandardLibrary(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(NodeStandardLibrary, self, [])
 
     @jsii.member(jsii_name="cryptoSha256")
@@ -6195,6 +6339,10 @@ class ObjectRefsInCollections(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ObjectRefsInCollections, self, [])
 
     @jsii.member(jsii_name="sumFromArray")
@@ -6253,6 +6401,10 @@ class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Old, self, [])
 
     @jsii.member(jsii_name="doAThing")
@@ -6437,6 +6589,10 @@ class OverridableProtectedMember(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(OverridableProtectedMember, self, [])
 
     @jsii.member(jsii_name="overrideMe")
@@ -6495,6 +6651,10 @@ class OverrideReturnsObject(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(OverrideReturnsObject, self, [])
 
     @jsii.member(jsii_name="test")
@@ -6560,6 +6720,10 @@ class PartiallyInitializedThisConsumer(
         return _PartiallyInitializedThisConsumerProxy
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(PartiallyInitializedThisConsumer, self, [])
 
     @jsii.member(jsii_name="consumePartiallyInitializedThis")
@@ -6601,6 +6765,10 @@ class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Polymorphism, self, [])
 
     @jsii.member(jsii_name="sayHello")
@@ -6679,6 +6847,10 @@ class PropertyNamedProperty(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(PropertyNamedProperty, self, [])
 
     @builtins.property
@@ -6707,6 +6879,10 @@ class PublicClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PublicClass"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(PublicClass, self, [])
 
     @jsii.member(jsii_name="hello")
@@ -6727,6 +6903,10 @@ class PythonReservedWords(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(PythonReservedWords, self, [])
 
     @jsii.member(jsii_name="and")
@@ -6996,6 +7176,10 @@ class ReferenceEnumFromScopedPackage(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ReferenceEnumFromScopedPackage, self, [])
 
     @jsii.member(jsii_name="loadFoo")
@@ -7048,6 +7232,10 @@ class ReturnsPrivateImplementationOfInterface(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ReturnsPrivateImplementationOfInterface, self, [])
 
     @builtins.property
@@ -7151,6 +7339,10 @@ class RuntimeTypeChecking(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(RuntimeTypeChecking, self, [])
 
     @jsii.member(jsii_name="methodWithDefaultedArguments")
@@ -7271,6 +7463,10 @@ class SingleInstanceTwoTypes(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(SingleInstanceTwoTypes, self, [])
 
     @jsii.member(jsii_name="interface1")
@@ -7416,6 +7612,10 @@ class SomeTypeJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SomeTypeJsii
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(SomeTypeJsii976, self, [])
 
     @jsii.member(jsii_name="returnAnonymous")
@@ -7678,6 +7878,10 @@ class StripInternal(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StripInternal"
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(StripInternal, self, [])
 
     @builtins.property
@@ -7891,6 +8095,10 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
     """Just because we can."""
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(StructPassing, self, [])
 
     @jsii.member(jsii_name="howManyVarArgsDidIPass")
@@ -8198,6 +8406,10 @@ class SyncVirtualMethods(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(SyncVirtualMethods, self, [])
 
     @jsii.member(jsii_name="callerIsAsync")
@@ -8370,6 +8582,10 @@ class Thrower(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Thrower"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Thrower, self, [])
 
     @jsii.member(jsii_name="throwError")
@@ -8614,6 +8830,10 @@ class UseBundledDependency(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(UseBundledDependency, self, [])
 
     @jsii.member(jsii_name="value")
@@ -8633,6 +8853,10 @@ class UseCalcBase(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UseCalcBase"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(UseCalcBase, self, [])
 
     @jsii.member(jsii_name="hello")
@@ -8763,6 +8987,10 @@ class VirtualMethodPlayground(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(VirtualMethodPlayground, self, [])
 
     @jsii.member(jsii_name="overrideMeAsync")
@@ -8834,6 +9062,10 @@ class VoidCallback(
         return _VoidCallbackProxy
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(VoidCallback, self, [])
 
     @jsii.member(jsii_name="callMe")
@@ -8917,6 +9149,10 @@ class AbstractClass(
         return _AbstractClassProxy
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(AbstractClass, self, [])
 
     @jsii.member(jsii_name="abstractMethod")
@@ -9010,6 +9246,10 @@ class AnonymousImplementationProvider(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(AnonymousImplementationProvider, self, [])
 
     @jsii.member(jsii_name="provideAsClass")
@@ -9037,6 +9277,10 @@ class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Bell, self, [])
 
     @jsii.member(jsii_name="ring")
@@ -9119,6 +9363,10 @@ class ClassThatImplementsTheInternalInterface(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ClassThatImplementsTheInternalInterface, self, [])
 
     @builtins.property
@@ -9185,6 +9433,10 @@ class ClassThatImplementsThePrivateInterface(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(ClassThatImplementsThePrivateInterface, self, [])
 
     @builtins.property
@@ -9439,6 +9691,10 @@ class InbetweenClass(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(InbetweenClass, self, [])
 
     @jsii.member(jsii_name="ciao")
@@ -9615,6 +9871,10 @@ class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(DoubleTrouble, self, [])
 
     @jsii.member(jsii_name="hello")

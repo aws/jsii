@@ -511,7 +511,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── type: Map<string => string>
  │   ├─┬ class ClassWithDocs (stable)
  │   │ └─┬ members
- │   │   └── <initializer>() initializer (stable)
+ │   │   └── <initializer>() initializer (experimental)
  │   ├─┬ class ClassWithJavaReservedWords (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(int) initializer (experimental)
@@ -754,7 +754,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── returns: void
  │   ├─┬ class DocumentedClass (stable)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer (stable)
+ │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ greet(greetee) method (stable)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ greetee
@@ -1612,7 +1612,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── type: string
  │   ├─┬ class StructPassing
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
+ │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ static howManyVarArgsDidIPass(_positional,inputs) method
  │   │   │ ├── static
  │   │   │ ├── variadic

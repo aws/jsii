@@ -16,6 +16,10 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
         super(initializationMode);
     }
 
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DoubleTrouble() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);

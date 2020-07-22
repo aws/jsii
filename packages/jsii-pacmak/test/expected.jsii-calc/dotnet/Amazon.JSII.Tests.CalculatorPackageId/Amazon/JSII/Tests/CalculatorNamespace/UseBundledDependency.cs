@@ -10,6 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UseBundledDependency), fullyQualifiedName: "jsii-calc.UseBundledDependency")]
     public class UseBundledDependency : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public UseBundledDependency(): base(new DeputyProps(new object[]{}))
         {
         }

@@ -1,48 +1,59 @@
+import * as lib from '@scope/jsii-calc-lib';
 import {
-    EnumFromScopedModule,
-    IDoublable,
-    IFriendly,
-    MyFirstStruct,
-    Number,
-    StructWithOnlyOptionals,
-    Value
+  EnumFromScopedModule,
+  IDoublable,
+  IFriendly,
+  MyFirstStruct,
+  StructWithOnlyOptionals,
+  Value,
 } from '@scope/jsii-calc-lib';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import * as crypto from 'crypto';
 import { promisify } from 'util';
-import { IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
+import {
+  IFriendlyRandomGenerator,
+  IRandomNumberGenerator,
+  Multiply,
+} from './calculator';
 
+/* eslint-disable
+  @typescript-eslint/explicit-module-boundary-types,
+  @typescript-eslint/no-namespace,
+  @typescript-eslint/member-ordering,
+*/
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const bundled = require('@fixtures/jsii-calc-bundled');
 import * as base from '@scope/jsii-calc-base';
 
 const readFile = promisify(fs.readFile);
 
 export enum AllTypesEnum {
-    MY_ENUM_VALUE,
-    YOUR_ENUM_VALUE = 100,
-    THIS_IS_GREAT
+  MY_ENUM_VALUE,
+  YOUR_ENUM_VALUE = 100,
+  THIS_IS_GREAT,
 }
 
 export enum StringEnum {
-    A = 'A!',
-    B = 'B?',
-    C = 'C.'
+  A = 'A!',
+  B = 'B?',
+  C = 'C.',
 }
 
 export class EnumDispenser {
-    public static randomStringLikeEnum(): StringEnum {
-        // Haha! I lied, it's not random!! *EVIL LAUGHTER*
-        return StringEnum.B;
-    }
+  public static randomStringLikeEnum(): StringEnum {
+    // Haha! I lied, it's not random!! *EVIL LAUGHTER*
+    return StringEnum.B;
+  }
 
-    public static randomIntegerLikeEnum(): AllTypesEnum {
-        // Haha! I lied, it's not random!! *EVIL LAUGHTER*
-        return AllTypesEnum.YOUR_ENUM_VALUE;
-    }
+  public static randomIntegerLikeEnum(): AllTypesEnum {
+    // Haha! I lied, it's not random!! *EVIL LAUGHTER*
+    return AllTypesEnum.YOUR_ENUM_VALUE;
+  }
 
-    private constructor() { }
+  private constructor() {}
 }
 
 /**
@@ -50,178 +61,181 @@ export class EnumDispenser {
  * that the value set is of the expected type and throw otherwise.
  */
 export class AllTypes {
+  // boolean
 
-    // boolean
+  private boolValue = false;
 
-    private boolValue = false;
+  public get booleanProperty() {
+    return this.boolValue;
+  }
 
-    get booleanProperty() {
-        return this.boolValue;
+  public set booleanProperty(value: boolean) {
+    if (typeof value !== 'boolean') {
+      throw new Error('not a boolean');
+    }
+    this.boolValue = value;
+  }
+
+  // string
+
+  private stringValue = 'first value';
+
+  public get stringProperty() {
+    return this.stringValue;
+  }
+
+  public set stringProperty(value: string) {
+    if (typeof value !== 'string') {
+      throw new Error('not a string');
     }
 
-    set booleanProperty(value: boolean) {
-        if (typeof(value) !== 'boolean') {
-            throw new Error('not a boolean');
-        }
-        this.boolValue = value;
+    this.stringValue = value;
+  }
+
+  // number
+
+  private numberValue = 0;
+
+  public get numberProperty() {
+    return this.numberValue;
+  }
+
+  public set numberProperty(value: number) {
+    if (typeof value !== 'number') {
+      throw new Error('not a number');
+    }
+    this.numberValue = value;
+  }
+
+  // date
+
+  private dateValue = new Date();
+
+  public get dateProperty(): Date {
+    return this.dateValue;
+  }
+
+  public set dateProperty(value: Date) {
+    // https://stackoverflow.com/a/643827/737957
+    if (Object.prototype.toString.call(value) !== '[object Date]') {
+      throw new Error(`not a date: ${value as any} type=${typeof value}`);
     }
 
-    // string
+    this.dateValue = value;
+  }
 
-    private stringValue = 'first value';
+  // json
 
-    get stringProperty() {
-        return this.stringValue;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  private jsonValue: object = {};
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  public get jsonProperty(): object {
+    return this.jsonValue;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  public set jsonProperty(value: object) {
+    if (typeof value !== 'object') {
+      throw new Error('not an object');
     }
 
-    set stringProperty(value: string) {
-        if (typeof(value) !== 'string') {
-            throw new Error('not a string');
-        }
+    this.jsonValue = value;
+  }
 
-        this.stringValue = value;
+  // map
+
+  private mapValue: { [key: string]: lib.Number } = {};
+
+  public get mapProperty(): { [key: string]: lib.Number } {
+    return this.mapValue;
+  }
+
+  public set mapProperty(value: { [key: string]: lib.Number }) {
+    if (typeof value !== 'object') {
+      throw new Error('not a map');
+    }
+    this.mapValue = value;
+  }
+
+  // array
+
+  private arrayValue: string[] = [];
+
+  public get arrayProperty(): string[] {
+    return this.arrayValue;
+  }
+
+  public set arrayProperty(value: string[]) {
+    if (!Array.isArray(value)) {
+      throw new Error('not an array');
     }
 
-    // number
+    this.arrayValue = value;
+  }
 
-    private numberValue = 0;
+  // non-typed (any)
 
-    get numberProperty() {
-        return this.numberValue;
+  public anyProperty: any;
+  public anyArrayProperty: any[] = [];
+  public anyMapProperty: { [key: string]: any } = {};
+
+  // non-typed (unknown)
+
+  public unknownProperty: unknown;
+  public unknownArrayProperty: unknown[] = [];
+  public unknownMapProperty: { [key: string]: unknown } = {};
+
+  // unions
+
+  public unionProperty: string | number | lib.Number | Multiply = 'foo';
+  public unionArrayProperty: Array<Value | number> = [];
+  public unionMapProperty: { [key: string]: lib.Number | number | string } = {};
+
+  // enum
+
+  public optionalEnumValue?: StringEnum;
+  private enumValue: AllTypesEnum = AllTypesEnum.THIS_IS_GREAT;
+
+  public get enumProperty() {
+    return this.enumValue;
+  }
+
+  public set enumProperty(value: AllTypesEnum) {
+    this.enumValue = value;
+    switch (value) {
+      case AllTypesEnum.MY_ENUM_VALUE:
+      case AllTypesEnum.YOUR_ENUM_VALUE:
+      case AllTypesEnum.THIS_IS_GREAT:
+        return;
+      default:
+        throw new Error(`Invalid enum: ${value as any}`);
     }
+  }
 
-    set numberProperty(value: number) {
-        if (typeof(value) !== 'number') {
-            throw new Error('not a number');
-        }
-        this.numberValue = value;
+  public get enumPropertyValue(): number {
+    return this.enumValue.valueOf();
+  }
+
+  public enumMethod(value: StringEnum) {
+    return value;
+  }
+
+  public anyOut(): any {
+    const ret = new Number(42);
+    Object.defineProperty(ret, 'tag', {
+      value: "you're it",
+    });
+    return ret;
+  }
+
+  public anyIn(inp: any) {
+    if (inp.tag !== "you're it") {
+      throw new Error(
+        `Not the same object that I gave you, got: ${JSON.stringify(inp)}`,
+      );
     }
-
-    // date
-
-    private dateValue = new Date();
-
-    get dateProperty(): Date {
-        return this.dateValue;
-    }
-
-    set dateProperty(value: Date) {
-        // https://stackoverflow.com/a/643827/737957
-        if (Object.prototype.toString.call(value) !== '[object Date]') {
-            throw new Error('not a date: ' + value + ' type=' + typeof(value));
-        }
-
-        this.dateValue = value;
-    }
-
-    // json
-
-    private jsonValue: object = {};
-
-    get jsonProperty(): object {
-        return this.jsonValue;
-    }
-
-    set jsonProperty(value: object) {
-        if (typeof(value) !== 'object') {
-            throw new Error('not an object');
-        }
-
-        this.jsonValue = value;
-    }
-
-    // map
-
-    private mapValue: { [key: string]: Number } = {};
-
-    get mapProperty(): { [key: string]: Number } {
-        return this.mapValue;
-    }
-
-    set mapProperty(value: { [key: string]: Number }) {
-        if (typeof(value) !== 'object') {
-            throw new Error('not a map');
-        }
-        this.mapValue = value;
-    }
-
-    // array
-
-    private arrayValue: string[] = [];
-
-    get arrayProperty(): string[] {
-        return this.arrayValue;
-    }
-
-    set arrayProperty(value: string[]) {
-        if (!Array.isArray(value)) {
-            throw new Error('not an array');
-        }
-
-        this.arrayValue = value;
-    }
-
-    // non-typed (any)
-
-    anyProperty: any;
-    anyArrayProperty: any[] = [];
-    anyMapProperty: { [key: string]: any } = {};
-
-    // non-typed (unknown)
-
-    unknownProperty: unknown;
-    unknownArrayProperty: unknown[] = [];
-    unknownMapProperty: { [key: string]: unknown } = {};
-
-    // unions
-
-    unionProperty: string | number | Number | Multiply = 'foo';
-    unionArrayProperty: (Value | number)[] = [];
-    unionMapProperty: { [key: string]: (Number | number | string) } = {};
-
-    // enum
-
-    public optionalEnumValue?: StringEnum;
-    private enumValue: AllTypesEnum = AllTypesEnum.THIS_IS_GREAT;
-
-    get enumProperty() {
-        return this.enumValue;
-    }
-
-    set enumProperty(value: AllTypesEnum) {
-        this.enumValue = value;
-        switch (value) {
-            case AllTypesEnum.MY_ENUM_VALUE:
-            case AllTypesEnum.YOUR_ENUM_VALUE:
-            case AllTypesEnum.THIS_IS_GREAT:
-                return;
-            default:
-                throw new Error('Invalid enum: ' + value);
-        }
-    }
-
-    get enumPropertyValue(): number {
-        return this.enumValue.valueOf();
-    }
-
-    enumMethod(value: StringEnum) {
-        return value;
-    }
-
-
-    public anyOut(): any {
-        const ret = new Number(42);
-        Object.defineProperty(ret, 'tag', {
-            value: "you're it"
-        });
-        return ret;
-    }
-
-    public anyIn(inp: any) {
-        if (inp.tag !== "you're it") {
-            throw new Error(`Not the same object that I gave you, got: ${JSON.stringify(inp)}`);
-        }
-    }
+  }
 }
 
 //
@@ -231,259 +245,257 @@ export class AllTypes {
 //
 
 export class JSObjectLiteralToNative {
-    returnLiteral(): JSObjectLiteralToNativeClass {
-        return {
-            propA: 'Hello',
-            propB: 102
-        };
-    }
+  public returnLiteral(): JSObjectLiteralToNativeClass {
+    return {
+      propA: 'Hello',
+      propB: 102,
+    };
+  }
 }
 
 export class JSObjectLiteralToNativeClass {
-    propA: string = 'A';
-    propB: number = 0;
+  public propA = 'A';
+  public propB = 0;
 }
 
 /**
  * Verify that object references can be passed inside collections.
  */
 export class ObjectRefsInCollections {
-    /**
-     * Returns the sum of all values
-     */
-    sumFromArray(values: Value[]) {
-        let sum = 0;
-        for (let val of values) {
-            sum += val.value;
-        }
-        return sum;
+  /**
+   * Returns the sum of all values
+   */
+  public sumFromArray(values: Value[]) {
+    let sum = 0;
+    for (const val of values) {
+      sum += val.value;
     }
+    return sum;
+  }
 
-    /**
-     * Returns the sum of all values in a map
-     */
-    sumFromMap(values: { [key: string]: Value }) {
-        let sum = 0;
-        for (let key of Object.keys(values)) {
-            sum += values[key].value;
-        }
-        return sum;
+  /**
+   * Returns the sum of all values in a map
+   */
+  public sumFromMap(values: { [key: string]: Value }) {
+    let sum = 0;
+    for (const key of Object.keys(values)) {
+      sum += values[key].value;
     }
+    return sum;
+  }
 }
 
 export class RuntimeTypeChecking {
-    /**
-     * Used to verify verification of number of method arguments.
-     */
-    public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
-        arg1;
-        arg2;
-        arg3;
-    }
+  /**
+   * Used to verify verification of number of method arguments.
+   */
+  public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
+    consume(arg1, arg2, arg3);
+  }
 
-    public methodWithDefaultedArguments(arg1: number = 2, arg2?: string, arg3: Date = new Date()) {
-        arg1;
-        arg2;
-        arg3;
-    }
+  public methodWithDefaultedArguments(
+    arg1 = 2,
+    arg2?: string,
+    arg3: Date = new Date(),
+  ) {
+    consume(arg1, arg2, arg3);
+  }
 
-    public methodWithOptionalAnyArgument(arg?: any) {
-        arg;
-    }
+  public methodWithOptionalAnyArgument(arg?: any) {
+    consume(arg);
+  }
 }
 
 export class OptionalConstructorArgument {
-    public constructor(public readonly arg1: number,
-                       public readonly arg2: string,
-                       public readonly arg3?: Date) {
-    }
+  public constructor(
+    public readonly arg1: number,
+    public readonly arg2: string,
+    public readonly arg3?: Date,
+  ) {}
 }
 
 export class DefaultedConstructorArgument {
-    public constructor(public readonly arg1: number = 2,
-                       public readonly arg2?: string,
-                       public readonly arg3: Date = new Date()) {
-    }
+  public constructor(
+    public readonly arg1: number = 2,
+    public readonly arg2?: string,
+    public readonly arg3: Date = new Date(),
+  ) {}
 }
 
 export namespace DerivedClassHasNoProperties {
+  export class Base {
+    public prop = '';
+  }
 
-    export class Base {
-        prop: string = '';
-    }
-
-    export class Derived extends Base {
-
-    }
-
+  export class Derived extends Base {}
 }
 
 export class AsyncVirtualMethods {
-    async callMe() {
-        return await this.overrideMe(10) + this.dontOverrideMe() + await this.overrideMeToo();
-    }
+  public async callMe() {
+    return (
+      (await this.overrideMe(10)) +
+      this.dontOverrideMe() +
+      (await this.overrideMeToo())
+    );
+  }
 
-    async overrideMe(mult: number) {
-        return 12 * mult;
-    }
+  public async overrideMe(mult: number) {
+    return Promise.resolve(12 * mult);
+  }
 
-    async overrideMeToo() {
-        return 0;
-    }
+  public async overrideMeToo() {
+    return Promise.resolve(0);
+  }
 
-    /**
-     * Just calls "overrideMeToo"
-     */
-    callMe2() {
-        return this.overrideMeToo();
-    }
+  /**
+   * Just calls "overrideMeToo"
+   */
+  public async callMe2() {
+    return this.overrideMeToo();
+  }
 
-    /**
-     * This method calls the "callMe" async method indirectly, which will then
-     * invoke a virtual method. This is a "double promise" situation, which
-     * means that callbacks are not going to be available immediate, but only
-     * after an "immediates" cycle.
-     */
-    async callMeDoublePromise() {
-        return new Promise<number>(ok => {
-            setImmediate(() => {
-                this.callMe().then(ok);
-            });
-        });
-    }
+  /**
+   * This method calls the "callMe" async method indirectly, which will then
+   * invoke a virtual method. This is a "double promise" situation, which
+   * means that callbacks are not going to be available immediate, but only
+   * after an "immediates" cycle.
+   */
+  public async callMeDoublePromise() {
+    return new Promise<number>((ok, ko) => {
+      setImmediate(() => {
+        this.callMe().then(ok, ko);
+      });
+    });
+  }
 
-    dontOverrideMe() {
-        return 8;
-    }
+  public dontOverrideMe() {
+    return 8;
+  }
 }
 
 export class SyncVirtualMethods {
-    callerIsMethod() {
-        return this.virtualMethod(10);
-    }
+  public callerIsMethod() {
+    return this.virtualMethod(10);
+  }
 
-    get callerIsProperty() {
-        return this.virtualMethod(10);
-    }
+  public get callerIsProperty() {
+    return this.virtualMethod(10);
+  }
 
-    set callerIsProperty(x: number) {
-        this.virtualMethod(x);
-    }
+  public set callerIsProperty(x: number) {
+    this.virtualMethod(x);
+  }
 
-    async callerIsAsync() {
-        return this.virtualMethod(10);
-    }
+  public async callerIsAsync() {
+    return Promise.resolve(this.virtualMethod(10));
+  }
 
-    virtualMethod(n: number): number {
-        return n * 2;
-    }
+  public virtualMethod(n: number): number {
+    return n * 2;
+  }
 
-    // read-write property
+  // read-write property
 
-    theProperty: string = 'initial value';
+  public theProperty = 'initial value';
 
-    modifyValueOfTheProperty(value: string) {
-        this.theProperty = value;
-    }
+  public modifyValueOfTheProperty(value: string) {
+    this.theProperty = value;
+  }
 
-    retrieveValueOfTheProperty() {
-        return this.theProperty;
-    }
+  public retrieveValueOfTheProperty() {
+    return this.theProperty;
+  }
 
-    // read-only property
+  // read-only property
 
-    readonly readonlyProperty: string = 'readonly-property-initial-value';
+  public readonly readonlyProperty: string = 'readonly-property-initial-value';
 
-    retrieveReadOnlyProperty() {
-        return this.readonlyProperty;
-    }
+  public retrieveReadOnlyProperty() {
+    return this.readonlyProperty;
+  }
 
-    // property backed by functions
+  // property backed by functions
 
-    get otherProperty() {
-        return 'other property';
-    }
+  public get otherProperty() {
+    return 'other property';
+  }
 
-    set otherProperty(value: string) {
-        this.valueOfOtherProperty = value;
-    }
+  public set otherProperty(value: string) {
+    this.valueOfOtherProperty = value;
+  }
 
-    valueOfOtherProperty: string = '';
+  public valueOfOtherProperty = '';
 
-    public modifyOtherProperty(value: string) {
-        this.otherProperty = value;
-    }
+  public modifyOtherProperty(value: string) {
+    this.otherProperty = value;
+  }
 
-    public retrieveOtherProperty() {
-        return this.otherProperty;
-    }
+  public retrieveOtherProperty() {
+    return this.otherProperty;
+  }
 
-    // property with a short name (makes sure for example that java's
-    // convertion of getA to "a" is not assuming that the length is > 1).
+  // property with a short name (makes sure for example that java's
+  // convertion of getA to "a" is not assuming that the length is > 1).
 
-    a: number = 0;
+  public a = 0;
 
-    readA() {
-        return this.a;
-    }
+  public readA() {
+    return this.a;
+  }
 
-    writeA(value: number) {
-        this.a = value;
-    }
-
+  public writeA(value: number) {
+    this.a = value;
+  }
 }
 
 export class VirtualMethodPlayground {
-    async serialSumAsync(count: number) {
-        let sum = 0;
-        for (let i = 0; i < count; ++i) {
-            const result = await this.overrideMeAsync(i);
-            sum += result;
-        }
-        return sum;
+  public async serialSumAsync(count: number) {
+    return Promise.all(
+      new Array(count).map((_, idx) => this.overrideMeAsync(idx)),
+    ).then((promises) => promises.reduce((acc, elt) => acc + elt, 0));
+  }
+
+  public async parallelSumAsync(count: number) {
+    const all = new Array<Promise<number>>();
+    for (let i = 0; i < count; ++i) {
+      all.push(this.overrideMeAsync(i));
     }
 
-    async parallelSumAsync(count: number) {
-        let all = new Array<Promise<number>>();
-        for (let i = 0; i < count; ++i) {
-            all.push(this.overrideMeAsync(i));
-        }
+    const result = await Promise.all(all);
+    return result.reduce((x, i) => x + i, 0);
+  }
 
-        const result = await Promise.all(all);
-        return result.reduce((x, i) => x + i, 0);
+  public sumSync(count: number) {
+    let sum = 0;
+    for (let i = 0; i < count; ++i) {
+      sum += this.overrideMeSync(i);
     }
+    return sum;
+  }
 
-    sumSync(count: number) {
-        let sum = 0;
-        for (let i = 0; i < count; ++i) {
-            sum += this.overrideMeSync(i);
-        }
-        return sum;
-    }
+  public async overrideMeAsync(index: number) {
+    return Promise.resolve(10 * index);
+  }
 
-    async overrideMeAsync(index: number) {
-        return 10 * index;
-    }
-
-    overrideMeSync(index: number) {
-        return 10 * index;
-    }
+  public overrideMeSync(index: number) {
+    return 10 * index;
+  }
 }
 
 export class DoubleTrouble implements IFriendlyRandomGenerator {
-    next() {
-        return 12;
-    }
+  public next() {
+    return 12;
+  }
 
-    hello() {
-        return 'world';
-    }
+  public hello() {
+    return 'world';
+  }
 }
 
 export class Polymorphism {
-    sayHello(friendly: IFriendly) {
-        return `oh, ${friendly.hello()}`;
-    }
+  public sayHello(friendly: IFriendly) {
+    return `oh, ${friendly.hello()}`;
+  }
 }
 
 /**
@@ -491,579 +503,693 @@ export class Polymorphism {
  * implement interfaces.
  */
 export class NumberGenerator {
-    constructor(public generator: IRandomNumberGenerator) {
+  public constructor(public generator: IRandomNumberGenerator) {}
 
-    }
+  public nextTimes100() {
+    return this.generator.next() * 100;
+  }
 
-    nextTimes100() {
-        return this.generator.next() * 100;
-    }
-
-    isSameGenerator(gen: IRandomNumberGenerator) {
-        return this.generator === gen;
-    }
+  public isSameGenerator(gen: IRandomNumberGenerator) {
+    return this.generator === gen;
+  }
 }
 
 export class JSObjectLiteralForInterface {
+  public giveMeFriendly(): IFriendly {
+    return {
+      hello: () => 'I am literally friendly!',
+    };
+  }
 
-    giveMeFriendly(): IFriendly {
-        return {
-            hello: () => 'I am literally friendly!'
-        };
-    }
-
-    giveMeFriendlyGenerator(): IFriendlyRandomGenerator {
-        return {
-            hello: () => 'giveMeFriendlyGenerator',
-            next: () => 42
-        };
-    }
-
+  public giveMeFriendlyGenerator(): IFriendlyRandomGenerator {
+    return {
+      hello: () => 'giveMeFriendlyGenerator',
+      next: () => 42,
+    };
+  }
 }
 
 export class GreetingAugmenter {
-    betterGreeting(friendly: IFriendly): string {
-        return friendly.hello() + ' Let me buy you a drink!';
-    }
+  public betterGreeting(friendly: IFriendly): string {
+    return `${friendly.hello()} Let me buy you a drink!`;
+  }
 }
 
 /**
  * A struct which derives from another struct.
  */
 export interface DerivedStruct extends MyFirstStruct {
-    /**
-     * An example of a non primitive property.
-     */
-    readonly nonPrimitive: DoubleTrouble
-    readonly bool: boolean
-    readonly anotherRequired: Date
-    readonly optionalArray?: string[]
-    readonly optionalAny?: any
-    /**
-     * This is optional.
-     */
-    readonly anotherOptional?: { [key: string]: Value }
+  /**
+   * An example of a non primitive property.
+   */
+  readonly nonPrimitive: DoubleTrouble;
+  readonly bool: boolean;
+  readonly anotherRequired: Date;
+  readonly optionalArray?: string[];
+  readonly optionalAny?: any;
+  /**
+   * This is optional.
+   */
+  readonly anotherOptional?: { [key: string]: Value };
 }
 
 export class GiveMeStructs {
-    /**
-     * Returns the "anumber" from a MyFirstStruct struct;
-     */
-    readFirstNumber(first: MyFirstStruct) {
-        return first.anumber;
-    }
+  /**
+   * Returns the "anumber" from a MyFirstStruct struct;
+   */
+  public readFirstNumber(first: MyFirstStruct) {
+    return first.anumber;
+  }
 
-    /**
-     * Returns the boolean from a DerivedStruct struct.
-     */
-    readDerivedNonPrimitive(derived: DerivedStruct) {
-        return derived.nonPrimitive;
-    }
+  /**
+   * Returns the boolean from a DerivedStruct struct.
+   */
+  public readDerivedNonPrimitive(derived: DerivedStruct) {
+    return derived.nonPrimitive;
+  }
 
-    /**
-     * Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
-     */
-    derivedToFirst(derived: DerivedStruct) {
-        return derived as MyFirstStruct;
-    }
+  /**
+   * Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
+   */
+  public derivedToFirst(derived: DerivedStruct) {
+    return derived as MyFirstStruct;
+  }
 
-    get structLiteral(): StructWithOnlyOptionals {
-        return {
-            optional1: 'optional1FromStructLiteral',
-            optional3: false
-        };
-    }
+  public get structLiteral(): StructWithOnlyOptionals {
+    return {
+      optional1: 'optional1FromStructLiteral',
+      optional3: false,
+    };
+  }
 }
 
 export interface IInterfaceWithProperties {
-    readonly readOnlyString: string;
-    readWriteString: string;
+  readonly readOnlyString: string;
+  readWriteString: string;
 }
 
-export interface IInterfaceWithPropertiesExtension extends IInterfaceWithProperties {
-    foo: number;
+export interface IInterfaceWithPropertiesExtension
+  extends IInterfaceWithProperties {
+  foo: number;
 }
 
 export class UsesInterfaceWithProperties {
-    constructor(public readonly obj: IInterfaceWithProperties) {
+  public constructor(public readonly obj: IInterfaceWithProperties) {}
 
-    }
+  public justRead() {
+    return this.obj.readOnlyString;
+  }
 
-    public justRead() {
-        return this.obj.readOnlyString;
-    }
+  public writeAndRead(value: string) {
+    this.obj.readWriteString = value;
+    return this.obj.readWriteString;
+  }
 
-    public writeAndRead(value: string) {
-        this.obj.readWriteString = value;
-        return this.obj.readWriteString;
-    }
-
-    public readStringAndNumber(ext: IInterfaceWithPropertiesExtension) {
-        return `base=${ext.readOnlyString} child=${ext.foo} keys=[${Object.keys(ext).join(',')}]`;
-    }
+  public readStringAndNumber(ext: IInterfaceWithPropertiesExtension) {
+    return `base=${ext.readOnlyString} child=${ext.foo} keys=[${Object.keys(
+      ext,
+    ).join(',')}]`;
+  }
 }
 
 export class AllowedMethodNames {
+  /**
+   * getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
+   */
+  public getFoo(withParam: string) {
+    return withParam;
+  }
 
-    /**
-     * getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
-     */
-    public getFoo(withParam: string) {
-        return withParam;
-    }
+  public getBar(_p1: string, _p2: number) {
+    return;
+  }
 
-    public getBar(_p1: string, _p2: number) {
-        return;
-    }
+  /**
+   * setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
+   */
+  public setFoo(_x: string, _y: number) {
+    return;
+  }
 
-    /**
-     * setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
-     */
-    public setFoo(_x: string, _y: number) {
-        return;
-    }
-
-    public setBar(_x: string, _y: number, _z: boolean) {
-        return;
-    }
+  public setBar(_x: string, _y: number, _z: boolean) {
+    return;
+  }
 }
 
 export interface IReturnsNumber {
-    obtainNumber(): IDoublable;
+  obtainNumber(): IDoublable;
 
-    readonly numberProp: Number;
+  readonly numberProp: lib.Number;
 }
 
 export class OverrideReturnsObject {
-    public test(obj: IReturnsNumber) {
-        return obj.obtainNumber().doubleValue + obj.numberProp.doubleValue;
-    }
+  public test(obj: IReturnsNumber) {
+    return obj.obtainNumber().doubleValue + obj.numberProp.doubleValue;
+  }
 }
 
 export class Thrower {
-    public throwError() {
-        this.doThrowError();
-    }
+  public throwError() {
+    this.doThrowError();
+  }
 
-    private doThrowError() {
-        throw new Error();
-    }
+  private doThrowError() {
+    throw new Error();
+  }
 }
 
 export class VariadicMethod {
-    private readonly prefix: number[];
+  private readonly prefix: number[];
 
-    /**
-     * @param prefix a prefix that will be use for all values returned by `#asArray`.
-     */
-    constructor(...prefix: number[]) {
-        this.prefix = prefix;
-    }
+  /**
+   * @param prefix a prefix that will be use for all values returned by `#asArray`.
+   */
+  public constructor(...prefix: number[]) {
+    this.prefix = prefix;
+  }
 
-    /**
-     * @param first  the first element of the array to be returned (after the `prefix` provided at construction time).
-     * @param others other elements to be included in the array.
-     */
-    public asArray(first: number, ...others: number[]): number[] {
-        return [...this.prefix, first, ...others];
-    }
+  /**
+   * @param first  the first element of the array to be returned (after the `prefix` provided at construction time).
+   * @param others other elements to be included in the array.
+   */
+  public asArray(first: number, ...others: number[]): number[] {
+    return [...this.prefix, first, ...others];
+  }
 }
 
 export class VariadicInvoker {
-    public constructor(private readonly method: VariadicMethod) { }
+  public constructor(private readonly method: VariadicMethod) {}
 
-    public asArray(...values: number[]): number[] {
-        const [first, ...rest] = values;
-        return this.method.asArray(first, ...rest);
-    }
+  public asArray(...values: number[]): number[] {
+    const [first, ...rest] = values;
+    return this.method.asArray(first, ...rest);
+  }
 }
 
 export class Statics {
-    constructor(public readonly value: string) {
+  public constructor(public readonly value: string) {}
+
+  /**
+   * Jsdocs for static method
+   * @param name The name of the person to say hello to
+   */
+  public static staticMethod(name: string) {
+    return `hello ,${name}!`;
+  }
+
+  public justMethod() {
+    return this.value;
+  }
+
+  /**
+   * Jsdocs for static property.
+   */
+  public static readonly Foo = 'hello';
+
+  /**
+   * Constants may also use all-caps.
+   */
+  public static readonly BAR = 1234;
+
+  /**
+   * Constants can also use camelCase.
+   */
+  public static readonly zooBar: { [name: string]: string } = {
+    hello: 'world',
+  };
+
+  private static _instance?: Statics;
+
+  /**
+   * Jsdocs for static getter.
+   */
+  public static get instance(): Statics {
+    if (!this._instance) {
+      this._instance = new Statics('default');
     }
+    return this._instance;
+  }
 
-    /**
-     * Jsdocs for static method
-     * @param name The name of the person to say hello to
-     */
-    public static staticMethod(name: string) {
-        return `hello ,${name}!`;
-    }
+  /**
+   *Jsdocs for static setter.
+   */
+  public static set instance(val: Statics) {
+    this._instance = val;
+  }
 
-    public justMethod() {
-        return this.value;
-    }
-
-    /**
-     * Jsdocs for static property.
-     */
-    public static readonly Foo = 'hello';
-
-    /**
-     * Constants may also use all-caps.
-     */
-    public static readonly BAR = 1234;
-
-    /**
-     * Constants can also use camelCase.
-     */
-    public static readonly zooBar: { [name: string]: string } = { hello: 'world' };
-
-    private static _instance?: Statics;
-
-    /**
-     * Jsdocs for static getter.
-     */
-    public static get instance(): Statics {
-        if (!this._instance) {
-            this._instance = new Statics('default');
-        }
-        return this._instance;
-    }
-
-    /**
-     *Jsdocs for static setter.
-     */
-    public static set instance(val: Statics) {
-        this._instance = val;
-    }
-
-    public static nonConstStatic = 100; // this should not be represented as a constant in target languages
-    public static readonly ConstObj = new DoubleTrouble(); // should be initialized statically
+  public static nonConstStatic = 100; // this should not be represented as a constant in target languages
+  public static readonly ConstObj = new DoubleTrouble(); // should be initialized statically
 }
 
 // https://en.wikipedia.org/wiki/List_of_Java_keywords
 export class JavaReservedWords {
-    public abstract() {
-    }
+  public abstract() {
+    return;
+  }
 
-    public assert() {
-    }
+  public assert() {
+    return;
+  }
 
-    public boolean() {
-    }
+  public boolean() {
+    return;
+  }
 
-    public break() {
-    }
+  public break() {
+    return;
+  }
 
-    public byte() {
-    }
+  public byte() {
+    return;
+  }
 
-    public case() {
-    }
+  public case() {
+    return;
+  }
 
-    public catch() {
-    }
+  public catch() {
+    return;
+  }
 
-    public char() {
-    }
+  public char() {
+    return;
+  }
 
-    public class() {
-    }
+  public class() {
+    return;
+  }
 
-    public const() {
-    }
+  public const() {
+    return;
+  }
 
-    public continue() {
-    }
+  public continue() {
+    return;
+  }
 
-    public default() {
-    }
+  public default() {
+    return;
+  }
 
-    public double() {
-    }
+  public double() {
+    return;
+  }
 
-    public do() {
-    }
+  public do() {
+    return;
+  }
 
-    public else() {
-    }
+  public else() {
+    return;
+  }
 
-    public enum() {
-    }
+  public enum() {
+    return;
+  }
 
-    public extends() {
-    }
+  public extends() {
+    return;
+  }
 
-    public false() {
-    }
+  public false() {
+    return;
+  }
 
-    public final() {
-    }
+  public final() {
+    return;
+  }
 
-    public finally() {
-    }
+  public finally() {
+    return;
+  }
 
-    public float() {
-    }
+  public float() {
+    return;
+  }
 
-    public for() {
-    }
+  public for() {
+    return;
+  }
 
-    public goto() {
-    }
+  public goto() {
+    return;
+  }
 
-    public if() {
-    }
+  public if() {
+    return;
+  }
 
-    public implements() {
-    }
+  public implements() {
+    return;
+  }
 
-    public import() {
-    }
+  public import() {
+    return;
+  }
 
-    public instanceof() {
-    }
+  public instanceof() {
+    return;
+  }
 
-    public int() {
-    }
+  public int() {
+    return;
+  }
 
-    public interface() {
-    }
+  public interface() {
+    return;
+  }
 
-    public long() {
-    }
+  public long() {
+    return;
+  }
 
-    public native() {
-    }
+  public native() {
+    return;
+  }
 
-    public new() {
-    }
+  public new() {
+    return;
+  }
 
-    public null() {
-    }
+  public null() {
+    return;
+  }
 
-    public package() {
-    }
+  public package() {
+    return;
+  }
 
-    public private() {
-    }
+  public private() {
+    return;
+  }
 
-    public protected() {
-    }
+  public protected() {
+    return;
+  }
 
-    public public() {
-    }
+  public public() {
+    return;
+  }
 
-    public return() {
-    }
+  public return() {
+    return;
+  }
 
-    public short() {
-    }
+  public short() {
+    return;
+  }
 
-    public static() {
-    }
+  public static() {
+    return;
+  }
 
-    public strictfp() {
-    }
+  public strictfp() {
+    return;
+  }
 
-    public super() {
-    }
+  public super() {
+    return;
+  }
 
-    public switch() {
-    }
+  public switch() {
+    return;
+  }
 
-    public synchronized() {
-    }
+  public synchronized() {
+    return;
+  }
 
-    public this() {
-    }
+  public this() {
+    return;
+  }
 
-    public throw() {
-    }
+  public throw() {
+    return;
+  }
 
-    public throws() {
-    }
+  public throws() {
+    return;
+  }
 
-    public transient() {
-    }
+  public transient() {
+    return;
+  }
 
-    public true() {
-    }
+  public true() {
+    return;
+  }
 
-    public try() {
-    }
+  public try() {
+    return;
+  }
 
-    public void() {
-    }
+  public void() {
+    return;
+  }
 
-    public volatile() {
-    }
+  public volatile() {
+    return;
+  }
 
-    public while = 'hello';
+  public while = 'hello';
 }
 
 export class PythonReservedWords {
+  public and() {
+    return;
+  }
 
-    public and() {}
+  public as() {
+    return;
+  }
 
-    public as() {}
+  public assert() {
+    return;
+  }
 
-    public assert() {}
+  public async() {
+    return;
+  }
 
-    public async() {}
+  public await() {
+    return;
+  }
 
-    public await() {}
+  public break() {
+    return;
+  }
 
-    public break() {}
+  public class() {
+    return;
+  }
 
-    public class() {}
+  public continue() {
+    return;
+  }
 
-    public continue() {}
+  public def() {
+    return;
+  }
 
-    public def() {}
+  public del() {
+    return;
+  }
 
-    public del() {}
+  public elif() {
+    return;
+  }
 
-    public elif() {}
+  public else() {
+    return;
+  }
 
-    public else() {}
+  public except() {
+    return;
+  }
 
-    public except() {}
+  public finally() {
+    return;
+  }
 
-    public finally() {}
+  public for() {
+    return;
+  }
 
-    public for() {}
+  public from() {
+    return;
+  }
 
-    public from() {}
+  public global() {
+    return;
+  }
 
-    public global() {}
+  public if() {
+    return;
+  }
 
-    public if() {}
+  public import() {
+    return;
+  }
 
-    public import() {}
+  public in() {
+    return;
+  }
 
-    public in() {}
+  public is() {
+    return;
+  }
 
-    public is() {}
+  public lambda() {
+    return;
+  }
 
-    public lambda() {}
+  public nonlocal() {
+    return;
+  }
 
-    public nonlocal() {}
+  public not() {
+    return;
+  }
 
-    public not() {}
+  public or() {
+    return;
+  }
 
-    public or() {}
+  public pass() {
+    return;
+  }
 
-    public pass() {}
+  public raise() {
+    return;
+  }
 
-    public raise() {}
+  public return() {
+    return;
+  }
 
-    public return() {}
+  public try() {
+    return;
+  }
 
-    public try() {}
+  public while() {
+    return;
+  }
 
-    public while() {}
+  public with() {
+    return;
+  }
 
-    public with() {}
-
-    public yield() {}
+  public yield() {
+    return;
+  }
 }
 
 // "self" is technically not a keyword in Python. It's the conventional name of
 // the "this instance" reference. We can slugify this to our heart's content,
 // without much impact on the developer experience - but it needs to happen!
 export namespace PythonSelf {
-    export class ClassWithSelf {
-        public constructor(public readonly self: string) { }
+  export class ClassWithSelf {
+    public constructor(public readonly self: string) {}
 
-        public method(self: number): string {
-            return self.toString();
-        }
+    public method(self: number): string {
+      return self.toString();
     }
+  }
 
-    export class ClassWithSelfKwarg {
-        public constructor(public readonly props: StructWithSelf) { }
-    }
+  export class ClassWithSelfKwarg {
+    public constructor(public readonly props: StructWithSelf) {}
+  }
 
-    export interface StructWithSelf {
-        readonly self: string;
-    }
+  export interface StructWithSelf {
+    readonly self: string;
+  }
 
-    export interface IInterfaceWithSelf {
-        method(self: number): string;
-    }
+  export interface IInterfaceWithSelf {
+    method(self: number): string;
+  }
 }
 
 export interface UnionProperties {
-    readonly foo?: string | number;
-    readonly bar: AllTypes | string | number;
+  readonly foo?: string | number;
+  readonly bar: AllTypes | string | number;
 }
 
 export class UseBundledDependency {
-    value() {
-        return bundled;
-    }
+  public value() {
+    return bundled;
+  }
 }
 
 /**
  * Test fixture to verify that jsii modules can use the node standard library.
  */
 export class NodeStandardLibrary {
-    /**
-     * Reads a local resource file (resource.txt) asynchronously.
-     * @returns "Hello, resource!"
-     */
-    public async fsReadFile() {
-        const value = await readFile(path.join(__dirname, 'resource.txt'));
-        return value.toString();
-    }
+  /**
+   * Reads a local resource file (resource.txt) asynchronously.
+   * @returns "Hello, resource!"
+   */
+  public async fsReadFile() {
+    const value = await readFile(path.join(__dirname, 'resource.txt'));
+    return value.toString();
+  }
 
-    /**
-     * Sync version of fsReadFile.
-     * @returns "Hello, resource! SYNC!"
-     */
-    public fsReadFileSync() {
-        return fs.readFileSync(path.join(__dirname, 'resource.txt')).toString() + ' SYNC!';
-    }
+  /**
+   * Sync version of fsReadFile.
+   * @returns "Hello, resource! SYNC!"
+   */
+  public fsReadFileSync() {
+    return `${fs
+      .readFileSync(path.join(__dirname, 'resource.txt'))
+      .toString()} SYNC!`;
+  }
 
-    /**
-     * Returns the current os.platform() from the "os" node module.
-     */
-    public get osPlatform() {
-        return os.platform();
-    }
+  /**
+   * Returns the current os.platform() from the "os" node module.
+   */
+  public get osPlatform(): string {
+    return os.platform();
+  }
 
-    /**
-     * Uses node.js "crypto" module to calculate sha256 of a string.
-     * @returns "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
-     */
-    public cryptoSha256() {
-        const hash = crypto.createHash('sha256');
+  /**
+   * Uses node.js "crypto" module to calculate sha256 of a string.
+   * @returns "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
+   */
+  public cryptoSha256() {
+    const hash = crypto.createHash('sha256');
 
-        hash.update('some data to hash');
-        return hash.digest('hex');
-    }
+    hash.update('some data to hash');
+    return hash.digest('hex');
+  }
 }
 
 /**
  * Depend on a type from jsii-calc-base as a test for awslabs/jsii#128
  */
 export class UseCalcBase {
-    public hello(): base.Base {
-        return {
-            typeName: () => 'hello'
-        };
-    }
+  public hello(): base.Base {
+    return {
+      typeName: () => 'hello',
+    };
+  }
 }
 
 export interface ImplictBaseOfBase extends base.BaseProps {
-    readonly goo: Date;
+  readonly goo: Date;
 }
 
 /**
  * See awslabs/jsii#138
  */
 export class ReferenceEnumFromScopedPackage {
-    public foo?: EnumFromScopedModule = EnumFromScopedModule.VALUE2;
+  public foo?: EnumFromScopedModule = EnumFromScopedModule.VALUE2;
 
-    public loadFoo(): EnumFromScopedModule | undefined {
-        return this.foo;
-    }
+  public loadFoo(): EnumFromScopedModule | undefined {
+    return this.foo;
+  }
 
-    public saveFoo(value: EnumFromScopedModule) {
-        this.foo = value;
-    }
+  public saveFoo(value: EnumFromScopedModule) {
+    this.foo = value;
+  }
 }
 
 /**
@@ -1071,23 +1197,20 @@ export class ReferenceEnumFromScopedPackage {
  * Interface within a namespace
  */
 export namespace InterfaceInNamespaceOnlyInterface {
-
-    // it's a special case when only an interface is exported from a namespace
-    export interface Hello {
-        readonly foo: number
-    }
-
+  // it's a special case when only an interface is exported from a namespace
+  export interface Hello {
+    readonly foo: number;
+  }
 }
 
 export namespace InterfaceInNamespaceIncludesClasses {
+  export class Foo {
+    public bar?: string;
+  }
 
-    export class Foo {
-        public bar?: string;
-    }
-
-    export interface Hello {
-        readonly foo: number
-    }
+  export interface Hello {
+    readonly foo: number;
+  }
 }
 
 /**
@@ -1095,18 +1218,20 @@ export namespace InterfaceInNamespaceIncludesClasses {
  * Interface proxies (and builders) do not respect optional arguments in methods
  */
 export interface IInterfaceWithOptionalMethodArguments {
-    hello(arg1: string, arg2?: number): void
+  hello(arg1: string, arg2?: number): void;
 }
 export class OptionalArgumentInvoker {
-    constructor(private readonly delegate: IInterfaceWithOptionalMethodArguments) { }
+  public constructor(
+    private readonly delegate: IInterfaceWithOptionalMethodArguments,
+  ) {}
 
-    public invokeWithoutOptional() {
-        return this.delegate.hello('Howdy');
-    }
+  public invokeWithoutOptional() {
+    return this.delegate.hello('Howdy');
+  }
 
-    public invokeWithOptional() {
-        return this.delegate.hello('Howdy', 1337);
-    }
+  public invokeWithOptional() {
+    return this.delegate.hello('Howdy', 1337);
+  }
 }
 
 /**
@@ -1115,226 +1240,260 @@ export class OptionalArgumentInvoker {
  */
 
 export interface IInterfaceImplementedByAbstractClass {
-    readonly propFromInterface: string;
+  readonly propFromInterface: string;
 }
 
 export abstract class AbstractClassBase {
-    public abstract readonly abstractProperty: string;
+  public abstract readonly abstractProperty: string;
 }
 
-export abstract class AbstractClass extends AbstractClassBase implements IInterfaceImplementedByAbstractClass {
-    public nonAbstractMethod() {
-        return 42;
-    }
+export abstract class AbstractClass extends AbstractClassBase
+  implements IInterfaceImplementedByAbstractClass {
+  public nonAbstractMethod() {
+    return 42;
+  }
 
-    public abstract abstractMethod(name: string): string;
+  public abstract abstractMethod(name: string): string;
 
-    public get propFromInterface() {
-        return 'propFromInterfaceValue';
-    }
+  public get propFromInterface() {
+    return 'propFromInterfaceValue';
+  }
 }
 
 class ConcreteClass extends AbstractClass {
-    public abstractMethod(name: string) {
-        return `Hello, ${name}!!`;
-    }
+  public abstractMethod(name: string) {
+    return `Hello, ${name}!!`;
+  }
 
-    public get abstractProperty() {
-        return 'Hello, dude!';
-    }
+  public get abstractProperty() {
+    return 'Hello, dude!';
+  }
 }
 
 export class AbstractClassReturner {
-    public giveMeAbstract(): AbstractClass {
-        return new ConcreteClass();
-    }
+  public giveMeAbstract(): AbstractClass {
+    return new ConcreteClass();
+  }
 
-    public giveMeInterface(): IInterfaceImplementedByAbstractClass {
-        return new ConcreteClass();
-    }
+  public giveMeInterface(): IInterfaceImplementedByAbstractClass {
+    return new ConcreteClass();
+  }
 
-    public get returnAbstractFromProperty(): AbstractClassBase {
-        return {
-            abstractProperty: 'hello-abstract-property'
-        };
-    }
+  public get returnAbstractFromProperty(): AbstractClassBase {
+    return {
+      abstractProperty: 'hello-abstract-property',
+    };
+  }
 }
 
 export interface IMutableObjectLiteral {
-    value: string;
+  value: string;
 }
 
 export class ClassWithMutableObjectLiteralProperty {
-    public mutableObject: IMutableObjectLiteral = { value: 'default' };
+  public mutableObject: IMutableObjectLiteral = { value: 'default' };
 }
 
 export class DoNotOverridePrivates {
-    private privateMethod(): string {
-        return 'privateMethod';
-    }
+  private privateMethod(): string {
+    return 'privateMethod';
+  }
 
-    private privateProperty = 'privateProperty';
+  private privateProperty = 'privateProperty';
 
-    public privateMethodValue() {
-        return this.privateMethod();
-    }
+  public privateMethodValue() {
+    return this.privateMethod();
+  }
 
-    public privatePropertyValue() {
-        return this.privateProperty;
-    }
+  public privatePropertyValue() {
+    return this.privateProperty;
+  }
 
-    public changePrivatePropertyValue(newValue: string) {
-        this.privateProperty = newValue;
-    }
+  public changePrivatePropertyValue(newValue: string) {
+    this.privateProperty = newValue;
+  }
 }
 
 /**
  * Class that implements interface properties automatically, but using a private constructor
  */
-export class ClassWithPrivateConstructorAndAutomaticProperties implements IInterfaceWithProperties {
-    public static create(readOnlyString: string, readWriteString: string) {
-        return new ClassWithPrivateConstructorAndAutomaticProperties(readOnlyString, readWriteString);
-    }
+export class ClassWithPrivateConstructorAndAutomaticProperties
+  implements IInterfaceWithProperties {
+  public static create(readOnlyString: string, readWriteString: string) {
+    return new ClassWithPrivateConstructorAndAutomaticProperties(
+      readOnlyString,
+      readWriteString,
+    );
+  }
 
-    private constructor(public readonly readOnlyString: string, public readWriteString: string) {
-    }
+  private constructor(
+    public readonly readOnlyString: string,
+    public readWriteString: string,
+  ) {}
 }
 
 export interface IInterfaceWithMethods {
-    readonly value: string;
+  readonly value: string;
 
-    doThings(): void;
+  doThings(): void;
 }
 
 /**
  * Even though this interface has only properties, it is disqualified from being a datatype
  * because it inherits from an interface that is not a datatype.
  */
-export interface IInterfaceThatShouldNotBeADataType extends IInterfaceWithMethods {
-    readonly otherValue: string;
+export interface IInterfaceThatShouldNotBeADataType
+  extends IInterfaceWithMethods {
+  readonly otherValue: string;
 }
 
 /**
  * jsii#284: do not recognize "any" as an optional argument
  */
 export class DoNotRecognizeAnyAsOptional {
-    public method(_requiredAny: any, _optionalAny?: any, _optionalString?: string) {
-
-    }
+  public method(
+    _requiredAny: any,
+    _optionalAny?: any,
+    _optionalString?: string,
+  ) {
+    return;
+  }
 }
 
 /**
  * jsii#282, aws-cdk#157: null should be treated as "undefined"
  */
 export class NullShouldBeTreatedAsUndefined {
-    public changeMeToUndefined? = 'hello';
+  public changeMeToUndefined? = 'hello';
 
-    constructor(_param1: string, optional?: any) {
-        if (optional !== undefined) {
-            throw new Error('Expecting second constructor argument to be "undefined"');
-        }
+  public constructor(_param1: string, optional?: any) {
+    if (optional !== undefined) {
+      throw new Error(
+        'Expecting second constructor argument to be "undefined"',
+      );
+    }
+  }
+
+  public giveMeUndefined(value?: any) {
+    if (value !== undefined) {
+      throw new Error(
+        `I am disappointed. I expected undefined and got: ${JSON.stringify(
+          value,
+        )}`,
+      );
+    }
+  }
+
+  public giveMeUndefinedInsideAnObject(
+    input: NullShouldBeTreatedAsUndefinedData,
+  ) {
+    if (input.thisShouldBeUndefined !== undefined) {
+      throw new Error(
+        `I am disappointed. I expected undefined in "thisShouldBeUndefined" and got: ${JSON.stringify(
+          input,
+        )}`,
+      );
     }
 
-    public giveMeUndefined(value?: any) {
-        if (value !== undefined) {
-            throw new Error('I am disappointed. I expected undefined and got: ' + JSON.stringify(value));
-        }
+    const array = input.arrayWithThreeElementsAndUndefinedAsSecondArgument;
+    if (array.length !== 3) {
+      throw new Error(
+        `Expecting "arrayWithThreeElementsAndUndefinedAsSecondArgument" to have three elements: ${JSON.stringify(
+          input,
+        )}`,
+      );
     }
 
-    public giveMeUndefinedInsideAnObject(input: NullShouldBeTreatedAsUndefinedData) {
-        if (input.thisShouldBeUndefined !== undefined) {
-            throw new Error('I am disappointed. I expected undefined in "thisShouldBeUndefined" and got: ' + JSON.stringify(input));
-        }
-
-        const array = input.arrayWithThreeElementsAndUndefinedAsSecondArgument;
-        if (array.length !== 3) {
-            throw new Error('Expecting "arrayWithThreeElementsAndUndefinedAsSecondArgument" to have three elements: ' + JSON.stringify(input));
-        }
-
-        if (array[1] !== undefined) {
-            throw new Error('Expected arrayWithThreeElementsAndUndefinedAsSecondArgument[1] to be undefined: ' + JSON.stringify(input));
-        }
+    if (array[1] !== undefined) {
+      throw new Error(
+        `Expected arrayWithThreeElementsAndUndefinedAsSecondArgument[1] to be undefined: ${JSON.stringify(
+          input,
+        )}`,
+      );
     }
+  }
 
-    public verifyPropertyIsUndefined() {
-        if (this.changeMeToUndefined !== undefined) {
-            throw new Error('Expecting property "changeMeToUndefined" to be undefined, and it is: ' + this.changeMeToUndefined);
-        }
+  public verifyPropertyIsUndefined() {
+    if (this.changeMeToUndefined !== undefined) {
+      throw new Error(
+        `Expecting property "changeMeToUndefined" to be undefined, and it is: ${this.changeMeToUndefined}`,
+      );
     }
+  }
 }
 
 export interface NullShouldBeTreatedAsUndefinedData {
-    readonly thisShouldBeUndefined?: any;
-    readonly arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
+  readonly thisShouldBeUndefined?: any;
+  readonly arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
 }
 
 export class DontComplainAboutVariadicAfterOptional {
-    public optionalAndVariadic(optional?: string, ...things: string[]) {
-        return `${optional} and ${things.join(',')}`;
-    }
+  public optionalAndVariadic(optional?: string, ...things: string[]) {
+    return `${optional} and ${things.join(',')}`;
+  }
 }
 
 /**
  * jsii#298: show default values in sphinx documentation, and respect newlines.
  **/
 export interface LoadBalancedFargateServiceProps {
-    /**
-     * The number of cpu units used by the task.
-     * Valid values, which determines your range of valid values for the memory parameter:
-     * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
-     * 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
-     * 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
-     * 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
-     * 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
-     *
-     * This default is set in the underlying FargateTaskDefinition construct.
-     *
-     * @default 256
-     */
-    readonly cpu?: string;
+  /**
+   * The number of cpu units used by the task.
+   * Valid values, which determines your range of valid values for the memory parameter:
+   * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
+   * 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
+   * 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
+   * 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
+   * 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
+   *
+   * This default is set in the underlying FargateTaskDefinition construct.
+   *
+   * @default 256
+   */
+  readonly cpu?: string;
 
-    /**
-     * The amount (in MiB) of memory used by the task.
-     *
-     * This field is required and you must use one of the following values, which determines your range of valid values
-     * for the cpu parameter:
-     *
-     * 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-     *
-     * 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-     *
-     * 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-     *
-     * Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-     *
-     * Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-     *
-     * This default is set in the underlying FargateTaskDefinition construct.
-     *
-     * @default 512
-     */
-    readonly memoryMiB?: string;
+  /**
+   * The amount (in MiB) of memory used by the task.
+   *
+   * This field is required and you must use one of the following values, which determines your range of valid values
+   * for the cpu parameter:
+   *
+   * 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
+   *
+   * 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
+   *
+   * 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
+   *
+   * Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
+   *
+   * Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
+   *
+   * This default is set in the underlying FargateTaskDefinition construct.
+   *
+   * @default 512
+   */
+  readonly memoryMiB?: string;
 
-    /**
-     * The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.
-     *
-     * @default 80
-     */
-    readonly containerPort?: number;
+  /**
+   * The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.
+   *
+   * @default 80
+   */
+  readonly containerPort?: number;
 
-    /**
-     * Determines whether the Application Load Balancer will be internet-facing
-     *
-     * @default true
-     */
-    readonly publicLoadBalancer?: boolean;
+  /**
+   * Determines whether the Application Load Balancer will be internet-facing
+   *
+   * @default true
+   */
+  readonly publicLoadBalancer?: boolean;
 
-    /**
-     * Determines whether your Fargate Service will be assigned a public IP address.
-     *
-     * @default false
-     */
-    readonly publicTasks?: boolean;
+  /**
+   * Determines whether your Fargate Service will be assigned a public IP address.
+   *
+   * @default false
+   */
+  readonly publicTasks?: boolean;
 }
 
 /**
@@ -1346,44 +1505,45 @@ export interface LoadBalancedFargateServiceProps {
  * @see https://github.com/aws/jsii/issues/320
  */
 export class ReturnsPrivateImplementationOfInterface {
-    public get privateImplementation(): IPrivatelyImplemented {
-        return new PrivateImplementation();
-    }
+  public get privateImplementation(): IPrivatelyImplemented {
+    return new PrivateImplementation();
+  }
 }
 export interface IPrivatelyImplemented {
-    readonly success: boolean;
+  readonly success: boolean;
 }
 export class ExportedBaseClass {
-    constructor(public readonly success: boolean) {}
+  public constructor(public readonly success: boolean) {}
 }
-class PrivateImplementation extends ExportedBaseClass implements IPrivatelyImplemented {
-    constructor() {
-        super(true);
-    }
+class PrivateImplementation extends ExportedBaseClass
+  implements IPrivatelyImplemented {
+  public constructor() {
+    super(true);
+  }
 }
 
 /**
  * Host runtime version should be set via JSII_AGENT
  */
 export class JsiiAgent {
-    /**
-     * Returns the value of the JSII_AGENT environment variable.
-     */
-    public static get jsiiAgent(): string | undefined {
-        return process.env.JSII_AGENT;
-    }
-};
+  /**
+   * Returns the value of the JSII_AGENT environment variable.
+   */
+  public static get jsiiAgent(): string | undefined {
+    return process.env.JSII_AGENT;
+  }
+}
 
 // To support module augmentation classes must support multiple declaration sites
 // (the tail of which must be interfaces)
 export class AugmentableClass {
-    public methodOne(): void {
-        console.log('methodOne');
-    }
+  public methodOne(): void {
+    console.log('methodOne');
+  }
 }
 
 export interface AugmentableClass {
-    methodTwo(): void;
+  methodTwo(): void;
 }
 
 // Ensure the JSII kernel tags instances with the "most appropriate" FQN type label, so that runtimes are able to
@@ -1391,58 +1551,67 @@ export interface AugmentableClass {
 // needs to up-cast an instance to an incompatible type, which certain runtimes (such as Java) will prevent.
 // @See https://github.com/aws/jsii/issues/345
 export class PublicClass {
-    public hello(): void {}
+  public hello(): void {
+    return;
+  }
 }
 export interface IPublicInterface {
-    bye(): string;
+  bye(): string;
 }
 
 export interface IPublicInterface2 {
-    ciao(): string;
+  ciao(): string;
 }
 export class InbetweenClass extends PublicClass implements IPublicInterface2 {
-    public ciao(): string { return 'ciao'; }
+  public ciao(): string {
+    return 'ciao';
+  }
 }
 class PrivateClass extends InbetweenClass implements IPublicInterface {
-    public bye(): string { return 'bye'; }
+  public bye(): string {
+    return 'bye';
+  }
 }
 
 class HiddenClass implements IPublicInterface, IPublicInterface2 {
-    public bye(): string { return 'bye'; }
-    public ciao(): string { return 'ciao'; }
+  public bye(): string {
+    return 'bye';
+  }
+  public ciao(): string {
+    return 'ciao';
+  }
 }
 
-class HiddenSubclass extends HiddenClass {
-}
+class HiddenSubclass extends HiddenClass {}
 
 export class Constructors {
-    public static makeClass(): PublicClass {
-        return new PrivateClass();  // Wire type should be InbetweenClass
-    }
+  public static makeClass(): PublicClass {
+    return new PrivateClass(); // Wire type should be InbetweenClass
+  }
 
-    public static makeInterface(): IPublicInterface {
-        return new PrivateClass();  // Wire type should be IPublicInterface
-    }
+  public static makeInterface(): IPublicInterface {
+    return new PrivateClass(); // Wire type should be IPublicInterface
+  }
 
-    public static makeInterface2(): IPublicInterface2 {
-        return new PrivateClass();  // Wire type should be InbetweenClass
-    }
+  public static makeInterface2(): IPublicInterface2 {
+    return new PrivateClass(); // Wire type should be InbetweenClass
+  }
 
-    public static makeInterfaces(): IPublicInterface[] {
-        return [new PrivateClass()];  // Wire type should be IPublicInterface[]
-    }
+  public static makeInterfaces(): IPublicInterface[] {
+    return [new PrivateClass()]; // Wire type should be IPublicInterface[]
+  }
 
-    public static hiddenInterface(): IPublicInterface {
-        return new HiddenClass();  // Wire type should be IPublicInterface
-    }
+  public static hiddenInterface(): IPublicInterface {
+    return new HiddenClass(); // Wire type should be IPublicInterface
+  }
 
-    public static hiddenInterfaces(): IPublicInterface[] {
-        return [new HiddenClass()];  // Wire type should be IPublicInterface[]
-    }
+  public static hiddenInterfaces(): IPublicInterface[] {
+    return [new HiddenClass()]; // Wire type should be IPublicInterface[]
+  }
 
-    public static hiddenSubInterfaces(): IPublicInterface[] {
-        return [new HiddenSubclass()];  // Wire type should be IPublicInterface[]
-    }
+  public static hiddenSubInterfaces(): IPublicInterface[] {
+    return [new HiddenSubclass()]; // Wire type should be IPublicInterface[]
+  }
 }
 
 /**
@@ -1453,115 +1622,126 @@ export class Constructors {
  * this it would break runtime type checks in the JVM or CLR.
  */
 export class SingleInstanceTwoTypes {
-    private instance = new PrivateClass();
+  private readonly instance = new PrivateClass();
 
-    public interface1(): InbetweenClass {
-        return this.instance;
-    }
+  public interface1(): InbetweenClass {
+    return this.instance;
+  }
 
-    public interface2(): IPublicInterface {
-        return this.instance;
-    }
+  public interface2(): IPublicInterface {
+    return this.instance;
+  }
 }
 
 // fixture to verify that null/undefined values in object hashes are treated
 // as "unset". see awslabs/aws-cdk#965.
 export interface EraseUndefinedHashValuesOptions {
-    readonly option1?: string;
-    readonly option2?: string;
+  readonly option1?: string;
+  readonly option2?: string;
 }
 
 export class EraseUndefinedHashValues {
-    /**
-     * Returns `true` if `key` is defined in `opts`. Used to check that undefined/null hash values
-     * are being erased when sending values from native code to JS.
-     */
-    public static doesKeyExist(opts: EraseUndefinedHashValuesOptions, key: string): boolean {
-        return key in opts;
-    }
+  /**
+   * Returns `true` if `key` is defined in `opts`. Used to check that undefined/null hash values
+   * are being erased when sending values from native code to JS.
+   */
+  public static doesKeyExist(
+    opts: EraseUndefinedHashValuesOptions,
+    key: string,
+  ): boolean {
+    return key in opts;
+  }
 
-    /**
-     * We expect "prop2" to be erased
-     */
-    public static prop2IsUndefined(): { [key: string]: any } {
-        return {
-            prop1: 'value1',
-            prop2: undefined
-        };
-    }
+  /**
+   * We expect "prop2" to be erased
+   */
+  public static prop2IsUndefined(): { [key: string]: any } {
+    return {
+      prop1: 'value1',
+      prop2: undefined,
+    };
+  }
 
-    /**
-     * We expect "prop1" to be erased
-     */
-    public static prop1IsNull(): { [key: string]: any } {
-        return {
-            prop1: null,
-            prop2: 'value2'
-        };
-    }
+  /**
+   * We expect "prop1" to be erased
+   */
+  public static prop1IsNull(): { [key: string]: any } {
+    return {
+      prop1: null,
+      prop2: 'value2',
+    };
+  }
 }
 
 // internal can be used to represent members that can only be accessed from the current module
 export class StripInternal {
-    public youSeeMe = 'hello';
+  public youSeeMe = 'hello';
 
-    /**
-     * This is an internal thing
-     * @internal
-     */
-    public _youDontSeeMeAlthoughIamPublic = 'world'
+  /**
+   * This is an internal thing
+   * @internal
+   */
+  public _youDontSeeMeAlthoughIamPublic = 'world';
 }
 
 /**
  * @internal
  */
 export class InternalClass {
-    public iAmNotHere = 'yes';
+  public iAmNotHere = 'yes';
 }
 
 /**
  * @internal
  */
 export interface InternalInterface {
-    readonly prop: string;
+  readonly prop: string;
 }
 
 /**
  * @internal
  */
 export enum InternalEnum {
-    Member1 = 12,
-    Member2 = 23
+  Member1 = 12,
+  Member2 = 23,
 }
 
 export interface IInterfaceWithInternal {
-    visible(): void;
+  visible(): void;
 
-    /** @internal */
-    _hidden(): void;
+  /** @internal */
+  _hidden(): void;
 }
 
 export class ImplementsInterfaceWithInternal implements IInterfaceWithInternal {
-    visible() { }
+  public visible() {
+    return;
+  }
 
-    /** @internal */
-    _hidden() { }
+  /** @internal */
+  public _hidden() {
+    return;
+  }
 
-    /** @internal */
-    _alsoHidden() { }
+  /** @internal */
+  public _alsoHidden() {
+    return;
+  }
 
-    /** @internal */
-    _propertiesToo?: string;
+  /** @internal */
+  public _propertiesToo?: string;
 }
 
 export class ImplementsInterfaceWithInternalSubclass extends ImplementsInterfaceWithInternal {
-    /** @internal */
-    _alsoHidden() { }
+  /** @internal */
+  public _alsoHidden() {
+    return;
+  }
 
-    /**
-     * @internal
-     */
-    public _propertiesToo?: string;
+  /**
+   * @internal
+   */
+  public _propertiesToo?: string;
 }
 
 //
@@ -1571,23 +1751,23 @@ export class ImplementsInterfaceWithInternalSubclass extends ImplementsInterface
 //
 
 interface IPrivateInterface {
-    private: string;
+  private: string;
 }
 
 export interface ExtendsInternalInterface extends InternalInterface {
-    readonly boom: boolean
+  readonly boom: boolean;
 }
 
 export class ImplementInternalInterface implements InternalInterface {
-    prop = 'implement me'
+  public prop = 'implement me';
 }
 
 export class ImplementsPrivateInterface implements IPrivateInterface {
-    public private = 'i came from private into the light'
+  public private = 'i came from private into the light';
 }
 
 export interface IExtendsPrivateInterface extends IPrivateInterface {
-    readonly moreThings: string[];
+  readonly moreThings: string[];
 }
 
 //
@@ -1596,67 +1776,79 @@ export interface IExtendsPrivateInterface extends IPrivateInterface {
 //
 
 export interface IAnotherPublicInterface {
-    a: string;
-
+  a: string;
 }
 
 /** @internal */
 export interface IAnotherInternalInterface extends IAnotherPublicInterface {
-    b: string;
+  b: string;
 }
 
 export interface INonInternalInterface extends IAnotherInternalInterface {
-    c: string;
+  c: string;
 }
 
 /** @internal */
-export interface IInternalInterfaceThatExtendsTheNonInternalOne extends INonInternalInterface {
-    d: string;
+export interface IInternalInterfaceThatExtendsTheNonInternalOne
+  extends INonInternalInterface {
+  d: string;
 }
 
-interface IPrivateInterfaceThatExtendsTheNonInternalOne extends INonInternalInterface {
-    e: string;
+interface IPrivateInterfaceThatExtendsTheNonInternalOne
+  extends INonInternalInterface {
+  e: string;
 }
 
-export class ClassThatImplementsTheInternalInterface implements IInternalInterfaceThatExtendsTheNonInternalOne, INonInternalInterface {
-    public a = 'a';
-    public b = 'b';
-    public c = 'c';
-    public d = 'd';
+export class ClassThatImplementsTheInternalInterface
+  implements
+    IInternalInterfaceThatExtendsTheNonInternalOne,
+    INonInternalInterface {
+  public a = 'a';
+  public b = 'b';
+  public c = 'c';
+  public d = 'd';
 }
 
-export class ClassThatImplementsThePrivateInterface implements IPrivateInterfaceThatExtendsTheNonInternalOne {
-    public a = 'a';
-    public b = 'b';
-    public c = 'c';
-    public e = 'e';
+export class ClassThatImplementsThePrivateInterface
+  implements IPrivateInterfaceThatExtendsTheNonInternalOne {
+  public a = 'a';
+  public b = 'b';
+  public c = 'c';
+  public e = 'e';
 }
 
 export class ConsumersOfThisCrazyTypeSystem {
-    public consumeAnotherPublicInterface(obj: IAnotherPublicInterface) {
-        return obj.a;
-    }
+  public consumeAnotherPublicInterface(obj: IAnotherPublicInterface) {
+    return obj.a;
+  }
 
-    public consumeNonInternalInterface(obj: INonInternalInterface): any {
-        return { a: obj.a, b: obj.b, c: obj.c };
-    }
+  public consumeNonInternalInterface(obj: INonInternalInterface): any {
+    return { a: obj.a, b: obj.b, c: obj.c };
+  }
 }
-
 
 //
 // Ensure the JSII kernel can pass "this" out to JSII remotes from within the constructor (this is dirty, but possible)
 //
 export abstract class PartiallyInitializedThisConsumer {
-    public abstract consumePartiallyInitializedThis(obj: ConstructorPassesThisOut, dt: Date, ev: AllTypesEnum): string;
+  public abstract consumePartiallyInitializedThis(
+    obj: ConstructorPassesThisOut,
+    dt: Date,
+    ev: AllTypesEnum,
+  ): string;
 }
 
 export class ConstructorPassesThisOut {
-    constructor(consumer: PartiallyInitializedThisConsumer) {
-        const result = consumer.consumePartiallyInitializedThis(this, new Date(0), AllTypesEnum.THIS_IS_GREAT);
-        if (result !== 'OK') {
-            throw new Error(`Expected OK but received ${result}`);
-        }
+  public constructor(consumer: PartiallyInitializedThisConsumer) {
+    const result = consumer.consumePartiallyInitializedThis(
+      this,
+      new Date(0),
+      AllTypesEnum.THIS_IS_GREAT,
+    );
+    if (result !== 'OK') {
+      throw new Error(`Expected OK but received ${result}`);
     }
+  }
 }
 
 //
@@ -1664,18 +1856,17 @@ export class ConstructorPassesThisOut {
 // See: https://github.com/aws/jsii/issues/411
 //
 export class OptionalStructConsumer {
-    public readonly parameterWasUndefined: boolean;
-    public readonly fieldValue?: string;
+  public readonly parameterWasUndefined: boolean;
+  public readonly fieldValue?: string;
 
-    constructor(optionalStruct?: OptionalStruct) {
-        this.parameterWasUndefined = optionalStruct === undefined;
-        this.fieldValue = optionalStruct && optionalStruct.field;
-    }
+  public constructor(optionalStruct?: OptionalStruct) {
+    this.parameterWasUndefined = optionalStruct === undefined;
+    this.fieldValue = optionalStruct && optionalStruct.field;
+  }
 }
 export interface OptionalStruct {
-    readonly field?: string;
+  readonly field?: string;
 }
-
 
 /**
  * This class has docs.
@@ -1691,8 +1882,7 @@ export interface OptionalStruct {
  * @customAttribute hasAValue
  * @stable
  */
-export class ClassWithDocs {
-}
+export class ClassWithDocs {}
 
 /**
  * This is used to validate the ability to use `this` from within a static context.
@@ -1700,25 +1890,25 @@ export class ClassWithDocs {
  * https://github.com/awslabs/aws-cdk/issues/2304
  */
 export class StaticContext {
-    private static _staticVariable = true;
+  private static _staticVariable = true;
 
-    public static canAccessStaticContext(): boolean {
-        return this.staticContextAvailable();
-    }
+  public static canAccessStaticContext(): boolean {
+    return this.staticContextAvailable();
+  }
 
-    private static staticContextAvailable() {
-        return true;
-    }
+  private static staticContextAvailable() {
+    return true;
+  }
 
-    public static get staticVariable() {
-        return this._staticVariable;
-    }
+  public static get staticVariable() {
+    return this._staticVariable;
+  }
 
-    public static set staticVariable(value: boolean) {
-        this._staticVariable = value;
-    }
+  public static set staticVariable(value: boolean) {
+    this._staticVariable = value;
+  }
 
-    private constructor() { }
+  private constructor() {}
 }
 
 /**
@@ -1729,26 +1919,26 @@ export class StaticContext {
  * - Verify that `methodWasCalled` is `true`.
  */
 export abstract class VoidCallback {
-    private _methodWasCalled = false;
-    public get methodWasCalled(): boolean {
-        return this._methodWasCalled;
-    }
-    public callMe(): void {
-        this.overrideMe();
-        this._methodWasCalled = true;
-    }
-    protected abstract overrideMe(): void;
+  private _methodWasCalled = false;
+  public get methodWasCalled(): boolean {
+    return this._methodWasCalled;
+  }
+  public callMe(): void {
+    this.overrideMe();
+    this._methodWasCalled = true;
+  }
+  protected abstract overrideMe(): void;
 }
 
 /**
  * Verifies that private property declarations in constructor arguments are hidden.
  */
 export class WithPrivatePropertyInConstructor {
-    constructor(private readonly privateField: string = 'Success!') { }
+  public constructor(private readonly privateField: string = 'Success!') {}
 
-    public get success() {
-        return this.privateField === 'Success!';
-    }
+  public get success() {
+    return this.privateField === 'Success!';
+  }
 }
 
 /**
@@ -1757,16 +1947,16 @@ export class WithPrivatePropertyInConstructor {
  * https://github.com/aws/jsii/issues/231
  */
 export class SingletonString {
-    private constructor() { }
+  private constructor() {}
 
-    public isSingletonString(value: string): boolean {
-        return value === SingletonStringEnum.SINGLETON_STRING;
-    }
+  public isSingletonString(value: string): boolean {
+    return value === SingletonStringEnum.SINGLETON_STRING;
+  }
 }
 /** A singleton string */
 export enum SingletonStringEnum {
-    /** 1337 */
-    SINGLETON_STRING = '3L1T3!'
+  /** 1337 */
+  SINGLETON_STRING = '3L1T3!',
 }
 /**
  * Verifies that singleton enums are handled correctly
@@ -1774,100 +1964,104 @@ export enum SingletonStringEnum {
  * https://github.com/aws/jsii/issues/231
  */
 export class SingletonInt {
-    private constructor() { }
-    public isSingletonInt(value: number): boolean {
-        return value === SingletonIntEnum.SINGLETON_INT;
-    }
+  private constructor() {}
+  public isSingletonInt(value: number): boolean {
+    return value === SingletonIntEnum.SINGLETON_INT;
+  }
 }
 /** A singleton integer. */
 export enum SingletonIntEnum {
-    /** Elite! */
-    SINGLETON_INT = 1337
+  /** Elite! */
+  SINGLETON_INT = 1337,
 }
 
 /**
  * Verifies proper type handling through dynamic overrides.
  */
 export class DataRenderer {
-    constructor() { }
+  public render(
+    data: MyFirstStruct = { anumber: 42, astring: 'bazinga!' },
+  ): string {
+    return this.renderMap(data);
+  }
 
-    public render(data: MyFirstStruct = { anumber: 42, astring: 'bazinga!' }): string {
-        return this.renderMap(data);
-    }
+  public renderArbitrary(data: { [key: string]: any }): string {
+    return this.renderMap(data);
+  }
 
-    public renderArbitrary(data: { [key: string]: any }): string {
-        return this.renderMap(data);
-    }
-
-    public renderMap(map: { [key: string]: any }): string {
-        return JSON.stringify(map, null, 2);
-    }
+  public renderMap(map: { [key: string]: any }): string {
+    return JSON.stringify(map, null, 2);
+  }
 }
 
 export interface TopLevelStruct {
-    /**
-     * This is a required field
-     */
-    readonly required: string;
+  /**
+   * This is a required field
+   */
+  readonly required: string;
 
-    /**
-     * You don't have to pass this
-     */
-    readonly optional?: string;
+  /**
+   * You don't have to pass this
+   */
+  readonly optional?: string;
 
-    /**
-     * A union to really stress test our serialization
-     */
-    readonly secondLevel: SecondLevelStruct | number;
+  /**
+   * A union to really stress test our serialization
+   */
+  readonly secondLevel: SecondLevelStruct | number;
 }
 
 export interface SecondLevelStruct {
-    /**
-     * It's long and required
-     */
-    readonly deeperRequiredProp: string;
+  /**
+   * It's long and required
+   */
+  readonly deeperRequiredProp: string;
 
-    /**
-     * It's long, but you'll almost never pass it.
-     */
-    readonly deeperOptionalProp?: string;
+  /**
+   * It's long, but you'll almost never pass it.
+   */
+  readonly deeperOptionalProp?: string;
 }
 
 export interface DiamondInheritanceBaseLevelStruct {
-    readonly baseLevelProperty: string;
+  readonly baseLevelProperty: string;
 }
 
-export interface DiamondInheritanceFirstMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
-    readonly firstMidLevelProperty: string;
+export interface DiamondInheritanceFirstMidLevelStruct
+  extends DiamondInheritanceBaseLevelStruct {
+  readonly firstMidLevelProperty: string;
 }
 
-export interface DiamondInheritanceSecondMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
-    readonly secondMidLevelProperty: string;
+export interface DiamondInheritanceSecondMidLevelStruct
+  extends DiamondInheritanceBaseLevelStruct {
+  readonly secondMidLevelProperty: string;
 }
 
-export interface DiamondInheritanceTopLevelStruct extends DiamondInheritanceFirstMidLevelStruct, DiamondInheritanceSecondMidLevelStruct {
-    readonly topLevelProperty: string;
+export interface DiamondInheritanceTopLevelStruct
+  extends DiamondInheritanceFirstMidLevelStruct,
+    DiamondInheritanceSecondMidLevelStruct {
+  readonly topLevelProperty: string;
 }
 
 export interface StructWithJavaReservedWords {
-    readonly default: string;
-    readonly assert?: string;
+  readonly default: string;
+  readonly assert?: string;
 
-    // These properties are designed to break the naive implementation of equals() and hashcode() using the standard template
-    readonly result?: string;
-    readonly that?: string;
+  // These properties are designed to break the naive implementation of equals() and hashcode() using the standard template
+  readonly result?: string;
+  readonly that?: string;
 }
 
 export class ClassWithJavaReservedWords {
-    readonly int: string;
+  public readonly int: string;
 
-    public constructor(int: string) {
-        this.int = int;
-    }
+  public constructor(int: string) {
+    this.int = int;
+  }
 
-    public import(assert: string): string {
-        return this.int + assert;
-    }
+  public import(assert: string): string {
+    return this.int + assert;
+  }
 }
 
 /**
@@ -1876,17 +2070,23 @@ export class ClassWithJavaReservedWords {
  * @stability external
  */
 export class StructPassing {
-    public static roundTrip(_positional: number, input: TopLevelStruct): TopLevelStruct {
-        return {
-            required: input.required,
-            optional: input.optional,
-            secondLevel: input.secondLevel,
-        };
-    }
+  public static roundTrip(
+    _positional: number,
+    input: TopLevelStruct,
+  ): TopLevelStruct {
+    return {
+      required: input.required,
+      optional: input.optional,
+      secondLevel: input.secondLevel,
+    };
+  }
 
-    public static howManyVarArgsDidIPass(_positional: number, ...inputs: TopLevelStruct[]): number {
-        return inputs.length;
-    }
+  public static howManyVarArgsDidIPass(
+    _positional: number,
+    ...inputs: TopLevelStruct[]
+  ): number {
+    return inputs.length;
+  }
 }
 
 /**
@@ -1894,100 +2094,111 @@ export class StructPassing {
  * See aws/aws-cdk#2362
  */
 export class InterfacesMaker {
-    public static makeInterfaces(count: number): IDoublable[] {
-        const output = new Array<IDoublable>();
-        for (let i = 0; i < count; i++) {
-            output.push({ doubleValue: i * 2 });
-        }
-        return output;
+  public static makeInterfaces(count: number): IDoublable[] {
+    const output = new Array<IDoublable>();
+    for (let i = 0; i < count; i++) {
+      output.push({ doubleValue: i * 2 });
     }
+    return output;
+  }
 
-    private constructor() { }
+  private constructor() {}
 }
 
 export class ClassWithCollections {
-    public map: { [key: string]: string };
-    public array: string[];
+  public map: { [key: string]: string };
+  public array: string[];
 
-    public static staticMap:{ [key: string]: string } = {'key1': 'value1', 'key2': 'value2'};
-    public static staticArray: string[] = ["one", "two"];
+  public static staticMap: { [key: string]: string } = {
+    key1: 'value1',
+    key2: 'value2',
+  };
+  public static staticArray: string[] = ['one', 'two'];
 
-    constructor(map: { [key: string]: string }, array: string[]) {
-        this.map = map;
-        this.array = array;
-    }
+  public constructor(map: { [key: string]: string }, array: string[]) {
+    this.map = map;
+    this.array = array;
+  }
 
-    static createAList(): string[] {
-        return ["one", "two"];
-    }
+  public static createAList(): string[] {
+    return ['one', 'two'];
+  }
 
-    static createAMap(): { [key: string]: string } {
-        return {'key1': 'value1', 'key2': 'value2'};
-    }
+  public static createAMap(): { [key: string]: string } {
+    return { key1: 'value1', key2: 'value2' };
+  }
 }
 
 /**
  * @see https://github.com/aws/jsii/issues/903
  */
 export class OverridableProtectedMember {
-    protected readonly overrideReadOnly: string = 'Baz';
-    protected overrideReadWrite: string = 'zinga!';
+  protected readonly overrideReadOnly: string = 'Baz';
+  protected overrideReadWrite = 'zinga!';
 
-    public valueFromProtected(): string {
-        return this.overrideMe();
-    }
+  public valueFromProtected(): string {
+    return this.overrideMe();
+  }
 
-    public switchModes(): void {
-        this.overrideReadWrite = 'zaar...';
-    }
+  public switchModes(): void {
+    this.overrideReadWrite = 'zaar...';
+  }
 
-    protected overrideMe(): string {
-        return this.overrideReadOnly + this.overrideReadWrite;
-    }
+  protected overrideMe(): string {
+    return this.overrideReadOnly + this.overrideReadWrite;
+  }
 }
 
 /**
  * We can generate fancy builders in Java for classes which take a mix of positional & struct parameters
  */
 export class SupportsNiceJavaBuilderWithRequiredProps {
-    public readonly propId?: string;
-    public readonly bar: number;
+  public readonly propId?: string;
+  public readonly bar: number;
 
-    /**
-     * @param id    some identifier of your choice
-     * @param props some properties
-     */
-    public constructor(public readonly id: number, props: SupportsNiceJavaBuilderProps) {
-        this.propId = props.id;
-        this.bar = props.bar;
-    }
+  /**
+   * @param id    some identifier of your choice
+   * @param props some properties
+   */
+  public constructor(
+    public readonly id: number,
+    props: SupportsNiceJavaBuilderProps,
+  ) {
+    this.propId = props.id;
+    this.bar = props.bar;
+  }
 }
 export class SupportsNiceJavaBuilder extends SupportsNiceJavaBuilderWithRequiredProps {
-    public readonly rest: string[];
+  public readonly rest: string[];
 
-    /**
-     *
-     * @param id         some identifier
-     * @param defaultBar the default value of `bar`
-     * @param props      some props once can provide
-     * @param rest       a variadic continuation
-     */
-    public constructor(public readonly id: number, defaultBar = 1337, props?: SupportsNiceJavaBuilderProps, ...rest: string[]) {
-        super(id, props ?? { bar: defaultBar });
-        this.rest = rest;
-    }
+  /**
+   *
+   * @param id         some identifier
+   * @param defaultBar the default value of `bar`
+   * @param props      some props once can provide
+   * @param rest       a variadic continuation
+   */
+  public constructor(
+    public readonly id: number,
+    defaultBar = 1337,
+    props?: SupportsNiceJavaBuilderProps,
+    ...rest: string[]
+  ) {
+    super(id, props ?? { bar: defaultBar });
+    this.rest = rest;
+  }
 }
 export interface SupportsNiceJavaBuilderProps {
-    /**
-     * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a
-     * parameter named `id`. But here we are, doing it like we didn't care.
-     */
-    readonly id?: string;
+  /**
+   * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a
+   * parameter named `id`. But here we are, doing it like we didn't care.
+   */
+  readonly id?: string;
 
-    /**
-     * Some number, like 42.
-     */
-    readonly bar: number;
+  /**
+   * Some number, like 42.
+   */
+  readonly bar: number;
 }
 
 /**
@@ -1995,74 +2206,96 @@ export interface SupportsNiceJavaBuilderProps {
  * declarations.
  */
 export interface IAnonymousImplementationProvider {
-    provideAsInterface(): IAnonymouslyImplementMe;
-    provideAsClass(): Implementation;
+  provideAsInterface(): IAnonymouslyImplementMe;
+  provideAsClass(): Implementation;
 }
-export class AnonymousImplementationProvider implements IAnonymousImplementationProvider {
-    private readonly instance = new PrivateType();
+export class AnonymousImplementationProvider
+  implements IAnonymousImplementationProvider {
+  private readonly instance = new PrivateType();
 
-    public provideAsClass(): Implementation {
-        return this.instance;
-    }
+  public provideAsClass(): Implementation {
+    return this.instance;
+  }
 
-    public provideAsInterface(): IAnonymouslyImplementMe {
-        return this.instance;
-    }
+  public provideAsInterface(): IAnonymouslyImplementMe {
+    return this.instance;
+  }
 }
 export class Implementation {
-    readonly value = 1337;
+  public readonly value = 1337;
 }
 export interface IAnonymouslyImplementMe {
-    readonly value: number;
-    verb(): string;
+  readonly value: number;
+  verb(): string;
 }
 class PrivateType extends Implementation implements IAnonymouslyImplementMe {
-    public verb() {
-        return 'to implement';
-    }
+  public verb() {
+    return 'to implement';
+  }
 }
 
 /**
  * We can serialize and deserialize structs without silently ignoring optional fields.
  */
 export interface StructA {
-    readonly requiredString: string;
-    readonly optionalString?: string;
-    readonly optionalNumber?: number;
+  readonly requiredString: string;
+  readonly optionalString?: string;
+  readonly optionalNumber?: number;
 }
 /**
  * This intentionally overlaps with StructA (where only requiredString is provided) to test htat
  * the kernel properly disambiguates those.
  */
 export interface StructB {
-    readonly requiredString: string;
-    readonly optionalBoolean?: boolean;
-    readonly optionalStructA?: StructA;
+  readonly requiredString: string;
+  readonly optionalBoolean?: boolean;
+  readonly optionalStructA?: StructA;
 }
 export class StructUnionConsumer {
-    public static isStructA(struct: StructA | StructB): struct is StructA {
-        const keys = new Set(Object.keys(struct));
-        switch (keys.size) {
-            case 1: return keys.has('requiredString');
-            case 2: return keys.has('requiredString') && (keys.has('optionalNumber') || keys.has('optionalString'));
-            case 3: return keys.has('requiredString') && keys.has('optionalNumber') && keys.has('optionalString');
-            default: return false;
-        }
+  public static isStructA(struct: StructA | StructB): struct is StructA {
+    const keys = new Set(Object.keys(struct));
+    switch (keys.size) {
+      case 1:
+        return keys.has('requiredString');
+      case 2:
+        return (
+          keys.has('requiredString') &&
+          (keys.has('optionalNumber') || keys.has('optionalString'))
+        );
+      case 3:
+        return (
+          keys.has('requiredString') &&
+          keys.has('optionalNumber') &&
+          keys.has('optionalString')
+        );
+      default:
+        return false;
     }
+  }
 
-    public static isStructB(struct: StructA | StructB): struct is StructB {
-        const keys = new Set(Object.keys(struct));
-        switch (keys.size) {
-            case 1: return keys.has('requiredString');
-            case 2: return keys.has('requiredString') && (keys.has('optionalBoolean') || keys.has('optionalStructA'));
-            case 3: return keys.has('requiredString') && keys.has('optionalBoolean') && keys.has('optionalStructA');
-            default: return false;
-        }
+  public static isStructB(struct: StructA | StructB): struct is StructB {
+    const keys = new Set(Object.keys(struct));
+    switch (keys.size) {
+      case 1:
+        return keys.has('requiredString');
+      case 2:
+        return (
+          keys.has('requiredString') &&
+          (keys.has('optionalBoolean') || keys.has('optionalStructA'))
+        );
+      case 3:
+        return (
+          keys.has('requiredString') &&
+          keys.has('optionalBoolean') &&
+          keys.has('optionalStructA')
+        );
+      default:
+        return false;
     }
+  }
 
-    private constructor() { }
+  private constructor() {}
 }
-
 
 /**
  * Test calling back to consumers that implement interfaces
@@ -2071,134 +2304,134 @@ export class StructUnionConsumer {
  * the method on the argument that they're passed...
  */
 export class ConsumerCanRingBell {
-    /**
-     * ...if the interface is implemented using an object literal.
-     *
-     * Returns whether the bell was rung.
-     */
-    public static staticImplementedByObjectLiteral(ringer: IBellRinger) {
-        let rung = false;
-        ringer.yourTurn({
-            ring() {
-                rung = true;
-            }
-        });
-        return rung;
-    }
+  /**
+   * ...if the interface is implemented using an object literal.
+   *
+   * Returns whether the bell was rung.
+   */
+  public static staticImplementedByObjectLiteral(ringer: IBellRinger) {
+    let rung = false;
+    ringer.yourTurn({
+      ring() {
+        rung = true;
+      },
+    });
+    return rung;
+  }
 
-    /**
-     * ...if the interface is implemented using a public class.
-     *
-     * Return whether the bell was rung.
-     */
-    public static staticImplementedByPublicClass(ringer: IBellRinger) {
-        const bell = new Bell();
-        ringer.yourTurn(bell);
-        return bell.rung;
-    }
+  /**
+   * ...if the interface is implemented using a public class.
+   *
+   * Return whether the bell was rung.
+   */
+  public static staticImplementedByPublicClass(ringer: IBellRinger) {
+    const bell = new Bell();
+    ringer.yourTurn(bell);
+    return bell.rung;
+  }
 
-    /**
-     * ...if the interface is implemented using a private class.
-     *
-     * Return whether the bell was rung.
-     */
-    public static staticImplementedByPrivateClass(ringer: IBellRinger) {
-        const bell = new PrivateBell();
-        ringer.yourTurn(bell);
-        return bell.rung;
-    }
+  /**
+   * ...if the interface is implemented using a private class.
+   *
+   * Return whether the bell was rung.
+   */
+  public static staticImplementedByPrivateClass(ringer: IBellRinger) {
+    const bell = new PrivateBell();
+    ringer.yourTurn(bell);
+    return bell.rung;
+  }
 
-    /**
-     * If the parameter is a concrete class instead of an interface
-     *
-     * Return whether the bell was rung.
-     */
-    public static staticWhenTypedAsClass(ringer: IConcreteBellRinger) {
-        const bell = new Bell();
-        ringer.yourTurn(bell);
-        return bell.rung;
-    }
-    /**
-     * ...if the interface is implemented using an object literal.
-     *
-     * Returns whether the bell was rung.
-     */
-    public implementedByObjectLiteral(ringer: IBellRinger) {
-        let rung = false;
-        ringer.yourTurn({
-            ring() {
-                rung = true;
-            }
-        });
-        return rung;
-    }
+  /**
+   * If the parameter is a concrete class instead of an interface
+   *
+   * Return whether the bell was rung.
+   */
+  public static staticWhenTypedAsClass(ringer: IConcreteBellRinger) {
+    const bell = new Bell();
+    ringer.yourTurn(bell);
+    return bell.rung;
+  }
+  /**
+   * ...if the interface is implemented using an object literal.
+   *
+   * Returns whether the bell was rung.
+   */
+  public implementedByObjectLiteral(ringer: IBellRinger) {
+    let rung = false;
+    ringer.yourTurn({
+      ring() {
+        rung = true;
+      },
+    });
+    return rung;
+  }
 
-    /**
-     * ...if the interface is implemented using a public class.
-     *
-     * Return whether the bell was rung.
-     */
-    public implementedByPublicClass(ringer: IBellRinger) {
-        const bell = new Bell();
-        ringer.yourTurn(bell);
-        return bell.rung;
-    }
+  /**
+   * ...if the interface is implemented using a public class.
+   *
+   * Return whether the bell was rung.
+   */
+  public implementedByPublicClass(ringer: IBellRinger) {
+    const bell = new Bell();
+    ringer.yourTurn(bell);
+    return bell.rung;
+  }
 
-    /**
-     * ...if the interface is implemented using a private class.
-     *
-     * Return whether the bell was rung.
-     */
-    public implementedByPrivateClass(ringer: IBellRinger) {
-        const bell = new PrivateBell();
-        ringer.yourTurn(bell);
-        return bell.rung;
-    }
+  /**
+   * ...if the interface is implemented using a private class.
+   *
+   * Return whether the bell was rung.
+   */
+  public implementedByPrivateClass(ringer: IBellRinger) {
+    const bell = new PrivateBell();
+    ringer.yourTurn(bell);
+    return bell.rung;
+  }
 
-    /**
-     * If the parameter is a concrete class instead of an interface
-     *
-     * Return whether the bell was rung.
-     */
-    public whenTypedAsClass(ringer: IConcreteBellRinger) {
-        const bell = new Bell();
-        ringer.yourTurn(bell);
-        return bell.rung;
-    }
+  /**
+   * If the parameter is a concrete class instead of an interface
+   *
+   * Return whether the bell was rung.
+   */
+  public whenTypedAsClass(ringer: IConcreteBellRinger) {
+    const bell = new Bell();
+    ringer.yourTurn(bell);
+    return bell.rung;
+  }
 }
 
 /**
  * Takes the object parameter as an interface
  */
 export interface IBellRinger {
-    yourTurn(bell: IBell): void;
+  yourTurn(bell: IBell): void;
 }
 
 /**
  * Takes the object parameter as a calss
  */
 export interface IConcreteBellRinger {
-    yourTurn(bell: Bell): void;
+  yourTurn(bell: Bell): void;
 }
 
 export interface IBell {
-    ring(): void;
+  ring(): void;
 }
 
 export class Bell implements IBell {
-    public rung = false;
+  public rung = false;
 
-    public ring() {
-        this.rung = true;
-    }
+  public ring() {
+    this.rung = true;
+  }
 }
 
 class PrivateBell implements IBell {
-    public rung = false;
+  public rung = false;
 
-    public ring() {
-        this.rung = true;
-    }
+  public ring() {
+    this.rung = true;
+  }
 }
 
 /**
@@ -2207,89 +2440,86 @@ class PrivateBell implements IBell {
  * idiomatic" way for Pythonists.
  */
 export interface RootStruct {
-    /**
-     * May not be empty.
-     */
-    readonly stringProp: string;
-    readonly nestedStruct?: NestedStruct;
+  /**
+   * May not be empty.
+   */
+  readonly stringProp: string;
+  readonly nestedStruct?: NestedStruct;
 }
 export interface NestedStruct {
-    /**
-     * When provided, must be > 0.
-     */
-    readonly numberProp: number;
+  /**
+   * When provided, must be > 0.
+   */
+  readonly numberProp: number;
 }
 export class RootStructValidator {
-    public static validate(struct: RootStruct): void {
-        if (!struct.stringProp) {
-            throw new Error('Missing required field: stringProp');
-        }
-        if (struct.nestedStruct) {
-            if (struct.nestedStruct.numberProp <= 0) {
-                throw new Error('numberProp must be > 0');
-            }
-        }
+  public static validate(struct: RootStruct): void {
+    if (!struct.stringProp) {
+      throw new Error('Missing required field: stringProp');
     }
+    if (struct.nestedStruct) {
+      if (struct.nestedStruct.numberProp <= 0) {
+        throw new Error('numberProp must be > 0');
+      }
+    }
+  }
 
-    private constructor() { }
+  private constructor() {}
 }
 
 /**
  * Returns a subclass of a known class which implements an interface.
  */
 export interface IReturnJsii976 {
-    readonly foo: number;
+  readonly foo: number;
 }
 
-export class BaseJsii976 { }
+export class BaseJsii976 {}
 
 export class SomeTypeJsii976 {
-
-    static returnReturn(): IReturnJsii976 {
-        class Derived extends BaseJsii976 implements IReturnJsii976 {
-            public readonly foo = 333
-        }
-
-        return new Derived();
+  public static returnReturn(): IReturnJsii976 {
+    class Derived extends BaseJsii976 implements IReturnJsii976 {
+      public readonly foo = 333;
     }
 
-    static returnAnonymous(): any {
-        class Derived implements IReturnJsii976 {
-            public readonly foo = 1337;
-        }
+    return new Derived();
+  }
 
-        return new Derived();
+  public static returnAnonymous(): any {
+    class Derived implements IReturnJsii976 {
+      public readonly foo = 1337;
     }
+
+    return new Derived();
+  }
 }
 
 /** https://github.com/aws/jsii/issues/982 */
 export interface ParentStruct982 {
-    readonly foo: string;
+  readonly foo: string;
 }
 export interface ChildStruct982 extends ParentStruct982 {
-    readonly bar: number;
+  readonly bar: number;
 }
 /**
  * 1. call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)
  * 2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type
  */
 export class Demonstrate982 {
-    private static readonly value = {
-        foo: 'foo',
-        bar: 1337,
-    };
+  private static readonly value = {
+    foo: 'foo',
+    bar: 1337,
+  };
 
-    /** It's dangerous to go alone! */
-    public static takeThis(): ChildStruct982 {
-        return this.value;
-    }
+  /** It's dangerous to go alone! */
+  public static takeThis(): ChildStruct982 {
+    return this.value;
+  }
 
-    /** It's dangerous to go alone! */
-    public static takeThisToo(): ParentStruct982 {
-        return this.value;
-    }
-
-    public constructor() { }
+  /** It's dangerous to go alone! */
+  public static takeThisToo(): ParentStruct982 {
+    return this.value;
+  }
 }
 
 /**
@@ -2298,41 +2528,43 @@ export class Demonstrate982 {
  * This source of collections is disappointing - it'll always give you nothing :(
  */
 export class DisappointingCollectionSource {
-    /** Some List of strings, maybe? (Nah, just a billion dollars mistake!) */
-    public static readonly maybeList?: string[] = undefined;
-    /** Some Map of strings to numbers, maybe? (Nah, just a billion dollars mistake!) */
-    public static readonly maybeMap?: { [key: string]: number } = undefined;
+  /** Some List of strings, maybe? (Nah, just a billion dollars mistake!) */
+  public static readonly maybeList?: string[] = undefined;
+  /** Some Map of strings to numbers, maybe? (Nah, just a billion dollars mistake!) */
+  public static readonly maybeMap?: { [key: string]: number } = undefined;
 
-    private constructor() { }
+  private constructor() {}
 }
 
 /**
  * Make sure that setters are properly called on objects with interfaces
  */
 export interface IObjectWithProperty {
-    property: string;
-    wasSet(): boolean;
+  property: string;
+  wasSet(): boolean;
 }
 export class ObjectWithPropertyProvider {
-    public static provide(): IObjectWithProperty {
-        class Impl implements IObjectWithProperty {
-            private _property: string = '';
-            private _wasSet = false;
+  public static provide(): IObjectWithProperty {
+    class Impl implements IObjectWithProperty {
+      private _property = '';
+      private _wasSet = false;
 
-            public get property() { return this._property; }
-            public set property(value: string) {
-                this._property = value;
-                this._wasSet = true;
-            }
+      public get property() {
+        return this._property;
+      }
+      public set property(value: string) {
+        this._property = value;
+        this._wasSet = true;
+      }
 
-            public wasSet() {
-                return this._wasSet;
-            }
-        }
-        return new Impl();
+      public wasSet() {
+        return this._wasSet;
+      }
     }
+    return new Impl();
+  }
 
-    private constructor() { }
+  private constructor() {}
 }
 
 /**
@@ -2341,63 +2573,63 @@ export class ObjectWithPropertyProvider {
  * @see https://github.com/aws/aws-cdk/issues/5066
  */
 export class JsonFormatter {
-    public static stringify(value?: any): string | undefined {
-        return JSON.stringify(value, null, 2);
-    }
+  public static stringify(value?: any): string | undefined {
+    return JSON.stringify(value, null, 2);
+  }
 
-    public static anyNull(): any {
-        return null;
-    }
+  public static anyNull(): any {
+    return null;
+  }
 
-    public static anyUndefined(): any {
-        return undefined;
-    }
+  public static anyUndefined(): any {
+    return undefined;
+  }
 
-    public static anyFunction(): any {
-        return () => 'boom';
-    }
+  public static anyFunction(): any {
+    return () => 'boom';
+  }
 
-    public static anyDate(): any {
-        return new Date('2019-11-18T13:01:20.515Z');
-    }
+  public static anyDate(): any {
+    return new Date('2019-11-18T13:01:20.515Z');
+  }
 
-    public static anyNumber(): any {
-        return 123;
-    }
+  public static anyNumber(): any {
+    return 123;
+  }
 
-    public static anyZero(): any {
-        return 0;
-    }
+  public static anyZero(): any {
+    return 0;
+  }
 
-    public static anyString(): any {
-        return 'foo';
-    }
+  public static anyString(): any {
+    return 'foo';
+  }
 
-    public static anyEmptyString(): any {
-        return '';
-    }
+  public static anyEmptyString(): any {
+    return '';
+  }
 
-    public static anyBooleanTrue(): any {
-        return true;
-    }
+  public static anyBooleanTrue(): any {
+    return true;
+  }
 
-    public static anyBooleanFalse(): any {
-        return false;
-    }
+  public static anyBooleanFalse(): any {
+    return false;
+  }
 
-    public static anyArray(): any {
-        return [ 1, 2, 3, new Number(123), { foo: 'bar' } ];
-    }
+  public static anyArray(): any {
+    return [1, 2, 3, new Number(123), { foo: 'bar' }];
+  }
 
-    public static anyHash(): any {
-        return { hello: 1234, world: new Number(122) };
-    }
+  public static anyHash(): any {
+    return { hello: 1234, world: new Number(122) };
+  }
 
-    public static anyRef(): any {
-        return new Number(444);
-    }
+  public static anyRef(): any {
+    return new Number(444);
+  }
 
-    private constructor() { }
+  private constructor() {}
 }
 
 /**
@@ -2406,34 +2638,34 @@ export class JsonFormatter {
  * @see https://github.com/aws/aws-cdk/issues/4080
  */
 export class ConfusingToJackson {
-    public static makeInstance(): ConfusingToJackson {
-        return new ConfusingToJackson();
-    }
+  public static makeInstance(): ConfusingToJackson {
+    return new ConfusingToJackson();
+  }
 
-    public static makeStructInstance(): ConfusingToJacksonStruct {
-        return {};
-    }
+  public static makeStructInstance(): ConfusingToJacksonStruct {
+    return {};
+  }
 
-    public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+  public unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
 
-    private constructor() { }
+  private constructor() {}
 }
 export interface ConfusingToJacksonStruct {
-    readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
+  readonly unionProperty?: Array<IFriendly | AbstractClass> | IFriendly;
 }
 
 /**
  * Verifies that a "pure" implementation of an interface works correctly
  */
 export interface IStructReturningDelegate {
-    returnStruct(): StructB;
+  returnStruct(): StructB;
 }
 export class ConsumePureInterface {
-    constructor(private readonly delegate: IStructReturningDelegate) { }
+  public constructor(private readonly delegate: IStructReturningDelegate) {}
 
-    public workItBaby() {
-        return this.delegate.returnStruct();
-    }
+  public workItBaby() {
+    return this.delegate.returnStruct();
+  }
 }
 
 /**
@@ -2444,11 +2676,14 @@ export class ConsumePureInterface {
  * See: https://github.com/aws/aws-cdk/issues/4302
  */
 export interface StructParameterType {
-    readonly scope: string;
-    readonly props?: boolean;
+  readonly scope: string;
+  readonly props?: boolean;
 }
 export class AmbiguousParameters {
-    public constructor(public readonly scope: Bell, public readonly props: StructParameterType) { }
+  public constructor(
+    public readonly scope: Bell,
+    public readonly props: StructParameterType,
+  ) {}
 }
 
 /**
@@ -2458,37 +2693,43 @@ export class AmbiguousParameters {
  */
 export class InterfaceCollections {
   public static listOfStructs(): StructA[] {
-    return [
-      { requiredString: 'Hello, I\'m String!' }
-    ];
+    return [{ requiredString: "Hello, I'm String!" }];
   }
 
   public static mapOfStructs(): { [name: string]: StructA } {
     return {
-      A: { requiredString: 'Hello, I\'m String!' }
+      A: { requiredString: "Hello, I'm String!" },
     };
   }
 
   public static listOfInterfaces(): IBell[] {
     return [
-      { ring: () => { return; } }
+      {
+        ring: () => {
+          return;
+        },
+      },
     ];
   }
 
   public static mapOfInterfaces(): { [name: string]: IBell } {
     return {
-      A: { ring: () => { return; } }
+      A: {
+        ring: () => {
+          return;
+        },
+      },
     };
   }
 
-  private constructor(){ }
+  private constructor() {}
 }
 
 /**
  * Checks that optional result from interface method code generates correctly
  */
 export interface IOptionalMethod {
-    optional(): string | undefined;
+  optional(): string | undefined;
 }
 
 /**
@@ -2498,9 +2739,9 @@ export interface IOptionalMethod {
  * `this` from within the constructor.
  */
 export abstract class Isomorphism {
-    public myself(): Isomorphism {
-        return this;
-    }
+  public myself(): Isomorphism {
+    return this;
+  }
 }
 
 /**
@@ -2509,13 +2750,18 @@ export abstract class Isomorphism {
  * @see https://github.com/aws/jsii/issues/1765
  */
 export class UmaskCheck {
-    /**
-     * This should return 0o644 (-rw-r--r--)
-     */
-    public static mode(): number {
-        // The bit-masking is to remove the file type information from .mode
-        return fs.statSync(__filename).mode & 0o0777;
-    }
+  /**
+   * This should return 0o644 (-rw-r--r--)
+   */
+  public static mode(): number {
+    // The bit-masking is to remove the file type information from .mode
+    return fs.statSync(__filename).mode & 0o0777;
+  }
 
-    private constructor() {}
+  private constructor() {}
+}
+
+/** Does nothing with provided arguments, useful to artifically use parameters */
+function consume(..._args: readonly any[]) {
+  return;
 }

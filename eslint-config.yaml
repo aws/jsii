@@ -11,6 +11,7 @@ plugins:
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: 2018
+  impliedStrict: true
   sourceType: module
   project: ./**/tsconfig.json
 
