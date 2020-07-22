@@ -424,10 +424,25 @@ abstract class BaseMethod implements PythonBase {
       ...this.parameters.map((param) =>
         toTypeName(param).requiredImports(context),
       ),
-      ...(this.liftedProp?.properties?.map((prop) =>
-        toTypeName(prop.type).requiredImports(context),
-      ) ?? []),
+      ...liftedProperties(this.liftedProp),
     );
+
+    function* liftedProperties(
+      struct: spec.InterfaceType | undefined,
+    ): IterableIterator<PythonImports> {
+      if (struct == null) {
+        return;
+      }
+      for (const prop of struct.properties ?? []) {
+        yield toTypeName(prop.type).requiredImports(context);
+      }
+      for (const base of struct.interfaces ?? []) {
+        const iface = context.resolver.dereference(base) as spec.InterfaceType;
+        for (const imports of liftedProperties(iface)) {
+          yield imports;
+        }
+      }
+    }
   }
 
   public emit(

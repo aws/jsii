@@ -202,13 +202,19 @@
     "jsii-calc.submodule.back_references": {
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 4
+        "line": 5
       }
     },
     "jsii-calc.submodule.child": {
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
         "line": 1
+      }
+    },
+    "jsii-calc.submodule.isolated": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 2
       }
     },
     "jsii-calc.submodule.nested_submodule": {
@@ -13428,6 +13434,42 @@
         }
       ]
     },
+    "jsii-calc.submodule.child.KwargsProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.submodule.child.KwargsProps",
+      "interfaces": [
+        "jsii-calc.submodule.child.SomeStruct"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/child/index.ts",
+        "line": 41
+      },
+      "name": "KwargsProps",
+      "namespace": "submodule.child",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/child/index.ts",
+            "line": 42
+          },
+          "name": "extra",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.submodule.child.OuterClass": {
       "assembly": "jsii-calc",
       "docs": {
@@ -13555,6 +13597,48 @@
         }
       ]
     },
+    "jsii-calc.submodule.isolated.Kwargs": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Ensures imports are correctly registered for kwargs lifted properties from super-structs."
+      },
+      "fqn": "jsii-calc.submodule.isolated.Kwargs",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodule/isolated.ts",
+        "line": 7
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/submodule/isolated.ts",
+            "line": 8
+          },
+          "name": "method",
+          "parameters": [
+            {
+              "name": "props",
+              "optional": true,
+              "type": {
+                "fqn": "jsii-calc.submodule.child.KwargsProps"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "Kwargs",
+      "namespace": "submodule.isolated"
+    },
     "jsii-calc.submodule.nested_submodule.Namespaced": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -13638,5 +13722,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "c3/b9lGca4/F/AIsgaPF6iXNmRYOS7eOQHcQv3EsIDM="
+  "fingerprint": "AksOoFurRMyuF7gSjHXHbIRIIjq0e0R0CvpHycvyI3U="
 }
