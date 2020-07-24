@@ -69,14 +69,23 @@ export async function shell(
           return ok(out);
         }
         const err = Buffer.concat(stderr).toString('utf-8');
-        if (code != null) {
-          return ko(
-            new Error(`Process exited with status ${code}\n${out}\n${err}`),
-          );
-        }
         return ko(
-          new Error(`Process terminated by signal ${signal}\n${out}\n${err}`),
+          new Error(
+            `Process exited with ${
+              code != null ? `code ${code}` : `signal ${signal}`
+            } (command: ${cmd} ${args.join(' ')})\n${prefix(
+              out,
+              'STDOUT: ',
+            )}\n${prefix(err, 'STDERR: ')}`,
+          ),
         );
+
+        function prefix(text: string, add: string): string {
+          return text
+            .split('\n')
+            .map((line) => `${add}${line}`)
+            .join('\n');
+        }
       });
     });
   }
