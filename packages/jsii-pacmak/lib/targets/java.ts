@@ -300,7 +300,7 @@ export class JavaBuilder implements TargetBuilder {
                 id: profileName,
                 repositories: {
                   repository: localRepos.map((repo) => ({
-                    id: repo,
+                    id: repo.replace(/[\\/:"<>|?*]/g, '$'),
                     url: `file://${repo}`,
                   })),
                 },

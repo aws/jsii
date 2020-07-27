@@ -41,7 +41,7 @@
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/jest": "^26.0.5",
-    "@types/node": "^10.17.26",
+    "@types/node": "^10.17.28",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
