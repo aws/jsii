@@ -17,7 +17,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@octokit/rest": "^18.0.0",
+    "@octokit/rest": "^18.0.3",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.1",
     "jest": "^26.1.0",
