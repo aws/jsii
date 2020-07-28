@@ -7,14 +7,14 @@ export interface ModuleTypes {
 }
 
 export class Module {
-  readonly types: ModuleTypes = {};
-  readonly submodules: Submodule[];
-  readonly assembly: Assembly | JsiiSubmodule;
+  public readonly types: ModuleTypes = {};
+  public readonly submodules: Submodule[];
+  public readonly assembly: Assembly | JsiiSubmodule;
 
   public constructor(assembly: Assembly, submodule?: JsiiSubmodule) {
     this.assembly = submodule ?? assembly;
-    assembly.types.forEach(type => {
-      let t: Enum | Interface | GoClass | undefined ;
+    assembly.types.forEach((type) => {
+      let t: Enum | Interface | GoClass | undefined;
       if (type.isInterfaceType()) {
         t = new Interface(type);
       } else if (type.isClassType()) {
@@ -41,15 +41,15 @@ export class Module {
   }
 
   public emitTypes(code: CodeMaker) {
-    Object.values(this.types).forEach(type => {
-      type.emit(code)
+    Object.values(this.types).forEach((type) => {
+      type.emit(code);
     });
 
-//     this.submodules.forEach(submodule => {
-//       code.openFile(submodule.filename);
-//       submodule.emitTypes(code);
-//       code.closeFile(submodule.filename);
-//     });
+    //     this.submodules.forEach(submodule => {
+    //       code.openFile(submodule.filename);
+    //       submodule.emitTypes(code);
+    //       code.closeFile(submodule.filename);
+    //     });
   }
 }
 
@@ -59,6 +59,6 @@ export class Submodule extends Module {
   }
 
   public get filename(): string {
-    return "submodulename";
+    return 'submodulename';
   }
 }

@@ -7,7 +7,7 @@ import { Module } from './module';
 export class Package extends Module {
   public readonly packageName: string;
 
-  constructor(public readonly assembly: Assembly) {
+  public constructor(public readonly assembly: Assembly) {
     super(assembly);
     this.packageName = this.assembly.name
       .replace('@', '')

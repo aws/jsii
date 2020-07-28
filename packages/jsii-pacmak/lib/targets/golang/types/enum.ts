@@ -7,5 +7,7 @@ export class Enum extends GoType {
     super(type);
   }
 
-  public emit(_code: CodeMaker) {}
+  public emit(_code: CodeMaker): void {
+    return;
+  }
 }

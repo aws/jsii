@@ -34,14 +34,13 @@ export class TypeMapper {
  * BaseGoType provides the base constructor for Go types, namely custom struct types (representing classes) and interfaces.
  */
 export class BaseGoType {
-  // @ts-ignore
-  private readonly scopes: string[];
+  // private readonly scopes: string[];
   private readonly name: string;
 
   public constructor(public fqn: string) {
     const path = this.fqn.split('.');
     this.name = path.pop()!;
-    this.scopes = path;
+    // this.scopes = path;
   }
 
   public get localName() {
