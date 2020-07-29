@@ -41,11 +41,16 @@ jobs:
         uses: actions/setup-node@v2.1.1
         with:
           python-version: ${{ matrix.python }}
+      - name: Install python3-venv
+        if: runner.os == 'Linux'
+        run: apt install -y python3-venv
       - name: Check out
         uses: actions/checkout@v2
       - name: Locate Caches
         id: cache-locations
         run: |-
+          # Need to have PIP >= 20.1 for "pip cache dir" to work
+          pip install --update pip
           echo "::set-output name=pip-cache::$(pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
@@ -104,9 +109,14 @@ jobs:
         uses: actions/setup-node@v2.1.1
         with:
           python-version: ${{ matrix.python }}
+      - name: Install python3-venv
+        if: runner.os == 'Linux'
+        run: apt install -y python3-venv
       - name: Locate Caches
         id: cache-locations
         run: |-
+          # Need to have PIP >= 20.1 for "pip cache dir" to work
+          pip install --update pip
           echo "::set-output name=pip-cache::$(pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
