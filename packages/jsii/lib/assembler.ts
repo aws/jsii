@@ -750,6 +750,23 @@ export class Assembler implements Emitter {
       return allTypes;
     }
 
+    if (ts.isExportSpecifier(node)) {
+      // This is what happens when one does `export { Symbol } from "./location";`
+      //                   ExportSpecifier:           ~~~~~~
+
+      const resolvedSymbol = this._typeChecker.getExportSpecifierLocalTargetSymbol(
+        node,
+      );
+      if (!resolvedSymbol) {
+        // A grammar error, compilation will already have failed
+        return [];
+      }
+      return this._visitNode(
+        resolvedSymbol.valueDeclaration ?? resolvedSymbol.declarations[0],
+        context,
+      );
+    }
+
     if ((ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) === 0) {
       return [];
     }
