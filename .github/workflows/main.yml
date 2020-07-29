@@ -75,10 +75,24 @@ jobs:
       matrix:
         # All currently supported node versions (Maintenance LTS, Active LTS, Current)
         dotnet: ['3.1.x']
-        java: ['8', '11']
+        java: ['8']
         node: ['10', '12', '13', '14']
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python: ['3.6', '3.7', '3.8', '3.9']
+        python: ['3.6']
+        # Add specific runs for different variations of java/python only against node 10 / ubuntu-latest
+        include:
+          - java: '11'
+            node: '10'
+            os: ubuntu-latest
+          - python: '3.7'
+            node: '10'
+            os: ubuntu-latest
+          - python: '3.8'
+            node: '10'
+            os: ubuntu-latest
+          - python: '3.9'
+            node: '10'
+            os: ubuntu-latest
 
     runs-on: ${{ matrix.os }}
 
