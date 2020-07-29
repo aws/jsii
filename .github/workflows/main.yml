@@ -40,7 +40,7 @@ jobs:
         id: cache-locations
         run: |-
           # Need to have PIP >= 20.1 for "pip cache dir" to work
-          pip install --upgrade pip
+          python3 -m pip install --upgrade pip
           echo "::set-output name=pip-cache::$(pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
@@ -106,7 +106,7 @@ jobs:
         id: cache-locations
         run: |-
           # Need to have PIP >= 20.1 for "pip cache dir" to work
-          pip install --upgrade pip
+          python3 -m pip install --upgrade pip
           echo "::set-output name=pip-cache::$(pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
