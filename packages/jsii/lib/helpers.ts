@@ -18,18 +18,28 @@ import { loadProjectInfo, ProjectInfo } from './project-info';
  * Compile a piece of source and return the JSII assembly for it
  *
  * Only usable for trivial cases and tests.
+ *
+ * @param source can either be a single `string` (the content of `index.ts`), or
+ *               a map of fileName to content, which *must* include `index.ts`.
  */
 export async function sourceToAssemblyHelper(
-  source: string,
+  source: string | { 'index.ts': string; [name: string]: string },
   cb?: (obj: PackageInfo) => void,
 ): Promise<spec.Assembly> {
+  if (typeof source === 'string') {
+    source = { 'index.ts': source };
+  }
+
   // Easiest way to get the source into the compiler is to write it to disk somewhere.
   // I guess we could make an in-memory compiler host but that seems like work...
   return inTempDir(async () => {
-    const fileName = 'index.ts';
-    await fs.writeFile(fileName, source, { encoding: 'utf-8' });
+    await Promise.all(
+      Object.entries(source).map(([fileName, content]) =>
+        fs.writeFile(fileName, content, { encoding: 'utf-8' }),
+      ),
+    );
     const compiler = new Compiler({
-      projectInfo: await makeProjectInfo(fileName, cb),
+      projectInfo: await makeProjectInfo('index.ts', cb),
     });
     const emitResult = await compiler.emit();
 
