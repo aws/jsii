@@ -40,7 +40,7 @@ jobs:
         id: cache-locations
         run: |-
           # Need to have PIP >= 20.1 for "pip cache dir" to work
-          python3 -m pip install --upgrade pip
+          python -m pip install --upgrade pip
           echo "::set-output name=pip-cache::$(pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
@@ -67,11 +67,13 @@ jobs:
           path: |-
             ${{ github.workspace }}/
             !${{ github.workspace }}/node_modules
+            !${{ github.workspace }}/**/node_modules
 
   test:
     name: Test (${{ matrix.os }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
     needs: build
     strategy:
+      continue-on-error: true
       matrix:
         # All currently supported node versions (Maintenance LTS, Active LTS, Current)
         dotnet: ['3.1.x']
@@ -128,7 +130,7 @@ jobs:
         id: cache-locations
         run: |-
           # Need to have PIP >= 20.1 for "pip cache dir" to work
-          python3 -m pip install --upgrade pip
+          python -m pip install --upgrade pip
           echo "::set-output name=pip-cache::$(pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
