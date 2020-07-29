@@ -1,4 +1,5 @@
 package scopejsiicalcbaseofbase
+
 type IVeryBaseInterface interface {
     foo()
 }

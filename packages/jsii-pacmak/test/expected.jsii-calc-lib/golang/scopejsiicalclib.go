@@ -1,4 +1,5 @@
 package scopejsiicalclib
+
 type IDoublable interface {
     getdoublevalue() number
     setdoublevalue()

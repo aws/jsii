@@ -91,6 +91,17 @@
           "locationInModule": {
             "filename": "lib/index.ts",
             "line": 112
+          },
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.JSII.Tests.CustomSubmoduleName"
+            },
+            "java": {
+              "package": "software.amazon.jsii.tests.calculator.custom_submodule_name"
+            },
+            "python": {
+              "module": "scope.jsii_calc_lib.custom_submodule_name"
+            }
           }
         }
       },
@@ -6559,6 +6570,40 @@
       ],
       "name": "InterfacesMaker"
     },
+    "jsii-calc.Isomorphism": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "Create a subclass of this, and assert that `this.myself()` actually returns\n`this` from within the constructor.",
+        "stability": "experimental",
+        "summary": "Checks the \"same instance\" isomorphism is preserved within the constructor."
+      },
+      "fqn": "jsii-calc.Isomorphism",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2500
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2501
+          },
+          "name": "myself",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.Isomorphism"
+            }
+          }
+        }
+      ],
+      "name": "Isomorphism"
+    },
     "jsii-calc.JSII417Derived": {
       "assembly": "jsii-calc",
       "base": "jsii-calc.JSII417PublicBaseOfBase",
@@ -12878,6 +12923,134 @@
       "name": "Goodness",
       "namespace": "submodule.child"
     },
+    "jsii-calc.submodule.child.InnerClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.submodule.child.InnerClass",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodule/child/index.ts",
+        "line": 37
+      },
+      "name": "InnerClass",
+      "namespace": "submodule.child",
+      "properties": [
+        {
+          "const": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/child/index.ts",
+            "line": 38
+          },
+          "name": "staticProp",
+          "static": true,
+          "type": {
+            "fqn": "jsii-calc.submodule.child.SomeStruct"
+          }
+        }
+      ]
+    },
+    "jsii-calc.submodule.child.OuterClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": ": https://github.com/aws/jsii/pull/1706",
+        "stability": "experimental",
+        "summary": "Checks that classes can self-reference during initialization."
+      },
+      "fqn": "jsii-calc.submodule.child.OuterClass",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodule/child/index.ts",
+        "line": 24
+      },
+      "name": "OuterClass",
+      "namespace": "submodule.child",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/child/index.ts",
+            "line": 25
+          },
+          "name": "innerClass",
+          "type": {
+            "fqn": "jsii-calc.submodule.child.InnerClass"
+          }
+        }
+      ]
+    },
+    "jsii-calc.submodule.child.SomeEnum": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.submodule.child.SomeEnum",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/submodule/child/index.ts",
+        "line": 31
+      },
+      "members": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "name": "SOME"
+        }
+      ],
+      "name": "SomeEnum",
+      "namespace": "submodule.child"
+    },
+    "jsii-calc.submodule.child.SomeStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.submodule.child.SomeStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/child/index.ts",
+        "line": 34
+      },
+      "name": "SomeStruct",
+      "namespace": "submodule.child",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/child/index.ts",
+            "line": 35
+          },
+          "name": "prop",
+          "type": {
+            "fqn": "jsii-calc.submodule.child.SomeEnum"
+          }
+        }
+      ]
+    },
     "jsii-calc.submodule.child.Structure": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -12993,5 +13166,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "iP/zQptC7cNEsdU1r4YJM/eSXG6VWWJQA05jxFy973k="
+  "fingerprint": "WdFD02mRrBZaKXT1erhd6fi+1V5/bpaeGuNZWxNuRdk="
 }

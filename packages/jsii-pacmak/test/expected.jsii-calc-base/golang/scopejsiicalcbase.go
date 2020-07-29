@@ -1,4 +1,5 @@
 package scopejsiicalcbase
+
 type Base struct {
 }
 

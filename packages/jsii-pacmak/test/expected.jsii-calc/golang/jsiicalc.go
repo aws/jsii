@@ -1,4 +1,5 @@
 package jsiicalc
+
 type AbstractClass struct {
     propFromInterface string
 }
@@ -845,6 +846,13 @@ type InterfacesMaker struct {
 }
 
 func (I *InterfacesMaker) makeInterfaces() Array<@scope/jsii-calc-lib.IDoublable> {
+    // jsiiruntime.methodcall(I)
+}
+
+type Isomorphism struct {
+}
+
+func (I *Isomorphism) myself() Isomorphism {
     // jsiiruntime.methodcall(I)
 }
 
