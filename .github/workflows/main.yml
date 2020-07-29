@@ -81,18 +81,26 @@ jobs:
         python: ['3.6']
         # Add specific runs for different variations of java/python only against node 10 / ubuntu-latest
         include:
-          - java: '11'
+          - dotnet: '3.1.x'
+            java: '11'
             node: '10'
             os: ubuntu-latest
-          - python: '3.7'
+            python: '3.8'
+          - dotnet: '3.1.x'
+            java: '11'
             node: '10'
             os: ubuntu-latest
-          - python: '3.8'
+            python: '3.7'
+          - dotnet: '3.1.x'
+            java: '11'
             node: '10'
             os: ubuntu-latest
-          - python: '3.9'
+            python: '3.8'
+          - dotnet: '3.1.x'
+            python: '3.9'
             node: '10'
             os: ubuntu-latest
+            python: '3.8'
 
     runs-on: ${{ matrix.os }}
 
