@@ -51,7 +51,7 @@ jobs:
             ${{ steps.cache-locations.outputs.yarn-cache }}
             ~/.m2/repository
             ~/.nuget/packages
-          key: ${{ runner.os }}-node$12-python@3.6-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |-
             ${{ runner.os }}-node@12-python@3.6-
             ${{ runner.os }}-node@12-
@@ -132,7 +132,7 @@ jobs:
             ~/.m2/repository
             ~/.nuget/packages
           # Not including .NET / Java in the cache keys, those artifacts are SDK-version-independent
-          key: ${{ runner.os }}-node${{ matrix.node }}-python@${{ matrix.python }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node@${{ matrix.node }}-python@${{ matrix.python }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |-
             ${{ runner.os }}-node@${{ matrix.node }}-python@${{ matrix.python }}-
             ${{ runner.os }}-node@${{ matrix.node }}-
