@@ -69,6 +69,40 @@ jobs:
             !**/node_modules/**
             !**/__pycache__/**
 
+  package:
+    name: Release Package
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+      - name: Standard Version (PR)
+        if: github.event_name == 'pull_request'
+        run: |-
+          npx standard-version                                                                                          \
+            --compareUrlFormat='{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${{ github.sha }}'          \
+            --prerelease=pr${{ github.event.pull_request.number }}                                                      \
+            --skip.commit
+      - name: Standard Version (Nightly)
+        if: github.event_name == 'push'
+        run: |-
+          npx standard-version                                                                                          \
+            --compareUrlFormat='{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${{ github.sha }}'          \
+            --prerelease=nightly.$(date -u +'%Y%m%d')                                                                   \
+            --skip.commit
+      - name: Align Versions
+        run: ./scripts/align-version.sh
+      - name: Rebuild
+        run: yarn build
+      - name: Package Libraries
+        run: yarn package
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: ${{ github.workspace }}/dist/
+
   test:
     name: Test (${{ matrix.os }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
     needs: build
