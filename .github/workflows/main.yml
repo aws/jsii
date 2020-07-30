@@ -113,30 +113,44 @@ jobs:
         dotnet: ['3.1.x']
         java: ['8']
         node: ['10', '12', '13', '14']
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
         python: ['3.6']
-        # Add specific runs for different variations of java/python only against node 10 / ubuntu-latest
+        # Add specific combinations to be tested against "node 10" (to restrict cardinality)
         include:
-          - dotnet: '3.1.x'
-            java: '11'
-            node: '10'
-            os: ubuntu-latest
-            python: '3.8'
-          - dotnet: '3.1.x'
-            java: '11'
-            node: '10'
-            os: ubuntu-latest
-            python: '3.7'
-          - dotnet: '3.1.x'
-            java: '11'
-            node: '10'
-            os: ubuntu-latest
-            python: '3.8'
-          - dotnet: '3.1.x'
+          # Test using Windows
+          - os: windows-latest
+            dotnet: '3.1.x'
             java: '8'
             node: '10'
+            python: '3.6'
+          # Test using macOS
+          - os: macos-latest
+            dotnet: '3.1.x'
+            java: '8'
+            node: '10'
+            python: '3.6'
+          # Test alternate Javas
+          - java: '11'
+            dotnet: '3.1.x'
+            node: '10'
             os: ubuntu-latest
-            python: '3.8'
+            python: '3.6'
+          # Test alternate Pythons
+          - python: '3.7'
+            dotnet: '3.1.x'
+            java: '11'
+            node: '10'
+            os: ubuntu-latest
+          - python: '3.8'
+            dotnet: '3.1.x'
+            java: '11'
+            node: '10'
+            os: ubuntu-latest
+          - python: '3.9'
+            dotnet: '3.1.x'
+            java: '11'
+            node: '10'
+            os: ubuntu-latest
 
     runs-on: ${{ matrix.os }}
 
