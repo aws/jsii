@@ -91,24 +91,25 @@ async function translateAll(
   snippets: IterableIterator<TypeScriptSnippet>,
   includeCompilerDiagnostics: boolean,
 ): Promise<TranslateAllResult> {
-  try {
-    const worker = await import('worker_threads');
+  if (!process.env.JSII_ROSETTA_NO_WORKER_THREADS) {
+    try {
+      const worker = await import('worker_threads');
 
-    return workerBasedTranslateAll(
-      worker,
-      snippets,
-      includeCompilerDiagnostics,
-    );
-  } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND') {
-      throw e;
+      return workerBasedTranslateAll(
+        worker,
+        snippets,
+        includeCompilerDiagnostics,
+      );
+    } catch (e) {
+      if (e.code !== 'MODULE_NOT_FOUND') {
+        throw e;
+      }
+      logging.warn(
+        'Worker threads not available (use NodeJS >= 10.5 and --experimental-worker). Working sequentially.',
+      );
     }
-    logging.warn(
-      'Worker threads not available (use NodeJS >= 10.5 and --experimental-worker). Working sequentially.',
-    );
-
-    return singleThreadedTranslateAll(snippets, includeCompilerDiagnostics);
   }
+  return singleThreadedTranslateAll(snippets, includeCompilerDiagnostics);
 }
 
 /**

@@ -67,7 +67,7 @@ jobs:
           path: |-
             ${{ github.workspace }}
             !**/node_modules/**
-            !**/__pycache__/**
+            !**/.env/**
 
   package:
     name: Release Package
