@@ -32,10 +32,10 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.6'
-      - name: Install python3-venv
+      - name: 'Linux: Install python3-venv'
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
-      - name: Expose python3 command
+      - name: 'Windows: Expose python3 command'
         if: runner.os == 'Windows'
         shell: bash
         run: cp ${pythonLocation}/python.exe ${pythonLocation}/python3.exe
@@ -158,10 +158,10 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
-      - name: Install python3-venv
+      - name: 'Linux: Install python3-venv'
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
-      - name: Expose python3 command
+      - name: 'Windows: Expose python3 command'
         if: runner.os == 'Windows'
         shell: bash
         run: cp ${pythonLocation}/python.exe ${pythonLocation}/python3.exe
