@@ -35,6 +35,9 @@ jobs:
       - name: Install python3-venv
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
+      - name: Expose python3 command
+        if: runner.os == 'Windows'
+        run: cp ${pythonLocation}/python.exe ${pythonLocation}/python3.exe
       - name: Check out
         uses: actions/checkout@v2
       - name: Locate Caches
@@ -157,13 +160,15 @@ jobs:
       - name: Install python3-venv
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
+      - name: Expose python3 command
+        if: runner.os == 'Windows'
+        run: cp ${pythonLocation}/python.exe ${pythonLocation}/python3.exe
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
           name: built-tree
       - name: Locate Caches
         id: cache-locations
-        shell: bash
         run: |-
           # Need to have PIP >= 20.1 for "pip cache dir" to work
           python3 -m pip install --upgrade pip
