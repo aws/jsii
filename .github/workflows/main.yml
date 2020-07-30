@@ -60,14 +60,27 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Full Build
         run: yarn build
+      - name: List Output Files
+        id: list-output-files
+        run: |-
+          output=$(
+            git status --ignored --untracked-files --porcelain \
+            | grep -v node_modules \
+            | cut -c 4-
+            | sed -e 's#^#${{ github.workspace }}/#'
+          )
+          # Need to escape % and CR/LF before setting output (it's de-manged in GH engine)
+          output="${output//'%'/'%25'}"
+          output="${output//$'\n'/'%0A'}"
+          output="${output//$'\r'/'%0D'}"
+          echo "::set-output name=files::${output}"
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: build-output
           path: |-
-            ${{ github.workspace }}/
-            !${{ github.workspace }}/node_modules
-            !${{ github.workspace }}/**/node_modules
+            ${{ steps.list-output-files.outputs.files }}
+            !**/node_modules/**
 
   test:
     name: Test (${{ matrix.os }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
@@ -126,6 +139,8 @@ jobs:
       - name: Install python3-venv
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
+      - name: Check out
+        uses: actions/checkout@v2
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
