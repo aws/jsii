@@ -525,6 +525,11 @@ export class Assembler implements Emitter {
       // Unresolvable module... We'll let tsc report this for us.
       return;
     }
+
+    // Normalize the path so the correct separator is in use (Looking at you, Windows)
+    resolution.resolvedModule.resolvedFileName = path.normalize(
+      resolution.resolvedModule.resolvedFileName,
+    );
     if (
       // We're not looking into a dependency's namespace exports, and the resolution says it's external
       (packageRoot === this.projectInfo.projectRoot &&
