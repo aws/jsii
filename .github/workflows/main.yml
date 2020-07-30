@@ -112,7 +112,7 @@ jobs:
         # All currently supported node versions (Maintenance LTS, Active LTS, Current)
         dotnet: ['3.1.x']
         java: ['8']
-        node: ['10', '12', '13', '14']
+        node: ['10', '12', '14']
         os: [ubuntu-latest]
         python: ['3.6']
         # Add specific combinations to be tested against "node 10" (to restrict cardinality)
