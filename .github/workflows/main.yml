@@ -72,8 +72,9 @@ jobs:
           name: built-tree
           path: |-
             ${{ github.workspace }}
-            !**/node_modules/**
             !**/.env/**
+            !**/node_modules/**
+            !**/project/.m2/**
       # Determine a prerelease version (depending on whether this is a PR or Push event)
       - name: Standard Version (PR)
         if: github.event_name == 'pull_request'
