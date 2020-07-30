@@ -146,11 +146,6 @@ jobs:
             java: '11'
             node: '10'
             os: ubuntu-latest
-          - python: '3.9'
-            dotnet: '3.1.x'
-            java: '11'
-            node: '10'
-            os: ubuntu-latest
 
     runs-on: ${{ matrix.os }}
 
