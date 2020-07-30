@@ -1,7 +1,8 @@
 import json
 import setuptools
 
-kwargs = json.loads("""
+kwargs = json.loads(
+    """
 {
     "name": "jsii-calc",
     "version": "0.0.0",
@@ -27,6 +28,7 @@ kwargs = json.loads("""
         "jsii_calc.submodule",
         "jsii_calc.submodule.back_references",
         "jsii_calc.submodule.child",
+        "jsii_calc.submodule.isolated",
         "jsii_calc.submodule.nested_submodule",
         "jsii_calc.submodule.nested_submodule.deeply_nested"
     ],
@@ -59,10 +61,11 @@ kwargs = json.loads("""
         "License :: OSI Approved"
     ]
 }
-""")
+"""
+)
 
-with open('README.md') as fp:
-    kwargs['long_description'] = fp.read()
+with open("README.md") as fp:
+    kwargs["long_description"] = fp.read()
 
 
 setuptools.setup(**kwargs)

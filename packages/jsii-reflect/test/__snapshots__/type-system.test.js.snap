@@ -125,6 +125,7 @@ Array [
   "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
   "jsii-calc.SyncVirtualMethods",
   "jsii-calc.Thrower",
+  "jsii-calc.UmaskCheck",
   "jsii-calc.UnaryOperation",
   "jsii-calc.UpcasingReflectable",
   "jsii-calc.UseBundledDependency",
@@ -139,6 +140,7 @@ Array [
   "jsii-calc.submodule.MyClass",
   "jsii-calc.submodule.child.InnerClass",
   "jsii-calc.submodule.child.OuterClass",
+  "jsii-calc.submodule.isolated.Kwargs",
   "jsii-calc.submodule.nested_submodule.Namespaced",
 ]
 `;

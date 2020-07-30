@@ -78,6 +78,8 @@ from jsii_calc.python_self import (
     ClassWithSelf,
     ClassWithSelfKwarg,
 )
+from jsii_calc.submodule.isolated import Kwargs
+from jsii_calc.submodule.child import SomeEnum
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 from scope.jsii_calc_lib.custom_submodule_name import IReflectable, ReflectableEntry
 
@@ -1206,3 +1208,7 @@ def test_isomorphism_within_constructor():
             assert self == self.myself()
 
     Subject()
+
+
+def test_kwargs_from_superinterface_are_working():
+   assert Kwargs.method(extra='ordinary', prop=SomeEnum.SOME)

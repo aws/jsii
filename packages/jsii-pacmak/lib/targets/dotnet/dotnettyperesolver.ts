@@ -47,7 +47,7 @@ export class DotNetTypeResolver {
         typeName = this.nameutils.convertTypeName(type.name);
         break;
       default:
-        throw new Error(`Unknown type: ${type}`);
+        throw new Error(`Unknown type: ${type as any}`);
     }
     const [mod] = fqn.split('.');
     const depMod = this.findModule(mod);
@@ -179,7 +179,7 @@ export class DotNetTypeResolver {
       case spec.PrimitiveType.Any:
         return 'object';
       default:
-        throw new Error(`Unknown primitive type: ${primitive}`);
+        throw new Error(`Unknown primitive type: ${primitive as any}`);
     }
   }
 
@@ -194,7 +194,9 @@ export class DotNetTypeResolver {
       case spec.CollectionKind.Map:
         return `System.Collections.Generic.IDictionary<string, ${elementDotNetType}>`;
       default:
-        throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
+        throw new Error(
+          `Unsupported collection kind: ${ref.collection.kind as any}`,
+        );
     }
   }
 }

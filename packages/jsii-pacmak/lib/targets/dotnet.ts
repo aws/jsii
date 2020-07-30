@@ -63,9 +63,9 @@ export class DotnetBuilder implements TargetBuilder {
       }
     } catch (e) {
       logging.warn(
-        `Exception occurred, not cleaning up ${scratchDirs.map(
-          (s) => s.directory,
-        )}`,
+        `Exception occurred, not cleaning up ${scratchDirs
+          .map((s) => s.directory)
+          .join(', ')}`,
       );
       throw e;
     }

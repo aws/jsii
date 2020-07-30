@@ -10,16 +10,20 @@ import publication
 
 from ..._jsii import *
 
-from ..child import (Goodness as _Goodness_2df26737)
-from .deeply_nested import (INamespaced as _INamespaced_e2f386ad)
+from ..child import Goodness as _Goodness_2df26737
+from .deeply_nested import INamespaced as _INamespaced_e2f386ad
 
 
 @jsii.implements(_INamespaced_e2f386ad)
-class Namespaced(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.submodule.nested_submodule.Namespaced"):
+class Namespaced(
+    metaclass=jsii.JSIIAbstractClass,
+    jsii_type="jsii-calc.submodule.nested_submodule.Namespaced",
+):
     """
     stability
     :stability: experimental
     """
+
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _NamespacedProxy

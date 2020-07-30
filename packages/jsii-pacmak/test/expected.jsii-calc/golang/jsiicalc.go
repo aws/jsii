@@ -1830,6 +1830,13 @@ type TopLevelStruct interface {
     setoptional()
 }
 
+type UmaskCheck struct {
+}
+
+func (U *UmaskCheck) mode() number {
+    // jsiiruntime.methodcall(U)
+}
+
 type UnaryOperation struct {
     operand Value
 }

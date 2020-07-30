@@ -10,6 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PythonReservedWords), fullyQualifiedName: "jsii-calc.PythonReservedWords")]
     public class PythonReservedWords : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public PythonReservedWords(): base(new DeputyProps(new object[]{}))
         {
         }

@@ -11,12 +11,19 @@ import publication
 from .._jsii import *
 
 
-class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Base"):
+class Base(
+    metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Base"
+):
     """
     stability
     :stability: experimental
     """
+
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Base, self, [])
 
     @builtins.property
@@ -33,12 +40,21 @@ class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProper
         jsii.set(self, "prop", value)
 
 
-class Derived(Base, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Derived"):
+class Derived(
+    Base,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.DerivedClassHasNoProperties.Derived",
+):
     """
     stability
     :stability: experimental
     """
+
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Derived, self, [])
 
 

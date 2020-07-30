@@ -155,4 +155,6 @@ export interface PackageJson {
    * module's api stability level
    */
   stability?: Stability;
+
+  [key: string]: unknown;
 }

@@ -18,17 +18,17 @@ import { closeRecording, recordInteraction } from './recording';
 /* eslint-disable require-atomic-updates */
 
 // extract versions of fixtures
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcBaseVersion = require('@scope/jsii-calc-base/package.json').version.replace(
   /\+.+$/,
   '',
 );
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcLibVersion = require('@scope/jsii-calc-lib/package.json').version.replace(
   /\+.+$/,
   '',
 );
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcVersion = require('jsii-calc/package.json').version.replace(
   /\+.+$/,
   '',
@@ -74,6 +74,28 @@ defineTest.skip = function (
 ) {
   return defineTest(name, method, test.skip);
 };
+
+test('load preserves file permissions', async () => {
+  // Changing the umask to 077 (which would neutralize group/other permissions)
+  const originalUmask = process.umask(0o077);
+
+  try {
+    const kernel = await createCalculatorSandbox(
+      'load_preserves_file_permissions',
+    );
+
+    const result = kernel.sinvoke({
+      fqn: 'jsii-calc.UmaskCheck',
+      method: 'mode',
+    });
+    expect(result.result).toBe(0o644);
+
+    return closeRecording(kernel);
+  } finally {
+    // Restore the original umask
+    process.umask(originalUmask);
+  }
+});
 
 defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({});
@@ -1654,7 +1676,7 @@ defineTest(
         args: [123, { incomplete: true }],
       });
     }).toThrow(
-      /Missing required properties for jsii-calc.TopLevelStruct: required,secondLevel/,
+      /Missing required properties for jsii-calc.TopLevelStruct: required, secondLevel/,
     );
   },
 );

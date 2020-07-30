@@ -81,7 +81,9 @@ export class ProcessManager {
 
       proc.once('error', (error) => {
         process.stderr.write(`Command failed: ${cmdString}\n`);
-        process.stderr.write(`Process ${proc.pid} error: ${error}`);
+        process.stderr.write(
+          `Process ${proc.pid} error: ${error.message} - ${error.stack}`,
+        );
         ko();
       });
     });

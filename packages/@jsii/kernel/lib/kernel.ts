@@ -46,7 +46,7 @@ export class Kernel {
     // let loaded modules to use the native node "require" method.
     // I wonder if webpack has some pragma that allows opting-out at certain points
     // in the code.
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
     const moduleLoad = require('module').Module._load;
     const nodeRequire = (p: string) => moduleLoad(p, module, false);
 
@@ -107,14 +107,23 @@ export class Kernel {
 
     // Create the install directory (there may be several path components for @scoped/packages)
     fs.mkdirpSync(packageDir);
-    // untar the archive to its final location
-    tar.extract({
-      strict: true,
-      file: req.tarball,
-      cwd: packageDir,
-      strip: 1, // Removes the 'package/' path element from entries
-      sync: true,
-    });
+
+    // Force umask to have npm-install-like permissions
+    const originalUmask = process.umask(0o022);
+    try {
+      // untar the archive to its final location
+      tar.extract({
+        cwd: packageDir,
+        file: req.tarball,
+        strict: true,
+        strip: 1, // Removes the 'package/' path element from entries
+        sync: true,
+        unlink: true,
+      });
+    } finally {
+      // Reset umask to the initial value
+      process.umask(originalUmask);
+    }
 
     // read .jsii metadata from the root of the package
     const jsiiMetadataFile = path.join(packageDir, spec.SPEC_FILE_NAME);
@@ -1027,7 +1036,9 @@ export class Kernel {
       }
     }
 
-    throw new Error(`Value did not match any type in union: ${errors}`);
+    throw new Error(
+      `Value did not match any type in union: ${errors.join(', ')}`,
+    );
   }
 
   private _fromSandbox(v: any, targetType: wire.OptionalValueOrVoid): any {
@@ -1058,7 +1069,9 @@ export class Kernel {
       }
     }
 
-    throw new Error(`Value did not match any type in union: ${errors}`);
+    throw new Error(
+      `Value did not match any type in union: ${errors.join(', ')}`,
+    );
   }
 
   private _toSandboxValues(xs: any[], parameters?: spec.Parameter[]) {

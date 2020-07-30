@@ -4,7 +4,6 @@ import { CodeBlock } from './types';
 
 export type CodeReplacer = (code: CodeBlock) => CodeBlock;
 
-/* eslint-disable @typescript-eslint/camelcase */
 /**
  * Renderer that replaces code blocks in a MarkDown document
  */
@@ -79,4 +78,3 @@ export class ReplaceCodeTransform implements CommonMarkVisitor {
     /* nothing */
   }
 }
-/* eslint-enable @typescript-eslint/camelcase */

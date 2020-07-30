@@ -10,6 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), fullyQualifiedName: "jsii-calc.Constructors")]
     public class Constructors : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public Constructors(): base(new DeputyProps(new object[]{}))
         {
         }

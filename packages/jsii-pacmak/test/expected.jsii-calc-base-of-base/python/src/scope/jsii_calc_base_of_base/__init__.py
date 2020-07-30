@@ -22,8 +22,9 @@ class IVeryBaseInterface(jsii.compat.Protocol):
         ...
 
 
-class _IVeryBaseInterfaceProxy():
+class _IVeryBaseInterfaceProxy:
     __jsii_type__ = "@scope/jsii-calc-base-of-base.IVeryBaseInterface"
+
     @jsii.member(jsii_name="foo")
     def foo(self) -> None:
         return jsii.invoke(self, "foo", [])
@@ -38,19 +39,23 @@ class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Ver
         return jsii.invoke(self, "hey", [])
 
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-base-of-base.VeryBaseProps", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
-class VeryBaseProps():
+@jsii.data_type(
+    jsii_type="@scope/jsii-calc-base-of-base.VeryBaseProps",
+    jsii_struct_bases=[],
+    name_mapping={"foo": "foo"},
+)
+class VeryBaseProps:
     def __init__(self, *, foo: "Very") -> None:
         """
         :param foo: -
         """
         self._values = {
-            'foo': foo,
+            "foo": foo,
         }
 
     @builtins.property
     def foo(self) -> "Very":
-        return self._values.get('foo')
+        return self._values.get("foo")
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -59,7 +64,9 @@ class VeryBaseProps():
         return not (rhs == self)
 
     def __repr__(self) -> str:
-        return 'VeryBaseProps(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "VeryBaseProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 __all__ = [

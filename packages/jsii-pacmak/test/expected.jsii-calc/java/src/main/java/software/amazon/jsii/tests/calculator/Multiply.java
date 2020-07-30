@@ -8,7 +8,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Multiply")
-public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperation implements software.amazon.jsii.tests.calculator.IFriendlier,software.amazon.jsii.tests.calculator.IRandomNumberGenerator {
+public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperation implements software.amazon.jsii.tests.calculator.IFriendlier, software.amazon.jsii.tests.calculator.IRandomNumberGenerator {
 
     protected Multiply(final software.amazon.jsii.JsiiObjectRef objRef) {
         super(objRef);

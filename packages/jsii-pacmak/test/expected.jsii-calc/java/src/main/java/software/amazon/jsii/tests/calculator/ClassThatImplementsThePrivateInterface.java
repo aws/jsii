@@ -16,6 +16,10 @@ public class ClassThatImplementsThePrivateInterface extends software.amazon.jsii
         super(initializationMode);
     }
 
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ClassThatImplementsThePrivateInterface() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
