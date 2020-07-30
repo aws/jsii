@@ -64,9 +64,9 @@ jobs:
         id: list-output-files
         run: |-
           output=$(
-            git status --ignored --untracked-files --porcelain \
-            | grep -v node_modules \
-            | cut -c 4-
+            git status --ignored --untracked-files --porcelain                  \
+            | grep -v node_modules                                              \
+            | cut -c 4-                                                         \
             | sed -e 's#^#${{ github.workspace }}/#'
           )
           # Need to escape % and CR/LF before setting output (it's de-manged in GH engine)
