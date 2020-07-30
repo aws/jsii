@@ -75,8 +75,49 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up .NET 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
+      - name: Set up Java 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: '8'
+      - name: Set up Node 12
+        uses: actions/setup-node@v2.1.1
+        with:
+          node-version: '12'
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+      - name: Install python3-venv
+        if: runner.os == 'Linux'
+        run: sudo apt install -y python3-venv
       - name: Check out
         uses: actions/checkout@v2
+      - name: Locate Caches
+        id: cache-locations
+        run: |-
+          # Need to have PIP >= 20.1 for "pip cache dir" to work
+          python3 -m pip install --upgrade pip
+          echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
+          echo "::set-output name=yarn-cache::$(yarn cache dir)"
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: |-
+            ${{ steps.cache-locations.outputs.pip-cache }}
+            ${{ steps.cache-locations.outputs.yarn-cache }}
+            ~/.m2/repository
+            ~/.nuget/packages
+          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |-
+            ${{ runner.os }}-node@12-python@3.6-
+            ${{ runner.os }}-node@12-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
       - name: Standard Version (PR)
         if: github.event_name == 'pull_request'
         run: |-
