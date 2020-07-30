@@ -38,6 +38,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Locate Caches
         id: cache-locations
+        shell: bash
         run: |-
           # Need to have PIP >= 20.1 for "pip cache dir" to work
           python3 -m pip install --upgrade pip
@@ -98,6 +99,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Locate Caches
         id: cache-locations
+        shell: bash
         run: |-
           # Need to have PIP >= 20.1 for "pip cache dir" to work
           python3 -m pip install --upgrade pip
@@ -207,6 +209,7 @@ jobs:
           name: build-output
       - name: Locate Caches
         id: cache-locations
+        shell: bash
         run: |-
           # Need to have PIP >= 20.1 for "pip cache dir" to work
           python3 -m pip install --upgrade pip
