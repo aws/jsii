@@ -138,12 +138,12 @@ jobs:
           # Test alternate Pythons
           - python: '3.7'
             dotnet: '3.1.x'
-            java: '11'
+            java: '8'
             node: '10'
             os: ubuntu-latest
           - python: '3.8'
             dotnet: '3.1.x'
-            java: '11'
+            java: '8'
             node: '10'
             os: ubuntu-latest
 
