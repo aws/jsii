@@ -126,6 +126,10 @@ jobs:
       - name: Install python3-venv
         if: runner.os == 'Linux'
         run: sudo apt install -y python3-venv
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output
       - name: Locate Caches
         id: cache-locations
         run: |-
@@ -147,10 +151,6 @@ jobs:
             ${{ runner.os }}-node@${{ matrix.node }}-python@${{ matrix.python }}-
             ${{ runner.os }}-node@${{ matrix.node }}-
             ${{ runner.os }}-
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: build-output
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Test
