@@ -1,31 +1,72 @@
-#!/bin/bash
-# Compares two jsii assemblies and fails if they are different
-# Versions in the expected assembly are updated to match this repo
-# Usage: diff-test <expected> <actual>
-set -euo pipefail
+#!/usr/bin/env node
 
-resolve-path() {
-  echo "$(cd $(dirname $1) && pwd)/$(basename $1)"
+// Compares two jsii assemblies and fails if they are different
+// Versions in the expected assembly are updated to match this repo
+// Usage: diff-test <expected> <actual>
+
+const chalk = require('chalk');
+const { structuredPatch } = require('diff');
+const { readFile, writeFile } = require('fs').promises;
+const { resolve } = require('path');
+const process = require('process');
+
+async function main() {
+  const [, script, expectedPath, actualPath, ...rest] = process.argv;
+
+  if (rest.length > 0 || actualPath == null || expectedPath == null) {
+    console.error(`Error: Illegal arguments.`);
+    console.error(`Received:      ${script} ${expectedPath} ${actualPath} ${rest.join(' ')}`)
+    console.error(`Correct usage: ${script} <expected> <actual>`);
+    return 3;
+  }
+
+  const expected = readFile(resolve(expectedPath), { encoding: 'utf-8' });
+  const actual = readFile(resolve(actualPath), { encoding: 'utf-8' });
+
+  const patch = structuredPatch(actualPath, expectedPath, await actual, await expected);
+  if (patch.hunks.length === 0) {
+    // All good, no difference!
+    return 0;
+  }
+
+  console.log(chalk.grey(`--- ${patch.oldFileName}`));
+  console.log(chalk.grey(`+++ ${patch.newFileName}`));
+  for (const hunk of patch.hunks) {
+    console.log(chalk.grey(`@@ -${hunk.oldStart},${hunk.oldLines} +${hunk.newStart},${hunk.newLines} @@`));
+    for (const line of hunk.lines) {
+      let color;
+      switch (line[0]) {
+        case '-':
+          color = chalk.redBright;
+          break;
+        case '+':
+          color = chalk.greenBright;
+          break;
+        default:
+          color = chalk.grey;
+      }
+      console.log(color(line));
+    }
+  }
+
+  console.error("=========================================================================");
+  if (process.env.UPDATE_DIFF) {
+    console.error(chalk.yellowBright(`UPDATE_DIFF is set, overwriting ${expectedPath}`));
+    await writeFile(expectedPath, await actual, { encoding: 'utf-8' });
+    return 0;
+  }
+  console.error('test failed. to update:');
+  console.error(chalk.blueBright(`    cp ${actualPath} ${expectedPath}`));
+  console.error();
+  console.error('or, execute again with:');
+  console.error(chalk.blueBright('    UPDATE_DIFF=1'));
+  return 1;
 }
 
-expected="$(resolve-path $1)"
-actual="$(resolve-path $2)"
-
-diff ${actual} ${expected} || {
-  echo
-  echo "========================================================================="
-
-  if [ -n "${UPDATE_DIFF:-}" ]; then
-    echo "⚡️ UPDATE_DIFF is set, overwriting ${expected}"
-    cp ${actual} ${expected}
-    exit 0
-  else
-    echo "test failed. to update:"
-    echo "    cp ${actual} ${expected}"
-    echo
-    echo "or, execute again with:"
-    echo "   UPDATE_DIFF=1"
-    echo
-    exit 1
-  fi
-}
+main().then(
+  (code) => process.exit(code),
+  (err) => {
+    console.error('Unexpected error:', err);
+    process.exit(-1);
+  }
+)
