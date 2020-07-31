@@ -12,3 +12,6 @@
 *.tgz binary
 *.tar.gz binary
 
+# Github Linguist configuration (https://github.com/github/linguist)
+yarn.lock linguidt-generated
+docs/**   linguist-documentation
