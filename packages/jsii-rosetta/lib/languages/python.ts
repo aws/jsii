@@ -71,6 +71,11 @@ interface PythonLanguageContext {
    * (Used to render super() call.);
    */
   readonly currentMethodName?: string;
+
+  /**
+   * If we're rendering a variadic argument value
+   */
+  readonly variadicArgument?: boolean;
 }
 
 type PythonVisitorContext = AstRenderer<PythonLanguageContext>;
@@ -296,11 +301,19 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       expressionText = `super().${context.currentContext.currentMethodName}`;
     }
 
+    const signature = context.typeChecker.getResolvedSignature(node);
+
     return new OTree(
       [
         expressionText,
         '(',
-        this.convertFunctionCallArguments(node.arguments, context),
+        this.convertFunctionCallArguments(
+          node.arguments,
+          context,
+          signature?.parameters?.map(
+            (p) => p.valueDeclaration as ts.ParameterDeclaration,
+          ),
+        ),
         ')',
       ],
       [],
@@ -396,11 +409,32 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     node: ts.ObjectLiteralExpression,
     context: PythonVisitorContext,
   ): OTree {
-    if (context.currentContext.tailPositionArgument) {
+    // Neutralize local modifiers if any for transforming further down.
+    const downContext = context.updateContext({
+      tailPositionArgument: false,
+      variadicArgument: false,
+    });
+
+    if (
+      context.currentContext.tailPositionArgument &&
+      !context.currentContext.variadicArgument
+    ) {
       // Guess that it's a struct we can probably inline the kwargs for
-      return this.renderObjectLiteralExpression('', '', true, node, context);
+      return this.renderObjectLiteralExpression(
+        '',
+        '',
+        true,
+        node,
+        downContext,
+      );
     }
-    return this.renderObjectLiteralExpression('{', '}', false, node, context);
+    return this.renderObjectLiteralExpression(
+      '{',
+      '}',
+      false,
+      node,
+      downContext,
+    );
   }
 
   public knownStructObjectLiteralExpression(
@@ -754,17 +788,22 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   private convertFunctionCallArguments(
     args: ts.NodeArray<ts.Expression> | undefined,
     context: PythonVisitorContext,
+    parameterDeclarations?: readonly ts.ParameterDeclaration[],
   ) {
     if (!args) {
       return NO_SYNTAX;
     }
 
-    const converted: Array<string | OTree> = context.convertLastDifferently(
-      args,
-      {
-        tailPositionArgument: true,
-      },
-    );
+    const converted = context.convertWithModifier(args, (ctx, _arg, index) => {
+      const decl =
+        parameterDeclarations?.[
+          Math.min(index, parameterDeclarations.length - 1)
+        ];
+      const variadicArgument = decl?.dotDotDotToken != null;
+      const tailPositionArgument = index >= args.length - 1;
+
+      return ctx.updateContext({ variadicArgument, tailPositionArgument });
+    });
 
     return new OTree([], converted, { separator: ', ', indent: 4 });
   }

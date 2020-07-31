@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+import * as os from 'os';
 import * as path from 'path';
 import FileBuffer from '../lib/filebuff';
 
@@ -9,7 +10,7 @@ test('file buffer', async () => {
   fb.write('world');
 
   // save the file
-  const tempdir = await fs.mkdtemp('/tmp/test-file-buffer');
+  const tempdir = await fs.mkdtemp(path.join(os.tmpdir(), 'test-file-buffer'));
   await fb.save(tempdir);
 
   // verify the contents was as expected
