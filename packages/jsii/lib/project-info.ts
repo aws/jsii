@@ -246,7 +246,7 @@ async function _loadDependencies(
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop
     const assm = await loadAndValidateAssembly(pkg);
-    if (!version.intersects(new semver.Range(assm.version))) {
+    if (!semver.satisfies(assm.version, version)) {
       throw new Error(
         `Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`,
       );
