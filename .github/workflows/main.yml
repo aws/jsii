@@ -10,6 +10,11 @@ on:
 env:
   DOTNET_NOLOGO: true
 
+# This workflows currently has the following jobs:
+# - build                   : Builds the source tree as-is
+#   - test                  : Runs all unit tests against the build result
+# - create-release-package  : Prepares a release package with the "real" version
+
 jobs:
   build:
     name: Build
@@ -75,6 +80,60 @@ jobs:
             !**/.env/**
             !**/node_modules/**
             !**/project/.m2/**
+
+  create-release-package:
+    name: Create Release Package
+    runs-on: ubuntu-latest
+    steps:
+      # Set up all of our standard runtimes
+      - name: Set up .NET 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
+      - name: Set up Java 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: '8'
+      - name: Set up Node 12
+        uses: actions/setup-node@v2.1.1
+        with:
+          node-version: '12'
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+      - name: 'Linux: Install python3-venv'
+        if: runner.os == 'Linux'
+        run: sudo apt install -y python3-venv
+      - name: 'Windows: Expose python3 command'
+        if: runner.os == 'Windows'
+        shell: bash
+        run: cp ${pythonLocation}/python.exe ${pythonLocation}/python3.exe
+      - name: Check out
+        uses: actions/checkout@v2
+      - name: Locate Caches
+        id: cache-locations
+        run: |-
+          # Need to have PIP >= 20.1 for "pip cache dir" to work
+          python3 -m pip install --upgrade pip
+          echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
+          echo "::set-output name=yarn-cache::$(yarn cache dir)"
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: |-
+            ${{ steps.cache-locations.outputs.pip-cache }}
+            ${{ steps.cache-locations.outputs.yarn-cache }}
+            ~/.m2/repository
+            ~/.nuget/packages
+          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |-
+            ${{ runner.os }}-node@12-python@3.6-
+            ${{ runner.os }}-node@12-
+            ${{ runner.os }}-
+      # Prepare dependencies and build
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
       # Determine a prerelease version (depending on whether this is a PR or Push event)
       - name: Standard Version (PR)
         if: github.event_name == 'pull_request'
@@ -93,7 +152,7 @@ jobs:
       # Now we'll be preparing a release package (with the "real" version)
       - name: Align Versions
         run: ./scripts/align-version.sh
-      - name: Rebuild
+      - name: Full Build
         run: yarn build
       - name: Package Libraries
         run: yarn package
@@ -102,7 +161,6 @@ jobs:
         with:
           name: release-package
           path: ${{ github.workspace }}/dist/
-
   test:
     name: Test (${{ matrix.os }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
     needs: build
