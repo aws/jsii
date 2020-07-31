@@ -37,13 +37,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.6'
-      - name: 'Linux: Install python3-venv'
-        if: runner.os == 'Linux'
+      - name: Install python3-venv
         run: sudo apt install -y python3-venv
-      - name: 'Windows: Expose python3 command'
-        if: runner.os == 'Windows'
-        shell: bash
-        run: cp ${pythonLocation}/python.exe ${pythonLocation}/python3.exe
       - name: Check out
         uses: actions/checkout@v2
       - name: Locate Caches
@@ -102,13 +97,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.6'
-      - name: 'Linux: Install python3-venv'
-        if: runner.os == 'Linux'
+      - name: Install python3-venv
         run: sudo apt install -y python3-venv
-      - name: 'Windows: Expose python3 command'
-        if: runner.os == 'Windows'
-        shell: bash
-        run: cp ${pythonLocation}/python.exe ${pythonLocation}/python3.exe
       - name: Check out
         uses: actions/checkout@v2
       - name: Locate Caches
