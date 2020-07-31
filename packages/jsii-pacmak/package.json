@@ -25,13 +25,13 @@
     "jsii-pacmak": "bin/jsii-pacmak"
   },
   "scripts": {
-    "gen": "/bin/bash generate.sh",
+    "gen": "bash generate.sh",
     "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && npm run lint",
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "jest && /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh",
-    "test:update": "UPDATE_DIFF=1 /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest -u",
+    "test": "jest && bash test/diff-test.sh && bash test/build-test.sh",
+    "test:update": "UPDATE_DIFF=1 bash test/diff-test.sh && bash test/build-test.sh && jest -u",
     "package": "package-js"
   },
   "dependencies": {
