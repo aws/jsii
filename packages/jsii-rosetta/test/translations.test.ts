@@ -75,11 +75,11 @@ function makeTests() {
       });
       afterAll(() => {
         // Print the AST for tests that failed (to help debugging)
-        if (anyFailed) {
+        if (anyFailed && translator) {
           const vis = translator.renderUsing(new VisualizeAstVisitor(true));
           console.log(`${vis}\n`);
         }
-        (translator as any) = undefined; // Need this to properly release memory
+        translator = undefined as any; // Need this to properly release memory
       });
 
       SUPPORTED_LANGUAGES.forEach((supportedLanguage) => {
