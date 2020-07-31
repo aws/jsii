@@ -152,7 +152,7 @@ jobs:
           name: release-package
           path: ${{ github.workspace }}/dist/
   test:
-    name: Test (${{ runner.os }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
+    name: Test (${{ matrix.os }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
     needs: build
     strategy:
       fail-fast: false
