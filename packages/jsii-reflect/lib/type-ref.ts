@@ -20,10 +20,10 @@ export class TypeReference {
     }
 
     if (this.arrayOfType) {
-      return `Array<${this.arrayOfType}>`;
+      return `Array<${this.arrayOfType.toString()}>`;
     }
     if (this.mapOfType) {
-      return `Map<string => ${this.mapOfType}>`;
+      return `Map<string => ${this.mapOfType.toString()}>`;
     }
     if (this.unionOfTypes) {
       return this.unionOfTypes.map((x) => x.toString()).join(' | ');

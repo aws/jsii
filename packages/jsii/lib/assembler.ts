@@ -525,6 +525,11 @@ export class Assembler implements Emitter {
       // Unresolvable module... We'll let tsc report this for us.
       return;
     }
+
+    // Normalize the path so the correct separator is in use (Looking at you, Windows)
+    resolution.resolvedModule.resolvedFileName = path.normalize(
+      resolution.resolvedModule.resolvedFileName,
+    );
     if (
       // We're not looking into a dependency's namespace exports, and the resolution says it's external
       (packageRoot === this.projectInfo.projectRoot &&
@@ -748,6 +753,23 @@ export class Assembler implements Emitter {
       }
 
       return allTypes;
+    }
+
+    if (ts.isExportSpecifier(node)) {
+      // This is what happens when one does `export { Symbol } from "./location";`
+      //                   ExportSpecifier:           ~~~~~~
+
+      const resolvedSymbol = this._typeChecker.getExportSpecifierLocalTargetSymbol(
+        node,
+      );
+      if (!resolvedSymbol) {
+        // A grammar error, compilation will already have failed
+        return [];
+      }
+      return this._visitNode(
+        resolvedSymbol.valueDeclaration ?? resolvedSymbol.declarations[0],
+        context,
+      );
     }
 
     if ((ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) === 0) {
@@ -1267,7 +1289,9 @@ export class Assembler implements Emitter {
           ts.ModifierFlags.Private) ===
         0
       ) {
-        jsiiType.initializer = {};
+        jsiiType.initializer = {
+          locationInModule: this.declarationLocation(ctorDeclaration),
+        };
         if (signature) {
           for (const param of signature.getParameters()) {
             jsiiType.initializer.parameters =
@@ -1331,7 +1355,9 @@ export class Assembler implements Emitter {
         },
       );
     } else {
-      jsiiType.initializer = {};
+      jsiiType.initializer = {
+        docs: ctx.stability && { stability: ctx.stability },
+      };
     }
 
     this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);

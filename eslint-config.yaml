@@ -11,6 +11,7 @@ plugins:
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: 2018
+  impliedStrict: true
   sourceType: module
   project: ./**/tsconfig.json
 
@@ -52,6 +53,10 @@ rules:
     - 1tbs # One True Brace Style!
     - allowSingleLine: true
 
+  '@typescript-eslint/explicit-module-boundary-types':
+    - warn
+    - allowArgumentsExplicitlyTypedAsAny: true
+
   '@typescript-eslint/explicit-member-accessibility':
     - error
 
@@ -77,6 +82,18 @@ rules:
   '@typescript-eslint/no-require-imports':
     - error
 
+  '@typescript-eslint/no-unsafe-assignment':
+    - off
+
+  '@typescript-eslint/no-unsafe-call':
+    - off
+
+  '@typescript-eslint/no-unsafe-member-access':
+    - off
+
+  '@typescript-eslint/no-unsafe-return':
+    - off
+
   '@typescript-eslint/no-unused-vars':
     - error
     - args: all
@@ -97,6 +114,13 @@ rules:
   '@typescript-eslint/promise-function-async':
     - error
     - checkArrowFunctions: false
+
+  '@typescript-eslint/restrict-template-expressions':
+    - error
+    - allowNumber: true
+      allowBoolean: true
+      allowAny: true
+      allowNullish: true
 
   '@typescript-eslint/require-await':
     - error

@@ -56,7 +56,8 @@ function allowedTransitions(start: spec.Stability): spec.Stability[] {
     // external can be stableified, or deprecated
     case spec.Stability.External:
       return [spec.Stability.Stable, spec.Stability.Deprecated];
-  }
 
-  throw new Error(`Unrecognized stability: ${start}`);
+    default:
+      throw new Error(`Unrecognized stability: ${start as any}`);
+  }
 }

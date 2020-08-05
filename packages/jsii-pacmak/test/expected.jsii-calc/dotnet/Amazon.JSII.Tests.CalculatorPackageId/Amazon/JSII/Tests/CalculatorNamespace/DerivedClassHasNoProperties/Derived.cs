@@ -10,6 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties.Derived), fullyQualifiedName: "jsii-calc.DerivedClassHasNoProperties.Derived")]
     public class Derived : Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties.Base
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public Derived(): base(new DeputyProps(new object[]{}))
         {
         }

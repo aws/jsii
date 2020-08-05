@@ -11,5 +11,5 @@ export function validateAssembly(obj: any): Assembly {
   if (result.valid) {
     return obj;
   }
-  throw new Error(`Invalid assembly:\n${result}`);
+  throw new Error(`Invalid assembly:\n${result.toString()}`);
 }

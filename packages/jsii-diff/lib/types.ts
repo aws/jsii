@@ -155,7 +155,7 @@ function dispatch<T>(
     return fns.enumType(apiElement);
   }
 
-  throw new Error(`Unrecognized violator: ${apiElement}`);
+  throw new Error(`Unrecognized violator: ${apiElement.toString()}`);
 }
 
 export function describeType(type: reflect.Type) {

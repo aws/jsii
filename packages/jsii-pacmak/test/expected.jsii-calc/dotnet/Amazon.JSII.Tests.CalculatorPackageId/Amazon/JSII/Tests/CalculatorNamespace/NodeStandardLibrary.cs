@@ -11,6 +11,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NodeStandardLibrary), fullyQualifiedName: "jsii-calc.NodeStandardLibrary")]
     public class NodeStandardLibrary : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public NodeStandardLibrary(): base(new DeputyProps(new object[]{}))
         {
         }

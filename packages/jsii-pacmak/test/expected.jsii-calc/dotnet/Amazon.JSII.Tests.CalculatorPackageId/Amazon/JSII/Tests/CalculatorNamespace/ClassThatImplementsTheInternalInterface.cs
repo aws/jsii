@@ -10,6 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassThatImplementsTheInternalInterface), fullyQualifiedName: "jsii-calc.ClassThatImplementsTheInternalInterface")]
     public class ClassThatImplementsTheInternalInterface : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public ClassThatImplementsTheInternalInterface(): base(new DeputyProps(new object[]{}))
         {
         }

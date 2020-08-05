@@ -1,5 +1,6 @@
 import * as childProcess from 'child_process';
 import * as fs from 'fs-extra';
+import * as os from 'os';
 import { join } from 'path';
 import * as path from 'path';
 import * as vm from 'vm';
@@ -18,24 +19,24 @@ import { closeRecording, recordInteraction } from './recording';
 /* eslint-disable require-atomic-updates */
 
 // extract versions of fixtures
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcBaseVersion = require('@scope/jsii-calc-base/package.json').version.replace(
   /\+.+$/,
   '',
 );
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcLibVersion = require('@scope/jsii-calc-lib/package.json').version.replace(
   /\+.+$/,
   '',
 );
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const calcVersion = require('jsii-calc/package.json').version.replace(
   /\+.+$/,
   '',
 );
 
 // Do this so that regexes stringify nicely in approximate tests
-(RegExp.prototype as any).toJSON = function () {
+(RegExp.prototype as any).toJSON = function toJSON() {
   return this.source;
 };
 
@@ -1674,7 +1675,7 @@ defineTest(
         args: [123, { incomplete: true }],
       });
     }).toThrow(
-      /Missing required properties for jsii-calc.TopLevelStruct: required,secondLevel/,
+      /Missing required properties for jsii-calc.TopLevelStruct: required, secondLevel/,
     );
   },
 );
@@ -2102,7 +2103,9 @@ async function preparePackage(module: string, useCache = true) {
     return cache[module];
   }
 
-  const staging = await fs.mkdtemp('/tmp/jsii-kernel-tests-');
+  const staging = await fs.mkdtemp(
+    path.join(os.tmpdir(), 'jsii-kernel-tests-'),
+  );
 
   // clean up only if we are not recording, so playback can refer to these
   if (!recordingOutput) {

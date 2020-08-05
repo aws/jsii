@@ -6,10 +6,12 @@ import { submodule } from '@scope/jsii-calc-lib';
 export class UpcasingReflectable implements submodule.IReflectable {
   public static readonly reflector = new submodule.Reflector();
 
-  public constructor(private readonly delegate: Record<string, unknown>) { }
+  public constructor(private readonly delegate: Record<string, unknown>) {}
 
   public get entries(): submodule.ReflectableEntry[] {
-      return Object.entries(this.delegate)
-          .map(([key, value]) => ({ key: key.toLocaleUpperCase(), value }));
+    return Object.entries(this.delegate).map(([key, value]) => ({
+      key: key.toLocaleUpperCase(),
+      value,
+    }));
   }
 }

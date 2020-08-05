@@ -73,13 +73,10 @@ export class TypeScriptCompiler {
       ),
     });
 
-    const rootFiles = program
-      .getSourceFiles()
-      .filter((f) => f.fileName === filename);
-    if (rootFiles.length === 0) {
+    const rootFile = program.getSourceFile(filename);
+    if (rootFile == null) {
       throw new Error("Oopsie -- couldn't find root file back");
     }
-    const rootFile = rootFiles[0];
 
     return { program, rootFile };
   }

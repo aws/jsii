@@ -20,7 +20,8 @@ export function toSnakeCase(s: string, sep = '_'): string {
   // Save common abbrevations
   s = s.replace(
     ABBREV_RE,
-    (_, before, abbr, after) => before + ucfirst(abbr.toLowerCase()) + after,
+    (_, before: string, abbr: string, after: string) =>
+      before + ucfirst(abbr.toLowerCase()) + after,
   );
   return decamelize(s, sep);
 

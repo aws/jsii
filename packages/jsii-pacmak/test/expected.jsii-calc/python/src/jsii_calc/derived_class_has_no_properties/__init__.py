@@ -20,6 +20,10 @@ class Base(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Base, self, [])
 
     @builtins.property
@@ -47,6 +51,10 @@ class Derived(
     """
 
     def __init__(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
         jsii.create(Derived, self, [])
 
 

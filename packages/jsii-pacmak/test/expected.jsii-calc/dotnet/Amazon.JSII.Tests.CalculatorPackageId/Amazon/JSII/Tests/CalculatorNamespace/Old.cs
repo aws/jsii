@@ -12,6 +12,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [System.Obsolete("Use the new class")]
     public class Old : DeputyBase
     {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         public Old(): base(new DeputyProps(new object[]{}))
         {
         }

@@ -8,5 +8,5 @@ export class MyClass implements nested_submodule.deeplyNested.INamespaced {
   public readonly awesomeness = Awesomeness.AWESOME;
   public allTypes?: AllTypes;
 
-  public constructor(public readonly props: SomeStruct) { }
+  public constructor(public readonly props: SomeStruct) {}
 }

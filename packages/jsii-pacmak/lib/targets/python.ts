@@ -424,10 +424,25 @@ abstract class BaseMethod implements PythonBase {
       ...this.parameters.map((param) =>
         toTypeName(param).requiredImports(context),
       ),
-      ...(this.liftedProp?.properties?.map((prop) =>
-        toTypeName(prop.type).requiredImports(context),
-      ) ?? []),
+      ...liftedProperties(this.liftedProp),
     );
+
+    function* liftedProperties(
+      struct: spec.InterfaceType | undefined,
+    ): IterableIterator<PythonImports> {
+      if (struct == null) {
+        return;
+      }
+      for (const prop of struct.properties ?? []) {
+        yield toTypeName(prop.type).requiredImports(context);
+      }
+      for (const base of struct.interfaces ?? []) {
+        const iface = context.resolver.dereference(base) as spec.InterfaceType;
+        for (const imports of liftedProperties(iface)) {
+          yield imports;
+        }
+      }
+    }
   }
 
   public emit(
@@ -1576,7 +1591,6 @@ class Package {
     // Strip " (build abcdef)" from the jsii version
     const jsiiVersionSimple = this.metadata.jsiiVersion.replace(/ .*$/, '');
 
-    /* eslint-disable @typescript-eslint/camelcase */
     const setupKwargs = {
       name: this.name,
       version: this.version,
@@ -1611,7 +1625,6 @@ class Package {
         'Typing :: Typed',
       ],
     };
-    /* eslint-enable @typescript-eslint/camelcase */
 
     switch (this.metadata.docs?.stability) {
       case spec.Stability.Experimental:

@@ -93,7 +93,9 @@ export async function loadProjectInfo(
     if (!fixPeerDependencies) {
       if (peerVersion) {
         throw new Error(
-          `The "package.json" file has different version requirements for "${name}" in "dependencies" (${version}) versus "peerDependencies" (${peerVersion})`,
+          `The "package.json" file has different version requirements for "${name}" in "dependencies" (${
+            version as any
+          }) versus "peerDependencies" (${peerVersion})`,
         );
       }
       throw new Error(
@@ -102,10 +104,14 @@ export async function loadProjectInfo(
     }
     if (peerVersion) {
       LOG.warn(
-        `Changing "peerDependency" on "${name}" from "${peerVersion}" to ${version}`,
+        `Changing "peerDependency" on "${name}" from "${peerVersion}" to ${
+          version as any
+        }`,
       );
     } else {
-      LOG.warn(`Recording missing "peerDependency" on "${name}" at ${version}`);
+      LOG.warn(
+        `Recording missing "peerDependency" on "${name}" at ${version as any}`,
+      );
     }
     pkg.peerDependencies[name] = version;
     addedPeerDependency = true;
@@ -240,7 +246,7 @@ async function _loadDependencies(
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
     // eslint-disable-next-line no-await-in-loop
     const assm = await loadAndValidateAssembly(pkg);
-    if (!version.intersects(new semver.Range(assm.version))) {
+    if (!semver.satisfies(assm.version, version)) {
       throw new Error(
         `Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`,
       );
@@ -398,7 +404,7 @@ function _resolveVersion(
   const localPackage = path.resolve(searchPath, matches[1]);
   return {
     // Rendering as a caret version to maintain uniformity against the "standard".
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
     version: `^${require(path.join(localPackage, 'package.json')).version}`,
     localPackage,
   };

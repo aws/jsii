@@ -23,8 +23,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "/bin/bash ./generate.sh",
-    "test": "cd project && mvn -B test --settings=user.xml",
+    "build": "bash ./generate.sh",
+    "test": "node ./user.xml.t.js > ./project/user.xml && cd project && mvn -B test --settings=user.xml",
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {

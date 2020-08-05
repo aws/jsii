@@ -101,9 +101,9 @@ export class JavaBuilder implements TargetBuilder {
       }
     } catch (e) {
       logging.warn(
-        `Exception occurred, not cleaning up ${scratchDirs.map(
-          (s) => s.directory,
-        )}`,
+        `Exception occurred, not cleaning up ${scratchDirs
+          .map((s) => s.directory)
+          .join(', ')}`,
       );
       throw e;
     }
@@ -300,7 +300,7 @@ export class JavaBuilder implements TargetBuilder {
                 id: profileName,
                 repositories: {
                   repository: localRepos.map((repo) => ({
-                    id: repo,
+                    id: repo.replace(/[\\/:"<>|?*]/g, '$'),
                     url: `file://${repo}`,
                   })),
                 },
@@ -631,9 +631,9 @@ class JavaGenerator extends Generator {
 
     let implementsExpr = '';
     if (cls.interfaces?.length ?? 0 > 0) {
-      implementsExpr = ` implements ${cls.interfaces!.map((x) =>
-        this.toNativeFqn(x),
-      )}`;
+      implementsExpr = ` implements ${cls
+        .interfaces!.map((x) => this.toNativeFqn(x))
+        .join(', ')}`;
     }
 
     const nested = this.isNested(cls);
@@ -1452,7 +1452,7 @@ class JavaGenerator extends Generator {
         case spec.Stability.Stable:
           return 'Stable';
         default:
-          throw new Error(`Unexpected stability: ${stability}`);
+          throw new Error(`Unexpected stability: ${stability as any}`);
       }
     }
   }
@@ -2209,7 +2209,7 @@ class JavaGenerator extends Generator {
           return `software.amazon.jsii.NativeType.mapOf(${nativeElementType})`;
         default:
           throw new Error(
-            `Unsupported collection kind: ${type.collection.kind}`,
+            `Unsupported collection kind: ${type.collection.kind as any}`,
           );
       }
     }
@@ -2258,7 +2258,9 @@ class JavaGenerator extends Generator {
           ? 'java.util.Map'
           : `java.util.Map<java.lang.String, ${elementJavaType}>`;
       default:
-        throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
+        throw new Error(
+          `Unsupported collection kind: ${ref.collection.kind as any}`,
+        );
     }
   }
 
@@ -2277,7 +2279,7 @@ class JavaGenerator extends Generator {
       case spec.PrimitiveType.Any:
         return 'java.lang.Object';
       default:
-        throw new Error(`Unknown primitive type: ${primitive}`);
+        throw new Error(`Unknown primitive type: ${primitive as any}`);
     }
   }
 
@@ -2374,7 +2376,7 @@ class JavaGenerator extends Generator {
           break;
         default:
           throw new Error(
-            `Unsupported collection kind: ${type.collection.kind}`,
+            `Unsupported collection kind: ${type.collection.kind as any}`,
           );
       }
       // In the case of "optional", the value needs ot be explicitly cast to allow for cases where the raw type was returned.
