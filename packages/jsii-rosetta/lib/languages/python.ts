@@ -135,7 +135,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     const moduleName = this.convertModuleReference(node.packageName);
     if (node.imports.import === 'full') {
       return new OTree(
-        [`import ${moduleName} as ${mangleIdentifier(node.imports.alias)}`],
+        [`import ${moduleName} as ${handleIdentifier(node.imports.alias)}`],
         [],
         {
           canBreakLine: true,
@@ -145,10 +145,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     if (node.imports.import === 'selective') {
       const imports = node.imports.elements.map((im) =>
         im.alias
-          ? `${mangleIdentifier(im.sourceName)} as ${mangleIdentifier(
+          ? `${handleIdentifier(im.sourceName)} as ${handleIdentifier(
               im.alias,
             )}`
-          : mangleIdentifier(im.sourceName),
+          : handleIdentifier(im.sourceName),
       );
 
       return new OTree(
@@ -179,7 +179,6 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     const originalIdentifier = node.text;
 
     const explodedParameter = context.currentContext.explodedParameter;
-    // eslint-disable-next-line max-len
     if (
       context.currentContext.tailPositionArgument &&
       explodedParameter &&
@@ -195,7 +194,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       );
     }
 
-    return new OTree([mangleIdentifier(originalIdentifier)]);
+    return new OTree([handleIdentifier(originalIdentifier)]);
   }
 
   public functionDeclaration(
@@ -513,7 +512,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       node.name,
       nodeOfType('stringLiteral', ts.SyntaxKind.StringLiteral),
       (captured) => {
-        name = new OTree([mangleIdentifier(captured.stringLiteral.text)]);
+        name = new OTree([handleIdentifier(captured.stringLiteral.text)]);
       },
     );
 
@@ -595,7 +594,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         nodeOfType('var', ts.SyntaxKind.VariableDeclaration),
       ),
       (bindings) => {
-        variableName = mangleIdentifier(context.textOf(bindings.var.name));
+        variableName = handleIdentifier(context.textOf(bindings.var.name));
       },
     );
 
@@ -809,11 +808,18 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 }
 
-function mangleIdentifier(originalIdentifier: string) {
-  if (startsWithUppercase(originalIdentifier)) {
+function handleIdentifier(identifier: string) {
+  if (startsWithUppercase(identifier)) {
     // Probably a class, leave as-is
-    return originalIdentifier;
+    return identifier;
   }
+  const mangled = mangleIdentifier(identifier);
+  return mangled in IDENTIFIER_KEYWORDS
+    ? IDENTIFIER_KEYWORDS[mangled]
+    : mangled;
+}
+
+function mangleIdentifier(originalIdentifier: string) {
   // Turn into snake-case
   return originalIdentifier.replace(
     /[^A-Z][A-Z]/g,
@@ -831,6 +837,10 @@ const TOKEN_REWRITES: { [key: string]: string } = {
   this: 'self',
   true: 'True',
   false: 'False',
+};
+
+const IDENTIFIER_KEYWORDS: { [key: string]: string } = {
+  lambda: 'awslambda',
 };
 
 function last<A>(xs: readonly A[]): A {
