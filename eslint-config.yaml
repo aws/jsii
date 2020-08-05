@@ -54,14 +54,13 @@ rules:
     - allowSingleLine: true
 
   '@typescript-eslint/explicit-module-boundary-types':
-    - warn
-    - allowArgumentsExplicitlyTypedAsAny: true
+    - off
 
   '@typescript-eslint/explicit-member-accessibility':
     - error
 
   '@typescript-eslint/member-ordering':
-    - warn
+    - error
     - default:
       - static-field
       - static-method
@@ -126,8 +125,7 @@ rules:
     - error
 
   'complexity':
-    - warn
-    - 20
+    - off
 
   'consistent-return':
     - error
@@ -153,7 +151,7 @@ rules:
     - error
 
   'no-await-in-loop':
-    - warn
+    - off
 
   'no-caller':
     - error
@@ -166,7 +164,7 @@ rules:
     - error
 
   'no-extra-bind':
-    - warn
+    - error
 
   'no-implied-eval':
     - error
@@ -184,7 +182,7 @@ rules:
     - error
 
   'no-return-await':
-    - warn
+    - error
 
   'no-unused-expressions':
     - error
