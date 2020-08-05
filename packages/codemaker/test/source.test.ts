@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+import * as os from 'os';
 import * as path from 'path';
 import { CodeMaker } from '../lib';
 
@@ -51,7 +52,7 @@ test('source files', async () => {
   // later in the day
   sources.exclude('excluded.txt');
 
-  const dirname = await fs.mkdtemp('/tmp/source-files');
+  const dirname = await fs.mkdtemp(path.join(os.tmpdir(), 'source-files'));
   const files = await sources.save(dirname);
 
   expect(files).toHaveLength(2);
@@ -95,7 +96,7 @@ test('custom multi-line block', async () => {
   maker.closeBlock();
   maker.closeFile('custom-blocks.cpp');
 
-  const dirname = await fs.mkdtemp('/tmp/source-files');
+  const dirname = await fs.mkdtemp(path.join(os.tmpdir(), 'source-files'));
   const files = await maker.save(dirname);
 
   const actual = (await fs.readFile(files[0])).toString();

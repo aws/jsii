@@ -1,5 +1,6 @@
 import * as childProcess from 'child_process';
 import * as fs from 'fs-extra';
+import * as os from 'os';
 import { join } from 'path';
 import * as path from 'path';
 import * as vm from 'vm';
@@ -35,7 +36,7 @@ const calcVersion = require('jsii-calc/package.json').version.replace(
 );
 
 // Do this so that regexes stringify nicely in approximate tests
-(RegExp.prototype as any).toJSON = function () {
+(RegExp.prototype as any).toJSON = function toJSON() {
   return this.source;
 };
 
@@ -2104,7 +2105,9 @@ async function preparePackage(module: string, useCache = true) {
     return cache[module];
   }
 
-  const staging = await fs.mkdtemp('/tmp/jsii-kernel-tests-');
+  const staging = await fs.mkdtemp(
+    path.join(os.tmpdir(), 'jsii-kernel-tests-'),
+  );
 
   // clean up only if we are not recording, so playback can refer to these
   if (!recordingOutput) {

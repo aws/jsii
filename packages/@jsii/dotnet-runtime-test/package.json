@@ -24,9 +24,9 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "gen": "/bin/bash ./generate.sh",
-    "build": "npm run gen && tsc --build && /bin/bash ./build.sh",
-    "test": "/bin/bash ./test.sh",
+    "gen": "bash ./generate.sh",
+    "build": "npm run gen && tsc --build && bash ./build.sh",
+    "test": "bash ./test.sh",
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
