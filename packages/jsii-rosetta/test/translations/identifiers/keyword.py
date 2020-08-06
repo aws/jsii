@@ -1,4 +1,4 @@
-import scope.aws_lambda as awslambda
-awslambda.ClassFromLambda(
+import scope.aws_lambda as lambda_
+lambda_.ClassFromLambda(
     key="lambda.amazonaws.com"
 )

@@ -135,7 +135,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     const moduleName = this.convertModuleReference(node.packageName);
     if (node.imports.import === 'full') {
       return new OTree(
-        [`import ${moduleName} as ${handleIdentifier(node.imports.alias)}`],
+        [`import ${moduleName} as ${mangleIdentifier(node.imports.alias)}`],
         [],
         {
           canBreakLine: true,
@@ -145,10 +145,10 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     if (node.imports.import === 'selective') {
       const imports = node.imports.elements.map((im) =>
         im.alias
-          ? `${handleIdentifier(im.sourceName)} as ${handleIdentifier(
+          ? `${mangleIdentifier(im.sourceName)} as ${mangleIdentifier(
               im.alias,
             )}`
-          : handleIdentifier(im.sourceName),
+          : mangleIdentifier(im.sourceName),
       );
 
       return new OTree(
@@ -194,7 +194,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       );
     }
 
-    return new OTree([handleIdentifier(originalIdentifier)]);
+    return new OTree([mangleIdentifier(originalIdentifier)]);
   }
 
   public functionDeclaration(
@@ -512,7 +512,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       node.name,
       nodeOfType('stringLiteral', ts.SyntaxKind.StringLiteral),
       (captured) => {
-        name = new OTree([handleIdentifier(captured.stringLiteral.text)]);
+        name = new OTree([mangleIdentifier(captured.stringLiteral.text)]);
       },
     );
 
@@ -594,7 +594,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
         nodeOfType('var', ts.SyntaxKind.VariableDeclaration),
       ),
       (bindings) => {
-        variableName = handleIdentifier(context.textOf(bindings.var.name));
+        variableName = mangleIdentifier(context.textOf(bindings.var.name));
       },
     );
 
@@ -808,23 +808,17 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   }
 }
 
-function handleIdentifier(identifier: string) {
-  if (startsWithUppercase(identifier)) {
-    // Probably a class, leave as-is
-    return identifier;
-  }
-  const mangled = mangleIdentifier(identifier);
-  return mangled in IDENTIFIER_KEYWORDS
-    ? IDENTIFIER_KEYWORDS[mangled]
-    : mangled;
-}
-
 function mangleIdentifier(originalIdentifier: string) {
+  if (startsWithUppercase(originalIdentifier)) {
+    // Probably a class, leave as-is
+    return originalIdentifier;
+  }
   // Turn into snake-case
-  return originalIdentifier.replace(
+  const cased = originalIdentifier.replace(
     /[^A-Z][A-Z]/g,
     (m) => `${m[0].substr(0, 1)}_${m.substr(1).toLowerCase()}`,
   );
+  return IDENTIFIER_KEYWORDS.includes(cased) ? `${cased}_` : cased;
 }
 
 const BUILTIN_FUNCTIONS: { [key: string]: string } = {
@@ -839,9 +833,7 @@ const TOKEN_REWRITES: { [key: string]: string } = {
   false: 'False',
 };
 
-const IDENTIFIER_KEYWORDS: { [key: string]: string } = {
-  lambda: 'awslambda',
-};
+const IDENTIFIER_KEYWORDS: string[] = ['lambda'];
 
 function last<A>(xs: readonly A[]): A {
   return xs[xs.length - 1];
