@@ -21,15 +21,15 @@ export interface LoadedAssembly {
 export async function loadAssemblies(assemblyLocations: string[]) {
   const ret: LoadedAssembly[] = [];
   for (const loc of assemblyLocations) {
-    const stat = await fs.stat(loc);
+    const stat = await fs.stat(loc); // eslint-disable-line no-await-in-loop
     if (stat.isDirectory()) {
       ret.push({
-        assembly: await loadAssemblyFromFile(path.join(loc, '.jsii')),
+        assembly: await loadAssemblyFromFile(path.join(loc, '.jsii')), // eslint-disable-line no-await-in-loop
         directory: loc,
       });
     } else {
       ret.push({
-        assembly: await loadAssemblyFromFile(loc),
+        assembly: await loadAssemblyFromFile(loc), // eslint-disable-line no-await-in-loop
         directory: path.dirname(loc),
       });
     }
