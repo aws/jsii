@@ -179,7 +179,6 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     const originalIdentifier = node.text;
 
     const explodedParameter = context.currentContext.explodedParameter;
-    // eslint-disable-next-line max-len
     if (
       context.currentContext.tailPositionArgument &&
       explodedParameter &&
@@ -815,10 +814,11 @@ function mangleIdentifier(originalIdentifier: string) {
     return originalIdentifier;
   }
   // Turn into snake-case
-  return originalIdentifier.replace(
+  const cased = originalIdentifier.replace(
     /[^A-Z][A-Z]/g,
     (m) => `${m[0].substr(0, 1)}_${m.substr(1).toLowerCase()}`,
   );
+  return IDENTIFIER_KEYWORDS.includes(cased) ? `${cased}_` : cased;
 }
 
 const BUILTIN_FUNCTIONS: { [key: string]: string } = {
@@ -832,6 +832,8 @@ const TOKEN_REWRITES: { [key: string]: string } = {
   true: 'True',
   false: 'False',
 };
+
+const IDENTIFIER_KEYWORDS: string[] = ['lambda'];
 
 function last<A>(xs: readonly A[]): A {
   return xs[xs.length - 1];
