@@ -621,7 +621,7 @@ export class Assembler implements Emitter {
         symbol.name !== Case.snake(symbol.name)
       ) {
         this._diagnostic(
-          declaration,
+          declaration.name,
           ts.DiagnosticCategory.Error,
           `Submodule namespaces must be camelCased or snake_cased. Consider renaming to "${Case.camel(
             symbol.name,
@@ -706,25 +706,39 @@ export class Assembler implements Emitter {
         if (currNs.name !== ns.name) {
           const currNsDecl = currNs.valueDeclaration ?? currNs.declarations[0];
           const nsDecl = ns.valueDeclaration ?? ns.declarations[0];
+
+          // Make sure the error message always lists causes in the same order
+          const refs = [
+            [currNs.name, currNsDecl] as const,
+            [ns.name, nsDecl] as const,
+          ].sort(([l], [r]) => l.localeCompare(r));
+
           this._diagnostic(
-            symbol.valueDeclaration,
+            (symbol.valueDeclaration as { name?: ts.Node }).name ??
+              symbol.valueDeclaration,
             ts.DiagnosticCategory.Error,
-            `Symbol is re-exported under two distinct submodules (${currNs.name} and ${ns.name})`,
+            `Symbol is re-exported under two distinct submodules (${refs
+              .map(([name]) => name)
+              .join(' and ')})`,
             [
               {
                 category: ts.DiagnosticCategory.Warning,
-                file: currNsDecl.getSourceFile(),
-                length: currNsDecl.getStart() - currNsDecl.getEnd(),
-                messageText: `Symbol is exported under the "${currNs.name}" submodule`,
-                start: currNsDecl.getStart(),
+                file: refs[0][1].getSourceFile(),
+                length:
+                  refs[0][1].getEnd() -
+                  refs[0][1].getStart(refs[0][1].getSourceFile()),
+                messageText: `Symbol is exported under the "${refs[0][0]}" submodule`,
+                start: refs[0][1].getStart(refs[0][1].getSourceFile()),
                 code: JSII_DIAGNOSTICS_CODE,
               },
               {
                 category: ts.DiagnosticCategory.Warning,
-                file: nsDecl.getSourceFile(),
-                length: nsDecl.getStart() - nsDecl.getEnd(),
-                messageText: `Symbol is exported under the "${ns.name}" submodule`,
-                start: nsDecl.getStart(),
+                file: refs[1][1].getSourceFile(),
+                length:
+                  refs[1][1].getEnd() -
+                  refs[1][1].getStart(refs[1][1].getSourceFile()),
+                messageText: `Symbol is exported under the "${refs[1][0]}" submodule`,
+                start: refs[1][1].getStart(refs[1][1].getSourceFile()),
                 code: JSII_DIAGNOSTICS_CODE,
               },
             ],
@@ -922,8 +936,10 @@ export class Assembler implements Emitter {
       if (colliding != null) {
         const submoduleDecl =
           submodule.valueDeclaration ?? submodule.declarations[0];
+        const submoduleDeclName =
+          (submoduleDecl as { name?: ts.Node }).name ?? submoduleDecl;
         this._diagnostic(
-          node,
+          (node as { name?: ts.Node }).name ?? node,
           ts.DiagnosticCategory.Error,
           `Submodule "${submodule.name}" conflicts with "${
             jsiiType.name
@@ -932,10 +948,10 @@ export class Assembler implements Emitter {
             {
               category: ts.DiagnosticCategory.Warning,
               code: JSII_DIAGNOSTICS_CODE,
-              file: submoduleDecl.getSourceFile(),
-              length: submoduleDecl.getEnd() - submoduleDecl.getStart(),
+              file: submoduleDeclName.getSourceFile(),
+              length: submoduleDeclName.getEnd() - submoduleDeclName.getStart(),
               messageText: 'This is the conflicting submodule declaration.',
-              start: submoduleDecl.getStart(),
+              start: submoduleDeclName.getStart(),
             },
           ],
         );
@@ -1292,7 +1308,7 @@ export class Assembler implements Emitter {
           continue;
         }
 
-        if (this._isPrivateOrInternal(member, memberDecl)) {
+        if (this._isPrivateOrInternal(member, memberDecl as ts.ClassElement)) {
           continue;
         }
 
@@ -1528,7 +1544,7 @@ export class Assembler implements Emitter {
    */
   private _isPrivateOrInternal(
     symbol: ts.Symbol,
-    validateDeclaration?: ts.Declaration,
+    validateDeclaration?: ts.Declaration & { name?: ts.Node },
   ): boolean {
     const hasInternalJsDocTag = _hasInternalJsDocTag(symbol);
     const hasUnderscorePrefix =
@@ -1551,7 +1567,7 @@ export class Assembler implements Emitter {
     if (validateDeclaration) {
       if (!hasUnderscorePrefix) {
         this._diagnostic(
-          validateDeclaration,
+          validateDeclaration.name ?? validateDeclaration,
           ts.DiagnosticCategory.Error,
           `${colors.cyan(
             symbol.name,
@@ -1561,7 +1577,7 @@ export class Assembler implements Emitter {
 
       if (!hasInternalJsDocTag) {
         this._diagnostic(
-          validateDeclaration,
+          validateDeclaration.name ?? validateDeclaration,
           ts.DiagnosticCategory.Error,
           `${colors.cyan(
             symbol.name,
@@ -1725,7 +1741,12 @@ export class Assembler implements Emitter {
           continue;
         }
 
-        if (this._isPrivateOrInternal(member, member.valueDeclaration)) {
+        if (
+          this._isPrivateOrInternal(
+            member,
+            member.valueDeclaration as ts.PropertyDeclaration,
+          )
+        ) {
           continue;
         }
 
@@ -1764,10 +1785,12 @@ export class Assembler implements Emitter {
 
     // Calculate datatype based on the datatypeness of this interface and all of its parents
     // To keep the spec minimal the actual values of the attribute are "true" or "undefined" (to represent "false").
+    const declaration =
+      type.symbol.valueDeclaration ?? type.symbol.declarations[0];
     this._deferUntilTypesAvailable(
       fqn,
       jsiiType.interfaces ?? [],
-      type.symbol.valueDeclaration,
+      declaration,
       (...bases: spec.Type[]) => {
         if ((jsiiType.methods ?? []).length === 0) {
           jsiiType.datatype = true;
@@ -1784,7 +1807,7 @@ export class Assembler implements Emitter {
         // If it's not a datatype the name must start with an "I".
         if (!jsiiType.datatype && !interfaceName) {
           this._diagnostic(
-            type.symbol.declarations[0],
+            (declaration as { name?: ts.Node }).name ?? declaration,
             ts.DiagnosticCategory.Error,
             `Interface contains behavior: name should be "I${jsiiType.name}"`,
           );
@@ -1792,7 +1815,7 @@ export class Assembler implements Emitter {
 
         // If the name starts with an "I" it is not intended as a datatype, so switch that off.
         if (jsiiType.datatype && interfaceName) {
-          jsiiType.datatype = undefined;
+          delete jsiiType.datatype;
         }
 
         // Okay, this is a data type, check that all properties are readonly
