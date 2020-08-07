@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -17,6 +19,8 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param scope This parameter is required.
@@ -29,6 +33,8 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -37,6 +43,8 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -69,10 +77,12 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param scope This parameter is required.
+         * @param scope  (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder scope(final java.lang.String scope) {
@@ -81,10 +91,12 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param props This parameter is required.
+         * @param props  (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder props(final java.lang.Boolean props) {

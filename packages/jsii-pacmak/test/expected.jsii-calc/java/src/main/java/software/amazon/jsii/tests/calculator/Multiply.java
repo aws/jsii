@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * The "*" binary operation.
+ * The "*" binary operation. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,7 +19,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * Creates a BinaryOperation.
+     * Creates a BinaryOperation. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -33,7 +33,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * Say farewell.
+     * Say farewell. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -44,7 +44,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * Say goodbye.
+     * Say goodbye. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -55,7 +55,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * Returns another random number.
+     * Returns another random number. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -66,7 +66,9 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * String representation of the value.
+     * String representation of the value. (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */
@@ -77,7 +79,9 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * The value.
+     * The value. (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */

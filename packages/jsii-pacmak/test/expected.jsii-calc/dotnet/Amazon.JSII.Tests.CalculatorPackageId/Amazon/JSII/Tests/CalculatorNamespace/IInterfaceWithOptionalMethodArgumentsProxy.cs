@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.</summary>
+    /// <summary>awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -15,6 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

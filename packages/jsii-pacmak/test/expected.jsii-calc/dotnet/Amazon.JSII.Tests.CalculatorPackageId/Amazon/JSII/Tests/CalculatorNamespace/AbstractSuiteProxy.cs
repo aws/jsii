@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Ensures abstract members implementations correctly register overrides in various languages.</summary>
+    /// <summary>Ensures abstract members implementations correctly register overrides in various languages. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -15,6 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -25,6 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

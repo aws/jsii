@@ -4,6 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
 {
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>

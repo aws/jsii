@@ -4,13 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Verifies that private property declarations in constructor arguments are hidden.</summary>
+    /// <summary>Verifies that private property declarations in constructor arguments are hidden. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.WithPrivatePropertyInConstructor), fullyQualifiedName: "jsii-calc.WithPrivatePropertyInConstructor", parametersJson: "[{\"name\":\"privateField\",\"optional\":true,\"type\":{\"primitive\":\"string\"}}]")]
     public class WithPrivatePropertyInConstructor : DeputyBase
     {
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -32,6 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

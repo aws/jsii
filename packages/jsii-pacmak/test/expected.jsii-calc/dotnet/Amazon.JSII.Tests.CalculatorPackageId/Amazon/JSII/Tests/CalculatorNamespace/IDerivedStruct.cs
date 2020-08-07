@@ -4,13 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>A struct which derives from another struct.</summary>
+    /// <summary>A struct which derives from another struct. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IDerivedStruct), fullyQualifiedName: "jsii-calc.DerivedStruct")]
     public interface IDerivedStruct : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct
     {
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -20,6 +21,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -29,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
-        /// <summary>An example of a non primitive property.</summary>
+        /// <summary>An example of a non primitive property. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -39,7 +41,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
-        /// <summary>This is optional.</summary>
+        /// <summary>This is optional. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -53,6 +55,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             }
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -66,6 +69,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             }
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

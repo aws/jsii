@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * These are some arguments you can pass to a method.
+ * These are some arguments you can pass to a method. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface Greetee extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * The name of the greetee.
+     * The name of the greetee. (experimental)
      * <p>
      * Default: world
      * <p>
@@ -39,7 +39,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link Greetee#getName}
-         * @param name The name of the greetee.
+         * @param name The name of the greetee. (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

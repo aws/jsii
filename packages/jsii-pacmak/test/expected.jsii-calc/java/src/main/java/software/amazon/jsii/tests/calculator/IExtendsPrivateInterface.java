@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,18 +12,24 @@ package software.amazon.jsii.tests.calculator;
 public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> getMoreThings();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getPrivateValue();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     void setPrivateValue(final @org.jetbrains.annotations.NotNull java.lang.String value);
@@ -35,6 +43,8 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -44,6 +54,8 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -53,6 +65,8 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override

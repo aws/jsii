@@ -6,14 +6,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     #pragma warning disable CS8618
 
-    /// <summary>This is the first struct we have created in jsii.</summary>
+    /// <summary>This is the first struct we have created in jsii. (deprecated)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiByValue(fqn: "@scope/jsii-calc-lib.MyFirstStruct")]
     public class MyFirstStruct : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct
     {
-        /// <summary>An awesome number value.</summary>
+        /// <summary>An awesome number value. (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -25,7 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             set;
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>A string value. (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -37,6 +37,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             set;
         }
 
+        /// <summary> (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

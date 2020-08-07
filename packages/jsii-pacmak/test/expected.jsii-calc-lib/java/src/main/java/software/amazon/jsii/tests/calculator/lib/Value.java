@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Abstract class which represents a numeric value.
+ * Abstract class which represents a numeric value. (deprecated)
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -23,7 +23,7 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
     }
 
     /**
-     * String representation of the value.
+     * String representation of the value. (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -32,7 +32,7 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
     }
 
     /**
-     * The value.
+     * The value. (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -47,7 +47,7 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
         }
 
         /**
-         * The value.
+         * The value. (deprecated)
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

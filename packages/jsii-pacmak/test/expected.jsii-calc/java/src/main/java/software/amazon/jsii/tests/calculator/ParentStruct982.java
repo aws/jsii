@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * https://github.com/aws/jsii/issues/982.
+ * https://github.com/aws/jsii/issues/982. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -33,7 +35,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link ParentStruct982#getFoo}
-         * @param foo the value to be set. This parameter is required.
+         * @param foo  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

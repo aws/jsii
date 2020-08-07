@@ -4,14 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Properties for Calculator.</summary>
+    /// <summary>Properties for Calculator. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.CalculatorProps")]
     public class CalculatorProps : Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps
     {
-        /// <summary>The initial value of the calculator.</summary>
+        /// <summary>The initial value of the calculator. (experimental)</summary>
         /// <remarks>
         /// NOTE: Any number works here, it's fine.
         /// 
@@ -27,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>The maximum value the calculator can store.</summary>
+        /// <summary>The maximum value the calculator can store. (experimental)</summary>
         /// <remarks>
         /// <strong>Default</strong>: none
         /// 

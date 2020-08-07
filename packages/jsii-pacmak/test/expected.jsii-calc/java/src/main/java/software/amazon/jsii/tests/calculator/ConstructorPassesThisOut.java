@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -17,6 +19,8 @@ public class ConstructorPassesThisOut extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param consumer This parameter is required.

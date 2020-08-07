@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -26,6 +28,8 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param name This parameter is required.
@@ -34,6 +38,8 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
     public abstract @org.jetbrains.annotations.NotNull java.lang.String abstractMethod(final @org.jetbrains.annotations.NotNull java.lang.String name);
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -42,6 +48,8 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @Override
@@ -59,6 +67,8 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -68,6 +78,8 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -77,6 +89,8 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @param name This parameter is required.

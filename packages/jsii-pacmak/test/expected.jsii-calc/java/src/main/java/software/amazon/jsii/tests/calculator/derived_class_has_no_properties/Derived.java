@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator.derived_class_has_no_properties;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

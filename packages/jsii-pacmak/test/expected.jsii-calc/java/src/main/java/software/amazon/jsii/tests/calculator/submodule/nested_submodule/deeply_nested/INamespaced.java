@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator.submodule.nested_submodule.deeply_nested;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator.submodule.nested_submodule.deeply_
 public interface INamespaced extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -24,6 +28,8 @@ public interface INamespaced extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override

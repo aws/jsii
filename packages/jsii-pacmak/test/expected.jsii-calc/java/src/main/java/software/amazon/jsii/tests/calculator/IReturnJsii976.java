@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Returns a subclass of a known class which implements an interface.
+ * Returns a subclass of a known class which implements an interface. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface IReturnJsii976 extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -26,6 +28,8 @@ public interface IReturnJsii976 extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override

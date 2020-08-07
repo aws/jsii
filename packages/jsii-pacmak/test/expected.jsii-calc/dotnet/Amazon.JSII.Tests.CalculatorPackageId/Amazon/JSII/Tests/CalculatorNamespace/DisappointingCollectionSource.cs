@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Verifies that null/undefined can be returned for optional collections.</summary>
+    /// <summary>Verifies that null/undefined can be returned for optional collections. (experimental)</summary>
     /// <remarks>
     /// This source of collections is disappointing - it'll always give you nothing :(
     /// 
@@ -27,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Some List of strings, maybe?</summary>
+        /// <summary>Some List of strings, maybe? (experimental)</summary>
         /// <remarks>
         /// (Nah, just a billion dollars mistake!)
         /// 
@@ -40,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         = GetStaticProperty<string[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.DisappointingCollectionSource));
 
-        /// <summary>Some Map of strings to numbers, maybe?</summary>
+        /// <summary>Some Map of strings to numbers, maybe? (experimental)</summary>
         /// <remarks>
         /// (Nah, just a billion dollars mistake!)
         /// 

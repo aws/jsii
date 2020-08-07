@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * This tries to confuse Jackson by having overloaded property setters.
+ * This tries to confuse Jackson by having overloaded property setters. (experimental)
  * <p>
  * EXPERIMENTAL
  * <p>
@@ -21,6 +21,8 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -29,6 +31,8 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -37,6 +41,8 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -45,6 +51,8 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -53,6 +61,8 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

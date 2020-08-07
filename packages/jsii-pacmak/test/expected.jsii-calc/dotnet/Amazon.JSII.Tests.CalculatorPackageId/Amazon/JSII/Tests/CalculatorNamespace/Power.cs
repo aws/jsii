@@ -4,14 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>The power operation.</summary>
+    /// <summary>The power operation. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Power), fullyQualifiedName: "jsii-calc.Power", parametersJson: "[{\"docs\":{\"summary\":\"The base of the power.\"},\"name\":\"base\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"The number of times to multiply.\"},\"name\":\"pow\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Power : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
     {
-        /// <summary>Creates a Power operation.</summary>
+        /// <summary>Creates a Power operation. (experimental)</summary>
         /// <param name="base">The base of the power.</param>
         /// <param name="pow">The number of times to multiply.</param>
         /// <remarks>
@@ -35,7 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The base of the power.</summary>
+        /// <summary>The base of the power. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -45,7 +45,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
-        /// <summary>The expression that this operation consists of.</summary>
+        /// <summary>The expression that this operation consists of. (experimental)</summary>
         /// <remarks>
         /// Must be implemented by derived classes.
         /// 
@@ -57,7 +57,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
-        /// <summary>The number of times to multiply.</summary>
+        /// <summary>The number of times to multiply. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

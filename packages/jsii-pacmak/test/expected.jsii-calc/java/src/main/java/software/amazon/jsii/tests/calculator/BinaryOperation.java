@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Represents an operation with two operands.
+ * Represents an operation with two operands. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,7 +19,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     }
 
     /**
-     * Creates a BinaryOperation.
+     * Creates a BinaryOperation. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -33,7 +33,9 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     }
 
     /**
-     * Say hello!
+     * Say hello! (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */
@@ -44,7 +46,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     }
 
     /**
-     * Left-hand side operand.
+     * Left-hand side operand. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -54,7 +56,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     }
 
     /**
-     * Right-hand side operand.
+     * Right-hand side operand. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -72,7 +74,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * The value.
+         * The value. (deprecated)
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -82,7 +84,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * Say hello!
+         * Say hello! (deprecated)
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -92,7 +94,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * String representation of the value.
+         * String representation of the value. (deprecated)
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated

@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,12 +12,16 @@ package software.amazon.jsii.tests.calculator;
 public interface IAnotherPublicInterface extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getA();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     void setA(final @org.jetbrains.annotations.NotNull java.lang.String value);
@@ -29,6 +35,8 @@ public interface IAnotherPublicInterface extends software.amazon.jsii.JsiiSerial
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -38,6 +46,8 @@ public interface IAnotherPublicInterface extends software.amazon.jsii.JsiiSerial
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override

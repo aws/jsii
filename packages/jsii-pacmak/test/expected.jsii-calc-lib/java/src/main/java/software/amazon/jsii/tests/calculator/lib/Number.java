@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Represents a concrete number.
+ * Represents a concrete number. (deprecated)
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -18,7 +18,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
     }
 
     /**
-     * Creates a Number object.
+     * Creates a Number object. (deprecated)
      * <p>
      * @param value The number. This parameter is required.
      */
@@ -30,7 +30,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
     }
 
     /**
-     * The number multiplied by 2.
+     * The number multiplied by 2. (deprecated)
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -40,7 +40,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
     }
 
     /**
-     * The number.
+     * The number. (deprecated)
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Host runtime version should be set via JSII_AGENT.
+ * Host runtime version should be set via JSII_AGENT. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -28,7 +28,7 @@ public class JsiiAgent extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns the value of the JSII_AGENT environment variable.
+     * Returns the value of the JSII_AGENT environment variable. (experimental)
      * <p>
      * EXPERIMENTAL
      */

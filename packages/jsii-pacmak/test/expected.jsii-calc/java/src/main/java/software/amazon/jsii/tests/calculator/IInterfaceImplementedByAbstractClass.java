@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * awslabs/jsii#220 Abstract return type.
+ * awslabs/jsii#220 Abstract return type. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface IInterfaceImplementedByAbstractClass extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -26,6 +28,8 @@ public interface IInterfaceImplementedByAbstractClass extends software.amazon.js
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override

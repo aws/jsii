@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Ensures submodule-imported types from dependencies can be used correctly.
+ * Ensures submodule-imported types from dependencies can be used correctly. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -23,6 +23,8 @@ public class UpcasingReflectable extends software.amazon.jsii.JsiiObject impleme
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param delegate This parameter is required.
@@ -34,12 +36,16 @@ public class UpcasingReflectable extends software.amazon.jsii.JsiiObject impleme
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public final static software.amazon.jsii.tests.calculator.custom_submodule_name.Reflector REFLECTOR;
 
     /**
+     * (deprecated). (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @Override

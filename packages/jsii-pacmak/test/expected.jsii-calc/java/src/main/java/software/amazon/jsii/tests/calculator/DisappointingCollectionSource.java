@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verifies that null/undefined can be returned for optional collections.
+ * Verifies that null/undefined can be returned for optional collections. (experimental)
  * <p>
  * This source of collections is disappointing - it'll always give you nothing :(
  * <p>
@@ -26,7 +26,7 @@ public class DisappointingCollectionSource extends software.amazon.jsii.JsiiObje
     }
 
     /**
-     * Some List of strings, maybe?
+     * Some List of strings, maybe? (experimental)
      * <p>
      * (Nah, just a billion dollars mistake!)
      * <p>
@@ -36,7 +36,7 @@ public class DisappointingCollectionSource extends software.amazon.jsii.JsiiObje
     public final static java.util.List<java.lang.String> MAYBE_LIST;
 
     /**
-     * Some Map of strings to numbers, maybe?
+     * Some Map of strings to numbers, maybe? (experimental)
      * <p>
      * (Nah, just a billion dollars mistake!)
      * <p>

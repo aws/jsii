@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -18,6 +22,8 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -42,7 +48,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
         /**
          * Sets the value of {@link EraseUndefinedHashValuesOptions#getOption1}
-         * @param option1 the value to be set.
+         * @param option1  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -53,7 +59,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
         /**
          * Sets the value of {@link EraseUndefinedHashValuesOptions#getOption2}
-         * @param option2 the value to be set.
+         * @param option2  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Class that implements interface properties automatically, but using a private constructor.
+ * Class that implements interface properties automatically, but using a private constructor. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param readOnlyString This parameter is required.
@@ -30,6 +32,8 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @Override
@@ -39,6 +43,8 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @Override
@@ -48,6 +54,8 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @Override

@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.
+ * awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface IInterfaceWithOptionalMethodArguments extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param arg1 This parameter is required.
@@ -21,6 +23,8 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
     void hello(final @org.jetbrains.annotations.NotNull java.lang.String arg1, final @org.jetbrains.annotations.Nullable java.lang.Number arg2);
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param arg1 This parameter is required.
@@ -37,6 +41,8 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @param arg1 This parameter is required.
@@ -49,6 +55,8 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @param arg1 This parameter is required.

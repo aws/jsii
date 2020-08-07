@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -26,7 +28,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
+     * Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -38,7 +40,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns the boolean from a DerivedStruct struct.
+     * Returns the boolean from a DerivedStruct struct. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -50,7 +52,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns the "anumber" from a MyFirstStruct struct;
+     * Returns the "anumber" from a MyFirstStruct struct; (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -62,6 +64,8 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

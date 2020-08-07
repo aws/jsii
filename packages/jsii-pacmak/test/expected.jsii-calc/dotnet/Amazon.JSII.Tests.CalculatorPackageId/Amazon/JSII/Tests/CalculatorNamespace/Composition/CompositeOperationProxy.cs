@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
 {
-    /// <summary>Abstract operation composed from an expression of other operations.</summary>
+    /// <summary>Abstract operation composed from an expression of other operations. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
         {
         }
 
-        /// <summary>The expression that this operation consists of.</summary>
+        /// <summary>The expression that this operation consists of. (experimental)</summary>
         /// <remarks>
         /// Must be implemented by derived classes.
         /// 

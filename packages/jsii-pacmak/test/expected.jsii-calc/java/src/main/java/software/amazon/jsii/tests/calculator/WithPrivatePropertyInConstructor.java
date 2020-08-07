@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verifies that private property declarations in constructor arguments are hidden.
+ * Verifies that private property declarations in constructor arguments are hidden. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param privateField
@@ -30,6 +32,8 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -39,6 +43,8 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

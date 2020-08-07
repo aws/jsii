@@ -20,8 +20,9 @@ from .. import MyClass as _MyClass_a2fdc0b6
 )
 class MyClassReference:
     def __init__(self, *, reference: _MyClass_a2fdc0b6) -> None:
-        """
-        :param reference: 
+        """(experimental)
+
+        :param reference: (experimental)
 
         stability
         :stability: experimental
@@ -32,7 +33,8 @@ class MyClassReference:
 
     @builtins.property
     def reference(self) -> _MyClass_a2fdc0b6:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """

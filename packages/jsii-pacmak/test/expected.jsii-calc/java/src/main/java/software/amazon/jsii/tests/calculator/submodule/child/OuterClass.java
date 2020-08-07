@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.submodule.child;
 
 /**
- * Checks that classes can self-reference during initialization.
+ * Checks that classes can self-reference during initialization. (experimental)
  * <p>
  * EXPERIMENTAL
  * <p>
@@ -21,6 +21,8 @@ public class OuterClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -30,6 +32,8 @@ public class OuterClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

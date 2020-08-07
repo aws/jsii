@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator.submodule.nested_submodule;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -17,6 +19,8 @@ public abstract class Namespaced extends software.amazon.jsii.JsiiObject impleme
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @Override
@@ -26,6 +30,8 @@ public abstract class Namespaced extends software.amazon.jsii.JsiiObject impleme
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -40,6 +46,8 @@ public abstract class Namespaced extends software.amazon.jsii.JsiiObject impleme
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -49,6 +57,8 @@ public abstract class Namespaced extends software.amazon.jsii.JsiiObject impleme
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override

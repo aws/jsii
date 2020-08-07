@@ -4,12 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicMethod), fullyQualifiedName: "jsii-calc.VariadicMethod", parametersJson: "[{\"docs\":{\"summary\":\"a prefix that will be use for all values returned by `#asArray`.\"},\"name\":\"prefix\",\"type\":{\"primitive\":\"number\"},\"variadic\":true}]")]
     public class VariadicMethod : DeputyBase
     {
+        /// <summary> (experimental)</summary>
         /// <param name="prefix">a prefix that will be use for all values returned by `#asArray`.</param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
@@ -32,6 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <param name="first">the first element of the array to be returned (after the `prefix` provided at construction time).</param>
         /// <param name="others">other elements to be included in the array.</param>
         /// <remarks>

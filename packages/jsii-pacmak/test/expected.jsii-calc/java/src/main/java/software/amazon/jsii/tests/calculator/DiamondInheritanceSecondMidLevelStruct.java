@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -32,7 +36,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
 
         /**
          * Sets the value of {@link DiamondInheritanceSecondMidLevelStruct#getSecondMidLevelProperty}
-         * @param secondMidLevelProperty the value to be set. This parameter is required.
+         * @param secondMidLevelProperty  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -43,7 +47,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
 
         /**
          * Sets the value of {@link DiamondInheritanceSecondMidLevelStruct#getBaseLevelProperty}
-         * @param baseLevelProperty the value to be set. This parameter is required.
+         * @param baseLevelProperty  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

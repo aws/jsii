@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
 {
-    /// <summary>Abstract operation composed from an expression of other operations.</summary>
+    /// <summary>Abstract operation composed from an expression of other operations. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -29,8 +29,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>String representation of the value. (experimental)</summary>
         /// <remarks>
+        /// (deprecated)
+        /// 
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
@@ -39,7 +41,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The expression that this operation consists of.</summary>
+        /// <summary>The expression that this operation consists of. (experimental)</summary>
         /// <remarks>
         /// Must be implemented by derived classes.
         /// 
@@ -51,8 +53,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             get;
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>The value. (experimental)</summary>
         /// <remarks>
+        /// (deprecated)
+        /// 
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
@@ -61,7 +65,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>A set of postfixes to include in a decorated .toString().</summary>
+        /// <summary>A set of postfixes to include in a decorated .toString(). (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -72,7 +76,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>A set of prefixes to include in a decorated .toString().</summary>
+        /// <summary>A set of prefixes to include in a decorated .toString(). (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -83,7 +87,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>The .toString() style.</summary>
+        /// <summary>The .toString() style. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -94,20 +98,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>Style of .toString() output for CompositeOperation.</summary>
+        /// <summary>Style of .toString() output for CompositeOperation. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiEnum(nativeType: typeof(CompositionStringStyle), fullyQualifiedName: "jsii-calc.composition.CompositeOperation.CompositionStringStyle")]
         public enum CompositionStringStyle
         {
-            /// <summary>Normal string expression.</summary>
+            /// <summary>Normal string expression. (experimental)</summary>
             /// <remarks>
             /// <strong>Stability</strong>: Experimental
             /// </remarks>
             [JsiiEnumMember(name: "NORMAL")]
             NORMAL,
-            /// <summary>Decorated string expression.</summary>
+            /// <summary>Decorated string expression. (experimental)</summary>
             /// <remarks>
             /// <strong>Stability</strong>: Experimental
             /// </remarks>

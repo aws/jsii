@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator.python_self;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator.python_self;
 public interface StructWithSelf extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -31,7 +35,7 @@ public interface StructWithSelf extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructWithSelf#getSelf}
-         * @param self the value to be set. This parameter is required.
+         * @param self  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

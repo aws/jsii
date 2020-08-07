@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * This allows us to test that a reference can be stored for objects that implement interfaces.
+ * This allows us to test that a reference can be stored for objects that implement interfaces. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param generator This parameter is required.
@@ -30,6 +32,8 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param gen This parameter is required.
@@ -40,6 +44,8 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -48,6 +54,8 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -56,6 +64,8 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

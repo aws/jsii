@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Test calling back to consumers that implement interfaces.</summary>
+    /// <summary>Test calling back to consumers that implement interfaces. (experimental)</summary>
     /// <remarks>
     /// Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
     /// the method on the argument that they're passed...
@@ -35,7 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>...if the interface is implemented using an object literal.</summary>
+        /// <summary>...if the interface is implemented using an object literal. (experimental)</summary>
         /// <remarks>
         /// Returns whether the bell was rung.
         /// 
@@ -47,7 +47,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer});
         }
 
-        /// <summary>...if the interface is implemented using a private class.</summary>
+        /// <summary>...if the interface is implemented using a private class. (experimental)</summary>
         /// <remarks>
         /// Return whether the bell was rung.
         /// 
@@ -59,7 +59,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer});
         }
 
-        /// <summary>...if the interface is implemented using a public class.</summary>
+        /// <summary>...if the interface is implemented using a public class. (experimental)</summary>
         /// <remarks>
         /// Return whether the bell was rung.
         /// 
@@ -71,7 +71,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer});
         }
 
-        /// <summary>If the parameter is a concrete class instead of an interface.</summary>
+        /// <summary>If the parameter is a concrete class instead of an interface. (experimental)</summary>
         /// <remarks>
         /// Return whether the bell was rung.
         /// 
@@ -83,7 +83,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumerCanRingBell), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IConcreteBellRinger)}, new object[]{ringer});
         }
 
-        /// <summary>...if the interface is implemented using an object literal.</summary>
+        /// <summary>...if the interface is implemented using an object literal. (experimental)</summary>
         /// <remarks>
         /// Returns whether the bell was rung.
         /// 
@@ -95,7 +95,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer});
         }
 
-        /// <summary>...if the interface is implemented using a private class.</summary>
+        /// <summary>...if the interface is implemented using a private class. (experimental)</summary>
         /// <remarks>
         /// Return whether the bell was rung.
         /// 
@@ -107,7 +107,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer});
         }
 
-        /// <summary>...if the interface is implemented using a public class.</summary>
+        /// <summary>...if the interface is implemented using a public class. (experimental)</summary>
         /// <remarks>
         /// Return whether the bell was rung.
         /// 
@@ -119,7 +119,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IBellRinger)}, new object[]{ringer});
         }
 
-        /// <summary>If the parameter is a concrete class instead of an interface.</summary>
+        /// <summary>If the parameter is a concrete class instead of an interface. (experimental)</summary>
         /// <remarks>
         /// Return whether the bell was rung.
         /// 

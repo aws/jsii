@@ -4,12 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SupportsNiceJavaBuilder), fullyQualifiedName: "jsii-calc.SupportsNiceJavaBuilder", parametersJson: "[{\"docs\":{\"summary\":\"some identifier.\"},\"name\":\"id\",\"type\":{\"primitive\":\"number\"}},{\"docs\":{\"summary\":\"the default value of `bar`.\"},\"name\":\"defaultBar\",\"optional\":true,\"type\":{\"primitive\":\"number\"}},{\"docs\":{\"summary\":\"some props once can provide.\"},\"name\":\"props\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.SupportsNiceJavaBuilderProps\"}},{\"docs\":{\"summary\":\"a variadic continuation.\"},\"name\":\"rest\",\"type\":{\"primitive\":\"string\"},\"variadic\":true}]")]
     public class SupportsNiceJavaBuilder : Amazon.JSII.Tests.CalculatorNamespace.SupportsNiceJavaBuilderWithRequiredProps
     {
+        /// <summary> (experimental)</summary>
         /// <param name="id">some identifier.</param>
         /// <param name="defaultBar">the default value of `bar`.</param>
         /// <param name="props">some props once can provide.</param>
@@ -35,7 +37,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>some identifier.</summary>
+        /// <summary>some identifier. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -45,6 +47,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

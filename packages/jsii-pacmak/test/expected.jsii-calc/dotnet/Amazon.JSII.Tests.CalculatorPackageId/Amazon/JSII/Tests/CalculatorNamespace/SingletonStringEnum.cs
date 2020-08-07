@@ -5,14 +5,14 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
 
-    /// <summary>A singleton string.</summary>
+    /// <summary>A singleton string. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiEnum(nativeType: typeof(SingletonStringEnum), fullyQualifiedName: "jsii-calc.SingletonStringEnum")]
     public enum SingletonStringEnum
     {
-        /// <summary>1337.</summary>
+        /// <summary>1337. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
-    /// <summary>Checks that classes can self-reference during initialization.</summary>
+    /// <summary>Checks that classes can self-reference during initialization. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// 
@@ -13,6 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.OuterClass), fullyQualifiedName: "jsii-calc.submodule.child.OuterClass")]
     public class OuterClass : DeputyBase
     {
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -34,6 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -13,7 +13,8 @@ from .._jsii import *
 
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.submodule.IReflectable")
 class IReflectable(jsii.compat.Protocol):
-    """
+    """(deprecated)
+
     stability
     :stability: deprecated
     """
@@ -25,7 +26,8 @@ class IReflectable(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="entries")
     def entries(self) -> typing.List["ReflectableEntry"]:
-        """
+        """(deprecated)
+
         stability
         :stability: deprecated
         """
@@ -33,7 +35,8 @@ class IReflectable(jsii.compat.Protocol):
 
 
 class _IReflectableProxy:
-    """
+    """(deprecated)
+
     stability
     :stability: deprecated
     """
@@ -43,7 +46,8 @@ class _IReflectableProxy:
     @builtins.property
     @jsii.member(jsii_name="entries")
     def entries(self) -> typing.List["ReflectableEntry"]:
-        """
+        """(deprecated)
+
         stability
         :stability: deprecated
         """
@@ -57,9 +61,10 @@ class _IReflectableProxy:
 )
 class ReflectableEntry:
     def __init__(self, *, key: str, value: typing.Any) -> None:
-        """
-        :param key: 
-        :param value: 
+        """(deprecated)
+
+        :param key: (deprecated)
+        :param value: (deprecated)
 
         stability
         :stability: deprecated
@@ -71,7 +76,8 @@ class ReflectableEntry:
 
     @builtins.property
     def key(self) -> str:
-        """
+        """(deprecated)
+
         stability
         :stability: deprecated
         """
@@ -79,7 +85,8 @@ class ReflectableEntry:
 
     @builtins.property
     def value(self) -> typing.Any:
-        """
+        """(deprecated)
+
         stability
         :stability: deprecated
         """
@@ -100,13 +107,15 @@ class ReflectableEntry:
 class Reflector(
     metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.submodule.Reflector"
 ):
-    """
+    """(deprecated)
+
     stability
     :stability: deprecated
     """
 
     def __init__(self) -> None:
-        """
+        """(deprecated)
+
         stability
         :stability: deprecated
         """
@@ -114,7 +123,8 @@ class Reflector(
 
     @jsii.member(jsii_name="asMap")
     def as_map(self, reflectable: "IReflectable") -> typing.Mapping[str, typing.Any]:
-        """
+        """(deprecated)
+
         :param reflectable: -
 
         stability

@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verifies that a "pure" implementation of an interface works correctly.
+ * Verifies that a "pure" implementation of an interface works correctly. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface IStructReturningDelegate extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -26,6 +28,8 @@ public interface IStructReturningDelegate extends software.amazon.jsii.JsiiSeria
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

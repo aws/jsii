@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Ensures abstract members implementations correctly register overrides in various languages.</summary>
+    /// <summary>Ensures abstract members implementations correctly register overrides in various languages. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -32,6 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -39,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         protected abstract string SomeMethod(string str);
 
 
-        /// <summary>Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result.</summary>
+        /// <summary>Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result. (experimental)</summary>
         /// <param name="seed">a `string`.</param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
@@ -50,6 +51,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{seed});
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

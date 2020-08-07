@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (deprecated)
+ * <p>
  * @deprecated a pretty boring class
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -18,6 +20,8 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated this constructor is "just" okay
      * @param readonlyString This parameter is required.
      * @param mutableNumber
@@ -30,6 +34,8 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated this constructor is "just" okay
      * @param readonlyString This parameter is required.
      */
@@ -41,6 +47,8 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated it was a bad idea
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -50,6 +58,8 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated this is not always "wazoo", be ready to be disappointed
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -59,6 +69,8 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated shouldn't have been mutable
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -68,6 +80,8 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated shouldn't have been mutable
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

@@ -4,6 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary> (deprecated)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -11,6 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [System.Obsolete("it just wraps a string")]
     public interface IDeprecatedStruct
     {
+        /// <summary> (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

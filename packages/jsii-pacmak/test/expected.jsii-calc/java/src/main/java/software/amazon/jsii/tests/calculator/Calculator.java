@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * A calculator which maintains a current value and allows adding operations.
+ * A calculator which maintains a current value and allows adding operations. (experimental)
  * <p>
  * Here's how you use it:
  * <p>
@@ -40,7 +40,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Creates a Calculator object.
+     * Creates a Calculator object. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -53,7 +53,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Creates a Calculator object.
+     * Creates a Calculator object. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -64,7 +64,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Adds a number to the current value.
+     * Adds a number to the current value. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -76,7 +76,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Multiplies the current value by a number.
+     * Multiplies the current value by a number. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -88,7 +88,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Negates the current value.
+     * Negates the current value. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -98,7 +98,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Raises the current value by a power.
+     * Raises the current value by a power. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -110,7 +110,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Returns teh value of the union property (if defined).
+     * Returns teh value of the union property (if defined). (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -120,7 +120,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Returns the expression.
+     * Returns the expression. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -131,7 +131,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * A log of all operations.
+     * A log of all operations. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -141,7 +141,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * A map of per operation name of all operations performed.
+     * A map of per operation name of all operations performed. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -151,7 +151,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * The current value.
+     * The current value. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -161,7 +161,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * The current value.
+     * The current value. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -171,7 +171,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * The maximum value allows in this calculator.
+     * The maximum value allows in this calculator. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -181,7 +181,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * The maximum value allows in this calculator.
+     * The maximum value allows in this calculator. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -191,7 +191,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Example of a property that accepts a union of types.
+     * Example of a property that accepts a union of types. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -201,7 +201,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Example of a property that accepts a union of types.
+     * Example of a property that accepts a union of types. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -211,7 +211,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Example of a property that accepts a union of types.
+     * Example of a property that accepts a union of types. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -221,7 +221,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
-     * Example of a property that accepts a union of types.
+     * Example of a property that accepts a union of types. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -251,7 +251,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         }
 
         /**
-         * The initial value of the calculator.
+         * The initial value of the calculator. (experimental)
          * <p>
          * NOTE: Any number works here, it's fine.
          * <p>
@@ -260,7 +260,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param initialValue The initial value of the calculator. This parameter is required.
+         * @param initialValue The initial value of the calculator. (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder initialValue(final java.lang.Number initialValue) {
@@ -269,14 +269,14 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         }
 
         /**
-         * The maximum value the calculator can store.
+         * The maximum value the calculator can store. (experimental)
          * <p>
          * Default: none
          * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param maximumValue The maximum value the calculator can store. This parameter is required.
+         * @param maximumValue The maximum value the calculator can store. (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder maximumValue(final java.lang.Number maximumValue) {

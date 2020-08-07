@@ -4,6 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule
 {
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -24,6 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -33,6 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule
             get => GetInstanceProperty<string>();
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

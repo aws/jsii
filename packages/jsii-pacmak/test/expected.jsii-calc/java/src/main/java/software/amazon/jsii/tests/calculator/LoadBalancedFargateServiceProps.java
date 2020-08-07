@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * jsii#298: show default values in sphinx documentation, and respect newlines.
+ * jsii#298: show default values in sphinx documentation, and respect newlines. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * The container port of the application load balancer attached to your Fargate service.
+     * The container port of the application load balancer attached to your Fargate service. (experimental)
      * <p>
      * Corresponds to container port mapping.
      * <p>
@@ -26,7 +26,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
     }
 
     /**
-     * The number of cpu units used by the task.
+     * The number of cpu units used by the task. (experimental)
      * <p>
      * Valid values, which determines your range of valid values for the memory parameter:
      * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
@@ -47,7 +47,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
     }
 
     /**
-     * The amount (in MiB) of memory used by the task.
+     * The amount (in MiB) of memory used by the task. (experimental)
      * <p>
      * This field is required and you must use one of the following values, which determines your range of valid values
      * for the cpu parameter:
@@ -74,7 +74,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
     }
 
     /**
-     * Determines whether the Application Load Balancer will be internet-facing.
+     * Determines whether the Application Load Balancer will be internet-facing. (experimental)
      * <p>
      * Default: true
      * <p>
@@ -86,7 +86,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
     }
 
     /**
-     * Determines whether your Fargate Service will be assigned a public IP address.
+     * Determines whether your Fargate Service will be assigned a public IP address. (experimental)
      * <p>
      * Default: false
      * <p>
@@ -117,7 +117,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
         /**
          * Sets the value of {@link LoadBalancedFargateServiceProps#getContainerPort}
-         * @param containerPort The container port of the application load balancer attached to your Fargate service.
+         * @param containerPort The container port of the application load balancer attached to your Fargate service. (experimental).
          *                      Corresponds to container port mapping.
          * @return {@code this}
          */
@@ -129,7 +129,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
         /**
          * Sets the value of {@link LoadBalancedFargateServiceProps#getCpu}
-         * @param cpu The number of cpu units used by the task.
+         * @param cpu The number of cpu units used by the task. (experimental).
          *            Valid values, which determines your range of valid values for the memory parameter:
          *            256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
          *            512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
@@ -148,7 +148,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
         /**
          * Sets the value of {@link LoadBalancedFargateServiceProps#getMemoryMiB}
-         * @param memoryMiB The amount (in MiB) of memory used by the task.
+         * @param memoryMiB The amount (in MiB) of memory used by the task. (experimental).
          *                  This field is required and you must use one of the following values, which determines your range of valid values
          *                  for the cpu parameter:
          *                  <p>
@@ -173,7 +173,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
         /**
          * Sets the value of {@link LoadBalancedFargateServiceProps#getPublicLoadBalancer}
-         * @param publicLoadBalancer Determines whether the Application Load Balancer will be internet-facing.
+         * @param publicLoadBalancer Determines whether the Application Load Balancer will be internet-facing. (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -184,7 +184,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
         /**
          * Sets the value of {@link LoadBalancedFargateServiceProps#getPublicTasks}
-         * @param publicTasks Determines whether your Fargate Service will be assigned a public IP address.
+         * @param publicTasks Determines whether your Fargate Service will be assigned a public IP address. (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

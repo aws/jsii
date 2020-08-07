@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Host runtime version should be set via JSII_AGENT.</summary>
+    /// <summary>Host runtime version should be set via JSII_AGENT. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -32,7 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Returns the value of the JSII_AGENT environment variable.</summary>
+        /// <summary>Returns the value of the JSII_AGENT environment variable. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

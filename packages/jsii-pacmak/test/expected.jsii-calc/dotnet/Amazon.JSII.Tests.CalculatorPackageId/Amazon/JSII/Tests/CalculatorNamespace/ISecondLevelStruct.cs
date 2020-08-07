@@ -4,13 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(ISecondLevelStruct), fullyQualifiedName: "jsii-calc.SecondLevelStruct")]
     public interface ISecondLevelStruct
     {
-        /// <summary>It's long and required.</summary>
+        /// <summary>It's long and required. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -20,7 +21,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
-        /// <summary>It's long, but you'll almost never pass it.</summary>
+        /// <summary>It's long, but you'll almost never pass it. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

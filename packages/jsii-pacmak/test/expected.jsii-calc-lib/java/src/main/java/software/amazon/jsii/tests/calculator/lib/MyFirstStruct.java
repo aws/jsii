@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * This is the first struct we have created in jsii.
+ * This is the first struct we have created in jsii. (deprecated)
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.MyFirstStruct")
@@ -11,20 +11,21 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * An awesome number value.
+     * An awesome number value. (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     @org.jetbrains.annotations.NotNull java.lang.Number getAnumber();
 
     /**
-     * A string value.
+     * A string value. (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     @org.jetbrains.annotations.NotNull java.lang.String getAstring();
 
     /**
+     *  (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -52,7 +53,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link MyFirstStruct#getAnumber}
-         * @param anumber An awesome number value. This parameter is required.
+         * @param anumber An awesome number value. (deprecated). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -64,7 +65,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link MyFirstStruct#getAstring}
-         * @param astring A string value. This parameter is required.
+         * @param astring A string value. (deprecated). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -76,7 +77,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link MyFirstStruct#getFirstOptional}
-         * @param firstOptional the value to be set.
+         * @param firstOptional  (deprecated).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

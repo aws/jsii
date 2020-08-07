@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verify that object references can be passed inside collections.
+ * Verify that object references can be passed inside collections. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -28,7 +28,7 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns the sum of all values.
+     * Returns the sum of all values. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -40,7 +40,7 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns the sum of all values in a map.
+     * Returns the sum of all values in a map. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>

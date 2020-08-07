@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -26,6 +28,8 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -34,7 +38,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Just calls "overrideMeToo".
+     * Just calls "overrideMeToo". (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -44,7 +48,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * This method calls the "callMe" async method indirectly, which will then invoke a virtual method.
+     * This method calls the "callMe" async method indirectly, which will then invoke a virtual method. (experimental)
      * <p>
      * This is a "double promise" situation, which
      * means that callbacks are not going to be available immediate, but only
@@ -58,6 +62,8 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -66,6 +72,8 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param mult This parameter is required.
@@ -76,6 +84,8 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

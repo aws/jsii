@@ -18,7 +18,7 @@ class CompositeOperation(
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.composition.CompositeOperation",
 ):
-    """Abstract operation composed from an expression of other operations.
+    """Abstract operation composed from an expression of other operations. (experimental)
 
     stability
     :stability: experimental
@@ -33,7 +33,9 @@ class CompositeOperation(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> str:
-        """String representation of the value.
+        """String representation of the value. (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -44,7 +46,7 @@ class CompositeOperation(
     @jsii.member(jsii_name="expression")
     @abc.abstractmethod
     def expression(self) -> scope.jsii_calc_lib.Value:
-        """The expression that this operation consists of.
+        """The expression that this operation consists of. (experimental)
 
         Must be implemented by derived classes.
 
@@ -56,7 +58,9 @@ class CompositeOperation(
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value.
+        """The value. (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -66,7 +70,7 @@ class CompositeOperation(
     @builtins.property
     @jsii.member(jsii_name="decorationPostfixes")
     def decoration_postfixes(self) -> typing.List[str]:
-        """A set of postfixes to include in a decorated .toString().
+        """A set of postfixes to include in a decorated .toString(). (experimental)
 
         stability
         :stability: experimental
@@ -80,7 +84,7 @@ class CompositeOperation(
     @builtins.property
     @jsii.member(jsii_name="decorationPrefixes")
     def decoration_prefixes(self) -> typing.List[str]:
-        """A set of prefixes to include in a decorated .toString().
+        """A set of prefixes to include in a decorated .toString(). (experimental)
 
         stability
         :stability: experimental
@@ -94,7 +98,7 @@ class CompositeOperation(
     @builtins.property
     @jsii.member(jsii_name="stringStyle")
     def string_style(self) -> "CompositionStringStyle":
-        """The .toString() style.
+        """The .toString() style. (experimental)
 
         stability
         :stability: experimental
@@ -109,20 +113,20 @@ class CompositeOperation(
         jsii_type="jsii-calc.composition.CompositeOperation.CompositionStringStyle"
     )
     class CompositionStringStyle(enum.Enum):
-        """Style of .toString() output for CompositeOperation.
+        """Style of .toString() output for CompositeOperation. (experimental)
 
         stability
         :stability: experimental
         """
 
         NORMAL = "NORMAL"
-        """Normal string expression.
+        """Normal string expression. (experimental)
 
         stability
         :stability: experimental
         """
         DECORATED = "DECORATED"
-        """Decorated string expression.
+        """Decorated string expression. (experimental)
 
         stability
         :stability: experimental
@@ -135,7 +139,7 @@ class _CompositeOperationProxy(
     @builtins.property
     @jsii.member(jsii_name="expression")
     def expression(self) -> scope.jsii_calc_lib.Value:
-        """The expression that this operation consists of.
+        """The expression that this operation consists of. (experimental)
 
         Must be implemented by derived classes.
 

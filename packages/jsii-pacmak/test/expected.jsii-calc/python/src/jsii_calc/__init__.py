@@ -49,7 +49,8 @@ from .composition import CompositeOperation as _CompositeOperation_1c4d123b
 class AbstractClassBase(
     metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -69,7 +70,8 @@ class AbstractClassBase(
     @jsii.member(jsii_name="abstractProperty")
     @abc.abstractmethod
     def abstract_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -80,7 +82,8 @@ class _AbstractClassBaseProxy(AbstractClassBase):
     @builtins.property
     @jsii.member(jsii_name="abstractProperty")
     def abstract_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -90,7 +93,8 @@ class _AbstractClassBaseProxy(AbstractClassBase):
 class AbstractClassReturner(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AbstractClassReturner"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -104,7 +108,8 @@ class AbstractClassReturner(
 
     @jsii.member(jsii_name="giveMeAbstract")
     def give_me_abstract(self) -> "AbstractClass":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -112,7 +117,8 @@ class AbstractClassReturner(
 
     @jsii.member(jsii_name="giveMeInterface")
     def give_me_interface(self) -> "IInterfaceImplementedByAbstractClass":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -121,7 +127,8 @@ class AbstractClassReturner(
     @builtins.property
     @jsii.member(jsii_name="returnAbstractFromProperty")
     def return_abstract_from_property(self) -> "AbstractClassBase":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -131,7 +138,7 @@ class AbstractClassReturner(
 class AbstractSuite(
     metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractSuite"
 ):
-    """Ensures abstract members implementations correctly register overrides in various languages.
+    """Ensures abstract members implementations correctly register overrides in various languages. (experimental)
 
     stability
     :stability: experimental
@@ -151,7 +158,8 @@ class AbstractSuite(
     @jsii.member(jsii_name="someMethod")
     @abc.abstractmethod
     def _some_method(self, str: str) -> str:
-        """
+        """(experimental)
+
         :param str: -
 
         stability
@@ -161,7 +169,7 @@ class AbstractSuite(
 
     @jsii.member(jsii_name="workItAll")
     def work_it_all(self, seed: str) -> str:
-        """Sets ``seed`` to ``this.property``, then calls ``someMethod`` with ``this.property`` and returns the result.
+        """Sets ``seed`` to ``this.property``, then calls ``someMethod`` with ``this.property`` and returns the result. (experimental)
 
         :param seed: a ``string``.
 
@@ -174,7 +182,8 @@ class AbstractSuite(
     @jsii.member(jsii_name="property")
     @abc.abstractmethod
     def _property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -189,7 +198,8 @@ class AbstractSuite(
 class _AbstractSuiteProxy(AbstractSuite):
     @jsii.member(jsii_name="someMethod")
     def _some_method(self, str: str) -> str:
-        """
+        """(experimental)
+
         :param str: -
 
         stability
@@ -200,7 +210,8 @@ class _AbstractSuiteProxy(AbstractSuite):
     @builtins.property
     @jsii.member(jsii_name="property")
     def _property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -212,7 +223,7 @@ class _AbstractSuiteProxy(AbstractSuite):
 
 
 class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
-    """This class includes property for all types supported by jsii.
+    """This class includes property for all types supported by jsii. (experimental)
 
     The setters will validate
     that the value set is of the expected type and throw otherwise.
@@ -230,7 +241,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
 
     @jsii.member(jsii_name="anyIn")
     def any_in(self, inp: typing.Any) -> None:
-        """
+        """(experimental)
+
         :param inp: -
 
         stability
@@ -240,7 +252,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
 
     @jsii.member(jsii_name="anyOut")
     def any_out(self) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -248,7 +261,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
 
     @jsii.member(jsii_name="enumMethod")
     def enum_method(self, value: "StringEnum") -> "StringEnum":
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -259,7 +273,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="enumPropertyValue")
     def enum_property_value(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -268,7 +283,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="anyArrayProperty")
     def any_array_property(self) -> typing.List[typing.Any]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -281,7 +297,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="anyMapProperty")
     def any_map_property(self) -> typing.Mapping[str, typing.Any]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -294,7 +311,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="anyProperty")
     def any_property(self) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -307,7 +325,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="arrayProperty")
     def array_property(self) -> typing.List[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -320,7 +339,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="booleanProperty")
     def boolean_property(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -333,7 +353,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="dateProperty")
     def date_property(self) -> datetime.datetime:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -346,7 +367,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="enumProperty")
     def enum_property(self) -> "AllTypesEnum":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -359,7 +381,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="jsonProperty")
     def json_property(self) -> typing.Mapping[typing.Any, typing.Any]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -372,7 +395,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="mapProperty")
     def map_property(self) -> typing.Mapping[str, scope.jsii_calc_lib.Number]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -387,7 +411,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="numberProperty")
     def number_property(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -400,7 +425,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="stringProperty")
     def string_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -415,7 +441,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     def union_array_property(
         self,
     ) -> typing.List[typing.Union[jsii.Number, scope.jsii_calc_lib.Value]]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -434,7 +461,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     ) -> typing.Mapping[
         str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]
     ]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -454,7 +482,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     def union_property(
         self,
     ) -> typing.Union[str, jsii.Number, "Multiply", scope.jsii_calc_lib.Number]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -470,7 +499,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="unknownArrayProperty")
     def unknown_array_property(self) -> typing.List[typing.Any]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -483,7 +513,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="unknownMapProperty")
     def unknown_map_property(self) -> typing.Mapping[str, typing.Any]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -496,7 +527,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="unknownProperty")
     def unknown_property(self) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -509,7 +541,8 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @builtins.property
     @jsii.member(jsii_name="optionalEnumValue")
     def optional_enum_value(self) -> typing.Optional["StringEnum"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -522,23 +555,27 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
 
 @jsii.enum(jsii_type="jsii-calc.AllTypesEnum")
 class AllTypesEnum(enum.Enum):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     MY_ENUM_VALUE = "MY_ENUM_VALUE"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
     YOUR_ENUM_VALUE = "YOUR_ENUM_VALUE"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
     THIS_IS_GREAT = "THIS_IS_GREAT"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -547,7 +584,8 @@ class AllTypesEnum(enum.Enum):
 class AllowedMethodNames(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllowedMethodNames"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -561,7 +599,8 @@ class AllowedMethodNames(
 
     @jsii.member(jsii_name="getBar")
     def get_bar(self, _p1: str, _p2: jsii.Number) -> None:
-        """
+        """(experimental)
+
         :param _p1: -
         :param _p2: -
 
@@ -572,7 +611,7 @@ class AllowedMethodNames(
 
     @jsii.member(jsii_name="getFoo")
     def get_foo(self, with_param: str) -> str:
-        """getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
+        """getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay. (experimental)
 
         :param with_param: -
 
@@ -583,7 +622,8 @@ class AllowedMethodNames(
 
     @jsii.member(jsii_name="setBar")
     def set_bar(self, _x: str, _y: jsii.Number, _z: bool) -> None:
-        """
+        """(experimental)
+
         :param _x: -
         :param _y: -
         :param _z: -
@@ -595,7 +635,7 @@ class AllowedMethodNames(
 
     @jsii.member(jsii_name="setFoo")
     def set_foo(self, _x: str, _y: jsii.Number) -> None:
-        """setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
+        """setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay. (experimental)
 
         :param _x: -
         :param _y: -
@@ -609,7 +649,8 @@ class AllowedMethodNames(
 class AmbiguousParameters(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AmbiguousParameters"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -617,10 +658,11 @@ class AmbiguousParameters(
     def __init__(
         self, scope_: "Bell", *, scope: str, props: typing.Optional[bool] = None
     ) -> None:
-        """
+        """(experimental)
+
         :param scope_: -
-        :param scope: 
-        :param props: 
+        :param scope: (experimental)
+        :param props: (experimental)
 
         stability
         :stability: experimental
@@ -632,7 +674,8 @@ class AmbiguousParameters(
     @builtins.property
     @jsii.member(jsii_name="props")
     def props(self) -> "StructParameterType":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -641,7 +684,8 @@ class AmbiguousParameters(
     @builtins.property
     @jsii.member(jsii_name="scope")
     def scope(self) -> "Bell":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -651,7 +695,8 @@ class AmbiguousParameters(
 class AsyncVirtualMethods(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AsyncVirtualMethods"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -665,7 +710,8 @@ class AsyncVirtualMethods(
 
     @jsii.member(jsii_name="callMe")
     def call_me(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -673,7 +719,7 @@ class AsyncVirtualMethods(
 
     @jsii.member(jsii_name="callMe2")
     def call_me2(self) -> jsii.Number:
-        """Just calls "overrideMeToo".
+        """Just calls "overrideMeToo". (experimental)
 
         stability
         :stability: experimental
@@ -682,7 +728,7 @@ class AsyncVirtualMethods(
 
     @jsii.member(jsii_name="callMeDoublePromise")
     def call_me_double_promise(self) -> jsii.Number:
-        """This method calls the "callMe" async method indirectly, which will then invoke a virtual method.
+        """This method calls the "callMe" async method indirectly, which will then invoke a virtual method. (experimental)
 
         This is a "double promise" situation, which
         means that callbacks are not going to be available immediate, but only
@@ -695,7 +741,8 @@ class AsyncVirtualMethods(
 
     @jsii.member(jsii_name="dontOverrideMe")
     def dont_override_me(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -703,7 +750,8 @@ class AsyncVirtualMethods(
 
     @jsii.member(jsii_name="overrideMe")
     def override_me(self, mult: jsii.Number) -> jsii.Number:
-        """
+        """(experimental)
+
         :param mult: -
 
         stability
@@ -713,7 +761,8 @@ class AsyncVirtualMethods(
 
     @jsii.member(jsii_name="overrideMeToo")
     def override_me_too(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -721,7 +770,8 @@ class AsyncVirtualMethods(
 
 
 class AugmentableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AugmentableClass"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -735,7 +785,8 @@ class AugmentableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Augmentable
 
     @jsii.member(jsii_name="methodOne")
     def method_one(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -743,7 +794,8 @@ class AugmentableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Augmentable
 
     @jsii.member(jsii_name="methodTwo")
     def method_two(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -751,7 +803,8 @@ class AugmentableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Augmentable
 
 
 class BaseJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.BaseJsii976"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -770,7 +823,7 @@ class BinaryOperation(
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.BinaryOperation",
 ):
-    """Represents an operation with two operands.
+    """Represents an operation with two operands. (experimental)
 
     stability
     :stability: experimental
@@ -783,7 +836,7 @@ class BinaryOperation(
     def __init__(
         self, lhs: scope.jsii_calc_lib.Value, rhs: scope.jsii_calc_lib.Value
     ) -> None:
-        """Creates a BinaryOperation.
+        """Creates a BinaryOperation. (experimental)
 
         :param lhs: Left-hand side operand.
         :param rhs: Right-hand side operand.
@@ -795,7 +848,9 @@ class BinaryOperation(
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> str:
-        """Say hello!
+        """Say hello! (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -805,7 +860,7 @@ class BinaryOperation(
     @builtins.property
     @jsii.member(jsii_name="lhs")
     def lhs(self) -> scope.jsii_calc_lib.Value:
-        """Left-hand side operand.
+        """Left-hand side operand. (experimental)
 
         stability
         :stability: experimental
@@ -815,7 +870,7 @@ class BinaryOperation(
     @builtins.property
     @jsii.member(jsii_name="rhs")
     def rhs(self) -> scope.jsii_calc_lib.Value:
-        """Right-hand side operand.
+        """Right-hand side operand. (experimental)
 
         stability
         :stability: experimental
@@ -834,7 +889,7 @@ class Calculator(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.Calculator",
 ):
-    """A calculator which maintains a current value and allows adding operations.
+    """A calculator which maintains a current value and allows adding operations. (experimental)
 
     Here's how you use it::
 
@@ -864,10 +919,10 @@ class Calculator(
         initial_value: typing.Optional[jsii.Number] = None,
         maximum_value: typing.Optional[jsii.Number] = None,
     ) -> None:
-        """Creates a Calculator object.
+        """Creates a Calculator object. (experimental)
 
-        :param initial_value: The initial value of the calculator. NOTE: Any number works here, it's fine. Default: 0
-        :param maximum_value: The maximum value the calculator can store. Default: none
+        :param initial_value: The initial value of the calculator. (experimental) NOTE: Any number works here, it's fine. Default: 0
+        :param maximum_value: The maximum value the calculator can store. (experimental) Default: none
 
         stability
         :stability: experimental
@@ -880,7 +935,7 @@ class Calculator(
 
     @jsii.member(jsii_name="add")
     def add(self, value: jsii.Number) -> None:
-        """Adds a number to the current value.
+        """Adds a number to the current value. (experimental)
 
         :param value: -
 
@@ -891,7 +946,7 @@ class Calculator(
 
     @jsii.member(jsii_name="mul")
     def mul(self, value: jsii.Number) -> None:
-        """Multiplies the current value by a number.
+        """Multiplies the current value by a number. (experimental)
 
         :param value: -
 
@@ -902,7 +957,7 @@ class Calculator(
 
     @jsii.member(jsii_name="neg")
     def neg(self) -> None:
-        """Negates the current value.
+        """Negates the current value. (experimental)
 
         stability
         :stability: experimental
@@ -911,7 +966,7 @@ class Calculator(
 
     @jsii.member(jsii_name="pow")
     def pow(self, value: jsii.Number) -> None:
-        """Raises the current value by a power.
+        """Raises the current value by a power. (experimental)
 
         :param value: -
 
@@ -922,7 +977,7 @@ class Calculator(
 
     @jsii.member(jsii_name="readUnionValue")
     def read_union_value(self) -> jsii.Number:
-        """Returns teh value of the union property (if defined).
+        """Returns teh value of the union property (if defined). (experimental)
 
         stability
         :stability: experimental
@@ -932,7 +987,7 @@ class Calculator(
     @builtins.property
     @jsii.member(jsii_name="expression")
     def expression(self) -> scope.jsii_calc_lib.Value:
-        """Returns the expression.
+        """Returns the expression. (experimental)
 
         stability
         :stability: experimental
@@ -942,7 +997,7 @@ class Calculator(
     @builtins.property
     @jsii.member(jsii_name="operationsLog")
     def operations_log(self) -> typing.List[scope.jsii_calc_lib.Value]:
-        """A log of all operations.
+        """A log of all operations. (experimental)
 
         stability
         :stability: experimental
@@ -954,7 +1009,7 @@ class Calculator(
     def operations_map(
         self,
     ) -> typing.Mapping[str, typing.List[scope.jsii_calc_lib.Value]]:
-        """A map of per operation name of all operations performed.
+        """A map of per operation name of all operations performed. (experimental)
 
         stability
         :stability: experimental
@@ -964,7 +1019,7 @@ class Calculator(
     @builtins.property
     @jsii.member(jsii_name="curr")
     def curr(self) -> scope.jsii_calc_lib.Value:
-        """The current value.
+        """The current value. (experimental)
 
         stability
         :stability: experimental
@@ -978,7 +1033,7 @@ class Calculator(
     @builtins.property
     @jsii.member(jsii_name="maxValue")
     def max_value(self) -> typing.Optional[jsii.Number]:
-        """The maximum value allows in this calculator.
+        """The maximum value allows in this calculator. (experimental)
 
         stability
         :stability: experimental
@@ -994,7 +1049,7 @@ class Calculator(
     def union_property(
         self,
     ) -> typing.Optional[typing.Union["Add", "Multiply", "Power"]]:
-        """Example of a property that accepts a union of types.
+        """Example of a property that accepts a union of types. (experimental)
 
         stability
         :stability: experimental
@@ -1020,10 +1075,10 @@ class CalculatorProps:
         initial_value: typing.Optional[jsii.Number] = None,
         maximum_value: typing.Optional[jsii.Number] = None,
     ) -> None:
-        """Properties for Calculator.
+        """Properties for Calculator. (experimental)
 
-        :param initial_value: The initial value of the calculator. NOTE: Any number works here, it's fine. Default: 0
-        :param maximum_value: The maximum value the calculator can store. Default: none
+        :param initial_value: The initial value of the calculator. (experimental) NOTE: Any number works here, it's fine. Default: 0
+        :param maximum_value: The maximum value the calculator can store. (experimental) Default: none
 
         stability
         :stability: experimental
@@ -1036,7 +1091,7 @@ class CalculatorProps:
 
     @builtins.property
     def initial_value(self) -> typing.Optional[jsii.Number]:
-        """The initial value of the calculator.
+        """The initial value of the calculator. (experimental)
 
         NOTE: Any number works here, it's fine.
 
@@ -1050,7 +1105,7 @@ class CalculatorProps:
 
     @builtins.property
     def maximum_value(self) -> typing.Optional[jsii.Number]:
-        """The maximum value the calculator can store.
+        """The maximum value the calculator can store. (experimental)
 
         default
         :default: none
@@ -1075,13 +1130,15 @@ class CalculatorProps:
 class ClassWithCollections(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithCollections"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, map: typing.Mapping[str, str], array: typing.List[str]) -> None:
-        """
+        """(experimental)
+
         :param map: -
         :param array: -
 
@@ -1093,7 +1150,8 @@ class ClassWithCollections(
     @jsii.member(jsii_name="createAList")
     @builtins.classmethod
     def create_a_list(cls) -> typing.List[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1102,7 +1160,8 @@ class ClassWithCollections(
     @jsii.member(jsii_name="createAMap")
     @builtins.classmethod
     def create_a_map(cls) -> typing.Mapping[str, str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1111,7 +1170,8 @@ class ClassWithCollections(
     @jsii.python.classproperty
     @jsii.member(jsii_name="staticArray")
     def static_array(cls) -> typing.List[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1124,7 +1184,8 @@ class ClassWithCollections(
     @jsii.python.classproperty
     @jsii.member(jsii_name="staticMap")
     def static_map(cls) -> typing.Mapping[str, str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1137,7 +1198,8 @@ class ClassWithCollections(
     @builtins.property
     @jsii.member(jsii_name="array")
     def array(self) -> typing.List[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1150,7 +1212,8 @@ class ClassWithCollections(
     @builtins.property
     @jsii.member(jsii_name="map")
     def map(self) -> typing.Mapping[str, str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1189,13 +1252,15 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
 class ClassWithJavaReservedWords(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithJavaReservedWords"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, int: str) -> None:
-        """
+        """(experimental)
+
         :param int: -
 
         stability
@@ -1205,7 +1270,8 @@ class ClassWithJavaReservedWords(
 
     @jsii.member(jsii_name="import")
     def import_(self, assert_: str) -> str:
-        """
+        """(experimental)
+
         :param assert_: -
 
         stability
@@ -1216,7 +1282,8 @@ class ClassWithJavaReservedWords(
     @builtins.property
     @jsii.member(jsii_name="int")
     def int(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1226,7 +1293,8 @@ class ClassWithJavaReservedWords(
 class ClassWithMutableObjectLiteralProperty(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithMutableObjectLiteralProperty"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -1241,7 +1309,8 @@ class ClassWithMutableObjectLiteralProperty(
     @builtins.property
     @jsii.member(jsii_name="mutableObject")
     def mutable_object(self) -> "IMutableObjectLiteral":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1255,7 +1324,7 @@ class ClassWithMutableObjectLiteralProperty(
 class ConfusingToJackson(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ConfusingToJackson"
 ):
-    """This tries to confuse Jackson by having overloaded property setters.
+    """This tries to confuse Jackson by having overloaded property setters. (experimental)
 
     see
     :see: https://github.com/aws/aws-cdk/issues/4080
@@ -1266,7 +1335,8 @@ class ConfusingToJackson(
     @jsii.member(jsii_name="makeInstance")
     @builtins.classmethod
     def make_instance(cls) -> "ConfusingToJackson":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1275,7 +1345,8 @@ class ConfusingToJackson(
     @jsii.member(jsii_name="makeStructInstance")
     @builtins.classmethod
     def make_struct_instance(cls) -> "ConfusingToJacksonStruct":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1291,7 +1362,8 @@ class ConfusingToJackson(
             typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]],
         ]
     ]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1330,8 +1402,9 @@ class ConfusingToJacksonStruct:
             ]
         ] = None,
     ) -> None:
-        """
-        :param union_property: 
+        """(experimental)
+
+        :param union_property: (experimental)
 
         stability
         :stability: experimental
@@ -1349,7 +1422,8 @@ class ConfusingToJacksonStruct:
             typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, "AbstractClass"]],
         ]
     ]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1370,13 +1444,15 @@ class ConfusingToJacksonStruct:
 class ConstructorPassesThisOut(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ConstructorPassesThisOut"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, consumer: "PartiallyInitializedThisConsumer") -> None:
-        """
+        """(experimental)
+
         :param consumer: -
 
         stability
@@ -1386,7 +1462,8 @@ class ConstructorPassesThisOut(
 
 
 class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -1401,7 +1478,8 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     @jsii.member(jsii_name="hiddenInterface")
     @builtins.classmethod
     def hidden_interface(cls) -> "IPublicInterface":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1410,7 +1488,8 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     @jsii.member(jsii_name="hiddenInterfaces")
     @builtins.classmethod
     def hidden_interfaces(cls) -> typing.List["IPublicInterface"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1419,7 +1498,8 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     @jsii.member(jsii_name="hiddenSubInterfaces")
     @builtins.classmethod
     def hidden_sub_interfaces(cls) -> typing.List["IPublicInterface"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1428,7 +1508,8 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     @jsii.member(jsii_name="makeClass")
     @builtins.classmethod
     def make_class(cls) -> "PublicClass":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1437,7 +1518,8 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     @jsii.member(jsii_name="makeInterface")
     @builtins.classmethod
     def make_interface(cls) -> "IPublicInterface":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1446,7 +1528,8 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     @jsii.member(jsii_name="makeInterface2")
     @builtins.classmethod
     def make_interface2(cls) -> "IPublicInterface2":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1455,7 +1538,8 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     @jsii.member(jsii_name="makeInterfaces")
     @builtins.classmethod
     def make_interfaces(cls) -> typing.List["IPublicInterface"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1465,13 +1549,15 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
 class ConsumePureInterface(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ConsumePureInterface"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, delegate: "IStructReturningDelegate") -> None:
-        """
+        """(experimental)
+
         :param delegate: -
 
         stability
@@ -1481,7 +1567,8 @@ class ConsumePureInterface(
 
     @jsii.member(jsii_name="workItBaby")
     def work_it_baby(self) -> "StructB":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1491,7 +1578,7 @@ class ConsumePureInterface(
 class ConsumerCanRingBell(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ConsumerCanRingBell"
 ):
-    """Test calling back to consumers that implement interfaces.
+    """Test calling back to consumers that implement interfaces. (experimental)
 
     Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
     the method on the argument that they're passed...
@@ -1510,7 +1597,7 @@ class ConsumerCanRingBell(
     @jsii.member(jsii_name="staticImplementedByObjectLiteral")
     @builtins.classmethod
     def static_implemented_by_object_literal(cls, ringer: "IBellRinger") -> bool:
-        """...if the interface is implemented using an object literal.
+        """...if the interface is implemented using an object literal. (experimental)
 
         Returns whether the bell was rung.
 
@@ -1524,7 +1611,7 @@ class ConsumerCanRingBell(
     @jsii.member(jsii_name="staticImplementedByPrivateClass")
     @builtins.classmethod
     def static_implemented_by_private_class(cls, ringer: "IBellRinger") -> bool:
-        """...if the interface is implemented using a private class.
+        """...if the interface is implemented using a private class. (experimental)
 
         Return whether the bell was rung.
 
@@ -1538,7 +1625,7 @@ class ConsumerCanRingBell(
     @jsii.member(jsii_name="staticImplementedByPublicClass")
     @builtins.classmethod
     def static_implemented_by_public_class(cls, ringer: "IBellRinger") -> bool:
-        """...if the interface is implemented using a public class.
+        """...if the interface is implemented using a public class. (experimental)
 
         Return whether the bell was rung.
 
@@ -1552,7 +1639,7 @@ class ConsumerCanRingBell(
     @jsii.member(jsii_name="staticWhenTypedAsClass")
     @builtins.classmethod
     def static_when_typed_as_class(cls, ringer: "IConcreteBellRinger") -> bool:
-        """If the parameter is a concrete class instead of an interface.
+        """If the parameter is a concrete class instead of an interface. (experimental)
 
         Return whether the bell was rung.
 
@@ -1565,7 +1652,7 @@ class ConsumerCanRingBell(
 
     @jsii.member(jsii_name="implementedByObjectLiteral")
     def implemented_by_object_literal(self, ringer: "IBellRinger") -> bool:
-        """...if the interface is implemented using an object literal.
+        """...if the interface is implemented using an object literal. (experimental)
 
         Returns whether the bell was rung.
 
@@ -1578,7 +1665,7 @@ class ConsumerCanRingBell(
 
     @jsii.member(jsii_name="implementedByPrivateClass")
     def implemented_by_private_class(self, ringer: "IBellRinger") -> bool:
-        """...if the interface is implemented using a private class.
+        """...if the interface is implemented using a private class. (experimental)
 
         Return whether the bell was rung.
 
@@ -1591,7 +1678,7 @@ class ConsumerCanRingBell(
 
     @jsii.member(jsii_name="implementedByPublicClass")
     def implemented_by_public_class(self, ringer: "IBellRinger") -> bool:
-        """...if the interface is implemented using a public class.
+        """...if the interface is implemented using a public class. (experimental)
 
         Return whether the bell was rung.
 
@@ -1604,7 +1691,7 @@ class ConsumerCanRingBell(
 
     @jsii.member(jsii_name="whenTypedAsClass")
     def when_typed_as_class(self, ringer: "IConcreteBellRinger") -> bool:
-        """If the parameter is a concrete class instead of an interface.
+        """If the parameter is a concrete class instead of an interface. (experimental)
 
         Return whether the bell was rung.
 
@@ -1619,7 +1706,8 @@ class ConsumerCanRingBell(
 class ConsumersOfThisCrazyTypeSystem(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ConsumersOfThisCrazyTypeSystem"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -1633,7 +1721,8 @@ class ConsumersOfThisCrazyTypeSystem(
 
     @jsii.member(jsii_name="consumeAnotherPublicInterface")
     def consume_another_public_interface(self, obj: "IAnotherPublicInterface") -> str:
-        """
+        """(experimental)
+
         :param obj: -
 
         stability
@@ -1645,7 +1734,8 @@ class ConsumersOfThisCrazyTypeSystem(
     def consume_non_internal_interface(
         self, obj: "INonInternalInterface"
     ) -> typing.Any:
-        """
+        """(experimental)
+
         :param obj: -
 
         stability
@@ -1655,7 +1745,7 @@ class ConsumersOfThisCrazyTypeSystem(
 
 
 class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
-    """Verifies proper type handling through dynamic overrides.
+    """Verifies proper type handling through dynamic overrides. (experimental)
 
     stability
     :stability: experimental
@@ -1676,10 +1766,11 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         astring: str,
         first_optional: typing.Optional[typing.List[str]] = None,
     ) -> str:
-        """
-        :param anumber: An awesome number value.
-        :param astring: A string value.
-        :param first_optional: 
+        """(experimental)
+
+        :param anumber: An awesome number value. (deprecated)
+        :param astring: A string value. (deprecated)
+        :param first_optional: (deprecated)
 
         stability
         :stability: experimental
@@ -1692,7 +1783,8 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
 
     @jsii.member(jsii_name="renderArbitrary")
     def render_arbitrary(self, data: typing.Mapping[str, typing.Any]) -> str:
-        """
+        """(experimental)
+
         :param data: -
 
         stability
@@ -1702,7 +1794,8 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
 
     @jsii.member(jsii_name="renderMap")
     def render_map(self, map: typing.Mapping[str, typing.Any]) -> str:
-        """
+        """(experimental)
+
         :param map: -
 
         stability
@@ -1714,7 +1807,8 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
 class DefaultedConstructorArgument(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DefaultedConstructorArgument"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -1725,7 +1819,8 @@ class DefaultedConstructorArgument(
         arg2: typing.Optional[str] = None,
         arg3: typing.Optional[datetime.datetime] = None,
     ) -> None:
-        """
+        """(experimental)
+
         :param arg1: -
         :param arg2: -
         :param arg3: -
@@ -1738,7 +1833,8 @@ class DefaultedConstructorArgument(
     @builtins.property
     @jsii.member(jsii_name="arg1")
     def arg1(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1747,7 +1843,8 @@ class DefaultedConstructorArgument(
     @builtins.property
     @jsii.member(jsii_name="arg3")
     def arg3(self) -> datetime.datetime:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1756,7 +1853,8 @@ class DefaultedConstructorArgument(
     @builtins.property
     @jsii.member(jsii_name="arg2")
     def arg2(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -1764,7 +1862,7 @@ class DefaultedConstructorArgument(
 
 
 class Demonstrate982(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Demonstrate982"):
-    """1.
+    """1. (experimental)
 
     call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)
     2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type
@@ -1783,7 +1881,7 @@ class Demonstrate982(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Demonstrate98
     @jsii.member(jsii_name="takeThis")
     @builtins.classmethod
     def take_this(cls) -> "ChildStruct982":
-        """It's dangerous to go alone!
+        """It's dangerous to go alone! (experimental)
 
         stability
         :stability: experimental
@@ -1793,7 +1891,7 @@ class Demonstrate982(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Demonstrate98
     @jsii.member(jsii_name="takeThisToo")
     @builtins.classmethod
     def take_this_too(cls) -> "ParentStruct982":
-        """It's dangerous to go alone!
+        """It's dangerous to go alone! (experimental)
 
         stability
         :stability: experimental
@@ -1802,7 +1900,8 @@ class Demonstrate982(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Demonstrate98
 
 
 class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedClass"):
-    """
+    """(deprecated)
+
     deprecated
     :deprecated: a pretty boring class
 
@@ -1813,7 +1912,8 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
     def __init__(
         self, readonly_string: str, mutable_number: typing.Optional[jsii.Number] = None
     ) -> None:
-        """
+        """(deprecated)
+
         :param readonly_string: -
         :param mutable_number: -
 
@@ -1827,7 +1927,8 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
-        """
+        """(deprecated)
+
         deprecated
         :deprecated: it was a bad idea
 
@@ -1839,7 +1940,8 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
     @builtins.property
     @jsii.member(jsii_name="readonlyProperty")
     def readonly_property(self) -> str:
-        """
+        """(deprecated)
+
         deprecated
         :deprecated: this is not always "wazoo", be ready to be disappointed
 
@@ -1851,7 +1953,8 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
     @builtins.property
     @jsii.member(jsii_name="mutableProperty")
     def mutable_property(self) -> typing.Optional[jsii.Number]:
-        """
+        """(deprecated)
+
         deprecated
         :deprecated: shouldn't have been mutable
 
@@ -1867,7 +1970,8 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
 
 @jsii.enum(jsii_type="jsii-calc.DeprecatedEnum")
 class DeprecatedEnum(enum.Enum):
-    """
+    """(deprecated)
+
     deprecated
     :deprecated: your deprecated selection of bad options
 
@@ -1876,7 +1980,8 @@ class DeprecatedEnum(enum.Enum):
     """
 
     OPTION_A = "OPTION_A"
-    """
+    """(deprecated)
+
     deprecated
     :deprecated: option A is not great
 
@@ -1884,7 +1989,8 @@ class DeprecatedEnum(enum.Enum):
     :stability: deprecated
     """
     OPTION_B = "OPTION_B"
-    """
+    """(deprecated)
+
     deprecated
     :deprecated: option B is kinda bad, too
 
@@ -1900,8 +2006,9 @@ class DeprecatedEnum(enum.Enum):
 )
 class DeprecatedStruct:
     def __init__(self, *, readonly_property: str) -> None:
-        """
-        :param readonly_property: 
+        """(deprecated)
+
+        :param readonly_property: (deprecated)
 
         deprecated
         :deprecated: it just wraps a string
@@ -1915,7 +2022,8 @@ class DeprecatedStruct:
 
     @builtins.property
     def readonly_property(self) -> str:
-        """
+        """(deprecated)
+
         deprecated
         :deprecated: well, yeah
 
@@ -1967,17 +2075,17 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
         optional_any: typing.Any = None,
         optional_array: typing.Optional[typing.List[str]] = None,
     ) -> None:
-        """A struct which derives from another struct.
+        """A struct which derives from another struct. (experimental)
 
-        :param anumber: An awesome number value.
-        :param astring: A string value.
-        :param first_optional: 
-        :param another_required: 
-        :param bool: 
-        :param non_primitive: An example of a non primitive property.
-        :param another_optional: This is optional.
-        :param optional_any: 
-        :param optional_array: 
+        :param anumber: An awesome number value. (deprecated)
+        :param astring: A string value. (deprecated)
+        :param first_optional: (deprecated)
+        :param another_required: (experimental)
+        :param bool: (experimental)
+        :param non_primitive: An example of a non primitive property. (experimental)
+        :param another_optional: This is optional. (experimental)
+        :param optional_any: (experimental)
+        :param optional_array: (experimental)
 
         stability
         :stability: experimental
@@ -2000,7 +2108,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def anumber(self) -> jsii.Number:
-        """An awesome number value.
+        """An awesome number value. (deprecated)
 
         stability
         :stability: deprecated
@@ -2009,7 +2117,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def astring(self) -> str:
-        """A string value.
+        """A string value. (deprecated)
 
         stability
         :stability: deprecated
@@ -2018,7 +2126,8 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def first_optional(self) -> typing.Optional[typing.List[str]]:
-        """
+        """(deprecated)
+
         stability
         :stability: deprecated
         """
@@ -2026,7 +2135,8 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def another_required(self) -> datetime.datetime:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2034,7 +2144,8 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def bool(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2042,7 +2153,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def non_primitive(self) -> "DoubleTrouble":
-        """An example of a non primitive property.
+        """An example of a non primitive property. (experimental)
 
         stability
         :stability: experimental
@@ -2053,7 +2164,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
     def another_optional(
         self,
     ) -> typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]]:
-        """This is optional.
+        """This is optional. (experimental)
 
         stability
         :stability: experimental
@@ -2062,7 +2173,8 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def optional_any(self) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2070,7 +2182,8 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def optional_array(self) -> typing.Optional[typing.List[str]]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2095,8 +2208,9 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 )
 class DiamondInheritanceBaseLevelStruct:
     def __init__(self, *, base_level_property: str) -> None:
-        """
-        :param base_level_property: 
+        """(experimental)
+
+        :param base_level_property: (experimental)
 
         stability
         :stability: experimental
@@ -2107,7 +2221,8 @@ class DiamondInheritanceBaseLevelStruct:
 
     @builtins.property
     def base_level_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2137,9 +2252,10 @@ class DiamondInheritanceFirstMidLevelStruct(DiamondInheritanceBaseLevelStruct):
     def __init__(
         self, *, base_level_property: str, first_mid_level_property: str
     ) -> None:
-        """
-        :param base_level_property: 
-        :param first_mid_level_property: 
+        """(experimental)
+
+        :param base_level_property: (experimental)
+        :param first_mid_level_property: (experimental)
 
         stability
         :stability: experimental
@@ -2151,7 +2267,8 @@ class DiamondInheritanceFirstMidLevelStruct(DiamondInheritanceBaseLevelStruct):
 
     @builtins.property
     def base_level_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2159,7 +2276,8 @@ class DiamondInheritanceFirstMidLevelStruct(DiamondInheritanceBaseLevelStruct):
 
     @builtins.property
     def first_mid_level_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2189,9 +2307,10 @@ class DiamondInheritanceSecondMidLevelStruct(DiamondInheritanceBaseLevelStruct):
     def __init__(
         self, *, base_level_property: str, second_mid_level_property: str
     ) -> None:
-        """
-        :param base_level_property: 
-        :param second_mid_level_property: 
+        """(experimental)
+
+        :param base_level_property: (experimental)
+        :param second_mid_level_property: (experimental)
 
         stability
         :stability: experimental
@@ -2203,7 +2322,8 @@ class DiamondInheritanceSecondMidLevelStruct(DiamondInheritanceBaseLevelStruct):
 
     @builtins.property
     def base_level_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2211,7 +2331,8 @@ class DiamondInheritanceSecondMidLevelStruct(DiamondInheritanceBaseLevelStruct):
 
     @builtins.property
     def second_mid_level_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2253,11 +2374,12 @@ class DiamondInheritanceTopLevelStruct(
         second_mid_level_property: str,
         top_level_property: str,
     ) -> None:
-        """
-        :param base_level_property: 
-        :param first_mid_level_property: 
-        :param second_mid_level_property: 
-        :param top_level_property: 
+        """(experimental)
+
+        :param base_level_property: (experimental)
+        :param first_mid_level_property: (experimental)
+        :param second_mid_level_property: (experimental)
+        :param top_level_property: (experimental)
 
         stability
         :stability: experimental
@@ -2271,7 +2393,8 @@ class DiamondInheritanceTopLevelStruct(
 
     @builtins.property
     def base_level_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2279,7 +2402,8 @@ class DiamondInheritanceTopLevelStruct(
 
     @builtins.property
     def first_mid_level_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2287,7 +2411,8 @@ class DiamondInheritanceTopLevelStruct(
 
     @builtins.property
     def second_mid_level_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2295,7 +2420,8 @@ class DiamondInheritanceTopLevelStruct(
 
     @builtins.property
     def top_level_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2316,7 +2442,7 @@ class DiamondInheritanceTopLevelStruct(
 class DisappointingCollectionSource(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DisappointingCollectionSource"
 ):
-    """Verifies that null/undefined can be returned for optional collections.
+    """Verifies that null/undefined can be returned for optional collections. (experimental)
 
     This source of collections is disappointing - it'll always give you nothing :(
 
@@ -2327,7 +2453,7 @@ class DisappointingCollectionSource(
     @jsii.python.classproperty
     @jsii.member(jsii_name="maybeList")
     def MAYBE_LIST(cls) -> typing.Optional[typing.List[str]]:
-        """Some List of strings, maybe?
+        """Some List of strings, maybe? (experimental)
 
         (Nah, just a billion dollars mistake!)
 
@@ -2339,7 +2465,7 @@ class DisappointingCollectionSource(
     @jsii.python.classproperty
     @jsii.member(jsii_name="maybeMap")
     def MAYBE_MAP(cls) -> typing.Optional[typing.Mapping[str, jsii.Number]]:
-        """Some Map of strings to numbers, maybe?
+        """Some Map of strings to numbers, maybe? (experimental)
 
         (Nah, just a billion dollars mistake!)
 
@@ -2352,7 +2478,8 @@ class DisappointingCollectionSource(
 class DoNotOverridePrivates(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoNotOverridePrivates"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -2366,7 +2493,8 @@ class DoNotOverridePrivates(
 
     @jsii.member(jsii_name="changePrivatePropertyValue")
     def change_private_property_value(self, new_value: str) -> None:
-        """
+        """(experimental)
+
         :param new_value: -
 
         stability
@@ -2376,7 +2504,8 @@ class DoNotOverridePrivates(
 
     @jsii.member(jsii_name="privateMethodValue")
     def private_method_value(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2384,7 +2513,8 @@ class DoNotOverridePrivates(
 
     @jsii.member(jsii_name="privatePropertyValue")
     def private_property_value(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2394,7 +2524,7 @@ class DoNotOverridePrivates(
 class DoNotRecognizeAnyAsOptional(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoNotRecognizeAnyAsOptional"
 ):
-    """jsii#284: do not recognize "any" as an optional argument.
+    """jsii#284: do not recognize "any" as an optional argument. (experimental)
 
     stability
     :stability: experimental
@@ -2414,7 +2544,8 @@ class DoNotRecognizeAnyAsOptional(
         _optional_any: typing.Any = None,
         _optional_string: typing.Optional[str] = None,
     ) -> None:
-        """
+        """(experimental)
+
         :param _required_any: -
         :param _optional_any: -
         :param _optional_string: -
@@ -2450,7 +2581,7 @@ class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedCl
         This will print out a friendly greeting intended for
         the indicated person.
 
-        :param name: The name of the greetee. Default: world
+        :param name: The name of the greetee. (experimental) Default: world
 
         return
         :return: A number that everyone knows very well
@@ -2461,7 +2592,7 @@ class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedCl
 
     @jsii.member(jsii_name="hola")
     def hola(self) -> None:
-        """Say ¡Hola!
+        """Say ¡Hola! (experimental)
 
         stability
         :stability: experimental
@@ -2473,7 +2604,8 @@ class DontComplainAboutVariadicAfterOptional(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.DontComplainAboutVariadicAfterOptional",
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -2489,7 +2621,8 @@ class DontComplainAboutVariadicAfterOptional(
     def optional_and_variadic(
         self, optional: typing.Optional[str] = None, *things: str
     ) -> str:
-        """
+        """(experimental)
+
         :param optional: -
         :param things: -
 
@@ -2500,7 +2633,8 @@ class DontComplainAboutVariadicAfterOptional(
 
 
 class EnumDispenser(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.EnumDispenser"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -2508,7 +2642,8 @@ class EnumDispenser(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.EnumDispenser"
     @jsii.member(jsii_name="randomIntegerLikeEnum")
     @builtins.classmethod
     def random_integer_like_enum(cls) -> "AllTypesEnum":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2517,7 +2652,8 @@ class EnumDispenser(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.EnumDispenser"
     @jsii.member(jsii_name="randomStringLikeEnum")
     @builtins.classmethod
     def random_string_like_enum(cls) -> "StringEnum":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2527,7 +2663,8 @@ class EnumDispenser(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.EnumDispenser"
 class EraseUndefinedHashValues(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.EraseUndefinedHashValues"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -2542,7 +2679,7 @@ class EraseUndefinedHashValues(
     @jsii.member(jsii_name="doesKeyExist")
     @builtins.classmethod
     def does_key_exist(cls, opts: "EraseUndefinedHashValuesOptions", key: str) -> bool:
-        """Returns ``true`` if ``key`` is defined in ``opts``.
+        """Returns ``true`` if ``key`` is defined in ``opts``. (experimental)
 
         Used to check that undefined/null hash values
         are being erased when sending values from native code to JS.
@@ -2558,7 +2695,7 @@ class EraseUndefinedHashValues(
     @jsii.member(jsii_name="prop1IsNull")
     @builtins.classmethod
     def prop1_is_null(cls) -> typing.Mapping[str, typing.Any]:
-        """We expect "prop1" to be erased.
+        """We expect "prop1" to be erased. (experimental)
 
         stability
         :stability: experimental
@@ -2568,7 +2705,7 @@ class EraseUndefinedHashValues(
     @jsii.member(jsii_name="prop2IsUndefined")
     @builtins.classmethod
     def prop2_is_undefined(cls) -> typing.Mapping[str, typing.Any]:
-        """We expect "prop2" to be erased.
+        """We expect "prop2" to be erased. (experimental)
 
         stability
         :stability: experimental
@@ -2588,9 +2725,10 @@ class EraseUndefinedHashValuesOptions:
         option1: typing.Optional[str] = None,
         option2: typing.Optional[str] = None,
     ) -> None:
-        """
-        :param option1: 
-        :param option2: 
+        """(experimental)
+
+        :param option1: (experimental)
+        :param option2: (experimental)
 
         stability
         :stability: experimental
@@ -2603,7 +2741,8 @@ class EraseUndefinedHashValuesOptions:
 
     @builtins.property
     def option1(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2611,7 +2750,8 @@ class EraseUndefinedHashValuesOptions:
 
     @builtins.property
     def option2(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2632,7 +2772,8 @@ class EraseUndefinedHashValuesOptions:
 class ExperimentalClass(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExperimentalClass"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -2640,7 +2781,8 @@ class ExperimentalClass(
     def __init__(
         self, readonly_string: str, mutable_number: typing.Optional[jsii.Number] = None
     ) -> None:
-        """
+        """(experimental)
+
         :param readonly_string: -
         :param mutable_number: -
 
@@ -2651,7 +2793,8 @@ class ExperimentalClass(
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2660,7 +2803,8 @@ class ExperimentalClass(
     @builtins.property
     @jsii.member(jsii_name="readonlyProperty")
     def readonly_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2669,7 +2813,8 @@ class ExperimentalClass(
     @builtins.property
     @jsii.member(jsii_name="mutableProperty")
     def mutable_property(self) -> typing.Optional[jsii.Number]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2682,18 +2827,21 @@ class ExperimentalClass(
 
 @jsii.enum(jsii_type="jsii-calc.ExperimentalEnum")
 class ExperimentalEnum(enum.Enum):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     OPTION_A = "OPTION_A"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
     OPTION_B = "OPTION_B"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -2706,8 +2854,9 @@ class ExperimentalEnum(enum.Enum):
 )
 class ExperimentalStruct:
     def __init__(self, *, readonly_property: str) -> None:
-        """
-        :param readonly_property: 
+        """(experimental)
+
+        :param readonly_property: (experimental)
 
         stability
         :stability: experimental
@@ -2718,7 +2867,8 @@ class ExperimentalStruct:
 
     @builtins.property
     def readonly_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2739,13 +2889,15 @@ class ExperimentalStruct:
 class ExportedBaseClass(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExportedBaseClass"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, success: bool) -> None:
-        """
+        """(experimental)
+
         :param success: -
 
         stability
@@ -2756,7 +2908,8 @@ class ExportedBaseClass(
     @builtins.property
     @jsii.member(jsii_name="success")
     def success(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2770,9 +2923,10 @@ class ExportedBaseClass(
 )
 class ExtendsInternalInterface:
     def __init__(self, *, boom: bool, prop: str) -> None:
-        """
-        :param boom: 
-        :param prop: 
+        """(experimental)
+
+        :param boom: (experimental)
+        :param prop: (experimental)
 
         stability
         :stability: experimental
@@ -2784,7 +2938,8 @@ class ExtendsInternalInterface:
 
     @builtins.property
     def boom(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2792,7 +2947,8 @@ class ExtendsInternalInterface:
 
     @builtins.property
     def prop(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -2811,7 +2967,8 @@ class ExtendsInternalInterface:
 
 
 class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     external:
@@ -2821,7 +2978,8 @@ class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"
     def __init__(
         self, readonly_string: str, mutable_number: typing.Optional[jsii.Number] = None
     ) -> None:
-        """
+        """(experimental)
+
         :param readonly_string: -
         :param mutable_number: -
 
@@ -2834,7 +2992,8 @@ class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         external:
@@ -2845,7 +3004,8 @@ class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"
     @builtins.property
     @jsii.member(jsii_name="readonlyProperty")
     def readonly_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         external:
@@ -2856,7 +3016,8 @@ class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"
     @builtins.property
     @jsii.member(jsii_name="mutableProperty")
     def mutable_property(self) -> typing.Optional[jsii.Number]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         external:
@@ -2871,7 +3032,8 @@ class ExternalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExternalClass"
 
 @jsii.enum(jsii_type="jsii-calc.ExternalEnum")
 class ExternalEnum(enum.Enum):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     external:
@@ -2879,14 +3041,16 @@ class ExternalEnum(enum.Enum):
     """
 
     OPTION_A = "OPTION_A"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     external:
     :external:: true
     """
     OPTION_B = "OPTION_B"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     external:
@@ -2901,8 +3065,9 @@ class ExternalEnum(enum.Enum):
 )
 class ExternalStruct:
     def __init__(self, *, readonly_property: str) -> None:
-        """
-        :param readonly_property: 
+        """(experimental)
+
+        :param readonly_property: (experimental)
 
         stability
         :stability: experimental
@@ -2915,7 +3080,8 @@ class ExternalStruct:
 
     @builtins.property
     def readonly_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         external:
@@ -2936,7 +3102,8 @@ class ExternalStruct:
 
 
 class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -2964,17 +3131,17 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         astring: str,
         first_optional: typing.Optional[typing.List[str]] = None,
     ) -> scope.jsii_calc_lib.MyFirstStruct:
-        """Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
+        """Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct. (experimental)
 
-        :param another_required: 
-        :param bool: 
-        :param non_primitive: An example of a non primitive property.
-        :param another_optional: This is optional.
-        :param optional_any: 
-        :param optional_array: 
-        :param anumber: An awesome number value.
-        :param astring: A string value.
-        :param first_optional: 
+        :param another_required: (experimental)
+        :param bool: (experimental)
+        :param non_primitive: An example of a non primitive property. (experimental)
+        :param another_optional: This is optional. (experimental)
+        :param optional_any: (experimental)
+        :param optional_array: (experimental)
+        :param anumber: An awesome number value. (deprecated)
+        :param astring: A string value. (deprecated)
+        :param first_optional: (deprecated)
 
         stability
         :stability: experimental
@@ -3009,17 +3176,17 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         astring: str,
         first_optional: typing.Optional[typing.List[str]] = None,
     ) -> "DoubleTrouble":
-        """Returns the boolean from a DerivedStruct struct.
+        """Returns the boolean from a DerivedStruct struct. (experimental)
 
-        :param another_required: 
-        :param bool: 
-        :param non_primitive: An example of a non primitive property.
-        :param another_optional: This is optional.
-        :param optional_any: 
-        :param optional_array: 
-        :param anumber: An awesome number value.
-        :param astring: A string value.
-        :param first_optional: 
+        :param another_required: (experimental)
+        :param bool: (experimental)
+        :param non_primitive: An example of a non primitive property. (experimental)
+        :param another_optional: This is optional. (experimental)
+        :param optional_any: (experimental)
+        :param optional_array: (experimental)
+        :param anumber: An awesome number value. (deprecated)
+        :param astring: A string value. (deprecated)
+        :param first_optional: (deprecated)
 
         stability
         :stability: experimental
@@ -3046,11 +3213,11 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         astring: str,
         first_optional: typing.Optional[typing.List[str]] = None,
     ) -> jsii.Number:
-        """Returns the "anumber" from a MyFirstStruct struct;
+        """Returns the "anumber" from a MyFirstStruct struct; (experimental)
 
-        :param anumber: An awesome number value.
-        :param astring: A string value.
-        :param first_optional: 
+        :param anumber: An awesome number value. (deprecated)
+        :param astring: A string value. (deprecated)
+        :param first_optional: (deprecated)
 
         stability
         :stability: experimental
@@ -3064,7 +3231,8 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
     @builtins.property
     @jsii.member(jsii_name="structLiteral")
     def struct_literal(self) -> scope.jsii_calc_lib.StructWithOnlyOptionals:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3076,9 +3244,9 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
 )
 class Greetee:
     def __init__(self, *, name: typing.Optional[str] = None) -> None:
-        """These are some arguments you can pass to a method.
+        """These are some arguments you can pass to a method. (experimental)
 
-        :param name: The name of the greetee. Default: world
+        :param name: The name of the greetee. (experimental) Default: world
 
         stability
         :stability: experimental
@@ -3089,7 +3257,7 @@ class Greetee:
 
     @builtins.property
     def name(self) -> typing.Optional[str]:
-        """The name of the greetee.
+        """The name of the greetee. (experimental)
 
         default
         :default: world
@@ -3114,7 +3282,8 @@ class Greetee:
 class GreetingAugmenter(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GreetingAugmenter"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3128,7 +3297,8 @@ class GreetingAugmenter(
 
     @jsii.member(jsii_name="betterGreeting")
     def better_greeting(self, friendly: scope.jsii_calc_lib.IFriendly) -> str:
-        """
+        """(experimental)
+
         :param friendly: -
 
         stability
@@ -3139,7 +3309,7 @@ class GreetingAugmenter(
 
 @jsii.interface(jsii_type="jsii-calc.IAnonymousImplementationProvider")
 class IAnonymousImplementationProvider(jsii.compat.Protocol):
-    """We can return an anonymous interface implementation from an override without losing the interface declarations.
+    """We can return an anonymous interface implementation from an override without losing the interface declarations. (experimental)
 
     stability
     :stability: experimental
@@ -3151,7 +3321,8 @@ class IAnonymousImplementationProvider(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="provideAsClass")
     def provide_as_class(self) -> "Implementation":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3159,7 +3330,8 @@ class IAnonymousImplementationProvider(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="provideAsInterface")
     def provide_as_interface(self) -> "IAnonymouslyImplementMe":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3167,7 +3339,7 @@ class IAnonymousImplementationProvider(jsii.compat.Protocol):
 
 
 class _IAnonymousImplementationProviderProxy:
-    """We can return an anonymous interface implementation from an override without losing the interface declarations.
+    """We can return an anonymous interface implementation from an override without losing the interface declarations. (experimental)
 
     stability
     :stability: experimental
@@ -3177,7 +3349,8 @@ class _IAnonymousImplementationProviderProxy:
 
     @jsii.member(jsii_name="provideAsClass")
     def provide_as_class(self) -> "Implementation":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3185,7 +3358,8 @@ class _IAnonymousImplementationProviderProxy:
 
     @jsii.member(jsii_name="provideAsInterface")
     def provide_as_interface(self) -> "IAnonymouslyImplementMe":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3194,7 +3368,8 @@ class _IAnonymousImplementationProviderProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IAnonymouslyImplementMe")
 class IAnonymouslyImplementMe(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3206,7 +3381,8 @@ class IAnonymouslyImplementMe(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3214,7 +3390,8 @@ class IAnonymouslyImplementMe(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="verb")
     def verb(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3222,7 +3399,8 @@ class IAnonymouslyImplementMe(jsii.compat.Protocol):
 
 
 class _IAnonymouslyImplementMeProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3232,7 +3410,8 @@ class _IAnonymouslyImplementMeProxy:
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3240,7 +3419,8 @@ class _IAnonymouslyImplementMeProxy:
 
     @jsii.member(jsii_name="verb")
     def verb(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3249,7 +3429,8 @@ class _IAnonymouslyImplementMeProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IAnotherPublicInterface")
 class IAnotherPublicInterface(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3261,7 +3442,8 @@ class IAnotherPublicInterface(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="a")
     def a(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3273,7 +3455,8 @@ class IAnotherPublicInterface(jsii.compat.Protocol):
 
 
 class _IAnotherPublicInterfaceProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3283,7 +3466,8 @@ class _IAnotherPublicInterfaceProxy:
     @builtins.property
     @jsii.member(jsii_name="a")
     def a(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3296,7 +3480,8 @@ class _IAnotherPublicInterfaceProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IBell")
 class IBell(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3307,7 +3492,8 @@ class IBell(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="ring")
     def ring(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3315,7 +3501,8 @@ class IBell(jsii.compat.Protocol):
 
 
 class _IBellProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3324,7 +3511,8 @@ class _IBellProxy:
 
     @jsii.member(jsii_name="ring")
     def ring(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3333,7 +3521,7 @@ class _IBellProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IBellRinger")
 class IBellRinger(jsii.compat.Protocol):
-    """Takes the object parameter as an interface.
+    """Takes the object parameter as an interface. (experimental)
 
     stability
     :stability: experimental
@@ -3345,7 +3533,8 @@ class IBellRinger(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="yourTurn")
     def your_turn(self, bell: "IBell") -> None:
-        """
+        """(experimental)
+
         :param bell: -
 
         stability
@@ -3355,7 +3544,7 @@ class IBellRinger(jsii.compat.Protocol):
 
 
 class _IBellRingerProxy:
-    """Takes the object parameter as an interface.
+    """Takes the object parameter as an interface. (experimental)
 
     stability
     :stability: experimental
@@ -3365,7 +3554,8 @@ class _IBellRingerProxy:
 
     @jsii.member(jsii_name="yourTurn")
     def your_turn(self, bell: "IBell") -> None:
-        """
+        """(experimental)
+
         :param bell: -
 
         stability
@@ -3376,7 +3566,7 @@ class _IBellRingerProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IConcreteBellRinger")
 class IConcreteBellRinger(jsii.compat.Protocol):
-    """Takes the object parameter as a calss.
+    """Takes the object parameter as a calss. (experimental)
 
     stability
     :stability: experimental
@@ -3388,7 +3578,8 @@ class IConcreteBellRinger(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="yourTurn")
     def your_turn(self, bell: "Bell") -> None:
-        """
+        """(experimental)
+
         :param bell: -
 
         stability
@@ -3398,7 +3589,7 @@ class IConcreteBellRinger(jsii.compat.Protocol):
 
 
 class _IConcreteBellRingerProxy:
-    """Takes the object parameter as a calss.
+    """Takes the object parameter as a calss. (experimental)
 
     stability
     :stability: experimental
@@ -3408,7 +3599,8 @@ class _IConcreteBellRingerProxy:
 
     @jsii.member(jsii_name="yourTurn")
     def your_turn(self, bell: "Bell") -> None:
-        """
+        """(experimental)
+
         :param bell: -
 
         stability
@@ -3419,7 +3611,8 @@ class _IConcreteBellRingerProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IDeprecatedInterface")
 class IDeprecatedInterface(jsii.compat.Protocol):
-    """
+    """(deprecated)
+
     deprecated
     :deprecated: useless interface
 
@@ -3434,7 +3627,8 @@ class IDeprecatedInterface(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="mutableProperty")
     def mutable_property(self) -> typing.Optional[jsii.Number]:
-        """
+        """(deprecated)
+
         deprecated
         :deprecated: could be better
 
@@ -3449,7 +3643,8 @@ class IDeprecatedInterface(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
-        """
+        """(deprecated)
+
         deprecated
         :deprecated: services no purpose
 
@@ -3460,7 +3655,8 @@ class IDeprecatedInterface(jsii.compat.Protocol):
 
 
 class _IDeprecatedInterfaceProxy:
-    """
+    """(deprecated)
+
     deprecated
     :deprecated: useless interface
 
@@ -3473,7 +3669,8 @@ class _IDeprecatedInterfaceProxy:
     @builtins.property
     @jsii.member(jsii_name="mutableProperty")
     def mutable_property(self) -> typing.Optional[jsii.Number]:
-        """
+        """(deprecated)
+
         deprecated
         :deprecated: could be better
 
@@ -3488,7 +3685,8 @@ class _IDeprecatedInterfaceProxy:
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
-        """
+        """(deprecated)
+
         deprecated
         :deprecated: services no purpose
 
@@ -3500,7 +3698,8 @@ class _IDeprecatedInterfaceProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IExperimentalInterface")
 class IExperimentalInterface(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3512,7 +3711,8 @@ class IExperimentalInterface(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="mutableProperty")
     def mutable_property(self) -> typing.Optional[jsii.Number]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3524,7 +3724,8 @@ class IExperimentalInterface(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3532,7 +3733,8 @@ class IExperimentalInterface(jsii.compat.Protocol):
 
 
 class _IExperimentalInterfaceProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3542,7 +3744,8 @@ class _IExperimentalInterfaceProxy:
     @builtins.property
     @jsii.member(jsii_name="mutableProperty")
     def mutable_property(self) -> typing.Optional[jsii.Number]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3554,7 +3757,8 @@ class _IExperimentalInterfaceProxy:
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3563,7 +3767,8 @@ class _IExperimentalInterfaceProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IExtendsPrivateInterface")
 class IExtendsPrivateInterface(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3575,7 +3780,8 @@ class IExtendsPrivateInterface(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="moreThings")
     def more_things(self) -> typing.List[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3584,7 +3790,8 @@ class IExtendsPrivateInterface(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="private")
     def private(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3596,7 +3803,8 @@ class IExtendsPrivateInterface(jsii.compat.Protocol):
 
 
 class _IExtendsPrivateInterfaceProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3606,7 +3814,8 @@ class _IExtendsPrivateInterfaceProxy:
     @builtins.property
     @jsii.member(jsii_name="moreThings")
     def more_things(self) -> typing.List[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3615,7 +3824,8 @@ class _IExtendsPrivateInterfaceProxy:
     @builtins.property
     @jsii.member(jsii_name="private")
     def private(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3628,7 +3838,8 @@ class _IExtendsPrivateInterfaceProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IExternalInterface")
 class IExternalInterface(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     external:
@@ -3642,7 +3853,8 @@ class IExternalInterface(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="mutableProperty")
     def mutable_property(self) -> typing.Optional[jsii.Number]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         external:
@@ -3656,7 +3868,8 @@ class IExternalInterface(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         external:
@@ -3666,7 +3879,8 @@ class IExternalInterface(jsii.compat.Protocol):
 
 
 class _IExternalInterfaceProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     external:
@@ -3678,7 +3892,8 @@ class _IExternalInterfaceProxy:
     @builtins.property
     @jsii.member(jsii_name="mutableProperty")
     def mutable_property(self) -> typing.Optional[jsii.Number]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         external:
@@ -3692,7 +3907,8 @@ class _IExternalInterfaceProxy:
 
     @jsii.member(jsii_name="method")
     def method(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         external:
@@ -3703,7 +3919,7 @@ class _IExternalInterfaceProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IFriendlier")
 class IFriendlier(scope.jsii_calc_lib.IFriendly, jsii.compat.Protocol):
-    """Even friendlier classes can implement this interface.
+    """Even friendlier classes can implement this interface. (experimental)
 
     stability
     :stability: experimental
@@ -3715,7 +3931,7 @@ class IFriendlier(scope.jsii_calc_lib.IFriendly, jsii.compat.Protocol):
 
     @jsii.member(jsii_name="farewell")
     def farewell(self) -> str:
-        """Say farewell.
+        """Say farewell. (experimental)
 
         stability
         :stability: experimental
@@ -3724,7 +3940,7 @@ class IFriendlier(scope.jsii_calc_lib.IFriendly, jsii.compat.Protocol):
 
     @jsii.member(jsii_name="goodbye")
     def goodbye(self) -> str:
-        """Say goodbye.
+        """Say goodbye. (experimental)
 
         return
         :return: A goodbye blessing.
@@ -3736,7 +3952,7 @@ class IFriendlier(scope.jsii_calc_lib.IFriendly, jsii.compat.Protocol):
 
 
 class _IFriendlierProxy(jsii.proxy_for(scope.jsii_calc_lib.IFriendly)):
-    """Even friendlier classes can implement this interface.
+    """Even friendlier classes can implement this interface. (experimental)
 
     stability
     :stability: experimental
@@ -3746,7 +3962,7 @@ class _IFriendlierProxy(jsii.proxy_for(scope.jsii_calc_lib.IFriendly)):
 
     @jsii.member(jsii_name="farewell")
     def farewell(self) -> str:
-        """Say farewell.
+        """Say farewell. (experimental)
 
         stability
         :stability: experimental
@@ -3755,7 +3971,7 @@ class _IFriendlierProxy(jsii.proxy_for(scope.jsii_calc_lib.IFriendly)):
 
     @jsii.member(jsii_name="goodbye")
     def goodbye(self) -> str:
-        """Say goodbye.
+        """Say goodbye. (experimental)
 
         return
         :return: A goodbye blessing.
@@ -3768,7 +3984,7 @@ class _IFriendlierProxy(jsii.proxy_for(scope.jsii_calc_lib.IFriendly)):
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceImplementedByAbstractClass")
 class IInterfaceImplementedByAbstractClass(jsii.compat.Protocol):
-    """awslabs/jsii#220 Abstract return type.
+    """awslabs/jsii#220 Abstract return type. (experimental)
 
     stability
     :stability: experimental
@@ -3781,7 +3997,8 @@ class IInterfaceImplementedByAbstractClass(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="propFromInterface")
     def prop_from_interface(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3789,7 +4006,7 @@ class IInterfaceImplementedByAbstractClass(jsii.compat.Protocol):
 
 
 class _IInterfaceImplementedByAbstractClassProxy:
-    """awslabs/jsii#220 Abstract return type.
+    """awslabs/jsii#220 Abstract return type. (experimental)
 
     stability
     :stability: experimental
@@ -3800,7 +4017,8 @@ class _IInterfaceImplementedByAbstractClassProxy:
     @builtins.property
     @jsii.member(jsii_name="propFromInterface")
     def prop_from_interface(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3809,7 +4027,8 @@ class _IInterfaceImplementedByAbstractClassProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithInternal")
 class IInterfaceWithInternal(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3820,7 +4039,8 @@ class IInterfaceWithInternal(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="visible")
     def visible(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3828,7 +4048,8 @@ class IInterfaceWithInternal(jsii.compat.Protocol):
 
 
 class _IInterfaceWithInternalProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3837,7 +4058,8 @@ class _IInterfaceWithInternalProxy:
 
     @jsii.member(jsii_name="visible")
     def visible(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3846,7 +4068,8 @@ class _IInterfaceWithInternalProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithMethods")
 class IInterfaceWithMethods(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3858,7 +4081,8 @@ class IInterfaceWithMethods(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3866,7 +4090,8 @@ class IInterfaceWithMethods(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="doThings")
     def do_things(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3874,7 +4099,8 @@ class IInterfaceWithMethods(jsii.compat.Protocol):
 
 
 class _IInterfaceWithMethodsProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3884,7 +4110,8 @@ class _IInterfaceWithMethodsProxy:
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3892,7 +4119,8 @@ class _IInterfaceWithMethodsProxy:
 
     @jsii.member(jsii_name="doThings")
     def do_things(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3901,7 +4129,7 @@ class _IInterfaceWithMethodsProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithOptionalMethodArguments")
 class IInterfaceWithOptionalMethodArguments(jsii.compat.Protocol):
-    """awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.
+    """awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods. (experimental)
 
     stability
     :stability: experimental
@@ -3913,7 +4141,8 @@ class IInterfaceWithOptionalMethodArguments(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="hello")
     def hello(self, arg1: str, arg2: typing.Optional[jsii.Number] = None) -> None:
-        """
+        """(experimental)
+
         :param arg1: -
         :param arg2: -
 
@@ -3924,7 +4153,7 @@ class IInterfaceWithOptionalMethodArguments(jsii.compat.Protocol):
 
 
 class _IInterfaceWithOptionalMethodArgumentsProxy:
-    """awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.
+    """awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods. (experimental)
 
     stability
     :stability: experimental
@@ -3934,7 +4163,8 @@ class _IInterfaceWithOptionalMethodArgumentsProxy:
 
     @jsii.member(jsii_name="hello")
     def hello(self, arg1: str, arg2: typing.Optional[jsii.Number] = None) -> None:
-        """
+        """(experimental)
+
         :param arg1: -
         :param arg2: -
 
@@ -3946,7 +4176,8 @@ class _IInterfaceWithOptionalMethodArgumentsProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithProperties")
 class IInterfaceWithProperties(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3958,7 +4189,8 @@ class IInterfaceWithProperties(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="readOnlyString")
     def read_only_string(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3967,7 +4199,8 @@ class IInterfaceWithProperties(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="readWriteString")
     def read_write_string(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3979,7 +4212,8 @@ class IInterfaceWithProperties(jsii.compat.Protocol):
 
 
 class _IInterfaceWithPropertiesProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -3989,7 +4223,8 @@ class _IInterfaceWithPropertiesProxy:
     @builtins.property
     @jsii.member(jsii_name="readOnlyString")
     def read_only_string(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -3998,7 +4233,8 @@ class _IInterfaceWithPropertiesProxy:
     @builtins.property
     @jsii.member(jsii_name="readWriteString")
     def read_write_string(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4011,7 +4247,8 @@ class _IInterfaceWithPropertiesProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithPropertiesExtension")
 class IInterfaceWithPropertiesExtension(IInterfaceWithProperties, jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4023,7 +4260,8 @@ class IInterfaceWithPropertiesExtension(IInterfaceWithProperties, jsii.compat.Pr
     @builtins.property
     @jsii.member(jsii_name="foo")
     def foo(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4035,7 +4273,8 @@ class IInterfaceWithPropertiesExtension(IInterfaceWithProperties, jsii.compat.Pr
 
 
 class _IInterfaceWithPropertiesExtensionProxy(jsii.proxy_for(IInterfaceWithProperties)):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4045,7 +4284,8 @@ class _IInterfaceWithPropertiesExtensionProxy(jsii.proxy_for(IInterfaceWithPrope
     @builtins.property
     @jsii.member(jsii_name="foo")
     def foo(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4058,7 +4298,8 @@ class _IInterfaceWithPropertiesExtensionProxy(jsii.proxy_for(IInterfaceWithPrope
 
 @jsii.interface(jsii_type="jsii-calc.IJSII417PublicBaseOfBase")
 class IJSII417PublicBaseOfBase(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4070,7 +4311,8 @@ class IJSII417PublicBaseOfBase(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="hasRoot")
     def has_root(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4078,7 +4320,8 @@ class IJSII417PublicBaseOfBase(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="foo")
     def foo(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4086,7 +4329,8 @@ class IJSII417PublicBaseOfBase(jsii.compat.Protocol):
 
 
 class _IJSII417PublicBaseOfBaseProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4096,7 +4340,8 @@ class _IJSII417PublicBaseOfBaseProxy:
     @builtins.property
     @jsii.member(jsii_name="hasRoot")
     def has_root(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4104,7 +4349,8 @@ class _IJSII417PublicBaseOfBaseProxy:
 
     @jsii.member(jsii_name="foo")
     def foo(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4113,7 +4359,8 @@ class _IJSII417PublicBaseOfBaseProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IJsii487External")
 class IJsii487External(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4126,7 +4373,8 @@ class IJsii487External(jsii.compat.Protocol):
 
 
 class _IJsii487ExternalProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4137,7 +4385,8 @@ class _IJsii487ExternalProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IJsii487External2")
 class IJsii487External2(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4150,7 +4399,8 @@ class IJsii487External2(jsii.compat.Protocol):
 
 
 class _IJsii487External2Proxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4161,7 +4411,8 @@ class _IJsii487External2Proxy:
 
 @jsii.interface(jsii_type="jsii-calc.IJsii496")
 class IJsii496(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4174,7 +4425,8 @@ class IJsii496(jsii.compat.Protocol):
 
 
 class _IJsii496Proxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4185,7 +4437,8 @@ class _IJsii496Proxy:
 
 @jsii.interface(jsii_type="jsii-calc.IMutableObjectLiteral")
 class IMutableObjectLiteral(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4197,7 +4450,8 @@ class IMutableObjectLiteral(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4209,7 +4463,8 @@ class IMutableObjectLiteral(jsii.compat.Protocol):
 
 
 class _IMutableObjectLiteralProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4219,7 +4474,8 @@ class _IMutableObjectLiteralProxy:
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4232,7 +4488,8 @@ class _IMutableObjectLiteralProxy:
 
 @jsii.interface(jsii_type="jsii-calc.INonInternalInterface")
 class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4244,7 +4501,8 @@ class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="b")
     def b(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4257,7 +4515,8 @@ class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="c")
     def c(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4269,7 +4528,8 @@ class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
 
 
 class _INonInternalInterfaceProxy(jsii.proxy_for(IAnotherPublicInterface)):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4279,7 +4539,8 @@ class _INonInternalInterfaceProxy(jsii.proxy_for(IAnotherPublicInterface)):
     @builtins.property
     @jsii.member(jsii_name="b")
     def b(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4292,7 +4553,8 @@ class _INonInternalInterfaceProxy(jsii.proxy_for(IAnotherPublicInterface)):
     @builtins.property
     @jsii.member(jsii_name="c")
     def c(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4305,7 +4567,7 @@ class _INonInternalInterfaceProxy(jsii.proxy_for(IAnotherPublicInterface)):
 
 @jsii.interface(jsii_type="jsii-calc.IObjectWithProperty")
 class IObjectWithProperty(jsii.compat.Protocol):
-    """Make sure that setters are properly called on objects with interfaces.
+    """Make sure that setters are properly called on objects with interfaces. (experimental)
 
     stability
     :stability: experimental
@@ -4318,7 +4580,8 @@ class IObjectWithProperty(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="property")
     def property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4330,7 +4593,8 @@ class IObjectWithProperty(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="wasSet")
     def was_set(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4338,7 +4602,7 @@ class IObjectWithProperty(jsii.compat.Protocol):
 
 
 class _IObjectWithPropertyProxy:
-    """Make sure that setters are properly called on objects with interfaces.
+    """Make sure that setters are properly called on objects with interfaces. (experimental)
 
     stability
     :stability: experimental
@@ -4349,7 +4613,8 @@ class _IObjectWithPropertyProxy:
     @builtins.property
     @jsii.member(jsii_name="property")
     def property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4361,7 +4626,8 @@ class _IObjectWithPropertyProxy:
 
     @jsii.member(jsii_name="wasSet")
     def was_set(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4370,7 +4636,7 @@ class _IObjectWithPropertyProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IOptionalMethod")
 class IOptionalMethod(jsii.compat.Protocol):
-    """Checks that optional result from interface method code generates correctly.
+    """Checks that optional result from interface method code generates correctly. (experimental)
 
     stability
     :stability: experimental
@@ -4382,7 +4648,8 @@ class IOptionalMethod(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="optional")
     def optional(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4390,7 +4657,7 @@ class IOptionalMethod(jsii.compat.Protocol):
 
 
 class _IOptionalMethodProxy:
-    """Checks that optional result from interface method code generates correctly.
+    """Checks that optional result from interface method code generates correctly. (experimental)
 
     stability
     :stability: experimental
@@ -4400,7 +4667,8 @@ class _IOptionalMethodProxy:
 
     @jsii.member(jsii_name="optional")
     def optional(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4409,7 +4677,8 @@ class _IOptionalMethodProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IPrivatelyImplemented")
 class IPrivatelyImplemented(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4421,7 +4690,8 @@ class IPrivatelyImplemented(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="success")
     def success(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4429,7 +4699,8 @@ class IPrivatelyImplemented(jsii.compat.Protocol):
 
 
 class _IPrivatelyImplementedProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4439,7 +4710,8 @@ class _IPrivatelyImplementedProxy:
     @builtins.property
     @jsii.member(jsii_name="success")
     def success(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4448,7 +4720,8 @@ class _IPrivatelyImplementedProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IPublicInterface")
 class IPublicInterface(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4459,7 +4732,8 @@ class IPublicInterface(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="bye")
     def bye(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4467,7 +4741,8 @@ class IPublicInterface(jsii.compat.Protocol):
 
 
 class _IPublicInterfaceProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4476,7 +4751,8 @@ class _IPublicInterfaceProxy:
 
     @jsii.member(jsii_name="bye")
     def bye(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4485,7 +4761,8 @@ class _IPublicInterfaceProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IPublicInterface2")
 class IPublicInterface2(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4496,7 +4773,8 @@ class IPublicInterface2(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="ciao")
     def ciao(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4504,7 +4782,8 @@ class IPublicInterface2(jsii.compat.Protocol):
 
 
 class _IPublicInterface2Proxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4513,7 +4792,8 @@ class _IPublicInterface2Proxy:
 
     @jsii.member(jsii_name="ciao")
     def ciao(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4522,7 +4802,7 @@ class _IPublicInterface2Proxy:
 
 @jsii.interface(jsii_type="jsii-calc.IRandomNumberGenerator")
 class IRandomNumberGenerator(jsii.compat.Protocol):
-    """Generates random numbers.
+    """Generates random numbers. (experimental)
 
     stability
     :stability: experimental
@@ -4534,7 +4814,7 @@ class IRandomNumberGenerator(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="next")
     def next(self) -> jsii.Number:
-        """Returns another random number.
+        """Returns another random number. (experimental)
 
         return
         :return: A random number.
@@ -4546,7 +4826,7 @@ class IRandomNumberGenerator(jsii.compat.Protocol):
 
 
 class _IRandomNumberGeneratorProxy:
-    """Generates random numbers.
+    """Generates random numbers. (experimental)
 
     stability
     :stability: experimental
@@ -4556,7 +4836,7 @@ class _IRandomNumberGeneratorProxy:
 
     @jsii.member(jsii_name="next")
     def next(self) -> jsii.Number:
-        """Returns another random number.
+        """Returns another random number. (experimental)
 
         return
         :return: A random number.
@@ -4569,7 +4849,7 @@ class _IRandomNumberGeneratorProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IReturnJsii976")
 class IReturnJsii976(jsii.compat.Protocol):
-    """Returns a subclass of a known class which implements an interface.
+    """Returns a subclass of a known class which implements an interface. (experimental)
 
     stability
     :stability: experimental
@@ -4582,7 +4862,8 @@ class IReturnJsii976(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="foo")
     def foo(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4590,7 +4871,7 @@ class IReturnJsii976(jsii.compat.Protocol):
 
 
 class _IReturnJsii976Proxy:
-    """Returns a subclass of a known class which implements an interface.
+    """Returns a subclass of a known class which implements an interface. (experimental)
 
     stability
     :stability: experimental
@@ -4601,7 +4882,8 @@ class _IReturnJsii976Proxy:
     @builtins.property
     @jsii.member(jsii_name="foo")
     def foo(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4610,7 +4892,8 @@ class _IReturnJsii976Proxy:
 
 @jsii.interface(jsii_type="jsii-calc.IReturnsNumber")
 class IReturnsNumber(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4622,7 +4905,8 @@ class IReturnsNumber(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="numberProp")
     def number_prop(self) -> scope.jsii_calc_lib.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4630,7 +4914,8 @@ class IReturnsNumber(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="obtainNumber")
     def obtain_number(self) -> scope.jsii_calc_lib.IDoublable:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4638,7 +4923,8 @@ class IReturnsNumber(jsii.compat.Protocol):
 
 
 class _IReturnsNumberProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4648,7 +4934,8 @@ class _IReturnsNumberProxy:
     @builtins.property
     @jsii.member(jsii_name="numberProp")
     def number_prop(self) -> scope.jsii_calc_lib.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4656,7 +4943,8 @@ class _IReturnsNumberProxy:
 
     @jsii.member(jsii_name="obtainNumber")
     def obtain_number(self) -> scope.jsii_calc_lib.IDoublable:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4702,7 +4990,7 @@ class _IStableInterfaceProxy:
 
 @jsii.interface(jsii_type="jsii-calc.IStructReturningDelegate")
 class IStructReturningDelegate(jsii.compat.Protocol):
-    """Verifies that a "pure" implementation of an interface works correctly.
+    """Verifies that a "pure" implementation of an interface works correctly. (experimental)
 
     stability
     :stability: experimental
@@ -4714,7 +5002,8 @@ class IStructReturningDelegate(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="returnStruct")
     def return_struct(self) -> "StructB":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4722,7 +5011,7 @@ class IStructReturningDelegate(jsii.compat.Protocol):
 
 
 class _IStructReturningDelegateProxy:
-    """Verifies that a "pure" implementation of an interface works correctly.
+    """Verifies that a "pure" implementation of an interface works correctly. (experimental)
 
     stability
     :stability: experimental
@@ -4732,7 +5021,8 @@ class _IStructReturningDelegateProxy:
 
     @jsii.member(jsii_name="returnStruct")
     def return_struct(self) -> "StructB":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4742,7 +5032,8 @@ class _IStructReturningDelegateProxy:
 class ImplementInternalInterface(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ImplementInternalInterface"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4757,7 +5048,8 @@ class ImplementInternalInterface(
     @builtins.property
     @jsii.member(jsii_name="prop")
     def prop(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4769,7 +5061,8 @@ class ImplementInternalInterface(
 
 
 class Implementation(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Implementation"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4784,7 +5077,8 @@ class Implementation(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Implementatio
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4795,7 +5089,8 @@ class Implementation(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Implementatio
 class ImplementsInterfaceWithInternal(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ImplementsInterfaceWithInternal"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4809,7 +5104,8 @@ class ImplementsInterfaceWithInternal(
 
     @jsii.member(jsii_name="visible")
     def visible(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4821,7 +5117,8 @@ class ImplementsInterfaceWithInternalSubclass(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ImplementsInterfaceWithInternalSubclass",
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4837,7 +5134,8 @@ class ImplementsInterfaceWithInternalSubclass(
 class ImplementsPrivateInterface(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ImplementsPrivateInterface"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -4852,7 +5150,8 @@ class ImplementsPrivateInterface(
     @builtins.property
     @jsii.member(jsii_name="private")
     def private(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4876,10 +5175,11 @@ class ImplictBaseOfBase(scope.jsii_calc_base.BaseProps):
         bar: str,
         goo: datetime.datetime,
     ) -> None:
-        """
+        """(experimental)
+
         :param foo: -
         :param bar: -
-        :param goo: 
+        :param goo: (experimental)
 
         stability
         :stability: experimental
@@ -4900,7 +5200,8 @@ class ImplictBaseOfBase(scope.jsii_calc_base.BaseProps):
 
     @builtins.property
     def goo(self) -> datetime.datetime:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4921,7 +5222,7 @@ class ImplictBaseOfBase(scope.jsii_calc_base.BaseProps):
 class InterfaceCollections(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceCollections"
 ):
-    """Verifies that collections of interfaces or structs are correctly handled.
+    """Verifies that collections of interfaces or structs are correctly handled. (experimental)
 
     See: https://github.com/aws/jsii/issues/1196
 
@@ -4932,7 +5233,8 @@ class InterfaceCollections(
     @jsii.member(jsii_name="listOfInterfaces")
     @builtins.classmethod
     def list_of_interfaces(cls) -> typing.List["IBell"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4941,7 +5243,8 @@ class InterfaceCollections(
     @jsii.member(jsii_name="listOfStructs")
     @builtins.classmethod
     def list_of_structs(cls) -> typing.List["StructA"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4950,7 +5253,8 @@ class InterfaceCollections(
     @jsii.member(jsii_name="mapOfInterfaces")
     @builtins.classmethod
     def map_of_interfaces(cls) -> typing.Mapping[str, "IBell"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4959,7 +5263,8 @@ class InterfaceCollections(
     @jsii.member(jsii_name="mapOfStructs")
     @builtins.classmethod
     def map_of_structs(cls) -> typing.Mapping[str, "StructA"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -4967,7 +5272,7 @@ class InterfaceCollections(
 
 
 class InterfacesMaker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfacesMaker"):
-    """We can return arrays of interfaces See aws/aws-cdk#2362.
+    """We can return arrays of interfaces See aws/aws-cdk#2362. (experimental)
 
     stability
     :stability: experimental
@@ -4978,7 +5283,8 @@ class InterfacesMaker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfacesMa
     def make_interfaces(
         cls, count: jsii.Number
     ) -> typing.List[scope.jsii_calc_lib.IDoublable]:
-        """
+        """(experimental)
+
         :param count: -
 
         stability
@@ -4988,7 +5294,7 @@ class InterfacesMaker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfacesMa
 
 
 class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorphism"):
-    """Checks the "same instance" isomorphism is preserved within the constructor.
+    """Checks the "same instance" isomorphism is preserved within the constructor. (experimental)
 
     Create a subclass of this, and assert that ``this.myself()`` actually returns
     ``this`` from within the constructor.
@@ -5010,7 +5316,8 @@ class Isomorphism(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Isomorp
 
     @jsii.member(jsii_name="myself")
     def myself(self) -> "Isomorphism":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5024,7 +5331,8 @@ class _IsomorphismProxy(Isomorphism):
 class JSII417PublicBaseOfBase(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JSII417PublicBaseOfBase"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -5039,7 +5347,8 @@ class JSII417PublicBaseOfBase(
     @jsii.member(jsii_name="makeInstance")
     @builtins.classmethod
     def make_instance(cls) -> "JSII417PublicBaseOfBase":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5047,7 +5356,8 @@ class JSII417PublicBaseOfBase(
 
     @jsii.member(jsii_name="foo")
     def foo(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5056,7 +5366,8 @@ class JSII417PublicBaseOfBase(
     @builtins.property
     @jsii.member(jsii_name="hasRoot")
     def has_root(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5066,7 +5377,8 @@ class JSII417PublicBaseOfBase(
 class JSObjectLiteralForInterface(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JSObjectLiteralForInterface"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -5080,7 +5392,8 @@ class JSObjectLiteralForInterface(
 
     @jsii.member(jsii_name="giveMeFriendly")
     def give_me_friendly(self) -> scope.jsii_calc_lib.IFriendly:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5088,7 +5401,8 @@ class JSObjectLiteralForInterface(
 
     @jsii.member(jsii_name="giveMeFriendlyGenerator")
     def give_me_friendly_generator(self) -> "IFriendlyRandomGenerator":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5098,7 +5412,8 @@ class JSObjectLiteralForInterface(
 class JSObjectLiteralToNative(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JSObjectLiteralToNative"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -5112,7 +5427,8 @@ class JSObjectLiteralToNative(
 
     @jsii.member(jsii_name="returnLiteral")
     def return_literal(self) -> "JSObjectLiteralToNativeClass":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5122,7 +5438,8 @@ class JSObjectLiteralToNative(
 class JSObjectLiteralToNativeClass(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JSObjectLiteralToNativeClass"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -5137,7 +5454,8 @@ class JSObjectLiteralToNativeClass(
     @builtins.property
     @jsii.member(jsii_name="propA")
     def prop_a(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5150,7 +5468,8 @@ class JSObjectLiteralToNativeClass(
     @builtins.property
     @jsii.member(jsii_name="propB")
     def prop_b(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5164,7 +5483,8 @@ class JSObjectLiteralToNativeClass(
 class JavaReservedWords(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JavaReservedWords"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -5178,7 +5498,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="abstract")
     def abstract(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5186,7 +5507,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="assert")
     def assert_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5194,7 +5516,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="boolean")
     def boolean(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5202,7 +5525,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="break")
     def break_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5210,7 +5534,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="byte")
     def byte(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5218,7 +5543,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="case")
     def case(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5226,7 +5552,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="catch")
     def catch(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5234,7 +5561,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="char")
     def char(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5242,7 +5570,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="class")
     def class_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5250,7 +5579,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="const")
     def const(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5258,7 +5588,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="continue")
     def continue_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5266,7 +5597,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="default")
     def default(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5274,7 +5606,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="do")
     def do(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5282,7 +5615,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="double")
     def double(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5290,7 +5624,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="else")
     def else_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5298,7 +5633,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="enum")
     def enum(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5306,7 +5642,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="extends")
     def extends(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5314,7 +5651,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="false")
     def false(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5322,7 +5660,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="final")
     def final(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5330,7 +5669,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="finally")
     def finally_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5338,7 +5678,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="float")
     def float(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5346,7 +5687,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="for")
     def for_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5354,7 +5696,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="goto")
     def goto(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5362,7 +5705,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="if")
     def if_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5370,7 +5714,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="implements")
     def implements(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5378,7 +5723,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="import")
     def import_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5386,7 +5732,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="instanceof")
     def instanceof(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5394,7 +5741,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="int")
     def int(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5402,7 +5750,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="interface")
     def interface(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5410,7 +5759,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="long")
     def long(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5418,7 +5768,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="native")
     def native(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5426,7 +5777,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="new")
     def new(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5434,7 +5786,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="null")
     def null(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5442,7 +5795,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="package")
     def package(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5450,7 +5804,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="private")
     def private(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5458,7 +5813,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="protected")
     def protected(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5466,7 +5822,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="public")
     def public(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5474,7 +5831,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="return")
     def return_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5482,7 +5840,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="short")
     def short(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5490,7 +5849,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="static")
     def static(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5498,7 +5858,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="strictfp")
     def strictfp(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5506,7 +5867,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="super")
     def super(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5514,7 +5876,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="switch")
     def switch(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5522,7 +5885,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="synchronized")
     def synchronized(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5530,7 +5894,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="this")
     def this(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5538,7 +5903,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="throw")
     def throw(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5546,7 +5912,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="throws")
     def throws(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5554,7 +5921,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="transient")
     def transient(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5562,7 +5930,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="true")
     def true(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5570,7 +5939,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="try")
     def try_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5578,7 +5948,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="void")
     def void(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5586,7 +5957,8 @@ class JavaReservedWords(
 
     @jsii.member(jsii_name="volatile")
     def volatile(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5595,7 +5967,8 @@ class JavaReservedWords(
     @builtins.property
     @jsii.member(jsii_name="while")
     def while_(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5608,7 +5981,8 @@ class JavaReservedWords(
 
 @jsii.implements(IJsii487External2, IJsii487External)
 class Jsii487Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii487Derived"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -5623,7 +5997,8 @@ class Jsii487Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii487Derive
 
 @jsii.implements(IJsii496)
 class Jsii496Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii496Derived"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -5637,7 +6012,7 @@ class Jsii496Derived(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Jsii496Derive
 
 
 class JsiiAgent(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsiiAgent"):
-    """Host runtime version should be set via JSII_AGENT.
+    """Host runtime version should be set via JSII_AGENT. (experimental)
 
     stability
     :stability: experimental
@@ -5653,7 +6028,7 @@ class JsiiAgent(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsiiAgent"):
     @jsii.python.classproperty
     @jsii.member(jsii_name="jsiiAgent")
     def jsii_agent(cls) -> typing.Optional[str]:
-        """Returns the value of the JSII_AGENT environment variable.
+        """Returns the value of the JSII_AGENT environment variable. (experimental)
 
         stability
         :stability: experimental
@@ -5662,7 +6037,7 @@ class JsiiAgent(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsiiAgent"):
 
 
 class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"):
-    """Make sure structs are un-decorated on the way in.
+    """Make sure structs are un-decorated on the way in. (experimental)
 
     see
     :see: https://github.com/aws/aws-cdk/issues/5066
@@ -5673,7 +6048,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyArray")
     @builtins.classmethod
     def any_array(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5682,7 +6058,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyBooleanFalse")
     @builtins.classmethod
     def any_boolean_false(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5691,7 +6068,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyBooleanTrue")
     @builtins.classmethod
     def any_boolean_true(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5700,7 +6078,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyDate")
     @builtins.classmethod
     def any_date(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5709,7 +6088,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyEmptyString")
     @builtins.classmethod
     def any_empty_string(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5718,7 +6098,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyFunction")
     @builtins.classmethod
     def any_function(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5727,7 +6108,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyHash")
     @builtins.classmethod
     def any_hash(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5736,7 +6118,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyNull")
     @builtins.classmethod
     def any_null(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5745,7 +6128,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyNumber")
     @builtins.classmethod
     def any_number(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5754,7 +6138,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyRef")
     @builtins.classmethod
     def any_ref(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5763,7 +6148,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyString")
     @builtins.classmethod
     def any_string(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5772,7 +6158,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyUndefined")
     @builtins.classmethod
     def any_undefined(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5781,7 +6168,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="anyZero")
     @builtins.classmethod
     def any_zero(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5790,7 +6178,8 @@ class JsonFormatter(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsonFormatter"
     @jsii.member(jsii_name="stringify")
     @builtins.classmethod
     def stringify(cls, value: typing.Any = None) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -5820,13 +6209,13 @@ class LoadBalancedFargateServiceProps:
         public_load_balancer: typing.Optional[bool] = None,
         public_tasks: typing.Optional[bool] = None,
     ) -> None:
-        """jsii#298: show default values in sphinx documentation, and respect newlines.
+        """jsii#298: show default values in sphinx documentation, and respect newlines. (experimental)
 
-        :param container_port: The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping. Default: 80
-        :param cpu: The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments This default is set in the underlying FargateTaskDefinition construct. Default: 256
-        :param memory_mib: The amount (in MiB) of memory used by the task. This field is required and you must use one of the following values, which determines your range of valid values for the cpu parameter: 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU) 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU) 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU) Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU) Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU) This default is set in the underlying FargateTaskDefinition construct. Default: 512
-        :param public_load_balancer: Determines whether the Application Load Balancer will be internet-facing. Default: true
-        :param public_tasks: Determines whether your Fargate Service will be assigned a public IP address. Default: false
+        :param container_port: The container port of the application load balancer attached to your Fargate service. (experimental) Corresponds to container port mapping. Default: 80
+        :param cpu: The number of cpu units used by the task. (experimental) Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments This default is set in the underlying FargateTaskDefinition construct. Default: 256
+        :param memory_mib: The amount (in MiB) of memory used by the task. (experimental) This field is required and you must use one of the following values, which determines your range of valid values for the cpu parameter: 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU) 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU) 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU) Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU) Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU) This default is set in the underlying FargateTaskDefinition construct. Default: 512
+        :param public_load_balancer: Determines whether the Application Load Balancer will be internet-facing. (experimental) Default: true
+        :param public_tasks: Determines whether your Fargate Service will be assigned a public IP address. (experimental) Default: false
 
         stability
         :stability: experimental
@@ -5845,7 +6234,7 @@ class LoadBalancedFargateServiceProps:
 
     @builtins.property
     def container_port(self) -> typing.Optional[jsii.Number]:
-        """The container port of the application load balancer attached to your Fargate service.
+        """The container port of the application load balancer attached to your Fargate service. (experimental)
 
         Corresponds to container port mapping.
 
@@ -5859,7 +6248,7 @@ class LoadBalancedFargateServiceProps:
 
     @builtins.property
     def cpu(self) -> typing.Optional[str]:
-        """The number of cpu units used by the task.
+        """The number of cpu units used by the task. (experimental)
 
         Valid values, which determines your range of valid values for the memory parameter:
         256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
@@ -5880,7 +6269,7 @@ class LoadBalancedFargateServiceProps:
 
     @builtins.property
     def memory_mib(self) -> typing.Optional[str]:
-        """The amount (in MiB) of memory used by the task.
+        """The amount (in MiB) of memory used by the task. (experimental)
 
         This field is required and you must use one of the following values, which determines your range of valid values
         for the cpu parameter:
@@ -5907,7 +6296,7 @@ class LoadBalancedFargateServiceProps:
 
     @builtins.property
     def public_load_balancer(self) -> typing.Optional[bool]:
-        """Determines whether the Application Load Balancer will be internet-facing.
+        """Determines whether the Application Load Balancer will be internet-facing. (experimental)
 
         default
         :default: true
@@ -5919,7 +6308,7 @@ class LoadBalancedFargateServiceProps:
 
     @builtins.property
     def public_tasks(self) -> typing.Optional[bool]:
-        """Determines whether your Fargate Service will be assigned a public IP address.
+        """Determines whether your Fargate Service will be assigned a public IP address. (experimental)
 
         default
         :default: false
@@ -5944,7 +6333,8 @@ class LoadBalancedFargateServiceProps:
 class MethodNamedProperty(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.MethodNamedProperty"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -5958,7 +6348,8 @@ class MethodNamedProperty(
 
     @jsii.member(jsii_name="property")
     def property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5967,7 +6358,8 @@ class MethodNamedProperty(
     @builtins.property
     @jsii.member(jsii_name="elite")
     def elite(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -5978,7 +6370,7 @@ class MethodNamedProperty(
 class Multiply(
     BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Multiply"
 ):
-    """The "*" binary operation.
+    """The "*" binary operation. (experimental)
 
     stability
     :stability: experimental
@@ -5987,7 +6379,7 @@ class Multiply(
     def __init__(
         self, lhs: scope.jsii_calc_lib.Value, rhs: scope.jsii_calc_lib.Value
     ) -> None:
-        """Creates a BinaryOperation.
+        """Creates a BinaryOperation. (experimental)
 
         :param lhs: Left-hand side operand.
         :param rhs: Right-hand side operand.
@@ -5999,7 +6391,7 @@ class Multiply(
 
     @jsii.member(jsii_name="farewell")
     def farewell(self) -> str:
-        """Say farewell.
+        """Say farewell. (experimental)
 
         stability
         :stability: experimental
@@ -6008,7 +6400,7 @@ class Multiply(
 
     @jsii.member(jsii_name="goodbye")
     def goodbye(self) -> str:
-        """Say goodbye.
+        """Say goodbye. (experimental)
 
         stability
         :stability: experimental
@@ -6017,7 +6409,7 @@ class Multiply(
 
     @jsii.member(jsii_name="next")
     def next(self) -> jsii.Number:
-        """Returns another random number.
+        """Returns another random number. (experimental)
 
         stability
         :stability: experimental
@@ -6026,7 +6418,9 @@ class Multiply(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> str:
-        """String representation of the value.
+        """String representation of the value. (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -6036,7 +6430,9 @@ class Multiply(
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value.
+        """The value. (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -6051,8 +6447,9 @@ class Multiply(
 )
 class NestedStruct:
     def __init__(self, *, number_prop: jsii.Number) -> None:
-        """
-        :param number_prop: When provided, must be > 0.
+        """(experimental)
+
+        :param number_prop: When provided, must be > 0. (experimental)
 
         stability
         :stability: experimental
@@ -6063,7 +6460,7 @@ class NestedStruct:
 
     @builtins.property
     def number_prop(self) -> jsii.Number:
-        """When provided, must be > 0.
+        """When provided, must be > 0. (experimental)
 
         stability
         :stability: experimental
@@ -6085,7 +6482,7 @@ class NestedStruct:
 class NodeStandardLibrary(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NodeStandardLibrary"
 ):
-    """Test fixture to verify that jsii modules can use the node standard library.
+    """Test fixture to verify that jsii modules can use the node standard library. (experimental)
 
     stability
     :stability: experimental
@@ -6100,7 +6497,7 @@ class NodeStandardLibrary(
 
     @jsii.member(jsii_name="cryptoSha256")
     def crypto_sha256(self) -> str:
-        """Uses node.js "crypto" module to calculate sha256 of a string.
+        """Uses node.js "crypto" module to calculate sha256 of a string. (experimental)
 
         return
         :return: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
@@ -6112,7 +6509,7 @@ class NodeStandardLibrary(
 
     @jsii.member(jsii_name="fsReadFile")
     def fs_read_file(self) -> str:
-        """Reads a local resource file (resource.txt) asynchronously.
+        """Reads a local resource file (resource.txt) asynchronously. (experimental)
 
         return
         :return: "Hello, resource!"
@@ -6124,7 +6521,7 @@ class NodeStandardLibrary(
 
     @jsii.member(jsii_name="fsReadFileSync")
     def fs_read_file_sync(self) -> str:
-        """Sync version of fsReadFile.
+        """Sync version of fsReadFile. (experimental)
 
         return
         :return: "Hello, resource! SYNC!"
@@ -6137,7 +6534,7 @@ class NodeStandardLibrary(
     @builtins.property
     @jsii.member(jsii_name="osPlatform")
     def os_platform(self) -> str:
-        """Returns the current os.platform() from the "os" node module.
+        """Returns the current os.platform() from the "os" node module. (experimental)
 
         stability
         :stability: experimental
@@ -6148,14 +6545,15 @@ class NodeStandardLibrary(
 class NullShouldBeTreatedAsUndefined(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NullShouldBeTreatedAsUndefined"
 ):
-    """jsii#282, aws-cdk#157: null should be treated as "undefined".
+    """jsii#282, aws-cdk#157: null should be treated as "undefined". (experimental)
 
     stability
     :stability: experimental
     """
 
     def __init__(self, _param1: str, optional: typing.Any = None) -> None:
-        """
+        """(experimental)
+
         :param _param1: -
         :param optional: -
 
@@ -6166,7 +6564,8 @@ class NullShouldBeTreatedAsUndefined(
 
     @jsii.member(jsii_name="giveMeUndefined")
     def give_me_undefined(self, value: typing.Any = None) -> None:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -6183,9 +6582,10 @@ class NullShouldBeTreatedAsUndefined(
         ],
         this_should_be_undefined: typing.Any = None,
     ) -> None:
-        """
-        :param array_with_three_elements_and_undefined_as_second_argument: 
-        :param this_should_be_undefined: 
+        """(experimental)
+
+        :param array_with_three_elements_and_undefined_as_second_argument: (experimental)
+        :param this_should_be_undefined: (experimental)
 
         stability
         :stability: experimental
@@ -6199,7 +6599,8 @@ class NullShouldBeTreatedAsUndefined(
 
     @jsii.member(jsii_name="verifyPropertyIsUndefined")
     def verify_property_is_undefined(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6208,7 +6609,8 @@ class NullShouldBeTreatedAsUndefined(
     @builtins.property
     @jsii.member(jsii_name="changeMeToUndefined")
     def change_me_to_undefined(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6236,9 +6638,10 @@ class NullShouldBeTreatedAsUndefinedData:
         ],
         this_should_be_undefined: typing.Any = None,
     ) -> None:
-        """
-        :param array_with_three_elements_and_undefined_as_second_argument: 
-        :param this_should_be_undefined: 
+        """(experimental)
+
+        :param array_with_three_elements_and_undefined_as_second_argument: (experimental)
+        :param this_should_be_undefined: (experimental)
 
         stability
         :stability: experimental
@@ -6253,7 +6656,8 @@ class NullShouldBeTreatedAsUndefinedData:
     def array_with_three_elements_and_undefined_as_second_argument(
         self,
     ) -> typing.List[typing.Any]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6263,7 +6667,8 @@ class NullShouldBeTreatedAsUndefinedData:
 
     @builtins.property
     def this_should_be_undefined(self) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6282,14 +6687,15 @@ class NullShouldBeTreatedAsUndefinedData:
 
 
 class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenerator"):
-    """This allows us to test that a reference can be stored for objects that implement interfaces.
+    """This allows us to test that a reference can be stored for objects that implement interfaces. (experimental)
 
     stability
     :stability: experimental
     """
 
     def __init__(self, generator: "IRandomNumberGenerator") -> None:
-        """
+        """(experimental)
+
         :param generator: -
 
         stability
@@ -6299,7 +6705,8 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
 
     @jsii.member(jsii_name="isSameGenerator")
     def is_same_generator(self, gen: "IRandomNumberGenerator") -> bool:
-        """
+        """(experimental)
+
         :param gen: -
 
         stability
@@ -6309,7 +6716,8 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
 
     @jsii.member(jsii_name="nextTimes100")
     def next_times100(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6318,7 +6726,8 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
     @builtins.property
     @jsii.member(jsii_name="generator")
     def generator(self) -> "IRandomNumberGenerator":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6332,7 +6741,7 @@ class NumberGenerator(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.NumberGenera
 class ObjectRefsInCollections(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ObjectRefsInCollections"
 ):
-    """Verify that object references can be passed inside collections.
+    """Verify that object references can be passed inside collections. (experimental)
 
     stability
     :stability: experimental
@@ -6349,7 +6758,7 @@ class ObjectRefsInCollections(
     def sum_from_array(
         self, values: typing.List[scope.jsii_calc_lib.Value]
     ) -> jsii.Number:
-        """Returns the sum of all values.
+        """Returns the sum of all values. (experimental)
 
         :param values: -
 
@@ -6362,7 +6771,7 @@ class ObjectRefsInCollections(
     def sum_from_map(
         self, values: typing.Mapping[str, scope.jsii_calc_lib.Value]
     ) -> jsii.Number:
-        """Returns the sum of all values in a map.
+        """Returns the sum of all values in a map. (experimental)
 
         :param values: -
 
@@ -6375,7 +6784,8 @@ class ObjectRefsInCollections(
 class ObjectWithPropertyProvider(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ObjectWithPropertyProvider"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -6383,7 +6793,8 @@ class ObjectWithPropertyProvider(
     @jsii.member(jsii_name="provide")
     @builtins.classmethod
     def provide(cls) -> "IObjectWithProperty":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6391,7 +6802,7 @@ class ObjectWithPropertyProvider(
 
 
 class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
-    """Old class.
+    """Old class. (deprecated)
 
     deprecated
     :deprecated: Use the new class
@@ -6409,7 +6820,7 @@ class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
 
     @jsii.member(jsii_name="doAThing")
     def do_a_thing(self) -> None:
-        """Doo wop that thing.
+        """Doo wop that thing. (deprecated)
 
         stability
         :stability: deprecated
@@ -6420,13 +6831,15 @@ class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
 class OptionalArgumentInvoker(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OptionalArgumentInvoker"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, delegate: "IInterfaceWithOptionalMethodArguments") -> None:
-        """
+        """(experimental)
+
         :param delegate: -
 
         stability
@@ -6436,7 +6849,8 @@ class OptionalArgumentInvoker(
 
     @jsii.member(jsii_name="invokeWithOptional")
     def invoke_with_optional(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6444,7 +6858,8 @@ class OptionalArgumentInvoker(
 
     @jsii.member(jsii_name="invokeWithoutOptional")
     def invoke_without_optional(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6454,7 +6869,8 @@ class OptionalArgumentInvoker(
 class OptionalConstructorArgument(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OptionalConstructorArgument"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -6465,7 +6881,8 @@ class OptionalConstructorArgument(
         arg2: str,
         arg3: typing.Optional[datetime.datetime] = None,
     ) -> None:
-        """
+        """(experimental)
+
         :param arg1: -
         :param arg2: -
         :param arg3: -
@@ -6478,7 +6895,8 @@ class OptionalConstructorArgument(
     @builtins.property
     @jsii.member(jsii_name="arg1")
     def arg1(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6487,7 +6905,8 @@ class OptionalConstructorArgument(
     @builtins.property
     @jsii.member(jsii_name="arg2")
     def arg2(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6496,7 +6915,8 @@ class OptionalConstructorArgument(
     @builtins.property
     @jsii.member(jsii_name="arg3")
     def arg3(self) -> typing.Optional[datetime.datetime]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6510,8 +6930,9 @@ class OptionalConstructorArgument(
 )
 class OptionalStruct:
     def __init__(self, *, field: typing.Optional[str] = None) -> None:
-        """
-        :param field: 
+        """(experimental)
+
+        :param field: (experimental)
 
         stability
         :stability: experimental
@@ -6522,7 +6943,8 @@ class OptionalStruct:
 
     @builtins.property
     def field(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6543,14 +6965,16 @@ class OptionalStruct:
 class OptionalStructConsumer(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OptionalStructConsumer"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, *, field: typing.Optional[str] = None) -> None:
-        """
-        :param field: 
+        """(experimental)
+
+        :param field: (experimental)
 
         stability
         :stability: experimental
@@ -6562,7 +6986,8 @@ class OptionalStructConsumer(
     @builtins.property
     @jsii.member(jsii_name="parameterWasUndefined")
     def parameter_was_undefined(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6571,7 +6996,8 @@ class OptionalStructConsumer(
     @builtins.property
     @jsii.member(jsii_name="fieldValue")
     def field_value(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6581,7 +7007,8 @@ class OptionalStructConsumer(
 class OverridableProtectedMember(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OverridableProtectedMember"
 ):
-    """
+    """(experimental)
+
     see
     :see: https://github.com/aws/jsii/issues/903
     stability
@@ -6597,7 +7024,8 @@ class OverridableProtectedMember(
 
     @jsii.member(jsii_name="overrideMe")
     def _override_me(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6605,7 +7033,8 @@ class OverridableProtectedMember(
 
     @jsii.member(jsii_name="switchModes")
     def switch_modes(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6613,7 +7042,8 @@ class OverridableProtectedMember(
 
     @jsii.member(jsii_name="valueFromProtected")
     def value_from_protected(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6622,7 +7052,8 @@ class OverridableProtectedMember(
     @builtins.property
     @jsii.member(jsii_name="overrideReadOnly")
     def _override_read_only(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6631,7 +7062,8 @@ class OverridableProtectedMember(
     @builtins.property
     @jsii.member(jsii_name="overrideReadWrite")
     def _override_read_write(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6645,7 +7077,8 @@ class OverridableProtectedMember(
 class OverrideReturnsObject(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OverrideReturnsObject"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -6659,7 +7092,8 @@ class OverrideReturnsObject(
 
     @jsii.member(jsii_name="test")
     def test(self, obj: "IReturnsNumber") -> jsii.Number:
-        """
+        """(experimental)
+
         :param obj: -
 
         stability
@@ -6675,9 +7109,9 @@ class OverrideReturnsObject(
 )
 class ParentStruct982:
     def __init__(self, *, foo: str) -> None:
-        """https://github.com/aws/jsii/issues/982.
+        """https://github.com/aws/jsii/issues/982. (experimental)
 
-        :param foo: 
+        :param foo: (experimental)
 
         stability
         :stability: experimental
@@ -6688,7 +7122,8 @@ class ParentStruct982:
 
     @builtins.property
     def foo(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6710,7 +7145,8 @@ class PartiallyInitializedThisConsumer(
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.PartiallyInitializedThisConsumer",
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -6731,7 +7167,8 @@ class PartiallyInitializedThisConsumer(
     def consume_partially_initialized_this(
         self, obj: "ConstructorPassesThisOut", dt: datetime.datetime, ev: "AllTypesEnum"
     ) -> str:
-        """
+        """(experimental)
+
         :param obj: -
         :param dt: -
         :param ev: -
@@ -6747,7 +7184,8 @@ class _PartiallyInitializedThisConsumerProxy(PartiallyInitializedThisConsumer):
     def consume_partially_initialized_this(
         self, obj: "ConstructorPassesThisOut", dt: datetime.datetime, ev: "AllTypesEnum"
     ) -> str:
-        """
+        """(experimental)
+
         :param obj: -
         :param dt: -
         :param ev: -
@@ -6759,7 +7197,8 @@ class _PartiallyInitializedThisConsumerProxy(PartiallyInitializedThisConsumer):
 
 
 class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -6773,7 +7212,8 @@ class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
 
     @jsii.member(jsii_name="sayHello")
     def say_hello(self, friendly: scope.jsii_calc_lib.IFriendly) -> str:
-        """
+        """(experimental)
+
         :param friendly: -
 
         stability
@@ -6785,7 +7225,7 @@ class Polymorphism(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Polymorphism"):
 class Power(
     _CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Power"
 ):
-    """The power operation.
+    """The power operation. (experimental)
 
     stability
     :stability: experimental
@@ -6794,7 +7234,7 @@ class Power(
     def __init__(
         self, base: scope.jsii_calc_lib.Value, pow: scope.jsii_calc_lib.Value
     ) -> None:
-        """Creates a Power operation.
+        """Creates a Power operation. (experimental)
 
         :param base: The base of the power.
         :param pow: The number of times to multiply.
@@ -6807,7 +7247,7 @@ class Power(
     @builtins.property
     @jsii.member(jsii_name="base")
     def base(self) -> scope.jsii_calc_lib.Value:
-        """The base of the power.
+        """The base of the power. (experimental)
 
         stability
         :stability: experimental
@@ -6817,7 +7257,7 @@ class Power(
     @builtins.property
     @jsii.member(jsii_name="expression")
     def expression(self) -> scope.jsii_calc_lib.Value:
-        """The expression that this operation consists of.
+        """The expression that this operation consists of. (experimental)
 
         Must be implemented by derived classes.
 
@@ -6829,7 +7269,7 @@ class Power(
     @builtins.property
     @jsii.member(jsii_name="pow")
     def pow(self) -> scope.jsii_calc_lib.Value:
-        """The number of times to multiply.
+        """The number of times to multiply. (experimental)
 
         stability
         :stability: experimental
@@ -6840,7 +7280,7 @@ class Power(
 class PropertyNamedProperty(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PropertyNamedProperty"
 ):
-    """Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named "property" would result in impossible to load Python code.
+    """Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named "property" would result in impossible to load Python code. (experimental)
 
     stability
     :stability: experimental
@@ -6856,7 +7296,8 @@ class PropertyNamedProperty(
     @builtins.property
     @jsii.member(jsii_name="property")
     def property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6865,7 +7306,8 @@ class PropertyNamedProperty(
     @builtins.property
     @jsii.member(jsii_name="yetAnoterOne")
     def yet_anoter_one(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6873,7 +7315,8 @@ class PropertyNamedProperty(
 
 
 class PublicClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PublicClass"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -6887,7 +7330,8 @@ class PublicClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PublicClass"):
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6897,7 +7341,8 @@ class PublicClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PublicClass"):
 class PythonReservedWords(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonReservedWords"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -6911,7 +7356,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="and")
     def and_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6919,7 +7365,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="as")
     def as_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6927,7 +7374,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="assert")
     def assert_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6935,7 +7383,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="async")
     def async_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6943,7 +7392,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="await")
     def await_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6951,7 +7401,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="break")
     def break_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6959,7 +7410,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="class")
     def class_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6967,7 +7419,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="continue")
     def continue_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6975,7 +7428,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="def")
     def def_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6983,7 +7437,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="del")
     def del_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6991,7 +7446,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="elif")
     def elif_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -6999,7 +7455,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="else")
     def else_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7007,7 +7464,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="except")
     def except_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7015,7 +7473,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="finally")
     def finally_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7023,7 +7482,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="for")
     def for_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7031,7 +7491,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="from")
     def from_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7039,7 +7500,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="global")
     def global_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7047,7 +7509,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="if")
     def if_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7055,7 +7518,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="import")
     def import_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7063,7 +7527,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="in")
     def in_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7071,7 +7536,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="is")
     def is_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7079,7 +7545,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="lambda")
     def lambda_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7087,7 +7554,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="nonlocal")
     def nonlocal_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7095,7 +7563,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="not")
     def not_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7103,7 +7572,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="or")
     def or_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7111,7 +7581,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="pass")
     def pass_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7119,7 +7590,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="raise")
     def raise_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7127,7 +7599,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="return")
     def return_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7135,7 +7608,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="try")
     def try_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7143,7 +7617,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="while")
     def while_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7151,7 +7626,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="with")
     def with_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7159,7 +7635,8 @@ class PythonReservedWords(
 
     @jsii.member(jsii_name="yield")
     def yield_(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7169,7 +7646,7 @@ class PythonReservedWords(
 class ReferenceEnumFromScopedPackage(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ReferenceEnumFromScopedPackage"
 ):
-    """See awslabs/jsii#138.
+    """See awslabs/jsii#138. (experimental)
 
     stability
     :stability: experimental
@@ -7184,7 +7661,8 @@ class ReferenceEnumFromScopedPackage(
 
     @jsii.member(jsii_name="loadFoo")
     def load_foo(self) -> typing.Optional[scope.jsii_calc_lib.EnumFromScopedModule]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7192,7 +7670,8 @@ class ReferenceEnumFromScopedPackage(
 
     @jsii.member(jsii_name="saveFoo")
     def save_foo(self, value: scope.jsii_calc_lib.EnumFromScopedModule) -> None:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -7203,7 +7682,8 @@ class ReferenceEnumFromScopedPackage(
     @builtins.property
     @jsii.member(jsii_name="foo")
     def foo(self) -> typing.Optional[scope.jsii_calc_lib.EnumFromScopedModule]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7220,7 +7700,7 @@ class ReturnsPrivateImplementationOfInterface(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ReturnsPrivateImplementationOfInterface",
 ):
-    """Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
+    """Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class. (experimental)
 
     return
     :return: an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.
@@ -7241,7 +7721,8 @@ class ReturnsPrivateImplementationOfInterface(
     @builtins.property
     @jsii.member(jsii_name="privateImplementation")
     def private_implementation(self) -> "IPrivatelyImplemented":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7257,13 +7738,13 @@ class RootStruct:
     def __init__(
         self, *, string_prop: str, nested_struct: typing.Optional["NestedStruct"] = None
     ) -> None:
-        """This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
+        """This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary. (experimental)
 
         This is cheating with the (current) declared types, but this is the "more
         idiomatic" way for Pythonists.
 
-        :param string_prop: May not be empty.
-        :param nested_struct: 
+        :param string_prop: May not be empty. (experimental)
+        :param nested_struct: (experimental)
 
         stability
         :stability: experimental
@@ -7278,7 +7759,7 @@ class RootStruct:
 
     @builtins.property
     def string_prop(self) -> str:
-        """May not be empty.
+        """May not be empty. (experimental)
 
         stability
         :stability: experimental
@@ -7287,7 +7768,8 @@ class RootStruct:
 
     @builtins.property
     def nested_struct(self) -> typing.Optional["NestedStruct"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7308,7 +7790,8 @@ class RootStruct:
 class RootStructValidator(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.RootStructValidator"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -7318,9 +7801,10 @@ class RootStructValidator(
     def validate(
         cls, *, string_prop: str, nested_struct: typing.Optional["NestedStruct"] = None
     ) -> None:
-        """
-        :param string_prop: May not be empty.
-        :param nested_struct: 
+        """(experimental)
+
+        :param string_prop: May not be empty. (experimental)
+        :param nested_struct: (experimental)
 
         stability
         :stability: experimental
@@ -7333,7 +7817,8 @@ class RootStructValidator(
 class RuntimeTypeChecking(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.RuntimeTypeChecking"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -7352,7 +7837,8 @@ class RuntimeTypeChecking(
         arg2: typing.Optional[str] = None,
         arg3: typing.Optional[datetime.datetime] = None,
     ) -> None:
-        """
+        """(experimental)
+
         :param arg1: -
         :param arg2: -
         :param arg3: -
@@ -7364,7 +7850,8 @@ class RuntimeTypeChecking(
 
     @jsii.member(jsii_name="methodWithOptionalAnyArgument")
     def method_with_optional_any_argument(self, arg: typing.Any = None) -> None:
-        """
+        """(experimental)
+
         :param arg: -
 
         stability
@@ -7379,7 +7866,7 @@ class RuntimeTypeChecking(
         arg2: str,
         arg3: typing.Optional[datetime.datetime] = None,
     ) -> None:
-        """Used to verify verification of number of method arguments.
+        """Used to verify verification of number of method arguments. (experimental)
 
         :param arg1: -
         :param arg2: -
@@ -7406,9 +7893,10 @@ class SecondLevelStruct:
         deeper_required_prop: str,
         deeper_optional_prop: typing.Optional[str] = None,
     ) -> None:
-        """
-        :param deeper_required_prop: It's long and required.
-        :param deeper_optional_prop: It's long, but you'll almost never pass it.
+        """(experimental)
+
+        :param deeper_required_prop: It's long and required. (experimental)
+        :param deeper_optional_prop: It's long, but you'll almost never pass it. (experimental)
 
         stability
         :stability: experimental
@@ -7421,7 +7909,7 @@ class SecondLevelStruct:
 
     @builtins.property
     def deeper_required_prop(self) -> str:
-        """It's long and required.
+        """It's long and required. (experimental)
 
         stability
         :stability: experimental
@@ -7430,7 +7918,7 @@ class SecondLevelStruct:
 
     @builtins.property
     def deeper_optional_prop(self) -> typing.Optional[str]:
-        """It's long, but you'll almost never pass it.
+        """It's long, but you'll almost never pass it. (experimental)
 
         stability
         :stability: experimental
@@ -7452,7 +7940,7 @@ class SecondLevelStruct:
 class SingleInstanceTwoTypes(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingleInstanceTwoTypes"
 ):
-    """Test that a single instance can be returned under two different FQNs.
+    """Test that a single instance can be returned under two different FQNs. (experimental)
 
     JSII clients can instantiate 2 different strongly-typed wrappers for the same
     object. Unfortunately, this will break object equality, but if we didn't do
@@ -7471,7 +7959,8 @@ class SingleInstanceTwoTypes(
 
     @jsii.member(jsii_name="interface1")
     def interface1(self) -> "InbetweenClass":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7479,7 +7968,8 @@ class SingleInstanceTwoTypes(
 
     @jsii.member(jsii_name="interface2")
     def interface2(self) -> "IPublicInterface":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7487,7 +7977,7 @@ class SingleInstanceTwoTypes(
 
 
 class SingletonInt(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonInt"):
-    """Verifies that singleton enums are handled correctly.
+    """Verifies that singleton enums are handled correctly. (experimental)
 
     https://github.com/aws/jsii/issues/231
 
@@ -7497,7 +7987,8 @@ class SingletonInt(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonInt"):
 
     @jsii.member(jsii_name="isSingletonInt")
     def is_singleton_int(self, value: jsii.Number) -> bool:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -7508,14 +7999,14 @@ class SingletonInt(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonInt"):
 
 @jsii.enum(jsii_type="jsii-calc.SingletonIntEnum")
 class SingletonIntEnum(enum.Enum):
-    """A singleton integer.
+    """A singleton integer. (experimental)
 
     stability
     :stability: experimental
     """
 
     SINGLETON_INT = "SINGLETON_INT"
-    """Elite!
+    """Elite! (experimental)
 
     stability
     :stability: experimental
@@ -7523,7 +8014,7 @@ class SingletonIntEnum(enum.Enum):
 
 
 class SingletonString(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonString"):
-    """Verifies that singleton enums are handled correctly.
+    """Verifies that singleton enums are handled correctly. (experimental)
 
     https://github.com/aws/jsii/issues/231
 
@@ -7533,7 +8024,8 @@ class SingletonString(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonStr
 
     @jsii.member(jsii_name="isSingletonString")
     def is_singleton_string(self, value: str) -> bool:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -7544,14 +8036,14 @@ class SingletonString(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonStr
 
 @jsii.enum(jsii_type="jsii-calc.SingletonStringEnum")
 class SingletonStringEnum(enum.Enum):
-    """A singleton string.
+    """A singleton string. (experimental)
 
     stability
     :stability: experimental
     """
 
     SINGLETON_STRING = "SINGLETON_STRING"
-    """1337.
+    """1337. (experimental)
 
     stability
     :stability: experimental
@@ -7565,9 +8057,10 @@ class SingletonStringEnum(enum.Enum):
 )
 class SmellyStruct:
     def __init__(self, *, property: str, yet_anoter_one: bool) -> None:
-        """
-        :param property: 
-        :param yet_anoter_one: 
+        """(experimental)
+
+        :param property: (experimental)
+        :param yet_anoter_one: (experimental)
 
         stability
         :stability: experimental
@@ -7579,7 +8072,8 @@ class SmellyStruct:
 
     @builtins.property
     def property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7587,7 +8081,8 @@ class SmellyStruct:
 
     @builtins.property
     def yet_anoter_one(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7606,7 +8101,8 @@ class SmellyStruct:
 
 
 class SomeTypeJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SomeTypeJsii976"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -7621,7 +8117,8 @@ class SomeTypeJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SomeTypeJsii
     @jsii.member(jsii_name="returnAnonymous")
     @builtins.classmethod
     def return_anonymous(cls) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7630,7 +8127,8 @@ class SomeTypeJsii976(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SomeTypeJsii
     @jsii.member(jsii_name="returnReturn")
     @builtins.classmethod
     def return_return(cls) -> "IReturnJsii976":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7703,7 +8201,7 @@ class StableStruct:
 
 
 class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"):
-    """This is used to validate the ability to use ``this`` from within a static context.
+    """This is used to validate the ability to use ``this`` from within a static context. (experimental)
 
     https://github.com/awslabs/aws-cdk/issues/2304
 
@@ -7714,7 +8212,8 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
     @jsii.member(jsii_name="canAccessStaticContext")
     @builtins.classmethod
     def can_access_static_context(cls) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7723,7 +8222,8 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
     @jsii.python.classproperty
     @jsii.member(jsii_name="staticVariable")
     def static_variable(cls) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7735,13 +8235,15 @@ class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"
 
 
 class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, value: str) -> None:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -7752,7 +8254,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @jsii.member(jsii_name="staticMethod")
     @builtins.classmethod
     def static_method(cls, name: str) -> str:
-        """Jsdocs for static method.
+        """Jsdocs for static method. (experimental)
 
         :param name: The name of the person to say hello to.
 
@@ -7763,7 +8265,8 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
 
     @jsii.member(jsii_name="justMethod")
     def just_method(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7772,7 +8275,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @jsii.python.classproperty
     @jsii.member(jsii_name="BAR")
     def BAR(cls) -> jsii.Number:
-        """Constants may also use all-caps.
+        """Constants may also use all-caps. (experimental)
 
         stability
         :stability: experimental
@@ -7782,7 +8285,8 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @jsii.python.classproperty
     @jsii.member(jsii_name="ConstObj")
     def CONST_OBJ(cls) -> "DoubleTrouble":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7791,7 +8295,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @jsii.python.classproperty
     @jsii.member(jsii_name="Foo")
     def FOO(cls) -> str:
-        """Jsdocs for static property.
+        """Jsdocs for static property. (experimental)
 
         stability
         :stability: experimental
@@ -7801,7 +8305,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @jsii.python.classproperty
     @jsii.member(jsii_name="zooBar")
     def ZOO_BAR(cls) -> typing.Mapping[str, str]:
-        """Constants can also use camelCase.
+        """Constants can also use camelCase. (experimental)
 
         stability
         :stability: experimental
@@ -7811,7 +8315,7 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @jsii.python.classproperty
     @jsii.member(jsii_name="instance")
     def instance(cls) -> "Statics":
-        """Jsdocs for static getter.
+        """Jsdocs for static getter. (experimental)
 
         Jsdocs for static setter.
 
@@ -7827,7 +8331,8 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @jsii.python.classproperty
     @jsii.member(jsii_name="nonConstStatic")
     def non_const_static(cls) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7840,7 +8345,8 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7849,30 +8355,35 @@ class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
 
 @jsii.enum(jsii_type="jsii-calc.StringEnum")
 class StringEnum(enum.Enum):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     A = "A"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
     B = "B"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
     C = "C"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
 
 class StripInternal(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StripInternal"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -7887,7 +8398,8 @@ class StripInternal(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StripInternal"
     @builtins.property
     @jsii.member(jsii_name="youSeeMe")
     def you_see_me(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7915,11 +8427,11 @@ class StructA:
         optional_number: typing.Optional[jsii.Number] = None,
         optional_string: typing.Optional[str] = None,
     ) -> None:
-        """We can serialize and deserialize structs without silently ignoring optional fields.
+        """We can serialize and deserialize structs without silently ignoring optional fields. (experimental)
 
-        :param required_string: 
-        :param optional_number: 
-        :param optional_string: 
+        :param required_string: (experimental)
+        :param optional_number: (experimental)
+        :param optional_string: (experimental)
 
         stability
         :stability: experimental
@@ -7934,7 +8446,8 @@ class StructA:
 
     @builtins.property
     def required_string(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7942,7 +8455,8 @@ class StructA:
 
     @builtins.property
     def optional_number(self) -> typing.Optional[jsii.Number]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7950,7 +8464,8 @@ class StructA:
 
     @builtins.property
     def optional_string(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -7985,11 +8500,11 @@ class StructB:
         optional_boolean: typing.Optional[bool] = None,
         optional_struct_a: typing.Optional["StructA"] = None,
     ) -> None:
-        """This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
+        """This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those. (experimental)
 
-        :param required_string: 
-        :param optional_boolean: 
-        :param optional_struct_a: 
+        :param required_string: (experimental)
+        :param optional_boolean: (experimental)
+        :param optional_struct_a: (experimental)
 
         stability
         :stability: experimental
@@ -8006,7 +8521,8 @@ class StructB:
 
     @builtins.property
     def required_string(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8014,7 +8530,8 @@ class StructB:
 
     @builtins.property
     def optional_boolean(self) -> typing.Optional[bool]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8022,7 +8539,8 @@ class StructB:
 
     @builtins.property
     def optional_struct_a(self) -> typing.Optional["StructA"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8047,12 +8565,12 @@ class StructB:
 )
 class StructParameterType:
     def __init__(self, *, scope: str, props: typing.Optional[bool] = None) -> None:
-        """Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
+        """Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted. (experimental)
 
         See: https://github.com/aws/aws-cdk/issues/4302
 
-        :param scope: 
-        :param props: 
+        :param scope: (experimental)
+        :param props: (experimental)
 
         stability
         :stability: experimental
@@ -8065,7 +8583,8 @@ class StructParameterType:
 
     @builtins.property
     def scope(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8073,7 +8592,8 @@ class StructParameterType:
 
     @builtins.property
     def props(self) -> typing.Optional[bool]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8124,9 +8644,9 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
     ) -> "TopLevelStruct":
         """
         :param _positional: -
-        :param required: This is a required field.
-        :param second_level: A union to really stress test our serialization.
-        :param optional: You don't have to pass this.
+        :param required: This is a required field. (experimental)
+        :param second_level: A union to really stress test our serialization. (experimental)
+        :param optional: You don't have to pass this. (experimental)
         """
         input = TopLevelStruct(
             required=required, second_level=second_level, optional=optional
@@ -8138,7 +8658,8 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
 class StructUnionConsumer(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructUnionConsumer"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -8146,7 +8667,8 @@ class StructUnionConsumer(
     @jsii.member(jsii_name="isStructA")
     @builtins.classmethod
     def is_struct_a(cls, struct: typing.Union["StructA", "StructB"]) -> bool:
-        """
+        """(experimental)
+
         :param struct: -
 
         stability
@@ -8157,7 +8679,8 @@ class StructUnionConsumer(
     @jsii.member(jsii_name="isStructB")
     @builtins.classmethod
     def is_struct_b(cls, struct: typing.Union["StructA", "StructB"]) -> bool:
-        """
+        """(experimental)
+
         :param struct: -
 
         stability
@@ -8185,11 +8708,12 @@ class StructWithJavaReservedWords:
         result: typing.Optional[str] = None,
         that: typing.Optional[str] = None,
     ) -> None:
-        """
-        :param default: 
-        :param assert_: 
-        :param result: 
-        :param that: 
+        """(experimental)
+
+        :param default: (experimental)
+        :param assert_: (experimental)
+        :param result: (experimental)
+        :param that: (experimental)
 
         stability
         :stability: experimental
@@ -8206,7 +8730,8 @@ class StructWithJavaReservedWords:
 
     @builtins.property
     def default(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8214,7 +8739,8 @@ class StructWithJavaReservedWords:
 
     @builtins.property
     def assert_(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8222,7 +8748,8 @@ class StructWithJavaReservedWords:
 
     @builtins.property
     def result(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8230,7 +8757,8 @@ class StructWithJavaReservedWords:
 
     @builtins.property
     def that(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8251,14 +8779,15 @@ class StructWithJavaReservedWords:
 class Sum(
     _CompositeOperation_1c4d123b, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Sum"
 ):
-    """An operation that sums multiple values.
+    """An operation that sums multiple values. (experimental)
 
     stability
     :stability: experimental
     """
 
     def __init__(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8267,7 +8796,7 @@ class Sum(
     @builtins.property
     @jsii.member(jsii_name="expression")
     def expression(self) -> scope.jsii_calc_lib.Value:
-        """The expression that this operation consists of.
+        """The expression that this operation consists of. (experimental)
 
         Must be implemented by derived classes.
 
@@ -8279,7 +8808,7 @@ class Sum(
     @builtins.property
     @jsii.member(jsii_name="parts")
     def parts(self) -> typing.List[scope.jsii_calc_lib.Value]:
-        """The parts to sum.
+        """The parts to sum. (experimental)
 
         stability
         :stability: experimental
@@ -8298,9 +8827,10 @@ class Sum(
 )
 class SupportsNiceJavaBuilderProps:
     def __init__(self, *, bar: jsii.Number, id: typing.Optional[str] = None) -> None:
-        """
-        :param bar: Some number, like 42.
-        :param id: An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. But here we are, doing it like we didn't care.
+        """(experimental)
+
+        :param bar: Some number, like 42. (experimental)
+        :param id: An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. (experimental) But here we are, doing it like we didn't care.
 
         stability
         :stability: experimental
@@ -8313,7 +8843,7 @@ class SupportsNiceJavaBuilderProps:
 
     @builtins.property
     def bar(self) -> jsii.Number:
-        """Some number, like 42.
+        """Some number, like 42. (experimental)
 
         stability
         :stability: experimental
@@ -8322,7 +8852,7 @@ class SupportsNiceJavaBuilderProps:
 
     @builtins.property
     def id(self) -> typing.Optional[str]:
-        """An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``.
+        """An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. (experimental)
 
         But here we are, doing it like we didn't care.
 
@@ -8347,7 +8877,7 @@ class SupportsNiceJavaBuilderWithRequiredProps(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
 ):
-    """We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.
+    """We can generate fancy builders in Java for classes which take a mix of positional & struct parameters. (experimental)
 
     stability
     :stability: experimental
@@ -8356,10 +8886,11 @@ class SupportsNiceJavaBuilderWithRequiredProps(
     def __init__(
         self, id_: jsii.Number, *, bar: jsii.Number, id: typing.Optional[str] = None
     ) -> None:
-        """
+        """(experimental)
+
         :param id_: some identifier of your choice.
-        :param bar: Some number, like 42.
-        :param id: An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. But here we are, doing it like we didn't care.
+        :param bar: Some number, like 42. (experimental)
+        :param id: An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. (experimental) But here we are, doing it like we didn't care.
 
         stability
         :stability: experimental
@@ -8371,7 +8902,8 @@ class SupportsNiceJavaBuilderWithRequiredProps(
     @builtins.property
     @jsii.member(jsii_name="bar")
     def bar(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8380,7 +8912,7 @@ class SupportsNiceJavaBuilderWithRequiredProps(
     @builtins.property
     @jsii.member(jsii_name="id")
     def id(self) -> jsii.Number:
-        """some identifier of your choice.
+        """some identifier of your choice. (experimental)
 
         stability
         :stability: experimental
@@ -8390,7 +8922,8 @@ class SupportsNiceJavaBuilderWithRequiredProps(
     @builtins.property
     @jsii.member(jsii_name="propId")
     def prop_id(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8400,7 +8933,8 @@ class SupportsNiceJavaBuilderWithRequiredProps(
 class SyncVirtualMethods(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtualMethods"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -8414,7 +8948,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="callerIsAsync")
     def caller_is_async(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8422,7 +8957,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="callerIsMethod")
     def caller_is_method(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8430,7 +8966,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="modifyOtherProperty")
     def modify_other_property(self, value: str) -> None:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -8440,7 +8977,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="modifyValueOfTheProperty")
     def modify_value_of_the_property(self, value: str) -> None:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -8450,7 +8988,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="readA")
     def read_a(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8458,7 +8997,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="retrieveOtherProperty")
     def retrieve_other_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8466,7 +9006,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="retrieveReadOnlyProperty")
     def retrieve_read_only_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8474,7 +9015,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="retrieveValueOfTheProperty")
     def retrieve_value_of_the_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8482,7 +9024,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="virtualMethod")
     def virtual_method(self, n: jsii.Number) -> jsii.Number:
-        """
+        """(experimental)
+
         :param n: -
 
         stability
@@ -8492,7 +9035,8 @@ class SyncVirtualMethods(
 
     @jsii.member(jsii_name="writeA")
     def write_a(self, value: jsii.Number) -> None:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -8503,7 +9047,8 @@ class SyncVirtualMethods(
     @builtins.property
     @jsii.member(jsii_name="readonlyProperty")
     def readonly_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8512,7 +9057,8 @@ class SyncVirtualMethods(
     @builtins.property
     @jsii.member(jsii_name="a")
     def a(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8525,7 +9071,8 @@ class SyncVirtualMethods(
     @builtins.property
     @jsii.member(jsii_name="callerIsProperty")
     def caller_is_property(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8538,7 +9085,8 @@ class SyncVirtualMethods(
     @builtins.property
     @jsii.member(jsii_name="otherProperty")
     def other_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8551,7 +9099,8 @@ class SyncVirtualMethods(
     @builtins.property
     @jsii.member(jsii_name="theProperty")
     def the_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8564,7 +9113,8 @@ class SyncVirtualMethods(
     @builtins.property
     @jsii.member(jsii_name="valueOfOtherProperty")
     def value_of_other_property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8576,7 +9126,8 @@ class SyncVirtualMethods(
 
 
 class Thrower(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Thrower"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -8590,7 +9141,8 @@ class Thrower(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Thrower"):
 
     @jsii.member(jsii_name="throwError")
     def throw_error(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8614,10 +9166,11 @@ class TopLevelStruct:
         second_level: typing.Union[jsii.Number, "SecondLevelStruct"],
         optional: typing.Optional[str] = None,
     ) -> None:
-        """
-        :param required: This is a required field.
-        :param second_level: A union to really stress test our serialization.
-        :param optional: You don't have to pass this.
+        """(experimental)
+
+        :param required: This is a required field. (experimental)
+        :param second_level: A union to really stress test our serialization. (experimental)
+        :param optional: You don't have to pass this. (experimental)
 
         stability
         :stability: experimental
@@ -8631,7 +9184,7 @@ class TopLevelStruct:
 
     @builtins.property
     def required(self) -> str:
-        """This is a required field.
+        """This is a required field. (experimental)
 
         stability
         :stability: experimental
@@ -8640,7 +9193,7 @@ class TopLevelStruct:
 
     @builtins.property
     def second_level(self) -> typing.Union[jsii.Number, "SecondLevelStruct"]:
-        """A union to really stress test our serialization.
+        """A union to really stress test our serialization. (experimental)
 
         stability
         :stability: experimental
@@ -8649,7 +9202,7 @@ class TopLevelStruct:
 
     @builtins.property
     def optional(self) -> typing.Optional[str]:
-        """You don't have to pass this.
+        """You don't have to pass this. (experimental)
 
         stability
         :stability: experimental
@@ -8669,7 +9222,7 @@ class TopLevelStruct:
 
 
 class UmaskCheck(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UmaskCheck"):
-    """Checks the current file permissions are cool (no funky UMASK down-scoping happened).
+    """Checks the current file permissions are cool (no funky UMASK down-scoping happened). (experimental)
 
     see
     :see: https://github.com/aws/jsii/issues/1765
@@ -8680,7 +9233,7 @@ class UmaskCheck(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UmaskCheck"):
     @jsii.member(jsii_name="mode")
     @builtins.classmethod
     def mode(cls) -> jsii.Number:
-        """This should return 0o644 (-rw-r--r--).
+        """This should return 0o644 (-rw-r--r--). (experimental)
 
         stability
         :stability: experimental
@@ -8693,7 +9246,7 @@ class UnaryOperation(
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.UnaryOperation",
 ):
-    """An operation on a single operand.
+    """An operation on a single operand. (experimental)
 
     stability
     :stability: experimental
@@ -8704,7 +9257,8 @@ class UnaryOperation(
         return _UnaryOperationProxy
 
     def __init__(self, operand: scope.jsii_calc_lib.Value) -> None:
-        """
+        """(experimental)
+
         :param operand: -
 
         stability
@@ -8715,7 +9269,8 @@ class UnaryOperation(
     @builtins.property
     @jsii.member(jsii_name="operand")
     def operand(self) -> scope.jsii_calc_lib.Value:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8740,9 +9295,10 @@ class UnionProperties:
         bar: typing.Union[str, jsii.Number, "AllTypes"],
         foo: typing.Optional[typing.Union[str, jsii.Number]] = None,
     ) -> None:
-        """
-        :param bar: 
-        :param foo: 
+        """(experimental)
+
+        :param bar: (experimental)
+        :param foo: (experimental)
 
         stability
         :stability: experimental
@@ -8755,7 +9311,8 @@ class UnionProperties:
 
     @builtins.property
     def bar(self) -> typing.Union[str, jsii.Number, "AllTypes"]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8763,7 +9320,8 @@ class UnionProperties:
 
     @builtins.property
     def foo(self) -> typing.Optional[typing.Union[str, jsii.Number]]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8785,14 +9343,15 @@ class UnionProperties:
 class UpcasingReflectable(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UpcasingReflectable"
 ):
-    """Ensures submodule-imported types from dependencies can be used correctly.
+    """Ensures submodule-imported types from dependencies can be used correctly. (experimental)
 
     stability
     :stability: experimental
     """
 
     def __init__(self, delegate: typing.Mapping[str, typing.Any]) -> None:
-        """
+        """(experimental)
+
         :param delegate: -
 
         stability
@@ -8803,7 +9362,8 @@ class UpcasingReflectable(
     @jsii.python.classproperty
     @jsii.member(jsii_name="reflector")
     def REFLECTOR(cls) -> scope.jsii_calc_lib.custom_submodule_name.Reflector:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8814,7 +9374,8 @@ class UpcasingReflectable(
     def entries(
         self,
     ) -> typing.List[scope.jsii_calc_lib.custom_submodule_name.ReflectableEntry]:
-        """
+        """(deprecated). (experimental)
+
         stability
         :stability: experimental
         """
@@ -8824,7 +9385,8 @@ class UpcasingReflectable(
 class UseBundledDependency(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UseBundledDependency"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -8838,7 +9400,8 @@ class UseBundledDependency(
 
     @jsii.member(jsii_name="value")
     def value(self) -> typing.Any:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8846,7 +9409,7 @@ class UseBundledDependency(
 
 
 class UseCalcBase(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UseCalcBase"):
-    """Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.
+    """Depend on a type from jsii-calc-base as a test for awslabs/jsii#128. (experimental)
 
     stability
     :stability: experimental
@@ -8861,7 +9424,8 @@ class UseCalcBase(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UseCalcBase"):
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> scope.jsii_calc_base.Base:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8871,13 +9435,15 @@ class UseCalcBase(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UseCalcBase"):
 class UsesInterfaceWithProperties(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.UsesInterfaceWithProperties"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, obj: "IInterfaceWithProperties") -> None:
-        """
+        """(experimental)
+
         :param obj: -
 
         stability
@@ -8887,7 +9453,8 @@ class UsesInterfaceWithProperties(
 
     @jsii.member(jsii_name="justRead")
     def just_read(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8895,7 +9462,8 @@ class UsesInterfaceWithProperties(
 
     @jsii.member(jsii_name="readStringAndNumber")
     def read_string_and_number(self, ext: "IInterfaceWithPropertiesExtension") -> str:
-        """
+        """(experimental)
+
         :param ext: -
 
         stability
@@ -8905,7 +9473,8 @@ class UsesInterfaceWithProperties(
 
     @jsii.member(jsii_name="writeAndRead")
     def write_and_read(self, value: str) -> str:
-        """
+        """(experimental)
+
         :param value: -
 
         stability
@@ -8916,7 +9485,8 @@ class UsesInterfaceWithProperties(
     @builtins.property
     @jsii.member(jsii_name="obj")
     def obj(self) -> "IInterfaceWithProperties":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -8924,13 +9494,15 @@ class UsesInterfaceWithProperties(
 
 
 class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvoker"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, method: "VariadicMethod") -> None:
-        """
+        """(experimental)
+
         :param method: -
 
         stability
@@ -8940,7 +9512,8 @@ class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvo
 
     @jsii.member(jsii_name="asArray")
     def as_array(self, *values: jsii.Number) -> typing.List[jsii.Number]:
-        """
+        """(experimental)
+
         :param values: -
 
         stability
@@ -8950,13 +9523,15 @@ class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvo
 
 
 class VariadicMethod(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicMethod"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, *prefix: jsii.Number) -> None:
-        """
+        """(experimental)
+
         :param prefix: a prefix that will be use for all values returned by ``#asArray``.
 
         stability
@@ -8968,7 +9543,8 @@ class VariadicMethod(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicMetho
     def as_array(
         self, first: jsii.Number, *others: jsii.Number
     ) -> typing.List[jsii.Number]:
-        """
+        """(experimental)
+
         :param first: the first element of the array to be returned (after the ``prefix`` provided at construction time).
         :param others: other elements to be included in the array.
 
@@ -8981,7 +9557,8 @@ class VariadicMethod(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicMetho
 class VirtualMethodPlayground(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VirtualMethodPlayground"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -8995,7 +9572,8 @@ class VirtualMethodPlayground(
 
     @jsii.member(jsii_name="overrideMeAsync")
     def override_me_async(self, index: jsii.Number) -> jsii.Number:
-        """
+        """(experimental)
+
         :param index: -
 
         stability
@@ -9005,7 +9583,8 @@ class VirtualMethodPlayground(
 
     @jsii.member(jsii_name="overrideMeSync")
     def override_me_sync(self, index: jsii.Number) -> jsii.Number:
-        """
+        """(experimental)
+
         :param index: -
 
         stability
@@ -9015,7 +9594,8 @@ class VirtualMethodPlayground(
 
     @jsii.member(jsii_name="parallelSumAsync")
     def parallel_sum_async(self, count: jsii.Number) -> jsii.Number:
-        """
+        """(experimental)
+
         :param count: -
 
         stability
@@ -9025,7 +9605,8 @@ class VirtualMethodPlayground(
 
     @jsii.member(jsii_name="serialSumAsync")
     def serial_sum_async(self, count: jsii.Number) -> jsii.Number:
-        """
+        """(experimental)
+
         :param count: -
 
         stability
@@ -9035,7 +9616,8 @@ class VirtualMethodPlayground(
 
     @jsii.member(jsii_name="sumSync")
     def sum_sync(self, count: jsii.Number) -> jsii.Number:
-        """
+        """(experimental)
+
         :param count: -
 
         stability
@@ -9047,7 +9629,7 @@ class VirtualMethodPlayground(
 class VoidCallback(
     metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.VoidCallback"
 ):
-    """This test is used to validate the runtimes can return correctly from a void callback.
+    """This test is used to validate the runtimes can return correctly from a void callback. (experimental)
 
     - Implement ``overrideMe`` (method does not have to do anything).
     - Invoke ``callMe``
@@ -9070,7 +9652,8 @@ class VoidCallback(
 
     @jsii.member(jsii_name="callMe")
     def call_me(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9079,7 +9662,8 @@ class VoidCallback(
     @jsii.member(jsii_name="overrideMe")
     @abc.abstractmethod
     def _override_me(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9088,7 +9672,8 @@ class VoidCallback(
     @builtins.property
     @jsii.member(jsii_name="methodWasCalled")
     def method_was_called(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9098,7 +9683,8 @@ class VoidCallback(
 class _VoidCallbackProxy(VoidCallback):
     @jsii.member(jsii_name="overrideMe")
     def _override_me(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9108,14 +9694,15 @@ class _VoidCallbackProxy(VoidCallback):
 class WithPrivatePropertyInConstructor(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.WithPrivatePropertyInConstructor"
 ):
-    """Verifies that private property declarations in constructor arguments are hidden.
+    """Verifies that private property declarations in constructor arguments are hidden. (experimental)
 
     stability
     :stability: experimental
     """
 
     def __init__(self, private_field: typing.Optional[str] = None) -> None:
-        """
+        """(experimental)
+
         :param private_field: -
 
         stability
@@ -9126,7 +9713,8 @@ class WithPrivatePropertyInConstructor(
     @builtins.property
     @jsii.member(jsii_name="success")
     def success(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9139,7 +9727,8 @@ class AbstractClass(
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.AbstractClass",
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9158,7 +9747,8 @@ class AbstractClass(
     @jsii.member(jsii_name="abstractMethod")
     @abc.abstractmethod
     def abstract_method(self, name: str) -> str:
-        """
+        """(experimental)
+
         :param name: -
 
         stability
@@ -9168,7 +9758,8 @@ class AbstractClass(
 
     @jsii.member(jsii_name="nonAbstractMethod")
     def non_abstract_method(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9177,7 +9768,8 @@ class AbstractClass(
     @builtins.property
     @jsii.member(jsii_name="propFromInterface")
     def prop_from_interface(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9187,7 +9779,8 @@ class AbstractClass(
 class _AbstractClassProxy(AbstractClass, jsii.proxy_for(AbstractClassBase)):
     @jsii.member(jsii_name="abstractMethod")
     def abstract_method(self, name: str) -> str:
-        """
+        """(experimental)
+
         :param name: -
 
         stability
@@ -9197,7 +9790,7 @@ class _AbstractClassProxy(AbstractClass, jsii.proxy_for(AbstractClassBase)):
 
 
 class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
-    """The "+" binary operation.
+    """The "+" binary operation. (experimental)
 
     stability
     :stability: experimental
@@ -9206,7 +9799,7 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
     def __init__(
         self, lhs: scope.jsii_calc_lib.Value, rhs: scope.jsii_calc_lib.Value
     ) -> None:
-        """Creates a BinaryOperation.
+        """Creates a BinaryOperation. (experimental)
 
         :param lhs: Left-hand side operand.
         :param rhs: Right-hand side operand.
@@ -9218,7 +9811,9 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> str:
-        """String representation of the value.
+        """String representation of the value. (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -9228,7 +9823,9 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value.
+        """The value. (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -9240,7 +9837,8 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
 class AnonymousImplementationProvider(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AnonymousImplementationProvider"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9254,7 +9852,8 @@ class AnonymousImplementationProvider(
 
     @jsii.member(jsii_name="provideAsClass")
     def provide_as_class(self) -> "Implementation":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9262,7 +9861,8 @@ class AnonymousImplementationProvider(
 
     @jsii.member(jsii_name="provideAsInterface")
     def provide_as_interface(self) -> "IAnonymouslyImplementMe":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9271,7 +9871,8 @@ class AnonymousImplementationProvider(
 
 @jsii.implements(IBell)
 class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9285,7 +9886,8 @@ class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
 
     @jsii.member(jsii_name="ring")
     def ring(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9294,7 +9896,8 @@ class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
     @builtins.property
     @jsii.member(jsii_name="rung")
     def rung(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9312,9 +9915,10 @@ class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
 )
 class ChildStruct982(ParentStruct982):
     def __init__(self, *, foo: str, bar: jsii.Number) -> None:
-        """
-        :param foo: 
-        :param bar: 
+        """(experimental)
+
+        :param foo: (experimental)
+        :param bar: (experimental)
 
         stability
         :stability: experimental
@@ -9326,7 +9930,8 @@ class ChildStruct982(ParentStruct982):
 
     @builtins.property
     def foo(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9334,7 +9939,8 @@ class ChildStruct982(ParentStruct982):
 
     @builtins.property
     def bar(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9357,7 +9963,8 @@ class ClassThatImplementsTheInternalInterface(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ClassThatImplementsTheInternalInterface",
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9372,7 +9979,8 @@ class ClassThatImplementsTheInternalInterface(
     @builtins.property
     @jsii.member(jsii_name="a")
     def a(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9385,7 +9993,8 @@ class ClassThatImplementsTheInternalInterface(
     @builtins.property
     @jsii.member(jsii_name="b")
     def b(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9398,7 +10007,8 @@ class ClassThatImplementsTheInternalInterface(
     @builtins.property
     @jsii.member(jsii_name="c")
     def c(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9411,7 +10021,8 @@ class ClassThatImplementsTheInternalInterface(
     @builtins.property
     @jsii.member(jsii_name="d")
     def d(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9427,7 +10038,8 @@ class ClassThatImplementsThePrivateInterface(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ClassThatImplementsThePrivateInterface",
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9442,7 +10054,8 @@ class ClassThatImplementsThePrivateInterface(
     @builtins.property
     @jsii.member(jsii_name="a")
     def a(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9455,7 +10068,8 @@ class ClassThatImplementsThePrivateInterface(
     @builtins.property
     @jsii.member(jsii_name="b")
     def b(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9468,7 +10082,8 @@ class ClassThatImplementsThePrivateInterface(
     @builtins.property
     @jsii.member(jsii_name="c")
     def c(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9481,7 +10096,8 @@ class ClassThatImplementsThePrivateInterface(
     @builtins.property
     @jsii.member(jsii_name="e")
     def e(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9497,7 +10113,7 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
 ):
-    """Class that implements interface properties automatically, but using a private constructor.
+    """Class that implements interface properties automatically, but using a private constructor. (experimental)
 
     stability
     :stability: experimental
@@ -9508,7 +10124,8 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
     def create(
         cls, read_only_string: str, read_write_string: str
     ) -> "ClassWithPrivateConstructorAndAutomaticProperties":
-        """
+        """(experimental)
+
         :param read_only_string: -
         :param read_write_string: -
 
@@ -9520,7 +10137,8 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
     @builtins.property
     @jsii.member(jsii_name="readOnlyString")
     def read_only_string(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9529,7 +10147,8 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
     @builtins.property
     @jsii.member(jsii_name="readWriteString")
     def read_write_string(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9544,7 +10163,8 @@ class ClassWithPrivateConstructorAndAutomaticProperties(
 class IFriendlyRandomGenerator(
     IRandomNumberGenerator, scope.jsii_calc_lib.IFriendly, jsii.compat.Protocol
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9560,7 +10180,8 @@ class _IFriendlyRandomGeneratorProxy(
     jsii.proxy_for(IRandomNumberGenerator),
     jsii.proxy_for(scope.jsii_calc_lib.IFriendly),
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9571,7 +10192,7 @@ class _IFriendlyRandomGeneratorProxy(
 
 @jsii.interface(jsii_type="jsii-calc.IInterfaceThatShouldNotBeADataType")
 class IInterfaceThatShouldNotBeADataType(IInterfaceWithMethods, jsii.compat.Protocol):
-    """Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.
+    """Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype. (experimental)
 
     stability
     :stability: experimental
@@ -9584,7 +10205,8 @@ class IInterfaceThatShouldNotBeADataType(IInterfaceWithMethods, jsii.compat.Prot
     @builtins.property
     @jsii.member(jsii_name="otherValue")
     def other_value(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9592,7 +10214,7 @@ class IInterfaceThatShouldNotBeADataType(IInterfaceWithMethods, jsii.compat.Prot
 
 
 class _IInterfaceThatShouldNotBeADataTypeProxy(jsii.proxy_for(IInterfaceWithMethods)):
-    """Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.
+    """Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype. (experimental)
 
     stability
     :stability: experimental
@@ -9603,7 +10225,8 @@ class _IInterfaceThatShouldNotBeADataTypeProxy(jsii.proxy_for(IInterfaceWithMeth
     @builtins.property
     @jsii.member(jsii_name="otherValue")
     def other_value(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9612,7 +10235,8 @@ class _IInterfaceThatShouldNotBeADataTypeProxy(jsii.proxy_for(IInterfaceWithMeth
 
 @jsii.interface(jsii_type="jsii-calc.IJSII417Derived")
 class IJSII417Derived(IJSII417PublicBaseOfBase, jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9624,7 +10248,8 @@ class IJSII417Derived(IJSII417PublicBaseOfBase, jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="property")
     def property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9632,7 +10257,8 @@ class IJSII417Derived(IJSII417PublicBaseOfBase, jsii.compat.Protocol):
 
     @jsii.member(jsii_name="bar")
     def bar(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9640,7 +10266,8 @@ class IJSII417Derived(IJSII417PublicBaseOfBase, jsii.compat.Protocol):
 
     @jsii.member(jsii_name="baz")
     def baz(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9648,7 +10275,8 @@ class IJSII417Derived(IJSII417PublicBaseOfBase, jsii.compat.Protocol):
 
 
 class _IJSII417DerivedProxy(jsii.proxy_for(IJSII417PublicBaseOfBase)):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9658,7 +10286,8 @@ class _IJSII417DerivedProxy(jsii.proxy_for(IJSII417PublicBaseOfBase)):
     @builtins.property
     @jsii.member(jsii_name="property")
     def property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9666,7 +10295,8 @@ class _IJSII417DerivedProxy(jsii.proxy_for(IJSII417PublicBaseOfBase)):
 
     @jsii.member(jsii_name="bar")
     def bar(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9674,7 +10304,8 @@ class _IJSII417DerivedProxy(jsii.proxy_for(IJSII417PublicBaseOfBase)):
 
     @jsii.member(jsii_name="baz")
     def baz(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9685,7 +10316,8 @@ class _IJSII417DerivedProxy(jsii.proxy_for(IJSII417PublicBaseOfBase)):
 class InbetweenClass(
     PublicClass, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InbetweenClass"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9699,7 +10331,8 @@ class InbetweenClass(
 
     @jsii.member(jsii_name="ciao")
     def ciao(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9711,13 +10344,15 @@ class JSII417Derived(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.JSII417Derived",
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self, property: str) -> None:
-        """
+        """(experimental)
+
         :param property: -
 
         stability
@@ -9727,7 +10362,8 @@ class JSII417Derived(
 
     @jsii.member(jsii_name="bar")
     def bar(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9735,7 +10371,8 @@ class JSII417Derived(
 
     @jsii.member(jsii_name="baz")
     def baz(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9744,7 +10381,8 @@ class JSII417Derived(
     @builtins.property
     @jsii.member(jsii_name="property")
     def _property(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9753,14 +10391,15 @@ class JSII417Derived(
 
 @jsii.implements(IFriendlier)
 class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negate"):
-    """The negation operation ("-value").
+    """The negation operation ("-value"). (experimental)
 
     stability
     :stability: experimental
     """
 
     def __init__(self, operand: scope.jsii_calc_lib.Value) -> None:
-        """
+        """(experimental)
+
         :param operand: -
 
         stability
@@ -9770,7 +10409,7 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
 
     @jsii.member(jsii_name="farewell")
     def farewell(self) -> str:
-        """Say farewell.
+        """Say farewell. (experimental)
 
         stability
         :stability: experimental
@@ -9779,7 +10418,7 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
 
     @jsii.member(jsii_name="goodbye")
     def goodbye(self) -> str:
-        """Say goodbye.
+        """Say goodbye. (experimental)
 
         stability
         :stability: experimental
@@ -9788,7 +10427,9 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> str:
-        """Say hello!
+        """Say hello! (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -9797,7 +10438,9 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> str:
-        """String representation of the value.
+        """String representation of the value. (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -9807,7 +10450,9 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value.
+        """The value. (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -9820,7 +10465,8 @@ class SupportsNiceJavaBuilder(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.SupportsNiceJavaBuilder",
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9832,7 +10478,8 @@ class SupportsNiceJavaBuilder(
         props: typing.Optional["SupportsNiceJavaBuilderProps"] = None,
         *rest: str,
     ) -> None:
-        """
+        """(experimental)
+
         :param id: some identifier.
         :param default_bar: the default value of ``bar``.
         :param props: some props once can provide.
@@ -9846,7 +10493,7 @@ class SupportsNiceJavaBuilder(
     @builtins.property
     @jsii.member(jsii_name="id")
     def id(self) -> jsii.Number:
-        """some identifier.
+        """some identifier. (experimental)
 
         stability
         :stability: experimental
@@ -9856,7 +10503,8 @@ class SupportsNiceJavaBuilder(
     @builtins.property
     @jsii.member(jsii_name="rest")
     def rest(self) -> typing.List[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -9865,7 +10513,8 @@ class SupportsNiceJavaBuilder(
 
 @jsii.implements(IFriendlyRandomGenerator)
 class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -9879,7 +10528,9 @@ class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> str:
-        """Say hello!
+        """Say hello! (experimental)
+
+        (deprecated)
 
         stability
         :stability: experimental
@@ -9888,7 +10539,7 @@ class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"
 
     @jsii.member(jsii_name="next")
     def next(self) -> jsii.Number:
-        """Returns another random number.
+        """Returns another random number. (experimental)
 
         stability
         :stability: experimental

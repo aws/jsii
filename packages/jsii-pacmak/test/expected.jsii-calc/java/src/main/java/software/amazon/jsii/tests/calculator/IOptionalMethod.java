@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Checks that optional result from interface method code generates correctly.
+ * Checks that optional result from interface method code generates correctly. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface IOptionalMethod extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -26,6 +28,8 @@ public interface IOptionalMethod extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

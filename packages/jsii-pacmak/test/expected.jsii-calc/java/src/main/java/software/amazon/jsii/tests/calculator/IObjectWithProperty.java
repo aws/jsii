@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Make sure that setters are properly called on objects with interfaces.
+ * Make sure that setters are properly called on objects with interfaces. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,17 +12,23 @@ package software.amazon.jsii.tests.calculator;
 public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     void setProperty(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -37,6 +43,8 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -46,6 +54,8 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -55,6 +65,8 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

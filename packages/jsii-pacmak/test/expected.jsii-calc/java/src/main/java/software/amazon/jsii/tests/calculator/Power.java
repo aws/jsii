@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * The power operation.
+ * The power operation. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,7 +19,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     }
 
     /**
-     * Creates a Power operation.
+     * Creates a Power operation. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -33,7 +33,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     }
 
     /**
-     * The base of the power.
+     * The base of the power. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -43,7 +43,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     }
 
     /**
-     * The expression that this operation consists of.
+     * The expression that this operation consists of. (experimental)
      * <p>
      * Must be implemented by derived classes.
      * <p>
@@ -56,7 +56,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     }
 
     /**
-     * The number of times to multiply.
+     * The number of times to multiply. (experimental)
      * <p>
      * EXPERIMENTAL
      */

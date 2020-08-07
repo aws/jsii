@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -24,6 +26,8 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param value This parameter is required.
@@ -35,7 +39,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Jsdocs for static method.
+     * Jsdocs for static method. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -47,6 +51,8 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -55,7 +61,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Constants may also use all-caps.
+     * Constants may also use all-caps. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -63,13 +69,15 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     public final static java.lang.Number BAR;
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public final static software.amazon.jsii.tests.calculator.DoubleTrouble CONST_OBJ;
 
     /**
-     * Jsdocs for static property.
+     * Jsdocs for static property. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -77,7 +85,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     public final static java.lang.String FOO;
 
     /**
-     * Constants can also use camelCase.
+     * Constants can also use camelCase. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -85,7 +93,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     public final static java.util.Map<java.lang.String, java.lang.String> ZOO_BAR;
 
     /**
-     * Jsdocs for static getter.
+     * Jsdocs for static getter. (experimental)
      * <p>
      * Jsdocs for static setter.
      * <p>
@@ -97,7 +105,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Jsdocs for static getter.
+     * Jsdocs for static getter. (experimental)
      * <p>
      * Jsdocs for static setter.
      * <p>
@@ -109,6 +117,8 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -117,6 +127,8 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -125,6 +137,8 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

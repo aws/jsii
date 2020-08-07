@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * Some number, like 42.
+     * Some number, like 42. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -18,7 +20,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
     @org.jetbrains.annotations.NotNull java.lang.Number getBar();
 
     /**
-     * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
+     * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental)
      * <p>
      * But here we are, doing it like we didn't care.
      * <p>
@@ -46,7 +48,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
 
         /**
          * Sets the value of {@link SupportsNiceJavaBuilderProps#getBar}
-         * @param bar Some number, like 42. This parameter is required.
+         * @param bar Some number, like 42. (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -57,7 +59,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
 
         /**
          * Sets the value of {@link SupportsNiceJavaBuilderProps#getId}
-         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
+         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental).
          *           But here we are, doing it like we didn't care.
          * @return {@code this}
          */

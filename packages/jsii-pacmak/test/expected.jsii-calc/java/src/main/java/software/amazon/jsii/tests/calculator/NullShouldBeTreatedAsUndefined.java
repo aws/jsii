@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * jsii#282, aws-cdk#157: null should be treated as "undefined".
+ * jsii#282, aws-cdk#157: null should be treated as "undefined". (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param _param1 This parameter is required.
@@ -31,6 +33,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param _param1 This parameter is required.
@@ -42,6 +46,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param value
@@ -52,6 +58,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -60,6 +68,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param input This parameter is required.
@@ -70,6 +80,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -78,6 +90,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -86,6 +100,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

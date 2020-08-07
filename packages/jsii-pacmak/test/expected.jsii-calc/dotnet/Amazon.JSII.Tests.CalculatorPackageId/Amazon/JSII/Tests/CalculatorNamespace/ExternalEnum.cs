@@ -5,6 +5,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
 
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// 
@@ -13,6 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiEnum(nativeType: typeof(ExternalEnum), fullyQualifiedName: "jsii-calc.ExternalEnum")]
     public enum ExternalEnum
     {
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// 
@@ -20,6 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// </remarks>
         [JsiiEnumMember(name: "OPTION_A")]
         OPTION_A,
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// 

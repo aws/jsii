@@ -15,7 +15,8 @@ from ...._jsii import *
     jsii_type="jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced"
 )
 class INamespaced(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -27,7 +28,8 @@ class INamespaced(jsii.compat.Protocol):
     @builtins.property
     @jsii.member(jsii_name="definedAt")
     def defined_at(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -35,7 +37,8 @@ class INamespaced(jsii.compat.Protocol):
 
 
 class _INamespacedProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -45,7 +48,8 @@ class _INamespacedProxy:
     @builtins.property
     @jsii.member(jsii_name="definedAt")
     def defined_at(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """

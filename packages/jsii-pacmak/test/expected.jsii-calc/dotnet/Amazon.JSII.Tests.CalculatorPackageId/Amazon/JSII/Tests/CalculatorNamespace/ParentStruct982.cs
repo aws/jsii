@@ -6,13 +6,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     #pragma warning disable CS8618
 
-    /// <summary>https://github.com/aws/jsii/issues/982.</summary>
+    /// <summary>https://github.com/aws/jsii/issues/982. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.ParentStruct982")]
     public class ParentStruct982 : Amazon.JSII.Tests.CalculatorNamespace.IParentStruct982
     {
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator.python_self;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator.python_self;
 public interface IInterfaceWithSelf extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param self This parameter is required.
@@ -26,6 +30,8 @@ public interface IInterfaceWithSelf extends software.amazon.jsii.JsiiSerializabl
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @param self This parameter is required.

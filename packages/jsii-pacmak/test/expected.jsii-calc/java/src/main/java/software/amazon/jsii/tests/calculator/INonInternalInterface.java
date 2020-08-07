@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,23 +12,31 @@ package software.amazon.jsii.tests.calculator;
 public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.IAnotherPublicInterface {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getB();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     void setB(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getC();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     void setC(final @org.jetbrains.annotations.NotNull java.lang.String value);
@@ -40,6 +50,8 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -49,6 +61,8 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -58,6 +72,8 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -67,6 +83,8 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -76,6 +94,8 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -85,6 +105,8 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override

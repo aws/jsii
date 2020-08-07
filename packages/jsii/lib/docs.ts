@@ -51,6 +51,9 @@ enum DocTag {
   STABILITY = 'stability',
 }
 
+/**
+ * Parse all doc comments that apply to a symbol into JSIIDocs format
+ */
 export function parseSymbolDocumentation(
   sym: ts.Symbol,
   typeChecker: ts.TypeChecker,
@@ -62,6 +65,68 @@ export function parseSymbolDocumentation(
 
   // Right here we'll just guess that the first declaration site is the most important one.
   return parseDocParts(comment, tags);
+}
+
+/**
+ * Render JSIIDocs back to a TSDoc block
+ */
+export function renderSymbolDocumentation(
+  docs: spec.Docs,
+  parameters?: Record<string, spec.Docs>,
+): string {
+  const lines: string[] = [];
+  if (docs.summary) {
+    lines.push(docs.summary);
+    lines.push('');
+  }
+  if (docs.remarks) {
+    lines.push(...docs.remarks.split('\n'));
+    lines.push('');
+  }
+
+  for (const [name, docs] of Object.entries(parameters ?? {})) {
+    tag('param', `${name} ${docs.summary ?? ''}`);
+  }
+  tag(DocTag.RETURNS, docs.returns);
+  tag(DocTag.DEFAULT, docs.default);
+  tag(DocTag.SEE, docs.see);
+  if (docs.subclassable) {
+    tag(DocTag.SUBCLASSABLE, '');
+  }
+
+  switch (docs.stability) {
+    case spec.Stability.Deprecated:
+      tag('deprecated', docs.deprecated ?? '');
+      break;
+    case spec.Stability.Experimental:
+      tag('experimental', '');
+      break;
+    case spec.Stability.External:
+      tag('external', '');
+      break;
+  }
+
+  if (docs.example) {
+    lines.push('@example');
+    lines.push('');
+    lines.push(...docs.example.split('\n'));
+  }
+
+  for (const [k, v] of Object.entries(docs.custom ?? {})) {
+    tag(k, v);
+  }
+
+  while (lines.length > 0 && lines[lines.length - 1] === '') {
+    lines.pop();
+  }
+
+  return lines.join('\n');
+
+  function tag(tagName: string, value: string | undefined) {
+    if (value !== undefined) {
+      lines.push(`@${tagName} ${value}`.trim());
+    }
+  }
 }
 
 /**
@@ -220,7 +285,7 @@ const SUMMARY_MAX_WORDS = 20;
  *
  * In principle we'll take the first paragraph, but if there are no paragraphs
  * (because people don't put in paragraph breaks) or the first paragraph is too
- * lang, we'll take the first sentence (terminated by a punctuation).
+ * long, we'll take the first sentence (terminated by a punctuation).
  */
 function summaryLine(str: string) {
   const paras = str.split('\n\n');

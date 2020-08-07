@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Even friendlier classes can implement this interface.
+ * Even friendlier classes can implement this interface. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.IFriendly {
 
     /**
-     * Say farewell.
+     * Say farewell. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -20,7 +20,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
     @org.jetbrains.annotations.NotNull java.lang.String farewell();
 
     /**
-     * Say goodbye.
+     * Say goodbye. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -38,7 +38,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         }
 
         /**
-         * Say farewell.
+         * Say farewell. (experimental)
          * <p>
          * EXPERIMENTAL
          */
@@ -49,7 +49,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         }
 
         /**
-         * Say goodbye.
+         * Say goodbye. (experimental)
          * <p>
          * EXPERIMENTAL
          * <p>
@@ -62,7 +62,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         }
 
         /**
-         * Say hello!
+         * Say hello! (deprecated)
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated

@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -31,7 +35,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
 
         /**
          * Sets the value of {@link ExperimentalStruct#getReadonlyProperty}
-         * @param readonlyProperty the value to be set. This parameter is required.
+         * @param readonlyProperty  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

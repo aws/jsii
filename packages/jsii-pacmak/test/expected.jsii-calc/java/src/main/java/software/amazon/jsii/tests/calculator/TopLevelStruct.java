@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * This is a required field.
+     * This is a required field. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -18,7 +20,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
     @org.jetbrains.annotations.NotNull java.lang.String getRequired();
 
     /**
-     * A union to really stress test our serialization.
+     * A union to really stress test our serialization. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -26,7 +28,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
     @org.jetbrains.annotations.NotNull java.lang.Object getSecondLevel();
 
     /**
-     * You don't have to pass this.
+     * You don't have to pass this. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -53,7 +55,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link TopLevelStruct#getRequired}
-         * @param required This is a required field. This parameter is required.
+         * @param required This is a required field. (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -64,7 +66,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link TopLevelStruct#getSecondLevel}
-         * @param secondLevel A union to really stress test our serialization. This parameter is required.
+         * @param secondLevel A union to really stress test our serialization. (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -75,7 +77,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link TopLevelStruct#getSecondLevel}
-         * @param secondLevel A union to really stress test our serialization. This parameter is required.
+         * @param secondLevel A union to really stress test our serialization. (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -86,7 +88,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link TopLevelStruct#getOptional}
-         * @param optional You don't have to pass this.
+         * @param optional You don't have to pass this. (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

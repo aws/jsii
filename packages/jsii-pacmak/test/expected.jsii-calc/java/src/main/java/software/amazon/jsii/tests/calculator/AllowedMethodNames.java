@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -26,6 +28,8 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param _p1 This parameter is required.
@@ -37,7 +41,7 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
+     * getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -49,6 +53,8 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param _x This parameter is required.
@@ -61,7 +67,7 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
+     * setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>

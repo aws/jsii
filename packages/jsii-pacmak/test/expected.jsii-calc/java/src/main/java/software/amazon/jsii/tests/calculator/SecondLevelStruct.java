@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * It's long and required.
+     * It's long and required. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -18,7 +20,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
     @org.jetbrains.annotations.NotNull java.lang.String getDeeperRequiredProp();
 
     /**
-     * It's long, but you'll almost never pass it.
+     * It's long, but you'll almost never pass it. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -44,7 +46,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
 
         /**
          * Sets the value of {@link SecondLevelStruct#getDeeperRequiredProp}
-         * @param deeperRequiredProp It's long and required. This parameter is required.
+         * @param deeperRequiredProp It's long and required. (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -55,7 +57,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
 
         /**
          * Sets the value of {@link SecondLevelStruct#getDeeperOptionalProp}
-         * @param deeperOptionalProp It's long, but you'll almost never pass it.
+         * @param deeperOptionalProp It's long, but you'll almost never pass it. (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

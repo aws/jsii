@@ -2515,10 +2515,10 @@ exports[`jsii-tree --all 1`] = `
  │         └── returns: void
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
- │   ├─┬ class Very
+ │   ├─┬ class Very (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ hey() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ hey() method (experimental)
  │   │     └── returns: number
  │   ├─┬ interface IVeryBaseInterface
  │   │ └─┬ members

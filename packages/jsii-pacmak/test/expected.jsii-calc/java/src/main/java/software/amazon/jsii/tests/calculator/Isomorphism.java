@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Checks the "same instance" isomorphism is preserved within the constructor.
+ * Checks the "same instance" isomorphism is preserved within the constructor. (experimental)
  * <p>
  * Create a subclass of this, and assert that <code>this.myself()</code> actually returns
  * <code>this</code> from within the constructor.
@@ -31,6 +31,8 @@ public abstract class Isomorphism extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

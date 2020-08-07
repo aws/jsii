@@ -5,25 +5,26 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
 
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiEnum(nativeType: typeof(Goodness), fullyQualifiedName: "jsii-calc.submodule.child.Goodness")]
     public enum Goodness
     {
-        /// <summary>It's pretty good.</summary>
+        /// <summary>It's pretty good. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiEnumMember(name: "PRETTY_GOOD")]
         PRETTY_GOOD,
-        /// <summary>It's really good.</summary>
+        /// <summary>It's really good. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiEnumMember(name: "REALLY_GOOD")]
         REALLY_GOOD,
-        /// <summary>It's amazingly good.</summary>
+        /// <summary>It's amazingly good. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.
+ * We can generate fancy builders in Java for classes which take a mix of positional & struct parameters. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param id some identifier of your choice. This parameter is required.
@@ -31,6 +33,8 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -39,7 +43,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     }
 
     /**
-     * some identifier of your choice.
+     * some identifier of your choice. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -49,6 +53,8 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -81,12 +87,12 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
         }
 
         /**
-         * Some number, like 42.
+         * Some number, like 42. (experimental)
          * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param bar Some number, like 42. This parameter is required.
+         * @param bar Some number, like 42. (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder bar(final java.lang.Number bar) {
@@ -95,14 +101,14 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
         }
 
         /**
-         * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
+         * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental)
          * <p>
          * But here we are, doing it like we didn't care.
          * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. This parameter is required.
+         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder id(final java.lang.String id) {

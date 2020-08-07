@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (deprecated)
+ * <p>
  * @deprecated useless interface
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -11,6 +13,8 @@ package software.amazon.jsii.tests.calculator;
 public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated could be better
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -20,6 +24,8 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
     }
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated could be better
      */
     @software.amazon.jsii.Optional
@@ -28,6 +34,8 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
     }
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated services no purpose
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -43,6 +51,8 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         }
 
         /**
+         *  (deprecated)
+         * <p>
          * @deprecated could be better
          */
         @Override
@@ -53,6 +63,8 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         }
 
         /**
+         *  (deprecated)
+         * <p>
          * @deprecated could be better
          */
         @Override
@@ -63,6 +75,8 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         }
 
         /**
+         *  (deprecated)
+         * <p>
          * @deprecated services no purpose
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

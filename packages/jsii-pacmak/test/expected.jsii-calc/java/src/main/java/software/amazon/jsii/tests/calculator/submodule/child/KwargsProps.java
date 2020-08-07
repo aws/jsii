@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator.submodule.child;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator.submodule.child;
 public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.submodule.child.SomeStruct {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -34,7 +38,7 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Sets the value of {@link KwargsProps#getExtra}
-         * @param extra the value to be set.
+         * @param extra  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -45,7 +49,7 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Sets the value of {@link KwargsProps#getProp}
-         * @param prop the value to be set. This parameter is required.
+         * @param prop  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

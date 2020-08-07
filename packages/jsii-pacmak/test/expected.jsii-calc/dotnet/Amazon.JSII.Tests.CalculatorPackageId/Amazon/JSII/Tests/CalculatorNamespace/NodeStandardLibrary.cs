@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Test fixture to verify that jsii modules can use the node standard library.</summary>
+    /// <summary>Test fixture to verify that jsii modules can use the node standard library. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -32,7 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Uses node.js "crypto" module to calculate sha256 of a string.</summary>
+        /// <summary>Uses node.js "crypto" module to calculate sha256 of a string. (experimental)</summary>
         /// <returns>"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"</returns>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
@@ -43,7 +43,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Reads a local resource file (resource.txt) asynchronously.</summary>
+        /// <summary>Reads a local resource file (resource.txt) asynchronously. (experimental)</summary>
         /// <returns>"Hello, resource!"</returns>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
@@ -54,7 +54,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Sync version of fsReadFile.</summary>
+        /// <summary>Sync version of fsReadFile. (experimental)</summary>
         /// <returns>"Hello, resource! SYNC!"</returns>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
@@ -65,7 +65,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Returns the current os.platform() from the "os" node module.</summary>
+        /// <summary>Returns the current os.platform() from the "os" node module. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

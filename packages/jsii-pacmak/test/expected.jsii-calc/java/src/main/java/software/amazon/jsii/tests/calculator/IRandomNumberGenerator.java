@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Generates random numbers.
+ * Generates random numbers. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * Returns another random number.
+     * Returns another random number. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -30,7 +30,7 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
         }
 
         /**
-         * Returns another random number.
+         * Returns another random number. (experimental)
          * <p>
          * EXPERIMENTAL
          * <p>

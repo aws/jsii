@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>1.</summary>
+    /// <summary>1. (experimental)</summary>
     /// <remarks>
     /// call #takeThis() -&gt; An ObjectRef will be provisioned for the value (it'll be re-used!)
     /// 2. call #takeThisToo() -&gt; The ObjectRef from before will need to be down-cased to the ParentStruct982 type
@@ -35,7 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>It's dangerous to go alone!</summary>
+        /// <summary>It's dangerous to go alone! (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -45,7 +45,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IChildStruct982>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Demonstrate982), new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>It's dangerous to go alone!</summary>
+        /// <summary>It's dangerous to go alone! (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

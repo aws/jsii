@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
+ * This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,12 +12,16 @@ package software.amazon.jsii.tests.calculator;
 public interface StructB extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getRequiredString();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -26,6 +30,8 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -51,7 +57,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructB#getRequiredString}
-         * @param requiredString the value to be set. This parameter is required.
+         * @param requiredString  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -62,7 +68,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructB#getOptionalBoolean}
-         * @param optionalBoolean the value to be set.
+         * @param optionalBoolean  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -73,7 +79,7 @@ public interface StructB extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructB#getOptionalStructA}
-         * @param optionalStructA the value to be set.
+         * @param optionalStructA  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

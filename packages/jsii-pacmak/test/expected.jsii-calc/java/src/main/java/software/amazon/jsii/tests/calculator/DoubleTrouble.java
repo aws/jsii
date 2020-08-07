@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -26,7 +28,9 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     }
 
     /**
-     * Say hello!
+     * Say hello! (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */
@@ -37,7 +41,7 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     }
 
     /**
-     * Returns another random number.
+     * Returns another random number. (experimental)
      * <p>
      * EXPERIMENTAL
      */

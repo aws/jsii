@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verifies that singleton enums are handled correctly.
+ * Verifies that singleton enums are handled correctly. (experimental)
  * <p>
  * https://github.com/aws/jsii/issues/231
  * <p>
@@ -21,6 +21,8 @@ public class SingletonInt extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param value This parameter is required.

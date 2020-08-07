@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (deprecated)
+ * <p>
  * @deprecated it just wraps a string
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -11,6 +13,8 @@ package software.amazon.jsii.tests.calculator;
 public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (deprecated)
+     * <p>
      * @deprecated well, yeah
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -35,7 +39,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
 
         /**
          * Sets the value of {@link DeprecatedStruct#getReadonlyProperty}
-         * @param readonlyProperty the value to be set. This parameter is required.
+         * @param readonlyProperty  (deprecated). This parameter is required.
          * @return {@code this}
          * @deprecated well, yeah
          */

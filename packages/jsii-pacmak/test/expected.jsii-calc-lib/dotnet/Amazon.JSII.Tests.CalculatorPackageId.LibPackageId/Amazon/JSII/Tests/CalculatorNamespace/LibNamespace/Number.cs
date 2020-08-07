@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Represents a concrete number.</summary>
+    /// <summary>Represents a concrete number. (deprecated)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public class Number : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable
     {
-        /// <summary>Creates a Number object.</summary>
+        /// <summary>Creates a Number object. (deprecated)</summary>
         /// <param name="value">The number.</param>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
@@ -38,7 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The number multiplied by 2.</summary>
+        /// <summary>The number multiplied by 2. (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -49,7 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>The number.</summary>
+        /// <summary>The number. (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * A singleton string.
+ * A singleton string. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -10,7 +10,7 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SingletonStringEnum")
 public enum SingletonStringEnum {
     /**
-     * 1337.
+     * 1337. (experimental)
      * <p>
      * EXPERIMENTAL
      */

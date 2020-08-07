@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -17,6 +19,8 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param id some identifier. This parameter is required.
@@ -31,7 +35,7 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
     }
 
     /**
-     * some identifier.
+     * some identifier. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -42,6 +46,8 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -89,12 +95,12 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * Some number, like 42.
+         * Some number, like 42. (experimental)
          * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param bar Some number, like 42. This parameter is required.
+         * @param bar Some number, like 42. (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder bar(final java.lang.Number bar) {
@@ -103,14 +109,14 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
+         * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental)
          * <p>
          * But here we are, doing it like we didn't care.
          * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. This parameter is required.
+         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder id(final java.lang.String id) {

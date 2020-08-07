@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Verifies that collections of interfaces or structs are correctly handled.</summary>
+    /// <summary>Verifies that collections of interfaces or structs are correctly handled. (experimental)</summary>
     /// <remarks>
     /// See: https://github.com/aws/jsii/issues/1196
     /// 
@@ -27,6 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -36,6 +37,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IBell[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.InterfaceCollections), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -45,6 +47,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IStructA[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.InterfaceCollections), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -54,6 +57,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.IBell>>(typeof(Amazon.JSII.Tests.CalculatorNamespace.InterfaceCollections), new System.Type[]{}, new object[]{});
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

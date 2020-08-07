@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator.interface_in_namespace_includes_classes;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator.interface_in_namespace_includes_cl
 public interface Hello extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -31,7 +35,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link Hello#getFoo}
-         * @param foo the value to be set. This parameter is required.
+         * @param foo  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

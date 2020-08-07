@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Old class.
+ * Old class. (deprecated)
  * <p>
  * @deprecated Use the new class
  */
@@ -29,7 +29,7 @@ public class Old extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Doo wop that thing.
+     * Doo wop that thing. (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated

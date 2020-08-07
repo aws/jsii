@@ -4,6 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -31,7 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.</summary>
+        /// <summary>Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -41,7 +42,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct)}, new object[]{derived});
         }
 
-        /// <summary>Returns the boolean from a DerivedStruct struct.</summary>
+        /// <summary>Returns the boolean from a DerivedStruct struct. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -51,7 +52,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct)}, new object[]{derived});
         }
 
-        /// <summary>Returns the "anumber" from a MyFirstStruct struct;</summary>
+        /// <summary>Returns the "anumber" from a MyFirstStruct struct; (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -61,6 +62,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct)}, new object[]{first});
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

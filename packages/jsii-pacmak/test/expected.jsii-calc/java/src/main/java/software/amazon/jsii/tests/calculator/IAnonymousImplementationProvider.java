@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * We can return an anonymous interface implementation from an override without losing the interface declarations.
+ * We can return an anonymous interface implementation from an override without losing the interface declarations. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,12 +12,16 @@ package software.amazon.jsii.tests.calculator;
 public interface IAnonymousImplementationProvider extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Implementation provideAsClass();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -32,6 +36,8 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -41,6 +47,8 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

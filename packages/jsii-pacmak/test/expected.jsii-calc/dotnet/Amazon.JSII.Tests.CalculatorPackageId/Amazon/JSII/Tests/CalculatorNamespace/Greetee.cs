@@ -4,14 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>These are some arguments you can pass to a method.</summary>
+    /// <summary>These are some arguments you can pass to a method. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.Greetee")]
     public class Greetee : Amazon.JSII.Tests.CalculatorNamespace.IGreetee
     {
-        /// <summary>The name of the greetee.</summary>
+        /// <summary>The name of the greetee. (experimental)</summary>
         /// <remarks>
         /// <strong>Default</strong>: world
         /// 

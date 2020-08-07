@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Properties for Calculator.
+ * Properties for Calculator. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * The initial value of the calculator.
+     * The initial value of the calculator. (experimental)
      * <p>
      * NOTE: Any number works here, it's fine.
      * <p>
@@ -26,7 +26,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
     }
 
     /**
-     * The maximum value the calculator can store.
+     * The maximum value the calculator can store. (experimental)
      * <p>
      * Default: none
      * <p>
@@ -54,7 +54,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link CalculatorProps#getInitialValue}
-         * @param initialValue The initial value of the calculator.
+         * @param initialValue The initial value of the calculator. (experimental).
          *                     NOTE: Any number works here, it's fine.
          * @return {@code this}
          */
@@ -66,7 +66,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link CalculatorProps#getMaximumValue}
-         * @param maximumValue The maximum value the calculator can store.
+         * @param maximumValue The maximum value the calculator can store. (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

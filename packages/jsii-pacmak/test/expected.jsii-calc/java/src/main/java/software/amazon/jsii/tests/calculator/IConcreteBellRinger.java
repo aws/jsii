@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Takes the object parameter as a calss.
+ * Takes the object parameter as a calss. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface IConcreteBellRinger extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param bell This parameter is required.
@@ -28,6 +30,8 @@ public interface IConcreteBellRinger extends software.amazon.jsii.JsiiSerializab
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @param bell This parameter is required.

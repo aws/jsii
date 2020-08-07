@@ -5,13 +5,14 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
 
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiEnum(nativeType: typeof(Awesomeness), fullyQualifiedName: "jsii-calc.submodule.child.Awesomeness")]
     public enum Awesomeness
     {
-        /// <summary>It was awesome!</summary>
+        /// <summary>It was awesome! (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct, software.amazon.jsii.tests.calculator.DiamondInheritanceSecondMidLevelStruct {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -34,7 +38,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
 
         /**
          * Sets the value of {@link DiamondInheritanceTopLevelStruct#getTopLevelProperty}
-         * @param topLevelProperty the value to be set. This parameter is required.
+         * @param topLevelProperty  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -45,7 +49,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
 
         /**
          * Sets the value of {@link DiamondInheritanceTopLevelStruct#getFirstMidLevelProperty}
-         * @param firstMidLevelProperty the value to be set. This parameter is required.
+         * @param firstMidLevelProperty  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -56,7 +60,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
 
         /**
          * Sets the value of {@link DiamondInheritanceTopLevelStruct#getBaseLevelProperty}
-         * @param baseLevelProperty the value to be set. This parameter is required.
+         * @param baseLevelProperty  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -67,7 +71,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
 
         /**
          * Sets the value of {@link DiamondInheritanceTopLevelStruct#getSecondMidLevelProperty}
-         * @param secondMidLevelProperty the value to be set. This parameter is required.
+         * @param secondMidLevelProperty  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

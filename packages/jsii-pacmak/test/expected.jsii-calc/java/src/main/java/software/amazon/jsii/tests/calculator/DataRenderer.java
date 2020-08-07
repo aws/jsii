@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verifies proper type handling through dynamic overrides.
+ * Verifies proper type handling through dynamic overrides. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -28,6 +28,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param data
@@ -38,6 +40,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -46,6 +50,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param data This parameter is required.
@@ -56,6 +62,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param map This parameter is required.

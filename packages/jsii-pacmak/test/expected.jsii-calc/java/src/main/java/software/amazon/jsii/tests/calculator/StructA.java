@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * We can serialize and deserialize structs without silently ignoring optional fields.
+ * We can serialize and deserialize structs without silently ignoring optional fields. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,12 +12,16 @@ package software.amazon.jsii.tests.calculator;
 public interface StructA extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getRequiredString();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -26,6 +30,8 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -51,7 +57,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructA#getRequiredString}
-         * @param requiredString the value to be set. This parameter is required.
+         * @param requiredString  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -62,7 +68,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructA#getOptionalNumber}
-         * @param optionalNumber the value to be set.
+         * @param optionalNumber  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -73,7 +79,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructA#getOptionalString}
-         * @param optionalString the value to be set.
+         * @param optionalString  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

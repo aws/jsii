@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Test fixture to verify that jsii modules can use the node standard library.
+ * Test fixture to verify that jsii modules can use the node standard library. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -28,7 +28,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Uses node.js "crypto" module to calculate sha256 of a string.
+     * Uses node.js "crypto" module to calculate sha256 of a string. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -40,7 +40,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Reads a local resource file (resource.txt) asynchronously.
+     * Reads a local resource file (resource.txt) asynchronously. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -52,7 +52,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Sync version of fsReadFile.
+     * Sync version of fsReadFile. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -64,7 +64,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns the current os.platform() from the "os" node module.
+     * Returns the current os.platform() from the "os" node module. (experimental)
      * <p>
      * EXPERIMENTAL
      */

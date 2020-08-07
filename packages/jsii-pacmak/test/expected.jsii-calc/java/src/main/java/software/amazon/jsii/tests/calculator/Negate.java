@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * The negation operation ("-value").
+ * The negation operation ("-value"). (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param operand This parameter is required.
@@ -30,7 +32,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * Say farewell.
+     * Say farewell. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -41,7 +43,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * Say goodbye.
+     * Say goodbye. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -52,7 +54,9 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * Say hello!
+     * Say hello! (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */
@@ -63,7 +67,9 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * String representation of the value.
+     * String representation of the value. (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */
@@ -74,7 +80,9 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * The value.
+     * The value. (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */

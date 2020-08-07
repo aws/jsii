@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * An operation on a single operand.
+ * An operation on a single operand. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param operand This parameter is required.
@@ -30,6 +32,8 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -46,7 +50,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * The value.
+         * The value. (deprecated)
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -56,7 +60,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * String representation of the value.
+         * String representation of the value. (deprecated)
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated

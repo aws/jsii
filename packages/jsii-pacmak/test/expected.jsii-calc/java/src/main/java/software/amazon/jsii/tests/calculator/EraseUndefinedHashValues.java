@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -26,7 +28,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns `true` if `key` is defined in `opts`.
+     * Returns `true` if `key` is defined in `opts`. (experimental)
      * <p>
      * Used to check that undefined/null hash values
      * are being erased when sending values from native code to JS.
@@ -42,7 +44,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * We expect "prop1" to be erased.
+     * We expect "prop1" to be erased. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -52,7 +54,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * We expect "prop2" to be erased.
+     * We expect "prop2" to be erased. (experimental)
      * <p>
      * EXPERIMENTAL
      */

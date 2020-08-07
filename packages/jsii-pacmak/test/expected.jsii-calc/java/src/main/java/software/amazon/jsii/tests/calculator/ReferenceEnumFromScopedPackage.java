@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * See awslabs/jsii#138.
+ * See awslabs/jsii#138. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -28,6 +28,8 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -36,6 +38,8 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param value This parameter is required.
@@ -46,6 +50,8 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -54,6 +60,8 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

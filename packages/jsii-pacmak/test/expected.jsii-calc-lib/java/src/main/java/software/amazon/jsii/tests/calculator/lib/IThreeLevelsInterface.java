@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Interface that inherits from packages 2 levels up the tree.
+ * Interface that inherits from packages 2 levels up the tree. (deprecated)
  * <p>
  * Their presence validates that .NET/Java/jsii-reflect can track all fields
  * far enough up the tree.
@@ -14,6 +14,7 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.base.IBaseInterface {
 
     /**
+     *  (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -28,6 +29,7 @@ public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializ
         }
 
         /**
+         *  (deprecated)
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated

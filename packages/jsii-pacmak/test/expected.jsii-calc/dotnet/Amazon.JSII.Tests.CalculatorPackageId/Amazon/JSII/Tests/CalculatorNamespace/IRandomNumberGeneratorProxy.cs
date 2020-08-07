@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Generates random numbers.</summary>
+    /// <summary>Generates random numbers. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Returns another random number.</summary>
+        /// <summary>Returns another random number. (experimental)</summary>
         /// <returns>A random number.</returns>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental

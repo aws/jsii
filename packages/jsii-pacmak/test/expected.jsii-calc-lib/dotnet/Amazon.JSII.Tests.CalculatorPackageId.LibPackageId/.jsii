@@ -119,7 +119,7 @@
       "docs": {
         "remarks": "See awslabs/jsii#138",
         "stability": "deprecated",
-        "summary": "Check that enums from \\@scoped packages can be references."
+        "summary": "Check that enums from \\@scoped packages can be references. (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
       "kind": "enum",
@@ -130,13 +130,15 @@
       "members": [
         {
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "name": "VALUE1"
         },
         {
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "name": "VALUE2"
         }
@@ -147,7 +149,7 @@
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
         "stability": "deprecated",
-        "summary": "The general contract for a concrete number."
+        "summary": "The general contract for a concrete number. (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.IDoublable",
       "kind": "interface",
@@ -160,7 +162,8 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -179,7 +182,7 @@
       "docs": {
         "remarks": "These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner.",
         "stability": "deprecated",
-        "summary": "Applies to classes that are considered friendly."
+        "summary": "Applies to classes that are considered friendly. (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.IFriendly",
       "kind": "interface",
@@ -192,7 +195,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": "Say hello!"
+            "summary": "Say hello! (deprecated)"
           },
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -213,7 +216,7 @@
       "docs": {
         "remarks": "Their presence validates that .NET/Java/jsii-reflect can track all fields\nfar enough up the tree.",
         "stability": "deprecated",
-        "summary": "Interface that inherits from packages 2 levels up the tree."
+        "summary": "Interface that inherits from packages 2 levels up the tree. (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.IThreeLevelsInterface",
       "interfaces": [
@@ -228,7 +231,8 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -244,7 +248,7 @@
       "datatype": true,
       "docs": {
         "stability": "deprecated",
-        "summary": "This is the first struct we have created in jsii."
+        "summary": "This is the first struct we have created in jsii. (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
       "kind": "interface",
@@ -258,7 +262,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": "An awesome number value."
+            "summary": "An awesome number value. (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -274,7 +278,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": "A string value."
+            "summary": "A string value. (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -289,7 +293,8 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -314,13 +319,13 @@
       "base": "@scope/jsii-calc-lib.Value",
       "docs": {
         "stability": "deprecated",
-        "summary": "Represents a concrete number."
+        "summary": "Represents a concrete number. (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.Number",
       "initializer": {
         "docs": {
           "stability": "deprecated",
-          "summary": "Creates a Number object."
+          "summary": "Creates a Number object. (deprecated)"
         },
         "locationInModule": {
           "filename": "lib/index.ts",
@@ -351,7 +356,7 @@
         {
           "docs": {
             "stability": "deprecated",
-            "summary": "The number multiplied by 2."
+            "summary": "The number multiplied by 2. (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -367,7 +372,7 @@
         {
           "docs": {
             "stability": "deprecated",
-            "summary": "The number."
+            "summary": "The number. (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -388,7 +393,7 @@
       "base": "@scope/jsii-calc-lib.Value",
       "docs": {
         "stability": "deprecated",
-        "summary": "Represents an operation on values."
+        "summary": "Represents an operation on values. (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.Operation",
       "initializer": {},
@@ -402,7 +407,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": "String representation of the value."
+            "summary": "String representation of the value. (deprecated)"
           },
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -424,7 +429,7 @@
       "datatype": true,
       "docs": {
         "stability": "deprecated",
-        "summary": "This is a struct with only optional properties."
+        "summary": "This is a struct with only optional properties. (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
       "kind": "interface",
@@ -438,7 +443,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": "The first optional!"
+            "summary": "The first optional! (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -454,7 +459,8 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -470,7 +476,8 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -491,7 +498,7 @@
       "base": "@scope/jsii-calc-base.Base",
       "docs": {
         "stability": "deprecated",
-        "summary": "Abstract class which represents a numeric value."
+        "summary": "Abstract class which represents a numeric value. (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.Value",
       "initializer": {},
@@ -504,7 +511,7 @@
         {
           "docs": {
             "stability": "deprecated",
-            "summary": "String representation of the value."
+            "summary": "String representation of the value. (deprecated)"
           },
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -524,7 +531,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": "The value."
+            "summary": "The value. (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -541,7 +548,8 @@
     "@scope/jsii-calc-lib.submodule.IReflectable": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
-        "stability": "deprecated"
+        "stability": "deprecated",
+        "summary": " (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.submodule.IReflectable",
       "kind": "interface",
@@ -555,7 +563,8 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -578,7 +587,8 @@
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
       "docs": {
-        "stability": "deprecated"
+        "stability": "deprecated",
+        "summary": " (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.submodule.ReflectableEntry",
       "kind": "interface",
@@ -592,7 +602,8 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -607,7 +618,8 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -624,12 +636,14 @@
     "@scope/jsii-calc-lib.submodule.Reflector": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
-        "stability": "deprecated"
+        "stability": "deprecated",
+        "summary": " (deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.submodule.Reflector",
       "initializer": {
         "docs": {
-          "stability": "deprecated"
+          "stability": "deprecated",
+          "summary": " (deprecated)"
         },
         "locationInModule": {
           "filename": "lib/submodule/index.ts",
@@ -644,7 +658,8 @@
       "methods": [
         {
           "docs": {
-            "stability": "deprecated"
+            "stability": "deprecated",
+            "summary": " (deprecated)"
           },
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
@@ -676,5 +691,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "fVfpIK7xUajlT1zkHIJ8uYJPvy0gLgEe5BM8afu1mVg="
+  "fingerprint": "73meOWJbSpXDIF0CKBZyyBU+2b/KSNnXgamQQ6LnE4E="
 }

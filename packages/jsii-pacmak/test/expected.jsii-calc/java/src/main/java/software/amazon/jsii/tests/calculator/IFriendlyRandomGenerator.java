@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -18,7 +20,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         * Returns another random number.
+         * Returns another random number. (experimental)
          * <p>
          * EXPERIMENTAL
          * <p>
@@ -31,7 +33,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         * Say hello!
+         * Say hello! (deprecated)
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated

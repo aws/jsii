@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated
 {
-    /// <summary>Ensures imports are correctly registered for kwargs lifted properties from super-structs.</summary>
+    /// <summary>Ensures imports are correctly registered for kwargs lifted properties from super-structs. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -25,6 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

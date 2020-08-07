@@ -5,6 +5,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
 
+    /// <summary> (deprecated)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -12,12 +13,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [System.Obsolete("your deprecated selection of bad options")]
     public enum DeprecatedEnum
     {
+        /// <summary> (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [JsiiEnumMember(name: "OPTION_A")]
         [System.Obsolete("option A is not great")]
         OPTION_A,
+        /// <summary> (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

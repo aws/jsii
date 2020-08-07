@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
+ * Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted. (experimental)
  * <p>
  * See: https://github.com/aws/aws-cdk/issues/4302
  * <p>
@@ -14,12 +14,16 @@ package software.amazon.jsii.tests.calculator;
 public interface StructParameterType extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getScope();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -44,7 +48,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
 
         /**
          * Sets the value of {@link StructParameterType#getScope}
-         * @param scope the value to be set. This parameter is required.
+         * @param scope  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -55,7 +59,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
 
         /**
          * Sets the value of {@link StructParameterType#getProps}
-         * @param props the value to be set.
+         * @param props  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

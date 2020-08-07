@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Checks the "same instance" isomorphism is preserved within the constructor.</summary>
+    /// <summary>Checks the "same instance" isomorphism is preserved within the constructor. (experimental)</summary>
     /// <remarks>
     /// Create a subclass of this, and assert that <c>this.myself()</c> actually returns
     /// <c>this</c> from within the constructor.
@@ -35,6 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

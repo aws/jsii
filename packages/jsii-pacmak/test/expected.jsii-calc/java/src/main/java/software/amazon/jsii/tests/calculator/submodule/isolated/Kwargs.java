@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.submodule.isolated;
 
 /**
- * Ensures imports are correctly registered for kwargs lifted properties from super-structs.
+ * Ensures imports are correctly registered for kwargs lifted properties from super-structs. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public class Kwargs extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param props
@@ -29,6 +31,8 @@ public class Kwargs extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

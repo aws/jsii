@@ -4,13 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(ITopLevelStruct), fullyQualifiedName: "jsii-calc.TopLevelStruct")]
     public interface ITopLevelStruct
     {
-        /// <summary>This is a required field.</summary>
+        /// <summary>This is a required field. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -20,7 +21,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
-        /// <summary>A union to really stress test our serialization.</summary>
+        /// <summary>A union to really stress test our serialization. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -30,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
-        /// <summary>You don't have to pass this.</summary>
+        /// <summary>You don't have to pass this. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

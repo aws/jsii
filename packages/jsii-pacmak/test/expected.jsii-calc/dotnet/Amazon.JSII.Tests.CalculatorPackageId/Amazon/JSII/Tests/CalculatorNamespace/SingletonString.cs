@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Verifies that singleton enums are handled correctly.</summary>
+    /// <summary>Verifies that singleton enums are handled correctly. (experimental)</summary>
     /// <remarks>
     /// https://github.com/aws/jsii/issues/231
     /// 
@@ -27,6 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

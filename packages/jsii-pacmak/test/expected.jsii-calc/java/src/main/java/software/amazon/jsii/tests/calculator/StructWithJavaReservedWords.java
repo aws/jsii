@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,12 +12,16 @@ package software.amazon.jsii.tests.calculator;
 public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getDefaultValue();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -24,6 +30,8 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -32,6 +40,8 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -58,7 +68,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getDefaultValue}
-         * @param defaultValue the value to be set. This parameter is required.
+         * @param defaultValue  (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -69,7 +79,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getAssertValue}
-         * @param assertValue the value to be set.
+         * @param assertValue  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -80,7 +90,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getResult}
-         * @param result the value to be set.
+         * @param result  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -91,7 +101,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getThat}
-         * @param that the value to be set.
+         * @param that  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

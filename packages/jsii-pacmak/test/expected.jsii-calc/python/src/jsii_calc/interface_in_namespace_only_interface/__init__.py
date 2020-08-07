@@ -18,8 +18,9 @@ from .._jsii import *
 )
 class Hello:
     def __init__(self, *, foo: jsii.Number) -> None:
-        """
-        :param foo: 
+        """(experimental)
+
+        :param foo: (experimental)
 
         stability
         :stability: experimental
@@ -30,7 +31,8 @@ class Hello:
 
     @builtins.property
     def foo(self) -> jsii.Number:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """

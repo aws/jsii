@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is a struct with only optional properties.</summary>
+    /// <summary>This is a struct with only optional properties. (deprecated)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public interface IStructWithOnlyOptionals
     {
-        /// <summary>The first optional!</summary>
+        /// <summary>The first optional! (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -27,6 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             }
         }
 
+        /// <summary> (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -41,6 +42,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             }
         }
 
+        /// <summary> (deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

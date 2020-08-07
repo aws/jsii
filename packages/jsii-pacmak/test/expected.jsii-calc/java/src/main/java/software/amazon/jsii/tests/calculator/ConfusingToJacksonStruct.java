@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,6 +12,8 @@ package software.amazon.jsii.tests.calculator;
 public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -33,7 +37,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
 
         /**
          * Sets the value of {@link ConfusingToJacksonStruct#getUnionProperty}
-         * @param unionProperty the value to be set.
+         * @param unionProperty  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -44,7 +48,7 @@ public interface ConfusingToJacksonStruct extends software.amazon.jsii.JsiiSeria
 
         /**
          * Sets the value of {@link ConfusingToJacksonStruct#getUnionProperty}
-         * @param unionProperty the value to be set.
+         * @param unionProperty  (experimental).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

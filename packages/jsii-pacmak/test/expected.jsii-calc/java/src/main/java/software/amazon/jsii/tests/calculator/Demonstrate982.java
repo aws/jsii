@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * 1.
+ * 1. (experimental)
  * <p>
  * call #takeThis() -&gt; An ObjectRef will be provisioned for the value (it'll be re-used!)
  * 2. call #takeThisToo() -&gt; The ObjectRef from before will need to be down-cased to the ParentStruct982 type
@@ -31,7 +31,7 @@ public class Demonstrate982 extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * It's dangerous to go alone!
+     * It's dangerous to go alone! (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -41,7 +41,7 @@ public class Demonstrate982 extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * It's dangerous to go alone!
+     * It's dangerous to go alone! (experimental)
      * <p>
      * EXPERIMENTAL
      */

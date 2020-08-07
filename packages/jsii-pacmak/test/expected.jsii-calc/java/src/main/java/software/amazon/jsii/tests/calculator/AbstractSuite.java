@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Ensures abstract members implementations correctly register overrides in various languages.
+ * Ensures abstract members implementations correctly register overrides in various languages. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -28,6 +28,8 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param str This parameter is required.
@@ -36,7 +38,7 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
     protected abstract @org.jetbrains.annotations.NotNull java.lang.String someMethod(final @org.jetbrains.annotations.NotNull java.lang.String str);
 
     /**
-     * Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result.
+     * Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -48,12 +50,16 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected abstract @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -68,6 +74,8 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -77,6 +85,8 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -86,6 +96,8 @@ public abstract class AbstractSuite extends software.amazon.jsii.JsiiObject {
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @param str This parameter is required.

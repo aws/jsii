@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * We can return arrays of interfaces See aws/aws-cdk#2362.
+ * We can return arrays of interfaces See aws/aws-cdk#2362. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public class InterfacesMaker extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param count This parameter is required.

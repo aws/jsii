@@ -4,14 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>The "+" binary operation.</summary>
+    /// <summary>The "+" binary operation. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Add), fullyQualifiedName: "jsii-calc.Add", parametersJson: "[{\"docs\":{\"summary\":\"Left-hand side operand.\"},\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"Right-hand side operand.\"},\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Add : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation
     {
-        /// <summary>Creates a BinaryOperation.</summary>
+        /// <summary>Creates a BinaryOperation. (experimental)</summary>
         /// <param name="lhs">Left-hand side operand.</param>
         /// <param name="rhs">Right-hand side operand.</param>
         /// <remarks>
@@ -35,8 +35,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>String representation of the value. (experimental)</summary>
         /// <remarks>
+        /// (deprecated)
+        /// 
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
@@ -45,8 +47,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>The value. (experimental)</summary>
         /// <remarks>
+        /// (deprecated)
+        /// 
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]

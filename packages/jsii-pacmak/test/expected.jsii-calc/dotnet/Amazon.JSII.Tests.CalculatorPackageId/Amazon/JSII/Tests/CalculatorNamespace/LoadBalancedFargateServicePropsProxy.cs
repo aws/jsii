@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>jsii#298: show default values in sphinx documentation, and respect newlines.</summary>
+    /// <summary>jsii#298: show default values in sphinx documentation, and respect newlines. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The container port of the application load balancer attached to your Fargate service.</summary>
+        /// <summary>The container port of the application load balancer attached to your Fargate service. (experimental)</summary>
         /// <remarks>
         /// Corresponds to container port mapping.
         /// 
@@ -30,7 +30,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double?>();
         }
 
-        /// <summary>The number of cpu units used by the task.</summary>
+        /// <summary>The number of cpu units used by the task. (experimental)</summary>
         /// <remarks>
         /// Valid values, which determines your range of valid values for the memory parameter:
         /// 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
@@ -52,7 +52,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string?>();
         }
 
-        /// <summary>The amount (in MiB) of memory used by the task.</summary>
+        /// <summary>The amount (in MiB) of memory used by the task. (experimental)</summary>
         /// <remarks>
         /// This field is required and you must use one of the following values, which determines your range of valid values
         /// for the cpu parameter:
@@ -80,7 +80,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string?>();
         }
 
-        /// <summary>Determines whether the Application Load Balancer will be internet-facing.</summary>
+        /// <summary>Determines whether the Application Load Balancer will be internet-facing. (experimental)</summary>
         /// <remarks>
         /// <strong>Default</strong>: true
         /// 
@@ -93,7 +93,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<bool?>();
         }
 
-        /// <summary>Determines whether your Fargate Service will be assigned a public IP address.</summary>
+        /// <summary>Determines whether your Fargate Service will be assigned a public IP address. (experimental)</summary>
         /// <remarks>
         /// <strong>Default</strong>: false
         /// 

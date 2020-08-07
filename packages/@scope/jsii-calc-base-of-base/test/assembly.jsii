@@ -61,18 +61,26 @@
     },
     "@scope/jsii-calc-base-of-base.Very": {
       "assembly": "@scope/jsii-calc-base-of-base",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Something here. (experimental)"
+      },
       "fqn": "@scope/jsii-calc-base-of-base.Very",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 9
+        "line": 13
       },
       "methods": [
         {
+          "docs": {
+            "stability": "experimental",
+            "summary": " (experimental)"
+          },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 10
+            "line": 14
           },
           "name": "hey",
           "returns": {
@@ -111,5 +119,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "v3mwSbKGQ2aa8g0DEKIeaEXh3csX7PX2MJJxHVRufhI="
+  "fingerprint": "Sx05yAAjeIZr51FYSW2kUq9UHe2MZ9drNSgMOdp0XhM="
 }

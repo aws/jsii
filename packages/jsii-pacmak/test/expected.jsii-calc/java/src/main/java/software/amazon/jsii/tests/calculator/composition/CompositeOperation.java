@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.composition;
 
 /**
- * Abstract operation composed from an expression of other operations.
+ * Abstract operation composed from an expression of other operations. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -24,7 +24,9 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * String representation of the value.
+     * String representation of the value. (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */
@@ -35,7 +37,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * The expression that this operation consists of.
+     * The expression that this operation consists of. (experimental)
      * <p>
      * Must be implemented by derived classes.
      * <p>
@@ -45,7 +47,9 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     public abstract @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getExpression();
 
     /**
-     * The value.
+     * The value. (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */
@@ -56,7 +60,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * A set of postfixes to include in a decorated .toString().
+     * A set of postfixes to include in a decorated .toString(). (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -66,7 +70,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * A set of postfixes to include in a decorated .toString().
+     * A set of postfixes to include in a decorated .toString(). (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -76,7 +80,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * A set of prefixes to include in a decorated .toString().
+     * A set of prefixes to include in a decorated .toString(). (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -86,7 +90,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * A set of prefixes to include in a decorated .toString().
+     * A set of prefixes to include in a decorated .toString(). (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -96,7 +100,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * The .toString() style.
+     * The .toString() style. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -106,7 +110,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * The .toString() style.
+     * The .toString() style. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -115,7 +119,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         this.jsiiSet("stringStyle", java.util.Objects.requireNonNull(value, "stringStyle is required"));
     }
     /**
-     * Style of .toString() output for CompositeOperation.
+     * Style of .toString() output for CompositeOperation. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -123,14 +127,14 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.composition.CompositeOperation.CompositionStringStyle")
     public enum CompositionStringStyle {
         /**
-         * Normal string expression.
+         * Normal string expression. (experimental)
          * <p>
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         NORMAL,
         /**
-         * Decorated string expression.
+         * Decorated string expression. (experimental)
          * <p>
          * EXPERIMENTAL
          */
@@ -147,7 +151,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         }
 
         /**
-         * The expression that this operation consists of.
+         * The expression that this operation consists of. (experimental)
          * <p>
          * Must be implemented by derived classes.
          * <p>
@@ -160,7 +164,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         }
 
         /**
-         * The value.
+         * The value. (deprecated)
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -170,7 +174,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         }
 
         /**
-         * String representation of the value.
+         * String representation of the value. (deprecated)
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated

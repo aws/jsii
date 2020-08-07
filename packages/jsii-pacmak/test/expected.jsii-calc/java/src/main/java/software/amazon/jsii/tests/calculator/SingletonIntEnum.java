@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * A singleton integer.
+ * A singleton integer. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -10,7 +10,7 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SingletonIntEnum")
 public enum SingletonIntEnum {
     /**
-     * Elite!
+     * Elite! (experimental)
      * <p>
      * EXPERIMENTAL
      */

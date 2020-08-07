@@ -4,12 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
 {
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.MyClass), fullyQualifiedName: "jsii-calc.submodule.MyClass", parametersJson: "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.submodule.child.SomeStruct\"}}]")]
     public class MyClass : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.DeeplyNested.INamespaced
     {
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -31,6 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
         {
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -40,6 +43,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Awesomeness>();
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -49,6 +53,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
             get => GetInstanceProperty<string>();
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -58,6 +63,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Goodness>();
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -67,6 +73,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct>();
         }
 
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

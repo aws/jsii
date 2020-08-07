@@ -6,13 +6,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     #pragma warning disable CS8618
 
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.NestedStruct")]
     public class NestedStruct : Amazon.JSII.Tests.CalculatorNamespace.INestedStruct
     {
-        /// <summary>When provided, must be &gt; 0.</summary>
+        /// <summary>When provided, must be &gt; 0. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

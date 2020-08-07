@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator.submodule;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -17,6 +19,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param props This parameter is required.
@@ -28,6 +32,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -36,6 +42,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @Override
@@ -45,6 +53,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -53,6 +63,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -61,6 +73,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -69,6 +83,8 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -98,10 +114,12 @@ public class MyClass extends software.amazon.jsii.JsiiObject implements software
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param prop This parameter is required.
+         * @param prop  (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder prop(final software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop) {

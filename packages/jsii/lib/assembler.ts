@@ -8,7 +8,11 @@ import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
-import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
+import {
+  getReferencedDocParams,
+  parseSymbolDocumentation,
+  renderSymbolDocumentation,
+} from './docs';
 import { Diagnostic, EmitResult, Emitter } from './emitter';
 import * as literate from './literate';
 import { ProjectInfo } from './project-info';
@@ -17,6 +21,8 @@ import { JSII_DIAGNOSTICS_CODE } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
+import { TsCommentReplacer } from './ts-comment-replacer';
+import { Docs, Parameter } from '@jsii/spec';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
@@ -27,6 +33,8 @@ const LOG = log4js.getLogger('jsii/assembler');
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
  */
 export class Assembler implements Emitter {
+  public readonly commentReplacer = new TsCommentReplacer();
+
   private readonly mainFile: string;
 
   private _diagnostics = new Array<Diagnostic>();
@@ -781,6 +789,7 @@ export class Assembler implements Emitter {
     if (ts.isClassDeclaration(node) && _isExported(node)) {
       // export class Name { ... }
       this._validateHeritageClauses(node.heritageClauses);
+
       jsiiType = await this._visitClass(
         this._typeChecker.getTypeAtLocation(node),
         context,
@@ -1320,6 +1329,11 @@ export class Assembler implements Emitter {
           constructor,
           memberEmitContext,
         );
+        this.regenerateDocString(
+          constructor,
+          jsiiType.initializer.docs,
+          paramDocs(jsiiType.initializer.parameters),
+        );
       }
 
       // Process constructor-based property declarations even if constructor is private
@@ -1361,6 +1375,8 @@ export class Assembler implements Emitter {
     }
 
     this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);
+
+    this.regenerateDocString(type.getSymbol(), jsiiType?.docs);
 
     return _sortMembers(jsiiType);
   }
@@ -1557,14 +1573,17 @@ export class Assembler implements Emitter {
         symbol.name
       }`,
       kind: spec.TypeKind.Enum,
-      members: members.map((m) => ({
-        name: m.symbol.name,
-        docs: this._visitDocumentation(m.symbol, typeContext),
-      })),
+      members: members.map((m) => {
+        const docs = this._visitDocumentation(m.symbol, typeContext);
+        this.regenerateDocString(m.symbol, docs);
+        return { name: m.symbol.name, docs };
+      }),
       name: symbol.name,
       namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
       docs,
     };
+
+    this.regenerateDocString(type.getSymbol(), jsiiType?.docs);
 
     return Promise.resolve(jsiiType);
   }
@@ -1585,6 +1604,14 @@ export class Assembler implements Emitter {
     // Apply the current context's stability if none was specified locally.
     if (result.docs.stability == null) {
       result.docs.stability = context.stability;
+    }
+
+    // Modify the summary if this API element has a special stability
+    if (result.docs.stability === spec.Stability.Experimental) {
+      result.docs.summary = `${result.docs.summary ?? ''} (experimental)`;
+    }
+    if (result.docs.stability === spec.Stability.Deprecated) {
+      result.docs.summary = `${result.docs.summary ?? ''} (deprecated)`;
     }
 
     const allUndefined = Object.values(result.docs).every(
@@ -1799,6 +1826,8 @@ export class Assembler implements Emitter {
       checkNoIntersection,
     );
 
+    this.regenerateDocString(type.getSymbol(), jsiiType?.docs);
+
     return _sortMembers(jsiiType);
   }
 
@@ -1913,6 +1942,7 @@ export class Assembler implements Emitter {
       return;
     }
     type.methods.push(method);
+    this.regenerateDocString(symbol, method.docs, paramDocs(method.parameters));
   }
 
   private _warnAboutReservedWords(symbol: ts.Symbol) {
@@ -2023,6 +2053,7 @@ export class Assembler implements Emitter {
       return;
     }
     type.properties.push(property);
+    this.regenerateDocString(symbol, property.docs);
   }
 
   private async _toParameter(
@@ -2057,6 +2088,9 @@ export class Assembler implements Emitter {
       paramSymbol,
       ctx.removeStability(),
     ); // No inheritance on purpose
+
+    // Don't rewrite docstring here on purpose -- instead, we add them as '@param'
+    // into the parent's docstring.
 
     return parameter;
   }
@@ -2338,6 +2372,39 @@ export class Assembler implements Emitter {
         );
         delete current.optional;
       }
+    }
+  }
+
+  /**
+   * From the given JSIIDocs, re-render the TSDoc comment for the Node
+   *
+   * For most normal cases, this yields the same output back as the one that
+   * we originally saw (modulo whitespace), but if the JSIIDocs got changed upon
+   * parsing we'll render the JSIIDocs back into the .js/.d.ts output.
+   */
+  private regenerateDocString(
+    symbol?: ts.Symbol,
+    docs?: Docs,
+    parameters?: Record<string, Docs>,
+  ) {
+    if (!docs || !symbol) {
+      return;
+    }
+
+    // Some symbols have multiple declarations (for example, a class + interface
+    // mixins, or a property declartaion + constructor argument).
+    //
+    // We DON'T wwant to put the docstring on the constructor argument, because it
+    // looks silly there.
+    for (const decl of symbol.getDeclarations() ?? []) {
+      if (ts.isParameter(decl)) {
+        continue;
+      }
+
+      this.commentReplacer.overrideNodeDocString(
+        decl,
+        renderSymbolDocumentation(docs, parameters),
+      );
     }
   }
 }
@@ -2805,4 +2872,14 @@ async function findPackageInfo(fromDir: string): Promise<any> {
     return undefined;
   }
   return findPackageInfo(parent);
+}
+
+function paramDocs(params?: Parameter[]): Record<string, Docs> {
+  const ret: Record<string, Docs> = {};
+  for (const param of params ?? []) {
+    if (param.docs) {
+      ret[param.name] = param.docs;
+    }
+  }
+  return ret;
 }

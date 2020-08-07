@@ -31,11 +31,22 @@ class _IVeryBaseInterfaceProxy:
 
 
 class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Very"):
+    """Something here. (experimental)
+
+    stability
+    :stability: experimental
+    """
+
     def __init__(self) -> None:
         jsii.create(Very, self, [])
 
     @jsii.member(jsii_name="hey")
     def hey(self) -> jsii.Number:
+        """(experimental)
+
+        stability
+        :stability: experimental
+        """
         return jsii.invoke(self, "hey", [])
 
 

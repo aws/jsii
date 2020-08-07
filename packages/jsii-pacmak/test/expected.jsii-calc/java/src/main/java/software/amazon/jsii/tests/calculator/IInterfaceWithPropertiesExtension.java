@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -10,12 +12,16 @@ package software.amazon.jsii.tests.calculator;
 public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.IInterfaceWithProperties {
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.Number getFoo();
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     void setFoo(final @org.jetbrains.annotations.NotNull java.lang.Number value);
@@ -29,6 +35,8 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -38,6 +46,8 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -47,6 +57,8 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -56,6 +68,8 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override
@@ -65,6 +79,8 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          */
         @Override

@@ -4,13 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>An operation that sums multiple values.</summary>
+    /// <summary>An operation that sums multiple values. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Sum), fullyQualifiedName: "jsii-calc.Sum")]
     public class Sum : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
     {
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -32,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The expression that this operation consists of.</summary>
+        /// <summary>The expression that this operation consists of. (experimental)</summary>
         /// <remarks>
         /// Must be implemented by derived classes.
         /// 
@@ -44,7 +45,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
-        /// <summary>The parts to sum.</summary>
+        /// <summary>The parts to sum. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

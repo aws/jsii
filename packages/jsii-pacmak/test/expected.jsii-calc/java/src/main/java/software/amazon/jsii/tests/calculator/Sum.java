@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * An operation that sums multiple values.
+ * An operation that sums multiple values. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,6 +19,8 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -28,7 +30,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     }
 
     /**
-     * The expression that this operation consists of.
+     * The expression that this operation consists of. (experimental)
      * <p>
      * Must be implemented by derived classes.
      * <p>
@@ -41,7 +43,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     }
 
     /**
-     * The parts to sum.
+     * The parts to sum. (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -51,7 +53,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     }
 
     /**
-     * The parts to sum.
+     * The parts to sum. (experimental)
      * <p>
      * EXPERIMENTAL
      */

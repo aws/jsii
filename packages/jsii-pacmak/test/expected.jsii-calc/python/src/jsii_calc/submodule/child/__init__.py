@@ -13,13 +13,14 @@ from ..._jsii import *
 
 @jsii.enum(jsii_type="jsii-calc.submodule.child.Awesomeness")
 class Awesomeness(enum.Enum):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     AWESOME = "AWESOME"
-    """It was awesome!
+    """It was awesome! (experimental)
 
     stability
     :stability: experimental
@@ -28,25 +29,26 @@ class Awesomeness(enum.Enum):
 
 @jsii.enum(jsii_type="jsii-calc.submodule.child.Goodness")
 class Goodness(enum.Enum):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     PRETTY_GOOD = "PRETTY_GOOD"
-    """It's pretty good.
+    """It's pretty good. (experimental)
 
     stability
     :stability: experimental
     """
     REALLY_GOOD = "REALLY_GOOD"
-    """It's really good.
+    """It's really good. (experimental)
 
     stability
     :stability: experimental
     """
     AMAZINGLY_GOOD = "AMAZINGLY_GOOD"
-    """It's amazingly good.
+    """It's amazingly good. (experimental)
 
     stability
     :stability: experimental
@@ -56,7 +58,8 @@ class Goodness(enum.Enum):
 class InnerClass(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.child.InnerClass"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -71,7 +74,8 @@ class InnerClass(
     @jsii.python.classproperty
     @jsii.member(jsii_name="staticProp")
     def STATIC_PROP(cls) -> "SomeStruct":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -81,7 +85,7 @@ class InnerClass(
 class OuterClass(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.child.OuterClass"
 ):
-    """Checks that classes can self-reference during initialization.
+    """Checks that classes can self-reference during initialization. (experimental)
 
     see
     :see: : https://github.com/aws/jsii/pull/1706
@@ -90,7 +94,8 @@ class OuterClass(
     """
 
     def __init__(self) -> None:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -99,7 +104,8 @@ class OuterClass(
     @builtins.property
     @jsii.member(jsii_name="innerClass")
     def inner_class(self) -> "InnerClass":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -108,13 +114,15 @@ class OuterClass(
 
 @jsii.enum(jsii_type="jsii-calc.submodule.child.SomeEnum")
 class SomeEnum(enum.Enum):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     SOME = "SOME"
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -127,8 +135,9 @@ class SomeEnum(enum.Enum):
 )
 class SomeStruct:
     def __init__(self, *, prop: "SomeEnum") -> None:
-        """
-        :param prop: 
+        """(experimental)
+
+        :param prop: (experimental)
 
         stability
         :stability: experimental
@@ -139,7 +148,8 @@ class SomeStruct:
 
     @builtins.property
     def prop(self) -> "SomeEnum":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -164,8 +174,9 @@ class SomeStruct:
 )
 class Structure:
     def __init__(self, *, bool: bool) -> None:
-        """
-        :param bool: 
+        """(experimental)
+
+        :param bool: (experimental)
 
         stability
         :stability: experimental
@@ -176,7 +187,8 @@ class Structure:
 
     @builtins.property
     def bool(self) -> bool:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -201,9 +213,10 @@ class Structure:
 )
 class KwargsProps(SomeStruct):
     def __init__(self, *, prop: "SomeEnum", extra: typing.Optional[str] = None) -> None:
-        """
-        :param prop: 
-        :param extra: 
+        """(experimental)
+
+        :param prop: (experimental)
+        :param extra: (experimental)
 
         stability
         :stability: experimental
@@ -216,7 +229,8 @@ class KwargsProps(SomeStruct):
 
     @builtins.property
     def prop(self) -> "SomeEnum":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -224,7 +238,8 @@ class KwargsProps(SomeStruct):
 
     @builtins.property
     def extra(self) -> typing.Optional[str]:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """

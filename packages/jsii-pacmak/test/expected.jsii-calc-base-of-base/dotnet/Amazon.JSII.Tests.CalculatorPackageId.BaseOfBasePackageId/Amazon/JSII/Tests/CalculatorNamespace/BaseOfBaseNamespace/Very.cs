@@ -4,6 +4,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
 {
+    /// <summary>Something here. (experimental)</summary>
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very), fullyQualifiedName: "@scope/jsii-calc-base-of-base.Very")]
     public class Very : DeputyBase
     {
@@ -25,6 +29,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
         {
         }
 
+        /// <summary> (experimental)</summary>
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         [JsiiMethod(name: "hey", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double Hey()
         {

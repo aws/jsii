@@ -14,13 +14,15 @@ from .._jsii import *
 class ClassWithSelf(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.ClassWithSelf"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self_, self: str) -> None:
-        """
+        """(experimental)
+
         :param self: -
 
         stability
@@ -30,7 +32,8 @@ class ClassWithSelf(
 
     @jsii.member(jsii_name="method")
     def method(self_, self: jsii.Number) -> str:
-        """
+        """(experimental)
+
         :param self: -
 
         stability
@@ -41,7 +44,8 @@ class ClassWithSelf(
     @builtins.property
     @jsii.member(jsii_name="self")
     def self(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -51,14 +55,16 @@ class ClassWithSelf(
 class ClassWithSelfKwarg(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonSelf.ClassWithSelfKwarg"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
 
     def __init__(self_, *, self: str) -> None:
-        """
-        :param self: 
+        """(experimental)
+
+        :param self: (experimental)
 
         stability
         :stability: experimental
@@ -70,7 +76,8 @@ class ClassWithSelfKwarg(
     @builtins.property
     @jsii.member(jsii_name="props")
     def props(self) -> "StructWithSelf":
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -79,7 +86,8 @@ class ClassWithSelfKwarg(
 
 @jsii.interface(jsii_type="jsii-calc.PythonSelf.IInterfaceWithSelf")
 class IInterfaceWithSelf(jsii.compat.Protocol):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -90,7 +98,8 @@ class IInterfaceWithSelf(jsii.compat.Protocol):
 
     @jsii.member(jsii_name="method")
     def method(self_, self: jsii.Number) -> str:
-        """
+        """(experimental)
+
         :param self: -
 
         stability
@@ -100,7 +109,8 @@ class IInterfaceWithSelf(jsii.compat.Protocol):
 
 
 class _IInterfaceWithSelfProxy:
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -109,7 +119,8 @@ class _IInterfaceWithSelfProxy:
 
     @jsii.member(jsii_name="method")
     def method(self_, self: jsii.Number) -> str:
-        """
+        """(experimental)
+
         :param self: -
 
         stability
@@ -125,8 +136,9 @@ class _IInterfaceWithSelfProxy:
 )
 class StructWithSelf:
     def __init__(self_, *, self: str) -> None:
-        """
-        :param self: 
+        """(experimental)
+
+        :param self: (experimental)
 
         stability
         :stability: experimental
@@ -137,7 +149,8 @@ class StructWithSelf:
 
     @builtins.property
     def self(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """

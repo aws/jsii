@@ -14,7 +14,8 @@ from .._jsii import *
 class Base(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Base"
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """
@@ -29,7 +30,8 @@ class Base(
     @builtins.property
     @jsii.member(jsii_name="prop")
     def prop(self) -> str:
-        """
+        """(experimental)
+
         stability
         :stability: experimental
         """
@@ -45,7 +47,8 @@ class Derived(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.DerivedClassHasNoProperties.Derived",
 ):
-    """
+    """(experimental)
+
     stability
     :stability: experimental
     """

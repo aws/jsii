@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Checks the current file permissions are cool (no funky UMASK down-scoping happened).
+ * Checks the current file permissions are cool (no funky UMASK down-scoping happened). (experimental)
  * <p>
  * EXPERIMENTAL
  * <p>
@@ -21,7 +21,7 @@ public class UmaskCheck extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * This should return 0o644 (-rw-r--r--).
+     * This should return 0o644 (-rw-r--r--). (experimental)
      * <p>
      * EXPERIMENTAL
      */

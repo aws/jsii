@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Applies to classes that are considered friendly.
+ * Applies to classes that are considered friendly. (deprecated)
  * <p>
  * These classes can be greeted with
  * a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
@@ -14,7 +14,7 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * Say hello!
+     * Say hello! (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -29,7 +29,7 @@ public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Say hello!
+         * Say hello! (deprecated)
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated

@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * The "+" binary operation.
+ * The "+" binary operation. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,7 +19,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     }
 
     /**
-     * Creates a BinaryOperation.
+     * Creates a BinaryOperation. (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -33,7 +33,9 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     }
 
     /**
-     * String representation of the value.
+     * String representation of the value. (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */
@@ -44,7 +46,9 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     }
 
     /**
-     * The value.
+     * The value. (experimental)
+     * <p>
+     * (deprecated)
      * <p>
      * EXPERIMENTAL
      */

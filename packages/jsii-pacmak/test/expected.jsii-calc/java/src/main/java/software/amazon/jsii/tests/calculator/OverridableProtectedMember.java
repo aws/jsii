@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  * <p>
  * @see https://github.com/aws/jsii/issues/903
@@ -28,6 +30,8 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -36,6 +40,8 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -44,6 +50,8 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -52,6 +60,8 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -60,6 +70,8 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -68,6 +80,8 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

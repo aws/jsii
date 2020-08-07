@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.
+ * Depend on a type from jsii-calc-base as a test for awslabs/jsii#128. (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -28,6 +28,8 @@ public class UseCalcBase extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

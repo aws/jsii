@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * The general contract for a concrete number.
+ * The general contract for a concrete number. (deprecated)
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.IDoublable")
@@ -11,6 +11,7 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     *  (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -25,6 +26,7 @@ public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
+         *  (deprecated)
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

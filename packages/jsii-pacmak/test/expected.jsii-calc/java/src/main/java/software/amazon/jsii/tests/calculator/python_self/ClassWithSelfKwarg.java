@@ -1,6 +1,8 @@
 package software.amazon.jsii.tests.calculator.python_self;
 
 /**
+ *  (experimental)
+ * <p>
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
@@ -17,6 +19,8 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      * <p>
      * @param props This parameter is required.
@@ -28,6 +32,8 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     *  (experimental)
+     * <p>
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -57,10 +63,12 @@ public class ClassWithSelfKwarg extends software.amazon.jsii.JsiiObject {
         }
 
         /**
+         *  (experimental)
+         * <p>
          * EXPERIMENTAL
          * <p>
          * @return {@code this}
-         * @param self This parameter is required.
+         * @param self  (experimental). This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder self(final java.lang.String self) {

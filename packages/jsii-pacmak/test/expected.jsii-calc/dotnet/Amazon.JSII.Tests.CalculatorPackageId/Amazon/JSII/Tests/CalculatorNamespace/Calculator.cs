@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
+    /// <summary>A calculator which maintains a current value and allows adding operations. (experimental)</summary>
     /// <remarks>
     /// Here's how you use it:
     /// 
@@ -30,7 +30,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"docs\":{\"summary\":\"Initialization properties.\"},\"name\":\"props\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
     public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
     {
-        /// <summary>Creates a Calculator object.</summary>
+        /// <summary>Creates a Calculator object. (experimental)</summary>
         /// <param name="props">Initialization properties.</param>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
@@ -53,7 +53,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Adds a number to the current value.</summary>
+        /// <summary>Adds a number to the current value. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -63,7 +63,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
         }
 
-        /// <summary>Multiplies the current value by a number.</summary>
+        /// <summary>Multiplies the current value by a number. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -73,7 +73,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
         }
 
-        /// <summary>Negates the current value.</summary>
+        /// <summary>Negates the current value. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -83,7 +83,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Raises the current value by a power.</summary>
+        /// <summary>Raises the current value by a power. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -93,7 +93,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
         }
 
-        /// <summary>Returns teh value of the union property (if defined).</summary>
+        /// <summary>Returns teh value of the union property (if defined). (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -103,7 +103,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Returns the expression.</summary>
+        /// <summary>Returns the expression. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -113,7 +113,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
-        /// <summary>A log of all operations.</summary>
+        /// <summary>A log of all operations. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -123,7 +123,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[]>();
         }
 
-        /// <summary>A map of per operation name of all operations performed.</summary>
+        /// <summary>A map of per operation name of all operations performed. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -133,7 +133,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[]>>();
         }
 
-        /// <summary>The current value.</summary>
+        /// <summary>The current value. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -144,7 +144,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>The maximum value allows in this calculator.</summary>
+        /// <summary>The maximum value allows in this calculator. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -156,7 +156,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>Example of a property that accepts a union of types.</summary>
+        /// <summary>Example of a property that accepts a union of types. (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

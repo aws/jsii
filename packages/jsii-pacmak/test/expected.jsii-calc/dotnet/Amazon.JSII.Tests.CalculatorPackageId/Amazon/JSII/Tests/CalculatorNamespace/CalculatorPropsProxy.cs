@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Properties for Calculator.</summary>
+    /// <summary>Properties for Calculator. (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The initial value of the calculator.</summary>
+        /// <summary>The initial value of the calculator. (experimental)</summary>
         /// <remarks>
         /// NOTE: Any number works here, it's fine.
         /// 
@@ -30,7 +30,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double?>();
         }
 
-        /// <summary>The maximum value the calculator can store.</summary>
+        /// <summary>The maximum value the calculator can store. (experimental)</summary>
         /// <remarks>
         /// <strong>Default</strong>: none
         /// 

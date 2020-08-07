@@ -6,12 +6,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.BackReferences
 {
     #pragma warning disable CS8618
 
+    /// <summary> (experimental)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.submodule.back_references.MyClassReference")]
     public class MyClassReference : Amazon.JSII.Tests.CalculatorNamespace.Submodule.BackReferences.IMyClassReference
     {
+        /// <summary> (experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
