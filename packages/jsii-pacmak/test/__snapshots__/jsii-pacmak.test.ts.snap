@@ -2241,6 +2241,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
  ┃     ┃           ┣━ 📄 IReflectable.cs
  ┃     ┃           ┣━ 📄 IReflectableEntry.cs
  ┃     ┃           ┣━ 📄 IReflectableProxy.cs
+ ┃     ┃           ┣━ 📄 NestingClass.cs
  ┃     ┃           ┣━ 📄 ReflectableEntry.cs
  ┃     ┃           ┣━ 📄 ReflectableEntryProxy.cs
  ┃     ┃           ┗━ 📄 Reflector.cs
@@ -2259,6 +2260,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
  ┃        ┃              ┗━ 📁 calculator
  ┃        ┃                 ┣━ 📁 custom_submodule_name
  ┃        ┃                 ┃  ┣━ 📄 IReflectable.java
+ ┃        ┃                 ┃  ┣━ 📄 NestingClass.java
  ┃        ┃                 ┃  ┣━ 📄 ReflectableEntry.java
  ┃        ┃                 ┃  ┗━ 📄 Reflector.java
  ┃        ┃                 ┗━ 📁 lib
@@ -2879,6 +2881,57 @@ Object {
         }
       ]
     },
+    \\"@scope/jsii-calc-lib.submodule.NestingClass\\": {
+      \\"assembly\\": \\"@scope/jsii-calc-lib\\",
+      \\"docs\\": {
+        \\"stability\\": \\"deprecated\\",
+        \\"summary\\": \\"This class is here to show we can use nested classes across module boundaries.\\"
+      },
+      \\"fqn\\": \\"@scope/jsii-calc-lib.submodule.NestingClass\\",
+      \\"kind\\": \\"class\\",
+      \\"locationInModule\\": {
+        \\"filename\\": \\"lib/submodule/index.ts\\",
+        \\"line\\": 22
+      },
+      \\"name\\": \\"NestingClass\\",
+      \\"namespace\\": \\"submodule\\"
+    },
+    \\"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass\\": {
+      \\"assembly\\": \\"@scope/jsii-calc-lib\\",
+      \\"docs\\": {
+        \\"stability\\": \\"deprecated\\",
+        \\"summary\\": \\"This class is here to show we can use nested classes across module boundaries.\\"
+      },
+      \\"fqn\\": \\"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass\\",
+      \\"initializer\\": {
+        \\"docs\\": {
+          \\"stability\\": \\"deprecated\\"
+        }
+      },
+      \\"kind\\": \\"class\\",
+      \\"locationInModule\\": {
+        \\"filename\\": \\"lib/submodule/index.ts\\",
+        \\"line\\": 30
+      },
+      \\"name\\": \\"NestedClass\\",
+      \\"namespace\\": \\"submodule.NestingClass\\",
+      \\"properties\\": [
+        {
+          \\"docs\\": {
+            \\"stability\\": \\"deprecated\\"
+          },
+          \\"immutable\\": true,
+          \\"locationInModule\\": {
+            \\"filename\\": \\"lib/submodule/index.ts\\",
+            \\"line\\": 31
+          },
+          \\"name\\": \\"property\\",
+          \\"type\\": {
+            \\"primitive\\": \\"string\\"
+          }
+        }
+      ]
+    },
     \\"@scope/jsii-calc-lib.submodule.ReflectableEntry\\": {
       \\"assembly\\": \\"@scope/jsii-calc-lib\\",
       \\"datatype\\": true,
@@ -2935,10 +2988,6 @@ Object {
       \\"initializer\\": {
         \\"docs\\": {
           \\"stability\\": \\"deprecated\\"
-        },
-        \\"locationInModule\\": {
-          \\"filename\\": \\"lib/submodule/index.ts\\",
-          \\"line\\": 11
         }
       },
       \\"kind\\": \\"class\\",
@@ -2953,7 +3002,7 @@ Object {
           },
           \\"locationInModule\\": {
             \\"filename\\": \\"lib/submodule/index.ts\\",
-            \\"line\\": 13
+            \\"line\\": 11
           },
           \\"name\\": \\"asMap\\",
           \\"parameters\\": [
@@ -2981,7 +3030,7 @@ Object {
     }
   },
   \\"version\\": \\"0.0.0\\",
-  \\"fingerprint\\": \\"fVfpIK7xUajlT1zkHIJ8uYJPvy0gLgEe5BM8afu1mVg=\\"
+  \\"fingerprint\\": \\"f/4VuNiOkSgTgLR80loQUAzAuzFi+25rmfLcRWKDCrY=\\"
 }
 ",
 }
@@ -4020,6 +4069,83 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
 }
 `;
 
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CustomSubmoduleName/NestingClass.cs 1`] = `
+Object {
+  Symbol(file): "using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CustomSubmoduleName
+{
+    /// <summary>This class is here to show we can use nested classes across module boundaries.</summary>
+    /// <remarks>
+    /// <strong>Stability</strong>: Deprecated
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CustomSubmoduleName.NestingClass), fullyQualifiedName: \\"@scope/jsii-calc-lib.submodule.NestingClass\\")]
+    [System.Obsolete()]
+    public class NestingClass : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name=\\"reference\\">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected NestingClass(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name=\\"props\\">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected NestingClass(DeputyProps props): base(props)
+        {
+        }
+        /// <summary>This class is here to show we can use nested classes across module boundaries.</summary>
+        /// <remarks>
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CustomSubmoduleName.NestingClass.NestedClass), fullyQualifiedName: \\"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass\\")]
+        [System.Obsolete()]
+        public class NestedClass : DeputyBase
+        {
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [System.Obsolete()]
+            public NestedClass(): base(new DeputyProps(new object[]{}))
+            {
+            }
+
+            /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+            /// <param name=\\"reference\\">The Javascript-owned object reference</param>
+            [System.Obsolete()]
+            [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+            protected NestedClass(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+            /// <param name=\\"props\\">The deputy props</param>
+            [System.Obsolete()]
+            [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+            protected NestedClass(DeputyProps props): base(props)
+            {
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiProperty(name: \\"property\\", typeJson: \\"{\\\\\\"primitive\\\\\\":\\\\\\"string\\\\\\"}\\")]
+            [System.Obsolete()]
+            public virtual string Property
+            {
+                get => GetInstanceProperty<string>();
+            }
+        }
+    }
+}
+",
+}
+`;
+
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/Amazon/JSII/Tests/CustomSubmoduleName/ReflectableEntry.cs 1`] = `
 Object {
   Symbol(file): "using Amazon.JSII.Runtime.Deputy;
@@ -4366,6 +4492,64 @@ public interface IReflectable extends software.amazon.jsii.JsiiSerializable {
         @Deprecated
         public @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.custom_submodule_name.ReflectableEntry> getEntries() {
             return java.util.Collections.unmodifiableList(this.jsiiGet(\\"entries\\", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.custom_submodule_name.ReflectableEntry.class))));
+        }
+    }
+}
+",
+}
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/custom_submodule_name/NestingClass.java 1`] = `
+Object {
+  Symbol(file): "package software.amazon.jsii.tests.calculator.custom_submodule_name;
+
+/**
+ * This class is here to show we can use nested classes across module boundaries.
+ */
+@javax.annotation.Generated(value = \\"jsii-pacmak\\")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = \\"@scope/jsii-calc-lib.submodule.NestingClass\\")
+public class NestingClass extends software.amazon.jsii.JsiiObject {
+
+    protected NestingClass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected NestingClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+    /**
+     * This class is here to show we can use nested classes across module boundaries.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = \\"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass\\")
+    public static class NestedClass extends software.amazon.jsii.JsiiObject {
+
+        protected NestedClass(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        protected NestedClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+            super(initializationMode);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public NestedClass() {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        }
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
+            return this.jsiiGet(\\"property\\", java.lang.String.class);
         }
     }
 }
@@ -5438,6 +5622,8 @@ Object {
 @scope/jsii-calc-lib.StructWithOnlyOptionals=software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals
 @scope/jsii-calc-lib.Value=software.amazon.jsii.tests.calculator.lib.Value
 @scope/jsii-calc-lib.submodule.IReflectable=software.amazon.jsii.tests.calculator.custom_submodule_name.IReflectable
+@scope/jsii-calc-lib.submodule.NestingClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass
+@scope/jsii-calc-lib.submodule.NestingClass.NestedClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass$NestedClass
 @scope/jsii-calc-lib.submodule.ReflectableEntry=software.amazon.jsii.tests.calculator.custom_submodule_name.ReflectableEntry
 @scope/jsii-calc-lib.submodule.Reflector=software.amazon.jsii.tests.calculator.custom_submodule_name.Reflector
 ",
@@ -6080,6 +6266,42 @@ class _IReflectableProxy:
         return jsii.get(self, \\"entries\\")
 
 
+class NestingClass(
+    metaclass=jsii.JSIIMeta, jsii_type=\\"@scope/jsii-calc-lib.submodule.NestingClass\\"
+):
+    \\"\\"\\"This class is here to show we can use nested classes across module boundaries.
+
+    stability
+    :stability: deprecated
+    \\"\\"\\"
+
+    class NestedClass(
+        metaclass=jsii.JSIIMeta,
+        jsii_type=\\"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass\\",
+    ):
+        \\"\\"\\"This class is here to show we can use nested classes across module boundaries.
+
+        stability
+        :stability: deprecated
+        \\"\\"\\"
+
+        def __init__(self) -> None:
+            \\"\\"\\"
+            stability
+            :stability: deprecated
+            \\"\\"\\"
+            jsii.create(NestingClass.NestedClass, self, [])
+
+        @builtins.property
+        @jsii.member(jsii_name=\\"property\\")
+        def property(self) -> str:
+            \\"\\"\\"
+            stability
+            :stability: deprecated
+            \\"\\"\\"
+            return jsii.get(self, \\"property\\")
+
+
 @jsii.data_type(
     jsii_type=\\"@scope/jsii-calc-lib.submodule.ReflectableEntry\\",
     jsii_struct_bases=[],
@@ -6155,6 +6377,7 @@ class Reflector(
 
 __all__ = [
     \\"IReflectable\\",
+    \\"NestingClass\\",
     \\"ReflectableEntry\\",
     \\"Reflector\\",
 ]
@@ -6410,6 +6633,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
  ┃     ┃           ┣━ 📄 Multiply.cs
  ┃     ┃           ┣━ 📄 NamespaceDoc.cs
  ┃     ┃           ┣━ 📄 Negate.cs
+ ┃     ┃           ┣━ 📄 NestedClassInstance.cs
  ┃     ┃           ┣━ 📄 NestedStruct.cs
  ┃     ┃           ┣━ 📄 NestedStructProxy.cs
  ┃     ┃           ┣━ 📄 NodeStandardLibrary.cs
@@ -6678,6 +6902,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
  ┃        ┃                 ┣━ 📄 MethodNamedProperty.java
  ┃        ┃                 ┣━ 📄 Multiply.java
  ┃        ┃                 ┣━ 📄 Negate.java
+ ┃        ┃                 ┣━ 📄 NestedClassInstance.java
  ┃        ┃                 ┣━ 📄 NestedStruct.java
  ┃        ┃                 ┣━ 📄 NodeStandardLibrary.java
  ┃        ┃                 ┣━ 📄 NullShouldBeTreatedAsUndefined.java
@@ -7015,7 +7240,7 @@ Object {
     \\"jsii-calc.submodule\\": {
       \\"locationInModule\\": {
         \\"filename\\": \\"lib/index.ts\\",
-        \\"line\\": 8
+        \\"line\\": 9
       }
     },
     \\"jsii-calc.submodule.back_references\\": {
@@ -15192,6 +15417,37 @@ Object {
         }
       ]
     },
+    \\"jsii-calc.NestedClassInstance\\": {
+      \\"assembly\\": \\"jsii-calc\\",
+      \\"docs\\": {
+        \\"stability\\": \\"experimental\\"
+      },
+      \\"fqn\\": \\"jsii-calc.NestedClassInstance\\",
+      \\"kind\\": \\"class\\",
+      \\"locationInModule\\": {
+        \\"filename\\": \\"lib/nested-class.ts\\",
+        \\"line\\": 3
+      },
+      \\"methods\\": [
+        {
+          \\"docs\\": {
+            \\"stability\\": \\"experimental\\"
+          },
+          \\"locationInModule\\": {
+            \\"filename\\": \\"lib/nested-class.ts\\",
+            \\"line\\": 4
+          },
+          \\"name\\": \\"makeInstance\\",
+          \\"returns\\": {
+            \\"type\\": {
+              \\"fqn\\": \\"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass\\"
+            }
+          },
+          \\"static\\": true
+        }
+      ],
+      \\"name\\": \\"NestedClassInstance\\"
+    },
     \\"jsii-calc.NestedStruct\\": {
       \\"assembly\\": \\"jsii-calc\\",
       \\"datatype\\": true,
@@ -20541,7 +20797,7 @@ Object {
     }
   },
   \\"version\\": \\"0.0.0\\",
-  \\"fingerprint\\": \\"AksOoFurRMyuF7gSjHXHbIRIIjq0e0R0CvpHycvyI3U=\\"
+  \\"fingerprint\\": \\"mLU0hvK9Teaq2GAeeCGFPwAZab85G7lFIH/VCKgAvp4=\\"
 }
 ",
 }
@@ -31946,6 +32202,48 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public override double Value
         {
             get => GetInstanceProperty<double>();
+        }
+    }
+}
+",
+}
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/NestedClassInstance.cs 1`] = `
+Object {
+  Symbol(file): "using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.NestedClassInstance), fullyQualifiedName: \\"jsii-calc.NestedClassInstance\\")]
+    public class NestedClassInstance : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name=\\"reference\\">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected NestedClassInstance(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name=\\"props\\">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected NestedClassInstance(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiMethod(name: \\"makeInstance\\", returnsJson: \\"{\\\\\\"type\\\\\\":{\\\\\\"fqn\\\\\\":\\\\\\"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass\\\\\\"}}\\")]
+        public static Amazon.JSII.Tests.CustomSubmoduleName.NestingClass.NestedClass MakeInstance()
+        {
+            return InvokeStaticMethod<Amazon.JSII.Tests.CustomSubmoduleName.NestingClass.NestedClass>(typeof(Amazon.JSII.Tests.CalculatorNamespace.NestedClassInstance), new System.Type[]{}, new object[]{});
         }
     }
 }
@@ -48362,6 +48660,38 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 }
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/NestedClassInstance.java 1`] = `
+Object {
+  Symbol(file): "package software.amazon.jsii.tests.calculator;
+
+/**
+ * EXPERIMENTAL
+ */
+@javax.annotation.Generated(value = \\"jsii-pacmak\\")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = \\"jsii-calc.NestedClassInstance\\")
+public class NestedClassInstance extends software.amazon.jsii.JsiiObject {
+
+    protected NestedClassInstance(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected NestedClassInstance(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass.NestedClass makeInstance() {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.NestedClassInstance.class, \\"makeInstance\\", software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass.NestedClass.class);
+    }
+}
+",
+}
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/NestedStruct.java 1`] = `
 Object {
   Symbol(file): "package software.amazon.jsii.tests.calculator;
@@ -56317,6 +56647,7 @@ jsii-calc.LoadBalancedFargateServiceProps=software.amazon.jsii.tests.calculator.
 jsii-calc.MethodNamedProperty=software.amazon.jsii.tests.calculator.MethodNamedProperty
 jsii-calc.Multiply=software.amazon.jsii.tests.calculator.Multiply
 jsii-calc.Negate=software.amazon.jsii.tests.calculator.Negate
+jsii-calc.NestedClassInstance=software.amazon.jsii.tests.calculator.NestedClassInstance
 jsii-calc.NestedStruct=software.amazon.jsii.tests.calculator.NestedStruct
 jsii-calc.NodeStandardLibrary=software.amazon.jsii.tests.calculator.NodeStandardLibrary
 jsii-calc.NullShouldBeTreatedAsUndefined=software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined
@@ -62544,6 +62875,26 @@ class Multiply(
         return jsii.get(self, \\"value\\")
 
 
+class NestedClassInstance(
+    metaclass=jsii.JSIIMeta, jsii_type=\\"jsii-calc.NestedClassInstance\\"
+):
+    \\"\\"\\"
+    stability
+    :stability: experimental
+    \\"\\"\\"
+
+    @jsii.member(jsii_name=\\"makeInstance\\")
+    @builtins.classmethod
+    def make_instance(
+        cls
+    ) -> scope.jsii_calc_lib.custom_submodule_name.NestingClass.NestedClass:
+        \\"\\"\\"
+        stability
+        :stability: experimental
+        \\"\\"\\"
+        return jsii.sinvoke(cls, \\"makeInstance\\", [])
+
+
 @jsii.data_type(
     jsii_type=\\"jsii-calc.NestedStruct\\",
     jsii_struct_bases=[],
@@ -66521,6 +66872,7 @@ __all__ = [
     \\"MethodNamedProperty\\",
     \\"Multiply\\",
     \\"Negate\\",
+    \\"NestedClassInstance\\",
     \\"NestedStruct\\",
     \\"NodeStandardLibrary\\",
     \\"NullShouldBeTreatedAsUndefined\\",

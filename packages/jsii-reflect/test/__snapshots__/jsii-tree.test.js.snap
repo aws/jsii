@@ -1217,6 +1217,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ value property (experimental)
  │   │     ├── immutable
  │   │     └── type: number
+ │   ├─┬ class NestedClassInstance (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ static makeInstance() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: @scope/jsii-calc-lib.submodule.NestingClass.NestedClass
  │   ├─┬ class NodeStandardLibrary (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -2538,6 +2543,14 @@ exports[`jsii-tree --all 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class NestingClass (deprecated)
+   │     │ └── members
+   │     ├─┬ class NestedClass (deprecated)
+   │     │ └─┬ members
+   │     │   ├── <initializer>() initializer (deprecated)
+   │     │   └─┬ property property (deprecated)
+   │     │     ├── immutable
+   │     │     └── type: string
    │     ├─┬ class Reflector (deprecated)
    │     │ └─┬ members
    │     │   ├── <initializer>() initializer (deprecated)
@@ -2795,6 +2808,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class Negate
  │   │ ├── base: UnaryOperation
  │   │ └── interfaces: IFriendlier
+ │   ├── class NestedClassInstance
  │   ├── class NodeStandardLibrary
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
@@ -2966,6 +2980,8 @@ exports[`jsii-tree --inheritance 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class NestingClass
+   │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
    │     └── interface ReflectableEntry
@@ -3549,6 +3565,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── hello() method
  │   │   ├── toString() method
  │   │   └── value property
+ │   ├─┬ class NestedClassInstance
+ │   │ └─┬ members
+ │   │   └── static makeInstance() method
  │   ├─┬ class NodeStandardLibrary
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4122,6 +4141,12 @@ exports[`jsii-tree --members 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class NestingClass
+   │     │ └── members
+   │     ├─┬ class NestedClass
+   │     │ └─┬ members
+   │     │   ├── <initializer>() initializer
+   │     │   └── property property
    │     ├─┬ class Reflector
    │     │ └─┬ members
    │     │   ├── <initializer>() initializer
@@ -4318,6 +4343,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class MethodNamedProperty
  │   ├── class Multiply
  │   ├── class Negate
+ │   ├── class NestedClassInstance
  │   ├── class NodeStandardLibrary
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
@@ -4454,6 +4480,8 @@ exports[`jsii-tree --types 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class NestingClass
+   │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
    │     └── interface ReflectableEntry
