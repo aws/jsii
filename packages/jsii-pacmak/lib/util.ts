@@ -71,7 +71,7 @@ export async function shell(
         const err = Buffer.concat(stderr).toString('utf-8');
         return ko(
           new Error(
-            `Process exited with ${
+            `Process failed with ${
               code != null ? `code ${code}` : `signal ${signal}`
             } (command: ${cmd} ${args.join(' ')})\n${prefix(
               out,
