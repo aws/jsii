@@ -134,7 +134,7 @@ function runPacmak(root: string, outdir: string): void {
 
   if (result.status !== 0) {
     console.error(`#### PACMAK STDOUT:\n${result.stdout.toString('utf-8')}`);
-    console.error(`#### PACMAK STDERR:\n${result.stdout.toString('utf-8')}`);
+    console.error(`#### PACMAK STDERR:\n${result.stderr.toString('utf-8')}`);
   }
 
   expect(result.signal).toBeNull();

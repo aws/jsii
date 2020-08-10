@@ -56971,9 +56971,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type=\\"jsii-calc.AllTypes\\"):
     @jsii.member(jsii_name=\\"unionMapProperty\\")
     def union_map_property(
         self,
-    ) -> typing.Mapping[
-        str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]
-    ]:
+    ) -> typing.Mapping[str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]]:
         \\"\\"\\"
         stability
         :stability: experimental
@@ -56983,9 +56981,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type=\\"jsii-calc.AllTypes\\"):
     @union_map_property.setter
     def union_map_property(
         self,
-        value: typing.Mapping[
-            str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]
-        ],
+        value: typing.Mapping[str, typing.Union[str, jsii.Number, scope.jsii_calc_lib.Number]],
     ) -> None:
         jsii.set(self, \\"unionMapProperty\\", value)
 
@@ -57764,7 +57760,8 @@ class ClassWithJavaReservedWords(
 
 
 class ClassWithMutableObjectLiteralProperty(
-    metaclass=jsii.JSIIMeta, jsii_type=\\"jsii-calc.ClassWithMutableObjectLiteralProperty\\"
+    metaclass=jsii.JSIIMeta,
+    jsii_type=\\"jsii-calc.ClassWithMutableObjectLiteralProperty\\",
 ):
     \\"\\"\\"
     stability
@@ -57825,12 +57822,7 @@ class ConfusingToJackson(
     @jsii.member(jsii_name=\\"unionProperty\\")
     def union_property(
         self,
-    ) -> typing.Optional[
-        typing.Union[
-            scope.jsii_calc_lib.IFriendly,
-            typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, \\"AbstractClass\\"]],
-        ]
-    ]:
+    ) -> typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, \\"AbstractClass\\"]]]]:
         \\"\\"\\"
         stability
         :stability: experimental
@@ -57840,14 +57832,7 @@ class ConfusingToJackson(
     @union_property.setter
     def union_property(
         self,
-        value: typing.Optional[
-            typing.Union[
-                scope.jsii_calc_lib.IFriendly,
-                typing.List[
-                    typing.Union[scope.jsii_calc_lib.IFriendly, \\"AbstractClass\\"]
-                ],
-            ]
-        ],
+        value: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, \\"AbstractClass\\"]]]],
     ) -> None:
         jsii.set(self, \\"unionProperty\\", value)
 
@@ -57861,14 +57846,7 @@ class ConfusingToJacksonStruct:
     def __init__(
         self,
         *,
-        union_property: typing.Optional[
-            typing.Union[
-                scope.jsii_calc_lib.IFriendly,
-                typing.List[
-                    typing.Union[scope.jsii_calc_lib.IFriendly, \\"AbstractClass\\"]
-                ],
-            ]
-        ] = None,
+        union_property: typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, \\"AbstractClass\\"]]]] = None,
     ) -> None:
         \\"\\"\\"
         :param union_property: 
@@ -57883,12 +57861,7 @@ class ConfusingToJacksonStruct:
     @builtins.property
     def union_property(
         self,
-    ) -> typing.Optional[
-        typing.Union[
-            scope.jsii_calc_lib.IFriendly,
-            typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, \\"AbstractClass\\"]],
-        ]
-    ]:
+    ) -> typing.Optional[typing.Union[scope.jsii_calc_lib.IFriendly, typing.List[typing.Union[scope.jsii_calc_lib.IFriendly, \\"AbstractClass\\"]]]]:
         \\"\\"\\"
         stability
         :stability: experimental
@@ -58501,9 +58474,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
         another_required: datetime.datetime,
         bool: bool,
         non_primitive: \\"DoubleTrouble\\",
-        another_optional: typing.Optional[
-            typing.Mapping[str, scope.jsii_calc_lib.Value]
-        ] = None,
+        another_optional: typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]] = None,
         optional_any: typing.Any = None,
         optional_array: typing.Optional[typing.List[str]] = None,
     ) -> None:
@@ -58772,8 +58743,7 @@ class DiamondInheritanceSecondMidLevelStruct(DiamondInheritanceBaseLevelStruct):
 @jsii.data_type(
     jsii_type=\\"jsii-calc.DiamondInheritanceTopLevelStruct\\",
     jsii_struct_bases=[
-        DiamondInheritanceFirstMidLevelStruct,
-        DiamondInheritanceSecondMidLevelStruct,
+        DiamondInheritanceFirstMidLevelStruct, DiamondInheritanceSecondMidLevelStruct
     ],
     name_mapping={
         \\"base_level_property\\": \\"baseLevelProperty\\",
@@ -58962,9 +58932,7 @@ class DoNotRecognizeAnyAsOptional(
         stability
         :stability: experimental
         \\"\\"\\"
-        return jsii.invoke(
-            self, \\"method\\", [_required_any, _optional_any, _optional_string]
-        )
+        return jsii.invoke(self, \\"method\\", [_required_any, _optional_any, _optional_string])
 
 
 class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type=\\"jsii-calc.DocumentedClass\\"):
@@ -59495,9 +59463,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type=\\"jsii-calc.GiveMeStruct
         another_required: datetime.datetime,
         bool: bool,
         non_primitive: \\"DoubleTrouble\\",
-        another_optional: typing.Optional[
-            typing.Mapping[str, scope.jsii_calc_lib.Value]
-        ] = None,
+        another_optional: typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]] = None,
         optional_any: typing.Any = None,
         optional_array: typing.Optional[typing.List[str]] = None,
         anumber: jsii.Number,
@@ -59540,9 +59506,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type=\\"jsii-calc.GiveMeStruct
         another_required: datetime.datetime,
         bool: bool,
         non_primitive: \\"DoubleTrouble\\",
-        another_optional: typing.Optional[
-            typing.Mapping[str, scope.jsii_calc_lib.Value]
-        ] = None,
+        another_optional: typing.Optional[typing.Mapping[str, scope.jsii_calc_lib.Value]] = None,
         optional_any: typing.Any = None,
         optional_array: typing.Optional[typing.List[str]] = None,
         anumber: jsii.Number,
@@ -59612,7 +59576,9 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type=\\"jsii-calc.GiveMeStruct
 
 
 @jsii.data_type(
-    jsii_type=\\"jsii-calc.Greetee\\", jsii_struct_bases=[], name_mapping={\\"name\\": \\"name\\"}
+    jsii_type=\\"jsii-calc.Greetee\\",
+    jsii_struct_bases=[],
+    name_mapping={\\"name\\": \\"name\\"},
 )
 class Greetee:
     def __init__(self, *, name: typing.Optional[str] = None) -> None:
@@ -60662,8 +60628,6 @@ class IJsii487External(jsii.compat.Protocol):
     def __jsii_proxy_class__():
         return _IJsii487ExternalProxy
 
-    pass
-
 
 class _IJsii487ExternalProxy:
     \\"\\"\\"
@@ -60686,8 +60650,6 @@ class IJsii487External2(jsii.compat.Protocol):
     def __jsii_proxy_class__():
         return _IJsii487External2Proxy
 
-    pass
-
 
 class _IJsii487External2Proxy:
     \\"\\"\\"
@@ -60709,8 +60671,6 @@ class IJsii496(jsii.compat.Protocol):
     @builtins.staticmethod
     def __jsii_proxy_class__():
         return _IJsii496Proxy
-
-    pass
 
 
 class _IJsii496Proxy:
@@ -62718,9 +62678,7 @@ class NullShouldBeTreatedAsUndefined(
     def give_me_undefined_inside_an_object(
         self,
         *,
-        array_with_three_elements_and_undefined_as_second_argument: typing.List[
-            typing.Any
-        ],
+        array_with_three_elements_and_undefined_as_second_argument: typing.List[typing.Any],
         this_should_be_undefined: typing.Any = None,
     ) -> None:
         \\"\\"\\"
@@ -62771,9 +62729,7 @@ class NullShouldBeTreatedAsUndefinedData:
     def __init__(
         self,
         *,
-        array_with_three_elements_and_undefined_as_second_argument: typing.List[
-            typing.Any
-        ],
+        array_with_three_elements_and_undefined_as_second_argument: typing.List[typing.Any],
         this_should_be_undefined: typing.Any = None,
     ) -> None:
         \\"\\"\\"
@@ -62797,9 +62753,7 @@ class NullShouldBeTreatedAsUndefinedData:
         stability
         :stability: experimental
         \\"\\"\\"
-        return self._values.get(
-            \\"array_with_three_elements_and_undefined_as_second_argument\\"
-        )
+        return self._values.get(\\"array_with_three_elements_and_undefined_as_second_argument\\")
 
     @builtins.property
     def this_should_be_undefined(self) -> typing.Any:
@@ -63269,7 +63223,10 @@ class PartiallyInitializedThisConsumer(
     @jsii.member(jsii_name=\\"consumePartiallyInitializedThis\\")
     @abc.abstractmethod
     def consume_partially_initialized_this(
-        self, obj: \\"ConstructorPassesThisOut\\", dt: datetime.datetime, ev: \\"AllTypesEnum\\"
+        self,
+        obj: \\"ConstructorPassesThisOut\\",
+        dt: datetime.datetime,
+        ev: \\"AllTypesEnum\\",
     ) -> str:
         \\"\\"\\"
         :param obj: -
@@ -63285,7 +63242,10 @@ class PartiallyInitializedThisConsumer(
 class _PartiallyInitializedThisConsumerProxy(PartiallyInitializedThisConsumer):
     @jsii.member(jsii_name=\\"consumePartiallyInitializedThis\\")
     def consume_partially_initialized_this(
-        self, obj: \\"ConstructorPassesThisOut\\", dt: datetime.datetime, ev: \\"AllTypesEnum\\"
+        self,
+        obj: \\"ConstructorPassesThisOut\\",
+        dt: datetime.datetime,
+        ev: \\"AllTypesEnum\\",
     ) -> str:
         \\"\\"\\"
         :param obj: -
@@ -63795,7 +63755,10 @@ class ReturnsPrivateImplementationOfInterface(
 )
 class RootStruct:
     def __init__(
-        self, *, string_prop: str, nested_struct: typing.Optional[\\"NestedStruct\\"] = None
+        self,
+        *,
+        string_prop: str,
+        nested_struct: typing.Optional[\\"NestedStruct\\"] = None,
     ) -> None:
         \\"\\"\\"This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
 
@@ -66093,8 +66056,6 @@ class IFriendlyRandomGenerator(
     def __jsii_proxy_class__():
         return _IFriendlyRandomGeneratorProxy
 
-    pass
-
 
 class _IFriendlyRandomGeneratorProxy(
     jsii.proxy_for(IRandomNumberGenerator),
@@ -67241,10 +67202,10 @@ from .._jsii import *
 
 from .. import AllTypes as _AllTypes_b08307c5
 from .child import (
-    SomeStruct as _SomeStruct_91627123,
-    SomeEnum as _SomeEnum_b2e41d92,
     Awesomeness as _Awesomeness_d37a24df,
     Goodness as _Goodness_2df26737,
+    SomeEnum as _SomeEnum_b2e41d92,
+    SomeStruct as _SomeStruct_91627123,
 )
 from .nested_submodule.deeply_nested import INamespaced as _INamespaced_e2f386ad
 
@@ -67665,7 +67626,9 @@ import publication
 
 from ..._jsii import *
 
-from ..child import KwargsProps as _KwargsProps_c7855dcf, SomeEnum as _SomeEnum_b2e41d92
+from ..child import (
+    KwargsProps as _KwargsProps_c7855dcf, SomeEnum as _SomeEnum_b2e41d92
+)
 
 
 class Kwargs(metaclass=jsii.JSIIMeta, jsii_type=\\"jsii-calc.submodule.isolated.Kwargs\\"):
