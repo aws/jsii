@@ -1,8 +1,6 @@
-///!MATCH_ERROR: Name occurs in both function arguments and in datatype properties, rename one: dontWorry
-
 export interface Lyrics {
-  dontWorry: string;
-  beHappy: string;
+  readonly dontWorry: string;
+  readonly beHappy: string;
 }
 
 export class MyClass {
