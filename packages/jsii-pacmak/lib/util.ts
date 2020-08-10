@@ -73,10 +73,11 @@ export async function shell(
         const command = `${cmd} ${args.join(' ')}`;
         return ko(
           new Error(
-            `Command failed with ${reason}:\n- Command: ${command}\n${prefix(
-              out,
-              '#STDOUT> ',
-            )}\n- STDERR:\n${prefix(err, '#STDERR> ')}`,
+            [
+              `Command (${command}) failed with ${reason}:`,
+              prefix(out, '#STDOUT> '),
+              prefix(err, '#STDERR> '),
+            ].join('\n'),
           ),
         );
 
