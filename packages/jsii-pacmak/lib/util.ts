@@ -69,14 +69,14 @@ export async function shell(
           return ok(out);
         }
         const err = Buffer.concat(stderr).toString('utf-8');
+        const reason = signal != null ? `signal ${signal}` : `status ${code}`;
+        const command = `${cmd} ${args.join(' ')}`;
         return ko(
           new Error(
-            `Process failed with ${
-              code != null ? `code ${code}` : `signal ${signal}`
-            } (command: ${cmd} ${args.join(' ')})\n${prefix(
+            `Command failed with ${reason}:\n- Command: ${command}\n${prefix(
               out,
-              'STDOUT: ',
-            )}\n${prefix(err, 'STDERR: ')}`,
+              '#STDOUT> ',
+            )}\n- STDERR:\n${prefix(err, '#STDERR> ')}`,
           ),
         );
 

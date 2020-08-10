@@ -2060,11 +2060,13 @@ class JavaGenerator extends Generator {
       name: fqn.replace(/.*\.([^.]+)$/, '$1'),
     });
 
-    const name = `${path.join(
+    const parts = [
       ...packageName.split('.'),
-      typeName.split('.')[0],
-    )}${ext}`;
-    const filePath = path.join('src', 'main', 'resources', name);
+      `${typeName.split('.')[0]}${ext}`,
+    ];
+    // Resource names are /-delimited paths (even on Windows *wink wink*)
+    const name = parts.join('/');
+    const filePath = path.join('src', 'main', 'resources', ...parts);
 
     return { filePath, name };
   }

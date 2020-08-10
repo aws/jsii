@@ -1,11 +1,11 @@
+import * as spec from '@jsii/spec';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
+import * as lockfile from 'lockfile';
 import * as os from 'os';
 import * as path from 'path';
-import * as spec from '@jsii/spec';
-import { Stability } from '@jsii/spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { info, warn } from '../logging';
 import { md2rst } from '../markdown';
@@ -32,6 +32,8 @@ import { die, toPythonIdentifier } from './python/util';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
+
+const VENV_BIN = process.platform === 'win32' ? 'Scripts' : 'bin';
 
 export default class Python extends Target {
   private static BLACK_PATH?: Promise<string>;
@@ -88,26 +90,48 @@ export default class Python extends Target {
       '.jsii-cache',
       'python-black',
     );
-    const exists = await fs.pathExists(blackInstallDir);
-    if (!exists) {
+    const venvRoot = path.join(blackInstallDir, 'venv');
+    const black = path.join(venvRoot, VENV_BIN, 'black');
+
+    await fs.mkdirp(blackInstallDir);
+    const lockFile = path.join(blackInstallDir, 'busy.lock');
+
+    await lock(lockFile);
+
+    try {
+      const existing = await cachedBlackPath();
+      if (existing != null) {
+        return existing;
+      }
+
       info(
-        `No existing black installation. Install afresh at ${blackInstallDir}...`,
+        `No existing black installations. install afresh at ${blackInstallDir}...`,
       );
-      await fs.mkdirp(blackInstallDir);
+
+      await shell('python3', ['-m', 'venv', venvRoot], {
+        cwd: blackInstallDir,
+      });
       await shell(
-        'python3',
-        ['-m', 'venv', path.join(blackInstallDir, '.env')],
-        {
-          cwd: blackInstallDir,
-        },
-      );
-      await shell(
-        path.join(blackInstallDir, '.env', 'bin', 'pip'),
-        ['install', 'black'],
+        path.join(venvRoot, VENV_BIN, 'pip'),
+        ['install', '--no-input', 'black'],
         { cwd: blackInstallDir },
       );
+    } finally {
+      await unlock(lockFile);
     }
-    return path.join(blackInstallDir, '.env', 'bin', 'black');
+
+    return (await cachedBlackPath())!;
+
+    async function cachedBlackPath() {
+      const suffixes = process.platform === 'win32' ? ['.exe', '.bat'] : [''];
+      for (const suffix of suffixes) {
+        // eslint-disable-next-line no-await-in-loop
+        if (await fs.pathExists(`${black}${suffix}`)) {
+          return `${black}${suffix}`;
+        }
+      }
+      return undefined;
+    }
   }
 }
 
@@ -2391,9 +2415,9 @@ function onelineDescription(docs: spec.Docs | undefined) {
   return parts.join(' ').replace(/\s+/g, ' ');
 }
 
-function shouldMentionStability(s: Stability) {
+function shouldMentionStability(s: spec.Stability) {
   // Don't render "stable" or "external", those are both stable by implication.
-  return s === Stability.Deprecated || s === Stability.Experimental;
+  return s === spec.Stability.Deprecated || s === spec.Stability.Experimental;
 }
 
 function isStruct(
@@ -2422,4 +2446,28 @@ function slugifyAsNeeded(name: string, inUse: readonly string[]): string {
     name = `${name}_`;
   }
   return name;
+}
+
+async function lock(path: string, opts: lockfile.Options = { stale: 60_000 }) {
+  return new Promise((ok, ko) =>
+    lockfile.lock(path, opts, (error) => {
+      if (error != null) {
+        ko(error);
+      } else {
+        ok();
+      }
+    }),
+  );
+}
+
+async function unlock(path: string) {
+  return new Promise((ok, ko) =>
+    lockfile.unlock(path, (error) => {
+      if (error != null) {
+        ko(error);
+      } else {
+        ok();
+      }
+    }),
+  );
 }
