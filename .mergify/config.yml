@@ -43,9 +43,9 @@ pull_request_rules:
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
       # One test for Python 3.6, 3.7, and 3.8
-      - status-success~=^Test \(.* python 3\.6 .*$
-      - status-success~=^Test \(.* python 3\.7 .*$
-      - status-success~=^Test \(.* python 3\.8 .*$
+      - status-success~=^Test \(.* python 3\.6[ )].*$
+      - status-success~=^Test \(.* python 3\.7[ )].*$
+      - status-success~=^Test \(.* python 3\.8[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (squash)
     actions:
@@ -88,9 +88,9 @@ pull_request_rules:
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
       # One test for Python 3.6, 3.7, and 3.8
-      - status-success~=^Test \(.* python 3\.6 .*$
-      - status-success~=^Test \(.* python 3\.7 .*$
-      - status-success~=^Test \(.* python 3\.8 .*$
+      - status-success~=^Test \(.* python 3\.6[ )].*$
+      - status-success~=^Test \(.* python 3\.7[ )].*$
+      - status-success~=^Test \(.* python 3\.8[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
@@ -133,9 +133,9 @@ pull_request_rules:
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
       # One test for Python 3.6, 3.7, and 3.8
-      - status-success~=^Test \(.* python 3\.6 .*$
-      - status-success~=^Test \(.* python 3\.7 .*$
-      - status-success~=^Test \(.* python 3\.8 .*$
+      - status-success~=^Test \(.* python 3\.6[ )].*$
+      - status-success~=^Test \(.* python 3\.7[ )].*$
+      - status-success~=^Test \(.* python 3\.8[ )].*$
 
   - name: Clean branch up
     actions:
