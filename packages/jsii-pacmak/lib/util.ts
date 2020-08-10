@@ -73,9 +73,20 @@ export async function shell(
         const command = `${cmd} ${args.join(' ')}`;
         return ko(
           new Error(
-            `Command exited with ${reason}:\n- Command: ${command}\n- STDOUT:\n${out}\n- STDERR:\n${err}`,
+            [
+              `Command (${command}) failed with ${reason}:`,
+              prefix(out, '#STDOUT> '),
+              prefix(err, '#STDERR> '),
+            ].join('\n'),
           ),
         );
+
+        function prefix(text: string, add: string): string {
+          return text
+            .split('\n')
+            .map((line) => `${add}${line}`)
+            .join('\n');
+        }
       });
     });
   }
