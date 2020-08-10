@@ -14,4 +14,5 @@
 
 # Github Linguist configuration (https://github.com/github/linguist)
 yarn.lock linguidt-generated
+*.snap    linguist-generated
 docs/**   linguist-documentation

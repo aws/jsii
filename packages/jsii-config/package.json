@@ -30,12 +30,12 @@
     "jest": "^26.2.2",
     "jest-expect-message": "^1.0.2",
     "prettier": "^2.0.5",
-    "typescript": "~3.9.6"
+    "typescript": "~3.9.7"
   },
   "dependencies": {
     "@jsii/spec": "^0.0.0",
     "inquirer": "^7.3.3",
-    "yargs": "^15.4.0"
+    "yargs": "^15.4.1"
   },
   "jest": {
     "collectCoverage": true,

@@ -23,6 +23,8 @@ test('jsii-tree --signatures', () =>
 
 async function jsiiTree(...args: string[]) {
   const command = [
+    process.execPath,
+    ...process.execArgv,
     path.join(__dirname, '..', 'bin', 'jsii-tree'),
     args.join(' '),
     '--no-colors',

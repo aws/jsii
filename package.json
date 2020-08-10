@@ -10,9 +10,9 @@
     "dist-clean": "lerna run dist-clean --stream && rm -rf dist",
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
     "package": "bash scripts/package.sh",
-    "test": "lerna run test --stream",
+    "test": "lerna run test --concurrency=1 --stream",
     "test:integ": "lerna run test:integ --stream",
-    "test:update": "lerna run test:update --stream"
+    "test:update": "lerna run test:update --concurrency=1 --stream"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
