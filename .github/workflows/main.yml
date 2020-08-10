@@ -44,8 +44,11 @@ jobs:
       - name: Locate Caches
         id: cache-locations
         run: |-
+          echo "::group::Upgrade pip"
           # Need to have PIP >= 20.1 for "pip cache dir" to work
           python3 -m pip install --upgrade pip
+          echo "::endgroup"
+
           echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
@@ -63,18 +66,26 @@ jobs:
             ${{ runner.os }}-
       # Prepare dependencies and build
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: |-
+          yarn install --frozen-lockfile
       - name: Full Build
-        run: yarn build
-      - name: "Upload Artifact: built-tree"
+        run: |-
+          yarn build
+      - name: Prepare Artifact
+        run: |-
+          tar Jcvf ${{ runner.temp }}/built-tree.tar.xz                         \
+            --exclude='**/.env'                                                 \
+            --exclude='**/node_modules'                                         \
+            --exclude='**/project/.m2/repository'                               \
+            --exclude-tag-all='pyenv.cfg'                                       \
+            --directory=${{ github.workspace }}                                 \
+            .
+      # Upload artifact (we'll tar it up to save time)
+      - name: 'Upload Artifact: built-tree'
         uses: actions/upload-artifact@v2
         with:
           name: built-tree
-          path: |-
-            ${{ github.workspace }}
-            !**/.env/**
-            !**/node_modules/**
-            !**/project/.m2/**
+          path: ${{ runner.temp }}/built-tree.tar.xz
 
   create-release-package:
     name: Create Release Package
@@ -104,8 +115,11 @@ jobs:
       - name: Locate Caches
         id: cache-locations
         run: |-
+          echo "::group::Upgrade pip"
           # Need to have PIP >= 20.1 for "pip cache dir" to work
           python3 -m pip install --upgrade pip
+          echo "::endgroup"
+
           echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
@@ -140,17 +154,22 @@ jobs:
             --prerelease=nightly.$(date -u +'%Y%m%d')                                                                   \
             --skip.commit
       # Now we'll be preparing a release package (with the "real" version)
-      - name: Align Versions
-        run: ./scripts/align-version.sh
+      - name: Run "align-version.sh"
+        run: |-
+          ./scripts/align-version.sh
       - name: Full Build
-        run: yarn build
-      - name: Package Libraries
-        run: yarn package
-      - name: "Upload Artifact: release-package"
+        run: |-
+          yarn build
+      - name: Package
+        run: |-
+          yarn package
+      # Upload artifacts
+      - name: 'Upload Artifact: release-package'
         uses: actions/upload-artifact@v2
         with:
           name: release-package
           path: ${{ github.workspace }}/dist/
+
   test:
     name: Test (${{ matrix.os }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
     needs: build
@@ -226,11 +245,27 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: built-tree
+      # Put GitBash ahead of $PATH, so we avoid surprises due to bad tar, etc...
+      # (technically a hack around https://github.com/actions/virtual-environments/issues/282)
+      - name: 'Windows: Put GitBash ahead of $PATH'
+        if: runner.os == 'Windows'
+        run: |-
+          echo "::add-path::C:\Program Files\Git\usr\bin"
+      - name: Extract Artifact
+        run: |-
+          echo "::group::Untar Archive"
+          tar Jxvf built-tree.tar.xz
+          echo "::endgroup"
+
+          rm built-tree.tar.xz
       - name: Locate Caches
         id: cache-locations
         run: |-
+          echo "::group::Upgrade pip"
           # Need to have PIP >= 20.1 for "pip cache dir" to work
           python3 -m pip install --upgrade pip
+          echo "::endgroup"
+
           echo "::set-output name=pip-cache::$(python3 -m pip cache dir)"
           echo "::set-output name=yarn-cache::$(yarn cache dir)"
       - name: Cache
@@ -247,9 +282,10 @@ jobs:
             ${{ runner.os }}-node@${{ matrix.node }}-python@${{ matrix.python }}-
             ${{ runner.os }}-node@${{ matrix.node }}-
             ${{ runner.os }}-
-      # Install dependencies (ensures arch/os specific packages are re-built)
+      # Run the tests
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-      # Run all tests
+        run: |-
+          yarn install --frozen-lockfile
       - name: Test
-        run: yarn test
+        run: |-
+          yarn test
