@@ -8,13 +8,13 @@ export enum Goodness {
   /** It's really good */
   REALLY_GOOD,
   /** It's amazingly good */
-  AMAZINGLY_GOOD
+  AMAZINGLY_GOOD,
 }
 
 // There's only one way around these woods...
 export enum Awesomeness {
   /** It was awesome! */
-  AWESOME
+  AWESOME,
 }
 
 /**
@@ -29,13 +29,15 @@ export class OuterClass {
   }
 }
 export enum SomeEnum {
-  SOME = 'SOME'
+  SOME = 'SOME',
 }
 export interface SomeStruct {
   readonly prop: SomeEnum;
 }
 export class InnerClass {
   public static readonly staticProp: SomeStruct = { prop: SomeEnum.SOME };
+}
 
-  public constructor() { }
+export interface KwargsProps extends SomeStruct {
+  readonly extra?: string;
 }

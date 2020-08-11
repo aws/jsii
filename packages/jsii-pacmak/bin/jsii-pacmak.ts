@@ -154,7 +154,9 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
     if (targetSets.every((s) => s.modules.length === 0)) {
       throw new Error(
-        `None of the requested packages had any targets to build for '${requestedTargets}' (use --force-target to force)`,
+        `None of the requested packages had any targets to build for '${requestedTargets?.join(
+          ', ',
+        )}' (use --force-target to force)`,
       );
     }
 

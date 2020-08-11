@@ -129,6 +129,14 @@ exports[`jsii-tree --all 1`] = `
  │ │   │ │   │   └─┬ innerClass property (experimental)
  │ │   │ │   │     ├── immutable
  │ │   │ │   │     └── type: jsii-calc.submodule.child.InnerClass
+ │ │   │ │   ├─┬ interface KwargsProps (experimental)
+ │ │   │ │   │ ├─┬ interfaces
+ │ │   │ │   │ │ └── SomeStruct
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └─┬ extra property (experimental)
+ │ │   │ │   │     ├── abstract
+ │ │   │ │   │     ├── immutable
+ │ │   │ │   │     └── type: Optional<string>
  │ │   │ │   ├─┬ interface SomeStruct (experimental)
  │ │   │ │   │ └─┬ members
  │ │   │ │   │   └─┬ prop property (experimental)
@@ -149,6 +157,16 @@ exports[`jsii-tree --all 1`] = `
  │ │   │ │   │ └── AMAZINGLY_GOOD (experimental)
  │ │   │ │   └─┬ enum SomeEnum (experimental)
  │ │   │ │     └── SOME (experimental)
+ │ │   │ ├─┬ isolated
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ class Kwargs (experimental)
+ │ │   │ │     └─┬ members
+ │ │   │ │       └─┬ static method(props) method (experimental)
+ │ │   │ │         ├── static
+ │ │   │ │         ├─┬ parameters
+ │ │   │ │         │ └─┬ props
+ │ │   │ │         │   └── type: Optional<jsii-calc.submodule.child.KwargsProps>
+ │ │   │ │         └── returns: boolean
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -522,7 +540,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── type: Map<string => string>
  │   ├─┬ class ClassWithDocs (stable)
  │   │ └─┬ members
- │   │   └── <initializer>() initializer (stable)
+ │   │   └── <initializer>() initializer (experimental)
  │   ├─┬ class ClassWithJavaReservedWords (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(int) initializer (experimental)
@@ -765,7 +783,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── returns: void
  │   ├─┬ class DocumentedClass (stable)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer (stable)
+ │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ greet(greetee) method (stable)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ greetee
@@ -1623,7 +1641,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── type: string
  │   ├─┬ class StructPassing
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
+ │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ static howManyVarArgsDidIPass(_positional,inputs) method
  │   │   │ ├── static
  │   │   │ ├── variadic
@@ -2675,11 +2693,17 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │   │ │ └─┬ types
  │ │   │ │   ├── class InnerClass
  │ │   │ │   ├── class OuterClass
+ │ │   │ │   ├─┬ interface KwargsProps
+ │ │   │ │   │ └─┬ interfaces
+ │ │   │ │   │   └── SomeStruct
  │ │   │ │   ├── interface SomeStruct
  │ │   │ │   ├── interface Structure
  │ │   │ │   ├── enum Awesomeness
  │ │   │ │   ├── enum Goodness
  │ │   │ │   └── enum SomeEnum
+ │ │   │ ├─┬ isolated
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── class Kwargs
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -3051,6 +3075,9 @@ exports[`jsii-tree --members 1`] = `
  │ │   │ │   │ └─┬ members
  │ │   │ │   │   ├── <initializer>() initializer
  │ │   │ │   │   └── innerClass property
+ │ │   │ │   ├─┬ interface KwargsProps
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └── extra property
  │ │   │ │   ├─┬ interface SomeStruct
  │ │   │ │   │ └─┬ members
  │ │   │ │   │   └── prop property
@@ -3065,6 +3092,11 @@ exports[`jsii-tree --members 1`] = `
  │ │   │ │   │ └── AMAZINGLY_GOOD
  │ │   │ │   └─┬ enum SomeEnum
  │ │   │ │     └── SOME
+ │ │   │ ├─┬ isolated
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ class Kwargs
+ │ │   │ │     └─┬ members
+ │ │   │ │       └── static method(props) method
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -4171,6 +4203,7 @@ exports[`jsii-tree --signatures 1`] = `
  │     └─┬ submodules
  │       ├── back_references
  │       ├── child
+ │       ├── isolated
  │       └─┬ nested_submodule
  │         └─┬ submodules
  │           └── deeplyNested
@@ -4216,11 +4249,15 @@ exports[`jsii-tree --types 1`] = `
  │ │   │ │ └─┬ types
  │ │   │ │   ├── class InnerClass
  │ │   │ │   ├── class OuterClass
+ │ │   │ │   ├── interface KwargsProps
  │ │   │ │   ├── interface SomeStruct
  │ │   │ │   ├── interface Structure
  │ │   │ │   ├── enum Awesomeness
  │ │   │ │   ├── enum Goodness
  │ │   │ │   └── enum SomeEnum
+ │ │   │ ├─┬ isolated
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── class Kwargs
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -4464,6 +4501,7 @@ exports[`jsii-tree 1`] = `
  │     └─┬ submodules
  │       ├── back_references
  │       ├── child
+ │       ├── isolated
  │       └─┬ nested_submodule
  │         └─┬ submodules
  │           └── deeplyNested

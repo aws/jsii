@@ -22,7 +22,7 @@ export async function expectError(
   const msgs = Array.from(mms.messages());
   expect(
     msgs.some((m) => error.test(m)),
-    `Expected error like ${error}, got ${msgs}`,
+    `Expected error like ${error.toString()}, got ${msgs.join(', ')}`,
   ).toBeTruthy();
 }
 

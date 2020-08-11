@@ -79,6 +79,26 @@ export class AstRenderer<C> {
     return filterVisible(nodes).map(this.convert.bind(this));
   }
 
+  public convertWithModifier(
+    nodes: readonly ts.Node[],
+    makeContext: (
+      context: this,
+      node: ts.Node,
+      index: number,
+    ) => AstRenderer<C>,
+  ): OTree[] {
+    const vis = assignVisibility(nodes);
+    const result = new Array<OTree>();
+    for (const [idx, { node, visible, maskingVoid }] of vis.entries()) {
+      const renderedNode = visible ? node : maskingVoid;
+      if (renderedNode) {
+        const context = makeContext(this, renderedNode, idx);
+        result.push(context.convert(renderedNode));
+      }
+    }
+    return result;
+  }
+
   /**
    * Convert a set of nodes, but update the context for the last one.
    *

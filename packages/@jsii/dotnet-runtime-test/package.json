@@ -24,16 +24,16 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "gen": "/bin/bash ./generate.sh",
-    "build": "npm run gen && tsc --build && /bin/bash ./build.sh",
-    "test": "/bin/bash ./test.sh",
+    "gen": "bash ./generate.sh",
+    "build": "npm run gen && tsc --build && bash ./build.sh",
+    "test": "bash ./test.sh",
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
-    "@types/node": "^10.17.26",
+    "@types/node": "^10.17.28",
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
-    "typescript": "~3.9.6"
+    "typescript": "~3.9.7"
   }
 }

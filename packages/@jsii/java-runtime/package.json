@@ -24,7 +24,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "gen": "/bin/bash ./generate.sh",
+    "gen": "bash ./generate.sh",
     "build": "tsc --build && npm run gen && cd project && mvn -B deploy -D altDeploymentRepository=local::default::file://${PWD}/../maven-repo --settings=user.xml",
     "dist-clean": "rm -rf dist maven-repo && cd project && mvn -B clean --settings=user.xml",
     "test": "echo 'Tests are run as part of the build target'",
@@ -33,8 +33,8 @@
   },
   "devDependencies": {
     "@jsii/runtime": "^0.0.0",
-    "@types/node": "^10.17.26",
+    "@types/node": "^10.17.28",
     "jsii-build-tools": "^0.0.0",
-    "typescript": "~3.9.6"
+    "typescript": "~3.9.7"
   }
 }

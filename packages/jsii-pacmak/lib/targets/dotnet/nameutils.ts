@@ -44,7 +44,7 @@ export class DotNetNameUtils {
 
   public convertClassName(original: spec.ClassType | spec.InterfaceType) {
     if (this.isInvalidName(original.name)) {
-      throw new Error(`Invalid class name: ${original}`);
+      throw new Error(`Invalid class name: ${original.name}`);
     }
     // Tentatively get the class name
     let name = this.capitalizeWord(original.name);

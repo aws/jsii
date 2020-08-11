@@ -25,13 +25,13 @@
     "jsii-pacmak": "bin/jsii-pacmak"
   },
   "scripts": {
-    "gen": "/bin/bash generate.sh",
+    "gen": "bash generate.sh",
     "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && npm run lint",
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "jest && /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh",
-    "test:update": "UPDATE_DIFF=1 /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest -u",
+    "test": "jest && bash test/build-test.sh",
+    "test:update": "jest -u && bash test/build-test.sh",
     "package": "package-js"
   },
   "dependencies": {
@@ -46,29 +46,30 @@
     "semver": "^7.3.2",
     "spdx-license-list": "^6.2.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^15.4.0"
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
     "@jsii/java-runtime": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
-    "@types/clone": "^0.1.30",
+    "@types/clone": "^2.1.0",
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.5",
+    "@types/jest": "^26.0.9",
     "@types/mock-fs": "^4.10.0",
-    "@types/node": "^10.17.26",
+    "@types/node": "^10.17.28",
     "@types/semver": "^7.3.1",
     "@types/yargs": "^15.0.5",
-    "eslint": "^7.5.0",
+    "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.1.0",
+    "jest": "^26.3.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "mock-fs": "^4.12.0",
     "prettier": "^2.0.5",
-    "typescript": "~3.9.6"
+    "ts-jest": "^26.1.4",
+    "typescript": "~3.9.7"
   },
   "keywords": [
     "jsii",
@@ -87,7 +88,10 @@
     "errorOnDeprecated": true,
     "testEnvironment": "node",
     "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
+      "**/?(*.)+(spec|test).ts"
+    ],
+    "transform": {
+      "\\.tsx?$": "ts-jest"
+    }
   }
 }

@@ -1,9 +1,9 @@
+import * as lib from '@scope/jsii-calc-lib';
 import {
   EnumFromScopedModule,
   IDoublable,
   IFriendly,
   MyFirstStruct,
-  Number,
   StructWithOnlyOptionals,
   Value,
 } from '@scope/jsii-calc-lib';
@@ -18,6 +18,13 @@ import {
   Multiply,
 } from './calculator';
 
+/* eslint-disable
+  @typescript-eslint/explicit-module-boundary-types,
+  @typescript-eslint/no-namespace,
+  @typescript-eslint/member-ordering,
+*/
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const bundled = require('@fixtures/jsii-calc-bundled');
 import * as base from '@scope/jsii-calc-base';
 
@@ -58,11 +65,11 @@ export class AllTypes {
 
   private boolValue = false;
 
-  get booleanProperty() {
+  public get booleanProperty() {
     return this.boolValue;
   }
 
-  set booleanProperty(value: boolean) {
+  public set booleanProperty(value: boolean) {
     if (typeof value !== 'boolean') {
       throw new Error('not a boolean');
     }
@@ -73,11 +80,11 @@ export class AllTypes {
 
   private stringValue = 'first value';
 
-  get stringProperty() {
+  public get stringProperty() {
     return this.stringValue;
   }
 
-  set stringProperty(value: string) {
+  public set stringProperty(value: string) {
     if (typeof value !== 'string') {
       throw new Error('not a string');
     }
@@ -89,11 +96,11 @@ export class AllTypes {
 
   private numberValue = 0;
 
-  get numberProperty() {
+  public get numberProperty() {
     return this.numberValue;
   }
 
-  set numberProperty(value: number) {
+  public set numberProperty(value: number) {
     if (typeof value !== 'number') {
       throw new Error('not a number');
     }
@@ -104,14 +111,14 @@ export class AllTypes {
 
   private dateValue = new Date();
 
-  get dateProperty(): Date {
+  public get dateProperty(): Date {
     return this.dateValue;
   }
 
-  set dateProperty(value: Date) {
+  public set dateProperty(value: Date) {
     // https://stackoverflow.com/a/643827/737957
     if (Object.prototype.toString.call(value) !== '[object Date]') {
-      throw new Error('not a date: ' + value + ' type=' + typeof value);
+      throw new Error(`not a date: ${value as any} type=${typeof value}`);
     }
 
     this.dateValue = value;
@@ -119,13 +126,16 @@ export class AllTypes {
 
   // json
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   private jsonValue: object = {};
 
-  get jsonProperty(): object {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  public get jsonProperty(): object {
     return this.jsonValue;
   }
 
-  set jsonProperty(value: object) {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  public set jsonProperty(value: object) {
     if (typeof value !== 'object') {
       throw new Error('not an object');
     }
@@ -135,13 +145,13 @@ export class AllTypes {
 
   // map
 
-  private mapValue: { [key: string]: Number } = {};
+  private mapValue: { [key: string]: lib.Number } = {};
 
-  get mapProperty(): { [key: string]: Number } {
+  public get mapProperty(): { [key: string]: lib.Number } {
     return this.mapValue;
   }
 
-  set mapProperty(value: { [key: string]: Number }) {
+  public set mapProperty(value: { [key: string]: lib.Number }) {
     if (typeof value !== 'object') {
       throw new Error('not a map');
     }
@@ -152,11 +162,11 @@ export class AllTypes {
 
   private arrayValue: string[] = [];
 
-  get arrayProperty(): string[] {
+  public get arrayProperty(): string[] {
     return this.arrayValue;
   }
 
-  set arrayProperty(value: string[]) {
+  public set arrayProperty(value: string[]) {
     if (!Array.isArray(value)) {
       throw new Error('not an array');
     }
@@ -166,32 +176,32 @@ export class AllTypes {
 
   // non-typed (any)
 
-  anyProperty: any;
-  anyArrayProperty: any[] = [];
-  anyMapProperty: { [key: string]: any } = {};
+  public anyProperty: any;
+  public anyArrayProperty: any[] = [];
+  public anyMapProperty: { [key: string]: any } = {};
 
   // non-typed (unknown)
 
-  unknownProperty: unknown;
-  unknownArrayProperty: unknown[] = [];
-  unknownMapProperty: { [key: string]: unknown } = {};
+  public unknownProperty: unknown;
+  public unknownArrayProperty: unknown[] = [];
+  public unknownMapProperty: { [key: string]: unknown } = {};
 
   // unions
 
-  unionProperty: string | number | Number | Multiply = 'foo';
-  unionArrayProperty: (Value | number)[] = [];
-  unionMapProperty: { [key: string]: Number | number | string } = {};
+  public unionProperty: string | number | lib.Number | Multiply = 'foo';
+  public unionArrayProperty: Array<Value | number> = [];
+  public unionMapProperty: { [key: string]: lib.Number | number | string } = {};
 
   // enum
 
   public optionalEnumValue?: StringEnum;
   private enumValue: AllTypesEnum = AllTypesEnum.THIS_IS_GREAT;
 
-  get enumProperty() {
+  public get enumProperty() {
     return this.enumValue;
   }
 
-  set enumProperty(value: AllTypesEnum) {
+  public set enumProperty(value: AllTypesEnum) {
     this.enumValue = value;
     switch (value) {
       case AllTypesEnum.MY_ENUM_VALUE:
@@ -199,20 +209,20 @@ export class AllTypes {
       case AllTypesEnum.THIS_IS_GREAT:
         return;
       default:
-        throw new Error('Invalid enum: ' + value);
+        throw new Error(`Invalid enum: ${value as any}`);
     }
   }
 
-  get enumPropertyValue(): number {
+  public get enumPropertyValue(): number {
     return this.enumValue.valueOf();
   }
 
-  enumMethod(value: StringEnum) {
+  public enumMethod(value: StringEnum) {
     return value;
   }
 
   public anyOut(): any {
-    const ret = new Number(42);
+    const ret = new lib.Number(42);
     Object.defineProperty(ret, 'tag', {
       value: "you're it",
     });
@@ -235,7 +245,7 @@ export class AllTypes {
 //
 
 export class JSObjectLiteralToNative {
-  returnLiteral(): JSObjectLiteralToNativeClass {
+  public returnLiteral(): JSObjectLiteralToNativeClass {
     return {
       propA: 'Hello',
       propB: 102,
@@ -244,8 +254,8 @@ export class JSObjectLiteralToNative {
 }
 
 export class JSObjectLiteralToNativeClass {
-  propA: string = 'A';
-  propB: number = 0;
+  public propA = 'A';
+  public propB = 0;
 }
 
 /**
@@ -255,9 +265,9 @@ export class ObjectRefsInCollections {
   /**
    * Returns the sum of all values
    */
-  sumFromArray(values: Value[]) {
+  public sumFromArray(values: Value[]) {
     let sum = 0;
-    for (let val of values) {
+    for (const val of values) {
       sum += val.value;
     }
     return sum;
@@ -266,9 +276,9 @@ export class ObjectRefsInCollections {
   /**
    * Returns the sum of all values in a map
    */
-  sumFromMap(values: { [key: string]: Value }) {
+  public sumFromMap(values: { [key: string]: Value }) {
     let sum = 0;
-    for (let key of Object.keys(values)) {
+    for (const key of Object.keys(values)) {
       sum += values[key].value;
     }
     return sum;
@@ -280,23 +290,19 @@ export class RuntimeTypeChecking {
    * Used to verify verification of number of method arguments.
    */
   public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
-    arg1;
-    arg2;
-    arg3;
+    consume(arg1, arg2, arg3);
   }
 
   public methodWithDefaultedArguments(
-    arg1: number = 2,
+    arg1 = 2,
     arg2?: string,
     arg3: Date = new Date(),
   ) {
-    arg1;
-    arg2;
-    arg3;
+    consume(arg1, arg2, arg3);
   }
 
   public methodWithOptionalAnyArgument(arg?: any) {
-    arg;
+    consume(arg);
   }
 }
 
@@ -318,14 +324,14 @@ export class DefaultedConstructorArgument {
 
 export namespace DerivedClassHasNoProperties {
   export class Base {
-    prop: string = '';
+    public prop = '';
   }
 
   export class Derived extends Base {}
 }
 
 export class AsyncVirtualMethods {
-  async callMe() {
+  public async callMe() {
     return (
       (await this.overrideMe(10)) +
       this.dontOverrideMe() +
@@ -333,18 +339,18 @@ export class AsyncVirtualMethods {
     );
   }
 
-  async overrideMe(mult: number) {
-    return 12 * mult;
+  public async overrideMe(mult: number) {
+    return Promise.resolve(12 * mult);
   }
 
-  async overrideMeToo() {
-    return 0;
+  public async overrideMeToo() {
+    return Promise.resolve(0);
   }
 
   /**
    * Just calls "overrideMeToo"
    */
-  callMe2() {
+  public async callMe2() {
     return this.overrideMeToo();
   }
 
@@ -354,71 +360,71 @@ export class AsyncVirtualMethods {
    * means that callbacks are not going to be available immediate, but only
    * after an "immediates" cycle.
    */
-  async callMeDoublePromise() {
-    return new Promise<number>((ok) => {
+  public async callMeDoublePromise() {
+    return new Promise<number>((ok, ko) => {
       setImmediate(() => {
-        this.callMe().then(ok);
+        this.callMe().then(ok, ko);
       });
     });
   }
 
-  dontOverrideMe() {
+  public dontOverrideMe() {
     return 8;
   }
 }
 
 export class SyncVirtualMethods {
-  callerIsMethod() {
+  public callerIsMethod() {
     return this.virtualMethod(10);
   }
 
-  get callerIsProperty() {
+  public get callerIsProperty() {
     return this.virtualMethod(10);
   }
 
-  set callerIsProperty(x: number) {
+  public set callerIsProperty(x: number) {
     this.virtualMethod(x);
   }
 
-  async callerIsAsync() {
-    return this.virtualMethod(10);
+  public async callerIsAsync() {
+    return Promise.resolve(this.virtualMethod(10));
   }
 
-  virtualMethod(n: number): number {
+  public virtualMethod(n: number): number {
     return n * 2;
   }
 
   // read-write property
 
-  theProperty: string = 'initial value';
+  public theProperty = 'initial value';
 
-  modifyValueOfTheProperty(value: string) {
+  public modifyValueOfTheProperty(value: string) {
     this.theProperty = value;
   }
 
-  retrieveValueOfTheProperty() {
+  public retrieveValueOfTheProperty() {
     return this.theProperty;
   }
 
   // read-only property
 
-  readonly readonlyProperty: string = 'readonly-property-initial-value';
+  public readonly readonlyProperty: string = 'readonly-property-initial-value';
 
-  retrieveReadOnlyProperty() {
+  public retrieveReadOnlyProperty() {
     return this.readonlyProperty;
   }
 
   // property backed by functions
 
-  get otherProperty() {
+  public get otherProperty() {
     return 'other property';
   }
 
-  set otherProperty(value: string) {
+  public set otherProperty(value: string) {
     this.valueOfOtherProperty = value;
   }
 
-  valueOfOtherProperty: string = '';
+  public valueOfOtherProperty = '';
 
   public modifyOtherProperty(value: string) {
     this.otherProperty = value;
@@ -431,29 +437,26 @@ export class SyncVirtualMethods {
   // property with a short name (makes sure for example that java's
   // convertion of getA to "a" is not assuming that the length is > 1).
 
-  a: number = 0;
+  public a = 0;
 
-  readA() {
+  public readA() {
     return this.a;
   }
 
-  writeA(value: number) {
+  public writeA(value: number) {
     this.a = value;
   }
 }
 
 export class VirtualMethodPlayground {
-  async serialSumAsync(count: number) {
-    let sum = 0;
-    for (let i = 0; i < count; ++i) {
-      const result = await this.overrideMeAsync(i);
-      sum += result;
-    }
-    return sum;
+  public async serialSumAsync(count: number) {
+    return Promise.all(
+      new Array(count).map((_, idx) => this.overrideMeAsync(idx)),
+    ).then((promises) => promises.reduce((acc, elt) => acc + elt, 0));
   }
 
-  async parallelSumAsync(count: number) {
-    let all = new Array<Promise<number>>();
+  public async parallelSumAsync(count: number) {
+    const all = new Array<Promise<number>>();
     for (let i = 0; i < count; ++i) {
       all.push(this.overrideMeAsync(i));
     }
@@ -462,7 +465,7 @@ export class VirtualMethodPlayground {
     return result.reduce((x, i) => x + i, 0);
   }
 
-  sumSync(count: number) {
+  public sumSync(count: number) {
     let sum = 0;
     for (let i = 0; i < count; ++i) {
       sum += this.overrideMeSync(i);
@@ -470,27 +473,27 @@ export class VirtualMethodPlayground {
     return sum;
   }
 
-  async overrideMeAsync(index: number) {
-    return 10 * index;
+  public async overrideMeAsync(index: number) {
+    return Promise.resolve(10 * index);
   }
 
-  overrideMeSync(index: number) {
+  public overrideMeSync(index: number) {
     return 10 * index;
   }
 }
 
 export class DoubleTrouble implements IFriendlyRandomGenerator {
-  next() {
+  public next() {
     return 12;
   }
 
-  hello() {
+  public hello() {
     return 'world';
   }
 }
 
 export class Polymorphism {
-  sayHello(friendly: IFriendly) {
+  public sayHello(friendly: IFriendly) {
     return `oh, ${friendly.hello()}`;
   }
 }
@@ -500,25 +503,25 @@ export class Polymorphism {
  * implement interfaces.
  */
 export class NumberGenerator {
-  constructor(public generator: IRandomNumberGenerator) {}
+  public constructor(public generator: IRandomNumberGenerator) {}
 
-  nextTimes100() {
+  public nextTimes100() {
     return this.generator.next() * 100;
   }
 
-  isSameGenerator(gen: IRandomNumberGenerator) {
+  public isSameGenerator(gen: IRandomNumberGenerator) {
     return this.generator === gen;
   }
 }
 
 export class JSObjectLiteralForInterface {
-  giveMeFriendly(): IFriendly {
+  public giveMeFriendly(): IFriendly {
     return {
       hello: () => 'I am literally friendly!',
     };
   }
 
-  giveMeFriendlyGenerator(): IFriendlyRandomGenerator {
+  public giveMeFriendlyGenerator(): IFriendlyRandomGenerator {
     return {
       hello: () => 'giveMeFriendlyGenerator',
       next: () => 42,
@@ -527,8 +530,8 @@ export class JSObjectLiteralForInterface {
 }
 
 export class GreetingAugmenter {
-  betterGreeting(friendly: IFriendly): string {
-    return friendly.hello() + ' Let me buy you a drink!';
+  public betterGreeting(friendly: IFriendly): string {
+    return `${friendly.hello()} Let me buy you a drink!`;
   }
 }
 
@@ -554,25 +557,25 @@ export class GiveMeStructs {
   /**
    * Returns the "anumber" from a MyFirstStruct struct;
    */
-  readFirstNumber(first: MyFirstStruct) {
+  public readFirstNumber(first: MyFirstStruct) {
     return first.anumber;
   }
 
   /**
    * Returns the boolean from a DerivedStruct struct.
    */
-  readDerivedNonPrimitive(derived: DerivedStruct) {
+  public readDerivedNonPrimitive(derived: DerivedStruct) {
     return derived.nonPrimitive;
   }
 
   /**
    * Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
    */
-  derivedToFirst(derived: DerivedStruct) {
+  public derivedToFirst(derived: DerivedStruct) {
     return derived as MyFirstStruct;
   }
 
-  get structLiteral(): StructWithOnlyOptionals {
+  public get structLiteral(): StructWithOnlyOptionals {
     return {
       optional1: 'optional1FromStructLiteral',
       optional3: false,
@@ -591,7 +594,7 @@ export interface IInterfaceWithPropertiesExtension
 }
 
 export class UsesInterfaceWithProperties {
-  constructor(public readonly obj: IInterfaceWithProperties) {}
+  public constructor(public readonly obj: IInterfaceWithProperties) {}
 
   public justRead() {
     return this.obj.readOnlyString;
@@ -636,7 +639,7 @@ export class AllowedMethodNames {
 export interface IReturnsNumber {
   obtainNumber(): IDoublable;
 
-  readonly numberProp: Number;
+  readonly numberProp: lib.Number;
 }
 
 export class OverrideReturnsObject {
@@ -661,7 +664,7 @@ export class VariadicMethod {
   /**
    * @param prefix a prefix that will be use for all values returned by `#asArray`.
    */
-  constructor(...prefix: number[]) {
+  public constructor(...prefix: number[]) {
     this.prefix = prefix;
   }
 
@@ -684,7 +687,7 @@ export class VariadicInvoker {
 }
 
 export class Statics {
-  constructor(public readonly value: string) {}
+  public constructor(public readonly value: string) {}
 
   /**
    * Jsdocs for static method
@@ -740,177 +743,345 @@ export class Statics {
 
 // https://en.wikipedia.org/wiki/List_of_Java_keywords
 export class JavaReservedWords {
-  public abstract() {}
+  public abstract() {
+    return;
+  }
 
-  public assert() {}
+  public assert() {
+    return;
+  }
 
-  public boolean() {}
+  public boolean() {
+    return;
+  }
 
-  public break() {}
+  public break() {
+    return;
+  }
 
-  public byte() {}
+  public byte() {
+    return;
+  }
 
-  public case() {}
+  public case() {
+    return;
+  }
 
-  public catch() {}
+  public catch() {
+    return;
+  }
 
-  public char() {}
+  public char() {
+    return;
+  }
 
-  public class() {}
+  public class() {
+    return;
+  }
 
-  public const() {}
+  public const() {
+    return;
+  }
 
-  public continue() {}
+  public continue() {
+    return;
+  }
 
-  public default() {}
+  public default() {
+    return;
+  }
 
-  public double() {}
+  public double() {
+    return;
+  }
 
-  public do() {}
+  public do() {
+    return;
+  }
 
-  public else() {}
+  public else() {
+    return;
+  }
 
-  public enum() {}
+  public enum() {
+    return;
+  }
 
-  public extends() {}
+  public extends() {
+    return;
+  }
 
-  public false() {}
+  public false() {
+    return;
+  }
 
-  public final() {}
+  public final() {
+    return;
+  }
 
-  public finally() {}
+  public finally() {
+    return;
+  }
 
-  public float() {}
+  public float() {
+    return;
+  }
 
-  public for() {}
+  public for() {
+    return;
+  }
 
-  public goto() {}
+  public goto() {
+    return;
+  }
 
-  public if() {}
+  public if() {
+    return;
+  }
 
-  public implements() {}
+  public implements() {
+    return;
+  }
 
-  public import() {}
+  public import() {
+    return;
+  }
 
-  public instanceof() {}
+  public instanceof() {
+    return;
+  }
 
-  public int() {}
+  public int() {
+    return;
+  }
 
-  public interface() {}
+  public interface() {
+    return;
+  }
 
-  public long() {}
+  public long() {
+    return;
+  }
 
-  public native() {}
+  public native() {
+    return;
+  }
 
-  public new() {}
+  public new() {
+    return;
+  }
 
-  public null() {}
+  public null() {
+    return;
+  }
 
-  public package() {}
+  public package() {
+    return;
+  }
 
-  public private() {}
+  public private() {
+    return;
+  }
 
-  public protected() {}
+  public protected() {
+    return;
+  }
 
-  public public() {}
+  public public() {
+    return;
+  }
 
-  public return() {}
+  public return() {
+    return;
+  }
 
-  public short() {}
+  public short() {
+    return;
+  }
 
-  public static() {}
+  public static() {
+    return;
+  }
 
-  public strictfp() {}
+  public strictfp() {
+    return;
+  }
 
-  public super() {}
+  public super() {
+    return;
+  }
 
-  public switch() {}
+  public switch() {
+    return;
+  }
 
-  public synchronized() {}
+  public synchronized() {
+    return;
+  }
 
-  public this() {}
+  public this() {
+    return;
+  }
 
-  public throw() {}
+  public throw() {
+    return;
+  }
 
-  public throws() {}
+  public throws() {
+    return;
+  }
 
-  public transient() {}
+  public transient() {
+    return;
+  }
 
-  public true() {}
+  public true() {
+    return;
+  }
 
-  public try() {}
+  public try() {
+    return;
+  }
 
-  public void() {}
+  public void() {
+    return;
+  }
 
-  public volatile() {}
+  public volatile() {
+    return;
+  }
 
   public while = 'hello';
 }
 
 export class PythonReservedWords {
-  public and() {}
+  public and() {
+    return;
+  }
 
-  public as() {}
+  public as() {
+    return;
+  }
 
-  public assert() {}
+  public assert() {
+    return;
+  }
 
-  public async() {}
+  public async() {
+    return;
+  }
 
-  public await() {}
+  public await() {
+    return;
+  }
 
-  public break() {}
+  public break() {
+    return;
+  }
 
-  public class() {}
+  public class() {
+    return;
+  }
 
-  public continue() {}
+  public continue() {
+    return;
+  }
 
-  public def() {}
+  public def() {
+    return;
+  }
 
-  public del() {}
+  public del() {
+    return;
+  }
 
-  public elif() {}
+  public elif() {
+    return;
+  }
 
-  public else() {}
+  public else() {
+    return;
+  }
 
-  public except() {}
+  public except() {
+    return;
+  }
 
-  public finally() {}
+  public finally() {
+    return;
+  }
 
-  public for() {}
+  public for() {
+    return;
+  }
 
-  public from() {}
+  public from() {
+    return;
+  }
 
-  public global() {}
+  public global() {
+    return;
+  }
 
-  public if() {}
+  public if() {
+    return;
+  }
 
-  public import() {}
+  public import() {
+    return;
+  }
 
-  public in() {}
+  public in() {
+    return;
+  }
 
-  public is() {}
+  public is() {
+    return;
+  }
 
-  public lambda() {}
+  public lambda() {
+    return;
+  }
 
-  public nonlocal() {}
+  public nonlocal() {
+    return;
+  }
 
-  public not() {}
+  public not() {
+    return;
+  }
 
-  public or() {}
+  public or() {
+    return;
+  }
 
-  public pass() {}
+  public pass() {
+    return;
+  }
 
-  public raise() {}
+  public raise() {
+    return;
+  }
 
-  public return() {}
+  public return() {
+    return;
+  }
 
-  public try() {}
+  public try() {
+    return;
+  }
 
-  public while() {}
+  public while() {
+    return;
+  }
 
-  public with() {}
+  public with() {
+    return;
+  }
 
-  public yield() {}
+  public yield() {
+    return;
+  }
 }
 
 // "self" is technically not a keyword in Python. It's the conventional name of
@@ -944,7 +1115,7 @@ export interface UnionProperties {
 }
 
 export class UseBundledDependency {
-  value() {
+  public value() {
     return bundled;
   }
 }
@@ -967,16 +1138,15 @@ export class NodeStandardLibrary {
    * @returns "Hello, resource! SYNC!"
    */
   public fsReadFileSync() {
-    return (
-      fs.readFileSync(path.join(__dirname, 'resource.txt')).toString() +
-      ' SYNC!'
-    );
+    return `${fs
+      .readFileSync(path.join(__dirname, 'resource.txt'))
+      .toString()} SYNC!`;
   }
 
   /**
    * Returns the current os.platform() from the "os" node module.
    */
-  public get osPlatform() {
+  public get osPlatform(): string {
     return os.platform();
   }
 
@@ -1051,7 +1221,7 @@ export interface IInterfaceWithOptionalMethodArguments {
   hello(arg1: string, arg2?: number): void;
 }
 export class OptionalArgumentInvoker {
-  constructor(
+  public constructor(
     private readonly delegate: IInterfaceWithOptionalMethodArguments,
   ) {}
 
@@ -1185,7 +1355,9 @@ export class DoNotRecognizeAnyAsOptional {
     _requiredAny: any,
     _optionalAny?: any,
     _optionalString?: string,
-  ) {}
+  ) {
+    return;
+  }
 }
 
 /**
@@ -1194,7 +1366,7 @@ export class DoNotRecognizeAnyAsOptional {
 export class NullShouldBeTreatedAsUndefined {
   public changeMeToUndefined? = 'hello';
 
-  constructor(_param1: string, optional?: any) {
+  public constructor(_param1: string, optional?: any) {
     if (optional !== undefined) {
       throw new Error(
         'Expecting second constructor argument to be "undefined"',
@@ -1205,8 +1377,9 @@ export class NullShouldBeTreatedAsUndefined {
   public giveMeUndefined(value?: any) {
     if (value !== undefined) {
       throw new Error(
-        'I am disappointed. I expected undefined and got: ' +
-          JSON.stringify(value),
+        `I am disappointed. I expected undefined and got: ${JSON.stringify(
+          value,
+        )}`,
       );
     }
   }
@@ -1216,23 +1389,26 @@ export class NullShouldBeTreatedAsUndefined {
   ) {
     if (input.thisShouldBeUndefined !== undefined) {
       throw new Error(
-        'I am disappointed. I expected undefined in "thisShouldBeUndefined" and got: ' +
-          JSON.stringify(input),
+        `I am disappointed. I expected undefined in "thisShouldBeUndefined" and got: ${JSON.stringify(
+          input,
+        )}`,
       );
     }
 
     const array = input.arrayWithThreeElementsAndUndefinedAsSecondArgument;
     if (array.length !== 3) {
       throw new Error(
-        'Expecting "arrayWithThreeElementsAndUndefinedAsSecondArgument" to have three elements: ' +
-          JSON.stringify(input),
+        `Expecting "arrayWithThreeElementsAndUndefinedAsSecondArgument" to have three elements: ${JSON.stringify(
+          input,
+        )}`,
       );
     }
 
     if (array[1] !== undefined) {
       throw new Error(
-        'Expected arrayWithThreeElementsAndUndefinedAsSecondArgument[1] to be undefined: ' +
-          JSON.stringify(input),
+        `Expected arrayWithThreeElementsAndUndefinedAsSecondArgument[1] to be undefined: ${JSON.stringify(
+          input,
+        )}`,
       );
     }
   }
@@ -1240,8 +1416,7 @@ export class NullShouldBeTreatedAsUndefined {
   public verifyPropertyIsUndefined() {
     if (this.changeMeToUndefined !== undefined) {
       throw new Error(
-        'Expecting property "changeMeToUndefined" to be undefined, and it is: ' +
-          this.changeMeToUndefined,
+        `Expecting property "changeMeToUndefined" to be undefined, and it is: ${this.changeMeToUndefined}`,
       );
     }
   }
@@ -1338,11 +1513,11 @@ export interface IPrivatelyImplemented {
   readonly success: boolean;
 }
 export class ExportedBaseClass {
-  constructor(public readonly success: boolean) {}
+  public constructor(public readonly success: boolean) {}
 }
 class PrivateImplementation extends ExportedBaseClass
   implements IPrivatelyImplemented {
-  constructor() {
+  public constructor() {
     super(true);
   }
 }
@@ -1376,7 +1551,9 @@ export interface AugmentableClass {
 // needs to up-cast an instance to an incompatible type, which certain runtimes (such as Java) will prevent.
 // @See https://github.com/aws/jsii/issues/345
 export class PublicClass {
-  public hello(): void {}
+  public hello(): void {
+    return;
+  }
 }
 export interface IPublicInterface {
   bye(): string;
@@ -1445,7 +1622,7 @@ export class Constructors {
  * this it would break runtime type checks in the JVM or CLR.
  */
 export class SingleInstanceTwoTypes {
-  private instance = new PrivateClass();
+  private readonly instance = new PrivateClass();
 
   public interface1(): InbetweenClass {
     return this.instance;
@@ -1537,21 +1714,29 @@ export interface IInterfaceWithInternal {
 }
 
 export class ImplementsInterfaceWithInternal implements IInterfaceWithInternal {
-  visible() {}
+  public visible() {
+    return;
+  }
 
   /** @internal */
-  _hidden() {}
+  public _hidden() {
+    return;
+  }
 
   /** @internal */
-  _alsoHidden() {}
+  public _alsoHidden() {
+    return;
+  }
 
   /** @internal */
-  _propertiesToo?: string;
+  public _propertiesToo?: string;
 }
 
 export class ImplementsInterfaceWithInternalSubclass extends ImplementsInterfaceWithInternal {
   /** @internal */
-  _alsoHidden() {}
+  public _alsoHidden() {
+    return;
+  }
 
   /**
    * @internal
@@ -1574,7 +1759,7 @@ export interface ExtendsInternalInterface extends InternalInterface {
 }
 
 export class ImplementInternalInterface implements InternalInterface {
-  prop = 'implement me';
+  public prop = 'implement me';
 }
 
 export class ImplementsPrivateInterface implements IPrivateInterface {
@@ -1654,7 +1839,7 @@ export abstract class PartiallyInitializedThisConsumer {
 }
 
 export class ConstructorPassesThisOut {
-  constructor(consumer: PartiallyInitializedThisConsumer) {
+  public constructor(consumer: PartiallyInitializedThisConsumer) {
     const result = consumer.consumePartiallyInitializedThis(
       this,
       new Date(0),
@@ -1674,7 +1859,7 @@ export class OptionalStructConsumer {
   public readonly parameterWasUndefined: boolean;
   public readonly fieldValue?: string;
 
-  constructor(optionalStruct?: OptionalStruct) {
+  public constructor(optionalStruct?: OptionalStruct) {
     this.parameterWasUndefined = optionalStruct === undefined;
     this.fieldValue = optionalStruct && optionalStruct.field;
   }
@@ -1749,7 +1934,7 @@ export abstract class VoidCallback {
  * Verifies that private property declarations in constructor arguments are hidden.
  */
 export class WithPrivatePropertyInConstructor {
-  constructor(private readonly privateField: string = 'Success!') {}
+  public constructor(private readonly privateField: string = 'Success!') {}
 
   public get success() {
     return this.privateField === 'Success!';
@@ -1794,8 +1979,6 @@ export enum SingletonIntEnum {
  * Verifies proper type handling through dynamic overrides.
  */
 export class DataRenderer {
-  constructor() {}
-
   public render(
     data: MyFirstStruct = { anumber: 42, astring: 'bazinga!' },
   ): string {
@@ -1870,7 +2053,7 @@ export interface StructWithJavaReservedWords {
 }
 
 export class ClassWithJavaReservedWords {
-  readonly int: string;
+  public readonly int: string;
 
   public constructor(int: string) {
     this.int = int;
@@ -1932,16 +2115,16 @@ export class ClassWithCollections {
   };
   public static staticArray: string[] = ['one', 'two'];
 
-  constructor(map: { [key: string]: string }, array: string[]) {
+  public constructor(map: { [key: string]: string }, array: string[]) {
     this.map = map;
     this.array = array;
   }
 
-  static createAList(): string[] {
+  public static createAList(): string[] {
     return ['one', 'two'];
   }
 
-  static createAMap(): { [key: string]: string } {
+  public static createAMap(): { [key: string]: string } {
     return { key1: 'value1', key2: 'value2' };
   }
 }
@@ -1951,7 +2134,7 @@ export class ClassWithCollections {
  */
 export class OverridableProtectedMember {
   protected readonly overrideReadOnly: string = 'Baz';
-  protected overrideReadWrite: string = 'zinga!';
+  protected overrideReadWrite = 'zinga!';
 
   public valueFromProtected(): string {
     return this.overrideMe();
@@ -2039,7 +2222,7 @@ export class AnonymousImplementationProvider
   }
 }
 export class Implementation {
-  readonly value = 1337;
+  public readonly value = 1337;
 }
 export interface IAnonymouslyImplementMe {
   readonly value: number;
@@ -2294,7 +2477,7 @@ export interface IReturnJsii976 {
 export class BaseJsii976 {}
 
 export class SomeTypeJsii976 {
-  static returnReturn(): IReturnJsii976 {
+  public static returnReturn(): IReturnJsii976 {
     class Derived extends BaseJsii976 implements IReturnJsii976 {
       public readonly foo = 333;
     }
@@ -2302,7 +2485,7 @@ export class SomeTypeJsii976 {
     return new Derived();
   }
 
-  static returnAnonymous(): any {
+  public static returnAnonymous(): any {
     class Derived implements IReturnJsii976 {
       public readonly foo = 1337;
     }
@@ -2337,8 +2520,6 @@ export class Demonstrate982 {
   public static takeThisToo(): ParentStruct982 {
     return this.value;
   }
-
-  public constructor() {}
 }
 
 /**
@@ -2365,7 +2546,7 @@ export interface IObjectWithProperty {
 export class ObjectWithPropertyProvider {
   public static provide(): IObjectWithProperty {
     class Impl implements IObjectWithProperty {
-      private _property: string = '';
+      private _property = '';
       private _wasSet = false;
 
       public get property() {
@@ -2437,15 +2618,15 @@ export class JsonFormatter {
   }
 
   public static anyArray(): any {
-    return [1, 2, 3, new Number(123), { foo: 'bar' }];
+    return [1, 2, 3, new lib.Number(123), { foo: 'bar' }];
   }
 
   public static anyHash(): any {
-    return { hello: 1234, world: new Number(122) };
+    return { hello: 1234, world: new lib.Number(122) };
   }
 
   public static anyRef(): any {
-    return new Number(444);
+    return new lib.Number(444);
   }
 
   private constructor() {}
@@ -2480,7 +2661,7 @@ export interface IStructReturningDelegate {
   returnStruct(): StructB;
 }
 export class ConsumePureInterface {
-  constructor(private readonly delegate: IStructReturningDelegate) {}
+  public constructor(private readonly delegate: IStructReturningDelegate) {}
 
   public workItBaby() {
     return this.delegate.returnStruct();
@@ -2602,4 +2783,9 @@ export abstract class BurriedAnonymousObject {
    * @returns `value`
    */
   public abstract giveItBack(value: any): any;
+}
+
+/** Does nothing with provided arguments, useful to artifically use parameters */
+function consume(..._args: readonly any[]) {
+  return;
 }

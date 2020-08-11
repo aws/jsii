@@ -74,9 +74,9 @@ export class DotNetGenerator extends Generator {
     super.generate(fingerprint);
   }
 
-  public async save(outdir: string, tarball: string) {
+  public async save(outdir: string, tarball: string): Promise<string[]> {
     // Generating the csproj and AssemblyInfo.cs files
-    const tarballFileName = tarball.substr(tarball.lastIndexOf('/') + 1);
+    const tarballFileName = path.basename(tarball);
     const filegen = new FileGenerator(
       this.assembly,
       tarballFileName,

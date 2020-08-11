@@ -11,6 +11,7 @@ plugins:
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: 2018
+  impliedStrict: true
   sourceType: module
   project: ./**/tsconfig.json
 
@@ -52,11 +53,14 @@ rules:
     - 1tbs # One True Brace Style!
     - allowSingleLine: true
 
+  '@typescript-eslint/explicit-module-boundary-types':
+    - off
+
   '@typescript-eslint/explicit-member-accessibility':
     - error
 
   '@typescript-eslint/member-ordering':
-    - warn
+    - error
     - default:
       - static-field
       - static-method
@@ -76,6 +80,18 @@ rules:
 
   '@typescript-eslint/no-require-imports':
     - error
+
+  '@typescript-eslint/no-unsafe-assignment':
+    - off
+
+  '@typescript-eslint/no-unsafe-call':
+    - off
+
+  '@typescript-eslint/no-unsafe-member-access':
+    - off
+
+  '@typescript-eslint/no-unsafe-return':
+    - off
 
   '@typescript-eslint/no-unused-vars':
     - error
@@ -98,12 +114,18 @@ rules:
     - error
     - checkArrowFunctions: false
 
+  '@typescript-eslint/restrict-template-expressions':
+    - error
+    - allowNumber: true
+      allowBoolean: true
+      allowAny: true
+      allowNullish: true
+
   '@typescript-eslint/require-await':
     - error
 
   'complexity':
-    - warn
-    - 20
+    - off
 
   'consistent-return':
     - error
@@ -129,7 +151,7 @@ rules:
     - error
 
   'no-await-in-loop':
-    - warn
+    - error
 
   'no-caller':
     - error
@@ -142,7 +164,7 @@ rules:
     - error
 
   'no-extra-bind':
-    - warn
+    - error
 
   'no-implied-eval':
     - error
@@ -160,7 +182,7 @@ rules:
     - error
 
   'no-return-await':
-    - warn
+    - error
 
   'no-unused-expressions':
     - error
