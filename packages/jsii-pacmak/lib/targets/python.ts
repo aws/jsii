@@ -62,6 +62,10 @@ export default class Python extends Target {
     } else if (await isPresent('pipx', sourceDir)) {
       await shell('pipx', ['run', 'twine', 'check', path.join(outDir, '*')], {
         cwd: sourceDir,
+        env: {
+          ...process.env,
+          PIPX_HOME: path.join(sourceDir, '.pipx'),
+        },
       });
     } else {
       warn(
