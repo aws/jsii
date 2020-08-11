@@ -32,7 +32,7 @@ pull_request_rules:
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
       # Integration Tests
-      - status-succes=Integration Test
+      - status-success=Integration Test
       # One test for each OS
       - status-success~=^Test \(ubuntu-.*$
       - status-success~=^Test \(macos-.*$
@@ -79,7 +79,7 @@ pull_request_rules:
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
       # Integration Tests
-      - status-succes=Integration Test
+      - status-success=Integration Test
       # One test for each OS
       - status-success~=^Test \(ubuntu-.*$
       - status-success~=^Test \(macos-.*$
@@ -126,7 +126,7 @@ pull_request_rules:
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
       # Integration Tests
-      - status-succes=Integration Test
+      - status-success=Integration Test
       # One test for each OS
       - status-success~=^Test \(ubuntu-.*$
       - status-success~=^Test \(macos-.*$
