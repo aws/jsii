@@ -230,7 +230,10 @@ export class Assembler implements Emitter {
       const fileName =
         (await fs.readdir(this.projectInfo.projectRoot)).find(
           (file) => file.toLocaleLowerCase() === 'readme.md',
-        ) ?? 'README.md';
+        );
+      if (fileName == null) {
+        return undefined;
+      }
       const readmePath = path.join(this.projectInfo.projectRoot, fileName);
       if (!(await fs.pathExists(readmePath))) {
         return undefined;
