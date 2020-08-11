@@ -1627,6 +1627,72 @@
         }
       ]
     },
+    "jsii-calc.BurriedAnonymousObject": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "See https://github.com/aws/aws-cdk/issues/7977."
+      },
+      "fqn": "jsii-calc.BurriedAnonymousObject",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2767
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2768
+          },
+          "name": "check",
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "returns": "`value`",
+            "stability": "experimental",
+            "summary": "Implement this method and have it return it's parameter."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2785
+          },
+          "name": "giveItBack",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "the value that should be returned."
+              },
+              "name": "value",
+              "type": {
+                "primitive": "any"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "any"
+            }
+          }
+        }
+      ],
+      "name": "BurriedAnonymousObject"
+    },
     "jsii-calc.Calculator": {
       "assembly": "jsii-calc",
       "base": "jsii-calc.composition.CompositeOperation",
@@ -13726,5 +13792,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "0DjvWtfvMj4mITXL7XHLgLy7LcrQqMZKTc62V6YGJCU="
+  "fingerprint": "vvbS+qMbW22uAvRztwhodRIh2QmT3b70z2ZvHiiaz70="
 }

@@ -31,6 +31,8 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
+      # Integration Tests
+      - status-success=Integration Test
       # One test for each OS
       - status-success~=^Test \(ubuntu-.*$
       - status-success~=^Test \(macos-.*$
@@ -76,6 +78,8 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
+      # Integration Tests
+      - status-success=Integration Test
       # One test for each OS
       - status-success~=^Test \(ubuntu-.*$
       - status-success~=^Test \(macos-.*$
@@ -121,6 +125,8 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
+      # Integration Tests
+      - status-success=Integration Test
       # One test for each OS
       - status-success~=^Test \(ubuntu-.*$
       - status-success~=^Test \(macos-.*$

@@ -6199,6 +6199,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
  ┃     ┃           ┣━ 📄 Bell.cs
  ┃     ┃           ┣━ 📄 BinaryOperation.cs
  ┃     ┃           ┣━ 📄 BinaryOperationProxy.cs
+ ┃     ┃           ┣━ 📄 BurriedAnonymousObject.cs
+ ┃     ┃           ┣━ 📄 BurriedAnonymousObjectProxy.cs
  ┃     ┃           ┣━ 📄 Calculator.cs
  ┃     ┃           ┣━ 📄 CalculatorProps.cs
  ┃     ┃           ┣━ 📄 CalculatorPropsProxy.cs
@@ -6560,6 +6562,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
  ┃        ┃                 ┣━ 📄 BaseJsii976.java
  ┃        ┃                 ┣━ 📄 Bell.java
  ┃        ┃                 ┣━ 📄 BinaryOperation.java
+ ┃        ┃                 ┣━ 📄 BurriedAnonymousObject.java
  ┃        ┃                 ┣━ 📄 Calculator.java
  ┃        ┃                 ┣━ 📄 CalculatorProps.java
  ┃        ┃                 ┣━ 📄 ChildStruct982.java
@@ -8441,6 +8444,72 @@ Object {
           }
         }
       ]
+    },
+    \\"jsii-calc.BurriedAnonymousObject\\": {
+      \\"abstract\\": true,
+      \\"assembly\\": \\"jsii-calc\\",
+      \\"docs\\": {
+        \\"stability\\": \\"experimental\\",
+        \\"summary\\": \\"See https://github.com/aws/aws-cdk/issues/7977.\\"
+      },
+      \\"fqn\\": \\"jsii-calc.BurriedAnonymousObject\\",
+      \\"initializer\\": {
+        \\"docs\\": {
+          \\"stability\\": \\"experimental\\"
+        }
+      },
+      \\"kind\\": \\"class\\",
+      \\"locationInModule\\": {
+        \\"filename\\": \\"lib/compliance.ts\\",
+        \\"line\\": 2767
+      },
+      \\"methods\\": [
+        {
+          \\"docs\\": {
+            \\"stability\\": \\"experimental\\"
+          },
+          \\"locationInModule\\": {
+            \\"filename\\": \\"lib/compliance.ts\\",
+            \\"line\\": 2768
+          },
+          \\"name\\": \\"check\\",
+          \\"returns\\": {
+            \\"type\\": {
+              \\"primitive\\": \\"boolean\\"
+            }
+          }
+        },
+        {
+          \\"abstract\\": true,
+          \\"docs\\": {
+            \\"returns\\": \\"\`value\`\\",
+            \\"stability\\": \\"experimental\\",
+            \\"summary\\": \\"Implement this method and have it return it's parameter.\\"
+          },
+          \\"locationInModule\\": {
+            \\"filename\\": \\"lib/compliance.ts\\",
+            \\"line\\": 2785
+          },
+          \\"name\\": \\"giveItBack\\",
+          \\"parameters\\": [
+            {
+              \\"docs\\": {
+                \\"summary\\": \\"the value that should be returned.\\"
+              },
+              \\"name\\": \\"value\\",
+              \\"type\\": {
+                \\"primitive\\": \\"any\\"
+              }
+            }
+          ],
+          \\"returns\\": {
+            \\"type\\": {
+              \\"primitive\\": \\"any\\"
+            }
+          }
+        }
+      ],
+      \\"name\\": \\"BurriedAnonymousObject\\"
     },
     \\"jsii-calc.Calculator\\": {
       \\"assembly\\": \\"jsii-calc\\",
@@ -20541,7 +20610,7 @@ Object {
     }
   },
   \\"version\\": \\"0.0.0\\",
-  \\"fingerprint\\": \\"AksOoFurRMyuF7gSjHXHbIRIIjq0e0R0CvpHycvyI3U=\\"
+  \\"fingerprint\\": \\"kQYWZjxtnycywR9qo/KXKyeVPmP6HoAefGhHN7SidkM=\\"
 }
 ",
 }
@@ -21883,6 +21952,102 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+        }
+    }
+}
+",
+}
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/BurriedAnonymousObject.cs 1`] = `
+Object {
+  Symbol(file): "using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>See https://github.com/aws/aws-cdk/issues/7977.</summary>
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BurriedAnonymousObject), fullyQualifiedName: \\"jsii-calc.BurriedAnonymousObject\\")]
+    public abstract class BurriedAnonymousObject : DeputyBase
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        protected BurriedAnonymousObject(): base(new DeputyProps(new object[]{}))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name=\\"reference\\">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected BurriedAnonymousObject(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name=\\"props\\">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected BurriedAnonymousObject(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiMethod(name: \\"check\\", returnsJson: \\"{\\\\\\"type\\\\\\":{\\\\\\"primitive\\\\\\":\\\\\\"boolean\\\\\\"}}\\")]
+        public virtual bool Check()
+        {
+            return InvokeInstanceMethod<bool>(new System.Type[]{}, new object[]{});
+        }
+
+        /// <summary>Implement this method and have it return it's parameter.</summary>
+        /// <param name=\\"value\\">the value that should be returned.</param>
+        /// <returns>\`value\`</returns>
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiMethod(name: \\"giveItBack\\", returnsJson: \\"{\\\\\\"type\\\\\\":{\\\\\\"primitive\\\\\\":\\\\\\"any\\\\\\"}}\\", parametersJson: \\"[{\\\\\\"docs\\\\\\":{\\\\\\"summary\\\\\\":\\\\\\"the value that should be returned.\\\\\\"},\\\\\\"name\\\\\\":\\\\\\"value\\\\\\",\\\\\\"type\\\\\\":{\\\\\\"primitive\\\\\\":\\\\\\"any\\\\\\"}}]\\")]
+        public abstract object GiveItBack(object @value);
+
+    }
+}
+",
+}
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/BurriedAnonymousObjectProxy.cs 1`] = `
+Object {
+  Symbol(file): "using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>See https://github.com/aws/aws-cdk/issues/7977.</summary>
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// </remarks>
+    [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BurriedAnonymousObject), fullyQualifiedName: \\"jsii-calc.BurriedAnonymousObject\\")]
+    internal sealed class BurriedAnonymousObjectProxy : Amazon.JSII.Tests.CalculatorNamespace.BurriedAnonymousObject
+    {
+        private BurriedAnonymousObjectProxy(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Implement this method and have it return it's parameter.</summary>
+        /// <param name=\\"value\\">the value that should be returned.</param>
+        /// <returns>\`value\`</returns>
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiMethod(name: \\"giveItBack\\", returnsJson: \\"{\\\\\\"type\\\\\\":{\\\\\\"primitive\\\\\\":\\\\\\"any\\\\\\"}}\\", parametersJson: \\"[{\\\\\\"docs\\\\\\":{\\\\\\"summary\\\\\\":\\\\\\"the value that should be returned.\\\\\\"},\\\\\\"name\\\\\\":\\\\\\"value\\\\\\",\\\\\\"type\\\\\\":{\\\\\\"primitive\\\\\\":\\\\\\"any\\\\\\"}}]\\")]
+        public override object GiveItBack(object @value)
+        {
+            return InvokeInstanceMethod<object>(new System.Type[]{typeof(object)}, new object[]{@value});
         }
     }
 }
@@ -39491,6 +39656,83 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 }
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/BurriedAnonymousObject.java 1`] = `
+Object {
+  Symbol(file): "package software.amazon.jsii.tests.calculator;
+
+/**
+ * See https://github.com/aws/aws-cdk/issues/7977.
+ * <p>
+ * EXPERIMENTAL
+ */
+@javax.annotation.Generated(value = \\"jsii-pacmak\\")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = \\"jsii-calc.BurriedAnonymousObject\\")
+public abstract class BurriedAnonymousObject extends software.amazon.jsii.JsiiObject {
+
+    protected BurriedAnonymousObject(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected BurriedAnonymousObject(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    protected BurriedAnonymousObject() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public @org.jetbrains.annotations.NotNull java.lang.Boolean check() {
+        return this.jsiiCall(\\"check\\", java.lang.Boolean.class);
+    }
+
+    /**
+     * Implement this method and have it return it's parameter.
+     * <p>
+     * EXPERIMENTAL
+     * <p>
+     * @return \`value\`
+     * @param value the value that should be returned. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public abstract @org.jetbrains.annotations.NotNull java.lang.Object giveItBack(final @org.jetbrains.annotations.NotNull java.lang.Object value);
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.BurriedAnonymousObject {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         * Implement this method and have it return it's parameter.
+         * <p>
+         * EXPERIMENTAL
+         * <p>
+         * @return \`value\`
+         * @param value the value that should be returned. This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
+        public @org.jetbrains.annotations.NotNull java.lang.Object giveItBack(final @org.jetbrains.annotations.NotNull java.lang.Object value) {
+            return this.jsiiCall(\\"giveItBack\\", java.lang.Object.class, new Object[] { value });
+        }
+    }
+}
+",
+}
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/Calculator.java 1`] = `
 Object {
   Symbol(file): "package software.amazon.jsii.tests.calculator;
@@ -56204,6 +56446,7 @@ jsii-calc.AugmentableClass=software.amazon.jsii.tests.calculator.AugmentableClas
 jsii-calc.BaseJsii976=software.amazon.jsii.tests.calculator.BaseJsii976
 jsii-calc.Bell=software.amazon.jsii.tests.calculator.Bell
 jsii-calc.BinaryOperation=software.amazon.jsii.tests.calculator.BinaryOperation
+jsii-calc.BurriedAnonymousObject=software.amazon.jsii.tests.calculator.BurriedAnonymousObject
 jsii-calc.Calculator=software.amazon.jsii.tests.calculator.Calculator
 jsii-calc.CalculatorProps=software.amazon.jsii.tests.calculator.CalculatorProps
 jsii-calc.ChildStruct982=software.amazon.jsii.tests.calculator.ChildStruct982
@@ -57363,6 +57606,66 @@ class _BinaryOperationProxy(
     BinaryOperation, jsii.proxy_for(scope.jsii_calc_lib.Operation)
 ):
     pass
+
+
+class BurriedAnonymousObject(
+    metaclass=jsii.JSIIAbstractClass, jsii_type=\\"jsii-calc.BurriedAnonymousObject\\"
+):
+    \\"\\"\\"See https://github.com/aws/aws-cdk/issues/7977.
+
+    stability
+    :stability: experimental
+    \\"\\"\\"
+
+    @builtins.staticmethod
+    def __jsii_proxy_class__():
+        return _BurriedAnonymousObjectProxy
+
+    def __init__(self) -> None:
+        \\"\\"\\"
+        stability
+        :stability: experimental
+        \\"\\"\\"
+        jsii.create(BurriedAnonymousObject, self, [])
+
+    @jsii.member(jsii_name=\\"check\\")
+    def check(self) -> bool:
+        \\"\\"\\"
+        stability
+        :stability: experimental
+        \\"\\"\\"
+        return jsii.invoke(self, \\"check\\", [])
+
+    @jsii.member(jsii_name=\\"giveItBack\\")
+    @abc.abstractmethod
+    def give_it_back(self, value: typing.Any) -> typing.Any:
+        \\"\\"\\"Implement this method and have it return it's parameter.
+
+        :param value: the value that should be returned.
+
+        return
+        :return: \`\`value\`\`
+
+        stability
+        :stability: experimental
+        \\"\\"\\"
+        ...
+
+
+class _BurriedAnonymousObjectProxy(BurriedAnonymousObject):
+    @jsii.member(jsii_name=\\"giveItBack\\")
+    def give_it_back(self, value: typing.Any) -> typing.Any:
+        \\"\\"\\"Implement this method and have it return it's parameter.
+
+        :param value: the value that should be returned.
+
+        return
+        :return: \`\`value\`\`
+
+        stability
+        :stability: experimental
+        \\"\\"\\"
+        return jsii.invoke(self, \\"giveItBack\\", [value])
 
 
 class Calculator(
@@ -66413,6 +66716,7 @@ __all__ = [
     \\"BaseJsii976\\",
     \\"Bell\\",
     \\"BinaryOperation\\",
+    \\"BurriedAnonymousObject\\",
     \\"Calculator\\",
     \\"CalculatorProps\\",
     \\"ChildStruct982\\",
