@@ -353,6 +353,10 @@ jobs:
       # Run the integration test
       - name: Install Dependencies
         run: |-
+          # Python tools used during packaging
+          python3 -m pip install --upgrade pipx setuptools twine wheel
+
+          # TypeScript project dependencies
           yarn install --frozen-lockfile
         working-directory: aws-cdk
       - name: Install Tested Packages

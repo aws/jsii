@@ -48,11 +48,19 @@ export default class Python extends Target {
     await shell('python3', ['setup.py', 'sdist', '--dist-dir', outDir], {
       cwd: sourceDir,
     });
-    await shell('python3', ['setup.py', 'bdist_wheel', '--dist-dir', outDir], {
-      cwd: sourceDir,
-    });
+    await shell(
+      'python3',
+      ['-m', 'pip', 'wheel', '--no-deps', '--wheel-dir', outDir, sourceDir],
+      {
+        cwd: sourceDir,
+      },
+    );
     if (await isPresent('twine', sourceDir)) {
       await shell('twine', ['check', path.join(outDir, '*')], {
+        cwd: sourceDir,
+      });
+    } else if (await isPresent('pipx', sourceDir)) {
+      await shell('pipx', ['run', 'twine', 'check', path.join(outDir, '*')], {
         cwd: sourceDir,
       });
     } else {
@@ -1649,6 +1657,9 @@ class Package {
         (this.metadata.author.email !== undefined
           ? `<${this.metadata.author.email}>`
           : ''),
+      bdist_wheel: {
+        universal: true,
+      },
       project_urls: {
         Source: this.metadata.repository.url,
       },
@@ -1659,7 +1670,9 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
         'publication>=0.0.3',
-      ].concat(dependencies),
+      ]
+        .concat(dependencies)
+        .sort(),
       classifiers: [
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
@@ -1719,7 +1732,7 @@ class Package {
     // TODO: Might be easier to just use a TOML library to write this out.
     code.openFile('pyproject.toml');
     code.line('[build-system]');
-    code.line('requires = ["setuptools >= 38.6.0", "wheel >= 0.31.0"]');
+    code.line('requires = ["setuptools >= 49.3.1", "wheel >= 0.34.2"]');
     code.line('build-backend = "setuptools.build_meta"');
     code.closeFile('pyproject.toml');
 
