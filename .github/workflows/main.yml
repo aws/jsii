@@ -59,8 +59,10 @@ jobs:
             ${{ steps.cache-locations.outputs.pip-cache }}
             ${{ steps.cache-locations.outputs.yarn-cache }}
             ~/.m2/repository
+            !~/.m2/repository/software/amazon/jsii/
             ~/.nuget/packages
-          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock') }}
+            !~/.nuget/packages/amazon.jsii.*
+          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
           restore-keys: |-
             ${{ runner.os }}-node@12-python@3.6-
             ${{ runner.os }}-node@12-
@@ -130,8 +132,10 @@ jobs:
             ${{ steps.cache-locations.outputs.pip-cache }}
             ${{ steps.cache-locations.outputs.yarn-cache }}
             ~/.m2/repository
+            !~/.m2/repository/software/amazon/jsii/
             ~/.nuget/packages
-          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock') }}
+            !~/.nuget/packages/amazon.jsii.*
+          key: ${{ runner.os }}-node@12-python@3.6-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
           restore-keys: |-
             ${{ runner.os }}-node@12-python@3.6-
             ${{ runner.os }}-node@12-
@@ -276,9 +280,11 @@ jobs:
             ${{ steps.cache-locations.outputs.pip-cache }}
             ${{ steps.cache-locations.outputs.yarn-cache }}
             ~/.m2/repository
+            !~/.m2/repository/software/amazon/jsii/
             ~/.nuget/packages
+            !~/.nuget/packages/amazon.jsii.*
           # Not including .NET / Java in the cache keys, those artifacts are SDK-version-independent
-          key: ${{ runner.os }}-node@${{ matrix.node }}-python@${{ matrix.python }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node@${{ matrix.node }}-python@${{ matrix.python }}-${{ hashFiles('**/yarn.lock', '**/Directory.Build.targets') }}
           restore-keys: |-
             ${{ runner.os }}-node@${{ matrix.node }}-python@${{ matrix.python }}-
             ${{ runner.os }}-node@${{ matrix.node }}-
