@@ -15,6 +15,15 @@ const TREE = Symbol('tree');
 
 // Custom serializers so we can see the source without escape sequences
 expect.addSnapshotSerializer({
+  test: (val) => val?.[FILE] != null,
+  serialize: (val) => val[FILE],
+});
+expect.addSnapshotSerializer({
+  test: (val) => val?.[MISSING] != null,
+  serialize: (val) => `${val[MISSING]} does not exist`,
+});
+
+expect.addSnapshotSerializer({
   test: (val) => val?.[TARBALL] != null,
   serialize: (val) => `${val[TARBALL]} is a tarball`,
 });
@@ -23,14 +32,6 @@ expect.addSnapshotSerializer({
   serialize: (val) => {
     return `<root>\n${formatTree(val[TREE])}`;
   },
-});
-expect.addSnapshotSerializer({
-  test: (val) => val?.[MISSING] != null,
-  serialize: (val) => `${val[MISSING]} does not exist`,
-});
-expect.addSnapshotSerializer({
-  test: (val) => val?.[TARBALL] != null,
-  serialize: (val) => `${val[TARBALL]} is a tarball`,
 });
 
 let outDir: string;
