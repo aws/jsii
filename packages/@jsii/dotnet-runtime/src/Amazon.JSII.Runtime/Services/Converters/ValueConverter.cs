@@ -1,4 +1,5 @@
 ﻿using Amazon.JSII.JsonModel.Spec;
+using Amazon.JSII.Runtime.Deputy;
 using System;
 
 namespace Amazon.JSII.Runtime.Services.Converters
@@ -89,8 +90,17 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return null;
             }
 
+            if (value is AnonymousObject)
+            {
+                if (!TryConvertClass(type, referenceMap, value, out var anonResult))
+                {
+                    throw new Exception("Unable to convert AnonymousObject instance!");
+                }
+                return anonResult;
+            }
+            
             TypeReference reference = InferType(referenceMap, value);
-            if (TryConvert(reference, type, referenceMap, value, out object? result))
+            if (TryConvert(reference, type, referenceMap, value, out var result))
             {
                 return result;
             }
