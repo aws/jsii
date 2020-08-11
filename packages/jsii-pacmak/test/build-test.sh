@@ -43,7 +43,7 @@ echo "Testing SINGLE TARGET, RECURSIVE build."
 clean_dists
 echo "Testing ONE-BY-ONE build."
 for dir in $packagedirs; do
-    ../bin/jsii-pacmak $dir -vv
+    ../bin/jsii-pacmak $dir
 done
 
 # Multiple targets, build all at once into own directory
