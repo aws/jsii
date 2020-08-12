@@ -251,6 +251,7 @@ class JSClass(Protocol):
         Returns a str that points to this class inside of the Javascript runtime.
         """
 
+
 class Referenceable(Protocol):
     @property
     def __jsii_ref__(self) -> ObjRef:
