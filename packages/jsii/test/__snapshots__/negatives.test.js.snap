@@ -436,6 +436,12 @@ exports[`omit.4 1`] = `
 "
 `;
 
+exports[`override-changes-visibility 1`] = `
+"error TS0: jsii.ChildClass#method changes visibility when overriding jsii.BaseClass (expected protected, found public)
+error TS0: jsii.ChildClass#property changes visibility when overriding jsii.BaseClass (expected protected, found public)
+"
+`;
+
 exports[`prohibited-member-name 1`] = `
 "neg.prohibited-member-name.ts:4:3 - error TS9999: JSII: Prohibited member name: equals
 
