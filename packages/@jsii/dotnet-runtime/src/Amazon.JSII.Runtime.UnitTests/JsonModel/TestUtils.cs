@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Amazon.JSII.JsonModel.UnitTests.Spec
+namespace Amazon.JSII.Runtime.UnitTests.JsonModel
 {
     public class TestUtils
     {

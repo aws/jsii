@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Amazon.JSII.JsonModel.UnitTests.Spec
+namespace Amazon.JSII.Runtime.UnitTests.JsonModel
 {
     public class AssemblyTests
     {
-        const string RootPrefix = nameof(Spec) + "." + nameof(Assembly) + ".";
+        const string RootPrefix = nameof(JsonModel) + "." + nameof(Assembly) + ".";
 
         public class Serialization : TestUtils
         {
@@ -49,7 +49,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         )
                     },
                     bundled: new Dictionary<string, string>(),
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
+                    types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
                     docs: new Docs(),
                     readme: new Readme("myReadme")
                 );
@@ -126,7 +126,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     )),
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
+                    types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
                     docs: new Docs()
                 ));
             }
@@ -153,7 +153,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
+                    types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
@@ -180,7 +180,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
+                    types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
                     dependencies: null,
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
@@ -240,7 +240,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
+                    types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: null,
                     docs: new Docs()
@@ -300,7 +300,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "http://www.example.com/icon.png"
                     )),
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
+                    types: new Dictionary<string, Amazon.JSII.JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: null

@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Amazon.JSII.JsonModel.UnitTests.Spec
+namespace Amazon.JSII.Runtime.UnitTests.JsonModel
 {
     public class DocsTests
     {
-        const string RootPrefix = nameof(Spec) + "." + nameof(Docs) + ".";
+        const string RootPrefix = nameof(JsonModel) + "." + nameof(Docs) + ".";
 
         public class Serialization
         {
@@ -25,11 +25,11 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
 
                 string actual = JsonConvert.SerializeObject(docs, Formatting.Indented);
                 const string expected = @"{
+  ""summary"": ""summary"",
+  ""remarks"": ""remarks"",
   ""custom"": {
     ""custtag"": ""custval""
-  },
-  ""summary"": ""summary"",
-  ""remarks"": ""remarks""
+  }
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);

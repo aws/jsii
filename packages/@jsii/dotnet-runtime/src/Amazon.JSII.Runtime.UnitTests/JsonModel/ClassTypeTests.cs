@@ -4,11 +4,11 @@ using System;
 using System.Linq;
 using Xunit;
 
-namespace Amazon.JSII.JsonModel.UnitTests.Spec
+namespace Amazon.JSII.Runtime.UnitTests.JsonModel
 {
     public class ClassTypeTests
     {
-        const string RootPrefix = nameof(Spec) + "." + nameof(ClassType) + ".";
+        const string RootPrefix = nameof(JsonModel) + "." + nameof(ClassType) + ".";
 
         public class Serialization : TestUtils
         {

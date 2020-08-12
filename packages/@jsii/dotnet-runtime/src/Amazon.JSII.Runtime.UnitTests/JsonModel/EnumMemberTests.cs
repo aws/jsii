@@ -3,11 +3,11 @@ using Newtonsoft.Json;
 using System;
 using Xunit;
 
-namespace Amazon.JSII.JsonModel.UnitTests.Spec
+namespace Amazon.JSII.Runtime.UnitTests.JsonModel
 {
     public class EnumMemberTests
     {
-        const string RootPrefix = nameof(Spec) + "." + nameof(EnumMember) + ".";
+        const string RootPrefix = nameof(JsonModel) + "." + nameof(EnumMember) + ".";
 
         public class Serialization
         {
