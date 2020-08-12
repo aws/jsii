@@ -97,8 +97,8 @@ export class Assembler implements Emitter {
     if (readme == null) {
       this._diagnostic(
         null,
-        ts.DiagnosticCategory.Suggestion,
-        'There is no "README.md" file. It is recommended to have one.',
+        ts.DiagnosticCategory.Warning,
+        'There is no "README.md" file. It is required in order to generate valid PyPI (Python) packages.',
       );
     }
     const docs = _loadDocs.call(this);
@@ -226,10 +226,14 @@ export class Assembler implements Emitter {
     }
 
     async function _loadReadme(this: Assembler) {
-      const readmePath = path.join(this.projectInfo.projectRoot, 'README.md');
-      if (!(await fs.pathExists(readmePath))) {
+      // Search for `README.md` in a case-insensitive way
+      const fileName = (await fs.readdir(this.projectInfo.projectRoot)).find(
+        (file) => file.toLocaleLowerCase() === 'readme.md',
+      );
+      if (fileName == null) {
         return undefined;
       }
+      const readmePath = path.join(this.projectInfo.projectRoot, fileName);
       const renderedLines = await literate.includeAndRenderExamples(
         await literate.loadFromFile(readmePath),
         literate.fileSystemLoader(this.projectInfo.projectRoot),
