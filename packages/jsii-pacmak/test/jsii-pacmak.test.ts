@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { spawnSync } from 'child_process';
+import { spawnSync, SpawnSyncOptions } from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
@@ -61,6 +61,8 @@ for (const pkg of [
     runPacmak(pkgRoot, outDir);
 
     expect({ [TREE]: checkTree(outDir) }).toMatchSnapshot('<outDir>/');
+
+    runMypy(path.join(outDir, 'python'));
   });
 }
 
@@ -115,7 +117,7 @@ function checkTree(
 }
 
 function runPacmak(root: string, outdir: string): void {
-  const result = spawnSync(
+  return runCommand(
     process.execPath,
     [
       ...process.execArgv,
@@ -130,16 +132,108 @@ function runPacmak(root: string, outdir: string): void {
       stdio: ['inherit', 'pipe', 'pipe'],
     },
   );
+}
 
-  expect(result.error).toBeUndefined();
+function runMypy(pythonRoot: string): void {
+  const venvRoot = path.join(__dirname, '.venv');
+  const venvBin = path.join(
+    venvRoot,
+    process.platform === 'win32' ? 'Scripts' : 'bin',
+  );
+  const venvPython = path.join(venvBin, 'python');
 
-  if (result.status !== 0) {
-    console.error(`#### PACMAK STDOUT:\n${result.stdout.toString('utf-8')}`);
-    console.error(`#### PACMAK STDERR:\n${result.stderr.toString('utf-8')}`);
+  const env = {
+    ...process.env,
+    PATH: `${venvBin}:${process.env.PATH}`,
+    VIRTUAL_ENV: venvRoot,
+  };
+
+  // Create a Python virtual environment
+  runCommand('python3', [
+    '-m',
+    'venv',
+    '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
+    venvRoot,
+  ]);
+  // Install mypy and the jsii runtime in there as needed
+  runCommand(
+    venvPython,
+    [
+      '-m',
+      'pip',
+      'install',
+      '--no-input',
+      'mypy~=0.782',
+      // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
+      path.resolve(require.resolve('@jsii/python-runtime/package.json'), '..'),
+    ],
+    {
+      env,
+    },
+  );
+  // Now run mypy on the Python code
+  runCommand(
+    venvPython,
+    [
+      '-m',
+      'mypy',
+      '--ignore-missing-imports', // We may not have the package's dependencies in scope. Let's just ignore that for now.
+      '--pretty', // Output in readable form, with source excerpts and problem markers
+      '--show-error-codes', // Show the "standard" error codes to make it easier to google around
+      '--strict', // Enable all optional checks -- let's be pedantic about everything!
+      pythonRoot,
+    ],
+    { env },
+  );
+}
+
+/**
+ * Runs a command and asserts that it was successful. If the command failed,
+ * it's standard out and error from the child process will be made visible
+ * through `console.error`, unless the `stdio` option for `stdout` and/or
+ * `stderr` is overridden from `inherit`.
+ *
+ * By default, `spawnSync` is invoked with `shell: true` if the current platform
+ * is `win32`. This can be overridden through `options`.
+ *
+ * @param argv0   the entry point for the command to be run.
+ * @param argv    the arguments to pass to argv0.
+ * @param options options to be provided to `spawnSync`.
+ */
+function runCommand(
+  argv0: string,
+  argv: readonly string[],
+  options?: SpawnSyncOptions,
+) {
+  const { error, signal, status, stderr, stdout } = spawnSync(argv0, argv, {
+    shell: process.platform === 'win32',
+    stdio: ['inherit', 'pipe', 'pipe'],
+    ...options,
+  });
+
+  expect(error).toBeUndefined();
+
+  if (status !== 0) {
+    const reason = signal ? `signal ${signal}` : `status ${status}`;
+    console.error(
+      [
+        `Command failed with ${reason}: ${argv0} ${argv.join(' ')}`,
+        prefix(stdout, '#STDOUT> '),
+        prefix(stderr, '#STDERR> '),
+      ].join('\n'),
+    );
   }
 
-  expect(result.signal).toBeNull();
-  expect(result.status).toBe(0);
+  expect(signal).toBeNull();
+  expect(status).toBe(0);
+
+  function prefix(buffer: Buffer, prefix: string): string {
+    return buffer
+      .toString('utf-8')
+      .split('\n')
+      .map((line) => prefix + line)
+      .join('\n');
+  }
 }
 
 type TreeStructure = string | { [name: string]: TreeStructure };
