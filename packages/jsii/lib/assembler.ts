@@ -227,10 +227,9 @@ export class Assembler implements Emitter {
 
     async function _loadReadme(this: Assembler) {
       // Search for `README.md` in a case-insensitive way
-      const fileName =
-        (await fs.readdir(this.projectInfo.projectRoot)).find(
-          (file) => file.toLocaleLowerCase() === 'readme.md',
-        );
+      const fileName = (await fs.readdir(this.projectInfo.projectRoot)).find(
+        (file) => file.toLocaleLowerCase() === 'readme.md',
+      );
       if (fileName == null) {
         return undefined;
       }
