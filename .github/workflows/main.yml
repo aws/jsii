@@ -365,6 +365,11 @@ jobs:
           # TypeScript project dependencies
           yarn install --frozen-lockfile
         working-directory: aws-cdk
+      - name: Align Versions
+        run: |-
+          # Align versions so we don't build 0.0.0 (it'd fail pack.sh's validation)
+          ./scripts/align-version.sh
+        working-directory: aws-cdk
       - name: Install Tested Packages
         run: |-
           npm install --no-save ${{ runner.temp }}/js/*.tgz
