@@ -1,9 +1,8 @@
+import * as spec from '@jsii/spec';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
 import * as path from 'path';
-import * as spec from '@jsii/spec';
-import { Stability } from '@jsii/spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
@@ -40,23 +39,33 @@ export default class Python extends Target {
     this.generator = new PythonGenerator(options.rosetta);
   }
 
-  public async build(sourceDir: string, outDir: string): Promise<void> {
-    // Format our code to make it easier to read, we do this here instead of trying
-    // to do it in the code generation phase, because attempting to mix style and
-    // function makes the code generation harder to maintain and read, while doing
-    // this here is easy.
-    // await shell("black", ["--py36", sourceDir], {});
+  public async generateCode(outDir: string, tarball: string): Promise<void> {
+    await super.generateCode(outDir, tarball);
+  }
 
+  public async build(sourceDir: string, outDir: string): Promise<void> {
     // Actually package up our code, both as a sdist and a wheel for publishing.
     await shell('python3', ['setup.py', 'sdist', '--dist-dir', outDir], {
       cwd: sourceDir,
     });
-    await shell('python3', ['setup.py', 'bdist_wheel', '--dist-dir', outDir], {
-      cwd: sourceDir,
-    });
-    if (await twineIsPresent()) {
+    await shell(
+      'python3',
+      ['-m', 'pip', 'wheel', '--no-deps', '--wheel-dir', outDir, sourceDir],
+      {
+        cwd: sourceDir,
+      },
+    );
+    if (await isPresent('twine', sourceDir)) {
       await shell('twine', ['check', path.join(outDir, '*')], {
         cwd: sourceDir,
+      });
+    } else if (await isPresent('pipx', sourceDir)) {
+      await shell('pipx', ['run', 'twine', 'check', path.join(outDir, '*')], {
+        cwd: sourceDir,
+        env: {
+          ...process.env,
+          PIPX_HOME: path.join(sourceDir, '.pipx'),
+        },
       });
     } else {
       warn(
@@ -64,22 +73,24 @@ export default class Python extends Target {
           'Run `pip3 install twine` to enable distribution package validation.',
       );
     }
+  }
+}
 
-    // Approximating existence check using `which`, falling back on `pip3 show`. If that fails, assume twine is not there.
-    async function twineIsPresent(): Promise<boolean> {
-      try {
-        await shell('which', ['twine'], { cwd: sourceDir });
-        return true;
-      } catch {
-        try {
-          const output = await shell('pip3', ['show', 'twine'], {
-            cwd: sourceDir,
-          });
-          return output.trim() !== '';
-        } catch {
-          return false;
-        }
-      }
+// Approximating existence check using `which`, falling back on `pip3 show`.
+async function isPresent(binary: string, sourceDir?: string): Promise<boolean> {
+  try {
+    await shell('which', [binary], {
+      cwd: sourceDir,
+    });
+    return true;
+  } catch {
+    try {
+      const output = await shell('pip3', ['show', binary], {
+        cwd: sourceDir,
+      });
+      return output.trim() !== '';
+    } catch {
+      return false;
     }
   }
 }
@@ -237,6 +248,7 @@ interface PythonTypeOpts {
 abstract class BasePythonClassType implements PythonType, ISortableType {
   protected bases: spec.TypeReference[];
   protected members: PythonBase[];
+  protected readonly separateMembers: boolean = true;
 
   public constructor(
     protected readonly generator: PythonGenerator,
@@ -299,21 +311,29 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     context = { ...context, nestingScope: this.fqn! };
 
     const classParams = this.getClassParams(context);
-    const bases = classParams.length > 0 ? `(${classParams.join(', ')})` : '';
+    openSignature(code, 'class', this.pythonName, classParams);
 
-    code.openBlock(`class ${this.pythonName}${bases}`);
     this.generator.emitDocString(code, this.docs, {
       documentableItem: `class-${this.pythonName}`,
+      trailingNewLine: true,
     });
 
-    this.emitPreamble(code, context);
+    const preamble = this.emitPreamble;
+    if (preamble) {
+      preamble(code, context);
+    }
 
     if (this.members.length > 0) {
       const resolver = this.boundResolver(context.resolver);
+      let shouldSeparate = preamble != null;
       for (const member of sortMembers(this.members, resolver)) {
+        if (shouldSeparate) {
+          code.line();
+        }
+        shouldSeparate = this.separateMembers;
         member.emit(code, { ...context, resolver });
       }
-    } else {
+    } else if (!preamble) {
       code.line('pass');
     }
 
@@ -329,9 +349,10 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 
   protected abstract getClassParams(context: EmitContext): string[];
 
-  protected emitPreamble(_code: CodeMaker, _context: EmitContext) {
-    return;
-  }
+  protected abstract readonly emitPreamble?: (
+    code: CodeMaker,
+    context: EmitContext,
+  ) => void;
 }
 
 interface BaseMethodOpts {
@@ -378,7 +399,25 @@ abstract class BaseMethod implements PythonBase {
       ...this.parameters.map((param) =>
         toTypeName(param).requiredImports(context),
       ),
+      ...liftedProperties(this.liftedProp),
     );
+
+    function* liftedProperties(
+      struct: spec.InterfaceType | undefined,
+    ): IterableIterator<PythonImports> {
+      if (struct == null) {
+        return;
+      }
+      for (const prop of struct.properties ?? []) {
+        yield toTypeName(prop.type).requiredImports(context);
+      }
+      for (const base of struct.interfaces ?? []) {
+        const iface = context.resolver.dereference(base) as spec.InterfaceType;
+        for (const imports of liftedProperties(iface)) {
+          yield imports;
+        }
+      }
+    }
   }
 
   public emit(
@@ -417,7 +456,7 @@ abstract class BaseMethod implements PythonBase {
       );
 
       const paramType = toTypeName(param).pythonType(context);
-      const paramDefault = param.optional ? '=None' : '';
+      const paramDefault = param.optional ? ' = None' : '';
 
       pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
     }
@@ -449,7 +488,7 @@ abstract class BaseMethod implements PythonBase {
         for (const prop of liftedProperties) {
           const paramName = toPythonParameterName(prop.name);
           const paramType = toTypeName(prop).pythonType(context);
-          const paramDefault = prop.optional ? '=None' : '';
+          const paramDefault = prop.optional ? ' = None' : '';
 
           pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
         }
@@ -492,8 +531,13 @@ abstract class BaseMethod implements PythonBase {
       ),
     );
 
-    code.openBlock(
-      `def ${this.pythonName}(${pythonParams.join(', ')}) -> ${returnType}`,
+    openSignature(
+      code,
+      'def',
+      this.pythonName,
+      pythonParams,
+      false,
+      returnType,
     );
     this.generator.emitDocString(code, this.docs, {
       arguments: documentableArgs,
@@ -558,7 +602,7 @@ abstract class BaseMethod implements PythonBase {
       .map((p) => p.pythonName)
       .map((v) => `${v}=${v}`);
 
-    code.line(`${argName} = ${typeName}(${assignments.join(', ')})`);
+    assignCallResult(code, argName, typeName, assignments);
     code.line();
   }
 
@@ -685,8 +729,13 @@ abstract class BaseProperty implements PythonBase {
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
     }
-    code.openBlock(
-      `def ${this.pythonName}(${this.implicitParameter}) -> ${pythonType}`,
+    openSignature(
+      code,
+      'def',
+      this.pythonName,
+      [this.implicitParameter],
+      true,
+      pythonType,
     );
     this.generator.emitDocString(code, this.docs, {
       documentableItem: `prop-${this.pythonName}`,
@@ -704,12 +753,18 @@ abstract class BaseProperty implements PythonBase {
     code.closeBlock();
 
     if (!this.immutable) {
+      code.line();
       code.line(`@${this.pythonName}.setter`);
       if (renderAbstract && this.abstract) {
         code.line('@abc.abstractmethod');
       }
-      code.openBlock(
-        `def ${this.pythonName}(${this.implicitParameter}, value: ${pythonType}) -> None`,
+      openSignature(
+        code,
+        'def',
+        this.pythonName,
+        [this.implicitParameter, `value: ${pythonType}`],
+        false,
+        'None',
       );
       if (
         (this.shouldEmitBody || forceEmitBody) &&
@@ -729,10 +784,13 @@ abstract class BaseProperty implements PythonBase {
 class Interface extends BasePythonClassType {
   public emit(code: CodeMaker, context: EmitContext) {
     context = { ...context, nestingScope: this.fqn! };
-    code.line(`@jsii.interface(jsii_type="${this.fqn}")`);
+    emitList(code, '@jsii.interface(', [`jsii_type="${this.fqn}"`], ')');
 
     // First we do our normal class logic for emitting our members.
     super.emit(code, context);
+
+    code.line();
+    code.line();
 
     // Then, we have to emit a Proxy class which implements our proxy interface.
     const proxyBases: string[] = this.bases.map(
@@ -742,16 +800,18 @@ class Interface extends BasePythonClassType {
           typeAnnotation: false,
         })})`,
     );
-    code.openBlock(
-      `class ${this.getProxyClassName()}(${proxyBases.join(', ')})`,
-    );
+    openSignature(code, 'class', this.getProxyClassName(), proxyBases);
     this.generator.emitDocString(code, this.docs, {
       documentableItem: `class-${this.pythonName}`,
+      trailingNewLine: true,
     });
     code.line(`__jsii_type__ = "${this.fqn}"`);
 
     if (this.members.length > 0) {
       for (const member of this.members) {
+        if (this.separateMembers) {
+          code.line();
+        }
         member.emit(code, context, { forceEmitBody: true });
       }
     } else {
@@ -771,12 +831,15 @@ class Interface extends BasePythonClassType {
     return params;
   }
 
-  protected emitPreamble(code: CodeMaker, _context: EmitContext) {
+  protected readonly emitPreamble = (
+    code: CodeMaker,
+    _context: EmitContext,
+  ) => {
     code.line('@builtins.staticmethod');
     code.openBlock('def __jsii_proxy_class__()');
     code.line(`return ${this.getProxyClassName()}`);
     code.closeBlock();
-  }
+  };
 
   private getProxyClassName(): string {
     return `_${this.pythonName}Proxy`;
@@ -798,6 +861,7 @@ class InterfaceProperty extends BaseProperty {
 }
 
 class Struct extends BasePythonClassType {
+  protected readonly emitPreamble = undefined;
   protected directMembers = new Array<StructField>();
 
   public addMember(member: PythonBase): void {
@@ -811,17 +875,16 @@ class Struct extends BasePythonClassType {
     context = { ...context, nestingScope: this.fqn! };
     const baseInterfaces = this.getClassParams(context);
 
-    code.line(
-      `@jsii.data_type(jsii_type="${
-        this.fqn
-      }", jsii_struct_bases=[${baseInterfaces.join(
-        ', ',
-      )}], name_mapping=${this.propertyMap()})`,
-    );
-    code.openBlock(`class ${this.pythonName}(${baseInterfaces.join(', ')})`);
+    code.indent('@jsii.data_type(');
+    code.line(`jsii_type=${JSON.stringify(this.fqn)},`);
+    emitList(code, 'jsii_struct_bases=[', baseInterfaces, '],');
+    assignDictionary(code, 'name_mapping', this.propertyMap(), ',', true);
+    code.unindent(')');
+    openSignature(code, 'class', this.pythonName, baseInterfaces);
     this.emitConstructor(code, context);
 
     for (const member of this.allMembers) {
+      code.line();
       this.emitGetter(member, code, context);
     }
 
@@ -873,7 +936,7 @@ class Struct extends BasePythonClassType {
         ? [implicitParameter, '*', ...kwargs]
         : [implicitParameter];
 
-    code.openBlock(`def __init__(${constructorArguments.join(', ')}) -> None`);
+    openSignature(code, 'def', '__init__', constructorArguments, false, 'None');
     this.emitConstructorDocstring(code);
 
     // Re-type struct arguments that were passed as "dict"
@@ -883,23 +946,30 @@ class Struct extends BasePythonClassType {
         ...context,
         typeAnnotation: false,
       });
-      code.line(
-        `if isinstance(${member.pythonName}, dict): ${member.pythonName} = ${typeName}(**${member.pythonName})`,
-      );
+      code.openBlock(`if isinstance(${member.pythonName}, dict)`);
+      code.line(`${member.pythonName} = ${typeName}(**${member.pythonName})`);
+      code.closeBlock();
     }
 
     // Required properties, those will always be put into the dict
-    code.line(`${implicitParameter}._values = {`);
-    for (const member of members.filter((m) => !m.optional)) {
-      code.line(`    '${member.pythonName}': ${member.pythonName},`);
-    }
-    code.line('}');
+    assignDictionary(
+      code,
+      `${implicitParameter}._values`,
+      members
+        .filter((m) => !m.optional)
+        .map(
+          (member) =>
+            `${JSON.stringify(member.pythonName)}: ${member.pythonName}`,
+        ),
+    );
 
     // Optional properties, will only be put into the dict if they're not None
     for (const member of members.filter((m) => m.optional)) {
+      code.openBlock(`if ${member.pythonName} is not None`);
       code.line(
-        `if ${member.pythonName} is not None: ${implicitParameter}._values["${member.pythonName}"] = ${member.pythonName}`,
+        `${implicitParameter}._values["${member.pythonName}"] = ${member.pythonName}`,
       );
+      code.closeBlock();
     }
 
     code.closeBlock();
@@ -922,38 +992,50 @@ class Struct extends BasePythonClassType {
     context: EmitContext,
   ) {
     code.line('@builtins.property');
-    code.openBlock(
-      `def ${member.pythonName}(self) -> ${member.typeAnnotation(context)}`,
+    openSignature(
+      code,
+      'def',
+      member.pythonName,
+      ['self'],
+      true,
+      member.typeAnnotation(context),
     );
     member.emitDocString(code);
-    code.line(`return self._values.get('${member.pythonName}')`);
+    code.line(`return self._values.get(${JSON.stringify(member.pythonName)})`);
     code.closeBlock();
   }
 
   private emitMagicMethods(code: CodeMaker) {
+    code.line();
     code.openBlock('def __eq__(self, rhs) -> bool');
     code.line(
       'return isinstance(rhs, self.__class__) and rhs._values == self._values',
     );
     code.closeBlock();
 
+    code.line();
     code.openBlock('def __ne__(self, rhs) -> bool');
     code.line('return not (rhs == self)');
     code.closeBlock();
 
+    code.line();
     code.openBlock('def __repr__(self) -> str');
-    code.line(
-      `return '${this.pythonName}(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())`,
-    );
+    code.indent(`return "${this.pythonName}(%s)" % ", ".join(`);
+    code.line('k + "=" + repr(v) for k, v in self._values.items()');
+    code.unindent(')');
     code.closeBlock();
   }
 
   private propertyMap() {
     const ret = new Array<string>();
     for (const member of this.allMembers) {
-      ret.push(`'${member.pythonName}': '${member.jsiiName}'`);
+      ret.push(
+        `${JSON.stringify(member.pythonName)}: ${JSON.stringify(
+          member.jsiiName,
+        )}`,
+      );
     }
-    return `{${ret.join(', ')}}`;
+    return ret;
   }
 }
 
@@ -986,7 +1068,7 @@ class StructField implements PythonBase {
   }
 
   public constructorDecl(context: EmitContext) {
-    const opt = this.optional ? '=None' : '';
+    const opt = this.optional ? ' = None' : '';
     return `${this.pythonName}: ${this.typeAnnotation(context)}${opt}`;
   }
 
@@ -1105,9 +1187,9 @@ class Class extends BasePythonClassType implements ISortableType {
         );
       }
 
-      code.openBlock(
-        `class ${this.getProxyClassName()}(${proxyBases.join(', ')})`,
-      );
+      code.line();
+      code.line();
+      openSignature(code, 'class', this.getProxyClassName(), proxyBases);
 
       // Filter our list of members to *only* be abstract members, and not any
       // other types.
@@ -1116,7 +1198,15 @@ class Class extends BasePythonClassType implements ISortableType {
           (m instanceof BaseMethod || m instanceof BaseProperty) && m.abstract,
       );
       if (abstractMembers.length > 0) {
+        let first = true;
         for (const member of abstractMembers) {
+          if (this.separateMembers) {
+            if (first) {
+              first = false;
+            } else {
+              code.line();
+            }
+          }
           member.emit(code, context, { renderAbstract: false });
         }
       } else {
@@ -1127,13 +1217,14 @@ class Class extends BasePythonClassType implements ISortableType {
     }
   }
 
-  protected emitPreamble(code: CodeMaker, _context: EmitContext) {
-    if (this.abstract) {
+  protected get emitPreamble() {
+    if (!this.abstract) return undefined;
+    return (code: CodeMaker, _context: EmitContext) => {
       code.line('@builtins.staticmethod');
       code.openBlock('def __jsii_proxy_class__()');
       code.line(`return ${this.getProxyClassName()}`);
       code.closeBlock();
-    }
+    };
   }
 
   protected getClassParams(context: EmitContext): string[] {
@@ -1191,9 +1282,12 @@ class Property extends BaseProperty {
 }
 
 class Enum extends BasePythonClassType {
+  protected readonly emitPreamble = undefined;
+  protected readonly separateMembers = false;
+
   public emit(code: CodeMaker, context: EmitContext) {
     context = { ...context, nestingScope: this.fqn! };
-    code.line(`@jsii.enum(jsii_type="${this.fqn}")`);
+    emitList(code, '@jsii.enum(', [`jsii_type="${this.fqn}"`], ')');
     return super.emit(code, context);
   }
 
@@ -1297,14 +1391,16 @@ class PythonModule implements PythonType {
       this.emitDependencyImports(code);
 
       code.line();
-      const params = [
-        `"${this.assembly.name}"`,
-        `"${this.assembly.version}"`,
-        '__name__[0:-6]', // Removing the "._jsii" from the tail!
-        `"${this.assemblyFilename}"`,
-      ];
-      code.line(
-        `__jsii_assembly__ = jsii.JSIIAssembly.load(${params.join(', ')})`,
+      emitList(
+        code,
+        '__jsii_assembly__ = jsii.JSIIAssembly.load(',
+        [
+          JSON.stringify(this.assembly.name),
+          JSON.stringify(this.assembly.version),
+          '__name__[0:-6]',
+          `${JSON.stringify(this.assemblyFilename)}`,
+        ],
+        ')',
       );
     } else {
       // Then we must import the ._jsii subpackage.
@@ -1322,13 +1418,10 @@ class PythonModule implements PythonType {
       this.emitRequiredImports(code, context);
     }
 
-    code.line();
-    if (this.members.length > 0) {
-      code.line();
-    }
-
     // Emit all of our members.
     for (const member of sortMembers(this.members, resolver)) {
+      code.line();
+      code.line();
       member.emit(code, context);
     }
 
@@ -1339,6 +1432,10 @@ class PythonModule implements PythonType {
     }
 
     // Declare the list of "public" members this module exports
+    if (this.members.length > 0) {
+      code.line();
+    }
+    code.line();
     code.indent('__all__ = [');
     for (const member of exportedMembers.sort()) {
       // Writing one by line might be _a lot_ of lines, but it'll make reviewing changes to the list easier. Trust me.
@@ -1391,37 +1488,62 @@ class PythonModule implements PythonType {
     const requiredImports = this.requiredImports(context);
     const statements = Object.entries(requiredImports)
       .map(([sourcePackage, items]) => toImportStatements(sourcePackage, items))
-      .reduce((acc, elt) => [...acc, ...elt], new Array<string>())
+      .reduce(
+        (acc, elt) => [...acc, ...elt],
+        new Array<{ emit: () => void; comparisonBase: string }>(),
+      )
       .sort(importComparator);
 
     if (statements.length > 0) {
       code.line();
     }
     for (const statement of statements) {
-      code.line(statement);
+      statement.emit(code);
     }
 
     function toImportStatements(
       sourcePkg: string,
       items: ReadonlySet<string>,
-    ): string[] {
-      const result = new Array<string>();
+    ): Array<{ emit: (code: CodeMaker) => void; comparisonBase: string }> {
+      const result = new Array<{
+        emit: (code: CodeMaker) => void;
+        comparisonBase: string;
+      }>();
       if (items.has('')) {
-        result.push(`import ${sourcePkg}`);
+        result.push({
+          comparisonBase: `import ${sourcePkg}`,
+          emit(code) {
+            code.line(this.comparisonBase);
+          },
+        });
       }
-      const pieceMeal = Array.from(items).filter((i) => i !== '');
+      const pieceMeal = Array.from(items)
+        .filter((i) => i !== '')
+        .sort();
       if (pieceMeal.length > 0) {
-        result.push(`from ${sourcePkg} import (${pieceMeal.join(', ')})`);
+        result.push({
+          comparisonBase: `from ${sourcePkg} import`,
+          emit: (code) =>
+            emitList(code, `from ${sourcePkg} import `, pieceMeal, '', {
+              ifMulti: ['(', ')'],
+            }),
+        });
       }
       return result;
     }
 
-    function importComparator(left: string, right: string) {
-      if (left.startsWith('import') === right.startsWith('import')) {
-        return left.localeCompare(right);
+    function importComparator(
+      left: { comparisonBase: string },
+      right: { comparisonBase: string },
+    ) {
+      if (
+        left.comparisonBase.startsWith('import') ===
+        right.comparisonBase.startsWith('import')
+      ) {
+        return left.comparisonBase.localeCompare(right.comparisonBase);
       }
       // We want "from .foo import (...)" to be *after* "import bar"
-      return right.localeCompare(left);
+      return right.comparisonBase.localeCompare(left.comparisonBase);
     }
   }
 }
@@ -1527,7 +1649,6 @@ class Package {
     // Strip " (build abcdef)" from the jsii version
     const jsiiVersionSimple = this.metadata.jsiiVersion.replace(/ .*$/, '');
 
-    /* eslint-disable @typescript-eslint/camelcase */
     const setupKwargs = {
       name: this.name,
       version: this.version,
@@ -1540,6 +1661,9 @@ class Package {
         (this.metadata.author.email !== undefined
           ? `<${this.metadata.author.email}>`
           : ''),
+      bdist_wheel: {
+        universal: true,
+      },
       project_urls: {
         Source: this.metadata.repository.url,
       },
@@ -1550,7 +1674,9 @@ class Package {
       install_requires: [
         `jsii${toPythonVersionRange(`^${jsiiVersionSimple}`)}`,
         'publication>=0.0.3',
-      ].concat(dependencies),
+      ]
+        .concat(dependencies)
+        .sort(),
       classifiers: [
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
@@ -1562,7 +1688,6 @@ class Package {
         'Typing :: Typed',
       ],
     };
-    /* eslint-enable @typescript-eslint/camelcase */
 
     switch (this.metadata.docs?.stability) {
       case spec.Stability.Experimental:
@@ -1592,13 +1717,16 @@ class Package {
     code.line('import json');
     code.line('import setuptools');
     code.line();
-    code.line('kwargs = json.loads("""');
+    code.line('kwargs = json.loads(');
+    code.line('    """');
     code.line(JSON.stringify(setupKwargs, null, 4));
-    code.line('""")');
+    code.line('"""');
+    code.line(')');
     code.line();
-    code.openBlock("with open('README.md') as fp");
-    code.line("kwargs['long_description'] = fp.read()");
+    code.openBlock('with open("README.md") as fp');
+    code.line('kwargs["long_description"] = fp.read()');
     code.closeBlock();
+    code.line();
     code.line();
     code.line('setuptools.setup(**kwargs)');
     code.closeFile('setup.py');
@@ -1608,7 +1736,7 @@ class Package {
     // TODO: Might be easier to just use a TOML library to write this out.
     code.openFile('pyproject.toml');
     code.line('[build-system]');
-    code.line('requires = ["setuptools >= 38.6.0", "wheel >= 0.31.0"]');
+    code.line('requires = ["setuptools >= 49.3.1", "wheel >= 0.34.2"]');
     code.line('build-backend = "setuptools.build_meta"');
     code.closeFile('pyproject.toml');
 
@@ -1764,7 +1892,7 @@ class PythonGenerator extends Generator {
     super(options);
 
     this.code.openBlockFormatter = (s) => `${s}:`;
-    this.code.closeBlockFormatter = (_s) => '';
+    this.code.closeBlockFormatter = (_s) => false;
 
     this.types = new Map();
   }
@@ -1776,6 +1904,7 @@ class PythonGenerator extends Generator {
     options: {
       arguments?: DocumentableArgument[];
       documentableItem?: string;
+      trailingNewLine?: boolean;
     } = {},
   ) {
     if ((!docs || Object.keys(docs).length === 0) && !options.arguments) {
@@ -1887,17 +2016,19 @@ class PythonGenerator extends Generator {
 
     if (lines.length === 1) {
       code.line(`"""${lines[0]}"""`);
-      return;
+    } else {
+      code.line(`"""${lines[0]}`);
+      lines.splice(0, 1);
+
+      for (const line of lines) {
+        code.line(line);
+      }
+
+      code.line('"""');
     }
-
-    code.line(`"""${lines[0]}`);
-    lines.splice(0, 1);
-
-    for (const line of lines) {
-      code.line(line);
+    if (options.trailingNewLine) {
+      code.line();
     }
-
-    code.line('"""');
   }
 
   public convertExample(example: string): string {
@@ -2329,9 +2460,9 @@ function onelineDescription(docs: spec.Docs | undefined) {
   return parts.join(' ').replace(/\s+/g, ' ');
 }
 
-function shouldMentionStability(s: Stability) {
+function shouldMentionStability(s: spec.Stability) {
   // Don't render "stable" or "external", those are both stable by implication.
-  return s === Stability.Deprecated || s === Stability.Experimental;
+  return s === spec.Stability.Deprecated || s === spec.Stability.Experimental;
 }
 
 function isStruct(
@@ -2360,4 +2491,206 @@ function slugifyAsNeeded(name: string, inUse: readonly string[]): string {
     name = `${name}_`;
   }
   return name;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// BEHOLD: Helpers to output code that looks like what Black would format into...
+//
+// @see https://black.readthedocs.io/en/stable/the_black_code_style.html
+
+const TARGET_LINE_LENGTH = 88;
+
+function openSignature(
+  code: CodeMaker,
+  keyword: 'class',
+  name: string,
+  params: readonly string[],
+): void;
+function openSignature(
+  code: CodeMaker,
+  keyword: 'def',
+  name: string,
+  params: readonly string[],
+  trailingComma: boolean,
+  returnType: string,
+): void;
+function openSignature(
+  code: CodeMaker,
+  keyword: 'class' | 'def',
+  name: string,
+  params: readonly string[],
+  trailingComma = false,
+  returnType?: string,
+) {
+  const prefix = `${keyword} ${name}`;
+  const suffix = returnType ? ` -> ${returnType}` : '';
+  if (params.length === 0) {
+    code.openBlock(`${prefix}${returnType ? '()' : ''}${suffix}`);
+    return;
+  }
+
+  const join = ', ';
+  const { elementsSize, joinSize } = totalSizeOf(params, join);
+
+  if (
+    TARGET_LINE_LENGTH >
+    code.currentIndentLength +
+      prefix.length +
+      elementsSize +
+      joinSize +
+      suffix.length +
+      2
+  ) {
+    code.openBlock(`${prefix}(${params.join(join)})${suffix}`);
+    return;
+  }
+
+  code.indent(`${prefix}(`);
+  if (
+    TARGET_LINE_LENGTH >
+    code.currentIndentLength + elementsSize + joinSize + (trailingComma ? 1 : 0)
+  ) {
+    code.line(`${params.join(join)}${trailingComma ? ',' : ''}`);
+  } else {
+    for (const param of params) {
+      code.line(`${param},`);
+    }
+  }
+  code.unindent(false);
+  code.openBlock(`)${suffix}`);
+}
+
+function assignCallResult(
+  code: CodeMaker,
+  variable: string,
+  funct: string,
+  params: readonly string[],
+) {
+  const prefix = `${variable} = ${funct}(`;
+  const suffix = ')';
+
+  if (params.length === 0) {
+    code.line(`${prefix}${suffix}`);
+    return;
+  }
+
+  const join = ', ';
+  const { elementsSize, joinSize } = totalSizeOf(params, join);
+
+  if (
+    TARGET_LINE_LENGTH >
+    code.currentIndentLength +
+      prefix.length +
+      elementsSize +
+      joinSize +
+      suffix.length
+  ) {
+    code.line(`${prefix}${params.join(join)}${suffix}`);
+    return;
+  }
+
+  code.indent(prefix);
+  if (TARGET_LINE_LENGTH > code.currentIndentLength + elementsSize + joinSize) {
+    code.line(params.join(join));
+  } else {
+    for (const param of params) {
+      code.line(`${param},`);
+    }
+  }
+  code.unindent(suffix);
+}
+
+function assignDictionary(
+  code: CodeMaker,
+  variable: string,
+  elements: readonly string[],
+  trailing?: string,
+  compact = false,
+): void {
+  const space = compact ? '' : ' ';
+
+  const prefix = `${variable}${space}=${space}{`;
+  const suffix = `}${trailing ?? ''}`;
+
+  if (elements.length === 0) {
+    code.line(`${prefix}${suffix}`);
+    return;
+  }
+
+  if (compact) {
+    const join = ', ';
+    const { elementsSize, joinSize } = totalSizeOf(elements, join);
+    if (
+      TARGET_LINE_LENGTH >
+      prefix.length +
+        code.currentIndentLength +
+        elementsSize +
+        joinSize +
+        suffix.length
+    ) {
+      code.line(`${prefix}${elements.join(join)}${suffix}`);
+      return;
+    }
+  }
+
+  code.indent(prefix);
+  for (const elt of elements) {
+    code.line(`${elt},`);
+  }
+  code.unindent(suffix);
+}
+
+function emitList(
+  code: CodeMaker,
+  prefix: string,
+  elements: readonly string[],
+  suffix: string,
+  opts?: { ifMulti: [string, string] },
+) {
+  if (elements.length === 0) {
+    code.line(`${prefix}${suffix}`);
+    return;
+  }
+
+  const join = ', ';
+  const { elementsSize, joinSize } = totalSizeOf(elements, join);
+  if (
+    TARGET_LINE_LENGTH >
+    code.currentIndentLength +
+      prefix.length +
+      elementsSize +
+      joinSize +
+      suffix.length
+  ) {
+    code.line(`${prefix}${elements.join(join)}${suffix}`);
+    return;
+  }
+
+  const [before, after] = opts?.ifMulti ?? ['', ''];
+
+  code.indent(`${prefix}${before}`);
+  if (elements.length === 1) {
+    code.line(elements[0]);
+  } else {
+    if (
+      TARGET_LINE_LENGTH >
+      code.currentIndentLength + elementsSize + joinSize
+    ) {
+      code.line(elements.join(join));
+    } else {
+      for (const elt of elements) {
+        code.line(`${elt},`);
+      }
+    }
+  }
+  code.unindent(`${after}${suffix}`);
+}
+
+function totalSizeOf(strings: readonly string[], join: string) {
+  return {
+    elementsSize: strings
+      .map((str) => str.length)
+      .reduce((acc, elt) => acc + elt, 0),
+    joinSize: strings.length > 1 ? join.length * (strings.length - 1) : 0,
+  };
 }

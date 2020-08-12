@@ -9,8 +9,6 @@ const ESCAPE = makeXmlEscaper();
 /* eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports */
 const { DOMParser, XMLSerializer } = require('xmldom');
 
-/* eslint-disable @typescript-eslint/camelcase */
-
 /**
  * A renderer that will render a CommonMark tree to .NET XML comments
  *

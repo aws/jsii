@@ -7,21 +7,27 @@ class JSII417PrivateRoot {
 }
 export class JSII417PublicBaseOfBase extends JSII417PrivateRoot {
   public static makeInstance(): JSII417PublicBaseOfBase {
-    return new JSII417PrivateBase("TEST");
+    return new JSII417PrivateBase('TEST');
   }
-  public foo() { return; }
+  public foo(): void {
+    return;
+  }
 }
 class JSII417PrivateBase extends JSII417PublicBaseOfBase {
-  constructor(protected readonly property: string) {
+  public constructor(protected readonly property: string) {
     super();
   }
-  public bar() { return; }
+  public bar() {
+    return;
+  }
 }
 export class JSII417Derived extends JSII417PrivateBase {
-  public bar() {
+  public bar(): void {
     return super.bar();
   }
-  public baz() { return; }
+  public baz(): void {
+    return;
+  }
 }
 // Same thing with interfaces
 interface IJSII417PrivateRoot {
@@ -42,15 +48,19 @@ export interface IJSII417Derived extends IJSII417PrivateBase {
 // Interfaces should be copied from erased classes to public classes
 // https://github.com/aws/jsii/issues/487
 //
-export interface IJsii487External { }
-export interface IJsii487External2 { }
-class Jsii487Internal implements IJsii487External { }
-export class Jsii487Derived extends Jsii487Internal implements IJsii487External2 { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface IJsii487External {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface IJsii487External2 {}
+class Jsii487Internal implements IJsii487External {}
+export class Jsii487Derived extends Jsii487Internal
+  implements IJsii487External2 {}
 
 //
 // Deduplicate interfaces that come from different declaration sites
 // https://github.com/aws/jsii/issues/496
 //
-export interface IJsii496 { }
-class Jsii496Base implements IJsii496 { }
-export class Jsii496Derived extends Jsii496Base implements IJsii496 { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface IJsii496 {}
+class Jsii496Base implements IJsii496 {}
+export class Jsii496Derived extends Jsii496Base implements IJsii496 {}

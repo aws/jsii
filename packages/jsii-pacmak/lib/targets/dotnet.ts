@@ -53,7 +53,7 @@ export class DotnetBuilder implements TargetBuilder {
 
       // Build solution
       logging.debug('Building .NET');
-      await shell('dotnet', ['build', '-c', 'Release'], {
+      await shell('dotnet', ['build', '--force', '-c', 'Release'], {
         cwd: tempSourceDir.directory,
       });
 
@@ -63,9 +63,9 @@ export class DotnetBuilder implements TargetBuilder {
       }
     } catch (e) {
       logging.warn(
-        `Exception occurred, not cleaning up ${scratchDirs.map(
-          (s) => s.directory,
-        )}`,
+        `Exception occurred, not cleaning up ${scratchDirs
+          .map((s) => s.directory)
+          .join(', ')}`,
       );
       throw e;
     }

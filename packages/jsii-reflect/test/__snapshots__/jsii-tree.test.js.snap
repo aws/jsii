@@ -129,6 +129,14 @@ exports[`jsii-tree --all 1`] = `
  │ │   │ │   │   └─┬ innerClass property (experimental)
  │ │   │ │   │     ├── immutable
  │ │   │ │   │     └── type: jsii-calc.submodule.child.InnerClass
+ │ │   │ │   ├─┬ interface KwargsProps (experimental)
+ │ │   │ │   │ ├─┬ interfaces
+ │ │   │ │   │ │ └── SomeStruct
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └─┬ extra property (experimental)
+ │ │   │ │   │     ├── abstract
+ │ │   │ │   │     ├── immutable
+ │ │   │ │   │     └── type: Optional<string>
  │ │   │ │   ├─┬ interface SomeStruct (experimental)
  │ │   │ │   │ └─┬ members
  │ │   │ │   │   └─┬ prop property (experimental)
@@ -149,6 +157,16 @@ exports[`jsii-tree --all 1`] = `
  │ │   │ │   │ └── AMAZINGLY_GOOD (experimental)
  │ │   │ │   └─┬ enum SomeEnum (experimental)
  │ │   │ │     └── SOME (experimental)
+ │ │   │ ├─┬ isolated
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ class Kwargs (experimental)
+ │ │   │ │     └─┬ members
+ │ │   │ │       └─┬ static method(props) method (experimental)
+ │ │   │ │         ├── static
+ │ │   │ │         ├─┬ parameters
+ │ │   │ │         │ └─┬ props
+ │ │   │ │         │   └── type: Optional<jsii-calc.submodule.child.KwargsProps>
+ │ │   │ │         └── returns: boolean
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -174,7 +192,10 @@ exports[`jsii-tree --all 1`] = `
  │ │     └─┬ class MyClass (experimental)
  │ │       ├── interfaces: INamespaced
  │ │       └─┬ members
- │ │         ├── <initializer>() initializer (experimental)
+ │ │         ├─┬ <initializer>(props) initializer (experimental)
+ │ │         │ └─┬ parameters
+ │ │         │   └─┬ props
+ │ │         │     └── type: jsii-calc.submodule.child.SomeStruct
  │ │         ├─┬ awesomeness property (experimental)
  │ │         │ ├── immutable
  │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
@@ -184,6 +205,9 @@ exports[`jsii-tree --all 1`] = `
  │ │         ├─┬ goodness property (experimental)
  │ │         │ ├── immutable
  │ │         │ └── type: jsii-calc.submodule.child.Goodness
+ │ │         ├─┬ props property (experimental)
+ │ │         │ ├── immutable
+ │ │         │ └── type: jsii-calc.submodule.child.SomeStruct
  │ │         └─┬ allTypes property (experimental)
  │ │           └── type: Optional<jsii-calc.AllTypes>
  │ └─┬ types
@@ -414,6 +438,17 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ rhs property (experimental)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Value
+ │   ├─┬ class BurriedAnonymousObject (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ check() method (experimental)
+ │   │   │ └── returns: boolean
+ │   │   └─┬ giveItBack(value) method (experimental)
+ │   │     ├── abstract
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ value
+ │   │     │   └── type: any
+ │   │     └── returns: any
  │   ├─┬ class Calculator (experimental)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -505,7 +540,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── type: Map<string => string>
  │   ├─┬ class ClassWithDocs (stable)
  │   │ └─┬ members
- │   │   └── <initializer>() initializer (stable)
+ │   │   └── <initializer>() initializer (experimental)
  │   ├─┬ class ClassWithJavaReservedWords (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(int) initializer (experimental)
@@ -748,7 +783,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── returns: void
  │   ├─┬ class DocumentedClass (stable)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer (stable)
+ │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ greet(greetee) method (stable)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ greetee
@@ -1193,6 +1228,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ value property (experimental)
  │   │     ├── immutable
  │   │     └── type: number
+ │   ├─┬ class NestedClassInstance (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ static makeInstance() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: @scope/jsii-calc-lib.submodule.NestingClass.NestedClass
  │   ├─┬ class NodeStandardLibrary (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1606,7 +1646,7 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── type: string
  │   ├─┬ class StructPassing
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
+ │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ static howManyVarArgsDidIPass(_positional,inputs) method
  │   │   │ ├── static
  │   │   │ ├── variadic
@@ -1739,6 +1779,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ throwError() method (experimental)
  │   │     └── returns: void
+ │   ├─┬ class UmaskCheck (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ static mode() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: number
  │   ├─┬ class UnaryOperation (experimental)
  │   │ ├── base: Operation
  │   │ └─┬ members
@@ -2509,6 +2554,14 @@ exports[`jsii-tree --all 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class NestingClass (deprecated)
+   │     │ └── members
+   │     ├─┬ class NestedClass (deprecated)
+   │     │ └─┬ members
+   │     │   ├── <initializer>() initializer (deprecated)
+   │     │   └─┬ property property (deprecated)
+   │     │     ├── immutable
+   │     │     └── type: string
    │     ├─┬ class Reflector (deprecated)
    │     │ └─┬ members
    │     │   ├── <initializer>() initializer (deprecated)
@@ -2653,11 +2706,17 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │   │ │ └─┬ types
  │ │   │ │   ├── class InnerClass
  │ │   │ │   ├── class OuterClass
+ │ │   │ │   ├─┬ interface KwargsProps
+ │ │   │ │   │ └─┬ interfaces
+ │ │   │ │   │   └── SomeStruct
  │ │   │ │   ├── interface SomeStruct
  │ │   │ │   ├── interface Structure
  │ │   │ │   ├── enum Awesomeness
  │ │   │ │   ├── enum Goodness
  │ │   │ │   └── enum SomeEnum
+ │ │   │ ├─┬ isolated
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── class Kwargs
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -2691,6 +2750,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class BinaryOperation
  │   │ ├── base: Operation
  │   │ └── interfaces: IFriendly
+ │   ├── class BurriedAnonymousObject
  │   ├─┬ class Calculator
  │   │ └── base: CompositeOperation
  │   ├─┬ class ClassThatImplementsTheInternalInterface
@@ -2760,6 +2820,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class Negate
  │   │ ├── base: UnaryOperation
  │   │ └── interfaces: IFriendlier
+ │   ├── class NestedClassInstance
  │   ├── class NodeStandardLibrary
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
@@ -2799,6 +2860,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
+ │   ├── class UmaskCheck
  │   ├─┬ class UnaryOperation
  │   │ └── base: Operation
  │   ├─┬ class UpcasingReflectable
@@ -2930,6 +2992,8 @@ exports[`jsii-tree --inheritance 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class NestingClass
+   │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
    │     └── interface ReflectableEntry
@@ -3027,6 +3091,9 @@ exports[`jsii-tree --members 1`] = `
  │ │   │ │   │ └─┬ members
  │ │   │ │   │   ├── <initializer>() initializer
  │ │   │ │   │   └── innerClass property
+ │ │   │ │   ├─┬ interface KwargsProps
+ │ │   │ │   │ └─┬ members
+ │ │   │ │   │   └── extra property
  │ │   │ │   ├─┬ interface SomeStruct
  │ │   │ │   │ └─┬ members
  │ │   │ │   │   └── prop property
@@ -3041,6 +3108,11 @@ exports[`jsii-tree --members 1`] = `
  │ │   │ │   │ └── AMAZINGLY_GOOD
  │ │   │ │   └─┬ enum SomeEnum
  │ │   │ │     └── SOME
+ │ │   │ ├─┬ isolated
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ class Kwargs
+ │ │   │ │     └─┬ members
+ │ │   │ │       └── static method(props) method
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -3056,10 +3128,11 @@ exports[`jsii-tree --members 1`] = `
  │ │   └─┬ types
  │ │     └─┬ class MyClass
  │ │       └─┬ members
- │ │         ├── <initializer>() initializer
+ │ │         ├── <initializer>(props) initializer
  │ │         ├── awesomeness property
  │ │         ├── definedAt property
  │ │         ├── goodness property
+ │ │         ├── props property
  │ │         └── allTypes property
  │ └─┬ types
  │   ├─┬ class AbstractClass
@@ -3159,6 +3232,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── hello() method
  │   │   ├── lhs property
  │   │   └── rhs property
+ │   ├─┬ class BurriedAnonymousObject
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── check() method
+ │   │   └── giveItBack(value) method
  │   ├─┬ class Calculator
  │   │ └─┬ members
  │   │   ├── <initializer>(props) initializer
@@ -3504,6 +3582,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── hello() method
  │   │   ├── toString() method
  │   │   └── value property
+ │   ├─┬ class NestedClassInstance
+ │   │ └─┬ members
+ │   │   └── static makeInstance() method
  │   ├─┬ class NodeStandardLibrary
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3731,6 +3812,9 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── throwError() method
+ │   ├─┬ class UmaskCheck
+ │   │ └─┬ members
+ │   │   └── static mode() method
  │   ├─┬ class UnaryOperation
  │   │ └─┬ members
  │   │   ├── <initializer>(operand) initializer
@@ -4074,6 +4158,12 @@ exports[`jsii-tree --members 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class NestingClass
+   │     │ └── members
+   │     ├─┬ class NestedClass
+   │     │ └─┬ members
+   │     │   ├── <initializer>() initializer
+   │     │   └── property property
    │     ├─┬ class Reflector
    │     │ └─┬ members
    │     │   ├── <initializer>() initializer
@@ -4138,6 +4228,7 @@ exports[`jsii-tree --signatures 1`] = `
  │     └─┬ submodules
  │       ├── back_references
  │       ├── child
+ │       ├── isolated
  │       └─┬ nested_submodule
  │         └─┬ submodules
  │           └── deeplyNested
@@ -4183,11 +4274,15 @@ exports[`jsii-tree --types 1`] = `
  │ │   │ │ └─┬ types
  │ │   │ │   ├── class InnerClass
  │ │   │ │   ├── class OuterClass
+ │ │   │ │   ├── interface KwargsProps
  │ │   │ │   ├── interface SomeStruct
  │ │   │ │   ├── interface Structure
  │ │   │ │   ├── enum Awesomeness
  │ │   │ │   ├── enum Goodness
  │ │   │ │   └── enum SomeEnum
+ │ │   │ ├─┬ isolated
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── class Kwargs
  │ │   │ └─┬ nested_submodule
  │ │   │   ├─┬ submodules
  │ │   │   │ └─┬ deeplyNested
@@ -4212,6 +4307,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class BaseJsii976
  │   ├── class Bell
  │   ├── class BinaryOperation
+ │   ├── class BurriedAnonymousObject
  │   ├── class Calculator
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
@@ -4265,6 +4361,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class MethodNamedProperty
  │   ├── class Multiply
  │   ├── class Negate
+ │   ├── class NestedClassInstance
  │   ├── class NodeStandardLibrary
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
@@ -4301,6 +4398,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
+ │   ├── class UmaskCheck
  │   ├── class UnaryOperation
  │   ├── class UpcasingReflectable
  │   ├── class UseBundledDependency
@@ -4400,6 +4498,8 @@ exports[`jsii-tree --types 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class NestingClass
+   │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
    │     └── interface ReflectableEntry
@@ -4429,6 +4529,7 @@ exports[`jsii-tree 1`] = `
  │     └─┬ submodules
  │       ├── back_references
  │       ├── child
+ │       ├── isolated
  │       └─┬ nested_submodule
  │         └─┬ submodules
  │           └── deeplyNested

@@ -12,9 +12,7 @@ const requiredNpmKeys: Array<keyof BasePackageJson> = [
 ];
 
 export default function validatePackageJson(packageJson: any): BasePackageJson {
-  const missingKeys = requiredNpmKeys.filter(
-    (key: string): boolean => !packageJson[key],
-  );
+  const missingKeys = requiredNpmKeys.filter((key) => !packageJson[key]);
 
   if (missingKeys.length > 0) {
     throw new Error(

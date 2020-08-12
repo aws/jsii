@@ -19,20 +19,22 @@ export class ExperimentalClass {
   /** @experimental */
   public mutableProperty?: number;
   /** @experimental */
-  constructor(readonlyString: string, mutableNumber?: number) {
+  public constructor(readonlyString: string, mutableNumber?: number) {
     this.readonlyProperty = readonlyString;
     this.mutableProperty = mutableNumber;
   }
 
   /** @experimental */
-  public method(): void { return; }
+  public method(): void {
+    return;
+  }
 }
 /** @experimental */
 export enum ExperimentalEnum {
   /** @experimental */
   OPTION_A,
   /** @experimental */
-  OPTION_B
+  OPTION_B,
 }
 
 /** @stable */
@@ -54,19 +56,21 @@ export class StableClass {
   /** @stable */
   public mutableProperty?: number;
   /** @stable */
-  constructor(readonlyString: string, mutableNumber?: number) {
+  public constructor(readonlyString: string, mutableNumber?: number) {
     this.readonlyProperty = readonlyString;
     this.mutableProperty = mutableNumber;
   }
   /** @stable */
-  public method(): void { return; }
+  public method(): void {
+    return;
+  }
 }
 /** @stable */
 export enum StableEnum {
   /** @stable */
   OPTION_A,
   /** @stable */
-  OPTION_B
+  OPTION_B,
 }
 
 /** @deprecated it just wraps a string */
@@ -88,19 +92,21 @@ export class DeprecatedClass {
   /** @deprecated shouldn't have been mutable */
   public mutableProperty?: number;
   /** @deprecated this constructor is "just" okay */
-  constructor(readonlyString: string, mutableNumber?: number) {
+  public constructor(readonlyString: string, mutableNumber?: number) {
     this.readonlyProperty = readonlyString;
     this.mutableProperty = mutableNumber;
   }
   /** @deprecated it was a bad idea */
-  public method(): void { return; }
+  public method(): void {
+    return;
+  }
 }
 /** @deprecated your deprecated selection of bad options */
 export enum DeprecatedEnum {
   /** @deprecated option A is not great */
   OPTION_A,
   /** @deprecated option B is kinda bad, too */
-  OPTION_B
+  OPTION_B,
 }
 
 /** @external */
@@ -122,17 +128,19 @@ export class ExternalClass {
   /** @external */
   public mutableProperty?: number;
   /** @external */
-  constructor(readonlyString: string, mutableNumber?: number) {
+  public constructor(readonlyString: string, mutableNumber?: number) {
     this.readonlyProperty = readonlyString;
     this.mutableProperty = mutableNumber;
   }
   /** @external */
-  public method(): void { return; }
+  public method(): void {
+    return;
+  }
 }
 /** @external */
 export enum ExternalEnum {
   /** @external */
   OPTION_A,
   /** @external */
-  OPTION_B
+  OPTION_B,
 }

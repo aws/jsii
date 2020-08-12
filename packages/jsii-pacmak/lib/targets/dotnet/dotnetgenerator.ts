@@ -74,9 +74,9 @@ export class DotNetGenerator extends Generator {
     super.generate(fingerprint);
   }
 
-  public async save(outdir: string, tarball: string) {
+  public async save(outdir: string, tarball: string): Promise<string[]> {
     // Generating the csproj and AssemblyInfo.cs files
-    const tarballFileName = tarball.substr(tarball.lastIndexOf('/') + 1);
+    const tarballFileName = path.basename(tarball);
     const filegen = new FileGenerator(
       this.assembly,
       tarballFileName,
@@ -283,7 +283,6 @@ export class DotNetGenerator extends Generator {
 
     // Nested classes will be dealt with during calc code generation
     const nested = this.isNested(cls);
-    const inner = nested ? ' static' : '';
     const absPrefix = abstract ? ' abstract' : '';
 
     this.openFileIfNeeded(className, namespace, nested);
@@ -294,7 +293,7 @@ export class DotNetGenerator extends Generator {
     this.dotnetRuntimeGenerator.emitAttributesForClass(cls);
 
     this.code.openBlock(
-      `public${inner}${absPrefix} class ${className}${implementsExpr}`,
+      `public${absPrefix} class ${className}${implementsExpr}`,
     );
 
     // Compute the class parameters

@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/aws/jsii/compare/v1.9.0...v1.10.0) (2020-08-05)
+
+
+### Bug Fixes
+
+* **java:** user.xml repository ID was not sanitized ([#1812](https://github.com/aws/jsii/issues/1812)) ([4283af0](https://github.com/aws/jsii/commit/4283af0cb2338c31594c53b2ab040b7b183aec77))
+* **jsii:** Location of initializers in source was not documented ([#1806](https://github.com/aws/jsii/issues/1806)) ([3957827](https://github.com/aws/jsii/commit/3957827a5a730d51029313518caacb0e87c09b83))
+* **jsii:** selective exports declarations are ignored ([#1829](https://github.com/aws/jsii/issues/1829)) ([2699ccf](https://github.com/aws/jsii/commit/2699ccf89f3243edac677dac9ca8186a5bb102f2)), closes [#1818](https://github.com/aws/jsii/issues/1818)
+* **python:** missing imports for certain keyword arguments ([#1810](https://github.com/aws/jsii/issues/1810)) ([f124bc8](https://github.com/aws/jsii/commit/f124bc8b0ebf9243f45c59be6209ca01fd967dea)), closes [#1809](https://github.com/aws/jsii/issues/1809)
+* **rosetta:** OOpsie -- couldn't find root file back on Windows ([#1842](https://github.com/aws/jsii/issues/1842)) ([6ea8daa](https://github.com/aws/jsii/commit/6ea8daa8a022c5bda5fd1854d49292e65caac2be))
+* **rosetta:** kwargs arguments are emitted at a variadic position ([#1832](https://github.com/aws/jsii/issues/1832)) ([079e147](https://github.com/aws/jsii/commit/079e147060d30dc1c878862af7bbb52f0cc54733)), closes [#1821](https://github.com/aws/jsii/issues/1821)
+
+## [1.9.0](https://github.com/aws/jsii/compare/v1.8.0...v1.9.0) (2020-07-16)
+
+
+### Bug Fixes
+
+* **jsii-reflect:** TypeSystem.methods and .properties ignores submodules ([#1779](https://github.com/aws/jsii/issues/1779)) ([bdb5483](https://github.com/aws/jsii/commit/bdb5483e95e0e0ec6b556f5a06b92018bfe1a642))
+* **pacmak:** python pack fails when installing 'black' via pip ([#1782](https://github.com/aws/jsii/issues/1782)) ([d83e004](https://github.com/aws/jsii/commit/d83e0043f3a8a40dcf79b60ffce4837721617149))
+* **pacmak:** race condition in python packing when run over multiple packages ([#1783](https://github.com/aws/jsii/issues/1783)) ([7807027](https://github.com/aws/jsii/commit/7807027d6751fcdaaa06544a3755215937e8d9e9))
+
+## [1.8.0](https://github.com/aws/jsii/compare/v1.7.0...v1.8.0) (2020-07-02)
+
+
+### Bug Fixes
+
+* **kernel:** tarball unpacking does not behave like 'npm install' ([#1766](https://github.com/aws/jsii/issues/1766)) ([2dc1b21](https://github.com/aws/jsii/commit/2dc1b2127295c7b91e95571e6cba246785d98ea3)), closes [aws/aws-cdk#8233](https://github.com/aws/aws-cdk/issues/8233) [#1765](https://github.com/aws/jsii/issues/1765)
+* **python:** relative import missing for kwargs types ([#1768](https://github.com/aws/jsii/issues/1768)) ([c174ac5](https://github.com/aws/jsii/commit/c174ac5822d9923c904ec38b3f7d0513310ef973))
+
+## [1.7.0](https://github.com/aws/jsii/compare/v1.6.0...v1.7.0) (2020-06-18)
+
+
+### Features
+
+* **jsii-pacmak:** add maven and nuget support for * dependencies ([#1696](https://github.com/aws/jsii/issues/1696)) ([13667f6](https://github.com/aws/jsii/commit/13667f6e22a4548c8bcbd9e1c589582f6c3417b5)), closes [aws/jsii#1678](https://github.com/aws/jsii/issues/1678)
+* turn off assembly validation ([#1751](https://github.com/aws/jsii/issues/1751)) ([c6d5f8a](https://github.com/aws/jsii/commit/c6d5f8a9d57602c6187374e753dcc1ecd01a93b6))
+
+
+### Bug Fixes
+
+* **@jsii/runtime:** "maximum call stack size exceeded" in SyncStdio.readLine ([#1717](https://github.com/aws/jsii/issues/1717)) ([6348226](https://github.com/aws/jsii/commit/6348226d9060c0145c62792f04373ed84361dcf9)), closes [aws/aws-cdk#8288](https://github.com/aws/aws-cdk/issues/8288) [aws/aws-cdk#5187](https://github.com/aws/aws-cdk/issues/5187) [aws/aws-cdk#8397](https://github.com/aws/aws-cdk/issues/8397)
+* **jsii:** build succeeds using Omit<T, K> ([#1708](https://github.com/aws/jsii/issues/1708)) ([a46fdb1](https://github.com/aws/jsii/commit/a46fdb1110188356ab6ec3188b552a3fe685ca7d)), closes [#1707](https://github.com/aws/jsii/issues/1707)
+* **python:** no overload variant of "Factory" matches argument type "object" ([#1716](https://github.com/aws/jsii/issues/1716)) ([eee8ea5](https://github.com/aws/jsii/commit/eee8ea534157823856201478266ca8019b48a22b))
+* **python:** reference isomorphism is broken within __init__ ([#1724](https://github.com/aws/jsii/issues/1724)) ([b7be1c6](https://github.com/aws/jsii/commit/b7be1c6efec8867e37192e1df2233331986b11b5)), closes [aws/aws-cdk#8262](https://github.com/aws/aws-cdk/issues/8262)
+
 ## [1.6.0](https://github.com/aws/jsii/compare/v1.5.0...v1.6.0) (2020-06-02)
 
 

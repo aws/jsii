@@ -37,11 +37,15 @@ function createRecords(): string {
     path.join(os.tmpdir(), 'jsii-kernel.recording.'),
   );
   const result = child.spawnSync(
-    require.resolve('jest/bin/jest'),
-    [require.resolve('@jsii/kernel/test/kernel.test.js')],
+    process.execPath,
+    [
+      ...process.execArgv,
+      require.resolve('jest/bin/jest'),
+      '--coverage=false',
+      'test/kernel.test.js',
+    ],
     {
       env: { ...process.env, JSII_RECORD: records, JSII_NOSTACK: '1' },
-      shell: true,
       stdio: ['inherit', 'pipe', 'pipe'],
       cwd: path.resolve(
         require.resolve('@jsii/kernel/test/kernel.test.js'),
@@ -56,8 +60,20 @@ function createRecords(): string {
   }
 
   if (result.signal != null || result.status !== 0) {
-    console.log(result.stdout);
-    console.error(result.stderr.toString('utf-8'));
+    console.log(
+      result.stdout
+        .toString('utf-8')
+        .split('\n')
+        .map((x) => `STDOUT: ${x}`)
+        .join('\n'),
+    );
+    console.error(
+      result.stderr
+        .toString('utf-8')
+        .split('\n')
+        .map((x) => `STDERR: ${x}`)
+        .join('\n'),
+    );
   }
 
   if (result.signal != null) {

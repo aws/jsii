@@ -146,7 +146,7 @@ test('Backwards compatibility with literate integ tests', () => {
     expect(snippets[0].completeSource).toEqual('# Some literate source file');
     expect(
       snippets[0]?.parameters?.[SnippetParameters.$COMPILATION_DIRECTORY],
-    ).toEqual('/package/test');
+    ).toEqual(path.normalize('/package/test'));
   } finally {
     mockfs.restore();
   }

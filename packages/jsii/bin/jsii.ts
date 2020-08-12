@@ -48,7 +48,7 @@ const warningTypes = Object.keys(enabledWarnings);
     })
     .help()
     .version(
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
       `${VERSION}, typescript ${require('typescript/package.json').version}`,
     ).argv;
 
@@ -66,7 +66,9 @@ const warningTypes = Object.keys(enabledWarnings);
   for (const key of argv['silence-warnings']) {
     if (!(key in enabledWarnings)) {
       throw new Error(
-        `Unknown warning type ${key}. Must be one of: ${warningTypes}`,
+        `Unknown warning type ${
+          key as any
+        }. Must be one of: ${warningTypes.join(', ')}`,
       );
     }
 

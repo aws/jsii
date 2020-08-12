@@ -71,6 +71,11 @@ interface PythonLanguageContext {
    * (Used to render super() call.);
    */
   readonly currentMethodName?: string;
+
+  /**
+   * If we're rendering a variadic argument value
+   */
+  readonly variadicArgument?: boolean;
 }
 
 type PythonVisitorContext = AstRenderer<PythonLanguageContext>;
@@ -174,7 +179,6 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     const originalIdentifier = node.text;
 
     const explodedParameter = context.currentContext.explodedParameter;
-    // eslint-disable-next-line max-len
     if (
       context.currentContext.tailPositionArgument &&
       explodedParameter &&
@@ -296,11 +300,19 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       expressionText = `super().${context.currentContext.currentMethodName}`;
     }
 
+    const signature = context.typeChecker.getResolvedSignature(node);
+
     return new OTree(
       [
         expressionText,
         '(',
-        this.convertFunctionCallArguments(node.arguments, context),
+        this.convertFunctionCallArguments(
+          node.arguments,
+          context,
+          signature?.parameters?.map(
+            (p) => p.valueDeclaration as ts.ParameterDeclaration,
+          ),
+        ),
         ')',
       ],
       [],
@@ -396,11 +408,32 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     node: ts.ObjectLiteralExpression,
     context: PythonVisitorContext,
   ): OTree {
-    if (context.currentContext.tailPositionArgument) {
+    // Neutralize local modifiers if any for transforming further down.
+    const downContext = context.updateContext({
+      tailPositionArgument: false,
+      variadicArgument: false,
+    });
+
+    if (
+      context.currentContext.tailPositionArgument &&
+      !context.currentContext.variadicArgument
+    ) {
       // Guess that it's a struct we can probably inline the kwargs for
-      return this.renderObjectLiteralExpression('', '', true, node, context);
+      return this.renderObjectLiteralExpression(
+        '',
+        '',
+        true,
+        node,
+        downContext,
+      );
     }
-    return this.renderObjectLiteralExpression('{', '}', false, node, context);
+    return this.renderObjectLiteralExpression(
+      '{',
+      '}',
+      false,
+      node,
+      downContext,
+    );
   }
 
   public knownStructObjectLiteralExpression(
@@ -754,17 +787,22 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   private convertFunctionCallArguments(
     args: ts.NodeArray<ts.Expression> | undefined,
     context: PythonVisitorContext,
+    parameterDeclarations?: readonly ts.ParameterDeclaration[],
   ) {
     if (!args) {
       return NO_SYNTAX;
     }
 
-    const converted: Array<string | OTree> = context.convertLastDifferently(
-      args,
-      {
-        tailPositionArgument: true,
-      },
-    );
+    const converted = context.convertWithModifier(args, (ctx, _arg, index) => {
+      const decl =
+        parameterDeclarations?.[
+          Math.min(index, parameterDeclarations.length - 1)
+        ];
+      const variadicArgument = decl?.dotDotDotToken != null;
+      const tailPositionArgument = index >= args.length - 1;
+
+      return ctx.updateContext({ variadicArgument, tailPositionArgument });
+    });
 
     return new OTree([], converted, { separator: ', ', indent: 4 });
   }
@@ -776,10 +814,11 @@ function mangleIdentifier(originalIdentifier: string) {
     return originalIdentifier;
   }
   // Turn into snake-case
-  return originalIdentifier.replace(
+  const cased = originalIdentifier.replace(
     /[^A-Z][A-Z]/g,
     (m) => `${m[0].substr(0, 1)}_${m.substr(1).toLowerCase()}`,
   );
+  return IDENTIFIER_KEYWORDS.includes(cased) ? `${cased}_` : cased;
 }
 
 const BUILTIN_FUNCTIONS: { [key: string]: string } = {
@@ -793,6 +832,8 @@ const TOKEN_REWRITES: { [key: string]: string } = {
   true: 'True',
   false: 'False',
 };
+
+const IDENTIFIER_KEYWORDS: string[] = ['lambda'];
 
 function last<A>(xs: readonly A[]): A {
   return xs[xs.length - 1];

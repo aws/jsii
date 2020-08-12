@@ -3,7 +3,10 @@ import { readFile } from 'fs';
 /*
  * Look for existing nested values in config, return undefined if not found
  */
-export function getNestedValue(keys: string[], current: object): any {
+export function getNestedValue(
+  keys: string[],
+  current: Record<string, unknown>,
+): any {
   try {
     return keys.reduce((val: any, key: string) => val[key], current);
   } catch (_err) {

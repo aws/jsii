@@ -9,7 +9,6 @@
  * @stable
  */
 export class DocumentedClass {
-
   /**
    * Greet the indicated person.
    *
@@ -19,7 +18,7 @@ export class DocumentedClass {
    * @param greetee The person to be greeted.
    * @returns A number that everyone knows very well
    */
-  public greet(greetee: Greetee = {}) {
+  public greet(greetee: Greetee = {}): number {
     process.stdout.write(`Hello, ${greetee.name ?? 'world'}\n`);
     return 42;
   }
@@ -29,7 +28,7 @@ export class DocumentedClass {
    *
    * @experimental
    */
-  public hola() {
+  public hola(): void {
     process.stdout.write('bonjour');
   }
 }
@@ -55,7 +54,7 @@ export class Old {
   /**
    * Doo wop that thing
    */
-  public doAThing() {
+  public doAThing(): void {
     // Nothing to do
   }
 }

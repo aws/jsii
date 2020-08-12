@@ -20,7 +20,7 @@ RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"            
 
 # Install Python 3
 RUN yum -y install python3 python3-pip                                                                                  \
-  && python3 -m pip install --upgrade pip setuptools wheel twine                                                        \
+  && python3 -m pip install --upgrade pip setuptools wheel twine black                                                  \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Ruby 2.6+

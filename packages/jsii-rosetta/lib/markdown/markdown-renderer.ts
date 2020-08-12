@@ -6,7 +6,6 @@ import {
   RendererContext,
 } from './markdown';
 
-/* eslint-disable @typescript-eslint/camelcase */
 /**
  * A renderer that will render a CommonMark tree back to MarkDown
  */
@@ -111,7 +110,6 @@ export class MarkdownRenderer implements CommonMarkRenderer {
     return `<custom>${context.content()}</custom>`;
   }
 }
-/* eslint-enable @typescript-eslint/camelcase */
 
 const PARA_BREAK = '\u001d';
 

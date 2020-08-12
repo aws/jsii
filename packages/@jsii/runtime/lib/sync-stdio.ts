@@ -18,45 +18,41 @@ export class SyncStdio {
   }
 
   public readLine(): string | undefined {
-    if (this.inputQueue.length > 0) {
-      return this.inputQueue.shift();
-    }
+    const buff = Buffer.alloc(INPUT_BUFFER_SIZE);
+    while (this.inputQueue.length === 0) {
+      try {
+        const read = fs.readSync(STDIN_FD, buff, 0, buff.length, null);
 
-    try {
-      const buff = Buffer.alloc(INPUT_BUFFER_SIZE);
-      const read = fs.readSync(STDIN_FD, buff, 0, buff.length, null);
-
-      if (read === 0) {
-        return undefined;
-      }
-
-      const str = buff.slice(0, read).toString();
-
-      for (const ch of str) {
-        if (ch === '\n') {
-          this.inputQueue.push(this.currentLine);
-          this.currentLine = '';
-        } else {
-          this.currentLine += ch;
+        if (read === 0) {
+          return undefined;
         }
-      }
-    } catch (e) {
-      // HACK: node opens STDIN with O_NONBLOCK, meaning attempts to synchrounously read from it may
-      // result in EAGAIN. In such cases, the call should be retried until it succeeds. This kind of
-      // polling may be terribly inefficient, and the "correct" way to address this is to stop
-      // relying on synchronous reads from STDIN. This is however a non-trivial endeavor, and the
-      // current state of things is very much broken in node >= 13.2, as can be see in
-      // https://github.com/aws/aws-cdk/issues/5187
-      if (e.code !== 'EAGAIN') {
-        throw e;
+
+        const str = buff.slice(0, read).toString();
+
+        for (const ch of str) {
+          if (ch === '\n') {
+            this.inputQueue.push(this.currentLine);
+            this.currentLine = '';
+          } else {
+            this.currentLine += ch;
+          }
+        }
+      } catch (e) {
+        // HACK: node may set O_NONBLOCK on it's STDIN depending on what kind of input it is made
+        // of (see https://github.com/nodejs/help/issues/2663). When STDIN has O_NONBLOCK, calls may
+        // result in EAGAIN. In such cases, the call should be retried until it succeeds. This kind
+        // of polling will result in horrible CPU thrashing, but there does not seem to be a way to
+        // force a O_SYNC access to STDIN in a reliable way within node.
+        // In order to make this stop we need to either stop depending on synchronous reads, or to
+        // provision our own communication channel that can reliably be synchronous. This work is
+        // "tracked" at https://github.com/aws/aws-cdk/issues/5187
+        if (e.code !== 'EAGAIN') {
+          throw e;
+        }
       }
     }
 
     const next = this.inputQueue.shift();
-    if (next == null) {
-      return this.readLine();
-    }
-
     return next;
   }
 

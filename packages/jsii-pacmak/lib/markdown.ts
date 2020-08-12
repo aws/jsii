@@ -23,7 +23,6 @@ export function md2rst(text: string) {
     return node.literal ?? '';
   }
 
-  /* eslint-disable @typescript-eslint/camelcase */
   pump(ast, {
     block_quote(_node, entering) {
       directive('epigraph', entering);
@@ -124,7 +123,6 @@ export function md2rst(text: string) {
       doc.popPrefix();
     },
   });
-  /* eslint-enable @typescript-eslint/camelcase */
 
   return doc.toString();
 }

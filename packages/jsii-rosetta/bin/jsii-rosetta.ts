@@ -167,7 +167,7 @@ function main() {
     .demandCommand()
     .help()
     .strict() // Error on wrong command
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
     .version(require('../package.json').version)
     .showHelpOnFail(false).argv;
 
@@ -217,18 +217,20 @@ async function makeFileSource(
 async function readStdin(): Promise<string> {
   process.stdin.setEncoding('utf8');
 
-  const parts: string[] = [];
+  const parts: Buffer[] = [];
 
   return new Promise((resolve, reject) => {
     process.stdin.on('readable', () => {
       const chunk = process.stdin.read();
       if (chunk !== null) {
-        parts.push(`${chunk}`);
+        parts.push(Buffer.from(chunk));
       }
     });
 
     process.stdin.on('error', reject);
-    process.stdin.on('end', () => resolve(parts.join('')));
+    process.stdin.on('end', () =>
+      resolve(Buffer.concat(parts).toString('utf-8')),
+    );
   });
 }
 

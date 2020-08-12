@@ -96,7 +96,7 @@ function loadRequest(library: string): api.LoadRequest {
     const result = child.spawnSync(
       'npm',
       ['pack', path.dirname(require.resolve(`${library}/package.json`))],
-      { cwd: targetDir, stdio: ['inherit', 'pipe', 'pipe'] },
+      { cwd: targetDir, shell: true, stdio: ['inherit', 'pipe', 'pipe'] },
     );
     if (result.error) {
       throw result.error;

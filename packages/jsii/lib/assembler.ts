@@ -376,11 +376,21 @@ export class Assembler implements Emitter {
    * computed for the type, a marker is returned instead, and an ``ts.DiagnosticCategory.Error`` diagnostic is
    * inserted in the assembler context.
    *
-   * @param type the type for which a JSII fully qualified name is neede.
+   * @param type the type for which a JSII fully qualified name is needed.
+   * @param typeAnnotationNode the type annotation for which this FQN is generated. This is used for attaching the error
+   *                           marker. When there is no explicit type annotation (e.g: inferred method return type), the
+   *                           preferred substitute is the "type-inferred" element's name.
+   * @param typeUse the reason why this type was resolved (e.g: "return type")
+   * @param isThisType whether this type was specified or inferred as "this" or not
    *
    * @returns the FQN of the type, or some "unknown" marker.
    */
-  private async _getFQN(type: ts.Type): Promise<string> {
+  private async _getFQN(
+    type: ts.Type,
+    typeAnnotationNode: ts.Node,
+    typeUse: TypeUseKind,
+    isThisType: boolean,
+  ): Promise<string> {
     const singleValuedEnum = isSingleValuedEnum(type, this._typeChecker);
 
     const tsFullName = this._typeChecker.getFullyQualifiedName(type.symbol);
@@ -389,31 +399,57 @@ export class Assembler implements Emitter {
         tsFullName.replace(/\.[^.]+$/, '')
       : tsFullName;
 
-    let node = singleValuedEnum
+    let typeDeclaration = singleValuedEnum
       ? // If it's a single-valued enum, we need to move to the parent to have the enum declaration
         type.symbol.valueDeclaration.parent
       : type.symbol.valueDeclaration;
-    if (!node && type.symbol.declarations.length > 0) {
-      node = type.symbol.declarations[0];
+    if (!typeDeclaration && type.symbol.declarations.length > 0) {
+      typeDeclaration = type.symbol.declarations[0];
+    }
+
+    // Set to true to prevent further adding of Error diagnostics for known-bad reference
+    let hasError = false;
+
+    if (this._isPrivateOrInternal(type.symbol)) {
+      // Check if this type is "this" (explicit or inferred method return type).
+      const commonMessage = `cannot be used as the ${typeUse} because it is private or @internal`;
+      this._diagnostic(
+        typeAnnotationNode,
+        ts.DiagnosticCategory.Error,
+        isThisType
+          ? `Type "this" (aka: "${type.symbol.name}") ${commonMessage}`
+          : `Type "${type.symbol.name}" ${commonMessage}`,
+        makeCause(typeDeclaration),
+      );
+
+      hasError = true;
     }
 
     const groups = /^"([^"]+)"\.(.*)$/.exec(tsName);
     if (!groups) {
-      this._diagnostic(
-        node,
-        ts.DiagnosticCategory.Error,
-        `Cannot use private type ${tsName} in exported declarations`,
-      );
+      if (!hasError) {
+        this._diagnostic(
+          typeAnnotationNode,
+          ts.DiagnosticCategory.Error,
+          `Cannot use internal type ${tsName} as a ${typeUse} in exported declarations`,
+          makeCause(typeDeclaration),
+        );
+        hasError = true;
+      }
       return tsName;
     }
     const [, modulePath, typeName] = groups;
     const pkg = await findPackageInfo(modulePath);
     if (!pkg) {
-      this._diagnostic(
-        node,
-        ts.DiagnosticCategory.Error,
-        `Could not find module for ${modulePath}`,
-      );
+      if (!hasError) {
+        this._diagnostic(
+          typeAnnotationNode,
+          ts.DiagnosticCategory.Error,
+          `Could not find module corresponding to ${modulePath}`,
+          makeCause(typeDeclaration),
+        );
+        hasError = true;
+      }
       return `unknown.${typeName}`;
     }
 
@@ -428,13 +464,38 @@ export class Assembler implements Emitter {
       pkg.name !== this.projectInfo.name &&
       !this._dereference({ fqn }, type.symbol.valueDeclaration)
     ) {
-      this._diagnostic(
-        node,
-        ts.DiagnosticCategory.Error,
-        `Use of foreign type not present in the ${pkg.name}'s assembly: ${fqn}`,
-      );
+      if (!hasError) {
+        this._diagnostic(
+          typeAnnotationNode,
+          ts.DiagnosticCategory.Error,
+          `Type "${fqn}" cannot be used as a ${typeUse} because it is not exported from ${pkg.name}`,
+          makeCause(typeDeclaration),
+        );
+        hasError = true;
+      }
     }
     return fqn;
+
+    function makeCause(node: ts.Node): ts.DiagnosticRelatedInformation[] {
+      const declNode =
+        ts.isClassDeclaration(node) ||
+        ts.isEnumDeclaration(node) ||
+        ts.isInterfaceDeclaration(node) ||
+        ts.isTypeAliasDeclaration(node)
+          ? node.name ?? node
+          : node;
+      return [
+        {
+          category: ts.DiagnosticCategory.Message,
+          code: JSII_DIAGNOSTICS_CODE,
+          file: declNode.getSourceFile(),
+          start: declNode.getStart(declNode.getSourceFile()),
+          length:
+            declNode.getEnd() - declNode.getStart(declNode.getSourceFile()),
+          messageText: `The referenced type is declared here`,
+        },
+      ];
+    }
   }
 
   /**
@@ -525,6 +586,11 @@ export class Assembler implements Emitter {
       // Unresolvable module... We'll let tsc report this for us.
       return;
     }
+
+    // Normalize the path so the correct separator is in use (Looking at you, Windows)
+    resolution.resolvedModule.resolvedFileName = path.normalize(
+      resolution.resolvedModule.resolvedFileName,
+    );
     if (
       // We're not looking into a dependency's namespace exports, and the resolution says it's external
       (packageRoot === this.projectInfo.projectRoot &&
@@ -555,7 +621,7 @@ export class Assembler implements Emitter {
         symbol.name !== Case.snake(symbol.name)
       ) {
         this._diagnostic(
-          declaration,
+          declaration.name,
           ts.DiagnosticCategory.Error,
           `Submodule namespaces must be camelCased or snake_cased. Consider renaming to "${Case.camel(
             symbol.name,
@@ -640,25 +706,39 @@ export class Assembler implements Emitter {
         if (currNs.name !== ns.name) {
           const currNsDecl = currNs.valueDeclaration ?? currNs.declarations[0];
           const nsDecl = ns.valueDeclaration ?? ns.declarations[0];
+
+          // Make sure the error message always lists causes in the same order
+          const refs = [
+            [currNs.name, currNsDecl] as const,
+            [ns.name, nsDecl] as const,
+          ].sort(([l], [r]) => l.localeCompare(r));
+
           this._diagnostic(
-            symbol.valueDeclaration,
+            (symbol.valueDeclaration as { name?: ts.Node }).name ??
+              symbol.valueDeclaration,
             ts.DiagnosticCategory.Error,
-            `Symbol is re-exported under two distinct submodules (${currNs.name} and ${ns.name})`,
+            `Symbol is re-exported under two distinct submodules (${refs
+              .map(([name]) => name)
+              .join(' and ')})`,
             [
               {
                 category: ts.DiagnosticCategory.Warning,
-                file: currNsDecl.getSourceFile(),
-                length: currNsDecl.getStart() - currNsDecl.getEnd(),
-                messageText: `Symbol is exported under the "${currNs.name}" submodule`,
-                start: currNsDecl.getStart(),
+                file: refs[0][1].getSourceFile(),
+                length:
+                  refs[0][1].getEnd() -
+                  refs[0][1].getStart(refs[0][1].getSourceFile()),
+                messageText: `Symbol is exported under the "${refs[0][0]}" submodule`,
+                start: refs[0][1].getStart(refs[0][1].getSourceFile()),
                 code: JSII_DIAGNOSTICS_CODE,
               },
               {
                 category: ts.DiagnosticCategory.Warning,
-                file: nsDecl.getSourceFile(),
-                length: nsDecl.getStart() - nsDecl.getEnd(),
-                messageText: `Symbol is exported under the "${ns.name}" submodule`,
-                start: nsDecl.getStart(),
+                file: refs[1][1].getSourceFile(),
+                length:
+                  refs[1][1].getEnd() -
+                  refs[1][1].getStart(refs[1][1].getSourceFile()),
+                messageText: `Symbol is exported under the "${refs[1][0]}" submodule`,
+                start: refs[1][1].getStart(refs[1][1].getSourceFile()),
                 code: JSII_DIAGNOSTICS_CODE,
               },
             ],
@@ -750,6 +830,23 @@ export class Assembler implements Emitter {
       return allTypes;
     }
 
+    if (ts.isExportSpecifier(node)) {
+      // This is what happens when one does `export { Symbol } from "./location";`
+      //                   ExportSpecifier:           ~~~~~~
+
+      const resolvedSymbol = this._typeChecker.getExportSpecifierLocalTargetSymbol(
+        node,
+      );
+      if (!resolvedSymbol) {
+        // A grammar error, compilation will already have failed
+        return [];
+      }
+      return this._visitNode(
+        resolvedSymbol.valueDeclaration ?? resolvedSymbol.declarations[0],
+        context,
+      );
+    }
+
     if ((ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) === 0) {
       return [];
     }
@@ -839,8 +936,10 @@ export class Assembler implements Emitter {
       if (colliding != null) {
         const submoduleDecl =
           submodule.valueDeclaration ?? submodule.declarations[0];
+        const submoduleDeclName =
+          (submoduleDecl as { name?: ts.Node }).name ?? submoduleDecl;
         this._diagnostic(
-          node,
+          (node as { name?: ts.Node }).name ?? node,
           ts.DiagnosticCategory.Error,
           `Submodule "${submodule.name}" conflicts with "${
             jsiiType.name
@@ -849,10 +948,10 @@ export class Assembler implements Emitter {
             {
               category: ts.DiagnosticCategory.Warning,
               code: JSII_DIAGNOSTICS_CODE,
-              file: submoduleDecl.getSourceFile(),
-              length: submoduleDecl.getEnd() - submoduleDecl.getStart(),
+              file: submoduleDeclName.getSourceFile(),
+              length: submoduleDeclName.getEnd() - submoduleDeclName.getStart(),
               messageText: 'This is the conflicting submodule declaration.',
-              start: submoduleDecl.getStart(),
+              start: submoduleDeclName.getStart(),
             },
           ],
         );
@@ -971,7 +1070,7 @@ export class Assembler implements Emitter {
 
     const typeRefs = Array.from(baseInterfaces).map(async (iface) => {
       const decl = iface.symbol.valueDeclaration;
-      const typeRef = await this._typeReference(iface, decl);
+      const typeRef = await this._typeReference(iface, decl, 'base interface');
       return { decl, typeRef };
     });
     for (const { decl, typeRef } of await Promise.all(typeRefs)) {
@@ -1074,7 +1173,11 @@ export class Assembler implements Emitter {
       }
 
       // eslint-disable-next-line no-await-in-loop
-      const ref = await this._typeReference(base, type.symbol.valueDeclaration);
+      const ref = await this._typeReference(
+        base,
+        type.symbol.valueDeclaration,
+        'base class',
+      );
 
       if (!spec.isNamedTypeReference(ref)) {
         this._diagnostic(
@@ -1192,7 +1295,7 @@ export class Assembler implements Emitter {
       }
 
       for (const memberDecl of classDecl.members) {
-        // The "??" is to get to the __constructor symbol (getSymbolAtLocation wouldn't work there...)
+        // The "??" is to get to the __constructor symbol (getSymbolAtLocation wouldn't work there..)
         const member =
           this._typeChecker.getSymbolAtLocation(memberDecl.name!) ??
           ((memberDecl as any).symbol as ts.Symbol);
@@ -1205,7 +1308,7 @@ export class Assembler implements Emitter {
           continue;
         }
 
-        if (this._isPrivateOrInternal(member, memberDecl)) {
+        if (this._isPrivateOrInternal(member, memberDecl as ts.ClassElement)) {
           continue;
         }
 
@@ -1267,7 +1370,9 @@ export class Assembler implements Emitter {
           ts.ModifierFlags.Private) ===
         0
       ) {
-        jsiiType.initializer = {};
+        jsiiType.initializer = {
+          locationInModule: this.declarationLocation(ctorDeclaration),
+        };
         if (signature) {
           for (const param of signature.getParameters()) {
             jsiiType.initializer.parameters =
@@ -1331,7 +1436,9 @@ export class Assembler implements Emitter {
         },
       );
     } else {
-      jsiiType.initializer = {};
+      jsiiType.initializer = {
+        docs: ctx.stability && { stability: ctx.stability },
+      };
     }
 
     this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);
@@ -1437,7 +1544,7 @@ export class Assembler implements Emitter {
    */
   private _isPrivateOrInternal(
     symbol: ts.Symbol,
-    validateDeclaration?: ts.Declaration,
+    validateDeclaration?: ts.Declaration & { name?: ts.Node },
   ): boolean {
     const hasInternalJsDocTag = _hasInternalJsDocTag(symbol);
     const hasUnderscorePrefix =
@@ -1460,7 +1567,7 @@ export class Assembler implements Emitter {
     if (validateDeclaration) {
       if (!hasUnderscorePrefix) {
         this._diagnostic(
-          validateDeclaration,
+          validateDeclaration.name ?? validateDeclaration,
           ts.DiagnosticCategory.Error,
           `${colors.cyan(
             symbol.name,
@@ -1470,7 +1577,7 @@ export class Assembler implements Emitter {
 
       if (!hasInternalJsDocTag) {
         this._diagnostic(
-          validateDeclaration,
+          validateDeclaration.name ?? validateDeclaration,
           ts.DiagnosticCategory.Error,
           `${colors.cyan(
             symbol.name,
@@ -1634,7 +1741,12 @@ export class Assembler implements Emitter {
           continue;
         }
 
-        if (this._isPrivateOrInternal(member, member.valueDeclaration)) {
+        if (
+          this._isPrivateOrInternal(
+            member,
+            member.valueDeclaration as ts.PropertyDeclaration,
+          )
+        ) {
           continue;
         }
 
@@ -1673,10 +1785,12 @@ export class Assembler implements Emitter {
 
     // Calculate datatype based on the datatypeness of this interface and all of its parents
     // To keep the spec minimal the actual values of the attribute are "true" or "undefined" (to represent "false").
+    const declaration =
+      type.symbol.valueDeclaration ?? type.symbol.declarations[0];
     this._deferUntilTypesAvailable(
       fqn,
       jsiiType.interfaces ?? [],
-      type.symbol.valueDeclaration,
+      declaration,
       (...bases: spec.Type[]) => {
         if ((jsiiType.methods ?? []).length === 0) {
           jsiiType.datatype = true;
@@ -1693,7 +1807,7 @@ export class Assembler implements Emitter {
         // If it's not a datatype the name must start with an "I".
         if (!jsiiType.datatype && !interfaceName) {
           this._diagnostic(
-            type.symbol.declarations[0],
+            (declaration as { name?: ts.Node }).name ?? declaration,
             ts.DiagnosticCategory.Error,
             `Interface contains behavior: name should be "I${jsiiType.name}"`,
           );
@@ -1701,7 +1815,7 @@ export class Assembler implements Emitter {
 
         // If the name starts with an "I" it is not intended as a datatype, so switch that off.
         if (jsiiType.datatype && interfaceName) {
-          jsiiType.datatype = undefined;
+          delete jsiiType.datatype;
         }
 
         // Okay, this is a data type, check that all properties are readonly
@@ -1723,7 +1837,7 @@ export class Assembler implements Emitter {
           // This is *NOT* a data type, so it may not extend something that is one.
           for (const base of bases) {
             if (!spec.isInterfaceType(base)) {
-              // Invalid type we already warned about earlier, just ignoring it here...
+              // Invalid type we already warned about earlier, just ignoring it here..
               continue;
             }
             if (base.datatype) {
@@ -1825,7 +1939,11 @@ export class Assembler implements Emitter {
       protected: _isProtected(symbol) || undefined,
       returns: _isVoid(returnType)
         ? undefined
-        : await this._optionalValue(returnType, declaration),
+        : await this._optionalValue(
+            returnType,
+            declaration.name,
+            'return type',
+          ),
       async: _isPromise(returnType) || undefined,
       static: _isStatic(symbol) || undefined,
       locationInModule: this.declarationLocation(declaration),
@@ -1948,7 +2066,8 @@ export class Assembler implements Emitter {
     const property: spec.Property = {
       ...(await this._optionalValue(
         this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature),
-        signature,
+        signature.name,
+        'property type',
       )),
       abstract: _isAbstract(symbol, type) || undefined,
       name: symbol.name,
@@ -2012,8 +2131,9 @@ export class Assembler implements Emitter {
 
     const parameter: spec.Parameter = {
       ...(await this._optionalValue(
-        this._typeChecker.getTypeAtLocation(paramSymbol.valueDeclaration),
-        paramSymbol.valueDeclaration,
+        this._typeChecker.getTypeAtLocation(paramDeclaration),
+        paramDeclaration.name,
+        'parameter type',
       )),
       name: paramSymbol.name,
       variadic: paramDeclaration.dotDotDotToken && true,
@@ -2037,9 +2157,10 @@ export class Assembler implements Emitter {
 
   private async _typeReference(
     type: ts.Type,
-    declaration: ts.Declaration,
+    declaration: ts.Node,
+    purpose: TypeUseKind,
   ): Promise<spec.TypeReference> {
-    const optionalValue = await this._optionalValue(type, declaration);
+    const optionalValue = await this._optionalValue(type, declaration, purpose);
     if (optionalValue.optional) {
       this._diagnostic(
         declaration,
@@ -2052,8 +2173,11 @@ export class Assembler implements Emitter {
 
   private async _optionalValue(
     type: ts.Type,
-    declaration: ts.Declaration,
+    declaration: ts.Node,
+    purpose: TypeUseKind,
   ): Promise<spec.OptionalValue> {
+    const isThisType = _isThisType(type, this._typeChecker);
+
     if (type.isLiteral() && _isEnumLike(type)) {
       type = this._typeChecker.getBaseTypeOfLiteralType(type);
     } else {
@@ -2097,11 +2221,17 @@ export class Assembler implements Emitter {
         return { type: spec.CANONICAL_ANY };
       }
       return {
-        type: await this._typeReference(typeRef.typeArguments[0], declaration),
+        type: await this._typeReference(
+          typeRef.typeArguments[0],
+          declaration,
+          purpose,
+        ),
       };
     }
 
-    return { type: { fqn: await this._getFQN(type) } };
+    return {
+      type: { fqn: await this._getFQN(type, declaration, purpose, isThisType) },
+    };
 
     async function _arrayType(
       this: Assembler,
@@ -2113,6 +2243,7 @@ export class Assembler implements Emitter {
         elementtype = await this._typeReference(
           typeRef.typeArguments[0],
           declaration,
+          'list element type',
         );
       } else {
         const count = typeRef.typeArguments
@@ -2140,7 +2271,11 @@ export class Assembler implements Emitter {
       let elementtype: spec.TypeReference;
       const objectType = type.getStringIndexType();
       if (objectType) {
-        elementtype = await this._typeReference(objectType, declaration);
+        elementtype = await this._typeReference(
+          objectType,
+          declaration,
+          'map element type',
+        );
       } else {
         this._diagnostic(
           declaration,
@@ -2204,7 +2339,11 @@ export class Assembler implements Emitter {
           continue;
         }
         // eslint-disable-next-line no-await-in-loop
-        const resolvedType = await this._typeReference(subType, declaration);
+        const resolvedType = await this._typeReference(
+          subType,
+          declaration,
+          purpose,
+        );
         if (types.find((ref) => deepEqual(ref, resolvedType)) != null) {
           continue;
         }
@@ -2389,6 +2528,7 @@ function _isPrivate(symbol: ts.Symbol): boolean {
     ts.SyntaxKind.InterfaceDeclaration,
     ts.SyntaxKind.EnumDeclaration,
   ]);
+
   // if the symbol doesn't have a value declaration, we are assuming it's a type (enum/interface/class)
   // and check that it has an "export" modifier
   if (
@@ -2399,6 +2539,20 @@ function _isPrivate(symbol: ts.Symbol): boolean {
     for (const decl of symbol.declarations) {
       if (ts.getCombinedModifierFlags(decl) & ts.ModifierFlags.Export) {
         hasExport = true;
+        break;
+      }
+      // Handle nested classes from project references
+      if (ts.isModuleBlock(decl.parent)) {
+        const moduleDeclaration = decl.parent.parent;
+        const modifiers = ts.getCombinedModifierFlags(moduleDeclaration);
+        // The trick is the module is declared as ambient & exported
+        if (
+          (modifiers & ts.ModifierFlags.Ambient) !== 0 &&
+          (modifiers & ts.ModifierFlags.Export) !== 0
+        ) {
+          hasExport = true;
+          break;
+        }
       }
     }
     return !hasExport;
@@ -2780,3 +2934,27 @@ async function findPackageInfo(fromDir: string): Promise<any> {
   }
   return findPackageInfo(parent);
 }
+
+/**
+ * Checks is the provided type is "this" (as a type annotation).
+ *
+ * @param type        the validated type.
+ * @param typeChecker the type checker.
+ *
+ * @returns `true` iif the type is `this`
+ */
+function _isThisType(type: ts.Type, typeChecker: ts.TypeChecker): boolean {
+  return typeChecker.typeToTypeNode(type)?.kind === ts.SyntaxKind.ThisKeyword;
+}
+
+/**
+ * A location where a type can be used.
+ */
+type TypeUseKind =
+  | 'base class'
+  | 'base interface'
+  | 'list element type'
+  | 'map element type'
+  | 'parameter type'
+  | 'property type'
+  | 'return type';
