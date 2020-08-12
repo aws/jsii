@@ -30,7 +30,7 @@ from jsii._kernel.types import (
     StatsResponse,
     Callback,
     CompleteRequest,
-    KernelResponse
+    KernelResponse,
 )
 
 
@@ -78,7 +78,9 @@ class BaseProvider(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def sync_complete(self, request: CompleteRequest, response_type: Type[KernelResponse]) -> Union[InvokeResponse, GetResponse]:
+    def sync_complete(
+        self, request: CompleteRequest, response_type: Type[KernelResponse]
+    ) -> Union[InvokeResponse, GetResponse]:
         ...
 
     @abc.abstractmethod

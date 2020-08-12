@@ -129,4 +129,4 @@ def proxy_for(abstract_class):
 
 
 def python_jsii_mapping(cls):
-    return getattr(cls, '__jsii_name_mapping__', None)
+    return getattr(cls, "__jsii_name_mapping__", None)

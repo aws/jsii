@@ -18,10 +18,15 @@ export function runCommand(
     shell: process.platform === 'win32',
     stdio: 'inherit',
   });
+  if (result.error) {
+    throw result.error;
+  }
   if (result.status !== 0) {
     throw new Error(
       `Command failed with ${
-        result.signal ? `signal ${result.signal}` : `code ${result.status}`
+        result.signal != null
+          ? `signal ${result.signal}`
+          : `code ${result.status}`
       }: ${command} ${args.join(' ')}`,
     );
   }
