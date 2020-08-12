@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Versioning;
@@ -39,7 +40,8 @@ namespace Amazon.JSII.Runtime.Services
 
             var assemblyVersion = GetAssemblyFileVersion();
             _process.StartInfo.EnvironmentVariables.Add(JsiiAgent,
-                string.Format(JsiiAgentVersionString, Environment.Version, assemblyVersion.Item1, assemblyVersion.Item2));
+                string.Format(CultureInfo.InvariantCulture, JsiiAgentVersionString, Environment.Version,
+                    assemblyVersion.Item1, assemblyVersion.Item2));
 
             var debug = Environment.GetEnvironmentVariable(JsiiDebug);
             if (!string.IsNullOrWhiteSpace(debug) && !_process.StartInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
@@ -72,7 +74,7 @@ namespace Amazon.JSII.Runtime.Services
         /// <returns>A tuple where Item1 is the target framework
         /// ie .NETCoreApp,Version=v2.1
         /// and item2 is the assembly file version (ie 1.0.0.0)</returns>
-        private Tuple<string, string> GetAssemblyFileVersion()
+        private static Tuple<string, string> GetAssemblyFileVersion()
         {
             var assembly = typeof(NodeProcess).GetTypeInfo().Assembly;
             var assemblyFileVersionAttribute = assembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute)) as AssemblyFileVersionAttribute;

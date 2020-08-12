@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -15,8 +16,8 @@ namespace Amazon.JSII.Analyzers
         private const string Title = "A required property is missing or null";
         private const string MessageFormat = "The property is required and cannot be null";
         private const string MessageFormatWithPropertyName = "The property {0} is required and cannot be null";
-        private const string Description = "The property is required and cannot be null";
-        private const string DescriptionWitPropertyName = "The property {0} is required and cannot be null";
+        private const string Description = "The property is required and cannot be null.";
+        private const string DescriptionWitPropertyName = "The property {0} is required and cannot be null.";
         private const string Category = "Jsii.Usage";
 
         private static readonly DiagnosticDescriptor Rule = 
@@ -26,6 +27,10 @@ namespace Amazon.JSII.Analyzers
         
         public override void Initialize(AnalysisContext context)
         {
+            if (context == null)
+            {
+                return;
+            }
             context.EnableConcurrentExecution();
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze);
             context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.ObjectCreationExpression);
@@ -82,13 +87,15 @@ namespace Amazon.JSII.Analyzers
                     if (!passedProperties.Contains(requiredProperty.Name))
                     {
                         // This property IS REQUIRED and was not passed in the arguments. Raising an error
-                        var rule = new DiagnosticDescriptor(DiagnosticId, 
+                        var rule = new DiagnosticDescriptor(DiagnosticId,
                             Title,
-                            string.Format(MessageFormatWithPropertyName, requiredProperty.Name),
-                            Category, 
-                            DiagnosticSeverity.Error, 
-                            isEnabledByDefault: true, 
-                            description: string.Format(DescriptionWitPropertyName, requiredProperty.Name));
+                            string.Format(CultureInfo.InvariantCulture, MessageFormatWithPropertyName,
+                                requiredProperty.Name),
+                            Category,
+                            DiagnosticSeverity.Error,
+                            isEnabledByDefault: true,
+                            description: string.Format(CultureInfo.InvariantCulture, DescriptionWitPropertyName,
+                                requiredProperty.Name));
                         context.ReportDiagnostic(Diagnostic.Create(rule, context.Node.GetLocation()));
                     }
                 }

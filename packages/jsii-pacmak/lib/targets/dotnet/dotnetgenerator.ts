@@ -329,8 +329,12 @@ export class DotNetGenerator extends Generator {
         initializer.parameters?.find((param) => param.optional) != null
           ? '?'
           : '';
+      const args =
+        parametersBase.length > 0
+          ? `new object${hasOptional}[]{${parametersBase}}`
+          : `System.Array.Empty<object${hasOptional}>()`;
       this.code.openBlock(
-        `${visibility} ${className}(${parametersDefinition}): base(new DeputyProps(new object${hasOptional}[]{${parametersBase}}))`,
+        `${visibility} ${className}(${parametersDefinition}): base(new DeputyProps(${args}))`,
       );
       this.code.closeBlock();
       this.code.line();
