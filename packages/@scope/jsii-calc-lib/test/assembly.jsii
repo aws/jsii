@@ -574,6 +574,57 @@
         }
       ]
     },
+    "@scope/jsii-calc-lib.submodule.NestingClass": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated",
+        "summary": "This class is here to show we can use nested classes across module boundaries."
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.NestingClass",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 22
+      },
+      "name": "NestingClass",
+      "namespace": "submodule"
+    },
+    "@scope/jsii-calc-lib.submodule.NestingClass.NestedClass": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "stability": "deprecated",
+        "summary": "This class is here to show we can use nested classes across module boundaries."
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
+      "initializer": {
+        "docs": {
+          "stability": "deprecated"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 30
+      },
+      "name": "NestedClass",
+      "namespace": "submodule.NestingClass",
+      "properties": [
+        {
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 31
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "@scope/jsii-calc-lib.submodule.ReflectableEntry": {
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
@@ -630,10 +681,6 @@
       "initializer": {
         "docs": {
           "stability": "deprecated"
-        },
-        "locationInModule": {
-          "filename": "lib/submodule/index.ts",
-          "line": 11
         }
       },
       "kind": "class",
@@ -648,7 +695,7 @@
           },
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
-            "line": 13
+            "line": 11
           },
           "name": "asMap",
           "parameters": [
@@ -676,5 +723,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "fVfpIK7xUajlT1zkHIJ8uYJPvy0gLgEe5BM8afu1mVg="
+  "fingerprint": "f/4VuNiOkSgTgLR80loQUAzAuzFi+25rmfLcRWKDCrY="
 }

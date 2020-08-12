@@ -34,7 +34,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         const string Prefix = nameof(IntegrationTests) + ".Compliance.";
 
         private readonly IDisposable _serviceContainerFixture;
-        
+
         public ComplianceTests(ITestOutputHelper outputHelper, ServiceContainerFixture serviceContainerFixture)
         {
             serviceContainerFixture.SetOverride(outputHelper);
@@ -1473,6 +1473,20 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             foreach (var elt in InterfaceCollections.MapOfInterfaces().Values)
             {
                 Assert.IsAssignableFrom<IBell>(elt);
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(BurriedAnonymousObject))]
+        public void BurriedAnonymousObject()
+        {
+            var subject = new BurriedAnonymousObjectImpl();
+            Assert.True(subject.Check());
+        }
+
+        private sealed class BurriedAnonymousObjectImpl : BurriedAnonymousObject
+        {
+            public override object GiveItBack(object value) {
+                return value;
             }
         }
     }

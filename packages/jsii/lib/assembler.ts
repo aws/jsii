@@ -2533,6 +2533,7 @@ function _isPrivate(symbol: ts.Symbol): boolean {
     ts.SyntaxKind.InterfaceDeclaration,
     ts.SyntaxKind.EnumDeclaration,
   ]);
+
   // if the symbol doesn't have a value declaration, we are assuming it's a type (enum/interface/class)
   // and check that it has an "export" modifier
   if (
@@ -2543,6 +2544,20 @@ function _isPrivate(symbol: ts.Symbol): boolean {
     for (const decl of symbol.declarations) {
       if (ts.getCombinedModifierFlags(decl) & ts.ModifierFlags.Export) {
         hasExport = true;
+        break;
+      }
+      // Handle nested classes from project references
+      if (ts.isModuleBlock(decl.parent)) {
+        const moduleDeclaration = decl.parent.parent;
+        const modifiers = ts.getCombinedModifierFlags(moduleDeclaration);
+        // The trick is the module is declared as ambient & exported
+        if (
+          (modifiers & ts.ModifierFlags.Ambient) !== 0 &&
+          (modifiers & ts.ModifierFlags.Export) !== 0
+        ) {
+          hasExport = true;
+          break;
+        }
       }
     }
     return !hasExport;
