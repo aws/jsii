@@ -283,7 +283,6 @@ export class DotNetGenerator extends Generator {
 
     // Nested classes will be dealt with during calc code generation
     const nested = this.isNested(cls);
-    const inner = nested ? ' static' : '';
     const absPrefix = abstract ? ' abstract' : '';
 
     this.openFileIfNeeded(className, namespace, nested);
@@ -294,7 +293,7 @@ export class DotNetGenerator extends Generator {
     this.dotnetRuntimeGenerator.emitAttributesForClass(cls);
 
     this.code.openBlock(
-      `public${inner}${absPrefix} class ${className}${implementsExpr}`,
+      `public${absPrefix} class ${className}${implementsExpr}`,
     );
 
     // Compute the class parameters

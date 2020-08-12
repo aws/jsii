@@ -53,7 +53,7 @@ export class DotnetBuilder implements TargetBuilder {
 
       // Build solution
       logging.debug('Building .NET');
-      await shell('dotnet', ['build', '-c', 'Release'], {
+      await shell('dotnet', ['build', '--force', '-c', 'Release'], {
         cwd: tempSourceDir.directory,
       });
 
