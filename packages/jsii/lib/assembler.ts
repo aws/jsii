@@ -235,9 +235,6 @@ export class Assembler implements Emitter {
         return undefined;
       }
       const readmePath = path.join(this.projectInfo.projectRoot, fileName);
-      if (!(await fs.pathExists(readmePath))) {
-        return undefined;
-      }
       const renderedLines = await literate.includeAndRenderExamples(
         await literate.loadFromFile(readmePath),
         literate.fileSystemLoader(this.projectInfo.projectRoot),
