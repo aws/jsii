@@ -38,7 +38,7 @@
     "jsii-reflect": "^0.0.0",
     "log4js": "^6.3.0",
     "typescript": "~3.9.7",
-    "yargs": "^15.4.0"
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
@@ -48,8 +48,6 @@
     "@types/tar-fs": "^2.0.0",
     "@types/yargs": "^15.0.5",
     "eslint": "^7.6.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.4.0",
     "jest-expect-message": "^1.0.2",
     "jsii": "^0.0.0",
