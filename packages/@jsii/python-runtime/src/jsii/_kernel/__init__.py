@@ -40,7 +40,7 @@ from jsii._kernel.types import (
     SetResponse,
     InvokeResponse,
     KernelResponse,
-    BeginResponse
+    BeginResponse,
 )
 
 
@@ -63,7 +63,10 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
         )
     )
     for mro_klass in type(obj).mro():
-        if mro_klass is klass and getattr(mro_klass, "__jsii_type__", "Object") is not None:
+        if (
+            mro_klass is klass
+            and getattr(mro_klass, "__jsii_type__", "Object") is not None
+        ):
             break
         if mro_klass is Object:
             break
@@ -75,7 +78,10 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                 original = getattr(jsii_class, name, _nothing)
                 if original is not _nothing:
                     if inspect.isfunction(item) and hasattr(original, "__jsii_name__"):
-                        if any(entry.method == original.__jsii_name__ for entry in overrides):
+                        if any(
+                            entry.method == original.__jsii_name__
+                            for entry in overrides
+                        ):
                             # Don't re-register an override we already discovered through a previous type
                             continue
                         overrides.append(
@@ -84,7 +90,10 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                     elif inspect.isdatadescriptor(item) and hasattr(
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
-                        if any(entry.property == original.fget.__jsii_name__ for entry in overrides):
+                        if any(
+                            entry.property == original.fget.__jsii_name__
+                            for entry in overrides
+                        ):
                             # Don't re-register an override we already discovered through a previous type
                             continue
                         overrides.append(
@@ -119,7 +128,11 @@ def _dereferenced(fn):
 # doesn't natively handle. These items will be created as "Object" types in the JSII.
 def _make_reference_for_native(kernel, d):
     if isinstance(d, dict):
-        return {"$jsii.map": {k: _make_reference_for_native(kernel, v) for k, v in d.items()}}
+        return {
+            "$jsii.map": {
+                k: _make_reference_for_native(kernel, v) for k, v in d.items()
+            }
+        }
     elif isinstance(d, list):
         return [_make_reference_for_native(kernel, i) for i in d]
 
@@ -130,13 +143,16 @@ def _make_reference_for_native(kernel, d):
 
         typeFqn = getattr(d, "__jsii_type__")
         mapping = python_jsii_mapping(d)
-        if mapping: # This means we are handling a data_type (aka Struct)
+        if mapping:  # This means we are handling a data_type (aka Struct)
             return {
                 "$jsii.struct": {
                     "fqn": typeFqn,
                     "data": {
-                        jsii_name: _make_reference_for_native(kernel, getattr(d, python_name)) for python_name, jsii_name in mapping.items()
-                    }
+                        jsii_name: _make_reference_for_native(
+                            kernel, getattr(d, python_name)
+                        )
+                        for python_name, jsii_name in mapping.items()
+                    },
                 }
             }
         return d
@@ -146,7 +162,10 @@ def _make_reference_for_native(kernel, d):
         # Whether a given object is a function-like object.
         # We won't use iscallable() since objects may implement __call__()
         # but we still want to serialize them as normal.
-        raise JSIIError("Cannot pass function as argument here (did you mean to call this function?): %r" % d)
+        raise JSIIError(
+            "Cannot pass function as argument here (did you mean to call this function?): %r"
+            % d
+        )
     else:
         kernel.create(d.__class__, d)
         _reference_map.register_reference(d)
@@ -158,7 +177,9 @@ def _handle_callback(kernel, callback):
     if callback.invoke:
         obj = _reference_map.resolve_id(callback.invoke.objref.ref)
         method = getattr(obj, callback.cookie)
-        hydrated_args = [_recursize_dereference(kernel, a) for a in callback.invoke.args]
+        hydrated_args = [
+            _recursize_dereference(kernel, a) for a in callback.invoke.args
+        ]
         return method(*hydrated_args)
     elif callback.get:
         obj = _reference_map.resolve_id(callback.get.objref.ref)
@@ -171,12 +192,16 @@ def _handle_callback(kernel, callback):
         raise JSIIError("Callback does not contain invoke|get|set")
 
 
-def _callback_till_result(kernel, response: Callback, response_type: Type[KernelResponse]) -> Any:
+def _callback_till_result(
+    kernel, response: Callback, response_type: Type[KernelResponse]
+) -> Any:
     while isinstance(response, Callback):
         try:
             result = _handle_callback(kernel, response)
         except Exception as exc:
-            response = kernel.sync_complete(response.cbid, str(exc), None, response_type)
+            response = kernel.sync_complete(
+                response.cbid, str(exc), None, response_type
+            )
         else:
             response = kernel.sync_complete(response.cbid, None, result, response_type)
 
@@ -226,11 +251,14 @@ class Kernel(metaclass=Singleton):
                 fqn=klass.__jsii_type__ or "Object",
                 args=_make_reference_for_native(self, args),
                 overrides=_get_overides(klass, obj),
-                interfaces=[iface.__jsii_type__ for iface in getattr(klass, "__jsii_ifaces__", [])],
+                interfaces=[
+                    iface.__jsii_type__
+                    for iface in getattr(klass, "__jsii_ifaces__", [])
+                ],
             )
         )
         if isinstance(response, Callback):
-            obj.__jsii_ref__ =  _callback_till_result(self, response, CreateResponse)
+            obj.__jsii_ref__ = _callback_till_result(self, response, CreateResponse)
         else:
             obj.__jsii_ref__ = response
 
@@ -317,26 +345,25 @@ class Kernel(metaclass=Singleton):
             return response.result
 
     @_dereferenced
-    def complete(
-        self, cbid: str, err: Optional[str], result: Any
-    ) -> Any:
+    def complete(self, cbid: str, err: Optional[str], result: Any) -> Any:
         return self.provider.complete(
             CompleteRequest(
-                cbid=cbid,
-                err=err,
-                result=_make_reference_for_native(self, result)
+                cbid=cbid, err=err, result=_make_reference_for_native(self, result)
             )
         )
 
     def sync_complete(
-        self, cbid: str, err: Optional[str], result: Any, response_type: Type[KernelResponse]
+        self,
+        cbid: str,
+        err: Optional[str],
+        result: Any,
+        response_type: Type[KernelResponse],
     ) -> Any:
         return self.provider.sync_complete(
             CompleteRequest(
-                cbid=cbid,
-                err=err,
-                result=_make_reference_for_native(self, result)),
-            response_type=response_type
+                cbid=cbid, err=err, result=_make_reference_for_native(self, result)
+            ),
+            response_type=response_type,
         )
 
     def ainvoke(
