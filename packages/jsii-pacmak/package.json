@@ -30,8 +30,9 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "jest && bash test/build-test.sh",
-    "test:update": "jest -u && bash test/build-test.sh",
+    "test": "jest && npm run test:build",
+    "test:build": "bash test/build-test.sh",
+    "test:update": "jest -u && npm run test:build",
     "package": "package-js"
   },
   "dependencies": {
@@ -61,14 +62,12 @@
     "@types/semver": "^7.3.1",
     "@types/yargs": "^15.0.5",
     "eslint": "^7.6.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.3.0",
+    "jest": "^26.4.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "mock-fs": "^4.12.0",
     "prettier": "^2.0.5",
-    "ts-jest": "^26.1.4",
+    "ts-jest": "^26.2.0",
     "typescript": "~3.9.7"
   },
   "keywords": [

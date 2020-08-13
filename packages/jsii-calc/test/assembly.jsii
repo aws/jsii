@@ -199,7 +199,7 @@
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 8
+        "line": 9
       }
     },
     "jsii-calc.submodule.back_references": {
@@ -8443,6 +8443,37 @@
         }
       ]
     },
+    "jsii-calc.NestedClassInstance": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.NestedClassInstance",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/nested-class.ts",
+        "line": 3
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/nested-class.ts",
+            "line": 4
+          },
+          "name": "makeInstance",
+          "returns": {
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.submodule.NestingClass.NestedClass"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "NestedClassInstance"
+    },
     "jsii-calc.NestedStruct": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -13792,5 +13823,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "vvbS+qMbW22uAvRztwhodRIh2QmT3b70z2ZvHiiaz70="
+  "fingerprint": "YiCo7zHcPYSlK2TIvXNCJndnuDLwf05BI4vPk/wv4+w="
 }

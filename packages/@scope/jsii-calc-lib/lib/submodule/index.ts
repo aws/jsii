@@ -8,15 +8,26 @@ export interface ReflectableEntry {
 }
 
 export class Reflector {
-  public constructor() { }
-
   public asMap(reflectable: IReflectable): Record<string, unknown> {
-    return reflectable.entries.reduce(
-      (mapping, entry) => {
-        mapping[entry.key] = entry.value;
-        return mapping;
-      },
-      {} as Record<string, unknown>,
-    );
+    return reflectable.entries.reduce((mapping, entry) => {
+      mapping[entry.key] = entry.value;
+      return mapping;
+    }, {} as Record<string, unknown>);
+  }
+}
+
+/**
+ * This class is here to show we can use nested classes across module boundaries.
+ */
+export class NestingClass {
+  private constructor() {}
+}
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace NestingClass {
+  /**
+   * This class is here to show we can use nested classes across module boundaries.
+   */
+  export class NestedClass {
+    public readonly property: string = 'property';
   }
 }

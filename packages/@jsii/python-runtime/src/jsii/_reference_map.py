@@ -72,7 +72,9 @@ class _ReferenceMap:
             inst.__jsii_ref__ = ref
 
             if ref.interfaces is not None:
-                return InterfaceDynamicProxy([inst] + self.build_interface_proxies_for_ref(ref))
+                return InterfaceDynamicProxy(
+                    [inst] + self.build_interface_proxies_for_ref(ref)
+                )
             else:
                 return inst
 
@@ -89,24 +91,36 @@ class _ReferenceMap:
             data_type = _data_types[class_fqn]
             remote_struct = _FakeReference(ref)
 
-            python_props = {python_name: kernel.get(remote_struct, jsii_name)
-                    for python_name, jsii_name in python_jsii_mapping(data_type).items()}
+            python_props = {
+                python_name: kernel.get(remote_struct, jsii_name)
+                for python_name, jsii_name in python_jsii_mapping(data_type).items()
+            }
 
             return data_type(**python_props)
         elif class_fqn in _enums:
             return _enums[class_fqn]
         elif class_fqn == "Object":
             # If any one interface is a struct, all of them are guaranteed to be (Kernel invariant)
-            if ref.interfaces is not None and any(fqn in _data_types for fqn in ref.interfaces):
+            if ref.interfaces is not None and any(
+                fqn in _data_types for fqn in ref.interfaces
+            ):
                 # Ugly delayed import here because I can't solve the cyclic
                 # package dependency right now :(.
                 from ._runtime import python_jsii_mapping
 
                 structs = [_data_types[fqn] for fqn in ref.interfaces]
                 remote_struct = _FakeReference(ref)
-                insts = [struct(**{
-                        python_name: kernel.get(remote_struct, jsii_name) for python_name, jsii_name in python_jsii_mapping(struct).items()
-                    }) for struct in structs]
+                insts = [
+                    struct(
+                        **{
+                            python_name: kernel.get(remote_struct, jsii_name)
+                            for python_name, jsii_name in python_jsii_mapping(
+                                struct
+                            ).items()
+                        }
+                    )
+                    for struct in structs
+                ]
                 return StructDynamicProxy(insts)
             else:
                 return InterfaceDynamicProxy(self.build_interface_proxies_for_ref(ref))
@@ -137,7 +151,7 @@ class InterfaceDynamicProxy(object):
         raise AttributeError(f"'%s' object has no attribute '%s'" % (type_info, name))
 
     def __setattr__(self, name, value):
-        if name == '_delegates':
+        if name == "_delegates":
             return super.__setattr__(self, name, value)
         for delegate in self._delegates:
             if hasattr(delegate, name):
@@ -158,7 +172,7 @@ class StructDynamicProxy(object):
         raise AttributeError("'%s' object has no attribute '%s'" % (type_info, name))
 
     def __setattr__(self, name, value):
-        if name == '_delegates':
+        if name == "_delegates":
             return super.__setattr__(self, name, value)
         for delegate in self._delegates:
             if hasattr(delegate, name):
@@ -177,10 +191,13 @@ class StructDynamicProxy(object):
     def __repr__(self) -> str:
         if len(self._delegates) == 1:
             return self._delegates[0].__repr__()
-        return '%s(%s)' % (
-            ' & '.join([delegate.__class__.__jsii_type__ for delegate in self._delegates]),
-            ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        return "%s(%s)" % (
+            " & ".join(
+                [delegate.__class__.__jsii_type__ for delegate in self._delegates]
+            ),
+            ", ".join(k + "=" + repr(v) for k, v in self._values.items()),
         )
+
 
 _refs = _ReferenceMap(_types)
 

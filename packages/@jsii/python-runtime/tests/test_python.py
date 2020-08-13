@@ -19,9 +19,9 @@ class TestErrorHandling:
         # inspect.getmro() won't work because of TypedDict, but we add another annotation
         bases = find_struct_bases(jsii_calc.DerivedStruct)
 
-        base_names = [b.__name__ for b  in bases]
+        base_names = [b.__name__ for b in bases]
 
-        assert base_names == ['DerivedStruct', 'MyFirstStruct']
+        assert base_names == ["DerivedStruct", "MyFirstStruct"]
 
     def test_descriptive_error_when_passing_function(self):
         obj = jsii_calc.Calculator()
@@ -38,7 +38,7 @@ def find_struct_bases(x):
         if s not in seen:
             ret.append(s)
             seen.add(s)
-            bases = getattr(s, '__jsii_struct_bases__', [])
+            bases = getattr(s, "__jsii_struct_bases__", [])
             for base in bases:
                 recurse(base)
 

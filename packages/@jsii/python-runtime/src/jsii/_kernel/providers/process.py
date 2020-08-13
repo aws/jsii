@@ -82,15 +82,18 @@ class _ErrorRespose:
     error: str
     stack: str
 
+
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _CallbackResponse:
 
     callback: Callback
 
+
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _CompleteRequest:
 
     complete: CompleteRequest
+
 
 _ProcessResponse = Union[_OkayResponse, _ErrorRespose, _CallbackResponse]
 # Workaround for mypy#5354
@@ -264,7 +267,7 @@ class _NodeProcess:
         environ = os.environ.copy()
         environ["JSII_AGENT"] = f"Python/{platform.python_version()}"
 
-        jsii_runtime = environ.get('JSII_RUNTIME', self._jsii_runtime())
+        jsii_runtime = environ.get("JSII_RUNTIME", self._jsii_runtime())
 
         self._process = subprocess.Popen(
             ["node", jsii_runtime],
@@ -365,7 +368,9 @@ class ProcessProvider(BaseProvider):
     def complete(self, request: CompleteRequest) -> CompleteResponse:
         return self._process.send(request, CompleteResponse)
 
-    def sync_complete(self, request: CompleteRequest, response_type: Type[KernelResponse]) -> Union[InvokeResponse, GetResponse]:
+    def sync_complete(
+        self, request: CompleteRequest, response_type: Type[KernelResponse]
+    ) -> Union[InvokeResponse, GetResponse]:
         resp = self._process.send(_CompleteRequest(complete=request), response_type)
         return resp
 
