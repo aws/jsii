@@ -1062,8 +1062,8 @@ package scopejsiicalcbase
 type Base struct {
 }
 
-func (B *Base) typeName() any {
-    // jsiiruntime.methodcall(B)
+func (b *Base) typeName() any {
+    // jsiiruntime.methodcall(b)
 }
 
 type BaseProps interface {
@@ -2672,8 +2672,8 @@ type IVeryBaseInterface interface {
 type Very struct {
 }
 
-func (V *Very) hey() number {
-    // jsiiruntime.methodcall(V)
+func (v *Very) hey() number {
+    // jsiiruntime.methodcall(v)
 }
 
 type VeryBaseProps interface {
@@ -6399,8 +6399,8 @@ type Number struct {
 type Operation struct {
 }
 
-func (O *Operation) toString() string {
-    // jsiiruntime.methodcall(O)
+func (o *Operation) toString() string {
+    // jsiiruntime.methodcall(o)
 }
 
 type StructWithOnlyOptionals interface {
@@ -6416,8 +6416,8 @@ type Value struct {
     value number
 }
 
-func (V *Value) toString() string {
-    // jsiiruntime.methodcall(V)
+func (v *Value) toString() string {
+    // jsiiruntime.methodcall(v)
 }
 
 
@@ -49153,12 +49153,12 @@ type AbstractClass struct {
     propFromInterface string
 }
 
-func (A *AbstractClass) abstractMethod() string {
-    // jsiiruntime.methodcall(A)
+func (a *AbstractClass) abstractMethod() string {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AbstractClass) nonAbstractMethod() number {
-    // jsiiruntime.methodcall(A)
+func (a *AbstractClass) nonAbstractMethod() number {
+    // jsiiruntime.methodcall(a)
 }
 
 type AbstractClassBase struct {
@@ -49169,32 +49169,32 @@ type AbstractClassReturner struct {
     returnAbstractFromProperty AbstractClassBase
 }
 
-func (A *AbstractClassReturner) giveMeAbstract() AbstractClass {
-    // jsiiruntime.methodcall(A)
+func (a *AbstractClassReturner) giveMeAbstract() AbstractClass {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AbstractClassReturner) giveMeInterface() IInterfaceImplementedByAbstractClass {
-    // jsiiruntime.methodcall(A)
+func (a *AbstractClassReturner) giveMeInterface() IInterfaceImplementedByAbstractClass {
+    // jsiiruntime.methodcall(a)
 }
 
 type AbstractSuite struct {
     property string
 }
 
-func (A *AbstractSuite) someMethod() string {
-    // jsiiruntime.methodcall(A)
+func (a *AbstractSuite) someMethod() string {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AbstractSuite) workItAll() string {
-    // jsiiruntime.methodcall(A)
+func (a *AbstractSuite) workItAll() string {
+    // jsiiruntime.methodcall(a)
 }
 
 type Add struct {
     value number
 }
 
-func (A *Add) toString() string {
-    // jsiiruntime.methodcall(A)
+func (a *Add) toString() string {
+    // jsiiruntime.methodcall(a)
 }
 
 type AllTypes struct {
@@ -49219,16 +49219,16 @@ type AllTypes struct {
     optionalEnumValue StringEnum
 }
 
-func (A *AllTypes) anyIn() {
-    // jsiiruntime.methodcall(A)
+func (a *AllTypes) anyIn() {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AllTypes) anyOut() any {
-    // jsiiruntime.methodcall(A)
+func (a *AllTypes) anyOut() any {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AllTypes) enumMethod() StringEnum {
-    // jsiiruntime.methodcall(A)
+func (a *AllTypes) enumMethod() StringEnum {
+    // jsiiruntime.methodcall(a)
 }
 
 type AllTypesEnum string
@@ -49242,20 +49242,20 @@ const (
 type AllowedMethodNames struct {
 }
 
-func (A *AllowedMethodNames) getBar() {
-    // jsiiruntime.methodcall(A)
+func (a *AllowedMethodNames) getBar() {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AllowedMethodNames) getFoo() string {
-    // jsiiruntime.methodcall(A)
+func (a *AllowedMethodNames) getFoo() string {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AllowedMethodNames) setBar() {
-    // jsiiruntime.methodcall(A)
+func (a *AllowedMethodNames) setBar() {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AllowedMethodNames) setFoo() {
-    // jsiiruntime.methodcall(A)
+func (a *AllowedMethodNames) setFoo() {
+    // jsiiruntime.methodcall(a)
 }
 
 type AmbiguousParameters struct {
@@ -49266,50 +49266,50 @@ type AmbiguousParameters struct {
 type AnonymousImplementationProvider struct {
 }
 
-func (A *AnonymousImplementationProvider) provideAsClass() Implementation {
-    // jsiiruntime.methodcall(A)
+func (a *AnonymousImplementationProvider) provideAsClass() Implementation {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AnonymousImplementationProvider) provideAsInterface() IAnonymouslyImplementMe {
-    // jsiiruntime.methodcall(A)
+func (a *AnonymousImplementationProvider) provideAsInterface() IAnonymouslyImplementMe {
+    // jsiiruntime.methodcall(a)
 }
 
 type AsyncVirtualMethods struct {
 }
 
-func (A *AsyncVirtualMethods) callMe() number {
-    // jsiiruntime.methodcall(A)
+func (a *AsyncVirtualMethods) callMe() number {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AsyncVirtualMethods) callMe2() number {
-    // jsiiruntime.methodcall(A)
+func (a *AsyncVirtualMethods) callMe2() number {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AsyncVirtualMethods) callMeDoublePromise() number {
-    // jsiiruntime.methodcall(A)
+func (a *AsyncVirtualMethods) callMeDoublePromise() number {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AsyncVirtualMethods) dontOverrideMe() number {
-    // jsiiruntime.methodcall(A)
+func (a *AsyncVirtualMethods) dontOverrideMe() number {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AsyncVirtualMethods) overrideMe() number {
-    // jsiiruntime.methodcall(A)
+func (a *AsyncVirtualMethods) overrideMe() number {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AsyncVirtualMethods) overrideMeToo() number {
-    // jsiiruntime.methodcall(A)
+func (a *AsyncVirtualMethods) overrideMeToo() number {
+    // jsiiruntime.methodcall(a)
 }
 
 type AugmentableClass struct {
 }
 
-func (A *AugmentableClass) methodOne() {
-    // jsiiruntime.methodcall(A)
+func (a *AugmentableClass) methodOne() {
+    // jsiiruntime.methodcall(a)
 }
 
-func (A *AugmentableClass) methodTwo() {
-    // jsiiruntime.methodcall(A)
+func (a *AugmentableClass) methodTwo() {
+    // jsiiruntime.methodcall(a)
 }
 
 type BaseJsii976 struct {
@@ -49319,8 +49319,8 @@ type Bell struct {
     rung boolean
 }
 
-func (B *Bell) ring() {
-    // jsiiruntime.methodcall(B)
+func (b *Bell) ring() {
+    // jsiiruntime.methodcall(b)
 }
 
 type BinaryOperation struct {
@@ -49328,19 +49328,19 @@ type BinaryOperation struct {
     rhs Value
 }
 
-func (B *BinaryOperation) hello() string {
-    // jsiiruntime.methodcall(B)
+func (b *BinaryOperation) hello() string {
+    // jsiiruntime.methodcall(b)
 }
 
 type BurriedAnonymousObject struct {
 }
 
-func (B *BurriedAnonymousObject) check() boolean {
-    // jsiiruntime.methodcall(B)
+func (b *BurriedAnonymousObject) check() boolean {
+    // jsiiruntime.methodcall(b)
 }
 
-func (B *BurriedAnonymousObject) giveItBack() any {
-    // jsiiruntime.methodcall(B)
+func (b *BurriedAnonymousObject) giveItBack() any {
+    // jsiiruntime.methodcall(b)
 }
 
 type Calculator struct {
@@ -49352,24 +49352,24 @@ type Calculator struct {
     unionProperty jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power
 }
 
-func (C *Calculator) add() {
-    // jsiiruntime.methodcall(C)
+func (c *Calculator) add() {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Calculator) mul() {
-    // jsiiruntime.methodcall(C)
+func (c *Calculator) mul() {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Calculator) neg() {
-    // jsiiruntime.methodcall(C)
+func (c *Calculator) neg() {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Calculator) pow() {
-    // jsiiruntime.methodcall(C)
+func (c *Calculator) pow() {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Calculator) readUnionValue() number {
-    // jsiiruntime.methodcall(C)
+func (c *Calculator) readUnionValue() number {
+    // jsiiruntime.methodcall(c)
 }
 
 type CalculatorProps interface {
@@ -49405,12 +49405,12 @@ type ClassWithCollections struct {
     map Map<string => string>
 }
 
-func (C *ClassWithCollections) createAList() Array<string> {
-    // jsiiruntime.methodcall(C)
+func (c *ClassWithCollections) createAList() Array<string> {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ClassWithCollections) createAMap() Map<string => string> {
-    // jsiiruntime.methodcall(C)
+func (c *ClassWithCollections) createAMap() Map<string => string> {
+    // jsiiruntime.methodcall(c)
 }
 
 type ClassWithDocs struct {
@@ -49420,8 +49420,8 @@ type ClassWithJavaReservedWords struct {
     int string
 }
 
-func (C *ClassWithJavaReservedWords) import() string {
-    // jsiiruntime.methodcall(C)
+func (c *ClassWithJavaReservedWords) import() string {
+    // jsiiruntime.methodcall(c)
 }
 
 type ClassWithMutableObjectLiteralProperty struct {
@@ -49433,20 +49433,20 @@ type ClassWithPrivateConstructorAndAutomaticProperties struct {
     readWriteString string
 }
 
-func (C *ClassWithPrivateConstructorAndAutomaticProperties) create() ClassWithPrivateConstructorAndAutomaticProperties {
-    // jsiiruntime.methodcall(C)
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) create() ClassWithPrivateConstructorAndAutomaticProperties {
+    // jsiiruntime.methodcall(c)
 }
 
 type ConfusingToJackson struct {
     unionProperty @scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>
 }
 
-func (C *ConfusingToJackson) makeInstance() ConfusingToJackson {
-    // jsiiruntime.methodcall(C)
+func (c *ConfusingToJackson) makeInstance() ConfusingToJackson {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ConfusingToJackson) makeStructInstance() ConfusingToJacksonStruct {
-    // jsiiruntime.methodcall(C)
+func (c *ConfusingToJackson) makeStructInstance() ConfusingToJacksonStruct {
+    // jsiiruntime.methodcall(c)
 }
 
 type ConfusingToJacksonStruct interface {
@@ -49460,100 +49460,100 @@ type ConstructorPassesThisOut struct {
 type Constructors struct {
 }
 
-func (C *Constructors) hiddenInterface() IPublicInterface {
-    // jsiiruntime.methodcall(C)
+func (c *Constructors) hiddenInterface() IPublicInterface {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Constructors) hiddenInterfaces() Array<jsii-calc.IPublicInterface> {
-    // jsiiruntime.methodcall(C)
+func (c *Constructors) hiddenInterfaces() Array<jsii-calc.IPublicInterface> {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Constructors) hiddenSubInterfaces() Array<jsii-calc.IPublicInterface> {
-    // jsiiruntime.methodcall(C)
+func (c *Constructors) hiddenSubInterfaces() Array<jsii-calc.IPublicInterface> {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Constructors) makeClass() PublicClass {
-    // jsiiruntime.methodcall(C)
+func (c *Constructors) makeClass() PublicClass {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Constructors) makeInterface() IPublicInterface {
-    // jsiiruntime.methodcall(C)
+func (c *Constructors) makeInterface() IPublicInterface {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Constructors) makeInterface2() IPublicInterface2 {
-    // jsiiruntime.methodcall(C)
+func (c *Constructors) makeInterface2() IPublicInterface2 {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *Constructors) makeInterfaces() Array<jsii-calc.IPublicInterface> {
-    // jsiiruntime.methodcall(C)
+func (c *Constructors) makeInterfaces() Array<jsii-calc.IPublicInterface> {
+    // jsiiruntime.methodcall(c)
 }
 
 type ConsumePureInterface struct {
 }
 
-func (C *ConsumePureInterface) workItBaby() StructB {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumePureInterface) workItBaby() StructB {
+    // jsiiruntime.methodcall(c)
 }
 
 type ConsumerCanRingBell struct {
 }
 
-func (C *ConsumerCanRingBell) staticImplementedByObjectLiteral() boolean {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumerCanRingBell) staticImplementedByObjectLiteral() boolean {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ConsumerCanRingBell) staticImplementedByPrivateClass() boolean {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumerCanRingBell) staticImplementedByPrivateClass() boolean {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ConsumerCanRingBell) staticImplementedByPublicClass() boolean {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumerCanRingBell) staticImplementedByPublicClass() boolean {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ConsumerCanRingBell) staticWhenTypedAsClass() boolean {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumerCanRingBell) staticWhenTypedAsClass() boolean {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ConsumerCanRingBell) implementedByObjectLiteral() boolean {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumerCanRingBell) implementedByObjectLiteral() boolean {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ConsumerCanRingBell) implementedByPrivateClass() boolean {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumerCanRingBell) implementedByPrivateClass() boolean {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ConsumerCanRingBell) implementedByPublicClass() boolean {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumerCanRingBell) implementedByPublicClass() boolean {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ConsumerCanRingBell) whenTypedAsClass() boolean {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumerCanRingBell) whenTypedAsClass() boolean {
+    // jsiiruntime.methodcall(c)
 }
 
 type ConsumersOfThisCrazyTypeSystem struct {
 }
 
-func (C *ConsumersOfThisCrazyTypeSystem) consumeAnotherPublicInterface() string {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumersOfThisCrazyTypeSystem) consumeAnotherPublicInterface() string {
+    // jsiiruntime.methodcall(c)
 }
 
-func (C *ConsumersOfThisCrazyTypeSystem) consumeNonInternalInterface() any {
-    // jsiiruntime.methodcall(C)
+func (c *ConsumersOfThisCrazyTypeSystem) consumeNonInternalInterface() any {
+    // jsiiruntime.methodcall(c)
 }
 
 type DataRenderer struct {
 }
 
-func (D *DataRenderer) render() string {
-    // jsiiruntime.methodcall(D)
+func (d *DataRenderer) render() string {
+    // jsiiruntime.methodcall(d)
 }
 
-func (D *DataRenderer) renderArbitrary() string {
-    // jsiiruntime.methodcall(D)
+func (d *DataRenderer) renderArbitrary() string {
+    // jsiiruntime.methodcall(d)
 }
 
-func (D *DataRenderer) renderMap() string {
-    // jsiiruntime.methodcall(D)
+func (d *DataRenderer) renderMap() string {
+    // jsiiruntime.methodcall(d)
 }
 
 type DefaultedConstructorArgument struct {
@@ -49565,12 +49565,12 @@ type DefaultedConstructorArgument struct {
 type Demonstrate982 struct {
 }
 
-func (D *Demonstrate982) takeThis() ChildStruct982 {
-    // jsiiruntime.methodcall(D)
+func (d *Demonstrate982) takeThis() ChildStruct982 {
+    // jsiiruntime.methodcall(d)
 }
 
-func (D *Demonstrate982) takeThisToo() ParentStruct982 {
-    // jsiiruntime.methodcall(D)
+func (d *Demonstrate982) takeThisToo() ParentStruct982 {
+    // jsiiruntime.methodcall(d)
 }
 
 type DeprecatedClass struct {
@@ -49578,8 +49578,8 @@ type DeprecatedClass struct {
     mutableProperty number
 }
 
-func (D *DeprecatedClass) method() {
-    // jsiiruntime.methodcall(D)
+func (d *DeprecatedClass) method() {
+    // jsiiruntime.methodcall(d)
 }
 
 type DeprecatedEnum string
@@ -49637,78 +49637,78 @@ type DisappointingCollectionSource struct {
 type DoNotOverridePrivates struct {
 }
 
-func (D *DoNotOverridePrivates) changePrivatePropertyValue() {
-    // jsiiruntime.methodcall(D)
+func (d *DoNotOverridePrivates) changePrivatePropertyValue() {
+    // jsiiruntime.methodcall(d)
 }
 
-func (D *DoNotOverridePrivates) privateMethodValue() string {
-    // jsiiruntime.methodcall(D)
+func (d *DoNotOverridePrivates) privateMethodValue() string {
+    // jsiiruntime.methodcall(d)
 }
 
-func (D *DoNotOverridePrivates) privatePropertyValue() string {
-    // jsiiruntime.methodcall(D)
+func (d *DoNotOverridePrivates) privatePropertyValue() string {
+    // jsiiruntime.methodcall(d)
 }
 
 type DoNotRecognizeAnyAsOptional struct {
 }
 
-func (D *DoNotRecognizeAnyAsOptional) method() {
-    // jsiiruntime.methodcall(D)
+func (d *DoNotRecognizeAnyAsOptional) method() {
+    // jsiiruntime.methodcall(d)
 }
 
 type DocumentedClass struct {
 }
 
-func (D *DocumentedClass) greet() number {
-    // jsiiruntime.methodcall(D)
+func (d *DocumentedClass) greet() number {
+    // jsiiruntime.methodcall(d)
 }
 
-func (D *DocumentedClass) hola() {
-    // jsiiruntime.methodcall(D)
+func (d *DocumentedClass) hola() {
+    // jsiiruntime.methodcall(d)
 }
 
 type DontComplainAboutVariadicAfterOptional struct {
 }
 
-func (D *DontComplainAboutVariadicAfterOptional) optionalAndVariadic() string {
-    // jsiiruntime.methodcall(D)
+func (d *DontComplainAboutVariadicAfterOptional) optionalAndVariadic() string {
+    // jsiiruntime.methodcall(d)
 }
 
 type DoubleTrouble struct {
 }
 
-func (D *DoubleTrouble) hello() string {
-    // jsiiruntime.methodcall(D)
+func (d *DoubleTrouble) hello() string {
+    // jsiiruntime.methodcall(d)
 }
 
-func (D *DoubleTrouble) next() number {
-    // jsiiruntime.methodcall(D)
+func (d *DoubleTrouble) next() number {
+    // jsiiruntime.methodcall(d)
 }
 
 type EnumDispenser struct {
 }
 
-func (E *EnumDispenser) randomIntegerLikeEnum() AllTypesEnum {
-    // jsiiruntime.methodcall(E)
+func (e *EnumDispenser) randomIntegerLikeEnum() AllTypesEnum {
+    // jsiiruntime.methodcall(e)
 }
 
-func (E *EnumDispenser) randomStringLikeEnum() StringEnum {
-    // jsiiruntime.methodcall(E)
+func (e *EnumDispenser) randomStringLikeEnum() StringEnum {
+    // jsiiruntime.methodcall(e)
 }
 
 type EraseUndefinedHashValues struct {
 }
 
-func (E *EraseUndefinedHashValues) doesKeyExist() boolean {
-    // jsiiruntime.methodcall(E)
+func (e *EraseUndefinedHashValues) doesKeyExist() boolean {
+    // jsiiruntime.methodcall(e)
 }
 
-func (E *EraseUndefinedHashValues) prop1IsNull() Map<string => any> {
-    // jsiiruntime.methodcall(E)
+func (e *EraseUndefinedHashValues) prop1IsNull() Map<string => any> {
+    // jsiiruntime.methodcall(e)
 }
 
-func (E *EraseUndefinedHashValues) prop2IsUndefined() Map<string => any> {
-    // jsiiruntime.methodcall(E)
+func (e *EraseUndefinedHashValues) prop2IsUndefined() Map<string => any> {
+    // jsiiruntime.methodcall(e)
 }
 
 type EraseUndefinedHashValuesOptions interface {
@@ -49723,8 +49723,8 @@ type ExperimentalClass struct {
     mutableProperty number
 }
 
-func (E *ExperimentalClass) method() {
-    // jsiiruntime.methodcall(E)
+func (e *ExperimentalClass) method() {
+    // jsiiruntime.methodcall(e)
 }
 
 type ExperimentalEnum string
@@ -49755,8 +49755,8 @@ type ExternalClass struct {
     mutableProperty number
 }
 
-func (E *ExternalClass) method() {
-    // jsiiruntime.methodcall(E)
+func (e *ExternalClass) method() {
+    // jsiiruntime.methodcall(e)
 }
 
 type ExternalEnum string
@@ -49775,16 +49775,16 @@ type GiveMeStructs struct {
     structLiteral StructWithOnlyOptionals
 }
 
-func (G *GiveMeStructs) derivedToFirst() MyFirstStruct {
-    // jsiiruntime.methodcall(G)
+func (g *GiveMeStructs) derivedToFirst() MyFirstStruct {
+    // jsiiruntime.methodcall(g)
 }
 
-func (G *GiveMeStructs) readDerivedNonPrimitive() DoubleTrouble {
-    // jsiiruntime.methodcall(G)
+func (g *GiveMeStructs) readDerivedNonPrimitive() DoubleTrouble {
+    // jsiiruntime.methodcall(g)
 }
 
-func (G *GiveMeStructs) readFirstNumber() number {
-    // jsiiruntime.methodcall(G)
+func (g *GiveMeStructs) readFirstNumber() number {
+    // jsiiruntime.methodcall(g)
 }
 
 type Greetee interface {
@@ -49795,8 +49795,8 @@ type Greetee interface {
 type GreetingAugmenter struct {
 }
 
-func (G *GreetingAugmenter) betterGreeting() string {
-    // jsiiruntime.methodcall(G)
+func (g *GreetingAugmenter) betterGreeting() string {
+    // jsiiruntime.methodcall(g)
 }
 
 type IAnonymousImplementationProvider interface {
@@ -49989,8 +49989,8 @@ type Implementation struct {
 type ImplementsInterfaceWithInternal struct {
 }
 
-func (I *ImplementsInterfaceWithInternal) visible() {
-    // jsiiruntime.methodcall(I)
+func (i *ImplementsInterfaceWithInternal) visible() {
+    // jsiiruntime.methodcall(i)
 }
 
 type ImplementsInterfaceWithInternalSubclass struct {
@@ -50008,83 +50008,83 @@ type ImplictBaseOfBase interface {
 type InbetweenClass struct {
 }
 
-func (I *InbetweenClass) ciao() string {
-    // jsiiruntime.methodcall(I)
+func (i *InbetweenClass) ciao() string {
+    // jsiiruntime.methodcall(i)
 }
 
 type InterfaceCollections struct {
 }
 
-func (I *InterfaceCollections) listOfInterfaces() Array<jsii-calc.IBell> {
-    // jsiiruntime.methodcall(I)
+func (i *InterfaceCollections) listOfInterfaces() Array<jsii-calc.IBell> {
+    // jsiiruntime.methodcall(i)
 }
 
-func (I *InterfaceCollections) listOfStructs() Array<jsii-calc.StructA> {
-    // jsiiruntime.methodcall(I)
+func (i *InterfaceCollections) listOfStructs() Array<jsii-calc.StructA> {
+    // jsiiruntime.methodcall(i)
 }
 
-func (I *InterfaceCollections) mapOfInterfaces() Map<string => jsii-calc.IBell> {
-    // jsiiruntime.methodcall(I)
+func (i *InterfaceCollections) mapOfInterfaces() Map<string => jsii-calc.IBell> {
+    // jsiiruntime.methodcall(i)
 }
 
-func (I *InterfaceCollections) mapOfStructs() Map<string => jsii-calc.StructA> {
-    // jsiiruntime.methodcall(I)
+func (i *InterfaceCollections) mapOfStructs() Map<string => jsii-calc.StructA> {
+    // jsiiruntime.methodcall(i)
 }
 
 type InterfacesMaker struct {
 }
 
-func (I *InterfacesMaker) makeInterfaces() Array<@scope/jsii-calc-lib.IDoublable> {
-    // jsiiruntime.methodcall(I)
+func (i *InterfacesMaker) makeInterfaces() Array<@scope/jsii-calc-lib.IDoublable> {
+    // jsiiruntime.methodcall(i)
 }
 
 type Isomorphism struct {
 }
 
-func (I *Isomorphism) myself() Isomorphism {
-    // jsiiruntime.methodcall(I)
+func (i *Isomorphism) myself() Isomorphism {
+    // jsiiruntime.methodcall(i)
 }
 
 type JSII417Derived struct {
     property string
 }
 
-func (J *JSII417Derived) bar() {
-    // jsiiruntime.methodcall(J)
+func (j *JSII417Derived) bar() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JSII417Derived) baz() {
-    // jsiiruntime.methodcall(J)
+func (j *JSII417Derived) baz() {
+    // jsiiruntime.methodcall(j)
 }
 
 type JSII417PublicBaseOfBase struct {
     hasRoot boolean
 }
 
-func (J *JSII417PublicBaseOfBase) makeInstance() JSII417PublicBaseOfBase {
-    // jsiiruntime.methodcall(J)
+func (j *JSII417PublicBaseOfBase) makeInstance() JSII417PublicBaseOfBase {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JSII417PublicBaseOfBase) foo() {
-    // jsiiruntime.methodcall(J)
+func (j *JSII417PublicBaseOfBase) foo() {
+    // jsiiruntime.methodcall(j)
 }
 
 type JSObjectLiteralForInterface struct {
 }
 
-func (J *JSObjectLiteralForInterface) giveMeFriendly() IFriendly {
-    // jsiiruntime.methodcall(J)
+func (j *JSObjectLiteralForInterface) giveMeFriendly() IFriendly {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JSObjectLiteralForInterface) giveMeFriendlyGenerator() IFriendlyRandomGenerator {
-    // jsiiruntime.methodcall(J)
+func (j *JSObjectLiteralForInterface) giveMeFriendlyGenerator() IFriendlyRandomGenerator {
+    // jsiiruntime.methodcall(j)
 }
 
 type JSObjectLiteralToNative struct {
 }
 
-func (J *JSObjectLiteralToNative) returnLiteral() JSObjectLiteralToNativeClass {
-    // jsiiruntime.methodcall(J)
+func (j *JSObjectLiteralToNative) returnLiteral() JSObjectLiteralToNativeClass {
+    // jsiiruntime.methodcall(j)
 }
 
 type JSObjectLiteralToNativeClass struct {
@@ -50096,212 +50096,212 @@ type JavaReservedWords struct {
     while string
 }
 
-func (J *JavaReservedWords) abstract() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) abstract() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) assert() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) assert() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) boolean() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) boolean() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) break() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) break() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) byte() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) byte() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) case() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) case() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) catch() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) catch() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) char() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) char() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) class() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) class() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) const() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) const() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) continue() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) continue() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) default() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) default() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) do() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) do() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) double() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) double() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) else() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) else() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) enum() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) enum() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) extends() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) extends() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) false() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) false() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) final() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) final() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) finally() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) finally() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) float() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) float() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) for() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) for() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) goto() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) goto() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) if() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) if() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) implements() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) implements() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) import() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) import() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) instanceof() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) instanceof() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) int() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) int() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) interface() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) interface() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) long() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) long() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) native() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) native() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) new() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) new() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) null() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) null() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) package() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) package() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) private() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) private() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) protected() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) protected() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) public() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) public() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) return() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) return() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) short() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) short() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) static() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) static() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) strictfp() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) strictfp() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) super() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) super() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) switch() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) switch() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) synchronized() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) synchronized() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) this() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) this() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) throw() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) throw() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) throws() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) throws() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) transient() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) transient() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) true() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) true() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) try() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) try() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) void() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) void() {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JavaReservedWords) volatile() {
-    // jsiiruntime.methodcall(J)
+func (j *JavaReservedWords) volatile() {
+    // jsiiruntime.methodcall(j)
 }
 
 type Jsii487Derived struct {
@@ -50317,60 +50317,60 @@ type JsiiAgent struct {
 type JsonFormatter struct {
 }
 
-func (J *JsonFormatter) anyArray() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyArray() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyBooleanFalse() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyBooleanFalse() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyBooleanTrue() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyBooleanTrue() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyDate() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyDate() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyEmptyString() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyEmptyString() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyFunction() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyFunction() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyHash() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyHash() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyNull() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyNull() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyNumber() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyNumber() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyRef() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyRef() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyString() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyString() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyUndefined() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyUndefined() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) anyZero() any {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) anyZero() any {
+    // jsiiruntime.methodcall(j)
 }
 
-func (J *JsonFormatter) stringify() string {
-    // jsiiruntime.methodcall(J)
+func (j *JsonFormatter) stringify() string {
+    // jsiiruntime.methodcall(j)
 }
 
 type LoadBalancedFargateServiceProps interface {
@@ -50390,55 +50390,55 @@ type MethodNamedProperty struct {
     elite number
 }
 
-func (M *MethodNamedProperty) property() string {
-    // jsiiruntime.methodcall(M)
+func (m *MethodNamedProperty) property() string {
+    // jsiiruntime.methodcall(m)
 }
 
 type Multiply struct {
     value number
 }
 
-func (M *Multiply) farewell() string {
-    // jsiiruntime.methodcall(M)
+func (m *Multiply) farewell() string {
+    // jsiiruntime.methodcall(m)
 }
 
-func (M *Multiply) goodbye() string {
-    // jsiiruntime.methodcall(M)
+func (m *Multiply) goodbye() string {
+    // jsiiruntime.methodcall(m)
 }
 
-func (M *Multiply) next() number {
-    // jsiiruntime.methodcall(M)
+func (m *Multiply) next() number {
+    // jsiiruntime.methodcall(m)
 }
 
-func (M *Multiply) toString() string {
-    // jsiiruntime.methodcall(M)
+func (m *Multiply) toString() string {
+    // jsiiruntime.methodcall(m)
 }
 
 type Negate struct {
     value number
 }
 
-func (N *Negate) farewell() string {
-    // jsiiruntime.methodcall(N)
+func (n *Negate) farewell() string {
+    // jsiiruntime.methodcall(n)
 }
 
-func (N *Negate) goodbye() string {
-    // jsiiruntime.methodcall(N)
+func (n *Negate) goodbye() string {
+    // jsiiruntime.methodcall(n)
 }
 
-func (N *Negate) hello() string {
-    // jsiiruntime.methodcall(N)
+func (n *Negate) hello() string {
+    // jsiiruntime.methodcall(n)
 }
 
-func (N *Negate) toString() string {
-    // jsiiruntime.methodcall(N)
+func (n *Negate) toString() string {
+    // jsiiruntime.methodcall(n)
 }
 
 type NestedClassInstance struct {
 }
 
-func (N *NestedClassInstance) makeInstance() NestedClass {
-    // jsiiruntime.methodcall(N)
+func (n *NestedClassInstance) makeInstance() NestedClass {
+    // jsiiruntime.methodcall(n)
 }
 
 type NestedStruct interface {
@@ -50450,32 +50450,32 @@ type NodeStandardLibrary struct {
     osPlatform string
 }
 
-func (N *NodeStandardLibrary) cryptoSha256() string {
-    // jsiiruntime.methodcall(N)
+func (n *NodeStandardLibrary) cryptoSha256() string {
+    // jsiiruntime.methodcall(n)
 }
 
-func (N *NodeStandardLibrary) fsReadFile() string {
-    // jsiiruntime.methodcall(N)
+func (n *NodeStandardLibrary) fsReadFile() string {
+    // jsiiruntime.methodcall(n)
 }
 
-func (N *NodeStandardLibrary) fsReadFileSync() string {
-    // jsiiruntime.methodcall(N)
+func (n *NodeStandardLibrary) fsReadFileSync() string {
+    // jsiiruntime.methodcall(n)
 }
 
 type NullShouldBeTreatedAsUndefined struct {
     changeMeToUndefined string
 }
 
-func (N *NullShouldBeTreatedAsUndefined) giveMeUndefined() {
-    // jsiiruntime.methodcall(N)
+func (n *NullShouldBeTreatedAsUndefined) giveMeUndefined() {
+    // jsiiruntime.methodcall(n)
 }
 
-func (N *NullShouldBeTreatedAsUndefined) giveMeUndefinedInsideAnObject() {
-    // jsiiruntime.methodcall(N)
+func (n *NullShouldBeTreatedAsUndefined) giveMeUndefinedInsideAnObject() {
+    // jsiiruntime.methodcall(n)
 }
 
-func (N *NullShouldBeTreatedAsUndefined) verifyPropertyIsUndefined() {
-    // jsiiruntime.methodcall(N)
+func (n *NullShouldBeTreatedAsUndefined) verifyPropertyIsUndefined() {
+    // jsiiruntime.methodcall(n)
 }
 
 type NullShouldBeTreatedAsUndefinedData interface {
@@ -50489,48 +50489,48 @@ type NumberGenerator struct {
     generator IRandomNumberGenerator
 }
 
-func (N *NumberGenerator) isSameGenerator() boolean {
-    // jsiiruntime.methodcall(N)
+func (n *NumberGenerator) isSameGenerator() boolean {
+    // jsiiruntime.methodcall(n)
 }
 
-func (N *NumberGenerator) nextTimes100() number {
-    // jsiiruntime.methodcall(N)
+func (n *NumberGenerator) nextTimes100() number {
+    // jsiiruntime.methodcall(n)
 }
 
 type ObjectRefsInCollections struct {
 }
 
-func (O *ObjectRefsInCollections) sumFromArray() number {
-    // jsiiruntime.methodcall(O)
+func (o *ObjectRefsInCollections) sumFromArray() number {
+    // jsiiruntime.methodcall(o)
 }
 
-func (O *ObjectRefsInCollections) sumFromMap() number {
-    // jsiiruntime.methodcall(O)
+func (o *ObjectRefsInCollections) sumFromMap() number {
+    // jsiiruntime.methodcall(o)
 }
 
 type ObjectWithPropertyProvider struct {
 }
 
-func (O *ObjectWithPropertyProvider) provide() IObjectWithProperty {
-    // jsiiruntime.methodcall(O)
+func (o *ObjectWithPropertyProvider) provide() IObjectWithProperty {
+    // jsiiruntime.methodcall(o)
 }
 
 type Old struct {
 }
 
-func (O *Old) doAThing() {
-    // jsiiruntime.methodcall(O)
+func (o *Old) doAThing() {
+    // jsiiruntime.methodcall(o)
 }
 
 type OptionalArgumentInvoker struct {
 }
 
-func (O *OptionalArgumentInvoker) invokeWithOptional() {
-    // jsiiruntime.methodcall(O)
+func (o *OptionalArgumentInvoker) invokeWithOptional() {
+    // jsiiruntime.methodcall(o)
 }
 
-func (O *OptionalArgumentInvoker) invokeWithoutOptional() {
-    // jsiiruntime.methodcall(O)
+func (o *OptionalArgumentInvoker) invokeWithoutOptional() {
+    // jsiiruntime.methodcall(o)
 }
 
 type OptionalConstructorArgument struct {
@@ -50554,23 +50554,23 @@ type OverridableProtectedMember struct {
     overrideReadWrite string
 }
 
-func (O *OverridableProtectedMember) overrideMe() string {
-    // jsiiruntime.methodcall(O)
+func (o *OverridableProtectedMember) overrideMe() string {
+    // jsiiruntime.methodcall(o)
 }
 
-func (O *OverridableProtectedMember) switchModes() {
-    // jsiiruntime.methodcall(O)
+func (o *OverridableProtectedMember) switchModes() {
+    // jsiiruntime.methodcall(o)
 }
 
-func (O *OverridableProtectedMember) valueFromProtected() string {
-    // jsiiruntime.methodcall(O)
+func (o *OverridableProtectedMember) valueFromProtected() string {
+    // jsiiruntime.methodcall(o)
 }
 
 type OverrideReturnsObject struct {
 }
 
-func (O *OverrideReturnsObject) test() number {
-    // jsiiruntime.methodcall(O)
+func (o *OverrideReturnsObject) test() number {
+    // jsiiruntime.methodcall(o)
 }
 
 type ParentStruct982 interface {
@@ -50581,15 +50581,15 @@ type ParentStruct982 interface {
 type PartiallyInitializedThisConsumer struct {
 }
 
-func (P *PartiallyInitializedThisConsumer) consumePartiallyInitializedThis() string {
-    // jsiiruntime.methodcall(P)
+func (p *PartiallyInitializedThisConsumer) consumePartiallyInitializedThis() string {
+    // jsiiruntime.methodcall(p)
 }
 
 type Polymorphism struct {
 }
 
-func (P *Polymorphism) sayHello() string {
-    // jsiiruntime.methodcall(P)
+func (p *Polymorphism) sayHello() string {
+    // jsiiruntime.methodcall(p)
 }
 
 type Power struct {
@@ -50606,151 +50606,151 @@ type PropertyNamedProperty struct {
 type PublicClass struct {
 }
 
-func (P *PublicClass) hello() {
-    // jsiiruntime.methodcall(P)
+func (p *PublicClass) hello() {
+    // jsiiruntime.methodcall(p)
 }
 
 type PythonReservedWords struct {
 }
 
-func (P *PythonReservedWords) and() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) and() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) as() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) as() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) assert() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) assert() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) async() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) async() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) await() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) await() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) break() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) break() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) class() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) class() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) continue() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) continue() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) def() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) def() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) del() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) del() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) elif() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) elif() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) else() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) else() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) except() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) except() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) finally() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) finally() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) for() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) for() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) from() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) from() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) global() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) global() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) if() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) if() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) import() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) import() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) in() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) in() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) is() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) is() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) lambda() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) lambda() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) nonlocal() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) nonlocal() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) not() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) not() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) or() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) or() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) pass() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) pass() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) raise() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) raise() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) return() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) return() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) try() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) try() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) while() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) while() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) with() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) with() {
+    // jsiiruntime.methodcall(p)
 }
 
-func (P *PythonReservedWords) yield() {
-    // jsiiruntime.methodcall(P)
+func (p *PythonReservedWords) yield() {
+    // jsiiruntime.methodcall(p)
 }
 
 type ReferenceEnumFromScopedPackage struct {
     foo EnumFromScopedModule
 }
 
-func (R *ReferenceEnumFromScopedPackage) loadFoo() EnumFromScopedModule {
-    // jsiiruntime.methodcall(R)
+func (r *ReferenceEnumFromScopedPackage) loadFoo() EnumFromScopedModule {
+    // jsiiruntime.methodcall(r)
 }
 
-func (R *ReferenceEnumFromScopedPackage) saveFoo() {
-    // jsiiruntime.methodcall(R)
+func (r *ReferenceEnumFromScopedPackage) saveFoo() {
+    // jsiiruntime.methodcall(r)
 }
 
 type ReturnsPrivateImplementationOfInterface struct {
@@ -50767,23 +50767,23 @@ type RootStruct interface {
 type RootStructValidator struct {
 }
 
-func (R *RootStructValidator) validate() {
-    // jsiiruntime.methodcall(R)
+func (r *RootStructValidator) validate() {
+    // jsiiruntime.methodcall(r)
 }
 
 type RuntimeTypeChecking struct {
 }
 
-func (R *RuntimeTypeChecking) methodWithDefaultedArguments() {
-    // jsiiruntime.methodcall(R)
+func (r *RuntimeTypeChecking) methodWithDefaultedArguments() {
+    // jsiiruntime.methodcall(r)
 }
 
-func (R *RuntimeTypeChecking) methodWithOptionalAnyArgument() {
-    // jsiiruntime.methodcall(R)
+func (r *RuntimeTypeChecking) methodWithOptionalAnyArgument() {
+    // jsiiruntime.methodcall(r)
 }
 
-func (R *RuntimeTypeChecking) methodWithOptionalArguments() {
-    // jsiiruntime.methodcall(R)
+func (r *RuntimeTypeChecking) methodWithOptionalArguments() {
+    // jsiiruntime.methodcall(r)
 }
 
 type SecondLevelStruct interface {
@@ -50796,19 +50796,19 @@ type SecondLevelStruct interface {
 type SingleInstanceTwoTypes struct {
 }
 
-func (S *SingleInstanceTwoTypes) interface1() InbetweenClass {
-    // jsiiruntime.methodcall(S)
+func (s *SingleInstanceTwoTypes) interface1() InbetweenClass {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SingleInstanceTwoTypes) interface2() IPublicInterface {
-    // jsiiruntime.methodcall(S)
+func (s *SingleInstanceTwoTypes) interface2() IPublicInterface {
+    // jsiiruntime.methodcall(s)
 }
 
 type SingletonInt struct {
 }
 
-func (S *SingletonInt) isSingletonInt() boolean {
-    // jsiiruntime.methodcall(S)
+func (s *SingletonInt) isSingletonInt() boolean {
+    // jsiiruntime.methodcall(s)
 }
 
 type SingletonIntEnum string
@@ -50820,8 +50820,8 @@ const (
 type SingletonString struct {
 }
 
-func (S *SingletonString) isSingletonString() boolean {
-    // jsiiruntime.methodcall(S)
+func (s *SingletonString) isSingletonString() boolean {
+    // jsiiruntime.methodcall(s)
 }
 
 type SingletonStringEnum string
@@ -50840,12 +50840,12 @@ type SmellyStruct interface {
 type SomeTypeJsii976 struct {
 }
 
-func (S *SomeTypeJsii976) returnAnonymous() any {
-    // jsiiruntime.methodcall(S)
+func (s *SomeTypeJsii976) returnAnonymous() any {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SomeTypeJsii976) returnReturn() IReturnJsii976 {
-    // jsiiruntime.methodcall(S)
+func (s *SomeTypeJsii976) returnReturn() IReturnJsii976 {
+    // jsiiruntime.methodcall(s)
 }
 
 type StableClass struct {
@@ -50853,8 +50853,8 @@ type StableClass struct {
     mutableProperty number
 }
 
-func (S *StableClass) method() {
-    // jsiiruntime.methodcall(S)
+func (s *StableClass) method() {
+    // jsiiruntime.methodcall(s)
 }
 
 type StableEnum string
@@ -50873,8 +50873,8 @@ type StaticContext struct {
     staticVariable boolean
 }
 
-func (S *StaticContext) canAccessStaticContext() boolean {
-    // jsiiruntime.methodcall(S)
+func (s *StaticContext) canAccessStaticContext() boolean {
+    // jsiiruntime.methodcall(s)
 }
 
 type Statics struct {
@@ -50887,12 +50887,12 @@ type Statics struct {
     value string
 }
 
-func (S *Statics) staticMethod() string {
-    // jsiiruntime.methodcall(S)
+func (s *Statics) staticMethod() string {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *Statics) justMethod() string {
-    // jsiiruntime.methodcall(S)
+func (s *Statics) justMethod() string {
+    // jsiiruntime.methodcall(s)
 }
 
 type StringEnum string
@@ -50935,23 +50935,23 @@ type StructParameterType interface {
 type StructPassing struct {
 }
 
-func (S *StructPassing) howManyVarArgsDidIPass() number {
-    // jsiiruntime.methodcall(S)
+func (s *StructPassing) howManyVarArgsDidIPass() number {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *StructPassing) roundTrip() TopLevelStruct {
-    // jsiiruntime.methodcall(S)
+func (s *StructPassing) roundTrip() TopLevelStruct {
+    // jsiiruntime.methodcall(s)
 }
 
 type StructUnionConsumer struct {
 }
 
-func (S *StructUnionConsumer) isStructA() boolean {
-    // jsiiruntime.methodcall(S)
+func (s *StructUnionConsumer) isStructA() boolean {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *StructUnionConsumer) isStructB() boolean {
-    // jsiiruntime.methodcall(S)
+func (s *StructUnionConsumer) isStructB() boolean {
+    // jsiiruntime.methodcall(s)
 }
 
 type StructWithJavaReservedWords interface {
@@ -50997,51 +50997,51 @@ type SyncVirtualMethods struct {
     valueOfOtherProperty string
 }
 
-func (S *SyncVirtualMethods) callerIsAsync() number {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) callerIsAsync() number {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SyncVirtualMethods) callerIsMethod() number {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) callerIsMethod() number {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SyncVirtualMethods) modifyOtherProperty() {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) modifyOtherProperty() {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SyncVirtualMethods) modifyValueOfTheProperty() {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) modifyValueOfTheProperty() {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SyncVirtualMethods) readA() number {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) readA() number {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SyncVirtualMethods) retrieveOtherProperty() string {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) retrieveOtherProperty() string {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SyncVirtualMethods) retrieveReadOnlyProperty() string {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) retrieveReadOnlyProperty() string {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SyncVirtualMethods) retrieveValueOfTheProperty() string {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) retrieveValueOfTheProperty() string {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SyncVirtualMethods) virtualMethod() number {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) virtualMethod() number {
+    // jsiiruntime.methodcall(s)
 }
 
-func (S *SyncVirtualMethods) writeA() {
-    // jsiiruntime.methodcall(S)
+func (s *SyncVirtualMethods) writeA() {
+    // jsiiruntime.methodcall(s)
 }
 
 type Thrower struct {
 }
 
-func (T *Thrower) throwError() {
-    // jsiiruntime.methodcall(T)
+func (t *Thrower) throwError() {
+    // jsiiruntime.methodcall(t)
 }
 
 type TopLevelStruct interface {
@@ -51056,8 +51056,8 @@ type TopLevelStruct interface {
 type UmaskCheck struct {
 }
 
-func (U *UmaskCheck) mode() number {
-    // jsiiruntime.methodcall(U)
+func (u *UmaskCheck) mode() number {
+    // jsiiruntime.methodcall(u)
 }
 
 type UnaryOperation struct {
@@ -51079,80 +51079,80 @@ type UpcasingReflectable struct {
 type UseBundledDependency struct {
 }
 
-func (U *UseBundledDependency) value() any {
-    // jsiiruntime.methodcall(U)
+func (u *UseBundledDependency) value() any {
+    // jsiiruntime.methodcall(u)
 }
 
 type UseCalcBase struct {
 }
 
-func (U *UseCalcBase) hello() Base {
-    // jsiiruntime.methodcall(U)
+func (u *UseCalcBase) hello() Base {
+    // jsiiruntime.methodcall(u)
 }
 
 type UsesInterfaceWithProperties struct {
     obj IInterfaceWithProperties
 }
 
-func (U *UsesInterfaceWithProperties) justRead() string {
-    // jsiiruntime.methodcall(U)
+func (u *UsesInterfaceWithProperties) justRead() string {
+    // jsiiruntime.methodcall(u)
 }
 
-func (U *UsesInterfaceWithProperties) readStringAndNumber() string {
-    // jsiiruntime.methodcall(U)
+func (u *UsesInterfaceWithProperties) readStringAndNumber() string {
+    // jsiiruntime.methodcall(u)
 }
 
-func (U *UsesInterfaceWithProperties) writeAndRead() string {
-    // jsiiruntime.methodcall(U)
+func (u *UsesInterfaceWithProperties) writeAndRead() string {
+    // jsiiruntime.methodcall(u)
 }
 
 type VariadicInvoker struct {
 }
 
-func (V *VariadicInvoker) asArray() Array<number> {
-    // jsiiruntime.methodcall(V)
+func (v *VariadicInvoker) asArray() Array<number> {
+    // jsiiruntime.methodcall(v)
 }
 
 type VariadicMethod struct {
 }
 
-func (V *VariadicMethod) asArray() Array<number> {
-    // jsiiruntime.methodcall(V)
+func (v *VariadicMethod) asArray() Array<number> {
+    // jsiiruntime.methodcall(v)
 }
 
 type VirtualMethodPlayground struct {
 }
 
-func (V *VirtualMethodPlayground) overrideMeAsync() number {
-    // jsiiruntime.methodcall(V)
+func (v *VirtualMethodPlayground) overrideMeAsync() number {
+    // jsiiruntime.methodcall(v)
 }
 
-func (V *VirtualMethodPlayground) overrideMeSync() number {
-    // jsiiruntime.methodcall(V)
+func (v *VirtualMethodPlayground) overrideMeSync() number {
+    // jsiiruntime.methodcall(v)
 }
 
-func (V *VirtualMethodPlayground) parallelSumAsync() number {
-    // jsiiruntime.methodcall(V)
+func (v *VirtualMethodPlayground) parallelSumAsync() number {
+    // jsiiruntime.methodcall(v)
 }
 
-func (V *VirtualMethodPlayground) serialSumAsync() number {
-    // jsiiruntime.methodcall(V)
+func (v *VirtualMethodPlayground) serialSumAsync() number {
+    // jsiiruntime.methodcall(v)
 }
 
-func (V *VirtualMethodPlayground) sumSync() number {
-    // jsiiruntime.methodcall(V)
+func (v *VirtualMethodPlayground) sumSync() number {
+    // jsiiruntime.methodcall(v)
 }
 
 type VoidCallback struct {
     methodWasCalled boolean
 }
 
-func (V *VoidCallback) callMe() {
-    // jsiiruntime.methodcall(V)
+func (v *VoidCallback) callMe() {
+    // jsiiruntime.methodcall(v)
 }
 
-func (V *VoidCallback) overrideMe() {
-    // jsiiruntime.methodcall(V)
+func (v *VoidCallback) overrideMe() {
+    // jsiiruntime.methodcall(v)
 }
 
 type WithPrivatePropertyInConstructor struct {

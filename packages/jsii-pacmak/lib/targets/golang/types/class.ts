@@ -33,7 +33,7 @@ export class GoClass extends GoType {
     const returns = method.returns.type.void
       ? ''
       : ` ${new TypeMapper(method.returns.type).mapType()}`;
-    const instanceArg = this.localName.substring(0, 1);
+    const instanceArg = this.localName.substring(0, 1).toLowerCase();
 
     // TODO: Method Arguments
     // NOTE: May need to capitalize method name
