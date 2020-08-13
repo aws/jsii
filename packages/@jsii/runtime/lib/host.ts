@@ -96,7 +96,7 @@ export class KernelHost {
       throw new Error('Malformed request, "api" field is required');
     }
 
-    const apiReq = req as { api: string } & api.KernelRequest;
+    const apiReq = req;
     const fn = this.findApi(apiReq.api);
 
     try {
