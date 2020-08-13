@@ -6362,6 +6362,13 @@ const tarball = []byte {
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiicalclib.go 1`] = `
 package scopejsiicalclib
 
+type EnumFromScopedModule string
+
+const (
+    EnumFromScopedModuleValue1 EnumFromScopedModule = "VALUE1"
+    EnumFromScopedModuleValue2 EnumFromScopedModule = "VALUE2"
+)
+
 type IDoublable interface {
     getdoublevalue() number
     setdoublevalue()
@@ -49224,6 +49231,14 @@ func (A *AllTypes) enumMethod() StringEnum {
     // jsiiruntime.methodcall(A)
 }
 
+type AllTypesEnum string
+
+const (
+    AllTypesEnumMyEnumValue AllTypesEnum = "MY_ENUM_VALUE"
+    AllTypesEnumYourEnumValue AllTypesEnum = "YOUR_ENUM_VALUE"
+    AllTypesEnumThisIsGreat AllTypesEnum = "THIS_IS_GREAT"
+)
+
 type AllowedMethodNames struct {
 }
 
@@ -49567,6 +49582,13 @@ func (D *DeprecatedClass) method() {
     // jsiiruntime.methodcall(D)
 }
 
+type DeprecatedEnum string
+
+const (
+    DeprecatedEnumOptionA DeprecatedEnum = "OPTION_A"
+    DeprecatedEnumOptionB DeprecatedEnum = "OPTION_B"
+)
+
 type DeprecatedStruct interface {
     getreadonlyproperty() string
     setreadonlyproperty()
@@ -49705,6 +49727,13 @@ func (E *ExperimentalClass) method() {
     // jsiiruntime.methodcall(E)
 }
 
+type ExperimentalEnum string
+
+const (
+    ExperimentalEnumOptionA ExperimentalEnum = "OPTION_A"
+    ExperimentalEnumOptionB ExperimentalEnum = "OPTION_B"
+)
+
 type ExperimentalStruct interface {
     getreadonlyproperty() string
     setreadonlyproperty()
@@ -49729,6 +49758,13 @@ type ExternalClass struct {
 func (E *ExternalClass) method() {
     // jsiiruntime.methodcall(E)
 }
+
+type ExternalEnum string
+
+const (
+    ExternalEnumOptionA ExternalEnum = "OPTION_A"
+    ExternalEnumOptionB ExternalEnum = "OPTION_B"
+)
 
 type ExternalStruct interface {
     getreadonlyproperty() string
@@ -50775,12 +50811,24 @@ func (S *SingletonInt) isSingletonInt() boolean {
     // jsiiruntime.methodcall(S)
 }
 
+type SingletonIntEnum string
+
+const (
+    SingletonIntEnumSingletonInt SingletonIntEnum = "SINGLETON_INT"
+)
+
 type SingletonString struct {
 }
 
 func (S *SingletonString) isSingletonString() boolean {
     // jsiiruntime.methodcall(S)
 }
+
+type SingletonStringEnum string
+
+const (
+    SingletonStringEnumSingletonString SingletonStringEnum = "SINGLETON_STRING"
+)
 
 type SmellyStruct interface {
     getproperty() string
@@ -50808,6 +50856,13 @@ type StableClass struct {
 func (S *StableClass) method() {
     // jsiiruntime.methodcall(S)
 }
+
+type StableEnum string
+
+const (
+    StableEnumOptionA StableEnum = "OPTION_A"
+    StableEnumOptionB StableEnum = "OPTION_B"
+)
 
 type StableStruct interface {
     getreadonlyproperty() string
@@ -50839,6 +50894,14 @@ func (S *Statics) staticMethod() string {
 func (S *Statics) justMethod() string {
     // jsiiruntime.methodcall(S)
 }
+
+type StringEnum string
+
+const (
+    StringEnumA StringEnum = "A"
+    StringEnumB StringEnum = "B"
+    StringEnumC StringEnum = "C"
+)
 
 type StripInternal struct {
     youSeeMe string

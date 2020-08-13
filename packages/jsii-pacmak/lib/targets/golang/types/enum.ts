@@ -7,7 +7,21 @@ export class Enum extends GoType {
     super(type);
   }
 
-  public emit(_code: CodeMaker): void {
-    return;
+  public emit(code: CodeMaker): void {
+    // TODO figure out the value type -- probably a string in most cases
+    const valueType = 'string';
+    code.line(`type ${this.localName} ${valueType}`);
+    code.line();
+    code.open(`const (`);
+
+    // Const values are prefixed by the wrapped value type
+    for (const member of this.type.members) {
+      const enumKey = this.localName + code.toPascalCase(member.name);
+      const enumType = this.localName;
+      code.line(`${enumKey} ${enumType} = "${member.name}"`);
+    }
+
+    code.close(`)`);
+    code.line();
   }
 }
