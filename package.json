@@ -18,10 +18,13 @@
     "@typescript-eslint/eslint-plugin": "^3.9.0",
     "@typescript-eslint/parser": "^3.9.0",
     "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-import-resolver-typescript": "^2.2.0",
     "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "lerna": "^3.22.1",
+    "prettier": "^1.19.1",
     "standard-version": "^8.0.2"
   },
   "repository": {
