@@ -4,7 +4,6 @@ from typing_extensions import Protocol
 import attr
 
 
-
 # TODO:
 # - HelloResponse
 # - OkayResponse
