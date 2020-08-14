@@ -1,4 +1,3 @@
-import { goNameFromJs } from '../util';
 import { GoType } from './go-type';
 import { InterfaceType, Method, Property, TypeReference } from 'jsii-reflect';
 import { CodeMaker } from 'codemaker';
@@ -35,19 +34,22 @@ export class Interface extends GoType {
   }
 
   private emitInterfaceProperty(code: CodeMaker, property: Property) {
-    const name = goNameFromJs(property.name);
+    const propName = code.toPascalCase(property.name);
     const type = new TypeMapper(property.type).mapType();
 
-    code.line(`get${name}() ${type}`);
-    if (!property.protected) {
-      code.line(`set${name}()`);
-    }
+    code.line(`Get${propName}() ${type}`);
+    // if (!property.protected) {
+    //   code.line(`set${name}()`);
+    // }
   }
 
   private emitInterfaceMethod(code: CodeMaker, method: Method) {
     const returns = method.returns.type.void
       ? ''
       : ` ${new TypeMapper(method.returns.type).mapType()}`;
-    code.line(`${goNameFromJs(method.name)}()${returns}`);
+
+    const methodName = code.toPascalCase(method.name);
+
+    code.line(`${methodName}()${returns}`);
   }
 }

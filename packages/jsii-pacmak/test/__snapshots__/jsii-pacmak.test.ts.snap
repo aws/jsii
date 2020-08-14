@@ -1070,12 +1070,11 @@ func (b *Base) TypeName() any {
 }
 
 type BaseProps interface {
-    getbar() string
-    setbar()
+    GetBar() string
 }
 
 type IBaseInterface interface {
-    bar()
+    Bar()
 }
 
 
@@ -2669,7 +2668,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/golang/sco
 package scopejsiicalcbaseofbase
 
 type IVeryBaseInterface interface {
-    foo()
+    Foo()
 }
 
 type VeryIface interface {
@@ -2683,8 +2682,7 @@ func (v *Very) Hey() number {
 }
 
 type VeryBaseProps interface {
-    getfoo() Very
-    setfoo()
+    GetFoo() Very
 }
 
 
@@ -6376,25 +6374,21 @@ const (
 )
 
 type IDoublable interface {
-    getdoublevalue() number
-    setdoublevalue()
+    GetDoubleValue() number
 }
 
 type IFriendly interface {
-    hello() string
+    Hello() string
 }
 
 type IThreeLevelsInterface interface {
-    baz()
+    Baz()
 }
 
 type MyFirstStruct interface {
-    getanumber() number
-    setanumber()
-    getastring() string
-    setastring()
-    getfirstoptional() Array<string>
-    setfirstoptional()
+    GetAnumber() number
+    GetAstring() string
+    GetFirstOptional() Array<string>
 }
 
 type NumberIface interface {
@@ -6416,12 +6410,9 @@ func (o *Operation) ToString() string {
 }
 
 type StructWithOnlyOptionals interface {
-    getoptional1() string
-    setoptional1()
-    getoptional2() number
-    setoptional2()
-    getoptional3() boolean
-    setoptional3()
+    GetOptional1() string
+    GetOptional2() number
+    GetOptional3() boolean
 }
 
 type ValueIface interface {
@@ -49436,15 +49427,12 @@ func (c *Calculator) ReadUnionValue() number {
 }
 
 type CalculatorProps interface {
-    getinitialvalue() number
-    setinitialvalue()
-    getmaximumvalue() number
-    setmaximumvalue()
+    GetInitialValue() number
+    GetMaximumValue() number
 }
 
 type ChildStruct982 interface {
-    getbar() number
-    setbar()
+    GetBar() number
 }
 
 type ClassThatImplementsTheInternalInterfaceIface interface {
@@ -49537,8 +49525,7 @@ func (c *ConfusingToJackson) MakeStructInstance() ConfusingToJacksonStruct {
 }
 
 type ConfusingToJacksonStruct interface {
-    getunionproperty() @scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>
-    setunionproperty()
+    GetUnionProperty() @scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>
 }
 
 type ConstructorPassesThisOutIface interface {
@@ -49704,43 +49691,32 @@ const (
 )
 
 type DeprecatedStruct interface {
-    getreadonlyproperty() string
-    setreadonlyproperty()
+    GetReadonlyProperty() string
 }
 
 type DerivedStruct interface {
-    getanotherrequired() date
-    setanotherrequired()
-    getbool() boolean
-    setbool()
-    getnonprimitive() DoubleTrouble
-    setnonprimitive()
-    getanotheroptional() Map<string => @scope/jsii-calc-lib.Value>
-    setanotheroptional()
-    getoptionalany() any
-    setoptionalany()
-    getoptionalarray() Array<string>
-    setoptionalarray()
+    GetAnotherRequired() date
+    GetBool() boolean
+    GetNonPrimitive() DoubleTrouble
+    GetAnotherOptional() Map<string => @scope/jsii-calc-lib.Value>
+    GetOptionalAny() any
+    GetOptionalArray() Array<string>
 }
 
 type DiamondInheritanceBaseLevelStruct interface {
-    getbaselevelproperty() string
-    setbaselevelproperty()
+    GetBaseLevelProperty() string
 }
 
 type DiamondInheritanceFirstMidLevelStruct interface {
-    getfirstmidlevelproperty() string
-    setfirstmidlevelproperty()
+    GetFirstMidLevelProperty() string
 }
 
 type DiamondInheritanceSecondMidLevelStruct interface {
-    getsecondmidlevelproperty() string
-    setsecondmidlevelproperty()
+    GetSecondMidLevelProperty() string
 }
 
 type DiamondInheritanceTopLevelStruct interface {
-    gettoplevelproperty() string
-    settoplevelproperty()
+    GetTopLevelProperty() string
 }
 
 type DisappointingCollectionSourceIface interface {
@@ -49850,10 +49826,8 @@ func (e *EraseUndefinedHashValues) Prop2IsUndefined() Map<string => any> {
 }
 
 type EraseUndefinedHashValuesOptions interface {
-    getoption1() string
-    setoption1()
-    getoption2() string
-    setoption2()
+    GetOption1() string
+    GetOption2() string
 }
 
 type ExperimentalClassIface interface {
@@ -49876,8 +49850,7 @@ const (
 )
 
 type ExperimentalStruct interface {
-    getreadonlyproperty() string
-    setreadonlyproperty()
+    GetReadonlyProperty() string
 }
 
 type ExportedBaseClassIface interface {
@@ -49888,10 +49861,8 @@ type ExportedBaseClass struct {
 }
 
 type ExtendsInternalInterface interface {
-    getboom() boolean
-    setboom()
-    getprop() string
-    setprop()
+    GetBoom() boolean
+    GetProp() string
 }
 
 type ExternalClassIface interface {
@@ -49914,8 +49885,7 @@ const (
 )
 
 type ExternalStruct interface {
-    getreadonlyproperty() string
-    setreadonlyproperty()
+    GetReadonlyProperty() string
 }
 
 type GiveMeStructsIface interface {
@@ -49938,8 +49908,7 @@ func (g *GiveMeStructs) ReadFirstNumber() number {
 }
 
 type Greetee interface {
-    getname() string
-    setname()
+    GetName() string
 }
 
 type GreetingAugmenterIface interface {
@@ -49953,113 +49922,98 @@ func (g *GreetingAugmenter) BetterGreeting() string {
 }
 
 type IAnonymousImplementationProvider interface {
-    provideasclass() Implementation
-    provideasinterface() IAnonymouslyImplementMe
+    ProvideAsClass() Implementation
+    ProvideAsInterface() IAnonymouslyImplementMe
 }
 
 type IAnonymouslyImplementMe interface {
-    verb() string
-    getvalue() number
-    setvalue()
+    Verb() string
+    GetValue() number
 }
 
 type IAnotherPublicInterface interface {
-    geta() string
-    seta()
+    GetA() string
 }
 
 type IBell interface {
-    ring()
+    Ring()
 }
 
 type IBellRinger interface {
-    yourturn()
+    YourTurn()
 }
 
 type IConcreteBellRinger interface {
-    yourturn()
+    YourTurn()
 }
 
 type IDeprecatedInterface interface {
-    method()
-    getmutableproperty() number
-    setmutableproperty()
+    Method()
+    GetMutableProperty() number
 }
 
 type IExperimentalInterface interface {
-    method()
-    getmutableproperty() number
-    setmutableproperty()
+    Method()
+    GetMutableProperty() number
 }
 
 type IExtendsPrivateInterface interface {
-    getmorethings() Array<string>
-    setmorethings()
-    getprivate() string
-    setprivate()
+    GetMoreThings() Array<string>
+    GetPrivate() string
 }
 
 type IExternalInterface interface {
-    method()
-    getmutableproperty() number
-    setmutableproperty()
+    Method()
+    GetMutableProperty() number
 }
 
 type IFriendlier interface {
-    farewell() string
-    goodbye() string
+    Farewell() string
+    Goodbye() string
 }
 
 type IFriendlyRandomGenerator interface {
 }
 
 type IInterfaceImplementedByAbstractClass interface {
-    getpropfrominterface() string
-    setpropfrominterface()
+    GetPropFromInterface() string
 }
 
 type IInterfaceThatShouldNotBeADataType interface {
-    getothervalue() string
-    setothervalue()
+    GetOtherValue() string
 }
 
 type IInterfaceWithInternal interface {
-    visible()
+    Visible()
 }
 
 type IInterfaceWithMethods interface {
-    dothings()
-    getvalue() string
-    setvalue()
+    DoThings()
+    GetValue() string
 }
 
 type IInterfaceWithOptionalMethodArguments interface {
-    hello()
+    Hello()
 }
 
 type IInterfaceWithProperties interface {
-    getreadonlystring() string
-    setreadonlystring()
-    getreadwritestring() string
-    setreadwritestring()
+    GetReadOnlyString() string
+    GetReadWriteString() string
 }
 
 type IInterfaceWithPropertiesExtension interface {
-    getfoo() number
-    setfoo()
+    GetFoo() number
 }
 
 type IJSII417Derived interface {
-    bar()
-    baz()
-    getproperty() string
-    setproperty()
+    Bar()
+    Baz()
+    GetProperty() string
 }
 
 type IJSII417PublicBaseOfBase interface {
-    foo()
-    gethasroot() boolean
-    sethasroot()
+    Foo()
+    GetHasRoot() boolean
 }
 
 type IJsii487External interface {
@@ -50072,63 +50026,55 @@ type IJsii496 interface {
 }
 
 type IMutableObjectLiteral interface {
-    getvalue() string
-    setvalue()
+    GetValue() string
 }
 
 type INonInternalInterface interface {
-    getb() string
-    setb()
-    getc() string
-    setc()
+    GetB() string
+    GetC() string
 }
 
 type IObjectWithProperty interface {
-    wasset() boolean
-    getproperty() string
-    setproperty()
+    WasSet() boolean
+    GetProperty() string
 }
 
 type IOptionalMethod interface {
-    optional() string
+    Optional() string
 }
 
 type IPrivatelyImplemented interface {
-    getsuccess() boolean
-    setsuccess()
+    GetSuccess() boolean
 }
 
 type IPublicInterface interface {
-    bye() string
+    Bye() string
 }
 
 type IPublicInterface2 interface {
-    ciao() string
+    Ciao() string
 }
 
 type IRandomNumberGenerator interface {
-    next() number
+    Next() number
 }
 
 type IReturnJsii976 interface {
-    getfoo() number
-    setfoo()
+    GetFoo() number
 }
 
 type IReturnsNumber interface {
-    obtainnumber() IDoublable
-    getnumberprop() Number
-    setnumberprop()
+    ObtainNumber() IDoublable
+    GetNumberProp() Number
 }
 
 type IStableInterface interface {
-    method()
-    getmutableproperty() number
-    setmutableproperty()
+    Method()
+    GetMutableProperty() number
 }
 
 type IStructReturningDelegate interface {
-    returnstruct() StructB
+    ReturnStruct() StructB
 }
 
 type ImplementInternalInterfaceIface interface {
@@ -50169,8 +50115,7 @@ type ImplementsPrivateInterface struct {
 }
 
 type ImplictBaseOfBase interface {
-    getgoo() date
-    setgoo()
+    GetGoo() date
 }
 
 type InbetweenClassIface interface {
@@ -50584,16 +50529,11 @@ func (j *JsonFormatter) Stringify() string {
 }
 
 type LoadBalancedFargateServiceProps interface {
-    getcontainerport() number
-    setcontainerport()
-    getcpu() string
-    setcpu()
-    getmemorymib() string
-    setmemorymib()
-    getpublicloadbalancer() boolean
-    setpublicloadbalancer()
-    getpublictasks() boolean
-    setpublictasks()
+    GetContainerPort() number
+    GetCpu() string
+    GetMemoryMiB() string
+    GetPublicLoadBalancer() boolean
+    GetPublicTasks() boolean
 }
 
 type MethodNamedPropertyIface interface {
@@ -50664,8 +50604,7 @@ func (n *NestedClassInstance) MakeInstance() NestedClass {
 }
 
 type NestedStruct interface {
-    getnumberprop() number
-    setnumberprop()
+    GetNumberProp() number
 }
 
 type NodeStandardLibraryIface interface {
@@ -50707,10 +50646,8 @@ func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() {
 }
 
 type NullShouldBeTreatedAsUndefinedData interface {
-    getarraywiththreeelementsandundefinedassecondargument() Array<any>
-    setarraywiththreeelementsandundefinedassecondargument()
-    getthisshouldbeundefined() any
-    setthisshouldbeundefined()
+    GetArrayWithThreeElementsAndUndefinedAsSecondArgument() Array<any>
+    GetThisShouldBeUndefined() any
 }
 
 type NumberGeneratorIface interface {
@@ -50786,8 +50723,7 @@ type OptionalConstructorArgument struct {
 }
 
 type OptionalStruct interface {
-    getfield() string
-    setfield()
+    GetField() string
 }
 
 type OptionalStructConsumerIface interface {
@@ -50829,8 +50765,7 @@ func (o *OverrideReturnsObject) Test() number {
 }
 
 type ParentStruct982 interface {
-    getfoo() string
-    setfoo()
+    GetFoo() string
 }
 
 type PartiallyInitializedThisConsumerIface interface {
@@ -51037,10 +50972,8 @@ type ReturnsPrivateImplementationOfInterface struct {
 }
 
 type RootStruct interface {
-    getstringprop() string
-    setstringprop()
-    getnestedstruct() NestedStruct
-    setnestedstruct()
+    GetStringProp() string
+    GetNestedStruct() NestedStruct
 }
 
 type RootStructValidatorIface interface {
@@ -51072,10 +51005,8 @@ func (r *RuntimeTypeChecking) MethodWithOptionalArguments() {
 }
 
 type SecondLevelStruct interface {
-    getdeeperrequiredprop() string
-    setdeeperrequiredprop()
-    getdeeperoptionalprop() string
-    setdeeperoptionalprop()
+    GetDeeperRequiredProp() string
+    GetDeeperOptionalProp() string
 }
 
 type SingleInstanceTwoTypesIface interface {
@@ -51125,10 +51056,8 @@ const (
 )
 
 type SmellyStruct interface {
-    getproperty() string
-    setproperty()
-    getyetanoterone() boolean
-    setyetanoterone()
+    GetProperty() string
+    GetYetAnoterOne() boolean
 }
 
 type SomeTypeJsii976Iface interface {
@@ -51165,8 +51094,7 @@ const (
 )
 
 type StableStruct interface {
-    getreadonlyproperty() string
-    setreadonlyproperty()
+    GetReadonlyProperty() string
 }
 
 type StaticContextIface interface {
@@ -51217,28 +51145,20 @@ type StripInternal struct {
 }
 
 type StructA interface {
-    getrequiredstring() string
-    setrequiredstring()
-    getoptionalnumber() number
-    setoptionalnumber()
-    getoptionalstring() string
-    setoptionalstring()
+    GetRequiredString() string
+    GetOptionalNumber() number
+    GetOptionalString() string
 }
 
 type StructB interface {
-    getrequiredstring() string
-    setrequiredstring()
-    getoptionalboolean() boolean
-    setoptionalboolean()
-    getoptionalstructa() StructA
-    setoptionalstructa()
+    GetRequiredString() string
+    GetOptionalBoolean() boolean
+    GetOptionalStructA() StructA
 }
 
 type StructParameterType interface {
-    getscope() string
-    setscope()
-    getprops() boolean
-    setprops()
+    GetScope() string
+    GetProps() boolean
 }
 
 type StructPassingIface interface {
@@ -51270,14 +51190,10 @@ func (s *StructUnionConsumer) IsStructB() boolean {
 }
 
 type StructWithJavaReservedWords interface {
-    getdefault() string
-    setdefault()
-    getassert() string
-    setassert()
-    getresult() string
-    setresult()
-    getthat() string
-    setthat()
+    GetDefault() string
+    GetAssert() string
+    GetResult() string
+    GetThat() string
 }
 
 type SumIface interface {
@@ -51297,10 +51213,8 @@ type SupportsNiceJavaBuilder struct {
 }
 
 type SupportsNiceJavaBuilderProps interface {
-    getbar() number
-    setbar()
-    getid() string
-    setid()
+    GetBar() number
+    GetId() string
 }
 
 type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
@@ -51375,12 +51289,9 @@ func (t *Thrower) ThrowError() {
 }
 
 type TopLevelStruct interface {
-    getrequired() string
-    setrequired()
-    getsecondlevel() number | jsii-calc.SecondLevelStruct
-    setsecondlevel()
-    getoptional() string
-    setoptional()
+    GetRequired() string
+    GetSecondLevel() number | jsii-calc.SecondLevelStruct
+    GetOptional() string
 }
 
 type UmaskCheckIface interface {
@@ -51401,10 +51312,8 @@ type UnaryOperation struct {
 }
 
 type UnionProperties interface {
-    getbar() string | number | jsii-calc.AllTypes
-    setbar()
-    getfoo() string | number
-    setfoo()
+    GetBar() string | number | jsii-calc.AllTypes
+    GetFoo() string | number
 }
 
 type UpcasingReflectableIface interface {
