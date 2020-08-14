@@ -9,6 +9,8 @@ export class GoClass extends GoType {
   }
 
   public emit(code: CodeMaker): void {
+    // emitClassInterface(code);
+
     code.openBlock(`type ${this.localName} struct`);
 
     Object.values(this.type.getProperties()).forEach((property) =>
@@ -30,18 +32,22 @@ export class GoClass extends GoType {
   }
 
   private emitClassMethod(code: CodeMaker, method: Method) {
-    const returns = method.returns.type.void
+    const returnType = method.returns.type.void
       ? ''
       : ` ${new TypeMapper(method.returns.type).mapType()}`;
     const instanceArg = this.localName.substring(0, 1).toLowerCase();
+    const methodName = code.toPascalCase(method.name);
 
     // TODO: Method Arguments
-    // NOTE: May need to capitalize method name
     code.openBlock(
-      `func (${instanceArg} *${this.localName}) ${method.name}()${returns}`,
+      `func (${instanceArg} *${this.localName}) ${methodName}()${returnType}`,
     );
     code.line(`// jsiiruntime.methodcall(${instanceArg})`);
     code.closeBlock();
     code.line();
   }
+
+  // Generate interface that defines getters for public properties and any method signatures
+  // private emitClassInterface(code: CodeMaker) {
+  // }
 }
