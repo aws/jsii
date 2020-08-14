@@ -106,6 +106,4 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
 RUN yum -y upgrade                                                                                                      \
   && yum clean all && rm -rf /var/cache/yum
 
-ENTRYPOINT ["/bin/sh", "-c"]
-
 CMD ["/bin/bash"]
