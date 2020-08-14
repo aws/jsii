@@ -1,6 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-
-mkdir -p dist/python
-
-.env/bin/python setup.py sdist -d dist/python bdist_wheel -d dist/python

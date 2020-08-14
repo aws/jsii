@@ -27,10 +27,10 @@
     "dist-clean": "rm -rf dist",
     "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps && npm run lint",
     "lint": "ts-node build-tools/venv.ts black .",
-    "package": "package-python && package-private",
+    "package": "mkdir -p dist/python && ts-node build-tools/venv.ts python -m pep517.build --out-dir dist/python . && package-private",
     "test": "npm run test:gen && npm run test:run",
     "test:gen": "npm run deps && ts-node build-tools/gen-calc.ts",
-    "test:run": "ts-node build-tools/venv.ts py.test -v --mypy",
+    "test:run": "ts-node build-tools/venv.ts py.test",
     "test:update": "UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {

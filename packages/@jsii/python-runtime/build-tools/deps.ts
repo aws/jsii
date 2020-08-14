@@ -5,7 +5,7 @@ import { venv, runCommand } from './_constants';
 
 const python = join(venv.bin, 'python');
 
-runCommand('python3', ['-m', 'venv', venv.root]);
+runCommand('python3', ['-m', 'venv', '--system-site-packages', venv.root]);
 
 const env = {
   ...process.env,
@@ -15,6 +15,12 @@ const env = {
 
 runCommand(
   python,
-  ['-m', 'pip', 'install', '-r', resolve(__dirname, '..', 'requirements.txt')],
+  [
+    '-m',
+    'pip',
+    'install',
+    '-r',
+    resolve(__dirname, '..', 'requirements-dev.txt'),
+  ],
   { env },
 );

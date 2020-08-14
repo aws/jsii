@@ -1,10 +1,10 @@
 import * as spec from '@jsii/spec';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
+import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as path from 'path';
 import { Generator, GeneratorOptions } from '../generator';
-import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
@@ -44,54 +44,47 @@ export default class Python extends Target {
   }
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
-    // Actually package up our code, both as a sdist and a wheel for publishing.
-    await shell('python3', ['setup.py', 'sdist', '--dist-dir', outDir], {
-      cwd: sourceDir,
-    });
+    // Create a fresh virtual env
+    const venv = await fs.mkdtemp(path.join(sourceDir, '.env'));
+    const venvBin = path.join(
+      venv,
+      process.platform === 'win32' ? 'Scripts' : 'bin',
+    );
+    await shell('python3', [
+      '-m',
+      'venv',
+      '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
+      venv,
+    ]);
+    const env = {
+      ...process.env,
+      PATH: `${venvBin}:${process.env.PATH}`,
+      VIRTUAL_ENV: venv,
+    };
+    const python = path.join(venvBin, 'python');
+    // Install the necessary things
     await shell(
-      'python3',
-      ['-m', 'pip', 'wheel', '--no-deps', '--wheel-dir', outDir, sourceDir],
+      python,
+      ['-m', 'pip', 'install', '--no-input', 'pep517~=0.8.2', 'twine~=3.2.0'],
       {
         cwd: sourceDir,
+        env,
       },
     );
-    if (await isPresent('twine', sourceDir)) {
-      await shell('twine', ['check', path.join(outDir, '*')], {
-        cwd: sourceDir,
-      });
-    } else if (await isPresent('pipx', sourceDir)) {
-      await shell('pipx', ['run', 'twine', 'check', path.join(outDir, '*')], {
-        cwd: sourceDir,
-        env: {
-          ...process.env,
-          PIPX_HOME: path.join(sourceDir, '.pipx'),
-        },
-      });
-    } else {
-      warn(
-        'Unable to validate distribution packages because `twine` is not present. ' +
-          'Run `pip3 install twine` to enable distribution package validation.',
-      );
-    }
-  }
-}
 
-// Approximating existence check using `which`, falling back on `pip3 show`.
-async function isPresent(binary: string, sourceDir?: string): Promise<boolean> {
-  try {
-    await shell('which', [binary], {
-      cwd: sourceDir,
-    });
-    return true;
-  } catch {
-    try {
-      const output = await shell('pip3', ['show', binary], {
+    // Actually package up our code, both as a sdist and a wheel for publishing.
+    await shell(
+      python,
+      ['-m', 'pep517.build', '--out-dir', outDir, sourceDir],
+      {
         cwd: sourceDir,
-      });
-      return output.trim() !== '';
-    } catch {
-      return false;
-    }
+        env,
+      },
+    );
+    await shell(python, ['-m', 'twine', 'check', path.join(outDir, '*')], {
+      cwd: sourceDir,
+      env,
+    });
   }
 }
 
@@ -1736,7 +1729,9 @@ class Package {
     // TODO: Might be easier to just use a TOML library to write this out.
     code.openFile('pyproject.toml');
     code.line('[build-system]');
-    code.line('requires = ["setuptools >= 49.3.1", "wheel >= 0.34.2"]');
+    code.line(
+      'requires = ["pip >= 20.2.2", "setuptools >= 49.3.1", "wheel >= 0.34.2"]',
+    );
     code.line('build-backend = "setuptools.build_meta"');
     code.closeFile('pyproject.toml');
 
