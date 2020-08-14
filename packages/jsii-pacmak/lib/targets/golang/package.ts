@@ -1,17 +1,17 @@
 import { Assembly } from 'jsii-reflect';
-import { join } from 'path';
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
-import { Module } from './module';
+import { RootModule } from './module';
 
-export class Package extends Module {
+export class Package {
   public readonly packageName: string;
+  public readonly rootModule: RootModule;
 
   public constructor(public readonly assembly: Assembly) {
-    super(assembly);
     this.packageName = this.assembly.name
       .replace('@', '')
       .replace(/[^a-z0-9_.]/gi, '');
+    this.rootModule = new RootModule(assembly);
   }
 
   public emit({ code }: EmitContext): void {
@@ -19,11 +19,6 @@ export class Package extends Module {
       new ReadmeFile(this.packageName, this.assembly.readme.markdown);
     }
 
-    const packageFile = `${join(...this.packageName.split('.'))}.go`;
-    code.openFile(packageFile);
-    code.line(`package ${this.packageName}`);
-    code.line();
-    this.emitTypes(code);
-    code.closeFile(packageFile);
+    this.rootModule.emit(code);
   }
 }

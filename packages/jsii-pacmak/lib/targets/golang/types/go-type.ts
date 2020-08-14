@@ -1,13 +1,19 @@
+import { CodeMaker } from 'codemaker';
 import { Type } from 'jsii-reflect';
+import { Module } from '../module';
+
+export interface GoEmitter {
+  emit(code: CodeMaker): void;
+}
 
 export class GoType {
-  private readonly name: string;
+  public constructor(public parent: Module, public type: Type) {}
 
-  public constructor(public type: Type) {
-    this.name = type.name;
+  public get name() {
+    return this.type.name;
   }
 
-  public get localName() {
-    return this.name;
+  public get namespace() {
+    return this.parent.packageName;
   }
 }
