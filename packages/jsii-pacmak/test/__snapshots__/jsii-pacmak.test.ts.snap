@@ -1059,6 +1059,9 @@ const tarball = []byte {
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/golang/scopejsiicalcbase.go 1`] = `
 package scopejsiicalcbase
 
+type BaseIface interface {
+}
+
 type Base struct {
 }
 
@@ -2667,6 +2670,9 @@ package scopejsiicalcbaseofbase
 
 type IVeryBaseInterface interface {
     foo()
+}
+
+type VeryIface interface {
 }
 
 type Very struct {
@@ -6391,9 +6397,15 @@ type MyFirstStruct interface {
     setfirstoptional()
 }
 
+type NumberIface interface {
+}
+
 type Number struct {
-    doubleValue number
-    value number
+    DoubleValue number
+    Value number
+}
+
+type OperationIface interface {
 }
 
 type Operation struct {
@@ -6412,8 +6424,11 @@ type StructWithOnlyOptionals interface {
     setoptional3()
 }
 
+type ValueIface interface {
+}
+
 type Value struct {
-    value number
+    Value number
 }
 
 func (v *Value) ToString() string {
@@ -49149,8 +49164,11 @@ const tarball = []byte {
 exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc.go 1`] = `
 package jsiicalc
 
+type AbstractClassIface interface {
+}
+
 type AbstractClass struct {
-    propFromInterface string
+    PropFromInterface string
 }
 
 func (a *AbstractClass) AbstractMethod() string {
@@ -49161,12 +49179,18 @@ func (a *AbstractClass) NonAbstractMethod() number {
     // jsiiruntime.methodcall(a)
 }
 
+type AbstractClassBaseIface interface {
+}
+
 type AbstractClassBase struct {
-    abstractProperty string
+    AbstractProperty string
+}
+
+type AbstractClassReturnerIface interface {
 }
 
 type AbstractClassReturner struct {
-    returnAbstractFromProperty AbstractClassBase
+    ReturnAbstractFromProperty AbstractClassBase
 }
 
 func (a *AbstractClassReturner) GiveMeAbstract() AbstractClass {
@@ -49177,8 +49201,11 @@ func (a *AbstractClassReturner) GiveMeInterface() IInterfaceImplementedByAbstrac
     // jsiiruntime.methodcall(a)
 }
 
+type AbstractSuiteIface interface {
+}
+
 type AbstractSuite struct {
-    property string
+    Property string
 }
 
 func (a *AbstractSuite) SomeMethod() string {
@@ -49189,34 +49216,40 @@ func (a *AbstractSuite) WorkItAll() string {
     // jsiiruntime.methodcall(a)
 }
 
+type AddIface interface {
+}
+
 type Add struct {
-    value number
+    Value number
 }
 
 func (a *Add) ToString() string {
     // jsiiruntime.methodcall(a)
 }
 
+type AllTypesIface interface {
+}
+
 type AllTypes struct {
-    enumPropertyValue number
-    anyArrayProperty Array<any>
-    anyMapProperty Map<string => any>
-    anyProperty any
-    arrayProperty Array<string>
-    booleanProperty boolean
-    dateProperty date
-    enumProperty AllTypesEnum
-    jsonProperty json
-    mapProperty Map<string => @scope/jsii-calc-lib.Number>
-    numberProperty number
-    stringProperty string
-    unionArrayProperty Array<number | @scope/jsii-calc-lib.Value>
-    unionMapProperty Map<string => string | number | @scope/jsii-calc-lib.Number>
-    unionProperty string | number | jsii-calc.Multiply | @scope/jsii-calc-lib.Number
-    unknownArrayProperty Array<any>
-    unknownMapProperty Map<string => any>
-    unknownProperty any
-    optionalEnumValue StringEnum
+    EnumPropertyValue number
+    AnyArrayProperty Array<any>
+    AnyMapProperty Map<string => any>
+    AnyProperty any
+    ArrayProperty Array<string>
+    BooleanProperty boolean
+    DateProperty date
+    EnumProperty AllTypesEnum
+    JsonProperty json
+    MapProperty Map<string => @scope/jsii-calc-lib.Number>
+    NumberProperty number
+    StringProperty string
+    UnionArrayProperty Array<number | @scope/jsii-calc-lib.Value>
+    UnionMapProperty Map<string => string | number | @scope/jsii-calc-lib.Number>
+    UnionProperty string | number | jsii-calc.Multiply | @scope/jsii-calc-lib.Number
+    UnknownArrayProperty Array<any>
+    UnknownMapProperty Map<string => any>
+    UnknownProperty any
+    OptionalEnumValue StringEnum
 }
 
 func (a *AllTypes) AnyIn() {
@@ -49239,6 +49272,9 @@ const (
     AllTypesEnumThisIsGreat AllTypesEnum = "THIS_IS_GREAT"
 )
 
+type AllowedMethodNamesIface interface {
+}
+
 type AllowedMethodNames struct {
 }
 
@@ -49258,9 +49294,15 @@ func (a *AllowedMethodNames) SetFoo() {
     // jsiiruntime.methodcall(a)
 }
 
+type AmbiguousParametersIface interface {
+}
+
 type AmbiguousParameters struct {
-    props StructParameterType
-    scope Bell
+    Props StructParameterType
+    Scope Bell
+}
+
+type AnonymousImplementationProviderIface interface {
 }
 
 type AnonymousImplementationProvider struct {
@@ -49272,6 +49314,9 @@ func (a *AnonymousImplementationProvider) ProvideAsClass() Implementation {
 
 func (a *AnonymousImplementationProvider) ProvideAsInterface() IAnonymouslyImplementMe {
     // jsiiruntime.methodcall(a)
+}
+
+type AsyncVirtualMethodsIface interface {
 }
 
 type AsyncVirtualMethods struct {
@@ -49301,6 +49346,9 @@ func (a *AsyncVirtualMethods) OverrideMeToo() number {
     // jsiiruntime.methodcall(a)
 }
 
+type AugmentableClassIface interface {
+}
+
 type AugmentableClass struct {
 }
 
@@ -49312,24 +49360,36 @@ func (a *AugmentableClass) MethodTwo() {
     // jsiiruntime.methodcall(a)
 }
 
+type BaseJsii976Iface interface {
+}
+
 type BaseJsii976 struct {
 }
 
+type BellIface interface {
+}
+
 type Bell struct {
-    rung boolean
+    Rung boolean
 }
 
 func (b *Bell) Ring() {
     // jsiiruntime.methodcall(b)
 }
 
+type BinaryOperationIface interface {
+}
+
 type BinaryOperation struct {
-    lhs Value
-    rhs Value
+    Lhs Value
+    Rhs Value
 }
 
 func (b *BinaryOperation) Hello() string {
     // jsiiruntime.methodcall(b)
+}
+
+type BurriedAnonymousObjectIface interface {
 }
 
 type BurriedAnonymousObject struct {
@@ -49343,13 +49403,16 @@ func (b *BurriedAnonymousObject) GiveItBack() any {
     // jsiiruntime.methodcall(b)
 }
 
+type CalculatorIface interface {
+}
+
 type Calculator struct {
-    expression Value
-    operationsLog Array<@scope/jsii-calc-lib.Value>
-    operationsMap Map<string => Array<@scope/jsii-calc-lib.Value>>
-    curr Value
-    maxValue number
-    unionProperty jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power
+    Expression Value
+    OperationsLog Array<@scope/jsii-calc-lib.Value>
+    OperationsMap Map<string => Array<@scope/jsii-calc-lib.Value>>
+    Curr Value
+    MaxValue number
+    UnionProperty jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power
 }
 
 func (c *Calculator) Add() {
@@ -49384,25 +49447,34 @@ type ChildStruct982 interface {
     setbar()
 }
 
+type ClassThatImplementsTheInternalInterfaceIface interface {
+}
+
 type ClassThatImplementsTheInternalInterface struct {
-    a string
-    b string
-    c string
-    d string
+    A string
+    B string
+    C string
+    D string
+}
+
+type ClassThatImplementsThePrivateInterfaceIface interface {
 }
 
 type ClassThatImplementsThePrivateInterface struct {
-    a string
-    b string
-    c string
-    e string
+    A string
+    B string
+    C string
+    E string
+}
+
+type ClassWithCollectionsIface interface {
 }
 
 type ClassWithCollections struct {
-    staticArray Array<string>
-    staticMap Map<string => string>
-    array Array<string>
-    map Map<string => string>
+    StaticArray Array<string>
+    StaticMap Map<string => string>
+    Array Array<string>
+    Map Map<string => string>
 }
 
 func (c *ClassWithCollections) CreateAList() Array<string> {
@@ -49413,32 +49485,47 @@ func (c *ClassWithCollections) CreateAMap() Map<string => string> {
     // jsiiruntime.methodcall(c)
 }
 
+type ClassWithDocsIface interface {
+}
+
 type ClassWithDocs struct {
 }
 
+type ClassWithJavaReservedWordsIface interface {
+}
+
 type ClassWithJavaReservedWords struct {
-    int string
+    Int string
 }
 
 func (c *ClassWithJavaReservedWords) Import() string {
     // jsiiruntime.methodcall(c)
 }
 
+type ClassWithMutableObjectLiteralPropertyIface interface {
+}
+
 type ClassWithMutableObjectLiteralProperty struct {
-    mutableObject IMutableObjectLiteral
+    MutableObject IMutableObjectLiteral
+}
+
+type ClassWithPrivateConstructorAndAutomaticPropertiesIface interface {
 }
 
 type ClassWithPrivateConstructorAndAutomaticProperties struct {
-    readOnlyString string
-    readWriteString string
+    ReadOnlyString string
+    ReadWriteString string
 }
 
 func (c *ClassWithPrivateConstructorAndAutomaticProperties) Create() ClassWithPrivateConstructorAndAutomaticProperties {
     // jsiiruntime.methodcall(c)
 }
 
+type ConfusingToJacksonIface interface {
+}
+
 type ConfusingToJackson struct {
-    unionProperty @scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>
+    UnionProperty @scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>
 }
 
 func (c *ConfusingToJackson) MakeInstance() ConfusingToJackson {
@@ -49454,7 +49541,13 @@ type ConfusingToJacksonStruct interface {
     setunionproperty()
 }
 
+type ConstructorPassesThisOutIface interface {
+}
+
 type ConstructorPassesThisOut struct {
+}
+
+type ConstructorsIface interface {
 }
 
 type Constructors struct {
@@ -49488,11 +49581,17 @@ func (c *Constructors) MakeInterfaces() Array<jsii-calc.IPublicInterface> {
     // jsiiruntime.methodcall(c)
 }
 
+type ConsumePureInterfaceIface interface {
+}
+
 type ConsumePureInterface struct {
 }
 
 func (c *ConsumePureInterface) WorkItBaby() StructB {
     // jsiiruntime.methodcall(c)
+}
+
+type ConsumerCanRingBellIface interface {
 }
 
 type ConsumerCanRingBell struct {
@@ -49530,6 +49629,9 @@ func (c *ConsumerCanRingBell) WhenTypedAsClass() boolean {
     // jsiiruntime.methodcall(c)
 }
 
+type ConsumersOfThisCrazyTypeSystemIface interface {
+}
+
 type ConsumersOfThisCrazyTypeSystem struct {
 }
 
@@ -49539,6 +49641,9 @@ func (c *ConsumersOfThisCrazyTypeSystem) ConsumeAnotherPublicInterface() string 
 
 func (c *ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface() any {
     // jsiiruntime.methodcall(c)
+}
+
+type DataRendererIface interface {
 }
 
 type DataRenderer struct {
@@ -49556,10 +49661,16 @@ func (d *DataRenderer) RenderMap() string {
     // jsiiruntime.methodcall(d)
 }
 
+type DefaultedConstructorArgumentIface interface {
+}
+
 type DefaultedConstructorArgument struct {
-    arg1 number
-    arg3 date
-    arg2 string
+    Arg1 number
+    Arg3 date
+    Arg2 string
+}
+
+type Demonstrate982Iface interface {
 }
 
 type Demonstrate982 struct {
@@ -49573,9 +49684,12 @@ func (d *Demonstrate982) TakeThisToo() ParentStruct982 {
     // jsiiruntime.methodcall(d)
 }
 
+type DeprecatedClassIface interface {
+}
+
 type DeprecatedClass struct {
-    readonlyProperty string
-    mutableProperty number
+    ReadonlyProperty string
+    MutableProperty number
 }
 
 func (d *DeprecatedClass) Method() {
@@ -49629,9 +49743,15 @@ type DiamondInheritanceTopLevelStruct interface {
     settoplevelproperty()
 }
 
+type DisappointingCollectionSourceIface interface {
+}
+
 type DisappointingCollectionSource struct {
-    maybeList Array<string>
-    maybeMap Map<string => number>
+    MaybeList Array<string>
+    MaybeMap Map<string => number>
+}
+
+type DoNotOverridePrivatesIface interface {
 }
 
 type DoNotOverridePrivates struct {
@@ -49649,11 +49769,17 @@ func (d *DoNotOverridePrivates) PrivatePropertyValue() string {
     // jsiiruntime.methodcall(d)
 }
 
+type DoNotRecognizeAnyAsOptionalIface interface {
+}
+
 type DoNotRecognizeAnyAsOptional struct {
 }
 
 func (d *DoNotRecognizeAnyAsOptional) Method() {
     // jsiiruntime.methodcall(d)
+}
+
+type DocumentedClassIface interface {
 }
 
 type DocumentedClass struct {
@@ -49667,11 +49793,17 @@ func (d *DocumentedClass) Hola() {
     // jsiiruntime.methodcall(d)
 }
 
+type DontComplainAboutVariadicAfterOptionalIface interface {
+}
+
 type DontComplainAboutVariadicAfterOptional struct {
 }
 
 func (d *DontComplainAboutVariadicAfterOptional) OptionalAndVariadic() string {
     // jsiiruntime.methodcall(d)
+}
+
+type DoubleTroubleIface interface {
 }
 
 type DoubleTrouble struct {
@@ -49685,6 +49817,9 @@ func (d *DoubleTrouble) Next() number {
     // jsiiruntime.methodcall(d)
 }
 
+type EnumDispenserIface interface {
+}
+
 type EnumDispenser struct {
 }
 
@@ -49694,6 +49829,9 @@ func (e *EnumDispenser) RandomIntegerLikeEnum() AllTypesEnum {
 
 func (e *EnumDispenser) RandomStringLikeEnum() StringEnum {
     // jsiiruntime.methodcall(e)
+}
+
+type EraseUndefinedHashValuesIface interface {
 }
 
 type EraseUndefinedHashValues struct {
@@ -49718,9 +49856,12 @@ type EraseUndefinedHashValuesOptions interface {
     setoption2()
 }
 
+type ExperimentalClassIface interface {
+}
+
 type ExperimentalClass struct {
-    readonlyProperty string
-    mutableProperty number
+    ReadonlyProperty string
+    MutableProperty number
 }
 
 func (e *ExperimentalClass) Method() {
@@ -49739,8 +49880,11 @@ type ExperimentalStruct interface {
     setreadonlyproperty()
 }
 
+type ExportedBaseClassIface interface {
+}
+
 type ExportedBaseClass struct {
-    success boolean
+    Success boolean
 }
 
 type ExtendsInternalInterface interface {
@@ -49750,9 +49894,12 @@ type ExtendsInternalInterface interface {
     setprop()
 }
 
+type ExternalClassIface interface {
+}
+
 type ExternalClass struct {
-    readonlyProperty string
-    mutableProperty number
+    ReadonlyProperty string
+    MutableProperty number
 }
 
 func (e *ExternalClass) Method() {
@@ -49771,8 +49918,11 @@ type ExternalStruct interface {
     setreadonlyproperty()
 }
 
+type GiveMeStructsIface interface {
+}
+
 type GiveMeStructs struct {
-    structLiteral StructWithOnlyOptionals
+    StructLiteral StructWithOnlyOptionals
 }
 
 func (g *GiveMeStructs) DerivedToFirst() MyFirstStruct {
@@ -49790,6 +49940,9 @@ func (g *GiveMeStructs) ReadFirstNumber() number {
 type Greetee interface {
     getname() string
     setname()
+}
+
+type GreetingAugmenterIface interface {
 }
 
 type GreetingAugmenter struct {
@@ -49978,12 +50131,21 @@ type IStructReturningDelegate interface {
     returnstruct() StructB
 }
 
+type ImplementInternalInterfaceIface interface {
+}
+
 type ImplementInternalInterface struct {
-    prop string
+    Prop string
+}
+
+type ImplementationIface interface {
 }
 
 type Implementation struct {
-    value number
+    Value number
+}
+
+type ImplementsInterfaceWithInternalIface interface {
 }
 
 type ImplementsInterfaceWithInternal struct {
@@ -49993,11 +50155,17 @@ func (i *ImplementsInterfaceWithInternal) Visible() {
     // jsiiruntime.methodcall(i)
 }
 
+type ImplementsInterfaceWithInternalSubclassIface interface {
+}
+
 type ImplementsInterfaceWithInternalSubclass struct {
 }
 
+type ImplementsPrivateInterfaceIface interface {
+}
+
 type ImplementsPrivateInterface struct {
-    private string
+    Private string
 }
 
 type ImplictBaseOfBase interface {
@@ -50005,11 +50173,17 @@ type ImplictBaseOfBase interface {
     setgoo()
 }
 
+type InbetweenClassIface interface {
+}
+
 type InbetweenClass struct {
 }
 
 func (i *InbetweenClass) Ciao() string {
     // jsiiruntime.methodcall(i)
+}
+
+type InterfaceCollectionsIface interface {
 }
 
 type InterfaceCollections struct {
@@ -50031,11 +50205,17 @@ func (i *InterfaceCollections) MapOfStructs() Map<string => jsii-calc.StructA> {
     // jsiiruntime.methodcall(i)
 }
 
+type InterfacesMakerIface interface {
+}
+
 type InterfacesMaker struct {
 }
 
 func (i *InterfacesMaker) MakeInterfaces() Array<@scope/jsii-calc-lib.IDoublable> {
     // jsiiruntime.methodcall(i)
+}
+
+type IsomorphismIface interface {
 }
 
 type Isomorphism struct {
@@ -50045,8 +50225,11 @@ func (i *Isomorphism) Myself() Isomorphism {
     // jsiiruntime.methodcall(i)
 }
 
+type JSII417DerivedIface interface {
+}
+
 type JSII417Derived struct {
-    property string
+    Property string
 }
 
 func (j *JSII417Derived) Bar() {
@@ -50057,8 +50240,11 @@ func (j *JSII417Derived) Baz() {
     // jsiiruntime.methodcall(j)
 }
 
+type JSII417PublicBaseOfBaseIface interface {
+}
+
 type JSII417PublicBaseOfBase struct {
-    hasRoot boolean
+    HasRoot boolean
 }
 
 func (j *JSII417PublicBaseOfBase) MakeInstance() JSII417PublicBaseOfBase {
@@ -50067,6 +50253,9 @@ func (j *JSII417PublicBaseOfBase) MakeInstance() JSII417PublicBaseOfBase {
 
 func (j *JSII417PublicBaseOfBase) Foo() {
     // jsiiruntime.methodcall(j)
+}
+
+type JSObjectLiteralForInterfaceIface interface {
 }
 
 type JSObjectLiteralForInterface struct {
@@ -50080,6 +50269,9 @@ func (j *JSObjectLiteralForInterface) GiveMeFriendlyGenerator() IFriendlyRandomG
     // jsiiruntime.methodcall(j)
 }
 
+type JSObjectLiteralToNativeIface interface {
+}
+
 type JSObjectLiteralToNative struct {
 }
 
@@ -50087,13 +50279,19 @@ func (j *JSObjectLiteralToNative) ReturnLiteral() JSObjectLiteralToNativeClass {
     // jsiiruntime.methodcall(j)
 }
 
+type JSObjectLiteralToNativeClassIface interface {
+}
+
 type JSObjectLiteralToNativeClass struct {
-    propA string
-    propB number
+    PropA string
+    PropB number
+}
+
+type JavaReservedWordsIface interface {
 }
 
 type JavaReservedWords struct {
-    while string
+    While string
 }
 
 func (j *JavaReservedWords) Abstract() {
@@ -50304,14 +50502,26 @@ func (j *JavaReservedWords) Volatile() {
     // jsiiruntime.methodcall(j)
 }
 
+type Jsii487DerivedIface interface {
+}
+
 type Jsii487Derived struct {
+}
+
+type Jsii496DerivedIface interface {
 }
 
 type Jsii496Derived struct {
 }
 
+type JsiiAgentIface interface {
+}
+
 type JsiiAgent struct {
-    jsiiAgent string
+    JsiiAgent string
+}
+
+type JsonFormatterIface interface {
 }
 
 type JsonFormatter struct {
@@ -50386,16 +50596,22 @@ type LoadBalancedFargateServiceProps interface {
     setpublictasks()
 }
 
+type MethodNamedPropertyIface interface {
+}
+
 type MethodNamedProperty struct {
-    elite number
+    Elite number
 }
 
 func (m *MethodNamedProperty) Property() string {
     // jsiiruntime.methodcall(m)
 }
 
+type MultiplyIface interface {
+}
+
 type Multiply struct {
-    value number
+    Value number
 }
 
 func (m *Multiply) Farewell() string {
@@ -50414,8 +50630,11 @@ func (m *Multiply) ToString() string {
     // jsiiruntime.methodcall(m)
 }
 
+type NegateIface interface {
+}
+
 type Negate struct {
-    value number
+    Value number
 }
 
 func (n *Negate) Farewell() string {
@@ -50434,6 +50653,9 @@ func (n *Negate) ToString() string {
     // jsiiruntime.methodcall(n)
 }
 
+type NestedClassInstanceIface interface {
+}
+
 type NestedClassInstance struct {
 }
 
@@ -50446,8 +50668,11 @@ type NestedStruct interface {
     setnumberprop()
 }
 
+type NodeStandardLibraryIface interface {
+}
+
 type NodeStandardLibrary struct {
-    osPlatform string
+    OsPlatform string
 }
 
 func (n *NodeStandardLibrary) CryptoSha256() string {
@@ -50462,8 +50687,11 @@ func (n *NodeStandardLibrary) FsReadFileSync() string {
     // jsiiruntime.methodcall(n)
 }
 
+type NullShouldBeTreatedAsUndefinedIface interface {
+}
+
 type NullShouldBeTreatedAsUndefined struct {
-    changeMeToUndefined string
+    ChangeMeToUndefined string
 }
 
 func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined() {
@@ -50485,8 +50713,11 @@ type NullShouldBeTreatedAsUndefinedData interface {
     setthisshouldbeundefined()
 }
 
+type NumberGeneratorIface interface {
+}
+
 type NumberGenerator struct {
-    generator IRandomNumberGenerator
+    Generator IRandomNumberGenerator
 }
 
 func (n *NumberGenerator) IsSameGenerator() boolean {
@@ -50495,6 +50726,9 @@ func (n *NumberGenerator) IsSameGenerator() boolean {
 
 func (n *NumberGenerator) NextTimes100() number {
     // jsiiruntime.methodcall(n)
+}
+
+type ObjectRefsInCollectionsIface interface {
 }
 
 type ObjectRefsInCollections struct {
@@ -50508,6 +50742,9 @@ func (o *ObjectRefsInCollections) SumFromMap() number {
     // jsiiruntime.methodcall(o)
 }
 
+type ObjectWithPropertyProviderIface interface {
+}
+
 type ObjectWithPropertyProvider struct {
 }
 
@@ -50515,11 +50752,17 @@ func (o *ObjectWithPropertyProvider) Provide() IObjectWithProperty {
     // jsiiruntime.methodcall(o)
 }
 
+type OldIface interface {
+}
+
 type Old struct {
 }
 
 func (o *Old) DoAThing() {
     // jsiiruntime.methodcall(o)
+}
+
+type OptionalArgumentInvokerIface interface {
 }
 
 type OptionalArgumentInvoker struct {
@@ -50533,10 +50776,13 @@ func (o *OptionalArgumentInvoker) InvokeWithoutOptional() {
     // jsiiruntime.methodcall(o)
 }
 
+type OptionalConstructorArgumentIface interface {
+}
+
 type OptionalConstructorArgument struct {
-    arg1 number
-    arg2 string
-    arg3 date
+    Arg1 number
+    Arg2 string
+    Arg3 date
 }
 
 type OptionalStruct interface {
@@ -50544,14 +50790,20 @@ type OptionalStruct interface {
     setfield()
 }
 
+type OptionalStructConsumerIface interface {
+}
+
 type OptionalStructConsumer struct {
-    parameterWasUndefined boolean
-    fieldValue string
+    ParameterWasUndefined boolean
+    FieldValue string
+}
+
+type OverridableProtectedMemberIface interface {
 }
 
 type OverridableProtectedMember struct {
-    overrideReadOnly string
-    overrideReadWrite string
+    OverrideReadOnly string
+    OverrideReadWrite string
 }
 
 func (o *OverridableProtectedMember) OverrideMe() string {
@@ -50566,6 +50818,9 @@ func (o *OverridableProtectedMember) ValueFromProtected() string {
     // jsiiruntime.methodcall(o)
 }
 
+type OverrideReturnsObjectIface interface {
+}
+
 type OverrideReturnsObject struct {
 }
 
@@ -50578,11 +50833,17 @@ type ParentStruct982 interface {
     setfoo()
 }
 
+type PartiallyInitializedThisConsumerIface interface {
+}
+
 type PartiallyInitializedThisConsumer struct {
 }
 
 func (p *PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis() string {
     // jsiiruntime.methodcall(p)
+}
+
+type PolymorphismIface interface {
 }
 
 type Polymorphism struct {
@@ -50592,15 +50853,24 @@ func (p *Polymorphism) SayHello() string {
     // jsiiruntime.methodcall(p)
 }
 
+type PowerIface interface {
+}
+
 type Power struct {
-    base Value
-    expression Value
-    pow Value
+    Base Value
+    Expression Value
+    Pow Value
+}
+
+type PropertyNamedPropertyIface interface {
 }
 
 type PropertyNamedProperty struct {
-    property string
-    yetAnoterOne boolean
+    Property string
+    YetAnoterOne boolean
+}
+
+type PublicClassIface interface {
 }
 
 type PublicClass struct {
@@ -50608,6 +50878,9 @@ type PublicClass struct {
 
 func (p *PublicClass) Hello() {
     // jsiiruntime.methodcall(p)
+}
+
+type PythonReservedWordsIface interface {
 }
 
 type PythonReservedWords struct {
@@ -50741,8 +51014,11 @@ func (p *PythonReservedWords) Yield() {
     // jsiiruntime.methodcall(p)
 }
 
+type ReferenceEnumFromScopedPackageIface interface {
+}
+
 type ReferenceEnumFromScopedPackage struct {
-    foo EnumFromScopedModule
+    Foo EnumFromScopedModule
 }
 
 func (r *ReferenceEnumFromScopedPackage) LoadFoo() EnumFromScopedModule {
@@ -50753,8 +51029,11 @@ func (r *ReferenceEnumFromScopedPackage) SaveFoo() {
     // jsiiruntime.methodcall(r)
 }
 
+type ReturnsPrivateImplementationOfInterfaceIface interface {
+}
+
 type ReturnsPrivateImplementationOfInterface struct {
-    privateImplementation IPrivatelyImplemented
+    PrivateImplementation IPrivatelyImplemented
 }
 
 type RootStruct interface {
@@ -50764,11 +51043,17 @@ type RootStruct interface {
     setnestedstruct()
 }
 
+type RootStructValidatorIface interface {
+}
+
 type RootStructValidator struct {
 }
 
 func (r *RootStructValidator) Validate() {
     // jsiiruntime.methodcall(r)
+}
+
+type RuntimeTypeCheckingIface interface {
 }
 
 type RuntimeTypeChecking struct {
@@ -50793,6 +51078,9 @@ type SecondLevelStruct interface {
     setdeeperoptionalprop()
 }
 
+type SingleInstanceTwoTypesIface interface {
+}
+
 type SingleInstanceTwoTypes struct {
 }
 
@@ -50802,6 +51090,9 @@ func (s *SingleInstanceTwoTypes) Interface1() InbetweenClass {
 
 func (s *SingleInstanceTwoTypes) Interface2() IPublicInterface {
     // jsiiruntime.methodcall(s)
+}
+
+type SingletonIntIface interface {
 }
 
 type SingletonInt struct {
@@ -50816,6 +51107,9 @@ type SingletonIntEnum string
 const (
     SingletonIntEnumSingletonInt SingletonIntEnum = "SINGLETON_INT"
 )
+
+type SingletonStringIface interface {
+}
 
 type SingletonString struct {
 }
@@ -50837,6 +51131,9 @@ type SmellyStruct interface {
     setyetanoterone()
 }
 
+type SomeTypeJsii976Iface interface {
+}
+
 type SomeTypeJsii976 struct {
 }
 
@@ -50848,9 +51145,12 @@ func (s *SomeTypeJsii976) ReturnReturn() IReturnJsii976 {
     // jsiiruntime.methodcall(s)
 }
 
+type StableClassIface interface {
+}
+
 type StableClass struct {
-    readonlyProperty string
-    mutableProperty number
+    ReadonlyProperty string
+    MutableProperty number
 }
 
 func (s *StableClass) Method() {
@@ -50869,22 +51169,28 @@ type StableStruct interface {
     setreadonlyproperty()
 }
 
+type StaticContextIface interface {
+}
+
 type StaticContext struct {
-    staticVariable boolean
+    StaticVariable boolean
 }
 
 func (s *StaticContext) CanAccessStaticContext() boolean {
     // jsiiruntime.methodcall(s)
 }
 
+type StaticsIface interface {
+}
+
 type Statics struct {
-    BAR number
+    Bar number
     ConstObj DoubleTrouble
     Foo string
-    zooBar Map<string => string>
-    instance Statics
-    nonConstStatic number
-    value string
+    ZooBar Map<string => string>
+    Instance Statics
+    NonConstStatic number
+    Value string
 }
 
 func (s *Statics) StaticMethod() string {
@@ -50903,8 +51209,11 @@ const (
     StringEnumC StringEnum = "C"
 )
 
+type StripInternalIface interface {
+}
+
 type StripInternal struct {
-    youSeeMe string
+    YouSeeMe string
 }
 
 type StructA interface {
@@ -50932,6 +51241,9 @@ type StructParameterType interface {
     setprops()
 }
 
+type StructPassingIface interface {
+}
+
 type StructPassing struct {
 }
 
@@ -50941,6 +51253,9 @@ func (s *StructPassing) HowManyVarArgsDidIPass() number {
 
 func (s *StructPassing) RoundTrip() TopLevelStruct {
     // jsiiruntime.methodcall(s)
+}
+
+type StructUnionConsumerIface interface {
 }
 
 type StructUnionConsumer struct {
@@ -50965,14 +51280,20 @@ type StructWithJavaReservedWords interface {
     setthat()
 }
 
+type SumIface interface {
+}
+
 type Sum struct {
-    expression Value
-    parts Array<@scope/jsii-calc-lib.Value>
+    Expression Value
+    Parts Array<@scope/jsii-calc-lib.Value>
+}
+
+type SupportsNiceJavaBuilderIface interface {
 }
 
 type SupportsNiceJavaBuilder struct {
-    id number
-    rest Array<string>
+    Id number
+    Rest Array<string>
 }
 
 type SupportsNiceJavaBuilderProps interface {
@@ -50982,19 +51303,25 @@ type SupportsNiceJavaBuilderProps interface {
     setid()
 }
 
+type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
+}
+
 type SupportsNiceJavaBuilderWithRequiredProps struct {
-    bar number
-    id number
-    propId string
+    Bar number
+    Id number
+    PropId string
+}
+
+type SyncVirtualMethodsIface interface {
 }
 
 type SyncVirtualMethods struct {
-    readonlyProperty string
-    a number
-    callerIsProperty number
-    otherProperty string
-    theProperty string
-    valueOfOtherProperty string
+    ReadonlyProperty string
+    A number
+    CallerIsProperty number
+    OtherProperty string
+    TheProperty string
+    ValueOfOtherProperty string
 }
 
 func (s *SyncVirtualMethods) CallerIsAsync() number {
@@ -51037,6 +51364,9 @@ func (s *SyncVirtualMethods) WriteA() {
     // jsiiruntime.methodcall(s)
 }
 
+type ThrowerIface interface {
+}
+
 type Thrower struct {
 }
 
@@ -51053,6 +51383,9 @@ type TopLevelStruct interface {
     setoptional()
 }
 
+type UmaskCheckIface interface {
+}
+
 type UmaskCheck struct {
 }
 
@@ -51060,8 +51393,11 @@ func (u *UmaskCheck) Mode() number {
     // jsiiruntime.methodcall(u)
 }
 
+type UnaryOperationIface interface {
+}
+
 type UnaryOperation struct {
-    operand Value
+    Operand Value
 }
 
 type UnionProperties interface {
@@ -51071,9 +51407,15 @@ type UnionProperties interface {
     setfoo()
 }
 
+type UpcasingReflectableIface interface {
+}
+
 type UpcasingReflectable struct {
-    reflector Reflector
-    entries Array<@scope/jsii-calc-lib.submodule.ReflectableEntry>
+    Reflector Reflector
+    Entries Array<@scope/jsii-calc-lib.submodule.ReflectableEntry>
+}
+
+type UseBundledDependencyIface interface {
 }
 
 type UseBundledDependency struct {
@@ -51083,6 +51425,9 @@ func (u *UseBundledDependency) Value() any {
     // jsiiruntime.methodcall(u)
 }
 
+type UseCalcBaseIface interface {
+}
+
 type UseCalcBase struct {
 }
 
@@ -51090,8 +51435,11 @@ func (u *UseCalcBase) Hello() Base {
     // jsiiruntime.methodcall(u)
 }
 
+type UsesInterfaceWithPropertiesIface interface {
+}
+
 type UsesInterfaceWithProperties struct {
-    obj IInterfaceWithProperties
+    Obj IInterfaceWithProperties
 }
 
 func (u *UsesInterfaceWithProperties) JustRead() string {
@@ -51106,6 +51454,9 @@ func (u *UsesInterfaceWithProperties) WriteAndRead() string {
     // jsiiruntime.methodcall(u)
 }
 
+type VariadicInvokerIface interface {
+}
+
 type VariadicInvoker struct {
 }
 
@@ -51113,11 +51464,17 @@ func (v *VariadicInvoker) AsArray() Array<number> {
     // jsiiruntime.methodcall(v)
 }
 
+type VariadicMethodIface interface {
+}
+
 type VariadicMethod struct {
 }
 
 func (v *VariadicMethod) AsArray() Array<number> {
     // jsiiruntime.methodcall(v)
+}
+
+type VirtualMethodPlaygroundIface interface {
 }
 
 type VirtualMethodPlayground struct {
@@ -51143,8 +51500,11 @@ func (v *VirtualMethodPlayground) SumSync() number {
     // jsiiruntime.methodcall(v)
 }
 
+type VoidCallbackIface interface {
+}
+
 type VoidCallback struct {
-    methodWasCalled boolean
+    MethodWasCalled boolean
 }
 
 func (v *VoidCallback) CallMe() {
@@ -51155,8 +51515,11 @@ func (v *VoidCallback) OverrideMe() {
     // jsiiruntime.methodcall(v)
 }
 
+type WithPrivatePropertyInConstructorIface interface {
+}
+
 type WithPrivatePropertyInConstructor struct {
-    success boolean
+    Success boolean
 }
 
 
