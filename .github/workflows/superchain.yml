@@ -33,7 +33,7 @@ jobs:
             -v${{ github.workspace }}:${{ github.workspace }}                   \
             -w${{ github.workspace }}                                           \
             'jsii/superchain:nightly'                                           \
-            "yarn install --frozen-lockfile && yarn build && yarn test"
+            bash -c "yarn install --frozen-lockfile && yarn build && yarn test"
       - name: Dump Image
         run: |-
           docker image save 'jsii/superchain:nightly'                           \
