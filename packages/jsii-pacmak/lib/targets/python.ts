@@ -45,7 +45,7 @@ export default class Python extends Target {
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
     // Create a fresh virtual env
-    const venv = await fs.mkdtemp(path.join(sourceDir, '.env'));
+    const venv = await fs.mkdtemp(path.join(sourceDir, '.env-'));
     const venvBin = path.join(
       venv,
       process.platform === 'win32' ? 'Scripts' : 'bin',
@@ -72,6 +72,8 @@ export default class Python extends Target {
       },
     );
 
+    // outDir must exist for pep517.build to work
+    await fs.mkdirp(outDir);
     // Actually package up our code, both as a sdist and a wheel for publishing.
     await shell(
       python,

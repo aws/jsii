@@ -3,10 +3,10 @@ import os
 
 import attr
 
-from jsii import _reference_map
-from jsii._compat import importlib_resources
-from jsii._kernel import Kernel
-from jsii.python import _ClassPropertyMeta
+from . import _reference_map
+from ._compat import importlib_resources
+from ._kernel import Kernel
+from .python import _ClassPropertyMeta
 
 
 # Yea, a global here is kind of gross, however, there's not really a better way of

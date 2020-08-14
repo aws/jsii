@@ -1,8 +1,8 @@
 from typing import Union, List, Any, Optional, Mapping
+from typing_extensions import Protocol
 
 import attr
 
-from jsii.compat import Protocol
 
 
 # TODO:
