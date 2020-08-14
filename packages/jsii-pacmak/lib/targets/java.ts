@@ -431,6 +431,8 @@ export default class Java extends Target {
     await shell(
       'mvn',
       [
+        // If we don't run in verbose mode, turn on quiet mode
+        ...(this.arguments.verbose ? [] : ['--quiet']),
         ...mvnArguments,
         'deploy',
         `-D=altDeploymentRepository=local::default::${url}`,
