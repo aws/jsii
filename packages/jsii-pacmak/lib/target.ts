@@ -90,11 +90,19 @@ export async function findLocalBuildDirs(
   rootPackageDir: string,
   targetName: string,
 ) {
+  const visitedDirectories = new Set<string>();
+
   const results = new Set<string>();
   await recurse(rootPackageDir, true);
   return Array.from(results);
 
   async function recurse(packageDir: string, isRoot: boolean) {
+    // Prevent re-processing the same `package.json` over and over again.
+    if (visitedDirectories.has(packageDir)) {
+      return;
+    }
+    visitedDirectories.add(packageDir);
+
     const pkg = await fs.readJson(path.join(packageDir, 'package.json'));
 
     // no jsii or jsii.outdir - either a misconfigured jsii package or a non-jsii dependency. either way, we are done here.
