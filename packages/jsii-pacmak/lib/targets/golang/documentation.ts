@@ -2,6 +2,7 @@ import { Docs } from 'jsii-reflect';
 import { Stability } from '@jsii/spec';
 import { Rosetta } from 'jsii-rosetta';
 import { CodeMaker } from 'codemaker';
+import * as logging from '../../logging';
 
 export class Documentation {
   public constructor(
@@ -21,7 +22,8 @@ export class Documentation {
    * Stability/Deprecation description
    */
   public emit(docs: Docs): void {
-    console.log(this.rosetta); // Placeholder, until rosetta is used
+    // Placeholder, until rosetta is used
+    logging.debug('Rosetta instance: ', this.rosetta);
 
     if (docs.toString() !== '') {
       const lines = docs.toString().split('\n');

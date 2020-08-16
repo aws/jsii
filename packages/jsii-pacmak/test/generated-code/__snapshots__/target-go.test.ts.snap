@@ -12,7 +12,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/golang/scopejsiica
 package scopejsiicalcbase
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
 )
 
@@ -85,7 +85,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/golang/sco
 package scopejsiicalcbaseofbase
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 type IVeryBaseInterface interface {
@@ -171,7 +171,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiical
 package scopejsiicalclib
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase"
 )
@@ -467,7 +467,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiical
 package submodule
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 // Deprecated.
@@ -654,7 +654,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/composition/co
 package composition
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib"
 )
 
@@ -774,7 +774,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/derivedclassha
 package derivedclasshasnoproperties
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 // Class interface
@@ -842,7 +842,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/interfaceinnam
 package interfaceinnamespaceincludesclasses
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 // Class interface
@@ -896,7 +896,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/interfaceinnam
 package interfaceinnamespaceonlyinterface
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 // HelloIface is the public interface for the custom type Hello
@@ -922,7 +922,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/jsiicalc.go 1`
 package jsiicalc
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib"
     "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/composition"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
@@ -8694,7 +8694,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/pythonself/pyt
 package pythonself
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 // Class interface
@@ -8791,7 +8791,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/back
 package backreferences
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
     "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
 )
 
@@ -8817,7 +8817,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/chil
 package child
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 type Awesomeness string
@@ -8959,7 +8959,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/deep
 package deeplynested
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 type INamespaced interface {
@@ -8973,7 +8973,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/isol
 package isolated
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 // Class interface
@@ -9002,7 +9002,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/nest
 package nestedsubmodule
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
     "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
 )
 
@@ -9045,7 +9045,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/subm
 package submodule
 
 import (
-    "github.com/aws-cdk/jsii/jsii"
+    "github.com/aws-cdk/jsii/jsii-experimental"
     "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
     "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
 )

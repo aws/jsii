@@ -7,7 +7,7 @@ import { GoClass, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
 
 // JSII golang runtime module name
-const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
+const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii-experimental';
 
 export type ModuleType = Interface | Enum | GoClass | Struct;
 
