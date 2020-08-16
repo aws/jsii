@@ -1,0 +1,4 @@
+jsii/embedded/*
+jsii-calc
+
+!jsii/embedded/.gitkeep
