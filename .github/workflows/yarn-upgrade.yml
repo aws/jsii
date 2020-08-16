@@ -48,11 +48,11 @@ jobs:
         # We special-case @types/fs-extra because the current major (9.x) is broken with @types/node@10
         run: |-
           # Upgrade dependencies at repository root
-          ncu --upgrade --filter=@types/node,@types/fs-extra --semverLevel=minor
+          ncu --upgrade --filter=@types/node,@types/fs-extra --semverLevel=major
           ncu --upgrade --reject=@types/node,@types/fs-extra
 
           # Upgrade all the packages
-          lerna exec --parallel ncu -- --upgrade --filter=@types/node,@types/fs-extra --semverLevel=minor
+          lerna exec --parallel ncu -- --upgrade --filter=@types/node,@types/fs-extra --semverLevel=major
           lerna exec --parallel ncu -- --upgrade --reject='@types/node,@types/fs-extra,${{ steps.list-packages.outputs.list }}'
 
       # This will create a brand new `yarn.lock` file (this is more efficient than `yarn install && yarn upgrade`)
