@@ -6,6 +6,7 @@ RUN yum -y install deltarpm tar
 # Install .NET Core, mono & PowerShell
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true                                                                                    \
     DOTNET_RUNNING_IN_CONTAINER=true                                                                                    \
+    DOTNET_NOLOGO=true                                                                                                  \
     DOTNET_USE_POLLING_FILE_WATCHER=true                                                                                \
     NUGET_XMLDOC_MODE=skip
 COPY gpg/mono.asc /tmp/mono.asc
@@ -15,12 +16,11 @@ RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"            
   && curl -sSL "https://download.mono-project.com/repo/centos7-stable.repo"                                             \
       | tee /etc/yum.repos.d/mono-centos7-stable.repo                                                                   \
   && yum -y install dotnet-sdk-3.1 mono-devel powershell                                                                \
-  && yum clean all && rm -rf /var/cache/yum                                                                             \
-  && dotnet help
+  && yum clean all && rm -rf /var/cache/yum
 
 # Install Python 3
 RUN yum -y install python3 python3-pip                                                                                  \
-  && python3 -m pip install --upgrade pip setuptools wheel twine black                                                  \
+  && python3 -m pip install --no-input --upgrade pip setuptools wheel twine black                                       \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Ruby 2.6+
@@ -88,6 +88,9 @@ COPY dockerd-entrypoint.sh /usr/local/bin/
 ENV CHARSET=UTF-8                                                                                                       \
     LC_ALL=C.UTF-8
 
+# Add the source used to build this Docker image (to facilitate re-builds, forensics)
+COPY . /docker-source
+
 ## Image Metadata
 ARG BUILD_TIMESTAMP
 ARG COMMIT_ID
@@ -102,8 +105,5 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
 # Upgrade all packages that weren't up-to-date just yet (last so it risks invalidating cache less)
 RUN yum -y upgrade                                                                                                      \
   && yum clean all && rm -rf /var/cache/yum
-
-# Add the source used to build this Docker image (to facilitate re-builds, forensics)
-COPY . /docker-source
 
 CMD ["/bin/bash"]
