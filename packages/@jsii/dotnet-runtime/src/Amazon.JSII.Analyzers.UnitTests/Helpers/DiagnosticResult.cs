@@ -46,7 +46,7 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
                    && Line == other.Line
                    && Column == other.Column;
         }
-        
+
         public override int GetHashCode()
         {
             return Path.GetHashCode()
@@ -58,7 +58,7 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
         {
             return left.Equals(right);
         }
-        
+
         public static bool operator !=(DiagnosticResultLocation left, DiagnosticResultLocation right)
         {
             return !left.Equals(right);
@@ -107,7 +107,8 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode()
+            return Locations.GetHashCode()
+                   ^ Id.GetHashCode()
                    ^ Severity.GetHashCode()
                    ^ Message.GetHashCode()
                    ^ Path.GetHashCode()
@@ -117,7 +118,8 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
 
         public bool Equals(DiagnosticResult other)
         {
-            return Id == other.Id
+            return Locations == other.Locations
+                   && Id == other.Id
                    && Severity == other.Severity
                    && Message == other.Message
                    && Path == other.Path
@@ -129,7 +131,7 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
         {
             return left.Equals(right);
         }
-        
+
         public static bool operator !=(DiagnosticResult left, DiagnosticResult right)
         {
             return !left.Equals(right);
