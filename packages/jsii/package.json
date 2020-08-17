@@ -57,7 +57,7 @@
     "@types/semver": "^7.3.2",
     "@types/yargs": "^15.0.5",
     "clone": "^2.1.2",
-    "eslint": "^7.6.0",
+    "eslint": "^7.7.0",
     "jest": "^26.4.0",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
