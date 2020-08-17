@@ -1,16 +1,16 @@
 export class Superclass {}
 export class Subclass extends Superclass {}
 
-export class Something {
+export class SomethingBase {
   public something: Superclass = new Superclass();
 }
 
-export class SomethingElse extends Something {
-  public addUnrelatedMember: number = 3;
+export class SomethingElse extends SomethingBase {
+  public addUnrelatedMember = 3;
 }
 
 // Should still fail even though 2-level inheritance
 export class SomethingDifferent extends SomethingElse {
   public something: Subclass = new Subclass();
-  public addUnrelatedMember: number = 1;
+  public addUnrelatedMember = 1;
 }

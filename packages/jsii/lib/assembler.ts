@@ -1331,6 +1331,7 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            classDecl,
           );
         } else if (
           ts.isPropertyDeclaration(memberDecl) ||
@@ -1342,6 +1343,7 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            classDecl,
           );
         } else {
           this._diagnostic(
@@ -1418,7 +1420,12 @@ export class Assembler implements Emitter {
             !this._isPrivateOrInternal(param)
           ) {
             // eslint-disable-next-line no-await-in-loop
-            await this._visitProperty(param, jsiiType, memberEmitContext);
+            await this._visitProperty(
+              param,
+              jsiiType,
+              memberEmitContext,
+              ctorDeclaration.parent,
+            );
           }
         }
       }
@@ -1763,6 +1770,8 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            (type.symbol.valueDeclaration ??
+              type.symbol.declarations[0]) as ts.InterfaceDeclaration,
           );
         } else if (
           ts.isPropertyDeclaration(member.valueDeclaration) ||
@@ -1774,6 +1783,8 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            (type.symbol.valueDeclaration ??
+              type.symbol.declarations[0]) as ts.InterfaceDeclaration,
           );
         } else {
           this._diagnostic(
@@ -1898,6 +1909,7 @@ export class Assembler implements Emitter {
     symbol: ts.Symbol,
     type: spec.ClassType | spec.InterfaceType,
     ctx: EmitContext,
+    declaringTypeDecl: ts.ClassLikeDeclaration | ts.InterfaceDeclaration,
   ) {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
@@ -1921,9 +1933,38 @@ export class Assembler implements Emitter {
       );
       return;
     }
+
+    if (
+      spec.isClassType(type) &&
+      Case.pascal(type.name) === Case.pascal(symbol.name)
+    ) {
+      this._diagnostic(
+        declaration.name,
+        ts.DiagnosticCategory.Error,
+        `Methods cannot be named like the class declaring them (class is ${type.name}, method is ${symbol.name}), as this results in illegal C#`,
+        [
+          {
+            category: ts.DiagnosticCategory.Message,
+            code: JSII_DIAGNOSTICS_CODE,
+            file: declaringTypeDecl.getSourceFile(),
+            start: (declaringTypeDecl.name ?? declaringTypeDecl).getStart(
+              declaringTypeDecl.getSourceFile(),
+            ),
+            length:
+              (declaringTypeDecl.name ?? declaringTypeDecl).getEnd() -
+              (declaringTypeDecl.name ?? declaringTypeDecl).getStart(
+                declaringTypeDecl.getSourceFile(),
+              ),
+            messageText: `The declaring class is introduced here`,
+          },
+        ],
+      );
+      return;
+    }
+
     if (isProhibitedMemberName(symbol.name)) {
       this._diagnostic(
-        declaration,
+        declaration.name,
         ts.DiagnosticCategory.Error,
         `Prohibited member name: ${symbol.name}`,
       );
@@ -2034,6 +2075,7 @@ export class Assembler implements Emitter {
     symbol: ts.Symbol,
     type: spec.ClassType | spec.InterfaceType,
     ctx: EmitContext,
+    declaringTypeDecl: ts.ClassLikeDeclaration | ts.InterfaceDeclaration,
   ) {
     if (type.properties?.find((p) => p.name === symbol.name)) {
       /*
@@ -2051,6 +2093,41 @@ export class Assembler implements Emitter {
         )}`,
       );
     }
+
+    const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
+    const signature = declaration as
+      | ts.PropertySignature
+      | ts.PropertyDeclaration
+      | ts.AccessorDeclaration
+      | ts.ParameterPropertyDeclaration;
+
+    if (
+      spec.isClassType(type) &&
+      Case.pascal(type.name) === Case.pascal(symbol.name)
+    ) {
+      this._diagnostic(
+        signature.name,
+        ts.DiagnosticCategory.Error,
+        `Properties cannot be named like the class declaring them (class is ${type.name}, property is ${symbol.name}), as this results in illegal C#`,
+        [
+          {
+            category: ts.DiagnosticCategory.Message,
+            code: JSII_DIAGNOSTICS_CODE,
+            file: declaringTypeDecl.getSourceFile(),
+            start: (declaringTypeDecl.name ?? declaringTypeDecl).getStart(
+              declaringTypeDecl.getSourceFile(),
+            ),
+            length:
+              (declaringTypeDecl.name ?? declaringTypeDecl).getEnd() -
+              (declaringTypeDecl.name ?? declaringTypeDecl).getStart(
+                declaringTypeDecl.getSourceFile(),
+              ),
+            messageText: `The declaring class is introduced here`,
+          },
+        ],
+      );
+      return;
+    }
     if (isProhibitedMemberName(symbol.name)) {
       this._diagnostic(
         symbol.valueDeclaration,
@@ -2062,11 +2139,6 @@ export class Assembler implements Emitter {
 
     this._warnAboutReservedWords(symbol);
 
-    const signature = symbol.valueDeclaration as
-      | ts.PropertySignature
-      | ts.PropertyDeclaration
-      | ts.AccessorDeclaration
-      | ts.ParameterPropertyDeclaration;
     const property: spec.Property = {
       ...(await this._optionalValue(
         this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature),

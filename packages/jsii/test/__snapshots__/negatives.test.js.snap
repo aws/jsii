@@ -197,7 +197,7 @@ exports[`implementation-changes-types.3 1`] = `
 `;
 
 exports[`implementation-changes-types.4 1`] = `
-"error TS0: jsii.Something#something changes the type of property when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
+"error TS0: jsii.SomethingImpl#something changes the type of property when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
 "
 `;
 
@@ -267,12 +267,12 @@ exports[`inheritance-changes-types.3 1`] = `
 `;
 
 exports[`inheritance-changes-types.4 1`] = `
-"error TS0: jsii.SomethingSpecific#something changes the type of property when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
+"error TS0: jsii.SomethingSpecific#something changes the type of property when overriding jsii.SomethingUnspecific (expected jsii.Superclass, found jsii.Subclass)
 "
 `;
 
 exports[`inheritance-changes-types.5 1`] = `
-"error TS0: jsii.SomethingElse#something changes the type of property when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
+"error TS0: jsii.SomethingElse#something changes the type of property when overriding jsii.SomethingBase (expected jsii.Superclass, found jsii.Subclass)
 "
 `;
 
@@ -337,6 +337,28 @@ exports[`internal-underscore-interface.4 1`] = `
 
 2   public _methodWithUnderscoreButNoInternal() {
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`member-named-after-class 1`] = `
+"neg.member-named-after-class.ts:2:19 - error TS9999: JSII: Properties cannot be named like the class declaring them (class is TypeName, property is typeName), as this results in illegal C#
+
+2   public readonly typeName = 1337;
+                    ~~~~~~~~
+
+  neg.member-named-after-class.ts:1:14
+    1 export class TypeName {
+                   ~~~~~~~~
+    Class TypeName is declared here
+neg.member-named-after-class.ts:6:10 - error TS9999: JSII: Methods cannot be named like the class declaring them (class is OtherType, method is otherType), as this results in illegal C#
+
+6   public otherType() {
+           ~~~~~~~~~
+
+  neg.member-named-after-class.ts:5:14
+    5 export class OtherType {
+                   ~~~~~~~~~
+    Class OtherType is declared here
 "
 `;
 
@@ -443,14 +465,10 @@ error TS0: jsii.ChildClass#property changes visibility when overriding jsii.Base
 `;
 
 exports[`prohibited-member-name 1`] = `
-"neg.prohibited-member-name.ts:4:3 - error TS9999: JSII: Prohibited member name: equals
+"neg.prohibited-member-name.ts:4:10 - error TS9999: JSII: Prohibited member name: equals
 
 4   public equals(): boolean {
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-5     return true;
-  ~~~~~~~~~~~~~~~~
-6   }
-  ~~~
+           ~~~~~~
 "
 `;
 
