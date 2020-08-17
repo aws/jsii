@@ -163,7 +163,7 @@ function runMypy(pythonRoot: string): void {
       'pip',
       'install',
       '--no-input',
-      'mypy~=0.782',
+      'mypy>=0.782',
       // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
       path.resolve(require.resolve('@jsii/python-runtime/package.json'), '..'),
     ],

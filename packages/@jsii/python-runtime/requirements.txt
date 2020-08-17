@@ -1,8 +1,8 @@
 black~=19.10b0
-pytest~=6.0.1
-pytest-mypy~=0.6.2
+pytest~=6.0
+pytest-mypy~=0.6
 pip~=20.2
-setuptools~=49.3.2
-wheel~=0.34.2
+setuptools~=49.3
+wheel~=0.34
 
 -e .
