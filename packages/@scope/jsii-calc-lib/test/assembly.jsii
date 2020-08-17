@@ -625,6 +625,40 @@
         }
       ]
     },
+    "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct": {
+      "assembly": "@scope/jsii-calc-lib",
+      "datatype": true,
+      "docs": {
+        "remarks": "Normal.",
+        "stability": "deprecated",
+        "summary": "This is a struct, nested within a class."
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 37
+      },
+      "name": "NestedStruct",
+      "namespace": "submodule.NestingClass",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 38
+          },
+          "name": "name",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "@scope/jsii-calc-lib.submodule.ReflectableEntry": {
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
@@ -723,5 +757,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "f/4VuNiOkSgTgLR80loQUAzAuzFi+25rmfLcRWKDCrY="
+  "fingerprint": "mi8mRAruztXaT0gYqEr9O6UHWWWkiz7XpCdNrWQMPuA="
 }

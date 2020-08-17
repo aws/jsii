@@ -10,7 +10,9 @@ import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.ReloadingClassLoader;
 import software.amazon.jsii.tests.calculator.*;
+import software.amazon.jsii.tests.calculator.baseofbase.StaticConsumer;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
+import software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass.NestedStruct;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
 import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
@@ -41,6 +43,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("deprecated")
 @ExtendWith(ComplianceSuiteHarness.class)
 public class ComplianceTest {
+    @Test
+    public void useNestedStruct() {
+        StaticConsumer.consume(
+            new NestedStruct.Builder()
+                .name("Bond, James Bond")
+                .build()
+        );
+    }
+
     /**
      * Verify that we can marshal and unmarshal objects without type information.
      */

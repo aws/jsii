@@ -89,7 +89,7 @@ public final class JsiiObjectMapper {
     module.setSerializers(new JsiiSerializers());
     module.addSerializer(Enum.class, new EnumSerializer());
     module.addSerializer(Instant.class, new InstantSerializer());
-    module.addSerializer(JsiiSerializable.class, new JsiiSerializer());
+    module.addSerializer(JsiiSerializable.class, new JsiiSerializer(this.getEngine()));
 
     this.objectMapper.findAndRegisterModules();
     this.objectMapper.registerModule(module);
@@ -202,10 +202,24 @@ public final class JsiiObjectMapper {
    * We use the JsiiSerializable interface as a way to identify "anything jsii-able".
    */
   private static final class JsiiSerializer extends JsonSerializer<JsiiSerializable> {
+    private final JsiiEngine engine;
+
+    public JsiiSerializer(final JsiiEngine engine) {
+      this.engine = engine;
+    }
+
     @Override
     public void serialize(final JsiiSerializable o,
                           final JsonGenerator jsonGenerator,
                           final SerializerProvider serializerProvider) throws IOException {
+      // First, ensure the relevant interfaces' modules have been loaded (in case "o" is a struct instance)
+      for (final Class<?> iface : o.getClass().getInterfaces()) {
+        final Jsii jsii = JsiiEngine.tryGetJsiiAnnotation(iface, true);
+        if (jsii != null) {
+          this.engine.loadModule(jsii.module());
+        }
+      }
+      // Then dump the JSON out
       jsonGenerator.writeTree(o.$jsii$toJson());
     }
   }

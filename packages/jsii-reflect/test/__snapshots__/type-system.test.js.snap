@@ -11,6 +11,7 @@ Array [
 
 exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
 Array [
+  "@scope/jsii-calc-base-of-base.StaticConsumer",
   "@scope/jsii-calc-base-of-base.Very",
   "@scope/jsii-calc-base.Base",
   "@scope/jsii-calc-lib.Number",

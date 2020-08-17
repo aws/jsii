@@ -59,6 +59,36 @@
       ],
       "name": "IVeryBaseInterface"
     },
+    "@scope/jsii-calc-base-of-base.StaticConsumer": {
+      "assembly": "@scope/jsii-calc-base-of-base",
+      "fqn": "@scope/jsii-calc-base-of-base.StaticConsumer",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 15
+      },
+      "methods": [
+        {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 18
+          },
+          "name": "consume",
+          "parameters": [
+            {
+              "name": "_args",
+              "type": {
+                "primitive": "any"
+              },
+              "variadic": true
+            }
+          ],
+          "static": true,
+          "variadic": true
+        }
+      ],
+      "name": "StaticConsumer"
+    },
     "@scope/jsii-calc-base-of-base.Very": {
       "assembly": "@scope/jsii-calc-base-of-base",
       "fqn": "@scope/jsii-calc-base-of-base.Very",
@@ -111,5 +141,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "v3mwSbKGQ2aa8g0DEKIeaEXh3csX7PX2MJJxHVRufhI="
+  "fingerprint": "DziQGJ8nlNWkjkg4nENQT5/9Gl+eeFGRp1b+csGazr8="
 }
