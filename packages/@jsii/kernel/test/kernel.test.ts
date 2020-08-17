@@ -2087,6 +2087,11 @@ async function createCalculatorSandbox(name: string) {
   sandbox.traceEnabled = `${process.env.JSII_DEBUG}` === '1';
 
   sandbox.load({
+    tarball: await preparePackage('@scope/jsii-calc-base-of-base'),
+    name: '@scope/jsii-calc-base-of-base',
+    version: calcBaseVersion,
+  });
+  sandbox.load({
     tarball: await preparePackage('@scope/jsii-calc-base'),
     name: '@scope/jsii-calc-base',
     version: calcBaseVersion,
