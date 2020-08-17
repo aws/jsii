@@ -3,9 +3,9 @@ name: Main
 
 on:
   pull_request:
-    branches: [main, master]
+    branches: [main, master, release]
   push:
-    branches: [main, master]
+    branches: [main, master, release]
 
 env:
   DOTNET_NOLOGO: true
