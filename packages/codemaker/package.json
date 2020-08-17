@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.9",
+    "@types/jest": "^26.0.10",
     "@types/node": "^10.17.28",
     "eslint": "^7.6.0",
     "jest": "^26.4.0",
