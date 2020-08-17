@@ -2,8 +2,8 @@
 requires = [
   "importlib_resources~=3.0.0; python_version < '3.7'",
   "pip~=20.2",
-  "setuptools~=46.1.3",
-  "wheel~=0.34.2",
+  "setuptools~=46.1",
+  "wheel~=0.34",
 ]
 build-backend = "setuptools.build_meta"
 

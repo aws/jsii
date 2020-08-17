@@ -65,7 +65,7 @@ export default class Python extends Target {
     // Install the necessary things
     await shell(
       python,
-      ['-m', 'pip', 'install', '--no-input', 'pep517~=0.8.2', 'twine~=3.2.0'],
+      ['-m', 'pip', 'install', '--no-input', 'pep517~=0.8', 'twine~=3.2'],
       {
         cwd: sourceDir,
         env,
