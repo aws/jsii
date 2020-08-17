@@ -3,14 +3,21 @@ import { Module, RootModule } from '../module';
 import { GoType } from './go-type';
 import { toPascalCase } from 'codemaker';
 
+const GO_ANY = 'jsii.Any';
 class PrimitiveMapper {
+  private readonly MAP: { [key: string]: string } = {
+    number: 'float64',
+    boolean: 'bool',
+    any: GO_ANY,
+    // TODO: Resolve "time" package dependency where needed and change to "time.Time"
+    date: 'string',
+    json: `map[string]${GO_ANY}`,
+  };
+
   public constructor(private readonly name: string) {}
 
   public get goPrimitive(): string {
-    if (this.name === 'number') {
-      return 'float64';
-    }
-    return this.name;
+    return this.MAP[this.name] ?? this.name;
   }
 }
 // TODO: Handle Collection Types
@@ -44,11 +51,16 @@ export class GoTypeRef {
     if (this.reference.primitive) {
       return new PrimitiveMapper(this.reference.primitive).goPrimitive;
     } else if (this.reference.arrayOfType) {
-      const inner = new GoTypeRef(this.root, this.reference.arrayOfType);
-      return `${inner.scopedName(scope)}[]`;
+      const innerName =
+        new GoTypeRef(this.root, this.reference.arrayOfType).scopedName(
+          scope,
+        ) ?? GO_ANY;
+      return `[]${innerName}`;
     } else if (this.reference.mapOfType) {
-      const inner = new GoTypeRef(this.root, this.reference.mapOfType);
-      return `map[string]${inner.scopedName(scope)}`;
+      const innerName =
+        new GoTypeRef(this.root, this.reference.mapOfType).scopedName(scope) ??
+        GO_ANY;
+      return `map[string]${innerName}`;
     } else if (scope.moduleName === this.namespace && this.name) {
       return toPascalCase(this.name);
     } else if (this.name) {
@@ -56,6 +68,6 @@ export class GoTypeRef {
     }
 
     // TODO: This shouldn't happen?
-    return '';
+    return GO_ANY;
   }
 }

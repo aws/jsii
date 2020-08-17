@@ -11,6 +11,7 @@ export interface Module {
   root: RootModule;
   packageName: string;
   moduleName: string;
+  filePath: string;
   file: string;
   submodules: Submodule[];
   types: ModuleTypes;
@@ -58,6 +59,7 @@ function findTypeInTree(module: Module, fqn: string): ModuleType | undefined {
   return undefined;
 }
 
+const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
 export abstract class ModuleFile {
   public constructor(public readonly file: string) {}
   public open(code: CodeMaker): void {
@@ -74,13 +76,15 @@ export class RootModule extends ModuleFile implements Module {
   public readonly packageName: string;
   public readonly moduleName: string;
   public readonly file: string;
+  public readonly filePath: string;
   public readonly root: RootModule;
 
   public constructor(assembly: Assembly) {
     const packageName = assembly.name
       .replace('@', '')
       .replace(/[^a-z0-9_.]/gi, '');
-    const file = `${join(...packageName.split('.'))}.go`;
+    const filePath = join(...packageName.split('.'));
+    const file = `${filePath}.go`;
     super(file);
 
     this.assembly = assembly;
@@ -88,6 +92,7 @@ export class RootModule extends ModuleFile implements Module {
     this.packageName = packageName;
     // moduleName == packageName for root;
     this.moduleName = packageName;
+    this.filePath = filePath;
     this.file = file;
   }
 
@@ -122,15 +127,20 @@ export class RootModule extends ModuleFile implements Module {
     this.open(code);
     code.line(`package ${this.packageName}`);
     code.line();
-    this.dependencies.forEach((mod) => {
-      if (mod.packageName !== this.packageName) {
-        code.line(`import "${mod.packageName}"`);
-      }
-    });
 
-    if (this.dependencies.size) {
-      code.line();
+    code.line('import (');
+    code.indent();
+    code.line(`"${JSII_MODULE_NAME}"`);
+    if (this.dependencies.size > 0) {
+      this.dependencies.forEach((mod) => {
+        if (mod.packageName !== this.packageName) {
+          code.line(`"${mod.packageName}"`);
+        }
+      });
     }
+    code.unindent();
+    code.line(')');
+    code.line();
 
     this.emitTypes(code);
     this.close(code);
@@ -156,6 +166,7 @@ export class Submodule extends ModuleFile implements Module {
   public readonly packageName: string;
   public readonly moduleName: string;
   public readonly file: string;
+  public readonly filePath: string;
   public readonly parent: Module;
   public readonly root: RootModule;
 
@@ -164,12 +175,12 @@ export class Submodule extends ModuleFile implements Module {
     parent: Module,
     submodule: JsiiSubmodule,
   ) {
-    const parentName = parent === root ? '' : `${parent.packageName}/`;
     const moduleName = submodule.name
       .replace('@', '')
       .replace(/[^a-z0-9]/gi, '');
-    const packageName = parentName + moduleName;
-    const file = `${parentName}${moduleName}.go`;
+    const packageName = moduleName;
+    const filePath = `${parent.filePath}/${moduleName}`;
+    const file = `${filePath}.go`;
     super(file);
 
     this.assembly = submodule;
@@ -177,6 +188,7 @@ export class Submodule extends ModuleFile implements Module {
     this.parent = parent;
     this.packageName = packageName;
     this.moduleName = moduleName;
+    this.filePath = filePath;
     this.file = file;
   }
 
@@ -207,15 +219,20 @@ export class Submodule extends ModuleFile implements Module {
     this.open(code);
     code.line(`package ${this.packageName}`);
     code.line();
-    this.dependencies.forEach((mod) => {
-      if (mod.packageName !== this.packageName) {
-        code.line(`import "${mod.packageName}"`);
-      }
-    });
 
-    if (this.dependencies.size) {
-      code.line();
+    code.line('import (');
+    code.indent();
+    code.line(`"${JSII_MODULE_NAME}"`);
+    if (this.dependencies.size > 0) {
+      this.dependencies.forEach((mod) => {
+        if (mod.packageName !== this.packageName) {
+          code.line(`"${mod.packageName}"`);
+        }
+      });
     }
+    code.unindent();
+    code.line(')');
+    code.line();
 
     this.emitTypes(code);
     this.close(code);

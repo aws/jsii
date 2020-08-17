@@ -24,7 +24,12 @@ export class ClassProperty extends ClassField {
       this.references?.scopedName(this.parent.parent) ??
       this.property.toString();
 
-    code.line(`${name} ${type}`);
+    // If struct property is type of parent struct, use a pointer as type to avoid recursive struct type error
+    if (this.references?.type?.name === this.parent.name) {
+      code.line(`${name} *${type}`);
+    } else {
+      code.line(`${name} ${type}`);
+    }
   }
 
   public emitForInterface(code: CodeMaker) {
@@ -42,6 +47,12 @@ export class ClassProperty extends ClassField {
 
 export class ClassMethod extends ClassField {
   public readonly references?: GoTypeRef;
+  private readonly NOOP_RETURN_MAP: { [type: string]: string } = {
+    float64: '0.0',
+    string: '"NOOP_RETURN_STRING"',
+    bool: 'true',
+  };
+
   public constructor(parent: GoClass, public readonly method: Method) {
     super(parent);
 
@@ -59,11 +70,33 @@ export class ClassMethod extends ClassField {
 
     // TODO: Method Arguments
     code.openBlock(
-      `func (${instanceArg} *${code.toPascalCase(
-        this.parent.name,
-      )}) ${name}() ${type}`,
+      `func (${instanceArg} *${this.parent.name}) ${name}() ${
+        type ? `${type} ` : ''
+      }`,
     );
-    code.line(`// jsiiruntime.methodcall(${instanceArg})`);
+
+    code.line(`jsii.NoOpRequest(jsii.NoOpApiRequest {`);
+    code.indent();
+    code.line(`Class: "${this.parent.name}",`);
+    code.line(`Method: "${name}",`);
+    code.line(
+      `Args: []string{${this.method.parameters.reduce((accum: string, p, i) => {
+        const prefix = i === 0 ? '' : ' ';
+        return `${accum}${prefix}"${p.type.toString()}",`;
+      }, '')}},`,
+    );
+    code.unindent();
+    code.line(`})`);
+
+    const ret = this.references;
+    if (ret?.type?.type.isClassType()) {
+      code.line(`return ${type}{}`);
+    } else if (ret?.type?.type.isEnumType()) {
+      code.line(`return "ENUM_DUMMY"`);
+    } else {
+      code.line(`return ${this.getDummyReturn(type)}`);
+    }
+
     code.closeBlock();
     code.line();
   }
@@ -74,6 +107,10 @@ export class ClassMethod extends ClassField {
       this.references?.scopedName(this.parent.parent) ?? this.method.toString();
 
     code.line(`${name}() ${type}`);
+  }
+
+  private getDummyReturn(type: string): string {
+    return this.NOOP_RETURN_MAP[type] || 'nil';
   }
 }
 
