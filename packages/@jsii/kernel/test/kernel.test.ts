@@ -406,7 +406,11 @@ defineTest(
         },
       },
       js: { npm: 'jsii-calc' },
-      python: { distName: 'jsii-calc', module: 'jsii_calc' },
+      python: {
+        distName: 'jsii-calc',
+        module: 'jsii_calc',
+        classifiers: ['Test :: Classifier :: Is Dummy'],
+      },
     });
     expect(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming).toEqual(
       {
