@@ -39,7 +39,7 @@
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.9",
     "@types/node": "^10.17.28",
-    "eslint": "^7.6.0",
+    "eslint": "^7.7.0",
     "jest": "^26.4.0",
     "prettier": "^2.0.5",
     "typescript": "~3.9.7"
