@@ -89,7 +89,7 @@ public final class JsiiObjectMapper {
     module.setSerializers(new JsiiSerializers());
     module.addSerializer(Enum.class, new EnumSerializer());
     module.addSerializer(Instant.class, new InstantSerializer());
-    module.addSerializer(JsiiSerializable.class, new JsiiSerializer(this.getEngine()));
+    module.addSerializer(JsiiSerializable.class, new JsiiSerializer());
 
     this.objectMapper.findAndRegisterModules();
     this.objectMapper.registerModule(module);
@@ -201,13 +201,7 @@ public final class JsiiObjectMapper {
    * Serializer for classes that extend JsiiObject and any other class that implements a jsii interface.
    * We use the JsiiSerializable interface as a way to identify "anything jsii-able".
    */
-  private static final class JsiiSerializer extends JsonSerializer<JsiiSerializable> {
-    private final JsiiEngine engine;
-
-    public JsiiSerializer(final JsiiEngine engine) {
-      this.engine = engine;
-    }
-
+  private final class JsiiSerializer extends JsonSerializer<JsiiSerializable> {
     @Override
     public void serialize(final JsiiSerializable o,
                           final JsonGenerator jsonGenerator,
@@ -216,7 +210,7 @@ public final class JsiiObjectMapper {
       for (final Class<?> iface : o.getClass().getInterfaces()) {
         final Jsii jsii = JsiiEngine.tryGetJsiiAnnotation(iface, true);
         if (jsii != null) {
-          this.engine.loadModule(jsii.module());
+          getEngine().loadModule(jsii.module());
         }
       }
       // Then dump the JSON out

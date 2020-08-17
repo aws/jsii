@@ -28,7 +28,6 @@ public final class ComplianceSuiteHarness implements BeforeEachCallback, AfterEa
             final String prefix = type == MessageInspector.MessageType.Request ? "<" : ">";
             try {
                 trace.add(String.format("%s %s%n", prefix, objectMapper.writeValueAsString(message)));
-                System.err.printf("%s %s%n", prefix, objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
             } catch (final IOException e) {
                 throw new UncheckedIOException(e);
             }
