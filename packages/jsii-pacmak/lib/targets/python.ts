@@ -1709,10 +1709,54 @@ class Package {
       setupKwargs.classifiers.push('License :: OSI Approved');
     }
 
+    const additionalClassifiers = this.metadata.targets?.python?.classifiers;
+    if (additionalClassifiers != null) {
+      if (!Array.isArray(additionalClassifiers)) {
+        throw new Error(
+          `The "jsii.targets.python.classifiers" value must be an array of strings if provided, but found ${JSON.stringify(
+            additionalClassifiers,
+            null,
+            2,
+          )}`,
+        );
+      }
+      // We discourage using those since we automatically set a value for them
+      for (let classifier of additionalClassifiers.sort()) {
+        if (typeof classifier !== 'string') {
+          throw new Error(
+            `The "jsii.targets.python.classifiers" value can only contain strings, but found ${JSON.stringify(
+              classifier,
+              null,
+              2,
+            )}`,
+          );
+        }
+        // We'll split on `::` and re-join later so classifiers are "normalized" to a standard spacing
+        const parts = classifier.split('::').map((part) => part.trim());
+        const reservedClassifiers = [
+          'Development Status',
+          'License',
+          'Operating System',
+          'Typing',
+        ];
+        if (reservedClassifiers.includes(parts[0])) {
+          warn(
+            `Classifiers starting with ${reservedClassifiers
+              .map((x) => `"${x} ::"`)
+              .join(
+                ', ',
+              )} are automatically set and should not be manually configured`,
+          );
+        }
+        classifier = parts.join(' :: ');
+        if (setupKwargs.classifiers.includes(classifier)) {
+          continue;
+        }
+        setupKwargs.classifiers.push(classifier);
+      }
+    }
+
     // We Need a setup.py to make this Package, actually a Package.
-    // TODO:
-    //      - License
-    //      - Classifiers
     code.openFile('setup.py');
     code.line('import json');
     code.line('import setuptools');

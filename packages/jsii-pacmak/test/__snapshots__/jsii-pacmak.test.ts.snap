@@ -7100,6 +7100,9 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
       "npm": "jsii-calc"
     },
     "python": {
+      "classifiers": [
+        "Test :: Classifier :: Is Dummy"
+      ],
       "distName": "jsii-calc",
       "module": "jsii_calc"
     }
@@ -20672,7 +20675,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "NsqdwWgXi+kjrpLQtQ27eA/znULJ7TtXy03ht68N9Ms="
+  "fingerprint": "TXGVwLZ10oZ08NxDzu6i+fqPtaw5aEqME8+d+KEhL08="
 }
 
 `;
@@ -55774,7 +55777,8 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.8",
         "Typing :: Typed",
         "Development Status :: 4 - Beta",
-        "License :: OSI Approved"
+        "License :: OSI Approved",
+        "Test :: Classifier :: Is Dummy"
     ]
 }
 """

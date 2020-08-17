@@ -73,7 +73,10 @@
       },
       "python": {
         "distName": "jsii-calc",
-        "module": "jsii_calc"
+        "module": "jsii_calc",
+        "classifiers": [
+          "Test :: Classifier :: Is Dummy"
+        ]
       }
     },
     "metadata": {
