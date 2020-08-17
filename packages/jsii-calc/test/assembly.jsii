@@ -247,6 +247,9 @@
       "npm": "jsii-calc"
     },
     "python": {
+      "classifiers": [
+        "Test :: Classifier :: Is Dummy"
+      ],
       "distName": "jsii-calc",
       "module": "jsii_calc"
     }
@@ -13819,5 +13822,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "NsqdwWgXi+kjrpLQtQ27eA/znULJ7TtXy03ht68N9Ms="
+  "fingerprint": "TXGVwLZ10oZ08NxDzu6i+fqPtaw5aEqME8+d+KEhL08="
 }

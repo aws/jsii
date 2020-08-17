@@ -95,6 +95,12 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
         "Translate code samples on-the-fly if they can't be found in the samples tablet",
       default: true,
     })
+    .option('parallel', {
+      type: 'boolean',
+      desc:
+        'Generate all configured targets in parallel (disabling this might help if you encounter EMFILE errors)',
+      default: true,
+    })
     .version(VERSION_DESC)
     .strict().argv;
 
@@ -165,21 +171,25 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
     // We run all target sets in parallel for minimal wall clock time
     await Promise.all(
-      targetSets.map(async (targetSet) => {
-        logging.info(
-          `Packaging '${targetSet.targetType}' for ${describePackages(
-            targetSet,
-          )}`,
-        );
-        await timers.recordAsync(targetSet.targetType, () =>
-          buildTargetsForLanguage(
-            targetSet.targetType,
-            targetSet.modules,
-            perLanguageDirectory,
-          ),
-        );
-        logging.info(`${targetSet.targetType} finished`);
-      }),
+      mapParallelOrSerial(
+        targetSets,
+        async (targetSet) => {
+          logging.info(
+            `Packaging '${targetSet.targetType}' for ${describePackages(
+              targetSet,
+            )}`,
+          );
+          await timers.recordAsync(targetSet.targetType, () =>
+            buildTargetsForLanguage(
+              targetSet.targetType,
+              targetSet.modules,
+              perLanguageDirectory,
+            ),
+          );
+          logging.info(`${targetSet.targetType} finished`);
+        },
+        { parallel: argv.parallel },
+      ),
     );
   } finally {
     if (argv.clean) {
@@ -265,4 +275,27 @@ function describePackages(target: TargetSet) {
     return target.modules.map((m) => m.name).join(', ');
   }
   return `${target.modules.length} modules`;
+}
+
+function mapParallelOrSerial<T, R>(
+  collection: readonly T[],
+  mapper: (item: T) => Promise<R>,
+  { parallel }: { parallel: boolean },
+): Array<Promise<R>> {
+  const result = new Array<Promise<R>>();
+  for (const item of collection) {
+    result.push(
+      result.length === 0 || parallel
+        ? // Running parallel, or first element
+          mapper(item)
+        : // Wait for the previous promise, then make the next one
+          result[result.length - 1].then(
+            () => mapper(item),
+            (error) => {
+              throw error;
+            },
+          ),
+    );
+  }
+  return result;
 }
