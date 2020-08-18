@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../NuGet.Metadata.props" />
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>Amazon.JSII.JsonModel</PackageId>
-    <Title>.NET JsonModel for JSII</Title>
+    <Title>[DEPRECATED] .NET JsonModel for JSII</Title>
     <PackageIcon>icon.png</PackageIcon>
 
     <Nullable>enable</Nullable>
@@ -12,7 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Microsoft.NetCore.Analyzers" PrivateAssets="all" />
+    <ProjectReference Include="..\Amazon.JSII.Runtime\Amazon.JSII.Runtime.csproj" />
   </ItemGroup>
 
   <ItemGroup>

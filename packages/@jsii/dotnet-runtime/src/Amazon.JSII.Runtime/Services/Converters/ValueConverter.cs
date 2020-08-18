@@ -48,17 +48,16 @@ namespace Amazon.JSII.Runtime.Services.Converters
             throw new ArgumentException("Invalid type reference", nameof(optionalValue));
         }
 
-        protected bool IsNumeric(System.Type type)
+        protected static bool IsNumeric(System.Type type)
         {
-            return
-                typeof(short).IsAssignableFrom(type) ||
-                typeof(ushort).IsAssignableFrom(type) ||
-                typeof(int).IsAssignableFrom(type) ||
-                typeof(uint).IsAssignableFrom(type) ||
-                typeof(long).IsAssignableFrom(type) ||
-                typeof(ulong).IsAssignableFrom(type) ||
-                typeof(float).IsAssignableFrom(type) ||
-                typeof(double).IsAssignableFrom(type);
+            return typeof(short).IsAssignableFrom(type)
+                   || typeof(ushort).IsAssignableFrom(type)
+                   || typeof(int).IsAssignableFrom(type)
+                   || typeof(uint).IsAssignableFrom(type)
+                   || typeof(long).IsAssignableFrom(type)
+                   || typeof(ulong).IsAssignableFrom(type)
+                   || typeof(float).IsAssignableFrom(type)
+                   || typeof(double).IsAssignableFrom(type);
         }
 
         protected abstract bool TryConvertVoid(object? value, out object? result);

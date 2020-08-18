@@ -49,4 +49,4 @@ done
 # Multiple targets, build all at once into own directory
 clean_dists
 echo "Testing ALL-AT-ONCE build."
-../bin/jsii-pacmak $packagedirs
+../bin/jsii-pacmak --no-parallel $packagedirs
