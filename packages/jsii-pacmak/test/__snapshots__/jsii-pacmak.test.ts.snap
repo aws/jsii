@@ -1083,7 +1083,6 @@ func (b *Base) TypeName() jsii.Any  {
 
 type BaseProps interface {
     GetBar() string
-    SetBar()
 }
 
 type IBaseInterface interface {
@@ -2708,7 +2707,6 @@ func (v *Very) Hey() float64  {
 
 type VeryBaseProps interface {
     GetFoo() Very
-    SetFoo()
 }
 
 
@@ -6407,11 +6405,10 @@ const (
 
 type IDoublable interface {
     GetDoubleValue() float64
-    SetDoubleValue()
 }
 
 type IFriendly interface {
-    Hello()string
+    Hello() string
 }
 
 type IThreeLevelsInterface interface {
@@ -6420,11 +6417,8 @@ type IThreeLevelsInterface interface {
 
 type MyFirstStruct interface {
     GetAnumber() float64
-    SetAnumber()
     GetAstring() string
-    SetAstring()
     GetFirstOptional() []string
-    SetFirstOptional()
 }
 
 type NumberIface interface {
@@ -6459,11 +6453,8 @@ func (o *Operation) ToString() string  {
 
 type StructWithOnlyOptionals interface {
     GetOptional1() string
-    SetOptional1()
     GetOptional2() float64
-    SetOptional2()
     GetOptional3() bool
-    SetOptional3()
 }
 
 type ValueIface interface {
@@ -6499,7 +6490,6 @@ import (
 
 type IReflectable interface {
     GetEntries() []ReflectableEntry
-    SetEntries()
 }
 
 type NestingClassIface interface {
@@ -6519,9 +6509,7 @@ type NestedClass struct {
 
 type ReflectableEntry interface {
     GetKey() string
-    SetKey()
     GetValue() jsii.Any
-    SetValue()
 }
 
 type ReflectorIface interface {
@@ -49893,14 +49881,11 @@ func (c *Calculator) ReadUnionValue() float64  {
 
 type CalculatorProps interface {
     GetInitialValue() float64
-    SetInitialValue()
     GetMaximumValue() float64
-    SetMaximumValue()
 }
 
 type ChildStruct982 interface {
     GetBar() float64
-    SetBar()
 }
 
 type ClassThatImplementsTheInternalInterfaceIface interface {
@@ -50076,7 +50061,6 @@ func (c *ConfusingToJackson) MakeStructInstance() ConfusingToJacksonStruct  {
 
 type ConfusingToJacksonStruct interface {
     GetUnionProperty() jsii.Any
-    SetUnionProperty()
 }
 
 type ConstructorPassesThisOutIface interface {
@@ -50445,42 +50429,31 @@ const (
 
 type DeprecatedStruct interface {
     GetReadonlyProperty() string
-    SetReadonlyProperty()
 }
 
 type DerivedStruct interface {
     GetAnotherRequired() string
-    SetAnotherRequired()
     GetBool() bool
-    SetBool()
     GetNonPrimitive() DoubleTrouble
-    SetNonPrimitive()
     GetAnotherOptional() map[string]jsii.Any
-    SetAnotherOptional()
     GetOptionalAny() jsii.Any
-    SetOptionalAny()
     GetOptionalArray() []string
-    SetOptionalArray()
 }
 
 type DiamondInheritanceBaseLevelStruct interface {
     GetBaseLevelProperty() string
-    SetBaseLevelProperty()
 }
 
 type DiamondInheritanceFirstMidLevelStruct interface {
     GetFirstMidLevelProperty() string
-    SetFirstMidLevelProperty()
 }
 
 type DiamondInheritanceSecondMidLevelStruct interface {
     GetSecondMidLevelProperty() string
-    SetSecondMidLevelProperty()
 }
 
 type DiamondInheritanceTopLevelStruct interface {
     GetTopLevelProperty() string
-    SetTopLevelProperty()
 }
 
 type DisappointingCollectionSourceIface interface {
@@ -50707,9 +50680,7 @@ func (e *EraseUndefinedHashValues) Prop2IsUndefined() map[string]jsii.Any  {
 
 type EraseUndefinedHashValuesOptions interface {
     GetOption1() string
-    SetOption1()
     GetOption2() string
-    SetOption2()
 }
 
 type ExperimentalClassIface interface {
@@ -50745,7 +50716,6 @@ const (
 
 type ExperimentalStruct interface {
     GetReadonlyProperty() string
-    SetReadonlyProperty()
 }
 
 type ExportedBaseClassIface interface {
@@ -50759,9 +50729,7 @@ type ExportedBaseClass struct {
 
 type ExtendsInternalInterface interface {
     GetBoom() bool
-    SetBoom()
     GetProp() string
-    SetProp()
 }
 
 type ExternalClassIface interface {
@@ -50797,7 +50765,6 @@ const (
 
 type ExternalStruct interface {
     GetReadonlyProperty() string
-    SetReadonlyProperty()
 }
 
 type GiveMeStructsIface interface {
@@ -50847,7 +50814,6 @@ func (g *GiveMeStructs) ReadFirstNumber() float64  {
 
 type Greetee interface {
     GetName() string
-    SetName()
 }
 
 type GreetingAugmenterIface interface {
@@ -50869,19 +50835,17 @@ func (g *GreetingAugmenter) BetterGreeting() string  {
 }
 
 type IAnonymousImplementationProvider interface {
-    ProvideAsClass()Implementation
-    ProvideAsInterface()IAnonymouslyImplementMe
+    ProvideAsClass() Implementation
+    ProvideAsInterface() IAnonymouslyImplementMe
 }
 
 type IAnonymouslyImplementMe interface {
+    Verb() string
     GetValue() float64
-    SetValue()
-    Verb()string
 }
 
 type IAnotherPublicInterface interface {
     GetA() string
-    SetA()
 }
 
 type IBell interface {
@@ -50897,33 +50861,28 @@ type IConcreteBellRinger interface {
 }
 
 type IDeprecatedInterface interface {
-    GetMutableProperty() float64
-    SetMutableProperty()
     Method()
+    GetMutableProperty() float64
 }
 
 type IExperimentalInterface interface {
-    GetMutableProperty() float64
-    SetMutableProperty()
     Method()
+    GetMutableProperty() float64
 }
 
 type IExtendsPrivateInterface interface {
     GetMoreThings() []string
-    SetMoreThings()
     GetPrivate() string
-    SetPrivate()
 }
 
 type IExternalInterface interface {
-    GetMutableProperty() float64
-    SetMutableProperty()
     Method()
+    GetMutableProperty() float64
 }
 
 type IFriendlier interface {
-    Farewell()string
-    Goodbye()string
+    Farewell() string
+    Goodbye() string
 }
 
 type IFriendlyRandomGenerator interface {
@@ -50931,12 +50890,10 @@ type IFriendlyRandomGenerator interface {
 
 type IInterfaceImplementedByAbstractClass interface {
     GetPropFromInterface() string
-    SetPropFromInterface()
 }
 
 type IInterfaceThatShouldNotBeADataType interface {
     GetOtherValue() string
-    SetOtherValue()
 }
 
 type IInterfaceWithInternal interface {
@@ -50944,9 +50901,8 @@ type IInterfaceWithInternal interface {
 }
 
 type IInterfaceWithMethods interface {
-    GetValue() string
-    SetValue()
     DoThings()
+    GetValue() string
 }
 
 type IInterfaceWithOptionalMethodArguments interface {
@@ -50955,27 +50911,22 @@ type IInterfaceWithOptionalMethodArguments interface {
 
 type IInterfaceWithProperties interface {
     GetReadOnlyString() string
-    SetReadOnlyString()
     GetReadWriteString() string
-    SetReadWriteString()
 }
 
 type IInterfaceWithPropertiesExtension interface {
     GetFoo() float64
-    SetFoo()
 }
 
 type IJSII417Derived interface {
-    GetProperty() string
-    SetProperty()
     Bar()
     Baz()
+    GetProperty() string
 }
 
 type IJSII417PublicBaseOfBase interface {
-    GetHasRoot() bool
-    SetHasRoot()
     Foo()
+    GetHasRoot() bool
 }
 
 type IJsii487External interface {
@@ -50989,62 +50940,54 @@ type IJsii496 interface {
 
 type IMutableObjectLiteral interface {
     GetValue() string
-    SetValue()
 }
 
 type INonInternalInterface interface {
     GetB() string
-    SetB()
     GetC() string
-    SetC()
 }
 
 type IObjectWithProperty interface {
+    WasSet() bool
     GetProperty() string
-    SetProperty()
-    WasSet()bool
 }
 
 type IOptionalMethod interface {
-    Optional()string
+    Optional() string
 }
 
 type IPrivatelyImplemented interface {
     GetSuccess() bool
-    SetSuccess()
 }
 
 type IPublicInterface interface {
-    Bye()string
+    Bye() string
 }
 
 type IPublicInterface2 interface {
-    Ciao()string
+    Ciao() string
 }
 
 type IRandomNumberGenerator interface {
-    Next()float64
+    Next() float64
 }
 
 type IReturnJsii976 interface {
     GetFoo() float64
-    SetFoo()
 }
 
 type IReturnsNumber interface {
+    ObtainNumber() jsii.Any
     GetNumberProp() jsii.Any
-    SetNumberProp()
-    ObtainNumber()jsii.Any
 }
 
 type IStableInterface interface {
-    GetMutableProperty() float64
-    SetMutableProperty()
     Method()
+    GetMutableProperty() float64
 }
 
 type IStructReturningDelegate interface {
-    ReturnStruct()StructB
+    ReturnStruct() StructB
 }
 
 type ImplementInternalInterfaceIface interface {
@@ -51100,7 +51043,6 @@ type ImplementsPrivateInterface struct {
 
 type ImplictBaseOfBase interface {
     GetGoo() string
-    SetGoo()
 }
 
 type InbetweenClassIface interface {
@@ -52166,15 +52108,10 @@ func (j *JsonFormatter) Stringify() string  {
 
 type LoadBalancedFargateServiceProps interface {
     GetContainerPort() float64
-    SetContainerPort()
     GetCpu() string
-    SetCpu()
     GetMemoryMiB() string
-    SetMemoryMiB()
     GetPublicLoadBalancer() bool
-    SetPublicLoadBalancer()
     GetPublicTasks() bool
-    SetPublicTasks()
 }
 
 type MethodNamedPropertyIface interface {
@@ -52332,7 +52269,6 @@ func (n *NestedClassInstance) MakeInstance() jsii.Any  {
 
 type NestedStruct interface {
     GetNumberProp() float64
-    SetNumberProp()
 }
 
 type NodeStandardLibraryIface interface {
@@ -52427,9 +52363,7 @@ func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() jsii.Any  {
 
 type NullShouldBeTreatedAsUndefinedData interface {
     GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []jsii.Any
-    SetArrayWithThreeElementsAndUndefinedAsSecondArgument()
     GetThisShouldBeUndefined() jsii.Any
-    SetThisShouldBeUndefined()
 }
 
 type NumberGeneratorIface interface {
@@ -52578,7 +52512,6 @@ type OptionalConstructorArgument struct {
 
 type OptionalStruct interface {
     GetField() string
-    SetField()
 }
 
 type OptionalStructConsumerIface interface {
@@ -52659,7 +52592,6 @@ func (o *OverrideReturnsObject) Test() float64  {
 
 type ParentStruct982 interface {
     GetFoo() string
-    SetFoo()
 }
 
 type PartiallyInitializedThisConsumerIface interface {
@@ -53177,9 +53109,7 @@ type ReturnsPrivateImplementationOfInterface struct {
 
 type RootStruct interface {
     GetStringProp() string
-    SetStringProp()
     GetNestedStruct() NestedStruct
-    SetNestedStruct()
 }
 
 type RootStructValidatorIface interface {
@@ -53244,9 +53174,7 @@ func (r *RuntimeTypeChecking) MethodWithOptionalArguments() jsii.Any  {
 
 type SecondLevelStruct interface {
     GetDeeperRequiredProp() string
-    SetDeeperRequiredProp()
     GetDeeperOptionalProp() string
-    SetDeeperOptionalProp()
 }
 
 type SingleInstanceTwoTypesIface interface {
@@ -53329,9 +53257,7 @@ const (
 
 type SmellyStruct interface {
     GetProperty() string
-    SetProperty()
     GetYetAnoterOne() bool
-    SetYetAnoterOne()
 }
 
 type SomeTypeJsii976Iface interface {
@@ -53397,7 +53323,6 @@ const (
 
 type StableStruct interface {
     GetReadonlyProperty() string
-    SetReadonlyProperty()
 }
 
 type StaticContextIface interface {
@@ -53491,27 +53416,19 @@ type StripInternal struct {
 
 type StructA interface {
     GetRequiredString() string
-    SetRequiredString()
     GetOptionalNumber() float64
-    SetOptionalNumber()
     GetOptionalString() string
-    SetOptionalString()
 }
 
 type StructB interface {
     GetRequiredString() string
-    SetRequiredString()
     GetOptionalBoolean() bool
-    SetOptionalBoolean()
     GetOptionalStructA() StructA
-    SetOptionalStructA()
 }
 
 type StructParameterType interface {
     GetScope() string
-    SetScope()
     GetProps() bool
-    SetProps()
 }
 
 type StructPassingIface interface {
@@ -53576,13 +53493,9 @@ func (s *StructUnionConsumer) IsStructB() bool  {
 
 type StructWithJavaReservedWords interface {
     GetDefault() string
-    SetDefault()
     GetAssert() string
-    SetAssert()
     GetResult() string
-    SetResult()
     GetThat() string
-    SetThat()
 }
 
 type SumIface interface {
@@ -53611,9 +53524,7 @@ type SupportsNiceJavaBuilder struct {
 
 type SupportsNiceJavaBuilderProps interface {
     GetBar() float64
-    SetBar()
     GetId() string
-    SetId()
 }
 
 type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
@@ -53795,11 +53706,8 @@ func (t *Thrower) ThrowError() jsii.Any  {
 
 type TopLevelStruct interface {
     GetRequired() string
-    SetRequired()
     GetSecondLevel() jsii.Any
-    SetSecondLevel()
     GetOptional() string
-    SetOptional()
 }
 
 type UmaskCheckIface interface {
@@ -53831,9 +53739,7 @@ type UnaryOperation struct {
 
 type UnionProperties interface {
     GetBar() jsii.Any
-    SetBar()
     GetFoo() jsii.Any
-    SetFoo()
 }
 
 type UpcasingReflectableIface interface {
@@ -54119,7 +54025,6 @@ type Foo struct {
 
 type Hello interface {
     GetFoo() float64
-    SetFoo()
 }
 
 
@@ -54134,7 +54039,6 @@ import (
 
 type Hello interface {
     GetFoo() float64
-    SetFoo()
 }
 
 
@@ -54178,12 +54082,11 @@ type ClassWithSelfKwarg struct {
 }
 
 type IInterfaceWithSelf interface {
-    Method()string
+    Method() string
 }
 
 type StructWithSelf interface {
     GetSelf() string
-    SetSelf()
 }
 
 
@@ -54277,12 +54180,10 @@ package backreferences
 
 import (
     "github.com/aws-cdk/jsii/jsii"
-    "submodule"
 )
 
 type MyClassReference interface {
     GetReference() submodule.MyClass
-    SetReference()
 }
 
 
@@ -54320,7 +54221,6 @@ type InnerClass struct {
 
 type KwargsProps interface {
     GetExtra() string
-    SetExtra()
 }
 
 type OuterClassIface interface {
@@ -54340,12 +54240,10 @@ const (
 
 type SomeStruct interface {
     GetProp() SomeEnum
-    SetProp()
 }
 
 type Structure interface {
     GetBool() bool
-    SetBool()
 }
 
 
@@ -54411,7 +54309,6 @@ import (
 
 type INamespaced interface {
     GetDefinedAt() string
-    SetDefinedAt()
 }
 
 
