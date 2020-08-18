@@ -5,6 +5,7 @@ import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as path from 'path';
 import { Generator, GeneratorOptions } from '../generator';
+import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
