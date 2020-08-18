@@ -2,16 +2,22 @@ import { Method, Property, ClassType } from 'jsii-reflect';
 import { CodeMaker } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
 import { GoType, GoEmitter } from './go-type';
+import { TypeField } from './type-field';
 import { Module } from '../module';
+import { getFieldDependencies } from '../util';
 
-export class ClassField {
-  public constructor(public readonly parent: GoClass) {}
-}
+// String appended to all go Class Interfaces
+const CLASS_INTERFACE_SUFFIX = 'Iface';
 
-export class ClassProperty extends ClassField {
+export class ClassProperty implements TypeField {
+  public readonly name: string;
   public readonly references?: GoTypeRef;
-  public constructor(parent: GoClass, public readonly property: Property) {
-    super(parent);
+
+  public constructor(
+    public parent: GoClass,
+    public readonly property: Property,
+  ) {
+    this.name = this.property.name;
 
     if (property.type) {
       this.references = new GoTypeRef(parent.parent.root, property.type);
@@ -45,16 +51,21 @@ export class ClassProperty extends ClassField {
   }
 }
 
-export class ClassMethod extends ClassField {
+export class ClassMethod implements TypeField {
+  public readonly name: string;
   public readonly references?: GoTypeRef;
+
   private readonly NOOP_RETURN_MAP: { [type: string]: string } = {
     float64: '0.0',
     string: '"NOOP_RETURN_STRING"',
     bool: 'true',
   };
 
-  public constructor(parent: GoClass, public readonly method: Method) {
-    super(parent);
+  public constructor(
+    public readonly parent: GoClass,
+    public readonly method: Method,
+  ) {
+    this.name = this.method.name;
 
     if (method.returns.type) {
       this.references = new GoTypeRef(parent.parent.root, method.returns.type);
@@ -114,7 +125,6 @@ export class ClassMethod extends ClassField {
   }
 }
 
-const CLASS_INTERFACE_SUFFIX = 'Iface';
 /*
  * Class wraps a Typescript class as a Go custom struct type  TODO rename?
  */
@@ -163,16 +173,8 @@ export class GoClass extends GoType implements GoEmitter {
 
   public get dependencies(): Module[] {
     return [
-      ...this.properties.reduce((accum: Module[], property) => {
-        return property.references?.type?.parent
-          ? [...accum, property.references?.type.parent]
-          : accum;
-      }, []),
-      ...this.methods.reduce((accum: Module[], method) => {
-        return method.references?.type?.parent
-          ? [...accum, method.references?.type.parent]
-          : accum;
-      }, []),
+      ...getFieldDependencies(this.properties),
+      ...getFieldDependencies(this.methods),
     ];
   }
 }

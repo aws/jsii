@@ -14,6 +14,6 @@ export class GoType {
   }
 
   public get namespace() {
-    return this.parent.packageName;
+    return this.parent.moduleName;
   }
 }

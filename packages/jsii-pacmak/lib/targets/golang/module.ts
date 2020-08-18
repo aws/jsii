@@ -1,254 +1,130 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
-import { join } from 'path';
+import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
+import { EmitContext } from './emit-context';
 import { GoClass, Enum, Interface } from './types';
+import { findTypeInTree, goModuleName, flatMap } from './util';
 
-type ModuleType = Interface | Enum | GoClass;
+// JSII golang runtime module name
+const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
+
+export type ModuleType = Interface | Enum | GoClass;
 type ModuleTypes = ModuleType[];
 
-// TODO: Make this a class?
-export interface Module {
-  root: RootModule;
-  packageName: string;
-  moduleName: string;
-  filePath: string;
-  file: string;
-  submodules: Submodule[];
-  types: ModuleTypes;
-  hasSubmodules(): boolean;
-}
-
-function buildSubmodules(
-  root: RootModule,
-  parent: Module,
-  submodules: readonly JsiiSubmodule[],
-): Submodule[] {
-  return submodules.map((sm) => new Submodule(root, parent, sm));
-}
-
-function unknownType(type: Type): never {
-  throw new Error(`Type: ${type.name} is not an interface, enum, or class`);
-}
-
-function buildModuleTypes(parent: Module, types: readonly Type[]): ModuleTypes {
-  return types.map(
-    (type: Type): ModuleType => {
-      if (type.isInterfaceType()) {
-        return new Interface(parent, type);
-      } else if (type.isClassType()) {
-        return new GoClass(parent, type);
-      } else if (type.isEnumType()) {
-        return new Enum(parent, type);
-      }
-      return unknownType(type);
-    },
-  );
-}
-
-function findTypeInTree(module: Module, fqn: string): ModuleType | undefined {
-  const result = module.types.find((t) => t.type.fqn === fqn);
-
-  if (result) {
-    return result;
-  } else if (module.hasSubmodules()) {
-    return module.submodules.reduce((accum: ModuleType | undefined, sm) => {
-      return accum || findTypeInTree(sm, fqn);
-    }, undefined);
-  }
-
-  return undefined;
-}
-
-const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
-export abstract class ModuleFile {
-  public constructor(public readonly file: string) {}
-  public open(code: CodeMaker): void {
-    code.openFile(this.file);
-  }
-
-  public close(code: CodeMaker): void {
-    code.closeFile(this.file);
-  }
-}
-
-export class RootModule extends ModuleFile implements Module {
-  private readonly assembly: Assembly;
-  public readonly packageName: string;
-  public readonly moduleName: string;
+/*
+ * Module represents a single `.go` source file within a package. This can be the root package file or a submodule
+ */
+export abstract class Module {
+  public readonly root: Module;
   public readonly file: string;
-  public readonly filePath: string;
-  public readonly root: RootModule;
+  public readonly submodules: Submodule[];
+  public readonly types: ModuleTypes;
+  // public readonly dependencies: Module[];
 
-  public constructor(assembly: Assembly) {
-    const packageName = assembly.name
-      .replace('@', '')
-      .replace(/[^a-z0-9_.]/gi, '');
-    const filePath = join(...packageName.split('.'));
-    const file = `${filePath}.go`;
-    super(file);
+  public constructor(
+    private readonly typeSpec: readonly Type[],
+    private readonly submoduleSpec: readonly JsiiSubmodule[],
+    public readonly moduleName: string,
+    public readonly filePath: string,
+    // If no root is provided, this module is the root
+    root?: Module,
+  ) {
+    this.file = `${filePath}.go`;
+    this.root = root || this;
+    this.submodules = this.submoduleSpec.map(
+      (sm) => new Submodule(this.root, this, sm),
+    );
 
-    this.assembly = assembly;
-    this.root = this;
-    this.packageName = packageName;
-    // moduleName == packageName for root;
-    this.moduleName = packageName;
-    this.filePath = filePath;
-    this.file = file;
-  }
-
-  public get types(): ModuleTypes {
-    return buildModuleTypes(this, Object.values(this.assembly.types));
-  }
-
-  public get submodules(): Submodule[] {
-    return buildSubmodules(this, this, this.assembly.submodules);
-  }
-
-  public get dependencies(): Set<Module> {
-    return new Set(
-      this.types
-        .reduce(
-          (accum: Module[], t: ModuleType) => [...accum, ...t.dependencies],
-          [],
-        )
-        .filter((mod) => mod.packageName !== this.packageName),
+    this.types = this.typeSpec.map(
+      (type: Type): ModuleType => {
+        if (type.isInterfaceType()) {
+          return new Interface(this, type);
+        } else if (type.isClassType()) {
+          return new GoClass(this, type);
+        } else if (type.isEnumType()) {
+          return new Enum(this, type);
+        }
+        throw new Error(
+          `Type: ${type.name} with kind ${type.kind} is not a supported type`,
+        );
+      },
     );
   }
 
-  public hasSubmodules(): boolean {
-    return Boolean(this.submodules.length);
+  /*
+   * Modules that types within this module reference
+   */
+  public get dependencies(): Module[] {
+    return flatMap(
+      this.types,
+      (t: ModuleType): Module[] => t.dependencies,
+    ).filter((mod) => mod.moduleName !== this.moduleName);
   }
 
+  /*
+   * The module names of this modules dependencies. Used for import statements
+   */
+  public get dependencyImports(): Set<string> {
+    return new Set(this.dependencies.map((mod) => mod.moduleName));
+  }
+
+  /*
+   * Search for a type with a `fqn` within this. Searches all Children modules as well.
+   */
   public findType(fqn: string): ModuleType | undefined {
     return findTypeInTree(this, fqn);
   }
 
-  public emit(code: CodeMaker): void {
-    this.open(code);
-    code.line(`package ${this.packageName}`);
-    code.line();
-
-    code.line('import (');
-    code.indent();
-    code.line(`"${JSII_MODULE_NAME}"`);
-    if (this.dependencies.size > 0) {
-      this.dependencies.forEach((mod) => {
-        if (mod.packageName !== this.packageName) {
-          code.line(`"${mod.packageName}"`);
-        }
-      });
-    }
-    code.unindent();
-    code.line(')');
-    code.line();
-
+  public emit(context: EmitContext): void {
+    const { code } = context;
+    code.openFile(this.file);
+    this.emitHeader(code);
+    this.emitImports(code);
     this.emitTypes(code);
-    this.close(code);
+    code.closeFile(this.file);
 
-    this.emitSubmodules(code);
+    this.emitSubmodules(context);
   }
 
-  public emitTypes(code: CodeMaker) {
-    Object.values(this.types).forEach((type) => {
-      type.emit(code);
+  private emitHeader(code: CodeMaker) {
+    code.line(`package ${this.moduleName}`);
+    code.line();
+  }
+
+  private emitImports(code: CodeMaker) {
+    code.open('import (');
+    code.line(`"${JSII_MODULE_NAME}"`);
+    this.dependencyImports.forEach((modName) => {
+      // If the module is the same as the current one being written, don't emit an import statement
+      if (modName !== this.moduleName) {
+        code.line(`"${modName}"`);
+      }
+    });
+    code.close(')');
+    code.line();
+  }
+
+  public emitSubmodules(context: EmitContext) {
+    this.submodules.forEach((submodule) => {
+      submodule.emit(context);
     });
   }
 
-  public emitSubmodules(code: CodeMaker) {
-    this.submodules.forEach((submodule) => {
-      submodule.emit(code);
+  private emitTypes(code: CodeMaker) {
+    this.types.forEach((type) => {
+      type.emit(code);
     });
   }
 }
 
-export class Submodule extends ModuleFile implements Module {
-  private readonly assembly: JsiiSubmodule;
-  public readonly packageName: string;
-  public readonly moduleName: string;
-  public readonly file: string;
-  public readonly filePath: string;
+export class Submodule extends Module {
   public readonly parent: Module;
-  public readonly root: RootModule;
 
-  public constructor(
-    root: RootModule,
-    parent: Module,
-    submodule: JsiiSubmodule,
-  ) {
-    const moduleName = submodule.name
-      .replace('@', '')
-      .replace(/[^a-z0-9]/gi, '');
-    const packageName = moduleName;
+  public constructor(root: Module, parent: Module, assembly: JsiiSubmodule) {
+    const moduleName = goModuleName(assembly.name);
     const filePath = `${parent.filePath}/${moduleName}`;
-    const file = `${filePath}.go`;
-    super(file);
 
-    this.assembly = submodule;
-    this.root = root;
+    super(assembly.types, assembly.submodules, moduleName, filePath, root);
+
     this.parent = parent;
-    this.packageName = packageName;
-    this.moduleName = moduleName;
-    this.filePath = filePath;
-    this.file = file;
-  }
-
-  public get types(): ModuleTypes {
-    return buildModuleTypes(this, this.assembly.types);
-  }
-
-  public get submodules(): Submodule[] {
-    return buildSubmodules(this.root, this, this.assembly.submodules);
-  }
-
-  public hasSubmodules(): boolean {
-    return Boolean(this.submodules.length);
-  }
-
-  public get dependencies(): Set<Module> {
-    return new Set(
-      this.types
-        .reduce(
-          (accum: Module[], t: ModuleType) => [...accum, ...t.dependencies],
-          [],
-        )
-        .filter((mod) => mod.packageName !== this.packageName),
-    );
-  }
-
-  public emit(code: CodeMaker): void {
-    this.open(code);
-    code.line(`package ${this.packageName}`);
-    code.line();
-
-    code.line('import (');
-    code.indent();
-    code.line(`"${JSII_MODULE_NAME}"`);
-    if (this.dependencies.size > 0) {
-      this.dependencies.forEach((mod) => {
-        if (mod.packageName !== this.packageName) {
-          code.line(`"${mod.packageName}"`);
-        }
-      });
-    }
-    code.unindent();
-    code.line(')');
-    code.line();
-
-    this.emitTypes(code);
-    this.close(code);
-
-    this.emitSubmodules(code);
-  }
-
-  public emitSubmodules(code: CodeMaker) {
-    this.submodules.forEach((submodule) => {
-      submodule.emit(code);
-    });
-  }
-
-  private emitTypes(code: CodeMaker): void {
-    this.types.forEach((type) => {
-      type.emit(code);
-    });
   }
 }

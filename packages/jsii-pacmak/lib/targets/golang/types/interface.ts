@@ -2,16 +2,14 @@ import { CodeMaker } from 'codemaker';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
 import { GoType, GoEmitter } from './go-type';
 import { GoTypeRef } from './go-type-reference';
+import { TypeField } from './type-field';
 import { Module } from '../module';
+import { getFieldDependencies } from '../util';
 
-export interface InterfaceField {
-  name: string;
-  parent: Interface;
-}
-
-export class InterfaceProperty implements InterfaceField {
+export class InterfaceProperty implements TypeField {
   public readonly name: string;
   public readonly references?: GoTypeRef;
+
   public constructor(
     public parent: Interface,
     public readonly property: Property,
@@ -36,9 +34,10 @@ export class InterfaceProperty implements InterfaceField {
   }
 }
 
-export class InterfaceMethod implements InterfaceField {
+export class InterfaceMethod implements TypeField {
   public readonly name: string;
   public readonly references?: GoTypeRef;
+
   public constructor(public parent: Interface, public readonly method: Method) {
     this.name = this.method.name;
 
@@ -87,16 +86,8 @@ export class Interface extends GoType implements GoEmitter {
 
   public get dependencies(): Module[] {
     return [
-      ...this.properties.reduce((accum: Module[], property) => {
-        return property.references?.type?.parent
-          ? [...accum, property.references?.type.parent]
-          : accum;
-      }, []),
-      ...this.methods.reduce((accum: Module[], method) => {
-        return method.references?.type?.parent
-          ? [...accum, method.references?.type.parent]
-          : accum;
-      }, []),
+      ...getFieldDependencies(this.properties),
+      ...getFieldDependencies(this.methods),
     ];
   }
 }

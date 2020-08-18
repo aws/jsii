@@ -1,9 +1,13 @@
 import { TypeReference } from 'jsii-reflect';
-import { Module, RootModule } from '../module';
+import { Module } from '../module';
 import { GoType } from './go-type';
 import { toPascalCase } from 'codemaker';
 
 const GO_ANY = 'jsii.Any';
+
+/*
+ * Maps names of JS primitives to corresponding Go types as strings
+ */
 class PrimitiveMapper {
   private readonly MAP: { [key: string]: string } = {
     number: 'float64',
@@ -20,10 +24,13 @@ class PrimitiveMapper {
     return this.MAP[this.name] ?? this.name;
   }
 }
-// TODO: Handle Collection Types
+
+/*
+ * Accepts a JSII type reference and can resolve the GoType within the module tree.
+ */
 export class GoTypeRef {
   public constructor(
-    public readonly root: RootModule,
+    public readonly root: Module,
     public readonly reference: TypeReference,
   ) {}
 
@@ -47,27 +54,46 @@ export class GoTypeRef {
     return this.type?.parent.moduleName;
   }
 
+  /*
+   * Return the name of a type for reference from the `Module` passed in
+   */
   public scopedName(scope: Module): string {
+    // type references a primitie
     if (this.reference.primitive) {
       return new PrimitiveMapper(this.reference.primitive).goPrimitive;
-    } else if (this.reference.arrayOfType) {
+    }
+
+    // type is an array
+    if (this.reference.arrayOfType) {
       const innerName =
         new GoTypeRef(this.root, this.reference.arrayOfType).scopedName(
           scope,
         ) ?? GO_ANY;
+
       return `[]${innerName}`;
-    } else if (this.reference.mapOfType) {
+    }
+
+    // type is a map
+    if (this.reference.mapOfType) {
       const innerName =
         new GoTypeRef(this.root, this.reference.mapOfType).scopedName(scope) ??
         GO_ANY;
       return `map[string]${innerName}`;
-    } else if (scope.moduleName === this.namespace && this.name) {
+    }
+
+    // type is defined in the same scope as the current one, no namespace required
+    if (scope.moduleName === this.namespace && this.name) {
+      // if the current scope is the same as the types scope, return without a namespace
       return toPascalCase(this.name);
-    } else if (this.name) {
+    }
+
+    // type is defined in another module and requires a namespace and import
+    if (this.name) {
       return `${this.namespace}.${toPascalCase(this.name)}`;
     }
 
-    // TODO: This shouldn't happen?
+    // type isn't handled
+    // TODO: Are there other cases to handle? if not throw an error.
     return GO_ANY;
   }
 }

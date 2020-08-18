@@ -3,3 +3,4 @@ export * from './enum';
 export * from './go-type';
 export * from './go-type-reference';
 export * from './interface';
+export * from './type-field';
