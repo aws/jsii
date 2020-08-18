@@ -35,7 +35,7 @@ namespace Amazon.JSII.Runtime.Services
                 throw new ArgumentNullException(nameof(request));
             }
 
-            if (request.Contains(Environment.NewLine))
+            if (request.Contains(Environment.NewLine, StringComparison.InvariantCulture))
             {
                 throw new ArgumentException("All requests must be single-line", nameof(request));
             }
