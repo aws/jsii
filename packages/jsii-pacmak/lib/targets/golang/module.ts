@@ -93,26 +93,28 @@ export abstract class Module {
   private emitImports(code: CodeMaker) {
     code.open('import (');
     code.line(`"${JSII_MODULE_NAME}"`);
-    this.dependencyImports.forEach((modName) => {
+
+    for (const modName of this.dependencyImports) {
       // If the module is the same as the current one being written, don't emit an import statement
       if (modName !== this.moduleName) {
         code.line(`"${modName}"`);
       }
-    });
+    }
+
     code.close(')');
     code.line();
   }
 
   public emitSubmodules(context: EmitContext) {
-    this.submodules.forEach((submodule) => {
+    for (const submodule of this.submodules) {
       submodule.emit(context);
-    });
+    }
   }
 
   private emitTypes(code: CodeMaker) {
-    this.types.forEach((type) => {
+    for (const type of this.types) {
       type.emit(code);
-    });
+    }
   }
 }
 

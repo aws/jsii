@@ -152,20 +152,29 @@ export class GoClass extends GoType implements GoEmitter {
 
     code.openBlock(`type ${this.name} struct`);
 
-    this.properties.forEach((property) => property.emit(code));
+    for (const property of this.properties) {
+      property.emit(code);
+    }
 
     code.closeBlock();
     code.line();
 
-    this.methods.forEach((method) => method.emit(code));
+    for (const method of this.methods) {
+      method.emit(code);
+    }
   }
 
   // Generate interface that defines getters for public properties and any method signatures
   private emitClassInterface(code: CodeMaker) {
     code.openBlock(`type ${this.interfaceName} interface`);
 
-    this.properties.forEach((property) => property.emitForInterface(code));
-    this.methods.forEach((method) => method.emitForInterface(code));
+    for (const property of this.properties) {
+      property.emitForInterface(code);
+    }
+
+    for (const method of this.methods) {
+      method.emitForInterface(code);
+    }
 
     code.closeBlock();
     code.line();
