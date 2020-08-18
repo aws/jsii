@@ -1073,6 +1073,10 @@ type BaseProps interface {
     GetBar() string
 }
 
+type BaseProps struct {
+    Bar string
+}
+
 type IBaseInterface interface {
     Bar()
 }
@@ -2683,6 +2687,10 @@ func (v *Very) Hey() number {
 
 type VeryBaseProps interface {
     GetFoo() Very
+}
+
+type VeryBaseProps struct {
+    Foo Very
 }
 
 
@@ -6391,6 +6399,12 @@ type MyFirstStruct interface {
     GetFirstOptional() Array<string>
 }
 
+type MyFirstStruct struct {
+    Anumber number
+    Astring string
+    FirstOptional Array<string>
+}
+
 type NumberIface interface {
 }
 
@@ -6413,6 +6427,12 @@ type StructWithOnlyOptionals interface {
     GetOptional1() string
     GetOptional2() number
     GetOptional3() boolean
+}
+
+type StructWithOnlyOptionals struct {
+    Optional1 string
+    Optional2 number
+    Optional3 boolean
 }
 
 type ValueIface interface {
@@ -49439,8 +49459,17 @@ type CalculatorProps interface {
     GetMaximumValue() number
 }
 
+type CalculatorProps struct {
+    InitialValue number
+    MaximumValue number
+}
+
 type ChildStruct982 interface {
     GetBar() number
+}
+
+type ChildStruct982 struct {
+    Bar number
 }
 
 type ClassThatImplementsTheInternalInterfaceIface interface {
@@ -49534,6 +49563,10 @@ func (c *ConfusingToJackson) MakeStructInstance() ConfusingToJacksonStruct {
 
 type ConfusingToJacksonStruct interface {
     GetUnionProperty() @scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>
+}
+
+type ConfusingToJacksonStruct struct {
+    UnionProperty @scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>
 }
 
 type ConstructorPassesThisOutIface interface {
@@ -49702,6 +49735,10 @@ type DeprecatedStruct interface {
     GetReadonlyProperty() string
 }
 
+type DeprecatedStruct struct {
+    ReadonlyProperty string
+}
+
 type DerivedStruct interface {
     GetAnotherRequired() date
     GetBool() boolean
@@ -49711,20 +49748,45 @@ type DerivedStruct interface {
     GetOptionalArray() Array<string>
 }
 
+type DerivedStruct struct {
+    AnotherRequired date
+    Bool boolean
+    NonPrimitive DoubleTrouble
+    AnotherOptional Map<string => @scope/jsii-calc-lib.Value>
+    OptionalAny any
+    OptionalArray Array<string>
+}
+
 type DiamondInheritanceBaseLevelStruct interface {
     GetBaseLevelProperty() string
+}
+
+type DiamondInheritanceBaseLevelStruct struct {
+    BaseLevelProperty string
 }
 
 type DiamondInheritanceFirstMidLevelStruct interface {
     GetFirstMidLevelProperty() string
 }
 
+type DiamondInheritanceFirstMidLevelStruct struct {
+    FirstMidLevelProperty string
+}
+
 type DiamondInheritanceSecondMidLevelStruct interface {
     GetSecondMidLevelProperty() string
 }
 
+type DiamondInheritanceSecondMidLevelStruct struct {
+    SecondMidLevelProperty string
+}
+
 type DiamondInheritanceTopLevelStruct interface {
     GetTopLevelProperty() string
+}
+
+type DiamondInheritanceTopLevelStruct struct {
+    TopLevelProperty string
 }
 
 type DisappointingCollectionSourceIface interface {
@@ -49838,6 +49900,11 @@ type EraseUndefinedHashValuesOptions interface {
     GetOption2() string
 }
 
+type EraseUndefinedHashValuesOptions struct {
+    Option1 string
+    Option2 string
+}
+
 type ExperimentalClassIface interface {
 }
 
@@ -49861,6 +49928,10 @@ type ExperimentalStruct interface {
     GetReadonlyProperty() string
 }
 
+type ExperimentalStruct struct {
+    ReadonlyProperty string
+}
+
 type ExportedBaseClassIface interface {
 }
 
@@ -49871,6 +49942,11 @@ type ExportedBaseClass struct {
 type ExtendsInternalInterface interface {
     GetBoom() boolean
     GetProp() string
+}
+
+type ExtendsInternalInterface struct {
+    Boom boolean
+    Prop string
 }
 
 type ExternalClassIface interface {
@@ -49896,6 +49972,10 @@ type ExternalStruct interface {
     GetReadonlyProperty() string
 }
 
+type ExternalStruct struct {
+    ReadonlyProperty string
+}
+
 type GiveMeStructsIface interface {
 }
 
@@ -49917,6 +49997,10 @@ func (g *GiveMeStructs) ReadFirstNumber() number {
 
 type Greetee interface {
     GetName() string
+}
+
+type Greetee struct {
+    Name string
 }
 
 type GreetingAugmenterIface interface {
@@ -50124,6 +50208,10 @@ type ImplementsPrivateInterface struct {
 
 type ImplictBaseOfBase interface {
     GetGoo() date
+}
+
+type ImplictBaseOfBase struct {
+    Goo date
 }
 
 type InbetweenClassIface interface {
@@ -50544,6 +50632,14 @@ type LoadBalancedFargateServiceProps interface {
     GetPublicTasks() boolean
 }
 
+type LoadBalancedFargateServiceProps struct {
+    ContainerPort number
+    Cpu string
+    MemoryMiB string
+    PublicLoadBalancer boolean
+    PublicTasks boolean
+}
+
 type MethodNamedPropertyIface interface {
 }
 
@@ -50615,6 +50711,10 @@ type NestedStruct interface {
     GetNumberProp() number
 }
 
+type NestedStruct struct {
+    NumberProp number
+}
+
 type NodeStandardLibraryIface interface {
 }
 
@@ -50656,6 +50756,11 @@ func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() {
 type NullShouldBeTreatedAsUndefinedData interface {
     GetArrayWithThreeElementsAndUndefinedAsSecondArgument() Array<any>
     GetThisShouldBeUndefined() any
+}
+
+type NullShouldBeTreatedAsUndefinedData struct {
+    ArrayWithThreeElementsAndUndefinedAsSecondArgument Array<any>
+    ThisShouldBeUndefined any
 }
 
 type NumberGeneratorIface interface {
@@ -50734,6 +50839,10 @@ type OptionalStruct interface {
     GetField() string
 }
 
+type OptionalStruct struct {
+    Field string
+}
+
 type OptionalStructConsumerIface interface {
 }
 
@@ -50774,6 +50883,10 @@ func (o *OverrideReturnsObject) Test() number {
 
 type ParentStruct982 interface {
     GetFoo() string
+}
+
+type ParentStruct982 struct {
+    Foo string
 }
 
 type PartiallyInitializedThisConsumerIface interface {
@@ -50984,6 +51097,11 @@ type RootStruct interface {
     GetNestedStruct() NestedStruct
 }
 
+type RootStruct struct {
+    StringProp string
+    NestedStruct NestedStruct
+}
+
 type RootStructValidatorIface interface {
 }
 
@@ -51015,6 +51133,11 @@ func (r *RuntimeTypeChecking) MethodWithOptionalArguments() {
 type SecondLevelStruct interface {
     GetDeeperRequiredProp() string
     GetDeeperOptionalProp() string
+}
+
+type SecondLevelStruct struct {
+    DeeperRequiredProp string
+    DeeperOptionalProp string
 }
 
 type SingleInstanceTwoTypesIface interface {
@@ -51068,6 +51191,11 @@ type SmellyStruct interface {
     GetYetAnoterOne() boolean
 }
 
+type SmellyStruct struct {
+    Property string
+    YetAnoterOne boolean
+}
+
 type SomeTypeJsii976Iface interface {
 }
 
@@ -51103,6 +51231,10 @@ const (
 
 type StableStruct interface {
     GetReadonlyProperty() string
+}
+
+type StableStruct struct {
+    ReadonlyProperty string
 }
 
 type StaticContextIface interface {
@@ -51158,15 +51290,32 @@ type StructA interface {
     GetOptionalString() string
 }
 
+type StructA struct {
+    RequiredString string
+    OptionalNumber number
+    OptionalString string
+}
+
 type StructB interface {
     GetRequiredString() string
     GetOptionalBoolean() boolean
     GetOptionalStructA() StructA
 }
 
+type StructB struct {
+    RequiredString string
+    OptionalBoolean boolean
+    OptionalStructA StructA
+}
+
 type StructParameterType interface {
     GetScope() string
     GetProps() boolean
+}
+
+type StructParameterType struct {
+    Scope string
+    Props boolean
 }
 
 type StructPassingIface interface {
@@ -51204,6 +51353,13 @@ type StructWithJavaReservedWords interface {
     GetThat() string
 }
 
+type StructWithJavaReservedWords struct {
+    Default string
+    Assert string
+    Result string
+    That string
+}
+
 type SumIface interface {
 }
 
@@ -51223,6 +51379,11 @@ type SupportsNiceJavaBuilder struct {
 type SupportsNiceJavaBuilderProps interface {
     GetBar() number
     GetId() string
+}
+
+type SupportsNiceJavaBuilderProps struct {
+    Bar number
+    Id string
 }
 
 type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
@@ -51302,6 +51463,12 @@ type TopLevelStruct interface {
     GetOptional() string
 }
 
+type TopLevelStruct struct {
+    Required string
+    SecondLevel number | jsii-calc.SecondLevelStruct
+    Optional string
+}
+
 type UmaskCheckIface interface {
 }
 
@@ -51322,6 +51489,11 @@ type UnaryOperation struct {
 type UnionProperties interface {
     GetBar() string | number | jsii-calc.AllTypes
     GetFoo() string | number
+}
+
+type UnionProperties struct {
+    Bar string | number | jsii-calc.AllTypes
+    Foo string | number
 }
 
 type UpcasingReflectableIface interface {

@@ -1,9 +1,9 @@
 import { CodeMaker } from 'codemaker';
 import { Assembly, Submodule as JsiiSubmodule } from 'jsii-reflect';
-import { GoClass, Enum, Interface } from './types';
+import { GoClass, Enum, Struct, Interface } from './types';
 
 export interface ModuleTypes {
-  [fqn: string]: Interface | Enum | GoClass;
+  [fqn: string]: Interface | Enum | GoClass | Struct;
 }
 
 export class Module {
@@ -14,8 +14,10 @@ export class Module {
   public constructor(assembly: Assembly, submodule?: JsiiSubmodule) {
     this.assembly = submodule ?? assembly;
     assembly.types.forEach((type) => {
-      let t: Enum | Interface | GoClass | undefined;
-      if (type.isInterfaceType()) {
+      let t: Enum | Interface | GoClass | Struct | undefined;
+      if (type.isInterfaceType() && type.datatype) {
+        t = new Struct(type);
+      } else if (type.isInterfaceType()) {
         t = new Interface(type);
       } else if (type.isClassType()) {
         t = new GoClass(type);
