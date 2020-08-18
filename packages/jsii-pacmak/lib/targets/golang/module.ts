@@ -1,14 +1,13 @@
 import { CodeMaker } from 'codemaker';
 import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { EmitContext } from './emit-context';
-import { GoClass, Enum, Interface } from './types';
+import { GoClass, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goModuleName, flatMap } from './util';
 
 // JSII golang runtime module name
 const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
 
-export type ModuleType = Interface | Enum | GoClass;
-type ModuleTypes = ModuleType[];
+export type ModuleType = Interface | Enum | GoClass | Struct;
 
 /*
  * Module represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -17,8 +16,7 @@ export abstract class Module {
   public readonly root: Module;
   public readonly file: string;
   public readonly submodules: Submodule[];
-  public readonly types: ModuleTypes;
-  // public readonly dependencies: Module[];
+  public readonly types: ModuleType[];
 
   public constructor(
     private readonly typeSpec: readonly Type[],
@@ -36,7 +34,9 @@ export abstract class Module {
 
     this.types = this.typeSpec.map(
       (type: Type): ModuleType => {
-        if (type.isInterfaceType()) {
+        if (type.isInterfaceType() && type.datatype) {
+          return new Struct(this, type);
+        } else if (type.isInterfaceType()) {
           return new Interface(this, type);
         } else if (type.isClassType()) {
           return new GoClass(this, type);

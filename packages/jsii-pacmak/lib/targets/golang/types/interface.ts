@@ -5,7 +5,7 @@ import { GoTypeRef } from './go-type-reference';
 import { Module } from '../module';
 
 export class Interface extends GoType {
-  public dependencies: Module[] = [];
+  public readonly dependencies: Module[] = [];
 
   public constructor(parent: Module, public type: InterfaceType) {
     super(parent, type);
@@ -26,7 +26,9 @@ export class Interface extends GoType {
 
   private emitInterfaceProperty(code: CodeMaker, property: Property) {
     const propName = code.toPascalCase(property.name);
-    const type = new GoTypeRef(this.parent.root, property.type).scopedName(this.parent);
+    const type = new GoTypeRef(this.parent.root, property.type).scopedName(
+      this.parent,
+    );
 
     code.line(`Get${propName}() ${type}`);
     // if (!property.protected) {
@@ -37,7 +39,9 @@ export class Interface extends GoType {
   private emitInterfaceMethod(code: CodeMaker, method: Method) {
     const returns = method.returns.type.void
       ? ''
-      : ` ${new GoTypeRef(this.parent.root, method.returns.type).scopedName(this.parent)}`;
+      : ` ${new GoTypeRef(this.parent.root, method.returns.type).scopedName(
+          this.parent,
+        )}`;
 
     const methodName = code.toPascalCase(method.name);
 
