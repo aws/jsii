@@ -2320,8 +2320,8 @@ class JavaGenerator extends Generator {
     }
 
     function makeCovariant(javaType: string): string {
-      // Don't emit a covariant expression for String (it's `final` in Java), or generic types (List<X>, Map<String,X>, ...)
-      if (javaType === 'java.lang.String' || javaType.includes('<')) {
+      // Don't emit a covariant expression for String (it's `final` in Java)
+      if (javaType === 'java.lang.String') {
         return javaType;
       }
       return `? extends ${javaType}`;
