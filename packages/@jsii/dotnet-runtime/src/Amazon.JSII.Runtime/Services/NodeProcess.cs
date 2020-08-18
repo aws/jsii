@@ -27,6 +27,7 @@ namespace Amazon.JSII.Runtime.Services
             if (string.IsNullOrWhiteSpace(runtimePath))
                 runtimePath = jsiiRuntimeProvider.JsiiRuntimePath;
 
+            var utf8 = new UTF8Encoding(false /* no BOM */);
             _process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -34,11 +35,11 @@ namespace Amazon.JSII.Runtime.Services
                     FileName = "node",
                     Arguments = $"--max-old-space-size=4096 {runtimePath}",
                     RedirectStandardInput = true,
-                    StandardInputEncoding = Encoding.UTF8,
+                    StandardInputEncoding = utf8,
                     RedirectStandardOutput = true,
-                    StandardOutputEncoding = Encoding.UTF8,
+                    StandardOutputEncoding = utf8,
                     RedirectStandardError = true,
-                    StandardErrorEncoding = Encoding.UTF8
+                    StandardErrorEncoding = utf8
                 }
             };
 
