@@ -1,12 +1,13 @@
 using Microsoft.CodeAnalysis;
 using System;
+using System.Collections.Generic;
 
 namespace Amazon.JSII.Analyzers.UnitTests.Helpers
 {
     /// <summary>
     /// Location where the diagnostic appears, as determined by path, line number, and column number.
     /// </summary>
-    public readonly struct DiagnosticResultLocation
+    public readonly struct DiagnosticResultLocation : IEquatable<DiagnosticResultLocation>
     {
         public DiagnosticResultLocation(string path, int line, int column)
         {
@@ -28,16 +29,50 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
         public string Path { get; }
         public int Line { get; }
         public int Column { get; }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is DiagnosticResultLocation other)
+            {
+                return Equals(other);
+            }
+
+            return false;
+        }
+
+        public bool Equals(DiagnosticResultLocation other)
+        {
+            return Path == other.Path
+                   && Line == other.Line
+                   && Column == other.Column;
+        }
+
+        public override int GetHashCode()
+        {
+            return Path.GetHashCode()
+                   ^ Line.GetHashCode()
+                   ^ Column.GetHashCode();
+        }
+
+        public static bool operator ==(DiagnosticResultLocation left, DiagnosticResultLocation right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(DiagnosticResultLocation left, DiagnosticResultLocation right)
+        {
+            return !left.Equals(right);
+        }
     }
 
     /// <summary>
     /// Struct that stores information about a Diagnostic appearing in a source
     /// </summary>
-    public struct DiagnosticResult
+    public struct DiagnosticResult : IEquatable<DiagnosticResult>
     {
-        private DiagnosticResultLocation[] _locations;
+        private IReadOnlyList<DiagnosticResultLocation> _locations;
 
-        public DiagnosticResultLocation[] Locations
+        public IReadOnlyList<DiagnosticResultLocation> Locations
         {
             get
             {
@@ -54,10 +89,52 @@ namespace Amazon.JSII.Analyzers.UnitTests.Helpers
 
         public string Message { get; set; }
 
-        public string Path => Locations.Length > 0 ? Locations[0].Path : "";
+        public string Path => Locations.Count > 0 ? Locations[0].Path : "";
 
-        public int Line => Locations.Length > 0 ? Locations[0].Line : -1;
+        public int Line => Locations.Count > 0 ? Locations[0].Line : -1;
 
-        public int Column => Locations.Length > 0 ? Locations[0].Column : -1;
+        public int Column => Locations.Count > 0 ? Locations[0].Column : -1;
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is DiagnosticResult other)
+            {
+                return Equals(other);
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Locations.GetHashCode()
+                   ^ Id.GetHashCode()
+                   ^ Severity.GetHashCode()
+                   ^ Message.GetHashCode()
+                   ^ Path.GetHashCode()
+                   ^ Line.GetHashCode()
+                   ^ Column.GetHashCode();
+        }
+
+        public bool Equals(DiagnosticResult other)
+        {
+            return Locations == other.Locations
+                   && Id == other.Id
+                   && Severity == other.Severity
+                   && Message == other.Message
+                   && Path == other.Path
+                   && Line == other.Line
+                   && Column == other.Column;
+        }
+
+        public static bool operator ==(DiagnosticResult left, DiagnosticResult right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(DiagnosticResult left, DiagnosticResult right)
+        {
+            return !left.Equals(right);
+        }
     }
 }
