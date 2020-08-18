@@ -154,6 +154,22 @@ The `python` target requires two configuration entries:
 * `module` - the name of the generated **Python** module, which will be used by
   users in `import` directives.
 * `distName` - the [PyPI] distribution name for the package.
+* `classifiers` - a list of [trove classifiers] to declare on the package. It is
+  the user's responsibility to specify *valid* values (the authoritative list of
+  valid [trove classifiers] is masted in the [pypa/trove-classifiers] package).
+  * Some classifiers are automatically included (and should not be added to the
+  `classifiers` property) based on relevant configuration from the
+  `package.json` file:
+    * `Development Status :: ` is determined based on the package's `stability`
+    * `License ::` is determined based on the package's `license`
+    * `Operating System :: OS Independent` is always set
+    * `Typing :: Typed` is always set
+  * Additionally, the following `Programming Language ::` classifiers are
+    already set (more could be added by the user if relevant):
+    * `Programming Language :: Python :: 3 :: Only`
+    * `Programming Language :: Python :: 3.6`
+    * `Programming Language :: Python :: 3.7`
+    * `Programming Language :: Python :: 3.8`
 
 Example:
 ```js
@@ -162,7 +178,11 @@ Example:
     "targets": {
       "python": {
         "module": "hello_jsii",   // Required
-        "distName": "hello-jsii"  // Required
+        "distName": "hello-jsii", // Required
+        "classifiers": [          // Optional
+          "Framework :: AWS CDK",
+          "Framework :: AWS CDK :: 1"
+        ]
       },
       // ...
     }
@@ -175,6 +195,8 @@ Example:
 The resulting package can be published to [PyPI].
 
 [PyPI]: https://pypi.org/
+[trove classifiers]: https://www.python.org/dev/peps/pep-0301/#distutils-trove-classification
+[pypa/trove-classifiers]: https://github.com/pypa/trove-classifiers
 
 #### Configuring `Java`
 
