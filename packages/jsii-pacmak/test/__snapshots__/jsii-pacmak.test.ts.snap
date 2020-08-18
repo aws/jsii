@@ -1077,6 +1077,12 @@ type BaseProps struct {
     Bar string
 }
 
+
+func (b BaseProps) GetBar() string {
+    return b.Bar
+}
+
+
 type IBaseInterface interface {
     Bar()
 }
@@ -2692,6 +2698,12 @@ type VeryBaseProps interface {
 type VeryBaseProps struct {
     Foo Very
 }
+
+
+func (v VeryBaseProps) GetFoo() Very {
+    return v.Foo
+}
+
 
 
 `;
@@ -6405,6 +6417,20 @@ type MyFirstStruct struct {
     FirstOptional Array<string>
 }
 
+
+func (m MyFirstStruct) GetAnumber() number {
+    return m.Anumber
+}
+
+func (m MyFirstStruct) GetAstring() string {
+    return m.Astring
+}
+
+func (m MyFirstStruct) GetFirstOptional() Array<string> {
+    return m.FirstOptional
+}
+
+
 type NumberIface interface {
 }
 
@@ -6434,6 +6460,20 @@ type StructWithOnlyOptionals struct {
     Optional2 number
     Optional3 boolean
 }
+
+
+func (s StructWithOnlyOptionals) GetOptional1() string {
+    return s.Optional1
+}
+
+func (s StructWithOnlyOptionals) GetOptional2() number {
+    return s.Optional2
+}
+
+func (s StructWithOnlyOptionals) GetOptional3() boolean {
+    return s.Optional3
+}
+
 
 type ValueIface interface {
 }
@@ -49464,6 +49504,16 @@ type CalculatorProps struct {
     MaximumValue number
 }
 
+
+func (c CalculatorProps) GetInitialValue() number {
+    return c.InitialValue
+}
+
+func (c CalculatorProps) GetMaximumValue() number {
+    return c.MaximumValue
+}
+
+
 type ChildStruct982 interface {
     GetBar() number
 }
@@ -49471,6 +49521,12 @@ type ChildStruct982 interface {
 type ChildStruct982 struct {
     Bar number
 }
+
+
+func (c ChildStruct982) GetBar() number {
+    return c.Bar
+}
+
 
 type ClassThatImplementsTheInternalInterfaceIface interface {
 }
@@ -49568,6 +49624,12 @@ type ConfusingToJacksonStruct interface {
 type ConfusingToJacksonStruct struct {
     UnionProperty @scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>
 }
+
+
+func (c ConfusingToJacksonStruct) GetUnionProperty() @scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass> {
+    return c.UnionProperty
+}
+
 
 type ConstructorPassesThisOutIface interface {
 }
@@ -49739,6 +49801,12 @@ type DeprecatedStruct struct {
     ReadonlyProperty string
 }
 
+
+func (d DeprecatedStruct) GetReadonlyProperty() string {
+    return d.ReadonlyProperty
+}
+
+
 type DerivedStruct interface {
     GetAnotherRequired() date
     GetBool() boolean
@@ -49757,6 +49825,32 @@ type DerivedStruct struct {
     OptionalArray Array<string>
 }
 
+
+func (d DerivedStruct) GetAnotherRequired() date {
+    return d.AnotherRequired
+}
+
+func (d DerivedStruct) GetBool() boolean {
+    return d.Bool
+}
+
+func (d DerivedStruct) GetNonPrimitive() DoubleTrouble {
+    return d.NonPrimitive
+}
+
+func (d DerivedStruct) GetAnotherOptional() Map<string => @scope/jsii-calc-lib.Value> {
+    return d.AnotherOptional
+}
+
+func (d DerivedStruct) GetOptionalAny() any {
+    return d.OptionalAny
+}
+
+func (d DerivedStruct) GetOptionalArray() Array<string> {
+    return d.OptionalArray
+}
+
+
 type DiamondInheritanceBaseLevelStruct interface {
     GetBaseLevelProperty() string
 }
@@ -49764,6 +49858,12 @@ type DiamondInheritanceBaseLevelStruct interface {
 type DiamondInheritanceBaseLevelStruct struct {
     BaseLevelProperty string
 }
+
+
+func (d DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
+    return d.BaseLevelProperty
+}
+
 
 type DiamondInheritanceFirstMidLevelStruct interface {
     GetFirstMidLevelProperty() string
@@ -49773,6 +49873,12 @@ type DiamondInheritanceFirstMidLevelStruct struct {
     FirstMidLevelProperty string
 }
 
+
+func (d DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string {
+    return d.FirstMidLevelProperty
+}
+
+
 type DiamondInheritanceSecondMidLevelStruct interface {
     GetSecondMidLevelProperty() string
 }
@@ -49781,6 +49887,12 @@ type DiamondInheritanceSecondMidLevelStruct struct {
     SecondMidLevelProperty string
 }
 
+
+func (d DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() string {
+    return d.SecondMidLevelProperty
+}
+
+
 type DiamondInheritanceTopLevelStruct interface {
     GetTopLevelProperty() string
 }
@@ -49788,6 +49900,12 @@ type DiamondInheritanceTopLevelStruct interface {
 type DiamondInheritanceTopLevelStruct struct {
     TopLevelProperty string
 }
+
+
+func (d DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
+    return d.TopLevelProperty
+}
+
 
 type DisappointingCollectionSourceIface interface {
 }
@@ -49905,6 +50023,16 @@ type EraseUndefinedHashValuesOptions struct {
     Option2 string
 }
 
+
+func (e EraseUndefinedHashValuesOptions) GetOption1() string {
+    return e.Option1
+}
+
+func (e EraseUndefinedHashValuesOptions) GetOption2() string {
+    return e.Option2
+}
+
+
 type ExperimentalClassIface interface {
 }
 
@@ -49932,6 +50060,12 @@ type ExperimentalStruct struct {
     ReadonlyProperty string
 }
 
+
+func (e ExperimentalStruct) GetReadonlyProperty() string {
+    return e.ReadonlyProperty
+}
+
+
 type ExportedBaseClassIface interface {
 }
 
@@ -49948,6 +50082,16 @@ type ExtendsInternalInterface struct {
     Boom boolean
     Prop string
 }
+
+
+func (e ExtendsInternalInterface) GetBoom() boolean {
+    return e.Boom
+}
+
+func (e ExtendsInternalInterface) GetProp() string {
+    return e.Prop
+}
+
 
 type ExternalClassIface interface {
 }
@@ -49976,6 +50120,12 @@ type ExternalStruct struct {
     ReadonlyProperty string
 }
 
+
+func (e ExternalStruct) GetReadonlyProperty() string {
+    return e.ReadonlyProperty
+}
+
+
 type GiveMeStructsIface interface {
 }
 
@@ -50002,6 +50152,12 @@ type Greetee interface {
 type Greetee struct {
     Name string
 }
+
+
+func (g Greetee) GetName() string {
+    return g.Name
+}
+
 
 type GreetingAugmenterIface interface {
 }
@@ -50213,6 +50369,12 @@ type ImplictBaseOfBase interface {
 type ImplictBaseOfBase struct {
     Goo date
 }
+
+
+func (i ImplictBaseOfBase) GetGoo() date {
+    return i.Goo
+}
+
 
 type InbetweenClassIface interface {
 }
@@ -50640,6 +50802,28 @@ type LoadBalancedFargateServiceProps struct {
     PublicTasks boolean
 }
 
+
+func (l LoadBalancedFargateServiceProps) GetContainerPort() number {
+    return l.ContainerPort
+}
+
+func (l LoadBalancedFargateServiceProps) GetCpu() string {
+    return l.Cpu
+}
+
+func (l LoadBalancedFargateServiceProps) GetMemoryMiB() string {
+    return l.MemoryMiB
+}
+
+func (l LoadBalancedFargateServiceProps) GetPublicLoadBalancer() boolean {
+    return l.PublicLoadBalancer
+}
+
+func (l LoadBalancedFargateServiceProps) GetPublicTasks() boolean {
+    return l.PublicTasks
+}
+
+
 type MethodNamedPropertyIface interface {
 }
 
@@ -50715,6 +50899,12 @@ type NestedStruct struct {
     NumberProp number
 }
 
+
+func (n NestedStruct) GetNumberProp() number {
+    return n.NumberProp
+}
+
+
 type NodeStandardLibraryIface interface {
 }
 
@@ -50762,6 +50952,16 @@ type NullShouldBeTreatedAsUndefinedData struct {
     ArrayWithThreeElementsAndUndefinedAsSecondArgument Array<any>
     ThisShouldBeUndefined any
 }
+
+
+func (n NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefinedAsSecondArgument() Array<any> {
+    return n.ArrayWithThreeElementsAndUndefinedAsSecondArgument
+}
+
+func (n NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() any {
+    return n.ThisShouldBeUndefined
+}
+
 
 type NumberGeneratorIface interface {
 }
@@ -50843,6 +51043,12 @@ type OptionalStruct struct {
     Field string
 }
 
+
+func (o OptionalStruct) GetField() string {
+    return o.Field
+}
+
+
 type OptionalStructConsumerIface interface {
 }
 
@@ -50888,6 +51094,12 @@ type ParentStruct982 interface {
 type ParentStruct982 struct {
     Foo string
 }
+
+
+func (p ParentStruct982) GetFoo() string {
+    return p.Foo
+}
+
 
 type PartiallyInitializedThisConsumerIface interface {
 }
@@ -51102,6 +51314,16 @@ type RootStruct struct {
     NestedStruct NestedStruct
 }
 
+
+func (r RootStruct) GetStringProp() string {
+    return r.StringProp
+}
+
+func (r RootStruct) GetNestedStruct() NestedStruct {
+    return r.NestedStruct
+}
+
+
 type RootStructValidatorIface interface {
 }
 
@@ -51139,6 +51361,16 @@ type SecondLevelStruct struct {
     DeeperRequiredProp string
     DeeperOptionalProp string
 }
+
+
+func (s SecondLevelStruct) GetDeeperRequiredProp() string {
+    return s.DeeperRequiredProp
+}
+
+func (s SecondLevelStruct) GetDeeperOptionalProp() string {
+    return s.DeeperOptionalProp
+}
+
 
 type SingleInstanceTwoTypesIface interface {
 }
@@ -51196,6 +51428,16 @@ type SmellyStruct struct {
     YetAnoterOne boolean
 }
 
+
+func (s SmellyStruct) GetProperty() string {
+    return s.Property
+}
+
+func (s SmellyStruct) GetYetAnoterOne() boolean {
+    return s.YetAnoterOne
+}
+
+
 type SomeTypeJsii976Iface interface {
 }
 
@@ -51236,6 +51478,12 @@ type StableStruct interface {
 type StableStruct struct {
     ReadonlyProperty string
 }
+
+
+func (s StableStruct) GetReadonlyProperty() string {
+    return s.ReadonlyProperty
+}
+
 
 type StaticContextIface interface {
 }
@@ -51296,6 +51544,20 @@ type StructA struct {
     OptionalString string
 }
 
+
+func (s StructA) GetRequiredString() string {
+    return s.RequiredString
+}
+
+func (s StructA) GetOptionalNumber() number {
+    return s.OptionalNumber
+}
+
+func (s StructA) GetOptionalString() string {
+    return s.OptionalString
+}
+
+
 type StructB interface {
     GetRequiredString() string
     GetOptionalBoolean() boolean
@@ -51308,6 +51570,20 @@ type StructB struct {
     OptionalStructA StructA
 }
 
+
+func (s StructB) GetRequiredString() string {
+    return s.RequiredString
+}
+
+func (s StructB) GetOptionalBoolean() boolean {
+    return s.OptionalBoolean
+}
+
+func (s StructB) GetOptionalStructA() StructA {
+    return s.OptionalStructA
+}
+
+
 type StructParameterType interface {
     GetScope() string
     GetProps() boolean
@@ -51317,6 +51593,16 @@ type StructParameterType struct {
     Scope string
     Props boolean
 }
+
+
+func (s StructParameterType) GetScope() string {
+    return s.Scope
+}
+
+func (s StructParameterType) GetProps() boolean {
+    return s.Props
+}
+
 
 type StructPassingIface interface {
 }
@@ -51360,6 +51646,24 @@ type StructWithJavaReservedWords struct {
     That string
 }
 
+
+func (s StructWithJavaReservedWords) GetDefault() string {
+    return s.Default
+}
+
+func (s StructWithJavaReservedWords) GetAssert() string {
+    return s.Assert
+}
+
+func (s StructWithJavaReservedWords) GetResult() string {
+    return s.Result
+}
+
+func (s StructWithJavaReservedWords) GetThat() string {
+    return s.That
+}
+
+
 type SumIface interface {
 }
 
@@ -51385,6 +51689,16 @@ type SupportsNiceJavaBuilderProps struct {
     Bar number
     Id string
 }
+
+
+func (s SupportsNiceJavaBuilderProps) GetBar() number {
+    return s.Bar
+}
+
+func (s SupportsNiceJavaBuilderProps) GetId() string {
+    return s.Id
+}
+
 
 type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
 }
@@ -51469,6 +51783,20 @@ type TopLevelStruct struct {
     Optional string
 }
 
+
+func (t TopLevelStruct) GetRequired() string {
+    return t.Required
+}
+
+func (t TopLevelStruct) GetSecondLevel() number | jsii-calc.SecondLevelStruct {
+    return t.SecondLevel
+}
+
+func (t TopLevelStruct) GetOptional() string {
+    return t.Optional
+}
+
+
 type UmaskCheckIface interface {
 }
 
@@ -51495,6 +51823,16 @@ type UnionProperties struct {
     Bar string | number | jsii-calc.AllTypes
     Foo string | number
 }
+
+
+func (u UnionProperties) GetBar() string | number | jsii-calc.AllTypes {
+    return u.Bar
+}
+
+func (u UnionProperties) GetFoo() string | number {
+    return u.Foo
+}
+
 
 type UpcasingReflectableIface interface {
 }
