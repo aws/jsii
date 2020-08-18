@@ -433,6 +433,7 @@ export default class Java extends Target {
       [
         // If we don't run in verbose mode, turn on quiet mode
         ...(this.arguments.verbose ? [] : ['--quiet']),
+        '--batch-mode',
         ...mvnArguments,
         'deploy',
         `-D=altDeploymentRepository=local::default::${url}`,

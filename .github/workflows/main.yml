@@ -376,8 +376,8 @@ jobs:
           npm install --no-save ${{ runner.temp }}/private/*.tgz --only=prod
       - name: Integration Test
         run: |-
-          npx lerna run build
-          ./pack.sh
+          npx lerna run build > >(tee    ${{ runner.temp }}/stdout.log) 2> >(tee    ${{ runner.temp }}/stderr.log >&2)
+          ./pack.sh           > >(tee -a ${{ runner.temp }}/stdout.log) 2> >(tee -a ${{ runner.temp }}/stderr.log >&2)
         env:
           # Tested tools locations:
           CDK_BUILD_JSII: ${{ github.workspace }}/node_modules/.bin/jsii
@@ -390,6 +390,13 @@ jobs:
           # Build environment
           MAVEN_OPTS: -Xms1024m -Xmx4096m
         working-directory: aws-cdk
+      - name: Upload Logs
+        # Upload logs whether successful or failed (not using always because we don't care about cancellations)
+        if: success() || failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: integ-test-logs
+          path: ${{ runner.temp }}/*.log
       - name: Upload Result
         uses: actions/upload-artifact@v2
         with:
