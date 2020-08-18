@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Versioning;
+using System.Text;
 using Microsoft.Extensions.Logging;
 
 namespace Amazon.JSII.Runtime.Services
@@ -31,10 +32,13 @@ namespace Amazon.JSII.Runtime.Services
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "node",
-                    Arguments = "--max-old-space-size=4096 " + runtimePath,
+                    Arguments = $"--max-old-space-size=4096 {runtimePath}",
                     RedirectStandardInput = true,
+                    StandardInputEncoding = Encoding.UTF8,
                     RedirectStandardOutput = true,
-                    RedirectStandardError = true
+                    StandardOutputEncoding = Encoding.UTF8,
+                    RedirectStandardError = true,
+                    StandardErrorEncoding = Encoding.UTF8
                 }
             };
 
