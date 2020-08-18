@@ -381,11 +381,11 @@ jobs:
         env:
           # Tested tools locations:
           CDK_BUILD_JSII: ${{ github.workspace }}/node_modules/.bin/jsii
-          CDK_PACKAGE_JSII_PACMAK: ${{ github.workspace }}/node_modules/.bin/jsii-pacmak
+          CDK_PACKAGE_JSII_PACMAK: ${{ github.workspace }}/node_modules/.bin/jsii-pacmak --verbose
           CDK_PACKAGE_JSII_ROSETTA: ${{ github.workspace }}/node_modules/.bin/jsii-rosetta
           # Alternative environment variables for tested tools:
           JSII: ${{ github.workspace }}/node_modules/.bin/jsii
-          PACMAK: ${{ github.workspace }}/node_modules/.bin/jsii-pacmak
+          PACMAK: ${{ github.workspace }}/node_modules/.bin/jsii-pacmak --verbose
           ROSETTA: ${{ github.workspace }}/node_modules/.bin/jsii-rosetta
           # Build environment
           MAVEN_OPTS: -Xms1024m -Xmx4096m
