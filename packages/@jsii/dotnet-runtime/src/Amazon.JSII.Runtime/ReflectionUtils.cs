@@ -36,8 +36,8 @@ namespace Amazon.JSII.Runtime
 
             if (methodInfo == null)
             {
-                throw new ArgumentNullException($"Class {classType.Name} does not have a method called {name}",
-                    nameof(name));
+                throw new ArgumentNullException(nameof(name),
+                    $"Class {classType.Name} does not have a method called {name}");
             }
 
             return methodInfo;
@@ -54,8 +54,8 @@ namespace Amazon.JSII.Runtime
 
             if (propertyInfo == null)
             {
-                throw new ArgumentNullException($"Class {classType.Name} does not have a property called {name}",
-                    nameof(name));
+                throw new ArgumentNullException(nameof(name),
+                    $"Class {classType.Name} does not have a property called {name}");
             }
 
             return propertyInfo;

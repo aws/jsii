@@ -25,7 +25,7 @@ namespace Amazon.JSII.Runtime.Deputy
         {
             public DeputyProps(object[]? arguments = null)
             {
-                Arguments = arguments ?? new object[] { };
+                Arguments = arguments ?? Array.Empty<object>();
             }
 
             public object[] Arguments { get; }
@@ -42,13 +42,13 @@ namespace Amazon.JSII.Runtime.Deputy
             // If this is a native object, it won't have any jsii metadata.
             var attribute = ReflectionUtils.GetClassAttribute(type);
             var fullyQualifiedName = attribute?.FullyQualifiedName ?? "Object";
-            var parameters = attribute?.Parameters ?? new Parameter[] { };
+            var parameters = attribute?.Parameters ?? Array.Empty<Parameter>();
 
             var serviceProvider = ServiceContainer.ServiceProvider;
             var client = serviceProvider.GetRequiredService<IClient>();
             var response = client.Create(
                 fullyQualifiedName,
-                ConvertArguments(parameters, props?.Arguments ?? new object[]{ }),
+                ConvertArguments(parameters, props?.Arguments ?? Array.Empty<object>()),
                 GetOverrides(),
                 GetInterfaces()
             );
@@ -241,7 +241,7 @@ namespace Amazon.JSII.Runtime.Deputy
             return InvokeMethodCore<T>(
                 methodAttribute,
                 arguments,
-                (client, args) => throw new ArgumentException("Async static methods are not supported in JSII", nameof(methodAttribute)),
+                (client, args) => throw new NotSupportedException("Async static methods are currently not supported"),
                 (client, args) => client.StaticInvoke(
                     classAttribute.FullyQualifiedName,
                     methodAttribute.Name,
@@ -287,7 +287,7 @@ namespace Amazon.JSII.Runtime.Deputy
             var result = GetResult();
             if (!converter.TryConvert(methodAttribute.Returns, typeof(T), referenceMap, result, out object? frameworkValue))
             {
-                throw new ArgumentException($"Could not convert result '{result}' for method '{methodAttribute.Name}'", nameof(result));
+                throw new NotSupportedException($"Could not convert result '{result}' for method '{methodAttribute.Name}'");
             }
             
             return (T)frameworkValue!;
@@ -340,14 +340,16 @@ namespace Amazon.JSII.Runtime.Deputy
         {
             var serviceProvider = ServiceContainer.ServiceProvider;
 
-            if ((parameters == null || parameters.Length == 0) && (arguments == null || arguments.Length == 0))
+            if (parameters.Length == 0 && arguments.Length == 0)
             {
-                return new object?[] { };
+                return Array.Empty<object>();
             }
 
-            if (parameters == null || arguments == null || parameters.Length != arguments.Length)
+            if (parameters.Length != arguments.Length)
             {
-                throw new ArgumentException("Arguments do not match method parameters", nameof(arguments));
+                throw new ArgumentException(
+                    $"Arguments do not match method parameters (method has {parameters.Length} parameters, {arguments.Length} arguments received)",
+                    nameof(arguments));
             }
 
             var cleanedArgs = new List<object?>(arguments);
@@ -446,9 +448,9 @@ namespace Amazon.JSII.Runtime.Deputy
         {
             methodName = methodName ?? throw new ArgumentNullException(nameof(methodName));
             type = type ?? throw new ArgumentNullException(nameof(type));
-            parameterTypes = parameterTypes ?? throw new ArgumentException(nameof(parameterTypes));
+            parameterTypes = parameterTypes ?? throw new ArgumentNullException(nameof(parameterTypes));
 
-            var methodInfo = type.GetMethod(methodName, bindingFlags, null, parameterTypes, new ParameterModifier[0]);
+            var methodInfo = type.GetMethod(methodName, bindingFlags, null, parameterTypes, Array.Empty<ParameterModifier>());
             if (methodInfo == null)
             {
                 throw new ArgumentException($"Method {methodName} does not exist", nameof(methodName));

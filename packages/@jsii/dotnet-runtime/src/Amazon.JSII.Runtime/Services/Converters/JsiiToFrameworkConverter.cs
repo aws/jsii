@@ -3,6 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 
 namespace Amazon.JSII.Runtime.Services.Converters
@@ -41,7 +42,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
                 if (!type.IsInstanceOfType(result) && result is IConvertible)
                 {
-                    result = Convert.ChangeType(result, type);
+                    result = Convert.ChangeType(result, type, CultureInfo.InvariantCulture);
                 }
                 
                 return result != null;
@@ -146,7 +147,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (IsNumeric(value.GetType()))
             {
-                result = Convert.ToDouble(value);
+                result = Convert.ToDouble(value, CultureInfo.InvariantCulture);
                 return true;
             }
 
@@ -233,9 +234,9 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 var elementType = _types.GetFrameworkType(elementTypeInstance, false);
                 var dictionaryType = typeof(Dictionary<,>).MakeGenericType(typeof(string), elementType);
 
-                var dictionaryConstructor = dictionaryType.GetConstructor(new System.Type[] { })!;
+                var dictionaryConstructor = dictionaryType.GetConstructor(Array.Empty<System.Type>())!;
                 var dictionaryAddMethod = dictionaryType.GetMethod("Add", new [] { typeof(string), elementType })!;
-                var dictionary = dictionaryConstructor.Invoke(new object[] { });
+                var dictionary = dictionaryConstructor.Invoke(Array.Empty<object>());
 
                 if (jsonObject.ContainsKey("$jsii.map"))
                 {

@@ -44,7 +44,8 @@ namespace Amazon.JSII.Runtime.Deputy
             }
 
             // find the .tgz resource
-            var tarballResourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(".tgz"));
+            var tarballResourceName = assembly.GetManifestResourceNames()
+                .FirstOrDefault(name => name.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase));
             if (tarballResourceName == null)
             {
                 throw new JsiiException("Cannot find embedded tarball resource in assembly " + assembly.GetName(), null);
