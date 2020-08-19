@@ -1081,7 +1081,7 @@ func (b *Base) TypeName() jsii.Any  {
     return nil
 }
 
-type BaseProps interface {
+type BasePropsIface interface {
     GetBar() string
 }
 
@@ -2715,7 +2715,7 @@ func (v *Very) Hey() float64  {
     return 0.0
 }
 
-type VeryBaseProps interface {
+type VeryBasePropsIface interface {
     GetFoo() Very
 }
 
@@ -6435,7 +6435,7 @@ type IThreeLevelsInterface interface {
     Baz()
 }
 
-type MyFirstStruct interface {
+type MyFirstStructIface interface {
     GetAnumber() float64
     GetAstring() string
     GetFirstOptional() []string
@@ -6491,7 +6491,7 @@ func (o *Operation) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
-type StructWithOnlyOptionals interface {
+type StructWithOnlyOptionalsIface interface {
     GetOptional1() string
     GetOptional2() float64
     GetOptional3() bool
@@ -6567,7 +6567,7 @@ type NestedClass struct {
     Property string
 }
 
-type ReflectableEntry interface {
+type ReflectableEntryIface interface {
     GetKey() string
     GetValue() jsii.Any
 }
@@ -49964,7 +49964,7 @@ func (c *Calculator) ReadUnionValue() float64  {
     return 0.0
 }
 
-type CalculatorProps interface {
+type CalculatorPropsIface interface {
     GetInitialValue() float64
     GetMaximumValue() float64
 }
@@ -49984,7 +49984,7 @@ func (c CalculatorProps) GetMaximumValue() float64 {
 }
 
 
-type ChildStruct982 interface {
+type ChildStruct982Iface interface {
     GetBar() float64
 }
 
@@ -50169,7 +50169,7 @@ func (c *ConfusingToJackson) MakeStructInstance() ConfusingToJacksonStruct  {
     return nil
 }
 
-type ConfusingToJacksonStruct interface {
+type ConfusingToJacksonStructIface interface {
     GetUnionProperty() jsii.Any
 }
 
@@ -50547,7 +50547,7 @@ const (
     DeprecatedEnumOptionB DeprecatedEnum = "OPTION_B"
 )
 
-type DeprecatedStruct interface {
+type DeprecatedStructIface interface {
     GetReadonlyProperty() string
 }
 
@@ -50561,7 +50561,7 @@ func (d DeprecatedStruct) GetReadonlyProperty() string {
 }
 
 
-type DerivedStruct interface {
+type DerivedStructIface interface {
     GetAnotherRequired() string
     GetBool() bool
     GetNonPrimitive() DoubleTrouble
@@ -50605,7 +50605,7 @@ func (d DerivedStruct) GetOptionalArray() []string {
 }
 
 
-type DiamondInheritanceBaseLevelStruct interface {
+type DiamondInheritanceBaseLevelStructIface interface {
     GetBaseLevelProperty() string
 }
 
@@ -50619,7 +50619,7 @@ func (d DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
 }
 
 
-type DiamondInheritanceFirstMidLevelStruct interface {
+type DiamondInheritanceFirstMidLevelStructIface interface {
     GetFirstMidLevelProperty() string
 }
 
@@ -50633,7 +50633,7 @@ func (d DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string
 }
 
 
-type DiamondInheritanceSecondMidLevelStruct interface {
+type DiamondInheritanceSecondMidLevelStructIface interface {
     GetSecondMidLevelProperty() string
 }
 
@@ -50647,7 +50647,7 @@ func (d DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() stri
 }
 
 
-type DiamondInheritanceTopLevelStruct interface {
+type DiamondInheritanceTopLevelStructIface interface {
     GetTopLevelProperty() string
 }
 
@@ -50883,7 +50883,7 @@ func (e *EraseUndefinedHashValues) Prop2IsUndefined() map[string]jsii.Any  {
     return nil
 }
 
-type EraseUndefinedHashValuesOptions interface {
+type EraseUndefinedHashValuesOptionsIface interface {
     GetOption1() string
     GetOption2() string
 }
@@ -50934,7 +50934,7 @@ const (
     ExperimentalEnumOptionB ExperimentalEnum = "OPTION_B"
 )
 
-type ExperimentalStruct interface {
+type ExperimentalStructIface interface {
     GetReadonlyProperty() string
 }
 
@@ -50957,7 +50957,7 @@ type ExportedBaseClass struct {
     Success bool
 }
 
-type ExtendsInternalInterface interface {
+type ExtendsInternalInterfaceIface interface {
     GetBoom() bool
     GetProp() string
 }
@@ -51008,7 +51008,7 @@ const (
     ExternalEnumOptionB ExternalEnum = "OPTION_B"
 )
 
-type ExternalStruct interface {
+type ExternalStructIface interface {
     GetReadonlyProperty() string
 }
 
@@ -51067,7 +51067,7 @@ func (g *GiveMeStructs) ReadFirstNumber() float64  {
     return 0.0
 }
 
-type Greetee interface {
+type GreeteeIface interface {
     GetName() string
 }
 
@@ -51306,7 +51306,7 @@ type ImplementsPrivateInterface struct {
     Private string
 }
 
-type ImplictBaseOfBase interface {
+type ImplictBaseOfBaseIface interface {
     GetGoo() string
 }
 
@@ -52381,7 +52381,7 @@ func (j *JsonFormatter) Stringify() string  {
     return "NOOP_RETURN_STRING"
 }
 
-type LoadBalancedFargateServiceProps interface {
+type LoadBalancedFargateServicePropsIface interface {
     GetContainerPort() float64
     GetCpu() string
     GetMemoryMiB() string
@@ -52572,7 +52572,7 @@ func (n *NestedClassInstance) MakeInstance() jsii.Any  {
     return nil
 }
 
-type NestedStruct interface {
+type NestedStructIface interface {
     GetNumberProp() float64
 }
 
@@ -52676,7 +52676,7 @@ func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() jsii.Any  {
     return nil
 }
 
-type NullShouldBeTreatedAsUndefinedData interface {
+type NullShouldBeTreatedAsUndefinedDataIface interface {
     GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []jsii.Any
     GetThisShouldBeUndefined() jsii.Any
 }
@@ -52840,7 +52840,7 @@ type OptionalConstructorArgument struct {
     Arg3 string
 }
 
-type OptionalStruct interface {
+type OptionalStructIface interface {
     GetField() string
 }
 
@@ -52930,7 +52930,7 @@ func (o *OverrideReturnsObject) Test() float64  {
     return 0.0
 }
 
-type ParentStruct982 interface {
+type ParentStruct982Iface interface {
     GetFoo() string
 }
 
@@ -53457,7 +53457,7 @@ type ReturnsPrivateImplementationOfInterface struct {
     PrivateImplementation IPrivatelyImplemented
 }
 
-type RootStruct interface {
+type RootStructIface interface {
     GetStringProp() string
     GetNestedStruct() NestedStruct
 }
@@ -53537,7 +53537,7 @@ func (r *RuntimeTypeChecking) MethodWithOptionalArguments() jsii.Any  {
     return nil
 }
 
-type SecondLevelStruct interface {
+type SecondLevelStructIface interface {
     GetDeeperRequiredProp() string
     GetDeeperOptionalProp() string
 }
@@ -53635,7 +53635,7 @@ const (
     SingletonStringEnumSingletonString SingletonStringEnum = "SINGLETON_STRING"
 )
 
-type SmellyStruct interface {
+type SmellyStructIface interface {
     GetProperty() string
     GetYetAnoterOne() bool
 }
@@ -53716,7 +53716,7 @@ const (
     StableEnumOptionB StableEnum = "OPTION_B"
 )
 
-type StableStruct interface {
+type StableStructIface interface {
     GetReadonlyProperty() string
 }
 
@@ -53819,7 +53819,7 @@ type StripInternal struct {
     YouSeeMe string
 }
 
-type StructA interface {
+type StructAIface interface {
     GetRequiredString() string
     GetOptionalNumber() float64
     GetOptionalString() string
@@ -53845,7 +53845,7 @@ func (s StructA) GetOptionalString() string {
 }
 
 
-type StructB interface {
+type StructBIface interface {
     GetRequiredString() string
     GetOptionalBoolean() bool
     GetOptionalStructA() StructA
@@ -53871,7 +53871,7 @@ func (s StructB) GetOptionalStructA() StructA {
 }
 
 
-type StructParameterType interface {
+type StructParameterTypeIface interface {
     GetScope() string
     GetProps() bool
 }
@@ -53951,7 +53951,7 @@ func (s *StructUnionConsumer) IsStructB() bool  {
     return true
 }
 
-type StructWithJavaReservedWords interface {
+type StructWithJavaReservedWordsIface interface {
     GetDefault() string
     GetAssert() string
     GetResult() string
@@ -54007,7 +54007,7 @@ type SupportsNiceJavaBuilder struct {
     Rest []string
 }
 
-type SupportsNiceJavaBuilderProps interface {
+type SupportsNiceJavaBuilderPropsIface interface {
     GetBar() float64
     GetId() string
 }
@@ -54204,7 +54204,7 @@ func (t *Thrower) ThrowError() jsii.Any  {
     return nil
 }
 
-type TopLevelStruct interface {
+type TopLevelStructIface interface {
     GetRequired() string
     GetSecondLevel() jsii.Any
     GetOptional() string
@@ -54257,7 +54257,7 @@ type UnaryOperation struct {
     Operand jsii.Any
 }
 
-type UnionProperties interface {
+type UnionPropertiesIface interface {
     GetBar() jsii.Any
     GetFoo() jsii.Any
 }
@@ -54558,7 +54558,7 @@ type Foo struct {
     Bar string
 }
 
-type Hello interface {
+type HelloIface interface {
     GetFoo() float64
 }
 
@@ -54582,7 +54582,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
-type Hello interface {
+type HelloIface interface {
     GetFoo() float64
 }
 
@@ -54640,7 +54640,7 @@ type IInterfaceWithSelf interface {
     Method() string
 }
 
-type StructWithSelf interface {
+type StructWithSelfIface interface {
     GetSelf() string
 }
 
@@ -54747,7 +54747,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
-type MyClassReference interface {
+type MyClassReferenceIface interface {
     GetReference() submodule.MyClass
 }
 
@@ -54794,7 +54794,7 @@ type InnerClass struct {
     StaticProp SomeStruct
 }
 
-type KwargsProps interface {
+type KwargsPropsIface interface {
     GetExtra() string
 }
 
@@ -54823,7 +54823,7 @@ const (
     SomeEnumSome SomeEnum = "SOME"
 )
 
-type SomeStruct interface {
+type SomeStructIface interface {
     GetProp() SomeEnum
 }
 
@@ -54837,7 +54837,7 @@ func (s SomeStruct) GetProp() SomeEnum {
 }
 
 
-type Structure interface {
+type StructureIface interface {
     GetBool() bool
 }
 

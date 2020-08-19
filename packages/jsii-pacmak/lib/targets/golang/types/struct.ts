@@ -26,7 +26,7 @@ export class Struct extends GoType {
   }
 
   private generateInterface(code: CodeMaker): void {
-    code.openBlock(`type ${this.name} interface`);
+    code.openBlock(`type ${this.name}Iface interface`);
 
     this.properties.forEach((property) => property.emitGetter(code));
 
