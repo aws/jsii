@@ -15,7 +15,7 @@ export type ModuleType = Interface | Enum | GoClass | Struct;
 export abstract class Module {
   public readonly root: Module;
   public readonly file: string;
-  public readonly submodules: Submodule[];
+  public readonly submodules: InternalPackage[];
   public readonly types: ModuleType[];
 
   public constructor(
@@ -29,7 +29,7 @@ export abstract class Module {
     this.file = `${filePath}.go`;
     this.root = root || this;
     this.submodules = this.submoduleSpec.map(
-      (sm) => new Submodule(this.root, this, sm),
+      (sm) => new InternalPackage(this.root, this, sm),
     );
 
     this.types = this.typeSpec.map(
@@ -82,7 +82,7 @@ export abstract class Module {
     this.emitTypes(code);
     code.closeFile(this.file);
 
-    this.emitSubmodules(context);
+    this.emitInternalPackages(context);
   }
 
   private emitHeader(code: CodeMaker) {
@@ -105,7 +105,7 @@ export abstract class Module {
     code.line();
   }
 
-  public emitSubmodules(context: EmitContext) {
+  public emitInternalPackages(context: EmitContext) {
     for (const submodule of this.submodules) {
       submodule.emit(context);
     }
@@ -118,7 +118,10 @@ export abstract class Module {
   }
 }
 
-export class Submodule extends Module {
+/*
+ * InternalPackage refers to any go package within a given JSII module.
+ */
+export class InternalPackage extends Module {
   public readonly parent: Module;
 
   public constructor(root: Module, parent: Module, assembly: JsiiSubmodule) {
