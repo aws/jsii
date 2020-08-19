@@ -1157,6 +1157,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
  ┃     ┃              ┣━ 📄 IVeryBaseInterface.cs
  ┃     ┃              ┣━ 📄 IVeryBaseInterfaceProxy.cs
  ┃     ┃              ┣━ 📄 IVeryBaseProps.cs
+ ┃     ┃              ┣━ 📄 StaticConsumer.cs
  ┃     ┃              ┣━ 📄 Very.cs
  ┃     ┃              ┣━ 📄 VeryBaseProps.cs
  ┃     ┃              ┗━ 📄 VeryBasePropsProxy.cs
@@ -1176,6 +1177,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
  ┃        ┃                 ┗━ 📁 baseofbase
  ┃        ┃                    ┣━ 📄 $Module.java
  ┃        ┃                    ┣━ 📄 IVeryBaseInterface.java
+ ┃        ┃                    ┣━ 📄 StaticConsumer.java
  ┃        ┃                    ┣━ 📄 Very.java
  ┃        ┃                    ┗━ 📄 VeryBaseProps.java
  ┃        ┗━ 📁 resources
@@ -1266,6 +1268,36 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
       ],
       "name": "IVeryBaseInterface"
     },
+    "@scope/jsii-calc-base-of-base.StaticConsumer": {
+      "assembly": "@scope/jsii-calc-base-of-base",
+      "fqn": "@scope/jsii-calc-base-of-base.StaticConsumer",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 15
+      },
+      "methods": [
+        {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 18
+          },
+          "name": "consume",
+          "parameters": [
+            {
+              "name": "_args",
+              "type": {
+                "primitive": "any"
+              },
+              "variadic": true
+            }
+          ],
+          "static": true,
+          "variadic": true
+        }
+      ],
+      "name": "StaticConsumer"
+    },
     "@scope/jsii-calc-base-of-base.Very": {
       "assembly": "@scope/jsii-calc-base-of-base",
       "fqn": "@scope/jsii-calc-base-of-base.Very",
@@ -1318,7 +1350,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     }
   },
   "version": "0.0.0",
-  "fingerprint": "v3mwSbKGQ2aa8g0DEKIeaEXh3csX7PX2MJJxHVRufhI="
+  "fingerprint": "DziQGJ8nlNWkjkg4nENQT5/9Gl+eeFGRp1b+csGazr8="
 }
 
 `;
@@ -1431,6 +1463,40 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Internal.Dep
     {
         public Anchor()
         {
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId/Amazon/JSII/Tests/CalculatorNamespace/BaseOfBaseNamespace/StaticConsumer.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.StaticConsumer), fullyQualifiedName: "@scope/jsii-calc-base-of-base.StaticConsumer")]
+    public class StaticConsumer : DeputyBase
+    {
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected StaticConsumer(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected StaticConsumer(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "consume", parametersJson: "[{\\"name\\":\\"_args\\",\\"type\\":{\\"primitive\\":\\"any\\"},\\"variadic\\":true}]")]
+        public static void Consume(params object[] args)
+        {
+            InvokeStaticVoidMethod(typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.StaticConsumer), new System.Type[]{typeof(object[])}, new object[]{args});
         }
     }
 }
@@ -1777,6 +1843,28 @@ public interface IVeryBaseInterface extends software.amazon.jsii.JsiiSerializabl
 
 `;
 
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/baseofbase/StaticConsumer.java 1`] = `
+package software.amazon.jsii.tests.calculator.baseofbase;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.baseofbase.$Module.class, fqn = "@scope/jsii-calc-base-of-base.StaticConsumer")
+public class StaticConsumer extends software.amazon.jsii.JsiiObject {
+
+    protected StaticConsumer(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected StaticConsumer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    public static void consume(final @org.jetbrains.annotations.NotNull java.lang.Object... _args) {
+        software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.baseofbase.StaticConsumer.class, "consume", software.amazon.jsii.NativeType.VOID, java.util.Arrays.<Object>stream(_args).toArray(Object[]::new));
+    }
+}
+
+`;
+
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/baseofbase/Very.java 1`] = `
 package software.amazon.jsii.tests.calculator.baseofbase;
 
@@ -1914,6 +2002,7 @@ public interface VeryBaseProps extends software.amazon.jsii.JsiiSerializable {
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/main/resources/software/amazon/jsii/tests/calculator/baseofbase/$Module.txt 1`] = `
 @scope/jsii-calc-base-of-base.IVeryBaseInterface=software.amazon.jsii.tests.calculator.baseofbase.IVeryBaseInterface
+@scope/jsii-calc-base-of-base.StaticConsumer=software.amazon.jsii.tests.calculator.baseofbase.StaticConsumer
 @scope/jsii-calc-base-of-base.Very=software.amazon.jsii.tests.calculator.baseofbase.Very
 @scope/jsii-calc-base-of-base.VeryBaseProps=software.amazon.jsii.tests.calculator.baseofbase.VeryBaseProps
 
@@ -2036,6 +2125,18 @@ class _IVeryBaseInterfaceProxy:
         return jsii.invoke(self, "foo", [])
 
 
+class StaticConsumer(
+    metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.StaticConsumer"
+):
+    @jsii.member(jsii_name="consume")
+    @builtins.classmethod
+    def consume(cls, *_args: typing.Any) -> None:
+        """
+        :param _args: -
+        """
+        return jsii.sinvoke(cls, "consume", [*_args])
+
+
 class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Very"):
     def __init__(self) -> None:
         jsii.create(Very, self, [])
@@ -2077,6 +2178,7 @@ class VeryBaseProps:
 
 __all__ = [
     "IVeryBaseInterface",
+    "StaticConsumer",
     "Very",
     "VeryBaseProps",
 ]
@@ -2843,6 +2945,40 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
         }
       ]
     },
+    "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct": {
+      "assembly": "@scope/jsii-calc-lib",
+      "datatype": true,
+      "docs": {
+        "remarks": "Normal.",
+        "stability": "deprecated",
+        "summary": "This is a struct, nested within a class."
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 37
+      },
+      "name": "NestedStruct",
+      "namespace": "submodule.NestingClass",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 38
+          },
+          "name": "name",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "@scope/jsii-calc-lib.submodule.ReflectableEntry": {
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
@@ -2941,7 +3077,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     }
   },
   "version": "0.0.0",
-  "fingerprint": "f/4VuNiOkSgTgLR80loQUAzAuzFi+25rmfLcRWKDCrY="
+  "fingerprint": "mi8mRAruztXaT0gYqEr9O6UHWWWkiz7XpCdNrWQMPuA="
 }
 
 `;
@@ -4003,6 +4139,72 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
                 get => GetInstanceProperty<string>();
             }
         }
+        /// <summary>This is a struct, nested within a class.</summary>
+        /// <remarks>
+        /// Normal.
+        /// 
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiInterface(nativeType: typeof(INestedStruct), fullyQualifiedName: "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct")]
+        [System.Obsolete()]
+        public interface INestedStruct
+        {
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            [System.Obsolete()]
+            string Name
+            {
+                get;
+            }
+        }
+        /// <summary>This is a struct, nested within a class.</summary>
+        /// <remarks>
+        /// Normal.
+        /// 
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiTypeProxy(nativeType: typeof(INestedStruct), fullyQualifiedName: "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct")]
+        [System.Obsolete()]
+        internal sealed class NestedStructProxy : DeputyBase, Amazon.JSII.Tests.CustomSubmoduleName.NestingClass.INestedStruct
+        {
+            private NestedStructProxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}")]
+            [System.Obsolete()]
+            public string Name
+            {
+                get => GetInstanceProperty<string>();
+            }
+        }
+        #pragma warning disable CS8618
+
+        /// <summary>This is a struct, nested within a class.</summary>
+        /// <remarks>
+        /// Normal.
+        /// 
+        /// <strong>Stability</strong>: Deprecated
+        /// </remarks>
+        [JsiiByValue(fqn: "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct")]
+        public class NestedStruct : Amazon.JSII.Tests.CustomSubmoduleName.NestingClass.INestedStruct
+        {
+            /// <remarks>
+            /// <strong>Stability</strong>: Deprecated
+            /// </remarks>
+            [JsiiProperty(name: "name", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+            [System.Obsolete()]
+            public string Name
+            {
+                get;
+                set;
+            }
+        }
     }
 }
 
@@ -4399,6 +4601,128 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
         @Deprecated
         public @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
             return this.jsiiGet("property", java.lang.String.class);
+        }
+    }
+    /**
+     * This is a struct, nested within a class.
+     * <p>
+     * Normal.
+     */
+    @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct")
+    @software.amazon.jsii.Jsii.Proxy(NestedStruct.Jsii$Proxy.class)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
+    public static interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        @org.jetbrains.annotations.NotNull java.lang.String getName();
+
+        /**
+         * @return a {@link Builder} of {@link NestedStruct}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        static Builder builder() {
+            return new Builder();
+        }
+        /**
+         * A builder for {@link NestedStruct}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        public static final class Builder implements software.amazon.jsii.Builder<NestedStruct> {
+            private java.lang.String name;
+
+            /**
+             * Sets the value of {@link NestedStruct#getName}
+             * @param name the value to be set. This parameter is required.
+             * @return {@code this}
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+            @Deprecated
+            public Builder name(java.lang.String name) {
+                this.name = name;
+                return this;
+            }
+
+            /**
+             * Builds the configured instance.
+             * @return a new instance of {@link NestedStruct}
+             * @throws NullPointerException if any required attribute was not provided
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+            @Deprecated
+            @Override
+            public NestedStruct build() {
+                return new Jsii$Proxy(name);
+            }
+        }
+
+        /**
+         * An implementation for {@link NestedStruct}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
+        final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements NestedStruct {
+            private final java.lang.String name;
+
+            /**
+             * Constructor that initializes the object based on values retrieved from the JsiiObject.
+             * @param objRef Reference to the JSII managed object.
+             */
+            protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+                super(objRef);
+                this.name = this.jsiiGet("name", java.lang.String.class);
+            }
+
+            /**
+             * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+             */
+            private Jsii$Proxy(final java.lang.String name) {
+                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+                this.name = java.util.Objects.requireNonNull(name, "name is required");
+            }
+
+            @Override
+            public java.lang.String getName() {
+                return this.name;
+            }
+
+            @Override
+            public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+                final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+                data.set("name", om.valueToTree(this.getName()));
+
+                final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                struct.set("fqn", om.valueToTree("@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct"));
+                struct.set("data", data);
+
+                final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                obj.set("$jsii.struct", struct);
+
+                return obj;
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                NestedStruct.Jsii$Proxy that = (NestedStruct.Jsii$Proxy) o;
+
+                return this.name.equals(that.name);
+            }
+
+            @Override
+            public int hashCode() {
+                int result = this.name.hashCode();
+                return result;
+            }
         }
     }
 }
@@ -5445,6 +5769,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/resou
 @scope/jsii-calc-lib.submodule.IReflectable=software.amazon.jsii.tests.calculator.custom_submodule_name.IReflectable
 @scope/jsii-calc-lib.submodule.NestingClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass
 @scope/jsii-calc-lib.submodule.NestingClass.NestedClass=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass$NestedClass
+@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct=software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass$NestedStruct
 @scope/jsii-calc-lib.submodule.ReflectableEntry=software.amazon.jsii.tests.calculator.custom_submodule_name.ReflectableEntry
 @scope/jsii-calc-lib.submodule.Reflector=software.amazon.jsii.tests.calculator.custom_submodule_name.Reflector
 
@@ -6110,6 +6435,45 @@ class NestingClass(
             :stability: deprecated
             """
             return jsii.get(self, "property")
+
+    @jsii.data_type(
+        jsii_type="@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct",
+        jsii_struct_bases=[],
+        name_mapping={"name": "name"},
+    )
+    class NestedStruct:
+        def __init__(self, *, name: str) -> None:
+            """This is a struct, nested within a class.
+
+            Normal.
+
+            :param name: 
+
+            stability
+            :stability: deprecated
+            """
+            self._values = {
+                "name": name,
+            }
+
+        @builtins.property
+        def name(self) -> str:
+            """
+            stability
+            :stability: deprecated
+            """
+            return self._values.get("name")
+
+        def __eq__(self, rhs) -> bool:
+            return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+        def __ne__(self, rhs) -> bool:
+            return not (rhs == self)
+
+        def __repr__(self) -> str:
+            return "NestedStruct(%s)" % ", ".join(
+                k + "=" + repr(v) for k, v in self._values.items()
+            )
 
 
 @jsii.data_type(
