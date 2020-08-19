@@ -4,6 +4,8 @@ import { Module } from '../module';
 import { InterfaceType, Property } from 'jsii-reflect';
 import { CodeMaker, toPascalCase } from 'codemaker';
 
+const STRUCT_INTERFACE_SUFFIX = 'Iface';
+
 // JSII datatype interfaces, aka structs
 export class Struct extends GoType {
   public readonly properties: StructProperty[];
@@ -26,7 +28,8 @@ export class Struct extends GoType {
   }
 
   private generateInterface(code: CodeMaker): void {
-    code.openBlock(`type ${this.name}Iface interface`);
+    const interfaceName = `${this.name}${STRUCT_INTERFACE_SUFFIX}`;
+    code.openBlock(`type ${interfaceName} interface`);
 
     this.properties.forEach((property) => property.emitGetter(code));
 
