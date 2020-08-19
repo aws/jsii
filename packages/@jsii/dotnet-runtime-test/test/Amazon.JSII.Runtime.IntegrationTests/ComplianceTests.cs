@@ -5,6 +5,7 @@ using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
 using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation;
 using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using Xunit.Abstractions;
@@ -44,6 +45,14 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         void IDisposable.Dispose()
         {
             _serviceContainerFixture.Dispose();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(UseNestedStruct))]
+        public void UseNestedStruct()
+        {
+            StaticConsumer.Consume(
+                new Amazon.JSII.Tests.CustomSubmoduleName.NestingClass.NestedStruct { Name = "Bond, James Bond" }
+            );
         }
 
         [Fact(DisplayName = Prefix + nameof(PrimitiveTypes))]

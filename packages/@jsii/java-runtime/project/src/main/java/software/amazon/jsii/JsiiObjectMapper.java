@@ -201,11 +201,19 @@ public final class JsiiObjectMapper {
    * Serializer for classes that extend JsiiObject and any other class that implements a jsii interface.
    * We use the JsiiSerializable interface as a way to identify "anything jsii-able".
    */
-  private static final class JsiiSerializer extends JsonSerializer<JsiiSerializable> {
+  private final class JsiiSerializer extends JsonSerializer<JsiiSerializable> {
     @Override
     public void serialize(final JsiiSerializable o,
                           final JsonGenerator jsonGenerator,
                           final SerializerProvider serializerProvider) throws IOException {
+      // First, ensure the relevant interfaces' modules have been loaded (in case "o" is a struct instance)
+      for (final Class<?> iface : o.getClass().getInterfaces()) {
+        final Jsii jsii = JsiiEngine.tryGetJsiiAnnotation(iface, true);
+        if (jsii != null) {
+          getEngine().loadModule(jsii.module());
+        }
+      }
+      // Then dump the JSON out
       jsonGenerator.writeTree(o.$jsii$toJson());
     }
   }

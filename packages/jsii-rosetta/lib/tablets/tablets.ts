@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+import * as path from 'path';
 import {
   TabletSchema,
   TranslatedSnippetSchema,
@@ -68,6 +69,7 @@ export class LanguageTablet {
   }
 
   public async save(filename: string) {
+    await fs.mkdirp(path.dirname(filename));
     await fs.writeJson(filename, this.toSchema(), {
       encoding: 'utf-8',
       spaces: 2,
