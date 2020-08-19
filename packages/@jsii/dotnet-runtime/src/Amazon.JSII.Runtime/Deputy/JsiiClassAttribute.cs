@@ -11,7 +11,7 @@ namespace Amazon.JSII.Runtime.Deputy
             : base(nativeType, fullyQualifiedName)
         {
             Parameters = parametersJson == null
-                             ? new Parameter[]{}
+                             ? Array.Empty<Parameter>()
                              : JsonConvert.DeserializeObject<Parameter[]>(parametersJson);
         }
 

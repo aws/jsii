@@ -3,9 +3,9 @@ import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
 import * as path from 'path';
 
+import { traverseDependencyGraph } from './dependency-graph';
 import { IGenerator } from './generator';
 import * as logging from './logging';
-import { resolveDependencyDirectory } from './util';
 import { Rosetta } from 'jsii-rosetta';
 
 export abstract class Target {
@@ -91,39 +91,33 @@ export async function findLocalBuildDirs(
   targetName: string,
 ) {
   const results = new Set<string>();
-  await recurse(rootPackageDir, true);
+  await traverseDependencyGraph(rootPackageDir, processPackage);
   return Array.from(results);
 
-  async function recurse(packageDir: string, isRoot: boolean) {
-    const pkg = await fs.readJson(path.join(packageDir, 'package.json'));
-
+  async function processPackage(
+    packageDir: string,
+    pkg: any,
+    isRoot: boolean,
+  ): Promise<boolean> {
     // no jsii or jsii.outdir - either a misconfigured jsii package or a non-jsii dependency. either way, we are done here.
     if (!pkg.jsii || !pkg.jsii.outdir) {
-      return;
+      return false;
+    }
+
+    if (isRoot) {
+      // This is the root package - no need to register it's outdir
+      return true;
     }
 
     // if an output directory exists for this module, then we add it to our
     // list of results (unless it's the root package, which we are currently building)
     const outdir = path.join(packageDir, pkg.jsii.outdir, targetName);
-    if (results.has(outdir)) {
-      return;
-    } // Already visited, don't recurse again
-
-    if (!isRoot && (await fs.pathExists(outdir))) {
+    if (await fs.pathExists(outdir)) {
       logging.debug(`Found ${outdir} as a local dependency output`);
       results.add(outdir);
     }
 
-    // now descend to dependencies
-    await Promise.all(
-      Object.keys(pkg.dependencies ?? {}).map((dependencyName) => {
-        const dependencyDir = resolveDependencyDirectory(
-          packageDir,
-          dependencyName,
-        );
-        return recurse(dependencyDir, false);
-      }),
-    );
+    return true;
   }
 }
 

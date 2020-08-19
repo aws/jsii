@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Amazon.JSII.JsonModel.Spec;
@@ -187,7 +188,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (IsNumeric(value.GetType()))
             {
-                result = Convert.ToDouble(value);
+                result = Convert.ToDouble(value, CultureInfo.InvariantCulture);
                 return true;
             }
 
