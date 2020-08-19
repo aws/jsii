@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.JsonModel", "Am
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Analyzers", "Amazon.JSII.Analyzers\Amazon.JSII.Analyzers.csproj", "{0BD8DC3F-CB0A-4299-93E4-1496181F054E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.JsonModel.UnitTests", "Amazon.JSII.JsonModel.UnitTests\Amazon.JSII.JsonModel.UnitTests.csproj", "{A534D6E6-DD54-452E-B0ED-14246E263C20}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Analyzers.UnitTests", "Amazon.JSII.Analyzers.UnitTests\Amazon.JSII.Analyzers.UnitTests.csproj", "{17D77476-5C95-4C13-8023-08664AA5F801}"
 EndProject
 Global
@@ -45,10 +43,6 @@ Global
 		{0BD8DC3F-CB0A-4299-93E4-1496181F054E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BD8DC3F-CB0A-4299-93E4-1496181F054E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BD8DC3F-CB0A-4299-93E4-1496181F054E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A534D6E6-DD54-452E-B0ED-14246E263C20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A534D6E6-DD54-452E-B0ED-14246E263C20}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A534D6E6-DD54-452E-B0ED-14246E263C20}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A534D6E6-DD54-452E-B0ED-14246E263C20}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17D77476-5C95-4C13-8023-08664AA5F801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17D77476-5C95-4C13-8023-08664AA5F801}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17D77476-5C95-4C13-8023-08664AA5F801}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,7 +53,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{96CC0C0B-1D90-448F-9BFC-07CE93D2CE29} = {1F4EEFB5-9E4C-4464-9C3B-6729ABB0511E}
-		{A534D6E6-DD54-452E-B0ED-14246E263C20} = {1F4EEFB5-9E4C-4464-9C3B-6729ABB0511E}
 		{17D77476-5C95-4C13-8023-08664AA5F801} = {1F4EEFB5-9E4C-4464-9C3B-6729ABB0511E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

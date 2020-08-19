@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
-./node_modules/.bin/webpack-cli
+
+npx webpack-cli
 
 # HACK: the 'source-map' library used by @jsii/kernel requires __dirname/mappings.wasm
 # this means we need to make sure this is also brought in to the clients until we figure it

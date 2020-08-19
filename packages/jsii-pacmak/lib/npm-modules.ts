@@ -14,7 +14,10 @@ import { topologicalSort } from './toposort';
  *
  * The result is topologically sorted.
  */
-export async function findJsiiModules(directories: string[], recurse: boolean) {
+export async function findJsiiModules(
+  directories: string[],
+  recurse: boolean,
+): Promise<JsiiModule[]> {
   const ret: JsiiModule[] = [];
   const visited = new Set<string>();
 
@@ -83,7 +86,9 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
   }
 }
 
-export async function updateAllNpmIgnores(packages: JsiiModule[]) {
+export async function updateAllNpmIgnores(
+  packages: JsiiModule[],
+): Promise<void> {
   await Promise.all(
     packages.map((pkg) =>
       updateNpmIgnore(pkg.moduleDirectory, pkg.outputDirectory),

@@ -1,5 +1,3 @@
-///!MATCH_ERROR: Only string-indexed map types are supported
-
 export interface FooBar {
   readonly foo: string;
   readonly bar: string;

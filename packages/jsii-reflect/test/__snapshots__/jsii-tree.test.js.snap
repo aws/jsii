@@ -438,6 +438,17 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ rhs property (experimental)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Value
+ │   ├─┬ class BurriedAnonymousObject (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ check() method (experimental)
+ │   │   │ └── returns: boolean
+ │   │   └─┬ giveItBack(value) method (experimental)
+ │   │     ├── abstract
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ value
+ │   │     │   └── type: any
+ │   │     └── returns: any
  │   ├─┬ class Calculator (experimental)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -1217,6 +1228,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ value property (experimental)
  │   │     ├── immutable
  │   │     └── type: number
+ │   ├─┬ class NestedClassInstance (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ static makeInstance() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: @scope/jsii-calc-lib.submodule.NestingClass.NestedClass
  │   ├─┬ class NodeStandardLibrary (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -2538,6 +2554,14 @@ exports[`jsii-tree --all 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class NestingClass (deprecated)
+   │     │ └── members
+   │     ├─┬ class NestedClass (deprecated)
+   │     │ └─┬ members
+   │     │   ├── <initializer>() initializer (deprecated)
+   │     │   └─┬ property property (deprecated)
+   │     │     ├── immutable
+   │     │     └── type: string
    │     ├─┬ class Reflector (deprecated)
    │     │ └─┬ members
    │     │   ├── <initializer>() initializer (deprecated)
@@ -2726,6 +2750,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class BinaryOperation
  │   │ ├── base: Operation
  │   │ └── interfaces: IFriendly
+ │   ├── class BurriedAnonymousObject
  │   ├─┬ class Calculator
  │   │ └── base: CompositeOperation
  │   ├─┬ class ClassThatImplementsTheInternalInterface
@@ -2795,6 +2820,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ class Negate
  │   │ ├── base: UnaryOperation
  │   │ └── interfaces: IFriendlier
+ │   ├── class NestedClassInstance
  │   ├── class NodeStandardLibrary
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
@@ -2966,6 +2992,8 @@ exports[`jsii-tree --inheritance 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class NestingClass
+   │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
    │     └── interface ReflectableEntry
@@ -3204,6 +3232,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── hello() method
  │   │   ├── lhs property
  │   │   └── rhs property
+ │   ├─┬ class BurriedAnonymousObject
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── check() method
+ │   │   └── giveItBack(value) method
  │   ├─┬ class Calculator
  │   │ └─┬ members
  │   │   ├── <initializer>(props) initializer
@@ -3549,6 +3582,9 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── hello() method
  │   │   ├── toString() method
  │   │   └── value property
+ │   ├─┬ class NestedClassInstance
+ │   │ └─┬ members
+ │   │   └── static makeInstance() method
  │   ├─┬ class NodeStandardLibrary
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4122,6 +4158,12 @@ exports[`jsii-tree --members 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├─┬ class NestingClass
+   │     │ └── members
+   │     ├─┬ class NestedClass
+   │     │ └─┬ members
+   │     │   ├── <initializer>() initializer
+   │     │   └── property property
    │     ├─┬ class Reflector
    │     │ └─┬ members
    │     │   ├── <initializer>() initializer
@@ -4265,6 +4307,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class BaseJsii976
  │   ├── class Bell
  │   ├── class BinaryOperation
+ │   ├── class BurriedAnonymousObject
  │   ├── class Calculator
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
@@ -4318,6 +4361,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class MethodNamedProperty
  │   ├── class Multiply
  │   ├── class Negate
+ │   ├── class NestedClassInstance
  │   ├── class NodeStandardLibrary
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
@@ -4454,6 +4498,8 @@ exports[`jsii-tree --types 1`] = `
    ├─┬ submodules
    │ └─┬ submodule
    │   └─┬ types
+   │     ├── class NestingClass
+   │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
    │     └── interface ReflectableEntry

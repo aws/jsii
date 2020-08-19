@@ -1,0 +1,587 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`behavior-requires-iprefix 1`] = `
+"neg.behavior-requires-iprefix.ts:1:18 - error TS9999: JSII: Interface contains behavior: name should be \\"ISomething\\"
+
+1 export interface Something {
+                   ~~~~~~~~~
+"
+`;
+
+exports[`class-name 1`] = `
+"error TS0: Type names must use PascalCase: myclass
+"
+`;
+
+exports[`class-name.1 1`] = `
+"error TS0: Type names must use PascalCase: My_class
+"
+`;
+
+exports[`compilation-error 1`] = `
+"neg.compilation-error.ts:1:1 - error TS2304: Cannot find name 'boom'.
+
+1 boom! > CompilerErrorIsHere;
+  ~~~~
+neg.compilation-error.ts:1:9 - error TS2304: Cannot find name 'CompilerErrorIsHere'.
+
+1 boom! > CompilerErrorIsHere;
+          ~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`const-enum 1`] = `
+"neg.const-enum.ts:1:1 - error TS9999: JSII: Exported enum cannot be declared 'const'
+
+  1 export const enum NotAllowed {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  2   ThisEnum,
+    ~~~~~~~~~~~
+... 
+  5   ForJsii,
+    ~~~~~~~~~~
+  6 }
+    ~
+"
+`;
+
+exports[`double-interface-members 1`] = `
+"neg.double-interface-members.ts:2:3 - error TS9999: JSII: The property 'foo' in data type 'A' must be 'readonly' since data is passed by-value
+
+2   foo: number;
+    ~~~~~~~~~~~~
+neg.double-interface-members.ts:4:1 - error TS9999: JSII: Interface declares same member as inherited interface: foo
+
+4 export interface B extends A {
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5   foo: number;
+  ~~~~~~~~~~~~~~
+6 }
+  ~
+neg.double-interface-members.ts:5:3 - error TS9999: JSII: The property 'foo' in data type 'B' must be 'readonly' since data is passed by-value
+
+5   foo: number;
+    ~~~~~~~~~~~~
+"
+`;
+
+exports[`double-interface-members-deeper 1`] = `
+"neg.double-interface-members-deeper.ts:9:1 - error TS9999: JSII: Interface declares same member as inherited interface: foo
+
+ 9 export interface IC extends IB {
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+10   foo(): void;
+   ~~~~~~~~~~~~~~
+11 }
+   ~
+"
+`;
+
+exports[`double-interface-members-method 1`] = `
+"neg.double-interface-members-method.ts:4:1 - error TS9999: JSII: Interface declares same member as inherited interface: foo
+
+4 export interface IB extends IA {
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5   foo(): void;
+  ~~~~~~~~~~~~~~
+6 }
+  ~
+"
+`;
+
+exports[`downgrade-to-readonly 1`] = `
+"error TS0: jsii.Implementation#property changes immutability of property when implementing jsii.IInterface
+"
+`;
+
+exports[`enum-members.1 1`] = `
+"error TS0: Enum members must use ALL_CAPS: Goo
+"
+`;
+
+exports[`enum-name.1 1`] = `
+"error TS0: Type names must use PascalCase: myEnum
+"
+`;
+
+exports[`enum-name.2 1`] = `
+"error TS0: Type names must use PascalCase: My_Enum
+"
+`;
+
+exports[`expose-unexported-type-external 1`] = `
+"error TS0: Exported APIs cannot use un-exported type jsii.UnexportedType
+"
+`;
+
+exports[`expose-unexported-type-internal 1`] = `
+"neg.expose-unexported-type-internal.ts:7:10 - error TS9999: JSII: Type \\"UnexportedType\\" cannot be used as the property type because it is private or @internal
+
+7   public p?: UnexportedType;
+           ~
+
+  neg.expose-unexported-type-internal.ts:4:7
+    4 class UnexportedType {}
+            ~~~~~~~~~~~~~~
+    The referenced type is declared here
+"
+`;
+
+exports[`expose-unexported-type-internal-in-namespace 1`] = `
+"neg.expose-unexported-type-internal-in-namespace.ts:9:10 - error TS9999: JSII: Cannot use internal type MyNamespace.UnexportedType as a property type in exported declarations
+
+9   public p?: MyNamespace.UnexportedType;
+           ~
+
+  neg.expose-unexported-type-internal-in-namespace.ts:5:16
+    5   export class UnexportedType {}
+                     ~~~~~~~~~~~~~~
+    The referenced type is declared here
+"
+`;
+
+exports[`expose-unexported-type-this 1`] = `
+"neg.expose-unexported-type-this.ts:10:38 - warning TS9999: JSII: 'boolean' is a reserved word in Java. Using this name may cause problems when generating language bindings. Consider using a different name.
+
+10   public constructor(public readonly boolean = true) {
+                                        ~~~~~~~
+neg.expose-unexported-type-this.ts:10:38 - warning TS9999: JSII: 'boolean' is a reserved word in Java. Using this name may cause problems when generating language bindings. Consider using a different name.
+
+10   public constructor(public readonly boolean = true) {
+                                        ~~~~~~~
+neg.expose-unexported-type-this.ts:4:10 - error TS9999: JSII: Type \\"this\\" (aka: \\"HiddenBaseClass\\") cannot be used as the return type because it is private or @internal
+
+4   public returnsThis() {
+           ~~~~~~~~~~~
+
+  neg.expose-unexported-type-this.ts:3:16
+    3 abstract class HiddenBaseClass {
+                     ~~~~~~~~~~~~~~~
+    The referenced type is declared here
+"
+`;
+
+exports[`extend-struct 1`] = `
+"error TS9999: JSII: Attempted to extend struct jsii.Struct from regular interface jsii.IIllegal
+"
+`;
+
+exports[`implement-struct 1`] = `
+"neg.implement-struct.ts:6:1 - error TS9999: JSII: Attempted to implement struct jsii.Struct from class jsii.Illegal
+
+  6 export class Illegal implements Struct {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  7   public readonly field: string = 'foo';
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+... 
+ 11   }
+    ~~~
+ 12 }
+    ~
+"
+`;
+
+exports[`implementation-changes-types.1 1`] = `
+"error TS0: jsii.Something#returnSomething changes the return type when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
+"
+`;
+
+exports[`implementation-changes-types.2 1`] = `
+"error TS0: jsii.ISomethingElse#returnSomething changes the return type when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
+"
+`;
+
+exports[`implementation-changes-types.3 1`] = `
+"error TS0: jsii.Something#takeSomething changes type of argument _argument when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass
+"
+`;
+
+exports[`implementation-changes-types.4 1`] = `
+"error TS0: jsii.Something#something changes the type of property when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
+"
+`;
+
+exports[`implementation-changes-types.5 1`] = `
+"error TS0: jsii.ISomethingElse#something changes the type of property when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
+"
+`;
+
+exports[`implementing-method-changes-optionality 1`] = `
+"error TS0: jsii.Implementor#method changes the optionality of paramerter _optional when implementing jsii.IInterface (expected true, found false)
+"
+`;
+
+exports[`implementing-method-changes-optionality.1 1`] = `
+"error TS0: jsii.Implementor#method changes the optionality of paramerter _optional when overriding jsii.AbstractClass (expected true, found false)
+"
+`;
+
+exports[`implementing-method-changes-optionality.2 1`] = `
+"error TS0: jsii.Implementor#method changes the optionality of paramerter _optional when overriding jsii.ParentClass (expected true, found false)
+"
+`;
+
+exports[`implementing-property-changes-optionality 1`] = `
+"error TS0: jsii.Implementor#property changes optionality of property when implementing jsii.IInterface
+"
+`;
+
+exports[`implementing-property-changes-optionality.1 1`] = `
+"error TS0: jsii.Implementor#property changes optionality of property when overriding jsii.AbstractClass
+"
+`;
+
+exports[`implementing-property-changes-optionality.2 1`] = `
+"error TS0: jsii.Implementor#property changes optionality of property when overriding jsii.ParentClass
+"
+`;
+
+exports[`implements-class 1`] = `
+"neg.implements-class.ts:1:1 - error TS9999: JSII: Inheritance clause of jsii.TryingToImplementClass uses jsii.NotAnInterface as an interface
+
+  1 export class NotAnInterface {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  2   public meaningOfTheUniverse() {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+... 
+  4   }
+    ~~~
+  5 }
+    ~
+"
+`;
+
+exports[`inheritance-changes-types.1 1`] = `
+"error TS0: jsii.SomethingSpecific#returnSomething changes the return type when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
+"
+`;
+
+exports[`inheritance-changes-types.2 1`] = `
+"error TS0: jsii.SomethingSpecific#returnSomething changes the return type when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
+"
+`;
+
+exports[`inheritance-changes-types.3 1`] = `
+"error TS0: jsii.SomethingSpecific#takeSomething changes type of argument _argument when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass
+"
+`;
+
+exports[`inheritance-changes-types.4 1`] = `
+"error TS0: jsii.SomethingSpecific#something changes the type of property when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
+"
+`;
+
+exports[`inheritance-changes-types.5 1`] = `
+"error TS0: jsii.SomethingElse#something changes the type of property when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
+"
+`;
+
+exports[`internal-underscore-class.5 1`] = `
+"neg.internal-underscore-class.5.ts:3:10 - error TS9999: JSII: propertyWithInternalButNotUnderscorePrefix: the name of members marked as @internal must begin with an underscore
+
+3   public propertyWithInternalButNotUnderscorePrefix?: string;
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`internal-underscore-class.6 1`] = `
+"neg.internal-underscore-class.6.ts:2:10 - error TS9999: JSII: _propertyWithUnderscoreButNoInternal: members with names that begin with an underscore must be marked as @internal via a JSDoc tag
+
+2   public _propertyWithUnderscoreButNoInternal?: string;
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`internal-underscore-class.7 1`] = `
+"neg.internal-underscore-class.7.ts:3:10 - error TS9999: JSII: methodWithInternalButNoUnderscore: the name of members marked as @internal must begin with an underscore
+
+3   public methodWithInternalButNoUnderscore(): string {
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`internal-underscore-class.8 1`] = `
+"neg.internal-underscore-class.8.ts:2:3 - error TS9999: JSII: _methodWithUnderscoreButNoInternal: members with names that begin with an underscore must be marked as @internal via a JSDoc tag
+
+2   _methodWithUnderscoreButNoInternal(): void;
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`internal-underscore-interface.1 1`] = `
+"neg.internal-underscore-interface.1.ts:3:3 - error TS9999: JSII: propertyWithInternalButNotUnderscorePrefix: the name of members marked as @internal must begin with an underscore
+
+3   propertyWithInternalButNotUnderscorePrefix: string;
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`internal-underscore-interface.2 1`] = `
+"neg.internal-underscore-interface.2.ts:2:3 - error TS9999: JSII: _propertyWithUnderscoreButNoInternal: members with names that begin with an underscore must be marked as @internal via a JSDoc tag
+
+2   _propertyWithUnderscoreButNoInternal: string;
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`internal-underscore-interface.3 1`] = `
+"neg.internal-underscore-interface.3.ts:3:3 - error TS9999: JSII: methodWithInternalButNoUnderscore: the name of members marked as @internal must begin with an underscore
+
+3   methodWithInternalButNoUnderscore(): string;
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`internal-underscore-interface.4 1`] = `
+"neg.internal-underscore-interface.4.ts:2:10 - error TS9999: JSII: _methodWithUnderscoreButNoInternal: members with names that begin with an underscore must be marked as @internal via a JSDoc tag
+
+2   public _methodWithUnderscoreButNoInternal() {
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`method-name.1 1`] = `
+"error TS0: Method and non-static non-readonly property names must use camelCase: METHOD
+"
+`;
+
+exports[`method-name.2 1`] = `
+"error TS0: Method and non-static non-readonly property names must use camelCase: hello_world
+"
+`;
+
+exports[`method-name.3 1`] = `
+"error TS0: Methods and properties cannot have names like getXxx() - those conflict with Java property getters by the same name
+"
+`;
+
+exports[`method-name.4 1`] = `
+"error TS0: Methods and properties cannot have names like setXxx() - those conflict with Java property setters by the same name
+"
+`;
+
+exports[`mix-datatype-and-arg-name 1`] = `
+"neg.mix-datatype-and-arg-name.ts:10:3 - error TS9999: JSII: Name occurs in both function arguments and in datatype properties, rename one: dontWorry
+
+10   public dance(dontWorry: string, lyrics: Lyrics) {
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+11     return \`\${dontWorry}: \${lyrics.beHappy}\`;
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+12   }
+   ~~~
+"
+`;
+
+exports[`mutable-datatype 1`] = `
+"neg.mutable-datatype.ts:3:3 - error TS9999: JSII: The property 'notOkay' in data type 'DataType' must be 'readonly' since data is passed by-value
+
+3   notOkay: number; // properties should be \\"readonly\\"
+    ~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`non-optional-after-optional-ctor 1`] = `
+"neg.non-optional-after-optional-ctor.ts:2:3 - error TS9999: JSII: Parameter _arg2 cannot be optional, as it precedes non-optional parameter _arg3
+
+2   constructor(_arg1: string, _arg2 = 'hello', _arg3: string) {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3     return;
+  ~~~~~~~~~~~
+4   }
+  ~~~
+"
+`;
+
+exports[`non-optional-after-optional-method 1`] = `
+"neg.non-optional-after-optional-method.ts:2:3 - error TS9999: JSII: Parameter _arg2 cannot be optional, as it precedes non-optional parameter _argX
+
+2   public foo(_arg1: string, _arg2 = 'hello', _argX: string, _arg4?: boolean) {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3     return;
+  ~~~~~~~~~~~
+4   }
+  ~~~
+"
+`;
+
+exports[`omit.1 1`] = `
+"neg.omit.1.ts:7:33 - error TS9999: JSII: Illegal \\"extends\\" value for an exported API: MappedType
+
+7 export interface BarBaz extends Omit<FooBar, 'foo'> {
+                                  ~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`omit.2 1`] = `
+"neg.omit.2.ts:7:32 - error TS9999: JSII: Illegal \\"implements\\" value for an exported API: MappedType
+
+7 export class BarBaz implements Omit<FooBar, 'foo'> {
+                                 ~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`omit.3 1`] = `
+"neg.omit.3.ts:8:3 - error TS9999: JSII: Only string-indexed map types are supported
+
+8   bar(): Omit<FooBar, 'foo'>;
+    ~~~
+"
+`;
+
+exports[`omit.4 1`] = `
+"neg.omit.4.ts:8:7 - error TS9999: JSII: Only string-indexed map types are supported
+
+8   bar(opts: Omit<FooBar, 'foo'>): void;
+        ~~~~
+"
+`;
+
+exports[`override-changes-visibility 1`] = `
+"error TS0: jsii.ChildClass#method changes visibility when overriding jsii.BaseClass (expected protected, found public)
+error TS0: jsii.ChildClass#property changes visibility when overriding jsii.BaseClass (expected protected, found public)
+"
+`;
+
+exports[`prohibited-member-name 1`] = `
+"neg.prohibited-member-name.ts:4:3 - error TS9999: JSII: Prohibited member name: equals
+
+4   public equals(): boolean {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+5     return true;
+  ~~~~~~~~~~~~~~~~
+6   }
+  ~~~
+"
+`;
+
+exports[`property-name.1 1`] = `
+"error TS0: Method and non-static non-readonly property names must use camelCase: PROP
+"
+`;
+
+exports[`property-name.2 1`] = `
+"error TS0: Method and non-static non-readonly property names must use camelCase: my_Prop
+"
+`;
+
+exports[`property-name.3 1`] = `
+"error TS0: Methods and properties cannot have names like getXxx() - those conflict with Java property getters by the same name
+"
+`;
+
+exports[`reserved.emits-warning 1`] = `
+"neg.reserved.emits-warning.ts:2:14 - warning TS9999: JSII: 'None' is a reserved word in Python. Using this name may cause problems when generating language bindings. Consider using a different name.
+
+2 export class None {
+               ~~~~
+neg.reserved.emits-warning.ts:3:19 - warning TS9999: JSII: 'do' is a reserved word in C#, Java. Using this name may cause problems when generating language bindings. Consider using a different name.
+
+3   public readonly do: boolean = true;
+                    ~~
+neg.reserved.emits-warning.ts:5:10 - warning TS9999: JSII: 'assert' is a reserved word in Java, Python. Using this name may cause problems when generating language bindings. Consider using a different name.
+
+5   public assert(_internal: boolean): void {
+           ~~~~~~
+"
+`;
+
+exports[`static-const-name 1`] = `
+"error TS0: Static constant names must use TRUMP_CASE, PascalCase or camelCase: snake_case
+"
+`;
+
+exports[`static-member-mixing.1 1`] = `
+"neg.static-member-mixing.1.ts:11:1 - error TS9999: JSII: non-static member 'funFunction' of class 'Sub' conflicts with static member in ancestor 'SuperDuper'
+
+ 11 export class Sub extends Super {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 12   public funFunction() {
+    ~~~~~~~~~~~~~~~~~~~~~~~~
+... 
+ 14   }
+    ~~~
+ 15 }
+    ~
+"
+`;
+
+exports[`static-member-mixing.2 1`] = `
+"neg.static-member-mixing.2.ts:1:1 - error TS9999: JSII: member 'funFunction' of class 'TheClass' cannot be declared both statically and non-statically
+
+  1 export class TheClass {
+    ~~~~~~~~~~~~~~~~~~~~~~~
+  2   public static funFunction() {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+... 
+  8   }
+    ~~~
+  9 }
+    ~
+"
+`;
+
+exports[`static-method-name 1`] = `
+"error TS0: Method and non-static non-readonly property names must use camelCase: METHOD
+"
+`;
+
+exports[`static-method-name.1 1`] = `
+"error TS0: Method and non-static non-readonly property names must use camelCase: MethodIsNotCamelCase
+"
+`;
+
+exports[`static-prop-name.1 1`] = `
+"error TS0: Method and non-static non-readonly property names must use camelCase: Prop
+"
+`;
+
+exports[`static-prop-name.2 1`] = `
+"error TS0: Method and non-static non-readonly property names must use camelCase: PROP
+"
+`;
+
+exports[`struct-extends-interface 1`] = `
+"neg.struct-extends-interface.ts:6:18 - error TS9999: JSII: Interface contains behavior: name should be \\"IStruct\\"
+
+6 export interface Struct extends IInterface {
+                   ~~~~~~
+"
+`;
+
+exports[`submodules-cannot-have-colliding-names 1`] = `
+"neg.submodules-cannot-have-colliding-names.ts:3:14 - error TS9999: JSII: Submodule \\"ns1\\" conflicts with \\"Ns1\\". Restricted names are: ns1, Ns1
+
+3 export class Ns1 {
+               ~~~
+
+  neg.submodules-cannot-have-colliding-names.ts:1:13
+    1 export * as ns1 from './namespaced';
+                  ~~~
+    This is the conflicting submodule declaration.
+"
+`;
+
+exports[`submodules-cannot-share-symbols 1`] = `
+"namespaced/index.ts:1:14 - error TS9999: JSII: Symbol is re-exported under two distinct submodules (ns1 and ns2)
+
+1 export class Declaration {
+               ~~~~~~~~~~~
+
+  neg.submodules-cannot-share-symbols.ts:1:8
+    1 export * as ns1 from './namespaced';
+             ~~~~~~~~
+    Symbol is exported under the \\"ns1\\" submodule
+  neg.submodules-cannot-share-symbols.ts:2:8
+    2 export * as ns2 from './namespaced';
+             ~~~~~~~~
+    Symbol is exported under the \\"ns2\\" submodule
+"
+`;
+
+exports[`submodules-must-be-camel-cased 1`] = `
+"neg.submodules-must-be-camel-cased.ts:1:13 - error TS9999: JSII: Submodule namespaces must be camelCased or snake_cased. Consider renaming to \\"ns1\\".
+
+1 export * as Ns1 from './namespaced';
+              ~~~
+"
+`;

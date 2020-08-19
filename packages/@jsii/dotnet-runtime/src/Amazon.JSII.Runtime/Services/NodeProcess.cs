@@ -1,8 +1,10 @@
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Versioning;
+using System.Text;
 using Microsoft.Extensions.Logging;
 
 namespace Amazon.JSII.Runtime.Services
@@ -25,21 +27,26 @@ namespace Amazon.JSII.Runtime.Services
             if (string.IsNullOrWhiteSpace(runtimePath))
                 runtimePath = jsiiRuntimeProvider.JsiiRuntimePath;
 
+            var utf8 = new UTF8Encoding(false /* no BOM */);
             _process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "node",
-                    Arguments = "--max-old-space-size=4096 " + runtimePath,
+                    Arguments = $"--max-old-space-size=4096 {runtimePath}",
                     RedirectStandardInput = true,
+                    StandardInputEncoding = utf8,
                     RedirectStandardOutput = true,
-                    RedirectStandardError = true
+                    StandardOutputEncoding = utf8,
+                    RedirectStandardError = true,
+                    StandardErrorEncoding = utf8
                 }
             };
 
             var assemblyVersion = GetAssemblyFileVersion();
             _process.StartInfo.EnvironmentVariables.Add(JsiiAgent,
-                string.Format(JsiiAgentVersionString, Environment.Version, assemblyVersion.Item1, assemblyVersion.Item2));
+                string.Format(CultureInfo.InvariantCulture, JsiiAgentVersionString, Environment.Version,
+                    assemblyVersion.Item1, assemblyVersion.Item2));
 
             var debug = Environment.GetEnvironmentVariable(JsiiDebug);
             if (!string.IsNullOrWhiteSpace(debug) && !_process.StartInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
@@ -72,7 +79,7 @@ namespace Amazon.JSII.Runtime.Services
         /// <returns>A tuple where Item1 is the target framework
         /// ie .NETCoreApp,Version=v2.1
         /// and item2 is the assembly file version (ie 1.0.0.0)</returns>
-        private Tuple<string, string> GetAssemblyFileVersion()
+        private static Tuple<string, string> GetAssemblyFileVersion()
         {
             var assembly = typeof(NodeProcess).GetTypeInfo().Assembly;
             var assemblyFileVersionAttribute = assembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute)) as AssemblyFileVersionAttribute;

@@ -76,27 +76,31 @@ defineTest.skip = function (
   return defineTest(name, method, test.skip);
 };
 
-test('load preserves file permissions', async () => {
-  // Changing the umask to 077 (which would neutralize group/other permissions)
-  const originalUmask = process.umask(0o077);
+// Note: this test asserts file permissions, which work differently on Windows, so we skip it there
+(process.platform === 'win32' ? test.skip : test)(
+  'load preserves file permissions',
+  async () => {
+    // Changing the umask to 077 (which would neutralize group/other permissions)
+    const originalUmask = process.umask(0o077);
 
-  try {
-    const kernel = await createCalculatorSandbox(
-      'load_preserves_file_permissions',
-    );
+    try {
+      const kernel = await createCalculatorSandbox(
+        'load_preserves_file_permissions',
+      );
 
-    const result = kernel.sinvoke({
-      fqn: 'jsii-calc.UmaskCheck',
-      method: 'mode',
-    });
-    expect(result.result).toBe(0o644);
+      const result = kernel.sinvoke({
+        fqn: 'jsii-calc.UmaskCheck',
+        method: 'mode',
+      });
+      expect(result.result).toBe(0o644);
 
-    return closeRecording(kernel);
-  } finally {
-    // Restore the original umask
-    process.umask(originalUmask);
-  }
-});
+      return closeRecording(kernel);
+    } finally {
+      // Restore the original umask
+      process.umask(originalUmask);
+    }
+  },
+);
 
 defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({});
@@ -402,7 +406,11 @@ defineTest(
         },
       },
       js: { npm: 'jsii-calc' },
-      python: { distName: 'jsii-calc', module: 'jsii_calc' },
+      python: {
+        distName: 'jsii-calc',
+        module: 'jsii_calc',
+        classifiers: ['Test :: Classifier :: Is Dummy'],
+      },
     });
     expect(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming).toEqual(
       {

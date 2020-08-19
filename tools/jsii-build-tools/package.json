@@ -31,5 +31,9 @@
   },
   "scripts": {
     "build": "chmod +x bin/*"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "diff": "^4.0.2"
   }
 }

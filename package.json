@@ -10,19 +10,23 @@
     "dist-clean": "lerna run dist-clean --stream && rm -rf dist",
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
     "package": "bash scripts/package.sh",
-    "test": "lerna run test --stream",
+    "test": "lerna run test --concurrency=1 --stream",
     "test:integ": "lerna run test:integ --stream",
-    "test:update": "lerna run test:update --stream"
+    "test:update": "lerna run test:update --concurrency=1 --stream"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.7.1",
-    "@typescript-eslint/parser": "^3.7.1",
-    "eslint": "^7.6.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-node": "^0.3.4",
-    "eslint-import-resolver-typescript": "^2.2.0",
+    "eslint-import-resolver-typescript": "^2.2.1",
     "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "lerna": "^3.22.1",
-    "standard-version": "^8.0.2"
+    "prettier": "^2.0.5",
+    "standard-version": "^9.0.0",
+    "typescript": "~3.9.7"
   },
   "repository": {
     "type": "git",

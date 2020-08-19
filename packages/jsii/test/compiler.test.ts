@@ -15,6 +15,8 @@ describe(Compiler, () => {
 
     try {
       await writeFile(join(sourceDir, 'index.ts'), 'export class MarkerA {}');
+      // Intentionally using lower case name - it should be case-insensitive
+      await writeFile(join(sourceDir, 'readme.md'), '# Test Package');
 
       const compiler = new Compiler({
         projectInfo: _makeProjectInfo(sourceDir, 'index.d.ts'),

@@ -7,6 +7,10 @@ namespace Amazon.JSII.Runtime
     {
         public ErrorResponse? ErrorResponse { get; }
 
+        internal JsiiException() : base()
+        {
+        }
+        
         internal JsiiException(string message) : base(message)
         {
         }

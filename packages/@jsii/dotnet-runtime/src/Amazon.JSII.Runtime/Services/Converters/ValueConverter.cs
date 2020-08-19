@@ -1,4 +1,5 @@
 ﻿using Amazon.JSII.JsonModel.Spec;
+using Amazon.JSII.Runtime.Deputy;
 using System;
 
 namespace Amazon.JSII.Runtime.Services.Converters
@@ -47,17 +48,16 @@ namespace Amazon.JSII.Runtime.Services.Converters
             throw new ArgumentException("Invalid type reference", nameof(optionalValue));
         }
 
-        protected bool IsNumeric(System.Type type)
+        protected static bool IsNumeric(System.Type type)
         {
-            return
-                typeof(short).IsAssignableFrom(type) ||
-                typeof(ushort).IsAssignableFrom(type) ||
-                typeof(int).IsAssignableFrom(type) ||
-                typeof(uint).IsAssignableFrom(type) ||
-                typeof(long).IsAssignableFrom(type) ||
-                typeof(ulong).IsAssignableFrom(type) ||
-                typeof(float).IsAssignableFrom(type) ||
-                typeof(double).IsAssignableFrom(type);
+            return typeof(short).IsAssignableFrom(type)
+                   || typeof(ushort).IsAssignableFrom(type)
+                   || typeof(int).IsAssignableFrom(type)
+                   || typeof(uint).IsAssignableFrom(type)
+                   || typeof(long).IsAssignableFrom(type)
+                   || typeof(ulong).IsAssignableFrom(type)
+                   || typeof(float).IsAssignableFrom(type)
+                   || typeof(double).IsAssignableFrom(type);
         }
 
         protected abstract bool TryConvertVoid(object? value, out object? result);
@@ -89,8 +89,17 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return null;
             }
 
+            if (value is AnonymousObject)
+            {
+                if (!TryConvertClass(type, referenceMap, value, out var anonResult))
+                {
+                    throw new Exception("Unable to convert AnonymousObject instance!");
+                }
+                return anonResult;
+            }
+            
             TypeReference reference = InferType(referenceMap, value);
-            if (TryConvert(reference, type, referenceMap, value, out object? result))
+            if (TryConvert(reference, type, referenceMap, value, out var result))
             {
                 return result;
             }

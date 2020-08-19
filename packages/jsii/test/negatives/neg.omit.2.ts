@@ -1,5 +1,3 @@
-///!MATCH_ERROR: Illegal "implements" value for an exported API
-
 export interface FooBar {
   readonly foo: string;
   readonly bar: string;

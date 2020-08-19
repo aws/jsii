@@ -392,6 +392,14 @@ function _defaultValidations(): ValidationFunction[] {
       label: string,
       action: string,
     ) {
+      if (!!expected.protected !== !!actual.protected) {
+        const expVisibility = expected.protected ? 'protected' : 'public';
+        const actVisibility = actual.protected ? 'protected' : 'public';
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `${label} changes visibility when ${action} (expected ${expVisibility}, found ${actVisibility})`,
+        );
+      }
       if (!deepEqual(actual.returns, expected.returns)) {
         const expType = spec.describeTypeReference(expected.returns?.type);
         const actType = spec.describeTypeReference(actual.returns?.type);
@@ -446,6 +454,14 @@ function _defaultValidations(): ValidationFunction[] {
       label: string,
       action: string,
     ) {
+      if (!!expected.protected !== !!actual.protected) {
+        const expVisibility = expected.protected ? 'protected' : 'public';
+        const actVisibility = actual.protected ? 'protected' : 'public';
+        diagnostic(
+          ts.DiagnosticCategory.Error,
+          `${label} changes visibility when ${action} (expected ${expVisibility}, found ${actVisibility})`,
+        );
+      }
       if (!deepEqual(expected.type, actual.type)) {
         const expType = spec.describeTypeReference(expected.type);
         const actType = spec.describeTypeReference(actual.type);
