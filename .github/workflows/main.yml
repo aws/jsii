@@ -399,8 +399,6 @@ jobs:
           JSII: ${{ github.workspace }}/node_modules/.bin/jsii
           PACMAK: ${{ github.workspace }}/node_modules/.bin/jsii-pacmak
           ROSETTA: ${{ github.workspace }}/node_modules/.bin/jsii-rosetta
-          # Node Options
-          NODE_OPTIONS: --experimental-workers
         working-directory: aws-cdk
       - name: Upload Result
         uses: actions/upload-artifact@v2
