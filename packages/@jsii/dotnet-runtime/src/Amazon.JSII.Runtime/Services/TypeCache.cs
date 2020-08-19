@@ -194,7 +194,7 @@ namespace Amazon.JSII.Runtime.Services
             catch (ReflectionTypeLoadException e)
             {
                 _logger.LogWarning("ReflectionTypeLoadException while searching for JSII types. Loader exceptions:");
-                foreach (Exception? loaderException in e.LoaderExceptions ?? new Exception?[] {})
+                foreach (Exception? loaderException in e.LoaderExceptions ?? Array.Empty<Exception>())
                 {
                     if (loaderException != null)
                     {

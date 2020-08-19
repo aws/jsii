@@ -7,6 +7,7 @@ using Amazon.JSII.Runtime.Services.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
@@ -102,7 +103,7 @@ namespace Amazon.JSII.Runtime
                     
                     if (!requiredType.IsInstanceOfType(value) && value is IConvertible)
                     {
-                        value = Convert.ChangeType(value, requiredType);
+                        value = Convert.ChangeType(value, requiredType, CultureInfo.InvariantCulture);
                     }
 
                     return value;
@@ -160,7 +161,7 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not have a getter");
             }
 
-            return new CallbackResult(attribute, methodInfo.Invoke(deputy, new object[] { }));
+            return new CallbackResult(attribute, methodInfo.Invoke(deputy, Array.Empty<object>()));
         }
 
         private static void InvokeSetter(SetRequest request, IReferenceMap referenceMap)
@@ -190,17 +191,18 @@ namespace Amazon.JSII.Runtime
         private static object? FromKernel(object? obj, IReferenceMap referenceMap)
         {
             if (!(obj is JObject jObject)) return obj;
-            var prop = jObject.Property("$jsii.byref");
+            var prop = jObject.Property("$jsii.byref", StringComparison.InvariantCulture);
             if (prop != null)
             {
                 var objId = prop.Value.Value<String>();
-                var interfaces = jObject.Property("$jsii.interfaces")?.Value?.Values<string>()?.ToArray();
+                var interfaces = jObject.Property("$jsii.interfaces", StringComparison.InvariantCulture)?.Value
+                    ?.Values<string>()?.ToArray();
                 return referenceMap.GetOrCreateNativeReference(new ByRefValue(objId, interfaces));
             }
 
             if (jObject.ContainsKey("$jsii.map"))
             {
-                jObject = (JObject)jObject.Property("$jsii.map")!.Value;
+                jObject = (JObject) jObject.Property("$jsii.map", StringComparison.InvariantCulture)!.Value;
             }
 
             /*

@@ -13,7 +13,7 @@ namespace Amazon.JSII.Runtime.Deputy
         internal ByRefValue(string value, string[]? interfaces = null, bool isProxy = false)
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
-            Interfaces = interfaces ?? new string[]{};
+            Interfaces = interfaces ?? Array.Empty<string>();
 
             var lastIndex = value.LastIndexOf('@');
             if (lastIndex == -1)
@@ -37,7 +37,7 @@ namespace Amazon.JSII.Runtime.Deputy
             Value = value ?? throw new ArgumentNullException(nameof(value));
             FullyQualifiedName = fullyQualifiedName ?? throw new ArgumentNullException(nameof(value));
             Id = id ?? throw new ArgumentNullException(nameof(value));
-            Interfaces = interfaces ?? new string[] {};
+            Interfaces = interfaces ?? Array.Empty<string>();
             IsProxy = isProxy;
         }
 

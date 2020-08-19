@@ -20,7 +20,8 @@ RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"            
 
 # Install Python 3
 RUN yum -y install python3 python3-pip                                                                                  \
-  && python3 -m pip install --no-input --upgrade pip setuptools wheel twine black                                       \
+  && python3 -m pip install --no-input --upgrade pip                                                                    \
+  && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Ruby 2.6+
@@ -67,7 +68,7 @@ RUN amazon-linux-extras install docker                                          
 VOLUME /var/lib/docker
 
 # Install shared dependencies
-RUN yum -y install awscli git gzip openssl rsync unzip which zip                                                        \
+RUN yum -y install git gzip openssl rsync unzip which zip                                                               \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Node 10+

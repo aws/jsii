@@ -19,7 +19,7 @@ namespace Amazon.JSII.Runtime.Deputy
                 ? null
                 : JsonConvert.DeserializeObject<OptionalValue>(returnsJson);
             Parameters = parametersJson == null
-                ? new Parameter[] {}
+                ? Array.Empty<Parameter>()
                 : JsonConvert.DeserializeObject<Parameter[]>(parametersJson);
             IsAsync = isAsync;
             IsOverride = isOverride;

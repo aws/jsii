@@ -273,7 +273,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base), fullyQualifiedName: "@scope/jsii-calc-base.Base")]
     public abstract class Base : DeputyBase
     {
-        protected Base(): base(new DeputyProps(new object[]{}))
+        protected Base(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -1513,7 +1513,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very), fullyQualifiedName: "@scope/jsii-calc-base-of-base.Very")]
     public class Very : DeputyBase
     {
-        public Very(): base(new DeputyProps(new object[]{}))
+        public Very(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -3690,7 +3690,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public abstract class Operation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_
     {
-        protected Operation(): base(new DeputyProps(new object[]{}))
+        protected Operation(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -3893,7 +3893,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public abstract class Value_ : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base
     {
-        protected Value_(): base(new DeputyProps(new object[]{}))
+        protected Value_(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -4109,7 +4109,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
             /// <strong>Stability</strong>: Deprecated
             /// </remarks>
             [System.Obsolete()]
-            public NestedClass(): base(new DeputyProps(new object[]{}))
+            public NestedClass(): base(new DeputyProps(System.Array.Empty<object>()))
             {
             }
 
@@ -4311,7 +4311,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
         [System.Obsolete()]
-        public Reflector(): base(new DeputyProps(new object[]{}))
+        public Reflector(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -21103,7 +21103,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        protected AbstractClass(): base(new DeputyProps(new object[]{}))
+        protected AbstractClass(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -21166,7 +21166,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        protected AbstractClassBase(): base(new DeputyProps(new object[]{}))
+        protected AbstractClassBase(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -21282,7 +21282,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public AbstractClassReturner(): base(new DeputyProps(new object[]{}))
+        public AbstractClassReturner(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -21348,7 +21348,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        protected AbstractSuite(): base(new DeputyProps(new object[]{}))
+        protected AbstractSuite(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -21521,7 +21521,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public AllTypes(): base(new DeputyProps(new object[]{}))
+        public AllTypes(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -21810,7 +21810,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public AllowedMethodNames(): base(new DeputyProps(new object[]{}))
+        public AllowedMethodNames(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -21942,7 +21942,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public AnonymousImplementationProvider(): base(new DeputyProps(new object[]{}))
+        public AnonymousImplementationProvider(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -21998,7 +21998,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public AsyncVirtualMethods(): base(new DeputyProps(new object[]{}))
+        public AsyncVirtualMethods(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -22096,7 +22096,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public AugmentableClass(): base(new DeputyProps(new object[]{}))
+        public AugmentableClass(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -22152,7 +22152,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public BaseJsii976(): base(new DeputyProps(new object[]{}))
+        public BaseJsii976(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -22190,7 +22190,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Bell(): base(new DeputyProps(new object[]{}))
+        public Bell(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -22364,7 +22364,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        protected BurriedAnonymousObject(): base(new DeputyProps(new object[]{}))
+        protected BurriedAnonymousObject(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -22806,7 +22806,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ClassThatImplementsTheInternalInterface(): base(new DeputyProps(new object[]{}))
+        public ClassThatImplementsTheInternalInterface(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -22884,7 +22884,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ClassThatImplementsThePrivateInterface(): base(new DeputyProps(new object[]{}))
+        public ClassThatImplementsThePrivateInterface(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -23069,7 +23069,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ClassWithDocs(): base(new DeputyProps(new object[]{}))
+        public ClassWithDocs(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -23163,7 +23163,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ClassWithMutableObjectLiteralProperty(): base(new DeputyProps(new object[]{}))
+        public ClassWithMutableObjectLiteralProperty(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -23269,7 +23269,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
     public abstract class CompositeOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
     {
-        protected CompositeOperation(): base(new DeputyProps(new object[]{}))
+        protected CompositeOperation(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -23587,7 +23587,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Constructors(): base(new DeputyProps(new object[]{}))
+        public Constructors(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -23739,7 +23739,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ConsumerCanRingBell(): base(new DeputyProps(new object[]{}))
+        public ConsumerCanRingBell(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -23873,7 +23873,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ConsumersOfThisCrazyTypeSystem(): base(new DeputyProps(new object[]{}))
+        public ConsumersOfThisCrazyTypeSystem(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -23930,7 +23930,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public DataRenderer(): base(new DeputyProps(new object[]{}))
+        public DataRenderer(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -24065,7 +24065,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Demonstrate982(): base(new DeputyProps(new object[]{}))
+        public Demonstrate982(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -24291,7 +24291,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Base(): base(new DeputyProps(new object[]{}))
+        public Base(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -24339,7 +24339,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Derived(): base(new DeputyProps(new object[]{}))
+        public Derived(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -25003,7 +25003,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public DoNotOverridePrivates(): base(new DeputyProps(new object[]{}))
+        public DoNotOverridePrivates(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -25069,7 +25069,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public DoNotRecognizeAnyAsOptional(): base(new DeputyProps(new object[]{}))
+        public DoNotRecognizeAnyAsOptional(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -25120,7 +25120,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public DocumentedClass(): base(new DeputyProps(new object[]{}))
+        public DocumentedClass(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -25181,7 +25181,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public DontComplainAboutVariadicAfterOptional(): base(new DeputyProps(new object[]{}))
+        public DontComplainAboutVariadicAfterOptional(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -25228,7 +25228,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public DoubleTrouble(): base(new DeputyProps(new object[]{}))
+        public DoubleTrouble(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -25335,7 +25335,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public EraseUndefinedHashValues(): base(new DeputyProps(new object[]{}))
+        public EraseUndefinedHashValues(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -25945,7 +25945,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public GiveMeStructs(): base(new DeputyProps(new object[]{}))
+        public GiveMeStructs(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -26089,7 +26089,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public GreetingAugmenter(): base(new DeputyProps(new object[]{}))
+        public GreetingAugmenter(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -29725,7 +29725,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ImplementInternalInterface(): base(new DeputyProps(new object[]{}))
+        public ImplementInternalInterface(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -29773,7 +29773,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Implementation(): base(new DeputyProps(new object[]{}))
+        public Implementation(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -29820,7 +29820,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ImplementsInterfaceWithInternal(): base(new DeputyProps(new object[]{}))
+        public ImplementsInterfaceWithInternal(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -29867,7 +29867,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ImplementsInterfaceWithInternalSubclass(): base(new DeputyProps(new object[]{}))
+        public ImplementsInterfaceWithInternalSubclass(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -29905,7 +29905,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ImplementsPrivateInterface(): base(new DeputyProps(new object[]{}))
+        public ImplementsPrivateInterface(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -30038,7 +30038,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public InbetweenClass(): base(new DeputyProps(new object[]{}))
+        public InbetweenClass(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -30155,7 +30155,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Foo(): base(new DeputyProps(new object[]{}))
+        public Foo(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -30437,7 +30437,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        protected Isomorphism(): base(new DeputyProps(new object[]{}))
+        protected Isomorphism(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -30574,7 +30574,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public JSII417PublicBaseOfBase(): base(new DeputyProps(new object[]{}))
+        public JSII417PublicBaseOfBase(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -30639,7 +30639,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public JSObjectLiteralForInterface(): base(new DeputyProps(new object[]{}))
+        public JSObjectLiteralForInterface(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -30695,7 +30695,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public JSObjectLiteralToNative(): base(new DeputyProps(new object[]{}))
+        public JSObjectLiteralToNative(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -30742,7 +30742,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public JSObjectLiteralToNativeClass(): base(new DeputyProps(new object[]{}))
+        public JSObjectLiteralToNativeClass(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -30800,7 +30800,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public JavaReservedWords(): base(new DeputyProps(new object[]{}))
+        public JavaReservedWords(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -31316,7 +31316,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Jsii487Derived(): base(new DeputyProps(new object[]{}))
+        public Jsii487Derived(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -31354,7 +31354,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Jsii496Derived(): base(new DeputyProps(new object[]{}))
+        public Jsii496Derived(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -31393,7 +31393,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public JsiiAgent_(): base(new DeputyProps(new object[]{}))
+        public JsiiAgent_(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -31829,7 +31829,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public MethodNamedProperty(): base(new DeputyProps(new object[]{}))
+        public MethodNamedProperty(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -32210,7 +32210,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public NodeStandardLibrary(): base(new DeputyProps(new object[]{}))
+        public NodeStandardLibrary(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -32516,7 +32516,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ObjectRefsInCollections(): base(new DeputyProps(new object[]{}))
+        public ObjectRefsInCollections(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -32616,7 +32616,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Old(): base(new DeputyProps(new object[]{}))
+        public Old(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -32905,7 +32905,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public OverridableProtectedMember(): base(new DeputyProps(new object[]{}))
+        public OverridableProtectedMember(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -32989,7 +32989,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public OverrideReturnsObject(): base(new DeputyProps(new object[]{}))
+        public OverrideReturnsObject(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -33097,7 +33097,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        protected PartiallyInitializedThisConsumer(): base(new DeputyProps(new object[]{}))
+        protected PartiallyInitializedThisConsumer(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -33172,7 +33172,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Polymorphism(): base(new DeputyProps(new object[]{}))
+        public Polymorphism(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -33294,7 +33294,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public PropertyNamedProperty(): base(new DeputyProps(new object[]{}))
+        public PropertyNamedProperty(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -33350,7 +33350,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public PublicClass(): base(new DeputyProps(new object[]{}))
+        public PublicClass(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -33397,7 +33397,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public PythonReservedWords(): base(new DeputyProps(new object[]{}))
+        public PythonReservedWords(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -33965,7 +33965,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ReferenceEnumFromScopedPackage(): base(new DeputyProps(new object[]{}))
+        public ReferenceEnumFromScopedPackage(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -34036,7 +34036,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public ReturnsPrivateImplementationOfInterface(): base(new DeputyProps(new object[]{}))
+        public ReturnsPrivateImplementationOfInterface(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -34213,7 +34213,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public RuntimeTypeChecking(): base(new DeputyProps(new object[]{}))
+        public RuntimeTypeChecking(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -34368,7 +34368,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public SingleInstanceTwoTypes(): base(new DeputyProps(new object[]{}))
+        public SingleInstanceTwoTypes(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -34640,7 +34640,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public SomeTypeJsii976(): base(new DeputyProps(new object[]{}))
+        public SomeTypeJsii976(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -35035,7 +35035,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public StripInternal(): base(new DeputyProps(new object[]{}))
+        public StripInternal(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -35373,7 +35373,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public StructPassing(): base(new DeputyProps(new object[]{}))
+        public StructPassing(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -35823,7 +35823,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public InnerClass(): base(new DeputyProps(new object[]{}))
+        public InnerClass(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -35952,7 +35952,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public OuterClass(): base(new DeputyProps(new object[]{}))
+        public OuterClass(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -36403,7 +36403,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Sum(): base(new DeputyProps(new object[]{}))
+        public Sum(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -36683,7 +36683,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public SyncVirtualMethods(): base(new DeputyProps(new object[]{}))
+        public SyncVirtualMethods(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -36870,7 +36870,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public Thrower(): base(new DeputyProps(new object[]{}))
+        public Thrower(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -37296,7 +37296,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public UseBundledDependency(): base(new DeputyProps(new object[]{}))
+        public UseBundledDependency(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -37344,7 +37344,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public UseCalcBase(): base(new DeputyProps(new object[]{}))
+        public UseCalcBase(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -37562,7 +37562,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        public VirtualMethodPlayground(): base(new DeputyProps(new object[]{}))
+        public VirtualMethodPlayground(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
@@ -37652,7 +37652,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
-        protected VoidCallback(): base(new DeputyProps(new object[]{}))
+        protected VoidCallback(): base(new DeputyProps(System.Array.Empty<object>()))
         {
         }
 
