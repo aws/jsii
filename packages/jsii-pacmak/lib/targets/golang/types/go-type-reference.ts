@@ -1,5 +1,5 @@
 import { TypeReference } from 'jsii-reflect';
-import { Module } from '../module';
+import { BasePackage } from '../base-package';
 import { GoType } from './go-type';
 import { toPascalCase } from 'codemaker';
 
@@ -30,7 +30,7 @@ class PrimitiveMapper {
  */
 export class GoTypeRef {
   public constructor(
-    public readonly root: Module,
+    public readonly root: BasePackage,
     public readonly reference: TypeReference,
   ) {}
 
@@ -55,9 +55,9 @@ export class GoTypeRef {
   }
 
   /*
-   * Return the name of a type for reference from the `Module` passed in
+   * Return the name of a type for reference from the `BasePackage` passed in
    */
-  public scopedName(scope: Module): string {
+  public scopedName(scope: BasePackage): string {
     // type references a primitie
     if (this.reference.primitive) {
       return new PrimitiveMapper(this.reference.primitive).goPrimitive;

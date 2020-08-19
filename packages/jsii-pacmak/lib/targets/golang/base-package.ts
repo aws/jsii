@@ -10,10 +10,10 @@ const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
 export type ModuleType = Interface | Enum | GoClass | Struct;
 
 /*
- * Module represents a single `.go` source file within a package. This can be the root package file or a submodule
+ * BasePackage represents a single `.go` source file within a package. This can be the root package file or a submodule
  */
-export abstract class Module {
-  public readonly root: Module;
+export abstract class BasePackage {
+  public readonly root: BasePackage;
   public readonly file: string;
   public readonly submodules: InternalPackage[];
   public readonly types: ModuleType[];
@@ -24,7 +24,7 @@ export abstract class Module {
     public readonly moduleName: string,
     public readonly filePath: string,
     // If no root is provided, this module is the root
-    root?: Module,
+    root?: BasePackage,
   ) {
     this.file = `${filePath}.go`;
     this.root = root || this;
@@ -51,12 +51,12 @@ export abstract class Module {
   }
 
   /*
-   * Modules that types within this module reference
+   * BasePackages that types within this module reference
    */
-  public get dependencies(): Module[] {
+  public get dependencies(): BasePackage[] {
     return flatMap(
       this.types,
-      (t: ModuleType): Module[] => t.dependencies,
+      (t: ModuleType): BasePackage[] => t.dependencies,
     ).filter((mod) => mod.moduleName !== this.moduleName);
   }
 
@@ -121,10 +121,14 @@ export abstract class Module {
 /*
  * InternalPackage refers to any go package within a given JSII module.
  */
-export class InternalPackage extends Module {
-  public readonly parent: Module;
+export class InternalPackage extends BasePackage {
+  public readonly parent: BasePackage;
 
-  public constructor(root: Module, parent: Module, assembly: JsiiSubmodule) {
+  public constructor(
+    root: BasePackage,
+    parent: BasePackage,
+    assembly: JsiiSubmodule,
+  ) {
     const moduleName = goModuleName(assembly.name);
     const filePath = `${parent.filePath}/${moduleName}`;
 

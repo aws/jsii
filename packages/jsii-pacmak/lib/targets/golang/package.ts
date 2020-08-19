@@ -2,15 +2,15 @@ import { Assembly } from 'jsii-reflect';
 import { join } from 'path';
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
-import { Module } from './module';
+import { BasePackage } from './base-package';
 import { goModuleName } from './util';
 
 /*
  * A go JSII Package
  *
- * Extends `Module` for root source package emit logic
+ * Extends `BasePackage` for root source package emit logic
  */
-export class Package extends Module {
+export class Package extends BasePackage {
   public readonly assembly: Assembly;
 
   public constructor(assembly: Assembly) {

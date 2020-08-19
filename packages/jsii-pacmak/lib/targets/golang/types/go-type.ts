@@ -1,13 +1,13 @@
 import { CodeMaker } from 'codemaker';
 import { Type } from 'jsii-reflect';
-import { Module } from '../module';
+import { BasePackage } from '../base-package';
 
 export interface GoEmitter {
   emit(code: CodeMaker): void;
 }
 
 export class GoType {
-  public constructor(public parent: Module, public type: Type) {}
+  public constructor(public parent: BasePackage, public type: Type) {}
 
   public get name() {
     return this.type.name;
