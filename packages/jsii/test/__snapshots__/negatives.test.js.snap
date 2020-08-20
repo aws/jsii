@@ -340,25 +340,34 @@ exports[`internal-underscore-interface.4 1`] = `
 "
 `;
 
-exports[`member-named-after-class 1`] = `
-"neg.member-named-after-class.ts:2:19 - error TS9999: JSII: Properties cannot be named like the class declaring them (class is TypeName, property is typeName), as this results in illegal C#
+exports[`member-named-after-type 1`] = `
+"neg.member-named-after-type.ts:12:12 - warning TS9999: JSII: Properties should not be named like the interface declaring them (interface is MyStruct, property is myStruct), as the interface will have to be renamed to MyStruct_ in C#
+
+12   readonly myStruct: string;
+              ~~~~~~~~
+
+  neg.member-named-after-type.ts:11:18
+    11 export interface MyStruct {
+                        ~~~~~~~~
+    The declaring interface is introduced here
+neg.member-named-after-type.ts:2:19 - warning TS9999: JSII: Properties should not be named like the class declaring them (class is TypeName, property is typeName), as the class will have to be renamed to TypeName_ in C#
 
 2   public readonly typeName = 1337;
                     ~~~~~~~~
 
-  neg.member-named-after-class.ts:1:14
+  neg.member-named-after-type.ts:1:14
     1 export class TypeName {
                    ~~~~~~~~
-    Class TypeName is declared here
-neg.member-named-after-class.ts:6:10 - error TS9999: JSII: Methods cannot be named like the class declaring them (class is OtherType, method is otherType), as this results in illegal C#
+    The declaring class is introduced here
+neg.member-named-after-type.ts:6:10 - error TS9999: JSII: Methods cannot be named like the class declaring them (class is OtherType, method is otherType), as this results in illegal C#
 
 6   public otherType() {
            ~~~~~~~~~
 
-  neg.member-named-after-class.ts:5:14
+  neg.member-named-after-type.ts:5:14
     5 export class OtherType {
                    ~~~~~~~~~
-    Class OtherType is declared here
+    The declaring class is introduced here
 "
 `;
 

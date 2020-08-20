@@ -1934,14 +1934,11 @@ export class Assembler implements Emitter {
       return;
     }
 
-    if (
-      spec.isClassType(type) &&
-      Case.pascal(type.name) === Case.pascal(symbol.name)
-    ) {
+    if (Case.pascal(type.name) === Case.pascal(symbol.name)) {
       this._diagnostic(
         declaration.name,
         ts.DiagnosticCategory.Error,
-        `Methods cannot be named like the class declaring them (class is ${type.name}, method is ${symbol.name}), as this results in illegal C#`,
+        `Methods cannot be named like the ${type.kind} declaring them (${type.kind} is ${type.name}, method is ${symbol.name}), as this results in illegal C#`,
         [
           {
             category: ts.DiagnosticCategory.Message,
@@ -1955,7 +1952,7 @@ export class Assembler implements Emitter {
               (declaringTypeDecl.name ?? declaringTypeDecl).getStart(
                 declaringTypeDecl.getSourceFile(),
               ),
-            messageText: `The declaring class is introduced here`,
+            messageText: `The declaring ${type.kind} is introduced here`,
           },
         ],
       );
@@ -2101,14 +2098,11 @@ export class Assembler implements Emitter {
       | ts.AccessorDeclaration
       | ts.ParameterPropertyDeclaration;
 
-    if (
-      spec.isClassType(type) &&
-      Case.pascal(type.name) === Case.pascal(symbol.name)
-    ) {
+    if (Case.pascal(type.name) === Case.pascal(symbol.name)) {
       this._diagnostic(
         signature.name,
-        ts.DiagnosticCategory.Error,
-        `Properties cannot be named like the class declaring them (class is ${type.name}, property is ${symbol.name}), as this results in illegal C#`,
+        ts.DiagnosticCategory.Warning,
+        `Properties should not be named like the ${type.kind} declaring them (${type.kind} is ${type.name}, property is ${symbol.name}), as the ${type.kind} will have to be renamed to ${type.name}_ in C#`,
         [
           {
             category: ts.DiagnosticCategory.Message,
@@ -2122,12 +2116,12 @@ export class Assembler implements Emitter {
               (declaringTypeDecl.name ?? declaringTypeDecl).getStart(
                 declaringTypeDecl.getSourceFile(),
               ),
-            messageText: `The declaring class is introduced here`,
+            messageText: `The declaring ${type.kind} is introduced here`,
           },
         ],
       );
-      return;
     }
+
     if (isProhibitedMemberName(symbol.name)) {
       this._diagnostic(
         symbol.valueDeclaration,

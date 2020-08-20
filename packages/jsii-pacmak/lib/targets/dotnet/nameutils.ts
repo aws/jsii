@@ -47,7 +47,25 @@ export class DotNetNameUtils {
       throw new Error(`Invalid class name: ${original.name}`);
     }
     // Tentatively get the class name
-    return this.capitalizeWord(original.name);
+    let name = this.capitalizeWord(original.name);
+    if (original.methods) {
+      original.methods.forEach((method) => {
+        if (method.name.toLowerCase() === original.name.toLowerCase()) {
+          // This class has a member with the same name, need to slugify the class name
+          name = this.capitalizeWord(this.slugify(original.name));
+        }
+      });
+    }
+    if (original.properties) {
+      original.properties.forEach((property) => {
+        if (property.name.toLowerCase() === original.name.toLowerCase()) {
+          // This class has a member with the same name, need to slugify the class name
+          name = this.capitalizeWord(this.slugify(original.name));
+        }
+      });
+    }
+
+    return name;
   }
 
   public convertPackageName(original: string) {
@@ -92,6 +110,13 @@ export class DotNetNameUtils {
       return `@${name}`;
     }
     return name;
+  }
+
+  private slugify(name: string): string {
+    if (!name) {
+      return name;
+    }
+    return `${name}_`;
   }
 }
 

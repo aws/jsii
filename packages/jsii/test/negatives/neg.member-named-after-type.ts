@@ -7,3 +7,7 @@ export class OtherType {
     return;
   }
 }
+
+export interface MyStruct {
+  readonly myStruct: string;
+}
