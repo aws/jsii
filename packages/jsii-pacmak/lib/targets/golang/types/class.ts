@@ -1,53 +1,78 @@
-import { Method, Property, ClassType } from 'jsii-reflect';
+import { Method, ClassType } from 'jsii-reflect';
 import { CodeMaker } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
-import { GoType, GoEmitter } from './go-type';
+import { GoProperty, GoType, GoEmitter } from './go-type';
+// import { Struct } from './struct';
 import { TypeField } from './type-field';
 import { Package } from '../package';
 import { getFieldDependencies } from '../util';
 
-// String appended to all go Class Interfaces
 const CLASS_INTERFACE_SUFFIX = 'Iface';
+/*
+ * GoClass wraps a Typescript class as a Go custom struct type
+ */
+export class GoClass extends GoType implements GoEmitter {
+  public readonly properties: GoProperty[];
+  public readonly interfaceName: string;
+  public readonly methods: ClassMethod[];
 
-export class ClassProperty implements TypeField {
-  public readonly name: string;
-  public readonly references?: GoTypeRef;
+  public constructor(parent: Package, public type: ClassType) {
+    super(parent, type);
 
-  public constructor(
-    public parent: GoClass,
-    public readonly property: Property,
-  ) {
-    this.name = this.property.name;
+    this.properties = Object.values(this.type.getProperties()).map(
+      (prop) => new GoProperty(this, prop),
+    );
 
-    if (property.type) {
-      this.references = new GoTypeRef(parent.parent.root, property.type);
+    this.methods = Object.values(this.type.getMethods()).map(
+      (method) => new ClassMethod(this, method),
+    );
+
+    this.interfaceName = `${this.name}${CLASS_INTERFACE_SUFFIX}`;
+  }
+
+  public emit(code: CodeMaker): void {
+    this.emitInterface(code);
+    this.emitStruct(code);
+    // TODO: this.generateImpl
+
+    for (const method of this.methods) {
+      method.emit(code);
     }
   }
 
-  public emit(code: CodeMaker) {
-    const name = code.toPascalCase(this.property.name);
-    const type =
-      this.references?.scopedName(this.parent.parent) ??
-      this.property.toString();
+  private emitStruct(code: CodeMaker): void {
+    code.openBlock(`type ${this.name} struct`);
 
-    // If struct property is type of parent struct, use a pointer as type to avoid recursive struct type error
-    if (this.references?.type?.name === this.parent.name) {
-      code.line(`${name} *${type}`);
-    } else {
-      code.line(`${name} ${type}`);
+    for (const property of this.properties) {
+      property.emitProperty(code);
     }
+
+    code.closeBlock();
+    code.line();
   }
 
-  public emitForInterface(code: CodeMaker) {
-    const name = code.toPascalCase(this.property.name);
-    const type =
-      this.references?.scopedName(this.parent.parent) ??
-      this.property.toString();
+  // Generate interface that defines getters for public properties and any method signatures
+  private emitInterface(code: CodeMaker) {
+    code.openBlock(`type ${this.interfaceName} interface`);
 
-    code.line(`Get${name}() ${type}`);
-    if (!this.property.protected) {
-      code.line(`Set${name}()`);
+    for (const property of this.properties) {
+      property.emitGetter(code);
+      property.emitSetter(code); // TODO might not need
     }
+
+    for (const method of this.methods) {
+      method.emitForInterface(code);
+    }
+
+    code.closeBlock();
+    code.line();
+  }
+
+  public get dependencies(): Package[] {
+    return [
+      ...getFieldDependencies(this.properties),
+      ...getFieldDependencies(this.methods),
+    ];
   }
 }
 
@@ -122,68 +147,5 @@ export class ClassMethod implements TypeField {
 
   private getDummyReturn(type: string): string {
     return this.NOOP_RETURN_MAP[type] || 'nil';
-  }
-}
-
-/*
- * Class wraps a Typescript class as a Go custom struct type  TODO rename?
- */
-export class GoClass extends GoType implements GoEmitter {
-  public readonly properties: ClassProperty[];
-  public readonly methods: ClassMethod[];
-  public readonly interfaceName: string;
-
-  public constructor(parent: Package, public type: ClassType) {
-    super(parent, type);
-
-    this.properties = Object.values(this.type.getProperties()).map(
-      (prop) => new ClassProperty(this, prop),
-    );
-
-    this.methods = Object.values(this.type.getMethods()).map(
-      (method) => new ClassMethod(this, method),
-    );
-
-    this.interfaceName = `${this.type.name}${CLASS_INTERFACE_SUFFIX}`;
-  }
-
-  public emit(code: CodeMaker): void {
-    this.emitClassInterface(code);
-
-    code.openBlock(`type ${this.name} struct`);
-
-    for (const property of this.properties) {
-      property.emit(code);
-    }
-
-    code.closeBlock();
-    code.line();
-
-    for (const method of this.methods) {
-      method.emit(code);
-    }
-  }
-
-  // Generate interface that defines getters for public properties and any method signatures
-  private emitClassInterface(code: CodeMaker) {
-    code.openBlock(`type ${this.interfaceName} interface`);
-
-    for (const property of this.properties) {
-      property.emitForInterface(code);
-    }
-
-    for (const method of this.methods) {
-      method.emitForInterface(code);
-    }
-
-    code.closeBlock();
-    code.line();
-  }
-
-  public get dependencies(): Package[] {
-    return [
-      ...getFieldDependencies(this.properties),
-      ...getFieldDependencies(this.methods),
-    ];
   }
 }
