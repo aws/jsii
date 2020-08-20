@@ -2,7 +2,7 @@ import { CodeMaker } from 'codemaker';
 import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { EmitContext } from './emit-context';
 import { GoClass, Enum, Interface, Struct } from './types';
-import { findTypeInTree, goModuleName, flatMap } from './util';
+import { findTypeInTree, goPackageName, flatMap } from './util';
 
 // JSII golang runtime module name
 const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
@@ -129,7 +129,7 @@ export class InternalPackage extends BasePackage {
     parent: BasePackage,
     assembly: JsiiSubmodule,
   ) {
-    const moduleName = goModuleName(assembly.name);
+    const moduleName = goPackageName(assembly.name);
     const filePath = `${parent.filePath}/${moduleName}`;
 
     super(assembly.types, assembly.submodules, moduleName, filePath, root);

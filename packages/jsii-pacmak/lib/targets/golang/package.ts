@@ -3,7 +3,7 @@ import { join } from 'path';
 import { EmitContext } from './emit-context';
 import { ReadmeFile } from './readme-file';
 import { BasePackage } from './base-package';
-import { goModuleName } from './util';
+import { goPackageName } from './util';
 
 /*
  * A go JSII Package
@@ -14,7 +14,7 @@ export class Package extends BasePackage {
   public readonly assembly: Assembly;
 
   public constructor(assembly: Assembly) {
-    const moduleName = goModuleName(assembly.name);
+    const moduleName = goPackageName(assembly.name);
     const filePath = join(...moduleName.split('.'));
 
     super(
