@@ -274,6 +274,28 @@ the standard [`nuget push`][nuget-push] command.
 [nuget-push]: https://docs.microsoft.com/fr-fr/nuget/nuget-org/publish-a-package
 [.NET documentation]: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#packageiconurl
 
+#### Configuring `GoLang` - **Experimental**
+
+The `go` target is currently unstable and not suitable for production use. To
+enable go package generation, add the `go` key with an empty object to the jsii
+targets configuration.
+
+This will add generated go package code to your specified `outDir` for testing
+and experimentation.
+
+```js
+{
+  "jsii": {
+    "targets": {
+      "go": {},
+      // ...
+    },
+    // ...
+  },
+  // ...
+}
+```
+
 ### `tsc`
 
 In order to the generated `javascript` can be properly loaded by the `jsii`
