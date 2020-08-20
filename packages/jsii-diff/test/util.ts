@@ -30,13 +30,19 @@ export async function compare(
   original: string,
   updated: string,
 ): Promise<Mismatches> {
-  const ass1 = await sourceToAssemblyHelper(original);
+  const ass1 = sourceToAssemblyHelper(original);
+  await expect(ass1).resolves.not.toThrowError();
   const ts1 = new reflect.TypeSystem();
-  const originalAssembly = ts1.addAssembly(new reflect.Assembly(ts1, ass1));
+  const originalAssembly = ts1.addAssembly(
+    new reflect.Assembly(ts1, await ass1),
+  );
 
-  const ass2 = await sourceToAssemblyHelper(updated);
+  const ass2 = sourceToAssemblyHelper(updated);
+  await expect(ass2).resolves.not.toThrowError();
   const ts2 = new reflect.TypeSystem();
-  const updatedAssembly = ts2.addAssembly(new reflect.Assembly(ts2, ass2));
+  const updatedAssembly = ts2.addAssembly(
+    new reflect.Assembly(ts2, await ass2),
+  );
 
   return compareAssemblies(originalAssembly, updatedAssembly);
 }

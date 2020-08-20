@@ -10,7 +10,7 @@ test('cannot add required fields to an input struct', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -21,7 +21,7 @@ test('cannot add required fields to an input struct', () =>
       readonly super: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -37,7 +37,7 @@ test('can add required fields to an output struct', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(): Henk {
+      public bar(): Henk {
         return { henk: 'henk' };
       }
     }
@@ -48,7 +48,7 @@ test('can add required fields to an output struct', () =>
       readonly super: string;
     }
     export class Foo {
-      public foo(): Henk {
+      public bar(): Henk {
         return { henk: 'henk', super: 'super' };
       }
     }
@@ -64,7 +64,7 @@ test('can change argument type to a supertype if it adds only optional fields', 
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -77,7 +77,7 @@ test('can change argument type to a supertype if it adds only optional fields', 
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Super): void {
+      public bar(arg1: Super): void {
         Array.isArray(arg1);
       }
     }
@@ -96,7 +96,7 @@ test('cannot take fields away from input struct', () =>
       readonly piet: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -106,7 +106,7 @@ test('cannot take fields away from input struct', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -124,7 +124,7 @@ test('cannot take fields away from output struct', () =>
       readonly piet: string;
     }
     export class Foo {
-      public foo(): Henk {
+      public bar(): Henk {
         return { henk: 'henk', piet: 'piet' };
       }
     }
@@ -134,7 +134,7 @@ test('cannot take fields away from output struct', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(): Henk {
+      public bar(): Henk {
         return { henk: 'henk' };
       }
     }
@@ -151,7 +151,7 @@ test('cannot change argument type to a supertype it adds required fields', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -164,7 +164,7 @@ test('cannot change argument type to a supertype it adds required fields', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Super): void {
+      public bar(arg1: Super): void {
         Array.isArray(arg1);
       }
     }
