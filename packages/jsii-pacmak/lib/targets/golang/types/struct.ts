@@ -1,46 +1,55 @@
-import { GoType } from './go-type';
-import { GoTypeRef } from './go-type-reference';
+import { GoProperty, GoType, GoEmitter } from './go-type';
 import { Package } from '../package';
-import { InterfaceType, Property } from 'jsii-reflect';
-import { CodeMaker, toPascalCase } from 'codemaker';
+import { InterfaceType } from 'jsii-reflect';
+import { CodeMaker } from 'codemaker';
+import { getFieldDependencies } from '../util';
 
+// String appended to all go Struct Interfaces
 const STRUCT_INTERFACE_SUFFIX = 'Iface';
 
-// JSII datatype interfaces, aka structs
-export class Struct extends GoType {
-  public readonly properties: StructProperty[];
-  public readonly dependencies: Package[] = [];
+/*
+ * Struct wraps a JSII datatype interface aka, structs
+ */
+export class Struct extends GoType implements GoEmitter {
+  public readonly properties: GoProperty[];
+  public readonly interfaceName: string;
 
   public constructor(parent: Package, public type: InterfaceType) {
     super(parent, type);
 
-    // TODO check if datatype? (isDataType() on jsii-reflect seems wrong)
     this.properties = Object.values(this.type.getProperties()).map(
-      (prop) => new StructProperty(this, prop),
+      (prop) => new GoProperty(this, prop),
     );
+
+    this.interfaceName = `${this.name}${STRUCT_INTERFACE_SUFFIX}`;
+
+    // TODO check if datatype? (isDataType() on jsii-reflect seems wrong)
   }
 
   // needs to generate both a Go interface and a struct, as well as the methods on the struct
   public emit(code: CodeMaker): void {
-    this.generateInterface(code);
-    this.generateStruct(code);
+    this.emitInterface(code);
+    this.emitStruct(code);
     this.generateImpl(code);
   }
 
-  private generateInterface(code: CodeMaker): void {
-    const interfaceName = `${this.name}${STRUCT_INTERFACE_SUFFIX}`;
-    code.openBlock(`type ${interfaceName} interface`);
+  private emitInterface(code: CodeMaker): void {
+    code.openBlock(`type ${this.interfaceName} interface`);
 
-    this.properties.forEach((property) => property.emitGetter(code));
+    for (const property of this.properties) {
+      property.emitGetter(code);
+    }
 
     code.closeBlock();
     code.line();
   }
 
-  private generateStruct(code: CodeMaker): void {
+  private emitStruct(code: CodeMaker): void {
     code.openBlock(`type ${this.name} struct`);
 
-    this.properties.forEach((property) => property.emitProperty(code));
+    for (const property of this.properties) {
+      property.emitProperty(code);
+    }
 
     code.closeBlock();
     code.line();
@@ -48,55 +57,15 @@ export class Struct extends GoType {
 
   private generateImpl(code: CodeMaker): void {
     code.line();
-    this.properties.forEach((property) => property.emitMethod(code));
-    code.line();
-  }
-}
 
-// StructProperty encapsulates logic for public properties on the concrete struct
-export class StructProperty {
-  public readonly name: string;
-  public readonly getter: string;
-  public readonly references?: GoTypeRef;
-
-  public constructor(
-    public readonly parent: Struct,
-    public readonly property: Property,
-  ) {
-    if (property.type) {
-      this.references = new GoTypeRef(parent.parent.root, property.type);
+    for (const property of this.properties) {
+      property.emitMethod(code);
     }
 
-    this.name = toPascalCase(this.property.name);
-    this.getter = `Get${this.name}`;
-  }
-
-  public emitProperty(code: CodeMaker) {
-    code.line(`${this.name} ${this.returnType}`); // TODO figure out gofmt for indentation?
-  }
-
-  public emitGetter(code: CodeMaker) {
-    code.line(`${this.getter}() ${this.returnType}`);
-  }
-
-  public emitMethod(code: CodeMaker) {
-    const receiver = this.parent.name;
-    const instanceArg = receiver.substring(0, 1).toLowerCase();
-
-    code.openBlock(
-      `func (${instanceArg} ${receiver}) ${
-        this.getter
-      }()${` ${this.returnType}`}`,
-    );
-    code.line(`return ${instanceArg}.${this.name}`);
-    code.closeBlock();
     code.line();
   }
 
-  public get returnType(): string {
-    return (
-      this.references?.scopedName(this.parent.parent) ??
-      this.property.type.toString()
-    );
+  public get dependencies(): Package[] {
+    return [...getFieldDependencies(this.properties)];
   }
 }

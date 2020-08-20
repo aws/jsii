@@ -43542,6 +43542,7 @@ package backreferences
 
 import (
     "github.com/aws-cdk/jsii/jsii"
+    "submodule"
 )
 
 type MyClassReferenceIface interface {
