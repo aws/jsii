@@ -61,7 +61,8 @@
     "jest": "^26.4.0",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.2.0"
   },
   "jest": {
     "collectCoverage": true,
@@ -85,7 +86,10 @@
     ],
     "testEnvironment": "node",
     "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
+      "**/?(*.)+(spec|test).ts"
+    ],
+    "transform": {
+      "\\.tsx?$": "ts-jest"
+    }
   }
 }

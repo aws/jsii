@@ -1,27 +1,28 @@
 import * as Case from 'case';
 import * as spec from '@jsii/spec';
 import * as ts from 'typescript';
-import { Diagnostic, EmitResult, Emitter } from './emitter';
+import { Emitter } from './emitter';
+import { JsiiDiagnostic } from './jsii-diagnostic';
 import { ProjectInfo } from './project-info';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-const deepEqual = require('deep-equal');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import deepEqual = require('deep-equal');
 
 export class Validator implements Emitter {
   public static VALIDATIONS: ValidationFunction[] = _defaultValidations();
 
-  private _diagnostics: Diagnostic[] = [];
+  private _diagnostics = new Array<JsiiDiagnostic>();
 
   public constructor(
     public readonly projectInfo: ProjectInfo,
     public readonly assembly: spec.Assembly,
   ) {}
 
-  public async emit(): Promise<EmitResult> {
+  public async emit(): Promise<ts.EmitResult> {
     this._diagnostics = [];
 
     for (const validation of Validator.VALIDATIONS) {
-      validation(this, this.assembly, this._diagnostic.bind(this));
+      validation(this, this.assembly, (diag) => this._diagnostics.push(diag));
     }
 
     try {
@@ -36,24 +37,9 @@ export class Validator implements Emitter {
       delete this._diagnostics;
     }
   }
-
-  private _diagnostic(category: ts.DiagnosticCategory, messageText: string) {
-    this._diagnostics.push({
-      domain: 'JSII',
-      category,
-      code: 0,
-      messageText,
-      file: undefined,
-      start: undefined,
-      length: undefined,
-    });
-  }
 }
 
-export type DiagnosticEmitter = (
-  category: ts.DiagnosticCategory,
-  messageText: string,
-) => void;
+export type DiagnosticEmitter = (diag: JsiiDiagnostic) => void;
 export type ValidationFunction = (
   validator: Validator,
   assembly: spec.Assembly,
@@ -79,8 +65,9 @@ function _defaultValidations(): ValidationFunction[] {
     for (const type of _allTypes(assembly)) {
       if (type.name !== Case.pascal(type.name)) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `Type names must use PascalCase: ${type.name}`,
+          JsiiDiagnostic.Code.JSII_8000_PASCAL_CASED_TYPE_NAMES.createDetached(
+            type.name,
+          ),
         );
       }
     }
@@ -99,8 +86,10 @@ function _defaultValidations(): ValidationFunction[] {
       for (const member of type.members) {
         if (member.name && member.name !== Case.constant(member.name)) {
           diagnostic(
-            ts.DiagnosticCategory.Error,
-            `Enum members must use ALL_CAPS: ${member.name}`,
+            JsiiDiagnostic.Code.JSII_8001_ALL_CAPS_ENUM_MEMBERS.createDetached(
+              member.name,
+              type.fqn,
+            ),
           );
         }
       }
@@ -112,14 +101,16 @@ function _defaultValidations(): ValidationFunction[] {
     assembly: spec.Assembly,
     diagnostic: DiagnosticEmitter,
   ) {
-    for (const member of _allMembers(assembly)) {
+    for (const { member, type } of _allMembers(assembly)) {
       if (member.static && (member as spec.Property).const) {
         continue;
       }
       if (member.name && member.name !== Case.camel(member.name)) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `Method and non-static non-readonly property names must use camelCase: ${member.name}`,
+          JsiiDiagnostic.Code.JSII_8002_CAMEL_CASED_MEMBERS.createDetached(
+            member.name,
+            type.fqn,
+          ),
         );
       }
     }
@@ -130,7 +121,7 @@ function _defaultValidations(): ValidationFunction[] {
     assembly: spec.Assembly,
     diagnostic: DiagnosticEmitter,
   ) {
-    for (const member of _allMembers(assembly)) {
+    for (const { member, type } of _allMembers(assembly)) {
       if (!member.static || !(member as spec.Property).const) {
         continue;
       }
@@ -141,8 +132,10 @@ function _defaultValidations(): ValidationFunction[] {
         member.name !== Case.camel(member.name)
       ) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `Static constant names must use TRUMP_CASE, PascalCase or camelCase: ${member.name}`,
+          JsiiDiagnostic.Code.JSII_8003_STATIC_CONST_CASING.createDetached(
+            member.name,
+            type.name,
+          ),
         );
       }
     }
@@ -153,7 +146,7 @@ function _defaultValidations(): ValidationFunction[] {
     assembly: spec.Assembly,
     diagnostic: DiagnosticEmitter,
   ) {
-    for (const member of _allMembers(assembly)) {
+    for (const { member, type } of _allMembers(assembly)) {
       if (!member.name) {
         continue;
       }
@@ -163,16 +156,20 @@ function _defaultValidations(): ValidationFunction[] {
         _isEmpty((member as spec.Method).parameters)
       ) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          'Methods and properties cannot have names like getXxx() - those conflict with Java property getters by the same name',
+          JsiiDiagnostic.Code.JSII_5000_JAVA_GETTERS.createDetached(
+            member.name,
+            type.name,
+          ),
         );
       } else if (
         snakeName.startsWith('set_') &&
         ((member as spec.Method).parameters ?? []).length === 1
       ) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          'Methods and properties cannot have names like setXxx() - those conflict with Java property setters by the same name',
+          JsiiDiagnostic.Code.JSII_5001_JAVA_SETTERS.createDetached(
+            member.name,
+            type.name,
+          ),
         );
       }
     }
@@ -188,8 +185,9 @@ function _defaultValidations(): ValidationFunction[] {
       if (assembly.name === assm) {
         if (!(typeRef.fqn in (assembly.types ?? {}))) {
           diagnostic(
-            ts.DiagnosticCategory.Error,
-            `Exported APIs cannot use un-exported type ${typeRef.fqn}`,
+            JsiiDiagnostic.Code.JSII_3000_EXPORTED_API_USES_HIDDEN_TYPE.createDetached(
+              typeRef.fqn,
+            ),
           );
         }
         continue;
@@ -199,15 +197,13 @@ function _defaultValidations(): ValidationFunction[] {
       );
       if (!foreignAssm) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `Type reference is rooted in unknown module: ${assm}`,
+          JsiiDiagnostic.Code.JSII_9000_UNKNOWN_MODULE.createDetached(assm),
         );
         continue;
       }
       if (!(typeRef.fqn in (foreignAssm.types ?? {}))) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `Type reference not found in ${assm}: ${typeRef.fqn}`,
+          JsiiDiagnostic.Code.JSII_9001_TYPE_NOT_FOUND.createDetached(typeRef),
         );
       }
     }
@@ -396,24 +392,36 @@ function _defaultValidations(): ValidationFunction[] {
         const expVisibility = expected.protected ? 'protected' : 'public';
         const actVisibility = actual.protected ? 'protected' : 'public';
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `${label} changes visibility when ${action} (expected ${expVisibility}, found ${actVisibility})`,
+          JsiiDiagnostic.Code.JSII_5002_OVERRIDE_CHANGES_VISIBILITY.createDetached(
+            label,
+            action,
+            actVisibility,
+            expVisibility,
+          ),
         );
       }
       if (!deepEqual(actual.returns, expected.returns)) {
         const expType = spec.describeTypeReference(expected.returns?.type);
         const actType = spec.describeTypeReference(actual.returns?.type);
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `${label} changes the return type when ${action} (expected ${expType}, found ${actType})`,
+          JsiiDiagnostic.Code.JSII_5003_OVERRIDE_CHANGES_RETURN_TYPE.createDetached(
+            label,
+            action,
+            actType,
+            expType,
+          ),
         );
       }
       const expectedParams = expected.parameters ?? [];
       const actualParams = actual.parameters ?? [];
       if (expectedParams.length !== actualParams.length) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `${label} changes argument count when ${action} (expected ${expectedParams.length}, found ${actualParams.length})`,
+          JsiiDiagnostic.Code.JSII_5005_OVERRIDE_CHANGES_PARAM_COUNT.createDetached(
+            label,
+            action,
+            actualParams.length,
+            expectedParams.length,
+          ),
         );
         return;
       }
@@ -421,28 +429,34 @@ function _defaultValidations(): ValidationFunction[] {
         const expParam = expectedParams[i];
         const actParam = actualParams[i];
         if (!deepEqual(expParam.type, actParam.type)) {
-          const expType = spec.describeTypeReference(expParam.type);
-          const actType = spec.describeTypeReference(actParam.type);
           diagnostic(
-            ts.DiagnosticCategory.Error,
-            `${label} changes type of argument ${actParam.name} when ${action} (expected ${expType}, found ${actType}`,
+            JsiiDiagnostic.Code.JSII_5006_OVERRIDE_CHANGES_PARAM_TYPE.createDetached(
+              label,
+              action,
+              actParam,
+              expParam,
+            ),
           );
         }
         // Not-ing those to force the values to a strictly boolean context (they're optional, undefined means false)
         if (expParam.variadic !== actParam.variadic) {
           diagnostic(
-            ts.DiagnosticCategory.Error,
-            `${label} changes the variadicity of parameter ${
-              actParam.name
-            } when ${action} (expected ${!!expParam.variadic}, found ${!!actParam.variadic})`,
+            JsiiDiagnostic.Code.JSII_5007_OVERRIDE_CHANGES_VARIADIC.createDetached(
+              label,
+              action,
+              actParam.variadic,
+              expParam.variadic,
+            ),
           );
         }
         if (expParam.optional !== actParam.optional) {
           diagnostic(
-            ts.DiagnosticCategory.Error,
-            `${label} changes the optionality of paramerter ${
-              actParam.name
-            } when ${action} (expected ${!!expParam.optional}, found ${!!actParam.optional})`,
+            JsiiDiagnostic.Code.JSII_5008_OVERRIDE_CHANGES_PARAM_OPTIONAL.createDetached(
+              label,
+              action,
+              actParam,
+              expParam,
+            ),
           );
         }
       }
@@ -458,28 +472,42 @@ function _defaultValidations(): ValidationFunction[] {
         const expVisibility = expected.protected ? 'protected' : 'public';
         const actVisibility = actual.protected ? 'protected' : 'public';
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `${label} changes visibility when ${action} (expected ${expVisibility}, found ${actVisibility})`,
+          JsiiDiagnostic.Code.JSII_5002_OVERRIDE_CHANGES_VISIBILITY.createDetached(
+            label,
+            action,
+            actVisibility,
+            expVisibility,
+          ),
         );
       }
       if (!deepEqual(expected.type, actual.type)) {
-        const expType = spec.describeTypeReference(expected.type);
-        const actType = spec.describeTypeReference(actual.type);
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `${label} changes the type of property when ${action} (expected ${expType}, found ${actType})`,
+          JsiiDiagnostic.Code.JSII_5004_OVERRIDE_CHANGES_PROP_TYPE.createDetached(
+            label,
+            action,
+            actual.type,
+            expected.type,
+          ),
         );
       }
       if (expected.immutable !== actual.immutable) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `${label} changes immutability of property when ${action}`,
+          JsiiDiagnostic.Code.JSII_5010_OVERRIDE_CHANGES_MUTABILITY.createDetached(
+            label,
+            action,
+            actual.immutable,
+            expected.immutable,
+          ),
         );
       }
       if (expected.optional !== actual.optional) {
         diagnostic(
-          ts.DiagnosticCategory.Error,
-          `${label} changes optionality of property when ${action}`,
+          JsiiDiagnostic.Code.JSII_5009_OVERRIDE_CHANGES_PROP_OPTIONAL.createDetached(
+            label,
+            action,
+            actual.optional,
+            expected.optional,
+          ),
         );
       }
     }
@@ -490,8 +518,10 @@ function _allTypes(assm: spec.Assembly): spec.Type[] {
   return Object.values(assm.types ?? {});
 }
 
-function _allMethods(assm: spec.Assembly): spec.Method[] {
-  const methods = new Array<spec.Method>();
+function _allMethods(
+  assm: spec.Assembly,
+): Array<{ member: spec.Method; type: spec.Type }> {
+  const methods = new Array<{ member: spec.Method; type: spec.Type }>();
   for (const type of _allTypes(assm)) {
     if (!spec.isClassOrInterfaceType(type)) {
       continue;
@@ -499,13 +529,15 @@ function _allMethods(assm: spec.Assembly): spec.Method[] {
     if (!type.methods) {
       continue;
     }
-    type.methods.forEach((method) => methods.push(method));
+    type.methods.forEach((method) => methods.push({ member: method, type }));
   }
   return methods;
 }
 
-function _allProperties(assm: spec.Assembly): spec.Property[] {
-  const properties = new Array<spec.Property>();
+function _allProperties(
+  assm: spec.Assembly,
+): Array<{ member: spec.Property; type: spec.Type }> {
+  const properties = new Array<{ member: spec.Property; type: spec.Type }>();
   for (const type of _allTypes(assm)) {
     if (!spec.isClassOrInterfaceType(type)) {
       continue;
@@ -513,12 +545,16 @@ function _allProperties(assm: spec.Assembly): spec.Property[] {
     if (!type.properties) {
       continue;
     }
-    type.properties.forEach((property) => properties.push(property));
+    type.properties.forEach((property) =>
+      properties.push({ member: property, type }),
+    );
   }
   return properties;
 }
 
-function _allMembers(assm: spec.Assembly): Array<spec.Property | spec.Method> {
+function _allMembers(
+  assm: spec.Assembly,
+): Array<{ member: spec.Property | spec.Method; type: spec.Type }> {
   return [..._allMethods(assm), ..._allProperties(assm)];
 }
 
@@ -535,10 +571,10 @@ function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
       type.interfaces.forEach((iface) => typeReferences.push({ fqn: iface }));
     }
   }
-  for (const prop of _allProperties(assm)) {
+  for (const { member: prop } of _allProperties(assm)) {
     _collectTypeReferences(prop.type);
   }
-  for (const meth of _allMethods(assm)) {
+  for (const { member: meth } of _allMethods(assm)) {
     if (meth.returns) {
       _collectTypeReferences(meth.returns.type);
     }
