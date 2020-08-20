@@ -2,7 +2,7 @@ import { CodeMaker } from 'codemaker';
 import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { EmitContext } from './emit-context';
 import { GoClass, Enum, Interface, Struct } from './types';
-import { findTypeInTree, goModuleName, flatMap } from './util';
+import { findTypeInTree, goPackageName, flatMap } from './util';
 
 // JSII golang runtime module name
 const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
@@ -10,12 +10,12 @@ const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
 export type ModuleType = Interface | Enum | GoClass | Struct;
 
 /*
- * Module represents a single `.go` source file within a package. This can be the root package file or a submodule
+ * BasePackage represents a single `.go` source file within a package. This can be the root package file or a submodule
  */
-export abstract class Module {
-  public readonly root: Module;
+export abstract class BasePackage {
+  public readonly root: BasePackage;
   public readonly file: string;
-  public readonly submodules: Submodule[];
+  public readonly submodules: InternalPackage[];
   public readonly types: ModuleType[];
 
   public constructor(
@@ -24,12 +24,12 @@ export abstract class Module {
     public readonly moduleName: string,
     public readonly filePath: string,
     // If no root is provided, this module is the root
-    root?: Module,
+    root?: BasePackage,
   ) {
     this.file = `${filePath}.go`;
     this.root = root || this;
     this.submodules = this.submoduleSpec.map(
-      (sm) => new Submodule(this.root, this, sm),
+      (sm) => new InternalPackage(this.root, this, sm),
     );
 
     this.types = this.typeSpec.map(
@@ -51,12 +51,12 @@ export abstract class Module {
   }
 
   /*
-   * Modules that types within this module reference
+   * BasePackages that types within this module reference
    */
-  public get dependencies(): Module[] {
+  public get dependencies(): BasePackage[] {
     return flatMap(
       this.types,
-      (t: ModuleType): Module[] => t.dependencies,
+      (t: ModuleType): BasePackage[] => t.dependencies,
     ).filter((mod) => mod.moduleName !== this.moduleName);
   }
 
@@ -82,7 +82,7 @@ export abstract class Module {
     this.emitTypes(code);
     code.closeFile(this.file);
 
-    this.emitSubmodules(context);
+    this.emitInternalPackages(context);
   }
 
   private emitHeader(code: CodeMaker) {
@@ -105,7 +105,7 @@ export abstract class Module {
     code.line();
   }
 
-  public emitSubmodules(context: EmitContext) {
+  public emitInternalPackages(context: EmitContext) {
     for (const submodule of this.submodules) {
       submodule.emit(context);
     }
@@ -118,11 +118,18 @@ export abstract class Module {
   }
 }
 
-export class Submodule extends Module {
-  public readonly parent: Module;
+/*
+ * InternalPackage refers to any go package within a given JSII module.
+ */
+export class InternalPackage extends BasePackage {
+  public readonly parent: BasePackage;
 
-  public constructor(root: Module, parent: Module, assembly: JsiiSubmodule) {
-    const moduleName = goModuleName(assembly.name);
+  public constructor(
+    root: BasePackage,
+    parent: BasePackage,
+    assembly: JsiiSubmodule,
+  ) {
+    const moduleName = goPackageName(assembly.name);
     const filePath = `${parent.filePath}/${moduleName}`;
 
     super(assembly.types, assembly.submodules, moduleName, filePath, root);
