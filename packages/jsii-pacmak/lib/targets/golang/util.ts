@@ -23,7 +23,7 @@ export function findTypeInTree(
  * Format NPM package names as idiomatic Go module name
  */
 export function goPackageName(name: string): string {
-  return name.replace('@', '').replace(/[^a-z0-9.]/gi, '');
+  return name.replace(/[^a-z0-9.]/gi, '').toLowerCase();
 }
 
 export function flatMap<T, R>(
