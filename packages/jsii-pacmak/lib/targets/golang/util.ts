@@ -1,11 +1,11 @@
-import { BasePackage, ModuleType } from './base-package';
+import { Package, ModuleType } from './package';
 import { TypeField } from './types';
 
 /*
  * Recursively search module for type with fqn
  */
 export function findTypeInTree(
-  module: BasePackage,
+  module: Package,
   fqn: string,
 ): ModuleType | undefined {
   const result = module.types.find((t) => t.type.fqn === fqn);
@@ -38,8 +38,8 @@ export function flatMap<T, R>(
 /*
  * Return module dependencies of a class or interface fields
  */
-export function getFieldDependencies(fields: TypeField[]): BasePackage[] {
-  return fields.reduce((accum: BasePackage[], field) => {
+export function getFieldDependencies(fields: TypeField[]): Package[] {
+  return fields.reduce((accum: Package[], field) => {
     return field.references?.type?.parent
       ? [...accum, field.references?.type.parent]
       : accum;

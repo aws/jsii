@@ -2,12 +2,12 @@ import { CodeMaker } from 'codemaker';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
-import { BasePackage } from '../base-package';
+import { Package } from '../package';
 
 export class Interface extends GoType {
-  public readonly dependencies: BasePackage[] = [];
+  public readonly dependencies: Package[] = [];
 
-  public constructor(parent: BasePackage, public type: InterfaceType) {
+  public constructor(parent: Package, public type: InterfaceType) {
     super(parent, type);
   }
 

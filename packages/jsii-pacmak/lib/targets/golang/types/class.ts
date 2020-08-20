@@ -3,7 +3,7 @@ import { CodeMaker } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
 import { GoType, GoEmitter } from './go-type';
 import { TypeField } from './type-field';
-import { BasePackage } from '../base-package';
+import { Package } from '../package';
 import { getFieldDependencies } from '../util';
 
 // String appended to all go Class Interfaces
@@ -133,7 +133,7 @@ export class GoClass extends GoType implements GoEmitter {
   public readonly methods: ClassMethod[];
   public readonly interfaceName: string;
 
-  public constructor(parent: BasePackage, public type: ClassType) {
+  public constructor(parent: Package, public type: ClassType) {
     super(parent, type);
 
     this.properties = Object.values(this.type.getProperties()).map(
@@ -180,7 +180,7 @@ export class GoClass extends GoType implements GoEmitter {
     code.line();
   }
 
-  public get dependencies(): BasePackage[] {
+  public get dependencies(): Package[] {
     return [
       ...getFieldDependencies(this.properties),
       ...getFieldDependencies(this.methods),

@@ -1,10 +1,10 @@
 import { CodeMaker } from 'codemaker';
 import { EnumType } from 'jsii-reflect';
 import { GoType } from './go-type';
-import { BasePackage } from '../base-package';
+import { Package } from '../package';
 
 export class Enum extends GoType {
-  public constructor(parent: BasePackage, public type: EnumType) {
+  public constructor(parent: Package, public type: EnumType) {
     super(parent, type);
   }
 
@@ -26,7 +26,7 @@ export class Enum extends GoType {
     code.line();
   }
 
-  public get dependencies(): BasePackage[] {
+  public get dependencies(): Package[] {
     return [];
   }
 }

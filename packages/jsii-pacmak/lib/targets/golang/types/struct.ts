@@ -1,6 +1,6 @@
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
-import { BasePackage } from '../base-package';
+import { Package } from '../package';
 import { InterfaceType, Property } from 'jsii-reflect';
 import { CodeMaker, toPascalCase } from 'codemaker';
 
@@ -9,9 +9,9 @@ const STRUCT_INTERFACE_SUFFIX = 'Iface';
 // JSII datatype interfaces, aka structs
 export class Struct extends GoType {
   public readonly properties: StructProperty[];
-  public readonly dependencies: BasePackage[] = [];
+  public readonly dependencies: Package[] = [];
 
-  public constructor(parent: BasePackage, public type: InterfaceType) {
+  public constructor(parent: Package, public type: InterfaceType) {
     super(parent, type);
 
     // TODO check if datatype? (isDataType() on jsii-reflect seems wrong)

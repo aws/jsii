@@ -3,7 +3,7 @@ import * as fs from 'fs-extra';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
-import { Package } from './golang/package';
+import { RootPackage } from './golang/package';
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
 
@@ -43,7 +43,10 @@ class GolangGenerator implements IGenerator {
   }
 
   public generate(): void {
-    new Package(this.assembly).emit({ code: this.code, rosetta: this.rosetta });
+    new RootPackage(this.assembly).emit({
+      code: this.code,
+      rosetta: this.rosetta,
+    });
   }
 
   public async save(outDir: string, tarball: string): Promise<any> {
