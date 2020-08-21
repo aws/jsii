@@ -107,6 +107,8 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
       default: undefined,
       // This is a hidden option, folks need not bother it unless they're very advanced
       hidden: true,
+      // This is expected to be a path, which should be normalized
+      normalize: true,
     })
     .version(VERSION_DESC)
     .strict().argv;
