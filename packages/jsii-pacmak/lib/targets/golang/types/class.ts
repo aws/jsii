@@ -33,22 +33,11 @@ export class GoClass extends GoType implements GoEmitter {
   public emit(code: CodeMaker): void {
     this.emitInterface(code);
     this.emitStruct(code);
-    // TODO: this.generateImpl
+    this.generateImpl(code);
 
     for (const method of this.methods) {
       method.emit(code);
     }
-  }
-
-  private emitStruct(code: CodeMaker): void {
-    code.openBlock(`type ${this.name} struct`);
-
-    for (const property of this.properties) {
-      property.emitProperty(code);
-    }
-
-    code.closeBlock();
-    code.line();
   }
 
   // Generate interface that defines getters for public properties and any method signatures
@@ -66,6 +55,29 @@ export class GoClass extends GoType implements GoEmitter {
 
     code.closeBlock();
     code.line();
+  }
+
+  private emitStruct(code: CodeMaker): void {
+    code.openBlock(`type ${this.name} struct`);
+
+    for (const property of this.properties) {
+      property.emitProperty(code);
+    }
+
+    code.closeBlock();
+    code.line();
+  }
+
+  private generateImpl(code: CodeMaker): void {
+    if (this.properties.length !== 0) {
+      code.line();
+
+      for (const property of this.properties) {
+        property.emitMethod(code);
+      }
+
+      code.line();
+    }
   }
 
   public get dependencies(): Package[] {
