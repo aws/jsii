@@ -2253,7 +2253,8 @@ class _IVeryBaseInterfaceProxy:
 
 
 class StaticConsumer(
-    metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.StaticConsumer"
+    metaclass=jsii.JSIIMeta,
+    jsii_type="@scope/jsii-calc-base-of-base.StaticConsumer",
 ):
     @jsii.member(jsii_name="consume")
     @builtins.classmethod
@@ -6811,7 +6812,7 @@ class NestingClass(
         name_mapping={"name": "name"},
     )
     class NestedStruct:
-        def __init__(self, *, name: str) -> None:
+        def __init__(self, *, name: builtins.str) -> None:
             """This is a struct, nested within a class.
 
             Normal.
@@ -6821,22 +6822,24 @@ class NestingClass(
             stability
             :stability: deprecated
             """
-            self._values = {
+            self._values: typing.Dict[str, typing.Any] = {
                 "name": name,
             }
 
         @builtins.property
-        def name(self) -> str:
+        def name(self) -> builtins.str:
             """
             stability
             :stability: deprecated
             """
-            return self._values.get("name")
+            result = self._values.get("name")
+            assert result is not None, "Required property 'name' is missing"
+            return result
 
-        def __eq__(self, rhs) -> bool:
+        def __eq__(self, rhs: typing.Any) -> builtins.bool:
             return isinstance(rhs, self.__class__) and rhs._values == self._values
 
-        def __ne__(self, rhs) -> bool:
+        def __ne__(self, rhs: typing.Any) -> builtins.bool:
             return not (rhs == self)
 
         def __repr__(self) -> str:
