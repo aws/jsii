@@ -43,7 +43,6 @@ updates:
     labels:
       - dependencies
       - language/python
-    versioning-strategy: increase
     
   - package-ecosystem: github-actions
     directory: "/"
