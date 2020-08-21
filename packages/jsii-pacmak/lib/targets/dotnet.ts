@@ -217,7 +217,7 @@ export class DotnetBuilder implements TargetBuilder {
         .att(
           'value',
           path.resolve(
-            this.options.arguments['nuget-global-packages-folder'],
+            this.options.arguments['dotnet-nuget-global-packages-folder'],
             '.nuget',
             'packages',
           ),
