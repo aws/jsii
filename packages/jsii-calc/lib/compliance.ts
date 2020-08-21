@@ -1,9 +1,9 @@
-import * as lib from '@scope/jsii-calc-lib';
 import {
   EnumFromScopedModule,
   IDoublable,
   IFriendly,
   MyFirstStruct,
+  Number as LibNumber,
   StructWithOnlyOptionals,
   Value,
 } from '@scope/jsii-calc-lib';
@@ -145,13 +145,13 @@ export class AllTypes {
 
   // map
 
-  private mapValue: { [key: string]: lib.Number } = {};
+  private mapValue: { [key: string]: LibNumber } = {};
 
-  public get mapProperty(): { [key: string]: lib.Number } {
+  public get mapProperty(): { [key: string]: LibNumber } {
     return this.mapValue;
   }
 
-  public set mapProperty(value: { [key: string]: lib.Number }) {
+  public set mapProperty(value: { [key: string]: LibNumber }) {
     if (typeof value !== 'object') {
       throw new Error('not a map');
     }
@@ -188,9 +188,9 @@ export class AllTypes {
 
   // unions
 
-  public unionProperty: string | number | lib.Number | Multiply = 'foo';
+  public unionProperty: string | number | LibNumber | Multiply = 'foo';
   public unionArrayProperty: Array<Value | number> = [];
-  public unionMapProperty: { [key: string]: lib.Number | number | string } = {};
+  public unionMapProperty: { [key: string]: LibNumber | number | string } = {};
 
   // enum
 
@@ -222,7 +222,7 @@ export class AllTypes {
   }
 
   public anyOut(): any {
-    const ret = new lib.Number(42);
+    const ret = new LibNumber(42);
     Object.defineProperty(ret, 'tag', {
       value: "you're it",
     });
@@ -290,7 +290,7 @@ export class RuntimeTypeChecking {
    * Used to verify verification of number of method arguments.
    */
   public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
-    consume(arg1, arg2, arg3);
+    StaticConsumer.consume(arg1, arg2, arg3);
   }
 
   public methodWithDefaultedArguments(
@@ -298,11 +298,11 @@ export class RuntimeTypeChecking {
     arg2?: string,
     arg3: Date = new Date(),
   ) {
-    consume(arg1, arg2, arg3);
+    StaticConsumer.consume(arg1, arg2, arg3);
   }
 
   public methodWithOptionalAnyArgument(arg?: any) {
-    consume(arg);
+    StaticConsumer.consume(arg);
   }
 }
 
@@ -639,7 +639,7 @@ export class AllowedMethodNames {
 export interface IReturnsNumber {
   obtainNumber(): IDoublable;
 
-  readonly numberProp: lib.Number;
+  readonly numberProp: LibNumber;
 }
 
 export class OverrideReturnsObject {
@@ -2618,15 +2618,15 @@ export class JsonFormatter {
   }
 
   public static anyArray(): any {
-    return [1, 2, 3, new lib.Number(123), { foo: 'bar' }];
+    return [1, 2, 3, new LibNumber(123), { foo: 'bar' }];
   }
 
   public static anyHash(): any {
-    return { hello: 1234, world: new lib.Number(122) };
+    return { hello: 1234, world: new LibNumber(122) };
   }
 
   public static anyRef(): any {
-    return new lib.Number(444);
+    return new LibNumber(444);
   }
 
   private constructor() {}
@@ -2785,7 +2785,4 @@ export abstract class BurriedAnonymousObject {
   public abstract giveItBack(value: any): any;
 }
 
-/** Does nothing with provided arguments, useful to artifically use parameters */
-function consume(..._args: readonly any[]) {
-  return;
-}
+import { StaticConsumer } from '@scope/jsii-calc-base-of-base';

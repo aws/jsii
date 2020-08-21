@@ -77,7 +77,7 @@ export abstract class Type implements Documentable, SourceLocatable {
    * Determines whether this is a Data Type (that is, an interface with no methods) or not.
    */
   public isDataType(): this is InterfaceType {
-    return false;
+    return false; // TODO how is this different from isInterfaceType?
   }
 
   /**

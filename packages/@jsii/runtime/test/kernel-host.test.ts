@@ -7,6 +7,7 @@ import { KernelHost, InputOutput, Input, Output } from '../lib';
 
 test('can load libraries from within a callback', () => {
   const inout = new TestInputOutput([
+    { api: 'load', ...loadRequest('@scope/jsii-calc-base-of-base') },
     { api: 'load', ...loadRequest('@scope/jsii-calc-base') },
     { api: 'load', ...loadRequest('@scope/jsii-calc-lib') },
     {

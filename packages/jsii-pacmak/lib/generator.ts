@@ -31,6 +31,10 @@ export interface GeneratorOptions {
 }
 
 export interface IGenerator {
+  /**
+   *
+   * @param fingerprint
+   */
   generate(fingerprint: boolean): void;
 
   /**

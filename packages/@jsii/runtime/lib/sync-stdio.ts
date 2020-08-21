@@ -5,9 +5,10 @@ const STDOUT_FD = 1;
 const STDERR_FD = 2;
 const INPUT_BUFFER_SIZE = 1024 * 1024; // not related to max line length
 
+const EMPTY_BUFFER = Buffer.alloc(0);
+
 export class SyncStdio {
-  private readonly inputQueue = new Array<string>();
-  private currentLine = '';
+  private bufferedData = EMPTY_BUFFER;
 
   public writeErrorLine(line: string) {
     this.writeBuffer(Buffer.from(`${line}\n`), STDERR_FD);
@@ -19,7 +20,7 @@ export class SyncStdio {
 
   public readLine(): string | undefined {
     const buff = Buffer.alloc(INPUT_BUFFER_SIZE);
-    while (this.inputQueue.length === 0) {
+    while (!this.bufferedData.includes('\n', 0, 'utf-8')) {
       try {
         const read = fs.readSync(STDIN_FD, buff, 0, buff.length, null);
 
@@ -27,16 +28,8 @@ export class SyncStdio {
           return undefined;
         }
 
-        const str = buff.slice(0, read).toString();
-
-        for (const ch of str) {
-          if (ch === '\n') {
-            this.inputQueue.push(this.currentLine);
-            this.currentLine = '';
-          } else {
-            this.currentLine += ch;
-          }
-        }
+        const newData = buff.slice(0, read);
+        this.bufferedData = Buffer.concat([this.bufferedData, newData]);
       } catch (e) {
         // HACK: node may set O_NONBLOCK on it's STDIN depending on what kind of input it is made
         // of (see https://github.com/nodejs/help/issues/2663). When STDIN has O_NONBLOCK, calls may
@@ -52,7 +45,10 @@ export class SyncStdio {
       }
     }
 
-    const next = this.inputQueue.shift();
+    const newLinePos = this.bufferedData.indexOf('\n', 0, 'utf-8');
+    const next = this.bufferedData.slice(0, newLinePos).toString('utf-8');
+    this.bufferedData = this.bufferedData.slice(newLinePos + 1);
+
     return next;
   }
 

@@ -18,6 +18,7 @@
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
+        "go": {},
         "java": {
           "maven": {
             "artifactId": "calculator-base",
@@ -40,6 +41,7 @@
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
+        "go": {},
         "java": {
           "maven": {
             "artifactId": "calculator-base-of-base",
@@ -97,6 +99,7 @@
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
       "versionSuffix": "-devpreview"
     },
+    "go": {},
     "java": {
       "maven": {
         "artifactId": "calculator-lib",
@@ -625,6 +628,40 @@
         }
       ]
     },
+    "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct": {
+      "assembly": "@scope/jsii-calc-lib",
+      "datatype": true,
+      "docs": {
+        "remarks": "Normal.",
+        "stability": "deprecated",
+        "summary": "This is a struct, nested within a class."
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 37
+      },
+      "name": "NestedStruct",
+      "namespace": "submodule.NestingClass",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 38
+          },
+          "name": "name",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "@scope/jsii-calc-lib.submodule.ReflectableEntry": {
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
@@ -723,5 +760,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "f/4VuNiOkSgTgLR80loQUAzAuzFi+25rmfLcRWKDCrY="
+  "fingerprint": "eQh0XE5tmf4g2rxlhgkrIZJ93RG55/oLM+RNpmaQyGs="
 }

@@ -374,22 +374,42 @@ jobs:
         run: |-
           npm install --no-save ${{ runner.temp }}/js/*.tgz
           npm install --no-save ${{ runner.temp }}/private/*.tgz --only=prod
-      - name: Integration Test
+
+          # Setting environment variables for next jobs
+          echo "::set-env name=JSII::${{ github.workspace }}/node_modules/.bin/jsii"
+          echo "::set-env name=CDK_BUILD_JSII::${{ github.workspace }}/node_modules/.bin/jsii"
+
+          echo "::set-env name=PACMAK::${{ github.workspace }}/node_modules/.bin/jsii-pacmak"
+          echo "::set-env name=CDK_PACKAGE_JSII_PACMAK::${{ github.workspace }}/node_modules/.bin/jsii-pacmak"
+
+          echo "::set-env name=ROSETTA::${{ github.workspace }}/node_modules/.bin/jsii-rosetta"
+          echo "::set-env name=CDK_PACKAGE_JSII_ROSETTA::${{ github.workspace }}/node_modules/.bin/jsii-rosetta"
+
+      - name: Integration Test (build)
         run: |-
-          npx lerna run build > >(tee    ${{ runner.temp }}/stdout.log) 2> >(tee    ${{ runner.temp }}/stderr.log >&2)
-          ./pack.sh           > >(tee -a ${{ runner.temp }}/stdout.log) 2> >(tee -a ${{ runner.temp }}/stderr.log >&2)
-        env:
-          # Tested tools locations:
-          CDK_BUILD_JSII: ${{ github.workspace }}/node_modules/.bin/jsii
-          CDK_PACKAGE_JSII_PACMAK: ${{ github.workspace }}/node_modules/.bin/jsii-pacmak --verbose
-          CDK_PACKAGE_JSII_ROSETTA: ${{ github.workspace }}/node_modules/.bin/jsii-rosetta
-          # Alternative environment variables for tested tools:
-          JSII: ${{ github.workspace }}/node_modules/.bin/jsii
-          PACMAK: ${{ github.workspace }}/node_modules/.bin/jsii-pacmak --verbose
-          ROSETTA: ${{ github.workspace }}/node_modules/.bin/jsii-rosetta
-          # Build environment
-          MAVEN_OPTS: -Xms1024m -Xmx4096m
+          npx lerna run build --stream 2>&1 > ${{ runner.temp }}/build.log
         working-directory: aws-cdk
+
+        # In the interest of speed, only process monocdk-experiment / aws-cdk-lib from now on
+      - name: Integration Test (jsii-rosetta)
+        run: |-
+          npx lerna exec --scope=monocdk-experiment --scope=aws-cdk-lib --stream --                 \
+            ${ROSETTA}                                                                              \
+            --compile                                                                               \
+            --output ./dist/samples.tabl.json                                                       \
+            --directory .                                                                           \
+            --verbose                                                                               \
+             2>&1 > ${{ runner.temp }}/rosetta.log
+        working-directory: aws-cdk
+      - name: Integration Test (jsii-pacmak)
+        run: |-
+          npx lerna exec --scope=monocdk-experiment --scope=aws-cdk-lib --stream --                 \
+            ${PACMAK}                                                                               \
+            --rosetta-tablet ./dist/samples.tabl.json                                               \
+            --verbose                                                                               \
+             2>&1 > ${{ runner.temp }}/pacmak.log
+        working-directory: aws-cdk
+
       - name: Upload Logs
         # Upload logs whether successful or failed (not using always because we don't care about cancellations)
         if: success() || failure()
@@ -397,8 +417,11 @@ jobs:
         with:
           name: integ-test-logs
           path: ${{ runner.temp }}/*.log
+
       - name: Upload Result
         uses: actions/upload-artifact@v2
         with:
           name: integ-test-result
-          path: ${{ github.workspace }}/aws-cdk/dist/
+          path: |-
+            ${{ github.workspace }}/aws-cdk/dist/
+            ${{ github.workspace }}/aws-cdk/**/dist/

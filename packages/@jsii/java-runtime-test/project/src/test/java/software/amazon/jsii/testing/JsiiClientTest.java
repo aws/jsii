@@ -36,6 +36,7 @@ public class JsiiClientTest {
         jsiiRuntime = new JsiiRuntime();
         this.client = jsiiRuntime.getClient();
 
+        this.client.loadModule(new software.amazon.jsii.tests.calculator.baseofbase.$Module());
         this.client.loadModule(new software.amazon.jsii.tests.calculator.base.$Module());
         this.client.loadModule(new software.amazon.jsii.tests.calculator.lib.$Module());
         this.client.loadModule(new software.amazon.jsii.tests.calculator.$Module());
