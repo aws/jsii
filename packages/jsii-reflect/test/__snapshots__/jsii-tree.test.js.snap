@@ -2531,6 +2531,16 @@ exports[`jsii-tree --all 1`] = `
  │         └── returns: void
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
+ │   ├─┬ class StaticConsumer
+ │   │ └─┬ members
+ │   │   └─┬ static consume(_args) method
+ │   │     ├── static
+ │   │     ├── variadic
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ _args
+ │   │     │   ├── type: any
+ │   │     │   └── variadic
+ │   │     └── returns: void
  │   ├─┬ class Very
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2576,6 +2586,12 @@ exports[`jsii-tree --all 1`] = `
    │     │     ├── abstract
    │     │     ├── immutable
    │     │     └── type: Array<@scope/jsii-calc-lib.submodule.ReflectableEntry>
+   │     ├─┬ interface NestedStruct (deprecated)
+   │     │ └─┬ members
+   │     │   └─┬ name property (deprecated)
+   │     │     ├── abstract
+   │     │     ├── immutable
+   │     │     └── type: string
    │     └─┬ interface ReflectableEntry (deprecated)
    │       └─┬ members
    │         ├─┬ key property (deprecated)
@@ -2985,6 +3001,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │       └── IVeryBaseInterface
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
+ │   ├── class StaticConsumer
  │   ├── class Very
  │   ├── interface IVeryBaseInterface
  │   └── interface VeryBaseProps
@@ -2996,6 +3013,7 @@ exports[`jsii-tree --inheritance 1`] = `
    │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
+   │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
      ├─┬ class Number
@@ -4144,6 +4162,9 @@ exports[`jsii-tree --members 1`] = `
  │       └── bar() method
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
+ │   ├─┬ class StaticConsumer
+ │   │ └─┬ members
+ │   │   └── static consume(_args) method
  │   ├─┬ class Very
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4171,6 +4192,9 @@ exports[`jsii-tree --members 1`] = `
    │     ├─┬ interface IReflectable
    │     │ └─┬ members
    │     │   └── entries property
+   │     ├─┬ interface NestedStruct
+   │     │ └─┬ members
+   │     │   └── name property
    │     └─┬ interface ReflectableEntry
    │       └─┬ members
    │         ├── key property
@@ -4491,6 +4515,7 @@ exports[`jsii-tree --types 1`] = `
  │   └── interface IBaseInterface
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
+ │   ├── class StaticConsumer
  │   ├── class Very
  │   ├── interface IVeryBaseInterface
  │   └── interface VeryBaseProps
@@ -4502,6 +4527,7 @@ exports[`jsii-tree --types 1`] = `
    │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
+   │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class Number

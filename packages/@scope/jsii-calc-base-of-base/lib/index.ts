@@ -11,3 +11,11 @@ export class Very {
         return 42;
     }
 }
+
+export class StaticConsumer {
+  private constructor() {}
+
+  public static consume(..._args: any[]): void {
+    return;
+  }
+}

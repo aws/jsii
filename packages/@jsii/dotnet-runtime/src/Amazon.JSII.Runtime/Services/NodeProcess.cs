@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Versioning;
+using System.Text;
 using Microsoft.Extensions.Logging;
 
 namespace Amazon.JSII.Runtime.Services
@@ -26,15 +27,19 @@ namespace Amazon.JSII.Runtime.Services
             if (string.IsNullOrWhiteSpace(runtimePath))
                 runtimePath = jsiiRuntimeProvider.JsiiRuntimePath;
 
+            var utf8 = new UTF8Encoding(false /* no BOM */);
             _process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "node",
-                    Arguments = "--max-old-space-size=4096 " + runtimePath,
+                    Arguments = $"--max-old-space-size=4096 {runtimePath}",
                     RedirectStandardInput = true,
+                    StandardInputEncoding = utf8,
                     RedirectStandardOutput = true,
-                    RedirectStandardError = true
+                    StandardOutputEncoding = utf8,
+                    RedirectStandardError = true,
+                    StandardErrorEncoding = utf8
                 }
             };
 

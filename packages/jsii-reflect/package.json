@@ -47,7 +47,7 @@
     "@types/node": "^10.17.28",
     "@types/yargs": "^15.0.5",
     "eslint": "^7.7.0",
-    "jest": "^26.4.0",
+    "jest": "^26.4.1",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
