@@ -387,26 +387,36 @@ jobs:
 
       - name: Integration Test (build)
         run: |-
-          npx lerna run build
+          npx lerna run build --stream 2>&1 > ${{ runner.temp }}/build.log
         working-directory: aws-cdk
 
         # In the interest of speed, only process monocdk-experiment / aws-cdk-lib from now on
       - name: Integration Test (jsii-rosetta)
         run: |-
-          npx lerna exec --scope=monocdk-experiment --scope=aws-cdk-lib --      \
-            ${ROSETTA}                                                          \
-            --compile                                                           \
-            --output ./dist/samples.tabl.json                                   \
-            --directory .                                                       \
-            --verbose
+          npx lerna exec --scope=monocdk-experiment --scope=aws-cdk-lib --stream --                 \
+            ${ROSETTA}                                                                              \
+            --compile                                                                               \
+            --output ./dist/samples.tabl.json                                                       \
+            --directory .                                                                           \
+            --verbose                                                                               \
+             2>&1 > ${{ runner.temp }}/rosetta.log
         working-directory: aws-cdk
       - name: Integration Test (jsii-pacmak)
         run: |-
-          npx lerna exec --scope=monocdk-experiment --scope=aws-cdk-lib --      \
-            ${PACMAK}                                                           \
-            --rosetta-tablet ./dist/samples.tabl.json                           \
-            --verbose
+          npx lerna exec --scope=monocdk-experiment --scope=aws-cdk-lib --stream --                 \
+            ${PACMAK}                                                                               \
+            --rosetta-tablet ./dist/samples.tabl.json                                               \
+            --verbose                                                                               \
+             2>&1 > ${{ runner.temp }}/pacmak.log
         working-directory: aws-cdk
+
+      - name: Upload Logs
+        # Upload logs whether successful or failed (not using always because we don't care about cancellations)
+        if: success() || failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: integ-test-logs
+          path: ${{ runner.temp }}/*.log
 
       - name: Upload Result
         uses: actions/upload-artifact@v2
