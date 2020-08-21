@@ -1937,8 +1937,8 @@ export class Assembler implements Emitter {
     if (Case.pascal(type.name) === Case.pascal(symbol.name)) {
       this._diagnostic(
         declaration.name,
-        ts.DiagnosticCategory.Error,
-        `Methods cannot be named like the ${type.kind} declaring them (${type.kind} is ${type.name}, method is ${symbol.name}), as this results in illegal C#`,
+        ts.DiagnosticCategory.Warning,
+        `Methods should not be named like the ${type.kind} declaring them (${type.kind} is ${type.name}, method is ${symbol.name}), as the ${type.kind} will have to be renamed to ${type.name}_ in C#`,
         [
           {
             category: ts.DiagnosticCategory.Message,

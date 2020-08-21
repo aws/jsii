@@ -341,31 +341,31 @@ exports[`internal-underscore-interface.4 1`] = `
 `;
 
 exports[`member-named-after-type 1`] = `
-"neg.member-named-after-type.ts:12:12 - warning TS9999: JSII: Properties should not be named like the interface declaring them (interface is MyStruct, property is myStruct), as the interface will have to be renamed to MyStruct_ in C#
+"neg.member-named-after-type.ts:14:12 - warning TS9999: JSII: Properties should not be named like the interface declaring them (interface is MyStruct, property is myStruct), as the interface will have to be renamed to MyStruct_ in C#
 
-12   readonly myStruct: string;
+14   readonly myStruct: string;
               ~~~~~~~~
 
-  neg.member-named-after-type.ts:11:18
-    11 export interface MyStruct {
+  neg.member-named-after-type.ts:13:18
+    13 export interface MyStruct {
                         ~~~~~~~~
     The declaring interface is introduced here
-neg.member-named-after-type.ts:2:19 - warning TS9999: JSII: Properties should not be named like the class declaring them (class is TypeName, property is typeName), as the class will have to be renamed to TypeName_ in C#
+neg.member-named-after-type.ts:4:19 - warning TS9999: JSII: Properties should not be named like the class declaring them (class is TypeName, property is typeName), as the class will have to be renamed to TypeName_ in C#
 
-2   public readonly typeName = 1337;
+4   public readonly typeName = 1337;
                     ~~~~~~~~
 
-  neg.member-named-after-type.ts:1:14
-    1 export class TypeName {
+  neg.member-named-after-type.ts:3:14
+    3 export class TypeName {
                    ~~~~~~~~
     The declaring class is introduced here
-neg.member-named-after-type.ts:6:10 - error TS9999: JSII: Methods cannot be named like the class declaring them (class is OtherType, method is otherType), as this results in illegal C#
+neg.member-named-after-type.ts:8:10 - warning TS9999: JSII: Methods should not be named like the class declaring them (class is OtherType, method is otherType), as the class will have to be renamed to OtherType_ in C#
 
-6   public otherType() {
+8   public otherType() {
            ~~~~~~~~~
 
-  neg.member-named-after-type.ts:5:14
-    5 export class OtherType {
+  neg.member-named-after-type.ts:7:14
+    7 export class OtherType {
                    ~~~~~~~~~
     The declaring class is introduced here
 "

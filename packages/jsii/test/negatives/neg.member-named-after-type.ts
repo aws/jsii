@@ -1,3 +1,5 @@
+///!STRICT!
+
 export class TypeName {
   public readonly typeName = 1337;
 }
