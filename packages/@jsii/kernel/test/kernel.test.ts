@@ -398,6 +398,7 @@ defineTest(
         namespace: 'Amazon.JSII.Tests.CalculatorNamespace',
         packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
       },
+      go: {},
       java: {
         package: 'software.amazon.jsii.tests.calculator',
         maven: {
@@ -419,6 +420,7 @@ defineTest(
           packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId',
           versionSuffix: '-devpreview',
         },
+        go: {},
         java: {
           package: 'software.amazon.jsii.tests.calculator.lib',
           maven: {
@@ -2086,6 +2088,11 @@ async function createCalculatorSandbox(name: string) {
 
   sandbox.traceEnabled = `${process.env.JSII_DEBUG}` === '1';
 
+  sandbox.load({
+    tarball: await preparePackage('@scope/jsii-calc-base-of-base'),
+    name: '@scope/jsii-calc-base-of-base',
+    version: calcBaseVersion,
+  });
   sandbox.load({
     tarball: await preparePackage('@scope/jsii-calc-base'),
     name: '@scope/jsii-calc-base',

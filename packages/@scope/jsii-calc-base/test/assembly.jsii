@@ -17,6 +17,7 @@
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
+        "go": {},
         "java": {
           "maven": {
             "artifactId": "calculator-base-of-base",
@@ -50,6 +51,7 @@
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
     },
+    "go": {},
     "java": {
       "maven": {
         "artifactId": "calculator-base",
@@ -151,5 +153,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "ttHhQ5EzgjW0lybCNSKOfqilJ04kp4VK3arcpRl3rBM="
+  "fingerprint": "JCkFuFqry/njMLNi/IpfTVdkVye/esUFOCoZoFbDD+4="
 }
