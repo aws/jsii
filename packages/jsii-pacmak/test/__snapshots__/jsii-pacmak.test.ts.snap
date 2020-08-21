@@ -4542,6 +4542,16 @@ type Number struct {
     Value float64
 }
 
+
+func (n Number) GetDoubleValue() float64 {
+    return n.DoubleValue
+}
+
+func (n Number) GetValue() float64 {
+    return n.Value
+}
+
+
 type OperationIface interface {
     ToString() string
 }
@@ -4596,6 +4606,12 @@ type Value struct {
     Value float64
 }
 
+
+func (v Value) GetValue() float64 {
+    return v.Value
+}
+
+
 func (v *Value) ToString() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -4635,6 +4651,12 @@ type NestedClassIface interface {
 type NestedClass struct {
     Property string
 }
+
+
+func (n NestedClass) GetProperty() string {
+    return n.Property
+}
+
 
 type NestedStructIface interface {
     GetName() string
@@ -38168,6 +38190,12 @@ type AbstractClass struct {
     PropFromInterface string
 }
 
+
+func (a AbstractClass) GetPropFromInterface() string {
+    return a.PropFromInterface
+}
+
+
 func (a *AbstractClass) AbstractMethod() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -38199,6 +38227,12 @@ type AbstractClassBase struct {
     AbstractProperty string
 }
 
+
+func (a AbstractClassBase) GetAbstractProperty() string {
+    return a.AbstractProperty
+}
+
+
 type AbstractClassReturnerIface interface {
     GetReturnAbstractFromProperty() AbstractClassBase
     SetReturnAbstractFromProperty()
@@ -38209,6 +38243,12 @@ type AbstractClassReturnerIface interface {
 type AbstractClassReturner struct {
     ReturnAbstractFromProperty AbstractClassBase
 }
+
+
+func (a AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBase {
+    return a.ReturnAbstractFromProperty
+}
+
 
 func (a *AbstractClassReturner) GiveMeAbstract() AbstractClass  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -38242,6 +38282,12 @@ type AbstractSuite struct {
     Property string
 }
 
+
+func (a AbstractSuite) GetProperty() string {
+    return a.Property
+}
+
+
 func (a *AbstractSuite) SomeMethod() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -38273,6 +38319,12 @@ type AddIface interface {
 type Add struct {
     Value float64
 }
+
+
+func (a Add) GetValue() float64 {
+    return a.Value
+}
+
 
 func (a *Add) ToString() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -38350,6 +38402,84 @@ type AllTypes struct {
     UnknownProperty jsii.Any
     OptionalEnumValue StringEnum
 }
+
+
+func (a AllTypes) GetEnumPropertyValue() float64 {
+    return a.EnumPropertyValue
+}
+
+func (a AllTypes) GetAnyArrayProperty() []jsii.Any {
+    return a.AnyArrayProperty
+}
+
+func (a AllTypes) GetAnyMapProperty() map[string]jsii.Any {
+    return a.AnyMapProperty
+}
+
+func (a AllTypes) GetAnyProperty() jsii.Any {
+    return a.AnyProperty
+}
+
+func (a AllTypes) GetArrayProperty() []string {
+    return a.ArrayProperty
+}
+
+func (a AllTypes) GetBooleanProperty() bool {
+    return a.BooleanProperty
+}
+
+func (a AllTypes) GetDateProperty() string {
+    return a.DateProperty
+}
+
+func (a AllTypes) GetEnumProperty() AllTypesEnum {
+    return a.EnumProperty
+}
+
+func (a AllTypes) GetJsonProperty() map[string]jsii.Any {
+    return a.JsonProperty
+}
+
+func (a AllTypes) GetMapProperty() map[string]jsii.Any {
+    return a.MapProperty
+}
+
+func (a AllTypes) GetNumberProperty() float64 {
+    return a.NumberProperty
+}
+
+func (a AllTypes) GetStringProperty() string {
+    return a.StringProperty
+}
+
+func (a AllTypes) GetUnionArrayProperty() []jsii.Any {
+    return a.UnionArrayProperty
+}
+
+func (a AllTypes) GetUnionMapProperty() map[string]jsii.Any {
+    return a.UnionMapProperty
+}
+
+func (a AllTypes) GetUnionProperty() jsii.Any {
+    return a.UnionProperty
+}
+
+func (a AllTypes) GetUnknownArrayProperty() []jsii.Any {
+    return a.UnknownArrayProperty
+}
+
+func (a AllTypes) GetUnknownMapProperty() map[string]jsii.Any {
+    return a.UnknownMapProperty
+}
+
+func (a AllTypes) GetUnknownProperty() jsii.Any {
+    return a.UnknownProperty
+}
+
+func (a AllTypes) GetOptionalEnumValue() StringEnum {
+    return a.OptionalEnumValue
+}
+
 
 func (a *AllTypes) AnyIn() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -38457,6 +38587,16 @@ type AmbiguousParameters struct {
     Props StructParameterType
     Scope Bell
 }
+
+
+func (a AmbiguousParameters) GetProps() StructParameterType {
+    return a.Props
+}
+
+func (a AmbiguousParameters) GetScope() Bell {
+    return a.Scope
+}
+
 
 type AnonymousImplementationProviderIface interface {
     ProvideAsClass() Implementation
@@ -38612,6 +38752,12 @@ type Bell struct {
     Rung bool
 }
 
+
+func (b Bell) GetRung() bool {
+    return b.Rung
+}
+
+
 func (b *Bell) Ring() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -38635,6 +38781,16 @@ type BinaryOperation struct {
     Lhs jsii.Any
     Rhs jsii.Any
 }
+
+
+func (b BinaryOperation) GetLhs() jsii.Any {
+    return b.Lhs
+}
+
+func (b BinaryOperation) GetRhs() jsii.Any {
+    return b.Rhs
+}
+
 
 func (b *BinaryOperation) Hello() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -38705,6 +38861,32 @@ type Calculator struct {
     MaxValue float64
     UnionProperty jsii.Any
 }
+
+
+func (c Calculator) GetExpression() jsii.Any {
+    return c.Expression
+}
+
+func (c Calculator) GetOperationsLog() []jsii.Any {
+    return c.OperationsLog
+}
+
+func (c Calculator) GetOperationsMap() map[string][]jsii.Any {
+    return c.OperationsMap
+}
+
+func (c Calculator) GetCurr() jsii.Any {
+    return c.Curr
+}
+
+func (c Calculator) GetMaxValue() float64 {
+    return c.MaxValue
+}
+
+func (c Calculator) GetUnionProperty() jsii.Any {
+    return c.UnionProperty
+}
+
 
 func (c *Calculator) Add() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -38813,6 +38995,24 @@ type ClassThatImplementsTheInternalInterface struct {
     D string
 }
 
+
+func (c ClassThatImplementsTheInternalInterface) GetA() string {
+    return c.A
+}
+
+func (c ClassThatImplementsTheInternalInterface) GetB() string {
+    return c.B
+}
+
+func (c ClassThatImplementsTheInternalInterface) GetC() string {
+    return c.C
+}
+
+func (c ClassThatImplementsTheInternalInterface) GetD() string {
+    return c.D
+}
+
+
 type ClassThatImplementsThePrivateInterfaceIface interface {
     GetA() string
     SetA()
@@ -38830,6 +39030,24 @@ type ClassThatImplementsThePrivateInterface struct {
     C string
     E string
 }
+
+
+func (c ClassThatImplementsThePrivateInterface) GetA() string {
+    return c.A
+}
+
+func (c ClassThatImplementsThePrivateInterface) GetB() string {
+    return c.B
+}
+
+func (c ClassThatImplementsThePrivateInterface) GetC() string {
+    return c.C
+}
+
+func (c ClassThatImplementsThePrivateInterface) GetE() string {
+    return c.E
+}
+
 
 type ClassWithCollectionsIface interface {
     GetStaticArray() []string
@@ -38850,6 +39068,24 @@ type ClassWithCollections struct {
     Array []string
     Map map[string]string
 }
+
+
+func (c ClassWithCollections) GetStaticArray() []string {
+    return c.StaticArray
+}
+
+func (c ClassWithCollections) GetStaticMap() map[string]string {
+    return c.StaticMap
+}
+
+func (c ClassWithCollections) GetArray() []string {
+    return c.Array
+}
+
+func (c ClassWithCollections) GetMap() map[string]string {
+    return c.Map
+}
+
 
 func (c *ClassWithCollections) CreateAList() []string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -38889,6 +39125,12 @@ type ClassWithJavaReservedWords struct {
     Int string
 }
 
+
+func (c ClassWithJavaReservedWords) GetInt() string {
+    return c.Int
+}
+
+
 func (c *ClassWithJavaReservedWords) Import() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -38909,6 +39151,12 @@ type ClassWithMutableObjectLiteralProperty struct {
     MutableObject IMutableObjectLiteral
 }
 
+
+func (c ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjectLiteral {
+    return c.MutableObject
+}
+
+
 type ClassWithPrivateConstructorAndAutomaticPropertiesIface interface {
     GetReadOnlyString() string
     SetReadOnlyString()
@@ -38921,6 +39169,16 @@ type ClassWithPrivateConstructorAndAutomaticProperties struct {
     ReadOnlyString string
     ReadWriteString string
 }
+
+
+func (c ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() string {
+    return c.ReadOnlyString
+}
+
+func (c ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() string {
+    return c.ReadWriteString
+}
+
 
 func (c *ClassWithPrivateConstructorAndAutomaticProperties) Create() ClassWithPrivateConstructorAndAutomaticProperties  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -38943,6 +39201,12 @@ type ConfusingToJacksonIface interface {
 type ConfusingToJackson struct {
     UnionProperty jsii.Any
 }
+
+
+func (c ConfusingToJackson) GetUnionProperty() jsii.Any {
+    return c.UnionProperty
+}
+
 
 func (c *ConfusingToJackson) MakeInstance() ConfusingToJackson  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -39283,6 +39547,20 @@ type DefaultedConstructorArgument struct {
     Arg2 string
 }
 
+
+func (d DefaultedConstructorArgument) GetArg1() float64 {
+    return d.Arg1
+}
+
+func (d DefaultedConstructorArgument) GetArg3() string {
+    return d.Arg3
+}
+
+func (d DefaultedConstructorArgument) GetArg2() string {
+    return d.Arg2
+}
+
+
 type Demonstrate982Iface interface {
     TakeThis() ChildStruct982
     TakeThisToo() ParentStruct982
@@ -39325,6 +39603,16 @@ type DeprecatedClass struct {
     ReadonlyProperty string
     MutableProperty float64
 }
+
+
+func (d DeprecatedClass) GetReadonlyProperty() string {
+    return d.ReadonlyProperty
+}
+
+func (d DeprecatedClass) GetMutableProperty() float64 {
+    return d.MutableProperty
+}
+
 
 func (d *DeprecatedClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -39469,6 +39757,16 @@ type DisappointingCollectionSource struct {
     MaybeList []string
     MaybeMap map[string]float64
 }
+
+
+func (d DisappointingCollectionSource) GetMaybeList() []string {
+    return d.MaybeList
+}
+
+func (d DisappointingCollectionSource) GetMaybeMap() map[string]float64 {
+    return d.MaybeMap
+}
+
 
 type DoNotOverridePrivatesIface interface {
     ChangePrivatePropertyValue() jsii.Any
@@ -39713,6 +40011,16 @@ type ExperimentalClass struct {
     MutableProperty float64
 }
 
+
+func (e ExperimentalClass) GetReadonlyProperty() string {
+    return e.ReadonlyProperty
+}
+
+func (e ExperimentalClass) GetMutableProperty() float64 {
+    return e.MutableProperty
+}
+
+
 func (e *ExperimentalClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -39754,6 +40062,12 @@ type ExportedBaseClass struct {
     Success bool
 }
 
+
+func (e ExportedBaseClass) GetSuccess() bool {
+    return e.Success
+}
+
+
 type ExtendsInternalInterfaceIface interface {
     GetBoom() bool
     GetProp() string
@@ -39786,6 +40100,16 @@ type ExternalClass struct {
     ReadonlyProperty string
     MutableProperty float64
 }
+
+
+func (e ExternalClass) GetReadonlyProperty() string {
+    return e.ReadonlyProperty
+}
+
+func (e ExternalClass) GetMutableProperty() float64 {
+    return e.MutableProperty
+}
+
 
 func (e *ExternalClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -39830,6 +40154,12 @@ type GiveMeStructsIface interface {
 type GiveMeStructs struct {
     StructLiteral jsii.Any
 }
+
+
+func (g GiveMeStructs) GetStructLiteral() jsii.Any {
+    return g.StructLiteral
+}
+
 
 func (g *GiveMeStructs) DerivedToFirst() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -40061,6 +40391,12 @@ type ImplementInternalInterface struct {
     Prop string
 }
 
+
+func (i ImplementInternalInterface) GetProp() string {
+    return i.Prop
+}
+
+
 type ImplementationIface interface {
     GetValue() float64
     SetValue()
@@ -40069,6 +40405,12 @@ type ImplementationIface interface {
 type Implementation struct {
     Value float64
 }
+
+
+func (i Implementation) GetValue() float64 {
+    return i.Value
+}
+
 
 type ImplementsInterfaceWithInternalIface interface {
     Visible() jsii.Any
@@ -40102,6 +40444,12 @@ type ImplementsPrivateInterfaceIface interface {
 type ImplementsPrivateInterface struct {
     Private string
 }
+
+
+func (i ImplementsPrivateInterface) GetPrivate() string {
+    return i.Private
+}
+
 
 type ImplictBaseOfBaseIface interface {
     GetGoo() string
@@ -40235,6 +40583,12 @@ type JSII417Derived struct {
     Property string
 }
 
+
+func (j JSII417Derived) GetProperty() string {
+    return j.Property
+}
+
+
 func (j *JSII417Derived) Bar() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -40267,6 +40621,12 @@ type JSII417PublicBaseOfBaseIface interface {
 type JSII417PublicBaseOfBase struct {
     HasRoot bool
 }
+
+
+func (j JSII417PublicBaseOfBase) GetHasRoot() bool {
+    return j.HasRoot
+}
+
 
 func (j *JSII417PublicBaseOfBase) MakeInstance() Jsii417PublicBaseOfBase  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -40350,6 +40710,16 @@ type JSObjectLiteralToNativeClass struct {
     PropB float64
 }
 
+
+func (j JSObjectLiteralToNativeClass) GetPropA() string {
+    return j.PropA
+}
+
+func (j JSObjectLiteralToNativeClass) GetPropB() float64 {
+    return j.PropB
+}
+
+
 type JavaReservedWordsIface interface {
     GetWhile() string
     SetWhile()
@@ -40410,6 +40780,12 @@ type JavaReservedWordsIface interface {
 type JavaReservedWords struct {
     While string
 }
+
+
+func (j JavaReservedWords) GetWhile() string {
+    return j.While
+}
+
 
 func (j *JavaReservedWords) Abstract() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -41004,6 +41380,12 @@ type JsiiAgent struct {
     JsiiAgent string
 }
 
+
+func (j JsiiAgent) GetJsiiAgent() string {
+    return j.JsiiAgent
+}
+
+
 type JsonFormatterIface interface {
     AnyArray() jsii.Any
     AnyBooleanFalse() jsii.Any
@@ -41226,6 +41608,12 @@ type MethodNamedProperty struct {
     Elite float64
 }
 
+
+func (m MethodNamedProperty) GetElite() float64 {
+    return m.Elite
+}
+
+
 func (m *MethodNamedProperty) Property() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -41249,6 +41637,12 @@ type MultiplyIface interface {
 type Multiply struct {
     Value float64
 }
+
+
+func (m Multiply) GetValue() float64 {
+    return m.Value
+}
+
 
 func (m *Multiply) Farewell() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -41306,6 +41700,12 @@ type NegateIface interface {
 type Negate struct {
     Value float64
 }
+
+
+func (n Negate) GetValue() float64 {
+    return n.Value
+}
+
 
 func (n *Negate) Farewell() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -41395,6 +41795,12 @@ type NodeStandardLibrary struct {
     OsPlatform string
 }
 
+
+func (n NodeStandardLibrary) GetOsPlatform() string {
+    return n.OsPlatform
+}
+
+
 func (n *NodeStandardLibrary) CryptoSha256() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -41439,6 +41845,12 @@ type NullShouldBeTreatedAsUndefinedIface interface {
 type NullShouldBeTreatedAsUndefined struct {
     ChangeMeToUndefined string
 }
+
+
+func (n NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
+    return n.ChangeMeToUndefined
+}
+
 
 func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -41503,6 +41915,12 @@ type NumberGeneratorIface interface {
 type NumberGenerator struct {
     Generator IRandomNumberGenerator
 }
+
+
+func (n NumberGenerator) GetGenerator() IRandomNumberGenerator {
+    return n.Generator
+}
+
 
 func (n *NumberGenerator) IsSameGenerator() bool  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -41637,6 +42055,20 @@ type OptionalConstructorArgument struct {
     Arg3 string
 }
 
+
+func (o OptionalConstructorArgument) GetArg1() float64 {
+    return o.Arg1
+}
+
+func (o OptionalConstructorArgument) GetArg2() string {
+    return o.Arg2
+}
+
+func (o OptionalConstructorArgument) GetArg3() string {
+    return o.Arg3
+}
+
+
 type OptionalStructIface interface {
     GetField() string
 }
@@ -41663,6 +42095,16 @@ type OptionalStructConsumer struct {
     FieldValue string
 }
 
+
+func (o OptionalStructConsumer) GetParameterWasUndefined() bool {
+    return o.ParameterWasUndefined
+}
+
+func (o OptionalStructConsumer) GetFieldValue() string {
+    return o.FieldValue
+}
+
+
 type OverridableProtectedMemberIface interface {
     GetOverrideReadOnly() string
     GetOverrideReadWrite() string
@@ -41675,6 +42117,16 @@ type OverridableProtectedMember struct {
     OverrideReadOnly string
     OverrideReadWrite string
 }
+
+
+func (o OverridableProtectedMember) GetOverrideReadOnly() string {
+    return o.OverrideReadOnly
+}
+
+func (o OverridableProtectedMember) GetOverrideReadWrite() string {
+    return o.OverrideReadWrite
+}
+
 
 func (o *OverridableProtectedMember) OverrideMe() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -41792,6 +42244,20 @@ type Power struct {
     Pow jsii.Any
 }
 
+
+func (p Power) GetBase() jsii.Any {
+    return p.Base
+}
+
+func (p Power) GetExpression() jsii.Any {
+    return p.Expression
+}
+
+func (p Power) GetPow() jsii.Any {
+    return p.Pow
+}
+
+
 type PropertyNamedPropertyIface interface {
     GetProperty() string
     SetProperty()
@@ -41803,6 +42269,16 @@ type PropertyNamedProperty struct {
     Property string
     YetAnoterOne bool
 }
+
+
+func (p PropertyNamedProperty) GetProperty() string {
+    return p.Property
+}
+
+func (p PropertyNamedProperty) GetYetAnoterOne() bool {
+    return p.YetAnoterOne
+}
+
 
 type PublicClassIface interface {
     Hello() jsii.Any
@@ -42223,6 +42699,12 @@ type ReferenceEnumFromScopedPackage struct {
     Foo jsii.Any
 }
 
+
+func (r ReferenceEnumFromScopedPackage) GetFoo() jsii.Any {
+    return r.Foo
+}
+
+
 func (r *ReferenceEnumFromScopedPackage) LoadFoo() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -42253,6 +42735,12 @@ type ReturnsPrivateImplementationOfInterfaceIface interface {
 type ReturnsPrivateImplementationOfInterface struct {
     PrivateImplementation IPrivatelyImplemented
 }
+
+
+func (r ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPrivatelyImplemented {
+    return r.PrivateImplementation
+}
+
 
 type RootStructIface interface {
     GetStringProp() string
@@ -42495,6 +42983,16 @@ type StableClass struct {
     MutableProperty float64
 }
 
+
+func (s StableClass) GetReadonlyProperty() string {
+    return s.ReadonlyProperty
+}
+
+func (s StableClass) GetMutableProperty() float64 {
+    return s.MutableProperty
+}
+
+
 func (s *StableClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -42537,6 +43035,12 @@ type StaticContext struct {
     StaticVariable bool
 }
 
+
+func (s StaticContext) GetStaticVariable() bool {
+    return s.StaticVariable
+}
+
+
 func (s *StaticContext) CanAccessStaticContext() bool  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -42577,6 +43081,36 @@ type Statics struct {
     Value string
 }
 
+
+func (s Statics) GetBar() float64 {
+    return s.Bar
+}
+
+func (s Statics) GetConstObj() DoubleTrouble {
+    return s.ConstObj
+}
+
+func (s Statics) GetFoo() string {
+    return s.Foo
+}
+
+func (s Statics) GetZooBar() map[string]string {
+    return s.ZooBar
+}
+
+func (s Statics) GetInstance() Statics {
+    return s.Instance
+}
+
+func (s Statics) GetNonConstStatic() float64 {
+    return s.NonConstStatic
+}
+
+func (s Statics) GetValue() string {
+    return s.Value
+}
+
+
 func (s *Statics) StaticMethod() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -42615,6 +43149,12 @@ type StripInternalIface interface {
 type StripInternal struct {
     YouSeeMe string
 }
+
+
+func (s StripInternal) GetYouSeeMe() string {
+    return s.YouSeeMe
+}
+
 
 type StructAIface interface {
     GetRequiredString() string
@@ -42792,6 +43332,16 @@ type Sum struct {
     Parts []jsii.Any
 }
 
+
+func (s Sum) GetExpression() jsii.Any {
+    return s.Expression
+}
+
+func (s Sum) GetParts() []jsii.Any {
+    return s.Parts
+}
+
+
 type SupportsNiceJavaBuilderIface interface {
     GetId() float64
     SetId()
@@ -42803,6 +43353,16 @@ type SupportsNiceJavaBuilder struct {
     Id float64
     Rest []string
 }
+
+
+func (s SupportsNiceJavaBuilder) GetId() float64 {
+    return s.Id
+}
+
+func (s SupportsNiceJavaBuilder) GetRest() []string {
+    return s.Rest
+}
+
 
 type SupportsNiceJavaBuilderPropsIface interface {
     GetBar() float64
@@ -42839,6 +43399,20 @@ type SupportsNiceJavaBuilderWithRequiredProps struct {
     PropId string
 }
 
+
+func (s SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
+    return s.Bar
+}
+
+func (s SupportsNiceJavaBuilderWithRequiredProps) GetId() float64 {
+    return s.Id
+}
+
+func (s SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
+    return s.PropId
+}
+
+
 type SyncVirtualMethodsIface interface {
     GetReadonlyProperty() string
     SetReadonlyProperty()
@@ -42872,6 +43446,32 @@ type SyncVirtualMethods struct {
     TheProperty string
     ValueOfOtherProperty string
 }
+
+
+func (s SyncVirtualMethods) GetReadonlyProperty() string {
+    return s.ReadonlyProperty
+}
+
+func (s SyncVirtualMethods) GetA() float64 {
+    return s.A
+}
+
+func (s SyncVirtualMethods) GetCallerIsProperty() float64 {
+    return s.CallerIsProperty
+}
+
+func (s SyncVirtualMethods) GetOtherProperty() string {
+    return s.OtherProperty
+}
+
+func (s SyncVirtualMethods) GetTheProperty() string {
+    return s.TheProperty
+}
+
+func (s SyncVirtualMethods) GetValueOfOtherProperty() string {
+    return s.ValueOfOtherProperty
+}
+
 
 func (s *SyncVirtualMethods) CallerIsAsync() float64  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -43054,6 +43654,12 @@ type UnaryOperation struct {
     Operand jsii.Any
 }
 
+
+func (u UnaryOperation) GetOperand() jsii.Any {
+    return u.Operand
+}
+
+
 type UnionPropertiesIface interface {
     GetBar() jsii.Any
     GetFoo() jsii.Any
@@ -43085,6 +43691,16 @@ type UpcasingReflectable struct {
     Reflector jsii.Any
     Entries []jsii.Any
 }
+
+
+func (u UpcasingReflectable) GetReflector() jsii.Any {
+    return u.Reflector
+}
+
+func (u UpcasingReflectable) GetEntries() []jsii.Any {
+    return u.Entries
+}
+
 
 type UseBundledDependencyIface interface {
     Value() jsii.Any
@@ -43133,6 +43749,12 @@ type UsesInterfaceWithPropertiesIface interface {
 type UsesInterfaceWithProperties struct {
     Obj IInterfaceWithProperties
 }
+
+
+func (u UsesInterfaceWithProperties) GetObj() IInterfaceWithProperties {
+    return u.Obj
+}
+
 
 func (u *UsesInterfaceWithProperties) JustRead() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -43280,6 +43902,12 @@ type VoidCallback struct {
     MethodWasCalled bool
 }
 
+
+func (v VoidCallback) GetMethodWasCalled() bool {
+    return v.MethodWasCalled
+}
+
+
 func (v *VoidCallback) CallMe() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -43312,6 +43940,12 @@ type WithPrivatePropertyInConstructor struct {
 }
 
 
+func (w WithPrivatePropertyInConstructor) GetSuccess() bool {
+    return w.Success
+}
+
+
+
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/composition.go 1`] = `
@@ -43342,6 +43976,28 @@ type CompositeOperation struct {
     DecorationPrefixes []string
     StringStyle CompositionStringStyle
 }
+
+
+func (c CompositeOperation) GetExpression() jsii.Any {
+    return c.Expression
+}
+
+func (c CompositeOperation) GetValue() float64 {
+    return c.Value
+}
+
+func (c CompositeOperation) GetDecorationPostfixes() []string {
+    return c.DecorationPostfixes
+}
+
+func (c CompositeOperation) GetDecorationPrefixes() []string {
+    return c.DecorationPrefixes
+}
+
+func (c CompositeOperation) GetStringStyle() CompositionStringStyle {
+    return c.StringStyle
+}
+
 
 func (c *CompositeOperation) ToString() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -43380,6 +44036,12 @@ type Base struct {
     Prop string
 }
 
+
+func (b Base) GetProp() string {
+    return b.Prop
+}
+
+
 type DerivedIface interface {
 }
 
@@ -43404,6 +44066,12 @@ type FooIface interface {
 type Foo struct {
     Bar string
 }
+
+
+func (f Foo) GetBar() string {
+    return f.Bar
+}
+
 
 type HelloIface interface {
     GetFoo() float64
@@ -43463,6 +44131,12 @@ type ClassWithSelf struct {
     Self string
 }
 
+
+func (c ClassWithSelf) GetSelf() string {
+    return c.Self
+}
+
+
 func (c *ClassWithSelf) Method() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
 
@@ -43482,6 +44156,12 @@ type ClassWithSelfKwargIface interface {
 type ClassWithSelfKwarg struct {
     Props StructWithSelf
 }
+
+
+func (c ClassWithSelfKwarg) GetProps() StructWithSelf {
+    return c.Props
+}
+
 
 type IInterfaceWithSelf interface {
     Method() string
@@ -43533,6 +44213,28 @@ type MyClass struct {
     Props child.SomeStruct
     AllTypes jsiicalc.AllTypes
 }
+
+
+func (m MyClass) GetAwesomeness() child.Awesomeness {
+    return m.Awesomeness
+}
+
+func (m MyClass) GetDefinedAt() string {
+    return m.DefinedAt
+}
+
+func (m MyClass) GetGoodness() child.Goodness {
+    return m.Goodness
+}
+
+func (m MyClass) GetProps() child.SomeStruct {
+    return m.Props
+}
+
+func (m MyClass) GetAllTypes() jsiicalc.AllTypes {
+    return m.AllTypes
+}
+
 
 
 `;
@@ -43592,6 +44294,12 @@ type InnerClass struct {
     StaticProp SomeStruct
 }
 
+
+func (i InnerClass) GetStaticProp() SomeStruct {
+    return i.StaticProp
+}
+
+
 type KwargsPropsIface interface {
     GetExtra() string
 }
@@ -43614,6 +44322,12 @@ type OuterClassIface interface {
 type OuterClass struct {
     InnerClass InnerClass
 }
+
+
+func (o OuterClass) GetInnerClass() InnerClass {
+    return o.InnerClass
+}
+
 
 type SomeEnum string
 
@@ -43699,6 +44413,16 @@ type Namespaced struct {
     DefinedAt string
     Goodness child.Goodness
 }
+
+
+func (n Namespaced) GetDefinedAt() string {
+    return n.DefinedAt
+}
+
+func (n Namespaced) GetGoodness() child.Goodness {
+    return n.Goodness
+}
+
 
 
 `;
