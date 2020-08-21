@@ -3,10 +3,13 @@ import os
 
 import attr
 
+from typing import ClassVar
+
 from . import _reference_map
 from ._compat import importlib_resources
 from ._kernel import Kernel
 from .python import _ClassPropertyMeta
+from ._kernel.types import ObjRef
 
 
 # Yea, a global here is kind of gross, however, there's not really a better way of

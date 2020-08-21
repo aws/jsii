@@ -241,19 +241,3 @@ KernelResponse = Union[
     StatsResponse,
     Callback,
 ]
-
-
-class JSClass(Protocol):
-    @property
-    def __jsii_type__(self) -> str:
-        """
-        Returns a str that points to this class inside of the Javascript runtime.
-        """
-
-
-class Referenceable(Protocol):
-    @property
-    def __jsii_ref__(self) -> ObjRef:
-        """
-        Returns an ObjRef that points to this object on the JS side.
-        """
