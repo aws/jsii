@@ -2786,3 +2786,36 @@ export abstract class BurriedAnonymousObject {
 }
 
 import { StaticConsumer } from '@scope/jsii-calc-base-of-base';
+
+/**
+ * Ensures we can override a dynamic property that was inherited.
+ */
+export class DynamicPropertyBearer {
+  public constructor(public valueStore: string) {}
+
+  public get dynamicProperty(): string {
+    return this.valueStore;
+  }
+
+  public set dynamicProperty(value: string) {
+    this.valueStore = value;
+  }
+}
+export class DynamicPropertyBearerChild extends DynamicPropertyBearer {
+  public constructor(public readonly originalValue: string) {
+    super(originalValue);
+  }
+
+  /**
+   * Sets `this.dynamicProperty` to the new value, and returns the old value.
+   *
+   * @param newValue the new value to be set.
+   *
+   * @returns the old value that was set.
+   */
+  public overrideValue(newValue: string): string {
+    const oldValue = this.dynamicProperty;
+    this.dynamicProperty = newValue;
+    return oldValue;
+  }
+}
