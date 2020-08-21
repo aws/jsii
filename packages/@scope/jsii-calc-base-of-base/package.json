@@ -25,6 +25,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "jsii --project-references && jsii-rosetta",
+    "pacmak": "jsii-pacmak",
     "test": "diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
@@ -38,6 +39,7 @@
   "jsii": {
     "outdir": "dist",
     "targets": {
+      "go": {},
       "java": {
         "package": "software.amazon.jsii.tests.calculator.baseofbase",
         "maven": {

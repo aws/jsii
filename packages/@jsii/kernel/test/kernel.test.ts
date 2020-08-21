@@ -398,6 +398,7 @@ defineTest(
         namespace: 'Amazon.JSII.Tests.CalculatorNamespace',
         packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
       },
+      go: {},
       java: {
         package: 'software.amazon.jsii.tests.calculator',
         maven: {
@@ -419,6 +420,7 @@ defineTest(
           packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId',
           versionSuffix: '-devpreview',
         },
+        go: {},
         java: {
           package: 'software.amazon.jsii.tests.calculator.lib',
           maven: {
