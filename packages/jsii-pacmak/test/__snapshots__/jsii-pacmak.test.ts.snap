@@ -982,7 +982,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/README.md 1
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["pip >= 20.2.2", "setuptools >= 49.3.1", "wheel >= 0.34.2"]
+requires = ["pip~=20.2", "setuptools~=49.6", "wheel~=0.35"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -2141,7 +2141,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/REA
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["pip >= 20.2.2", "setuptools >= 49.3.1", "wheel >= 0.34.2"]
+requires = ["pip~=20.2", "setuptools~=49.6", "wheel~=0.35"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -6128,7 +6128,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/README.md 1`
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["pip >= 20.2.2", "setuptools >= 49.3.1", "wheel >= 0.34.2"]
+requires = ["pip~=20.2", "setuptools~=49.6", "wheel~=0.35"]
 build-backend = "setuptools.build_meta"
 
 `;
@@ -61999,7 +61999,7 @@ foo = "bar"
 
 exports[`Generated code for "jsii-calc": <outDir>/python/pyproject.toml 1`] = `
 [build-system]
-requires = ["pip >= 20.2.2", "setuptools >= 49.3.1", "wheel >= 0.34.2"]
+requires = ["pip~=20.2", "setuptools~=49.6", "wheel~=0.35"]
 build-backend = "setuptools.build_meta"
 
 `;

@@ -1776,9 +1776,7 @@ class Package {
     // TODO: Might be easier to just use a TOML library to write this out.
     code.openFile('pyproject.toml');
     code.line('[build-system]');
-    code.line(
-      'requires = ["pip >= 20.2.2", "setuptools >= 49.3.1", "wheel >= 0.34.2"]',
-    );
+    code.line('requires = ["pip~=20.2", "setuptools~=49.6", "wheel~=0.35"]');
     code.line('build-backend = "setuptools.build_meta"');
     code.closeFile('pyproject.toml');
 
