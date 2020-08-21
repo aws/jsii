@@ -32,7 +32,7 @@ else
     # Hello Windows!
     . ${venv}/Scripts/activate
 fi
-python3 -m pip install --upgrade pip~=20.2.2 twine~=3.2.0 pipx~=0.15.4.0
+python3 -m pip install --upgrade pip~=20.2 twine~=3.2
 
 # Single target, recursive build to a certain location
 clean_dists
