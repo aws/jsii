@@ -87,7 +87,7 @@ describe(toTypeName, () => {
     {
       name: 'Primitive: Boolean',
       input: { primitive: PrimitiveType.Boolean },
-      pythonType: 'bool',
+      pythonType: 'builtins.bool',
     },
     {
       name: 'Primitive: Date',
@@ -102,7 +102,7 @@ describe(toTypeName, () => {
     {
       name: 'Primitive: String',
       input: { primitive: PrimitiveType.String },
-      pythonType: 'str',
+      pythonType: 'builtins.str',
     },
     {
       name: 'Primitive: JSON',
@@ -124,7 +124,7 @@ describe(toTypeName, () => {
           elementtype: { primitive: PrimitiveType.String },
         },
       },
-      pythonType: 'typing.List[str]',
+      pythonType: 'typing.List[builtins.str]',
     },
     {
       name: 'Map',
@@ -134,7 +134,7 @@ describe(toTypeName, () => {
           elementtype: { primitive: PrimitiveType.String },
         },
       },
-      pythonType: 'typing.Mapping[str, str]',
+      pythonType: 'typing.Mapping[builtins.str, builtins.str]',
     },
     // ############################## TYPE UNIONS ##############################
     {
@@ -147,7 +147,7 @@ describe(toTypeName, () => {
           ],
         },
       },
-      pythonType: 'typing.Union[str, jsii.Number]',
+      pythonType: 'typing.Union[builtins.str, jsii.Number]',
     },
     // ############################### USER TYPES ##############################
     {

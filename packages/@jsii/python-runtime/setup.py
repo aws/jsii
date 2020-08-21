@@ -27,11 +27,11 @@ setuptools.setup(
         "jsii._embedded.jsii": ["*.js", "*.js.map", "*.wasm"],
     },
     install_requires=[
-        "attrs~=19.3.0",
-        "cattrs~=1.0.0",
+        "attrs~=20.1",
+        "cattrs~=1.0",
         "importlib_resources ; python_version < '3.7'",
         "python-dateutil",
-        "typing_extensions~=3.7.4",
+        "typing_extensions~=3.7",
     ],
     python_requires=">=3.6",
     classifiers=[
