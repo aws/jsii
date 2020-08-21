@@ -83,6 +83,13 @@ Methods and properties declared on *classes* cannot be named after the class (
 meaning they cannot share the same PascalCased representation), as this results
 in illegal **C#** code:
 
+> :memo: Due to existing usage (in such cases, an `_` is appended at the end of
+> the **type** name, effectively breaking existing .NET code if such a member
+> is introduced post-release), this restriction is only enforced when `jsii` is
+> invoked with the `--strict` parameter.
+>
+> It will be upgraded to *always* be an error in a future release.
+
 ```ts
 export class Name {
   // ⛔️ Illegal property name
