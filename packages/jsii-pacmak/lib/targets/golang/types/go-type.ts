@@ -1,9 +1,12 @@
 import { CodeMaker, toPascalCase } from 'codemaker';
-import { Property, Type } from 'jsii-reflect';
+import { ClassType, InterfaceType, Property, Type } from 'jsii-reflect';
 import { Package } from '../package';
 import { GoTypeRef } from './go-type-reference';
-import { GoClass, Struct } from './index';
 import { TypeField } from './type-field';
+import { getFieldDependencies } from '../util';
+
+// String appended to all go GoStruct Interfaces
+const STRUCT_INTERFACE_SUFFIX = 'Iface';
 
 export interface GoEmitter {
   emit(code: CodeMaker): void;
@@ -31,7 +34,7 @@ export class GoProperty implements TypeField {
   public readonly references?: GoTypeRef;
 
   public constructor(
-    public parent: GoClass | Struct,
+    public parent: GoStruct,
     public readonly property: Property,
   ) {
     this.name = toPascalCase(this.property.name);
@@ -81,5 +84,66 @@ export class GoProperty implements TypeField {
       this.references?.scopedName(this.parent.parent) ??
       this.property.type.toString()
     );
+  }
+}
+
+export abstract class GoStruct extends GoType implements GoEmitter {
+  public readonly properties: GoProperty[];
+  public readonly interfaceName: string;
+
+  public constructor(parent: Package, public type: ClassType | InterfaceType) {
+    super(parent, type);
+
+    this.properties = Object.values(this.type.getProperties()).map(
+      (prop) => new GoProperty(this, prop),
+    );
+
+    this.interfaceName = `${this.name}${STRUCT_INTERFACE_SUFFIX}`;
+  }
+
+  // `emit` needs to generate both a Go interface and a struct, as well as the methods on the struct
+  public emit(code: CodeMaker): void {
+    this.emitInterface(code);
+    this.emitStruct(code);
+    this.generateImpl(code);
+  }
+
+  protected emitInterface(code: CodeMaker): void {
+    code.openBlock(`type ${this.interfaceName} interface`);
+
+    for (const property of this.properties) {
+      property.emitGetter(code);
+    }
+
+    code.closeBlock();
+    code.line();
+  }
+
+  private emitStruct(code: CodeMaker): void {
+    code.openBlock(`type ${this.name} struct`);
+
+    for (const property of this.properties) {
+      property.emitProperty(code);
+    }
+
+    code.closeBlock();
+    code.line();
+  }
+
+  // generates the implementation of the interface methods for the struct
+  private generateImpl(code: CodeMaker): void {
+    if (this.properties.length !== 0) {
+      code.line();
+
+      for (const property of this.properties) {
+        property.emitMethod(code);
+      }
+
+      code.line();
+    }
+  }
+
+  public get dependencies(): Package[] {
+    return [...getFieldDependencies(this.properties)];
   }
 }
