@@ -13,7 +13,6 @@ from jsii.errors import JSIIError
 from jsii import _reference_map
 from jsii._utils import Singleton
 from jsii._kernel.providers import BaseProvider, ProcessProvider
-from jsii._kernel.types import JSClass, Referenceable
 from jsii._kernel.types import Callback
 from jsii._kernel.types import (
     EnumRef,
@@ -51,10 +50,10 @@ class Object:
     __jsii_type__ = "Object"
 
 
-def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
+def _get_overides(klass: Type, obj: Any) -> List[Override]:
     overrides: List[Override] = []
 
-    # We need to inspect each item in the MRO, until we get to our JSClass, at that
+    # We need to inspect each item in the MRO, until we get to our Type, at that
     # point we'll bail, because those methods are not the overriden methods, but the
     # "real" methods.
     jsii_classes = [klass] + list(
@@ -240,9 +239,7 @@ class Kernel(metaclass=Singleton):
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
 
     # TODO: Is there a way to say that obj has to be an instance of klass?
-    def create(
-        self, klass: JSClass, obj: Any, args: Optional[List[Any]] = None
-    ) -> ObjRef:
+    def create(self, klass: Type, obj: Any, args: Optional[List[Any]] = None) -> ObjRef:
         if args is None:
             args = []
 
@@ -271,7 +268,7 @@ class Kernel(metaclass=Singleton):
         self.provider.delete(DeleteRequest(objref=ref))
 
     @_dereferenced
-    def get(self, obj: Referenceable, property: str) -> Any:
+    def get(self, obj: Any, property: str) -> Any:
         response = self.provider.get(
             GetRequest(objref=obj.__jsii_ref__, property=property)
         )
@@ -280,7 +277,7 @@ class Kernel(metaclass=Singleton):
         else:
             return response.value
 
-    def set(self, obj: Referenceable, property: str, value: Any) -> None:
+    def set(self, obj: Any, property: str, value: Any) -> None:
         response = self.provider.set(
             SetRequest(
                 objref=obj.__jsii_ref__,
@@ -292,12 +289,12 @@ class Kernel(metaclass=Singleton):
             _callback_till_result(self, response, SetResponse)
 
     @_dereferenced
-    def sget(self, klass: JSClass, property: str) -> Any:
+    def sget(self, klass: Type, property: str) -> Any:
         return self.provider.sget(
             StaticGetRequest(fqn=klass.__jsii_type__, property=property)
         ).value
 
-    def sset(self, klass: JSClass, property: str, value: Any) -> None:
+    def sset(self, klass: Type, property: str, value: Any) -> None:
         self.provider.sset(
             StaticSetRequest(
                 fqn=klass.__jsii_type__,
@@ -307,9 +304,7 @@ class Kernel(metaclass=Singleton):
         )
 
     @_dereferenced
-    def invoke(
-        self, obj: Referenceable, method: str, args: Optional[List[Any]] = None
-    ) -> Any:
+    def invoke(self, obj: Any, method: str, args: Optional[List[Any]] = None) -> Any:
         if args is None:
             args = []
 
@@ -327,7 +322,7 @@ class Kernel(metaclass=Singleton):
 
     @_dereferenced
     def sinvoke(
-        self, klass: JSClass, method: str, args: Optional[List[Any]] = None
+        self, klass: Type, method: str, args: Optional[List[Any]] = None
     ) -> Any:
         if args is None:
             args = []
@@ -366,9 +361,7 @@ class Kernel(metaclass=Singleton):
             response_type=response_type,
         )
 
-    def ainvoke(
-        self, obj: Referenceable, method: str, args: Optional[List[Any]] = None
-    ) -> Any:
+    def ainvoke(self, obj: Any, method: str, args: Optional[List[Any]] = None) -> Any:
         if args is None:
             args = []
 

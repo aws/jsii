@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
+import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
 import * as path from 'path';
 import { Generator, GeneratorOptions } from '../generator';
@@ -30,6 +31,8 @@ import { die, toPythonIdentifier } from './python/util';
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
 
+const pythonBuildTools = ['setuptools~=49.3', 'wheel~=0.34'];
+
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
 
@@ -44,54 +47,51 @@ export default class Python extends Target {
   }
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
+    // Create a fresh virtual env
+    const venv = await fs.mkdtemp(path.join(sourceDir, '.env'));
+    const venvBin = path.join(
+      venv,
+      process.platform === 'win32' ? 'Scripts' : 'bin',
+    );
+    await shell('python3', [
+      '-m',
+      'venv',
+      '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
+      venv,
+    ]);
+    const env = {
+      ...process.env,
+      PATH: `${venvBin}:${process.env.PATH}`,
+      VIRTUAL_ENV: venv,
+    };
+    const python = path.join(venvBin, 'python');
+    // Install the necessary things
+    await shell(
+      python,
+      ['-m', 'pip', 'install', '--no-input', ...pythonBuildTools, 'twine~=3.2'],
+      {
+        cwd: sourceDir,
+        env,
+      },
+    );
+
     // Actually package up our code, both as a sdist and a wheel for publishing.
-    await shell('python3', ['setup.py', 'sdist', '--dist-dir', outDir], {
+    await shell(python, ['setup.py', 'sdist', '--dist-dir', outDir], {
       cwd: sourceDir,
+      env,
     });
     await shell(
-      'python3',
+      python,
       ['-m', 'pip', 'wheel', '--no-deps', '--wheel-dir', outDir, sourceDir],
       {
         cwd: sourceDir,
+        env,
       },
     );
-    if (await isPresent('twine', sourceDir)) {
-      await shell('twine', ['check', path.join(outDir, '*')], {
-        cwd: sourceDir,
-      });
-    } else if (await isPresent('pipx', sourceDir)) {
-      await shell('pipx', ['run', 'twine', 'check', path.join(outDir, '*')], {
-        cwd: sourceDir,
-        env: {
-          ...process.env,
-          PIPX_HOME: path.join(sourceDir, '.pipx'),
-        },
-      });
-    } else {
-      warn(
-        'Unable to validate distribution packages because `twine` is not present. ' +
-          'Run `pip3 install twine` to enable distribution package validation.',
-      );
-    }
-  }
-}
-
-// Approximating existence check using `which`, falling back on `pip3 show`.
-async function isPresent(binary: string, sourceDir?: string): Promise<boolean> {
-  try {
-    await shell('which', [binary], {
+    await shell(python, ['-m', 'twine', 'check', path.join(outDir, '*')], {
       cwd: sourceDir,
+      env,
     });
-    return true;
-  } catch {
-    try {
-      const output = await shell('pip3', ['show', binary], {
-        cwd: sourceDir,
-      });
-      return output.trim() !== '';
-    } catch {
-      return false;
-    }
   }
 }
 
@@ -724,7 +724,8 @@ abstract class BaseProperty implements PythonBase {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
     const pythonType = toTypeName(this.type).pythonType(context);
 
-    code.line(`@${this.decorator}`);
+    // # type: ignore is needed because mypy cannot check decorated things
+    code.line(`@${this.decorator} # type: ignore`);
     code.line(`@jsii.member(jsii_name="${this.jsName}")`);
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
@@ -754,7 +755,8 @@ abstract class BaseProperty implements PythonBase {
 
     if (!this.immutable) {
       code.line();
-      code.line(`@${this.pythonName}.setter`);
+      // # type: ignore is required because mypy cannot check decorated things
+      code.line(`@${this.pythonName}.setter # type: ignore`);
       if (renderAbstract && this.abstract) {
         code.line('@abc.abstractmethod');
       }
@@ -795,17 +797,18 @@ class Interface extends BasePythonClassType {
     // Then, we have to emit a Proxy class which implements our proxy interface.
     const proxyBases: string[] = this.bases.map(
       (b) =>
+        // MyPy cannot check dynamic base classes (naturally)
         `jsii.proxy_for(${toTypeName(b).pythonType({
           ...context,
           typeAnnotation: false,
-        })})`,
+        })}) # type: ignore`,
     );
     openSignature(code, 'class', this.getProxyClassName(), proxyBases);
     this.generator.emitDocString(code, this.docs, {
       documentableItem: `class-${this.pythonName}`,
       trailingNewLine: true,
     });
-    code.line(`__jsii_type__ = "${this.fqn}"`);
+    code.line(`__jsii_type__: typing.ClassVar[str] = "${this.fqn}"`);
 
     if (this.members.length > 0) {
       for (const member of this.members) {
@@ -826,7 +829,7 @@ class Interface extends BasePythonClassType {
       toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
     );
 
-    params.push('jsii.compat.Protocol');
+    params.push('typing_extensions.Protocol');
 
     return params;
   }
@@ -954,7 +957,7 @@ class Struct extends BasePythonClassType {
     // Required properties, those will always be put into the dict
     assignDictionary(
       code,
-      `${implicitParameter}._values`,
+      `${implicitParameter}._values: typing.Dict[str, typing.Any]`,
       members
         .filter((m) => !m.optional)
         .map(
@@ -1001,20 +1004,29 @@ class Struct extends BasePythonClassType {
       member.typeAnnotation(context),
     );
     member.emitDocString(code);
-    code.line(`return self._values.get(${JSON.stringify(member.pythonName)})`);
+    code.line(
+      `result = self._values.get(${JSON.stringify(member.pythonName)})`,
+    );
+    if (!member.optional) {
+      // Add an assertion to maye MyPY happy!
+      code.line(
+        `assert result is not None, "Required property '${member.pythonName}' is missing"`,
+      );
+    }
+    code.line('return result');
     code.closeBlock();
   }
 
   private emitMagicMethods(code: CodeMaker) {
     code.line();
-    code.openBlock('def __eq__(self, rhs) -> bool');
+    code.openBlock('def __eq__(self, rhs: typing.Any) -> builtins.bool');
     code.line(
       'return isinstance(rhs, self.__class__) and rhs._values == self._values',
     );
     code.closeBlock();
 
     code.line();
-    code.openBlock('def __ne__(self, rhs) -> bool');
+    code.openBlock('def __ne__(self, rhs: typing.Any) -> builtins.bool');
     code.line('return not (rhs == self)');
     code.closeBlock();
 
@@ -1179,11 +1191,12 @@ class Class extends BasePythonClassType implements ISortableType {
 
       const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
+        // MyPy cannot check dynamic base types (naturally)
         proxyBases.push(
           `jsii.proxy_for(${toTypeName(base).pythonType({
             ...context,
             typeAnnotation: false,
-          })})`,
+          })}) # type: ignore`,
         );
       }
 
@@ -1383,8 +1396,8 @@ class PythonModule implements PythonType {
     code.line('import typing');
     code.line();
     code.line('import jsii');
-    code.line('import jsii.compat');
     code.line('import publication');
+    code.line('import typing_extensions');
 
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
@@ -1780,7 +1793,9 @@ class Package {
     // TODO: Might be easier to just use a TOML library to write this out.
     code.openFile('pyproject.toml');
     code.line('[build-system]');
-    code.line('requires = ["setuptools >= 49.3.1", "wheel >= 0.34.2"]');
+    code.line(
+      `requires = [${pythonBuildTools.map((x) => `"${x}"`).join(', ')}]`,
+    );
     code.line('build-backend = "setuptools.build_meta"');
     code.closeFile('pyproject.toml');
 
@@ -2576,14 +2591,17 @@ function openSignature(
   const join = ', ';
   const { elementsSize, joinSize } = totalSizeOf(params, join);
 
+  const hasComments = !params.some((param) => /# .+$/.exec(param));
+
   if (
+    hasComments &&
     TARGET_LINE_LENGTH >
-    code.currentIndentLength +
-      prefix.length +
-      elementsSize +
-      joinSize +
-      suffix.length +
-      2
+      code.currentIndentLength +
+        prefix.length +
+        elementsSize +
+        joinSize +
+        suffix.length +
+        2
   ) {
     code.openBlock(`${prefix}(${params.join(join)})${suffix}`);
     return;
@@ -2591,13 +2609,17 @@ function openSignature(
 
   code.indent(`${prefix}(`);
   if (
+    !hasComments &&
     TARGET_LINE_LENGTH >
-    code.currentIndentLength + elementsSize + joinSize + (trailingComma ? 1 : 0)
+      code.currentIndentLength +
+        elementsSize +
+        joinSize +
+        (trailingComma ? 1 : 0)
   ) {
     code.line(`${params.join(join)}${trailingComma ? ',' : ''}`);
   } else {
     for (const param of params) {
-      code.line(`${param},`);
+      code.line(param.replace(/(\s*# .+)?$/, ',$1'));
     }
   }
   code.unindent(false);

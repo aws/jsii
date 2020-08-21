@@ -4,6 +4,8 @@ lib/version.ts
 .settings
 target/
 
+.venv/
+
 *.js
 *.d.ts
 node_modules/
