@@ -197,7 +197,7 @@ exports[`implementation-changes-types.3 1`] = `
 `;
 
 exports[`implementation-changes-types.4 1`] = `
-"error TS0: jsii.Something#something changes the type of property when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
+"error TS0: jsii.SomethingImpl#something changes the type of property when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
 "
 `;
 
@@ -267,12 +267,12 @@ exports[`inheritance-changes-types.3 1`] = `
 `;
 
 exports[`inheritance-changes-types.4 1`] = `
-"error TS0: jsii.SomethingSpecific#something changes the type of property when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
+"error TS0: jsii.SomethingSpecific#something changes the type of property when overriding jsii.SomethingUnspecific (expected jsii.Superclass, found jsii.Subclass)
 "
 `;
 
 exports[`inheritance-changes-types.5 1`] = `
-"error TS0: jsii.SomethingElse#something changes the type of property when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
+"error TS0: jsii.SomethingElse#something changes the type of property when overriding jsii.SomethingBase (expected jsii.Superclass, found jsii.Subclass)
 "
 `;
 
@@ -337,6 +337,37 @@ exports[`internal-underscore-interface.4 1`] = `
 
 2   public _methodWithUnderscoreButNoInternal() {
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+`;
+
+exports[`member-named-after-type 1`] = `
+"neg.member-named-after-type.ts:14:12 - warning TS9999: JSII: Properties should not be named like the interface declaring them (interface is MyStruct, property is myStruct), as the interface will have to be renamed to MyStruct_ in C#
+
+14   readonly myStruct: string;
+              ~~~~~~~~
+
+  neg.member-named-after-type.ts:13:18
+    13 export interface MyStruct {
+                        ~~~~~~~~
+    The declaring interface is introduced here
+neg.member-named-after-type.ts:4:19 - warning TS9999: JSII: Properties should not be named like the class declaring them (class is TypeName, property is typeName), as the class will have to be renamed to TypeName_ in C#
+
+4   public readonly typeName = 1337;
+                    ~~~~~~~~
+
+  neg.member-named-after-type.ts:3:14
+    3 export class TypeName {
+                   ~~~~~~~~
+    The declaring class is introduced here
+neg.member-named-after-type.ts:8:10 - warning TS9999: JSII: Methods should not be named like the class declaring them (class is OtherType, method is otherType), as the class will have to be renamed to OtherType_ in C#
+
+8   public otherType() {
+           ~~~~~~~~~
+
+  neg.member-named-after-type.ts:7:14
+    7 export class OtherType {
+                   ~~~~~~~~~
+    The declaring class is introduced here
 "
 `;
 
@@ -443,14 +474,10 @@ error TS0: jsii.ChildClass#property changes visibility when overriding jsii.Base
 `;
 
 exports[`prohibited-member-name 1`] = `
-"neg.prohibited-member-name.ts:4:3 - error TS9999: JSII: Prohibited member name: equals
+"neg.prohibited-member-name.ts:4:10 - error TS9999: JSII: Prohibited member name: equals
 
 4   public equals(): boolean {
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-5     return true;
-  ~~~~~~~~~~~~~~~~
-6   }
-  ~~~
+           ~~~~~~
 "
 `;
 

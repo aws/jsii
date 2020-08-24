@@ -1482,7 +1482,7 @@ defineTest('nulls are converted to undefined - properties', (sandbox) => {
 
 defineTest('JSII_AGENT is undefined in node.js', (sandbox) => {
   expect(
-    sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'jsiiAgent' }).value,
+    sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'value' }).value,
   ).toBe(undefined);
 });
 

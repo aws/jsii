@@ -1,10 +1,10 @@
 export class Superclass {}
 export class Subclass extends Superclass {}
 
-export class Something {
+export class SomethingUnspecific {
   public something = new Superclass();
 }
 
-export class SomethingSpecific extends Something {
+export class SomethingSpecific extends SomethingUnspecific {
   public something: Subclass = new Subclass();
 }

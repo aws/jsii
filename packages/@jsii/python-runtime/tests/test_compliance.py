@@ -915,7 +915,7 @@ def test_nullShouldBeTreatedAsUndefined():
 
 
 def test_testJsiiAgent():
-    assert JsiiAgent.jsii_agent == f"Python/{platform.python_version()}"
+    assert JsiiAgent.value == f"Python/{platform.python_version()}"
 
 
 def test_receiveInstanceOfPrivateClass():

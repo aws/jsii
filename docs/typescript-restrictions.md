@@ -75,6 +75,65 @@ users in languages with conflicts.
 
 [`jsii/lib/reserved-words.ts`]: ../packages/jsii/lib/reserved-words.ts
 
+## Type Members
+
+### Naming
+
+Methods and properties declared on *classes* cannot be named after the class (
+meaning they cannot share the same PascalCased representation), as this results
+in illegal **C#** code:
+
+> :memo: Due to existing usage (in such cases, an `_` is appended at the end of
+> the **type** name, effectively breaking existing .NET code if such a member
+> is introduced post-release), this restriction is only enforced when `jsii` is
+> invoked with the `--strict` parameter.
+>
+> It will be upgraded to *always* be an error in a future release.
+
+```ts
+export class Name {
+  // ⛔️ Illegal property name
+  public name: string;
+}
+
+export class Name {
+  // ⛔️ Illegal method name
+  public name(): void { /* ... */ }
+}
+```
+
+### Overriding
+
+The visibility of a type member cannot be changed when it is overridden, even if
+the change increases the visibility of said member, as this would result in
+illegal **C#** code:
+
+```ts
+export class Base {
+  protected method(): void { /* ... */ }
+}
+
+export class Child {
+  // ⛔️ Illegal change of visibility when overriding a member
+  public method(): void { /* ... */ }
+}
+```
+
+Additionally, **C#** does not allow changing the type signature of members while
+overriding them, even if the updated type signature is a strict specialization
+of the original one, and this is consequently also forbidden in `jsii`:
+
+```ts
+export class Base {
+  public method(): any { /* ... */ }
+}
+
+export class Child {
+  // ⛔️ Illegal change of signature when overriding a member
+  public method(): string { /* ... */ }
+}
+```
+
 ## Behavioral Interfaces & Structs
 
 `jsii` considers **TypeScript** interfaces in two distinct categories: *Structs*
