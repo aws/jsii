@@ -1429,6 +1429,13 @@ class PythonModule implements PythonType {
       code.line(`from ${'.'.repeat(distanceFromRoot + 1)}_jsii import *`);
 
       this.emitRequiredImports(code, context);
+      if (this.assembly.bin) {
+        code.line(`print('BIN-scripts were found.');`);
+        const scripts = Object.keys(this.assembly.bin);
+        for (const script of scripts) {
+          code.line(`print('${script}: ${this.assembly.bin[script]}');`);
+        }
+      }
     }
 
     // Emit all of our members.
