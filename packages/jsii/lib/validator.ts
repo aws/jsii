@@ -18,13 +18,11 @@ export class Validator implements Emitter {
   ) {}
 
   public async emit(): Promise<EmitResult> {
-    this._diagnostics = [];
-
-    for (const validation of Validator.VALIDATIONS) {
-      validation(this, this.assembly, this._diagnostic.bind(this));
-    }
-
     try {
+      for (const validation of Validator.VALIDATIONS) {
+        validation(this, this.assembly, this._diagnostic.bind(this));
+      }
+
       return Promise.resolve({
         diagnostics: this._diagnostics,
         emitSkipped: this._diagnostics.some(
@@ -33,7 +31,7 @@ export class Validator implements Emitter {
       });
     } finally {
       // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
-      delete this._diagnostics;
+      this._diagnostics = [];
     }
   }
 
