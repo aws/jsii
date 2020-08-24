@@ -2066,6 +2066,69 @@ defineTest('ANY serializer: ref', (sandbox) => {
   });
 });
 
+defineTest('Override transitive property', (sandbox) => {
+  //////////
+  // GIVEN
+  //////////
+  const originalString = 'r00t';
+  const initialOverriddenPropValue = 'Overridden Value';
+  let propValue = initialOverriddenPropValue;
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
+    const getOrSet = callback.get ?? callback.set;
+    // We don't expect to receive any other callback
+    expect(getOrSet).toBeDefined();
+    expect(getOrSet?.property).toBe('dynamicProperty');
+
+    if (callback.get) {
+      return propValue;
+    }
+    propValue = callback.set?.value;
+    return void 0;
+  });
+
+  //////////
+  // WHEN
+  //////////
+  const objref = sandbox.create({
+    fqn: 'jsii-calc.DynamicPropertyBearerChild',
+    args: [originalString],
+    overrides: [{ property: 'dynamicProperty' }],
+  });
+
+  //////////
+  // THEN
+  //////////
+
+  // Reading the "super" property
+  expect(sandbox.get({ objref, property: 'dynamicProperty' }).value).toBe(
+    originalString,
+  );
+  expect(sandbox.get({ objref, property: 'valueStore' }).value).toBe(
+    originalString,
+  );
+
+  // Setting the dynamicProperty value through the override
+  expect(
+    sandbox.invoke({ objref, method: 'overrideValue', args: ['N3W'] }).result,
+  ).toBe(initialOverriddenPropValue);
+  // Checking the side effect happened on the override:
+  expect(propValue).toBe('N3W');
+  // Check the "super" property didn't change:
+  expect(sandbox.get({ objref, property: 'dynamicProperty' }).value).toBe(
+    originalString,
+  );
+  expect(sandbox.get({ objref, property: 'valueStore' }).value).toBe(
+    originalString,
+  );
+
+  // Set the "super" property now
+  sandbox.set({ objref, property: 'dynamicProperty', value: '' });
+  // Check the side effect made it to the storage
+  expect(sandbox.get({ objref, property: 'valueStore' }).value).toBe('');
+  // Check the overridden property didn't change...
+  expect(propValue).toBe('N3W');
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = {};

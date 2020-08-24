@@ -4283,6 +4283,142 @@
       ],
       "name": "DoubleTrouble"
     },
+    "jsii-calc.DynamicPropertyBearer": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Ensures we can override a dynamic property that was inherited."
+      },
+      "fqn": "jsii-calc.DynamicPropertyBearer",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2793
+        },
+        "parameters": [
+          {
+            "name": "valueStore",
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2792
+      },
+      "name": "DynamicPropertyBearer",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2795
+          },
+          "name": "dynamicProperty",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2793
+          },
+          "name": "valueStore",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.DynamicPropertyBearerChild": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.DynamicPropertyBearer",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.DynamicPropertyBearerChild",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2804
+        },
+        "parameters": [
+          {
+            "name": "originalValue",
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2803
+      },
+      "methods": [
+        {
+          "docs": {
+            "returns": "the old value that was set.",
+            "stability": "experimental",
+            "summary": "Sets `this.dynamicProperty` to the new value, and returns the old value."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2815
+          },
+          "name": "overrideValue",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "the new value to be set."
+              },
+              "name": "newValue",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "DynamicPropertyBearerChild",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2804
+          },
+          "name": "originalValue",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.EnumDispenser": {
       "assembly": "jsii-calc",
       "docs": {
@@ -13826,5 +13962,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "yt/0XPs1992amR27hkikt26g+6+QRKY1RHMBp+bpT18="
+  "fingerprint": "E/GXhY9JNedt4a4BxZtUU+gi/wjwJJ7IqZ2ssgncT7Y="
 }
