@@ -41,7 +41,7 @@
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.0.5",
     "typescript": "~3.9.7",
-    "typescript-json-schema": "^0.42.0"
+    "typescript-json-schema": "^0.43.0"
   },
   "jest": {
     "collectCoverage": true,
