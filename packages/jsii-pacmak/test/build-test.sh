@@ -34,19 +34,23 @@ else
 fi
 python3 -m pip install --upgrade pip~=20.2 twine~=3.2
 
+# Provision a specific NuGet package cache
+NUGET_CACHE=${outdir}/.nuget/packages
+OPTS="--dotnet-nuget-global-packages-folder=${NUGET_CACHE}"
+
 # Single target, recursive build to a certain location
 clean_dists
 echo "Testing SINGLE TARGET, RECURSIVE build."
-../bin/jsii-pacmak -o ${outdir} --recurse ../../jsii-calc
+../bin/jsii-pacmak ${OPTS} -o ${outdir} --recurse ../../jsii-calc
 
 # Multiple targets, build one-by-one into own directory
 clean_dists
 echo "Testing ONE-BY-ONE build."
 for dir in $packagedirs; do
-    ../bin/jsii-pacmak $dir
+    ../bin/jsii-pacmak ${OPTS} $dir
 done
 
 # Multiple targets, build all at once into own directory
 clean_dists
 echo "Testing ALL-AT-ONCE build."
-../bin/jsii-pacmak --no-parallel $packagedirs
+../bin/jsii-pacmak ${OPTS} --no-parallel $packagedirs

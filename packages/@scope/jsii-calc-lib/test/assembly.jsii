@@ -314,7 +314,7 @@
     },
     "@scope/jsii-calc-lib.Number": {
       "assembly": "@scope/jsii-calc-lib",
-      "base": "@scope/jsii-calc-lib.Value",
+      "base": "@scope/jsii-calc-lib.NumericValue",
       "docs": {
         "stability": "deprecated",
         "summary": "Represents a concrete number."
@@ -378,7 +378,60 @@
             "line": 35
           },
           "name": "value",
-          "overrides": "@scope/jsii-calc-lib.Value",
+          "overrides": "@scope/jsii-calc-lib.NumericValue",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.NumericValue": {
+      "abstract": true,
+      "assembly": "@scope/jsii-calc-lib",
+      "base": "@scope/jsii-calc-base.Base",
+      "docs": {
+        "stability": "deprecated",
+        "summary": "Abstract class which represents a numeric value."
+      },
+      "fqn": "@scope/jsii-calc-lib.NumericValue",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 6
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "deprecated",
+            "summary": "String representation of the value."
+          },
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 15
+          },
+          "name": "toString",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "NumericValue",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated",
+            "summary": "The value."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 10
+          },
+          "name": "value",
           "type": {
             "primitive": "number"
           }
@@ -388,7 +441,7 @@
     "@scope/jsii-calc-lib.Operation": {
       "abstract": true,
       "assembly": "@scope/jsii-calc-lib",
-      "base": "@scope/jsii-calc-lib.Value",
+      "base": "@scope/jsii-calc-lib.NumericValue",
       "docs": {
         "stability": "deprecated",
         "summary": "Represents an operation on values."
@@ -412,7 +465,7 @@
             "line": 51
           },
           "name": "toString",
-          "overrides": "@scope/jsii-calc-lib.Value",
+          "overrides": "@scope/jsii-calc-lib.NumericValue",
           "returns": {
             "type": {
               "primitive": "string"
@@ -484,59 +537,6 @@
           "optional": true,
           "type": {
             "primitive": "boolean"
-          }
-        }
-      ]
-    },
-    "@scope/jsii-calc-lib.Value": {
-      "abstract": true,
-      "assembly": "@scope/jsii-calc-lib",
-      "base": "@scope/jsii-calc-base.Base",
-      "docs": {
-        "stability": "deprecated",
-        "summary": "Abstract class which represents a numeric value."
-      },
-      "fqn": "@scope/jsii-calc-lib.Value",
-      "initializer": {},
-      "kind": "class",
-      "locationInModule": {
-        "filename": "lib/index.ts",
-        "line": 6
-      },
-      "methods": [
-        {
-          "docs": {
-            "stability": "deprecated",
-            "summary": "String representation of the value."
-          },
-          "locationInModule": {
-            "filename": "lib/index.ts",
-            "line": 15
-          },
-          "name": "toString",
-          "returns": {
-            "type": {
-              "primitive": "string"
-            }
-          }
-        }
-      ],
-      "name": "Value",
-      "properties": [
-        {
-          "abstract": true,
-          "docs": {
-            "stability": "deprecated",
-            "summary": "The value."
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/index.ts",
-            "line": 10
-          },
-          "name": "value",
-          "type": {
-            "primitive": "number"
           }
         }
       ]
@@ -760,5 +760,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "eQh0XE5tmf4g2rxlhgkrIZJ93RG55/oLM+RNpmaQyGs="
+  "fingerprint": "kLS1ei6Uc31/IKA//k3OZp65Lxz+2tLyQOO/qSYpvSE="
 }
