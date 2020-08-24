@@ -40219,6 +40219,16 @@ type DynamicPropertyBearer struct {
     ValueStore string
 }
 
+
+func (d DynamicPropertyBearer) GetDynamicProperty() string {
+    return d.DynamicProperty
+}
+
+func (d DynamicPropertyBearer) GetValueStore() string {
+    return d.ValueStore
+}
+
+
 type DynamicPropertyBearerChildIface interface {
     GetOriginalValue() string
     SetOriginalValue()
@@ -40228,6 +40238,12 @@ type DynamicPropertyBearerChildIface interface {
 type DynamicPropertyBearerChild struct {
     OriginalValue string
 }
+
+
+func (d DynamicPropertyBearerChild) GetOriginalValue() string {
+    return d.OriginalValue
+}
+
 
 func (d *DynamicPropertyBearerChild) OverrideValue() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -65891,7 +65907,8 @@ class DontComplainAboutVariadicAfterOptional(
 
 
 class DynamicPropertyBearer(
-    metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DynamicPropertyBearer"
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.DynamicPropertyBearer",
 ):
     """Ensures we can override a dynamic property that was inherited.
 
@@ -65899,7 +65916,7 @@ class DynamicPropertyBearer(
     :stability: experimental
     """
 
-    def __init__(self, value_store: str) -> None:
+    def __init__(self, value_store: builtins.str) -> None:
         """
         :param value_store: -
 
@@ -65908,30 +65925,30 @@ class DynamicPropertyBearer(
         """
         jsii.create(DynamicPropertyBearer, self, [value_store])
 
-    @builtins.property
+    @builtins.property # type: ignore
     @jsii.member(jsii_name="dynamicProperty")
-    def dynamic_property(self) -> str:
+    def dynamic_property(self) -> builtins.str:
         """
         stability
         :stability: experimental
         """
         return jsii.get(self, "dynamicProperty")
 
-    @dynamic_property.setter
-    def dynamic_property(self, value: str) -> None:
+    @dynamic_property.setter # type: ignore
+    def dynamic_property(self, value: builtins.str) -> None:
         jsii.set(self, "dynamicProperty", value)
 
-    @builtins.property
+    @builtins.property # type: ignore
     @jsii.member(jsii_name="valueStore")
-    def value_store(self) -> str:
+    def value_store(self) -> builtins.str:
         """
         stability
         :stability: experimental
         """
         return jsii.get(self, "valueStore")
 
-    @value_store.setter
-    def value_store(self, value: str) -> None:
+    @value_store.setter # type: ignore
+    def value_store(self, value: builtins.str) -> None:
         jsii.set(self, "valueStore", value)
 
 
@@ -65945,7 +65962,7 @@ class DynamicPropertyBearerChild(
     :stability: experimental
     """
 
-    def __init__(self, original_value: str) -> None:
+    def __init__(self, original_value: builtins.str) -> None:
         """
         :param original_value: -
 
@@ -65955,7 +65972,7 @@ class DynamicPropertyBearerChild(
         jsii.create(DynamicPropertyBearerChild, self, [original_value])
 
     @jsii.member(jsii_name="overrideValue")
-    def override_value(self, new_value: str) -> str:
+    def override_value(self, new_value: builtins.str) -> builtins.str:
         """Sets \`\`this.dynamicProperty\`\` to the new value, and returns the old value.
 
         :param new_value: the new value to be set.
@@ -65968,9 +65985,9 @@ class DynamicPropertyBearerChild(
         """
         return jsii.invoke(self, "overrideValue", [new_value])
 
-    @builtins.property
+    @builtins.property # type: ignore
     @jsii.member(jsii_name="originalValue")
-    def original_value(self) -> str:
+    def original_value(self) -> builtins.str:
         """
         stability
         :stability: experimental
