@@ -811,6 +811,31 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: string
  │   │   └─┬ next() method (experimental)
  │   │     └── returns: number
+ │   ├─┬ class DynamicPropertyBearer (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(valueStore) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ valueStore
+ │   │   │     └── type: string
+ │   │   ├─┬ dynamicProperty property (experimental)
+ │   │   │ └── type: string
+ │   │   └─┬ valueStore property (experimental)
+ │   │     └── type: string
+ │   ├─┬ class DynamicPropertyBearerChild (experimental)
+ │   │ ├── base: DynamicPropertyBearer
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(originalValue) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ originalValue
+ │   │   │     └── type: string
+ │   │   ├─┬ overrideValue(newValue) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ newValue
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
+ │   │   └─┬ originalValue property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ class EnumDispenser (experimental)
  │   │ └─┬ members
  │   │   ├─┬ static randomIntegerLikeEnum() method (experimental)
@@ -2796,6 +2821,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├─┬ class DoubleTrouble
  │   │ └── interfaces: IFriendlyRandomGenerator
+ │   ├── class DynamicPropertyBearer
+ │   ├─┬ class DynamicPropertyBearerChild
+ │   │ └── base: DynamicPropertyBearer
  │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass
@@ -3398,6 +3426,16 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── hello() method
  │   │   └── next() method
+ │   ├─┬ class DynamicPropertyBearer
+ │   │ └─┬ members
+ │   │   ├── <initializer>(valueStore) initializer
+ │   │   ├── dynamicProperty property
+ │   │   └── valueStore property
+ │   ├─┬ class DynamicPropertyBearerChild
+ │   │ └─┬ members
+ │   │   ├── <initializer>(originalValue) initializer
+ │   │   ├── overrideValue(newValue) method
+ │   │   └── originalValue property
  │   ├─┬ class EnumDispenser
  │   │ └─┬ members
  │   │   ├── static randomIntegerLikeEnum() method
@@ -4356,6 +4394,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class DocumentedClass
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├── class DoubleTrouble
+ │   ├── class DynamicPropertyBearer
+ │   ├── class DynamicPropertyBearerChild
  │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass

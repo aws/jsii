@@ -61,6 +61,8 @@ Array [
   "jsii-calc.DocumentedClass",
   "jsii-calc.DontComplainAboutVariadicAfterOptional",
   "jsii-calc.DoubleTrouble",
+  "jsii-calc.DynamicPropertyBearer",
+  "jsii-calc.DynamicPropertyBearerChild",
   "jsii-calc.EnumDispenser",
   "jsii-calc.EraseUndefinedHashValues",
   "jsii-calc.ExperimentalClass",

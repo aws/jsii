@@ -7046,6 +7046,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
  ┃     ┃           ┣━ 📄 DoNotRecognizeAnyAsOptional.cs
  ┃     ┃           ┣━ 📄 DontComplainAboutVariadicAfterOptional.cs
  ┃     ┃           ┣━ 📄 DoubleTrouble.cs
+ ┃     ┃           ┣━ 📄 DynamicPropertyBearer.cs
+ ┃     ┃           ┣━ 📄 DynamicPropertyBearerChild.cs
  ┃     ┃           ┣━ 📄 EnumDispenser.cs
  ┃     ┃           ┣━ 📄 EraseUndefinedHashValues.cs
  ┃     ┃           ┣━ 📄 EraseUndefinedHashValuesOptions.cs
@@ -7415,6 +7417,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
  ┃        ┃                 ┣━ 📄 DoNotRecognizeAnyAsOptional.java
  ┃        ┃                 ┣━ 📄 DontComplainAboutVariadicAfterOptional.java
  ┃        ┃                 ┣━ 📄 DoubleTrouble.java
+ ┃        ┃                 ┣━ 📄 DynamicPropertyBearer.java
+ ┃        ┃                 ┣━ 📄 DynamicPropertyBearerChild.java
  ┃        ┃                 ┣━ 📄 EnumDispenser.java
  ┃        ┃                 ┣━ 📄 EraseUndefinedHashValues.java
  ┃        ┃                 ┣━ 📄 EraseUndefinedHashValuesOptions.java
@@ -11917,6 +11921,142 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         }
       ],
       "name": "DoubleTrouble"
+    },
+    "jsii-calc.DynamicPropertyBearer": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Ensures we can override a dynamic property that was inherited."
+      },
+      "fqn": "jsii-calc.DynamicPropertyBearer",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2794
+        },
+        "parameters": [
+          {
+            "name": "valueStore",
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2793
+      },
+      "name": "DynamicPropertyBearer",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2796
+          },
+          "name": "dynamicProperty",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2794
+          },
+          "name": "valueStore",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.DynamicPropertyBearerChild": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.DynamicPropertyBearer",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.DynamicPropertyBearerChild",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2805
+        },
+        "parameters": [
+          {
+            "name": "originalValue",
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2804
+      },
+      "methods": [
+        {
+          "docs": {
+            "returns": "the old value that was set.",
+            "stability": "experimental",
+            "summary": "Sets \`this.dynamicProperty\` to the new value, and returns the old value."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2816
+          },
+          "name": "overrideValue",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "the new value to be set."
+              },
+              "name": "newValue",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "DynamicPropertyBearerChild",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2805
+          },
+          "name": "originalValue",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     },
     "jsii-calc.EnumDispenser": {
       "assembly": "jsii-calc",
@@ -21461,7 +21601,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "2+VsCif006Pa9j/t5xrvI5psaT2mh2x58UwU31ByN5E="
+  "fingerprint": "cyoh4941c6DZUpcqFIkyprTV/kYc5HyNK4JT1ibPKIE="
 }
 
 `;
@@ -25686,6 +25826,124 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/DynamicPropertyBearer.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Ensures we can override a dynamic property that was inherited.</summary>
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearer), fullyQualifiedName: "jsii-calc.DynamicPropertyBearer", parametersJson: "[{\\"name\\":\\"valueStore\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+    public class DynamicPropertyBearer : DeputyBase
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        public DynamicPropertyBearer(string valueStore): base(new DeputyProps(new object[]{valueStore}))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected DynamicPropertyBearer(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected DynamicPropertyBearer(DeputyProps props): base(props)
+        {
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiProperty(name: "dynamicProperty", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public virtual string DynamicProperty
+        {
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiProperty(name: "valueStore", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public virtual string ValueStore
+        {
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/DynamicPropertyBearerChild.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearerChild), fullyQualifiedName: "jsii-calc.DynamicPropertyBearerChild", parametersJson: "[{\\"name\\":\\"originalValue\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+    public class DynamicPropertyBearerChild : Amazon.JSII.Tests.CalculatorNamespace.DynamicPropertyBearer
+    {
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        public DynamicPropertyBearerChild(string originalValue): base(new DeputyProps(new object[]{originalValue}))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected DynamicPropertyBearerChild(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected DynamicPropertyBearerChild(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Sets \`this.dynamicProperty\` to the new value, and returns the old value.</summary>
+        /// <param name="newValue">the new value to be set.</param>
+        /// <returns>the old value that was set.</returns>
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiMethod(name: "overrideValue", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the new value to be set.\\"},\\"name\\":\\"newValue\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public virtual string OverrideValue(string newValue)
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{newValue});
+        }
+
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
+        [JsiiProperty(name: "originalValue", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public virtual string OriginalValue
+        {
+            get => GetInstanceProperty<string>();
         }
     }
 }
@@ -39949,6 +40207,55 @@ func (d *DoubleTrouble) Next() float64  {
     return 0.0
 }
 
+type DynamicPropertyBearerIface interface {
+    GetDynamicProperty() string
+    SetDynamicProperty()
+    GetValueStore() string
+    SetValueStore()
+}
+
+type DynamicPropertyBearer struct {
+    DynamicProperty string
+    ValueStore string
+}
+
+
+func (d DynamicPropertyBearer) GetDynamicProperty() string {
+    return d.DynamicProperty
+}
+
+func (d DynamicPropertyBearer) GetValueStore() string {
+    return d.ValueStore
+}
+
+
+type DynamicPropertyBearerChildIface interface {
+    GetOriginalValue() string
+    SetOriginalValue()
+    OverrideValue() string
+}
+
+type DynamicPropertyBearerChild struct {
+    OriginalValue string
+}
+
+
+func (d DynamicPropertyBearerChild) GetOriginalValue() string {
+    return d.OriginalValue
+}
+
+
+func (d *DynamicPropertyBearerChild) OverrideValue() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+
+        Class: "DynamicPropertyBearerChild",
+        Method: "OverrideValue",
+        Args: []string{"string",},
+
+    })
+    return "NOOP_RETURN_STRING"
+}
+
 type EnumDispenserIface interface {
     RandomIntegerLikeEnum() AllTypesEnum
     RandomStringLikeEnum() StringEnum
@@ -49628,6 +49935,127 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     @Override
     public @org.jetbrains.annotations.NotNull java.lang.Number next() {
         return this.jsiiCall("next", java.lang.Number.class);
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/DynamicPropertyBearer.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Ensures we can override a dynamic property that was inherited.
+ * <p>
+ * EXPERIMENTAL
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DynamicPropertyBearer")
+public class DynamicPropertyBearer extends software.amazon.jsii.JsiiObject {
+
+    protected DynamicPropertyBearer(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected DynamicPropertyBearer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * EXPERIMENTAL
+     * <p>
+     * @param valueStore This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public DynamicPropertyBearer(final @org.jetbrains.annotations.NotNull java.lang.String valueStore) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(valueStore, "valueStore is required") });
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public @org.jetbrains.annotations.NotNull java.lang.String getDynamicProperty() {
+        return this.jsiiGet("dynamicProperty", java.lang.String.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public void setDynamicProperty(final @org.jetbrains.annotations.NotNull java.lang.String value) {
+        this.jsiiSet("dynamicProperty", java.util.Objects.requireNonNull(value, "dynamicProperty is required"));
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public @org.jetbrains.annotations.NotNull java.lang.String getValueStore() {
+        return this.jsiiGet("valueStore", java.lang.String.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public void setValueStore(final @org.jetbrains.annotations.NotNull java.lang.String value) {
+        this.jsiiSet("valueStore", java.util.Objects.requireNonNull(value, "valueStore is required"));
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/DynamicPropertyBearerChild.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * EXPERIMENTAL
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DynamicPropertyBearerChild")
+public class DynamicPropertyBearerChild extends software.amazon.jsii.tests.calculator.DynamicPropertyBearer {
+
+    protected DynamicPropertyBearerChild(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected DynamicPropertyBearerChild(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * EXPERIMENTAL
+     * <p>
+     * @param originalValue This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public DynamicPropertyBearerChild(final @org.jetbrains.annotations.NotNull java.lang.String originalValue) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(originalValue, "originalValue is required") });
+    }
+
+    /**
+     * Sets \`this.dynamicProperty\` to the new value, and returns the old value.
+     * <p>
+     * EXPERIMENTAL
+     * <p>
+     * @return the old value that was set.
+     * @param newValue the new value to be set. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public @org.jetbrains.annotations.NotNull java.lang.String overrideValue(final @org.jetbrains.annotations.NotNull java.lang.String newValue) {
+        return this.jsiiCall("overrideValue", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(newValue, "newValue is required") });
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public @org.jetbrains.annotations.NotNull java.lang.String getOriginalValue() {
+        return this.jsiiGet("originalValue", java.lang.String.class);
     }
 }
 
@@ -62559,6 +62987,8 @@ jsii-calc.DoNotRecognizeAnyAsOptional=software.amazon.jsii.tests.calculator.DoNo
 jsii-calc.DocumentedClass=software.amazon.jsii.tests.calculator.DocumentedClass
 jsii-calc.DontComplainAboutVariadicAfterOptional=software.amazon.jsii.tests.calculator.DontComplainAboutVariadicAfterOptional
 jsii-calc.DoubleTrouble=software.amazon.jsii.tests.calculator.DoubleTrouble
+jsii-calc.DynamicPropertyBearer=software.amazon.jsii.tests.calculator.DynamicPropertyBearer
+jsii-calc.DynamicPropertyBearerChild=software.amazon.jsii.tests.calculator.DynamicPropertyBearerChild
 jsii-calc.EnumDispenser=software.amazon.jsii.tests.calculator.EnumDispenser
 jsii-calc.EraseUndefinedHashValues=software.amazon.jsii.tests.calculator.EraseUndefinedHashValues
 jsii-calc.EraseUndefinedHashValuesOptions=software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions
@@ -65474,6 +65904,95 @@ class DontComplainAboutVariadicAfterOptional(
         :stability: experimental
         """
         return jsii.invoke(self, "optionalAndVariadic", [optional, *things])
+
+
+class DynamicPropertyBearer(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.DynamicPropertyBearer",
+):
+    """Ensures we can override a dynamic property that was inherited.
+
+    stability
+    :stability: experimental
+    """
+
+    def __init__(self, value_store: builtins.str) -> None:
+        """
+        :param value_store: -
+
+        stability
+        :stability: experimental
+        """
+        jsii.create(DynamicPropertyBearer, self, [value_store])
+
+    @builtins.property # type: ignore
+    @jsii.member(jsii_name="dynamicProperty")
+    def dynamic_property(self) -> builtins.str:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "dynamicProperty")
+
+    @dynamic_property.setter # type: ignore
+    def dynamic_property(self, value: builtins.str) -> None:
+        jsii.set(self, "dynamicProperty", value)
+
+    @builtins.property # type: ignore
+    @jsii.member(jsii_name="valueStore")
+    def value_store(self) -> builtins.str:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "valueStore")
+
+    @value_store.setter # type: ignore
+    def value_store(self, value: builtins.str) -> None:
+        jsii.set(self, "valueStore", value)
+
+
+class DynamicPropertyBearerChild(
+    DynamicPropertyBearer,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.DynamicPropertyBearerChild",
+):
+    """
+    stability
+    :stability: experimental
+    """
+
+    def __init__(self, original_value: builtins.str) -> None:
+        """
+        :param original_value: -
+
+        stability
+        :stability: experimental
+        """
+        jsii.create(DynamicPropertyBearerChild, self, [original_value])
+
+    @jsii.member(jsii_name="overrideValue")
+    def override_value(self, new_value: builtins.str) -> builtins.str:
+        """Sets \`\`this.dynamicProperty\`\` to the new value, and returns the old value.
+
+        :param new_value: the new value to be set.
+
+        return
+        :return: the old value that was set.
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "overrideValue", [new_value])
+
+    @builtins.property # type: ignore
+    @jsii.member(jsii_name="originalValue")
+    def original_value(self) -> builtins.str:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "originalValue")
 
 
 class EnumDispenser(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.EnumDispenser"):
@@ -73136,6 +73655,8 @@ __all__ = [
     "DocumentedClass",
     "DontComplainAboutVariadicAfterOptional",
     "DoubleTrouble",
+    "DynamicPropertyBearer",
+    "DynamicPropertyBearerChild",
     "EnumDispenser",
     "EraseUndefinedHashValues",
     "EraseUndefinedHashValuesOptions",
