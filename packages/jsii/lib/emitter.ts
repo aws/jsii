@@ -9,36 +9,5 @@ export interface Emitter {
    *
    * @return the result of attempting to emit stuff.
    */
-  emit(): Promise<EmitResult>;
-}
-
-/**
- * The result of attempting to emit stuff.
- */
-export interface EmitResult extends ts.EmitResult {
-  /** Diagnostic information created when trying to emit stuff */
-  diagnostics: ReadonlyArray<ts.Diagnostic | Diagnostic>;
-}
-
-/**
- * A diagnostic message generated while trying to emit stuff.
- */
-export interface Diagnostic extends ts.Diagnostic {
-  /**
-   * The domain of the diagnostic message.
-   */
-  domain: string;
-}
-
-/**
- * Determines if a diagnostic entry has an attached domain or not.
- *
- * @param diagnostic the entity to be assessed
- *
- * @returns ``true`` if ``diagnostic`` has a domain.
- */
-export function hasDomain(
-  diagnostic: ts.Diagnostic | Diagnostic,
-): diagnostic is Diagnostic {
-  return !!(diagnostic as Diagnostic).domain;
+  emit(): Promise<ts.EmitResult>;
 }

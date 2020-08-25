@@ -6,9 +6,9 @@ import { Type } from './type';
 import { TypeSystem } from './type-system';
 
 export abstract class ModuleLike {
-  public abstract readonly fqn: string;
-  public abstract readonly submodules: readonly Submodule[];
-  public abstract readonly types: readonly Type[];
+  public declare abstract readonly fqn: string;
+  public declare abstract readonly submodules: readonly Submodule[];
+  public declare abstract readonly types: readonly Type[];
 
   protected constructor(public readonly system: TypeSystem) {}
 
