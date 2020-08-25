@@ -81,18 +81,18 @@ export class Assembler implements Emitter {
     this._diagnostics = [];
     if (!this.projectInfo.description) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_0001_PKG_MISSING_DESCRIPTION.createDetached(),
+        JsiiDiagnostic.JSII_0001_PKG_MISSING_DESCRIPTION.createDetached(),
       );
     }
     if (!this.projectInfo.homepage) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_0002_PKG_MISSING_HOMEPAGE.createDetached(),
+        JsiiDiagnostic.JSII_0002_PKG_MISSING_HOMEPAGE.createDetached(),
       );
     }
     const readme = await _loadReadme.call(this);
     if (readme == null) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_0003_MISSING_README.createDetached(),
+        JsiiDiagnostic.JSII_0003_MISSING_README.createDetached(),
       );
     }
     const docs = _loadDocs.call(this);
@@ -105,7 +105,7 @@ export class Assembler implements Emitter {
 
     if (sourceFile == null) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_0004_COULD_NOT_FIND_ENTRYPOINT.createDetached(
+        JsiiDiagnostic.JSII_0004_COULD_NOT_FIND_ENTRYPOINT.createDetached(
           this.mainFile,
         ),
       );
@@ -330,8 +330,8 @@ export class Assembler implements Emitter {
       if (assembly) {
         if (!(assembly.name in this.projectInfo.peerDependencies)) {
           this._diagnostics.push(
-            JsiiDiagnostic.Code.JSII_0005_MISSING_PEER_DEPENDENCY.create(
-              referencingNode,
+            JsiiDiagnostic.JSII_0005_MISSING_PEER_DEPENDENCY.create(
+              referencingNode!, // Cheating here for now, until the referencingNode can be made required
               assembly.name,
               ref,
             ),
@@ -342,8 +342,8 @@ export class Assembler implements Emitter {
 
     if (!type) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_9002_UNRESOLVEABLE_TYPE.create(
-          referencingNode,
+        JsiiDiagnostic.JSII_9002_UNRESOLVEABLE_TYPE.create(
+          referencingNode!, // Cheating here for now, until the referencingNode can be made required
           ref,
         ),
       );
@@ -394,16 +394,14 @@ export class Assembler implements Emitter {
     if (this._isPrivateOrInternal(type.symbol)) {
       // Check if this type is "this" (explicit or inferred method return type).
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
+        JsiiDiagnostic.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
           typeAnnotationNode,
           type.symbol,
           isThisType,
           typeUse,
         ).addRelatedInformation(
-          JsiiDiagnostic.Code.JSII_9999_RELATED_INFO.create(
-            typeDeclaration,
-            `The referenced type is declared here`,
-          ),
+          typeDeclaration,
+          `The referenced type is declared here`,
         ),
       );
 
@@ -414,16 +412,14 @@ export class Assembler implements Emitter {
     if (!groups) {
       if (!hasError) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
+          JsiiDiagnostic.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
             typeAnnotationNode,
             type.symbol,
             isThisType,
             typeUse,
           ).addRelatedInformation(
-            JsiiDiagnostic.Code.JSII_9999_RELATED_INFO.create(
-              typeDeclaration,
-              `The referenced type is declared here`,
-            ),
+            typeDeclaration,
+            `The referenced type is declared here`,
           ),
         );
         hasError = true;
@@ -435,14 +431,12 @@ export class Assembler implements Emitter {
     if (!pkg) {
       if (!hasError) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_9003_UNRESOLVEABLE_MODULE.create(
+          JsiiDiagnostic.JSII_9003_UNRESOLVEABLE_MODULE.create(
             typeAnnotationNode,
             modulePath,
           ).addRelatedInformation(
-            JsiiDiagnostic.Code.JSII_9999_RELATED_INFO.create(
-              typeDeclaration,
-              `The referenced type is declared here`,
-            ),
+            typeDeclaration,
+            `The referenced type is declared here`,
           ),
         );
         hasError = true;
@@ -463,16 +457,14 @@ export class Assembler implements Emitter {
     ) {
       if (!hasError) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_3002_USE_OF_UNEXPORTED_FOREIGN_TYPE.create(
+          JsiiDiagnostic.JSII_3002_USE_OF_UNEXPORTED_FOREIGN_TYPE.create(
             typeAnnotationNode,
             fqn,
             typeUse,
             pkg,
           ).addRelatedInformation(
-            JsiiDiagnostic.Code.JSII_9999_RELATED_INFO.create(
-              typeDeclaration,
-              `The referenced type is declared here`,
-            ),
+            typeDeclaration,
+            `The referenced type is declared here`,
           ),
         );
         hasError = true;
@@ -604,7 +596,7 @@ export class Assembler implements Emitter {
         symbol.name !== Case.snake(symbol.name)
       ) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_8004_SUBMOULE_NAME_CASING.create(
+          JsiiDiagnostic.JSII_8004_SUBMOULE_NAME_CASING.create(
             declaration.name,
             symbol.name,
           ),
@@ -696,23 +688,19 @@ export class Assembler implements Emitter {
           ].sort(({ name: l }, { name: r }) => l.localeCompare(r));
 
           this._diagnostics.push(
-            JsiiDiagnostic.Code.JSII_3003_SYMBOL_IS_EXPORTED_TWICE.create(
+            JsiiDiagnostic.JSII_3003_SYMBOL_IS_EXPORTED_TWICE.create(
               (symbol.valueDeclaration as { name?: ts.Node }).name ??
                 symbol.valueDeclaration,
               refs[0].name,
               refs[1].name,
             )
               .addRelatedInformation(
-                JsiiDiagnostic.Code.JSII_9999_RELATED_INFO.create(
-                  refs[0].decl,
-                  `Symbol is exported under the "${refs[0].name}" submodule`,
-                ),
+                refs[0].decl,
+                `Symbol is exported under the "${refs[0].name}" submodule`,
               )
               .addRelatedInformation(
-                JsiiDiagnostic.Code.JSII_9999_RELATED_INFO.create(
-                  refs[1].decl,
-                  `Symbol is exported under the "${refs[1].name}" submodule`,
-                ),
+                refs[1].decl,
+                `Symbol is exported under the "${refs[1].name}" submodule`,
               ),
           );
         }
@@ -879,7 +867,7 @@ export class Assembler implements Emitter {
       return allTypes;
     } else {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_9998_UNSUPORTED_NODE.create(node, node.kind),
+        JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(node, node.kind),
       );
     }
 
@@ -907,16 +895,14 @@ export class Assembler implements Emitter {
         const submoduleDeclName =
           (submoduleDecl as { name?: ts.Node }).name ?? submoduleDecl;
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_5011_SUBMODULE_NAME_CONFLICT.create(
+          JsiiDiagnostic.JSII_5011_SUBMODULE_NAME_CONFLICT.create(
             (node as { name?: ts.Node }).name ?? node,
             submodule.name,
             jsiiType.name,
             candidates,
           ).addRelatedInformation(
-            JsiiDiagnostic.Code.JSII_9999_RELATED_INFO.create(
-              submoduleDeclName,
-              `This is the conflicting submodule declaration`,
-            ),
+            submoduleDeclName,
+            `This is the conflicting submodule declaration`,
           ),
         );
       }
@@ -945,7 +931,7 @@ export class Assembler implements Emitter {
         for (const nestedType of nestedTypes) {
           if (nestedType.namespace !== nestedContext.namespace.join('.')) {
             this._diagnostics.push(
-              JsiiDiagnostic.Code.JSII_5012_NAMESPACE_IN_TYPE.create(
+              JsiiDiagnostic.JSII_5012_NAMESPACE_IN_TYPE.create(
                 (node as { name?: ts.Node }).name ?? node,
                 jsiiType.fqn,
                 nestedType.namespace!,
@@ -976,15 +962,13 @@ export class Assembler implements Emitter {
         );
         if (badDecl != null) {
           this._diagnostics.push(
-            JsiiDiagnostic.Code.JSII_3004_INVALID_SUPERTYPE.create(
+            JsiiDiagnostic.JSII_3004_INVALID_SUPERTYPE.create(
               node,
               clause,
               badDecl,
             ).addRelatedInformation(
-              JsiiDiagnostic.Code.JSII_9999_RELATED_INFO.create(
-                badDecl,
-                `The invalid super type is declared here.`,
-              ),
+              badDecl,
+              `The invalid super type is declared here.`,
             ),
           );
         }
@@ -1036,10 +1020,7 @@ export class Assembler implements Emitter {
     for (const { decl, typeRef } of await Promise.all(typeRefs)) {
       if (!spec.isNamedTypeReference(typeRef)) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_3005_TYPE_USED_AS_INTERFACE.create(
-            decl,
-            typeRef,
-          ),
+          JsiiDiagnostic.JSII_3005_TYPE_USED_AS_INTERFACE.create(decl, typeRef),
         );
         continue;
       }
@@ -1047,7 +1028,7 @@ export class Assembler implements Emitter {
       this._deferUntilTypesAvailable(fqn, [typeRef], decl, (deref) => {
         if (!spec.isInterfaceType(deref)) {
           this._diagnostics.push(
-            JsiiDiagnostic.Code.JSII_3005_TYPE_USED_AS_INTERFACE.create(
+            JsiiDiagnostic.JSII_3005_TYPE_USED_AS_INTERFACE.create(
               decl,
               typeRef,
             ),
@@ -1135,7 +1116,7 @@ export class Assembler implements Emitter {
 
       if (!spec.isNamedTypeReference(ref)) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_3006_TYPE_USED_AS_CLASS.create(
+          JsiiDiagnostic.JSII_3006_TYPE_USED_AS_CLASS.create(
             base.symbol.valueDeclaration ?? base.symbol.declarations[0],
             ref,
           ),
@@ -1149,7 +1130,7 @@ export class Assembler implements Emitter {
         (deref) => {
           if (!spec.isClassType(deref)) {
             this._diagnostics.push(
-              JsiiDiagnostic.Code.JSII_3006_TYPE_USED_AS_CLASS.create(
+              JsiiDiagnostic.JSII_3006_TYPE_USED_AS_CLASS.create(
                 base.symbol.valueDeclaration ?? base.symbol.declarations[0],
                 ref,
               ),
@@ -1177,7 +1158,7 @@ export class Assembler implements Emitter {
           continue;
         } else if (clause.token !== ts.SyntaxKind.ImplementsKeyword) {
           this._diagnostics.push(
-            JsiiDiagnostic.Code.JSII_9998_UNSUPORTED_NODE.create(
+            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
               clause,
               `Ignoring ${ts.SyntaxKind[clause.token]} heritage clause`,
             ),
@@ -1210,7 +1191,7 @@ export class Assembler implements Emitter {
             for (const iface of ifaces) {
               if (spec.isInterfaceType(iface) && iface.datatype) {
                 this._diagnostics.push(
-                  JsiiDiagnostic.Code.JSII_3007_ILLEGAL_STRUCT_EXTENSION.create(
+                  JsiiDiagnostic.JSII_3007_ILLEGAL_STRUCT_EXTENSION.create(
                     type.symbol.valueDeclaration ?? type.symbol.declarations[0],
                     jsiiType,
                     iface,
@@ -1296,7 +1277,7 @@ export class Assembler implements Emitter {
           );
         } else {
           this._diagnostics.push(
-            JsiiDiagnostic.Code.JSII_9998_UNSUPORTED_NODE.create(
+            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
               memberDecl,
               memberDecl.kind,
             ),
@@ -1384,7 +1365,7 @@ export class Assembler implements Emitter {
             jsiiType.initializer = baseType.initializer;
           } else {
             this._diagnostics.push(
-              JsiiDiagnostic.Code.JSII_3999_INCOHERENT_TYPE_MODEL.create(
+              JsiiDiagnostic.JSII_3999_INCOHERENT_TYPE_MODEL.create(
                 type.symbol.valueDeclaration ?? type.symbol.declarations[0],
                 `Base type of ${jsiiType.fqn} (${jsiiType.base}) is not a class`,
               ),
@@ -1436,7 +1417,7 @@ export class Assembler implements Emitter {
     // Intersect
     for (const member of intersect(statics, nonStatics)) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_5013_STATIC_INSTANCE_CONFLICT.create(
+        JsiiDiagnostic.JSII_5013_STATIC_INSTANCE_CONFLICT.create(
           decl,
           member,
           klass,
@@ -1456,7 +1437,7 @@ export class Assembler implements Emitter {
 
         if (!!baseMember.static !== !!member.static) {
           this._diagnostics.push(
-            JsiiDiagnostic.Code.JSII_5014_INHERITED_STATIC_CONFLICT.create(
+            JsiiDiagnostic.JSII_5014_INHERITED_STATIC_CONFLICT.create(
               decl,
               member,
               klass,
@@ -1522,7 +1503,7 @@ export class Assembler implements Emitter {
     if (validateDeclaration) {
       if (!hasUnderscorePrefix) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_8005_INTERNAL_UNDERSCORE.create(
+          JsiiDiagnostic.JSII_8005_INTERNAL_UNDERSCORE.create(
             validateDeclaration.name ?? validateDeclaration,
             symbol.name,
           ),
@@ -1531,7 +1512,7 @@ export class Assembler implements Emitter {
 
       if (!hasInternalJsDocTag) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_8006_UNDERSCORE_INTERNAL.create(
+          JsiiDiagnostic.JSII_8006_UNDERSCORE_INTERNAL.create(
             validateDeclaration.name ?? validateDeclaration,
             symbol.name,
           ),
@@ -1574,7 +1555,7 @@ export class Assembler implements Emitter {
     const flags = ts.getCombinedModifierFlags(decl);
     if (flags & ts.ModifierFlags.Const) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_1000_NO_CONST_ENUM.create(
+        JsiiDiagnostic.JSII_1000_NO_CONST_ENUM.create(
           (decl as ts.EnumDeclaration).modifiers?.find(
             (mod) => mod.kind === ts.SyntaxKind.ConstKeyword,
           ) ?? decl,
@@ -1616,7 +1597,7 @@ export class Assembler implements Emitter {
 
     for (const diag of result.diagnostics ?? []) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_7999_DOCUMENTATION_ERROR.create(
+        JsiiDiagnostic.JSII_7999_DOCUMENTATION_ERROR.create(
           sym.valueDeclaration ?? sym.declarations[0],
           diag,
         ),
@@ -1646,7 +1627,7 @@ export class Assembler implements Emitter {
     for (const param of params) {
       if (!actualNames.has(param)) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_7000_NON_EXISTENT_PARAMETER.create(
+          JsiiDiagnostic.JSII_7000_NON_EXISTENT_PARAMETER.create(
             methodSym.valueDeclaration ?? methodSym.declarations[0],
             method,
             param,
@@ -1736,7 +1717,7 @@ export class Assembler implements Emitter {
         } else {
           const declaration = member.valueDeclaration ?? member.declarations[0];
           this._diagnostics.push(
-            JsiiDiagnostic.Code.JSII_9998_UNSUPORTED_NODE.create(
+            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
               declaration,
               declaration.kind,
             ),
@@ -1769,7 +1750,7 @@ export class Assembler implements Emitter {
         // If it's not a datatype the name must start with an "I".
         if (!jsiiType.datatype && !interfaceName) {
           this._diagnostics.push(
-            JsiiDiagnostic.Code.JSII_8007_BEHAVIORAL_INTERFACE_NAME.create(
+            JsiiDiagnostic.JSII_8007_BEHAVIORAL_INTERFACE_NAME.create(
               (declaration as { name?: ts.Node }).name ?? declaration,
               jsiiType.name,
             ),
@@ -1789,7 +1770,7 @@ export class Assembler implements Emitter {
               const declaration: ts.Node & { name?: ts.Node } =
                 p.valueDeclaration ?? p.declarations[0];
               this._diagnostics.push(
-                JsiiDiagnostic.Code.JSII_3008_STRUCT_PROPS_MUST_BE_READONLY.create(
+                JsiiDiagnostic.JSII_3008_STRUCT_PROPS_MUST_BE_READONLY.create(
                   declaration.name ?? declaration,
                   p.name,
                   jsiiType,
@@ -1809,7 +1790,7 @@ export class Assembler implements Emitter {
             }
             if (base.datatype) {
               this._diagnostics.push(
-                JsiiDiagnostic.Code.JSII_3007_ILLEGAL_STRUCT_EXTENSION.create(
+                JsiiDiagnostic.JSII_3007_ILLEGAL_STRUCT_EXTENSION.create(
                   type.symbol.valueDeclaration ?? type.symbol.declarations[0],
                   jsiiType,
                   base,
@@ -1834,7 +1815,7 @@ export class Assembler implements Emitter {
         for (const memberName of names) {
           if (baseMembers.includes(memberName)) {
             this._diagnostics.push(
-              JsiiDiagnostic.Code.JSII_5015_REDECLARED_INTERFACE_MEMBER.create(
+              JsiiDiagnostic.JSII_5015_REDECLARED_INTERFACE_MEMBER.create(
                 type.symbol.valueDeclaration ?? type.symbol.declarations[0],
                 memberName,
                 jsiiType,
@@ -1882,7 +1863,7 @@ export class Assembler implements Emitter {
     );
     if (!signature) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_9004_UNABLE_TO_COMPUTE_SIGNATURE.create(
+        JsiiDiagnostic.JSII_9004_UNABLE_TO_COMPUTE_SIGNATURE.create(
           declaration,
           symbol.name,
           type,
@@ -1892,7 +1873,7 @@ export class Assembler implements Emitter {
     }
     if (isProhibitedMemberName(symbol.name)) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_5016_PROHIBITED_MEMBER_NAME.create(
+        JsiiDiagnostic.JSII_5016_PROHIBITED_MEMBER_NAME.create(
           declaration,
           symbol.name,
         ),
@@ -1952,7 +1933,7 @@ export class Assembler implements Emitter {
 
           for (const badName of sharedNames) {
             this._diagnostics.push(
-              JsiiDiagnostic.Code.JSII_5017_POSITIONAL_KEYWORD_CONFLICT.create(
+              JsiiDiagnostic.JSII_5017_POSITIONAL_KEYWORD_CONFLICT.create(
                 declaration,
                 badName,
               ),
@@ -1988,7 +1969,7 @@ export class Assembler implements Emitter {
     const reservingLanguages = isReservedName(symbol.name);
     if (reservingLanguages) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_5018_RESERVED_WORD.create(
+        JsiiDiagnostic.JSII_5018_RESERVED_WORD.create(
           ts.getNameOfDeclaration(symbol.valueDeclaration) ||
             symbol.valueDeclaration,
           symbol.name,
@@ -2021,7 +2002,7 @@ export class Assembler implements Emitter {
     }
     if (isProhibitedMemberName(symbol.name)) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_5016_PROHIBITED_MEMBER_NAME.create(
+        JsiiDiagnostic.JSII_5016_PROHIBITED_MEMBER_NAME.create(
           symbol.valueDeclaration ?? symbol.declarations[0],
           symbol.name,
         ),
@@ -2136,7 +2117,7 @@ export class Assembler implements Emitter {
     const optionalValue = await this._optionalValue(type, declaration, purpose);
     if (optionalValue.optional) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_3999_INCOHERENT_TYPE_MODEL.create(
+        JsiiDiagnostic.JSII_3999_INCOHERENT_TYPE_MODEL.create(
           declaration,
           'Encountered optional value in location where a plain type reference is expected',
         ),
@@ -2169,7 +2150,7 @@ export class Assembler implements Emitter {
 
     if (!type.symbol) {
       this._diagnostics.push(
-        JsiiDiagnostic.Code.JSII_1001_TYPE_HAS_NO_SYMBOL.create(declaration),
+        JsiiDiagnostic.JSII_1001_TYPE_HAS_NO_SYMBOL.create(declaration),
       );
       return { type: spec.CANONICAL_ANY };
     }
@@ -2186,7 +2167,7 @@ export class Assembler implements Emitter {
       const typeRef = type as ts.TypeReference;
       if (!typeRef.typeArguments || typeRef.typeArguments.length !== 1) {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_1002_UNSPECIFIED_PROMISE.create(declaration),
+          JsiiDiagnostic.JSII_1002_UNSPECIFIED_PROMISE.create(declaration),
         );
         return { type: spec.CANONICAL_ANY };
       }
@@ -2220,7 +2201,7 @@ export class Assembler implements Emitter {
           ? typeRef.typeArguments.length
           : 'none';
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_1003_UNSUPPORTED_TYPE.create(
+          JsiiDiagnostic.JSII_1003_UNSUPPORTED_TYPE.create(
             declaration,
             `Array references must have exactly one type argument (found ${count})`,
           ),
@@ -2249,7 +2230,7 @@ export class Assembler implements Emitter {
         );
       } else {
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_1003_UNSUPPORTED_TYPE.create(
+          JsiiDiagnostic.JSII_1003_UNSUPPORTED_TYPE.create(
             declaration,
             'Only string-indexed map types are supported',
           ),
@@ -2417,7 +2398,7 @@ export class Assembler implements Emitter {
           continue;
         }
         this._diagnostics.push(
-          JsiiDiagnostic.Code.JSII_3009_OPTIONAL_PARAMETER_BEFORE_REQUIRED.create(
+          JsiiDiagnostic.JSII_3009_OPTIONAL_PARAMETER_BEFORE_REQUIRED.create(
             node,
             current,
             offender,

@@ -65,7 +65,7 @@ function _defaultValidations(): ValidationFunction[] {
     for (const type of _allTypes(assembly)) {
       if (type.name !== Case.pascal(type.name)) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_8000_PASCAL_CASED_TYPE_NAMES.createDetached(
+          JsiiDiagnostic.JSII_8000_PASCAL_CASED_TYPE_NAMES.createDetached(
             type.name,
           ),
         );
@@ -86,7 +86,7 @@ function _defaultValidations(): ValidationFunction[] {
       for (const member of type.members) {
         if (member.name && member.name !== Case.constant(member.name)) {
           diagnostic(
-            JsiiDiagnostic.Code.JSII_8001_ALL_CAPS_ENUM_MEMBERS.createDetached(
+            JsiiDiagnostic.JSII_8001_ALL_CAPS_ENUM_MEMBERS.createDetached(
               member.name,
               type.fqn,
             ),
@@ -107,7 +107,7 @@ function _defaultValidations(): ValidationFunction[] {
       }
       if (member.name && member.name !== Case.camel(member.name)) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_8002_CAMEL_CASED_MEMBERS.createDetached(
+          JsiiDiagnostic.JSII_8002_CAMEL_CASED_MEMBERS.createDetached(
             member.name,
             type.fqn,
           ),
@@ -132,7 +132,7 @@ function _defaultValidations(): ValidationFunction[] {
         member.name !== Case.camel(member.name)
       ) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_8003_STATIC_CONST_CASING.createDetached(
+          JsiiDiagnostic.JSII_8003_STATIC_CONST_CASING.createDetached(
             member.name,
             type.name,
           ),
@@ -156,7 +156,7 @@ function _defaultValidations(): ValidationFunction[] {
         _isEmpty((member as spec.Method).parameters)
       ) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_5000_JAVA_GETTERS.createDetached(
+          JsiiDiagnostic.JSII_5000_JAVA_GETTERS.createDetached(
             member.name,
             type.name,
           ),
@@ -166,7 +166,7 @@ function _defaultValidations(): ValidationFunction[] {
         ((member as spec.Method).parameters ?? []).length === 1
       ) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_5001_JAVA_SETTERS.createDetached(
+          JsiiDiagnostic.JSII_5001_JAVA_SETTERS.createDetached(
             member.name,
             type.name,
           ),
@@ -185,7 +185,7 @@ function _defaultValidations(): ValidationFunction[] {
       if (assembly.name === assm) {
         if (!(typeRef.fqn in (assembly.types ?? {}))) {
           diagnostic(
-            JsiiDiagnostic.Code.JSII_3000_EXPORTED_API_USES_HIDDEN_TYPE.createDetached(
+            JsiiDiagnostic.JSII_3000_EXPORTED_API_USES_HIDDEN_TYPE.createDetached(
               typeRef.fqn,
             ),
           );
@@ -197,13 +197,13 @@ function _defaultValidations(): ValidationFunction[] {
       );
       if (!foreignAssm) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_9000_UNKNOWN_MODULE.createDetached(assm),
+          JsiiDiagnostic.JSII_9000_UNKNOWN_MODULE.createDetached(assm),
         );
         continue;
       }
       if (!(typeRef.fqn in (foreignAssm.types ?? {}))) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_9001_TYPE_NOT_FOUND.createDetached(typeRef),
+          JsiiDiagnostic.JSII_9001_TYPE_NOT_FOUND.createDetached(typeRef),
         );
       }
     }
@@ -392,7 +392,7 @@ function _defaultValidations(): ValidationFunction[] {
         const expVisibility = expected.protected ? 'protected' : 'public';
         const actVisibility = actual.protected ? 'protected' : 'public';
         diagnostic(
-          JsiiDiagnostic.Code.JSII_5002_OVERRIDE_CHANGES_VISIBILITY.createDetached(
+          JsiiDiagnostic.JSII_5002_OVERRIDE_CHANGES_VISIBILITY.createDetached(
             label,
             action,
             actVisibility,
@@ -404,7 +404,7 @@ function _defaultValidations(): ValidationFunction[] {
         const expType = spec.describeTypeReference(expected.returns?.type);
         const actType = spec.describeTypeReference(actual.returns?.type);
         diagnostic(
-          JsiiDiagnostic.Code.JSII_5003_OVERRIDE_CHANGES_RETURN_TYPE.createDetached(
+          JsiiDiagnostic.JSII_5003_OVERRIDE_CHANGES_RETURN_TYPE.createDetached(
             label,
             action,
             actType,
@@ -416,7 +416,7 @@ function _defaultValidations(): ValidationFunction[] {
       const actualParams = actual.parameters ?? [];
       if (expectedParams.length !== actualParams.length) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_5005_OVERRIDE_CHANGES_PARAM_COUNT.createDetached(
+          JsiiDiagnostic.JSII_5005_OVERRIDE_CHANGES_PARAM_COUNT.createDetached(
             label,
             action,
             actualParams.length,
@@ -430,7 +430,7 @@ function _defaultValidations(): ValidationFunction[] {
         const actParam = actualParams[i];
         if (!deepEqual(expParam.type, actParam.type)) {
           diagnostic(
-            JsiiDiagnostic.Code.JSII_5006_OVERRIDE_CHANGES_PARAM_TYPE.createDetached(
+            JsiiDiagnostic.JSII_5006_OVERRIDE_CHANGES_PARAM_TYPE.createDetached(
               label,
               action,
               actParam,
@@ -441,7 +441,7 @@ function _defaultValidations(): ValidationFunction[] {
         // Not-ing those to force the values to a strictly boolean context (they're optional, undefined means false)
         if (expParam.variadic !== actParam.variadic) {
           diagnostic(
-            JsiiDiagnostic.Code.JSII_5007_OVERRIDE_CHANGES_VARIADIC.createDetached(
+            JsiiDiagnostic.JSII_5007_OVERRIDE_CHANGES_VARIADIC.createDetached(
               label,
               action,
               actParam.variadic,
@@ -451,7 +451,7 @@ function _defaultValidations(): ValidationFunction[] {
         }
         if (expParam.optional !== actParam.optional) {
           diagnostic(
-            JsiiDiagnostic.Code.JSII_5008_OVERRIDE_CHANGES_PARAM_OPTIONAL.createDetached(
+            JsiiDiagnostic.JSII_5008_OVERRIDE_CHANGES_PARAM_OPTIONAL.createDetached(
               label,
               action,
               actParam,
@@ -472,7 +472,7 @@ function _defaultValidations(): ValidationFunction[] {
         const expVisibility = expected.protected ? 'protected' : 'public';
         const actVisibility = actual.protected ? 'protected' : 'public';
         diagnostic(
-          JsiiDiagnostic.Code.JSII_5002_OVERRIDE_CHANGES_VISIBILITY.createDetached(
+          JsiiDiagnostic.JSII_5002_OVERRIDE_CHANGES_VISIBILITY.createDetached(
             label,
             action,
             actVisibility,
@@ -482,7 +482,7 @@ function _defaultValidations(): ValidationFunction[] {
       }
       if (!deepEqual(expected.type, actual.type)) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_5004_OVERRIDE_CHANGES_PROP_TYPE.createDetached(
+          JsiiDiagnostic.JSII_5004_OVERRIDE_CHANGES_PROP_TYPE.createDetached(
             label,
             action,
             actual.type,
@@ -492,7 +492,7 @@ function _defaultValidations(): ValidationFunction[] {
       }
       if (expected.immutable !== actual.immutable) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_5010_OVERRIDE_CHANGES_MUTABILITY.createDetached(
+          JsiiDiagnostic.JSII_5010_OVERRIDE_CHANGES_MUTABILITY.createDetached(
             label,
             action,
             actual.immutable,
@@ -502,7 +502,7 @@ function _defaultValidations(): ValidationFunction[] {
       }
       if (expected.optional !== actual.optional) {
         diagnostic(
-          JsiiDiagnostic.Code.JSII_5009_OVERRIDE_CHANGES_PROP_OPTIONAL.createDetached(
+          JsiiDiagnostic.JSII_5009_OVERRIDE_CHANGES_PROP_OPTIONAL.createDetached(
             label,
             action,
             actual.optional,
