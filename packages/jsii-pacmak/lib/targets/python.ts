@@ -1429,13 +1429,6 @@ class PythonModule implements PythonType {
       code.line(`from ${'.'.repeat(distanceFromRoot + 1)}_jsii import *`);
 
       this.emitRequiredImports(code, context);
-      if (this.assembly.bin) {
-        code.line(`print('BIN-scripts were found.');`);
-        const scripts = Object.keys(this.assembly.bin);
-        for (const script of scripts) {
-          code.line(`print('${script}: ${this.assembly.bin[script]}');`);
-        }
-      }
     }
 
     // Emit all of our members.
@@ -1467,6 +1460,30 @@ class PythonModule implements PythonType {
     // get hidden from dir(), tab-complete, etc.
     code.line();
     code.line('publication.publish()');
+  }
+
+  /**
+   * Emit the bin scripts if bin section defined.
+   */
+  public emitBinScripts(code: CodeMaker): string[] {
+    const scripts: string[] = [];
+    if (this.loadAssembly) {
+      if (this.assembly.bin != null) {
+        for (const [name, script_path] of Object.entries(this.assembly.bin)) {
+          const script_file = path.join(
+            'src',
+            pythonModuleNameToFilename(this.pythonName),
+            'bin',
+            name,
+          );
+          code.openFile(script_file);
+          code.line(`print('${name}: ${script_path}');`);
+          code.closeFile(script_file);
+          scripts.push(script_file);
+        }
+      }
+    }
+    return scripts;
   }
 
   /**
@@ -1618,6 +1635,8 @@ class Package {
       a.pythonName.localeCompare(b.pythonName),
     );
 
+    const scripts: string[] = [];
+
     // Iterate over all of our modules, and write them out to disk.
     for (const mod of modules) {
       const filename = path.join(
@@ -1629,6 +1648,12 @@ class Package {
       code.openFile(filename);
       mod.emit(code, context);
       code.closeFile(filename);
+
+      for (const script of mod.emitBinScripts(code)) {
+        if (scripts.indexOf(script) < 0) {
+          scripts.push(script);
+        }
+      }
     }
 
     // Handle our package data.
@@ -1707,6 +1732,7 @@ class Package {
         'Programming Language :: Python :: 3.8',
         'Typing :: Typed',
       ],
+      scripts,
     };
 
     switch (this.metadata.docs?.stability) {

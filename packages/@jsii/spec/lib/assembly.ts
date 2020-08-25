@@ -149,7 +149,7 @@ export interface Assembly extends AssemblyConfiguration, Documentable {
    *
    * @default none
    */
-  bin?: { [script: string]: string };
+  bin?: { readonly [script: string]: string };
 }
 
 /**
