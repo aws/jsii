@@ -101,6 +101,15 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
         'Generate all configured targets in parallel (disabling this might help if you encounter EMFILE errors)',
       default: true,
     })
+    .option('dotnet-nuget-global-packages-folder', {
+      type: 'string',
+      desc: 'Configure a different NuGet package cache for NuGet',
+      default: undefined,
+      // This is a hidden option, folks need not bother it unless they're very advanced
+      hidden: true,
+      // This is expected to be a path, which should be normalized
+      normalize: true,
+    })
     .version(VERSION_DESC)
     .strict().argv;
 

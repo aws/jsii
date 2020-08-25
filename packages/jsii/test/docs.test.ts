@@ -11,7 +11,7 @@ test('extract summary line from doc block, ends with a period', async () => {
      * Hello this is the documentation for this class
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -31,7 +31,7 @@ test('extract remarks from whitespace-separated doc block', async () => {
      * It looks pretty good, doesn't it?
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -49,7 +49,7 @@ test('separate long doc comment into summary and remarks', async () => {
      * doc block per API item and no structural separation.
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -71,7 +71,7 @@ test('separate non-space but newline terminated docs into summary&remarks', asyn
      * doc block per API item and no structural separation.
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -90,7 +90,7 @@ test('dont add period to summary that ends in exclamation mark', async () => {
      * I'm happy about this class!
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -106,7 +106,7 @@ test('parse method docs', async () => {
       /**
        * Do the foo
        */
-      public foo(arg: string) { Array.isArray(arg); }
+      public bar(arg: string) { Array.isArray(arg); }
     }
   `);
 
@@ -126,7 +126,7 @@ test('associate parameter comments with right parameter', async () => {
        *
        * @param arg First argument is best argument
        */
-      public foo(arg: string) { Array.isArray(arg); }
+      public bar(arg: string) { Array.isArray(arg); }
     }
   `);
 
@@ -147,16 +147,16 @@ test('read example', async () => {
        * @example
        *
        * // Example of fooing it up:
-       * new Foo().foo();
+       * new Foo().bar();
        */
-      public foo() {}
+      public bar() {}
     }
   `);
 
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
 
   expect(classType.methods![0].docs!.example).toBe(
-    '// Example of fooing it up:\n' + 'new Foo().foo();',
+    '// Example of fooing it up:\n' + 'new Foo().bar();',
   );
 });
 
@@ -200,7 +200,7 @@ test('read "returns" annotation', async () => {
        *
        * @returns Nothing, why would it?
        */
-      public foo(arg: string) { Array.isArray(arg); }
+      public bar(arg: string) { Array.isArray(arg); }
     }
   `);
 
@@ -218,7 +218,7 @@ test('can haz deprecated', async () => {
        *
        * @deprecated These days we do the bar
        */
-      public foo(arg: string) { Array.isArray(arg); }
+      public bar(arg: string) { Array.isArray(arg); }
     }
   `);
 
@@ -335,7 +335,7 @@ test('stability is inherited from parent type', async () => {
           Array.isArray(3);
         }
 
-        public foo() {
+        public bar() {
           Array.isArray(3);
         }
       }
@@ -344,7 +344,7 @@ test('stability is inherited from parent type', async () => {
 
     const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
     const initializer = classType.initializer!;
-    const method = classType.methods!.find((m) => m.name === 'foo')!;
+    const method = classType.methods!.find((m) => m.name === 'bar')!;
 
     expect(classType.docs!.stability).toBe(stability);
     expect(initializer.docs!.stability).toBe(stability);

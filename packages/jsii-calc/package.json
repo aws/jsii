@@ -59,6 +59,7 @@
   "jsii": {
     "outdir": "dist",
     "targets": {
+      "go": {},
       "java": {
         "package": "software.amazon.jsii.tests.calculator",
         "maven": {

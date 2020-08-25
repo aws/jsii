@@ -1263,6 +1263,7 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            classDecl,
           );
         } else if (
           ts.isPropertyDeclaration(memberDecl) ||
@@ -1274,6 +1275,7 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            classDecl,
           );
         } else {
           this._diagnostics.push(
@@ -1351,7 +1353,12 @@ export class Assembler implements Emitter {
             !this._isPrivateOrInternal(param)
           ) {
             // eslint-disable-next-line no-await-in-loop
-            await this._visitProperty(param, jsiiType, memberEmitContext);
+            await this._visitProperty(
+              param,
+              jsiiType,
+              memberEmitContext,
+              ctorDeclaration.parent,
+            );
           }
         }
       }
@@ -1702,6 +1709,8 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            (type.symbol.valueDeclaration ??
+              type.symbol.declarations[0]) as ts.InterfaceDeclaration,
           );
         } else if (
           ts.isPropertyDeclaration(member.valueDeclaration) ||
@@ -1713,6 +1722,8 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            (type.symbol.valueDeclaration ??
+              type.symbol.declarations[0]) as ts.InterfaceDeclaration,
           );
         } else {
           const declaration = member.valueDeclaration ?? member.declarations[0];
@@ -1846,6 +1857,7 @@ export class Assembler implements Emitter {
     symbol: ts.Symbol,
     type: spec.ClassType | spec.InterfaceType,
     ctx: EmitContext,
+    declaringTypeDecl: ts.ClassLikeDeclaration | ts.InterfaceDeclaration,
   ) {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
@@ -1871,10 +1883,25 @@ export class Assembler implements Emitter {
       );
       return;
     }
+
+    if (Case.pascal(type.name) === Case.pascal(symbol.name)) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_5019_MEMBER_TYPE_NAME_CONFLICT.create(
+          declaration.name,
+          'method',
+          symbol,
+          type,
+        ).addRelatedInformation(
+          declaringTypeDecl.name ?? declaringTypeDecl,
+          `The declaring ${type.kind} is introduced here`,
+        ),
+      );
+    }
+
     if (isProhibitedMemberName(symbol.name)) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_5016_PROHIBITED_MEMBER_NAME.create(
-          declaration,
+          declaration.name,
           symbol.name,
         ),
       );
@@ -1983,6 +2010,7 @@ export class Assembler implements Emitter {
     symbol: ts.Symbol,
     type: spec.ClassType | spec.InterfaceType,
     ctx: EmitContext,
+    declaringTypeDecl: ts.ClassLikeDeclaration | ts.InterfaceDeclaration,
   ) {
     if (type.properties?.find((p) => p.name === symbol.name)) {
       /*
@@ -2000,6 +2028,28 @@ export class Assembler implements Emitter {
         )}`,
       );
     }
+
+    const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
+    const signature = declaration as
+      | ts.PropertySignature
+      | ts.PropertyDeclaration
+      | ts.AccessorDeclaration
+      | ts.ParameterPropertyDeclaration;
+
+    if (Case.pascal(type.name) === Case.pascal(symbol.name)) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_5019_MEMBER_TYPE_NAME_CONFLICT.create(
+          signature.name,
+          'property',
+          symbol,
+          type,
+        ).addRelatedInformation(
+          declaringTypeDecl.name ?? declaringTypeDecl,
+          `The declaring ${type.kind} is introduced here`,
+        ),
+      );
+    }
+
     if (isProhibitedMemberName(symbol.name)) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_5016_PROHIBITED_MEMBER_NAME.create(
@@ -2012,11 +2062,6 @@ export class Assembler implements Emitter {
 
     this._warnAboutReservedWords(symbol);
 
-    const signature = symbol.valueDeclaration as
-      | ts.PropertySignature
-      | ts.PropertyDeclaration
-      | ts.AccessorDeclaration
-      | ts.ParameterPropertyDeclaration;
     const property: spec.Property = {
       ...(await this._optionalValue(
         this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature),

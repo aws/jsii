@@ -78,6 +78,7 @@ All packages within this repository have the following scripts:
 - `watch` - watches for file changes and builds them progressively, usually
   running `tsc --watch`.
 - `test` - executes all unit tests for the current package.
+- `test:update` - executes all unit tests and overwrites snapshot expectations (those `.snap` files).
 - `package` - emits publishable artifacts to `dist`.
 - `lint` - run linter against source
 - `lint:fix` - lint and auto-correct formatting issues when possible

@@ -589,6 +589,17 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'language-compatibility/reserved-word',
   });
 
+  public static readonly JSII_5019_MEMBER_TYPE_NAME_CONFLICT = Code.warning({
+    code: 5019,
+    formatter: (
+      memberKind: 'method' | 'property',
+      memberSymbol: ts.Symbol,
+      declaringType: spec.Type,
+    ) =>
+      `The ${memberKind} name "${memberSymbol.name}" conflicts with the declaring ${declaringType.kind} "${declaringType.name}". This will result in renaming the ${declaringType.kind} to "_${declaringType.name}" in C#. Consider renaming "${memberSymbol.name}".`,
+    name: 'language-compatibility/member-name-conflicts-with-type-name',
+  });
+
   //////////////////////////////////////////////////////////////////////////////
   // 6000 => 6999 -- RESERVED
 

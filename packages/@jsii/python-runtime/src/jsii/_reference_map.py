@@ -1,9 +1,7 @@
 # This module exists to break an import cycle between jsii.runtime and jsii.kernel
 import inspect
 
-from typing import Any, MutableMapping
-
-from ._kernel.types import JSClass, Referenceable
+from typing import Any, MutableMapping, Type
 
 
 _types = {}
@@ -12,7 +10,7 @@ _enums: MutableMapping[str, Any] = {}
 _interfaces: MutableMapping[str, Any] = {}
 
 
-def register_type(klass: JSClass):
+def register_type(klass: Type):
     _types[klass.__jsii_type__] = klass
 
 
@@ -42,7 +40,7 @@ class _ReferenceMap:
         self._refs = {}
         self._types = types
 
-    def register(self, inst: Referenceable):
+    def register(self, inst: Any):
         self._refs[inst.__jsii_ref__.ref] = inst
 
     def resolve(self, kernel, ref):

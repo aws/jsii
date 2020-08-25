@@ -215,7 +215,7 @@ error JSII5006: "jsii.Something#takeSomething" changes the type of parameter "_a
 `;
 
 exports[`implementation-changes-types.4 1`] = `
-error JSII5004: "jsii.Something#something" changes the property type to "jsii.Subclass" when implementing jsii.ISomething. Change it to "jsii.Superclass"
+error JSII5004: "jsii.SomethingImpl#something" changes the property type to "jsii.Subclass" when implementing jsii.ISomething. Change it to "jsii.Superclass"
 
 `;
 
@@ -286,12 +286,12 @@ error JSII5006: "jsii.SomethingSpecific#takeSomething" changes the type of param
 `;
 
 exports[`inheritance-changes-types.4 1`] = `
-error JSII5004: "jsii.SomethingSpecific#something" changes the property type to "jsii.Subclass" when overriding jsii.Something. Change it to "jsii.Superclass"
+error JSII5004: "jsii.SomethingSpecific#something" changes the property type to "jsii.Subclass" when overriding jsii.SomethingUnspecific. Change it to "jsii.Superclass"
 
 `;
 
 exports[`inheritance-changes-types.5 1`] = `
-error JSII5004: "jsii.SomethingElse#something" changes the property type to "jsii.Subclass" when overriding jsii.Something. Change it to "jsii.Superclass"
+error JSII5004: "jsii.SomethingElse#something" changes the property type to "jsii.Subclass" when overriding jsii.SomethingBase. Change it to "jsii.Superclass"
 
 `;
 
@@ -364,6 +364,37 @@ neg.internal-underscore-interface.4.ts:2:10 - error JSII8006: Members with a nam
 2   public _methodWithUnderscoreButNoInternal() {
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
+`;
+
+exports[`member-named-after-type 1`] = `
+neg.member-named-after-type.ts:14:12 - warning JSII5019: The property name "myStruct" conflicts with the declaring interface "MyStruct". This will result in renaming the interface to "_MyStruct" in C#. Consider renaming "myStruct".
+
+14   readonly myStruct: string;
+              ~~~~~~~~
+
+  neg.member-named-after-type.ts:13:18
+    13 export interface MyStruct {
+                        ~~~~~~~~
+    The declaring interface is introduced here
+neg.member-named-after-type.ts:4:19 - warning JSII5019: The property name "typeName" conflicts with the declaring class "TypeName". This will result in renaming the class to "_TypeName" in C#. Consider renaming "typeName".
+
+4   public readonly typeName = 1337;
+                    ~~~~~~~~
+
+  neg.member-named-after-type.ts:3:14
+    3 export class TypeName {
+                   ~~~~~~~~
+    The declaring class is introduced here
+neg.member-named-after-type.ts:8:10 - warning JSII5019: The method name "otherType" conflicts with the declaring class "OtherType". This will result in renaming the class to "_OtherType" in C#. Consider renaming "otherType".
+
+8   public otherType() {
+           ~~~~~~~~~
+
+  neg.member-named-after-type.ts:7:14
+    7 export class OtherType {
+                   ~~~~~~~~~
+    The declaring class is introduced here
 
 `;
 
@@ -494,14 +525,10 @@ error JSII5002: "jsii.ChildClass#property" changes visibility to public when ove
 `;
 
 exports[`prohibited-member-name 1`] = `
-neg.prohibited-member-name.ts:4:3 - error JSII5016: Members cannot be named "equals" as it conflicts with synthetic declarations in some languages.
+neg.prohibited-member-name.ts:4:10 - error JSII5016: Members cannot be named "equals" as it conflicts with synthetic declarations in some languages.
 
 4   public equals(): boolean {
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-5     return true;
-  ~~~~~~~~~~~~~~~~
-6   }
-  ~~~
+           ~~~~~~
 
 
 `;

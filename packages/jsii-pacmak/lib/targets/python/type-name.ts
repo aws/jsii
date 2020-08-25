@@ -131,7 +131,7 @@ class Dict implements TypeName {
   }
 
   public pythonType(context: NamingContext) {
-    return `typing.Mapping[str, ${this.#element.pythonType(context)}]`;
+    return `typing.Mapping[builtins.str, ${this.#element.pythonType(context)}]`;
   }
 
   public requiredImports(context: NamingContext) {
@@ -181,10 +181,10 @@ class Optional implements TypeName {
 }
 
 class Primitive implements TypeName {
-  private static readonly BOOL = new Primitive('bool');
+  private static readonly BOOL = new Primitive('builtins.bool');
   private static readonly DATE = new Primitive('datetime.datetime');
   private static readonly JSII_NUMBER = new Primitive('jsii.Number'); // "jsii" is always already imported!
-  private static readonly STR = new Primitive('str');
+  private static readonly STR = new Primitive('builtins.str');
   private static readonly JSON = new Primitive(
     'typing.Mapping[typing.Any, typing.Any]',
   );

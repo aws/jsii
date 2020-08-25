@@ -45,11 +45,12 @@
     "@types/node": "^10.17.28",
     "@types/tar": "^4.0.3",
     "eslint": "^7.7.0",
-    "jest": "^26.4.0",
+    "jest": "^26.4.2",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "prettier": "^2.0.5",
+    "ts-jest": "^26.2.0",
     "typescript": "~3.9.7"
   },
   "jest": {
@@ -73,7 +74,10 @@
     ],
     "testEnvironment": "node",
     "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
+      "**/?(*.)+(spec|test).ts"
+    ],
+    "transform": {
+      "\\.tsx?$": "ts-jest"
+    }
   }
 }
