@@ -3,14 +3,14 @@ import * as path from 'path';
 import * as ts from 'typescript';
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
+import { formatDiagnostic } from '../lib/utils';
 
 const SOURCE_DIR = path.join(__dirname, 'negatives');
 
-const formatHost: ts.FormatDiagnosticsHost = {
-  getCanonicalFileName: ts.sys.realpath ?? ts.sys.resolvePath,
-  getCurrentDirectory: () => SOURCE_DIR,
-  getNewLine: () => '\n',
-};
+expect.addSnapshotSerializer({
+  test: (val) => typeof val === 'string',
+  serialize: (val: string) => val,
+});
 
 for (const source of fs.readdirSync(SOURCE_DIR)) {
   if (
@@ -38,9 +38,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
           // Remove suggestion diagnostics, we don't care much for those for now...
           (diag) => diag.category !== ts.DiagnosticCategory.Suggestion,
         )
-        .map((diag) =>
-          ts.formatDiagnosticsWithColorAndContext([diag], formatHost),
-        )
+        .map((diag) => formatDiagnostic(diag, SOURCE_DIR))
         .sort();
 
       expect(diagnostics.length).toBeGreaterThan(0);
