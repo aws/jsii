@@ -1246,7 +1246,8 @@ export abstract class AbstractClassBase {
   public abstract readonly abstractProperty: string;
 }
 
-export abstract class AbstractClass extends AbstractClassBase
+export abstract class AbstractClass
+  extends AbstractClassBase
   implements IInterfaceImplementedByAbstractClass {
   public nonAbstractMethod() {
     return 42;
@@ -1514,7 +1515,8 @@ export interface IPrivatelyImplemented {
 export class ExportedBaseClass {
   public constructor(public readonly success: boolean) {}
 }
-class PrivateImplementation extends ExportedBaseClass
+class PrivateImplementation
+  extends ExportedBaseClass
   implements IPrivatelyImplemented {
   public constructor() {
     super(true);

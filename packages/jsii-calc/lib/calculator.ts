@@ -58,7 +58,7 @@ export abstract class BinaryOperation extends Operation implements IFriendly {
   }
 
   public hello() {
-    return 'Hello, I am a binary operation. What\'s your name?';
+    return "Hello, I am a binary operation. What's your name?";
   }
 }
 
@@ -78,7 +78,8 @@ export class Add extends BinaryOperation {
 /**
  * The "*" binary operation.
  */
-export class Multiply extends BinaryOperation
+export class Multiply
+  extends BinaryOperation
   implements IFriendlier, IRandomNumberGenerator {
   public get value() {
     return this.lhs.value * this.rhs.value;
@@ -405,7 +406,7 @@ export class PropertyNamedProperty {
 }
 export class MethodNamedProperty {
   public property() {
-    return 'Hello, I\'m property()!';
+    return "Hello, I'm property()!";
   }
 
   public readonly elite = 1337;
