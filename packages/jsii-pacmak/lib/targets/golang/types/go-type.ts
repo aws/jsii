@@ -86,6 +86,18 @@ export class GoProperty implements TypeField {
     code.closeBlock();
     code.line();
   }
+
+  public emitSetterImpl(code: CodeMaker) {
+    const receiver = this.parent.name;
+    const instanceArg = receiver.substring(0, 1).toLowerCase();
+
+    code.openBlock(
+      `func (${instanceArg} ${receiver}) Set${this.name}(val ${this.returnType})`,
+    );
+    code.line(`${instanceArg}.${this.name} = val`);
+    code.closeBlock();
+    code.line();
+  }
 }
 
 export abstract class GoStruct extends GoType implements GoEmitter {

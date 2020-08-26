@@ -4617,6 +4617,14 @@ func NewNumber(value number) NumberIface {
     }
 }
 
+func (n Number) SetValue(val float64) {
+    n.Value = val
+}
+
+func (n Number) SetDoubleValue(val float64) {
+    n.DoubleValue = val
+}
+
 type NumericValueIface interface {
     GetValue() float64
     SetValue()
@@ -4643,6 +4651,10 @@ func NewNumericValue() NumericValueIface {
     return &NumericValue{
      // props
     }
+}
+
+func (n NumericValue) SetValue(val float64) {
+    n.Value = val
 }
 
 func (n *NumericValue) ToString() string  {
@@ -4680,6 +4692,10 @@ func NewOperation() OperationIface {
     return &Operation{
      // props
     }
+}
+
+func (o Operation) SetValue(val float64) {
+    o.Value = val
 }
 
 func (o *Operation) ToString() string  {
@@ -4765,6 +4781,10 @@ func NewNestedClass() NestedClassIface {
     return &NestedClass{
      // props
     }
+}
+
+func (n NestedClass) SetProperty(val string) {
+    n.Property = val
 }
 
 // Struct interface
@@ -38630,6 +38650,14 @@ func NewAbstractClass() AbstractClassIface {
     }
 }
 
+func (a AbstractClass) SetAbstractProperty(val string) {
+    a.AbstractProperty = val
+}
+
+func (a AbstractClass) SetPropFromInterface(val string) {
+    a.PropFromInterface = val
+}
+
 func (a *AbstractClass) AbstractMethod() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AbstractClass",
@@ -38675,6 +38703,10 @@ func NewAbstractClassBase() AbstractClassBaseIface {
     }
 }
 
+func (a AbstractClassBase) SetAbstractProperty(val string) {
+    a.AbstractProperty = val
+}
+
 type AbstractClassReturnerIface interface {
     GetReturnAbstractFromProperty() AbstractClassBase
     SetReturnAbstractFromProperty()
@@ -38702,6 +38734,10 @@ func NewAbstractClassReturner() AbstractClassReturnerIface {
     return &AbstractClassReturner{
      // props
     }
+}
+
+func (a AbstractClassReturner) SetReturnAbstractFromProperty(val AbstractClassBase) {
+    a.ReturnAbstractFromProperty = val
 }
 
 func (a *AbstractClassReturner) GiveMeAbstract() AbstractClass  {
@@ -38748,6 +38784,10 @@ func NewAbstractSuite() AbstractSuiteIface {
     return &AbstractSuite{
      // props
     }
+}
+
+func (a AbstractSuite) SetProperty(val string) {
+    a.Property = val
 }
 
 func (a *AbstractSuite) SomeMethod() string  {
@@ -38809,6 +38849,18 @@ func NewAdd(lhs @scope/jsii-calc-lib.NumericValue, rhs @scope/jsii-calc-lib.Nume
     return &Add{
      // props
     }
+}
+
+func (a Add) SetValue(val float64) {
+    a.Value = val
+}
+
+func (a Add) SetLhs(val jsii.Any) {
+    a.Lhs = val
+}
+
+func (a Add) SetRhs(val jsii.Any) {
+    a.Rhs = val
 }
 
 func (a *Add) ToString() string  {
@@ -38976,6 +39028,82 @@ func NewAllTypes() AllTypesIface {
     }
 }
 
+func (a AllTypes) SetEnumPropertyValue(val float64) {
+    a.EnumPropertyValue = val
+}
+
+func (a AllTypes) SetAnyArrayProperty(val []jsii.Any) {
+    a.AnyArrayProperty = val
+}
+
+func (a AllTypes) SetAnyMapProperty(val map[string]jsii.Any) {
+    a.AnyMapProperty = val
+}
+
+func (a AllTypes) SetAnyProperty(val jsii.Any) {
+    a.AnyProperty = val
+}
+
+func (a AllTypes) SetArrayProperty(val []string) {
+    a.ArrayProperty = val
+}
+
+func (a AllTypes) SetBooleanProperty(val bool) {
+    a.BooleanProperty = val
+}
+
+func (a AllTypes) SetDateProperty(val string) {
+    a.DateProperty = val
+}
+
+func (a AllTypes) SetEnumProperty(val AllTypesEnum) {
+    a.EnumProperty = val
+}
+
+func (a AllTypes) SetJsonProperty(val map[string]jsii.Any) {
+    a.JsonProperty = val
+}
+
+func (a AllTypes) SetMapProperty(val map[string]jsii.Any) {
+    a.MapProperty = val
+}
+
+func (a AllTypes) SetNumberProperty(val float64) {
+    a.NumberProperty = val
+}
+
+func (a AllTypes) SetStringProperty(val string) {
+    a.StringProperty = val
+}
+
+func (a AllTypes) SetUnionArrayProperty(val []jsii.Any) {
+    a.UnionArrayProperty = val
+}
+
+func (a AllTypes) SetUnionMapProperty(val map[string]jsii.Any) {
+    a.UnionMapProperty = val
+}
+
+func (a AllTypes) SetUnionProperty(val jsii.Any) {
+    a.UnionProperty = val
+}
+
+func (a AllTypes) SetUnknownArrayProperty(val []jsii.Any) {
+    a.UnknownArrayProperty = val
+}
+
+func (a AllTypes) SetUnknownMapProperty(val map[string]jsii.Any) {
+    a.UnknownMapProperty = val
+}
+
+func (a AllTypes) SetUnknownProperty(val jsii.Any) {
+    a.UnknownProperty = val
+}
+
+func (a AllTypes) SetOptionalEnumValue(val StringEnum) {
+    a.OptionalEnumValue = val
+}
+
 func (a *AllTypes) AnyIn() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AllTypes",
@@ -39102,6 +39230,14 @@ func NewAmbiguousParameters(scope jsii-calc.Bell, props jsii-calc.StructParamete
     return &AmbiguousParameters{
      // props
     }
+}
+
+func (a AmbiguousParameters) SetProps(val StructParameterType) {
+    a.Props = val
+}
+
+func (a AmbiguousParameters) SetScope(val Bell) {
+    a.Scope = val
 }
 
 type AnonymousImplementationProviderIface interface {
@@ -39308,6 +39444,10 @@ func NewBell() BellIface {
     }
 }
 
+func (b Bell) SetRung(val bool) {
+    b.Rung = val
+}
+
 func (b *Bell) Ring() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Bell",
@@ -39358,6 +39498,18 @@ func NewBinaryOperation(lhs @scope/jsii-calc-lib.NumericValue, rhs @scope/jsii-c
     return &BinaryOperation{
      // props
     }
+}
+
+func (b BinaryOperation) SetValue(val float64) {
+    b.Value = val
+}
+
+func (b BinaryOperation) SetLhs(val jsii.Any) {
+    b.Lhs = val
+}
+
+func (b BinaryOperation) SetRhs(val jsii.Any) {
+    b.Rhs = val
 }
 
 func (b *BinaryOperation) Hello() string  {
@@ -39504,6 +39656,46 @@ func NewCalculator(props jsii-calc.CalculatorProps) CalculatorIface {
     }
 }
 
+func (c Calculator) SetValue(val float64) {
+    c.Value = val
+}
+
+func (c Calculator) SetExpression(val jsii.Any) {
+    c.Expression = val
+}
+
+func (c Calculator) SetDecorationPostfixes(val []string) {
+    c.DecorationPostfixes = val
+}
+
+func (c Calculator) SetDecorationPrefixes(val []string) {
+    c.DecorationPrefixes = val
+}
+
+func (c Calculator) SetStringStyle(val composition.CompositionStringStyle) {
+    c.StringStyle = val
+}
+
+func (c Calculator) SetOperationsLog(val []jsii.Any) {
+    c.OperationsLog = val
+}
+
+func (c Calculator) SetOperationsMap(val map[string][]jsii.Any) {
+    c.OperationsMap = val
+}
+
+func (c Calculator) SetCurr(val jsii.Any) {
+    c.Curr = val
+}
+
+func (c Calculator) SetMaxValue(val float64) {
+    c.MaxValue = val
+}
+
+func (c Calculator) SetUnionProperty(val jsii.Any) {
+    c.UnionProperty = val
+}
+
 func (c *Calculator) Add() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Calculator",
@@ -39640,6 +39832,22 @@ func NewClassThatImplementsTheInternalInterface() ClassThatImplementsTheInternal
     }
 }
 
+func (c ClassThatImplementsTheInternalInterface) SetA(val string) {
+    c.A = val
+}
+
+func (c ClassThatImplementsTheInternalInterface) SetB(val string) {
+    c.B = val
+}
+
+func (c ClassThatImplementsTheInternalInterface) SetC(val string) {
+    c.C = val
+}
+
+func (c ClassThatImplementsTheInternalInterface) SetD(val string) {
+    c.D = val
+}
+
 type ClassThatImplementsThePrivateInterfaceIface interface {
     GetA() string
     SetA()
@@ -39686,6 +39894,22 @@ func NewClassThatImplementsThePrivateInterface() ClassThatImplementsThePrivateIn
     return &ClassThatImplementsThePrivateInterface{
      // props
     }
+}
+
+func (c ClassThatImplementsThePrivateInterface) SetA(val string) {
+    c.A = val
+}
+
+func (c ClassThatImplementsThePrivateInterface) SetB(val string) {
+    c.B = val
+}
+
+func (c ClassThatImplementsThePrivateInterface) SetC(val string) {
+    c.C = val
+}
+
+func (c ClassThatImplementsThePrivateInterface) SetE(val string) {
+    c.E = val
 }
 
 type ClassWithCollectionsIface interface {
@@ -39736,6 +39960,22 @@ func NewClassWithCollections(map Map<string => string>, array Array<string>) Cla
     return &ClassWithCollections{
      // props
     }
+}
+
+func (c ClassWithCollections) SetStaticArray(val []string) {
+    c.StaticArray = val
+}
+
+func (c ClassWithCollections) SetStaticMap(val map[string]string) {
+    c.StaticMap = val
+}
+
+func (c ClassWithCollections) SetArray(val []string) {
+    c.Array = val
+}
+
+func (c ClassWithCollections) SetMap(val map[string]string) {
+    c.Map = val
 }
 
 func (c *ClassWithCollections) CreateAList() []string  {
@@ -39803,6 +40043,10 @@ func NewClassWithJavaReservedWords(int string) ClassWithJavaReservedWordsIface {
     }
 }
 
+func (c ClassWithJavaReservedWords) SetInt(val string) {
+    c.Int = val
+}
+
 func (c *ClassWithJavaReservedWords) Import() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithJavaReservedWords",
@@ -39839,6 +40083,10 @@ func NewClassWithMutableObjectLiteralProperty() ClassWithMutableObjectLiteralPro
     }
 }
 
+func (c ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObjectLiteral) {
+    c.MutableObject = val
+}
+
 type ClassWithPrivateConstructorAndAutomaticPropertiesIface interface {
     GetReadOnlyString() string
     SetReadOnlyString()
@@ -39861,6 +40109,14 @@ func (c ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() 
     return c.ReadWriteString
 }
 
+
+func (c ClassWithPrivateConstructorAndAutomaticProperties) SetReadOnlyString(val string) {
+    c.ReadOnlyString = val
+}
+
+func (c ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(val string) {
+    c.ReadWriteString = val
+}
 
 func (c *ClassWithPrivateConstructorAndAutomaticProperties) Create() ClassWithPrivateConstructorAndAutomaticProperties  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -39887,6 +40143,10 @@ func (c ConfusingToJackson) GetUnionProperty() jsii.Any {
     return c.UnionProperty
 }
 
+
+func (c ConfusingToJackson) SetUnionProperty(val jsii.Any) {
+    c.UnionProperty = val
+}
 
 func (c *ConfusingToJackson) MakeInstance() ConfusingToJackson  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -40286,6 +40546,18 @@ func NewDefaultedConstructorArgument(arg1 number, arg2 string, arg3 date) Defaul
     }
 }
 
+func (d DefaultedConstructorArgument) SetArg1(val float64) {
+    d.Arg1 = val
+}
+
+func (d DefaultedConstructorArgument) SetArg3(val string) {
+    d.Arg3 = val
+}
+
+func (d DefaultedConstructorArgument) SetArg2(val string) {
+    d.Arg2 = val
+}
+
 type Demonstrate982Iface interface {
     TakeThis() ChildStruct982
     TakeThisToo() ParentStruct982
@@ -40358,6 +40630,14 @@ func NewDeprecatedClass(readonlyString string, mutableNumber number) DeprecatedC
     return &DeprecatedClass{
      // props
     }
+}
+
+func (d DeprecatedClass) SetReadonlyProperty(val string) {
+    d.ReadonlyProperty = val
+}
+
+func (d DeprecatedClass) SetMutableProperty(val float64) {
+    d.MutableProperty = val
 }
 
 func (d *DeprecatedClass) Method() jsii.Any  {
@@ -40571,6 +40851,14 @@ func (d DisappointingCollectionSource) GetMaybeMap() map[string]float64 {
     return d.MaybeMap
 }
 
+
+func (d DisappointingCollectionSource) SetMaybeList(val []string) {
+    d.MaybeList = val
+}
+
+func (d DisappointingCollectionSource) SetMaybeMap(val map[string]float64) {
+    d.MaybeMap = val
+}
 
 type DoNotOverridePrivatesIface interface {
     ChangePrivatePropertyValue() jsii.Any
@@ -40791,6 +41079,14 @@ func NewDynamicPropertyBearer(valueStore string) DynamicPropertyBearerIface {
     }
 }
 
+func (d DynamicPropertyBearer) SetDynamicProperty(val string) {
+    d.DynamicProperty = val
+}
+
+func (d DynamicPropertyBearer) SetValueStore(val string) {
+    d.ValueStore = val
+}
+
 type DynamicPropertyBearerChildIface interface {
     GetDynamicProperty() string
     SetDynamicProperty()
@@ -40831,6 +41127,18 @@ func NewDynamicPropertyBearerChild(originalValue string) DynamicPropertyBearerCh
     return &DynamicPropertyBearerChild{
      // props
     }
+}
+
+func (d DynamicPropertyBearerChild) SetDynamicProperty(val string) {
+    d.DynamicProperty = val
+}
+
+func (d DynamicPropertyBearerChild) SetValueStore(val string) {
+    d.ValueStore = val
+}
+
+func (d DynamicPropertyBearerChild) SetOriginalValue(val string) {
+    d.OriginalValue = val
 }
 
 func (d *DynamicPropertyBearerChild) OverrideValue() string  {
@@ -40974,6 +41282,14 @@ func NewExperimentalClass(readonlyString string, mutableNumber number) Experimen
     }
 }
 
+func (e ExperimentalClass) SetReadonlyProperty(val string) {
+    e.ReadonlyProperty = val
+}
+
+func (e ExperimentalClass) SetMutableProperty(val float64) {
+    e.MutableProperty = val
+}
+
 func (e *ExperimentalClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ExperimentalClass",
@@ -41032,6 +41348,10 @@ func NewExportedBaseClass(success boolean) ExportedBaseClassIface {
     }
 }
 
+func (e ExportedBaseClass) SetSuccess(val bool) {
+    e.Success = val
+}
+
 // Struct interface
 type ExtendsInternalInterfaceIface interface {
     GetBoom() bool
@@ -41086,6 +41406,14 @@ func NewExternalClass(readonlyString string, mutableNumber number) ExternalClass
     return &ExternalClass{
      // props
     }
+}
+
+func (e ExternalClass) SetReadonlyProperty(val string) {
+    e.ReadonlyProperty = val
+}
+
+func (e ExternalClass) SetMutableProperty(val float64) {
+    e.MutableProperty = val
 }
 
 func (e *ExternalClass) Method() jsii.Any  {
@@ -41147,6 +41475,10 @@ func NewGiveMeStructs() GiveMeStructsIface {
     return &GiveMeStructs{
      // props
     }
+}
+
+func (g GiveMeStructs) SetStructLiteral(val jsii.Any) {
+    g.StructLiteral = val
 }
 
 func (g *GiveMeStructs) DerivedToFirst() jsii.Any  {
@@ -41446,6 +41778,10 @@ func NewImplementInternalInterface() ImplementInternalInterfaceIface {
     }
 }
 
+func (i ImplementInternalInterface) SetProp(val string) {
+    i.Prop = val
+}
+
 type ImplementationIface interface {
     GetValue() float64
     SetValue()
@@ -41471,6 +41807,10 @@ func NewImplementation() ImplementationIface {
     return &Implementation{
      // props
     }
+}
+
+func (i Implementation) SetValue(val float64) {
+    i.Value = val
 }
 
 type ImplementsInterfaceWithInternalIface interface {
@@ -41546,6 +41886,10 @@ func NewImplementsPrivateInterface() ImplementsPrivateInterfaceIface {
     return &ImplementsPrivateInterface{
      // props
     }
+}
+
+func (i ImplementsPrivateInterface) SetPrivate(val string) {
+    i.Private = val
 }
 
 // Struct interface
@@ -41734,6 +42078,14 @@ func NewJSII417Derived(property string) JSII417DerivedIface {
     }
 }
 
+func (j JSII417Derived) SetHasRoot(val bool) {
+    j.HasRoot = val
+}
+
+func (j JSII417Derived) SetProperty(val string) {
+    j.Property = val
+}
+
 func (j *JSII417Derived) Bar() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JSII417Derived",
@@ -41779,6 +42131,10 @@ func NewJSII417PublicBaseOfBase() JSII417PublicBaseOfBaseIface {
     return &JSII417PublicBaseOfBase{
      // props
     }
+}
+
+func (j JSII417PublicBaseOfBase) SetHasRoot(val bool) {
+    j.HasRoot = val
 }
 
 func (j *JSII417PublicBaseOfBase) MakeInstance() Jsii417PublicBaseOfBase  {
@@ -41901,6 +42257,14 @@ func NewJSObjectLiteralToNativeClass() JSObjectLiteralToNativeClassIface {
     }
 }
 
+func (j JSObjectLiteralToNativeClass) SetPropA(val string) {
+    j.PropA = val
+}
+
+func (j JSObjectLiteralToNativeClass) SetPropB(val float64) {
+    j.PropB = val
+}
+
 type JavaReservedWordsIface interface {
     GetWhile() string
     SetWhile()
@@ -41978,6 +42342,10 @@ func NewJavaReservedWords() JavaReservedWordsIface {
     return &JavaReservedWords{
      // props
     }
+}
+
+func (j JavaReservedWords) SetWhile(val string) {
+    j.While = val
 }
 
 func (j *JavaReservedWords) Abstract() jsii.Any  {
@@ -42513,6 +42881,10 @@ func NewJsiiAgent() JsiiAgentIface {
     }
 }
 
+func (j JsiiAgent) SetValue(val string) {
+    j.Value = val
+}
+
 type JsonFormatterIface interface {
     AnyArray() jsii.Any
     AnyBooleanFalse() jsii.Any
@@ -42727,6 +43099,10 @@ func NewMethodNamedProperty() MethodNamedPropertyIface {
     }
 }
 
+func (m MethodNamedProperty) SetElite(val float64) {
+    m.Elite = val
+}
+
 func (m *MethodNamedProperty) Property() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "MethodNamedProperty",
@@ -42780,6 +43156,18 @@ func NewMultiply(lhs @scope/jsii-calc-lib.NumericValue, rhs @scope/jsii-calc-lib
     return &Multiply{
      // props
     }
+}
+
+func (m Multiply) SetValue(val float64) {
+    m.Value = val
+}
+
+func (m Multiply) SetLhs(val jsii.Any) {
+    m.Lhs = val
+}
+
+func (m Multiply) SetRhs(val jsii.Any) {
+    m.Rhs = val
 }
 
 func (m *Multiply) Farewell() string  {
@@ -42854,6 +43242,14 @@ func NewNegate(operand @scope/jsii-calc-lib.NumericValue) NegateIface {
     return &Negate{
      // props
     }
+}
+
+func (n Negate) SetValue(val float64) {
+    n.Value = val
+}
+
+func (n Negate) SetOperand(val jsii.Any) {
+    n.Operand = val
 }
 
 func (n *Negate) Farewell() string  {
@@ -42954,6 +43350,10 @@ func NewNodeStandardLibrary() NodeStandardLibraryIface {
     }
 }
 
+func (n NodeStandardLibrary) SetOsPlatform(val string) {
+    n.OsPlatform = val
+}
+
 func (n *NodeStandardLibrary) CryptoSha256() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NodeStandardLibrary",
@@ -43009,6 +43409,10 @@ func NewNullShouldBeTreatedAsUndefined(_param1 string, optional any) NullShouldB
     return &NullShouldBeTreatedAsUndefined{
      // props
     }
+}
+
+func (n NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
+    n.ChangeMeToUndefined = val
 }
 
 func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined() jsii.Any  {
@@ -43086,6 +43490,10 @@ func NewNumberGenerator(generator jsii-calc.IRandomNumberGenerator) NumberGenera
     return &NumberGenerator{
      // props
     }
+}
+
+func (n NumberGenerator) SetGenerator(val IRandomNumberGenerator) {
+    n.Generator = val
 }
 
 func (n *NumberGenerator) IsSameGenerator() bool  {
@@ -43271,6 +43679,18 @@ func NewOptionalConstructorArgument(arg1 number, arg2 string, arg3 date) Optiona
     }
 }
 
+func (o OptionalConstructorArgument) SetArg1(val float64) {
+    o.Arg1 = val
+}
+
+func (o OptionalConstructorArgument) SetArg2(val string) {
+    o.Arg2 = val
+}
+
+func (o OptionalConstructorArgument) SetArg3(val string) {
+    o.Arg3 = val
+}
+
 // Struct interface
 type OptionalStructIface interface {
     GetField() string
@@ -43320,6 +43740,14 @@ func NewOptionalStructConsumer(optionalStruct jsii-calc.OptionalStruct) Optional
     }
 }
 
+func (o OptionalStructConsumer) SetParameterWasUndefined(val bool) {
+    o.ParameterWasUndefined = val
+}
+
+func (o OptionalStructConsumer) SetFieldValue(val string) {
+    o.FieldValue = val
+}
+
 type OverridableProtectedMemberIface interface {
     GetOverrideReadOnly() string
     GetOverrideReadWrite() string
@@ -43353,6 +43781,14 @@ func NewOverridableProtectedMember() OverridableProtectedMemberIface {
     return &OverridableProtectedMember{
      // props
     }
+}
+
+func (o OverridableProtectedMember) SetOverrideReadOnly(val string) {
+    o.OverrideReadOnly = val
+}
+
+func (o OverridableProtectedMember) SetOverrideReadWrite(val string) {
+    o.OverrideReadWrite = val
 }
 
 func (o *OverridableProtectedMember) OverrideMe() string  {
@@ -43554,6 +43990,34 @@ func NewPower(base @scope/jsii-calc-lib.NumericValue, pow @scope/jsii-calc-lib.N
     }
 }
 
+func (p Power) SetValue(val float64) {
+    p.Value = val
+}
+
+func (p Power) SetExpression(val jsii.Any) {
+    p.Expression = val
+}
+
+func (p Power) SetDecorationPostfixes(val []string) {
+    p.DecorationPostfixes = val
+}
+
+func (p Power) SetDecorationPrefixes(val []string) {
+    p.DecorationPrefixes = val
+}
+
+func (p Power) SetStringStyle(val composition.CompositionStringStyle) {
+    p.StringStyle = val
+}
+
+func (p Power) SetBase(val jsii.Any) {
+    p.Base = val
+}
+
+func (p Power) SetPow(val jsii.Any) {
+    p.Pow = val
+}
+
 type PropertyNamedPropertyIface interface {
     GetProperty() string
     SetProperty()
@@ -43586,6 +44050,14 @@ func NewPropertyNamedProperty() PropertyNamedPropertyIface {
     return &PropertyNamedProperty{
      // props
     }
+}
+
+func (p PropertyNamedProperty) SetProperty(val string) {
+    p.Property = val
+}
+
+func (p PropertyNamedProperty) SetYetAnoterOne(val bool) {
+    p.YetAnoterOne = val
 }
 
 type PublicClassIface interface {
@@ -43985,6 +44457,10 @@ func NewReferenceEnumFromScopedPackage() ReferenceEnumFromScopedPackageIface {
     }
 }
 
+func (r ReferenceEnumFromScopedPackage) SetFoo(val jsii.Any) {
+    r.Foo = val
+}
+
 func (r *ReferenceEnumFromScopedPackage) LoadFoo() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ReferenceEnumFromScopedPackage",
@@ -44028,6 +44504,10 @@ func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOf
     return &ReturnsPrivateImplementationOfInterface{
      // props
     }
+}
+
+func (r ReturnsPrivateImplementationOfInterface) SetPrivateImplementation(val IPrivatelyImplemented) {
+    r.PrivateImplementation = val
 }
 
 // Struct interface
@@ -44318,6 +44798,14 @@ func NewStableClass(readonlyString string, mutableNumber number) StableClassIfac
     }
 }
 
+func (s StableClass) SetReadonlyProperty(val string) {
+    s.ReadonlyProperty = val
+}
+
+func (s StableClass) SetMutableProperty(val float64) {
+    s.MutableProperty = val
+}
+
 func (s *StableClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StableClass",
@@ -44364,6 +44852,10 @@ func (s StaticContext) GetStaticVariable() bool {
     return s.StaticVariable
 }
 
+
+func (s StaticContext) SetStaticVariable(val bool) {
+    s.StaticVariable = val
+}
 
 func (s *StaticContext) CanAccessStaticContext() bool  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -44445,6 +44937,34 @@ func NewStatics(value string) StaticsIface {
     }
 }
 
+func (s Statics) SetBar(val float64) {
+    s.Bar = val
+}
+
+func (s Statics) SetConstObj(val DoubleTrouble) {
+    s.ConstObj = val
+}
+
+func (s Statics) SetFoo(val string) {
+    s.Foo = val
+}
+
+func (s Statics) SetZooBar(val map[string]string) {
+    s.ZooBar = val
+}
+
+func (s Statics) SetInstance(val Statics) {
+    s.Instance = val
+}
+
+func (s Statics) SetNonConstStatic(val float64) {
+    s.NonConstStatic = val
+}
+
+func (s Statics) SetValue(val string) {
+    s.Value = val
+}
+
 func (s *Statics) StaticMethod() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Statics",
@@ -44496,6 +45016,10 @@ func NewStripInternal() StripInternalIface {
     return &StripInternal{
      // props
     }
+}
+
+func (s StripInternal) SetYouSeeMe(val string) {
+    s.YouSeeMe = val
 }
 
 // Struct interface
@@ -44734,6 +45258,30 @@ func NewSum() SumIface {
     }
 }
 
+func (s Sum) SetValue(val float64) {
+    s.Value = val
+}
+
+func (s Sum) SetExpression(val jsii.Any) {
+    s.Expression = val
+}
+
+func (s Sum) SetDecorationPostfixes(val []string) {
+    s.DecorationPostfixes = val
+}
+
+func (s Sum) SetDecorationPrefixes(val []string) {
+    s.DecorationPrefixes = val
+}
+
+func (s Sum) SetStringStyle(val composition.CompositionStringStyle) {
+    s.StringStyle = val
+}
+
+func (s Sum) SetParts(val []jsii.Any) {
+    s.Parts = val
+}
+
 type SupportsNiceJavaBuilderIface interface {
     GetBar() float64
     SetBar()
@@ -44780,6 +45328,22 @@ func NewSupportsNiceJavaBuilder(id number, defaultBar number, props jsii-calc.Su
     return &SupportsNiceJavaBuilder{
      // props
     }
+}
+
+func (s SupportsNiceJavaBuilder) SetBar(val float64) {
+    s.Bar = val
+}
+
+func (s SupportsNiceJavaBuilder) SetId(val float64) {
+    s.Id = val
+}
+
+func (s SupportsNiceJavaBuilder) SetPropId(val string) {
+    s.PropId = val
+}
+
+func (s SupportsNiceJavaBuilder) SetRest(val []string) {
+    s.Rest = val
 }
 
 // Struct interface
@@ -44842,6 +45406,18 @@ func NewSupportsNiceJavaBuilderWithRequiredProps(id number, props jsii-calc.Supp
     return &SupportsNiceJavaBuilderWithRequiredProps{
      // props
     }
+}
+
+func (s SupportsNiceJavaBuilderWithRequiredProps) SetBar(val float64) {
+    s.Bar = val
+}
+
+func (s SupportsNiceJavaBuilderWithRequiredProps) SetId(val float64) {
+    s.Id = val
+}
+
+func (s SupportsNiceJavaBuilderWithRequiredProps) SetPropId(val string) {
+    s.PropId = val
 }
 
 type SyncVirtualMethodsIface interface {
@@ -44914,6 +45490,30 @@ func NewSyncVirtualMethods() SyncVirtualMethodsIface {
     return &SyncVirtualMethods{
      // props
     }
+}
+
+func (s SyncVirtualMethods) SetReadonlyProperty(val string) {
+    s.ReadonlyProperty = val
+}
+
+func (s SyncVirtualMethods) SetA(val float64) {
+    s.A = val
+}
+
+func (s SyncVirtualMethods) SetCallerIsProperty(val float64) {
+    s.CallerIsProperty = val
+}
+
+func (s SyncVirtualMethods) SetOtherProperty(val string) {
+    s.OtherProperty = val
+}
+
+func (s SyncVirtualMethods) SetTheProperty(val string) {
+    s.TheProperty = val
+}
+
+func (s SyncVirtualMethods) SetValueOfOtherProperty(val string) {
+    s.ValueOfOtherProperty = val
 }
 
 func (s *SyncVirtualMethods) CallerIsAsync() float64  {
@@ -45113,6 +45713,14 @@ func NewUnaryOperation(operand @scope/jsii-calc-lib.NumericValue) UnaryOperation
     }
 }
 
+func (u UnaryOperation) SetValue(val float64) {
+    u.Value = val
+}
+
+func (u UnaryOperation) SetOperand(val jsii.Any) {
+    u.Operand = val
+}
+
 // Struct interface
 type UnionPropertiesIface interface {
     GetBar() jsii.Any
@@ -45166,6 +45774,14 @@ func NewUpcasingReflectable(delegate Map<string => any>) UpcasingReflectableIfac
     return &UpcasingReflectable{
      // props
     }
+}
+
+func (u UpcasingReflectable) SetReflector(val jsii.Any) {
+    u.Reflector = val
+}
+
+func (u UpcasingReflectable) SetEntries(val []jsii.Any) {
+    u.Entries = val
 }
 
 type UseBundledDependencyIface interface {
@@ -45254,6 +45870,10 @@ func NewUsesInterfaceWithProperties(obj jsii-calc.IInterfaceWithProperties) Uses
     return &UsesInterfaceWithProperties{
      // props
     }
+}
+
+func (u UsesInterfaceWithProperties) SetObj(val IInterfaceWithProperties) {
+    u.Obj = val
 }
 
 func (u *UsesInterfaceWithProperties) JustRead() string  {
@@ -45439,6 +46059,10 @@ func NewVoidCallback() VoidCallbackIface {
     }
 }
 
+func (v VoidCallback) SetMethodWasCalled(val bool) {
+    v.MethodWasCalled = val
+}
+
 func (v *VoidCallback) CallMe() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VoidCallback",
@@ -45482,6 +46106,10 @@ func NewWithPrivatePropertyInConstructor(privateField string) WithPrivatePropert
     return &WithPrivatePropertyInConstructor{
      // props
     }
+}
+
+func (w WithPrivatePropertyInConstructor) SetSuccess(val bool) {
+    w.Success = val
 }
 
 
@@ -45550,6 +46178,26 @@ func NewCompositeOperation() CompositeOperationIface {
     }
 }
 
+func (c CompositeOperation) SetValue(val float64) {
+    c.Value = val
+}
+
+func (c CompositeOperation) SetExpression(val jsii.Any) {
+    c.Expression = val
+}
+
+func (c CompositeOperation) SetDecorationPostfixes(val []string) {
+    c.DecorationPostfixes = val
+}
+
+func (c CompositeOperation) SetDecorationPrefixes(val []string) {
+    c.DecorationPrefixes = val
+}
+
+func (c CompositeOperation) SetStringStyle(val CompositionStringStyle) {
+    c.StringStyle = val
+}
+
 func (c *CompositeOperation) ToString() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "CompositeOperation",
@@ -45603,6 +46251,10 @@ func NewBase() BaseIface {
     }
 }
 
+func (b Base) SetProp(val string) {
+    b.Prop = val
+}
+
 type DerivedIface interface {
     GetProp() string
     SetProp()
@@ -45628,6 +46280,10 @@ func NewDerived() DerivedIface {
     return &Derived{
      // props
     }
+}
+
+func (d Derived) SetProp(val string) {
+    d.Prop = val
 }
 
 
@@ -45665,6 +46321,10 @@ func NewFoo() FooIface {
     return &Foo{
      // props
     }
+}
+
+func (f Foo) SetBar(val string) {
+    f.Bar = val
 }
 
 // Struct interface
@@ -45745,6 +46405,10 @@ func NewClassWithSelf(self string) ClassWithSelfIface {
     }
 }
 
+func (c ClassWithSelf) SetSelf(val string) {
+    c.Self = val
+}
+
 func (c *ClassWithSelf) Method() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithSelf",
@@ -45779,6 +46443,10 @@ func NewClassWithSelfKwarg(props jsii-calc.PythonSelf.StructWithSelf) ClassWithS
     return &ClassWithSelfKwarg{
      // props
     }
+}
+
+func (c ClassWithSelfKwarg) SetProps(val StructWithSelf) {
+    c.Props = val
 }
 
 // Behaviorial interface
@@ -45868,6 +46536,26 @@ func NewMyClass(props jsii-calc.submodule.child.SomeStruct) MyClassIface {
     }
 }
 
+func (m MyClass) SetAwesomeness(val child.Awesomeness) {
+    m.Awesomeness = val
+}
+
+func (m MyClass) SetDefinedAt(val string) {
+    m.DefinedAt = val
+}
+
+func (m MyClass) SetGoodness(val child.Goodness) {
+    m.Goodness = val
+}
+
+func (m MyClass) SetProps(val child.SomeStruct) {
+    m.Props = val
+}
+
+func (m MyClass) SetAllTypes(val jsiicalc.AllTypes) {
+    m.AllTypes = val
+}
+
 
 `;
 
@@ -45945,6 +46633,10 @@ func NewInnerClass() InnerClassIface {
     }
 }
 
+func (i InnerClass) SetStaticProp(val SomeStruct) {
+    i.StaticProp = val
+}
+
 // Struct interface
 type KwargsPropsIface interface {
     jsii-calc.submodule.child.SomeStruct
@@ -45992,6 +46684,10 @@ func NewOuterClass() OuterClassIface {
     return &OuterClass{
      // props
     }
+}
+
+func (o OuterClass) SetInnerClass(val InnerClass) {
+    o.InnerClass = val
 }
 
 type SomeEnum string
@@ -46089,6 +46785,14 @@ func (n Namespaced) GetGoodness() child.Goodness {
     return n.Goodness
 }
 
+
+func (n Namespaced) SetDefinedAt(val string) {
+    n.DefinedAt = val
+}
+
+func (n Namespaced) SetGoodness(val child.Goodness) {
+    n.Goodness = val
+}
 
 
 `;
