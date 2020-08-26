@@ -15,27 +15,12 @@ class Foo(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
 ):
-    """(experimental)
-
-    stability
-    :stability: experimental
-    """
-
     def __init__(self) -> None:
-        """
-        stability
-        :stability: experimental
-        """
         jsii.create(Foo, self, [])
 
     @builtins.property
     @jsii.member(jsii_name="bar")
     def bar(self) -> typing.Optional[str]:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return jsii.get(self, "bar")
 
     @bar.setter
@@ -50,12 +35,8 @@ class Foo(
 )
 class Hello:
     def __init__(self, *, foo: jsii.Number) -> None:
-        """(experimental)
-
-        :param foo: (experimental)
-
-        stability
-        :stability: experimental
+        """
+        :param foo: 
         """
         self._values = {
             "foo": foo,
@@ -63,11 +44,6 @@ class Hello:
 
     @builtins.property
     def foo(self) -> jsii.Number:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return self._values.get("foo")
 
     def __eq__(self, rhs) -> bool:

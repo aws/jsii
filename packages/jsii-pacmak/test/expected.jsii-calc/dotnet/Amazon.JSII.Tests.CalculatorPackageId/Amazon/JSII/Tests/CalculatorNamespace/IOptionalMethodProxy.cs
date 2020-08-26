@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Checks that optional result from interface method code generates correctly. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Checks that optional result from interface method code generates correctly.</summary>
     [JsiiTypeProxy(nativeType: typeof(IOptionalMethod), fullyQualifiedName: "jsii-calc.IOptionalMethod")]
     internal sealed class IOptionalMethodProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IOptionalMethod
     {
@@ -15,10 +12,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "optional", returnsJson: "{\"optional\":true,\"type\":{\"primitive\":\"string\"}}")]
         public string? Optional()
         {

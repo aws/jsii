@@ -4,16 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AugmentableClass), fullyQualifiedName: "jsii-calc.AugmentableClass")]
     public class AugmentableClass : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public AugmentableClass(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -32,20 +25,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "methodOne")]
         public virtual void MethodOne()
         {
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "methodTwo")]
         public virtual void MethodTwo()
         {

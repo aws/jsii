@@ -4,16 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.InnerClass), fullyQualifiedName: "jsii-calc.submodule.child.InnerClass")]
     public class InnerClass : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public InnerClass(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -32,10 +25,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "staticProp", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.SomeStruct\"}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct StaticProp
         {

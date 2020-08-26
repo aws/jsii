@@ -1,45 +1,39 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DiamondInheritanceFirstMidLevelStruct")
 @software.amazon.jsii.Jsii.Proxy(DiamondInheritanceFirstMidLevelStruct.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getFirstMidLevelProperty();
 
     /**
      * @return a {@link Builder} of {@link DiamondInheritanceFirstMidLevelStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link DiamondInheritanceFirstMidLevelStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DiamondInheritanceFirstMidLevelStruct> {
         private java.lang.String firstMidLevelProperty;
         private java.lang.String baseLevelProperty;
 
         /**
          * Sets the value of {@link DiamondInheritanceFirstMidLevelStruct#getFirstMidLevelProperty}
-         * @param firstMidLevelProperty  (experimental). This parameter is required.
+         * @param firstMidLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder firstMidLevelProperty(java.lang.String firstMidLevelProperty) {
             this.firstMidLevelProperty = firstMidLevelProperty;
             return this;
@@ -47,10 +41,10 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
 
         /**
          * Sets the value of {@link DiamondInheritanceFirstMidLevelStruct#getBaseLevelProperty}
-         * @param baseLevelProperty  (experimental). This parameter is required.
+         * @param baseLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder baseLevelProperty(java.lang.String baseLevelProperty) {
             this.baseLevelProperty = baseLevelProperty;
             return this;
@@ -61,7 +55,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
          * @return a new instance of {@link DiamondInheritanceFirstMidLevelStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public DiamondInheritanceFirstMidLevelStruct build() {
             return new Jsii$Proxy(firstMidLevelProperty, baseLevelProperty);
@@ -71,7 +65,7 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
     /**
      * An implementation for {@link DiamondInheritanceFirstMidLevelStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DiamondInheritanceFirstMidLevelStruct {
         private final java.lang.String firstMidLevelProperty;
         private final java.lang.String baseLevelProperty;

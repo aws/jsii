@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.custom_submodule_name;
 
 /**
- *  (deprecated)
+ * (deprecated)
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -18,7 +18,7 @@ public class Reflector extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -28,7 +28,7 @@ public class Reflector extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @param reflectable This parameter is required.
      */

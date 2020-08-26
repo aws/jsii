@@ -4,16 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ConsumersOfThisCrazyTypeSystem), fullyQualifiedName: "jsii-calc.ConsumersOfThisCrazyTypeSystem")]
     public class ConsumersOfThisCrazyTypeSystem : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public ConsumersOfThisCrazyTypeSystem(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -32,20 +25,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "consumeAnotherPublicInterface", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.IAnotherPublicInterface\"}}]")]
         public virtual string ConsumeAnotherPublicInterface(Amazon.JSII.Tests.CalculatorNamespace.IAnotherPublicInterface obj)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IAnotherPublicInterface)}, new object[]{obj});
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "consumeNonInternalInterface", returnsJson: "{\"type\":{\"primitive\":\"any\"}}", parametersJson: "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.INonInternalInterface\"}}]")]
         public virtual object ConsumeNonInternalInterface(Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface obj)
         {

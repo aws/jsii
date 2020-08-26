@@ -4,16 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ImplementInternalInterface), fullyQualifiedName: "jsii-calc.ImplementInternalInterface")]
     public class ImplementInternalInterface : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public ImplementInternalInterface(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -32,10 +25,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "prop", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string Prop
         {

@@ -24,7 +24,7 @@ public class Very extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      */

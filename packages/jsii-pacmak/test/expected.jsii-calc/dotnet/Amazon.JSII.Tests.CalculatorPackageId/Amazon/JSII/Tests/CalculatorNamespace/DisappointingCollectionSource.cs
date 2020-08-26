@@ -4,11 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Verifies that null/undefined can be returned for optional collections. (experimental)</summary>
+    /// <summary>Verifies that null/undefined can be returned for optional collections.</summary>
     /// <remarks>
     /// This source of collections is disappointing - it'll always give you nothing :(
-    /// 
-    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DisappointingCollectionSource), fullyQualifiedName: "jsii-calc.DisappointingCollectionSource")]
     public class DisappointingCollectionSource : DeputyBase
@@ -27,11 +25,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Some List of strings, maybe? (experimental)</summary>
+        /// <summary>Some List of strings, maybe?</summary>
         /// <remarks>
         /// (Nah, just a billion dollars mistake!)
-        /// 
-        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "maybeList", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
         public static string[] MaybeList
@@ -40,11 +36,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         = GetStaticProperty<string[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.DisappointingCollectionSource));
 
-        /// <summary>Some Map of strings to numbers, maybe? (experimental)</summary>
+        /// <summary>Some Map of strings to numbers, maybe?</summary>
         /// <remarks>
         /// (Nah, just a billion dollars mistake!)
-        /// 
-        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "maybeMap", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"number\"},\"kind\":\"map\"}}", isOptional: true)]
         public static System.Collections.Generic.IDictionary<string, double> MaybeMap

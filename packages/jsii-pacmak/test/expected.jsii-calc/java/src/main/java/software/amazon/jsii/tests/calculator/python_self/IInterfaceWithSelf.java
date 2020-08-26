@@ -1,24 +1,17 @@
 package software.amazon.jsii.tests.calculator.python_self;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.PythonSelf.IInterfaceWithSelf")
 @software.amazon.jsii.Jsii.Proxy(IInterfaceWithSelf.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IInterfaceWithSelf extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
-     * <p>
      * @param self This parameter is required.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String method(final @org.jetbrains.annotations.NotNull java.lang.Number self);
 
     /**
@@ -30,13 +23,9 @@ public interface IInterfaceWithSelf extends software.amazon.jsii.JsiiSerializabl
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
-         * <p>
          * @param self This parameter is required.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public @org.jetbrains.annotations.NotNull java.lang.String method(final @org.jetbrains.annotations.NotNull java.lang.Number self) {
             return this.jsiiCall("method", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(self, "self is required") });

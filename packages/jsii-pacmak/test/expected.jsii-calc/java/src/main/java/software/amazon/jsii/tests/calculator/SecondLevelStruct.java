@@ -1,30 +1,23 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SecondLevelStruct")
 @software.amazon.jsii.Jsii.Proxy(SecondLevelStruct.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * It's long and required. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * It's long and required.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getDeeperRequiredProp();
 
     /**
-     * It's long, but you'll almost never pass it. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * It's long, but you'll almost never pass it.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getDeeperOptionalProp() {
         return null;
     }
@@ -32,24 +25,24 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
     /**
      * @return a {@link Builder} of {@link SecondLevelStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link SecondLevelStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SecondLevelStruct> {
         private java.lang.String deeperRequiredProp;
         private java.lang.String deeperOptionalProp;
 
         /**
          * Sets the value of {@link SecondLevelStruct#getDeeperRequiredProp}
-         * @param deeperRequiredProp It's long and required. (experimental). This parameter is required.
+         * @param deeperRequiredProp It's long and required. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder deeperRequiredProp(java.lang.String deeperRequiredProp) {
             this.deeperRequiredProp = deeperRequiredProp;
             return this;
@@ -57,10 +50,10 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
 
         /**
          * Sets the value of {@link SecondLevelStruct#getDeeperOptionalProp}
-         * @param deeperOptionalProp It's long, but you'll almost never pass it. (experimental).
+         * @param deeperOptionalProp It's long, but you'll almost never pass it.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder deeperOptionalProp(java.lang.String deeperOptionalProp) {
             this.deeperOptionalProp = deeperOptionalProp;
             return this;
@@ -71,7 +64,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
          * @return a new instance of {@link SecondLevelStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public SecondLevelStruct build() {
             return new Jsii$Proxy(deeperRequiredProp, deeperOptionalProp);
@@ -81,7 +74,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
     /**
      * An implementation for {@link SecondLevelStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements SecondLevelStruct {
         private final java.lang.String deeperRequiredProp;
         private final java.lang.String deeperOptionalProp;

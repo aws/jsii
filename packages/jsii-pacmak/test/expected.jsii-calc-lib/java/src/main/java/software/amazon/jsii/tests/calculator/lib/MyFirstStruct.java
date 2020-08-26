@@ -25,7 +25,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     @org.jetbrains.annotations.NotNull java.lang.String getAstring();
 
     /**
-     *  (deprecated)
+     * (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -77,7 +77,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link MyFirstStruct#getFirstOptional}
-         * @param firstOptional  (deprecated).
+         * @param firstOptional (deprecated).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

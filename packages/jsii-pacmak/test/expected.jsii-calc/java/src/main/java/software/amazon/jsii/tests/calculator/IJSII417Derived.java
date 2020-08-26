@@ -1,38 +1,26 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IJSII417Derived")
 @software.amazon.jsii.Jsii.Proxy(IJSII417Derived.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.IJSII417PublicBaseOfBase {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     void bar();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     void baz();
 
     /**
@@ -44,55 +32,40 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
             return this.jsiiGet("property", java.lang.String.class);
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.NotNull java.lang.Boolean getHasRoot() {
             return this.jsiiGet("hasRoot", java.lang.Boolean.class);
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public void bar() {
             this.jsiiCall("bar", software.amazon.jsii.NativeType.VOID);
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public void baz() {
             this.jsiiCall("baz", software.amazon.jsii.NativeType.VOID);
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public void foo() {
             this.jsiiCall("foo", software.amazon.jsii.NativeType.VOID);

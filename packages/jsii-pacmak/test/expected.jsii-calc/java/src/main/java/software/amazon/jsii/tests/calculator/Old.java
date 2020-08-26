@@ -20,9 +20,8 @@ public class Old extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Old() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);

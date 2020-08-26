@@ -1,30 +1,21 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.NullShouldBeTreatedAsUndefinedData")
 @software.amazon.jsii.Jsii.Proxy(NullShouldBeTreatedAsUndefinedData.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.Object getThisShouldBeUndefined() {
         return null;
     }
@@ -32,24 +23,24 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
     /**
      * @return a {@link Builder} of {@link NullShouldBeTreatedAsUndefinedData}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link NullShouldBeTreatedAsUndefinedData}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<NullShouldBeTreatedAsUndefinedData> {
         private java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
         private java.lang.Object thisShouldBeUndefined;
 
         /**
          * Sets the value of {@link NullShouldBeTreatedAsUndefinedData#getArrayWithThreeElementsAndUndefinedAsSecondArgument}
-         * @param arrayWithThreeElementsAndUndefinedAsSecondArgument  (experimental). This parameter is required.
+         * @param arrayWithThreeElementsAndUndefinedAsSecondArgument the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder arrayWithThreeElementsAndUndefinedAsSecondArgument(java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument) {
             this.arrayWithThreeElementsAndUndefinedAsSecondArgument = arrayWithThreeElementsAndUndefinedAsSecondArgument;
             return this;
@@ -57,10 +48,10 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
 
         /**
          * Sets the value of {@link NullShouldBeTreatedAsUndefinedData#getThisShouldBeUndefined}
-         * @param thisShouldBeUndefined  (experimental).
+         * @param thisShouldBeUndefined the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder thisShouldBeUndefined(java.lang.Object thisShouldBeUndefined) {
             this.thisShouldBeUndefined = thisShouldBeUndefined;
             return this;
@@ -71,7 +62,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          * @return a new instance of {@link NullShouldBeTreatedAsUndefinedData}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public NullShouldBeTreatedAsUndefinedData build() {
             return new Jsii$Proxy(arrayWithThreeElementsAndUndefinedAsSecondArgument, thisShouldBeUndefined);
@@ -81,7 +72,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
     /**
      * An implementation for {@link NullShouldBeTreatedAsUndefinedData}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements NullShouldBeTreatedAsUndefinedData {
         private final java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
         private final java.lang.Object thisShouldBeUndefined;

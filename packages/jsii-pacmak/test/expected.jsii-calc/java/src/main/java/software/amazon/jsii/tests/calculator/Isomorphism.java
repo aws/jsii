@@ -1,15 +1,13 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Checks the "same instance" isomorphism is preserved within the constructor. (experimental)
+ * Checks the "same instance" isomorphism is preserved within the constructor.
  * <p>
  * Create a subclass of this, and assert that <code>this.myself()</code> actually returns
  * <code>this</code> from within the constructor.
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Isomorphism")
 public abstract class Isomorphism extends software.amazon.jsii.JsiiObject {
 
@@ -22,20 +20,16 @@ public abstract class Isomorphism extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected Isomorphism() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Isomorphism myself() {
         return this.jsiiCall("myself", software.amazon.jsii.tests.calculator.Isomorphism.class);
     }

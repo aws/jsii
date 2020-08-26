@@ -4,16 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Jsii487Derived), fullyQualifiedName: "jsii-calc.Jsii487Derived")]
     public class Jsii487Derived : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IJsii487External2, Amazon.JSII.Tests.CalculatorNamespace.IJsii487External
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public Jsii487Derived(): base(new DeputyProps(new object[]{}))
         {
         }

@@ -4,10 +4,8 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Checks the current file permissions are cool (no funky UMASK down-scoping happened). (experimental)</summary>
+    /// <summary>Checks the current file permissions are cool (no funky UMASK down-scoping happened).</summary>
     /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// 
     /// <strong>See</strong>: https://github.com/aws/jsii/issues/1765
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UmaskCheck), fullyQualifiedName: "jsii-calc.UmaskCheck")]
@@ -27,10 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>This should return 0o644 (-rw-r--r--). (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>This should return 0o644 (-rw-r--r--).</summary>
         [JsiiMethod(name: "mode", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public static double Mode()
         {

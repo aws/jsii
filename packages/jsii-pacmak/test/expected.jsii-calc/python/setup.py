@@ -57,7 +57,7 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Typing :: Typed",
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved"
     ]
 }

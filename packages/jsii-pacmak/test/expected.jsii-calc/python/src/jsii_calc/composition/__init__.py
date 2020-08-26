@@ -18,11 +18,7 @@ class CompositeOperation(
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="jsii-calc.composition.CompositeOperation",
 ):
-    """Abstract operation composed from an expression of other operations. (experimental)
-
-    stability
-    :stability: experimental
-    """
+    """Abstract operation composed from an expression of other operations."""
 
     @builtins.staticmethod
     def __jsii_proxy_class__():
@@ -33,12 +29,9 @@ class CompositeOperation(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> str:
-        """String representation of the value. (experimental)
+        """String representation of the value.
 
         (deprecated)
-
-        stability
-        :stability: experimental
         """
         return jsii.invoke(self, "toString", [])
 
@@ -46,35 +39,25 @@ class CompositeOperation(
     @jsii.member(jsii_name="expression")
     @abc.abstractmethod
     def expression(self) -> scope.jsii_calc_lib.Value:
-        """The expression that this operation consists of. (experimental)
+        """The expression that this operation consists of.
 
         Must be implemented by derived classes.
-
-        stability
-        :stability: experimental
         """
         ...
 
     @builtins.property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value. (experimental)
+        """The value.
 
         (deprecated)
-
-        stability
-        :stability: experimental
         """
         return jsii.get(self, "value")
 
     @builtins.property
     @jsii.member(jsii_name="decorationPostfixes")
     def decoration_postfixes(self) -> typing.List[str]:
-        """A set of postfixes to include in a decorated .toString(). (experimental)
-
-        stability
-        :stability: experimental
-        """
+        """A set of postfixes to include in a decorated .toString()."""
         return jsii.get(self, "decorationPostfixes")
 
     @decoration_postfixes.setter
@@ -84,11 +67,7 @@ class CompositeOperation(
     @builtins.property
     @jsii.member(jsii_name="decorationPrefixes")
     def decoration_prefixes(self) -> typing.List[str]:
-        """A set of prefixes to include in a decorated .toString(). (experimental)
-
-        stability
-        :stability: experimental
-        """
+        """A set of prefixes to include in a decorated .toString()."""
         return jsii.get(self, "decorationPrefixes")
 
     @decoration_prefixes.setter
@@ -98,11 +77,7 @@ class CompositeOperation(
     @builtins.property
     @jsii.member(jsii_name="stringStyle")
     def string_style(self) -> "CompositionStringStyle":
-        """The .toString() style. (experimental)
-
-        stability
-        :stability: experimental
-        """
+        """The .toString() style."""
         return jsii.get(self, "stringStyle")
 
     @string_style.setter
@@ -113,24 +88,12 @@ class CompositeOperation(
         jsii_type="jsii-calc.composition.CompositeOperation.CompositionStringStyle"
     )
     class CompositionStringStyle(enum.Enum):
-        """Style of .toString() output for CompositeOperation. (experimental)
-
-        stability
-        :stability: experimental
-        """
+        """Style of .toString() output for CompositeOperation."""
 
         NORMAL = "NORMAL"
-        """Normal string expression. (experimental)
-
-        stability
-        :stability: experimental
-        """
+        """Normal string expression."""
         DECORATED = "DECORATED"
-        """Decorated string expression. (experimental)
-
-        stability
-        :stability: experimental
-        """
+        """Decorated string expression."""
 
 
 class _CompositeOperationProxy(
@@ -139,12 +102,9 @@ class _CompositeOperationProxy(
     @builtins.property
     @jsii.member(jsii_name="expression")
     def expression(self) -> scope.jsii_calc_lib.Value:
-        """The expression that this operation consists of. (experimental)
+        """The expression that this operation consists of.
 
         Must be implemented by derived classes.
-
-        stability
-        :stability: experimental
         """
         return jsii.get(self, "expression")
 

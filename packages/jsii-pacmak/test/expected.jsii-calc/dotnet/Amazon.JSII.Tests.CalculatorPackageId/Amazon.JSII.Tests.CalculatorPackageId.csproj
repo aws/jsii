@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- Package Identification -->
-    <Description>A simple calcuator built on JSII. (Stability: Experimental)</Description>
+    <Description>A simple calcuator built on JSII. (Stability: Stable)</Description>
     <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>

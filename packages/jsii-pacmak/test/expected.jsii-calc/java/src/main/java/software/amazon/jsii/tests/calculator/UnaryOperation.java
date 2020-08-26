@@ -1,12 +1,10 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * An operation on a single operand. (experimental)
- * <p>
- * EXPERIMENTAL
+ * An operation on a single operand.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.UnaryOperation")
 public abstract class UnaryOperation extends software.amazon.jsii.tests.calculator.lib.Operation {
 
@@ -19,24 +17,17 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
-     * <p>
      * @param operand This parameter is required.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     protected UnaryOperation(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value operand) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") });
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getOperand() {
         return this.jsiiGet("operand", software.amazon.jsii.tests.calculator.lib.Value.class);
     }

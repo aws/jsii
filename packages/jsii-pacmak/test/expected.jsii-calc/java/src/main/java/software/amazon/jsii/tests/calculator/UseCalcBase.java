@@ -1,12 +1,10 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Depend on a type from jsii-calc-base as a test for awslabs/jsii#128. (experimental)
- * <p>
- * EXPERIMENTAL
+ * Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.UseCalcBase")
 public class UseCalcBase extends software.amazon.jsii.JsiiObject {
 
@@ -19,20 +17,16 @@ public class UseCalcBase extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public UseCalcBase() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.base.Base hello() {
         return this.jsiiCall("hello", software.amazon.jsii.tests.calculator.base.Base.class);
     }

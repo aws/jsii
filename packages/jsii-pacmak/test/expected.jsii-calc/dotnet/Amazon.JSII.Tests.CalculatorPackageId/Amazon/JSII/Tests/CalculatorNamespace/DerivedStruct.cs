@@ -6,17 +6,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     #pragma warning disable CS8618
 
-    /// <summary>A struct which derives from another struct. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>A struct which derives from another struct.</summary>
     [JsiiByValue(fqn: "jsii-calc.DerivedStruct")]
     public class DerivedStruct : Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "anotherRequired", typeJson: "{\"primitive\":\"date\"}", isOverride: true)]
         public System.DateTime AnotherRequired
         {
@@ -24,10 +17,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "bool", typeJson: "{\"primitive\":\"boolean\"}", isOverride: true)]
         public bool Bool
         {
@@ -35,10 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>An example of a non primitive property. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>An example of a non primitive property.</summary>
         [JsiiProperty(name: "nonPrimitive", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}", isOverride: true)]
         public Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble NonPrimitive
         {
@@ -46,10 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>This is optional. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>This is optional.</summary>
         [JsiiOptional]
         [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"map\"}}", isOptional: true, isOverride: true)]
         public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>? AnotherOptional
@@ -58,10 +41,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalAny", typeJson: "{\"primitive\":\"any\"}", isOptional: true, isOverride: true)]
         public object? OptionalAny
@@ -70,10 +49,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true, isOverride: true)]
         public string[]? OptionalArray
@@ -106,7 +81,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

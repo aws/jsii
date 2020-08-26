@@ -4,10 +4,6 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(ISomeStruct), fullyQualifiedName: "jsii-calc.submodule.child.SomeStruct")]
     internal sealed class SomeStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct
     {
@@ -15,10 +11,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "prop", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.SomeEnum\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.SomeEnum Prop
         {

@@ -18,12 +18,8 @@ from .._jsii import *
 )
 class Hello:
     def __init__(self, *, foo: jsii.Number) -> None:
-        """(experimental)
-
-        :param foo: (experimental)
-
-        stability
-        :stability: experimental
+        """
+        :param foo: 
         """
         self._values = {
             "foo": foo,
@@ -31,11 +27,6 @@ class Hello:
 
     @builtins.property
     def foo(self) -> jsii.Number:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return self._values.get("foo")
 
     def __eq__(self, rhs) -> bool:

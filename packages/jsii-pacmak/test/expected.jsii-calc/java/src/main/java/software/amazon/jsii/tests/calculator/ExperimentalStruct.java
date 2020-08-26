@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
+ * (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -35,7 +35,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
 
         /**
          * Sets the value of {@link ExperimentalStruct#getReadonlyProperty}
-         * @param readonlyProperty  (experimental). This parameter is required.
+         * @param readonlyProperty (experimental). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

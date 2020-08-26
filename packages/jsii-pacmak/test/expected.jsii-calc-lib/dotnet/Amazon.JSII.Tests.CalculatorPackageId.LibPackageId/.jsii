@@ -131,14 +131,14 @@
         {
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "name": "VALUE1"
         },
         {
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "name": "VALUE2"
         }
@@ -163,7 +163,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -232,7 +232,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -294,7 +294,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -460,7 +460,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -477,7 +477,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -549,7 +549,7 @@
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
         "stability": "deprecated",
-        "summary": " (deprecated)"
+        "summary": "(deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.submodule.IReflectable",
       "kind": "interface",
@@ -564,7 +564,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -588,7 +588,7 @@
       "datatype": true,
       "docs": {
         "stability": "deprecated",
-        "summary": " (deprecated)"
+        "summary": "(deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.submodule.ReflectableEntry",
       "kind": "interface",
@@ -603,7 +603,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -619,7 +619,7 @@
           "abstract": true,
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "immutable": true,
           "locationInModule": {
@@ -637,13 +637,13 @@
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
         "stability": "deprecated",
-        "summary": " (deprecated)"
+        "summary": "(deprecated)"
       },
       "fqn": "@scope/jsii-calc-lib.submodule.Reflector",
       "initializer": {
         "docs": {
           "stability": "deprecated",
-          "summary": " (deprecated)"
+          "summary": "(deprecated)"
         },
         "locationInModule": {
           "filename": "lib/submodule/index.ts",
@@ -659,7 +659,7 @@
         {
           "docs": {
             "stability": "deprecated",
-            "summary": " (deprecated)"
+            "summary": "(deprecated)"
           },
           "locationInModule": {
             "filename": "lib/submodule/index.ts",
@@ -691,5 +691,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "73meOWJbSpXDIF0CKBZyyBU+2b/KSNnXgamQQ6LnE4E="
+  "fingerprint": "va5yXezzzzdXhiJ+7gjkmRBorPYXanTNDfcZDKLSyiQ="
 }

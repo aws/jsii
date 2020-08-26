@@ -1,22 +1,16 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IInterfaceWithInternal")
 @software.amazon.jsii.Jsii.Proxy(IInterfaceWithInternal.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IInterfaceWithInternal extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     void visible();
 
     /**
@@ -28,11 +22,8 @@ public interface IInterfaceWithInternal extends software.amazon.jsii.JsiiSeriali
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public void visible() {
             this.jsiiCall("visible", software.amazon.jsii.NativeType.VOID);

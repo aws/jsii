@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Represents an operation with two operands. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Represents an operation with two operands.</summary>
     [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation")]
     internal sealed class BinaryOperationProxy : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation
     {

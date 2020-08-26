@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (deprecated)
+ * (deprecated)
  * <p>
  * @deprecated your deprecated selection of bad options
  */
@@ -11,7 +11,7 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DeprecatedEnum")
 public enum DeprecatedEnum {
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated option A is not great
      */
@@ -19,7 +19,7 @@ public enum DeprecatedEnum {
     @Deprecated
     OPTION_A,
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated option B is kinda bad, too
      */

@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
     /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// 
     /// <strong>External</strong>: true
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IExternalStruct), fullyQualifiedName: "jsii-calc.ExternalStruct")]
@@ -17,10 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
         /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// 
         /// <strong>External</strong>: true
         /// </remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}")]

@@ -1,22 +1,16 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IPrivatelyImplemented")
 @software.amazon.jsii.Jsii.Proxy(IPrivatelyImplemented.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IPrivatelyImplemented extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Boolean getSuccess();
 
     /**
@@ -28,12 +22,9 @@ public interface IPrivatelyImplemented extends software.amazon.jsii.JsiiSerializ
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.NotNull java.lang.Boolean getSuccess() {
             return this.jsiiGet("success", java.lang.Boolean.class);
         }

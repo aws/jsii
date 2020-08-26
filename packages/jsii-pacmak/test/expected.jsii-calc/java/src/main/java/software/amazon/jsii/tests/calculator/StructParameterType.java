@@ -1,32 +1,24 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted. (experimental)
+ * Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
  * <p>
  * See: https://github.com/aws/aws-cdk/issues/4302
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.StructParameterType")
 @software.amazon.jsii.Jsii.Proxy(StructParameterType.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface StructParameterType extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getScope();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.Boolean getProps() {
         return null;
     }
@@ -34,24 +26,24 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
     /**
      * @return a {@link Builder} of {@link StructParameterType}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link StructParameterType}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructParameterType> {
         private java.lang.String scope;
         private java.lang.Boolean props;
 
         /**
          * Sets the value of {@link StructParameterType#getScope}
-         * @param scope  (experimental). This parameter is required.
+         * @param scope the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder scope(java.lang.String scope) {
             this.scope = scope;
             return this;
@@ -59,10 +51,10 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
 
         /**
          * Sets the value of {@link StructParameterType#getProps}
-         * @param props  (experimental).
+         * @param props the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder props(java.lang.Boolean props) {
             this.props = props;
             return this;
@@ -73,7 +65,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
          * @return a new instance of {@link StructParameterType}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StructParameterType build() {
             return new Jsii$Proxy(scope, props);
@@ -83,7 +75,7 @@ public interface StructParameterType extends software.amazon.jsii.JsiiSerializab
     /**
      * An implementation for {@link StructParameterType}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements StructParameterType {
         private final java.lang.String scope;
         private final java.lang.Boolean props;

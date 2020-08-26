@@ -1,22 +1,16 @@
 package software.amazon.jsii.tests.calculator.submodule.nested_submodule.deeply_nested;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced")
 @software.amazon.jsii.Jsii.Proxy(INamespaced.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface INamespaced extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getDefinedAt();
 
     /**
@@ -28,12 +22,9 @@ public interface INamespaced extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.NotNull java.lang.String getDefinedAt() {
             return this.jsiiGet("definedAt", java.lang.String.class);
         }

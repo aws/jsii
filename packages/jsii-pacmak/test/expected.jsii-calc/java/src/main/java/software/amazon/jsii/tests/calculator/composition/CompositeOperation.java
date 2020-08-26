@@ -1,12 +1,10 @@
 package software.amazon.jsii.tests.calculator.composition;
 
 /**
- * Abstract operation composed from an expression of other operations. (experimental)
- * <p>
- * EXPERIMENTAL
+ * Abstract operation composed from an expression of other operations.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.composition.CompositeOperation")
 public abstract class CompositeOperation extends software.amazon.jsii.tests.calculator.lib.Operation {
 
@@ -24,121 +22,97 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * String representation of the value. (experimental)
+     * String representation of the value.
      * <p>
      * (deprecated)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
     public @org.jetbrains.annotations.NotNull java.lang.String toString() {
         return this.jsiiCall("toString", java.lang.String.class);
     }
 
     /**
-     * The expression that this operation consists of. (experimental)
+     * The expression that this operation consists of.
      * <p>
      * Must be implemented by derived classes.
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public abstract @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getExpression();
 
     /**
-     * The value. (experimental)
+     * The value.
      * <p>
      * (deprecated)
-     * <p>
-     * EXPERIMENTAL
      */
     @Override
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);
     }
 
     /**
-     * A set of postfixes to include in a decorated .toString(). (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * A set of postfixes to include in a decorated .toString().
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> getDecorationPostfixes() {
         return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPostfixes", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
-     * A set of postfixes to include in a decorated .toString(). (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * A set of postfixes to include in a decorated .toString().
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public void setDecorationPostfixes(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> value) {
         this.jsiiSet("decorationPostfixes", java.util.Objects.requireNonNull(value, "decorationPostfixes is required"));
     }
 
     /**
-     * A set of prefixes to include in a decorated .toString(). (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * A set of prefixes to include in a decorated .toString().
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> getDecorationPrefixes() {
         return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPrefixes", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(java.lang.String.class))));
     }
 
     /**
-     * A set of prefixes to include in a decorated .toString(). (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * A set of prefixes to include in a decorated .toString().
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public void setDecorationPrefixes(final @org.jetbrains.annotations.NotNull java.util.List<java.lang.String> value) {
         this.jsiiSet("decorationPrefixes", java.util.Objects.requireNonNull(value, "decorationPrefixes is required"));
     }
 
     /**
-     * The .toString() style. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * The .toString() style.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle getStringStyle() {
         return this.jsiiGet("stringStyle", software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle.class);
     }
 
     /**
-     * The .toString() style. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * The .toString() style.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public void setStringStyle(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle value) {
         this.jsiiSet("stringStyle", java.util.Objects.requireNonNull(value, "stringStyle is required"));
     }
     /**
-     * Style of .toString() output for CompositeOperation. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * Style of .toString() output for CompositeOperation.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.composition.CompositeOperation.CompositionStringStyle")
     public enum CompositionStringStyle {
         /**
-         * Normal string expression. (experimental)
-         * <p>
-         * EXPERIMENTAL
+         * Normal string expression.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         NORMAL,
         /**
-         * Decorated string expression. (experimental)
-         * <p>
-         * EXPERIMENTAL
+         * Decorated string expression.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         DECORATED,
     }
 
@@ -151,14 +125,12 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         }
 
         /**
-         * The expression that this operation consists of. (experimental)
+         * The expression that this operation consists of.
          * <p>
          * Must be implemented by derived classes.
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getExpression() {
             return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
         }

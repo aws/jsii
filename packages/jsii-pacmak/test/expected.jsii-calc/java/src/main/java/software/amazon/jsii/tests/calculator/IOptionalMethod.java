@@ -1,22 +1,17 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Checks that optional result from interface method code generates correctly. (experimental)
- * <p>
- * EXPERIMENTAL
+ * Checks that optional result from interface method code generates correctly.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IOptionalMethod")
 @software.amazon.jsii.Jsii.Proxy(IOptionalMethod.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IOptionalMethod extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.Nullable java.lang.String optional();
 
     /**
@@ -28,11 +23,8 @@ public interface IOptionalMethod extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public @org.jetbrains.annotations.Nullable java.lang.String optional() {
             return this.jsiiCall("optional", java.lang.String.class);

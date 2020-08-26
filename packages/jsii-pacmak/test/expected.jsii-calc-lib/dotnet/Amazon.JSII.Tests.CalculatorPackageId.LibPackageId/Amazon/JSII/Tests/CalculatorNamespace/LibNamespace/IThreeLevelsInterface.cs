@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public interface IThreeLevelsInterface : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseInterface
     {
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

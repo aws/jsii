@@ -4,19 +4,12 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>We can generate fancy builders in Java for classes which take a mix of positional &amp; struct parameters. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>We can generate fancy builders in Java for classes which take a mix of positional &amp; struct parameters.</summary>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SupportsNiceJavaBuilderWithRequiredProps), fullyQualifiedName: "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps", parametersJson: "[{\"docs\":{\"summary\":\"some identifier of your choice.\"},\"name\":\"id\",\"type\":{\"primitive\":\"number\"}},{\"docs\":{\"summary\":\"some properties.\"},\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.SupportsNiceJavaBuilderProps\"}}]")]
     public class SupportsNiceJavaBuilderWithRequiredProps : DeputyBase
     {
-        /// <summary> (experimental)</summary>
         /// <param name="id">some identifier of your choice.</param>
         /// <param name="props">some properties.</param>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public SupportsNiceJavaBuilderWithRequiredProps(double id, Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps props): base(new DeputyProps(new object[]{id, props}))
         {
         }
@@ -35,30 +28,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"number\"}")]
         public virtual double Bar
         {
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>some identifier of your choice. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>some identifier of your choice.</summary>
         [JsiiProperty(name: "id", typeJson: "{\"primitive\":\"number\"}")]
         public virtual double Id
         {
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "propId", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public virtual string? PropId

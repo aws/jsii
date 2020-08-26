@@ -1,30 +1,21 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IExternalInterface")
 @software.amazon.jsii.Jsii.Proxy(IExternalInterface.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IExternalInterface extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
         return null;
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Optional
     default void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
@@ -32,11 +23,8 @@ public interface IExternalInterface extends software.amazon.jsii.JsiiSerializabl
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     void method();
 
     /**
@@ -48,33 +36,24 @@ public interface IExternalInterface extends software.amazon.jsii.JsiiSerializabl
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
             return this.jsiiGet("mutableProperty", java.lang.Number.class);
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
             this.jsiiSet("mutableProperty", value);
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public void method() {
             this.jsiiCall("method", software.amazon.jsii.NativeType.VOID);

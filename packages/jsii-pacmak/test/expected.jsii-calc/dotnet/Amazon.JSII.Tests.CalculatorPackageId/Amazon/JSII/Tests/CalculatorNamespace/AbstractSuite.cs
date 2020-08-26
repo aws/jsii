@@ -4,16 +4,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Ensures abstract members implementations correctly register overrides in various languages. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Ensures abstract members implementations correctly register overrides in various languages.</summary>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractSuite), fullyQualifiedName: "jsii-calc.AbstractSuite")]
     public abstract class AbstractSuite : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         protected AbstractSuite(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -32,29 +26,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "someMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"str\",\"type\":{\"primitive\":\"string\"}}]")]
         protected abstract string SomeMethod(string str);
 
 
-        /// <summary>Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result. (experimental)</summary>
+        /// <summary>Sets `seed` to `this.property`, then calls `someMethod` with `this.property` and returns the result.</summary>
         /// <param name="seed">a `string`.</param>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "workItAll", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"docs\":{\"summary\":\"a `string`.\"},\"name\":\"seed\",\"type\":{\"primitive\":\"string\"}}]")]
         public virtual string WorkItAll(string seed)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{seed});
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
         protected abstract string Property
         {

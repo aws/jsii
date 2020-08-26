@@ -6,17 +6,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     #pragma warning disable CS8618
 
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.TopLevelStruct")]
     public class TopLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct
     {
-        /// <summary>This is a required field. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>This is a required field.</summary>
         [JsiiProperty(name: "required", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
         public string Required
         {
@@ -24,10 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>A union to really stress test our serialization. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>A union to really stress test our serialization.</summary>
         [JsiiProperty(name: "secondLevel", typeJson: "{\"union\":{\"types\":[{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.SecondLevelStruct\"}]}}", isOverride: true)]
         public object SecondLevel
         {
@@ -35,10 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>You don't have to pass this. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>You don't have to pass this.</summary>
         [JsiiOptional]
         [JsiiProperty(name: "optional", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string? Optional

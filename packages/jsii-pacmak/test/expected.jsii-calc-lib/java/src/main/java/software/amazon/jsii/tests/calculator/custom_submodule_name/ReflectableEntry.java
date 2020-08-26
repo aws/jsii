@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.custom_submodule_name;
 
 /**
- *  (deprecated)
+ * (deprecated)
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.submodule.ReflectableEntry")
@@ -11,14 +11,14 @@ package software.amazon.jsii.tests.calculator.custom_submodule_name;
 public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (deprecated)
+     * (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     @org.jetbrains.annotations.NotNull java.lang.String getKey();
 
     /**
-     *  (deprecated)
+     * (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -43,7 +43,7 @@ public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable 
 
         /**
          * Sets the value of {@link ReflectableEntry#getKey}
-         * @param key  (deprecated). This parameter is required.
+         * @param key (deprecated). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -55,7 +55,7 @@ public interface ReflectableEntry extends software.amazon.jsii.JsiiSerializable 
 
         /**
          * Sets the value of {@link ReflectableEntry#getValue}
-         * @param value  (deprecated). This parameter is required.
+         * @param value (deprecated). This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

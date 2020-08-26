@@ -1,53 +1,44 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SmellyStruct")
 @software.amazon.jsii.Jsii.Proxy(SmellyStruct.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Boolean getYetAnoterOne();
 
     /**
      * @return a {@link Builder} of {@link SmellyStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link SmellyStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SmellyStruct> {
         private java.lang.String property;
         private java.lang.Boolean yetAnoterOne;
 
         /**
          * Sets the value of {@link SmellyStruct#getProperty}
-         * @param property  (experimental). This parameter is required.
+         * @param property the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder property(java.lang.String property) {
             this.property = property;
             return this;
@@ -55,10 +46,10 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link SmellyStruct#getYetAnoterOne}
-         * @param yetAnoterOne  (experimental). This parameter is required.
+         * @param yetAnoterOne the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder yetAnoterOne(java.lang.Boolean yetAnoterOne) {
             this.yetAnoterOne = yetAnoterOne;
             return this;
@@ -69,7 +60,7 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link SmellyStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public SmellyStruct build() {
             return new Jsii$Proxy(property, yetAnoterOne);
@@ -79,7 +70,7 @@ public interface SmellyStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      * An implementation for {@link SmellyStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements SmellyStruct {
         private final java.lang.String property;
         private final java.lang.Boolean yetAnoterOne;

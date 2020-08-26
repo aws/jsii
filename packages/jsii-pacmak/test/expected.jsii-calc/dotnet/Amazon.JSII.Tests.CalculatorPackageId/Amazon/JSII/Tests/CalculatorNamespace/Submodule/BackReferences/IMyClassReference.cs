@@ -4,17 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.BackReferences
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiInterface(nativeType: typeof(IMyClassReference), fullyQualifiedName: "jsii-calc.submodule.back_references.MyClassReference")]
     public interface IMyClassReference
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "reference", typeJson: "{\"fqn\":\"jsii-calc.submodule.MyClass\"}")]
         Amazon.JSII.Tests.CalculatorNamespace.Submodule.MyClass Reference
         {

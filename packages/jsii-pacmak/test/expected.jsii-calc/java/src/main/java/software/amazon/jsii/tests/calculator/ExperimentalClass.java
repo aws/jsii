@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
+ * (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -19,7 +19,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -33,7 +33,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      * <p>
@@ -46,7 +46,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -56,7 +56,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -66,7 +66,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -76,7 +76,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      */

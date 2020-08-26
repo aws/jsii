@@ -1,32 +1,26 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Even friendlier classes can implement this interface. (experimental)
- * <p>
- * EXPERIMENTAL
+ * Even friendlier classes can implement this interface.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IFriendlier")
 @software.amazon.jsii.Jsii.Proxy(IFriendlier.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.IFriendly {
 
     /**
-     * Say farewell. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * Say farewell.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String farewell();
 
     /**
-     * Say goodbye. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * Say goodbye.
      * <p>
      * @return A goodbye blessing.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String goodbye();
 
     /**
@@ -38,24 +32,20 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         }
 
         /**
-         * Say farewell. (experimental)
-         * <p>
-         * EXPERIMENTAL
+         * Say farewell.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public @org.jetbrains.annotations.NotNull java.lang.String farewell() {
             return this.jsiiCall("farewell", java.lang.String.class);
         }
 
         /**
-         * Say goodbye. (experimental)
-         * <p>
-         * EXPERIMENTAL
+         * Say goodbye.
          * <p>
          * @return A goodbye blessing.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public @org.jetbrains.annotations.NotNull java.lang.String goodbye() {
             return this.jsiiCall("goodbye", java.lang.String.class);

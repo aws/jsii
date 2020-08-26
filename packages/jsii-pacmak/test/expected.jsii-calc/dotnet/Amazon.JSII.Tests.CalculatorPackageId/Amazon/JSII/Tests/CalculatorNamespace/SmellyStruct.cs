@@ -6,17 +6,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     #pragma warning disable CS8618
 
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.SmellyStruct")]
     public class SmellyStruct : Amazon.JSII.Tests.CalculatorNamespace.ISmellyStruct
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
         public string Property
         {
@@ -24,10 +16,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "yetAnoterOne", typeJson: "{\"primitive\":\"boolean\"}", isOverride: true)]
         public bool YetAnoterOne
         {

@@ -1,44 +1,39 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.NestedStruct")
 @software.amazon.jsii.Jsii.Proxy(NestedStruct.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * When provided, must be > 0. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * When provided, must be > 0.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Number getNumberProp();
 
     /**
      * @return a {@link Builder} of {@link NestedStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link NestedStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<NestedStruct> {
         private java.lang.Number numberProp;
 
         /**
          * Sets the value of {@link NestedStruct#getNumberProp}
-         * @param numberProp When provided, must be > 0. (experimental). This parameter is required.
+         * @param numberProp When provided, must be > 0. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder numberProp(java.lang.Number numberProp) {
             this.numberProp = numberProp;
             return this;
@@ -49,7 +44,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link NestedStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public NestedStruct build() {
             return new Jsii$Proxy(numberProp);
@@ -59,7 +54,7 @@ public interface NestedStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      * An implementation for {@link NestedStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements NestedStruct {
         private final java.lang.Number numberProp;
 

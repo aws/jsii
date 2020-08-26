@@ -1,12 +1,9 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.AmbiguousParameters")
 public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
 
@@ -19,35 +16,25 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
-     * <p>
      * @param scope This parameter is required.
      * @param props This parameter is required.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public AmbiguousParameters(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Bell scope, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructParameterType props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(scope, "scope is required"), java.util.Objects.requireNonNull(props, "props is required") });
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructParameterType getProps() {
         return this.jsiiGet("props", software.amazon.jsii.tests.calculator.StructParameterType.class);
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.Bell getScope() {
         return this.jsiiGet("scope", software.amazon.jsii.tests.calculator.Bell.class);
     }
@@ -55,15 +42,13 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
     /**
      * A fluent builder for {@link software.amazon.jsii.tests.calculator.AmbiguousParameters}.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.AmbiguousParameters> {
         /**
-         * EXPERIMENTAL
-         * <p>
          * @return a new instance of {@link Builder}.
          * @param scope This parameter is required.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static Builder create(final software.amazon.jsii.tests.calculator.Bell scope) {
             return new Builder(scope);
         }
@@ -77,28 +62,20 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
-         * <p>
          * @return {@code this}
-         * @param scope  (experimental). This parameter is required.
+         * @param scope This parameter is required.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder scope(final java.lang.String scope) {
             this.props.scope(scope);
             return this;
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
-         * <p>
          * @return {@code this}
-         * @param props  (experimental). This parameter is required.
+         * @param props This parameter is required.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder props(final java.lang.Boolean props) {
             this.props.props(props);
             return this;
@@ -107,7 +84,7 @@ public class AmbiguousParameters extends software.amazon.jsii.JsiiObject {
         /**
          * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.AmbiguousParameters}.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public software.amazon.jsii.tests.calculator.AmbiguousParameters build() {
             return new software.amazon.jsii.tests.calculator.AmbiguousParameters(

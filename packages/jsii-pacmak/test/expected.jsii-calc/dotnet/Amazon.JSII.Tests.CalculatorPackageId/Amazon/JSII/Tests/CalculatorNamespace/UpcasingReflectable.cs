@@ -4,17 +4,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Ensures submodule-imported types from dependencies can be used correctly. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Ensures submodule-imported types from dependencies can be used correctly.</summary>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UpcasingReflectable), fullyQualifiedName: "jsii-calc.UpcasingReflectable", parametersJson: "[{\"name\":\"delegate\",\"type\":{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}}]")]
     public class UpcasingReflectable : DeputyBase, Amazon.JSII.Tests.CustomSubmoduleName.IReflectable
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public UpcasingReflectable(System.Collections.Generic.IDictionary<string, object> @delegate): base(new DeputyProps(new object[]{@delegate}))
         {
         }
@@ -33,10 +26,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "reflector", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.submodule.Reflector\"}")]
         public static Amazon.JSII.Tests.CustomSubmoduleName.Reflector Reflector
         {
@@ -44,10 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
         = GetStaticProperty<Amazon.JSII.Tests.CustomSubmoduleName.Reflector>(typeof(Amazon.JSII.Tests.CalculatorNamespace.UpcasingReflectable));
 
-        /// <summary>(deprecated). (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>(deprecated).</summary>
         [JsiiProperty(name: "entries", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.submodule.ReflectableEntry\"},\"kind\":\"array\"}}")]
         public virtual Amazon.JSII.Tests.CustomSubmoduleName.IReflectableEntry[] Entries
         {

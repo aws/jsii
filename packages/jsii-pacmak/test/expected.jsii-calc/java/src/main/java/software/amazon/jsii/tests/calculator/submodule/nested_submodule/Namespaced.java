@@ -1,12 +1,9 @@
 package software.amazon.jsii.tests.calculator.submodule.nested_submodule;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.submodule.nested_submodule.Namespaced")
 public abstract class Namespaced extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.submodule.nested_submodule.deeply_nested.INamespaced {
 
@@ -19,22 +16,16 @@ public abstract class Namespaced extends software.amazon.jsii.JsiiObject impleme
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
     @Override
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.String getDefinedAt() {
         return this.jsiiGet("definedAt", java.lang.String.class);
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public abstract @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.submodule.child.Goodness getGoodness();
 
     /**
@@ -46,23 +37,17 @@ public abstract class Namespaced extends software.amazon.jsii.JsiiObject impleme
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.submodule.child.Goodness getGoodness() {
             return this.jsiiGet("goodness", software.amazon.jsii.tests.calculator.submodule.child.Goodness.class);
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.NotNull java.lang.String getDefinedAt() {
             return this.jsiiGet("definedAt", java.lang.String.class);
         }

@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (deprecated)</summary>
+    /// <summary>(deprecated)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [System.Obsolete("a pretty boring class")]
     public class DeprecatedClass : DeputyBase
     {
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -37,7 +37,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -48,7 +48,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -59,7 +59,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

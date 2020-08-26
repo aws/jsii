@@ -1,14 +1,12 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * This tries to confuse Jackson by having overloaded property setters. (experimental)
- * <p>
- * EXPERIMENTAL
+ * This tries to confuse Jackson by having overloaded property setters.
  * <p>
  * @see https://github.com/aws/aws-cdk/issues/4080
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ConfusingToJackson")
 public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
 
@@ -21,51 +19,36 @@ public class ConfusingToJackson extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.ConfusingToJackson makeInstance() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConfusingToJackson.class, "makeInstance", software.amazon.jsii.tests.calculator.ConfusingToJackson.class);
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct makeStructInstance() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ConfusingToJackson.class, "makeStructInstance", software.amazon.jsii.tests.calculator.ConfusingToJacksonStruct.class);
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.Nullable java.lang.Object getUnionProperty() {
         return this.jsiiGet("unionProperty", java.lang.Object.class);
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public void setUnionProperty(final @org.jetbrains.annotations.Nullable software.amazon.jsii.tests.calculator.lib.IFriendly value) {
         this.jsiiSet("unionProperty", value);
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public void setUnionProperty(final @org.jetbrains.annotations.Nullable java.util.List<java.lang.Object> value) {
         this.jsiiSet("unionProperty", value);
     }

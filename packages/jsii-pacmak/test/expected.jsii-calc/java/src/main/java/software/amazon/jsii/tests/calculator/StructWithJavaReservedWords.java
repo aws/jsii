@@ -1,50 +1,35 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.StructWithJavaReservedWords")
 @software.amazon.jsii.Jsii.Proxy(StructWithJavaReservedWords.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getDefaultValue();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getAssertValue() {
         return null;
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getResult() {
         return null;
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getThat() {
         return null;
     }
@@ -52,14 +37,14 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
     /**
      * @return a {@link Builder} of {@link StructWithJavaReservedWords}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link StructWithJavaReservedWords}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructWithJavaReservedWords> {
         private java.lang.String defaultValue;
         private java.lang.String assertValue;
@@ -68,10 +53,10 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getDefaultValue}
-         * @param defaultValue  (experimental). This parameter is required.
+         * @param defaultValue the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder defaultValue(java.lang.String defaultValue) {
             this.defaultValue = defaultValue;
             return this;
@@ -79,10 +64,10 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getAssertValue}
-         * @param assertValue  (experimental).
+         * @param assertValue the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder assertValue(java.lang.String assertValue) {
             this.assertValue = assertValue;
             return this;
@@ -90,10 +75,10 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getResult}
-         * @param result  (experimental).
+         * @param result the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder result(java.lang.String result) {
             this.result = result;
             return this;
@@ -101,10 +86,10 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of {@link StructWithJavaReservedWords#getThat}
-         * @param that  (experimental).
+         * @param that the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder that(java.lang.String that) {
             this.that = that;
             return this;
@@ -115,7 +100,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
          * @return a new instance of {@link StructWithJavaReservedWords}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StructWithJavaReservedWords build() {
             return new Jsii$Proxy(defaultValue, assertValue, result, that);
@@ -125,7 +110,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
     /**
      * An implementation for {@link StructWithJavaReservedWords}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements StructWithJavaReservedWords {
         private final java.lang.String defaultValue;
         private final java.lang.String assertValue;

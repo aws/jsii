@@ -1,38 +1,32 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Properties for Calculator. (experimental)
- * <p>
- * EXPERIMENTAL
+ * Properties for Calculator.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.CalculatorProps")
 @software.amazon.jsii.Jsii.Proxy(CalculatorProps.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * The initial value of the calculator. (experimental)
+     * The initial value of the calculator.
      * <p>
      * NOTE: Any number works here, it's fine.
      * <p>
      * Default: 0
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.Number getInitialValue() {
         return null;
     }
 
     /**
-     * The maximum value the calculator can store. (experimental)
+     * The maximum value the calculator can store.
      * <p>
      * Default: none
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.Number getMaximumValue() {
         return null;
     }
@@ -40,25 +34,25 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
     /**
      * @return a {@link Builder} of {@link CalculatorProps}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link CalculatorProps}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<CalculatorProps> {
         private java.lang.Number initialValue;
         private java.lang.Number maximumValue;
 
         /**
          * Sets the value of {@link CalculatorProps#getInitialValue}
-         * @param initialValue The initial value of the calculator. (experimental).
+         * @param initialValue The initial value of the calculator.
          *                     NOTE: Any number works here, it's fine.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder initialValue(java.lang.Number initialValue) {
             this.initialValue = initialValue;
             return this;
@@ -66,10 +60,10 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link CalculatorProps#getMaximumValue}
-         * @param maximumValue The maximum value the calculator can store. (experimental).
+         * @param maximumValue The maximum value the calculator can store.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder maximumValue(java.lang.Number maximumValue) {
             this.maximumValue = maximumValue;
             return this;
@@ -80,7 +74,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link CalculatorProps}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public CalculatorProps build() {
             return new Jsii$Proxy(initialValue, maximumValue);
@@ -90,7 +84,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
     /**
      * An implementation for {@link CalculatorProps}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements CalculatorProps {
         private final java.lang.Number initialValue;
         private final java.lang.Number maximumValue;

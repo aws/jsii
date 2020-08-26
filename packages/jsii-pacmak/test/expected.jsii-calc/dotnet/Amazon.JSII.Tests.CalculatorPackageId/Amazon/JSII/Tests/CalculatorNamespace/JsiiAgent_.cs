@@ -4,16 +4,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Host runtime version should be set via JSII_AGENT. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Host runtime version should be set via JSII_AGENT.</summary>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JsiiAgent_), fullyQualifiedName: "jsii-calc.JsiiAgent")]
     public class JsiiAgent_ : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public JsiiAgent_(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -32,10 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Returns the value of the JSII_AGENT environment variable. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>Returns the value of the JSII_AGENT environment variable.</summary>
         [JsiiOptional]
         [JsiiProperty(name: "jsiiAgent", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public static string? JsiiAgent

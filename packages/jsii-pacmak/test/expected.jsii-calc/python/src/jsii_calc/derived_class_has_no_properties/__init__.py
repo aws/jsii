@@ -14,27 +14,12 @@ from .._jsii import *
 class Base(
     metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Base"
 ):
-    """(experimental)
-
-    stability
-    :stability: experimental
-    """
-
     def __init__(self) -> None:
-        """
-        stability
-        :stability: experimental
-        """
         jsii.create(Base, self, [])
 
     @builtins.property
     @jsii.member(jsii_name="prop")
     def prop(self) -> str:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return jsii.get(self, "prop")
 
     @prop.setter
@@ -47,17 +32,7 @@ class Derived(
     metaclass=jsii.JSIIMeta,
     jsii_type="jsii-calc.DerivedClassHasNoProperties.Derived",
 ):
-    """(experimental)
-
-    stability
-    :stability: experimental
-    """
-
     def __init__(self) -> None:
-        """
-        stability
-        :stability: experimental
-        """
         jsii.create(Derived, self, [])
 
 

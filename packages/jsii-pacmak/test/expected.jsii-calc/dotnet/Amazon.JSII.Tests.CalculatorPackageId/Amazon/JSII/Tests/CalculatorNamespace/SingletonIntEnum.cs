@@ -5,17 +5,11 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
 
-    /// <summary>A singleton integer. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>A singleton integer.</summary>
     [JsiiEnum(nativeType: typeof(SingletonIntEnum), fullyQualifiedName: "jsii-calc.SingletonIntEnum")]
     public enum SingletonIntEnum
     {
-        /// <summary>Elite! (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>Elite!</summary>
         [JsiiEnumMember(name: "SINGLETON_INT")]
         SINGLETON_INT
     }

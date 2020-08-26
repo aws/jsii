@@ -22,19 +22,9 @@ from .nested_submodule.deeply_nested import INamespaced as _INamespaced_e2f386ad
 
 @jsii.implements(_INamespaced_e2f386ad)
 class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
-    """(experimental)
-
-    stability
-    :stability: experimental
-    """
-
     def __init__(self, *, prop: _SomeEnum_b2e41d92) -> None:
-        """(experimental)
-
-        :param prop: (experimental)
-
-        stability
-        :stability: experimental
+        """
+        :param prop: 
         """
         props = _SomeStruct_91627123(prop=prop)
 
@@ -43,51 +33,26 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
     @builtins.property
     @jsii.member(jsii_name="awesomeness")
     def awesomeness(self) -> _Awesomeness_d37a24df:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return jsii.get(self, "awesomeness")
 
     @builtins.property
     @jsii.member(jsii_name="definedAt")
     def defined_at(self) -> str:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return jsii.get(self, "definedAt")
 
     @builtins.property
     @jsii.member(jsii_name="goodness")
     def goodness(self) -> _Goodness_2df26737:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return jsii.get(self, "goodness")
 
     @builtins.property
     @jsii.member(jsii_name="props")
     def props(self) -> _SomeStruct_91627123:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return jsii.get(self, "props")
 
     @builtins.property
     @jsii.member(jsii_name="allTypes")
     def all_types(self) -> typing.Optional[_AllTypes_b08307c5]:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return jsii.get(self, "allTypes")
 
     @all_types.setter

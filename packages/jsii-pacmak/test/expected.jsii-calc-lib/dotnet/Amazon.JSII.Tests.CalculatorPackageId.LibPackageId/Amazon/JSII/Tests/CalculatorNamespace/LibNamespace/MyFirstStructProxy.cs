@@ -38,7 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

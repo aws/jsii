@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator.custom_submodule_name;
 
 /**
- *  (deprecated)
+ * (deprecated)
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.submodule.IReflectable")
@@ -11,7 +11,7 @@ package software.amazon.jsii.tests.calculator.custom_submodule_name;
 public interface IReflectable extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (deprecated)
+     * (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -26,7 +26,7 @@ public interface IReflectable extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         *  (deprecated)
+         * (deprecated)
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

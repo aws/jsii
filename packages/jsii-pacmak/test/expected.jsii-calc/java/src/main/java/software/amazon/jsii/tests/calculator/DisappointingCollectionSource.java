@@ -1,14 +1,12 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verifies that null/undefined can be returned for optional collections. (experimental)
+ * Verifies that null/undefined can be returned for optional collections.
  * <p>
  * This source of collections is disappointing - it'll always give you nothing :(
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DisappointingCollectionSource")
 public class DisappointingCollectionSource extends software.amazon.jsii.JsiiObject {
 
@@ -26,22 +24,18 @@ public class DisappointingCollectionSource extends software.amazon.jsii.JsiiObje
     }
 
     /**
-     * Some List of strings, maybe? (experimental)
+     * Some List of strings, maybe?
      * <p>
      * (Nah, just a billion dollars mistake!)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public final static java.util.List<java.lang.String> MAYBE_LIST;
 
     /**
-     * Some Map of strings to numbers, maybe? (experimental)
+     * Some Map of strings to numbers, maybe?
      * <p>
      * (Nah, just a billion dollars mistake!)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public final static java.util.Map<java.lang.String, java.lang.Number> MAYBE_MAP;
 }

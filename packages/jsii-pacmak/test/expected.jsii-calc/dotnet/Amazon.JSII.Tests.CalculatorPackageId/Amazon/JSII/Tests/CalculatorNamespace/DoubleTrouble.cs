@@ -4,16 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble), fullyQualifiedName: "jsii-calc.DoubleTrouble")]
     public class DoubleTrouble : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IFriendlyRandomGenerator
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public DoubleTrouble(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -32,11 +25,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Say hello! (experimental)</summary>
+        /// <summary>Say hello!</summary>
         /// <remarks>
         /// (deprecated)
-        /// 
-        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Hello()
@@ -44,10 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Returns another random number. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>Returns another random number.</summary>
         [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
         public virtual double Next()
         {

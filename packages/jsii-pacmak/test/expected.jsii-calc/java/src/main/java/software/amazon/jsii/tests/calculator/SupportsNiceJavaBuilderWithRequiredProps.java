@@ -1,12 +1,10 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * We can generate fancy builders in Java for classes which take a mix of positional & struct parameters. (experimental)
- * <p>
- * EXPERIMENTAL
+ * We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps")
 public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.jsii.JsiiObject {
 
@@ -19,45 +17,33 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
-     * <p>
      * @param id some identifier of your choice. This parameter is required.
      * @param props some properties. This parameter is required.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public SupportsNiceJavaBuilderWithRequiredProps(final @org.jetbrains.annotations.NotNull java.lang.Number id, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(id, "id is required"), java.util.Objects.requireNonNull(props, "props is required") });
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.Number getBar() {
         return this.jsiiGet("bar", java.lang.Number.class);
     }
 
     /**
-     * some identifier of your choice. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * some identifier of your choice.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull java.lang.Number getId() {
         return this.jsiiGet("id", java.lang.Number.class);
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.Nullable java.lang.String getPropId() {
         return this.jsiiGet("propId", java.lang.String.class);
     }
@@ -65,15 +51,13 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     /**
      * A fluent builder for {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps> {
         /**
-         * EXPERIMENTAL
-         * <p>
          * @return a new instance of {@link Builder}.
          * @param id some identifier of your choice. This parameter is required.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public static Builder create(final java.lang.Number id) {
             return new Builder(id);
         }
@@ -87,30 +71,26 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
         }
 
         /**
-         * Some number, like 42. (experimental)
-         * <p>
-         * EXPERIMENTAL
+         * Some number, like 42.
          * <p>
          * @return {@code this}
-         * @param bar Some number, like 42. (experimental). This parameter is required.
+         * @param bar Some number, like 42. This parameter is required.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder bar(final java.lang.Number bar) {
             this.props.bar(bar);
             return this;
         }
 
         /**
-         * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental)
+         * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
          * <p>
          * But here we are, doing it like we didn't care.
          * <p>
-         * EXPERIMENTAL
-         * <p>
          * @return {@code this}
-         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental). This parameter is required.
+         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. This parameter is required.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder id(final java.lang.String id) {
             this.props.id(id);
             return this;
@@ -119,7 +99,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
         /**
          * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps build() {
             return new software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps(

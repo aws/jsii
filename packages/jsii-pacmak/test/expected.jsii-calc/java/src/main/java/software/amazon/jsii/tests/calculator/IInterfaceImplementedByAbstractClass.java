@@ -1,22 +1,17 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * awslabs/jsii#220 Abstract return type. (experimental)
- * <p>
- * EXPERIMENTAL
+ * awslabs/jsii#220 Abstract return type.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IInterfaceImplementedByAbstractClass")
 @software.amazon.jsii.Jsii.Proxy(IInterfaceImplementedByAbstractClass.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IInterfaceImplementedByAbstractClass extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getPropFromInterface();
 
     /**
@@ -28,12 +23,9 @@ public interface IInterfaceImplementedByAbstractClass extends software.amazon.js
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.NotNull java.lang.String getPropFromInterface() {
             return this.jsiiGet("propFromInterface", java.lang.String.class);
         }

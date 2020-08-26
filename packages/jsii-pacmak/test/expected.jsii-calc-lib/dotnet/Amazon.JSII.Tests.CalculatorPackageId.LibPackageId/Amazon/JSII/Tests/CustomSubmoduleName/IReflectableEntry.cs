@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CustomSubmoduleName
 {
-    /// <summary> (deprecated)</summary>
+    /// <summary>(deprecated)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
     [System.Obsolete()]
     public interface IReflectableEntry
     {
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
             get;
         }
 
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

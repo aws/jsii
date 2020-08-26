@@ -4,16 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), fullyQualifiedName: "jsii-calc.EraseUndefinedHashValues")]
     public class EraseUndefinedHashValues : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public EraseUndefinedHashValues(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -32,12 +25,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Returns `true` if `key` is defined in `opts`. (experimental)</summary>
+        /// <summary>Returns `true` if `key` is defined in `opts`.</summary>
         /// <remarks>
         /// Used to check that undefined/null hash values
         /// are being erased when sending values from native code to JS.
-        /// 
-        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiMethod(name: "doesKeyExist", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"opts\",\"type\":{\"fqn\":\"jsii-calc.EraseUndefinedHashValuesOptions\"}},{\"name\":\"key\",\"type\":{\"primitive\":\"string\"}}]")]
         public static bool DoesKeyExist(Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions opts, string key)
@@ -45,20 +36,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions), typeof(string)}, new object[]{opts, key});
         }
 
-        /// <summary>We expect "prop1" to be erased. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>We expect "prop1" to be erased.</summary>
         [JsiiMethod(name: "prop1IsNull", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}}")]
         public static System.Collections.Generic.IDictionary<string, object> Prop1IsNull()
         {
             return InvokeStaticMethod<System.Collections.Generic.IDictionary<string, object>>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>We expect "prop2" to be erased. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>We expect "prop2" to be erased.</summary>
         [JsiiMethod(name: "prop2IsUndefined", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}}")]
         public static System.Collections.Generic.IDictionary<string, object> Prop2IsUndefined()
         {

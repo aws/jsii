@@ -1,24 +1,20 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Generates random numbers. (experimental)
- * <p>
- * EXPERIMENTAL
+ * Generates random numbers.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IRandomNumberGenerator")
 @software.amazon.jsii.Jsii.Proxy(IRandomNumberGenerator.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * Returns another random number. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * Returns another random number.
      * <p>
      * @return A random number.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Number next();
 
     /**
@@ -30,13 +26,11 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
         }
 
         /**
-         * Returns another random number. (experimental)
-         * <p>
-         * EXPERIMENTAL
+         * Returns another random number.
          * <p>
          * @return A random number.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public @org.jetbrains.annotations.NotNull java.lang.Number next() {
             return this.jsiiCall("next", java.lang.Number.class);

@@ -27,5 +27,5 @@
  * String foo = "bar";
  * </pre></blockquote>
  */
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 package software.amazon.jsii.tests.calculator;

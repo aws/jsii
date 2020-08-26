@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (deprecated)
+ * (deprecated)
  * <p>
  * @deprecated it just wraps a string
  */
@@ -13,7 +13,7 @@ package software.amazon.jsii.tests.calculator;
 public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated well, yeah
      */
@@ -39,7 +39,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
 
         /**
          * Sets the value of {@link DeprecatedStruct#getReadonlyProperty}
-         * @param readonlyProperty  (deprecated). This parameter is required.
+         * @param readonlyProperty (deprecated). This parameter is required.
          * @return {@code this}
          * @deprecated well, yeah
          */

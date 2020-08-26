@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (deprecated)
+ * (deprecated)
  * <p>
  * @deprecated useless interface
  */
@@ -13,7 +13,7 @@ package software.amazon.jsii.tests.calculator;
 public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated could be better
      */
@@ -24,7 +24,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated could be better
      */
@@ -34,7 +34,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated services no purpose
      */
@@ -51,7 +51,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         }
 
         /**
-         *  (deprecated)
+         * (deprecated)
          * <p>
          * @deprecated could be better
          */
@@ -63,7 +63,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         }
 
         /**
-         *  (deprecated)
+         * (deprecated)
          * <p>
          * @deprecated could be better
          */
@@ -75,7 +75,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         }
 
         /**
-         *  (deprecated)
+         * (deprecated)
          * <p>
          * @deprecated services no purpose
          */

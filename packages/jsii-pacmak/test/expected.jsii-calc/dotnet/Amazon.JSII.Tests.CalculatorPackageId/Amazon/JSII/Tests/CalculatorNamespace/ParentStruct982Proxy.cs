@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>https://github.com/aws/jsii/issues/982. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>https://github.com/aws/jsii/issues/982.</summary>
     [JsiiTypeProxy(nativeType: typeof(IParentStruct982), fullyQualifiedName: "jsii-calc.ParentStruct982")]
     internal sealed class ParentStruct982Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IParentStruct982
     {
@@ -15,10 +12,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "foo", typeJson: "{\"primitive\":\"string\"}")]
         public string Foo
         {

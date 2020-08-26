@@ -1,45 +1,39 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ChildStruct982")
 @software.amazon.jsii.Jsii.Proxy(ChildStruct982.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.ParentStruct982 {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Number getBar();
 
     /**
      * @return a {@link Builder} of {@link ChildStruct982}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link ChildStruct982}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ChildStruct982> {
         private java.lang.Number bar;
         private java.lang.String foo;
 
         /**
          * Sets the value of {@link ChildStruct982#getBar}
-         * @param bar  (experimental). This parameter is required.
+         * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder bar(java.lang.Number bar) {
             this.bar = bar;
             return this;
@@ -47,10 +41,10 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
 
         /**
          * Sets the value of {@link ChildStruct982#getFoo}
-         * @param foo  (experimental). This parameter is required.
+         * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder foo(java.lang.String foo) {
             this.foo = foo;
             return this;
@@ -61,7 +55,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
          * @return a new instance of {@link ChildStruct982}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ChildStruct982 build() {
             return new Jsii$Proxy(bar, foo);
@@ -71,7 +65,7 @@ public interface ChildStruct982 extends software.amazon.jsii.JsiiSerializable, s
     /**
      * An implementation for {@link ChildStruct982}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ChildStruct982 {
         private final java.lang.Number bar;
         private final java.lang.String foo;

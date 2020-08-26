@@ -4,17 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.submodule.child.KwargsProps")]
     public class KwargsProps : Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.IKwargsProps
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "extra", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string? Extra
@@ -23,10 +15,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
             set;
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "prop", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.SomeEnum\"}", isOverride: true)]
         public Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.SomeEnum Prop
         {

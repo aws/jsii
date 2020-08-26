@@ -76,7 +76,7 @@
         {
           "docs": {
             "stability": "experimental",
-            "summary": " (experimental)"
+            "summary": "(experimental)"
           },
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -119,5 +119,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "Sx05yAAjeIZr51FYSW2kUq9UHe2MZ9drNSgMOdp0XhM="
+  "fingerprint": "vRce/15bb+I622ZOvhCsYYCSwyq5uPnYe7WtSusJfPw="
 }

@@ -1,12 +1,10 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * We can return arrays of interfaces See aws/aws-cdk#2362. (experimental)
- * <p>
- * EXPERIMENTAL
+ * We can return arrays of interfaces See aws/aws-cdk#2362.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.InterfacesMaker")
 public class InterfacesMaker extends software.amazon.jsii.JsiiObject {
 
@@ -19,13 +17,9 @@ public class InterfacesMaker extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
-     * <p>
      * @param count This parameter is required.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static @org.jetbrains.annotations.NotNull java.util.List<software.amazon.jsii.tests.calculator.lib.IDoublable> makeInterfaces(final @org.jetbrains.annotations.NotNull java.lang.Number count) {
         return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.InterfacesMaker.class, "makeInterfaces", software.amazon.jsii.NativeType.listOf(software.amazon.jsii.NativeType.forClass(software.amazon.jsii.tests.calculator.lib.IDoublable.class)), new Object[] { java.util.Objects.requireNonNull(count, "count is required") }));
     }

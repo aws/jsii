@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>These are some arguments you can pass to a method. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>These are some arguments you can pass to a method.</summary>
     [JsiiTypeProxy(nativeType: typeof(IGreetee), fullyQualifiedName: "jsii-calc.Greetee")]
     internal sealed class GreeteeProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IGreetee
     {
@@ -15,11 +12,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The name of the greetee. (experimental)</summary>
+        /// <summary>The name of the greetee.</summary>
         /// <remarks>
         /// <strong>Default</strong>: world
-        /// 
-        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "name", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]

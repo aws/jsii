@@ -4,10 +4,6 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IStructWithSelf), fullyQualifiedName: "jsii-calc.PythonSelf.StructWithSelf")]
     internal sealed class StructWithSelfProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.IStructWithSelf
     {
@@ -15,10 +11,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "self", typeJson: "{\"primitive\":\"string\"}")]
         public string Self
         {

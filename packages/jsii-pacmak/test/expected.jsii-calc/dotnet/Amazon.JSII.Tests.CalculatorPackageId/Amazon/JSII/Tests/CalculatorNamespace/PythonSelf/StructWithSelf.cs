@@ -6,17 +6,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
 {
     #pragma warning disable CS8618
 
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.PythonSelf.StructWithSelf")]
     public class StructWithSelf : Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.IStructWithSelf
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "self", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
         public string Self
         {

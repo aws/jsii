@@ -4,19 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>1. (experimental)</summary>
+    /// <summary>1.</summary>
     /// <remarks>
     /// call #takeThis() -&gt; An ObjectRef will be provisioned for the value (it'll be re-used!)
     /// 2. call #takeThisToo() -&gt; The ObjectRef from before will need to be down-cased to the ParentStruct982 type
-    /// 
-    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Demonstrate982), fullyQualifiedName: "jsii-calc.Demonstrate982")]
     public class Demonstrate982 : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public Demonstrate982(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -35,20 +30,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>It's dangerous to go alone! (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>It's dangerous to go alone!</summary>
         [JsiiMethod(name: "takeThis", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.ChildStruct982\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.IChildStruct982 TakeThis()
         {
             return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IChildStruct982>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Demonstrate982), new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>It's dangerous to go alone! (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>It's dangerous to go alone!</summary>
         [JsiiMethod(name: "takeThisToo", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.ParentStruct982\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.IParentStruct982 TakeThisToo()
         {

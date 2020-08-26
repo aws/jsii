@@ -1,66 +1,48 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * A struct which derives from another struct. (experimental)
- * <p>
- * EXPERIMENTAL
+ * A struct which derives from another struct.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DerivedStruct")
 @software.amazon.jsii.Jsii.Proxy(DerivedStruct.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.MyFirstStruct {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.time.Instant getAnotherRequired();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Boolean getBool();
 
     /**
-     * An example of a non primitive property. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * An example of a non primitive property.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive();
 
     /**
-     * This is optional. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * This is optional.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional() {
         return null;
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.Object getOptionalAny() {
         return null;
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.util.List<java.lang.String> getOptionalArray() {
         return null;
     }
@@ -68,14 +50,14 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
     /**
      * @return a {@link Builder} of {@link DerivedStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link DerivedStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<DerivedStruct> {
         private java.time.Instant anotherRequired;
         private java.lang.Boolean bool;
@@ -89,10 +71,10 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         /**
          * Sets the value of {@link DerivedStruct#getAnotherRequired}
-         * @param anotherRequired  (experimental). This parameter is required.
+         * @param anotherRequired the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder anotherRequired(java.time.Instant anotherRequired) {
             this.anotherRequired = anotherRequired;
             return this;
@@ -100,10 +82,10 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         /**
          * Sets the value of {@link DerivedStruct#getBool}
-         * @param bool  (experimental). This parameter is required.
+         * @param bool the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder bool(java.lang.Boolean bool) {
             this.bool = bool;
             return this;
@@ -111,10 +93,10 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         /**
          * Sets the value of {@link DerivedStruct#getNonPrimitive}
-         * @param nonPrimitive An example of a non primitive property. (experimental). This parameter is required.
+         * @param nonPrimitive An example of a non primitive property. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder nonPrimitive(software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive) {
             this.nonPrimitive = nonPrimitive;
             return this;
@@ -122,10 +104,10 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         /**
          * Sets the value of {@link DerivedStruct#getAnotherOptional}
-         * @param anotherOptional This is optional. (experimental).
+         * @param anotherOptional This is optional.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder anotherOptional(java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> anotherOptional) {
             this.anotherOptional = anotherOptional;
             return this;
@@ -133,10 +115,10 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         /**
          * Sets the value of {@link DerivedStruct#getOptionalAny}
-         * @param optionalAny  (experimental).
+         * @param optionalAny the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder optionalAny(java.lang.Object optionalAny) {
             this.optionalAny = optionalAny;
             return this;
@@ -144,10 +126,10 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         /**
          * Sets the value of {@link DerivedStruct#getOptionalArray}
-         * @param optionalArray  (experimental).
+         * @param optionalArray the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder optionalArray(java.util.List<java.lang.String> optionalArray) {
             this.optionalArray = optionalArray;
             return this;
@@ -179,7 +161,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         /**
          * Sets the value of {@link DerivedStruct#getFirstOptional}
-         * @param firstOptional  (deprecated).
+         * @param firstOptional (deprecated).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -194,7 +176,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          * @return a new instance of {@link DerivedStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public DerivedStruct build() {
             return new Jsii$Proxy(anotherRequired, bool, nonPrimitive, anotherOptional, optionalAny, optionalArray, anumber, astring, firstOptional);
@@ -204,7 +186,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
     /**
      * An implementation for {@link DerivedStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DerivedStruct {
         private final java.time.Instant anotherRequired;
         private final java.lang.Boolean bool;

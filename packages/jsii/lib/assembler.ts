@@ -1608,10 +1608,11 @@ export class Assembler implements Emitter {
 
     // Modify the summary if this API element has a special stability
     if (result.docs.stability === spec.Stability.Experimental) {
-      result.docs.summary = `${result.docs.summary ?? ''} (experimental)`;
+      // eslint-disable-next-line prettier/prettier
+      result.docs.summary = `${result.docs.summary ?? ''} (experimental)`.trim();
     }
     if (result.docs.stability === spec.Stability.Deprecated) {
-      result.docs.summary = `${result.docs.summary ?? ''} (deprecated)`;
+      result.docs.summary = `${result.docs.summary ?? ''} (deprecated)`.trim();
     }
 
     const allUndefined = Object.values(result.docs).every(

@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated
 {
-    /// <summary>Ensures imports are correctly registered for kwargs lifted properties from super-structs. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Ensures imports are correctly registered for kwargs lifted properties from super-structs.</summary>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated.Kwargs), fullyQualifiedName: "jsii-calc.submodule.isolated.Kwargs")]
     public class Kwargs : DeputyBase
     {
@@ -25,10 +22,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Isolated
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "method", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"props\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.submodule.child.KwargsProps\"}}]")]
         public static bool Method(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.IKwargsProps? props = null)
         {

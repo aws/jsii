@@ -4,17 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.MyClass), fullyQualifiedName: "jsii-calc.submodule.MyClass", parametersJson: "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.submodule.child.SomeStruct\"}}]")]
     public class MyClass : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.DeeplyNested.INamespaced
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public MyClass(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct props): base(new DeputyProps(new object[]{props}))
         {
         }
@@ -33,50 +25,30 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "awesomeness", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.Awesomeness\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Awesomeness Awesomeness
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Awesomeness>();
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "definedAt", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string DefinedAt
         {
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "goodness", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.Goodness\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Goodness Goodness
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Goodness>();
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "props", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.SomeStruct\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct Props
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct>();
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "allTypes", typeJson: "{\"fqn\":\"jsii-calc.AllTypes\"}", isOptional: true)]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.AllTypes? AllTypes

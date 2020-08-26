@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Even friendlier classes can implement this interface. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Even friendlier classes can implement this interface.</summary>
     [JsiiTypeProxy(nativeType: typeof(IFriendlier), fullyQualifiedName: "jsii-calc.IFriendlier")]
     internal sealed class IFriendlierProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IFriendlier
     {
@@ -15,21 +12,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Say farewell. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>Say farewell.</summary>
         [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public string Farewell()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Say goodbye. (experimental)</summary>
+        /// <summary>Say goodbye.</summary>
         /// <returns>A goodbye blessing.</returns>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "goodbye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public string Goodbye()
         {

@@ -4,10 +4,6 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(ITopLevelStruct), fullyQualifiedName: "jsii-calc.TopLevelStruct")]
     internal sealed class TopLevelStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct
     {
@@ -15,30 +11,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>This is a required field. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>This is a required field.</summary>
         [JsiiProperty(name: "required", typeJson: "{\"primitive\":\"string\"}")]
         public string Required
         {
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary>A union to really stress test our serialization. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>A union to really stress test our serialization.</summary>
         [JsiiProperty(name: "secondLevel", typeJson: "{\"union\":{\"types\":[{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.SecondLevelStruct\"}]}}")]
         public object SecondLevel
         {
             get => GetInstanceProperty<object>();
         }
 
-        /// <summary>You don't have to pass this. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>You don't have to pass this.</summary>
         [JsiiOptional]
         [JsiiProperty(name: "optional", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public string? Optional

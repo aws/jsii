@@ -11,7 +11,7 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (deprecated)
+     * (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -26,7 +26,7 @@ public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         *  (deprecated)
+         * (deprecated)
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

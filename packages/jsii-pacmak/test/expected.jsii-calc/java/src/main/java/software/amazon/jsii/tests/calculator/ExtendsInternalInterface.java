@@ -1,53 +1,44 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ExtendsInternalInterface")
 @software.amazon.jsii.Jsii.Proxy(ExtendsInternalInterface.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Boolean getBoom();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getProp();
 
     /**
      * @return a {@link Builder} of {@link ExtendsInternalInterface}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link ExtendsInternalInterface}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ExtendsInternalInterface> {
         private java.lang.Boolean boom;
         private java.lang.String prop;
 
         /**
          * Sets the value of {@link ExtendsInternalInterface#getBoom}
-         * @param boom  (experimental). This parameter is required.
+         * @param boom the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder boom(java.lang.Boolean boom) {
             this.boom = boom;
             return this;
@@ -55,10 +46,10 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
 
         /**
          * Sets the value of {@link ExtendsInternalInterface#getProp}
-         * @param prop  (experimental). This parameter is required.
+         * @param prop the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder prop(java.lang.String prop) {
             this.prop = prop;
             return this;
@@ -69,7 +60,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
          * @return a new instance of {@link ExtendsInternalInterface}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ExtendsInternalInterface build() {
             return new Jsii$Proxy(boom, prop);
@@ -79,7 +70,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
     /**
      * An implementation for {@link ExtendsInternalInterface}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ExtendsInternalInterface {
         private final java.lang.Boolean boom;
         private final java.lang.String prop;

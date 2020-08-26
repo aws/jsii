@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Returns a subclass of a known class which implements an interface. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Returns a subclass of a known class which implements an interface.</summary>
     [JsiiTypeProxy(nativeType: typeof(IReturnJsii976), fullyQualifiedName: "jsii-calc.IReturnJsii976")]
     internal sealed class IReturnJsii976Proxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IReturnJsii976
     {
@@ -15,10 +12,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "foo", typeJson: "{\"primitive\":\"number\"}")]
         public double Foo
         {

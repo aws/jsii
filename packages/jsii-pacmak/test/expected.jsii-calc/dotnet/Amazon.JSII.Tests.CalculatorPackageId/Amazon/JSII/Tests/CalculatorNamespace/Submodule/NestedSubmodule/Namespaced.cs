@@ -4,10 +4,6 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.Namespaced), fullyQualifiedName: "jsii-calc.submodule.nested_submodule.Namespaced")]
     public abstract class Namespaced : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule.DeeplyNested.INamespaced
     {
@@ -25,20 +21,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "definedAt", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string DefinedAt
         {
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "goodness", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.Goodness\"}")]
         public abstract Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Goodness Goodness
         {

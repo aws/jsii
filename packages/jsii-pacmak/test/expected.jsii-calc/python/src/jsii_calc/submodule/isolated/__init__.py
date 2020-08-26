@@ -14,24 +14,16 @@ from ..child import KwargsProps as _KwargsProps_c7855dcf, SomeEnum as _SomeEnum_
 
 
 class Kwargs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.isolated.Kwargs"):
-    """Ensures imports are correctly registered for kwargs lifted properties from super-structs. (experimental)
-
-    stability
-    :stability: experimental
-    """
+    """Ensures imports are correctly registered for kwargs lifted properties from super-structs."""
 
     @jsii.member(jsii_name="method")
     @builtins.classmethod
     def method(
         cls, *, extra: typing.Optional[str] = None, prop: _SomeEnum_b2e41d92
     ) -> bool:
-        """(experimental)
-
-        :param extra: (experimental)
-        :param prop: (experimental)
-
-        stability
-        :stability: experimental
+        """
+        :param extra: 
+        :param prop: 
         """
         props = _KwargsProps_c7855dcf(extra=extra, prop=prop)
 

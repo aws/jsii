@@ -4,16 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AllowedMethodNames), fullyQualifiedName: "jsii-calc.AllowedMethodNames")]
     public class AllowedMethodNames : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public AllowedMethodNames(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -32,40 +25,26 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "getBar", parametersJson: "[{\"name\":\"_p1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"_p2\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void GetBar(string p1, double p2)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string), typeof(double)}, new object[]{p1, p2});
         }
 
-        /// <summary>getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.</summary>
         [JsiiMethod(name: "getFoo", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"withParam\",\"type\":{\"primitive\":\"string\"}}]")]
         public virtual string GetFoo(string withParam)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{withParam});
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "setBar", parametersJson: "[{\"name\":\"_x\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"_y\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"_z\",\"type\":{\"primitive\":\"boolean\"}}]")]
         public virtual void SetBar(string x, double y, bool z)
         {
             InvokeInstanceVoidMethod(new System.Type[]{typeof(string), typeof(double), typeof(bool)}, new object[]{x, y, z});
         }
 
-        /// <summary>setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.</summary>
         [JsiiMethod(name: "setFoo", parametersJson: "[{\"name\":\"_x\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"_y\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void SetFoo(string x, double y)
         {

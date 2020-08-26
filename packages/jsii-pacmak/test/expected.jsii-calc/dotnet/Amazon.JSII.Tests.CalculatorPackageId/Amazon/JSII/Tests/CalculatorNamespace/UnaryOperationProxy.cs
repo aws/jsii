@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>An operation on a single operand. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>An operation on a single operand.</summary>
     [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation), fullyQualifiedName: "jsii-calc.UnaryOperation")]
     internal sealed class UnaryOperationProxy : Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation
     {

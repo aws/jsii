@@ -1,40 +1,29 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * We can serialize and deserialize structs without silently ignoring optional fields. (experimental)
- * <p>
- * EXPERIMENTAL
+ * We can serialize and deserialize structs without silently ignoring optional fields.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.StructA")
 @software.amazon.jsii.Jsii.Proxy(StructA.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface StructA extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getRequiredString();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.Number getOptionalNumber() {
         return null;
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getOptionalString() {
         return null;
     }
@@ -42,14 +31,14 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
     /**
      * @return a {@link Builder} of {@link StructA}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link StructA}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<StructA> {
         private java.lang.String requiredString;
         private java.lang.Number optionalNumber;
@@ -57,10 +46,10 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructA#getRequiredString}
-         * @param requiredString  (experimental). This parameter is required.
+         * @param requiredString the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder requiredString(java.lang.String requiredString) {
             this.requiredString = requiredString;
             return this;
@@ -68,10 +57,10 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructA#getOptionalNumber}
-         * @param optionalNumber  (experimental).
+         * @param optionalNumber the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder optionalNumber(java.lang.Number optionalNumber) {
             this.optionalNumber = optionalNumber;
             return this;
@@ -79,10 +68,10 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of {@link StructA#getOptionalString}
-         * @param optionalString  (experimental).
+         * @param optionalString the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder optionalString(java.lang.String optionalString) {
             this.optionalString = optionalString;
             return this;
@@ -93,7 +82,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link StructA}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public StructA build() {
             return new Jsii$Proxy(requiredString, optionalNumber, optionalString);
@@ -103,7 +92,7 @@ public interface StructA extends software.amazon.jsii.JsiiSerializable {
     /**
      * An implementation for {@link StructA}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements StructA {
         private final java.lang.String requiredString;
         private final java.lang.Number optionalNumber;

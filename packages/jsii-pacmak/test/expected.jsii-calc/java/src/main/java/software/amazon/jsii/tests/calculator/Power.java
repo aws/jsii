@@ -1,12 +1,10 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * The power operation. (experimental)
- * <p>
- * EXPERIMENTAL
+ * The power operation.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Power")
 public class Power extends software.amazon.jsii.tests.calculator.composition.CompositeOperation {
 
@@ -19,48 +17,40 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     }
 
     /**
-     * Creates a Power operation. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * Creates a Power operation.
      * <p>
      * @param base The base of the power. This parameter is required.
      * @param pow The number of times to multiply. This parameter is required.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public Power(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value base, final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value pow) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(base, "base is required"), java.util.Objects.requireNonNull(pow, "pow is required") });
     }
 
     /**
-     * The base of the power. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * The base of the power.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getBase() {
         return this.jsiiGet("base", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
-     * The expression that this operation consists of. (experimental)
+     * The expression that this operation consists of.
      * <p>
      * Must be implemented by derived classes.
-     * <p>
-     * EXPERIMENTAL
      */
     @Override
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getExpression() {
         return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
-     * The number of times to multiply. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * The number of times to multiply.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.Value getPow() {
         return this.jsiiGet("pow", software.amazon.jsii.tests.calculator.lib.Value.class);
     }

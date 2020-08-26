@@ -1,32 +1,23 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.EraseUndefinedHashValuesOptions")
 @software.amazon.jsii.Jsii.Proxy(EraseUndefinedHashValuesOptions.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getOption1() {
         return null;
     }
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getOption2() {
         return null;
     }
@@ -34,24 +25,24 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
     /**
      * @return a {@link Builder} of {@link EraseUndefinedHashValuesOptions}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link EraseUndefinedHashValuesOptions}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<EraseUndefinedHashValuesOptions> {
         private java.lang.String option1;
         private java.lang.String option2;
 
         /**
          * Sets the value of {@link EraseUndefinedHashValuesOptions#getOption1}
-         * @param option1  (experimental).
+         * @param option1 the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder option1(java.lang.String option1) {
             this.option1 = option1;
             return this;
@@ -59,10 +50,10 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
         /**
          * Sets the value of {@link EraseUndefinedHashValuesOptions#getOption2}
-         * @param option2  (experimental).
+         * @param option2 the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder option2(java.lang.String option2) {
             this.option2 = option2;
             return this;
@@ -73,7 +64,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
          * @return a new instance of {@link EraseUndefinedHashValuesOptions}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public EraseUndefinedHashValuesOptions build() {
             return new Jsii$Proxy(option1, option2);
@@ -83,7 +74,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
     /**
      * An implementation for {@link EraseUndefinedHashValuesOptions}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements EraseUndefinedHashValuesOptions {
         private final java.lang.String option1;
         private final java.lang.String option2;

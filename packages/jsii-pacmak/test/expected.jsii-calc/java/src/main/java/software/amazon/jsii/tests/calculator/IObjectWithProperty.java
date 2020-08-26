@@ -1,37 +1,26 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Make sure that setters are properly called on objects with interfaces. (experimental)
- * <p>
- * EXPERIMENTAL
+ * Make sure that setters are properly called on objects with interfaces.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IObjectWithProperty")
 @software.amazon.jsii.Jsii.Proxy(IObjectWithProperty.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getProperty();
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
     void setProperty(final @org.jetbrains.annotations.NotNull java.lang.String value);
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Boolean wasSet();
 
     /**
@@ -43,33 +32,24 @@ public interface IObjectWithProperty extends software.amazon.jsii.JsiiSerializab
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public @org.jetbrains.annotations.NotNull java.lang.String getProperty() {
             return this.jsiiGet("property", java.lang.String.class);
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public void setProperty(final @org.jetbrains.annotations.NotNull java.lang.String value) {
             this.jsiiSet("property", java.util.Objects.requireNonNull(value, "property is required"));
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public @org.jetbrains.annotations.NotNull java.lang.Boolean wasSet() {
             return this.jsiiCall("wasSet", java.lang.Boolean.class);

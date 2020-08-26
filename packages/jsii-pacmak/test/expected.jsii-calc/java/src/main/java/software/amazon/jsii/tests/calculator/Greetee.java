@@ -1,24 +1,20 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * These are some arguments you can pass to a method. (experimental)
- * <p>
- * EXPERIMENTAL
+ * These are some arguments you can pass to a method.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Greetee")
 @software.amazon.jsii.Jsii.Proxy(Greetee.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface Greetee extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * The name of the greetee. (experimental)
+     * The name of the greetee.
      * <p>
      * Default: world
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getName() {
         return null;
     }
@@ -26,23 +22,23 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
     /**
      * @return a {@link Builder} of {@link Greetee}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link Greetee}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<Greetee> {
         private java.lang.String name;
 
         /**
          * Sets the value of {@link Greetee#getName}
-         * @param name The name of the greetee. (experimental).
+         * @param name The name of the greetee.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder name(java.lang.String name) {
             this.name = name;
             return this;
@@ -53,7 +49,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link Greetee}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public Greetee build() {
             return new Jsii$Proxy(name);
@@ -63,7 +59,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
     /**
      * An implementation for {@link Greetee}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Greetee {
         private final java.lang.String name;
 

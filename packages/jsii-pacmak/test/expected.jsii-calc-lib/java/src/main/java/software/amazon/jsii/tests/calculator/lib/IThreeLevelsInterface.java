@@ -14,7 +14,7 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.base.IBaseInterface {
 
     /**
-     *  (deprecated)
+     * (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -29,7 +29,7 @@ public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializ
         }
 
         /**
-         *  (deprecated)
+         * (deprecated)
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated

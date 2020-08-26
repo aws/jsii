@@ -4,10 +4,6 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(INestedStruct), fullyQualifiedName: "jsii-calc.NestedStruct")]
     internal sealed class NestedStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.INestedStruct
     {
@@ -15,10 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>When provided, must be &gt; 0. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>When provided, must be &gt; 0.</summary>
         [JsiiProperty(name: "numberProp", typeJson: "{\"primitive\":\"number\"}")]
         public double NumberProp
         {

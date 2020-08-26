@@ -1,32 +1,25 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SupportsNiceJavaBuilderProps")
 @software.amazon.jsii.Jsii.Proxy(SupportsNiceJavaBuilderProps.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * Some number, like 42. (experimental)
-     * <p>
-     * EXPERIMENTAL
+     * Some number, like 42.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.Number getBar();
 
     /**
-     * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental)
+     * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
      * <p>
      * But here we are, doing it like we didn't care.
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getId() {
         return null;
     }
@@ -34,24 +27,24 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
     /**
      * @return a {@link Builder} of {@link SupportsNiceJavaBuilderProps}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link SupportsNiceJavaBuilderProps}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<SupportsNiceJavaBuilderProps> {
         private java.lang.Number bar;
         private java.lang.String id;
 
         /**
          * Sets the value of {@link SupportsNiceJavaBuilderProps#getBar}
-         * @param bar Some number, like 42. (experimental). This parameter is required.
+         * @param bar Some number, like 42. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder bar(java.lang.Number bar) {
             this.bar = bar;
             return this;
@@ -59,11 +52,11 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
 
         /**
          * Sets the value of {@link SupportsNiceJavaBuilderProps#getId}
-         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. (experimental).
+         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
          *           But here we are, doing it like we didn't care.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder id(java.lang.String id) {
             this.id = id;
             return this;
@@ -74,7 +67,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
          * @return a new instance of {@link SupportsNiceJavaBuilderProps}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public SupportsNiceJavaBuilderProps build() {
             return new Jsii$Proxy(bar, id);
@@ -84,7 +77,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
     /**
      * An implementation for {@link SupportsNiceJavaBuilderProps}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements SupportsNiceJavaBuilderProps {
         private final java.lang.Number bar;
         private final java.lang.String id;

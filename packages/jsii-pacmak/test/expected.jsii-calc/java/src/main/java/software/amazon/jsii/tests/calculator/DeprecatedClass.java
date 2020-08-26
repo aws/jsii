@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (deprecated)
+ * (deprecated)
  * <p>
  * @deprecated a pretty boring class
  */
@@ -20,7 +20,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated this constructor is "just" okay
      * @param readonlyString This parameter is required.
@@ -34,7 +34,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated this constructor is "just" okay
      * @param readonlyString This parameter is required.
@@ -47,7 +47,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated it was a bad idea
      */
@@ -58,7 +58,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated this is not always "wazoo", be ready to be disappointed
      */
@@ -69,7 +69,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated shouldn't have been mutable
      */
@@ -80,7 +80,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      * <p>
      * @deprecated shouldn't have been mutable
      */

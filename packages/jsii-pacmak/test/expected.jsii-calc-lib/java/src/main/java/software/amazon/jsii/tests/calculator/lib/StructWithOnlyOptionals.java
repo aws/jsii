@@ -20,7 +20,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -29,7 +29,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
     }
 
     /**
-     *  (deprecated)
+     * (deprecated)
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -69,7 +69,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
         /**
          * Sets the value of {@link StructWithOnlyOptionals#getOptional2}
-         * @param optional2  (deprecated).
+         * @param optional2 (deprecated).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -81,7 +81,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
         /**
          * Sets the value of {@link StructWithOnlyOptionals#getOptional3}
-         * @param optional3  (deprecated).
+         * @param optional3 (deprecated).
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

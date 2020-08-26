@@ -4,17 +4,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>An operation that sums multiple values. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>An operation that sums multiple values.</summary>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Sum), fullyQualifiedName: "jsii-calc.Sum")]
     public class Sum : Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public Sum(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -33,11 +26,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The expression that this operation consists of. (experimental)</summary>
+        /// <summary>The expression that this operation consists of.</summary>
         /// <remarks>
         /// Must be implemented by derived classes.
-        /// 
-        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
@@ -45,10 +36,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
-        /// <summary>The parts to sum. (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
+        /// <summary>The parts to sum.</summary>
         [JsiiProperty(name: "parts", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"array\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[] Parts
         {

@@ -4,7 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (deprecated)</summary>
+    /// <summary>(deprecated)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [System.Obsolete("useless interface")]
     public interface IDeprecatedInterface
     {
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -30,7 +30,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
                 throw new System.NotSupportedException("'set' for 'MutableProperty' is not implemented");
             }
         }
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

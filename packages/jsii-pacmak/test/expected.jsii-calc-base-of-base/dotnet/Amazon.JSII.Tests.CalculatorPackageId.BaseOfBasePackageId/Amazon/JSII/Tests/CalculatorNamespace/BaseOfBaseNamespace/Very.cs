@@ -29,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
+        /// <summary>(experimental)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>

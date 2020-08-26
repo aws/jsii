@@ -1,22 +1,16 @@
 package software.amazon.jsii.tests.calculator.submodule.child;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.submodule.child.KwargsProps")
 @software.amazon.jsii.Jsii.Proxy(KwargsProps.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.submodule.child.SomeStruct {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     default @org.jetbrains.annotations.Nullable java.lang.String getExtra() {
         return null;
     }
@@ -24,24 +18,24 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
     /**
      * @return a {@link Builder} of {@link KwargsProps}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link KwargsProps}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<KwargsProps> {
         private java.lang.String extra;
         private software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;
 
         /**
          * Sets the value of {@link KwargsProps#getExtra}
-         * @param extra  (experimental).
+         * @param extra the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder extra(java.lang.String extra) {
             this.extra = extra;
             return this;
@@ -49,10 +43,10 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Sets the value of {@link KwargsProps#getProp}
-         * @param prop  (experimental). This parameter is required.
+         * @param prop the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder prop(software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop) {
             this.prop = prop;
             return this;
@@ -63,7 +57,7 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
          * @return a new instance of {@link KwargsProps}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public KwargsProps build() {
             return new Jsii$Proxy(extra, prop);
@@ -73,7 +67,7 @@ public interface KwargsProps extends software.amazon.jsii.JsiiSerializable, soft
     /**
      * An implementation for {@link KwargsProps}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements KwargsProps {
         private final java.lang.String extra;
         private final software.amazon.jsii.tests.calculator.submodule.child.SomeEnum prop;

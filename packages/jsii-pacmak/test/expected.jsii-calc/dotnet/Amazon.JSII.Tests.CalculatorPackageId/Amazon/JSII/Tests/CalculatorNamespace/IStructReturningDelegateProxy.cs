@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Verifies that a "pure" implementation of an interface works correctly. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Verifies that a "pure" implementation of an interface works correctly.</summary>
     [JsiiTypeProxy(nativeType: typeof(IStructReturningDelegate), fullyQualifiedName: "jsii-calc.IStructReturningDelegate")]
     internal sealed class IStructReturningDelegateProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStructReturningDelegate
     {
@@ -15,10 +12,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "returnStruct", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.StructB\"}}")]
         public Amazon.JSII.Tests.CalculatorNamespace.IStructB ReturnStruct()
         {

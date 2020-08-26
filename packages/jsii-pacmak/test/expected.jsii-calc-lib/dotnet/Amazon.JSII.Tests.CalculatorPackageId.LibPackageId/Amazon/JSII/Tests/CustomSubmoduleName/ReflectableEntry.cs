@@ -6,14 +6,14 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
 {
     #pragma warning disable CS8618
 
-    /// <summary> (deprecated)</summary>
+    /// <summary>(deprecated)</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiByValue(fqn: "@scope/jsii-calc-lib.submodule.ReflectableEntry")]
     public class ReflectableEntry : Amazon.JSII.Tests.CustomSubmoduleName.IReflectableEntry
     {
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -25,7 +25,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
             set;
         }
 
-        /// <summary> (deprecated)</summary>
+        /// <summary>(deprecated)</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

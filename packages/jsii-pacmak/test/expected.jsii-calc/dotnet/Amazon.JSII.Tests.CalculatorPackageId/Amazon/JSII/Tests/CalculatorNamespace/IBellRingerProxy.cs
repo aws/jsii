@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Takes the object parameter as an interface. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Takes the object parameter as an interface.</summary>
     [JsiiTypeProxy(nativeType: typeof(IBellRinger), fullyQualifiedName: "jsii-calc.IBellRinger")]
     internal sealed class IBellRingerProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IBellRinger
     {
@@ -15,10 +12,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "yourTurn", parametersJson: "[{\"name\":\"bell\",\"type\":{\"fqn\":\"jsii-calc.IBell\"}}]")]
         public void YourTurn(Amazon.JSII.Tests.CalculatorNamespace.IBell bell)
         {

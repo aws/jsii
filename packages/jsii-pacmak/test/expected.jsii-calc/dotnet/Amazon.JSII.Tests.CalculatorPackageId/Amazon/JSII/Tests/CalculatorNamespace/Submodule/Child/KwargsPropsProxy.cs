@@ -4,10 +4,6 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IKwargsProps), fullyQualifiedName: "jsii-calc.submodule.child.KwargsProps")]
     internal sealed class KwargsPropsProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.IKwargsProps
     {
@@ -15,10 +11,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "extra", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public string? Extra
@@ -26,10 +18,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
             get => GetInstanceProperty<string?>();
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "prop", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.SomeEnum\"}")]
         public Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.SomeEnum Prop
         {

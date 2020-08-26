@@ -1,44 +1,38 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
- * <p>
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ExternalStruct")
 @software.amazon.jsii.Jsii.Proxy(ExternalStruct.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface ExternalStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty();
 
     /**
      * @return a {@link Builder} of {@link ExternalStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link ExternalStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ExternalStruct> {
         private java.lang.String readonlyProperty;
 
         /**
          * Sets the value of {@link ExternalStruct#getReadonlyProperty}
-         * @param readonlyProperty  (experimental). This parameter is required.
+         * @param readonlyProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder readonlyProperty(java.lang.String readonlyProperty) {
             this.readonlyProperty = readonlyProperty;
             return this;
@@ -49,7 +43,7 @@ public interface ExternalStruct extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link ExternalStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ExternalStruct build() {
             return new Jsii$Proxy(readonlyProperty);
@@ -59,7 +53,7 @@ public interface ExternalStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      * An implementation for {@link ExternalStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ExternalStruct {
         private final java.lang.String readonlyProperty;
 

@@ -4,19 +4,13 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
-    /// <summary>Checks that classes can self-reference during initialization. (experimental)</summary>
+    /// <summary>Checks that classes can self-reference during initialization.</summary>
     /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// 
     /// <strong>See</strong>: : https://github.com/aws/jsii/pull/1706
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.OuterClass), fullyQualifiedName: "jsii-calc.submodule.child.OuterClass")]
     public class OuterClass : DeputyBase
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public OuterClass(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -35,10 +29,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "innerClass", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.InnerClass\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.InnerClass InnerClass
         {

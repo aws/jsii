@@ -1,22 +1,17 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Verifies that a "pure" implementation of an interface works correctly. (experimental)
- * <p>
- * EXPERIMENTAL
+ * Verifies that a "pure" implementation of an interface works correctly.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IStructReturningDelegate")
 @software.amazon.jsii.Jsii.Proxy(IStructReturningDelegate.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface IStructReturningDelegate extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructB returnStruct();
 
     /**
@@ -28,11 +23,8 @@ public interface IStructReturningDelegate extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         *  (experimental)
-         * <p>
-         * EXPERIMENTAL
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructB returnStruct() {
             return this.jsiiCall("returnStruct", software.amazon.jsii.tests.calculator.StructB.class);

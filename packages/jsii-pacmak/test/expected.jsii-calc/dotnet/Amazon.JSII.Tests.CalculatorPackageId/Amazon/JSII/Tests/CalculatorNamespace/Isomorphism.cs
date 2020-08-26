@@ -4,19 +4,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Checks the "same instance" isomorphism is preserved within the constructor. (experimental)</summary>
+    /// <summary>Checks the "same instance" isomorphism is preserved within the constructor.</summary>
     /// <remarks>
     /// Create a subclass of this, and assert that <c>this.myself()</c> actually returns
     /// <c>this</c> from within the constructor.
-    /// 
-    /// <strong>Stability</strong>: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Isomorphism), fullyQualifiedName: "jsii-calc.Isomorphism")]
     public abstract class Isomorphism : DeputyBase
     {
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         protected Isomorphism(): base(new DeputyProps(new object[]{}))
         {
         }
@@ -35,10 +30,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "myself", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.Isomorphism\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.Isomorphism Myself()
         {

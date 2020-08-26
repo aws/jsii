@@ -1,44 +1,39 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * https://github.com/aws/jsii/issues/982. (experimental)
- * <p>
- * EXPERIMENTAL
+ * https://github.com/aws/jsii/issues/982.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ParentStruct982")
 @software.amazon.jsii.Jsii.Proxy(ParentStruct982.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
-     * <p>
-     * EXPERIMENTAL
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @org.jetbrains.annotations.NotNull java.lang.String getFoo();
 
     /**
      * @return a {@link Builder} of {@link ParentStruct982}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link ParentStruct982}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public static final class Builder implements software.amazon.jsii.Builder<ParentStruct982> {
         private java.lang.String foo;
 
         /**
          * Sets the value of {@link ParentStruct982#getFoo}
-         * @param foo  (experimental). This parameter is required.
+         * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         public Builder foo(java.lang.String foo) {
             this.foo = foo;
             return this;
@@ -49,7 +44,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link ParentStruct982}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
         @Override
         public ParentStruct982 build() {
             return new Jsii$Proxy(foo);
@@ -59,7 +54,7 @@ public interface ParentStruct982 extends software.amazon.jsii.JsiiSerializable {
     /**
      * An implementation for {@link ParentStruct982}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ParentStruct982 {
         private final java.lang.String foo;
 

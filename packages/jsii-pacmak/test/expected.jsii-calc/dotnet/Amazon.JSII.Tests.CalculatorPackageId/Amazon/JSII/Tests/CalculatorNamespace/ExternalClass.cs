@@ -4,19 +4,13 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary> (experimental)</summary>
     /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// 
     /// <strong>External</strong>: true
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ExternalClass), fullyQualifiedName: "jsii-calc.ExternalClass", parametersJson: "[{\"name\":\"readonlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"mutableNumber\",\"optional\":true,\"type\":{\"primitive\":\"number\"}}]")]
     public class ExternalClass : DeputyBase
     {
-        /// <summary> (experimental)</summary>
         /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// 
         /// <strong>External</strong>: true
         /// </remarks>
         public ExternalClass(string readonlyString, double? mutableNumber = null): base(new DeputyProps(new object?[]{readonlyString, mutableNumber}))
@@ -37,10 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary> (experimental)</summary>
         /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// 
         /// <strong>External</strong>: true
         /// </remarks>
         [JsiiMethod(name: "method")]
@@ -49,10 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary> (experimental)</summary>
         /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// 
         /// <strong>External</strong>: true
         /// </remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}")]
@@ -61,10 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary> (experimental)</summary>
         /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// 
         /// <strong>External</strong>: true
         /// </remarks>
         [JsiiOptional]

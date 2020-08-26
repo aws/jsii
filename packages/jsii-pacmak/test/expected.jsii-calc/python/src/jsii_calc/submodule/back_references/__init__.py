@@ -20,12 +20,8 @@ from .. import MyClass as _MyClass_a2fdc0b6
 )
 class MyClassReference:
     def __init__(self, *, reference: _MyClass_a2fdc0b6) -> None:
-        """(experimental)
-
-        :param reference: (experimental)
-
-        stability
-        :stability: experimental
+        """
+        :param reference: 
         """
         self._values = {
             "reference": reference,
@@ -33,11 +29,6 @@ class MyClassReference:
 
     @builtins.property
     def reference(self) -> _MyClass_a2fdc0b6:
-        """(experimental)
-
-        stability
-        :stability: experimental
-        """
         return self._values.get("reference")
 
     def __eq__(self, rhs) -> bool:

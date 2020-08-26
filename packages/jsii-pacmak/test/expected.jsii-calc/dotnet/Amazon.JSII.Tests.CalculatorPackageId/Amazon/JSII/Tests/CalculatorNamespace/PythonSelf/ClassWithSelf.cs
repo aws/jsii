@@ -4,17 +4,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
 {
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PythonSelf.ClassWithSelf), fullyQualifiedName: "jsii-calc.PythonSelf.ClassWithSelf", parametersJson: "[{\"name\":\"self\",\"type\":{\"primitive\":\"string\"}}]")]
     public class ClassWithSelf : DeputyBase
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         public ClassWithSelf(string self): base(new DeputyProps(new object[]{self}))
         {
         }
@@ -33,20 +25,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.PythonSelf
         {
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiMethod(name: "method", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"self\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual string Method(double self)
         {
             return InvokeInstanceMethod<string>(new System.Type[]{typeof(double)}, new object[]{self});
         }
 
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "self", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string Self
         {

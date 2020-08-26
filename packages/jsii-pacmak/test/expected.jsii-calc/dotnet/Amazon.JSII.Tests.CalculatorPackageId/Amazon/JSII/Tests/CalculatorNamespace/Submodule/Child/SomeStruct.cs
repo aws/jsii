@@ -6,17 +6,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child
 {
     #pragma warning disable CS8618
 
-    /// <summary> (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
     [JsiiByValue(fqn: "jsii-calc.submodule.child.SomeStruct")]
     public class SomeStruct : Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.ISomeStruct
     {
-        /// <summary> (experimental)</summary>
-        /// <remarks>
-        /// <strong>Stability</strong>: Experimental
-        /// </remarks>
         [JsiiProperty(name: "prop", typeJson: "{\"fqn\":\"jsii-calc.submodule.child.SomeEnum\"}", isOverride: true)]
         public Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.SomeEnum Prop
         {

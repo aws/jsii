@@ -4,10 +4,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Properties for Calculator. (experimental)</summary>
-    /// <remarks>
-    /// <strong>Stability</strong>: Experimental
-    /// </remarks>
+    /// <summary>Properties for Calculator.</summary>
     [JsiiTypeProxy(nativeType: typeof(ICalculatorProps), fullyQualifiedName: "jsii-calc.CalculatorProps")]
     internal sealed class CalculatorPropsProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps
     {
@@ -15,13 +12,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The initial value of the calculator. (experimental)</summary>
+        /// <summary>The initial value of the calculator.</summary>
         /// <remarks>
         /// NOTE: Any number works here, it's fine.
         /// 
         /// <strong>Default</strong>: 0
-        /// 
-        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "initialValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
@@ -30,11 +25,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double?>();
         }
 
-        /// <summary>The maximum value the calculator can store. (experimental)</summary>
+        /// <summary>The maximum value the calculator can store.</summary>
         /// <remarks>
         /// <strong>Default</strong>: none
-        /// 
-        /// <strong>Stability</strong>: Experimental
         /// </remarks>
         [JsiiOptional]
         [JsiiProperty(name: "maximumValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]

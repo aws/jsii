@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- *  (experimental)
+ * (experimental)
  * <p>
  * EXPERIMENTAL
  */
@@ -12,7 +12,7 @@ package software.amazon.jsii.tests.calculator;
 public interface IExperimentalInterface extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -22,7 +22,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
     }
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -32,7 +32,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
     }
 
     /**
-     *  (experimental)
+     * (experimental)
      * <p>
      * EXPERIMENTAL
      */
@@ -48,7 +48,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
         }
 
         /**
-         *  (experimental)
+         * (experimental)
          * <p>
          * EXPERIMENTAL
          */
@@ -59,7 +59,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
         }
 
         /**
-         *  (experimental)
+         * (experimental)
          * <p>
          * EXPERIMENTAL
          */
@@ -70,7 +70,7 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
         }
 
         /**
-         *  (experimental)
+         * (experimental)
          * <p>
          * EXPERIMENTAL
          */
