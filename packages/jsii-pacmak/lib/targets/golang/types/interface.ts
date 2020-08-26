@@ -12,14 +12,28 @@ export class Interface extends GoType {
   }
 
   public emit(code: CodeMaker): void {
+    const extended = this.type.getInterfaces(true);
+
+    code.line('// Behaviorial interface'); // FIXME for debugging
     code.openBlock(`type ${this.name} interface`);
+
+    // embed extended interfaces
+    if (extended.length !== 0) {
+      for (const iface of extended) {
+        code.line(iface.fqn);
+      }
+      code.line();
+    }
+
     Object.values(this.type.getMethods()).forEach((method) =>
       this.emitInterfaceMethod(code, method),
     );
 
+    // TODO remove?
     Object.values(this.type.getProperties()).forEach((property) =>
       this.emitInterfaceProperty(code, property),
     );
+
     code.closeBlock();
     code.line();
   }

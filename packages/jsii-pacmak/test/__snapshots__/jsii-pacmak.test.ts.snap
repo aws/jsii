@@ -526,7 +526,10 @@ func (b BaseProps) GetBar() string {
 }
 
 
+// Behaviorial interface
 type IBaseInterface interface {
+    @scope/jsii-calc-base-of-base.IVeryBaseInterface
+
     Bar()
 }
 
@@ -1677,6 +1680,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Behaviorial interface
 type IVeryBaseInterface interface {
     Foo()
 }
@@ -4523,15 +4527,21 @@ const (
     EnumFromScopedModuleValue2 EnumFromScopedModule = "VALUE2"
 )
 
+// Behaviorial interface
 type IDoublable interface {
     GetDoubleValue() float64
 }
 
+// Behaviorial interface
 type IFriendly interface {
     Hello() string
 }
 
+// Behaviorial interface
 type IThreeLevelsInterface interface {
+    @scope/jsii-calc-base-of-base.IVeryBaseInterface
+    @scope/jsii-calc-base.IBaseInterface
+
     Baz()
 }
 
@@ -4697,6 +4707,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Behaviorial interface
 type IReflectable interface {
     GetEntries() []ReflectableEntry
 }
@@ -41016,158 +41027,207 @@ func (g *GreetingAugmenter) BetterGreeting() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Behaviorial interface
 type IAnonymousImplementationProvider interface {
     ProvideAsClass() Implementation
     ProvideAsInterface() IAnonymouslyImplementMe
 }
 
+// Behaviorial interface
 type IAnonymouslyImplementMe interface {
     Verb() string
     GetValue() float64
 }
 
+// Behaviorial interface
 type IAnotherPublicInterface interface {
     GetA() string
 }
 
+// Behaviorial interface
 type IBell interface {
     Ring()
 }
 
+// Behaviorial interface
 type IBellRinger interface {
     YourTurn()
 }
 
+// Behaviorial interface
 type IConcreteBellRinger interface {
     YourTurn()
 }
 
+// Behaviorial interface
 type IDeprecatedInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
+// Behaviorial interface
 type IExperimentalInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
+// Behaviorial interface
 type IExtendsPrivateInterface interface {
     GetMoreThings() []string
     GetPrivate() string
 }
 
+// Behaviorial interface
 type IExternalInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
+// Behaviorial interface
 type IFriendlier interface {
+    @scope/jsii-calc-lib.IFriendly
+
     Farewell() string
     Goodbye() string
 }
 
+// Behaviorial interface
 type IFriendlyRandomGenerator interface {
+    jsii-calc.IRandomNumberGenerator
+    @scope/jsii-calc-lib.IFriendly
+
 }
 
+// Behaviorial interface
 type IInterfaceImplementedByAbstractClass interface {
     GetPropFromInterface() string
 }
 
+// Behaviorial interface
 type IInterfaceThatShouldNotBeADataType interface {
+    jsii-calc.IInterfaceWithMethods
+
     GetOtherValue() string
 }
 
+// Behaviorial interface
 type IInterfaceWithInternal interface {
     Visible()
 }
 
+// Behaviorial interface
 type IInterfaceWithMethods interface {
     DoThings()
     GetValue() string
 }
 
+// Behaviorial interface
 type IInterfaceWithOptionalMethodArguments interface {
     Hello()
 }
 
+// Behaviorial interface
 type IInterfaceWithProperties interface {
     GetReadOnlyString() string
     GetReadWriteString() string
 }
 
+// Behaviorial interface
 type IInterfaceWithPropertiesExtension interface {
+    jsii-calc.IInterfaceWithProperties
+
     GetFoo() float64
 }
 
+// Behaviorial interface
 type IJSII417Derived interface {
+    jsii-calc.IJSII417PublicBaseOfBase
+
     Bar()
     Baz()
     GetProperty() string
 }
 
+// Behaviorial interface
 type IJSII417PublicBaseOfBase interface {
     Foo()
     GetHasRoot() bool
 }
 
+// Behaviorial interface
 type IJsii487External interface {
 }
 
+// Behaviorial interface
 type IJsii487External2 interface {
 }
 
+// Behaviorial interface
 type IJsii496 interface {
 }
 
+// Behaviorial interface
 type IMutableObjectLiteral interface {
     GetValue() string
 }
 
+// Behaviorial interface
 type INonInternalInterface interface {
+    jsii-calc.IAnotherPublicInterface
+
     GetB() string
     GetC() string
 }
 
+// Behaviorial interface
 type IObjectWithProperty interface {
     WasSet() bool
     GetProperty() string
 }
 
+// Behaviorial interface
 type IOptionalMethod interface {
     Optional() string
 }
 
+// Behaviorial interface
 type IPrivatelyImplemented interface {
     GetSuccess() bool
 }
 
+// Behaviorial interface
 type IPublicInterface interface {
     Bye() string
 }
 
+// Behaviorial interface
 type IPublicInterface2 interface {
     Ciao() string
 }
 
+// Behaviorial interface
 type IRandomNumberGenerator interface {
     Next() float64
 }
 
+// Behaviorial interface
 type IReturnJsii976 interface {
     GetFoo() float64
 }
 
+// Behaviorial interface
 type IReturnsNumber interface {
     ObtainNumber() jsii.Any
     GetNumberProp() jsii.Any
 }
 
+// Behaviorial interface
 type IStableInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
+// Behaviorial interface
 type IStructReturningDelegate interface {
     ReturnStruct() StructB
 }
@@ -45351,6 +45411,7 @@ func NewClassWithSelfKwarg(props jsii-calc.PythonSelf.StructWithSelf) ClassWithS
     }
 }
 
+// Behaviorial interface
 type IInterfaceWithSelf interface {
     Method() string
 }
@@ -45656,6 +45717,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Behaviorial interface
 type INamespaced interface {
     GetDefinedAt() string
 }
