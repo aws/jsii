@@ -90,13 +90,13 @@ export abstract class Package {
     code.openFile(this.file);
     this.emitHeader(code);
     this.emitImports(code);
-    this.emitTypes(code);
+    this.emitTypes(context);
     code.closeFile(this.file);
 
     this.emitInternalPackages(context);
   }
 
-  private emitHeader(code: CodeMaker) {
+  protected emitHeader(code: CodeMaker) {
     code.line(`package ${this.packageName}`);
     code.line();
   }
@@ -122,9 +122,9 @@ export abstract class Package {
     }
   }
 
-  private emitTypes(code: CodeMaker) {
+  private emitTypes(context: EmitContext) {
     for (const type of this.types) {
-      type.emit(code);
+      type.emit(context);
     }
   }
 }
@@ -191,6 +191,14 @@ export class RootPackage extends Package {
     return this.assembly.dependencies.map(
       (dep) => new RootPackage(dep.assembly),
     );
+  }
+
+  protected emitHeader(code: CodeMaker) {
+    if (this.assembly.description !== '') {
+      code.line(`// ${this.assembly.description}`);
+    }
+    code.line(`package ${this.packageName}`);
+    code.line();
   }
 }
 

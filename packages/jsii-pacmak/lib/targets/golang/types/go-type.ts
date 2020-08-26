@@ -1,15 +1,17 @@
 import { CodeMaker, toPascalCase } from 'codemaker';
+import { EmitContext } from '../emit-context';
 import { ClassType, InterfaceType, Property, Type } from 'jsii-reflect';
 import { Package } from '../package';
 import { GoTypeRef } from './go-type-reference';
 import { TypeField } from './type-field';
 import { getFieldDependencies } from '../util';
+import { Documentation } from '../documentation';
 
 // String appended to all go GoStruct Interfaces
 const STRUCT_INTERFACE_SUFFIX = 'Iface';
 
 export interface GoEmitter {
-  emit(code: CodeMaker): void;
+  emit(context: EmitContext): void;
 }
 
 export class GoType {
@@ -21,6 +23,12 @@ export class GoType {
 
   public get namespace() {
     return this.parent.packageName;
+  }
+
+  public emitDocs(context: EmitContext): void {
+    const docs = this.type.docs;
+    const documenter = new Documentation(docs);
+    documenter.emit(context);
   }
 }
 
@@ -116,7 +124,10 @@ export abstract class GoStruct extends GoType implements GoEmitter {
   }
 
   // `emit` needs to generate both a Go interface and a struct, as well as the Getter methods on the struct
-  public emit(code: CodeMaker): void {
+  public emit(context: EmitContext): void {
+    const { code } = context;
+    // TODO change to context
+    this.emitDocs(context);
     this.emitInterface(code);
     this.emitStruct(code);
     this.emitGetters(code);

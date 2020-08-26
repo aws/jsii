@@ -1,14 +1,14 @@
-import { CodeMaker } from 'codemaker';
 import { EnumType } from 'jsii-reflect';
 import { GoType } from './go-type';
 import { Package } from '../package';
+import { EmitContext } from '../emit-context';
 
 export class Enum extends GoType {
   public constructor(parent: Package, public type: EnumType) {
     super(parent, type);
   }
 
-  public emit(code: CodeMaker) {
+  public emit({ code }: EmitContext) {
     // TODO figure out the value type -- probably a string in most cases
     const valueType = 'string';
     code.line(`type ${this.name} ${valueType}`);
