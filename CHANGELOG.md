@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/aws/jsii/compare/v1.11.0...v1.12.0) (2020-08-27)
+
+
+### Features
+
+* **golang:** introduce Golang code generation ([#1551](https://github.com/aws/jsii/issues/1551)) ([2833db4](https://github.com/aws/jsii/commit/2833db48e7f32191aebd81d5eebf97d111406589)), closes [#83](https://github.com/aws/jsii/issues/83)
+* **java:** use covariant types for collection elements ([#1884](https://github.com/aws/jsii/issues/1884)) ([be2c7e2](https://github.com/aws/jsii/commit/be2c7e2aceecc1a6cb9f8a97cee90ea35b80f5f5)), closes [#1517](https://github.com/aws/jsii/issues/1517)
+* **jsii:** standardized error messages ([#1931](https://github.com/aws/jsii/issues/1931)) ([b146286](https://github.com/aws/jsii/commit/b146286fe66f78a1851228159b48d9bd2c2b6f3b))
+
+
+### Bug Fixes
+
+* **java:** module "<module name>" not found error ([#1906](https://github.com/aws/jsii/issues/1906)) ([d0b9ffd](https://github.com/aws/jsii/commit/d0b9ffd8797ff5547a89d43134c40b4744d5e852)), closes [#1904](https://github.com/aws/jsii/issues/1904)
+* **jsii:** class members named after the class result in illegal C# ([#1903](https://github.com/aws/jsii/issues/1903)) ([bc71154](https://github.com/aws/jsii/commit/bc711541c17019eba3af16ec7efadc6a25287514)), closes [#1931](https://github.com/aws/jsii/issues/1931) [#1880](https://github.com/aws/jsii/issues/1880)
+* **kernel:** calling super.property unexpectedly returns `undefined` ([#1932](https://github.com/aws/jsii/issues/1932)) ([3b48778](https://github.com/aws/jsii/commit/3b48778a6554bf009eb461651bc32b8341d3416f))
+* **python:** generate type-checking code ([#1881](https://github.com/aws/jsii/issues/1881)) ([e6d1bc1](https://github.com/aws/jsii/commit/e6d1bc161ed426261f39c5ccadfa80a4020e4ffc)), closes [awslabs/cdk8s#194](https://github.com/awslabs/cdk8s/issues/194)
+
 ## [1.11.0](https://github.com/aws/jsii/compare/v1.10.0...v1.11.0) (2020-08-18)
 
 
