@@ -488,6 +488,7 @@ type BaseIface interface {
     TypeName() jsii.Any
 }
 
+// Struct proxy
 type Base struct {
 }
 
@@ -512,21 +513,31 @@ func (b *Base) TypeName() jsii.Any  {
     return nil
 }
 
+// Struct interface
 type BasePropsIface interface {
+    @scope/jsii-calc-base-of-base.VeryBaseProps
+    GetFoo() jsii.Any
     GetBar() string
 }
 
+// Struct proxy
 type BaseProps struct {
+    Foo jsii.Any
     Bar string
 }
 
+func (b BaseProps) GetFoo() jsii.Any {
+    return b.Foo
+}
 
 func (b BaseProps) GetBar() string {
     return b.Bar
 }
 
 
+// Behaviorial interface
 type IBaseInterface interface {
+    @scope/jsii-calc-base-of-base.IVeryBaseInterface
     Bar()
 }
 
@@ -1677,6 +1688,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Behaviorial interface
 type IVeryBaseInterface interface {
     Foo()
 }
@@ -1685,6 +1697,7 @@ type StaticConsumerIface interface {
     Consume() jsii.Any
 }
 
+// Struct proxy
 type StaticConsumer struct {
 }
 
@@ -1701,6 +1714,7 @@ type VeryIface interface {
     Hey() float64
 }
 
+// Struct proxy
 type Very struct {
 }
 
@@ -1725,14 +1739,15 @@ func (v *Very) Hey() float64  {
     return 0.0
 }
 
+// Struct interface
 type VeryBasePropsIface interface {
     GetFoo() Very
 }
 
+// Struct proxy
 type VeryBaseProps struct {
     Foo Very
 }
-
 
 func (v VeryBaseProps) GetFoo() Very {
     return v.Foo
@@ -4523,30 +4538,36 @@ const (
     EnumFromScopedModuleValue2 EnumFromScopedModule = "VALUE2"
 )
 
+// Behaviorial interface
 type IDoublable interface {
     GetDoubleValue() float64
 }
 
+// Behaviorial interface
 type IFriendly interface {
     Hello() string
 }
 
+// Behaviorial interface
 type IThreeLevelsInterface interface {
+    @scope/jsii-calc-base-of-base.IVeryBaseInterface
+    @scope/jsii-calc-base.IBaseInterface
     Baz()
 }
 
+// Struct interface
 type MyFirstStructIface interface {
     GetAnumber() float64
     GetAstring() string
     GetFirstOptional() []string
 }
 
+// Struct proxy
 type MyFirstStruct struct {
     Anumber float64
     Astring string
     FirstOptional []string
 }
-
 
 func (m MyFirstStruct) GetAnumber() float64 {
     return m.Anumber
@@ -4562,24 +4583,24 @@ func (m MyFirstStruct) GetFirstOptional() []string {
 
 
 type NumberIface interface {
-    GetDoubleValue() float64
-    SetDoubleValue()
     GetValue() float64
     SetValue()
+    GetDoubleValue() float64
+    SetDoubleValue()
 }
 
+// Struct proxy
 type Number struct {
-    DoubleValue float64
     Value float64
-}
-
-
-func (n Number) GetDoubleValue() float64 {
-    return n.DoubleValue
+    DoubleValue float64
 }
 
 func (n Number) GetValue() float64 {
     return n.Value
+}
+
+func (n Number) GetDoubleValue() float64 {
+    return n.DoubleValue
 }
 
 
@@ -4596,16 +4617,24 @@ func NewNumber(value number) NumberIface {
     }
 }
 
+func (n Number) SetValue(val float64) {
+    n.Value = val
+}
+
+func (n Number) SetDoubleValue(val float64) {
+    n.DoubleValue = val
+}
+
 type NumericValueIface interface {
     GetValue() float64
     SetValue()
     ToString() string
 }
 
+// Struct proxy
 type NumericValue struct {
     Value float64
 }
-
 
 func (n NumericValue) GetValue() float64 {
     return n.Value
@@ -4624,6 +4653,10 @@ func NewNumericValue() NumericValueIface {
     }
 }
 
+func (n NumericValue) SetValue(val float64) {
+    n.Value = val
+}
+
 func (n *NumericValue) ToString() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NumericValue",
@@ -4634,11 +4667,20 @@ func (n *NumericValue) ToString() string  {
 }
 
 type OperationIface interface {
+    GetValue() float64
+    SetValue()
     ToString() string
 }
 
+// Struct proxy
 type Operation struct {
+    Value float64
 }
+
+func (o Operation) GetValue() float64 {
+    return o.Value
+}
+
 
 func NewOperation() OperationIface {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -4652,6 +4694,10 @@ func NewOperation() OperationIface {
     }
 }
 
+func (o Operation) SetValue(val float64) {
+    o.Value = val
+}
+
 func (o *Operation) ToString() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Operation",
@@ -4661,18 +4707,19 @@ func (o *Operation) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Struct interface
 type StructWithOnlyOptionalsIface interface {
     GetOptional1() string
     GetOptional2() float64
     GetOptional3() bool
 }
 
+// Struct proxy
 type StructWithOnlyOptionals struct {
     Optional1 string
     Optional2 float64
     Optional3 bool
 }
-
 
 func (s StructWithOnlyOptionals) GetOptional1() string {
     return s.Optional1
@@ -4697,6 +4744,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Behaviorial interface
 type IReflectable interface {
     GetEntries() []ReflectableEntry
 }
@@ -4704,6 +4752,7 @@ type IReflectable interface {
 type NestingClassIface interface {
 }
 
+// Struct proxy
 type NestingClass struct {
 }
 
@@ -4712,10 +4761,10 @@ type NestedClassIface interface {
     SetProperty()
 }
 
+// Struct proxy
 type NestedClass struct {
     Property string
 }
-
 
 func (n NestedClass) GetProperty() string {
     return n.Property
@@ -4734,30 +4783,36 @@ func NewNestedClass() NestedClassIface {
     }
 }
 
+func (n NestedClass) SetProperty(val string) {
+    n.Property = val
+}
+
+// Struct interface
 type NestedStructIface interface {
     GetName() string
 }
 
+// Struct proxy
 type NestedStruct struct {
     Name string
 }
-
 
 func (n NestedStruct) GetName() string {
     return n.Name
 }
 
 
+// Struct interface
 type ReflectableEntryIface interface {
     GetKey() string
     GetValue() jsii.Any
 }
 
+// Struct proxy
 type ReflectableEntry struct {
     Key string
     Value jsii.Any
 }
-
 
 func (r ReflectableEntry) GetKey() string {
     return r.Key
@@ -4772,6 +4827,7 @@ type ReflectorIface interface {
     AsMap() map[string]jsii.Any
 }
 
+// Struct proxy
 type Reflector struct {
 }
 
@@ -38555,19 +38611,27 @@ package jsiicalc
 
 import (
     "github.com/aws-cdk/jsii/jsii"
+    "composition"
 )
 
 type AbstractClassIface interface {
+    GetAbstractProperty() string
+    SetAbstractProperty()
     GetPropFromInterface() string
     SetPropFromInterface()
     AbstractMethod() string
     NonAbstractMethod() float64
 }
 
+// Struct proxy
 type AbstractClass struct {
+    AbstractProperty string
     PropFromInterface string
 }
 
+func (a AbstractClass) GetAbstractProperty() string {
+    return a.AbstractProperty
+}
 
 func (a AbstractClass) GetPropFromInterface() string {
     return a.PropFromInterface
@@ -38584,6 +38648,14 @@ func NewAbstractClass() AbstractClassIface {
     return &AbstractClass{
      // props
     }
+}
+
+func (a AbstractClass) SetAbstractProperty(val string) {
+    a.AbstractProperty = val
+}
+
+func (a AbstractClass) SetPropFromInterface(val string) {
+    a.PropFromInterface = val
 }
 
 func (a *AbstractClass) AbstractMethod() string  {
@@ -38609,10 +38681,10 @@ type AbstractClassBaseIface interface {
     SetAbstractProperty()
 }
 
+// Struct proxy
 type AbstractClassBase struct {
     AbstractProperty string
 }
-
 
 func (a AbstractClassBase) GetAbstractProperty() string {
     return a.AbstractProperty
@@ -38631,6 +38703,10 @@ func NewAbstractClassBase() AbstractClassBaseIface {
     }
 }
 
+func (a AbstractClassBase) SetAbstractProperty(val string) {
+    a.AbstractProperty = val
+}
+
 type AbstractClassReturnerIface interface {
     GetReturnAbstractFromProperty() AbstractClassBase
     SetReturnAbstractFromProperty()
@@ -38638,10 +38714,10 @@ type AbstractClassReturnerIface interface {
     GiveMeInterface() IInterfaceImplementedByAbstractClass
 }
 
+// Struct proxy
 type AbstractClassReturner struct {
     ReturnAbstractFromProperty AbstractClassBase
 }
-
 
 func (a AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBase {
     return a.ReturnAbstractFromProperty
@@ -38658,6 +38734,10 @@ func NewAbstractClassReturner() AbstractClassReturnerIface {
     return &AbstractClassReturner{
      // props
     }
+}
+
+func (a AbstractClassReturner) SetReturnAbstractFromProperty(val AbstractClassBase) {
+    a.ReturnAbstractFromProperty = val
 }
 
 func (a *AbstractClassReturner) GiveMeAbstract() AbstractClass  {
@@ -38684,10 +38764,10 @@ type AbstractSuiteIface interface {
     WorkItAll() string
 }
 
+// Struct proxy
 type AbstractSuite struct {
     Property string
 }
-
 
 func (a AbstractSuite) GetProperty() string {
     return a.Property
@@ -38704,6 +38784,10 @@ func NewAbstractSuite() AbstractSuiteIface {
     return &AbstractSuite{
      // props
     }
+}
+
+func (a AbstractSuite) SetProperty(val string) {
+    a.Property = val
 }
 
 func (a *AbstractSuite) SomeMethod() string  {
@@ -38727,16 +38811,30 @@ func (a *AbstractSuite) WorkItAll() string  {
 type AddIface interface {
     GetValue() float64
     SetValue()
+    GetLhs() jsii.Any
+    SetLhs()
+    GetRhs() jsii.Any
+    SetRhs()
     ToString() string
 }
 
+// Struct proxy
 type Add struct {
     Value float64
+    Lhs jsii.Any
+    Rhs jsii.Any
 }
-
 
 func (a Add) GetValue() float64 {
     return a.Value
+}
+
+func (a Add) GetLhs() jsii.Any {
+    return a.Lhs
+}
+
+func (a Add) GetRhs() jsii.Any {
+    return a.Rhs
 }
 
 
@@ -38751,6 +38849,18 @@ func NewAdd(lhs @scope/jsii-calc-lib.NumericValue, rhs @scope/jsii-calc-lib.Nume
     return &Add{
      // props
     }
+}
+
+func (a Add) SetValue(val float64) {
+    a.Value = val
+}
+
+func (a Add) SetLhs(val jsii.Any) {
+    a.Lhs = val
+}
+
+func (a Add) SetRhs(val jsii.Any) {
+    a.Rhs = val
 }
 
 func (a *Add) ToString() string  {
@@ -38806,6 +38916,7 @@ type AllTypesIface interface {
     EnumMethod() StringEnum
 }
 
+// Struct proxy
 type AllTypes struct {
     EnumPropertyValue float64
     AnyArrayProperty []jsii.Any
@@ -38827,7 +38938,6 @@ type AllTypes struct {
     UnknownProperty jsii.Any
     OptionalEnumValue StringEnum
 }
-
 
 func (a AllTypes) GetEnumPropertyValue() float64 {
     return a.EnumPropertyValue
@@ -38918,6 +39028,82 @@ func NewAllTypes() AllTypesIface {
     }
 }
 
+func (a AllTypes) SetEnumPropertyValue(val float64) {
+    a.EnumPropertyValue = val
+}
+
+func (a AllTypes) SetAnyArrayProperty(val []jsii.Any) {
+    a.AnyArrayProperty = val
+}
+
+func (a AllTypes) SetAnyMapProperty(val map[string]jsii.Any) {
+    a.AnyMapProperty = val
+}
+
+func (a AllTypes) SetAnyProperty(val jsii.Any) {
+    a.AnyProperty = val
+}
+
+func (a AllTypes) SetArrayProperty(val []string) {
+    a.ArrayProperty = val
+}
+
+func (a AllTypes) SetBooleanProperty(val bool) {
+    a.BooleanProperty = val
+}
+
+func (a AllTypes) SetDateProperty(val string) {
+    a.DateProperty = val
+}
+
+func (a AllTypes) SetEnumProperty(val AllTypesEnum) {
+    a.EnumProperty = val
+}
+
+func (a AllTypes) SetJsonProperty(val map[string]jsii.Any) {
+    a.JsonProperty = val
+}
+
+func (a AllTypes) SetMapProperty(val map[string]jsii.Any) {
+    a.MapProperty = val
+}
+
+func (a AllTypes) SetNumberProperty(val float64) {
+    a.NumberProperty = val
+}
+
+func (a AllTypes) SetStringProperty(val string) {
+    a.StringProperty = val
+}
+
+func (a AllTypes) SetUnionArrayProperty(val []jsii.Any) {
+    a.UnionArrayProperty = val
+}
+
+func (a AllTypes) SetUnionMapProperty(val map[string]jsii.Any) {
+    a.UnionMapProperty = val
+}
+
+func (a AllTypes) SetUnionProperty(val jsii.Any) {
+    a.UnionProperty = val
+}
+
+func (a AllTypes) SetUnknownArrayProperty(val []jsii.Any) {
+    a.UnknownArrayProperty = val
+}
+
+func (a AllTypes) SetUnknownMapProperty(val map[string]jsii.Any) {
+    a.UnknownMapProperty = val
+}
+
+func (a AllTypes) SetUnknownProperty(val jsii.Any) {
+    a.UnknownProperty = val
+}
+
+func (a AllTypes) SetOptionalEnumValue(val StringEnum) {
+    a.OptionalEnumValue = val
+}
+
 func (a *AllTypes) AnyIn() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AllTypes",
@@ -38960,6 +39146,7 @@ type AllowedMethodNamesIface interface {
     SetFoo() jsii.Any
 }
 
+// Struct proxy
 type AllowedMethodNames struct {
 }
 
@@ -39018,11 +39205,11 @@ type AmbiguousParametersIface interface {
     SetScope()
 }
 
+// Struct proxy
 type AmbiguousParameters struct {
     Props StructParameterType
     Scope Bell
 }
-
 
 func (a AmbiguousParameters) GetProps() StructParameterType {
     return a.Props
@@ -39045,11 +39232,20 @@ func NewAmbiguousParameters(scope jsii-calc.Bell, props jsii-calc.StructParamete
     }
 }
 
+func (a AmbiguousParameters) SetProps(val StructParameterType) {
+    a.Props = val
+}
+
+func (a AmbiguousParameters) SetScope(val Bell) {
+    a.Scope = val
+}
+
 type AnonymousImplementationProviderIface interface {
     ProvideAsClass() Implementation
     ProvideAsInterface() IAnonymouslyImplementMe
 }
 
+// Struct proxy
 type AnonymousImplementationProvider struct {
 }
 
@@ -39092,6 +39288,7 @@ type AsyncVirtualMethodsIface interface {
     OverrideMeToo() float64
 }
 
+// Struct proxy
 type AsyncVirtualMethods struct {
 }
 
@@ -39166,6 +39363,7 @@ type AugmentableClassIface interface {
     MethodTwo() jsii.Any
 }
 
+// Struct proxy
 type AugmentableClass struct {
 }
 
@@ -39202,6 +39400,7 @@ func (a *AugmentableClass) MethodTwo() jsii.Any  {
 type BaseJsii976Iface interface {
 }
 
+// Struct proxy
 type BaseJsii976 struct {
 }
 
@@ -39223,10 +39422,10 @@ type BellIface interface {
     Ring() jsii.Any
 }
 
+// Struct proxy
 type Bell struct {
     Rung bool
 }
-
 
 func (b Bell) GetRung() bool {
     return b.Rung
@@ -39245,6 +39444,10 @@ func NewBell() BellIface {
     }
 }
 
+func (b Bell) SetRung(val bool) {
+    b.Rung = val
+}
+
 func (b *Bell) Ring() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Bell",
@@ -39255,6 +39458,8 @@ func (b *Bell) Ring() jsii.Any  {
 }
 
 type BinaryOperationIface interface {
+    GetValue() float64
+    SetValue()
     GetLhs() jsii.Any
     SetLhs()
     GetRhs() jsii.Any
@@ -39262,11 +39467,16 @@ type BinaryOperationIface interface {
     Hello() string
 }
 
+// Struct proxy
 type BinaryOperation struct {
+    Value float64
     Lhs jsii.Any
     Rhs jsii.Any
 }
 
+func (b BinaryOperation) GetValue() float64 {
+    return b.Value
+}
 
 func (b BinaryOperation) GetLhs() jsii.Any {
     return b.Lhs
@@ -39290,6 +39500,18 @@ func NewBinaryOperation(lhs @scope/jsii-calc-lib.NumericValue, rhs @scope/jsii-c
     }
 }
 
+func (b BinaryOperation) SetValue(val float64) {
+    b.Value = val
+}
+
+func (b BinaryOperation) SetLhs(val jsii.Any) {
+    b.Lhs = val
+}
+
+func (b BinaryOperation) SetRhs(val jsii.Any) {
+    b.Rhs = val
+}
+
 func (b *BinaryOperation) Hello() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "BinaryOperation",
@@ -39304,6 +39526,7 @@ type BurriedAnonymousObjectIface interface {
     GiveItBack() jsii.Any
 }
 
+// Struct proxy
 type BurriedAnonymousObject struct {
 }
 
@@ -39338,8 +39561,16 @@ func (b *BurriedAnonymousObject) GiveItBack() jsii.Any  {
 }
 
 type CalculatorIface interface {
+    GetValue() float64
+    SetValue()
     GetExpression() jsii.Any
     SetExpression()
+    GetDecorationPostfixes() []string
+    SetDecorationPostfixes()
+    GetDecorationPrefixes() []string
+    SetDecorationPrefixes()
+    GetStringStyle() composition.CompositionStringStyle
+    SetStringStyle()
     GetOperationsLog() []jsii.Any
     SetOperationsLog()
     GetOperationsMap() map[string][]jsii.Any
@@ -39357,8 +39588,13 @@ type CalculatorIface interface {
     ReadUnionValue() float64
 }
 
+// Struct proxy
 type Calculator struct {
+    Value float64
     Expression jsii.Any
+    DecorationPostfixes []string
+    DecorationPrefixes []string
+    StringStyle composition.CompositionStringStyle
     OperationsLog []jsii.Any
     OperationsMap map[string][]jsii.Any
     Curr jsii.Any
@@ -39366,9 +39602,24 @@ type Calculator struct {
     UnionProperty jsii.Any
 }
 
+func (c Calculator) GetValue() float64 {
+    return c.Value
+}
 
 func (c Calculator) GetExpression() jsii.Any {
     return c.Expression
+}
+
+func (c Calculator) GetDecorationPostfixes() []string {
+    return c.DecorationPostfixes
+}
+
+func (c Calculator) GetDecorationPrefixes() []string {
+    return c.DecorationPrefixes
+}
+
+func (c Calculator) GetStringStyle() composition.CompositionStringStyle {
+    return c.StringStyle
 }
 
 func (c Calculator) GetOperationsLog() []jsii.Any {
@@ -39403,6 +39654,46 @@ func NewCalculator(props jsii-calc.CalculatorProps) CalculatorIface {
     return &Calculator{
      // props
     }
+}
+
+func (c Calculator) SetValue(val float64) {
+    c.Value = val
+}
+
+func (c Calculator) SetExpression(val jsii.Any) {
+    c.Expression = val
+}
+
+func (c Calculator) SetDecorationPostfixes(val []string) {
+    c.DecorationPostfixes = val
+}
+
+func (c Calculator) SetDecorationPrefixes(val []string) {
+    c.DecorationPrefixes = val
+}
+
+func (c Calculator) SetStringStyle(val composition.CompositionStringStyle) {
+    c.StringStyle = val
+}
+
+func (c Calculator) SetOperationsLog(val []jsii.Any) {
+    c.OperationsLog = val
+}
+
+func (c Calculator) SetOperationsMap(val map[string][]jsii.Any) {
+    c.OperationsMap = val
+}
+
+func (c Calculator) SetCurr(val jsii.Any) {
+    c.Curr = val
+}
+
+func (c Calculator) SetMaxValue(val float64) {
+    c.MaxValue = val
+}
+
+func (c Calculator) SetUnionProperty(val jsii.Any) {
+    c.UnionProperty = val
 }
 
 func (c *Calculator) Add() jsii.Any  {
@@ -39450,16 +39741,17 @@ func (c *Calculator) ReadUnionValue() float64  {
     return 0.0
 }
 
+// Struct interface
 type CalculatorPropsIface interface {
     GetInitialValue() float64
     GetMaximumValue() float64
 }
 
+// Struct proxy
 type CalculatorProps struct {
     InitialValue float64
     MaximumValue float64
 }
-
 
 func (c CalculatorProps) GetInitialValue() float64 {
     return c.InitialValue
@@ -39470,14 +39762,22 @@ func (c CalculatorProps) GetMaximumValue() float64 {
 }
 
 
+// Struct interface
 type ChildStruct982Iface interface {
+    jsii-calc.ParentStruct982
+    GetFoo() string
     GetBar() float64
 }
 
+// Struct proxy
 type ChildStruct982 struct {
+    Foo string
     Bar float64
 }
 
+func (c ChildStruct982) GetFoo() string {
+    return c.Foo
+}
 
 func (c ChildStruct982) GetBar() float64 {
     return c.Bar
@@ -39495,13 +39795,13 @@ type ClassThatImplementsTheInternalInterfaceIface interface {
     SetD()
 }
 
+// Struct proxy
 type ClassThatImplementsTheInternalInterface struct {
     A string
     B string
     C string
     D string
 }
-
 
 func (c ClassThatImplementsTheInternalInterface) GetA() string {
     return c.A
@@ -39532,6 +39832,22 @@ func NewClassThatImplementsTheInternalInterface() ClassThatImplementsTheInternal
     }
 }
 
+func (c ClassThatImplementsTheInternalInterface) SetA(val string) {
+    c.A = val
+}
+
+func (c ClassThatImplementsTheInternalInterface) SetB(val string) {
+    c.B = val
+}
+
+func (c ClassThatImplementsTheInternalInterface) SetC(val string) {
+    c.C = val
+}
+
+func (c ClassThatImplementsTheInternalInterface) SetD(val string) {
+    c.D = val
+}
+
 type ClassThatImplementsThePrivateInterfaceIface interface {
     GetA() string
     SetA()
@@ -39543,13 +39859,13 @@ type ClassThatImplementsThePrivateInterfaceIface interface {
     SetE()
 }
 
+// Struct proxy
 type ClassThatImplementsThePrivateInterface struct {
     A string
     B string
     C string
     E string
 }
-
 
 func (c ClassThatImplementsThePrivateInterface) GetA() string {
     return c.A
@@ -39580,6 +39896,22 @@ func NewClassThatImplementsThePrivateInterface() ClassThatImplementsThePrivateIn
     }
 }
 
+func (c ClassThatImplementsThePrivateInterface) SetA(val string) {
+    c.A = val
+}
+
+func (c ClassThatImplementsThePrivateInterface) SetB(val string) {
+    c.B = val
+}
+
+func (c ClassThatImplementsThePrivateInterface) SetC(val string) {
+    c.C = val
+}
+
+func (c ClassThatImplementsThePrivateInterface) SetE(val string) {
+    c.E = val
+}
+
 type ClassWithCollectionsIface interface {
     GetStaticArray() []string
     SetStaticArray()
@@ -39593,13 +39925,13 @@ type ClassWithCollectionsIface interface {
     CreateAMap() map[string]string
 }
 
+// Struct proxy
 type ClassWithCollections struct {
     StaticArray []string
     StaticMap map[string]string
     Array []string
     Map map[string]string
 }
-
 
 func (c ClassWithCollections) GetStaticArray() []string {
     return c.StaticArray
@@ -39630,6 +39962,22 @@ func NewClassWithCollections(map Map<string => string>, array Array<string>) Cla
     }
 }
 
+func (c ClassWithCollections) SetStaticArray(val []string) {
+    c.StaticArray = val
+}
+
+func (c ClassWithCollections) SetStaticMap(val map[string]string) {
+    c.StaticMap = val
+}
+
+func (c ClassWithCollections) SetArray(val []string) {
+    c.Array = val
+}
+
+func (c ClassWithCollections) SetMap(val map[string]string) {
+    c.Map = val
+}
+
 func (c *ClassWithCollections) CreateAList() []string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithCollections",
@@ -39651,6 +39999,7 @@ func (c *ClassWithCollections) CreateAMap() map[string]string  {
 type ClassWithDocsIface interface {
 }
 
+// Struct proxy
 type ClassWithDocs struct {
 }
 
@@ -39672,10 +40021,10 @@ type ClassWithJavaReservedWordsIface interface {
     Import() string
 }
 
+// Struct proxy
 type ClassWithJavaReservedWords struct {
     Int string
 }
-
 
 func (c ClassWithJavaReservedWords) GetInt() string {
     return c.Int
@@ -39694,6 +40043,10 @@ func NewClassWithJavaReservedWords(int string) ClassWithJavaReservedWordsIface {
     }
 }
 
+func (c ClassWithJavaReservedWords) SetInt(val string) {
+    c.Int = val
+}
+
 func (c *ClassWithJavaReservedWords) Import() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithJavaReservedWords",
@@ -39708,10 +40061,10 @@ type ClassWithMutableObjectLiteralPropertyIface interface {
     SetMutableObject()
 }
 
+// Struct proxy
 type ClassWithMutableObjectLiteralProperty struct {
     MutableObject IMutableObjectLiteral
 }
-
 
 func (c ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjectLiteral {
     return c.MutableObject
@@ -39730,6 +40083,10 @@ func NewClassWithMutableObjectLiteralProperty() ClassWithMutableObjectLiteralPro
     }
 }
 
+func (c ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObjectLiteral) {
+    c.MutableObject = val
+}
+
 type ClassWithPrivateConstructorAndAutomaticPropertiesIface interface {
     GetReadOnlyString() string
     SetReadOnlyString()
@@ -39738,11 +40095,11 @@ type ClassWithPrivateConstructorAndAutomaticPropertiesIface interface {
     Create() ClassWithPrivateConstructorAndAutomaticProperties
 }
 
+// Struct proxy
 type ClassWithPrivateConstructorAndAutomaticProperties struct {
     ReadOnlyString string
     ReadWriteString string
 }
-
 
 func (c ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() string {
     return c.ReadOnlyString
@@ -39752,6 +40109,14 @@ func (c ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() 
     return c.ReadWriteString
 }
 
+
+func (c ClassWithPrivateConstructorAndAutomaticProperties) SetReadOnlyString(val string) {
+    c.ReadOnlyString = val
+}
+
+func (c ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(val string) {
+    c.ReadWriteString = val
+}
 
 func (c *ClassWithPrivateConstructorAndAutomaticProperties) Create() ClassWithPrivateConstructorAndAutomaticProperties  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -39769,15 +40134,19 @@ type ConfusingToJacksonIface interface {
     MakeStructInstance() ConfusingToJacksonStruct
 }
 
+// Struct proxy
 type ConfusingToJackson struct {
     UnionProperty jsii.Any
 }
-
 
 func (c ConfusingToJackson) GetUnionProperty() jsii.Any {
     return c.UnionProperty
 }
 
+
+func (c ConfusingToJackson) SetUnionProperty(val jsii.Any) {
+    c.UnionProperty = val
+}
 
 func (c *ConfusingToJackson) MakeInstance() ConfusingToJackson  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -39797,14 +40166,15 @@ func (c *ConfusingToJackson) MakeStructInstance() ConfusingToJacksonStruct  {
     return nil
 }
 
+// Struct interface
 type ConfusingToJacksonStructIface interface {
     GetUnionProperty() jsii.Any
 }
 
+// Struct proxy
 type ConfusingToJacksonStruct struct {
     UnionProperty jsii.Any
 }
-
 
 func (c ConfusingToJacksonStruct) GetUnionProperty() jsii.Any {
     return c.UnionProperty
@@ -39814,6 +40184,7 @@ func (c ConfusingToJacksonStruct) GetUnionProperty() jsii.Any {
 type ConstructorPassesThisOutIface interface {
 }
 
+// Struct proxy
 type ConstructorPassesThisOut struct {
 }
 
@@ -39839,6 +40210,7 @@ type ConstructorsIface interface {
     MakeInterfaces() []IPublicInterface
 }
 
+// Struct proxy
 type Constructors struct {
 }
 
@@ -39921,6 +40293,7 @@ type ConsumePureInterfaceIface interface {
     WorkItBaby() StructB
 }
 
+// Struct proxy
 type ConsumePureInterface struct {
 }
 
@@ -39956,6 +40329,7 @@ type ConsumerCanRingBellIface interface {
     WhenTypedAsClass() bool
 }
 
+// Struct proxy
 type ConsumerCanRingBell struct {
 }
 
@@ -40048,6 +40422,7 @@ type ConsumersOfThisCrazyTypeSystemIface interface {
     ConsumeNonInternalInterface() jsii.Any
 }
 
+// Struct proxy
 type ConsumersOfThisCrazyTypeSystem struct {
 }
 
@@ -40087,6 +40462,7 @@ type DataRendererIface interface {
     RenderMap() string
 }
 
+// Struct proxy
 type DataRenderer struct {
 }
 
@@ -40138,12 +40514,12 @@ type DefaultedConstructorArgumentIface interface {
     SetArg2()
 }
 
+// Struct proxy
 type DefaultedConstructorArgument struct {
     Arg1 float64
     Arg3 string
     Arg2 string
 }
-
 
 func (d DefaultedConstructorArgument) GetArg1() float64 {
     return d.Arg1
@@ -40170,11 +40546,24 @@ func NewDefaultedConstructorArgument(arg1 number, arg2 string, arg3 date) Defaul
     }
 }
 
+func (d DefaultedConstructorArgument) SetArg1(val float64) {
+    d.Arg1 = val
+}
+
+func (d DefaultedConstructorArgument) SetArg3(val string) {
+    d.Arg3 = val
+}
+
+func (d DefaultedConstructorArgument) SetArg2(val string) {
+    d.Arg2 = val
+}
+
 type Demonstrate982Iface interface {
     TakeThis() ChildStruct982
     TakeThisToo() ParentStruct982
 }
 
+// Struct proxy
 type Demonstrate982 struct {
 }
 
@@ -40216,11 +40605,11 @@ type DeprecatedClassIface interface {
     Method() jsii.Any
 }
 
+// Struct proxy
 type DeprecatedClass struct {
     ReadonlyProperty string
     MutableProperty float64
 }
-
 
 func (d DeprecatedClass) GetReadonlyProperty() string {
     return d.ReadonlyProperty
@@ -40243,6 +40632,14 @@ func NewDeprecatedClass(readonlyString string, mutableNumber number) DeprecatedC
     }
 }
 
+func (d DeprecatedClass) SetReadonlyProperty(val string) {
+    d.ReadonlyProperty = val
+}
+
+func (d DeprecatedClass) SetMutableProperty(val float64) {
+    d.MutableProperty = val
+}
+
 func (d *DeprecatedClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DeprecatedClass",
@@ -40259,21 +40656,27 @@ const (
     DeprecatedEnumOptionB DeprecatedEnum = "OPTION_B"
 )
 
+// Struct interface
 type DeprecatedStructIface interface {
     GetReadonlyProperty() string
 }
 
+// Struct proxy
 type DeprecatedStruct struct {
     ReadonlyProperty string
 }
-
 
 func (d DeprecatedStruct) GetReadonlyProperty() string {
     return d.ReadonlyProperty
 }
 
 
+// Struct interface
 type DerivedStructIface interface {
+    @scope/jsii-calc-lib.MyFirstStruct
+    GetAnumber() float64
+    GetAstring() string
+    GetFirstOptional() []string
     GetAnotherRequired() string
     GetBool() bool
     GetNonPrimitive() DoubleTrouble
@@ -40282,7 +40685,11 @@ type DerivedStructIface interface {
     GetOptionalArray() []string
 }
 
+// Struct proxy
 type DerivedStruct struct {
+    Anumber float64
+    Astring string
+    FirstOptional []string
     AnotherRequired string
     Bool bool
     NonPrimitive DoubleTrouble
@@ -40291,6 +40698,17 @@ type DerivedStruct struct {
     OptionalArray []string
 }
 
+func (d DerivedStruct) GetAnumber() float64 {
+    return d.Anumber
+}
+
+func (d DerivedStruct) GetAstring() string {
+    return d.Astring
+}
+
+func (d DerivedStruct) GetFirstOptional() []string {
+    return d.FirstOptional
+}
 
 func (d DerivedStruct) GetAnotherRequired() string {
     return d.AnotherRequired
@@ -40317,56 +40735,95 @@ func (d DerivedStruct) GetOptionalArray() []string {
 }
 
 
+// Struct interface
 type DiamondInheritanceBaseLevelStructIface interface {
     GetBaseLevelProperty() string
 }
 
+// Struct proxy
 type DiamondInheritanceBaseLevelStruct struct {
     BaseLevelProperty string
 }
-
 
 func (d DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
     return d.BaseLevelProperty
 }
 
 
+// Struct interface
 type DiamondInheritanceFirstMidLevelStructIface interface {
+    jsii-calc.DiamondInheritanceBaseLevelStruct
+    GetBaseLevelProperty() string
     GetFirstMidLevelProperty() string
 }
 
+// Struct proxy
 type DiamondInheritanceFirstMidLevelStruct struct {
+    BaseLevelProperty string
     FirstMidLevelProperty string
 }
 
+func (d DiamondInheritanceFirstMidLevelStruct) GetBaseLevelProperty() string {
+    return d.BaseLevelProperty
+}
 
 func (d DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string {
     return d.FirstMidLevelProperty
 }
 
 
+// Struct interface
 type DiamondInheritanceSecondMidLevelStructIface interface {
+    jsii-calc.DiamondInheritanceBaseLevelStruct
+    GetBaseLevelProperty() string
     GetSecondMidLevelProperty() string
 }
 
+// Struct proxy
 type DiamondInheritanceSecondMidLevelStruct struct {
+    BaseLevelProperty string
     SecondMidLevelProperty string
 }
 
+func (d DiamondInheritanceSecondMidLevelStruct) GetBaseLevelProperty() string {
+    return d.BaseLevelProperty
+}
 
 func (d DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() string {
     return d.SecondMidLevelProperty
 }
 
 
+// Struct interface
 type DiamondInheritanceTopLevelStructIface interface {
+    jsii-calc.DiamondInheritanceBaseLevelStruct
+    jsii-calc.DiamondInheritanceFirstMidLevelStruct
+    jsii-calc.DiamondInheritanceSecondMidLevelStruct
+    GetBaseLevelProperty() string
+    GetFirstMidLevelProperty() string
+    GetSecondMidLevelProperty() string
     GetTopLevelProperty() string
 }
 
+// Struct proxy
 type DiamondInheritanceTopLevelStruct struct {
+    BaseLevelProperty string
+    FirstMidLevelProperty string
+    SecondMidLevelProperty string
     TopLevelProperty string
 }
 
+func (d DiamondInheritanceTopLevelStruct) GetBaseLevelProperty() string {
+    return d.BaseLevelProperty
+}
+
+func (d DiamondInheritanceTopLevelStruct) GetFirstMidLevelProperty() string {
+    return d.FirstMidLevelProperty
+}
+
+func (d DiamondInheritanceTopLevelStruct) GetSecondMidLevelProperty() string {
+    return d.SecondMidLevelProperty
+}
 
 func (d DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
     return d.TopLevelProperty
@@ -40380,11 +40837,11 @@ type DisappointingCollectionSourceIface interface {
     SetMaybeMap()
 }
 
+// Struct proxy
 type DisappointingCollectionSource struct {
     MaybeList []string
     MaybeMap map[string]float64
 }
-
 
 func (d DisappointingCollectionSource) GetMaybeList() []string {
     return d.MaybeList
@@ -40395,12 +40852,21 @@ func (d DisappointingCollectionSource) GetMaybeMap() map[string]float64 {
 }
 
 
+func (d DisappointingCollectionSource) SetMaybeList(val []string) {
+    d.MaybeList = val
+}
+
+func (d DisappointingCollectionSource) SetMaybeMap(val map[string]float64) {
+    d.MaybeMap = val
+}
+
 type DoNotOverridePrivatesIface interface {
     ChangePrivatePropertyValue() jsii.Any
     PrivateMethodValue() string
     PrivatePropertyValue() string
 }
 
+// Struct proxy
 type DoNotOverridePrivates struct {
 }
 
@@ -40447,6 +40913,7 @@ type DoNotRecognizeAnyAsOptionalIface interface {
     Method() jsii.Any
 }
 
+// Struct proxy
 type DoNotRecognizeAnyAsOptional struct {
 }
 
@@ -40476,6 +40943,7 @@ type DocumentedClassIface interface {
     Hola() jsii.Any
 }
 
+// Struct proxy
 type DocumentedClass struct {
 }
 
@@ -40513,6 +40981,7 @@ type DontComplainAboutVariadicAfterOptionalIface interface {
     OptionalAndVariadic() string
 }
 
+// Struct proxy
 type DontComplainAboutVariadicAfterOptional struct {
 }
 
@@ -40542,6 +41011,7 @@ type DoubleTroubleIface interface {
     Next() float64
 }
 
+// Struct proxy
 type DoubleTrouble struct {
 }
 
@@ -40582,11 +41052,11 @@ type DynamicPropertyBearerIface interface {
     SetValueStore()
 }
 
+// Struct proxy
 type DynamicPropertyBearer struct {
     DynamicProperty string
     ValueStore string
 }
-
 
 func (d DynamicPropertyBearer) GetDynamicProperty() string {
     return d.DynamicProperty
@@ -40609,16 +41079,38 @@ func NewDynamicPropertyBearer(valueStore string) DynamicPropertyBearerIface {
     }
 }
 
+func (d DynamicPropertyBearer) SetDynamicProperty(val string) {
+    d.DynamicProperty = val
+}
+
+func (d DynamicPropertyBearer) SetValueStore(val string) {
+    d.ValueStore = val
+}
+
 type DynamicPropertyBearerChildIface interface {
+    GetDynamicProperty() string
+    SetDynamicProperty()
+    GetValueStore() string
+    SetValueStore()
     GetOriginalValue() string
     SetOriginalValue()
     OverrideValue() string
 }
 
+// Struct proxy
 type DynamicPropertyBearerChild struct {
+    DynamicProperty string
+    ValueStore string
     OriginalValue string
 }
 
+func (d DynamicPropertyBearerChild) GetDynamicProperty() string {
+    return d.DynamicProperty
+}
+
+func (d DynamicPropertyBearerChild) GetValueStore() string {
+    return d.ValueStore
+}
 
 func (d DynamicPropertyBearerChild) GetOriginalValue() string {
     return d.OriginalValue
@@ -40637,6 +41129,18 @@ func NewDynamicPropertyBearerChild(originalValue string) DynamicPropertyBearerCh
     }
 }
 
+func (d DynamicPropertyBearerChild) SetDynamicProperty(val string) {
+    d.DynamicProperty = val
+}
+
+func (d DynamicPropertyBearerChild) SetValueStore(val string) {
+    d.ValueStore = val
+}
+
+func (d DynamicPropertyBearerChild) SetOriginalValue(val string) {
+    d.OriginalValue = val
+}
+
 func (d *DynamicPropertyBearerChild) OverrideValue() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DynamicPropertyBearerChild",
@@ -40651,6 +41155,7 @@ type EnumDispenserIface interface {
     RandomStringLikeEnum() StringEnum
 }
 
+// Struct proxy
 type EnumDispenser struct {
 }
 
@@ -40678,6 +41183,7 @@ type EraseUndefinedHashValuesIface interface {
     Prop2IsUndefined() map[string]jsii.Any
 }
 
+// Struct proxy
 type EraseUndefinedHashValues struct {
 }
 
@@ -40720,16 +41226,17 @@ func (e *EraseUndefinedHashValues) Prop2IsUndefined() map[string]jsii.Any  {
     return nil
 }
 
+// Struct interface
 type EraseUndefinedHashValuesOptionsIface interface {
     GetOption1() string
     GetOption2() string
 }
 
+// Struct proxy
 type EraseUndefinedHashValuesOptions struct {
     Option1 string
     Option2 string
 }
-
 
 func (e EraseUndefinedHashValuesOptions) GetOption1() string {
     return e.Option1
@@ -40748,11 +41255,11 @@ type ExperimentalClassIface interface {
     Method() jsii.Any
 }
 
+// Struct proxy
 type ExperimentalClass struct {
     ReadonlyProperty string
     MutableProperty float64
 }
-
 
 func (e ExperimentalClass) GetReadonlyProperty() string {
     return e.ReadonlyProperty
@@ -40775,6 +41282,14 @@ func NewExperimentalClass(readonlyString string, mutableNumber number) Experimen
     }
 }
 
+func (e ExperimentalClass) SetReadonlyProperty(val string) {
+    e.ReadonlyProperty = val
+}
+
+func (e ExperimentalClass) SetMutableProperty(val float64) {
+    e.MutableProperty = val
+}
+
 func (e *ExperimentalClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ExperimentalClass",
@@ -40791,14 +41306,15 @@ const (
     ExperimentalEnumOptionB ExperimentalEnum = "OPTION_B"
 )
 
+// Struct interface
 type ExperimentalStructIface interface {
     GetReadonlyProperty() string
 }
 
+// Struct proxy
 type ExperimentalStruct struct {
     ReadonlyProperty string
 }
-
 
 func (e ExperimentalStruct) GetReadonlyProperty() string {
     return e.ReadonlyProperty
@@ -40810,10 +41326,10 @@ type ExportedBaseClassIface interface {
     SetSuccess()
 }
 
+// Struct proxy
 type ExportedBaseClass struct {
     Success bool
 }
-
 
 func (e ExportedBaseClass) GetSuccess() bool {
     return e.Success
@@ -40832,16 +41348,21 @@ func NewExportedBaseClass(success boolean) ExportedBaseClassIface {
     }
 }
 
+func (e ExportedBaseClass) SetSuccess(val bool) {
+    e.Success = val
+}
+
+// Struct interface
 type ExtendsInternalInterfaceIface interface {
     GetBoom() bool
     GetProp() string
 }
 
+// Struct proxy
 type ExtendsInternalInterface struct {
     Boom bool
     Prop string
 }
-
 
 func (e ExtendsInternalInterface) GetBoom() bool {
     return e.Boom
@@ -40860,11 +41381,11 @@ type ExternalClassIface interface {
     Method() jsii.Any
 }
 
+// Struct proxy
 type ExternalClass struct {
     ReadonlyProperty string
     MutableProperty float64
 }
-
 
 func (e ExternalClass) GetReadonlyProperty() string {
     return e.ReadonlyProperty
@@ -40887,6 +41408,14 @@ func NewExternalClass(readonlyString string, mutableNumber number) ExternalClass
     }
 }
 
+func (e ExternalClass) SetReadonlyProperty(val string) {
+    e.ReadonlyProperty = val
+}
+
+func (e ExternalClass) SetMutableProperty(val float64) {
+    e.MutableProperty = val
+}
+
 func (e *ExternalClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ExternalClass",
@@ -40903,14 +41432,15 @@ const (
     ExternalEnumOptionB ExternalEnum = "OPTION_B"
 )
 
+// Struct interface
 type ExternalStructIface interface {
     GetReadonlyProperty() string
 }
 
+// Struct proxy
 type ExternalStruct struct {
     ReadonlyProperty string
 }
-
 
 func (e ExternalStruct) GetReadonlyProperty() string {
     return e.ReadonlyProperty
@@ -40925,10 +41455,10 @@ type GiveMeStructsIface interface {
     ReadFirstNumber() float64
 }
 
+// Struct proxy
 type GiveMeStructs struct {
     StructLiteral jsii.Any
 }
-
 
 func (g GiveMeStructs) GetStructLiteral() jsii.Any {
     return g.StructLiteral
@@ -40945,6 +41475,10 @@ func NewGiveMeStructs() GiveMeStructsIface {
     return &GiveMeStructs{
      // props
     }
+}
+
+func (g GiveMeStructs) SetStructLiteral(val jsii.Any) {
+    g.StructLiteral = val
 }
 
 func (g *GiveMeStructs) DerivedToFirst() jsii.Any  {
@@ -40974,14 +41508,15 @@ func (g *GiveMeStructs) ReadFirstNumber() float64  {
     return 0.0
 }
 
+// Struct interface
 type GreeteeIface interface {
     GetName() string
 }
 
+// Struct proxy
 type Greetee struct {
     Name string
 }
-
 
 func (g Greetee) GetName() string {
     return g.Name
@@ -40992,6 +41527,7 @@ type GreetingAugmenterIface interface {
     BetterGreeting() string
 }
 
+// Struct proxy
 type GreetingAugmenter struct {
 }
 
@@ -41016,158 +41552,201 @@ func (g *GreetingAugmenter) BetterGreeting() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Behaviorial interface
 type IAnonymousImplementationProvider interface {
     ProvideAsClass() Implementation
     ProvideAsInterface() IAnonymouslyImplementMe
 }
 
+// Behaviorial interface
 type IAnonymouslyImplementMe interface {
     Verb() string
     GetValue() float64
 }
 
+// Behaviorial interface
 type IAnotherPublicInterface interface {
     GetA() string
 }
 
+// Behaviorial interface
 type IBell interface {
     Ring()
 }
 
+// Behaviorial interface
 type IBellRinger interface {
     YourTurn()
 }
 
+// Behaviorial interface
 type IConcreteBellRinger interface {
     YourTurn()
 }
 
+// Behaviorial interface
 type IDeprecatedInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
+// Behaviorial interface
 type IExperimentalInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
+// Behaviorial interface
 type IExtendsPrivateInterface interface {
     GetMoreThings() []string
     GetPrivate() string
 }
 
+// Behaviorial interface
 type IExternalInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
+// Behaviorial interface
 type IFriendlier interface {
+    @scope/jsii-calc-lib.IFriendly
     Farewell() string
     Goodbye() string
 }
 
+// Behaviorial interface
 type IFriendlyRandomGenerator interface {
+    jsii-calc.IRandomNumberGenerator
+    @scope/jsii-calc-lib.IFriendly
 }
 
+// Behaviorial interface
 type IInterfaceImplementedByAbstractClass interface {
     GetPropFromInterface() string
 }
 
+// Behaviorial interface
 type IInterfaceThatShouldNotBeADataType interface {
+    jsii-calc.IInterfaceWithMethods
     GetOtherValue() string
 }
 
+// Behaviorial interface
 type IInterfaceWithInternal interface {
     Visible()
 }
 
+// Behaviorial interface
 type IInterfaceWithMethods interface {
     DoThings()
     GetValue() string
 }
 
+// Behaviorial interface
 type IInterfaceWithOptionalMethodArguments interface {
     Hello()
 }
 
+// Behaviorial interface
 type IInterfaceWithProperties interface {
     GetReadOnlyString() string
     GetReadWriteString() string
 }
 
+// Behaviorial interface
 type IInterfaceWithPropertiesExtension interface {
+    jsii-calc.IInterfaceWithProperties
     GetFoo() float64
 }
 
+// Behaviorial interface
 type IJSII417Derived interface {
+    jsii-calc.IJSII417PublicBaseOfBase
     Bar()
     Baz()
     GetProperty() string
 }
 
+// Behaviorial interface
 type IJSII417PublicBaseOfBase interface {
     Foo()
     GetHasRoot() bool
 }
 
+// Behaviorial interface
 type IJsii487External interface {
 }
 
+// Behaviorial interface
 type IJsii487External2 interface {
 }
 
+// Behaviorial interface
 type IJsii496 interface {
 }
 
+// Behaviorial interface
 type IMutableObjectLiteral interface {
     GetValue() string
 }
 
+// Behaviorial interface
 type INonInternalInterface interface {
+    jsii-calc.IAnotherPublicInterface
     GetB() string
     GetC() string
 }
 
+// Behaviorial interface
 type IObjectWithProperty interface {
     WasSet() bool
     GetProperty() string
 }
 
+// Behaviorial interface
 type IOptionalMethod interface {
     Optional() string
 }
 
+// Behaviorial interface
 type IPrivatelyImplemented interface {
     GetSuccess() bool
 }
 
+// Behaviorial interface
 type IPublicInterface interface {
     Bye() string
 }
 
+// Behaviorial interface
 type IPublicInterface2 interface {
     Ciao() string
 }
 
+// Behaviorial interface
 type IRandomNumberGenerator interface {
     Next() float64
 }
 
+// Behaviorial interface
 type IReturnJsii976 interface {
     GetFoo() float64
 }
 
+// Behaviorial interface
 type IReturnsNumber interface {
     ObtainNumber() jsii.Any
     GetNumberProp() jsii.Any
 }
 
+// Behaviorial interface
 type IStableInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
+// Behaviorial interface
 type IStructReturningDelegate interface {
     ReturnStruct() StructB
 }
@@ -41177,10 +41756,10 @@ type ImplementInternalInterfaceIface interface {
     SetProp()
 }
 
+// Struct proxy
 type ImplementInternalInterface struct {
     Prop string
 }
-
 
 func (i ImplementInternalInterface) GetProp() string {
     return i.Prop
@@ -41199,15 +41778,19 @@ func NewImplementInternalInterface() ImplementInternalInterfaceIface {
     }
 }
 
+func (i ImplementInternalInterface) SetProp(val string) {
+    i.Prop = val
+}
+
 type ImplementationIface interface {
     GetValue() float64
     SetValue()
 }
 
+// Struct proxy
 type Implementation struct {
     Value float64
 }
-
 
 func (i Implementation) GetValue() float64 {
     return i.Value
@@ -41226,10 +41809,15 @@ func NewImplementation() ImplementationIface {
     }
 }
 
+func (i Implementation) SetValue(val float64) {
+    i.Value = val
+}
+
 type ImplementsInterfaceWithInternalIface interface {
     Visible() jsii.Any
 }
 
+// Struct proxy
 type ImplementsInterfaceWithInternal struct {
 }
 
@@ -41257,6 +41845,7 @@ func (i *ImplementsInterfaceWithInternal) Visible() jsii.Any  {
 type ImplementsInterfaceWithInternalSubclassIface interface {
 }
 
+// Struct proxy
 type ImplementsInterfaceWithInternalSubclass struct {
 }
 
@@ -41277,10 +41866,10 @@ type ImplementsPrivateInterfaceIface interface {
     SetPrivate()
 }
 
+// Struct proxy
 type ImplementsPrivateInterface struct {
     Private string
 }
-
 
 func (i ImplementsPrivateInterface) GetPrivate() string {
     return i.Private
@@ -41299,14 +41888,33 @@ func NewImplementsPrivateInterface() ImplementsPrivateInterfaceIface {
     }
 }
 
+func (i ImplementsPrivateInterface) SetPrivate(val string) {
+    i.Private = val
+}
+
+// Struct interface
 type ImplictBaseOfBaseIface interface {
+    @scope/jsii-calc-base-of-base.VeryBaseProps
+    @scope/jsii-calc-base.BaseProps
+    GetFoo() jsii.Any
+    GetBar() string
     GetGoo() string
 }
 
+// Struct proxy
 type ImplictBaseOfBase struct {
+    Foo jsii.Any
+    Bar string
     Goo string
 }
 
+func (i ImplictBaseOfBase) GetFoo() jsii.Any {
+    return i.Foo
+}
+
+func (i ImplictBaseOfBase) GetBar() string {
+    return i.Bar
+}
 
 func (i ImplictBaseOfBase) GetGoo() string {
     return i.Goo
@@ -41317,6 +41925,7 @@ type InbetweenClassIface interface {
     Ciao() string
 }
 
+// Struct proxy
 type InbetweenClass struct {
 }
 
@@ -41348,6 +41957,7 @@ type InterfaceCollectionsIface interface {
     MapOfStructs() map[string]StructA
 }
 
+// Struct proxy
 type InterfaceCollections struct {
 }
 
@@ -41391,6 +42001,7 @@ type InterfacesMakerIface interface {
     MakeInterfaces() []jsii.Any
 }
 
+// Struct proxy
 type InterfacesMaker struct {
 }
 
@@ -41407,6 +42018,7 @@ type IsomorphismIface interface {
     Myself() Isomorphism
 }
 
+// Struct proxy
 type Isomorphism struct {
 }
 
@@ -41432,15 +42044,22 @@ func (i *Isomorphism) Myself() Isomorphism  {
 }
 
 type JSII417DerivedIface interface {
+    GetHasRoot() bool
+    SetHasRoot()
     GetProperty() string
     Bar() jsii.Any
     Baz() jsii.Any
 }
 
+// Struct proxy
 type JSII417Derived struct {
+    HasRoot bool
     Property string
 }
 
+func (j JSII417Derived) GetHasRoot() bool {
+    return j.HasRoot
+}
 
 func (j JSII417Derived) GetProperty() string {
     return j.Property
@@ -41457,6 +42076,14 @@ func NewJSII417Derived(property string) JSII417DerivedIface {
     return &JSII417Derived{
      // props
     }
+}
+
+func (j JSII417Derived) SetHasRoot(val bool) {
+    j.HasRoot = val
+}
+
+func (j JSII417Derived) SetProperty(val string) {
+    j.Property = val
 }
 
 func (j *JSII417Derived) Bar() jsii.Any  {
@@ -41484,10 +42111,10 @@ type JSII417PublicBaseOfBaseIface interface {
     Foo() jsii.Any
 }
 
+// Struct proxy
 type JSII417PublicBaseOfBase struct {
     HasRoot bool
 }
-
 
 func (j JSII417PublicBaseOfBase) GetHasRoot() bool {
     return j.HasRoot
@@ -41504,6 +42131,10 @@ func NewJSII417PublicBaseOfBase() JSII417PublicBaseOfBaseIface {
     return &JSII417PublicBaseOfBase{
      // props
     }
+}
+
+func (j JSII417PublicBaseOfBase) SetHasRoot(val bool) {
+    j.HasRoot = val
 }
 
 func (j *JSII417PublicBaseOfBase) MakeInstance() Jsii417PublicBaseOfBase  {
@@ -41529,6 +42160,7 @@ type JSObjectLiteralForInterfaceIface interface {
     GiveMeFriendlyGenerator() IFriendlyRandomGenerator
 }
 
+// Struct proxy
 type JSObjectLiteralForInterface struct {
 }
 
@@ -41566,6 +42198,7 @@ type JSObjectLiteralToNativeIface interface {
     ReturnLiteral() JsObjectLiteralToNativeClass
 }
 
+// Struct proxy
 type JSObjectLiteralToNative struct {
 }
 
@@ -41597,11 +42230,11 @@ type JSObjectLiteralToNativeClassIface interface {
     SetPropB()
 }
 
+// Struct proxy
 type JSObjectLiteralToNativeClass struct {
     PropA string
     PropB float64
 }
-
 
 func (j JSObjectLiteralToNativeClass) GetPropA() string {
     return j.PropA
@@ -41622,6 +42255,14 @@ func NewJSObjectLiteralToNativeClass() JSObjectLiteralToNativeClassIface {
     return &JSObjectLiteralToNativeClass{
      // props
     }
+}
+
+func (j JSObjectLiteralToNativeClass) SetPropA(val string) {
+    j.PropA = val
+}
+
+func (j JSObjectLiteralToNativeClass) SetPropB(val float64) {
+    j.PropB = val
 }
 
 type JavaReservedWordsIface interface {
@@ -41681,10 +42322,10 @@ type JavaReservedWordsIface interface {
     Volatile() jsii.Any
 }
 
+// Struct proxy
 type JavaReservedWords struct {
     While string
 }
-
 
 func (j JavaReservedWords) GetWhile() string {
     return j.While
@@ -41701,6 +42342,10 @@ func NewJavaReservedWords() JavaReservedWordsIface {
     return &JavaReservedWords{
      // props
     }
+}
+
+func (j JavaReservedWords) SetWhile(val string) {
+    j.While = val
 }
 
 func (j *JavaReservedWords) Abstract() jsii.Any  {
@@ -42174,6 +42819,7 @@ func (j *JavaReservedWords) Volatile() jsii.Any  {
 type Jsii487DerivedIface interface {
 }
 
+// Struct proxy
 type Jsii487Derived struct {
 }
 
@@ -42192,6 +42838,7 @@ func NewJsii487Derived() Jsii487DerivedIface {
 type Jsii496DerivedIface interface {
 }
 
+// Struct proxy
 type Jsii496Derived struct {
 }
 
@@ -42212,10 +42859,10 @@ type JsiiAgentIface interface {
     SetValue()
 }
 
+// Struct proxy
 type JsiiAgent struct {
     Value string
 }
-
 
 func (j JsiiAgent) GetValue() string {
     return j.Value
@@ -42232,6 +42879,10 @@ func NewJsiiAgent() JsiiAgentIface {
     return &JsiiAgent{
      // props
     }
+}
+
+func (j JsiiAgent) SetValue(val string) {
+    j.Value = val
 }
 
 type JsonFormatterIface interface {
@@ -42251,6 +42902,7 @@ type JsonFormatterIface interface {
     Stringify() string
 }
 
+// Struct proxy
 type JsonFormatter struct {
 }
 
@@ -42380,6 +43032,7 @@ func (j *JsonFormatter) Stringify() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Struct interface
 type LoadBalancedFargateServicePropsIface interface {
     GetContainerPort() float64
     GetCpu() string
@@ -42388,6 +43041,7 @@ type LoadBalancedFargateServicePropsIface interface {
     GetPublicTasks() bool
 }
 
+// Struct proxy
 type LoadBalancedFargateServiceProps struct {
     ContainerPort float64
     Cpu string
@@ -42395,7 +43049,6 @@ type LoadBalancedFargateServiceProps struct {
     PublicLoadBalancer bool
     PublicTasks bool
 }
-
 
 func (l LoadBalancedFargateServiceProps) GetContainerPort() float64 {
     return l.ContainerPort
@@ -42424,10 +43077,10 @@ type MethodNamedPropertyIface interface {
     Property() string
 }
 
+// Struct proxy
 type MethodNamedProperty struct {
     Elite float64
 }
-
 
 func (m MethodNamedProperty) GetElite() float64 {
     return m.Elite
@@ -42446,6 +43099,10 @@ func NewMethodNamedProperty() MethodNamedPropertyIface {
     }
 }
 
+func (m MethodNamedProperty) SetElite(val float64) {
+    m.Elite = val
+}
+
 func (m *MethodNamedProperty) Property() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "MethodNamedProperty",
@@ -42458,19 +43115,33 @@ func (m *MethodNamedProperty) Property() string  {
 type MultiplyIface interface {
     GetValue() float64
     SetValue()
+    GetLhs() jsii.Any
+    SetLhs()
+    GetRhs() jsii.Any
+    SetRhs()
     Farewell() string
     Goodbye() string
     Next() float64
     ToString() string
 }
 
+// Struct proxy
 type Multiply struct {
     Value float64
+    Lhs jsii.Any
+    Rhs jsii.Any
 }
-
 
 func (m Multiply) GetValue() float64 {
     return m.Value
+}
+
+func (m Multiply) GetLhs() jsii.Any {
+    return m.Lhs
+}
+
+func (m Multiply) GetRhs() jsii.Any {
+    return m.Rhs
 }
 
 
@@ -42485,6 +43156,18 @@ func NewMultiply(lhs @scope/jsii-calc-lib.NumericValue, rhs @scope/jsii-calc-lib
     return &Multiply{
      // props
     }
+}
+
+func (m Multiply) SetValue(val float64) {
+    m.Value = val
+}
+
+func (m Multiply) SetLhs(val jsii.Any) {
+    m.Lhs = val
+}
+
+func (m Multiply) SetRhs(val jsii.Any) {
+    m.Rhs = val
 }
 
 func (m *Multiply) Farewell() string  {
@@ -42526,19 +43209,26 @@ func (m *Multiply) ToString() string  {
 type NegateIface interface {
     GetValue() float64
     SetValue()
+    GetOperand() jsii.Any
+    SetOperand()
     Farewell() string
     Goodbye() string
     Hello() string
     ToString() string
 }
 
+// Struct proxy
 type Negate struct {
     Value float64
+    Operand jsii.Any
 }
-
 
 func (n Negate) GetValue() float64 {
     return n.Value
+}
+
+func (n Negate) GetOperand() jsii.Any {
+    return n.Operand
 }
 
 
@@ -42552,6 +43242,14 @@ func NewNegate(operand @scope/jsii-calc-lib.NumericValue) NegateIface {
     return &Negate{
      // props
     }
+}
+
+func (n Negate) SetValue(val float64) {
+    n.Value = val
+}
+
+func (n Negate) SetOperand(val jsii.Any) {
+    n.Operand = val
 }
 
 func (n *Negate) Farewell() string  {
@@ -42594,6 +43292,7 @@ type NestedClassInstanceIface interface {
     MakeInstance() jsii.Any
 }
 
+// Struct proxy
 type NestedClassInstance struct {
 }
 
@@ -42606,14 +43305,15 @@ func (n *NestedClassInstance) MakeInstance() jsii.Any  {
     return nil
 }
 
+// Struct interface
 type NestedStructIface interface {
     GetNumberProp() float64
 }
 
+// Struct proxy
 type NestedStruct struct {
     NumberProp float64
 }
-
 
 func (n NestedStruct) GetNumberProp() float64 {
     return n.NumberProp
@@ -42628,10 +43328,10 @@ type NodeStandardLibraryIface interface {
     FsReadFileSync() string
 }
 
+// Struct proxy
 type NodeStandardLibrary struct {
     OsPlatform string
 }
-
 
 func (n NodeStandardLibrary) GetOsPlatform() string {
     return n.OsPlatform
@@ -42648,6 +43348,10 @@ func NewNodeStandardLibrary() NodeStandardLibraryIface {
     return &NodeStandardLibrary{
      // props
     }
+}
+
+func (n NodeStandardLibrary) SetOsPlatform(val string) {
+    n.OsPlatform = val
 }
 
 func (n *NodeStandardLibrary) CryptoSha256() string  {
@@ -42685,10 +43389,10 @@ type NullShouldBeTreatedAsUndefinedIface interface {
     VerifyPropertyIsUndefined() jsii.Any
 }
 
+// Struct proxy
 type NullShouldBeTreatedAsUndefined struct {
     ChangeMeToUndefined string
 }
-
 
 func (n NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
     return n.ChangeMeToUndefined
@@ -42705,6 +43409,10 @@ func NewNullShouldBeTreatedAsUndefined(_param1 string, optional any) NullShouldB
     return &NullShouldBeTreatedAsUndefined{
      // props
     }
+}
+
+func (n NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
+    n.ChangeMeToUndefined = val
 }
 
 func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined() jsii.Any  {
@@ -42734,16 +43442,17 @@ func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() jsii.Any  {
     return nil
 }
 
+// Struct interface
 type NullShouldBeTreatedAsUndefinedDataIface interface {
     GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []jsii.Any
     GetThisShouldBeUndefined() jsii.Any
 }
 
+// Struct proxy
 type NullShouldBeTreatedAsUndefinedData struct {
     ArrayWithThreeElementsAndUndefinedAsSecondArgument []jsii.Any
     ThisShouldBeUndefined jsii.Any
 }
-
 
 func (n NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []jsii.Any {
     return n.ArrayWithThreeElementsAndUndefinedAsSecondArgument
@@ -42761,10 +43470,10 @@ type NumberGeneratorIface interface {
     NextTimes100() float64
 }
 
+// Struct proxy
 type NumberGenerator struct {
     Generator IRandomNumberGenerator
 }
-
 
 func (n NumberGenerator) GetGenerator() IRandomNumberGenerator {
     return n.Generator
@@ -42781,6 +43490,10 @@ func NewNumberGenerator(generator jsii-calc.IRandomNumberGenerator) NumberGenera
     return &NumberGenerator{
      // props
     }
+}
+
+func (n NumberGenerator) SetGenerator(val IRandomNumberGenerator) {
+    n.Generator = val
 }
 
 func (n *NumberGenerator) IsSameGenerator() bool  {
@@ -42806,6 +43519,7 @@ type ObjectRefsInCollectionsIface interface {
     SumFromMap() float64
 }
 
+// Struct proxy
 type ObjectRefsInCollections struct {
 }
 
@@ -42843,6 +43557,7 @@ type ObjectWithPropertyProviderIface interface {
     Provide() IObjectWithProperty
 }
 
+// Struct proxy
 type ObjectWithPropertyProvider struct {
 }
 
@@ -42859,6 +43574,7 @@ type OldIface interface {
     DoAThing() jsii.Any
 }
 
+// Struct proxy
 type Old struct {
 }
 
@@ -42888,6 +43604,7 @@ type OptionalArgumentInvokerIface interface {
     InvokeWithoutOptional() jsii.Any
 }
 
+// Struct proxy
 type OptionalArgumentInvoker struct {
 }
 
@@ -42930,12 +43647,12 @@ type OptionalConstructorArgumentIface interface {
     SetArg3()
 }
 
+// Struct proxy
 type OptionalConstructorArgument struct {
     Arg1 float64
     Arg2 string
     Arg3 string
 }
-
 
 func (o OptionalConstructorArgument) GetArg1() float64 {
     return o.Arg1
@@ -42962,14 +43679,27 @@ func NewOptionalConstructorArgument(arg1 number, arg2 string, arg3 date) Optiona
     }
 }
 
+func (o OptionalConstructorArgument) SetArg1(val float64) {
+    o.Arg1 = val
+}
+
+func (o OptionalConstructorArgument) SetArg2(val string) {
+    o.Arg2 = val
+}
+
+func (o OptionalConstructorArgument) SetArg3(val string) {
+    o.Arg3 = val
+}
+
+// Struct interface
 type OptionalStructIface interface {
     GetField() string
 }
 
+// Struct proxy
 type OptionalStruct struct {
     Field string
 }
-
 
 func (o OptionalStruct) GetField() string {
     return o.Field
@@ -42983,11 +43713,11 @@ type OptionalStructConsumerIface interface {
     SetFieldValue()
 }
 
+// Struct proxy
 type OptionalStructConsumer struct {
     ParameterWasUndefined bool
     FieldValue string
 }
-
 
 func (o OptionalStructConsumer) GetParameterWasUndefined() bool {
     return o.ParameterWasUndefined
@@ -43010,6 +43740,14 @@ func NewOptionalStructConsumer(optionalStruct jsii-calc.OptionalStruct) Optional
     }
 }
 
+func (o OptionalStructConsumer) SetParameterWasUndefined(val bool) {
+    o.ParameterWasUndefined = val
+}
+
+func (o OptionalStructConsumer) SetFieldValue(val string) {
+    o.FieldValue = val
+}
+
 type OverridableProtectedMemberIface interface {
     GetOverrideReadOnly() string
     GetOverrideReadWrite() string
@@ -43018,11 +43756,11 @@ type OverridableProtectedMemberIface interface {
     ValueFromProtected() string
 }
 
+// Struct proxy
 type OverridableProtectedMember struct {
     OverrideReadOnly string
     OverrideReadWrite string
 }
-
 
 func (o OverridableProtectedMember) GetOverrideReadOnly() string {
     return o.OverrideReadOnly
@@ -43043,6 +43781,14 @@ func NewOverridableProtectedMember() OverridableProtectedMemberIface {
     return &OverridableProtectedMember{
      // props
     }
+}
+
+func (o OverridableProtectedMember) SetOverrideReadOnly(val string) {
+    o.OverrideReadOnly = val
+}
+
+func (o OverridableProtectedMember) SetOverrideReadWrite(val string) {
+    o.OverrideReadWrite = val
 }
 
 func (o *OverridableProtectedMember) OverrideMe() string  {
@@ -43076,6 +43822,7 @@ type OverrideReturnsObjectIface interface {
     Test() float64
 }
 
+// Struct proxy
 type OverrideReturnsObject struct {
 }
 
@@ -43100,14 +43847,15 @@ func (o *OverrideReturnsObject) Test() float64  {
     return 0.0
 }
 
+// Struct interface
 type ParentStruct982Iface interface {
     GetFoo() string
 }
 
+// Struct proxy
 type ParentStruct982 struct {
     Foo string
 }
-
 
 func (p ParentStruct982) GetFoo() string {
     return p.Foo
@@ -43118,6 +43866,7 @@ type PartiallyInitializedThisConsumerIface interface {
     ConsumePartiallyInitializedThis() string
 }
 
+// Struct proxy
 type PartiallyInitializedThisConsumer struct {
 }
 
@@ -43146,6 +43895,7 @@ type PolymorphismIface interface {
     SayHello() string
 }
 
+// Struct proxy
 type Polymorphism struct {
 }
 
@@ -43171,27 +43921,55 @@ func (p *Polymorphism) SayHello() string  {
 }
 
 type PowerIface interface {
-    GetBase() jsii.Any
-    SetBase()
+    GetValue() float64
+    SetValue()
     GetExpression() jsii.Any
     SetExpression()
+    GetDecorationPostfixes() []string
+    SetDecorationPostfixes()
+    GetDecorationPrefixes() []string
+    SetDecorationPrefixes()
+    GetStringStyle() composition.CompositionStringStyle
+    SetStringStyle()
+    GetBase() jsii.Any
+    SetBase()
     GetPow() jsii.Any
     SetPow()
 }
 
+// Struct proxy
 type Power struct {
-    Base jsii.Any
+    Value float64
     Expression jsii.Any
+    DecorationPostfixes []string
+    DecorationPrefixes []string
+    StringStyle composition.CompositionStringStyle
+    Base jsii.Any
     Pow jsii.Any
 }
 
-
-func (p Power) GetBase() jsii.Any {
-    return p.Base
+func (p Power) GetValue() float64 {
+    return p.Value
 }
 
 func (p Power) GetExpression() jsii.Any {
     return p.Expression
+}
+
+func (p Power) GetDecorationPostfixes() []string {
+    return p.DecorationPostfixes
+}
+
+func (p Power) GetDecorationPrefixes() []string {
+    return p.DecorationPrefixes
+}
+
+func (p Power) GetStringStyle() composition.CompositionStringStyle {
+    return p.StringStyle
+}
+
+func (p Power) GetBase() jsii.Any {
+    return p.Base
 }
 
 func (p Power) GetPow() jsii.Any {
@@ -43212,6 +43990,34 @@ func NewPower(base @scope/jsii-calc-lib.NumericValue, pow @scope/jsii-calc-lib.N
     }
 }
 
+func (p Power) SetValue(val float64) {
+    p.Value = val
+}
+
+func (p Power) SetExpression(val jsii.Any) {
+    p.Expression = val
+}
+
+func (p Power) SetDecorationPostfixes(val []string) {
+    p.DecorationPostfixes = val
+}
+
+func (p Power) SetDecorationPrefixes(val []string) {
+    p.DecorationPrefixes = val
+}
+
+func (p Power) SetStringStyle(val composition.CompositionStringStyle) {
+    p.StringStyle = val
+}
+
+func (p Power) SetBase(val jsii.Any) {
+    p.Base = val
+}
+
+func (p Power) SetPow(val jsii.Any) {
+    p.Pow = val
+}
+
 type PropertyNamedPropertyIface interface {
     GetProperty() string
     SetProperty()
@@ -43219,11 +44025,11 @@ type PropertyNamedPropertyIface interface {
     SetYetAnoterOne()
 }
 
+// Struct proxy
 type PropertyNamedProperty struct {
     Property string
     YetAnoterOne bool
 }
-
 
 func (p PropertyNamedProperty) GetProperty() string {
     return p.Property
@@ -43246,10 +44052,19 @@ func NewPropertyNamedProperty() PropertyNamedPropertyIface {
     }
 }
 
+func (p PropertyNamedProperty) SetProperty(val string) {
+    p.Property = val
+}
+
+func (p PropertyNamedProperty) SetYetAnoterOne(val bool) {
+    p.YetAnoterOne = val
+}
+
 type PublicClassIface interface {
     Hello() jsii.Any
 }
 
+// Struct proxy
 type PublicClass struct {
 }
 
@@ -43309,6 +44124,7 @@ type PythonReservedWordsIface interface {
     Yield() jsii.Any
 }
 
+// Struct proxy
 type PythonReservedWords struct {
 }
 
@@ -43619,10 +44435,10 @@ type ReferenceEnumFromScopedPackageIface interface {
     SaveFoo() jsii.Any
 }
 
+// Struct proxy
 type ReferenceEnumFromScopedPackage struct {
     Foo jsii.Any
 }
-
 
 func (r ReferenceEnumFromScopedPackage) GetFoo() jsii.Any {
     return r.Foo
@@ -43639,6 +44455,10 @@ func NewReferenceEnumFromScopedPackage() ReferenceEnumFromScopedPackageIface {
     return &ReferenceEnumFromScopedPackage{
      // props
     }
+}
+
+func (r ReferenceEnumFromScopedPackage) SetFoo(val jsii.Any) {
+    r.Foo = val
 }
 
 func (r *ReferenceEnumFromScopedPackage) LoadFoo() jsii.Any  {
@@ -43664,10 +44484,10 @@ type ReturnsPrivateImplementationOfInterfaceIface interface {
     SetPrivateImplementation()
 }
 
+// Struct proxy
 type ReturnsPrivateImplementationOfInterface struct {
     PrivateImplementation IPrivatelyImplemented
 }
-
 
 func (r ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPrivatelyImplemented {
     return r.PrivateImplementation
@@ -43686,16 +44506,21 @@ func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOf
     }
 }
 
+func (r ReturnsPrivateImplementationOfInterface) SetPrivateImplementation(val IPrivatelyImplemented) {
+    r.PrivateImplementation = val
+}
+
+// Struct interface
 type RootStructIface interface {
     GetStringProp() string
     GetNestedStruct() NestedStruct
 }
 
+// Struct proxy
 type RootStruct struct {
     StringProp string
     NestedStruct NestedStruct
 }
-
 
 func (r RootStruct) GetStringProp() string {
     return r.StringProp
@@ -43710,6 +44535,7 @@ type RootStructValidatorIface interface {
     Validate() jsii.Any
 }
 
+// Struct proxy
 type RootStructValidator struct {
 }
 
@@ -43728,6 +44554,7 @@ type RuntimeTypeCheckingIface interface {
     MethodWithOptionalArguments() jsii.Any
 }
 
+// Struct proxy
 type RuntimeTypeChecking struct {
 }
 
@@ -43770,16 +44597,17 @@ func (r *RuntimeTypeChecking) MethodWithOptionalArguments() jsii.Any  {
     return nil
 }
 
+// Struct interface
 type SecondLevelStructIface interface {
     GetDeeperRequiredProp() string
     GetDeeperOptionalProp() string
 }
 
+// Struct proxy
 type SecondLevelStruct struct {
     DeeperRequiredProp string
     DeeperOptionalProp string
 }
-
 
 func (s SecondLevelStruct) GetDeeperRequiredProp() string {
     return s.DeeperRequiredProp
@@ -43795,6 +44623,7 @@ type SingleInstanceTwoTypesIface interface {
     Interface2() IPublicInterface
 }
 
+// Struct proxy
 type SingleInstanceTwoTypes struct {
 }
 
@@ -43832,6 +44661,7 @@ type SingletonIntIface interface {
     IsSingletonInt() bool
 }
 
+// Struct proxy
 type SingletonInt struct {
 }
 
@@ -43854,6 +44684,7 @@ type SingletonStringIface interface {
     IsSingletonString() bool
 }
 
+// Struct proxy
 type SingletonString struct {
 }
 
@@ -43872,16 +44703,17 @@ const (
     SingletonStringEnumSingletonString SingletonStringEnum = "SINGLETON_STRING"
 )
 
+// Struct interface
 type SmellyStructIface interface {
     GetProperty() string
     GetYetAnoterOne() bool
 }
 
+// Struct proxy
 type SmellyStruct struct {
     Property string
     YetAnoterOne bool
 }
-
 
 func (s SmellyStruct) GetProperty() string {
     return s.Property
@@ -43897,6 +44729,7 @@ type SomeTypeJsii976Iface interface {
     ReturnReturn() IReturnJsii976
 }
 
+// Struct proxy
 type SomeTypeJsii976 struct {
 }
 
@@ -43938,11 +44771,11 @@ type StableClassIface interface {
     Method() jsii.Any
 }
 
+// Struct proxy
 type StableClass struct {
     ReadonlyProperty string
     MutableProperty float64
 }
-
 
 func (s StableClass) GetReadonlyProperty() string {
     return s.ReadonlyProperty
@@ -43965,6 +44798,14 @@ func NewStableClass(readonlyString string, mutableNumber number) StableClassIfac
     }
 }
 
+func (s StableClass) SetReadonlyProperty(val string) {
+    s.ReadonlyProperty = val
+}
+
+func (s StableClass) SetMutableProperty(val float64) {
+    s.MutableProperty = val
+}
+
 func (s *StableClass) Method() jsii.Any  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StableClass",
@@ -43981,14 +44822,15 @@ const (
     StableEnumOptionB StableEnum = "OPTION_B"
 )
 
+// Struct interface
 type StableStructIface interface {
     GetReadonlyProperty() string
 }
 
+// Struct proxy
 type StableStruct struct {
     ReadonlyProperty string
 }
-
 
 func (s StableStruct) GetReadonlyProperty() string {
     return s.ReadonlyProperty
@@ -44001,15 +44843,19 @@ type StaticContextIface interface {
     CanAccessStaticContext() bool
 }
 
+// Struct proxy
 type StaticContext struct {
     StaticVariable bool
 }
-
 
 func (s StaticContext) GetStaticVariable() bool {
     return s.StaticVariable
 }
 
+
+func (s StaticContext) SetStaticVariable(val bool) {
+    s.StaticVariable = val
+}
 
 func (s *StaticContext) CanAccessStaticContext() bool  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -44039,6 +44885,7 @@ type StaticsIface interface {
     JustMethod() string
 }
 
+// Struct proxy
 type Statics struct {
     Bar float64
     ConstObj DoubleTrouble
@@ -44048,7 +44895,6 @@ type Statics struct {
     NonConstStatic float64
     Value string
 }
-
 
 func (s Statics) GetBar() float64 {
     return s.Bar
@@ -44091,6 +44937,34 @@ func NewStatics(value string) StaticsIface {
     }
 }
 
+func (s Statics) SetBar(val float64) {
+    s.Bar = val
+}
+
+func (s Statics) SetConstObj(val DoubleTrouble) {
+    s.ConstObj = val
+}
+
+func (s Statics) SetFoo(val string) {
+    s.Foo = val
+}
+
+func (s Statics) SetZooBar(val map[string]string) {
+    s.ZooBar = val
+}
+
+func (s Statics) SetInstance(val Statics) {
+    s.Instance = val
+}
+
+func (s Statics) SetNonConstStatic(val float64) {
+    s.NonConstStatic = val
+}
+
+func (s Statics) SetValue(val string) {
+    s.Value = val
+}
+
 func (s *Statics) StaticMethod() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Statics",
@@ -44122,10 +44996,10 @@ type StripInternalIface interface {
     SetYouSeeMe()
 }
 
+// Struct proxy
 type StripInternal struct {
     YouSeeMe string
 }
-
 
 func (s StripInternal) GetYouSeeMe() string {
     return s.YouSeeMe
@@ -44144,18 +45018,23 @@ func NewStripInternal() StripInternalIface {
     }
 }
 
+func (s StripInternal) SetYouSeeMe(val string) {
+    s.YouSeeMe = val
+}
+
+// Struct interface
 type StructAIface interface {
     GetRequiredString() string
     GetOptionalNumber() float64
     GetOptionalString() string
 }
 
+// Struct proxy
 type StructA struct {
     RequiredString string
     OptionalNumber float64
     OptionalString string
 }
-
 
 func (s StructA) GetRequiredString() string {
     return s.RequiredString
@@ -44170,18 +45049,19 @@ func (s StructA) GetOptionalString() string {
 }
 
 
+// Struct interface
 type StructBIface interface {
     GetRequiredString() string
     GetOptionalBoolean() bool
     GetOptionalStructA() StructA
 }
 
+// Struct proxy
 type StructB struct {
     RequiredString string
     OptionalBoolean bool
     OptionalStructA StructA
 }
-
 
 func (s StructB) GetRequiredString() string {
     return s.RequiredString
@@ -44196,16 +45076,17 @@ func (s StructB) GetOptionalStructA() StructA {
 }
 
 
+// Struct interface
 type StructParameterTypeIface interface {
     GetScope() string
     GetProps() bool
 }
 
+// Struct proxy
 type StructParameterType struct {
     Scope string
     Props bool
 }
-
 
 func (s StructParameterType) GetScope() string {
     return s.Scope
@@ -44221,6 +45102,7 @@ type StructPassingIface interface {
     RoundTrip() TopLevelStruct
 }
 
+// Struct proxy
 type StructPassing struct {
 }
 
@@ -44259,6 +45141,7 @@ type StructUnionConsumerIface interface {
     IsStructB() bool
 }
 
+// Struct proxy
 type StructUnionConsumer struct {
 }
 
@@ -44280,6 +45163,7 @@ func (s *StructUnionConsumer) IsStructB() bool  {
     return true
 }
 
+// Struct interface
 type StructWithJavaReservedWordsIface interface {
     GetDefault() string
     GetAssert() string
@@ -44287,13 +45171,13 @@ type StructWithJavaReservedWordsIface interface {
     GetThat() string
 }
 
+// Struct proxy
 type StructWithJavaReservedWords struct {
     Default string
     Assert string
     Result string
     That string
 }
-
 
 func (s StructWithJavaReservedWords) GetDefault() string {
     return s.Default
@@ -44313,20 +45197,48 @@ func (s StructWithJavaReservedWords) GetThat() string {
 
 
 type SumIface interface {
+    GetValue() float64
+    SetValue()
     GetExpression() jsii.Any
     SetExpression()
+    GetDecorationPostfixes() []string
+    SetDecorationPostfixes()
+    GetDecorationPrefixes() []string
+    SetDecorationPrefixes()
+    GetStringStyle() composition.CompositionStringStyle
+    SetStringStyle()
     GetParts() []jsii.Any
     SetParts()
 }
 
+// Struct proxy
 type Sum struct {
+    Value float64
     Expression jsii.Any
+    DecorationPostfixes []string
+    DecorationPrefixes []string
+    StringStyle composition.CompositionStringStyle
     Parts []jsii.Any
 }
 
+func (s Sum) GetValue() float64 {
+    return s.Value
+}
 
 func (s Sum) GetExpression() jsii.Any {
     return s.Expression
+}
+
+func (s Sum) GetDecorationPostfixes() []string {
+    return s.DecorationPostfixes
+}
+
+func (s Sum) GetDecorationPrefixes() []string {
+    return s.DecorationPrefixes
+}
+
+func (s Sum) GetStringStyle() composition.CompositionStringStyle {
+    return s.StringStyle
 }
 
 func (s Sum) GetParts() []jsii.Any {
@@ -44346,21 +45258,59 @@ func NewSum() SumIface {
     }
 }
 
+func (s Sum) SetValue(val float64) {
+    s.Value = val
+}
+
+func (s Sum) SetExpression(val jsii.Any) {
+    s.Expression = val
+}
+
+func (s Sum) SetDecorationPostfixes(val []string) {
+    s.DecorationPostfixes = val
+}
+
+func (s Sum) SetDecorationPrefixes(val []string) {
+    s.DecorationPrefixes = val
+}
+
+func (s Sum) SetStringStyle(val composition.CompositionStringStyle) {
+    s.StringStyle = val
+}
+
+func (s Sum) SetParts(val []jsii.Any) {
+    s.Parts = val
+}
+
 type SupportsNiceJavaBuilderIface interface {
+    GetBar() float64
+    SetBar()
     GetId() float64
     SetId()
+    GetPropId() string
+    SetPropId()
     GetRest() []string
     SetRest()
 }
 
+// Struct proxy
 type SupportsNiceJavaBuilder struct {
+    Bar float64
     Id float64
+    PropId string
     Rest []string
 }
 
+func (s SupportsNiceJavaBuilder) GetBar() float64 {
+    return s.Bar
+}
 
 func (s SupportsNiceJavaBuilder) GetId() float64 {
     return s.Id
+}
+
+func (s SupportsNiceJavaBuilder) GetPropId() string {
+    return s.PropId
 }
 
 func (s SupportsNiceJavaBuilder) GetRest() []string {
@@ -44380,16 +45330,33 @@ func NewSupportsNiceJavaBuilder(id number, defaultBar number, props jsii-calc.Su
     }
 }
 
+func (s SupportsNiceJavaBuilder) SetBar(val float64) {
+    s.Bar = val
+}
+
+func (s SupportsNiceJavaBuilder) SetId(val float64) {
+    s.Id = val
+}
+
+func (s SupportsNiceJavaBuilder) SetPropId(val string) {
+    s.PropId = val
+}
+
+func (s SupportsNiceJavaBuilder) SetRest(val []string) {
+    s.Rest = val
+}
+
+// Struct interface
 type SupportsNiceJavaBuilderPropsIface interface {
     GetBar() float64
     GetId() string
 }
 
+// Struct proxy
 type SupportsNiceJavaBuilderProps struct {
     Bar float64
     Id string
 }
-
 
 func (s SupportsNiceJavaBuilderProps) GetBar() float64 {
     return s.Bar
@@ -44409,12 +45376,12 @@ type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
     SetPropId()
 }
 
+// Struct proxy
 type SupportsNiceJavaBuilderWithRequiredProps struct {
     Bar float64
     Id float64
     PropId string
 }
-
 
 func (s SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
     return s.Bar
@@ -44439,6 +45406,18 @@ func NewSupportsNiceJavaBuilderWithRequiredProps(id number, props jsii-calc.Supp
     return &SupportsNiceJavaBuilderWithRequiredProps{
      // props
     }
+}
+
+func (s SupportsNiceJavaBuilderWithRequiredProps) SetBar(val float64) {
+    s.Bar = val
+}
+
+func (s SupportsNiceJavaBuilderWithRequiredProps) SetId(val float64) {
+    s.Id = val
+}
+
+func (s SupportsNiceJavaBuilderWithRequiredProps) SetPropId(val string) {
+    s.PropId = val
 }
 
 type SyncVirtualMethodsIface interface {
@@ -44466,6 +45445,7 @@ type SyncVirtualMethodsIface interface {
     WriteA() jsii.Any
 }
 
+// Struct proxy
 type SyncVirtualMethods struct {
     ReadonlyProperty string
     A float64
@@ -44474,7 +45454,6 @@ type SyncVirtualMethods struct {
     TheProperty string
     ValueOfOtherProperty string
 }
-
 
 func (s SyncVirtualMethods) GetReadonlyProperty() string {
     return s.ReadonlyProperty
@@ -44511,6 +45490,30 @@ func NewSyncVirtualMethods() SyncVirtualMethodsIface {
     return &SyncVirtualMethods{
      // props
     }
+}
+
+func (s SyncVirtualMethods) SetReadonlyProperty(val string) {
+    s.ReadonlyProperty = val
+}
+
+func (s SyncVirtualMethods) SetA(val float64) {
+    s.A = val
+}
+
+func (s SyncVirtualMethods) SetCallerIsProperty(val float64) {
+    s.CallerIsProperty = val
+}
+
+func (s SyncVirtualMethods) SetOtherProperty(val string) {
+    s.OtherProperty = val
+}
+
+func (s SyncVirtualMethods) SetTheProperty(val string) {
+    s.TheProperty = val
+}
+
+func (s SyncVirtualMethods) SetValueOfOtherProperty(val string) {
+    s.ValueOfOtherProperty = val
 }
 
 func (s *SyncVirtualMethods) CallerIsAsync() float64  {
@@ -44607,6 +45610,7 @@ type ThrowerIface interface {
     ThrowError() jsii.Any
 }
 
+// Struct proxy
 type Thrower struct {
 }
 
@@ -44631,18 +45635,19 @@ func (t *Thrower) ThrowError() jsii.Any  {
     return nil
 }
 
+// Struct interface
 type TopLevelStructIface interface {
     GetRequired() string
     GetSecondLevel() jsii.Any
     GetOptional() string
 }
 
+// Struct proxy
 type TopLevelStruct struct {
     Required string
     SecondLevel jsii.Any
     Optional string
 }
-
 
 func (t TopLevelStruct) GetRequired() string {
     return t.Required
@@ -44661,6 +45666,7 @@ type UmaskCheckIface interface {
     Mode() float64
 }
 
+// Struct proxy
 type UmaskCheck struct {
 }
 
@@ -44674,14 +45680,21 @@ func (u *UmaskCheck) Mode() float64  {
 }
 
 type UnaryOperationIface interface {
+    GetValue() float64
+    SetValue()
     GetOperand() jsii.Any
     SetOperand()
 }
 
+// Struct proxy
 type UnaryOperation struct {
+    Value float64
     Operand jsii.Any
 }
 
+func (u UnaryOperation) GetValue() float64 {
+    return u.Value
+}
 
 func (u UnaryOperation) GetOperand() jsii.Any {
     return u.Operand
@@ -44700,16 +45713,25 @@ func NewUnaryOperation(operand @scope/jsii-calc-lib.NumericValue) UnaryOperation
     }
 }
 
+func (u UnaryOperation) SetValue(val float64) {
+    u.Value = val
+}
+
+func (u UnaryOperation) SetOperand(val jsii.Any) {
+    u.Operand = val
+}
+
+// Struct interface
 type UnionPropertiesIface interface {
     GetBar() jsii.Any
     GetFoo() jsii.Any
 }
 
+// Struct proxy
 type UnionProperties struct {
     Bar jsii.Any
     Foo jsii.Any
 }
-
 
 func (u UnionProperties) GetBar() jsii.Any {
     return u.Bar
@@ -44727,11 +45749,11 @@ type UpcasingReflectableIface interface {
     SetEntries()
 }
 
+// Struct proxy
 type UpcasingReflectable struct {
     Reflector jsii.Any
     Entries []jsii.Any
 }
-
 
 func (u UpcasingReflectable) GetReflector() jsii.Any {
     return u.Reflector
@@ -44754,10 +45776,19 @@ func NewUpcasingReflectable(delegate Map<string => any>) UpcasingReflectableIfac
     }
 }
 
+func (u UpcasingReflectable) SetReflector(val jsii.Any) {
+    u.Reflector = val
+}
+
+func (u UpcasingReflectable) SetEntries(val []jsii.Any) {
+    u.Entries = val
+}
+
 type UseBundledDependencyIface interface {
     Value() jsii.Any
 }
 
+// Struct proxy
 type UseBundledDependency struct {
 }
 
@@ -44786,6 +45817,7 @@ type UseCalcBaseIface interface {
     Hello() jsii.Any
 }
 
+// Struct proxy
 type UseCalcBase struct {
 }
 
@@ -44818,10 +45850,10 @@ type UsesInterfaceWithPropertiesIface interface {
     WriteAndRead() string
 }
 
+// Struct proxy
 type UsesInterfaceWithProperties struct {
     Obj IInterfaceWithProperties
 }
-
 
 func (u UsesInterfaceWithProperties) GetObj() IInterfaceWithProperties {
     return u.Obj
@@ -44838,6 +45870,10 @@ func NewUsesInterfaceWithProperties(obj jsii-calc.IInterfaceWithProperties) Uses
     return &UsesInterfaceWithProperties{
      // props
     }
+}
+
+func (u UsesInterfaceWithProperties) SetObj(val IInterfaceWithProperties) {
+    u.Obj = val
 }
 
 func (u *UsesInterfaceWithProperties) JustRead() string  {
@@ -44871,6 +45907,7 @@ type VariadicInvokerIface interface {
     AsArray() []float64
 }
 
+// Struct proxy
 type VariadicInvoker struct {
 }
 
@@ -44899,6 +45936,7 @@ type VariadicMethodIface interface {
     AsArray() []float64
 }
 
+// Struct proxy
 type VariadicMethod struct {
 }
 
@@ -44931,6 +45969,7 @@ type VirtualMethodPlaygroundIface interface {
     SumSync() float64
 }
 
+// Struct proxy
 type VirtualMethodPlayground struct {
 }
 
@@ -44998,10 +46037,10 @@ type VoidCallbackIface interface {
     OverrideMe() jsii.Any
 }
 
+// Struct proxy
 type VoidCallback struct {
     MethodWasCalled bool
 }
-
 
 func (v VoidCallback) GetMethodWasCalled() bool {
     return v.MethodWasCalled
@@ -45018,6 +46057,10 @@ func NewVoidCallback() VoidCallbackIface {
     return &VoidCallback{
      // props
     }
+}
+
+func (v VoidCallback) SetMethodWasCalled(val bool) {
+    v.MethodWasCalled = val
 }
 
 func (v *VoidCallback) CallMe() jsii.Any  {
@@ -45043,10 +46086,10 @@ type WithPrivatePropertyInConstructorIface interface {
     SetSuccess()
 }
 
+// Struct proxy
 type WithPrivatePropertyInConstructor struct {
     Success bool
 }
-
 
 func (w WithPrivatePropertyInConstructor) GetSuccess() bool {
     return w.Success
@@ -45065,6 +46108,10 @@ func NewWithPrivatePropertyInConstructor(privateField string) WithPrivatePropert
     }
 }
 
+func (w WithPrivatePropertyInConstructor) SetSuccess(val bool) {
+    w.Success = val
+}
+
 
 `;
 
@@ -45076,10 +46123,10 @@ import (
 )
 
 type CompositeOperationIface interface {
-    GetExpression() jsii.Any
-    SetExpression()
     GetValue() float64
     SetValue()
+    GetExpression() jsii.Any
+    SetExpression()
     GetDecorationPostfixes() []string
     SetDecorationPostfixes()
     GetDecorationPrefixes() []string
@@ -45089,21 +46136,21 @@ type CompositeOperationIface interface {
     ToString() string
 }
 
+// Struct proxy
 type CompositeOperation struct {
-    Expression jsii.Any
     Value float64
+    Expression jsii.Any
     DecorationPostfixes []string
     DecorationPrefixes []string
     StringStyle CompositionStringStyle
 }
 
+func (c CompositeOperation) GetValue() float64 {
+    return c.Value
+}
 
 func (c CompositeOperation) GetExpression() jsii.Any {
     return c.Expression
-}
-
-func (c CompositeOperation) GetValue() float64 {
-    return c.Value
 }
 
 func (c CompositeOperation) GetDecorationPostfixes() []string {
@@ -45129,6 +46176,26 @@ func NewCompositeOperation() CompositeOperationIface {
     return &CompositeOperation{
      // props
     }
+}
+
+func (c CompositeOperation) SetValue(val float64) {
+    c.Value = val
+}
+
+func (c CompositeOperation) SetExpression(val jsii.Any) {
+    c.Expression = val
+}
+
+func (c CompositeOperation) SetDecorationPostfixes(val []string) {
+    c.DecorationPostfixes = val
+}
+
+func (c CompositeOperation) SetDecorationPrefixes(val []string) {
+    c.DecorationPrefixes = val
+}
+
+func (c CompositeOperation) SetStringStyle(val CompositionStringStyle) {
+    c.StringStyle = val
 }
 
 func (c *CompositeOperation) ToString() string  {
@@ -45162,10 +46229,10 @@ type BaseIface interface {
     SetProp()
 }
 
+// Struct proxy
 type Base struct {
     Prop string
 }
-
 
 func (b Base) GetProp() string {
     return b.Prop
@@ -45184,11 +46251,24 @@ func NewBase() BaseIface {
     }
 }
 
-type DerivedIface interface {
+func (b Base) SetProp(val string) {
+    b.Prop = val
 }
 
-type Derived struct {
+type DerivedIface interface {
+    GetProp() string
+    SetProp()
 }
+
+// Struct proxy
+type Derived struct {
+    Prop string
+}
+
+func (d Derived) GetProp() string {
+    return d.Prop
+}
+
 
 func NewDerived() DerivedIface {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
@@ -45200,6 +46280,10 @@ func NewDerived() DerivedIface {
     return &Derived{
      // props
     }
+}
+
+func (d Derived) SetProp(val string) {
+    d.Prop = val
 }
 
 
@@ -45217,10 +46301,10 @@ type FooIface interface {
     SetBar()
 }
 
+// Struct proxy
 type Foo struct {
     Bar string
 }
-
 
 func (f Foo) GetBar() string {
     return f.Bar
@@ -45239,14 +46323,19 @@ func NewFoo() FooIface {
     }
 }
 
+func (f Foo) SetBar(val string) {
+    f.Bar = val
+}
+
+// Struct interface
 type HelloIface interface {
     GetFoo() float64
 }
 
+// Struct proxy
 type Hello struct {
     Foo float64
 }
-
 
 func (h Hello) GetFoo() float64 {
     return h.Foo
@@ -45263,14 +46352,15 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Struct interface
 type HelloIface interface {
     GetFoo() float64
 }
 
+// Struct proxy
 type Hello struct {
     Foo float64
 }
-
 
 func (h Hello) GetFoo() float64 {
     return h.Foo
@@ -45293,10 +46383,10 @@ type ClassWithSelfIface interface {
     Method() string
 }
 
+// Struct proxy
 type ClassWithSelf struct {
     Self string
 }
-
 
 func (c ClassWithSelf) GetSelf() string {
     return c.Self
@@ -45315,6 +46405,10 @@ func NewClassWithSelf(self string) ClassWithSelfIface {
     }
 }
 
+func (c ClassWithSelf) SetSelf(val string) {
+    c.Self = val
+}
+
 func (c *ClassWithSelf) Method() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithSelf",
@@ -45329,10 +46423,10 @@ type ClassWithSelfKwargIface interface {
     SetProps()
 }
 
+// Struct proxy
 type ClassWithSelfKwarg struct {
     Props StructWithSelf
 }
-
 
 func (c ClassWithSelfKwarg) GetProps() StructWithSelf {
     return c.Props
@@ -45351,18 +46445,24 @@ func NewClassWithSelfKwarg(props jsii-calc.PythonSelf.StructWithSelf) ClassWithS
     }
 }
 
+func (c ClassWithSelfKwarg) SetProps(val StructWithSelf) {
+    c.Props = val
+}
+
+// Behaviorial interface
 type IInterfaceWithSelf interface {
     Method() string
 }
 
+// Struct interface
 type StructWithSelfIface interface {
     GetSelf() string
 }
 
+// Struct proxy
 type StructWithSelf struct {
     Self string
 }
-
 
 func (s StructWithSelf) GetSelf() string {
     return s.Self
@@ -45394,6 +46494,7 @@ type MyClassIface interface {
     SetAllTypes()
 }
 
+// Struct proxy
 type MyClass struct {
     Awesomeness child.Awesomeness
     DefinedAt string
@@ -45401,7 +46502,6 @@ type MyClass struct {
     Props child.SomeStruct
     AllTypes jsiicalc.AllTypes
 }
-
 
 func (m MyClass) GetAwesomeness() child.Awesomeness {
     return m.Awesomeness
@@ -45436,6 +46536,26 @@ func NewMyClass(props jsii-calc.submodule.child.SomeStruct) MyClassIface {
     }
 }
 
+func (m MyClass) SetAwesomeness(val child.Awesomeness) {
+    m.Awesomeness = val
+}
+
+func (m MyClass) SetDefinedAt(val string) {
+    m.DefinedAt = val
+}
+
+func (m MyClass) SetGoodness(val child.Goodness) {
+    m.Goodness = val
+}
+
+func (m MyClass) SetProps(val child.SomeStruct) {
+    m.Props = val
+}
+
+func (m MyClass) SetAllTypes(val jsiicalc.AllTypes) {
+    m.AllTypes = val
+}
+
 
 `;
 
@@ -45447,14 +46567,15 @@ import (
     "submodule"
 )
 
+// Struct interface
 type MyClassReferenceIface interface {
     GetReference() submodule.MyClass
 }
 
+// Struct proxy
 type MyClassReference struct {
     Reference submodule.MyClass
 }
-
 
 func (m MyClassReference) GetReference() submodule.MyClass {
     return m.Reference
@@ -45490,10 +46611,10 @@ type InnerClassIface interface {
     SetStaticProp()
 }
 
+// Struct proxy
 type InnerClass struct {
     StaticProp SomeStruct
 }
-
 
 func (i InnerClass) GetStaticProp() SomeStruct {
     return i.StaticProp
@@ -45512,14 +46633,26 @@ func NewInnerClass() InnerClassIface {
     }
 }
 
+func (i InnerClass) SetStaticProp(val SomeStruct) {
+    i.StaticProp = val
+}
+
+// Struct interface
 type KwargsPropsIface interface {
+    jsii-calc.submodule.child.SomeStruct
+    GetProp() SomeEnum
     GetExtra() string
 }
 
+// Struct proxy
 type KwargsProps struct {
+    Prop SomeEnum
     Extra string
 }
 
+func (k KwargsProps) GetProp() SomeEnum {
+    return k.Prop
+}
 
 func (k KwargsProps) GetExtra() string {
     return k.Extra
@@ -45531,10 +46664,10 @@ type OuterClassIface interface {
     SetInnerClass()
 }
 
+// Struct proxy
 type OuterClass struct {
     InnerClass InnerClass
 }
-
 
 func (o OuterClass) GetInnerClass() InnerClass {
     return o.InnerClass
@@ -45553,34 +46686,40 @@ func NewOuterClass() OuterClassIface {
     }
 }
 
+func (o OuterClass) SetInnerClass(val InnerClass) {
+    o.InnerClass = val
+}
+
 type SomeEnum string
 
 const (
     SomeEnumSome SomeEnum = "SOME"
 )
 
+// Struct interface
 type SomeStructIface interface {
     GetProp() SomeEnum
 }
 
+// Struct proxy
 type SomeStruct struct {
     Prop SomeEnum
 }
-
 
 func (s SomeStruct) GetProp() SomeEnum {
     return s.Prop
 }
 
 
+// Struct interface
 type StructureIface interface {
     GetBool() bool
 }
 
+// Struct proxy
 type Structure struct {
     Bool bool
 }
-
 
 func (s Structure) GetBool() bool {
     return s.Bool
@@ -45601,6 +46740,7 @@ type KwargsIface interface {
     Method() bool
 }
 
+// Struct proxy
 type Kwargs struct {
 }
 
@@ -45631,11 +46771,11 @@ type NamespacedIface interface {
     SetGoodness()
 }
 
+// Struct proxy
 type Namespaced struct {
     DefinedAt string
     Goodness child.Goodness
 }
-
 
 func (n Namespaced) GetDefinedAt() string {
     return n.DefinedAt
@@ -45645,6 +46785,14 @@ func (n Namespaced) GetGoodness() child.Goodness {
     return n.Goodness
 }
 
+
+func (n Namespaced) SetDefinedAt(val string) {
+    n.DefinedAt = val
+}
+
+func (n Namespaced) SetGoodness(val child.Goodness) {
+    n.Goodness = val
+}
 
 
 `;
@@ -45656,6 +46804,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Behaviorial interface
 type INamespaced interface {
     GetDefinedAt() string
 }

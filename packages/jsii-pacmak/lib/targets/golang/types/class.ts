@@ -24,6 +24,7 @@ export class GoClass extends GoStruct {
     super.emit(code);
 
     this.emitConstructor(code);
+    this.emitSetters(code);
 
     for (const method of this.methods) {
       method.emit(code);
@@ -44,6 +45,15 @@ export class GoClass extends GoStruct {
 
     code.closeBlock();
     code.line();
+  }
+
+  // emits the implementation of the getters for the struct
+  private emitSetters(code: CodeMaker): void {
+    if (this.properties.length !== 0) {
+      for (const property of this.properties) {
+        property.emitSetterImpl(code);
+      }
+    }
   }
 
   private emitConstructor(code: CodeMaker): void {

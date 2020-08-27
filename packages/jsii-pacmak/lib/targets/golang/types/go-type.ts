@@ -86,6 +86,18 @@ export class GoProperty implements TypeField {
     code.closeBlock();
     code.line();
   }
+
+  public emitSetterImpl(code: CodeMaker) {
+    const receiver = this.parent.name;
+    const instanceArg = receiver.substring(0, 1).toLowerCase();
+
+    code.openBlock(
+      `func (${instanceArg} ${receiver}) Set${this.name}(val ${this.returnType})`,
+    );
+    code.line(`${instanceArg}.${this.name} = val`);
+    code.closeBlock();
+    code.line();
+  }
 }
 
 export abstract class GoStruct extends GoType implements GoEmitter {
@@ -95,7 +107,8 @@ export abstract class GoStruct extends GoType implements GoEmitter {
   public constructor(parent: Package, public type: ClassType | InterfaceType) {
     super(parent, type);
 
-    this.properties = Object.values(this.type.getProperties()).map(
+    // Flatten any inherited properties on the struct
+    this.properties = Object.values(this.type.getProperties(true)).map(
       (prop) => new GoProperty(this, prop),
     );
 
@@ -110,7 +123,17 @@ export abstract class GoStruct extends GoType implements GoEmitter {
   }
 
   protected emitInterface(code: CodeMaker): void {
+    code.line('// Struct interface'); // FIXME for debugging
     code.openBlock(`type ${this.interfaceName} interface`);
+
+    const extended = this.type.getInterfaces(true);
+
+    // embed extended interfaces
+    if (extended.length !== 0) {
+      for (const iface of extended) {
+        code.line(iface.fqn);
+      }
+    }
 
     for (const property of this.properties) {
       property.emitGetterDecl(code);
@@ -121,6 +144,7 @@ export abstract class GoStruct extends GoType implements GoEmitter {
   }
 
   private emitStruct(code: CodeMaker): void {
+    code.line('// Struct proxy'); // FIXME for debugging
     code.openBlock(`type ${this.name} struct`);
 
     for (const property of this.properties) {
@@ -134,8 +158,6 @@ export abstract class GoStruct extends GoType implements GoEmitter {
   // emits the implementation of the getters for the struct
   private emitGetters(code: CodeMaker): void {
     if (this.properties.length !== 0) {
-      code.line();
-
       for (const property of this.properties) {
         property.emitGetterImpl(code);
       }
