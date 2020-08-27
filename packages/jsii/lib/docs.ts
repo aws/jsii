@@ -106,14 +106,14 @@ export function renderSymbolDocumentation(
       break;
   }
 
+  for (const [k, v] of Object.entries(docs.custom ?? {})) {
+    tag(k, v);
+  }
+
   if (docs.example) {
     lines.push('@example');
     lines.push('');
     lines.push(...docs.example.split('\n'));
-  }
-
-  for (const [k, v] of Object.entries(docs.custom ?? {})) {
-    tag(k, v);
   }
 
   while (lines.length > 0 && lines[lines.length - 1] === '') {
