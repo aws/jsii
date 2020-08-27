@@ -14,7 +14,7 @@ export class GoClass extends GoStruct {
   public constructor(parent: Package, public type: ClassType) {
     super(parent, type);
 
-    this.methods = Object.values(this.type.getMethods()).map(
+    this.methods = Object.values(this.type.getMethods(true)).map(
       (method) => new ClassMethod(this, method),
     );
   }
