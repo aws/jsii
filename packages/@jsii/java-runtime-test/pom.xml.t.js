@@ -29,7 +29,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.6.1</version>
+            <version>[5.6.2,6)</version>
             <scope>test</scope>
         </dependency>
 
@@ -82,6 +82,12 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
             </plugin>
         </plugins>
     </build>

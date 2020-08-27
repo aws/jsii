@@ -1,3 +1,0 @@
-@scope/jsii-calc-base-of-base.IVeryBaseInterface=software.amazon.jsii.tests.calculator.baseofbase.IVeryBaseInterface
-@scope/jsii-calc-base-of-base.Very=software.amazon.jsii.tests.calculator.baseofbase.Very
-@scope/jsii-calc-base-of-base.VeryBaseProps=software.amazon.jsii.tests.calculator.baseofbase.VeryBaseProps

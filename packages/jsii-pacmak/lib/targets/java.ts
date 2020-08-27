@@ -431,6 +431,9 @@ export default class Java extends Target {
     await shell(
       'mvn',
       [
+        // If we don't run in verbose mode, turn on quiet mode
+        ...(this.arguments.verbose ? [] : ['--quiet']),
+        '--batch-mode',
         ...mvnArguments,
         'deploy',
         `-D=altDeploymentRepository=local::default::${url}`,
@@ -476,6 +479,9 @@ interface JavaProp {
 
   // The java type for the property (eg: 'List<String>')
   fieldJavaType: string;
+
+  // The java type for the parameter (e.g: 'List<? extends SomeType>')
+  paramJavaType: string;
 
   // The NativeType representation of the property's type
   fieldNativeType: string;
@@ -849,7 +855,6 @@ class JavaGenerator extends Generator {
 
   protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
     const getterType = this.toDecoratedJavaType(prop);
-    const setterTypes = this.toDecoratedJavaTypes(prop);
     const propName = this.code.toPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
     );
@@ -867,6 +872,7 @@ class JavaGenerator extends Generator {
     }
 
     if (!prop.immutable) {
+      const setterTypes = this.toDecoratedJavaTypes(prop);
       for (const type of setterTypes) {
         this.code.line();
         this.addJavaDocs(prop);
@@ -1186,7 +1192,7 @@ class JavaGenerator extends Generator {
 
     for (const prop of consts) {
       const constName = this.renderConstName(prop);
-      const propType = this.toNativeType(prop.type, true);
+      const propType = this.toNativeType(prop.type, { forMarshalling: true });
       const statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propType})`;
       this.code.line(
         `${constName} = ${this.wrapCollection(
@@ -1222,7 +1228,9 @@ class JavaGenerator extends Generator {
     overrides = !!prop.overrides,
   ) {
     const getterType = this.toDecoratedJavaType(prop);
-    const setterTypes = this.toDecoratedJavaTypes(prop);
+    const setterTypes = this.toDecoratedJavaTypes(prop, {
+      covariant: prop.static,
+    });
     const propName = this.code.toPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
     );
@@ -1251,7 +1259,9 @@ class JavaGenerator extends Generator {
           statement = 'this.jsiiGet(';
         }
 
-        statement += `"${prop.name}", ${this.toNativeType(prop.type, true)})`;
+        statement += `"${prop.name}", ${this.toNativeType(prop.type, {
+          forMarshalling: true,
+        })})`;
 
         this.code.line(
           `return ${this.wrapCollection(statement, prop.type, prop.optional)};`,
@@ -1469,9 +1479,12 @@ class JavaGenerator extends Generator {
       nullable: !!property.optional,
       fieldName: this.code.toCamelCase(safeName),
       fieldJavaType: this.toJavaType(property.type),
+      paramJavaType: this.toJavaType(property.type, { covariant: true }),
       fieldNativeType: this.toNativeType(property.type),
-      fieldJavaClass: `${this.toJavaType(property.type, true)}.class`,
-      javaTypes: this.toJavaTypes(property.type),
+      fieldJavaClass: `${this.toJavaType(property.type, {
+        forMarshalling: true,
+      })}.class`,
+      javaTypes: this.toJavaTypes(property.type, { covariant: true }),
       immutable: property.immutable || false,
       inherited,
     };
@@ -1525,7 +1538,7 @@ class JavaGenerator extends Generator {
         fieldName: this.code.toCamelCase(
           JavaGenerator.safeJavaPropertyName(param.name),
         ),
-        javaType: this.toJavaType(param.type),
+        javaType: this.toJavaType(param.type, { covariant: true }),
       }));
 
     const builtType = this.toJavaType(cls);
@@ -1625,7 +1638,9 @@ class JavaGenerator extends Generator {
           },
         ],
       };
-      for (const javaType of this.toJavaTypes(prop.type.spec!)) {
+      for (const javaType of this.toJavaTypes(prop.type.spec!, {
+        covariant: true,
+      })) {
         this.addJavaDocs(setter);
         this.emitStabilityAnnotations(prop.spec);
         this.code.openBlock(
@@ -1713,10 +1728,23 @@ class JavaGenerator extends Generator {
       }
       this.code.line(' */');
       this.emitStabilityAnnotations(prop.spec);
+      // We add an explicit cast if both types are generic but they are not identical (one is covariant, the other isn't)
+      const explicitCast =
+        type.includes('<') &&
+        prop.fieldJavaType.includes('<') &&
+        type !== prop.fieldJavaType
+          ? `(${prop.fieldJavaType})`
+          : '';
+      if (explicitCast !== '') {
+        // We'll be doing a safe, but unchecked cast, so suppress that warning
+        this.code.line('@SuppressWarnings("unchecked")');
+      }
       this.code.openBlock(
         `public ${builderName} ${prop.fieldName}(${type} ${prop.fieldName})`,
       );
-      this.code.line(`this.${prop.fieldName} = ${prop.fieldName};`);
+      this.code.line(
+        `this.${prop.fieldName} = ${explicitCast}${prop.fieldName};`,
+      );
       this.code.line('return this;');
       this.code.closeBlock();
     }
@@ -1856,8 +1884,11 @@ class JavaGenerator extends Generator {
       ' * Constructor that initializes the object based on literal property values passed by the {@link Builder}.',
     );
     this.code.line(' */');
+    if (props.some((prop) => prop.fieldJavaType !== prop.paramJavaType)) {
+      this.code.line('@SuppressWarnings("unchecked")');
+    }
     const constructorArgs = props
-      .map((prop) => `final ${prop.fieldJavaType} ${prop.fieldName}`)
+      .map((prop) => `final ${prop.paramJavaType} ${prop.fieldName}`)
       .join(', ');
     this.code.openBlock(
       `private ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`,
@@ -1866,8 +1897,12 @@ class JavaGenerator extends Generator {
       'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
     );
     props.forEach((prop) => {
+      const explicitCast =
+        prop.fieldJavaType !== prop.paramJavaType
+          ? `(${prop.fieldJavaType})`
+          : '';
       this.code.line(
-        `this.${prop.fieldName} = ${_validateIfNonOptional(
+        `this.${prop.fieldName} = ${explicitCast}${_validateIfNonOptional(
           prop.fieldName,
           prop,
         )};`,
@@ -2060,11 +2095,13 @@ class JavaGenerator extends Generator {
       name: fqn.replace(/.*\.([^.]+)$/, '$1'),
     });
 
-    const name = `${path.join(
+    const parts = [
       ...packageName.split('.'),
-      typeName.split('.')[0],
-    )}${ext}`;
-    const filePath = path.join('src', 'main', 'resources', name);
+      `${typeName.split('.')[0]}${ext}`,
+    ];
+    // Resource names are /-delimited paths (even on Windows *wink wink*)
+    const name = parts.join('/');
+    const filePath = path.join('src', 'main', 'resources', ...parts);
 
     return { filePath, name };
   }
@@ -2166,8 +2203,11 @@ class JavaGenerator extends Generator {
     return this.toJavaType({ fqn: cls.base });
   }
 
-  private toDecoratedJavaType(optionalValue: spec.OptionalValue): string {
-    const result = this.toDecoratedJavaTypes(optionalValue);
+  private toDecoratedJavaType(
+    optionalValue: spec.OptionalValue,
+    { covariant = false } = {},
+  ): string {
+    const result = this.toDecoratedJavaTypes(optionalValue, { covariant });
     if (result.length > 1) {
       return `${
         optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL
@@ -2176,15 +2216,21 @@ class JavaGenerator extends Generator {
     return result[0];
   }
 
-  private toDecoratedJavaTypes(optionalValue: spec.OptionalValue): string[] {
-    return this.toJavaTypes(optionalValue.type).map(
+  private toDecoratedJavaTypes(
+    optionalValue: spec.OptionalValue,
+    { covariant = false } = {},
+  ): string[] {
+    return this.toJavaTypes(optionalValue.type, { covariant }).map(
       (nakedType) =>
         `${optionalValue.optional ? ANN_NULLABLE : ANN_NOT_NULL} ${nakedType}`,
     );
   }
 
-  private toJavaType(type: spec.TypeReference, forMarshalling = false): string {
-    const types = this.toJavaTypes(type, forMarshalling);
+  private toJavaType(
+    type: spec.TypeReference,
+    opts?: { forMarshalling?: boolean; covariant?: boolean },
+  ): string {
+    const types = this.toJavaTypes(type, opts);
     if (types.length > 1) {
       return 'java.lang.Object';
     }
@@ -2193,15 +2239,14 @@ class JavaGenerator extends Generator {
 
   private toNativeType(
     type: spec.TypeReference,
-    forMarshalling = false,
-    recursing = false,
+    { forMarshalling = false, covariant = false, recursing = false } = {},
   ): string {
     if (spec.isCollectionTypeReference(type)) {
-      const nativeElementType = this.toNativeType(
-        type.collection.elementtype,
+      const nativeElementType = this.toNativeType(type.collection.elementtype, {
         forMarshalling,
-        true,
-      );
+        covariant,
+        recursing: true,
+      });
       switch (type.collection.kind) {
         case spec.CollectionKind.Array:
           return `software.amazon.jsii.NativeType.listOf(${nativeElementType})`;
@@ -2214,27 +2259,30 @@ class JavaGenerator extends Generator {
       }
     }
     return recursing
-      ? `software.amazon.jsii.NativeType.forClass(${this.toJavaType(
-          type,
+      ? `software.amazon.jsii.NativeType.forClass(${this.toJavaType(type, {
           forMarshalling,
-        )}.class)`
-      : `${this.toJavaType(type, forMarshalling)}.class`;
+          covariant,
+        })}.class)`
+      : `${this.toJavaType(type, { forMarshalling, covariant })}.class`;
   }
 
   private toJavaTypes(
     typeref: spec.TypeReference,
-    forMarshalling = false,
+    { forMarshalling = false, covariant = false } = {},
   ): string[] {
     if (spec.isPrimitiveTypeReference(typeref)) {
       return [this.toJavaPrimitive(typeref.primitive)];
     } else if (spec.isCollectionTypeReference(typeref)) {
-      return [this.toJavaCollection(typeref, forMarshalling)];
+      return [this.toJavaCollection(typeref, { forMarshalling, covariant })];
     } else if (spec.isNamedTypeReference(typeref)) {
       return [this.toNativeFqn(typeref.fqn)];
     } else if (typeref.union) {
       const types = new Array<string>();
       for (const subtype of typeref.union.types) {
-        for (const t of this.toJavaTypes(subtype, forMarshalling)) {
+        for (const t of this.toJavaTypes(subtype, {
+          forMarshalling,
+          covariant,
+        })) {
           types.push(t);
         }
       }
@@ -2245,22 +2293,38 @@ class JavaGenerator extends Generator {
 
   private toJavaCollection(
     ref: spec.CollectionTypeReference,
-    forMarshalling: boolean,
+    {
+      forMarshalling,
+      covariant,
+    }: { forMarshalling: boolean; covariant: boolean },
   ) {
-    const elementJavaType = this.toJavaType(ref.collection.elementtype);
+    const elementJavaType = this.toJavaType(ref.collection.elementtype, {
+      covariant,
+    });
+    const typeConstraint = covariant
+      ? makeCovariant(elementJavaType)
+      : elementJavaType;
     switch (ref.collection.kind) {
       case spec.CollectionKind.Array:
         return forMarshalling
           ? 'java.util.List'
-          : `java.util.List<${elementJavaType}>`;
+          : `java.util.List<${typeConstraint}>`;
       case spec.CollectionKind.Map:
         return forMarshalling
           ? 'java.util.Map'
-          : `java.util.Map<java.lang.String, ${elementJavaType}>`;
+          : `java.util.Map<java.lang.String, ${typeConstraint}>`;
       default:
         throw new Error(
           `Unsupported collection kind: ${ref.collection.kind as any}`,
         );
+    }
+
+    function makeCovariant(javaType: string): string {
+      // Don't emit a covariant expression for String (it's `final` in Java)
+      if (javaType === 'java.lang.String') {
+        return javaType;
+      }
+      return `? extends ${javaType}`;
     }
   }
 
@@ -2333,7 +2397,9 @@ class JavaGenerator extends Generator {
     statement += `"${method.name}"`;
 
     if (method.returns) {
-      statement += `, ${this.toNativeType(method.returns.type, true)}`;
+      statement += `, ${this.toNativeType(method.returns.type, {
+        forMarshalling: true,
+      })}`;
     } else {
       statement += ', software.amazon.jsii.NativeType.VOID';
     }
@@ -2394,10 +2460,13 @@ class JavaGenerator extends Generator {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
+        // We can render covariant parameters only for methods that aren't overridable... so only for static methods currently.
         params.push(
-          `final ${this.toDecoratedJavaType(p)}${
-            p.variadic ? '...' : ''
-          } ${JavaGenerator.safeJavaPropertyName(p.name)}`,
+          `final ${this.toDecoratedJavaType(p, {
+            covariant: (method as spec.Method).static,
+          })}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(
+            p.name,
+          )}`,
         );
       }
     }

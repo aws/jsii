@@ -1,3 +1,0 @@
-@scope/jsii-calc-base.Base=software.amazon.jsii.tests.calculator.base.Base
-@scope/jsii-calc-base.BaseProps=software.amazon.jsii.tests.calculator.base.BaseProps
-@scope/jsii-calc-base.IBaseInterface=software.amazon.jsii.tests.calculator.base.IBaseInterface

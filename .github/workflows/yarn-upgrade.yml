@@ -32,15 +32,34 @@ jobs:
           restore-keys: |-
             ${{ runner.os }}-yarn-
 
-      - name: Run "ncu -u" in root
-        run: npx -p npm-check-updates ncu -u
+      - name: Install Tools
+        run: |-
+          npm -g install lerna npm-check-updates
 
-      # If "ncu -u" changed something... we must first invoke "yarn install"
-      - name: Run "yarn install"
-        run: yarn install
+      - name: List Mono-Repo Packages
+        id: list-packages
+        # These need to be ignored from the `ncu` runs!
+        run: |-
+          echo -n "::set-output name=list::"
+          node -p "$(lerna ls --all --json 2>/dev/null).map(item => item.name).join(',')"
 
-      - name: Run "yarn upgrade"
-        run: yarn upgrade
+      - name: Run "ncu -u"
+        # We special-case @types/node because we want to stay on the current major (minimum supported node release)
+        # We special-case @types/fs-extra because the current major (9.x) is broken with @types/node@10
+        run: |-
+          # Upgrade dependencies at repository root
+          ncu --upgrade --filter=@types/node,@types/fs-extra --semverLevel=major
+          ncu --upgrade --filter=typescript --semverLevel=minor
+          ncu --upgrade --reject=@types/node,@types/fs-extra,typescript
+
+          # Upgrade all the packages
+          lerna exec --parallel ncu -- --upgrade --filter=@types/node,@types/fs-extra --semverLevel=major
+          lerna exec --parallel ncu -- --upgrade --filter=typescript --semverLevel=minor
+          lerna exec --parallel ncu -- --upgrade --reject='@types/node,@types/fs-extra,typescript,${{ steps.list-packages.outputs.list }}'
+
+      # This will create a brand new `yarn.lock` file (this is more efficient than `yarn install && yarn upgrade`)
+      - name: Run "yarn install --force"
+        run: yarn install --force
 
       - name: Make Pull Request
         uses: peter-evans/create-pull-request@v2

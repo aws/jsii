@@ -22,7 +22,7 @@ test('okay to add a new function to a class', () =>
   `,
     `
     export class Foo {
-      public foo(): void { }
+      public bar(): void { }
     }
   `,
   ));
@@ -34,14 +34,14 @@ test('not okay to add a required argument to a method', () =>
     /newly required argument/,
     `
     export class Foo {
-      public foo(arg1: string): void {
+      public bar(arg1: string): void {
         Array.isArray(arg1);
       }
     }
   `,
     `
     export class Foo {
-      public foo(arg1: string, arg2: string): void {
+      public bar(arg1: string, arg2: string): void {
         Array.isArray(arg1);
         Array.isArray(arg2);
       }
@@ -55,7 +55,7 @@ test('okay to make a required argument optional', () =>
   expectNoError(
     `
     export class Foo {
-      public foo(arg1: string, arg2: string): void {
+      public bar(arg1: string, arg2: string): void {
         Array.isArray(arg1);
         Array.isArray(arg2);
       }
@@ -63,7 +63,7 @@ test('okay to make a required argument optional', () =>
   `,
     `
     export class Foo {
-      public foo(arg1: string, arg2?: string): void {
+      public bar(arg1: string, arg2?: string): void {
         Array.isArray(arg1);
         Array.isArray(arg2);
       }
@@ -77,7 +77,7 @@ test('okay to turn required arguments into varargs', () =>
   expectNoError(
     `
     export class Foo {
-      public foo(arg1: string, arg2: number, arg3: number): void {
+      public bar(arg1: string, arg2: number, arg3: number): void {
         Array.isArray(arg1);
         Array.isArray(arg2);
         Array.isArray(arg3);
@@ -86,7 +86,7 @@ test('okay to turn required arguments into varargs', () =>
   `,
     `
     export class Foo {
-      public foo(arg1: string, ...args: number[]): void {
+      public bar(arg1: string, ...args: number[]): void {
         Array.isArray(arg1);
         Array.isArray(args);
       }
@@ -101,14 +101,14 @@ test('not allowed to change argument type to a different scalar', () =>
     /method.*foo.*argument arg1, takes number \(formerly string\): string is not assignable to number/i,
     `
     export class Foo {
-      public foo(arg1: string): void {
+      public bar(arg1: string): void {
         Array.isArray(arg1);
       }
     }
   `,
     `
     export class Foo {
-      public foo(arg1: number): void {
+      public bar(arg1: number): void {
         Array.isArray(arg1);
       }
     }
@@ -125,7 +125,7 @@ test('cannot add any abstract members to a subclassable class', () =>
      * @subclassable
      */
     export abstract class Henk {
-      abstract readonly henk: string;
+      abstract readonly name: string;
     }
   `,
     `
@@ -133,7 +133,7 @@ test('cannot add any abstract members to a subclassable class', () =>
      * @subclassable
      */
     export abstract class Henk {
-      abstract readonly henk: string;
+      abstract readonly name: string;
       abstract readonly piet: string;
     }
   `,
@@ -149,7 +149,7 @@ test('cannot add any members to a subclassable interface, not even optional ones
      * @subclassable
      */
     export interface IHenk {
-      henk: string;
+      name: string;
     }
   `,
     `
@@ -157,7 +157,7 @@ test('cannot add any members to a subclassable interface, not even optional ones
      * @subclassable
      */
     export interface IHenk {
-      henk: string;
+      name: string;
       piet?: string;
     }
   `,
@@ -170,12 +170,12 @@ test('cannot make a member less visible', () =>
     /changed from 'public' to 'protected'/,
     `
     export class Henk {
-      public henk: string = 'henk';
+      public name: string = 'henk';
     }
   `,
     `
     export class Henk {
-      protected henk: string = 'henk';
+      protected name: string = 'henk';
     }
   `,
   ));
@@ -364,12 +364,12 @@ test('cannot make a class property optional', () =>
     /prop.*henk.*type Optional<string> \(formerly string\): output type is now optional/i,
     `
     export class Henk {
-      public henk: string = 'henk';
+      public name: string = 'henk';
     }
   `,
     `
     export class Henk {
-      public henk?: string = 'henk';
+      public name?: string = 'henk';
     }
   `,
   ));
@@ -500,12 +500,12 @@ test('change from method to property', () =>
     /changed from method to property/,
     `
     export class Boom {
-      foo() { return 12; }
+      public foo() { return 12; }
     }
     `,
     `
     export class Boom {
-      get foo() { return 12; }
+      public get foo() { return 12; }
     }
     `,
   ));
@@ -515,12 +515,12 @@ test('change from method with arguments to property', () =>
     /changed from method to property/,
     `
     export class Boom {
-      foo(arg: number) { return 12 * arg; }
+      public foo(arg: number) { return 12 * arg; }
     }
     `,
     `
     export class Boom {
-      get foo() { return 12; }
+      public get foo() { return 12; }
     }
     `,
   ));
@@ -530,12 +530,12 @@ test('change from property to method', () =>
     /changed from property to method/,
     `
     export class Boom {
-      get foo() { return 12; }
+      public get foo() { return 12; }
     }
     `,
     `
     export class Boom {
-      foo() { return 12; }
+      public foo() { return 12; }
     }
     `,
   ));

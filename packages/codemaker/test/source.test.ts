@@ -6,7 +6,7 @@ import { CodeMaker } from '../lib';
 test('cannot write before opening a file', () => {
   const sources = new CodeMaker();
   expect(() => sources.line('Nope!')).toThrow(
-    /Cannot emit source lines without openning a file/,
+    /Cannot emit source lines without opening a file/,
   );
 });
 

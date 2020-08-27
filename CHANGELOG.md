@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/aws/jsii/compare/v1.10.0...v1.11.0) (2020-08-18)
+
+
+### Features
+
+* **jsii:** detect changing visibility when overriding ([#1876](https://github.com/aws/jsii/issues/1876)) ([cfc99c2](https://github.com/aws/jsii/commit/cfc99c2c7f2577de5b7832ad30ba28458813c868)), closes [aws/aws-cdk#9616](https://github.com/aws/aws-cdk/issues/9616)
+* **jsii-pacmak:** option to disallow parallel generation of languages ([#1890](https://github.com/aws/jsii/issues/1890)) ([9d5a439](https://github.com/aws/jsii/commit/9d5a439aaddef7ffd6e6add6e215a7cc3268e58a))
+* **python:** allow setting additional trove classifiers ([#1902](https://github.com/aws/jsii/issues/1902)) ([26be2b6](https://github.com/aws/jsii/commit/26be2b6ec7ceb15a3abb842eb2e34190dd99bbb1)), closes [aws/cdk-ops#393](https://github.com/aws/cdk-ops/issues/393)
+
+
+### Bug Fixes
+
+* **dotnet:** "Could not infer JSII type for .NET type 'AnonymousObject'" ([#1718](https://github.com/aws/jsii/issues/1718)) ([41d79e7](https://github.com/aws/jsii/commit/41d79e7f31a8e7c59c7274c91f17dcd23187757f)), closes [aws/aws-cdk#7977](https://github.com/aws/aws-cdk/issues/7977)
+* **dotnet:** crash when TEMP contains certain unicode characters ([#1913](https://github.com/aws/jsii/issues/1913)) ([8f31b1a](https://github.com/aws/jsii/commit/8f31b1ac5cd20c18d0da20dad33782a9cb113643)), closes [aws/aws-cdk#7456](https://github.com/aws/aws-cdk/issues/7456)
+* **jsii:** README.md filename is case sensitive ([#1871](https://github.com/aws/jsii/issues/1871)) ([e375647](https://github.com/aws/jsii/commit/e375647d21255cf3efa84081d672143a920854d2)), closes [#1862](https://github.com/aws/jsii/issues/1862)
+* **jsii:** unable to use nested types from dependencies ([#1866](https://github.com/aws/jsii/issues/1866)) ([44f9109](https://github.com/aws/jsii/commit/44f91092a34179e6f5edbe1699cbaddac2f9a99b)), closes [#1861](https://github.com/aws/jsii/issues/1861)
+* **pacmak:** `EMFILE` error when running `jsii-pacmak` ([#1891](https://github.com/aws/jsii/issues/1891)) ([7316b44](https://github.com/aws/jsii/commit/7316b44690eed46ce7e5d5089af77ee1f49a6a5e))
+* **rosetta:** use of keyword 'lambda' produces invalid Python code ([#1850](https://github.com/aws/jsii/issues/1850)) ([39769b0](https://github.com/aws/jsii/commit/39769b0311886158631f56be6dce0b6262ba9c5c))
+
+## [1.10.0](https://github.com/aws/jsii/compare/v1.9.0...v1.10.0) (2020-08-05)
+
+
+### Bug Fixes
+
+* **java:** user.xml repository ID was not sanitized ([#1812](https://github.com/aws/jsii/issues/1812)) ([4283af0](https://github.com/aws/jsii/commit/4283af0cb2338c31594c53b2ab040b7b183aec77))
+* **jsii:** Location of initializers in source was not documented ([#1806](https://github.com/aws/jsii/issues/1806)) ([3957827](https://github.com/aws/jsii/commit/3957827a5a730d51029313518caacb0e87c09b83))
+* **jsii:** selective exports declarations are ignored ([#1829](https://github.com/aws/jsii/issues/1829)) ([2699ccf](https://github.com/aws/jsii/commit/2699ccf89f3243edac677dac9ca8186a5bb102f2)), closes [#1818](https://github.com/aws/jsii/issues/1818)
+* **python:** missing imports for certain keyword arguments ([#1810](https://github.com/aws/jsii/issues/1810)) ([f124bc8](https://github.com/aws/jsii/commit/f124bc8b0ebf9243f45c59be6209ca01fd967dea)), closes [#1809](https://github.com/aws/jsii/issues/1809)
+* **rosetta:** OOpsie -- couldn't find root file back on Windows ([#1842](https://github.com/aws/jsii/issues/1842)) ([6ea8daa](https://github.com/aws/jsii/commit/6ea8daa8a022c5bda5fd1854d49292e65caac2be))
+* **rosetta:** kwargs arguments are emitted at a variadic position ([#1832](https://github.com/aws/jsii/issues/1832)) ([079e147](https://github.com/aws/jsii/commit/079e147060d30dc1c878862af7bbb52f0cc54733)), closes [#1821](https://github.com/aws/jsii/issues/1821)
+
 ## [1.9.0](https://github.com/aws/jsii/compare/v1.8.0...v1.9.0) (2020-07-16)
 
 

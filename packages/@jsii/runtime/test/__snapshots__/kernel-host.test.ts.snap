@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can load libraries from within a callback 1`] = `
+Object {
+  "ok": Object {
+    "assembly": "@scope/jsii-calc-base-of-base",
+    "types": "*redacted*",
+  },
+}
+`;
+
+exports[`can load libraries from within a callback 2`] = `
+Object {
+  "ok": Object {
+    "assembly": "@scope/jsii-calc-base",
+    "types": "*redacted*",
+  },
+}
+`;
+
+exports[`can load libraries from within a callback 3`] = `
+Object {
+  "ok": Object {
+    "assembly": "@scope/jsii-calc-lib",
+    "types": "*redacted*",
+  },
+}
+`;
+
+exports[`can load libraries from within a callback 4`] = `
+Object {
+  "ok": Object {
+    "$jsii.byref": "Object@10000",
+    "$jsii.interfaces": Array [
+      "@scope/jsii-calc-lib.IFriendly",
+    ],
+  },
+}
+`;
+
+exports[`can load libraries from within a callback 5`] = `
+Object {
+  "callback": Object {
+    "cbid": "jsii::callback::20000",
+    "cookie": undefined,
+    "invoke": Object {
+      "args": Array [],
+      "method": "hello",
+      "objref": Object {
+        "$jsii.byref": "Object@10000",
+        "$jsii.interfaces": Array [
+          "@scope/jsii-calc-lib.IFriendly",
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`can load libraries from within a callback 6`] = `
+Object {
+  "ok": Object {
+    "assembly": "jsii-calc",
+    "types": "*redacted*",
+  },
+}
+`;
+
+exports[`can load libraries from within a callback 7`] = `
+Object {
+  "ok": Object {
+    "result": "SUCCESS!",
+  },
+}
+`;

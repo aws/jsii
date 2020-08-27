@@ -3,8 +3,14 @@ import * as path from 'path';
 import * as ts from 'typescript';
 import { Compiler } from '../lib/compiler';
 import { ProjectInfo } from '../lib/project-info';
+import { formatDiagnostic } from '../lib/utils';
 
 const SOURCE_DIR = path.join(__dirname, 'negatives');
+
+expect.addSnapshotSerializer({
+  test: (val) => typeof val === 'string',
+  serialize: (val: string) => val,
+});
 
 for (const source of fs.readdirSync(SOURCE_DIR)) {
   if (
@@ -18,30 +24,31 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
   test(
     source.replace(/neg\.(.+)\.ts/, '$1'),
     async () => {
-      const [expectations, strict] = await _getExpectedErrorMessage(filePath);
-      expect(
-        expectations.length,
-        `Expected error messages should be specified using ${MATCH_ERROR_MARKER}`,
-      ).toBeGreaterThan(0);
+      const { strict } = await _getPragmas(filePath);
       const compiler = new Compiler({
         projectInfo: _makeProjectInfo(source),
         failOnWarnings: strict,
       });
       const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
+
       expect(emitResult.emitSkipped).toBeTruthy();
-      const errors = emitResult.diagnostics.filter(
-        (diag) =>
-          diag.category === ts.DiagnosticCategory.Error ||
-          (strict && diag.category === ts.DiagnosticCategory.Warning),
-      );
-      for (const expectation of expectations) {
-        expect(
-          errors.find((e) => _messageText(e).includes(expectation)),
-          `No error contained: ${expectation}. Errors: \n${errors
-            .map((e, i) => `[${i}] ${e.messageText.toString()}`)
-            .join('\n')}`,
-        ).toBeDefined();
-      }
+
+      const diagnostics = emitResult.diagnostics
+        .filter(
+          // Remove suggestion diagnostics, we don't care much for those for now...
+          (diag) => diag.category !== ts.DiagnosticCategory.Suggestion,
+        )
+        .map((diag) => formatDiagnostic(diag, SOURCE_DIR))
+        .sort();
+
+      expect(diagnostics.length).toBeGreaterThan(0);
+      expect(
+        diagnostics
+          // Remove ANSI color codes from the message so it's nicer in the snapshots file
+          // eslint-disable-next-line no-control-regex
+          .map((diag) => diag.replace(/\x1B\[[0-9;]*[a-z]/gi, ''))
+          .join(''),
+      ).toMatchSnapshot();
 
       // Cleaning up...
       return Promise.all(
@@ -65,32 +72,12 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
   );
 }
 
-const MATCH_ERROR_MARKER = '///!MATCH_ERROR:';
 const STRICT_MARKER = '///!STRICT!';
-async function _getExpectedErrorMessage(
-  file: string,
-): Promise<[string[], boolean]> {
+async function _getPragmas(file: string): Promise<{ strict: boolean }> {
   const data = await fs.readFile(file, { encoding: 'utf8' });
   const lines = data.split('\n');
-  const matches = lines
-    .filter((line) => line.startsWith(MATCH_ERROR_MARKER))
-    .map((line) => line.substr(MATCH_ERROR_MARKER.length).trim());
   const strict = lines.some((line) => line.startsWith(STRICT_MARKER));
-  return [matches, strict];
-}
-
-function _messageText(
-  diagnostic: ts.Diagnostic | ts.DiagnosticMessageChain,
-): string {
-  if (typeof diagnostic.messageText === 'string') {
-    return diagnostic.messageText;
-  }
-  if (diagnostic.messageText.next) {
-    return `${diagnostic.messageText.messageText}|${_messageText(
-      diagnostic.messageText.next[0],
-    )}`;
-  }
-  return diagnostic.messageText.messageText;
+  return { strict };
 }
 
 function _makeProjectInfo(types: string): ProjectInfo {

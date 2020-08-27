@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -15,17 +16,21 @@ namespace Amazon.JSII.Analyzers
         private const string Title = "A required property is missing or null";
         private const string MessageFormat = "The property is required and cannot be null";
         private const string MessageFormatWithPropertyName = "The property {0} is required and cannot be null";
-        private const string Description = "The property is required and cannot be null";
-        private const string DescriptionWitPropertyName = "The property {0} is required and cannot be null";
+        private const string Description = "The property is required and cannot be null.";
+        private const string DescriptionWithPropertyName = "The property {0} is required and cannot be null.";
         private const string Category = "Jsii.Usage";
 
-        private static readonly DiagnosticDescriptor Rule = 
+        private static readonly DiagnosticDescriptor Rule =
             new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Error, isEnabledByDefault: true, description: Description);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
-        
+
         public override void Initialize(AnalysisContext context)
         {
+            if (context == null)
+            {
+                return;
+            }
             context.EnableConcurrentExecution();
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze);
             context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.ObjectCreationExpression);
@@ -38,7 +43,7 @@ namespace Amazon.JSII.Analyzers
             if (IsJsiiDatatype(typeInfo))
             {
                 // If the newly created instance is a Jsii datatype [JsiiByValue]
-                // Get all the properties passed 
+                // Get all the properties passed
                 var passedProperties = new HashSet<string>();
                 foreach (var child in objectCreation.ChildNodes())
                 {
@@ -82,13 +87,15 @@ namespace Amazon.JSII.Analyzers
                     if (!passedProperties.Contains(requiredProperty.Name))
                     {
                         // This property IS REQUIRED and was not passed in the arguments. Raising an error
-                        var rule = new DiagnosticDescriptor(DiagnosticId, 
+                        var rule = new DiagnosticDescriptor(DiagnosticId,
                             Title,
-                            string.Format(MessageFormatWithPropertyName, requiredProperty.Name),
-                            Category, 
-                            DiagnosticSeverity.Error, 
-                            isEnabledByDefault: true, 
-                            description: string.Format(DescriptionWitPropertyName, requiredProperty.Name));
+                            string.Format(CultureInfo.InvariantCulture, MessageFormatWithPropertyName,
+                                requiredProperty.Name),
+                            Category,
+                            DiagnosticSeverity.Error,
+                            isEnabledByDefault: true,
+                            description: string.Format(CultureInfo.InvariantCulture, DescriptionWithPropertyName,
+                                requiredProperty.Name));
                         context.ReportDiagnostic(Diagnostic.Create(rule, context.Node.GetLocation()));
                     }
                 }
@@ -112,7 +119,7 @@ namespace Amazon.JSII.Analyzers
             var typeAttributes = typeInfo.Type.GetAttributes().ToArray();
             return typeAttributes.Any(a => a.AttributeClass.Name == "JsiiClassAttribute");
         }
-        
+
         /// <summary>
         /// Checks if the TypeInfo is related to a Jsii datatype
         /// </summary>
@@ -130,7 +137,7 @@ namespace Amazon.JSII.Analyzers
             var typeAttributes = typeInfo.Type.GetAttributes().ToArray();
             return typeAttributes.Any(a => a.AttributeClass.Name == "JsiiByValueAttribute");
         }
-        
+
         /// <summary>
         /// Checks if the property is optional for jsii
         /// </summary>

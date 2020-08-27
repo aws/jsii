@@ -1,18 +1,16 @@
-///!MATCH_ERROR: jsii.SomethingElse#something changes the type of property when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
-
 export class Superclass {}
 export class Subclass extends Superclass {}
 
-export class Something {
-    public something: Superclass;
+export class SomethingBase {
+  public something: Superclass = new Superclass();
 }
 
-export class SomethingElse extends Something {
-    public addUnrelatedMember: number;
+export class SomethingElse extends SomethingBase {
+  public addUnrelatedMember = 3;
 }
 
 // Should still fail even though 2-level inheritance
 export class SomethingDifferent extends SomethingElse {
-    public something: Subclass = new Subclass();
-    public addUnrelatedMember: number = 1;
+  public something: Subclass = new Subclass();
+  public addUnrelatedMember = 1;
 }

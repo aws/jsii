@@ -6,7 +6,6 @@ class JSIIError(Exception):
 
 
 class JavaScriptError(Exception):
-
     def __init__(self, stack):
         self.stack = stack
 

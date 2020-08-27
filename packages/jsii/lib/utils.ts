@@ -1,6 +1,8 @@
 import * as log4js from 'log4js';
 import * as ts from 'typescript';
 
+import { JsiiDiagnostic } from './jsii-diagnostic';
+
 /**
  * Name of the logger for diagnostics information
  */
@@ -47,7 +49,18 @@ export function diagnosticsLogger(
   }
 }
 
-export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
+/**
+ * Formats a diagnostic message with color and context, if possible.
+ *
+ * @param diagnostic  the diagnostic message ot be formatted.
+ * @param projectRoot the root of the TypeScript project.
+ *
+ * @returns a formatted string.
+ */
+export function formatDiagnostic(
+  diagnostic: ts.Diagnostic,
+  projectRoot: string,
+) {
   const formatDiagnosticsHost: ts.FormatDiagnosticsHost = {
     getCurrentDirectory: () => projectRoot,
     getCanonicalFileName: (fileName) => fileName,
@@ -60,13 +73,25 @@ export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
           [diagnostic],
           formatDiagnosticsHost,
         )
-      : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
+      : ts.formatDiagnostic(diagnostic, formatDiagnosticsHost);
 
+  if (!JsiiDiagnostic.isJsiiDiagnostic(diagnostic)) {
+    return message;
+  }
+
+  // This is our own diagnostics, so we'll format appropriately (replacing TS#### with JSII####).
+  return message.replace(
+    ` TS${JSII_DIAGNOSTICS_CODE}: `,
+    ` JSII${diagnostic.jsiiCode}: `,
+  );
+}
+
+export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
   const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
   if (!logFunc) {
     return;
   }
-  logFunc(message.trim());
+  logFunc(formatDiagnostic(diagnostic, projectRoot).trim());
 }
 
 const PERSON_REGEX = /^\s*(.+?)(?:\s*<([^>]+)>)?(?:\s*\(([^)]+)\))?\s*$/;

@@ -5,7 +5,7 @@ import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { Assembler } from './assembler';
-import { EmitResult, Emitter } from './emitter';
+import { Emitter } from './emitter';
 import { ProjectInfo } from './project-info';
 import * as utils from './utils';
 
@@ -89,7 +89,7 @@ export class Compiler implements Emitter {
    *
    * @param files can be specified to override the standard source code location logic. Useful for example when testing "negatives".
    */
-  public async emit(...files: string[]): Promise<EmitResult> {
+  public async emit(...files: string[]): Promise<ts.EmitResult> {
     await this._prepareForBuild(...files);
     return this._buildOnce();
   }
@@ -182,7 +182,7 @@ export class Compiler implements Emitter {
   /**
    * Do a single build
    */
-  private async _buildOnce(): Promise<EmitResult> {
+  private async _buildOnce(): Promise<ts.EmitResult> {
     if (!this.compilerHost.getDefaultLibLocation) {
       throw new Error(
         'No default library location was found on the TypeScript compiler host!',
@@ -214,7 +214,7 @@ export class Compiler implements Emitter {
   private async _consumeProgram(
     program: ts.Program,
     stdlib: string,
-  ): Promise<EmitResult> {
+  ): Promise<ts.EmitResult> {
     const diagnostics = [...ts.getPreEmitDiagnostics(program)];
     let hasErrors = false;
 
@@ -535,7 +535,7 @@ export interface NonBlockingWatchOptions {
    * This hook gets invoked when a compilation cycle (complete with Assembler execution) completes.
    */
   readonly compilationComplete: (
-    emitResult: EmitResult,
+    emitResult: ts.EmitResult,
   ) => void | Promise<void>;
 }
 

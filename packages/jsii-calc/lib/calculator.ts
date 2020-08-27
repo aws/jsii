@@ -1,7 +1,11 @@
-import { Operation, Value, Number, IFriendly } from '@scope/jsii-calc-lib';
+import {
+  Operation,
+  NumericValue,
+  Number,
+  IFriendly,
+} from '@scope/jsii-calc-lib';
 
 /* eslint-disable
-  @typescript-eslint/explicit-module-boundary-types,
   @typescript-eslint/no-namespace,
   @typescript-eslint/member-ordering,
 */
@@ -46,12 +50,15 @@ export abstract class BinaryOperation extends Operation implements IFriendly {
    * @param lhs Left-hand side operand
    * @param rhs Right-hand side operand
    */
-  public constructor(public readonly lhs: Value, public readonly rhs: Value) {
+  public constructor(
+    public readonly lhs: NumericValue,
+    public readonly rhs: NumericValue,
+  ) {
     super();
   }
 
   public hello() {
-    return 'Hello, I am a binary operation. What\'s your name?';
+    return "Hello, I am a binary operation. What's your name?";
   }
 }
 
@@ -71,7 +78,8 @@ export class Add extends BinaryOperation {
 /**
  * The "*" binary operation.
  */
-export class Multiply extends BinaryOperation
+export class Multiply
+  extends BinaryOperation
   implements IFriendlier, IRandomNumberGenerator {
   public get value() {
     return this.lhs.value * this.rhs.value;
@@ -98,7 +106,7 @@ export class Multiply extends BinaryOperation
  * An operation on a single operand.
  */
 export abstract class UnaryOperation extends Operation {
-  public constructor(public readonly operand: Value) {
+  public constructor(public readonly operand: NumericValue) {
     super();
   }
 }
@@ -159,7 +167,7 @@ export namespace composition {
      * The expression that this operation consists of.
      * Must be implemented by derived classes.
      */
-    abstract readonly expression: Value;
+    abstract readonly expression: NumericValue;
 
     public toString() {
       switch (this.stringStyle) {
@@ -198,7 +206,7 @@ export class Sum extends composition.CompositeOperation {
   /**
    * The parts to sum.
    */
-  public parts: Value[] = [];
+  public parts: NumericValue[] = [];
 
   // TODO: some annoying bug in Nashorn will throw this exception if
   // call that prototype's ctor via "apply" instead: java.lang.AssertionError: duplicate code
@@ -207,7 +215,7 @@ export class Sum extends composition.CompositeOperation {
   }
 
   public get expression() {
-    let curr: Value = new Number(0);
+    let curr: NumericValue = new Number(0);
     for (const part of this.parts) {
       curr = new Add(curr, part);
     }
@@ -224,11 +232,14 @@ export class Power extends composition.CompositeOperation {
    * @param base The base of the power
    * @param pow The number of times to multiply
    */
-  public constructor(public readonly base: Value, public readonly pow: Value) {
+  public constructor(
+    public readonly base: NumericValue,
+    public readonly pow: NumericValue,
+  ) {
     super();
   }
 
-  public get expression(): Value {
+  public get expression(): NumericValue {
     let curr: Operation = new Number(1);
     for (let i = 0; i < this.pow.value; ++i) {
       curr = new Multiply(curr, this.base);
@@ -297,17 +308,17 @@ export class Calculator extends composition.CompositeOperation {
   /**
    * The current value.
    */
-  public curr: Value;
+  public curr: NumericValue;
 
   /**
    * A map of per operation name of all operations performed.
    */
-  public readonly operationsMap: { [op: string]: Value[] } = {};
+  public readonly operationsMap: { [op: string]: NumericValue[] } = {};
 
   /**
    * A log of all operations.
    */
-  public readonly operationsLog = new Array<Value>();
+  public readonly operationsLog = new Array<NumericValue>();
 
   /**
    * The maximum value allows in this calculator.
@@ -365,7 +376,7 @@ export class Calculator extends composition.CompositeOperation {
     return this.unionProperty.value;
   }
 
-  private addOperation(op: string, value: Value) {
+  private addOperation(op: string, value: NumericValue) {
     if (this.maxValue && value.value > this.maxValue) {
       throw new Error(
         `Operation ${value.value} exceeded maximum value ${this.maxValue}`,
@@ -374,7 +385,7 @@ export class Calculator extends composition.CompositeOperation {
 
     let list = this.operationsMap[op];
     if (!list) {
-      list = new Array<Value>();
+      list = new Array<NumericValue>();
       this.operationsMap[op] = list;
     }
     list.push(value);
@@ -395,7 +406,7 @@ export class PropertyNamedProperty {
 }
 export class MethodNamedProperty {
   public property() {
-    return 'Hello, I\'m property()!';
+    return "Hello, I'm property()!";
   }
 
   public readonly elite = 1337;

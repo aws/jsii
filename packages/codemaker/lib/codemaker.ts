@@ -16,6 +16,10 @@ export class CodeMaker {
   private readonly files = new Array<FileBuffer>();
   private readonly excludes = new Array<string>();
 
+  public get currentIndentLength(): number {
+    return this.currIndent * this.indentation;
+  }
+
   /**
    * Formats an block open statement.
    */
@@ -24,7 +28,7 @@ export class CodeMaker {
   /**
    * Formats a block close statement.
    */
-  public closeBlockFormatter: (s?: string) => string = () => '}';
+  public closeBlockFormatter: (s?: string) => string | false = () => '}';
 
   /**
    * Saves all the files created in this code maker.
@@ -81,7 +85,7 @@ export class CodeMaker {
    */
   public line(fmt?: string, ...args: string[]) {
     if (!this.currentFile) {
-      throw new Error('Cannot emit source lines without openning a file');
+      throw new Error('Cannot emit source lines without opening a file');
     }
 
     if (fmt) {
@@ -102,7 +106,7 @@ export class CodeMaker {
   /**
    * Same as `close`.
    */
-  public unindent(textAfter?: string) {
+  public unindent(textAfter?: string | false) {
     this.close(textAfter);
   }
 
@@ -118,10 +122,14 @@ export class CodeMaker {
   /**
    * Decreases the indentation level by `indentation` for the next line.
    * @param textAfter Text to emit in the line after indentation was decreased.
+   *                  If `false` no line will be emitted at all, but the indent
+   *                  counter will be decremented.
    */
-  public close(textAfter?: string) {
+  public close(textAfter?: string | false) {
     this.currIndent--;
-    this.line(textAfter);
+    if (textAfter !== false) {
+      this.line(textAfter);
+    }
   }
 
   /**
@@ -170,13 +178,11 @@ export class CodeMaker {
     return caseutils.toSnakeCase(s, sep);
   }
 
-  private makeIndent() {
-    let spaces = '';
-    for (let i = 0; i < this.currIndent; ++i) {
-      for (let j = 0; j < this.indentation; ++j) {
-        spaces += ' ';
-      }
+  private makeIndent(): string {
+    const length = this.currentIndentLength;
+    if (length <= 0) {
+      return '';
     }
-    return spaces;
+    return ' '.repeat(length);
   }
 }

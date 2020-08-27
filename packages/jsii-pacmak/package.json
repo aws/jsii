@@ -30,8 +30,9 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "jest && bash test/diff-test.sh && bash test/build-test.sh",
-    "test:update": "UPDATE_DIFF=1 bash test/diff-test.sh && bash test/build-test.sh && jest -u",
+    "test": "jest && npm run test:build",
+    "test:build": "bash test/build-test.sh",
+    "test:update": "jest -u && npm run test:build",
     "package": "package-js"
   },
   "dependencies": {
@@ -46,29 +47,28 @@
     "semver": "^7.3.2",
     "spdx-license-list": "^6.2.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^15.4.0"
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
     "@jsii/java-runtime": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
-    "@types/clone": "^0.1.30",
+    "@types/clone": "^2.1.0",
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.8",
+    "@types/jest": "^26.0.10",
     "@types/mock-fs": "^4.10.0",
     "@types/node": "^10.17.28",
-    "@types/semver": "^7.3.1",
+    "@types/semver": "^7.3.3",
     "@types/yargs": "^15.0.5",
-    "eslint": "^7.6.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.2.2",
+    "eslint": "^7.7.0",
+    "jest": "^26.4.2",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
-    "mock-fs": "^4.12.0",
-    "prettier": "^2.0.5",
-    "typescript": "~3.9.6"
+    "mock-fs": "^4.13.0",
+    "prettier": "^2.1.0",
+    "ts-jest": "^26.2.0",
+    "typescript": "~3.9.7"
   },
   "keywords": [
     "jsii",
@@ -87,7 +87,10 @@
     "errorOnDeprecated": true,
     "testEnvironment": "node",
     "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
+      "**/?(*.)+(spec|test).ts"
+    ],
+    "transform": {
+      "\\.tsx?$": "ts-jest"
+    }
   }
 }
