@@ -29,7 +29,7 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "if [[ -n \"$UPDATE_DIFF\" ]]; then jest -u; else jest; fi",
+    "test": "jest",
     "test:update": "jest -u",
     "package": "package-js"
   },

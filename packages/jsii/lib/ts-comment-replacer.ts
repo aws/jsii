@@ -33,10 +33,10 @@ export class TsCommentReplacer {
   private readonly nodes = new Map<ts.Node, NodeDocs>();
 
   /**
-   * Override the docstring of an AST node
+   * Override the doc comment of an AST node
    */
-  public overrideNodeDocString(node: ts.Node, docstring: string): void {
-    this.nodes.set(node, { docstring });
+  public overrideNodeDocComment(node: ts.Node, docstring: string): void {
+    this.nodes.set(node, { contents: docstring });
   }
 
   /**
@@ -75,11 +75,11 @@ export class TsCommentReplacer {
 
   private handleNode<T extends ts.Node>(node: T, source: ts.SourceFile): T {
     const original = ts.getOriginalNode(node);
-    const override = this.nodes.get(original);
+    const doOverride = this.nodes.get(original);
 
-    if (override) {
+    if (doOverride) {
       whiteoutLeadingComments(original, source);
-      this.addTsdocString(node, override.docstring);
+      this.addTsdocComment(node, doOverride.contents);
     }
     return node;
   }
@@ -87,17 +87,18 @@ export class TsCommentReplacer {
   /**
    * Add a synthetic comment formatted like a TSDoc block
    *
-   * A multiline trivia comment looks like "/ * (...content...) * (newline?)/",
-   * so we need to add the right stars and indentation back into the plain text block.
+   * A multiline trivia comment looks like "/ * (...content...) * / (newline?)".
+   *
+   * The TypeScript printer will take care of indentation.
    */
-  private addTsdocString(node: ts.Node, text: string, indent = 0) {
+  private addTsdocComment(node: ts.Node, text: string) {
     const lines = text.trim().split('\n');
-    const prefix = ' '.repeat(indent + 1);
 
+    // eslint-disable-next-line prettier/prettier
     const commentContents = [
       '*\n',
-      ...lines.map((l) => `${prefix}* ${l}\n`),
-      `${prefix}`,
+      ...lines.map((l) => ` * ${l}\n`),
+      ` `,
     ].join('');
 
     ts.addSyntheticLeadingComment(
@@ -110,7 +111,7 @@ export class TsCommentReplacer {
 }
 
 interface NodeDocs {
-  readonly docstring: string;
+  readonly contents: string;
 }
 
 /**

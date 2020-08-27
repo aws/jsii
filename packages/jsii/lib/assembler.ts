@@ -1349,7 +1349,7 @@ export class Assembler implements Emitter {
           constructor,
           memberEmitContext,
         );
-        this.regenerateDocString(
+        this.overrideDocComment(
           constructor,
           jsiiType.initializer.docs,
           paramDocs(jsiiType.initializer.parameters),
@@ -1402,7 +1402,7 @@ export class Assembler implements Emitter {
 
     this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);
 
-    this.regenerateDocString(type.getSymbol(), jsiiType?.docs);
+    this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
 
     return _sortMembers(jsiiType);
   }
@@ -1599,7 +1599,7 @@ export class Assembler implements Emitter {
       kind: spec.TypeKind.Enum,
       members: members.map((m) => {
         const docs = this._visitDocumentation(m.symbol, typeContext);
-        this.regenerateDocString(m.symbol, docs);
+        this.overrideDocComment(m.symbol, docs);
         return { name: m.symbol.name, docs };
       }),
       name: symbol.name,
@@ -1607,7 +1607,7 @@ export class Assembler implements Emitter {
       docs,
     };
 
-    this.regenerateDocString(type.getSymbol(), jsiiType?.docs);
+    this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
 
     return Promise.resolve(jsiiType);
   }
@@ -1633,15 +1633,6 @@ export class Assembler implements Emitter {
     // Apply the current context's stability if none was specified locally.
     if (result.docs.stability == null) {
       result.docs.stability = context.stability;
-    }
-
-    // Modify the summary if this API element has a special stability
-    if (result.docs.stability === spec.Stability.Experimental) {
-      // eslint-disable-next-line prettier/prettier
-      result.docs.summary = `${result.docs.summary ?? ''} (experimental)`.trim();
-    }
-    if (result.docs.stability === spec.Stability.Deprecated) {
-      result.docs.summary = `${result.docs.summary ?? ''} (deprecated)`.trim();
     }
 
     const allUndefined = Object.values(result.docs).every(
@@ -1878,7 +1869,7 @@ export class Assembler implements Emitter {
       checkNoIntersection,
     );
 
-    this.regenerateDocString(type.getSymbol(), jsiiType?.docs);
+    this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
 
     return _sortMembers(jsiiType);
   }
@@ -2016,7 +2007,7 @@ export class Assembler implements Emitter {
       return;
     }
     type.methods.push(method);
-    this.regenerateDocString(symbol, method.docs, paramDocs(method.parameters));
+    this.overrideDocComment(symbol, method.docs, paramDocs(method.parameters));
   }
 
   private _warnAboutReservedWords(symbol: ts.Symbol) {
@@ -2146,7 +2137,7 @@ export class Assembler implements Emitter {
       return;
     }
     type.properties.push(property);
-    this.regenerateDocString(symbol, property.docs);
+    this.overrideDocComment(symbol, property.docs);
   }
 
   private async _toParameter(
@@ -2183,8 +2174,8 @@ export class Assembler implements Emitter {
       ctx.removeStability(),
     ); // No inheritance on purpose
 
-    // Don't rewrite docstring here on purpose -- instead, we add them as '@param'
-    // into the parent's docstring.
+    // Don't rewrite doc comment here on purpose -- instead, we add them as '@param'
+    // into the parent's doc comment.
 
     return parameter;
   }
@@ -2492,11 +2483,18 @@ export class Assembler implements Emitter {
   /**
    * From the given JSIIDocs, re-render the TSDoc comment for the Node
    *
-   * For most normal cases, this yields the same output back as the one that
-   * we originally saw (modulo whitespace), but if the JSIIDocs got changed upon
-   * parsing we'll render the JSIIDocs back into the .js/.d.ts output.
+   * We may change the documentation a little, so that the doc comment that gets
+   * written is not necessarily exactly the same as the docs that go into the
+   * JSII manifest.
+   *
+   * This makes it possible for the code doc comments to highlight things
+   * slighly differently from the API Reference, and makes sure we don't
+   * duplicate information.
+   *
+   * Unless the docs got changed, this yields the same output back as the one that
+   * we originally saw (modulo whitespace changes).
    */
-  private regenerateDocString(
+  private overrideDocComment(
     symbol?: ts.Symbol,
     docs?: Docs,
     parameters?: Record<string, Docs>,
@@ -2505,21 +2503,46 @@ export class Assembler implements Emitter {
       return;
     }
 
+    docs = this.docCommentDocs(docs);
+
     // Some symbols have multiple declarations (for example, a class + interface
     // mixins, or a property declartaion + constructor argument).
     //
-    // We DON'T wwant to put the docstring on the constructor argument, because it
+    // We DON'T wwant to put the doc comment on the constructor argument, because it
     // looks silly there.
     for (const decl of symbol.getDeclarations() ?? []) {
       if (ts.isParameter(decl)) {
         continue;
       }
 
-      this.commentReplacer.overrideNodeDocString(
+      this.commentReplacer.overrideNodeDocComment(
         decl,
         renderSymbolDocumentation(docs, parameters),
       );
     }
+  }
+
+  /**
+   * Return a potentially new set of Docs, for rendering back to a TypeScript doc comment
+   *
+   * We put the "(experimental)"/"(deprecated)" status into the doc
+   * comment summary, so that it's presented front and center.
+   */
+  private docCommentDocs(docs: Readonly<Docs>): Docs {
+    // Modify the summary if this API element has a special stability
+    if (docs.stability === spec.Stability.Experimental && docs.summary) {
+      return {
+        ...docs,
+        summary: `(experimental) ${docs.summary}`,
+      };
+    }
+    if (docs.stability === spec.Stability.Deprecated && docs.summary) {
+      return {
+        ...docs,
+        summary: `(deprecated) ${docs.summary}`,
+      };
+    }
+    return docs;
   }
 }
 
