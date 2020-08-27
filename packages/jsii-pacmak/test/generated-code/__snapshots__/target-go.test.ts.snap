@@ -226,6 +226,8 @@ type NumberIface interface {
     SetValue()
     GetDoubleValue() float64
     SetDoubleValue()
+    TypeName() jsii.Any
+    ToString() string
 }
 
 // Struct proxy
@@ -264,9 +266,28 @@ func (n Number) SetDoubleValue(val float64) {
     n.DoubleValue = val
 }
 
+func (n *Number) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Number",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
+func (n *Number) ToString() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Number",
+        Method: "ToString",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
+}
+
 type NumericValueIface interface {
     GetValue() float64
     SetValue()
+    TypeName() jsii.Any
     ToString() string
 }
 
@@ -296,6 +317,15 @@ func (n NumericValue) SetValue(val float64) {
     n.Value = val
 }
 
+func (n *NumericValue) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "NumericValue",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
 func (n *NumericValue) ToString() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NumericValue",
@@ -308,6 +338,7 @@ func (n *NumericValue) ToString() string  {
 type OperationIface interface {
     GetValue() float64
     SetValue()
+    TypeName() jsii.Any
     ToString() string
 }
 
@@ -335,6 +366,15 @@ func NewOperation() OperationIface {
 
 func (o Operation) SetValue(val float64) {
     o.Value = val
+}
+
+func (o *Operation) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Operation",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
 }
 
 func (o *Operation) ToString() string  {
@@ -723,7 +763,9 @@ type AddIface interface {
     SetLhs()
     GetRhs() jsii.Any
     SetRhs()
+    TypeName() jsii.Any
     ToString() string
+    Hello() string
 }
 
 // Struct proxy
@@ -771,10 +813,28 @@ func (a Add) SetRhs(val jsii.Any) {
     a.Rhs = val
 }
 
+func (a *Add) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Add",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
 func (a *Add) ToString() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Add",
         Method: "ToString",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
+}
+
+func (a *Add) Hello() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Add",
+        Method: "Hello",
         Parameters: []string{}
     })
     return "NOOP_RETURN_STRING"
@@ -1372,6 +1432,8 @@ type BinaryOperationIface interface {
     SetLhs()
     GetRhs() jsii.Any
     SetRhs()
+    TypeName() jsii.Any
+    ToString() string
     Hello() string
 }
 
@@ -1418,6 +1480,24 @@ func (b BinaryOperation) SetLhs(val jsii.Any) {
 
 func (b BinaryOperation) SetRhs(val jsii.Any) {
     b.Rhs = val
+}
+
+func (b *BinaryOperation) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "BinaryOperation",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
+func (b *BinaryOperation) ToString() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "BinaryOperation",
+        Method: "ToString",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
 }
 
 func (b *BinaryOperation) Hello() string  {
@@ -1489,6 +1569,8 @@ type CalculatorIface interface {
     SetMaxValue()
     GetUnionProperty() jsii.Any
     SetUnionProperty()
+    TypeName() jsii.Any
+    ToString() string
     Add() jsii.Any
     Mul() jsii.Any
     Neg() jsii.Any
@@ -1602,6 +1684,24 @@ func (c Calculator) SetMaxValue(val float64) {
 
 func (c Calculator) SetUnionProperty(val jsii.Any) {
     c.UnionProperty = val
+}
+
+func (c *Calculator) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Calculator",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
+func (c *Calculator) ToString() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Calculator",
+        Method: "ToString",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
 }
 
 func (c *Calculator) Add() jsii.Any  {
@@ -3751,6 +3851,7 @@ func (i *ImplementsInterfaceWithInternal) Visible() jsii.Any  {
 }
 
 type ImplementsInterfaceWithInternalSubclassIface interface {
+    Visible() jsii.Any
 }
 
 // Struct proxy
@@ -3767,6 +3868,15 @@ func NewImplementsInterfaceWithInternalSubclass() ImplementsInterfaceWithInterna
     return &ImplementsInterfaceWithInternalSubclass{
      // props
     }
+}
+
+func (i *ImplementsInterfaceWithInternalSubclass) Visible() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ImplementsInterfaceWithInternalSubclass",
+        Method: "Visible",
+        Parameters: []string{}
+    })
+    return nil
 }
 
 type ImplementsPrivateInterfaceIface interface {
@@ -3830,6 +3940,7 @@ func (i ImplictBaseOfBase) GetGoo() string {
 
 
 type InbetweenClassIface interface {
+    Hello() jsii.Any
     Ciao() string
 }
 
@@ -3847,6 +3958,15 @@ func NewInbetweenClass() InbetweenClassIface {
     return &InbetweenClass{
      // props
     }
+}
+
+func (i *InbetweenClass) Hello() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "InbetweenClass",
+        Method: "Hello",
+        Parameters: []string{}
+    })
+    return nil
 }
 
 func (i *InbetweenClass) Ciao() string  {
@@ -3955,6 +4075,8 @@ type JSII417DerivedIface interface {
     GetHasRoot() bool
     SetHasRoot()
     GetProperty() string
+    MakeInstance() Jsii417PublicBaseOfBase
+    Foo() jsii.Any
     Bar() jsii.Any
     Baz() jsii.Any
 }
@@ -3992,6 +4114,24 @@ func (j JSII417Derived) SetHasRoot(val bool) {
 
 func (j JSII417Derived) SetProperty(val string) {
     j.Property = val
+}
+
+func (j *JSII417Derived) MakeInstance() Jsii417PublicBaseOfBase  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JSII417Derived",
+        Method: "MakeInstance",
+        Parameters: []string{}
+    })
+    return Jsii417PublicBaseOfBase{}
+}
+
+func (j *JSII417Derived) Foo() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JSII417Derived",
+        Method: "Foo",
+        Parameters: []string{}
+    })
+    return nil
 }
 
 func (j *JSII417Derived) Bar() jsii.Any  {
@@ -5027,10 +5167,12 @@ type MultiplyIface interface {
     SetLhs()
     GetRhs() jsii.Any
     SetRhs()
+    TypeName() jsii.Any
+    ToString() string
+    Hello() string
     Farewell() string
     Goodbye() string
     Next() float64
-    ToString() string
 }
 
 // Struct proxy
@@ -5078,6 +5220,33 @@ func (m Multiply) SetRhs(val jsii.Any) {
     m.Rhs = val
 }
 
+func (m *Multiply) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Multiply",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
+func (m *Multiply) ToString() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Multiply",
+        Method: "ToString",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
+}
+
+func (m *Multiply) Hello() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Multiply",
+        Method: "Hello",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
+}
+
 func (m *Multiply) Farewell() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Multiply",
@@ -5105,24 +5274,16 @@ func (m *Multiply) Next() float64  {
     return 0.0
 }
 
-func (m *Multiply) ToString() string  {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Multiply",
-        Method: "ToString",
-        Parameters: []string{}
-    })
-    return "NOOP_RETURN_STRING"
-}
-
 type NegateIface interface {
     GetValue() float64
     SetValue()
     GetOperand() jsii.Any
     SetOperand()
+    TypeName() jsii.Any
+    ToString() string
     Farewell() string
     Goodbye() string
     Hello() string
-    ToString() string
 }
 
 // Struct proxy
@@ -5160,6 +5321,24 @@ func (n Negate) SetOperand(val jsii.Any) {
     n.Operand = val
 }
 
+func (n *Negate) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Negate",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
+func (n *Negate) ToString() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Negate",
+        Method: "ToString",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
+}
+
 func (n *Negate) Farewell() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Negate",
@@ -5182,15 +5361,6 @@ func (n *Negate) Hello() string  {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Negate",
         Method: "Hello",
-        Parameters: []string{}
-    })
-    return "NOOP_RETURN_STRING"
-}
-
-func (n *Negate) ToString() string  {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Negate",
-        Method: "ToString",
         Parameters: []string{}
     })
     return "NOOP_RETURN_STRING"
@@ -5843,6 +6013,8 @@ type PowerIface interface {
     SetBase()
     GetPow() jsii.Any
     SetPow()
+    TypeName() jsii.Any
+    ToString() string
 }
 
 // Struct proxy
@@ -5924,6 +6096,24 @@ func (p Power) SetBase(val jsii.Any) {
 
 func (p Power) SetPow(val jsii.Any) {
     p.Pow = val
+}
+
+func (p *Power) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Power",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
+func (p *Power) ToString() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Power",
+        Method: "ToString",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
 }
 
 type PropertyNamedPropertyIface interface {
@@ -7117,6 +7307,8 @@ type SumIface interface {
     SetStringStyle()
     GetParts() []jsii.Any
     SetParts()
+    TypeName() jsii.Any
+    ToString() string
 }
 
 // Struct proxy
@@ -7188,6 +7380,24 @@ func (s Sum) SetStringStyle(val composition.CompositionStringStyle) {
 
 func (s Sum) SetParts(val []jsii.Any) {
     s.Parts = val
+}
+
+func (s *Sum) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Sum",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
+func (s *Sum) ToString() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Sum",
+        Method: "ToString",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
 }
 
 type SupportsNiceJavaBuilderIface interface {
@@ -7592,6 +7802,8 @@ type UnaryOperationIface interface {
     SetValue()
     GetOperand() jsii.Any
     SetOperand()
+    TypeName() jsii.Any
+    ToString() string
 }
 
 // Struct proxy
@@ -7627,6 +7839,24 @@ func (u UnaryOperation) SetValue(val float64) {
 
 func (u UnaryOperation) SetOperand(val jsii.Any) {
     u.Operand = val
+}
+
+func (u *UnaryOperation) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "UnaryOperation",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
+}
+
+func (u *UnaryOperation) ToString() string  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "UnaryOperation",
+        Method: "ToString",
+        Parameters: []string{}
+    })
+    return "NOOP_RETURN_STRING"
 }
 
 // Struct interface
@@ -8041,6 +8271,7 @@ type CompositeOperationIface interface {
     SetDecorationPrefixes()
     GetStringStyle() CompositionStringStyle
     SetStringStyle()
+    TypeName() jsii.Any
     ToString() string
 }
 
@@ -8104,6 +8335,15 @@ func (c CompositeOperation) SetDecorationPrefixes(val []string) {
 
 func (c CompositeOperation) SetStringStyle(val CompositionStringStyle) {
     c.StringStyle = val
+}
+
+func (c *CompositeOperation) TypeName() jsii.Any  {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "CompositeOperation",
+        Method: "TypeName",
+        Parameters: []string{}
+    })
+    return nil
 }
 
 func (c *CompositeOperation) ToString() string  {
