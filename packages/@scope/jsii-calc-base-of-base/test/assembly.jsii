@@ -66,13 +66,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 15
+        "line": 19
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 18
+            "line": 22
           },
           "name": "consume",
           "parameters": [
@@ -92,18 +92,25 @@
     },
     "@scope/jsii-calc-base-of-base.Very": {
       "assembly": "@scope/jsii-calc-base-of-base",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Something here."
+      },
       "fqn": "@scope/jsii-calc-base-of-base.Very",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 9
+        "line": 13
       },
       "methods": [
         {
+          "docs": {
+            "stability": "experimental"
+          },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 10
+            "line": 14
           },
           "name": "hey",
           "returns": {
@@ -142,5 +149,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "9nL4armG/GJRAhHMWxkKO9B6+nyGD108qvPMtTPljTw="
+  "fingerprint": "BO4LoOyJk6BJr5RVSN04tSeftV9mRdEyrdpz5BrvSnA="
 }

@@ -1337,13 +1337,13 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 15
+        "line": 19
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 18
+            "line": 22
           },
           "name": "consume",
           "parameters": [
@@ -1363,18 +1363,25 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     },
     "@scope/jsii-calc-base-of-base.Very": {
       "assembly": "@scope/jsii-calc-base-of-base",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Something here."
+      },
       "fqn": "@scope/jsii-calc-base-of-base.Very",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 9
+        "line": 13
       },
       "methods": [
         {
+          "docs": {
+            "stability": "experimental"
+          },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 10
+            "line": 14
           },
           "name": "hey",
           "returns": {
@@ -1413,7 +1420,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     }
   },
   "version": "0.0.0",
-  "fingerprint": "9nL4armG/GJRAhHMWxkKO9B6+nyGD108qvPMtTPljTw="
+  "fingerprint": "BO4LoOyJk6BJr5RVSN04tSeftV9mRdEyrdpz5BrvSnA="
 }
 
 `;
@@ -1573,6 +1580,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
 {
+    /// <summary>(experimental) Something here.</summary>
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very), fullyQualifiedName: "@scope/jsii-calc-base-of-base.Very")]
     public class Very : DeputyBase
     {
@@ -1594,6 +1605,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
         {
         }
 
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         [JsiiMethod(name: "hey", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}")]
         public virtual double Hey()
         {
@@ -1995,7 +2009,13 @@ public class StaticConsumer extends software.amazon.jsii.JsiiObject {
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/baseofbase/Very.java 1`] = `
 package software.amazon.jsii.tests.calculator.baseofbase;
 
+/**
+ * (experimental) Something here.
+ * <p>
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.baseofbase.$Module.class, fqn = "@scope/jsii-calc-base-of-base.Very")
 public class Very extends software.amazon.jsii.JsiiObject {
 
@@ -2012,6 +2032,10 @@ public class Very extends software.amazon.jsii.JsiiObject {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public @org.jetbrains.annotations.NotNull java.lang.Number hey() {
         return this.jsiiCall("hey", java.lang.Number.class);
     }
@@ -2266,11 +2290,21 @@ class StaticConsumer(
 
 
 class Very(metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-base-of-base.Very"):
+    """(experimental) Something here.
+
+    stability
+    :stability: experimental
+    """
+
     def __init__(self) -> None:
         jsii.create(Very, self, [])
 
     @jsii.member(jsii_name="hey")
     def hey(self) -> jsii.Number:
+        """
+        stability
+        :stability: experimental
+        """
         return jsii.invoke(self, "hey", [])
 
 
@@ -3266,7 +3300,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Check that enums from \\@scoped packages can be references.</summary>
+    /// <summary>(deprecated) Check that enums from \\@scoped packages can be references.</summary>
     /// <remarks>
     /// See awslabs/jsii#138
     /// 
@@ -3300,7 +3334,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>The general contract for a concrete number.</summary>
+    /// <summary>(deprecated) The general contract for a concrete number.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3329,7 +3363,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>The general contract for a concrete number.</summary>
+    /// <summary>(deprecated) The general contract for a concrete number.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3362,7 +3396,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Applies to classes that are considered friendly.</summary>
+    /// <summary>(deprecated) Applies to classes that are considered friendly.</summary>
     /// <remarks>
     /// These classes can be greeted with
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
@@ -3373,7 +3407,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public interface IFriendly
     {
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3392,7 +3426,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Applies to classes that are considered friendly.</summary>
+    /// <summary>(deprecated) Applies to classes that are considered friendly.</summary>
     /// <remarks>
     /// These classes can be greeted with
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
@@ -3407,7 +3441,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3429,7 +3463,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is the first struct we have created in jsii.</summary>
+    /// <summary>(deprecated) This is the first struct we have created in jsii.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3437,7 +3471,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public interface IMyFirstStruct
     {
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3448,7 +3482,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get;
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3484,7 +3518,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is a struct with only optional properties.</summary>
+    /// <summary>(deprecated) This is a struct with only optional properties.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3492,7 +3526,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public interface IStructWithOnlyOptionals
     {
-        /// <summary>The first optional!</summary>
+        /// <summary>(deprecated) The first optional!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3546,7 +3580,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Interface that inherits from packages 2 levels up the tree.</summary>
+    /// <summary>(deprecated) Interface that inherits from packages 2 levels up the tree.</summary>
     /// <remarks>
     /// Their presence validates that .NET/Java/jsii-reflect can track all fields
     /// far enough up the tree.
@@ -3575,7 +3609,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Interface that inherits from packages 2 levels up the tree.</summary>
+    /// <summary>(deprecated) Interface that inherits from packages 2 levels up the tree.</summary>
     /// <remarks>
     /// Their presence validates that .NET/Java/jsii-reflect can track all fields
     /// far enough up the tree.
@@ -3642,14 +3676,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     #pragma warning disable CS8618
 
-    /// <summary>This is the first struct we have created in jsii.</summary>
+    /// <summary>(deprecated) This is the first struct we have created in jsii.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiByValue(fqn: "@scope/jsii-calc-lib.MyFirstStruct")]
     public class MyFirstStruct : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct
     {
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3661,7 +3695,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             set;
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3696,7 +3730,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is the first struct we have created in jsii.</summary>
+    /// <summary>(deprecated) This is the first struct we have created in jsii.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3708,7 +3742,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3719,7 +3753,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3752,7 +3786,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Represents a concrete number.</summary>
+    /// <summary>(deprecated) Represents a concrete number.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3760,7 +3794,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public class Number : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable
     {
-        /// <summary>Creates a Number object.</summary>
+        /// <summary>(deprecated) Creates a Number object.</summary>
         /// <param name="value">The number.</param>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
@@ -3786,7 +3820,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The number multiplied by 2.</summary>
+        /// <summary>(deprecated) The number multiplied by 2.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3797,7 +3831,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>The number.</summary>
+        /// <summary>(deprecated) The number.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3819,7 +3853,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Abstract class which represents a numeric value.</summary>
+    /// <summary>(deprecated) Abstract class which represents a numeric value.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3845,7 +3879,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3856,7 +3890,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3878,7 +3912,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Abstract class which represents a numeric value.</summary>
+    /// <summary>(deprecated) Abstract class which represents a numeric value.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3890,7 +3924,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3912,7 +3946,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Represents an operation on values.</summary>
+    /// <summary>(deprecated) Represents an operation on values.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3938,7 +3972,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3958,7 +3992,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Represents an operation on values.</summary>
+    /// <summary>(deprecated) Represents an operation on values.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -3970,7 +4004,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -3981,7 +4015,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -4003,14 +4037,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is a struct with only optional properties.</summary>
+    /// <summary>(deprecated) This is a struct with only optional properties.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiByValue(fqn: "@scope/jsii-calc-lib.StructWithOnlyOptionals")]
     public class StructWithOnlyOptionals : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IStructWithOnlyOptionals
     {
-        /// <summary>The first optional!</summary>
+        /// <summary>(deprecated) The first optional!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -4058,7 +4092,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is a struct with only optional properties.</summary>
+    /// <summary>(deprecated) This is a struct with only optional properties.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -4070,7 +4104,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The first optional!</summary>
+        /// <summary>(deprecated) The first optional!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -4213,7 +4247,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CustomSubmoduleName
 {
-    /// <summary>This class is here to show we can use nested classes across module boundaries.</summary>
+    /// <summary>(deprecated) This class is here to show we can use nested classes across module boundaries.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -4234,7 +4268,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         protected NestingClass(DeputyProps props): base(props)
         {
         }
-        /// <summary>This class is here to show we can use nested classes across module boundaries.</summary>
+        /// <summary>(deprecated) This class is here to show we can use nested classes across module boundaries.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -4276,7 +4310,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
                 get => GetInstanceProperty<string>();
             }
         }
-        /// <summary>This is a struct, nested within a class.</summary>
+        /// <summary>(deprecated) This is a struct, nested within a class.</summary>
         /// <remarks>
         /// Normal.
         /// 
@@ -4296,7 +4330,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
                 get;
             }
         }
-        /// <summary>This is a struct, nested within a class.</summary>
+        /// <summary>(deprecated) This is a struct, nested within a class.</summary>
         /// <remarks>
         /// Normal.
         /// 
@@ -4322,7 +4356,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         }
         #pragma warning disable CS8618
 
-        /// <summary>This is a struct, nested within a class.</summary>
+        /// <summary>(deprecated) This is a struct, nested within a class.</summary>
         /// <remarks>
         /// Normal.
         /// 
@@ -4927,7 +4961,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.custom_submodule_name;
 
 /**
- * This class is here to show we can use nested classes across module boundaries.
+ * (deprecated) This class is here to show we can use nested classes across module boundaries.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -4943,7 +4977,7 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
         super(initializationMode);
     }
     /**
-     * This class is here to show we can use nested classes across module boundaries.
+     * (deprecated) This class is here to show we can use nested classes across module boundaries.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -4976,7 +5010,7 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
         }
     }
     /**
-     * This is a struct, nested within a class.
+     * (deprecated) This is a struct, nested within a class.
      * <p>
      * Normal.
      */
@@ -5380,7 +5414,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Check that enums from \\@scoped packages can be references.
+ * (deprecated) Check that enums from \\@scoped packages can be references.
  * <p>
  * See awslabs/jsii#138
  */
@@ -5407,7 +5441,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * The general contract for a concrete number.
+ * (deprecated) The general contract for a concrete number.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.IDoublable")
@@ -5447,7 +5481,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Applies to classes that are considered friendly.
+ * (deprecated) Applies to classes that are considered friendly.
  * <p>
  * These classes can be greeted with
  * a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
@@ -5460,7 +5494,7 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * Say hello!
+     * (deprecated) Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -5475,7 +5509,7 @@ public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Say hello!
+         * (deprecated) Say hello!
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -5492,7 +5526,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Interface that inherits from packages 2 levels up the tree.
+ * (deprecated) Interface that inherits from packages 2 levels up the tree.
  * <p>
  * Their presence validates that .NET/Java/jsii-reflect can track all fields
  * far enough up the tree.
@@ -5545,7 +5579,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * This is the first struct we have created in jsii.
+ * (deprecated) This is the first struct we have created in jsii.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.MyFirstStruct")
@@ -5555,14 +5589,14 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * An awesome number value.
+     * (deprecated) An awesome number value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     @org.jetbrains.annotations.NotNull java.lang.Number getAnumber();
 
     /**
-     * A string value.
+     * (deprecated) A string value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -5738,7 +5772,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Represents a concrete number.
+ * (deprecated) Represents a concrete number.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -5755,7 +5789,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.NumericVal
     }
 
     /**
-     * Creates a Number object.
+     * (deprecated) Creates a Number object.
      * <p>
      * @param value The number. This parameter is required.
      */
@@ -5767,7 +5801,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.NumericVal
     }
 
     /**
-     * The number multiplied by 2.
+     * (deprecated) The number multiplied by 2.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -5777,7 +5811,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.NumericVal
     }
 
     /**
-     * The number.
+     * (deprecated) The number.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -5793,7 +5827,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Abstract class which represents a numeric value.
+ * (deprecated) Abstract class which represents a numeric value.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -5815,7 +5849,7 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -5824,7 +5858,7 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
     }
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -5839,7 +5873,7 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -5856,7 +5890,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Represents an operation on values.
+ * (deprecated) Represents an operation on values.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -5878,7 +5912,7 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -5894,7 +5928,7 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -5904,7 +5938,7 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
         }
 
         /**
-         * String representation of the value.
+         * (deprecated) String representation of the value.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -5921,7 +5955,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * This is a struct with only optional properties.
+ * (deprecated) This is a struct with only optional properties.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.StructWithOnlyOptionals")
@@ -5931,7 +5965,7 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * The first optional!
+     * (deprecated) The first optional!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -6253,7 +6287,7 @@ import scope.jsii_calc_base
 
 @jsii.enum(jsii_type="@scope/jsii-calc-lib.EnumFromScopedModule")
 class EnumFromScopedModule(enum.Enum):
-    """Check that enums from @scoped packages can be references.
+    """(deprecated) Check that enums from @scoped packages can be references.
 
     See awslabs/jsii#138
 
@@ -6275,7 +6309,7 @@ class EnumFromScopedModule(enum.Enum):
 
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.IDoublable")
 class IDoublable(typing_extensions.Protocol):
-    """The general contract for a concrete number.
+    """(deprecated) The general contract for a concrete number.
 
     stability
     :stability: deprecated
@@ -6296,7 +6330,7 @@ class IDoublable(typing_extensions.Protocol):
 
 
 class _IDoublableProxy:
-    """The general contract for a concrete number.
+    """(deprecated) The general contract for a concrete number.
 
     stability
     :stability: deprecated
@@ -6316,7 +6350,7 @@ class _IDoublableProxy:
 
 @jsii.interface(jsii_type="@scope/jsii-calc-lib.IFriendly")
 class IFriendly(typing_extensions.Protocol):
-    """Applies to classes that are considered friendly.
+    """(deprecated) Applies to classes that are considered friendly.
 
     These classes can be greeted with
     a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
@@ -6331,7 +6365,7 @@ class IFriendly(typing_extensions.Protocol):
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        """Say hello!
+        """(deprecated) Say hello!
 
         stability
         :stability: deprecated
@@ -6340,7 +6374,7 @@ class IFriendly(typing_extensions.Protocol):
 
 
 class _IFriendlyProxy:
-    """Applies to classes that are considered friendly.
+    """(deprecated) Applies to classes that are considered friendly.
 
     These classes can be greeted with
     a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
@@ -6353,7 +6387,7 @@ class _IFriendlyProxy:
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        """Say hello!
+        """(deprecated) Say hello!
 
         stability
         :stability: deprecated
@@ -6366,7 +6400,7 @@ class IThreeLevelsInterface(
     scope.jsii_calc_base.IBaseInterface,
     typing_extensions.Protocol,
 ):
-    """Interface that inherits from packages 2 levels up the tree.
+    """(deprecated) Interface that inherits from packages 2 levels up the tree.
 
     Their presence validates that .NET/Java/jsii-reflect can track all fields
     far enough up the tree.
@@ -6391,7 +6425,7 @@ class IThreeLevelsInterface(
 class _IThreeLevelsInterfaceProxy(
     jsii.proxy_for(scope.jsii_calc_base.IBaseInterface) # type: ignore
 ):
-    """Interface that inherits from packages 2 levels up the tree.
+    """(deprecated) Interface that inherits from packages 2 levels up the tree.
 
     Their presence validates that .NET/Java/jsii-reflect can track all fields
     far enough up the tree.
@@ -6428,10 +6462,10 @@ class MyFirstStruct:
         astring: builtins.str,
         first_optional: typing.Optional[typing.List[builtins.str]] = None,
     ) -> None:
-        """This is the first struct we have created in jsii.
+        """(deprecated) This is the first struct we have created in jsii.
 
-        :param anumber: An awesome number value.
-        :param astring: A string value.
+        :param anumber: (deprecated) An awesome number value.
+        :param astring: (deprecated) A string value.
         :param first_optional: 
 
         stability
@@ -6446,7 +6480,7 @@ class MyFirstStruct:
 
     @builtins.property
     def anumber(self) -> jsii.Number:
-        """An awesome number value.
+        """(deprecated) An awesome number value.
 
         stability
         :stability: deprecated
@@ -6457,7 +6491,7 @@ class MyFirstStruct:
 
     @builtins.property
     def astring(self) -> builtins.str:
-        """A string value.
+        """(deprecated) A string value.
 
         stability
         :stability: deprecated
@@ -6492,7 +6526,7 @@ class NumericValue(
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="@scope/jsii-calc-lib.NumericValue",
 ):
-    """Abstract class which represents a numeric value.
+    """(deprecated) Abstract class which represents a numeric value.
 
     stability
     :stability: deprecated
@@ -6507,7 +6541,7 @@ class NumericValue(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        """String representation of the value.
+        """(deprecated) String representation of the value.
 
         stability
         :stability: deprecated
@@ -6518,7 +6552,7 @@ class NumericValue(
     @jsii.member(jsii_name="value")
     @abc.abstractmethod
     def value(self) -> jsii.Number:
-        """The value.
+        """(deprecated) The value.
 
         stability
         :stability: deprecated
@@ -6532,7 +6566,7 @@ class _NumericValueProxy(
     @builtins.property # type: ignore
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value.
+        """(deprecated) The value.
 
         stability
         :stability: deprecated
@@ -6545,7 +6579,7 @@ class Operation(
     metaclass=jsii.JSIIAbstractClass,
     jsii_type="@scope/jsii-calc-lib.Operation",
 ):
-    """Represents an operation on values.
+    """(deprecated) Represents an operation on values.
 
     stability
     :stability: deprecated
@@ -6561,7 +6595,7 @@ class Operation(
     @jsii.member(jsii_name="toString")
     @abc.abstractmethod
     def to_string(self) -> builtins.str:
-        """String representation of the value.
+        """(deprecated) String representation of the value.
 
         stability
         :stability: deprecated
@@ -6574,7 +6608,7 @@ class _OperationProxy(
 ):
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        """String representation of the value.
+        """(deprecated) String representation of the value.
 
         stability
         :stability: deprecated
@@ -6599,9 +6633,9 @@ class StructWithOnlyOptionals:
         optional2: typing.Optional[jsii.Number] = None,
         optional3: typing.Optional[builtins.bool] = None,
     ) -> None:
-        """This is a struct with only optional properties.
+        """(deprecated) This is a struct with only optional properties.
 
-        :param optional1: The first optional!
+        :param optional1: (deprecated) The first optional!
         :param optional2: 
         :param optional3: 
 
@@ -6618,7 +6652,7 @@ class StructWithOnlyOptionals:
 
     @builtins.property
     def optional1(self) -> typing.Optional[builtins.str]:
-        """The first optional!
+        """(deprecated) The first optional!
 
         stability
         :stability: deprecated
@@ -6662,14 +6696,14 @@ class Number(
     metaclass=jsii.JSIIMeta,
     jsii_type="@scope/jsii-calc-lib.Number",
 ):
-    """Represents a concrete number.
+    """(deprecated) Represents a concrete number.
 
     stability
     :stability: deprecated
     """
 
     def __init__(self, value: jsii.Number) -> None:
-        """Creates a Number object.
+        """(deprecated) Creates a Number object.
 
         :param value: The number.
 
@@ -6681,7 +6715,7 @@ class Number(
     @builtins.property # type: ignore
     @jsii.member(jsii_name="doubleValue")
     def double_value(self) -> jsii.Number:
-        """The number multiplied by 2.
+        """(deprecated) The number multiplied by 2.
 
         stability
         :stability: deprecated
@@ -6691,7 +6725,7 @@ class Number(
     @builtins.property # type: ignore
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The number.
+        """(deprecated) The number.
 
         stability
         :stability: deprecated
@@ -6800,7 +6834,7 @@ class NestingClass(
     metaclass=jsii.JSIIMeta,
     jsii_type="@scope/jsii-calc-lib.submodule.NestingClass",
 ):
-    """This class is here to show we can use nested classes across module boundaries.
+    """(deprecated) This class is here to show we can use nested classes across module boundaries.
 
     stability
     :stability: deprecated
@@ -6810,7 +6844,7 @@ class NestingClass(
         metaclass=jsii.JSIIMeta,
         jsii_type="@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
     ):
-        """This class is here to show we can use nested classes across module boundaries.
+        """(deprecated) This class is here to show we can use nested classes across module boundaries.
 
         stability
         :stability: deprecated
@@ -6839,7 +6873,7 @@ class NestingClass(
     )
     class NestedStruct:
         def __init__(self, *, name: builtins.str) -> None:
-            """This is a struct, nested within a class.
+            """(deprecated) This is a struct, nested within a class.
 
             Normal.
 
@@ -7806,7 +7840,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     "@scope/jsii-calc-lib.submodule": {
       "locationInModule": {
         "filename": "../@scope/jsii-calc-lib/build/index.d.ts",
-        "line": 94
+        "line": 157
       }
     },
     "jsii-calc.DerivedClassHasNoProperties": {
@@ -8223,7 +8257,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -8243,7 +8277,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -9224,7 +9258,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "Say hello!"
+            "summary": "(deprecated) Say hello!"
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -11892,7 +11926,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "Say hello!"
+            "summary": "(deprecated) Say hello!"
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
@@ -16067,7 +16101,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -16087,7 +16121,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -16173,7 +16207,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "Say hello!"
+            "summary": "(deprecated) Say hello!"
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -16190,7 +16224,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -16210,7 +16244,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -20945,7 +20979,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -20983,7 +21017,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -21605,7 +21639,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "MGKh4zAMW3SxsS8MVa4gZ8+/4MUSohMhzxMUYz1xzXo="
+  "fingerprint": "z2c8J2bfL+5JzcDCirraNDyNDE37TrNl4xQnf7zLBqY="
 }
 
 `;
@@ -21959,14 +21993,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -22561,7 +22595,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public virtual string Hello()
         {
@@ -22601,7 +22635,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -22612,7 +22646,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -23380,7 +23414,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public override string ToString()
         {
@@ -23397,7 +23431,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             get;
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -24329,7 +24363,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -24341,7 +24375,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -24425,7 +24459,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string[]?>();
         }
 
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -24436,7 +24470,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -24906,7 +24940,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IGreetee)}, new object?[]{greetee});
         }
 
-        /// <summary>Say ¡Hola!</summary>
+        /// <summary>(experimental) Say ¡Hola!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -24986,7 +25020,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public virtual string Hello()
         {
@@ -26826,7 +26860,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -26878,7 +26912,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -30445,14 +30479,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -30548,21 +30582,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -30981,7 +31015,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Old class.</summary>
+    /// <summary>(deprecated) Old class.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -31007,7 +31041,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Doo wop that thing.</summary>
+        /// <summary>(deprecated) Doo wop that thing.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -34546,7 +34580,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -34557,7 +34591,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -41978,7 +42012,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -41987,7 +42021,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     }
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -42806,7 +42840,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     }
 
     /**
-     * Say hello!
+     * (deprecated) Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -42839,7 +42873,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -42849,7 +42883,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * Say hello!
+         * (deprecated) Say hello!
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -42859,7 +42893,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * String representation of the value.
+         * (deprecated) String representation of the value.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -46072,7 +46106,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Say ¡Hola!
+     * (experimental) Say ¡Hola!
      * <p>
      * EXPERIMENTAL
      */
@@ -46149,7 +46183,7 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     }
 
     /**
-     * Say hello!
+     * (deprecated) Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -47964,7 +47998,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         }
 
         /**
-         * Say hello!
+         * (deprecated) Say hello!
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -48008,7 +48042,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         * Say hello!
+         * (deprecated) Say hello!
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -50964,7 +50998,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -50973,7 +51007,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -51031,7 +51065,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * Say hello!
+     * (deprecated) Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -51040,7 +51074,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -51049,7 +51083,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -51656,7 +51690,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Old class.
+ * (deprecated) Old class.
  * <p>
  * @deprecated Use the new class
  */
@@ -51683,7 +51717,7 @@ public class Old extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Doo wop that thing.
+     * (deprecated) Doo wop that thing.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -55824,7 +55858,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -55834,7 +55868,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * String representation of the value.
+         * (deprecated) String representation of the value.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -56501,7 +56535,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -56518,7 +56552,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     public abstract @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue getExpression();
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -56611,7 +56645,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -56621,7 +56655,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         }
 
         /**
-         * String representation of the value.
+         * (deprecated) String representation of the value.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -59075,7 +59109,7 @@ class BinaryOperation(
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        """Say hello!"""
+        """(deprecated) Say hello!"""
         return jsii.invoke(self, "hello", [])
 
     @builtins.property # type: ignore
@@ -59738,8 +59772,8 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
         first_optional: typing.Optional[typing.List[builtins.str]] = None,
     ) -> builtins.str:
         """
-        :param anumber: An awesome number value.
-        :param astring: A string value.
+        :param anumber: (deprecated) An awesome number value.
+        :param astring: (deprecated) A string value.
         :param first_optional: 
         """
         data = scope.jsii_calc_lib.MyFirstStruct(
@@ -59992,8 +60026,8 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
     ) -> None:
         """A struct which derives from another struct.
 
-        :param anumber: An awesome number value.
-        :param astring: A string value.
+        :param anumber: (deprecated) An awesome number value.
+        :param astring: (deprecated) A string value.
         :param first_optional: 
         :param another_required: 
         :param bool: 
@@ -60020,7 +60054,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def anumber(self) -> jsii.Number:
-        """An awesome number value.
+        """(deprecated) An awesome number value.
 
         stability
         :stability: deprecated
@@ -60031,7 +60065,7 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
 
     @builtins.property
     def astring(self) -> builtins.str:
-        """A string value.
+        """(deprecated) A string value.
 
         stability
         :stability: deprecated
@@ -60404,7 +60438,7 @@ class DocumentedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DocumentedCl
 
     @jsii.member(jsii_name="hola")
     def hola(self) -> None:
-        """Say ¡Hola!
+        """(experimental) Say ¡Hola!
 
         stability
         :stability: experimental
@@ -60887,8 +60921,8 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         :param another_optional: This is optional.
         :param optional_any: 
         :param optional_array: 
-        :param anumber: An awesome number value.
-        :param astring: A string value.
+        :param anumber: (deprecated) An awesome number value.
+        :param astring: (deprecated) A string value.
         :param first_optional: 
         """
         derived = DerivedStruct(
@@ -60927,8 +60961,8 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         :param another_optional: This is optional.
         :param optional_any: 
         :param optional_array: 
-        :param anumber: An awesome number value.
-        :param astring: A string value.
+        :param anumber: (deprecated) An awesome number value.
+        :param astring: (deprecated) A string value.
         :param first_optional: 
         """
         derived = DerivedStruct(
@@ -60955,8 +60989,8 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
     ) -> jsii.Number:
         """Returns the "anumber" from a MyFirstStruct struct;
 
-        :param anumber: An awesome number value.
-        :param astring: A string value.
+        :param anumber: (deprecated) An awesome number value.
+        :param astring: (deprecated) A string value.
         :param first_optional: 
         """
         first = scope.jsii_calc_lib.MyFirstStruct(
@@ -62856,13 +62890,13 @@ class Multiply(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        """String representation of the value."""
+        """(deprecated) String representation of the value."""
         return jsii.invoke(self, "toString", [])
 
     @builtins.property # type: ignore
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value."""
+        """(deprecated) The value."""
         return jsii.get(self, "value")
 
 
@@ -63129,7 +63163,7 @@ class ObjectWithPropertyProvider(
 
 
 class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
-    """Old class.
+    """(deprecated) Old class.
 
     deprecated
     :deprecated: Use the new class
@@ -63143,7 +63177,7 @@ class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
 
     @jsii.member(jsii_name="doAThing")
     def do_a_thing(self) -> None:
-        """Doo wop that thing.
+        """(deprecated) Doo wop that thing.
 
         stability
         :stability: deprecated
@@ -65102,13 +65136,13 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        """String representation of the value."""
+        """(deprecated) String representation of the value."""
         return jsii.invoke(self, "toString", [])
 
     @builtins.property # type: ignore
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value."""
+        """(deprecated) The value."""
         return jsii.get(self, "value")
 
 
@@ -65462,18 +65496,18 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        """Say hello!"""
+        """(deprecated) Say hello!"""
         return jsii.invoke(self, "hello", [])
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        """String representation of the value."""
+        """(deprecated) String representation of the value."""
         return jsii.invoke(self, "toString", [])
 
     @builtins.property # type: ignore
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value."""
+        """(deprecated) The value."""
         return jsii.get(self, "value")
 
 
@@ -65516,7 +65550,7 @@ class DoubleTrouble(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoubleTrouble"
 
     @jsii.member(jsii_name="hello")
     def hello(self) -> builtins.str:
-        """Say hello!"""
+        """(deprecated) Say hello!"""
         return jsii.invoke(self, "hello", [])
 
     @jsii.member(jsii_name="next")
@@ -65786,7 +65820,7 @@ class CompositeOperation(
 
     @jsii.member(jsii_name="toString")
     def to_string(self) -> builtins.str:
-        """String representation of the value."""
+        """(deprecated) String representation of the value."""
         return jsii.invoke(self, "toString", [])
 
     @builtins.property # type: ignore
@@ -65802,7 +65836,7 @@ class CompositeOperation(
     @builtins.property # type: ignore
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
-        """The value."""
+        """(deprecated) The value."""
         return jsii.get(self, "value")
 
     @builtins.property # type: ignore

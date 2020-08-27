@@ -12,6 +12,7 @@ import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
 } from '..';
+import { renderSummary } from '../_utils';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime
@@ -40,7 +41,7 @@ export class DotNetDocGenerator {
     const docs = obj.docs;
 
     // The docs may be undefined at the method level but not the parameters level
-    this.emitXmlDoc('summary', docs?.summary || '');
+    this.emitXmlDoc('summary', renderSummary(obj.docs));
 
     // Handling parameters only if the obj is a method
     const objMethod = obj as spec.Method;

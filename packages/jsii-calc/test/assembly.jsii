@@ -163,7 +163,7 @@
     "@scope/jsii-calc-lib.submodule": {
       "locationInModule": {
         "filename": "../@scope/jsii-calc-lib/build/index.d.ts",
-        "line": 94
+        "line": 157
       }
     },
     "jsii-calc.DerivedClassHasNoProperties": {
@@ -580,7 +580,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -600,7 +600,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -1581,7 +1581,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "Say hello!"
+            "summary": "(deprecated) Say hello!"
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -4249,7 +4249,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "Say hello!"
+            "summary": "(deprecated) Say hello!"
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
@@ -8424,7 +8424,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -8444,7 +8444,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -8530,7 +8530,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "Say hello!"
+            "summary": "(deprecated) Say hello!"
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -8547,7 +8547,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -8567,7 +8567,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -13302,7 +13302,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -13340,7 +13340,7 @@
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -13962,5 +13962,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "MGKh4zAMW3SxsS8MVa4gZ8+/4MUSohMhzxMUYz1xzXo="
+  "fingerprint": "z2c8J2bfL+5JzcDCirraNDyNDE37TrNl4xQnf7zLBqY="
 }

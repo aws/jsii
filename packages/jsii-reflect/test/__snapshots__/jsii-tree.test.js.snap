@@ -2566,10 +2566,10 @@ exports[`jsii-tree --all 1`] = `
  │   │     │   ├── type: any
  │   │     │   └── variadic
  │   │     └── returns: void
- │   ├─┬ class Very
+ │   ├─┬ class Very (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ hey() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ hey() method (experimental)
  │   │     └── returns: number
  │   ├─┬ interface IVeryBaseInterface
  │   │ └─┬ members
