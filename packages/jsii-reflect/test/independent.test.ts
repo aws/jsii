@@ -6,7 +6,7 @@ test('get full github source location for a class or method', async () => {
   const assembly = await loadSource(
     `
     export class Foo {
-      public foo() {
+      public bar() {
         // Nothing to do
       }
     }

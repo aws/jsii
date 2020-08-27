@@ -90,7 +90,7 @@ exports[`jsii-tree --all 1`] = `
  │ │ │   │   ├─┬ expression property (experimental)
  │ │ │   │   │ ├── abstract
  │ │ │   │   │ ├── immutable
- │ │ │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │ │ │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │ │ │   │   ├─┬ value property (experimental)
  │ │ │   │   │ ├── immutable
  │ │ │   │   │ └── type: number
@@ -269,9 +269,9 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ <initializer>(lhs,rhs) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ lhs
- │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   │   └─┬ rhs
- │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   │     └── type: @scope/jsii-calc-lib.NumericValue
  │   │   ├─┬ toString() method (experimental)
  │   │   │ └── returns: string
  │   │   └─┬ value property (experimental)
@@ -318,7 +318,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ stringProperty property (experimental)
  │   │   │ └── type: string
  │   │   ├─┬ unionArrayProperty property (experimental)
- │   │   │ └── type: Array<number | @scope/jsii-calc-lib.Value>
+ │   │   │ └── type: Array<number | @scope/jsii-calc-lib.NumericValue>
  │   │   ├─┬ unionMapProperty property (experimental)
  │   │   │ └── type: Map<string => string | number | @scope/jsii-calc-lib.Number>
  │   │   ├─┬ unionProperty property (experimental)
@@ -427,17 +427,17 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ <initializer>(lhs,rhs) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ lhs
- │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   │   └─┬ rhs
- │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   │     └── type: @scope/jsii-calc-lib.NumericValue
  │   │   ├─┬ hello() method (experimental)
  │   │   │ └── returns: string
  │   │   ├─┬ lhs property (experimental)
  │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   └─┬ rhs property (experimental)
  │   │     ├── immutable
- │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │     └── type: @scope/jsii-calc-lib.NumericValue
  │   ├─┬ class BurriedAnonymousObject (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -477,15 +477,15 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: number
  │   │   ├─┬ expression property (experimental)
  │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   ├─┬ operationsLog property (experimental)
  │   │   │ ├── immutable
- │   │   │ └── type: Array<@scope/jsii-calc-lib.Value>
+ │   │   │ └── type: Array<@scope/jsii-calc-lib.NumericValue>
  │   │   ├─┬ operationsMap property (experimental)
  │   │   │ ├── immutable
- │   │   │ └── type: Map<string => Array<@scope/jsii-calc-lib.Value>>
+ │   │   │ └── type: Map<string => Array<@scope/jsii-calc-lib.NumericValue>>
  │   │   ├─┬ curr property (experimental)
- │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   ├─┬ maxValue property (experimental)
  │   │   │ └── type: Optional<number>
  │   │   └─┬ unionProperty property (experimental)
@@ -811,6 +811,31 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: string
  │   │   └─┬ next() method (experimental)
  │   │     └── returns: number
+ │   ├─┬ class DynamicPropertyBearer (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(valueStore) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ valueStore
+ │   │   │     └── type: string
+ │   │   ├─┬ dynamicProperty property (experimental)
+ │   │   │ └── type: string
+ │   │   └─┬ valueStore property (experimental)
+ │   │     └── type: string
+ │   ├─┬ class DynamicPropertyBearerChild (experimental)
+ │   │ ├── base: DynamicPropertyBearer
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(originalValue) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ originalValue
+ │   │   │     └── type: string
+ │   │   ├─┬ overrideValue(newValue) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ newValue
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
+ │   │   └─┬ originalValue property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ class EnumDispenser (experimental)
  │   │ └─┬ members
  │   │   ├─┬ static randomIntegerLikeEnum() method (experimental)
@@ -1129,7 +1154,7 @@ exports[`jsii-tree --all 1`] = `
  │   ├─┬ class JsiiAgent (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
- │   │   └─┬ static jsiiAgent property (experimental)
+ │   │   └─┬ static value property (experimental)
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: Optional<string>
@@ -1195,9 +1220,9 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ <initializer>(lhs,rhs) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ lhs
- │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   │   └─┬ rhs
- │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   │     └── type: @scope/jsii-calc-lib.NumericValue
  │   │   ├─┬ farewell() method (experimental)
  │   │   │ └── returns: string
  │   │   ├─┬ goodbye() method (experimental)
@@ -1216,7 +1241,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ <initializer>(operand) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ operand
- │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   │     └── type: @scope/jsii-calc-lib.NumericValue
  │   │   ├─┬ farewell() method (experimental)
  │   │   │ └── returns: string
  │   │   ├─┬ goodbye() method (experimental)
@@ -1288,12 +1313,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ sumFromArray(values) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ values
- │   │   │ │   └── type: Array<@scope/jsii-calc-lib.Value>
+ │   │   │ │   └── type: Array<@scope/jsii-calc-lib.NumericValue>
  │   │   │ └── returns: number
  │   │   └─┬ sumFromMap(values) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ values
- │   │     │   └── type: Map<string => @scope/jsii-calc-lib.Value>
+ │   │     │   └── type: Map<string => @scope/jsii-calc-lib.NumericValue>
  │   │     └── returns: number
  │   ├─┬ class ObjectWithPropertyProvider (experimental)
  │   │ └─┬ members
@@ -1398,18 +1423,18 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ <initializer>(base,pow) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ base
- │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   │   └─┬ pow
- │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   │     └── type: @scope/jsii-calc-lib.NumericValue
  │   │   ├─┬ base property (experimental)
  │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   ├─┬ expression property (experimental)
  │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   └─┬ pow property (experimental)
  │   │     ├── immutable
- │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │     └── type: @scope/jsii-calc-lib.NumericValue
  │   ├─┬ class PropertyNamedProperty (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1685,9 +1710,9 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ expression property (experimental)
  │   │   │ ├── immutable
- │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.NumericValue
  │   │   └─┬ parts property (experimental)
- │   │     └── type: Array<@scope/jsii-calc-lib.Value>
+ │   │     └── type: Array<@scope/jsii-calc-lib.NumericValue>
  │   ├─┬ class SupportsNiceJavaBuilder (experimental)
  │   │ ├── base: SupportsNiceJavaBuilderWithRequiredProps
  │   │ └─┬ members
@@ -1790,10 +1815,10 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ <initializer>(operand) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ operand
- │   │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │   │     └── type: @scope/jsii-calc-lib.NumericValue
  │   │   └─┬ operand property (experimental)
  │   │     ├── immutable
- │   │     └── type: @scope/jsii-calc-lib.Value
+ │   │     └── type: @scope/jsii-calc-lib.NumericValue
  │   ├─┬ class UpcasingReflectable (experimental)
  │   │ ├── interfaces: IReflectable
  │   │ └─┬ members
@@ -1968,7 +1993,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├─┬ anotherOptional property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: Optional<Map<string => @scope/jsii-calc-lib.Value>>
+ │   │   │ └── type: Optional<Map<string => @scope/jsii-calc-lib.NumericValue>>
  │   │   ├─┬ optionalAny property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
@@ -2531,6 +2556,16 @@ exports[`jsii-tree --all 1`] = `
  │         └── returns: void
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
+ │   ├─┬ class StaticConsumer
+ │   │ └─┬ members
+ │   │   └─┬ static consume(_args) method
+ │   │     ├── static
+ │   │     ├── variadic
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ _args
+ │   │     │   ├── type: any
+ │   │     │   └── variadic
+ │   │     └── returns: void
  │   ├─┬ class Very
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2576,6 +2611,12 @@ exports[`jsii-tree --all 1`] = `
    │     │     ├── abstract
    │     │     ├── immutable
    │     │     └── type: Array<@scope/jsii-calc-lib.submodule.ReflectableEntry>
+   │     ├─┬ interface NestedStruct (deprecated)
+   │     │ └─┬ members
+   │     │   └─┬ name property (deprecated)
+   │     │     ├── abstract
+   │     │     ├── immutable
+   │     │     └── type: string
    │     └─┬ interface ReflectableEntry (deprecated)
    │       └─┬ members
    │         ├─┬ key property (deprecated)
@@ -2588,7 +2629,7 @@ exports[`jsii-tree --all 1`] = `
    │           └── type: any
    └─┬ types
      ├─┬ class Number (deprecated)
-     │ ├── base: Value
+     │ ├── base: NumericValue
      │ ├── interfaces: IDoublable
      │ └─┬ members
      │   ├─┬ <initializer>(value) initializer (deprecated)
@@ -2601,14 +2642,7 @@ exports[`jsii-tree --all 1`] = `
      │   └─┬ value property (deprecated)
      │     ├── immutable
      │     └── type: number
-     ├─┬ class Operation (deprecated)
-     │ ├── base: Value
-     │ └─┬ members
-     │   ├── <initializer>() initializer (deprecated)
-     │   └─┬ toString() method (deprecated)
-     │     ├── abstract
-     │     └── returns: string
-     ├─┬ class Value (deprecated)
+     ├─┬ class NumericValue (deprecated)
      │ ├── base: Base
      │ └─┬ members
      │   ├── <initializer>() initializer (deprecated)
@@ -2618,6 +2652,13 @@ exports[`jsii-tree --all 1`] = `
      │     ├── abstract
      │     ├── immutable
      │     └── type: number
+     ├─┬ class Operation (deprecated)
+     │ ├── base: NumericValue
+     │ └─┬ members
+     │   ├── <initializer>() initializer (deprecated)
+     │   └─┬ toString() method (deprecated)
+     │     ├── abstract
+     │     └── returns: string
      ├─┬ interface IDoublable (deprecated)
      │ └─┬ members
      │   └─┬ doubleValue property (deprecated)
@@ -2780,6 +2821,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├─┬ class DoubleTrouble
  │   │ └── interfaces: IFriendlyRandomGenerator
+ │   ├── class DynamicPropertyBearer
+ │   ├─┬ class DynamicPropertyBearerChild
+ │   │ └── base: DynamicPropertyBearer
  │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass
@@ -2985,6 +3029,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │       └── IVeryBaseInterface
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
+ │   ├── class StaticConsumer
  │   ├── class Very
  │   ├── interface IVeryBaseInterface
  │   └── interface VeryBaseProps
@@ -2996,15 +3041,16 @@ exports[`jsii-tree --inheritance 1`] = `
    │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
+   │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
      ├─┬ class Number
-     │ ├── base: Value
+     │ ├── base: NumericValue
      │ └── interfaces: IDoublable
-     ├─┬ class Operation
-     │ └── base: Value
-     ├─┬ class Value
+     ├─┬ class NumericValue
      │ └── base: Base
+     ├─┬ class Operation
+     │ └── base: NumericValue
      ├── interface IDoublable
      ├── interface IFriendly
      ├─┬ interface IThreeLevelsInterface
@@ -3380,6 +3426,16 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── hello() method
  │   │   └── next() method
+ │   ├─┬ class DynamicPropertyBearer
+ │   │ └─┬ members
+ │   │   ├── <initializer>(valueStore) initializer
+ │   │   ├── dynamicProperty property
+ │   │   └── valueStore property
+ │   ├─┬ class DynamicPropertyBearerChild
+ │   │ └─┬ members
+ │   │   ├── <initializer>(originalValue) initializer
+ │   │   ├── overrideValue(newValue) method
+ │   │   └── originalValue property
  │   ├─┬ class EnumDispenser
  │   │ └─┬ members
  │   │   ├── static randomIntegerLikeEnum() method
@@ -3544,7 +3600,7 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class JsiiAgent
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
- │   │   └── static jsiiAgent property
+ │   │   └── static value property
  │   ├─┬ class JsonFormatter
  │   │ └─┬ members
  │   │   ├── static anyArray() method
@@ -4144,6 +4200,9 @@ exports[`jsii-tree --members 1`] = `
  │       └── bar() method
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
+ │   ├─┬ class StaticConsumer
+ │   │ └─┬ members
+ │   │   └── static consume(_args) method
  │   ├─┬ class Very
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4171,6 +4230,9 @@ exports[`jsii-tree --members 1`] = `
    │     ├─┬ interface IReflectable
    │     │ └─┬ members
    │     │   └── entries property
+   │     ├─┬ interface NestedStruct
+   │     │ └─┬ members
+   │     │   └── name property
    │     └─┬ interface ReflectableEntry
    │       └─┬ members
    │         ├── key property
@@ -4181,15 +4243,15 @@ exports[`jsii-tree --members 1`] = `
      │   ├── <initializer>(value) initializer
      │   ├── doubleValue property
      │   └── value property
-     ├─┬ class Operation
-     │ └─┬ members
-     │   ├── <initializer>() initializer
-     │   └── toString() method
-     ├─┬ class Value
+     ├─┬ class NumericValue
      │ └─┬ members
      │   ├── <initializer>() initializer
      │   ├── toString() method
      │   └── value property
+     ├─┬ class Operation
+     │ └─┬ members
+     │   ├── <initializer>() initializer
+     │   └── toString() method
      ├─┬ interface IDoublable
      │ └─┬ members
      │   └── doubleValue property
@@ -4332,6 +4394,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class DocumentedClass
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├── class DoubleTrouble
+ │   ├── class DynamicPropertyBearer
+ │   ├── class DynamicPropertyBearerChild
  │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass
@@ -4491,6 +4555,7 @@ exports[`jsii-tree --types 1`] = `
  │   └── interface IBaseInterface
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
+ │   ├── class StaticConsumer
  │   ├── class Very
  │   ├── interface IVeryBaseInterface
  │   └── interface VeryBaseProps
@@ -4502,11 +4567,12 @@ exports[`jsii-tree --types 1`] = `
    │     ├── class NestedClass
    │     ├── class Reflector
    │     ├── interface IReflectable
+   │     ├── interface NestedStruct
    │     └── interface ReflectableEntry
    └─┬ types
      ├── class Number
+     ├── class NumericValue
      ├── class Operation
-     ├── class Value
      ├── interface IDoublable
      ├── interface IFriendly
      ├── interface IThreeLevelsInterface

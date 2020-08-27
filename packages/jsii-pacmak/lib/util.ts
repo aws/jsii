@@ -75,8 +75,9 @@ export async function shell(
           new Error(
             [
               `Command (${command}) failed with ${reason}:`,
-              prefix(out, '#STDOUT> '),
+              // STDERR first, the erro message could be truncated in logs.
               prefix(err, '#STDERR> '),
+              prefix(out, '#STDOUT> '),
             ].join('\n'),
           ),
         );

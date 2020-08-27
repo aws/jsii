@@ -1,5 +1,8 @@
 package software.amazon.jsii;
 
+import java.io.File;
+import java.lang.management.ManagementFactory;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.AccessController;
@@ -58,7 +61,7 @@ public final class ReloadingClassLoader extends URLClassLoader {
     private ReloadingClassLoader(final ClassLoader parent, final Class<?> ...toReload) {
         super(
                 Stream.of(toReload)
-                        .flatMap(clazz -> Stream.of(((URLClassLoader) clazz.getClassLoader()).getURLs()))
+                        .flatMap(clazz -> urlsFromClassLoader(clazz.getClassLoader()))
                         .toArray(URL[]::new),
                 parent
         );
@@ -77,5 +80,25 @@ public final class ReloadingClassLoader extends URLClassLoader {
             this.resolveClass(result);
         }
         return result;
+    }
+
+    private static Stream<URL> urlsFromClassLoader(final ClassLoader classLoader) {
+        if (classLoader instanceof URLClassLoader) {
+            return Stream.of(((URLClassLoader)classLoader).getURLs());
+        }
+        // In java >= 9, class loaders may not always be URLClassLoaders, so we need this:
+        return Stream
+            .of(ManagementFactory.getRuntimeMXBean()
+                .getClassPath()
+                .split(File.pathSeparator))
+            .map(ReloadingClassLoader::toURL);
+    }
+
+    private static URL toURL(final String classPathEntry) {
+        try {
+            return new File(classPathEntry).toURI().toURL();
+        } catch (final MalformedURLException ex) {
+            throw new IllegalArgumentException("URL could not be obtained from " + classPathEntry, ex);
+        }
     }
 }

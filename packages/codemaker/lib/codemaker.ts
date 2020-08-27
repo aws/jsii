@@ -85,7 +85,7 @@ export class CodeMaker {
    */
   public line(fmt?: string, ...args: string[]) {
     if (!this.currentFile) {
-      throw new Error('Cannot emit source lines without openning a file');
+      throw new Error('Cannot emit source lines without opening a file');
     }
 
     if (fmt) {

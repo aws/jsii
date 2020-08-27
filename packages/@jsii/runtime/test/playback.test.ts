@@ -42,7 +42,7 @@ function createRecords(): string {
       ...process.execArgv,
       require.resolve('jest/bin/jest'),
       '--coverage=false',
-      'test/kernel.test.js',
+      'test/kernel.test.ts',
     ],
     {
       env: { ...process.env, JSII_RECORD: records, JSII_NOSTACK: '1' },

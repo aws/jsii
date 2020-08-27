@@ -5,6 +5,7 @@ using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
 using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.Composition.CompositeOperation;
 using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using Xunit.Abstractions;
@@ -28,9 +29,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        // DateTime.UnixEpoch was added in .NET Core 2.1, but our build container only supports 2.0.
-        static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
         const string Prefix = nameof(IntegrationTests) + ".Compliance.";
 
         private readonly IDisposable _serviceContainerFixture;
@@ -44,6 +42,14 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         void IDisposable.Dispose()
         {
             _serviceContainerFixture.Dispose();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(UseNestedStruct))]
+        public void UseNestedStruct()
+        {
+            StaticConsumer.Consume(
+                new Amazon.JSII.Tests.CustomSubmoduleName.NestingClass.NestedStruct { Name = "Bond, James Bond" }
+            );
         }
 
         [Fact(DisplayName = Prefix + nameof(PrimitiveTypes))]
@@ -64,8 +70,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(1234d, types.NumberProperty);
 
             // date
-            types.DateProperty = UnixEpoch.AddMilliseconds(123);
-            Assert.Equal(UnixEpoch.AddMilliseconds(123), types.DateProperty);
+            types.DateProperty = DateTime.UnixEpoch.AddMilliseconds(123);
+            Assert.Equal(DateTime.UnixEpoch.AddMilliseconds(123), types.DateProperty);
 
             // json
             types.JsonProperty = JObject.Parse(@"{ ""Foo"": { ""Bar"": 123 } }");
@@ -78,12 +84,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             var types = new AllTypes();
 
             // strong type
-            types.DateProperty = UnixEpoch.AddMilliseconds(123);
-            Assert.Equal(UnixEpoch.AddMilliseconds(123), types.DateProperty);
+            types.DateProperty = DateTime.UnixEpoch.AddMilliseconds(123);
+            Assert.Equal(DateTime.UnixEpoch.AddMilliseconds(123), types.DateProperty);
 
             // weak type
-            types.AnyProperty = UnixEpoch.AddSeconds(999);
-            Assert.Equal(UnixEpoch.AddSeconds(999), types.AnyProperty);
+            types.AnyProperty = DateTime.UnixEpoch.AddSeconds(999);
+            Assert.Equal(DateTime.UnixEpoch.AddSeconds(999), types.AnyProperty);
         }
 
         [Fact(DisplayName = Prefix + nameof(CollectionTypes))]
@@ -133,8 +139,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(12d, types.AnyProperty);
 
             // date
-            types.AnyProperty = UnixEpoch.AddSeconds(1234);
-            Assert.Equal(UnixEpoch.AddSeconds(1234), types.AnyProperty);
+            types.AnyProperty = DateTime.UnixEpoch.AddSeconds(1234);
+            Assert.Equal(DateTime.UnixEpoch.AddSeconds(1234), types.AnyProperty);
 
             // json (notice that when deserialized, it is deserialized as a map).
             types.AnyProperty = new Dictionary<string, object>
@@ -318,7 +324,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             var sum = new Sum
             {
-                Parts = new Value_[] {new Number(5), new Number(10), new Multiply(new Number(2), new Number(3))}
+                Parts = new NumericValue[] {new Number(5), new Number(10), new Multiply(new Number(2), new Number(3))}
             };
             Assert.Equal(10d + 5d + 2d * 3d, sum.Value);
             Assert.Equal(5d, sum.Parts[0].Value);
@@ -582,13 +588,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("Hello!?", interact.WriteAndRead("Hello"));
         }
 
-        [Fact(DisplayName = Prefix + nameof(InterfaceBuilder), Skip = "There is no fluent API for C#")]
-        public void InterfaceBuilder()
-        {
-            throw new NotImplementedException();
-        }
-
-
         [Fact(DisplayName = Prefix + nameof(SyncOverrides_SyncOverrides))]
         public void SyncOverrides_SyncOverrides()
         {
@@ -735,18 +734,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             var greetingAugmenter = new GreetingAugmenter();
             var betterGreeting = greetingAugmenter.BetterGreeting(friendly);
             Assert.Equal("I am literally friendly! Let me buy you a drink!", betterGreeting);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(Structs_StepBuilders), Skip = "There is no fluent API for C#")]
-        public void Structs_StepBuilders()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Fact(DisplayName = Prefix + nameof(Structs_BuildersContainNullChecks), Skip = "There is no fluent API for C#")]
-        public void Structs_BuildersContainNullChecks()
-        {
-            throw new NotImplementedException();
         }
 
         [Fact(DisplayName = Prefix + nameof(Structs_SerializeToJsii))]
@@ -935,10 +922,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             variadicClassNoParams.AsArray(double.MinValue, list.ToArray());
         }
 
-        [Fact(DisplayName = Prefix + nameof(JsiiAgent))]
-        public void JsiiAgent()
+        [Fact(DisplayName = Prefix + nameof(JsiiAgentIsCorrect))]
+        public void JsiiAgentIsCorrect()
         {
-            Assert.Equal("DotNet/" + Environment.Version + "/.NETCoreApp,Version=v3.1/1.0.0.0", JsiiAgent_.JsiiAgent);
+            Assert.Equal("DotNet/" + Environment.Version + "/.NETCoreApp,Version=v3.1/1.0.0.0", JsiiAgent.Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(ReceiveInstanceOfPrivateClass))]
@@ -971,7 +958,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(new Dictionary<string, object> { [ "prop1"] = "value1" }, EraseUndefinedHashValues.Prop2IsUndefined());
         }
 
-        [Fact(DisplayName = Prefix + nameof(ObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut), Skip = "Currently broken")]
+        [Fact(DisplayName = Prefix + nameof(ObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut))]
         public void ObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut()
         {
             var reflector = new PartiallyInitializedThisConsumerImpl();
@@ -1116,7 +1103,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             public override String ConsumePartiallyInitializedThis(ConstructorPassesThisOut obj, DateTime dt, AllTypesEnum ev)
             {
                 Assert.NotNull(obj);
-                Assert.Equal(new DateTime(0), dt);
+                Assert.Equal(DateTime.UnixEpoch, dt);
                 Assert.Equal(AllTypesEnum.THIS_IS_GREAT, ev);
 
                 return "OK";

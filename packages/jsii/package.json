@@ -54,14 +54,15 @@
     "@types/jest": "^26.0.10",
     "@types/jest-expect-message": "^1.0.2",
     "@types/node": "^10.17.28",
-    "@types/semver": "^7.3.2",
+    "@types/semver": "^7.3.3",
     "@types/yargs": "^15.0.5",
     "clone": "^2.1.2",
     "eslint": "^7.7.0",
-    "jest": "^26.4.0",
+    "jest": "^26.4.2",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.1.0",
+    "ts-jest": "^26.2.0"
   },
   "jest": {
     "collectCoverage": true,
@@ -85,7 +86,10 @@
     ],
     "testEnvironment": "node",
     "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
+      "**/?(*.)+(spec|test).ts"
+    ],
+    "transform": {
+      "\\.tsx?$": "ts-jest"
+    }
   }
 }

@@ -18,6 +18,7 @@
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
+        "go": {},
         "java": {
           "maven": {
             "artifactId": "calculator-base",
@@ -40,6 +41,7 @@
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
+        "go": {},
         "java": {
           "maven": {
             "artifactId": "calculator-base-of-base",
@@ -97,6 +99,7 @@
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
       "versionSuffix": "-devpreview"
     },
+    "go": {},
     "java": {
       "maven": {
         "artifactId": "calculator-lib",
@@ -311,7 +314,7 @@
     },
     "@scope/jsii-calc-lib.Number": {
       "assembly": "@scope/jsii-calc-lib",
-      "base": "@scope/jsii-calc-lib.Value",
+      "base": "@scope/jsii-calc-lib.NumericValue",
       "docs": {
         "stability": "deprecated",
         "summary": "Represents a concrete number."
@@ -375,7 +378,60 @@
             "line": 35
           },
           "name": "value",
-          "overrides": "@scope/jsii-calc-lib.Value",
+          "overrides": "@scope/jsii-calc-lib.NumericValue",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.NumericValue": {
+      "abstract": true,
+      "assembly": "@scope/jsii-calc-lib",
+      "base": "@scope/jsii-calc-base.Base",
+      "docs": {
+        "stability": "deprecated",
+        "summary": "Abstract class which represents a numeric value."
+      },
+      "fqn": "@scope/jsii-calc-lib.NumericValue",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 6
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "deprecated",
+            "summary": "String representation of the value."
+          },
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 15
+          },
+          "name": "toString",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "NumericValue",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated",
+            "summary": "The value."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 10
+          },
+          "name": "value",
           "type": {
             "primitive": "number"
           }
@@ -385,7 +441,7 @@
     "@scope/jsii-calc-lib.Operation": {
       "abstract": true,
       "assembly": "@scope/jsii-calc-lib",
-      "base": "@scope/jsii-calc-lib.Value",
+      "base": "@scope/jsii-calc-lib.NumericValue",
       "docs": {
         "stability": "deprecated",
         "summary": "Represents an operation on values."
@@ -409,7 +465,7 @@
             "line": 51
           },
           "name": "toString",
-          "overrides": "@scope/jsii-calc-lib.Value",
+          "overrides": "@scope/jsii-calc-lib.NumericValue",
           "returns": {
             "type": {
               "primitive": "string"
@@ -481,59 +537,6 @@
           "optional": true,
           "type": {
             "primitive": "boolean"
-          }
-        }
-      ]
-    },
-    "@scope/jsii-calc-lib.Value": {
-      "abstract": true,
-      "assembly": "@scope/jsii-calc-lib",
-      "base": "@scope/jsii-calc-base.Base",
-      "docs": {
-        "stability": "deprecated",
-        "summary": "Abstract class which represents a numeric value."
-      },
-      "fqn": "@scope/jsii-calc-lib.Value",
-      "initializer": {},
-      "kind": "class",
-      "locationInModule": {
-        "filename": "lib/index.ts",
-        "line": 6
-      },
-      "methods": [
-        {
-          "docs": {
-            "stability": "deprecated",
-            "summary": "String representation of the value."
-          },
-          "locationInModule": {
-            "filename": "lib/index.ts",
-            "line": 15
-          },
-          "name": "toString",
-          "returns": {
-            "type": {
-              "primitive": "string"
-            }
-          }
-        }
-      ],
-      "name": "Value",
-      "properties": [
-        {
-          "abstract": true,
-          "docs": {
-            "stability": "deprecated",
-            "summary": "The value."
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/index.ts",
-            "line": 10
-          },
-          "name": "value",
-          "type": {
-            "primitive": "number"
           }
         }
       ]
@@ -619,6 +622,40 @@
             "line": 31
           },
           "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct": {
+      "assembly": "@scope/jsii-calc-lib",
+      "datatype": true,
+      "docs": {
+        "remarks": "Normal.",
+        "stability": "deprecated",
+        "summary": "This is a struct, nested within a class."
+      },
+      "fqn": "@scope/jsii-calc-lib.submodule.NestingClass.NestedStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 37
+      },
+      "name": "NestedStruct",
+      "namespace": "submodule.NestingClass",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/index.ts",
+            "line": 38
+          },
+          "name": "name",
           "type": {
             "primitive": "string"
           }
@@ -723,5 +760,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "f/4VuNiOkSgTgLR80loQUAzAuzFi+25rmfLcRWKDCrY="
+  "fingerprint": "kLS1ei6Uc31/IKA//k3OZp65Lxz+2tLyQOO/qSYpvSE="
 }
