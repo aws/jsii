@@ -420,7 +420,9 @@ defineTest(
           packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId',
           versionSuffix: '-devpreview',
         },
-        go: {},
+        go: {
+          moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
+        },
         java: {
           package: 'software.amazon.jsii.tests.calculator.lib',
           maven: {

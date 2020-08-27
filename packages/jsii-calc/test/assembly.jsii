@@ -45,7 +45,9 @@
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
-        "go": {},
+        "go": {
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        },
         "java": {
           "maven": {
             "artifactId": "calculator-base",
@@ -68,7 +70,9 @@
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
-        "go": {},
+        "go": {
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        },
         "java": {
           "maven": {
             "artifactId": "calculator-base-of-base",
@@ -111,7 +115,9 @@
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
           "versionSuffix": "-devpreview"
         },
-        "go": {},
+        "go": {
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        },
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
@@ -13962,5 +13968,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "MGKh4zAMW3SxsS8MVa4gZ8+/4MUSohMhzxMUYz1xzXo="
+  "fingerprint": "D7hjrHXe6ctuIKevB3YN+761WFtPs6LykV2nsXQRHTM="
 }

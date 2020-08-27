@@ -1,15 +1,57 @@
-import { Method, ClassType } from 'jsii-reflect';
-import { CodeMaker } from 'codemaker';
+import { Method, ClassType, Initializer } from 'jsii-reflect';
+import { CodeMaker, toPascalCase } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
 import { GoStruct } from './go-type';
 import { TypeField } from './type-field';
+import { getFieldDependencies, substituteReservedWords } from '../util';
 import { Package } from '../package';
+import { ClassConstructor, MethodCall } from '../runtime';
+
+export class GoClassConstructor {
+  private readonly constructorRuntimeCall: ClassConstructor;
+
+  public constructor(
+    public readonly parent: GoClass,
+    private readonly type: Initializer,
+  ) {
+    this.constructorRuntimeCall = new ClassConstructor(this);
+  }
+
+  public emit(code: CodeMaker) {
+    const constr = `New${this.parent.name}`;
+    const params = this.type.parameters.map((x) => {
+      const paramName = substituteReservedWords(x.name);
+      const paramType = new GoTypeRef(
+        this.parent.parent.root,
+        x.type,
+      ).scopedName(this.parent.parent);
+      return `${paramName} ${paramType}`;
+    });
+
+    const parameters = params.length === 0 ? '' : params.join(', ');
+
+    let docstring = '';
+    if (this.type.docs.summary) {
+      docstring = this.type.docs.toString();
+      code.line(`// ${docstring}`);
+    }
+
+    code.openBlock(
+      `func ${constr}(${parameters}) ${this.parent.interfaceName}`,
+    );
+
+    this.constructorRuntimeCall.emit(code);
+    code.closeBlock();
+    code.line();
+  }
+}
 
 /*
  * GoClass wraps a Typescript class as a Go custom struct type
  */
 export class GoClass extends GoStruct {
   public readonly methods: ClassMethod[];
+  private readonly initializer?: GoClassConstructor;
 
   public constructor(parent: Package, public type: ClassType) {
     super(parent, type);
@@ -17,13 +59,19 @@ export class GoClass extends GoStruct {
     this.methods = Object.values(this.type.getMethods(true)).map(
       (method) => new ClassMethod(this, method),
     );
+
+    if (this.type.initializer) {
+      this.initializer = new GoClassConstructor(this, this.type.initializer);
+    }
   }
 
   public emit(code: CodeMaker): void {
     // emits interface, struct proxy, and instance methods
     super.emit(code);
 
-    this.emitConstructor(code);
+    if (this.initializer) {
+      this.initializer.emit(code);
+    }
     this.emitSetters(code);
 
     for (const method of this.methods) {
@@ -35,13 +83,9 @@ export class GoClass extends GoStruct {
     code.line('// Class interface'); // FIXME for debugging
     code.openBlock(`type ${this.interfaceName} interface`);
 
-    const extended = this.type.getInterfaces(true);
-
     // embed extended interfaces
-    if (extended.length !== 0) {
-      for (const iface of extended) {
-        code.line(iface.fqn);
-      }
+    for (const iface of this.extends) {
+      code.line(iface.scopedName(this.parent));
     }
 
     for (const property of this.properties) {
@@ -50,7 +94,7 @@ export class GoClass extends GoStruct {
     }
 
     for (const method of this.methods) {
-      method.emitSignature(code);
+      method.emitDecl(code);
     }
 
     code.closeBlock();
@@ -66,62 +110,22 @@ export class GoClass extends GoStruct {
     }
   }
 
-  private emitConstructor(code: CodeMaker): void {
-    const initializer = this.type.initializer;
-    if (initializer) {
-      const constr = `New${this.name}`;
-
-      let params: string[] = [];
-      if (initializer.parameters) {
-        params = initializer.parameters.map(
-          // TODO: resolve types for parameters
-          (x) => `${x.name} ${x.type.toString()}`,
-        );
-      }
-      const parameters = params.length === 0 ? '' : params.join(', ');
-
-      let docstring = '';
-      if (initializer.docs.summary) {
-        docstring = initializer.docs.toString();
-        code.line(`// ${docstring}`);
-      }
-
-      code.openBlock(`func ${constr}(${parameters}) ${this.interfaceName}`);
-
-      // FIXME placeholder
-      code.open(`jsii.NoOpRequest(jsii.NoOpApiRequest {`);
-      code.line(`Class: "${this.name}",`);
-      code.line(`Method: "${constr}",`);
-      code.line(`Parameters: []string{${parameters}}`);
-      code.close(`})`);
-
-      code.line();
-
-      // Return value
-      code.line(`return &${this.name}{`);
-      code.line(` // props`);
-      code.line(`}`);
-      code.closeBlock();
-      code.line();
-    }
+  public get dependencies(): Package[] {
+    return [...super.dependencies, ...getFieldDependencies(this.methods)];
   }
 }
 
 export class ClassMethod implements TypeField {
   public readonly name: string;
   public readonly references?: GoTypeRef;
-
-  private readonly NOOP_RETURN_MAP: { [type: string]: string } = {
-    float64: '0.0',
-    string: '"NOOP_RETURN_STRING"',
-    bool: 'true',
-  };
+  public readonly runtimeCall: MethodCall;
 
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,
   ) {
-    this.name = this.method.name;
+    this.name = toPascalCase(this.method.name);
+    this.runtimeCall = new MethodCall(this);
 
     if (method.returns.type) {
       this.references = new GoTypeRef(parent.parent.root, method.returns.type);
@@ -130,53 +134,28 @@ export class ClassMethod implements TypeField {
 
   /* emit generates method on the class */
   public emit(code: CodeMaker) {
-    const name = code.toPascalCase(this.method.name);
-    const returnType = `${this.returnType ? `${this.returnType} ` : ''}`;
+    const name = this.name;
+    const returnType = `${
+      this.returnTypeString ? `${this.returnTypeString} ` : ''
+    }`;
     const instanceArg = this.parent.name.substring(0, 1).toLowerCase();
-
-    let params: string[] = [];
-    if (this.method.parameters) {
-      params = this.method.parameters.map(
-        // TODO: resolve types for parameters
-        (x) => `"${x.name} ${x.type.toString()}"`,
-      );
-    }
-    const parameters = params.length === 0 ? '' : params.join(', ');
 
     code.openBlock(
       `func (${instanceArg} *${this.parent.name}) ${name}() ${returnType}`,
     );
 
-    // FIXME Placeholder
-    code.open(`jsii.NoOpRequest(jsii.NoOpApiRequest {`);
-    code.line(`Class: "${this.parent.name}",`);
-    code.line(`Method: "${name}",`);
-    code.line(`Parameters: []string{${parameters}}`);
-    code.close(`})`);
-
-    const ret = this.references;
-    if (ret?.type?.type.isClassType()) {
-      code.line(`return ${this.returnType}{}`);
-    } else if (ret?.type?.type.isEnumType()) {
-      code.line(`return "ENUM_DUMMY"`);
-    } else {
-      code.line(`return ${this.getDummyReturn(this.returnType)}`);
-    }
+    this.runtimeCall.emit(code);
 
     code.closeBlock();
     code.line();
   }
 
-  public emitSignature(code: CodeMaker) {
-    const name = code.toPascalCase(this.method.name);
-    code.line(`${name}() ${this.returnType}`);
+  public emitDecl(code: CodeMaker) {
+    const name = this.name;
+    code.line(`${name}() ${this.returnTypeString}`);
   }
 
-  private getDummyReturn(type: string): string {
-    return this.NOOP_RETURN_MAP[type] || 'nil';
-  }
-
-  public get returnType(): string {
+  public get returnTypeString(): string {
     return (
       this.references?.scopedName(this.parent.parent) ?? this.method.toString()
     );

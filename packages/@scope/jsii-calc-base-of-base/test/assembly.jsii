@@ -23,7 +23,9 @@
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
     },
-    "go": {},
+    "go": {
+      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+    },
     "java": {
       "maven": {
         "artifactId": "calculator-base-of-base",
@@ -142,5 +144,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "9nL4armG/GJRAhHMWxkKO9B6+nyGD108qvPMtTPljTw="
+  "fingerprint": "jza6cUA8sUzeQheSillLX/NlWEInEXLHp27JTZNQqUE="
 }

@@ -45,3 +45,13 @@ export function getFieldDependencies(fields: TypeField[]): Package[] {
       : accum;
   }, []);
 }
+
+const RESERVED_WORDS: { [word: string]: string } = {
+  map: 'map_',
+};
+/*
+ * Sanitize reserved words
+ */
+export function substituteReservedWords(name: string): string {
+  return RESERVED_WORDS[name] || name;
+}
