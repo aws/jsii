@@ -2151,10 +2151,6 @@ class JavaGenerator extends Generator {
       );
     }
 
-    if (docs.stability === spec.Stability.Experimental) {
-      paras.push('EXPERIMENTAL');
-    }
-
     const tagLines = [];
 
     if (docs.returns) {
