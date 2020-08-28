@@ -13,6 +13,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Class interface
 type BaseIface interface {
     TypeName() jsii.Any
 }
@@ -44,7 +45,6 @@ func (b *Base) TypeName() jsii.Any  {
 
 // Struct interface
 type BasePropsIface interface {
-    @scope/jsii-calc-base-of-base.VeryBaseProps
     GetFoo() jsii.Any
     GetBar() string
 }
@@ -91,6 +91,7 @@ type IVeryBaseInterface interface {
     Foo()
 }
 
+// Class interface
 type StaticConsumerIface interface {
     Consume() jsii.Any
 }
@@ -108,6 +109,7 @@ func (s *StaticConsumer) Consume() jsii.Any  {
     return nil
 }
 
+// Class interface
 type VeryIface interface {
     Hey() float64
 }
@@ -221,7 +223,9 @@ func (m MyFirstStruct) GetFirstOptional() []string {
 }
 
 
+// Class interface
 type NumberIface interface {
+    @scope/jsii-calc-lib.IDoublable
     GetValue() float64
     SetValue()
     GetDoubleValue() float64
@@ -284,6 +288,7 @@ func (n *Number) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type NumericValueIface interface {
     GetValue() float64
     SetValue()
@@ -335,6 +340,7 @@ func (n *NumericValue) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type OperationIface interface {
     GetValue() float64
     SetValue()
@@ -428,6 +434,7 @@ type IReflectable interface {
     GetEntries() []ReflectableEntry
 }
 
+// Class interface
 type NestingClassIface interface {
 }
 
@@ -435,6 +442,7 @@ type NestingClassIface interface {
 type NestingClass struct {
 }
 
+// Class interface
 type NestedClassIface interface {
     GetProperty() string
     SetProperty()
@@ -502,6 +510,7 @@ func (r ReflectableEntry) GetValue() jsii.Any {
 }
 
 
+// Class interface
 type ReflectorIface interface {
     AsMap() map[string]jsii.Any
 }
@@ -562,7 +571,9 @@ import (
     "composition"
 )
 
+// Class interface
 type AbstractClassIface interface {
+    jsii-calc.IInterfaceImplementedByAbstractClass
     GetAbstractProperty() string
     SetAbstractProperty()
     GetPropFromInterface() string
@@ -624,6 +635,7 @@ func (a *AbstractClass) NonAbstractMethod() float64  {
     return 0.0
 }
 
+// Class interface
 type AbstractClassBaseIface interface {
     GetAbstractProperty() string
     SetAbstractProperty()
@@ -655,6 +667,7 @@ func (a AbstractClassBase) SetAbstractProperty(val string) {
     a.AbstractProperty = val
 }
 
+// Class interface
 type AbstractClassReturnerIface interface {
     GetReturnAbstractFromProperty() AbstractClassBase
     SetReturnAbstractFromProperty()
@@ -706,6 +719,7 @@ func (a *AbstractClassReturner) GiveMeInterface() IInterfaceImplementedByAbstrac
     return nil
 }
 
+// Class interface
 type AbstractSuiteIface interface {
     GetProperty() string
     SomeMethod() string
@@ -756,7 +770,9 @@ func (a *AbstractSuite) WorkItAll() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type AddIface interface {
+    @scope/jsii-calc-lib.IFriendly
     GetValue() float64
     SetValue()
     GetLhs() jsii.Any
@@ -840,6 +856,7 @@ func (a *Add) Hello() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type AllTypesIface interface {
     GetEnumPropertyValue() float64
     SetEnumPropertyValue()
@@ -1107,6 +1124,7 @@ const (
     AllTypesEnumThisIsGreat AllTypesEnum = "THIS_IS_GREAT"
 )
 
+// Class interface
 type AllowedMethodNamesIface interface {
     GetBar() jsii.Any
     GetFoo() string
@@ -1166,6 +1184,7 @@ func (a *AllowedMethodNames) SetFoo() jsii.Any  {
     return nil
 }
 
+// Class interface
 type AmbiguousParametersIface interface {
     GetProps() StructParameterType
     SetProps()
@@ -1208,7 +1227,9 @@ func (a AmbiguousParameters) SetScope(val Bell) {
     a.Scope = val
 }
 
+// Class interface
 type AnonymousImplementationProviderIface interface {
+    jsii-calc.IAnonymousImplementationProvider
     ProvideAsClass() Implementation
     ProvideAsInterface() IAnonymouslyImplementMe
 }
@@ -1247,6 +1268,7 @@ func (a *AnonymousImplementationProvider) ProvideAsInterface() IAnonymouslyImple
     return nil
 }
 
+// Class interface
 type AsyncVirtualMethodsIface interface {
     CallMe() float64
     CallMe2() float64
@@ -1326,6 +1348,7 @@ func (a *AsyncVirtualMethods) OverrideMeToo() float64  {
     return 0.0
 }
 
+// Class interface
 type AugmentableClassIface interface {
     MethodOne() jsii.Any
     MethodTwo() jsii.Any
@@ -1365,6 +1388,7 @@ func (a *AugmentableClass) MethodTwo() jsii.Any  {
     return nil
 }
 
+// Class interface
 type BaseJsii976Iface interface {
 }
 
@@ -1384,7 +1408,9 @@ func NewBaseJsii976() BaseJsii976Iface {
     }
 }
 
+// Class interface
 type BellIface interface {
+    jsii-calc.IBell
     GetRung() bool
     SetRung()
     Ring() jsii.Any
@@ -1425,7 +1451,9 @@ func (b *Bell) Ring() jsii.Any  {
     return nil
 }
 
+// Class interface
 type BinaryOperationIface interface {
+    @scope/jsii-calc-lib.IFriendly
     GetValue() float64
     SetValue()
     GetLhs() jsii.Any
@@ -1509,6 +1537,7 @@ func (b *BinaryOperation) Hello() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type BurriedAnonymousObjectIface interface {
     Check() bool
     GiveItBack() jsii.Any
@@ -1548,6 +1577,7 @@ func (b *BurriedAnonymousObject) GiveItBack() jsii.Any  {
     return nil
 }
 
+// Class interface
 type CalculatorIface interface {
     GetValue() float64
     SetValue()
@@ -1772,7 +1802,6 @@ func (c CalculatorProps) GetMaximumValue() float64 {
 
 // Struct interface
 type ChildStruct982Iface interface {
-    jsii-calc.ParentStruct982
     GetFoo() string
     GetBar() float64
 }
@@ -1792,7 +1821,10 @@ func (c ChildStruct982) GetBar() float64 {
 }
 
 
+// Class interface
 type ClassThatImplementsTheInternalInterfaceIface interface {
+    jsii-calc.INonInternalInterface
+    jsii-calc.IAnotherPublicInterface
     GetA() string
     SetA()
     GetB() string
@@ -1856,7 +1888,10 @@ func (c ClassThatImplementsTheInternalInterface) SetD(val string) {
     c.D = val
 }
 
+// Class interface
 type ClassThatImplementsThePrivateInterfaceIface interface {
+    jsii-calc.INonInternalInterface
+    jsii-calc.IAnotherPublicInterface
     GetA() string
     SetA()
     GetB() string
@@ -1920,6 +1955,7 @@ func (c ClassThatImplementsThePrivateInterface) SetE(val string) {
     c.E = val
 }
 
+// Class interface
 type ClassWithCollectionsIface interface {
     GetStaticArray() []string
     SetStaticArray()
@@ -2004,6 +2040,7 @@ func (c *ClassWithCollections) CreateAMap() map[string]string  {
     return nil
 }
 
+// Class interface
 type ClassWithDocsIface interface {
 }
 
@@ -2023,6 +2060,7 @@ func NewClassWithDocs() ClassWithDocsIface {
     }
 }
 
+// Class interface
 type ClassWithJavaReservedWordsIface interface {
     GetInt() string
     SetInt()
@@ -2064,6 +2102,7 @@ func (c *ClassWithJavaReservedWords) Import() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type ClassWithMutableObjectLiteralPropertyIface interface {
     GetMutableObject() IMutableObjectLiteral
     SetMutableObject()
@@ -2095,7 +2134,9 @@ func (c ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObje
     c.MutableObject = val
 }
 
+// Class interface
 type ClassWithPrivateConstructorAndAutomaticPropertiesIface interface {
+    jsii-calc.IInterfaceWithProperties
     GetReadOnlyString() string
     SetReadOnlyString()
     GetReadWriteString() string
@@ -2135,6 +2176,7 @@ func (c *ClassWithPrivateConstructorAndAutomaticProperties) Create() ClassWithPr
     return ClassWithPrivateConstructorAndAutomaticProperties{}
 }
 
+// Class interface
 type ConfusingToJacksonIface interface {
     GetUnionProperty() jsii.Any
     SetUnionProperty()
@@ -2189,6 +2231,7 @@ func (c ConfusingToJacksonStruct) GetUnionProperty() jsii.Any {
 }
 
 
+// Class interface
 type ConstructorPassesThisOutIface interface {
 }
 
@@ -2208,6 +2251,7 @@ func NewConstructorPassesThisOut(consumer jsii-calc.PartiallyInitializedThisCons
     }
 }
 
+// Class interface
 type ConstructorsIface interface {
     HiddenInterface() IPublicInterface
     HiddenInterfaces() []IPublicInterface
@@ -2297,6 +2341,7 @@ func (c *Constructors) MakeInterfaces() []IPublicInterface  {
     return nil
 }
 
+// Class interface
 type ConsumePureInterfaceIface interface {
     WorkItBaby() StructB
 }
@@ -2326,6 +2371,7 @@ func (c *ConsumePureInterface) WorkItBaby() StructB  {
     return nil
 }
 
+// Class interface
 type ConsumerCanRingBellIface interface {
     StaticImplementedByObjectLiteral() bool
     StaticImplementedByPrivateClass() bool
@@ -2425,6 +2471,7 @@ func (c *ConsumerCanRingBell) WhenTypedAsClass() bool  {
     return true
 }
 
+// Class interface
 type ConsumersOfThisCrazyTypeSystemIface interface {
     ConsumeAnotherPublicInterface() string
     ConsumeNonInternalInterface() jsii.Any
@@ -2464,6 +2511,7 @@ func (c *ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface() jsii.Any 
     return nil
 }
 
+// Class interface
 type DataRendererIface interface {
     Render() string
     RenderArbitrary() string
@@ -2513,6 +2561,7 @@ func (d *DataRenderer) RenderMap() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type DefaultedConstructorArgumentIface interface {
     GetArg1() float64
     SetArg1()
@@ -2566,6 +2615,7 @@ func (d DefaultedConstructorArgument) SetArg2(val string) {
     d.Arg2 = val
 }
 
+// Class interface
 type Demonstrate982Iface interface {
     TakeThis() ChildStruct982
     TakeThisToo() ParentStruct982
@@ -2605,6 +2655,7 @@ func (d *Demonstrate982) TakeThisToo() ParentStruct982  {
     return nil
 }
 
+// Class interface
 type DeprecatedClassIface interface {
     GetReadonlyProperty() string
     SetReadonlyProperty()
@@ -2681,7 +2732,6 @@ func (d DeprecatedStruct) GetReadonlyProperty() string {
 
 // Struct interface
 type DerivedStructIface interface {
-    @scope/jsii-calc-lib.MyFirstStruct
     GetAnumber() float64
     GetAstring() string
     GetFirstOptional() []string
@@ -2760,7 +2810,6 @@ func (d DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
 
 // Struct interface
 type DiamondInheritanceFirstMidLevelStructIface interface {
-    jsii-calc.DiamondInheritanceBaseLevelStruct
     GetBaseLevelProperty() string
     GetFirstMidLevelProperty() string
 }
@@ -2782,7 +2831,6 @@ func (d DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string
 
 // Struct interface
 type DiamondInheritanceSecondMidLevelStructIface interface {
-    jsii-calc.DiamondInheritanceBaseLevelStruct
     GetBaseLevelProperty() string
     GetSecondMidLevelProperty() string
 }
@@ -2804,9 +2852,6 @@ func (d DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() stri
 
 // Struct interface
 type DiamondInheritanceTopLevelStructIface interface {
-    jsii-calc.DiamondInheritanceBaseLevelStruct
-    jsii-calc.DiamondInheritanceFirstMidLevelStruct
-    jsii-calc.DiamondInheritanceSecondMidLevelStruct
     GetBaseLevelProperty() string
     GetFirstMidLevelProperty() string
     GetSecondMidLevelProperty() string
@@ -2838,6 +2883,7 @@ func (d DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
 }
 
 
+// Class interface
 type DisappointingCollectionSourceIface interface {
     GetMaybeList() []string
     SetMaybeList()
@@ -2868,6 +2914,7 @@ func (d DisappointingCollectionSource) SetMaybeMap(val map[string]float64) {
     d.MaybeMap = val
 }
 
+// Class interface
 type DoNotOverridePrivatesIface interface {
     ChangePrivatePropertyValue() jsii.Any
     PrivateMethodValue() string
@@ -2917,6 +2964,7 @@ func (d *DoNotOverridePrivates) PrivatePropertyValue() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type DoNotRecognizeAnyAsOptionalIface interface {
     Method() jsii.Any
 }
@@ -2946,6 +2994,7 @@ func (d *DoNotRecognizeAnyAsOptional) Method() jsii.Any  {
     return nil
 }
 
+// Class interface
 type DocumentedClassIface interface {
     Greet() float64
     Hola() jsii.Any
@@ -2985,6 +3034,7 @@ func (d *DocumentedClass) Hola() jsii.Any  {
     return nil
 }
 
+// Class interface
 type DontComplainAboutVariadicAfterOptionalIface interface {
     OptionalAndVariadic() string
 }
@@ -3014,7 +3064,11 @@ func (d *DontComplainAboutVariadicAfterOptional) OptionalAndVariadic() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type DoubleTroubleIface interface {
+    jsii-calc.IFriendlyRandomGenerator
+    jsii-calc.IRandomNumberGenerator
+    @scope/jsii-calc-lib.IFriendly
     Hello() string
     Next() float64
 }
@@ -3053,6 +3107,7 @@ func (d *DoubleTrouble) Next() float64  {
     return 0.0
 }
 
+// Class interface
 type DynamicPropertyBearerIface interface {
     GetDynamicProperty() string
     SetDynamicProperty()
@@ -3095,6 +3150,7 @@ func (d DynamicPropertyBearer) SetValueStore(val string) {
     d.ValueStore = val
 }
 
+// Class interface
 type DynamicPropertyBearerChildIface interface {
     GetDynamicProperty() string
     SetDynamicProperty()
@@ -3158,6 +3214,7 @@ func (d *DynamicPropertyBearerChild) OverrideValue() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type EnumDispenserIface interface {
     RandomIntegerLikeEnum() AllTypesEnum
     RandomStringLikeEnum() StringEnum
@@ -3185,6 +3242,7 @@ func (e *EnumDispenser) RandomStringLikeEnum() StringEnum  {
     return "ENUM_DUMMY"
 }
 
+// Class interface
 type EraseUndefinedHashValuesIface interface {
     DoesKeyExist() bool
     Prop1IsNull() map[string]jsii.Any
@@ -3255,6 +3313,7 @@ func (e EraseUndefinedHashValuesOptions) GetOption2() string {
 }
 
 
+// Class interface
 type ExperimentalClassIface interface {
     GetReadonlyProperty() string
     SetReadonlyProperty()
@@ -3329,6 +3388,7 @@ func (e ExperimentalStruct) GetReadonlyProperty() string {
 }
 
 
+// Class interface
 type ExportedBaseClassIface interface {
     GetSuccess() bool
     SetSuccess()
@@ -3381,6 +3441,7 @@ func (e ExtendsInternalInterface) GetProp() string {
 }
 
 
+// Class interface
 type ExternalClassIface interface {
     GetReadonlyProperty() string
     SetReadonlyProperty()
@@ -3455,6 +3516,7 @@ func (e ExternalStruct) GetReadonlyProperty() string {
 }
 
 
+// Class interface
 type GiveMeStructsIface interface {
     GetStructLiteral() jsii.Any
     SetStructLiteral()
@@ -3531,6 +3593,7 @@ func (g Greetee) GetName() string {
 }
 
 
+// Class interface
 type GreetingAugmenterIface interface {
     BetterGreeting() string
 }
@@ -3759,6 +3822,7 @@ type IStructReturningDelegate interface {
     ReturnStruct() StructB
 }
 
+// Class interface
 type ImplementInternalInterfaceIface interface {
     GetProp() string
     SetProp()
@@ -3790,6 +3854,7 @@ func (i ImplementInternalInterface) SetProp(val string) {
     i.Prop = val
 }
 
+// Class interface
 type ImplementationIface interface {
     GetValue() float64
     SetValue()
@@ -3821,7 +3886,9 @@ func (i Implementation) SetValue(val float64) {
     i.Value = val
 }
 
+// Class interface
 type ImplementsInterfaceWithInternalIface interface {
+    jsii-calc.IInterfaceWithInternal
     Visible() jsii.Any
 }
 
@@ -3850,7 +3917,9 @@ func (i *ImplementsInterfaceWithInternal) Visible() jsii.Any  {
     return nil
 }
 
+// Class interface
 type ImplementsInterfaceWithInternalSubclassIface interface {
+    jsii-calc.IInterfaceWithInternal
     Visible() jsii.Any
 }
 
@@ -3879,6 +3948,7 @@ func (i *ImplementsInterfaceWithInternalSubclass) Visible() jsii.Any  {
     return nil
 }
 
+// Class interface
 type ImplementsPrivateInterfaceIface interface {
     GetPrivate() string
     SetPrivate()
@@ -3912,8 +3982,6 @@ func (i ImplementsPrivateInterface) SetPrivate(val string) {
 
 // Struct interface
 type ImplictBaseOfBaseIface interface {
-    @scope/jsii-calc-base-of-base.VeryBaseProps
-    @scope/jsii-calc-base.BaseProps
     GetFoo() jsii.Any
     GetBar() string
     GetGoo() string
@@ -3939,7 +4007,9 @@ func (i ImplictBaseOfBase) GetGoo() string {
 }
 
 
+// Class interface
 type InbetweenClassIface interface {
+    jsii-calc.IPublicInterface2
     Hello() jsii.Any
     Ciao() string
 }
@@ -3978,6 +4048,7 @@ func (i *InbetweenClass) Ciao() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type InterfaceCollectionsIface interface {
     ListOfInterfaces() []IBell
     ListOfStructs() []StructA
@@ -4025,6 +4096,7 @@ func (i *InterfaceCollections) MapOfStructs() map[string]StructA  {
     return nil
 }
 
+// Class interface
 type InterfacesMakerIface interface {
     MakeInterfaces() []jsii.Any
 }
@@ -4042,6 +4114,7 @@ func (i *InterfacesMaker) MakeInterfaces() []jsii.Any  {
     return nil
 }
 
+// Class interface
 type IsomorphismIface interface {
     Myself() Isomorphism
 }
@@ -4071,6 +4144,7 @@ func (i *Isomorphism) Myself() Isomorphism  {
     return Isomorphism{}
 }
 
+// Class interface
 type JSII417DerivedIface interface {
     GetHasRoot() bool
     SetHasRoot()
@@ -4152,6 +4226,7 @@ func (j *JSII417Derived) Baz() jsii.Any  {
     return nil
 }
 
+// Class interface
 type JSII417PublicBaseOfBaseIface interface {
     GetHasRoot() bool
     SetHasRoot()
@@ -4203,6 +4278,7 @@ func (j *JSII417PublicBaseOfBase) Foo() jsii.Any  {
     return nil
 }
 
+// Class interface
 type JSObjectLiteralForInterfaceIface interface {
     GiveMeFriendly() jsii.Any
     GiveMeFriendlyGenerator() IFriendlyRandomGenerator
@@ -4242,6 +4318,7 @@ func (j *JSObjectLiteralForInterface) GiveMeFriendlyGenerator() IFriendlyRandomG
     return nil
 }
 
+// Class interface
 type JSObjectLiteralToNativeIface interface {
     ReturnLiteral() JsObjectLiteralToNativeClass
 }
@@ -4271,6 +4348,7 @@ func (j *JSObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNativeClass  
     return JsObjectLiteralToNativeClass{}
 }
 
+// Class interface
 type JSObjectLiteralToNativeClassIface interface {
     GetPropA() string
     SetPropA()
@@ -4313,6 +4391,7 @@ func (j JSObjectLiteralToNativeClass) SetPropB(val float64) {
     j.PropB = val
 }
 
+// Class interface
 type JavaReservedWordsIface interface {
     GetWhile() string
     SetWhile()
@@ -4864,7 +4943,10 @@ func (j *JavaReservedWords) Volatile() jsii.Any  {
     return nil
 }
 
+// Class interface
 type Jsii487DerivedIface interface {
+    jsii-calc.IJsii487External2
+    jsii-calc.IJsii487External
 }
 
 // Struct proxy
@@ -4883,7 +4965,9 @@ func NewJsii487Derived() Jsii487DerivedIface {
     }
 }
 
+// Class interface
 type Jsii496DerivedIface interface {
+    jsii-calc.IJsii496
 }
 
 // Struct proxy
@@ -4902,6 +4986,7 @@ func NewJsii496Derived() Jsii496DerivedIface {
     }
 }
 
+// Class interface
 type JsiiAgentIface interface {
     GetValue() string
     SetValue()
@@ -4933,6 +5018,7 @@ func (j JsiiAgent) SetValue(val string) {
     j.Value = val
 }
 
+// Class interface
 type JsonFormatterIface interface {
     AnyArray() jsii.Any
     AnyBooleanFalse() jsii.Any
@@ -5119,6 +5205,7 @@ func (l LoadBalancedFargateServiceProps) GetPublicTasks() bool {
 }
 
 
+// Class interface
 type MethodNamedPropertyIface interface {
     GetElite() float64
     SetElite()
@@ -5160,7 +5247,12 @@ func (m *MethodNamedProperty) Property() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type MultiplyIface interface {
+    @scope/jsii-calc-lib.IFriendly
+    jsii-calc.IFriendlier
+    @scope/jsii-calc-lib.IFriendly
+    jsii-calc.IRandomNumberGenerator
     GetValue() float64
     SetValue()
     GetLhs() jsii.Any
@@ -5274,7 +5366,10 @@ func (m *Multiply) Next() float64  {
     return 0.0
 }
 
+// Class interface
 type NegateIface interface {
+    jsii-calc.IFriendlier
+    @scope/jsii-calc-lib.IFriendly
     GetValue() float64
     SetValue()
     GetOperand() jsii.Any
@@ -5366,6 +5461,7 @@ func (n *Negate) Hello() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type NestedClassInstanceIface interface {
     MakeInstance() jsii.Any
 }
@@ -5398,6 +5494,7 @@ func (n NestedStruct) GetNumberProp() float64 {
 }
 
 
+// Class interface
 type NodeStandardLibraryIface interface {
     GetOsPlatform() string
     SetOsPlatform()
@@ -5459,6 +5556,7 @@ func (n *NodeStandardLibrary) FsReadFileSync() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type NullShouldBeTreatedAsUndefinedIface interface {
     GetChangeMeToUndefined() string
     SetChangeMeToUndefined()
@@ -5541,6 +5639,7 @@ func (n NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() jsii.Any 
 }
 
 
+// Class interface
 type NumberGeneratorIface interface {
     GetGenerator() IRandomNumberGenerator
     SetGenerator()
@@ -5592,6 +5691,7 @@ func (n *NumberGenerator) NextTimes100() float64  {
     return 0.0
 }
 
+// Class interface
 type ObjectRefsInCollectionsIface interface {
     SumFromArray() float64
     SumFromMap() float64
@@ -5631,6 +5731,7 @@ func (o *ObjectRefsInCollections) SumFromMap() float64  {
     return 0.0
 }
 
+// Class interface
 type ObjectWithPropertyProviderIface interface {
     Provide() IObjectWithProperty
 }
@@ -5648,6 +5749,7 @@ func (o *ObjectWithPropertyProvider) Provide() IObjectWithProperty  {
     return nil
 }
 
+// Class interface
 type OldIface interface {
     DoAThing() jsii.Any
 }
@@ -5677,6 +5779,7 @@ func (o *Old) DoAThing() jsii.Any  {
     return nil
 }
 
+// Class interface
 type OptionalArgumentInvokerIface interface {
     InvokeWithOptional() jsii.Any
     InvokeWithoutOptional() jsii.Any
@@ -5716,6 +5819,7 @@ func (o *OptionalArgumentInvoker) InvokeWithoutOptional() jsii.Any  {
     return nil
 }
 
+// Class interface
 type OptionalConstructorArgumentIface interface {
     GetArg1() float64
     SetArg1()
@@ -5784,6 +5888,7 @@ func (o OptionalStruct) GetField() string {
 }
 
 
+// Class interface
 type OptionalStructConsumerIface interface {
     GetParameterWasUndefined() bool
     SetParameterWasUndefined()
@@ -5826,6 +5931,7 @@ func (o OptionalStructConsumer) SetFieldValue(val string) {
     o.FieldValue = val
 }
 
+// Class interface
 type OverridableProtectedMemberIface interface {
     GetOverrideReadOnly() string
     GetOverrideReadWrite() string
@@ -5896,6 +6002,7 @@ func (o *OverridableProtectedMember) ValueFromProtected() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type OverrideReturnsObjectIface interface {
     Test() float64
 }
@@ -5940,6 +6047,7 @@ func (p ParentStruct982) GetFoo() string {
 }
 
 
+// Class interface
 type PartiallyInitializedThisConsumerIface interface {
     ConsumePartiallyInitializedThis() string
 }
@@ -5969,6 +6077,7 @@ func (p *PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis() str
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type PolymorphismIface interface {
     SayHello() string
 }
@@ -5998,6 +6107,7 @@ func (p *Polymorphism) SayHello() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type PowerIface interface {
     GetValue() float64
     SetValue()
@@ -6116,6 +6226,7 @@ func (p *Power) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type PropertyNamedPropertyIface interface {
     GetProperty() string
     SetProperty()
@@ -6158,6 +6269,7 @@ func (p PropertyNamedProperty) SetYetAnoterOne(val bool) {
     p.YetAnoterOne = val
 }
 
+// Class interface
 type PublicClassIface interface {
     Hello() jsii.Any
 }
@@ -6187,6 +6299,7 @@ func (p *PublicClass) Hello() jsii.Any  {
     return nil
 }
 
+// Class interface
 type PythonReservedWordsIface interface {
     And() jsii.Any
     As() jsii.Any
@@ -6526,6 +6639,7 @@ func (p *PythonReservedWords) Yield() jsii.Any  {
     return nil
 }
 
+// Class interface
 type ReferenceEnumFromScopedPackageIface interface {
     GetFoo() jsii.Any
     SetFoo()
@@ -6577,6 +6691,7 @@ func (r *ReferenceEnumFromScopedPackage) SaveFoo() jsii.Any  {
     return nil
 }
 
+// Class interface
 type ReturnsPrivateImplementationOfInterfaceIface interface {
     GetPrivateImplementation() IPrivatelyImplemented
     SetPrivateImplementation()
@@ -6629,6 +6744,7 @@ func (r RootStruct) GetNestedStruct() NestedStruct {
 }
 
 
+// Class interface
 type RootStructValidatorIface interface {
     Validate() jsii.Any
 }
@@ -6646,6 +6762,7 @@ func (r *RootStructValidator) Validate() jsii.Any  {
     return nil
 }
 
+// Class interface
 type RuntimeTypeCheckingIface interface {
     MethodWithDefaultedArguments() jsii.Any
     MethodWithOptionalAnyArgument() jsii.Any
@@ -6716,6 +6833,7 @@ func (s SecondLevelStruct) GetDeeperOptionalProp() string {
 }
 
 
+// Class interface
 type SingleInstanceTwoTypesIface interface {
     Interface1() InbetweenClass
     Interface2() IPublicInterface
@@ -6755,6 +6873,7 @@ func (s *SingleInstanceTwoTypes) Interface2() IPublicInterface  {
     return nil
 }
 
+// Class interface
 type SingletonIntIface interface {
     IsSingletonInt() bool
 }
@@ -6778,6 +6897,7 @@ const (
     SingletonIntEnumSingletonInt SingletonIntEnum = "SINGLETON_INT"
 )
 
+// Class interface
 type SingletonStringIface interface {
     IsSingletonString() bool
 }
@@ -6822,6 +6942,7 @@ func (s SmellyStruct) GetYetAnoterOne() bool {
 }
 
 
+// Class interface
 type SomeTypeJsii976Iface interface {
     ReturnAnonymous() jsii.Any
     ReturnReturn() IReturnJsii976
@@ -6861,6 +6982,7 @@ func (s *SomeTypeJsii976) ReturnReturn() IReturnJsii976  {
     return nil
 }
 
+// Class interface
 type StableClassIface interface {
     GetReadonlyProperty() string
     SetReadonlyProperty()
@@ -6935,6 +7057,7 @@ func (s StableStruct) GetReadonlyProperty() string {
 }
 
 
+// Class interface
 type StaticContextIface interface {
     GetStaticVariable() bool
     SetStaticVariable()
@@ -6964,6 +7087,7 @@ func (s *StaticContext) CanAccessStaticContext() bool  {
     return true
 }
 
+// Class interface
 type StaticsIface interface {
     GetBar() float64
     SetBar()
@@ -7089,6 +7213,7 @@ const (
     StringEnumC StringEnum = "C"
 )
 
+// Class interface
 type StripInternalIface interface {
     GetYouSeeMe() string
     SetYouSeeMe()
@@ -7195,6 +7320,7 @@ func (s StructParameterType) GetProps() bool {
 }
 
 
+// Class interface
 type StructPassingIface interface {
     HowManyVarArgsDidIPass() float64
     RoundTrip() TopLevelStruct
@@ -7234,6 +7360,7 @@ func (s *StructPassing) RoundTrip() TopLevelStruct  {
     return nil
 }
 
+// Class interface
 type StructUnionConsumerIface interface {
     IsStructA() bool
     IsStructB() bool
@@ -7294,6 +7421,7 @@ func (s StructWithJavaReservedWords) GetThat() string {
 }
 
 
+// Class interface
 type SumIface interface {
     GetValue() float64
     SetValue()
@@ -7400,6 +7528,7 @@ func (s *Sum) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type SupportsNiceJavaBuilderIface interface {
     GetBar() float64
     SetBar()
@@ -7485,6 +7614,7 @@ func (s SupportsNiceJavaBuilderProps) GetId() string {
 }
 
 
+// Class interface
 type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
     GetBar() float64
     SetBar()
@@ -7538,6 +7668,7 @@ func (s SupportsNiceJavaBuilderWithRequiredProps) SetPropId(val string) {
     s.PropId = val
 }
 
+// Class interface
 type SyncVirtualMethodsIface interface {
     GetReadonlyProperty() string
     SetReadonlyProperty()
@@ -7724,6 +7855,7 @@ func (s *SyncVirtualMethods) WriteA() jsii.Any  {
     return nil
 }
 
+// Class interface
 type ThrowerIface interface {
     ThrowError() jsii.Any
 }
@@ -7780,6 +7912,7 @@ func (t TopLevelStruct) GetOptional() string {
 }
 
 
+// Class interface
 type UmaskCheckIface interface {
     Mode() float64
 }
@@ -7797,6 +7930,7 @@ func (u *UmaskCheck) Mode() float64  {
     return 0.0
 }
 
+// Class interface
 type UnaryOperationIface interface {
     GetValue() float64
     SetValue()
@@ -7880,7 +8014,9 @@ func (u UnionProperties) GetFoo() jsii.Any {
 }
 
 
+// Class interface
 type UpcasingReflectableIface interface {
+    @scope/jsii-calc-lib.submodule.IReflectable
     GetReflector() jsii.Any
     SetReflector()
     GetEntries() []jsii.Any
@@ -7922,6 +8058,7 @@ func (u UpcasingReflectable) SetEntries(val []jsii.Any) {
     u.Entries = val
 }
 
+// Class interface
 type UseBundledDependencyIface interface {
     Value() jsii.Any
 }
@@ -7951,6 +8088,7 @@ func (u *UseBundledDependency) Value() jsii.Any  {
     return nil
 }
 
+// Class interface
 type UseCalcBaseIface interface {
     Hello() jsii.Any
 }
@@ -7980,6 +8118,7 @@ func (u *UseCalcBase) Hello() jsii.Any  {
     return nil
 }
 
+// Class interface
 type UsesInterfaceWithPropertiesIface interface {
     GetObj() IInterfaceWithProperties
     SetObj()
@@ -8041,6 +8180,7 @@ func (u *UsesInterfaceWithProperties) WriteAndRead() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type VariadicInvokerIface interface {
     AsArray() []float64
 }
@@ -8070,6 +8210,7 @@ func (v *VariadicInvoker) AsArray() []float64  {
     return nil
 }
 
+// Class interface
 type VariadicMethodIface interface {
     AsArray() []float64
 }
@@ -8099,6 +8240,7 @@ func (v *VariadicMethod) AsArray() []float64  {
     return nil
 }
 
+// Class interface
 type VirtualMethodPlaygroundIface interface {
     OverrideMeAsync() float64
     OverrideMeSync() float64
@@ -8168,6 +8310,7 @@ func (v *VirtualMethodPlayground) SumSync() float64  {
     return 0.0
 }
 
+// Class interface
 type VoidCallbackIface interface {
     GetMethodWasCalled() bool
     SetMethodWasCalled()
@@ -8219,6 +8362,7 @@ func (v *VoidCallback) OverrideMe() jsii.Any  {
     return nil
 }
 
+// Class interface
 type WithPrivatePropertyInConstructorIface interface {
     GetSuccess() bool
     SetSuccess()
@@ -8260,6 +8404,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Class interface
 type CompositeOperationIface interface {
     GetValue() float64
     SetValue()
@@ -8372,6 +8517,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Class interface
 type BaseIface interface {
     GetProp() string
     SetProp()
@@ -8403,6 +8549,7 @@ func (b Base) SetProp(val string) {
     b.Prop = val
 }
 
+// Class interface
 type DerivedIface interface {
     GetProp() string
     SetProp()
@@ -8444,6 +8591,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Class interface
 type FooIface interface {
     GetBar() string
     SetBar()
@@ -8525,6 +8673,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Class interface
 type ClassWithSelfIface interface {
     GetSelf() string
     SetSelf()
@@ -8566,6 +8715,7 @@ func (c *ClassWithSelf) Method() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
 type ClassWithSelfKwargIface interface {
     GetProps() StructWithSelf
     SetProps()
@@ -8629,7 +8779,9 @@ import (
     "jsiicalc"
 )
 
+// Class interface
 type MyClassIface interface {
+    jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced
     GetAwesomeness() child.Awesomeness
     SetAwesomeness()
     GetDefinedAt() string
@@ -8754,6 +8906,7 @@ const (
     GoodnessAmazinglyGood Goodness = "AMAZINGLY_GOOD"
 )
 
+// Class interface
 type InnerClassIface interface {
     GetStaticProp() SomeStruct
     SetStaticProp()
@@ -8787,7 +8940,6 @@ func (i InnerClass) SetStaticProp(val SomeStruct) {
 
 // Struct interface
 type KwargsPropsIface interface {
-    jsii-calc.submodule.child.SomeStruct
     GetProp() SomeEnum
     GetExtra() string
 }
@@ -8807,6 +8959,7 @@ func (k KwargsProps) GetExtra() string {
 }
 
 
+// Class interface
 type OuterClassIface interface {
     GetInnerClass() InnerClass
     SetInnerClass()
@@ -8884,6 +9037,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
+// Class interface
 type KwargsIface interface {
     Method() bool
 }
@@ -8912,7 +9066,9 @@ import (
     "child"
 )
 
+// Class interface
 type NamespacedIface interface {
+    jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced
     GetDefinedAt() string
     SetDefinedAt()
     GetGoodness() child.Goodness
