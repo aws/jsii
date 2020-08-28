@@ -13,14 +13,14 @@ export interface GoEmitter {
 }
 
 export class GoType {
-  public constructor(public parent: Package, public type: Type) {}
+  public readonly name: string;
 
-  public get name() {
-    return this.type.name;
+  public constructor(public parent: Package, public type: Type) {
+    this.name = toPascalCase(type.name);
   }
 
   public get namespace() {
-    return this.parent.moduleName;
+    return this.parent.packageName;
   }
 }
 
@@ -157,7 +157,28 @@ export abstract class GoStruct extends GoType implements GoEmitter {
     }
   }
 
+  public get extends(): GoTypeRef[] {
+    return this.type.getInterfaces(true).map((iface) => {
+      return new GoTypeRef(this.parent.root, iface.reference);
+    });
+  }
+
+  public get extendsDependencies(): Package[] {
+    const packages: Package[] = [];
+    for (const ifaceRef of this.extends) {
+      const pack = ifaceRef.type?.parent;
+      if (pack) {
+        packages.push(pack);
+      }
+    }
+
+    return packages;
+  }
+
   public get dependencies(): Package[] {
-    return [...getFieldDependencies(this.properties)];
+    return [
+      ...this.extendsDependencies,
+      ...getFieldDependencies(this.properties),
+    ];
   }
 }

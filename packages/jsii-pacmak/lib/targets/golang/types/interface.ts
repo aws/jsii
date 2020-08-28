@@ -1,63 +1,124 @@
-import { CodeMaker } from 'codemaker';
+import { CodeMaker, toPascalCase } from 'codemaker';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { Package } from '../package';
+import { TypeField } from './type-field';
+import { getFieldDependencies } from '../util';
+
+class InterfaceProperty implements TypeField {
+  public readonly name: string;
+  public readonly references?: GoTypeRef;
+
+  public constructor(
+    public readonly parent: Interface,
+    private readonly property: Property,
+  ) {
+    this.name = toPascalCase(property.name);
+
+    if (property.type) {
+      this.references = new GoTypeRef(parent.parent.root, property.type);
+    }
+  }
+
+  public emit(code: CodeMaker) {
+    const propName = this.name;
+    const type = new GoTypeRef(
+      this.parent.parent.root,
+      this.property.type,
+    ).scopedName(this.parent.parent);
+
+    code.line(`Get${propName}() ${type}`);
+  }
+}
+
+class InterfaceMethod implements TypeField {
+  public readonly name: string;
+  public readonly references?: GoTypeRef;
+
+  public constructor(
+    public readonly parent: Interface,
+    private readonly method: Method,
+  ) {
+    this.name = toPascalCase(method.name);
+
+    if (method.returns.type) {
+      this.references = new GoTypeRef(parent.parent.root, method.returns.type);
+    }
+  }
+
+  public emit(code: CodeMaker) {
+    const returns = this.method.returns.type.void
+      ? ''
+      : ` ${new GoTypeRef(
+          this.parent.parent.root,
+          this.method.returns.type,
+        ).scopedName(this.parent.parent)}`;
+
+    const methodName = this.name;
+
+    code.line(`${methodName}()${returns}`);
+  }
+}
 
 export class Interface extends GoType {
-  public readonly dependencies: Package[] = [];
+  public readonly methods: InterfaceMethod[];
+  public readonly properties: InterfaceProperty[];
 
   public constructor(parent: Package, public type: InterfaceType) {
     super(parent, type);
+    this.methods = Object.values(type.getMethods()).map(
+      (method) => new InterfaceMethod(this, method),
+    );
+    this.properties = Object.values(type.getProperties()).map(
+      (prop) => new InterfaceProperty(this, prop),
+    );
   }
 
   public emit(code: CodeMaker): void {
     code.line('// Behaviorial interface'); // FIXME for debugging
-    code.openBlock(`type ${this.name} interface`);
-
-    const extended = this.type.getInterfaces(true);
+    code.openBlock(`type ${code.toPascalCase(this.name)} interface`);
 
     // embed extended interfaces
-    if (extended.length !== 0) {
-      for (const iface of extended) {
-        code.line(iface.fqn);
-      }
+    for (const iface of this.extends) {
+      code.line(iface.scopedName(this.parent));
     }
 
-    Object.values(this.type.getMethods()).forEach((method) =>
-      this.emitInterfaceMethod(code, method),
-    );
+    for (const method of this.methods) {
+      method.emit(code);
+    }
 
-    // TODO remove?
-    Object.values(this.type.getProperties()).forEach((property) =>
-      this.emitInterfaceProperty(code, property),
-    );
+    for (const prop of this.properties) {
+      prop.emit(code);
+    }
 
     code.closeBlock();
     code.line();
   }
 
-  private emitInterfaceProperty(code: CodeMaker, property: Property) {
-    const propName = code.toPascalCase(property.name);
-    const type = new GoTypeRef(this.parent.root, property.type).scopedName(
-      this.parent,
-    );
-
-    code.line(`Get${propName}() ${type}`);
-    // if (!property.protected) {
-    //   code.line(`set${name}()`);
-    // }
+  public get extends(): GoTypeRef[] {
+    return this.type.getInterfaces(true).map((iface) => {
+      return new GoTypeRef(this.parent.root, iface.reference);
+    });
   }
 
-  private emitInterfaceMethod(code: CodeMaker, method: Method) {
-    const returns = method.returns.type.void
-      ? ''
-      : ` ${new GoTypeRef(this.parent.root, method.returns.type).scopedName(
-          this.parent,
-        )}`;
+  public get extendsDependencies(): Package[] {
+    const packages: Package[] = [];
+    for (const ifaceRef of this.extends) {
+      const pack = ifaceRef.type?.parent;
+      if (pack) {
+        packages.push(pack);
+      }
+    }
 
-    const methodName = code.toPascalCase(method.name);
+    return packages;
+  }
 
-    code.line(`${methodName}()${returns}`);
+  public get dependencies(): Package[] {
+    return [
+      ...this.extendsDependencies,
+      ...getFieldDependencies(this.methods),
+      ...getFieldDependencies(this.properties),
+    ];
   }
 }
