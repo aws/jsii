@@ -18,6 +18,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   inlineSources: true,
   lib: ['lib.es2018.d.ts'],
   module: ts.ModuleKind.CommonJS,
+  newLine: ts.NewLineKind.LineFeed,
   noEmitOnError: true,
   noFallthroughCasesInSwitch: true,
   noImplicitAny: true,
@@ -354,6 +355,9 @@ export class Compiler implements Emitter {
         // Re-write the module, targets & jsx to be the JSON format instead of Programmatic API
         module: (this.typescriptConfig?.compilerOptions?.module &&
           ts.ModuleKind[this.typescriptConfig.compilerOptions.module]) as any,
+        newLine: newLineForTsconfigJson(
+          this.typescriptConfig?.compilerOptions.newLine,
+        ),
         target: (this.typescriptConfig?.compilerOptions?.target &&
           ts.ScriptTarget[this.typescriptConfig.compilerOptions.target]) as any,
         jsx: (this.typescriptConfig?.compilerOptions?.jsx &&
@@ -368,6 +372,26 @@ export class Compiler implements Emitter {
       encoding: 'utf8',
       spaces: 2,
     });
+
+    /**
+     * This is annoying - the values expected in the tsconfig.json file are not
+     * the same as the enum constant names, or their values. So we need this
+     * function to map the "compiler API version" to the "tsconfig.json version"
+     *
+     * @param newLine the compiler form of the new line configuration
+     *
+     * @return the requivalent value to put in tsconfig.json
+     */
+    function newLineForTsconfigJson(newLine: ts.NewLineKind | undefined) {
+      switch (newLine) {
+        case ts.NewLineKind.CarriageReturnLineFeed:
+          return 'crlf';
+        case ts.NewLineKind.LineFeed:
+          return 'lf';
+        default:
+          return undefined;
+      }
+    }
   }
 
   /**
