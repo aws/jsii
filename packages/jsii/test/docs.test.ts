@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
 import { sourceToAssemblyHelper as compile, compileJsiiForTest } from '../lib';
@@ -385,25 +384,29 @@ test('@experimental status is reflected in generated docstring', async () => {
     }
   `);
 
-  expect(result.files['index.js']).toContain(lines(
-    '/**',
-    ' * (experimental) Here is a fresh class.',
-    ' *',
-    ' * @experimental',
-    ' */',
-    'class Foo {',
-    '}',
-  ));
+  expect(result.files['index.js']).toContain(
+    lines(
+      '/**',
+      ' * (experimental) Here is a fresh class.',
+      ' *',
+      ' * @experimental',
+      ' */',
+      'class Foo {',
+      '}',
+    ),
+  );
 
-  expect(result.files['index.d.ts']).toContain(lines(
-    '/**',
-    ' * (experimental) Here is a fresh class.',
-    ' *',
-    ' * @experimental',
-    ' */',
-    'export declare class Foo {',
-    '}',
-  ));
+  expect(result.files['index.d.ts']).toContain(
+    lines(
+      '/**',
+      ' * (experimental) Here is a fresh class.',
+      ' *',
+      ' * @experimental',
+      ' */',
+      'export declare class Foo {',
+      '}',
+    ),
+  );
 });
 
 // ----------------------------------------------------------------------
@@ -419,56 +422,64 @@ test('@deprecated status is reflected in generated docstring', async () => {
     }
   `);
 
-  expect(result.files['index.js']).toContain(lines(
-    '/**',
-    ' * (deprecated) Here is an old class.',
-    ' *',
-    ' * @deprecated Use something else',
-    ' */',
-    'class Fogey {',
-    '}',
-  ));
+  expect(result.files['index.js']).toContain(
+    lines(
+      '/**',
+      ' * (deprecated) Here is an old class.',
+      ' *',
+      ' * @deprecated Use something else',
+      ' */',
+      'class Fogey {',
+      '}',
+    ),
+  );
 
-  expect(result.files['index.d.ts']).toContain(lines(
-    '/**',
-    ' * (deprecated) Here is an old class.',
-    ' *',
-    ' * @deprecated Use something else',
-    ' */',
-    'export declare class Fogey {',
-    '}',
-  ));
+  expect(result.files['index.d.ts']).toContain(
+    lines(
+      '/**',
+      ' * (deprecated) Here is an old class.',
+      ' *',
+      ' * @deprecated Use something else',
+      ' */',
+      'export declare class Fogey {',
+      '}',
+    ),
+  );
 });
 
 // ----------------------------------------------------------------------
 
 test('Rendering jsii docs back to a doc comment', () => {
-  expect(renderSymbolDocumentation({
-    summary: 'This is the summary',
-    remarks: 'You can use this\nor not, as you see fit.',
-    default: 'thas a default value',
-    see: 'https://some.url/',
-    subclassable: true,
-    returns: 'A value',
-    example: 'print("a thing");',
-    custom: {
-      'sing': 'whenyourewinning',
-    },
-  })).toEqual(lines(
-    'This is the summary',
-    '',
-    'You can use this',
-    'or not, as you see fit.',
-    '',
-    '@returns A value',
-    '@default thas a default value',
-    '@see https://some.url/',
-    '@subclassable',
-    '@sing whenyourewinning',
-    '@example',
-    '',
-    'print("a thing");',
-  ));
+  expect(
+    renderSymbolDocumentation({
+      summary: 'This is the summary',
+      remarks: 'You can use this\nor not, as you see fit.',
+      default: 'thas a default value',
+      see: 'https://some.url/',
+      subclassable: true,
+      returns: 'A value',
+      example: 'print("a thing");',
+      custom: {
+        sing: 'whenyourewinning',
+      },
+    }),
+  ).toEqual(
+    lines(
+      'This is the summary',
+      '',
+      'You can use this',
+      'or not, as you see fit.',
+      '',
+      '@returns A value',
+      '@default thas a default value',
+      '@see https://some.url/',
+      '@subclassable',
+      '@sing whenyourewinning',
+      '@example',
+      '',
+      'print("a thing");',
+    ),
+  );
 });
 
 // ----------------------------------------------------------------------
@@ -479,5 +490,5 @@ function lines(...ls: string[]) {
 
 function indented(indent: number, ...lines: string[]) {
   const prefix = ' '.repeat(indent);
-  return lines.map(l => `${prefix}${l}`).join('\n');
+  return lines.map((l) => `${prefix}${l}`).join('\n');
 }
