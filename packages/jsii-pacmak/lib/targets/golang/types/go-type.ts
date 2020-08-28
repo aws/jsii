@@ -126,15 +126,6 @@ export abstract class GoStruct extends GoType implements GoEmitter {
     code.line('// Struct interface'); // FIXME for debugging
     code.openBlock(`type ${this.interfaceName} interface`);
 
-    const extended = this.type.getInterfaces(true);
-
-    // embed extended interfaces
-    if (extended.length !== 0) {
-      for (const iface of extended) {
-        code.line(iface.fqn);
-      }
-    }
-
     for (const property of this.properties) {
       property.emitGetterDecl(code);
     }
