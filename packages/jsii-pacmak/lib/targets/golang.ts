@@ -1,9 +1,11 @@
 import { CodeMaker } from 'codemaker';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
+import { join } from 'path';
 import { RootPackage } from './golang/package';
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
+import { goPackageName } from './golang/util';
 
 export class Golang extends Target {
   public readonly generator: IGenerator;
@@ -63,7 +65,7 @@ class GolangGenerator implements IGenerator {
 
     // this.code.closeFile(bundledRuntimeDotGo);
 
-    await this.code.save(outDir);
+    await this.code.save(join(outDir, goPackageName(this.assembly.name)));
   }
 }
 

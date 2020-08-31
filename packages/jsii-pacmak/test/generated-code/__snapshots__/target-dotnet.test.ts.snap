@@ -45,7 +45,9 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
-        "go": {},
+        "go": {
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        },
         "java": {
           "maven": {
             "artifactId": "calculator-base-of-base",
@@ -79,7 +81,9 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
     },
-    "go": {},
+    "go": {
+      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+    },
     "java": {
       "maven": {
         "artifactId": "calculator-base",
@@ -181,7 +185,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     }
   },
   "version": "0.0.0",
-  "fingerprint": "JCkFuFqry/njMLNi/IpfTVdkVye/esUFOCoZoFbDD+4="
+  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc="
 }
 
 `;
@@ -487,7 +491,9 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
     },
-    "go": {},
+    "go": {
+      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+    },
     "java": {
       "maven": {
         "artifactId": "calculator-base-of-base",
@@ -613,7 +619,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     }
   },
   "version": "0.0.0",
-  "fingerprint": "BO4LoOyJk6BJr5RVSN04tSeftV9mRdEyrdpz5BrvSnA="
+  "fingerprint": "XzppfL+BknRpBHYygvGjf8OOXrTyNAx6cllN3vONLoU="
 }
 
 `;
@@ -932,7 +938,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
-        "go": {},
+        "go": {
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        },
         "java": {
           "maven": {
             "artifactId": "calculator-base",
@@ -955,7 +963,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
-        "go": {},
+        "go": {
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        },
         "java": {
           "maven": {
             "artifactId": "calculator-base-of-base",
@@ -1013,7 +1023,9 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
       "versionSuffix": "-devpreview"
     },
-    "go": {},
+    "go": {
+      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+    },
     "java": {
       "maven": {
         "artifactId": "calculator-lib",
@@ -1674,7 +1686,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     }
   },
   "version": "0.0.0",
-  "fingerprint": "kLS1ei6Uc31/IKA//k3OZp65Lxz+2tLyQOO/qSYpvSE="
+  "fingerprint": "/PrQbD8BlAtg3N9iuntBks7Q/oIyS45A/S7RvNATePA="
 }
 
 `;
@@ -3369,7 +3381,9 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
         },
-        "go": {},
+        "go": {
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        },
         "java": {
           "maven": {
             "artifactId": "calculator-base",
@@ -3392,7 +3406,9 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
-        "go": {},
+        "go": {
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        },
         "java": {
           "maven": {
             "artifactId": "calculator-base-of-base",
@@ -3435,7 +3451,9 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
           "versionSuffix": "-devpreview"
         },
-        "go": {},
+        "go": {
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        },
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
@@ -17286,7 +17304,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "z2c8J2bfL+5JzcDCirraNDyNDE37TrNl4xQnf7zLBqY="
+  "fingerprint": "Rp4Cw4yqvAfwyiUl5zmEHzvLlWXhUMNMwzWQYkG/1io="
 }
 
 `;

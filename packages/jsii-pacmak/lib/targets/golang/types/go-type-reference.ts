@@ -51,7 +51,7 @@ export class GoTypeRef {
   }
 
   public get namespace() {
-    return this.type?.parent.moduleName;
+    return this.type?.parent.packageName;
   }
 
   /*
@@ -82,7 +82,7 @@ export class GoTypeRef {
     }
 
     // type is defined in the same scope as the current one, no namespace required
-    if (scope.moduleName === this.namespace && this.name) {
+    if (scope.packageName === this.namespace && this.name) {
       // if the current scope is the same as the types scope, return without a namespace
       return toPascalCase(this.name);
     }
