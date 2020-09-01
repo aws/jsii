@@ -847,7 +847,7 @@ package jsiicalc
 import (
     "github.com/aws-cdk/jsii/jsii"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib"
-    "composition"
+    "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/composition"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib/submodule"
@@ -8473,7 +8473,7 @@ package backreferences
 
 import (
     "github.com/aws-cdk/jsii/jsii"
-    "submodule"
+    "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
 )
 
 // Struct interface
@@ -8681,8 +8681,7 @@ package nestedsubmodule
 
 import (
     "github.com/aws-cdk/jsii/jsii"
-    "deeplynested"
-    "child"
+    "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
 )
 
 // Class interface
@@ -8725,9 +8724,8 @@ package submodule
 
 import (
     "github.com/aws-cdk/jsii/jsii"
-    "deeplynested"
-    "child"
-    "jsiicalc"
+    "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
+    "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
 )
 
 // Class interface

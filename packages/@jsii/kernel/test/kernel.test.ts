@@ -398,7 +398,9 @@ defineTest(
         namespace: 'Amazon.JSII.Tests.CalculatorNamespace',
         packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
       },
-      go: {},
+      go: {
+        moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
+      },
       java: {
         package: 'software.amazon.jsii.tests.calculator',
         maven: {

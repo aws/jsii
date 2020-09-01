@@ -69,17 +69,11 @@ export abstract class Package {
   public get dependencyImports(): Set<string> {
     return new Set(
       this.dependencies.map((pack) => {
-        // If the package root isn't the same as the current packages root, the
-        // package is part of a different module and requires a full module path
-        if (pack.root !== this.root) {
-          const moduleName = pack.root.moduleName;
-          const prefix = moduleName !== '' ? `${moduleName}/` : '';
-          const rootPackageName = pack.root.packageName;
-          const suffix = pack.filePath !== '' ? `/${pack.filePath}` : '';
-          return `${prefix}${rootPackageName}${suffix}`;
-        }
-
-        return pack.packageName;
+        const moduleName = pack.root.moduleName;
+        const prefix = moduleName !== '' ? `${moduleName}/` : '';
+        const rootPackageName = pack.root.packageName;
+        const suffix = pack.filePath !== '' ? `/${pack.filePath}` : '';
+        return `${prefix}${rootPackageName}${suffix}`;
       }),
     );
   }
