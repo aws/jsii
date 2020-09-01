@@ -34,7 +34,7 @@
     "jsonschema": "^1.2.6"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.10",
+    "@types/jest": "^26.0.12",
     "@types/node": "^10.17.28",
     "eslint": "^7.7.0",
     "jest": "^26.4.2",
