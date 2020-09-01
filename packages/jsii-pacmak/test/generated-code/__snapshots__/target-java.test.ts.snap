@@ -773,7 +773,11 @@ public class StaticConsumer extends software.amazon.jsii.JsiiObject {
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/baseofbase/Very.java 1`] = `
 package software.amazon.jsii.tests.calculator.baseofbase;
 
+/**
+ * (experimental) Something here.
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.baseofbase.$Module.class, fqn = "@scope/jsii-calc-base-of-base.Very")
 public class Very extends software.amazon.jsii.JsiiObject {
 
@@ -790,6 +794,9 @@ public class Very extends software.amazon.jsii.JsiiObject {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public @org.jetbrains.annotations.NotNull java.lang.Number hey() {
         return this.jsiiCall("hey", java.lang.Number.class);
     }
@@ -1156,7 +1163,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.custom_submodule_name;
 
 /**
- * This class is here to show we can use nested classes across module boundaries.
+ * (deprecated) This class is here to show we can use nested classes across module boundaries.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -1172,7 +1179,7 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
         super(initializationMode);
     }
     /**
-     * This class is here to show we can use nested classes across module boundaries.
+     * (deprecated) This class is here to show we can use nested classes across module boundaries.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -1205,7 +1212,7 @@ public class NestingClass extends software.amazon.jsii.JsiiObject {
         }
     }
     /**
-     * This is a struct, nested within a class.
+     * (deprecated) This is a struct, nested within a class.
      * <p>
      * Normal.
      */
@@ -1609,7 +1616,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Check that enums from \\@scoped packages can be references.
+ * (deprecated) Check that enums from \\@scoped packages can be references.
  * <p>
  * See awslabs/jsii#138
  */
@@ -1636,7 +1643,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * The general contract for a concrete number.
+ * (deprecated) The general contract for a concrete number.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.IDoublable")
@@ -1676,7 +1683,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Applies to classes that are considered friendly.
+ * (deprecated) Applies to classes that are considered friendly.
  * <p>
  * These classes can be greeted with
  * a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
@@ -1689,7 +1696,7 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * Say hello!
+     * (deprecated) Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -1704,7 +1711,7 @@ public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Say hello!
+         * (deprecated) Say hello!
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -1721,7 +1728,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Interface that inherits from packages 2 levels up the tree.
+ * (deprecated) Interface that inherits from packages 2 levels up the tree.
  * <p>
  * Their presence validates that .NET/Java/jsii-reflect can track all fields
  * far enough up the tree.
@@ -1774,7 +1781,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * This is the first struct we have created in jsii.
+ * (deprecated) This is the first struct we have created in jsii.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.MyFirstStruct")
@@ -1784,14 +1791,14 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * An awesome number value.
+     * (deprecated) An awesome number value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
     @org.jetbrains.annotations.NotNull java.lang.Number getAnumber();
 
     /**
-     * A string value.
+     * (deprecated) A string value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -1967,7 +1974,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Represents a concrete number.
+ * (deprecated) Represents a concrete number.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -1984,7 +1991,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.NumericVal
     }
 
     /**
-     * Creates a Number object.
+     * (deprecated) Creates a Number object.
      * <p>
      * @param value The number. This parameter is required.
      */
@@ -1996,7 +2003,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.NumericVal
     }
 
     /**
-     * The number multiplied by 2.
+     * (deprecated) The number multiplied by 2.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -2006,7 +2013,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.NumericVal
     }
 
     /**
-     * The number.
+     * (deprecated) The number.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -2022,7 +2029,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Abstract class which represents a numeric value.
+ * (deprecated) Abstract class which represents a numeric value.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -2044,7 +2051,7 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -2053,7 +2060,7 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
     }
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -2068,7 +2075,7 @@ public abstract class NumericValue extends software.amazon.jsii.tests.calculator
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -2085,7 +2092,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Represents an operation on values.
+ * (deprecated) Represents an operation on values.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -2107,7 +2114,7 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -2123,7 +2130,7 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -2133,7 +2140,7 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
         }
 
         /**
-         * String representation of the value.
+         * (deprecated) String representation of the value.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -2150,7 +2157,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/java/src/main/java/
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * This is a struct with only optional properties.
+ * (deprecated) This is a struct with only optional properties.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.StructWithOnlyOptionals")
@@ -2160,7 +2167,7 @@ package software.amazon.jsii.tests.calculator.lib;
 public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * The first optional!
+     * (deprecated) The first optional!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -3199,7 +3206,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -3208,7 +3215,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     }
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -4027,7 +4034,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     }
 
     /**
-     * Say hello!
+     * (deprecated) Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -4060,7 +4067,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -4070,7 +4077,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * Say hello!
+         * (deprecated) Say hello!
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -4080,7 +4087,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * String representation of the value.
+         * (deprecated) String representation of the value.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -7293,9 +7300,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Say ¡Hola!
-     * <p>
-     * EXPERIMENTAL
+     * (experimental) Say ¡Hola!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void hola() {
@@ -7370,7 +7375,7 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     }
 
     /**
-     * Say hello!
+     * (deprecated) Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -7750,7 +7755,6 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -7766,8 +7770,6 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * EXPERIMENTAL
-     * <p>
      * @param readonlyString This parameter is required.
      * @param mutableNumber
      */
@@ -7778,8 +7780,6 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * EXPERIMENTAL
-     * <p>
      * @param readonlyString This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -7789,7 +7789,6 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void method() {
@@ -7797,7 +7796,6 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty() {
@@ -7805,7 +7803,6 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
@@ -7813,7 +7810,6 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
@@ -7827,19 +7823,16 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ExperimentalEnum")
 public enum ExperimentalEnum {
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     OPTION_A,
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     OPTION_B,
@@ -7851,7 +7844,6 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ExperimentalStruct")
@@ -7860,7 +7852,6 @@ package software.amazon.jsii.tests.calculator;
 public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @org.jetbrains.annotations.NotNull java.lang.String getReadonlyProperty();
@@ -8934,7 +8925,6 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IExperimentalInterface")
@@ -8943,7 +8933,6 @@ package software.amazon.jsii.tests.calculator;
 public interface IExperimentalInterface extends software.amazon.jsii.JsiiSerializable {
 
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     default @org.jetbrains.annotations.Nullable java.lang.Number getMutableProperty() {
@@ -8951,7 +8940,6 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
     }
 
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Optional
     default void setMutableProperty(final @org.jetbrains.annotations.Nullable java.lang.Number value) {
@@ -8959,7 +8947,6 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
     }
 
     /**
-     * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     void method();
@@ -8973,7 +8960,6 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
         }
 
         /**
-         * EXPERIMENTAL
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -8982,7 +8968,6 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
         }
 
         /**
-         * EXPERIMENTAL
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -8991,7 +8976,6 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
         }
 
         /**
-         * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
@@ -9185,7 +9169,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         }
 
         /**
-         * Say hello!
+         * (deprecated) Say hello!
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -9229,7 +9213,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         * Say hello!
+         * (deprecated) Say hello!
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -12185,7 +12169,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -12194,7 +12178,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     }
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -12252,7 +12236,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * Say hello!
+     * (deprecated) Say hello!
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -12261,7 +12245,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -12270,7 +12254,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -12877,7 +12861,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Old class.
+ * (deprecated) Old class.
  * <p>
  * @deprecated Use the new class
  */
@@ -12904,7 +12888,7 @@ public class Old extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Doo wop that thing.
+     * (deprecated) Doo wop that thing.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
@@ -17045,7 +17029,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -17055,7 +17039,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         }
 
         /**
-         * String representation of the value.
+         * (deprecated) String representation of the value.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
@@ -17722,7 +17706,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * String representation of the value.
+     * (deprecated) String representation of the value.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     @Override
@@ -17739,7 +17723,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     public abstract @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.lib.NumericValue getExpression();
 
     /**
-     * The value.
+     * (deprecated) The value.
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
@@ -17832,7 +17816,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         }
 
         /**
-         * The value.
+         * (deprecated) The value.
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -17842,7 +17826,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         }
 
         /**
-         * String representation of the value.
+         * (deprecated) String representation of the value.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated

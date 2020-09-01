@@ -536,13 +536,13 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 15
+        "line": 19
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 18
+            "line": 22
           },
           "name": "consume",
           "parameters": [
@@ -562,18 +562,25 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     },
     "@scope/jsii-calc-base-of-base.Very": {
       "assembly": "@scope/jsii-calc-base-of-base",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Something here."
+      },
       "fqn": "@scope/jsii-calc-base-of-base.Very",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 9
+        "line": 13
       },
       "methods": [
         {
+          "docs": {
+            "stability": "experimental"
+          },
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 10
+            "line": 14
           },
           "name": "hey",
           "returns": {
@@ -612,7 +619,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     }
   },
   "version": "0.0.0",
-  "fingerprint": "jza6cUA8sUzeQheSillLX/NlWEInEXLHp27JTZNQqUE="
+  "fingerprint": "XzppfL+BknRpBHYygvGjf8OOXrTyNAx6cllN3vONLoU="
 }
 
 `;
@@ -772,6 +779,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
 {
+    /// <summary>(experimental) Something here.</summary>
+    /// <remarks>
+    /// <strong>Stability</strong>: Experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very), fullyQualifiedName: "@scope/jsii-calc-base-of-base.Very")]
     public class Very : DeputyBase
     {
@@ -793,6 +804,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace
         {
         }
 
+        /// <remarks>
+        /// <strong>Stability</strong>: Experimental
+        /// </remarks>
         [JsiiMethod(name: "hey", returnsJson: "{\\"type\\":{\\"primitive\\":\\"number\\"}}")]
         public virtual double Hey()
         {
@@ -1724,7 +1738,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Check that enums from \\@scoped packages can be references.</summary>
+    /// <summary>(deprecated) Check that enums from \\@scoped packages can be references.</summary>
     /// <remarks>
     /// See awslabs/jsii#138
     /// 
@@ -1758,7 +1772,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>The general contract for a concrete number.</summary>
+    /// <summary>(deprecated) The general contract for a concrete number.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -1787,7 +1801,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>The general contract for a concrete number.</summary>
+    /// <summary>(deprecated) The general contract for a concrete number.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -1820,7 +1834,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Applies to classes that are considered friendly.</summary>
+    /// <summary>(deprecated) Applies to classes that are considered friendly.</summary>
     /// <remarks>
     /// These classes can be greeted with
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
@@ -1831,7 +1845,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public interface IFriendly
     {
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -1850,7 +1864,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Applies to classes that are considered friendly.</summary>
+    /// <summary>(deprecated) Applies to classes that are considered friendly.</summary>
     /// <remarks>
     /// These classes can be greeted with
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
@@ -1865,7 +1879,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -1887,7 +1901,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is the first struct we have created in jsii.</summary>
+    /// <summary>(deprecated) This is the first struct we have created in jsii.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -1895,7 +1909,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public interface IMyFirstStruct
     {
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -1906,7 +1920,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get;
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -1942,7 +1956,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is a struct with only optional properties.</summary>
+    /// <summary>(deprecated) This is a struct with only optional properties.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -1950,7 +1964,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public interface IStructWithOnlyOptionals
     {
-        /// <summary>The first optional!</summary>
+        /// <summary>(deprecated) The first optional!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2004,7 +2018,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Interface that inherits from packages 2 levels up the tree.</summary>
+    /// <summary>(deprecated) Interface that inherits from packages 2 levels up the tree.</summary>
     /// <remarks>
     /// Their presence validates that .NET/Java/jsii-reflect can track all fields
     /// far enough up the tree.
@@ -2033,7 +2047,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Interface that inherits from packages 2 levels up the tree.</summary>
+    /// <summary>(deprecated) Interface that inherits from packages 2 levels up the tree.</summary>
     /// <remarks>
     /// Their presence validates that .NET/Java/jsii-reflect can track all fields
     /// far enough up the tree.
@@ -2100,14 +2114,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     #pragma warning disable CS8618
 
-    /// <summary>This is the first struct we have created in jsii.</summary>
+    /// <summary>(deprecated) This is the first struct we have created in jsii.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiByValue(fqn: "@scope/jsii-calc-lib.MyFirstStruct")]
     public class MyFirstStruct : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct
     {
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2119,7 +2133,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             set;
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2154,7 +2168,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is the first struct we have created in jsii.</summary>
+    /// <summary>(deprecated) This is the first struct we have created in jsii.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -2166,7 +2180,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2177,7 +2191,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2210,7 +2224,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Represents a concrete number.</summary>
+    /// <summary>(deprecated) Represents a concrete number.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -2218,7 +2232,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public class Number : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.NumericValue, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable
     {
-        /// <summary>Creates a Number object.</summary>
+        /// <summary>(deprecated) Creates a Number object.</summary>
         /// <param name="value">The number.</param>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
@@ -2244,7 +2258,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The number multiplied by 2.</summary>
+        /// <summary>(deprecated) The number multiplied by 2.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2255,7 +2269,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>The number.</summary>
+        /// <summary>(deprecated) The number.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2277,7 +2291,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Abstract class which represents a numeric value.</summary>
+    /// <summary>(deprecated) Abstract class which represents a numeric value.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -2303,7 +2317,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2314,7 +2328,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2336,7 +2350,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Abstract class which represents a numeric value.</summary>
+    /// <summary>(deprecated) Abstract class which represents a numeric value.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -2348,7 +2362,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2370,7 +2384,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Represents an operation on values.</summary>
+    /// <summary>(deprecated) Represents an operation on values.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -2396,7 +2410,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2416,7 +2430,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Represents an operation on values.</summary>
+    /// <summary>(deprecated) Represents an operation on values.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -2428,7 +2442,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2439,7 +2453,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2461,14 +2475,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is a struct with only optional properties.</summary>
+    /// <summary>(deprecated) This is a struct with only optional properties.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
     [JsiiByValue(fqn: "@scope/jsii-calc-lib.StructWithOnlyOptionals")]
     public class StructWithOnlyOptionals : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IStructWithOnlyOptionals
     {
-        /// <summary>The first optional!</summary>
+        /// <summary>(deprecated) The first optional!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2516,7 +2530,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is a struct with only optional properties.</summary>
+    /// <summary>(deprecated) This is a struct with only optional properties.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -2528,7 +2542,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The first optional!</summary>
+        /// <summary>(deprecated) The first optional!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2671,7 +2685,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CustomSubmoduleName
 {
-    /// <summary>This class is here to show we can use nested classes across module boundaries.</summary>
+    /// <summary>(deprecated) This class is here to show we can use nested classes across module boundaries.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -2692,7 +2706,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         protected NestingClass(DeputyProps props): base(props)
         {
         }
-        /// <summary>This class is here to show we can use nested classes across module boundaries.</summary>
+        /// <summary>(deprecated) This class is here to show we can use nested classes across module boundaries.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -2734,7 +2748,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
                 get => GetInstanceProperty<string>();
             }
         }
-        /// <summary>This is a struct, nested within a class.</summary>
+        /// <summary>(deprecated) This is a struct, nested within a class.</summary>
         /// <remarks>
         /// Normal.
         /// 
@@ -2754,7 +2768,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
                 get;
             }
         }
-        /// <summary>This is a struct, nested within a class.</summary>
+        /// <summary>(deprecated) This is a struct, nested within a class.</summary>
         /// <remarks>
         /// Normal.
         /// 
@@ -2780,7 +2794,7 @@ namespace Amazon.JSII.Tests.CustomSubmoduleName
         }
         #pragma warning disable CS8618
 
-        /// <summary>This is a struct, nested within a class.</summary>
+        /// <summary>(deprecated) This is a struct, nested within a class.</summary>
         /// <remarks>
         /// Normal.
         /// 
@@ -3491,7 +3505,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     "@scope/jsii-calc-lib.submodule": {
       "locationInModule": {
         "filename": "../@scope/jsii-calc-lib/build/index.d.ts",
-        "line": 94
+        "line": 157
       }
     },
     "jsii-calc.DerivedClassHasNoProperties": {
@@ -3908,7 +3922,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -3928,7 +3942,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -4909,7 +4923,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "Say hello!"
+            "summary": "(deprecated) Say hello!"
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -7577,7 +7591,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "Say hello!"
+            "summary": "(deprecated) Say hello!"
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
@@ -11752,7 +11766,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -11772,7 +11786,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -11858,7 +11872,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "Say hello!"
+            "summary": "(deprecated) Say hello!"
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -11875,7 +11889,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -11895,7 +11909,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -16630,7 +16644,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "String representation of the value."
+            "summary": "(deprecated) String representation of the value."
           },
           "locationInModule": {
             "filename": "lib/calculator.ts",
@@ -16668,7 +16682,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         {
           "docs": {
             "stability": "stable",
-            "summary": "The value."
+            "summary": "(deprecated) The value."
           },
           "immutable": true,
           "locationInModule": {
@@ -17290,7 +17304,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "D7hjrHXe6ctuIKevB3YN+761WFtPs6LykV2nsXQRHTM="
+  "fingerprint": "Rp4Cw4yqvAfwyiUl5zmEHzvLlWXhUMNMwzWQYkG/1io="
 }
 
 `;
@@ -17644,14 +17658,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -18246,7 +18260,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public virtual string Hello()
         {
@@ -18286,7 +18300,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -18297,7 +18311,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -19065,7 +19079,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
         {
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public override string ToString()
         {
@@ -19082,7 +19096,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Composition
             get;
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -20014,7 +20028,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -20026,7 +20040,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -20110,7 +20124,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string[]?>();
         }
 
-        /// <summary>An awesome number value.</summary>
+        /// <summary>(deprecated) An awesome number value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -20121,7 +20135,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>A string value.</summary>
+        /// <summary>(deprecated) A string value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -20591,7 +20605,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IGreetee)}, new object?[]{greetee});
         }
 
-        /// <summary>Say ¡Hola!</summary>
+        /// <summary>(experimental) Say ¡Hola!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Experimental
         /// </remarks>
@@ -20671,7 +20685,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public virtual string Hello()
         {
@@ -22511,7 +22525,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -22563,7 +22577,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -26130,14 +26144,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -26233,21 +26247,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>Say hello!</summary>
+        /// <summary>(deprecated) Say hello!</summary>
         [JsiiMethod(name: "hello", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         [JsiiMethod(name: "toString", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", isOverride: true)]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"number\\"}")]
         public override double Value
         {
@@ -26666,7 +26680,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Old class.</summary>
+    /// <summary>(deprecated) Old class.</summary>
     /// <remarks>
     /// <strong>Stability</strong>: Deprecated
     /// </remarks>
@@ -26692,7 +26706,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Doo wop that thing.</summary>
+        /// <summary>(deprecated) Doo wop that thing.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -30231,7 +30245,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <summary>(deprecated) The value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>
@@ -30242,7 +30256,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <summary>(deprecated) String representation of the value.</summary>
         /// <remarks>
         /// <strong>Stability</strong>: Deprecated
         /// </remarks>

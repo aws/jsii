@@ -28,6 +28,7 @@ import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
 } from '.';
+import { stabilityPrefixFor, renderSummary } from './_utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -1545,7 +1546,8 @@ class JavaGenerator extends Generator {
 
     this.code.line();
     this.code.line('/**');
-    this.code.line(` * A fluent builder for {@link ${builtType}}.`);
+    // eslint-disable-next-line prettier/prettier
+    this.code.line(` * ${stabilityPrefixFor(cls.initializer)}A fluent builder for {@link ${builtType}}.`);
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
     this.code.openBlock(
@@ -2123,7 +2125,7 @@ class JavaGenerator extends Generator {
     const paras = [];
 
     if (docs.summary) {
-      paras.push(docs.summary);
+      paras.push(renderSummary(docs));
     } else if (defaultText) {
       paras.push(defaultText);
     }
@@ -2147,10 +2149,6 @@ class JavaGenerator extends Generator {
           docs.example,
         )}}</pre></blockquote>`,
       );
-    }
-
-    if (docs.stability === spec.Stability.Experimental) {
-      paras.push('EXPERIMENTAL');
     }
 
     const tagLines = [];

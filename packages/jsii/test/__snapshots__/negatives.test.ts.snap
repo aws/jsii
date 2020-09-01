@@ -146,11 +146,6 @@ neg.expose-unexported-type-this.ts:10:38 - warning JSII5018: "boolean" is a rese
 10   public constructor(public readonly boolean = true) {
                                         ~~~~~~~
 
-neg.expose-unexported-type-this.ts:10:38 - warning JSII5018: "boolean" is a reserved word in Java. Using this name may cause problems when generating language bindings. Consider a different name.
-
-10   public constructor(public readonly boolean = true) {
-                                        ~~~~~~~
-
 neg.expose-unexported-type-this.ts:4:10 - error JSII3001: Type "this" (aka: "HiddenBaseClass") cannot be used as the return type because it is private or @internal
 
 4   public returnsThis() {
