@@ -245,7 +245,9 @@
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace",
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId"
     },
-    "go": {},
+    "go": {
+      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+    },
     "java": {
       "maven": {
         "artifactId": "calculator",
@@ -13968,5 +13970,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "Rp4Cw4yqvAfwyiUl5zmEHzvLlWXhUMNMwzWQYkG/1io="
+  "fingerprint": "Ddy05wOucU4yV7YP5fPUzEjiOsl5AGPrwJS7pXpJRPI="
 }
