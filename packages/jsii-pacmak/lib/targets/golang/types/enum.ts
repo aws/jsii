@@ -8,7 +8,8 @@ export class Enum extends GoType {
     super(parent, type);
   }
 
-  public emit({ code }: EmitContext) {
+  public emit(context: EmitContext) {
+    const { code } = context;
     // TODO figure out the value type -- probably a string in most cases
     const valueType = 'string';
     code.line(`type ${this.name} ${valueType}`);
