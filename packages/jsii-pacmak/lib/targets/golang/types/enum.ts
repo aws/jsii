@@ -9,6 +9,8 @@ export class Enum extends GoType {
   }
 
   public emit(context: EmitContext) {
+    this.emitDocs(context);
+
     const { code } = context;
     // TODO figure out the value type -- probably a string in most cases
     const valueType = 'string';

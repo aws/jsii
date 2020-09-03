@@ -31,8 +31,7 @@ export class Documentation {
 
     if (docs.returns !== '') {
       this.code.line(`//`);
-      this.code.line(`// Returns: ${docs.returns}.`);
-      this.code.line(`//`);
+      this.code.line(`// Returns: ${docs.returns}`);
     }
 
     if (docs.example !== '') {
@@ -47,10 +46,17 @@ export class Documentation {
       this.code.line(`//`);
     }
 
-    if (docs.deprecated) {
-      this.code.line(`// Deprecated : ${docs.deprecationReason}`);
-    } else {
-      this.code.line(`// Stability: ${docs.stability}`);
+    this.emitStability(docs);
+  }
+
+  public emitStability(docs: Docs): void {
+    const stability = docs.stability;
+    if (stability && docs.shouldMentionStability()) {
+      if (docs.deprecated) {
+        this.code.line(`// Deprecated: ${docs.deprecationReason}`);
+      } else {
+        this.code.line(`// ${this.code.toPascalCase(stability)}.`);
+      }
     }
   }
 }

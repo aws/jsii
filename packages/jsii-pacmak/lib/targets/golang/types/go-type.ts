@@ -27,6 +27,10 @@ export class GoType {
   public emitDocs(context: EmitContext): void {
     context.documenter.emit(this.type.docs);
   }
+
+  protected emitStability(context: EmitContext): void {
+    context.documenter.emitStability(this.type.docs);
+  }
 }
 
 /*
@@ -58,6 +62,10 @@ export class GoProperty implements TypeField {
   }
 
   public emitStructMember(context: EmitContext) {
+    const docs = this.property.docs;
+    if (docs) {
+      context.documenter.emit(docs);
+    }
     const { code } = context;
     // If struct property is type of parent struct, use a pointer as type to avoid recursive struct type error
     if (this.references?.type?.name === this.parent.name) {
@@ -65,6 +73,7 @@ export class GoProperty implements TypeField {
     } else {
       code.line(`${this.name} ${this.returnType}`);
     }
+    // TODO add newline if not the last member
   }
 
   public emitGetterDecl(context: EmitContext) {
@@ -127,7 +136,6 @@ export abstract class GoStruct extends GoType implements GoEmitter {
 
   // `emit` needs to generate both a Go interface and a struct, as well as the Getter methods on the struct
   public emit(context: EmitContext): void {
-    this.emitDocs(context);
     this.emitInterface(context);
     this.emitStruct(context);
     this.emitGetters(context);
@@ -135,7 +143,11 @@ export abstract class GoStruct extends GoType implements GoEmitter {
 
   protected emitInterface(context: EmitContext): void {
     const { code } = context;
-    code.line('// Struct interface'); // FIXME for debugging
+    code.line(
+      `// ${this.interfaceName} is the public interface for the custom type ${this.name}`,
+    );
+    this.emitStability(context);
+
     code.openBlock(`type ${this.interfaceName} interface`);
 
     for (const property of this.properties) {
@@ -147,6 +159,7 @@ export abstract class GoStruct extends GoType implements GoEmitter {
   }
 
   private emitStruct(context: EmitContext): void {
+    this.emitDocs(context);
     const { code } = context;
     code.line('// Struct proxy'); // FIXME for debugging
     code.openBlock(`type ${this.name} struct`);

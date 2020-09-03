@@ -22,7 +22,13 @@ class InterfaceProperty implements TypeField {
     }
   }
 
-  public emit({ code }: EmitContext) {
+  public emit(context: EmitContext) {
+    const docs = this.property.docs;
+    if (docs) {
+      context.documenter.emit(docs);
+    }
+
+    const { code } = context;
     const propName = this.name;
     const type = new GoTypeRef(
       this.parent.parent.root,
@@ -48,7 +54,12 @@ class InterfaceMethod implements TypeField {
     }
   }
 
-  public emit({ code }: EmitContext) {
+  public emit(context: EmitContext) {
+    const docs = this.method.docs;
+    if (docs) {
+      context.documenter.emit(docs);
+    }
+    const { code } = context;
     const returns = this.method.returns.type.void
       ? ''
       : ` ${new GoTypeRef(
@@ -77,8 +88,9 @@ export class Interface extends GoType {
   }
 
   public emit(context: EmitContext) {
+    this.emitDocs(context);
+
     const { code } = context;
-    code.line('// Behaviorial interface'); // FIXME for debugging
     code.openBlock(`type ${code.toPascalCase(this.name)} interface`);
 
     // embed extended interfaces

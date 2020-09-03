@@ -74,6 +74,7 @@ export class GoClass extends GoStruct {
     if (this.initializer) {
       this.initializer.emit(context);
     }
+
     this.emitSetters(context);
 
     for (const method of this.methods) {
