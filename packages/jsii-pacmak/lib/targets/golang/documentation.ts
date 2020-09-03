@@ -1,8 +1,12 @@
 import { Docs } from 'jsii-reflect';
-import { EmitContext } from './emit-context';
+import { Rosetta } from 'jsii-rosetta';
+import { CodeMaker } from 'codemaker';
 
 export class Documentation {
-  public constructor(private readonly docs: Docs) {}
+  public constructor(
+    private readonly code: CodeMaker,
+    private readonly rosetta: Rosetta,
+  ) {}
 
   /**
    * Emits all documentation depending on what is available in the jsii model
@@ -15,37 +19,38 @@ export class Documentation {
    * Link
    * Stability/Deprecation description
    */
-  public emit(context: EmitContext): void {
-    const { code } = context;
-    if (this.docs.toString() !== '') {
-      const lines = this.docs.toString().split('\n');
+  public emit(docs: Docs): void {
+    console.log(this.rosetta); // Placeholder, until rosetta is used
+
+    if (docs.toString() !== '') {
+      const lines = docs.toString().split('\n');
       for (const line of lines) {
-        code.line(`// ${line}`);
+        this.code.line(`// ${line}`);
       }
     }
 
-    if (this.docs.returns !== '') {
-      code.line(`//`);
-      code.line(`// Returns: ${this.docs.returns}.`);
-      code.line(`//`);
+    if (docs.returns !== '') {
+      this.code.line(`//`);
+      this.code.line(`// Returns: ${docs.returns}.`);
+      this.code.line(`//`);
     }
 
-    if (this.docs.example !== '') {
-      code.line(`//`);
+    if (docs.example !== '') {
+      this.code.line(`//`);
       // TODO: Translate code examples to Golang with Rosetta (not implemented there yet)
-      code.line('// TODO: EXAMPLE');
-      code.line(`//`);
+      this.code.line('// TODO: EXAMPLE');
+      this.code.line(`//`);
     }
 
-    if (this.docs.link !== '') {
-      code.line(`// See: ${this.docs.link}`);
-      code.line(`//`);
+    if (docs.link !== '') {
+      this.code.line(`// See: ${docs.link}`);
+      this.code.line(`//`);
     }
 
-    if (this.docs.deprecated) {
-      code.line(`// Deprecated : ${this.docs.deprecationReason}`);
+    if (docs.deprecated) {
+      this.code.line(`// Deprecated : ${docs.deprecationReason}`);
     } else {
-      code.line(`// Stability: ${this.docs.stability}`);
+      this.code.line(`// Stability: ${docs.stability}`);
     }
   }
 }

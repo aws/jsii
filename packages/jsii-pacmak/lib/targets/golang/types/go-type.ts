@@ -5,7 +5,6 @@ import { Package } from '../package';
 import { GoTypeRef } from './go-type-reference';
 import { TypeField } from './type-field';
 import { getFieldDependencies } from '../util';
-import { Documentation } from '../documentation';
 
 // String appended to all go GoStruct Interfaces
 const STRUCT_INTERFACE_SUFFIX = 'Iface';
@@ -26,9 +25,7 @@ export class GoType {
   }
 
   public emitDocs(context: EmitContext): void {
-    const docs = this.type.docs;
-    const documenter = new Documentation(docs);
-    documenter.emit(context);
+    context.documenter.emit(this.type.docs);
   }
 }
 
