@@ -32,15 +32,6 @@ export class Docs {
     return ret.join('\n');
   }
 
-  /**
-   * Returns whether or not the stability should be mentioned
-   */
-  public shouldMentionStability(): boolean {
-    const s = this.stability;
-    // Don't render "stable" or "external", those are both stable by implication
-    return s === jsii.Stability.Deprecated || s === jsii.Stability.Experimental;
-  }
-
   public get subclassable(): boolean {
     return !!this.docs.subclassable;
   }

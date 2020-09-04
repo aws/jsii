@@ -172,7 +172,6 @@ describe('@deprecated', () => {
     const klass = typesys.findClass('jsii-calc.Old');
     expect(klass.docs.deprecated).toBeTruthy();
     expect(klass.docs.stability).toBe(spec.Stability.Deprecated);
-    expect(klass.docs.shouldMentionStability()).toBeTruthy();
   });
 
   test('is inherited from class', () => {
@@ -218,21 +217,18 @@ describe('Stability', () => {
   test('can be read on an item', () => {
     const klass = typesys.findClass('jsii-calc.DocumentedClass');
     expect(klass.docs.stability).toBe(spec.Stability.Stable);
-    expect(klass.docs.shouldMentionStability()).toBeFalsy();
   });
 
   test('is inherited from class', () => {
     const klass = typesys.findClass('jsii-calc.DocumentedClass');
     const method = klass.getMethods().greet;
     expect(method.docs.stability).toBe(spec.Stability.Stable);
-    expect(klass.docs.shouldMentionStability()).toBeFalsy();
   });
 
   test('can be overridden from class', () => {
     const klass = typesys.findClass('jsii-calc.DocumentedClass');
     const method = klass.getMethods().hola;
     expect(method.docs.stability).toBe(spec.Stability.Experimental);
-    expect(method.docs.shouldMentionStability()).toBeTruthy();
   });
 
   // ----------------------------------------------------------------------
@@ -361,7 +357,6 @@ describe('Stability', () => {
       const method = classType.allMethods.find((m) => m.name === 'bar')!;
 
       expect(method.docs.stability).toEqual(Stability.External);
-      expect(method.docs.shouldMentionStability()).toBeFalsy();
     });
   });
 });

@@ -1,4 +1,5 @@
 import { Docs } from 'jsii-reflect';
+import { Stability } from '@jsii/spec';
 import { Rosetta } from 'jsii-rosetta';
 import { CodeMaker } from 'codemaker';
 
@@ -51,12 +52,18 @@ export class Documentation {
 
   public emitStability(docs: Docs): void {
     const stability = docs.stability;
-    if (stability && docs.shouldMentionStability()) {
+    if (stability && this.shouldMentionStability(docs)) {
       if (docs.deprecated) {
         this.code.line(`// Deprecated: ${docs.deprecationReason}`);
       } else {
         this.code.line(`// ${this.code.toPascalCase(stability)}.`);
       }
     }
+  }
+
+  private shouldMentionStability(docs: Docs): boolean {
+    const s = docs.stability;
+    // Don't render "stable" or "external", those are both stable by implication
+    return s === Stability.Deprecated || s === Stability.Experimental;
   }
 }
