@@ -60,14 +60,3 @@ export class Documentation {
     }
   }
 }
-
-// "docs": {
-//   "custom": {
-//     "customAttribute": "hasAValue"
-//   },
-//   "example": "function anExample() {\n}",
-//   "remarks": "The docs are great. They're a bunch of tags.",
-//   "see": "https://aws.amazon.com/",
-//   "stability": "stable",
-//   "summary": "This class has docs."
-// },
