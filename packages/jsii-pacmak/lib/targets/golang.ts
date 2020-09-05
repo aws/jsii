@@ -1,4 +1,5 @@
 import { CodeMaker } from 'codemaker';
+import { Documentation } from './golang/documentation';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import { join } from 'path';
@@ -30,8 +31,11 @@ export class Golang extends Target {
 class GolangGenerator implements IGenerator {
   private assembly!: Assembly;
   private readonly code = new CodeMaker();
+  private readonly documenter: Documentation;
 
-  public constructor(private readonly rosetta: Rosetta) {}
+  public constructor(private readonly rosetta: Rosetta) {
+    this.documenter = new Documentation(this.code, this.rosetta);
+  }
 
   public async load(_: string, assembly: Assembly): Promise<void> {
     this.assembly = assembly;
@@ -45,7 +49,7 @@ class GolangGenerator implements IGenerator {
   public generate(): void {
     new RootPackage(this.assembly).emit({
       code: this.code,
-      rosetta: this.rosetta,
+      documenter: this.documenter,
     });
   }
 

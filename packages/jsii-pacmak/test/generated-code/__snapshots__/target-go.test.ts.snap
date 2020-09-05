@@ -8,6 +8,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/golang/scopejsiicalcbase/scopejsiicalcbase.go 1`] = `
+// An example direct dependency for jsii-calc.
 package scopejsiicalcbase
 
 import (
@@ -20,6 +21,7 @@ type BaseIface interface {
     TypeName() jsii.Any
 }
 
+// A base class.
 // Struct proxy
 type Base struct {
 }
@@ -42,7 +44,7 @@ func (b *Base) TypeName() jsii.Any  {
     return nil
 }
 
-// Struct interface
+// BasePropsIface is the public interface for the custom type BaseProps
 type BasePropsIface interface {
     GetFoo() scopejsiicalcbaseofbase.Very
     GetBar() string
@@ -63,7 +65,6 @@ func (b BaseProps) GetBar() string {
 }
 
 
-// Behaviorial interface
 type IBaseInterface interface {
     scopejsiicalcbaseofbase.IVeryBaseInterface
     Bar()
@@ -80,13 +81,13 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/golang/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase.go 1`] = `
+// An example transitive dependency for jsii-calc.
 package scopejsiicalcbaseofbase
 
 import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
-// Behaviorial interface
 type IVeryBaseInterface interface {
     Foo()
 }
@@ -114,6 +115,8 @@ type VeryIface interface {
     Hey() float64
 }
 
+// Something here.
+// Experimental.
 // Struct proxy
 type Very struct {
 }
@@ -136,7 +139,7 @@ func (v *Very) Hey() float64  {
     return 0.0
 }
 
-// Struct interface
+// VeryBasePropsIface is the public interface for the custom type VeryBaseProps
 type VeryBasePropsIface interface {
     GetFoo() Very
 }
@@ -164,6 +167,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiicalclib/scopejsiicalclib.go 1`] = `
+// A simple calcuator library built on JSII.
 package scopejsiicalclib
 
 import (
@@ -172,6 +176,10 @@ import (
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase"
 )
 
+// Check that enums from \\@scoped packages can be references.
+// 
+// See awslabs/jsii#138
+// Deprecated.
 type EnumFromScopedModule string
 
 const (
@@ -179,34 +187,55 @@ const (
     EnumFromScopedModuleValue2 EnumFromScopedModule = "VALUE2"
 )
 
-// Behaviorial interface
+// The general contract for a concrete number.
+// Deprecated.
 type IDoublable interface {
+    // Deprecated.
     GetDoubleValue() float64
 }
 
-// Behaviorial interface
+// Applies to classes that are considered friendly.
+// 
+// These classes can be greeted with
+// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
+// Deprecated.
 type IFriendly interface {
+    // Say hello!
+    // Deprecated.
     Hello() string
 }
 
-// Behaviorial interface
+// Interface that inherits from packages 2 levels up the tree.
+// 
+// Their presence validates that .NET/Java/jsii-reflect can track all fields
+// far enough up the tree.
+// Deprecated.
 type IThreeLevelsInterface interface {
     scopejsiicalcbaseofbase.IVeryBaseInterface
     scopejsiicalcbase.IBaseInterface
+    // Deprecated.
     Baz()
 }
 
-// Struct interface
+// MyFirstStructIface is the public interface for the custom type MyFirstStruct
+// Deprecated.
 type MyFirstStructIface interface {
     GetAnumber() float64
     GetAstring() string
     GetFirstOptional() []string
 }
 
+// This is the first struct we have created in jsii.
+// Deprecated.
 // Struct proxy
 type MyFirstStruct struct {
+    // An awesome number value.
+    // Deprecated.
     Anumber float64
+    // A string value.
+    // Deprecated.
     Astring string
+    // Deprecated.
     FirstOptional []string
 }
 
@@ -234,9 +263,15 @@ type NumberIface interface {
     ToString() string
 }
 
+// Represents a concrete number.
+// Deprecated.
 // Struct proxy
 type Number struct {
+    // The number.
+    // Deprecated.
     Value float64
+    // The number multiplied by 2.
+    // Deprecated.
     DoubleValue float64
 }
 
@@ -293,8 +328,12 @@ type NumericValueIface interface {
     ToString() string
 }
 
+// Abstract class which represents a numeric value.
+// Deprecated.
 // Struct proxy
 type NumericValue struct {
+    // The value.
+    // Deprecated.
     Value float64
 }
 
@@ -342,8 +381,12 @@ type OperationIface interface {
     ToString() string
 }
 
+// Represents an operation on values.
+// Deprecated.
 // Struct proxy
 type Operation struct {
+    // The value.
+    // Deprecated.
     Value float64
 }
 
@@ -383,17 +426,24 @@ func (o *Operation) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
-// Struct interface
+// StructWithOnlyOptionalsIface is the public interface for the custom type StructWithOnlyOptionals
+// Deprecated.
 type StructWithOnlyOptionalsIface interface {
     GetOptional1() string
     GetOptional2() float64
     GetOptional3() bool
 }
 
+// This is a struct with only optional properties.
+// Deprecated.
 // Struct proxy
 type StructWithOnlyOptionals struct {
+    // The first optional!
+    // Deprecated.
     Optional1 string
+    // Deprecated.
     Optional2 float64
+    // Deprecated.
     Optional3 bool
 }
 
@@ -420,8 +470,9 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
-// Behaviorial interface
+// Deprecated.
 type IReflectable interface {
+    // Deprecated.
     GetEntries() []ReflectableEntry
 }
 
@@ -429,6 +480,8 @@ type IReflectable interface {
 type NestingClassIface interface {
 }
 
+// This class is here to show we can use nested classes across module boundaries.
+// Deprecated.
 // Struct proxy
 type NestingClass struct {
 }
@@ -439,8 +492,11 @@ type NestedClassIface interface {
     SetProperty()
 }
 
+// This class is here to show we can use nested classes across module boundaries.
+// Deprecated.
 // Struct proxy
 type NestedClass struct {
+    // Deprecated.
     Property string
 }
 
@@ -462,13 +518,19 @@ func (n NestedClass) SetProperty(val string) {
     n.Property = val
 }
 
-// Struct interface
+// NestedStructIface is the public interface for the custom type NestedStruct
+// Deprecated.
 type NestedStructIface interface {
     GetName() string
 }
 
+// This is a struct, nested within a class.
+// 
+// Normal.
+// Deprecated.
 // Struct proxy
 type NestedStruct struct {
+    // Deprecated.
     Name string
 }
 
@@ -477,15 +539,19 @@ func (n NestedStruct) GetName() string {
 }
 
 
-// Struct interface
+// ReflectableEntryIface is the public interface for the custom type ReflectableEntry
+// Deprecated.
 type ReflectableEntryIface interface {
     GetKey() string
     GetValue() jsii.Any
 }
 
+// Deprecated.
 // Struct proxy
 type ReflectableEntry struct {
+    // Deprecated.
     Key string
+    // Deprecated.
     Value jsii.Any
 }
 
@@ -503,6 +569,7 @@ type ReflectorIface interface {
     AsMap() map[string]jsii.Any
 }
 
+// Deprecated.
 // Struct proxy
 type Reflector struct {
 }
@@ -607,12 +674,20 @@ type CompositeOperationIface interface {
     ToString() string
 }
 
+// Abstract operation composed from an expression of other operations.
 // Struct proxy
 type CompositeOperation struct {
+    // (deprecated) The value.
     Value float64
+    // The expression that this operation consists of.
+    // 
+    // Must be implemented by derived classes.
     Expression scopejsiicalclib.NumericValue
+    // A set of postfixes to include in a decorated .toString().
     DecorationPostfixes []string
+    // A set of prefixes to include in a decorated .toString().
     DecorationPrefixes []string
+    // The .toString() style.
     StringStyle CompositionStringStyle
 }
 
@@ -684,6 +759,7 @@ func (c *CompositeOperation) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
+// Style of .toString() output for CompositeOperation.
 type CompositionStringStyle string
 
 const (
@@ -798,7 +874,7 @@ func (f Foo) SetBar(val string) {
     f.Bar = val
 }
 
-// Struct interface
+// HelloIface is the public interface for the custom type Hello
 type HelloIface interface {
     GetFoo() float64
 }
@@ -823,7 +899,7 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
-// Struct interface
+// HelloIface is the public interface for the custom type Hello
 type HelloIface interface {
     GetFoo() float64
 }
@@ -842,6 +918,7 @@ func (h Hello) GetFoo() float64 {
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/jsiicalc.go 1`] = `
+// A simple calcuator built on JSII.
 package jsiicalc
 
 import (
@@ -999,6 +1076,7 @@ type AbstractSuiteIface interface {
     WorkItAll() string
 }
 
+// Ensures abstract members implementations correctly register overrides in various languages.
 // Struct proxy
 type AbstractSuite struct {
     Property string
@@ -1054,10 +1132,14 @@ type AddIface interface {
     Hello() string
 }
 
+// The "+" binary operation.
 // Struct proxy
 type Add struct {
+    // (deprecated) The value.
     Value float64
+    // Left-hand side operand.
     Lhs scopejsiicalclib.NumericValue
+    // Right-hand side operand.
     Rhs scopejsiicalclib.NumericValue
 }
 
@@ -1168,6 +1250,10 @@ type AllTypesIface interface {
     EnumMethod() StringEnum
 }
 
+// This class includes property for all types supported by jsii.
+// 
+// The setters will validate
+// that the value set is of the expected type and throw otherwise.
 // Struct proxy
 type AllTypes struct {
     EnumPropertyValue float64
@@ -1708,10 +1794,15 @@ type BinaryOperationIface interface {
     Hello() string
 }
 
+// Represents an operation with two operands.
 // Struct proxy
 type BinaryOperation struct {
+    // The value.
+    // Deprecated.
     Value float64
+    // Left-hand side operand.
     Lhs scopejsiicalclib.NumericValue
+    // Right-hand side operand.
     Rhs scopejsiicalclib.NumericValue
 }
 
@@ -1783,6 +1874,7 @@ type BurriedAnonymousObjectIface interface {
     GiveItBack() jsii.Any
 }
 
+// See https://github.com/aws/aws-cdk/issues/7977.
 // Struct proxy
 type BurriedAnonymousObject struct {
 }
@@ -1845,17 +1937,42 @@ type CalculatorIface interface {
     ReadUnionValue() float64
 }
 
+// A calculator which maintains a current value and allows adding operations.
+// 
+// Here's how you use it:
+// 
+// \`\`\`ts
+// const calculator = new calc.Calculator();
+// calculator.add(5);
+// calculator.mul(3);
+// console.log(calculator.expression.value);
+// \`\`\`
+// 
+// I will repeat this example again, but in an @example tag.
+//
+// TODO: EXAMPLE
+//
 // Struct proxy
 type Calculator struct {
+    // (deprecated) The value.
     Value float64
+    // Returns the expression.
     Expression scopejsiicalclib.NumericValue
+    // A set of postfixes to include in a decorated .toString().
     DecorationPostfixes []string
+    // A set of prefixes to include in a decorated .toString().
     DecorationPrefixes []string
+    // The .toString() style.
     StringStyle composition.CompositionStringStyle
+    // A log of all operations.
     OperationsLog []scopejsiicalclib.NumericValue
+    // A map of per operation name of all operations performed.
     OperationsMap map[string][]scopejsiicalclib.NumericValue
+    // The current value.
     Curr scopejsiicalclib.NumericValue
+    // The maximum value allows in this calculator.
     MaxValue float64
+    // Example of a property that accepts a union of types.
     UnionProperty jsii.Any
 }
 
@@ -2013,15 +2130,20 @@ func (c *Calculator) ReadUnionValue() float64  {
     return 0.0
 }
 
-// Struct interface
+// CalculatorPropsIface is the public interface for the custom type CalculatorProps
 type CalculatorPropsIface interface {
     GetInitialValue() float64
     GetMaximumValue() float64
 }
 
+// Properties for Calculator.
 // Struct proxy
 type CalculatorProps struct {
+    // The initial value of the calculator.
+    // 
+    // NOTE: Any number works here, it's fine.
     InitialValue float64
+    // The maximum value the calculator can store.
     MaximumValue float64
 }
 
@@ -2034,7 +2156,7 @@ func (c CalculatorProps) GetMaximumValue() float64 {
 }
 
 
-// Struct interface
+// ChildStruct982Iface is the public interface for the custom type ChildStruct982
 type ChildStruct982Iface interface {
     GetFoo() string
     GetBar() float64
@@ -2269,6 +2391,14 @@ func (c *ClassWithCollections) CreateAMap() map[string]string  {
 type ClassWithDocsIface interface {
 }
 
+// This class has docs.
+// 
+// The docs are great. They're a bunch of tags.
+//
+// TODO: EXAMPLE
+//
+// See: https://aws.amazon.com/
+//
 // Struct proxy
 type ClassWithDocs struct {
 }
@@ -2360,6 +2490,7 @@ type ClassWithPrivateConstructorAndAutomaticPropertiesIface interface {
     Create() ClassWithPrivateConstructorAndAutomaticProperties
 }
 
+// Class that implements interface properties automatically, but using a private constructor.
 // Struct proxy
 type ClassWithPrivateConstructorAndAutomaticProperties struct {
     ReadOnlyString string
@@ -2400,6 +2531,9 @@ type ConfusingToJacksonIface interface {
     MakeStructInstance() ConfusingToJacksonStruct
 }
 
+// This tries to confuse Jackson by having overloaded property setters.
+// See: https://github.com/aws/aws-cdk/issues/4080
+//
 // Struct proxy
 type ConfusingToJackson struct {
     UnionProperty jsii.Any
@@ -2432,7 +2566,7 @@ func (c *ConfusingToJackson) MakeStructInstance() ConfusingToJacksonStruct  {
     return ConfusingToJacksonStruct{}
 }
 
-// Struct interface
+// ConfusingToJacksonStructIface is the public interface for the custom type ConfusingToJacksonStruct
 type ConfusingToJacksonStructIface interface {
     GetUnionProperty() jsii.Any
 }
@@ -2590,6 +2724,10 @@ type ConsumerCanRingBellIface interface {
     WhenTypedAsClass() bool
 }
 
+// Test calling back to consumers that implement interfaces.
+// 
+// Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
+// the method on the argument that they're passed...
 // Struct proxy
 type ConsumerCanRingBell struct {
 }
@@ -2719,6 +2857,7 @@ type DataRendererIface interface {
     RenderMap() string
 }
 
+// Verifies proper type handling through dynamic overrides.
 // Struct proxy
 type DataRenderer struct {
 }
@@ -2816,6 +2955,10 @@ type Demonstrate982Iface interface {
     TakeThisToo() ParentStruct982
 }
 
+// 1.
+// 
+// call #takeThis() -> An ObjectRef will be provisioned for the value (it'll be re-used!)
+// 2. call #takeThisToo() -> The ObjectRef from before will need to be down-cased to the ParentStruct982 type
 // Struct proxy
 type Demonstrate982 struct {
 }
@@ -2856,9 +2999,12 @@ type DeprecatedClassIface interface {
     Method() jsii.Any
 }
 
+// Deprecated: a pretty boring class
 // Struct proxy
 type DeprecatedClass struct {
+    // Deprecated: this is not always "wazoo", be ready to be disappointed
     ReadonlyProperty string
+    // Deprecated: shouldn't have been mutable
     MutableProperty float64
 }
 
@@ -2897,6 +3043,7 @@ func (d *DeprecatedClass) Method() jsii.Any  {
     return nil
 }
 
+// Deprecated: your deprecated selection of bad options
 type DeprecatedEnum string
 
 const (
@@ -2904,13 +3051,16 @@ const (
     DeprecatedEnumOptionB DeprecatedEnum = "OPTION_B"
 )
 
-// Struct interface
+// DeprecatedStructIface is the public interface for the custom type DeprecatedStruct
+// Deprecated: it just wraps a string
 type DeprecatedStructIface interface {
     GetReadonlyProperty() string
 }
 
+// Deprecated: it just wraps a string
 // Struct proxy
 type DeprecatedStruct struct {
+    // Deprecated: well, yeah
     ReadonlyProperty string
 }
 
@@ -2919,7 +3069,7 @@ func (d DeprecatedStruct) GetReadonlyProperty() string {
 }
 
 
-// Struct interface
+// DerivedStructIface is the public interface for the custom type DerivedStruct
 type DerivedStructIface interface {
     GetAnumber() float64
     GetAstring() string
@@ -2932,14 +3082,22 @@ type DerivedStructIface interface {
     GetOptionalArray() []string
 }
 
+// A struct which derives from another struct.
 // Struct proxy
 type DerivedStruct struct {
+    // An awesome number value.
+    // Deprecated.
     Anumber float64
+    // A string value.
+    // Deprecated.
     Astring string
+    // Deprecated.
     FirstOptional []string
     AnotherRequired string
     Bool bool
+    // An example of a non primitive property.
     NonPrimitive DoubleTrouble
+    // This is optional.
     AnotherOptional map[string]scopejsiicalclib.NumericValue
     OptionalAny jsii.Any
     OptionalArray []string
@@ -2982,7 +3140,7 @@ func (d DerivedStruct) GetOptionalArray() []string {
 }
 
 
-// Struct interface
+// DiamondInheritanceBaseLevelStructIface is the public interface for the custom type DiamondInheritanceBaseLevelStruct
 type DiamondInheritanceBaseLevelStructIface interface {
     GetBaseLevelProperty() string
 }
@@ -2997,7 +3155,7 @@ func (d DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
 }
 
 
-// Struct interface
+// DiamondInheritanceFirstMidLevelStructIface is the public interface for the custom type DiamondInheritanceFirstMidLevelStruct
 type DiamondInheritanceFirstMidLevelStructIface interface {
     GetBaseLevelProperty() string
     GetFirstMidLevelProperty() string
@@ -3018,7 +3176,7 @@ func (d DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string
 }
 
 
-// Struct interface
+// DiamondInheritanceSecondMidLevelStructIface is the public interface for the custom type DiamondInheritanceSecondMidLevelStruct
 type DiamondInheritanceSecondMidLevelStructIface interface {
     GetBaseLevelProperty() string
     GetSecondMidLevelProperty() string
@@ -3039,7 +3197,7 @@ func (d DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() stri
 }
 
 
-// Struct interface
+// DiamondInheritanceTopLevelStructIface is the public interface for the custom type DiamondInheritanceTopLevelStruct
 type DiamondInheritanceTopLevelStructIface interface {
     GetBaseLevelProperty() string
     GetFirstMidLevelProperty() string
@@ -3080,9 +3238,18 @@ type DisappointingCollectionSourceIface interface {
     SetMaybeMap()
 }
 
+// Verifies that null/undefined can be returned for optional collections.
+// 
+// This source of collections is disappointing - it'll always give you nothing :(
 // Struct proxy
 type DisappointingCollectionSource struct {
+    // Some List of strings, maybe?
+    // 
+    // (Nah, just a billion dollars mistake!)
     MaybeList []string
+    // Some Map of strings to numbers, maybe?
+    // 
+    // (Nah, just a billion dollars mistake!)
     MaybeMap map[string]float64
 }
 
@@ -3155,6 +3322,7 @@ type DoNotRecognizeAnyAsOptionalIface interface {
     Method() jsii.Any
 }
 
+// jsii#284: do not recognize "any" as an optional argument.
 // Struct proxy
 type DoNotRecognizeAnyAsOptional struct {
 }
@@ -3183,6 +3351,12 @@ type DocumentedClassIface interface {
     Hola() jsii.Any
 }
 
+// Here's the first line of the TSDoc comment.
+// 
+// This is the meat of the TSDoc comment. It may contain
+// multiple lines and multiple paragraphs.
+// 
+// Multiple paragraphs are separated by an empty line.
 // Struct proxy
 type DocumentedClass struct {
 }
@@ -3289,6 +3463,7 @@ type DynamicPropertyBearerIface interface {
     SetValueStore()
 }
 
+// Ensures we can override a dynamic property that was inherited.
 // Struct proxy
 type DynamicPropertyBearer struct {
     DynamicProperty string
@@ -3457,7 +3632,7 @@ func (e *EraseUndefinedHashValues) Prop2IsUndefined() map[string]jsii.Any  {
     return nil
 }
 
-// Struct interface
+// EraseUndefinedHashValuesOptionsIface is the public interface for the custom type EraseUndefinedHashValuesOptions
 type EraseUndefinedHashValuesOptionsIface interface {
     GetOption1() string
     GetOption2() string
@@ -3487,9 +3662,12 @@ type ExperimentalClassIface interface {
     Method() jsii.Any
 }
 
+// Experimental.
 // Struct proxy
 type ExperimentalClass struct {
+    // Experimental.
     ReadonlyProperty string
+    // Experimental.
     MutableProperty float64
 }
 
@@ -3528,6 +3706,7 @@ func (e *ExperimentalClass) Method() jsii.Any  {
     return nil
 }
 
+// Experimental.
 type ExperimentalEnum string
 
 const (
@@ -3535,13 +3714,16 @@ const (
     ExperimentalEnumOptionB ExperimentalEnum = "OPTION_B"
 )
 
-// Struct interface
+// ExperimentalStructIface is the public interface for the custom type ExperimentalStruct
+// Experimental.
 type ExperimentalStructIface interface {
     GetReadonlyProperty() string
 }
 
+// Experimental.
 // Struct proxy
 type ExperimentalStruct struct {
+    // Experimental.
     ReadonlyProperty string
 }
 
@@ -3579,7 +3761,7 @@ func (e ExportedBaseClass) SetSuccess(val bool) {
     e.Success = val
 }
 
-// Struct interface
+// ExtendsInternalInterfaceIface is the public interface for the custom type ExtendsInternalInterface
 type ExtendsInternalInterfaceIface interface {
     GetBoom() bool
     GetProp() string
@@ -3657,7 +3839,7 @@ const (
     ExternalEnumOptionB ExternalEnum = "OPTION_B"
 )
 
-// Struct interface
+// ExternalStructIface is the public interface for the custom type ExternalStruct
 type ExternalStructIface interface {
     GetReadonlyProperty() string
 }
@@ -3731,13 +3913,15 @@ func (g *GiveMeStructs) ReadFirstNumber() float64  {
     return 0.0
 }
 
-// Struct interface
+// GreeteeIface is the public interface for the custom type Greetee
 type GreeteeIface interface {
     GetName() string
 }
 
+// These are some arguments you can pass to a method.
 // Struct proxy
 type Greetee struct {
+    // The name of the greetee.
     Name string
 }
 
@@ -3773,115 +3957,112 @@ func (g *GreetingAugmenter) BetterGreeting() string  {
     return "NOOP_RETURN_STRING"
 }
 
-// Behaviorial interface
+// We can return an anonymous interface implementation from an override without losing the interface declarations.
 type IAnonymousImplementationProvider interface {
     ProvideAsClass() Implementation
     ProvideAsInterface() IAnonymouslyImplementMe
 }
 
-// Behaviorial interface
 type IAnonymouslyImplementMe interface {
     Verb() string
     GetValue() float64
 }
 
-// Behaviorial interface
 type IAnotherPublicInterface interface {
     GetA() string
 }
 
-// Behaviorial interface
 type IBell interface {
     Ring()
 }
 
-// Behaviorial interface
+// Takes the object parameter as an interface.
 type IBellRinger interface {
     YourTurn()
 }
 
-// Behaviorial interface
+// Takes the object parameter as a calss.
 type IConcreteBellRinger interface {
     YourTurn()
 }
 
-// Behaviorial interface
+// Deprecated: useless interface
 type IDeprecatedInterface interface {
+    // Deprecated: services no purpose
     Method()
+    // Deprecated: could be better
     GetMutableProperty() float64
 }
 
-// Behaviorial interface
+// Experimental.
 type IExperimentalInterface interface {
+    // Experimental.
     Method()
+    // Experimental.
     GetMutableProperty() float64
 }
 
-// Behaviorial interface
 type IExtendsPrivateInterface interface {
     GetMoreThings() []string
     GetPrivate() string
 }
 
-// Behaviorial interface
 type IExternalInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
-// Behaviorial interface
+// Even friendlier classes can implement this interface.
 type IFriendlier interface {
     scopejsiicalclib.IFriendly
+    // Say farewell.
     Farewell() string
+    // Say goodbye.
+    //
+    // Returns: A goodbye blessing.
     Goodbye() string
 }
 
-// Behaviorial interface
 type IFriendlyRandomGenerator interface {
     IRandomNumberGenerator
     scopejsiicalclib.IFriendly
 }
 
-// Behaviorial interface
+// awslabs/jsii#220 Abstract return type.
 type IInterfaceImplementedByAbstractClass interface {
     GetPropFromInterface() string
 }
 
-// Behaviorial interface
+// Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.
 type IInterfaceThatShouldNotBeADataType interface {
     IInterfaceWithMethods
     GetOtherValue() string
 }
 
-// Behaviorial interface
 type IInterfaceWithInternal interface {
     Visible()
 }
 
-// Behaviorial interface
 type IInterfaceWithMethods interface {
     DoThings()
     GetValue() string
 }
 
-// Behaviorial interface
+// awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.
 type IInterfaceWithOptionalMethodArguments interface {
     Hello()
 }
 
-// Behaviorial interface
 type IInterfaceWithProperties interface {
     GetReadOnlyString() string
     GetReadWriteString() string
 }
 
-// Behaviorial interface
 type IInterfaceWithPropertiesExtension interface {
     IInterfaceWithProperties
     GetFoo() float64
 }
 
-// Behaviorial interface
 type Ijsii417Derived interface {
     Ijsii417PublicBaseOfBase
     Bar()
@@ -3889,85 +4070,77 @@ type Ijsii417Derived interface {
     GetProperty() string
 }
 
-// Behaviorial interface
 type Ijsii417PublicBaseOfBase interface {
     Foo()
     GetHasRoot() bool
 }
 
-// Behaviorial interface
 type IJsii487External interface {
 }
 
-// Behaviorial interface
 type IJsii487External2 interface {
 }
 
-// Behaviorial interface
 type IJsii496 interface {
 }
 
-// Behaviorial interface
 type IMutableObjectLiteral interface {
     GetValue() string
 }
 
-// Behaviorial interface
 type INonInternalInterface interface {
     IAnotherPublicInterface
     GetB() string
     GetC() string
 }
 
-// Behaviorial interface
+// Make sure that setters are properly called on objects with interfaces.
 type IObjectWithProperty interface {
     WasSet() bool
     GetProperty() string
 }
 
-// Behaviorial interface
+// Checks that optional result from interface method code generates correctly.
 type IOptionalMethod interface {
     Optional() string
 }
 
-// Behaviorial interface
 type IPrivatelyImplemented interface {
     GetSuccess() bool
 }
 
-// Behaviorial interface
 type IPublicInterface interface {
     Bye() string
 }
 
-// Behaviorial interface
 type IPublicInterface2 interface {
     Ciao() string
 }
 
-// Behaviorial interface
+// Generates random numbers.
 type IRandomNumberGenerator interface {
+    // Returns another random number.
+    //
+    // Returns: A random number.
     Next() float64
 }
 
-// Behaviorial interface
+// Returns a subclass of a known class which implements an interface.
 type IReturnJsii976 interface {
     GetFoo() float64
 }
 
-// Behaviorial interface
 type IReturnsNumber interface {
     ObtainNumber() scopejsiicalclib.IDoublable
     GetNumberProp() scopejsiicalclib.Number
 }
 
-// Behaviorial interface
 type IStableInterface interface {
     Method()
     GetMutableProperty() float64
 }
 
-// Behaviorial interface
+// Verifies that a "pure" implementation of an interface works correctly.
 type IStructReturningDelegate interface {
     ReturnStruct() StructB
 }
@@ -4115,7 +4288,7 @@ func (i ImplementsPrivateInterface) SetPrivate(val string) {
     i.Private = val
 }
 
-// Struct interface
+// ImplictBaseOfBaseIface is the public interface for the custom type ImplictBaseOfBase
 type ImplictBaseOfBaseIface interface {
     GetFoo() scopejsiicalcbaseofbase.Very
     GetBar() string
@@ -4188,6 +4361,9 @@ type InterfaceCollectionsIface interface {
     MapOfStructs() map[string]StructA
 }
 
+// Verifies that collections of interfaces or structs are correctly handled.
+// 
+// See: https://github.com/aws/jsii/issues/1196
 // Struct proxy
 type InterfaceCollections struct {
 }
@@ -4233,6 +4409,7 @@ type InterfacesMakerIface interface {
     MakeInterfaces() []scopejsiicalclib.IDoublable
 }
 
+// We can return arrays of interfaces See aws/aws-cdk#2362.
 // Struct proxy
 type InterfacesMaker struct {
 }
@@ -4251,6 +4428,10 @@ type IsomorphismIface interface {
     Myself() Isomorphism
 }
 
+// Checks the "same instance" isomorphism is preserved within the constructor.
+// 
+// Create a subclass of this, and assert that \`this.myself()\` actually returns
+// \`this\` from within the constructor.
 // Struct proxy
 type Isomorphism struct {
 }
@@ -5097,8 +5278,10 @@ type JsiiAgentIface interface {
     SetValue()
 }
 
+// Host runtime version should be set via JSII_AGENT.
 // Struct proxy
 type JsiiAgent struct {
+    // Returns the value of the JSII_AGENT environment variable.
     Value string
 }
 
@@ -5138,6 +5321,9 @@ type JsonFormatterIface interface {
     Stringify() string
 }
 
+// Make sure structs are un-decorated on the way in.
+// See: https://github.com/aws/aws-cdk/issues/5066
+//
 // Struct proxy
 type JsonFormatter struct {
 }
@@ -5268,7 +5454,7 @@ func (j *JsonFormatter) Stringify() string  {
     return "NOOP_RETURN_STRING"
 }
 
-// Struct interface
+// LoadBalancedFargateServicePropsIface is the public interface for the custom type LoadBalancedFargateServiceProps
 type LoadBalancedFargateServicePropsIface interface {
     GetContainerPort() float64
     GetCpu() string
@@ -5277,12 +5463,44 @@ type LoadBalancedFargateServicePropsIface interface {
     GetPublicTasks() bool
 }
 
+// jsii#298: show default values in sphinx documentation, and respect newlines.
 // Struct proxy
 type LoadBalancedFargateServiceProps struct {
+    // The container port of the application load balancer attached to your Fargate service.
+    // 
+    // Corresponds to container port mapping.
     ContainerPort float64
+    // The number of cpu units used by the task.
+    // 
+    // Valid values, which determines your range of valid values for the memory parameter:
+    // 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
+    // 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
+    // 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
+    // 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
+    // 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
+    // 
+    // This default is set in the underlying FargateTaskDefinition construct.
     Cpu string
+    // The amount (in MiB) of memory used by the task.
+    // 
+    // This field is required and you must use one of the following values, which determines your range of valid values
+    // for the cpu parameter:
+    // 
+    // 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
+    // 
+    // 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
+    // 
+    // 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
+    // 
+    // Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
+    // 
+    // Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
+    // 
+    // This default is set in the underlying FargateTaskDefinition construct.
     MemoryMiB string
+    // Determines whether the Application Load Balancer will be internet-facing.
     PublicLoadBalancer bool
+    // Determines whether your Fargate Service will be assigned a public IP address.
     PublicTasks bool
 }
 
@@ -5366,10 +5584,14 @@ type MultiplyIface interface {
     Next() float64
 }
 
+// The "*" binary operation.
 // Struct proxy
 type Multiply struct {
+    // (deprecated) The value.
     Value float64
+    // Left-hand side operand.
     Lhs scopejsiicalclib.NumericValue
+    // Right-hand side operand.
     Rhs scopejsiicalclib.NumericValue
 }
 
@@ -5477,8 +5699,10 @@ type NegateIface interface {
     Hello() string
 }
 
+// The negation operation ("-value").
 // Struct proxy
 type Negate struct {
+    // (deprecated) The value.
     Value float64
     Operand scopejsiicalclib.NumericValue
 }
@@ -5572,13 +5796,14 @@ func (n *NestedClassInstance) MakeInstance() submodule.NestedClass  {
     return submodule.NestedClass{}
 }
 
-// Struct interface
+// NestedStructIface is the public interface for the custom type NestedStruct
 type NestedStructIface interface {
     GetNumberProp() float64
 }
 
 // Struct proxy
 type NestedStruct struct {
+    // When provided, must be > 0.
     NumberProp float64
 }
 
@@ -5596,8 +5821,10 @@ type NodeStandardLibraryIface interface {
     FsReadFileSync() string
 }
 
+// Test fixture to verify that jsii modules can use the node standard library.
 // Struct proxy
 type NodeStandardLibrary struct {
+    // Returns the current os.platform() from the "os" node module.
     OsPlatform string
 }
 
@@ -5655,6 +5882,7 @@ type NullShouldBeTreatedAsUndefinedIface interface {
     VerifyPropertyIsUndefined() jsii.Any
 }
 
+// jsii#282, aws-cdk#157: null should be treated as "undefined".
 // Struct proxy
 type NullShouldBeTreatedAsUndefined struct {
     ChangeMeToUndefined string
@@ -5705,7 +5933,7 @@ func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() jsii.Any  {
     return nil
 }
 
-// Struct interface
+// NullShouldBeTreatedAsUndefinedDataIface is the public interface for the custom type NullShouldBeTreatedAsUndefinedData
 type NullShouldBeTreatedAsUndefinedDataIface interface {
     GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []jsii.Any
     GetThisShouldBeUndefined() jsii.Any
@@ -5734,6 +5962,7 @@ type NumberGeneratorIface interface {
     NextTimes100() float64
 }
 
+// This allows us to test that a reference can be stored for objects that implement interfaces.
 // Struct proxy
 type NumberGenerator struct {
     Generator IRandomNumberGenerator
@@ -5781,6 +6010,7 @@ type ObjectRefsInCollectionsIface interface {
     SumFromMap() float64
 }
 
+// Verify that object references can be passed inside collections.
 // Struct proxy
 type ObjectRefsInCollections struct {
 }
@@ -5835,6 +6065,8 @@ type OldIface interface {
     DoAThing() jsii.Any
 }
 
+// Old class.
+// Deprecated: Use the new class
 // Struct proxy
 type Old struct {
 }
@@ -5945,7 +6177,7 @@ func (o OptionalConstructorArgument) SetArg3(val string) {
     o.Arg3 = val
 }
 
-// Struct interface
+// OptionalStructIface is the public interface for the custom type OptionalStruct
 type OptionalStructIface interface {
     GetField() string
 }
@@ -6009,6 +6241,8 @@ type OverridableProtectedMemberIface interface {
     ValueFromProtected() string
 }
 
+// See: https://github.com/aws/jsii/issues/903
+//
 // Struct proxy
 type OverridableProtectedMember struct {
     OverrideReadOnly string
@@ -6095,11 +6329,12 @@ func (o *OverrideReturnsObject) Test() float64  {
     return 0.0
 }
 
-// Struct interface
+// ParentStruct982Iface is the public interface for the custom type ParentStruct982
 type ParentStruct982Iface interface {
     GetFoo() string
 }
 
+// https://github.com/aws/jsii/issues/982.
 // Struct proxy
 type ParentStruct982 struct {
     Foo string
@@ -6184,14 +6419,24 @@ type PowerIface interface {
     ToString() string
 }
 
+// The power operation.
 // Struct proxy
 type Power struct {
+    // (deprecated) The value.
     Value float64
+    // The expression that this operation consists of.
+    // 
+    // Must be implemented by derived classes.
     Expression scopejsiicalclib.NumericValue
+    // A set of postfixes to include in a decorated .toString().
     DecorationPostfixes []string
+    // A set of prefixes to include in a decorated .toString().
     DecorationPrefixes []string
+    // The .toString() style.
     StringStyle composition.CompositionStringStyle
+    // The base of the power.
     Base scopejsiicalclib.NumericValue
+    // The number of times to multiply.
     Pow scopejsiicalclib.NumericValue
 }
 
@@ -6288,6 +6533,7 @@ type PropertyNamedPropertyIface interface {
     SetYetAnoterOne()
 }
 
+// Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named "property" would result in impossible to load Python code.
 // Struct proxy
 type PropertyNamedProperty struct {
     Property string
@@ -6692,6 +6938,7 @@ type ReferenceEnumFromScopedPackageIface interface {
     SaveFoo() jsii.Any
 }
 
+// See awslabs/jsii#138.
 // Struct proxy
 type ReferenceEnumFromScopedPackage struct {
     Foo scopejsiicalclib.EnumFromScopedModule
@@ -6739,6 +6986,11 @@ type ReturnsPrivateImplementationOfInterfaceIface interface {
     SetPrivateImplementation()
 }
 
+// Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
+//
+// Returns: an instance of an un-exported class that extends \`ExportedBaseClass\`, declared as \`IPrivatelyImplemented\`.
+// See: https://github.com/aws/jsii/issues/320
+//
 // Struct proxy
 type ReturnsPrivateImplementationOfInterface struct {
     PrivateImplementation IPrivatelyImplemented
@@ -6762,14 +7014,19 @@ func (r ReturnsPrivateImplementationOfInterface) SetPrivateImplementation(val IP
     r.PrivateImplementation = val
 }
 
-// Struct interface
+// RootStructIface is the public interface for the custom type RootStruct
 type RootStructIface interface {
     GetStringProp() string
     GetNestedStruct() NestedStruct
 }
 
+// This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
+// 
+// This is cheating with the (current) declared types, but this is the "more
+// idiomatic" way for Pythonists.
 // Struct proxy
 type RootStruct struct {
+    // May not be empty.
     StringProp string
     NestedStruct NestedStruct
 }
@@ -6848,7 +7105,7 @@ func (r *RuntimeTypeChecking) MethodWithOptionalArguments() jsii.Any  {
     return nil
 }
 
-// Struct interface
+// SecondLevelStructIface is the public interface for the custom type SecondLevelStruct
 type SecondLevelStructIface interface {
     GetDeeperRequiredProp() string
     GetDeeperOptionalProp() string
@@ -6856,7 +7113,9 @@ type SecondLevelStructIface interface {
 
 // Struct proxy
 type SecondLevelStruct struct {
+    // It's long and required.
     DeeperRequiredProp string
+    // It's long, but you'll almost never pass it.
     DeeperOptionalProp string
 }
 
@@ -6875,6 +7134,11 @@ type SingleInstanceTwoTypesIface interface {
     Interface2() IPublicInterface
 }
 
+// Test that a single instance can be returned under two different FQNs.
+// 
+// JSII clients can instantiate 2 different strongly-typed wrappers for the same
+// object. Unfortunately, this will break object equality, but if we didn't do
+// this it would break runtime type checks in the JVM or CLR.
 // Struct proxy
 type SingleInstanceTwoTypes struct {
 }
@@ -6911,6 +7175,9 @@ type SingletonIntIface interface {
     IsSingletonInt() bool
 }
 
+// Verifies that singleton enums are handled correctly.
+// 
+// https://github.com/aws/jsii/issues/231
 // Struct proxy
 type SingletonInt struct {
 }
@@ -6924,6 +7191,7 @@ func (s *SingletonInt) IsSingletonInt() bool  {
     return true
 }
 
+// A singleton integer.
 type SingletonIntEnum string
 
 const (
@@ -6935,6 +7203,9 @@ type SingletonStringIface interface {
     IsSingletonString() bool
 }
 
+// Verifies that singleton enums are handled correctly.
+// 
+// https://github.com/aws/jsii/issues/231
 // Struct proxy
 type SingletonString struct {
 }
@@ -6948,13 +7219,14 @@ func (s *SingletonString) IsSingletonString() bool  {
     return true
 }
 
+// A singleton string.
 type SingletonStringEnum string
 
 const (
     SingletonStringEnumSingletonString SingletonStringEnum = "SINGLETON_STRING"
 )
 
-// Struct interface
+// SmellyStructIface is the public interface for the custom type SmellyStruct
 type SmellyStructIface interface {
     GetProperty() string
     GetYetAnoterOne() bool
@@ -7069,7 +7341,7 @@ const (
     StableEnumOptionB StableEnum = "OPTION_B"
 )
 
-// Struct interface
+// StableStructIface is the public interface for the custom type StableStruct
 type StableStructIface interface {
     GetReadonlyProperty() string
 }
@@ -7091,6 +7363,9 @@ type StaticContextIface interface {
     CanAccessStaticContext() bool
 }
 
+// This is used to validate the ability to use \`this\` from within a static context.
+// 
+// https://github.com/awslabs/aws-cdk/issues/2304
 // Struct proxy
 type StaticContext struct {
     StaticVariable bool
@@ -7136,10 +7411,16 @@ type StaticsIface interface {
 
 // Struct proxy
 type Statics struct {
+    // Constants may also use all-caps.
     Bar float64
     ConstObj DoubleTrouble
+    // Jsdocs for static property.
     Foo string
+    // Constants can also use camelCase.
     ZooBar map[string]string
+    // Jsdocs for static getter.
+    // 
+    // Jsdocs for static setter.
     Instance *Statics
     NonConstStatic float64
     Value string
@@ -7266,13 +7547,14 @@ func (s StripInternal) SetYouSeeMe(val string) {
     s.YouSeeMe = val
 }
 
-// Struct interface
+// StructAIface is the public interface for the custom type StructA
 type StructAIface interface {
     GetRequiredString() string
     GetOptionalNumber() float64
     GetOptionalString() string
 }
 
+// We can serialize and deserialize structs without silently ignoring optional fields.
 // Struct proxy
 type StructA struct {
     RequiredString string
@@ -7293,13 +7575,14 @@ func (s StructA) GetOptionalString() string {
 }
 
 
-// Struct interface
+// StructBIface is the public interface for the custom type StructB
 type StructBIface interface {
     GetRequiredString() string
     GetOptionalBoolean() bool
     GetOptionalStructA() StructA
 }
 
+// This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those.
 // Struct proxy
 type StructB struct {
     RequiredString string
@@ -7320,12 +7603,15 @@ func (s StructB) GetOptionalStructA() StructA {
 }
 
 
-// Struct interface
+// StructParameterTypeIface is the public interface for the custom type StructParameterType
 type StructParameterTypeIface interface {
     GetScope() string
     GetProps() bool
 }
 
+// Verifies that, in languages that do keyword lifting (e.g: Python), having a struct member with the same name as a positional parameter results in the correct code being emitted.
+// 
+// See: https://github.com/aws/aws-cdk/issues/4302
 // Struct proxy
 type StructParameterType struct {
     Scope string
@@ -7347,6 +7633,7 @@ type StructPassingIface interface {
     RoundTrip() TopLevelStruct
 }
 
+// Just because we can.
 // Struct proxy
 type StructPassing struct {
 }
@@ -7406,7 +7693,7 @@ func (s *StructUnionConsumer) IsStructB() bool  {
     return true
 }
 
-// Struct interface
+// StructWithJavaReservedWordsIface is the public interface for the custom type StructWithJavaReservedWords
 type StructWithJavaReservedWordsIface interface {
     GetDefault() string
     GetAssert() string
@@ -7457,13 +7744,22 @@ type SumIface interface {
     ToString() string
 }
 
+// An operation that sums multiple values.
 // Struct proxy
 type Sum struct {
+    // (deprecated) The value.
     Value float64
+    // The expression that this operation consists of.
+    // 
+    // Must be implemented by derived classes.
     Expression scopejsiicalclib.NumericValue
+    // A set of postfixes to include in a decorated .toString().
     DecorationPostfixes []string
+    // A set of prefixes to include in a decorated .toString().
     DecorationPrefixes []string
+    // The .toString() style.
     StringStyle composition.CompositionStringStyle
+    // The parts to sum.
     Parts []scopejsiicalclib.NumericValue
 }
 
@@ -7558,6 +7854,7 @@ type SupportsNiceJavaBuilderIface interface {
 // Struct proxy
 type SupportsNiceJavaBuilder struct {
     Bar float64
+    // some identifier.
     Id float64
     PropId string
     Rest []string
@@ -7605,7 +7902,7 @@ func (s SupportsNiceJavaBuilder) SetRest(val []string) {
     s.Rest = val
 }
 
-// Struct interface
+// SupportsNiceJavaBuilderPropsIface is the public interface for the custom type SupportsNiceJavaBuilderProps
 type SupportsNiceJavaBuilderPropsIface interface {
     GetBar() float64
     GetId() string
@@ -7613,7 +7910,11 @@ type SupportsNiceJavaBuilderPropsIface interface {
 
 // Struct proxy
 type SupportsNiceJavaBuilderProps struct {
+    // Some number, like 42.
     Bar float64
+    // An \`id\` field here is terrible API design, because the constructor of \`SupportsNiceJavaBuilder\` already has a parameter named \`id\`.
+    // 
+    // But here we are, doing it like we didn't care.
     Id string
 }
 
@@ -7636,9 +7937,11 @@ type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
     SetPropId()
 }
 
+// We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.
 // Struct proxy
 type SupportsNiceJavaBuilderWithRequiredProps struct {
     Bar float64
+    // some identifier of your choice.
     Id float64
     PropId string
 }
@@ -7888,7 +8191,7 @@ func (t *Thrower) ThrowError() jsii.Any  {
     return nil
 }
 
-// Struct interface
+// TopLevelStructIface is the public interface for the custom type TopLevelStruct
 type TopLevelStructIface interface {
     GetRequired() string
     GetSecondLevel() jsii.Any
@@ -7897,8 +8200,11 @@ type TopLevelStructIface interface {
 
 // Struct proxy
 type TopLevelStruct struct {
+    // This is a required field.
     Required string
+    // A union to really stress test our serialization.
     SecondLevel jsii.Any
+    // You don't have to pass this.
     Optional string
 }
 
@@ -7920,6 +8226,9 @@ type UmaskCheckIface interface {
     Mode() float64
 }
 
+// Checks the current file permissions are cool (no funky UMASK down-scoping happened).
+// See: https://github.com/aws/jsii/issues/1765
+//
 // Struct proxy
 type UmaskCheck struct {
 }
@@ -7943,8 +8252,11 @@ type UnaryOperationIface interface {
     ToString() string
 }
 
+// An operation on a single operand.
 // Struct proxy
 type UnaryOperation struct {
+    // The value.
+    // Deprecated.
     Value float64
     Operand scopejsiicalclib.NumericValue
 }
@@ -7993,7 +8305,7 @@ func (u *UnaryOperation) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
-// Struct interface
+// UnionPropertiesIface is the public interface for the custom type UnionProperties
 type UnionPropertiesIface interface {
     GetBar() jsii.Any
     GetFoo() jsii.Any
@@ -8023,6 +8335,7 @@ type UpcasingReflectableIface interface {
     SetEntries()
 }
 
+// Ensures submodule-imported types from dependencies can be used correctly.
 // Struct proxy
 type UpcasingReflectable struct {
     Reflector submodule.Reflector
@@ -8087,6 +8400,7 @@ type UseCalcBaseIface interface {
     Hello() scopejsiicalcbase.Base
 }
 
+// Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.
 // Struct proxy
 type UseCalcBase struct {
 }
@@ -8297,6 +8611,11 @@ type VoidCallbackIface interface {
     OverrideMe() jsii.Any
 }
 
+// This test is used to validate the runtimes can return correctly from a void callback.
+// 
+// - Implement \`overrideMe\` (method does not have to do anything).
+// - Invoke \`callMe\`
+// - Verify that \`methodWasCalled\` is \`true\`.
 // Struct proxy
 type VoidCallback struct {
     MethodWasCalled bool
@@ -8344,6 +8663,7 @@ type WithPrivatePropertyInConstructorIface interface {
     SetSuccess()
 }
 
+// Verifies that private property declarations in constructor arguments are hidden.
 // Struct proxy
 type WithPrivatePropertyInConstructor struct {
     Success bool
@@ -8445,12 +8765,11 @@ func (c ClassWithSelfKwarg) SetProps(val StructWithSelf) {
     c.Props = val
 }
 
-// Behaviorial interface
 type IInterfaceWithSelf interface {
     Method() string
 }
 
-// Struct interface
+// StructWithSelfIface is the public interface for the custom type StructWithSelf
 type StructWithSelfIface interface {
     GetSelf() string
 }
@@ -8476,7 +8795,7 @@ import (
     "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
 )
 
-// Struct interface
+// MyClassReferenceIface is the public interface for the custom type MyClassReference
 type MyClassReferenceIface interface {
     GetReference() submodule.MyClass
 }
@@ -8544,7 +8863,7 @@ func (i InnerClass) SetStaticProp(val SomeStruct) {
     i.StaticProp = val
 }
 
-// Struct interface
+// KwargsPropsIface is the public interface for the custom type KwargsProps
 type KwargsPropsIface interface {
     GetProp() SomeEnum
     GetExtra() string
@@ -8571,6 +8890,9 @@ type OuterClassIface interface {
     SetInnerClass()
 }
 
+// Checks that classes can self-reference during initialization.
+// See: : https://github.com/aws/jsii/pull/1706
+//
 // Struct proxy
 type OuterClass struct {
     InnerClass InnerClass
@@ -8600,7 +8922,7 @@ const (
     SomeEnumSome SomeEnum = "SOME"
 )
 
-// Struct interface
+// SomeStructIface is the public interface for the custom type SomeStruct
 type SomeStructIface interface {
     GetProp() SomeEnum
 }
@@ -8615,7 +8937,7 @@ func (s SomeStruct) GetProp() SomeEnum {
 }
 
 
-// Struct interface
+// StructureIface is the public interface for the custom type Structure
 type StructureIface interface {
     GetBool() bool
 }
@@ -8640,7 +8962,6 @@ import (
     "github.com/aws-cdk/jsii/jsii"
 )
 
-// Behaviorial interface
 type INamespaced interface {
     GetDefinedAt() string
 }
@@ -8660,6 +8981,7 @@ type KwargsIface interface {
     Method() bool
 }
 
+// Ensures imports are correctly registered for kwargs lifted properties from super-structs.
 // Struct proxy
 type Kwargs struct {
 }

@@ -1,4 +1,5 @@
-import { CodeMaker, toPascalCase } from 'codemaker';
+import { toPascalCase } from 'codemaker';
+import { EmitContext } from '../emit-context';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
@@ -21,7 +22,13 @@ class InterfaceProperty implements TypeField {
     }
   }
 
-  public emit(code: CodeMaker) {
+  public emit(context: EmitContext) {
+    const docs = this.property.docs;
+    if (docs) {
+      context.documenter.emit(docs);
+    }
+
+    const { code } = context;
     const propName = this.name;
     const type = new GoTypeRef(
       this.parent.parent.root,
@@ -47,7 +54,12 @@ class InterfaceMethod implements TypeField {
     }
   }
 
-  public emit(code: CodeMaker) {
+  public emit(context: EmitContext) {
+    const docs = this.method.docs;
+    if (docs) {
+      context.documenter.emit(docs);
+    }
+    const { code } = context;
     const returns = this.method.returns.type.void
       ? ''
       : ` ${new GoTypeRef(
@@ -75,8 +87,10 @@ export class Interface extends GoType {
     );
   }
 
-  public emit(code: CodeMaker): void {
-    code.line('// Behaviorial interface'); // FIXME for debugging
+  public emit(context: EmitContext) {
+    this.emitDocs(context);
+
+    const { code } = context;
     code.openBlock(`type ${code.toPascalCase(this.name)} interface`);
 
     // embed extended interfaces
@@ -85,11 +99,11 @@ export class Interface extends GoType {
     }
 
     for (const method of this.methods) {
-      method.emit(code);
+      method.emit(context);
     }
 
     for (const prop of this.properties) {
-      prop.emit(code);
+      prop.emit(context);
     }
 
     code.closeBlock();

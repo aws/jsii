@@ -1,11 +1,12 @@
 import { Method, ClassType, Initializer } from 'jsii-reflect';
-import { CodeMaker, toPascalCase } from 'codemaker';
+import { toPascalCase } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
 import { GoStruct } from './go-type';
 import { TypeField } from './type-field';
 import { getFieldDependencies, substituteReservedWords } from '../util';
 import { Package } from '../package';
 import { ClassConstructor, MethodCall } from '../runtime';
+import { EmitContext } from '../emit-context';
 
 export class GoClassConstructor {
   private readonly constructorRuntimeCall: ClassConstructor;
@@ -17,7 +18,8 @@ export class GoClassConstructor {
     this.constructorRuntimeCall = new ClassConstructor(this);
   }
 
-  public emit(code: CodeMaker) {
+  public emit(context: EmitContext) {
+    const { code } = context;
     const constr = `New${this.parent.name}`;
     const params = this.type.parameters.map((x) => {
       const paramName = substituteReservedWords(x.name);
@@ -65,21 +67,23 @@ export class GoClass extends GoStruct {
     }
   }
 
-  public emit(code: CodeMaker): void {
+  public emit(context: EmitContext): void {
     // emits interface, struct proxy, and instance methods
-    super.emit(code);
+    super.emit(context);
 
     if (this.initializer) {
-      this.initializer.emit(code);
+      this.initializer.emit(context);
     }
-    this.emitSetters(code);
+
+    this.emitSetters(context);
 
     for (const method of this.methods) {
-      method.emit(code);
+      method.emit(context);
     }
   }
 
-  protected emitInterface(code: CodeMaker): void {
+  protected emitInterface(context: EmitContext): void {
+    const { code } = context;
     code.line('// Class interface'); // FIXME for debugging
     code.openBlock(`type ${this.interfaceName} interface`);
 
@@ -89,12 +93,12 @@ export class GoClass extends GoStruct {
     }
 
     for (const property of this.properties) {
-      property.emitGetterDecl(code);
-      property.emitSetterDecl(code);
+      property.emitGetterDecl(context);
+      property.emitSetterDecl(context);
     }
 
     for (const method of this.methods) {
-      method.emitDecl(code);
+      method.emitDecl(context);
     }
 
     code.closeBlock();
@@ -102,10 +106,10 @@ export class GoClass extends GoStruct {
   }
 
   // emits the implementation of the getters for the struct
-  private emitSetters(code: CodeMaker): void {
+  private emitSetters(context: EmitContext): void {
     if (this.properties.length !== 0) {
       for (const property of this.properties) {
-        property.emitSetterImpl(code);
+        property.emitSetterImpl(context);
       }
     }
   }
@@ -133,7 +137,7 @@ export class ClassMethod implements TypeField {
   }
 
   /* emit generates method on the class */
-  public emit(code: CodeMaker) {
+  public emit({ code }: EmitContext) {
     const name = this.name;
     const returnType = `${
       this.returnTypeString ? `${this.returnTypeString} ` : ''
@@ -150,7 +154,8 @@ export class ClassMethod implements TypeField {
     code.line();
   }
 
-  public emitDecl(code: CodeMaker) {
+  public emitDecl(context: EmitContext) {
+    const { code } = context;
     const name = this.name;
     code.line(`${name}() ${this.returnTypeString}`);
   }

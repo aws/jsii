@@ -1,4 +1,5 @@
-import { CodeMaker, toPascalCase } from 'codemaker';
+import { toPascalCase } from 'codemaker';
+import { EmitContext } from '../emit-context';
 import { ClassType, InterfaceType, Property, Type } from 'jsii-reflect';
 import { Package } from '../package';
 import { GoTypeRef } from './go-type-reference';
@@ -9,7 +10,7 @@ import { getFieldDependencies } from '../util';
 const STRUCT_INTERFACE_SUFFIX = 'Iface';
 
 export interface GoEmitter {
-  emit(code: CodeMaker): void;
+  emit(context: EmitContext): void;
 }
 
 export class GoType {
@@ -21,6 +22,14 @@ export class GoType {
 
   public get namespace() {
     return this.parent.packageName;
+  }
+
+  public emitDocs(context: EmitContext): void {
+    context.documenter.emit(this.type.docs);
+  }
+
+  protected emitStability(context: EmitContext): void {
+    context.documenter.emitStability(this.type.docs);
   }
 }
 
@@ -52,20 +61,28 @@ export class GoProperty implements TypeField {
     );
   }
 
-  public emitStructMember(code: CodeMaker) {
+  public emitStructMember(context: EmitContext) {
+    const docs = this.property.docs;
+    if (docs) {
+      context.documenter.emit(docs);
+    }
+    const { code } = context;
     // If struct property is type of parent struct, use a pointer as type to avoid recursive struct type error
     if (this.references?.type?.name === this.parent.name) {
       code.line(`${this.name} *${this.returnType}`);
     } else {
       code.line(`${this.name} ${this.returnType}`);
     }
+    // TODO add newline if not the last member
   }
 
-  public emitGetterDecl(code: CodeMaker) {
+  public emitGetterDecl(context: EmitContext) {
+    const { code } = context;
     code.line(`${this.getter}() ${this.returnType}`);
   }
 
-  public emitSetterDecl(code: CodeMaker) {
+  public emitSetterDecl(context: EmitContext) {
+    const { code } = context;
     if (!this.property.protected) {
       code.line(`Set${this.name}()`);
     }
@@ -73,7 +90,8 @@ export class GoProperty implements TypeField {
 
   // TODO use pointer receiver?
   // Emits getter methods on the struct for each property
-  public emitGetterImpl(code: CodeMaker) {
+  public emitGetterImpl(context: EmitContext) {
+    const { code } = context;
     const receiver = this.parent.name;
     const instanceArg = receiver.substring(0, 1).toLowerCase();
 
@@ -87,7 +105,8 @@ export class GoProperty implements TypeField {
     code.line();
   }
 
-  public emitSetterImpl(code: CodeMaker) {
+  public emitSetterImpl(context: EmitContext) {
+    const { code } = context;
     const receiver = this.parent.name;
     const instanceArg = receiver.substring(0, 1).toLowerCase();
 
@@ -116,30 +135,37 @@ export abstract class GoStruct extends GoType implements GoEmitter {
   }
 
   // `emit` needs to generate both a Go interface and a struct, as well as the Getter methods on the struct
-  public emit(code: CodeMaker): void {
-    this.emitInterface(code);
-    this.emitStruct(code);
-    this.emitGetters(code);
+  public emit(context: EmitContext): void {
+    this.emitInterface(context);
+    this.emitStruct(context);
+    this.emitGetters(context);
   }
 
-  protected emitInterface(code: CodeMaker): void {
-    code.line('// Struct interface'); // FIXME for debugging
+  protected emitInterface(context: EmitContext): void {
+    const { code } = context;
+    code.line(
+      `// ${this.interfaceName} is the public interface for the custom type ${this.name}`,
+    );
+    this.emitStability(context);
+
     code.openBlock(`type ${this.interfaceName} interface`);
 
     for (const property of this.properties) {
-      property.emitGetterDecl(code);
+      property.emitGetterDecl(context);
     }
 
     code.closeBlock();
     code.line();
   }
 
-  private emitStruct(code: CodeMaker): void {
+  private emitStruct(context: EmitContext): void {
+    this.emitDocs(context);
+    const { code } = context;
     code.line('// Struct proxy'); // FIXME for debugging
     code.openBlock(`type ${this.name} struct`);
 
     for (const property of this.properties) {
-      property.emitStructMember(code);
+      property.emitStructMember(context);
     }
 
     code.closeBlock();
@@ -147,10 +173,11 @@ export abstract class GoStruct extends GoType implements GoEmitter {
   }
 
   // emits the implementation of the getters for the struct
-  private emitGetters(code: CodeMaker): void {
+  private emitGetters(context: EmitContext): void {
+    const { code } = context;
     if (this.properties.length !== 0) {
       for (const property of this.properties) {
-        property.emitGetterImpl(code);
+        property.emitGetterImpl(context);
       }
 
       code.line();
