@@ -39,7 +39,7 @@
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.1.0"
+    "prettier": "^2.1.1"
   },
   "jsii": {
     "outdir": "dist",

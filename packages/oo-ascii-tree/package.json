@@ -36,7 +36,7 @@
     "eslint": "^7.7.0",
     "jest": "^26.4.2",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.1.0",
+    "prettier": "^2.1.1",
     "typescript": "~3.9.7"
   },
   "jest": {
