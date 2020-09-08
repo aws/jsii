@@ -48,6 +48,23 @@ class LoadResponse:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
+class InvokeScriptRequest:
+
+    pkgname: str
+    script: str
+    args: List[Any] = attr.Factory(list)
+
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class InvokeScriptResponse:
+
+    status: int
+    stdout: str
+    stderr: str
+    output: List[str]
+
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
 class CreateRequest:
 
     fqn: str
@@ -226,6 +243,7 @@ KernelRequest = Union[
     GetRequest,
     StaticGetRequest,
     InvokeRequest,
+    InvokeScriptRequest,
     StaticInvokeRequest,
     StatsRequest,
 ]
@@ -237,6 +255,7 @@ KernelResponse = Union[
     DeleteResponse,
     GetResponse,
     InvokeResponse,
+    InvokeScriptResponse,
     SetResponse,
     StatsResponse,
     Callback,

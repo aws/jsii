@@ -9,6 +9,7 @@ import * as api from './api';
 import { TOKEN_REF } from './api';
 import { ObjectTable, tagJsiiConstructor } from './objects';
 import * as wire from './serialization';
+import * as cp from 'child_process';
 
 export class Kernel {
   /**
@@ -57,15 +58,7 @@ export class Kernel {
     });
   }
 
-  public load(req: api.LoadRequest): api.LoadResponse {
-    this._debug('load', req);
-
-    if ('assembly' in req) {
-      throw new Error(
-        '`assembly` field is deprecated for "load", use `name`, `version` and `tarball` instead',
-      );
-    }
-
+  private getPackageDir(pkgname: string): string {
     if (!this.installDir) {
       this.installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
       fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
@@ -78,12 +71,23 @@ export class Kernel {
         }
       });
     }
+    return path.join(this.installDir, 'node_modules', pkgname);
+  }
+
+  public load(req: api.LoadRequest): api.LoadResponse {
+    this._debug('load', req);
+
+    if ('assembly' in req) {
+      throw new Error(
+        '`assembly` field is deprecated for "load", use `name`, `version` and `tarball` instead',
+      );
+    }
 
     const pkgname = req.name;
     const pkgver = req.version;
 
     // check if we already have such a module
-    const packageDir = path.join(this.installDir, 'node_modules', pkgname);
+    const packageDir = this.getPackageDir(pkgname);
     if (fs.pathExistsSync(packageDir)) {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
@@ -145,6 +149,22 @@ export class Kernel {
     return {
       assembly: assmSpec.name,
       types: Object.keys(assmSpec.types ?? {}).length,
+    };
+  }
+
+  public invokeBinScript(
+    req: api.InvokeScriptRequest,
+  ): api.InvokeScriptResponse {
+    const result = cp.spawnSync(
+      path.join(this.getPackageDir(req.pkgname), req.script),
+      req.args,
+    );
+
+    return {
+      output: result.output,
+      stdout: result.stdout,
+      stderr: result.stderr,
+      status: result.status,
     };
   }
 

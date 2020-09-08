@@ -100,6 +100,19 @@ export interface LoadResponse {
   readonly types: number;
 }
 
+export interface InvokeScriptRequest {
+  readonly pkgname: string;
+  readonly script: string;
+  readonly args?: any[];
+}
+
+export interface InvokeScriptResponse {
+  readonly status: number | null;
+  readonly stdout: string;
+  readonly stderr: string;
+  readonly output: string[];
+}
+
 export interface CreateRequest {
   /**
    * The FQN of the class of which an instance is requested (or "Object")

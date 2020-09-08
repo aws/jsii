@@ -45,6 +45,10 @@ class JSIIAssembly:
         # Give our record of the assembly back to the caller.
         return assembly
 
+    def invokeBinScript(cls, pkgname, script, *args, _kernel=kernel):
+        response = _kernel.invokeBinScript(pkgname, script, *args)
+        print(response.stdout)
+
 
 class JSIIMeta(_ClassPropertyMeta, type):
     def __new__(cls, name, bases, attrs, *, jsii_type=None):

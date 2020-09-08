@@ -1477,7 +1477,33 @@ class PythonModule implements PythonType {
             name,
           );
           code.openFile(script_file);
-          code.line(`print('${name}: ${script_path}');`);
+          code.line('#!/usr/bin/env python');
+          code.line();
+          code.line('import jsii');
+          code.line('import sys');
+          code.line();
+          emitList(
+            code,
+            '__jsii_assembly__ = jsii.JSIIAssembly.load(',
+            [
+              JSON.stringify(this.assembly.name),
+              JSON.stringify(this.assembly.version),
+              JSON.stringify(this.pythonName.replace('._jsii', '')),
+              `${JSON.stringify(this.assemblyFilename)}`,
+            ],
+            ')',
+          );
+          code.line();
+          emitList(
+            code,
+            '__jsii_assembly__.invokeBinScript(',
+            [
+              JSON.stringify(this.assembly.name),
+              JSON.stringify(script_path),
+              'sys.argv[1:]',
+            ],
+            ')',
+          );
           code.closeFile(script_file);
           scripts.push(script_file);
         }

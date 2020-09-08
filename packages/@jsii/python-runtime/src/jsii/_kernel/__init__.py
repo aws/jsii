@@ -26,6 +26,7 @@ from jsii._kernel.types import (
     EndRequest,
     GetRequest,
     InvokeRequest,
+    InvokeScriptRequest,
     SetRequest,
     StaticGetRequest,
     StaticInvokeRequest,
@@ -237,6 +238,20 @@ class Kernel(metaclass=Singleton):
     #       to anyone?
     def load(self, name: str, version: str, tarball: str) -> None:
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
+
+    def invokeBinScript(
+        self, pkgname: str, script: str, args: Optional[List[Any]] = None
+    ) -> None:
+        if args is None:
+            args = []
+
+        self.provider.invokeBinScript(
+            InvokeScriptRequest(
+                pkgname=pkgname,
+                script=script,
+                args=_make_reference_for_native(self, args),
+            )
+        )
 
     # TODO: Is there a way to say that obj has to be an instance of klass?
     def create(self, klass: Type, obj: Any, args: Optional[List[Any]] = None) -> ObjRef:
