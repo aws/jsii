@@ -46,7 +46,7 @@
     "jest": "^26.4.2",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
-    "prettier": "^2.1.0",
+    "prettier": "^2.1.1",
     "source-map": "^0.7.3",
     "source-map-loader": "^1.0.2",
     "ts-jest": "^26.2.0",

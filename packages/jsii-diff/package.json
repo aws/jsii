@@ -52,7 +52,7 @@
     "jest-expect-message": "^1.0.2",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.1.0"
+    "prettier": "^2.1.1"
   },
   "jest": {
     "collectCoverage": true,
