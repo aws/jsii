@@ -84,7 +84,7 @@ export class GoProperty implements TypeField {
   public emitSetterDecl(context: EmitContext) {
     const { code } = context;
     if (!this.property.protected) {
-      code.line(`Set${this.name}()`);
+      code.line(`Set${this.name}(val ${this.returnType})`);
     }
   }
 
