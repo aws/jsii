@@ -256,9 +256,9 @@ func (m MyFirstStruct) GetFirstOptional() []string {
 type NumberIface interface {
     IDoublable
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetDoubleValue() float64
-    SetDoubleValue()
+    SetDoubleValue(val float64)
     TypeName() jsii.Any
     ToString() string
 }
@@ -323,7 +323,7 @@ func (n *Number) ToString() string  {
 // Class interface
 type NumericValueIface interface {
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     TypeName() jsii.Any
     ToString() string
 }
@@ -376,7 +376,7 @@ func (n *NumericValue) ToString() string  {
 // Class interface
 type OperationIface interface {
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     TypeName() jsii.Any
     ToString() string
 }
@@ -489,7 +489,7 @@ type NestingClass struct {
 // Class interface
 type NestedClassIface interface {
     GetProperty() string
-    SetProperty()
+    SetProperty(val string)
 }
 
 // This class is here to show we can use nested classes across module boundaries.
@@ -661,15 +661,15 @@ import (
 // Class interface
 type CompositeOperationIface interface {
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetExpression() scopejsiicalclib.NumericValue
-    SetExpression()
+    SetExpression(val scopejsiicalclib.NumericValue)
     GetDecorationPostfixes() []string
-    SetDecorationPostfixes()
+    SetDecorationPostfixes(val []string)
     GetDecorationPrefixes() []string
-    SetDecorationPrefixes()
+    SetDecorationPrefixes(val []string)
     GetStringStyle() CompositionStringStyle
-    SetStringStyle()
+    SetStringStyle(val CompositionStringStyle)
     TypeName() jsii.Any
     ToString() string
 }
@@ -780,7 +780,7 @@ import (
 // Class interface
 type BaseIface interface {
     GetProp() string
-    SetProp()
+    SetProp(val string)
 }
 
 // Struct proxy
@@ -809,7 +809,7 @@ func (b Base) SetProp(val string) {
 // Class interface
 type DerivedIface interface {
     GetProp() string
-    SetProp()
+    SetProp(val string)
 }
 
 // Struct proxy
@@ -848,7 +848,7 @@ import (
 // Class interface
 type FooIface interface {
     GetBar() string
-    SetBar()
+    SetBar(val string)
 }
 
 // Struct proxy
@@ -934,9 +934,9 @@ import (
 type AbstractClassIface interface {
     IInterfaceImplementedByAbstractClass
     GetAbstractProperty() string
-    SetAbstractProperty()
+    SetAbstractProperty(val string)
     GetPropFromInterface() string
-    SetPropFromInterface()
+    SetPropFromInterface(val string)
     AbstractMethod() string
     NonAbstractMethod() float64
 }
@@ -994,7 +994,7 @@ func (a *AbstractClass) NonAbstractMethod() float64  {
 // Class interface
 type AbstractClassBaseIface interface {
     GetAbstractProperty() string
-    SetAbstractProperty()
+    SetAbstractProperty(val string)
 }
 
 // Struct proxy
@@ -1023,7 +1023,7 @@ func (a AbstractClassBase) SetAbstractProperty(val string) {
 // Class interface
 type AbstractClassReturnerIface interface {
     GetReturnAbstractFromProperty() AbstractClassBase
-    SetReturnAbstractFromProperty()
+    SetReturnAbstractFromProperty(val AbstractClassBase)
     GiveMeAbstract() AbstractClass
     GiveMeInterface() IInterfaceImplementedByAbstractClass
 }
@@ -1122,11 +1122,11 @@ func (a *AbstractSuite) WorkItAll() string  {
 type AddIface interface {
     scopejsiicalclib.IFriendly
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetLhs() scopejsiicalclib.NumericValue
-    SetLhs()
+    SetLhs(val scopejsiicalclib.NumericValue)
     GetRhs() scopejsiicalclib.NumericValue
-    SetRhs()
+    SetRhs(val scopejsiicalclib.NumericValue)
     TypeName() jsii.Any
     ToString() string
     Hello() string
@@ -1208,43 +1208,43 @@ func (a *Add) Hello() string  {
 // Class interface
 type AllTypesIface interface {
     GetEnumPropertyValue() float64
-    SetEnumPropertyValue()
+    SetEnumPropertyValue(val float64)
     GetAnyArrayProperty() []jsii.Any
-    SetAnyArrayProperty()
+    SetAnyArrayProperty(val []jsii.Any)
     GetAnyMapProperty() map[string]jsii.Any
-    SetAnyMapProperty()
+    SetAnyMapProperty(val map[string]jsii.Any)
     GetAnyProperty() jsii.Any
-    SetAnyProperty()
+    SetAnyProperty(val jsii.Any)
     GetArrayProperty() []string
-    SetArrayProperty()
+    SetArrayProperty(val []string)
     GetBooleanProperty() bool
-    SetBooleanProperty()
+    SetBooleanProperty(val bool)
     GetDateProperty() string
-    SetDateProperty()
+    SetDateProperty(val string)
     GetEnumProperty() AllTypesEnum
-    SetEnumProperty()
+    SetEnumProperty(val AllTypesEnum)
     GetJsonProperty() map[string]jsii.Any
-    SetJsonProperty()
+    SetJsonProperty(val map[string]jsii.Any)
     GetMapProperty() map[string]scopejsiicalclib.Number
-    SetMapProperty()
+    SetMapProperty(val map[string]scopejsiicalclib.Number)
     GetNumberProperty() float64
-    SetNumberProperty()
+    SetNumberProperty(val float64)
     GetStringProperty() string
-    SetStringProperty()
+    SetStringProperty(val string)
     GetUnionArrayProperty() []jsii.Any
-    SetUnionArrayProperty()
+    SetUnionArrayProperty(val []jsii.Any)
     GetUnionMapProperty() map[string]jsii.Any
-    SetUnionMapProperty()
+    SetUnionMapProperty(val map[string]jsii.Any)
     GetUnionProperty() jsii.Any
-    SetUnionProperty()
+    SetUnionProperty(val jsii.Any)
     GetUnknownArrayProperty() []jsii.Any
-    SetUnknownArrayProperty()
+    SetUnknownArrayProperty(val []jsii.Any)
     GetUnknownMapProperty() map[string]jsii.Any
-    SetUnknownMapProperty()
+    SetUnknownMapProperty(val map[string]jsii.Any)
     GetUnknownProperty() jsii.Any
-    SetUnknownProperty()
+    SetUnknownProperty(val jsii.Any)
     GetOptionalEnumValue() StringEnum
-    SetOptionalEnumValue()
+    SetOptionalEnumValue(val StringEnum)
     AnyIn() jsii.Any
     AnyOut() jsii.Any
     EnumMethod() StringEnum
@@ -1534,9 +1534,9 @@ func (a *AllowedMethodNames) SetFoo() jsii.Any  {
 // Class interface
 type AmbiguousParametersIface interface {
     GetProps() StructParameterType
-    SetProps()
+    SetProps(val StructParameterType)
     GetScope() Bell
-    SetScope()
+    SetScope(val Bell)
 }
 
 // Struct proxy
@@ -1744,7 +1744,7 @@ func NewBaseJsii976() BaseJsii976Iface {
 type BellIface interface {
     IBell
     GetRung() bool
-    SetRung()
+    SetRung(val bool)
     Ring() jsii.Any
 }
 
@@ -1784,11 +1784,11 @@ func (b *Bell) Ring() jsii.Any  {
 type BinaryOperationIface interface {
     scopejsiicalclib.IFriendly
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetLhs() scopejsiicalclib.NumericValue
-    SetLhs()
+    SetLhs(val scopejsiicalclib.NumericValue)
     GetRhs() scopejsiicalclib.NumericValue
-    SetRhs()
+    SetRhs(val scopejsiicalclib.NumericValue)
     TypeName() jsii.Any
     ToString() string
     Hello() string
@@ -1909,25 +1909,25 @@ func (b *BurriedAnonymousObject) GiveItBack() jsii.Any  {
 // Class interface
 type CalculatorIface interface {
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetExpression() scopejsiicalclib.NumericValue
-    SetExpression()
+    SetExpression(val scopejsiicalclib.NumericValue)
     GetDecorationPostfixes() []string
-    SetDecorationPostfixes()
+    SetDecorationPostfixes(val []string)
     GetDecorationPrefixes() []string
-    SetDecorationPrefixes()
+    SetDecorationPrefixes(val []string)
     GetStringStyle() composition.CompositionStringStyle
-    SetStringStyle()
+    SetStringStyle(val composition.CompositionStringStyle)
     GetOperationsLog() []scopejsiicalclib.NumericValue
-    SetOperationsLog()
+    SetOperationsLog(val []scopejsiicalclib.NumericValue)
     GetOperationsMap() map[string][]scopejsiicalclib.NumericValue
-    SetOperationsMap()
+    SetOperationsMap(val map[string][]scopejsiicalclib.NumericValue)
     GetCurr() scopejsiicalclib.NumericValue
-    SetCurr()
+    SetCurr(val scopejsiicalclib.NumericValue)
     GetMaxValue() float64
-    SetMaxValue()
+    SetMaxValue(val float64)
     GetUnionProperty() jsii.Any
-    SetUnionProperty()
+    SetUnionProperty(val jsii.Any)
     TypeName() jsii.Any
     ToString() string
     Add() jsii.Any
@@ -2182,13 +2182,13 @@ type ClassThatImplementsTheInternalInterfaceIface interface {
     INonInternalInterface
     IAnotherPublicInterface
     GetA() string
-    SetA()
+    SetA(val string)
     GetB() string
-    SetB()
+    SetB(val string)
     GetC() string
-    SetC()
+    SetC(val string)
     GetD() string
-    SetD()
+    SetD(val string)
 }
 
 // Struct proxy
@@ -2246,13 +2246,13 @@ type ClassThatImplementsThePrivateInterfaceIface interface {
     INonInternalInterface
     IAnotherPublicInterface
     GetA() string
-    SetA()
+    SetA(val string)
     GetB() string
-    SetB()
+    SetB(val string)
     GetC() string
-    SetC()
+    SetC(val string)
     GetE() string
-    SetE()
+    SetE(val string)
 }
 
 // Struct proxy
@@ -2308,13 +2308,13 @@ func (c ClassThatImplementsThePrivateInterface) SetE(val string) {
 // Class interface
 type ClassWithCollectionsIface interface {
     GetStaticArray() []string
-    SetStaticArray()
+    SetStaticArray(val []string)
     GetStaticMap() map[string]string
-    SetStaticMap()
+    SetStaticMap(val map[string]string)
     GetArray() []string
-    SetArray()
+    SetArray(val []string)
     GetMap() map[string]string
-    SetMap()
+    SetMap(val map[string]string)
     CreateAList() []string
     CreateAMap() map[string]string
 }
@@ -2415,7 +2415,7 @@ func NewClassWithDocs() ClassWithDocsIface {
 // Class interface
 type ClassWithJavaReservedWordsIface interface {
     GetInt() string
-    SetInt()
+    SetInt(val string)
     Import() string
 }
 
@@ -2454,7 +2454,7 @@ func (c *ClassWithJavaReservedWords) Import() string  {
 // Class interface
 type ClassWithMutableObjectLiteralPropertyIface interface {
     GetMutableObject() IMutableObjectLiteral
-    SetMutableObject()
+    SetMutableObject(val IMutableObjectLiteral)
 }
 
 // Struct proxy
@@ -2484,9 +2484,9 @@ func (c ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObje
 type ClassWithPrivateConstructorAndAutomaticPropertiesIface interface {
     IInterfaceWithProperties
     GetReadOnlyString() string
-    SetReadOnlyString()
+    SetReadOnlyString(val string)
     GetReadWriteString() string
-    SetReadWriteString()
+    SetReadWriteString(val string)
     Create() ClassWithPrivateConstructorAndAutomaticProperties
 }
 
@@ -2526,7 +2526,7 @@ func (c *ClassWithPrivateConstructorAndAutomaticProperties) Create() ClassWithPr
 // Class interface
 type ConfusingToJacksonIface interface {
     GetUnionProperty() jsii.Any
-    SetUnionProperty()
+    SetUnionProperty(val jsii.Any)
     MakeInstance() ConfusingToJackson
     MakeStructInstance() ConfusingToJacksonStruct
 }
@@ -2901,11 +2901,11 @@ func (d *DataRenderer) RenderMap() string  {
 // Class interface
 type DefaultedConstructorArgumentIface interface {
     GetArg1() float64
-    SetArg1()
+    SetArg1(val float64)
     GetArg3() string
-    SetArg3()
+    SetArg3(val string)
     GetArg2() string
-    SetArg2()
+    SetArg2(val string)
 }
 
 // Struct proxy
@@ -2993,9 +2993,9 @@ func (d *Demonstrate982) TakeThisToo() ParentStruct982  {
 // Class interface
 type DeprecatedClassIface interface {
     GetReadonlyProperty() string
-    SetReadonlyProperty()
+    SetReadonlyProperty(val string)
     GetMutableProperty() float64
-    SetMutableProperty()
+    SetMutableProperty(val float64)
     Method() jsii.Any
 }
 
@@ -3233,9 +3233,9 @@ func (d DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
 // Class interface
 type DisappointingCollectionSourceIface interface {
     GetMaybeList() []string
-    SetMaybeList()
+    SetMaybeList(val []string)
     GetMaybeMap() map[string]float64
-    SetMaybeMap()
+    SetMaybeMap(val map[string]float64)
 }
 
 // Verifies that null/undefined can be returned for optional collections.
@@ -3458,9 +3458,9 @@ func (d *DoubleTrouble) Next() float64  {
 // Class interface
 type DynamicPropertyBearerIface interface {
     GetDynamicProperty() string
-    SetDynamicProperty()
+    SetDynamicProperty(val string)
     GetValueStore() string
-    SetValueStore()
+    SetValueStore(val string)
 }
 
 // Ensures we can override a dynamic property that was inherited.
@@ -3499,11 +3499,11 @@ func (d DynamicPropertyBearer) SetValueStore(val string) {
 // Class interface
 type DynamicPropertyBearerChildIface interface {
     GetDynamicProperty() string
-    SetDynamicProperty()
+    SetDynamicProperty(val string)
     GetValueStore() string
-    SetValueStore()
+    SetValueStore(val string)
     GetOriginalValue() string
-    SetOriginalValue()
+    SetOriginalValue(val string)
     OverrideValue() string
 }
 
@@ -3656,9 +3656,9 @@ func (e EraseUndefinedHashValuesOptions) GetOption2() string {
 // Class interface
 type ExperimentalClassIface interface {
     GetReadonlyProperty() string
-    SetReadonlyProperty()
+    SetReadonlyProperty(val string)
     GetMutableProperty() float64
-    SetMutableProperty()
+    SetMutableProperty(val float64)
     Method() jsii.Any
 }
 
@@ -3735,7 +3735,7 @@ func (e ExperimentalStruct) GetReadonlyProperty() string {
 // Class interface
 type ExportedBaseClassIface interface {
     GetSuccess() bool
-    SetSuccess()
+    SetSuccess(val bool)
 }
 
 // Struct proxy
@@ -3785,9 +3785,9 @@ func (e ExtendsInternalInterface) GetProp() string {
 // Class interface
 type ExternalClassIface interface {
     GetReadonlyProperty() string
-    SetReadonlyProperty()
+    SetReadonlyProperty(val string)
     GetMutableProperty() float64
-    SetMutableProperty()
+    SetMutableProperty(val float64)
     Method() jsii.Any
 }
 
@@ -3857,7 +3857,7 @@ func (e ExternalStruct) GetReadonlyProperty() string {
 // Class interface
 type GiveMeStructsIface interface {
     GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals
-    SetStructLiteral()
+    SetStructLiteral(val scopejsiicalclib.StructWithOnlyOptionals)
     DerivedToFirst() scopejsiicalclib.MyFirstStruct
     ReadDerivedNonPrimitive() DoubleTrouble
     ReadFirstNumber() float64
@@ -4148,7 +4148,7 @@ type IStructReturningDelegate interface {
 // Class interface
 type ImplementInternalInterfaceIface interface {
     GetProp() string
-    SetProp()
+    SetProp(val string)
 }
 
 // Struct proxy
@@ -4177,7 +4177,7 @@ func (i ImplementInternalInterface) SetProp(val string) {
 // Class interface
 type ImplementationIface interface {
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
 }
 
 // Struct proxy
@@ -4262,7 +4262,7 @@ func (i *ImplementsInterfaceWithInternalSubclass) Visible() jsii.Any  {
 // Class interface
 type ImplementsPrivateInterfaceIface interface {
     GetPrivate() string
-    SetPrivate()
+    SetPrivate(val string)
 }
 
 // Struct proxy
@@ -4457,7 +4457,7 @@ func (i *Isomorphism) Myself() Isomorphism  {
 // Class interface
 type Jsii417DerivedIface interface {
     GetHasRoot() bool
-    SetHasRoot()
+    SetHasRoot(val bool)
     GetProperty() string
     MakeInstance() Jsii417PublicBaseOfBase
     Foo() jsii.Any
@@ -4536,7 +4536,7 @@ func (j *Jsii417Derived) Baz() jsii.Any  {
 // Class interface
 type Jsii417PublicBaseOfBaseIface interface {
     GetHasRoot() bool
-    SetHasRoot()
+    SetHasRoot(val bool)
     MakeInstance() Jsii417PublicBaseOfBase
     Foo() jsii.Any
 }
@@ -4649,9 +4649,9 @@ func (j *JsObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNativeClass  
 // Class interface
 type JsObjectLiteralToNativeClassIface interface {
     GetPropA() string
-    SetPropA()
+    SetPropA(val string)
     GetPropB() float64
-    SetPropB()
+    SetPropB(val float64)
 }
 
 // Struct proxy
@@ -4689,7 +4689,7 @@ func (j JsObjectLiteralToNativeClass) SetPropB(val float64) {
 // Class interface
 type JavaReservedWordsIface interface {
     GetWhile() string
-    SetWhile()
+    SetWhile(val string)
     Abstract() jsii.Any
     Assert() jsii.Any
     Boolean() jsii.Any
@@ -5275,7 +5275,7 @@ func NewJsii496Derived() Jsii496DerivedIface {
 // Class interface
 type JsiiAgentIface interface {
     GetValue() string
-    SetValue()
+    SetValue(val string)
 }
 
 // Host runtime version should be set via JSII_AGENT.
@@ -5528,7 +5528,7 @@ func (l LoadBalancedFargateServiceProps) GetPublicTasks() bool {
 // Class interface
 type MethodNamedPropertyIface interface {
     GetElite() float64
-    SetElite()
+    SetElite(val float64)
     Property() string
 }
 
@@ -5571,11 +5571,11 @@ type MultiplyIface interface {
     scopejsiicalclib.IFriendly
     IRandomNumberGenerator
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetLhs() scopejsiicalclib.NumericValue
-    SetLhs()
+    SetLhs(val scopejsiicalclib.NumericValue)
     GetRhs() scopejsiicalclib.NumericValue
-    SetRhs()
+    SetRhs(val scopejsiicalclib.NumericValue)
     TypeName() jsii.Any
     ToString() string
     Hello() string
@@ -5689,9 +5689,9 @@ type NegateIface interface {
     IFriendlier
     scopejsiicalclib.IFriendly
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetOperand() scopejsiicalclib.NumericValue
-    SetOperand()
+    SetOperand(val scopejsiicalclib.NumericValue)
     TypeName() jsii.Any
     ToString() string
     Farewell() string
@@ -5815,7 +5815,7 @@ func (n NestedStruct) GetNumberProp() float64 {
 // Class interface
 type NodeStandardLibraryIface interface {
     GetOsPlatform() string
-    SetOsPlatform()
+    SetOsPlatform(val string)
     CryptoSha256() string
     FsReadFile() string
     FsReadFileSync() string
@@ -5876,7 +5876,7 @@ func (n *NodeStandardLibrary) FsReadFileSync() string  {
 // Class interface
 type NullShouldBeTreatedAsUndefinedIface interface {
     GetChangeMeToUndefined() string
-    SetChangeMeToUndefined()
+    SetChangeMeToUndefined(val string)
     GiveMeUndefined() jsii.Any
     GiveMeUndefinedInsideAnObject() jsii.Any
     VerifyPropertyIsUndefined() jsii.Any
@@ -5957,7 +5957,7 @@ func (n NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() jsii.Any 
 // Class interface
 type NumberGeneratorIface interface {
     GetGenerator() IRandomNumberGenerator
-    SetGenerator()
+    SetGenerator(val IRandomNumberGenerator)
     IsSameGenerator() bool
     NextTimes100() float64
 }
@@ -6129,11 +6129,11 @@ func (o *OptionalArgumentInvoker) InvokeWithoutOptional() jsii.Any  {
 // Class interface
 type OptionalConstructorArgumentIface interface {
     GetArg1() float64
-    SetArg1()
+    SetArg1(val float64)
     GetArg2() string
-    SetArg2()
+    SetArg2(val string)
     GetArg3() string
-    SetArg3()
+    SetArg3(val string)
 }
 
 // Struct proxy
@@ -6195,9 +6195,9 @@ func (o OptionalStruct) GetField() string {
 // Class interface
 type OptionalStructConsumerIface interface {
     GetParameterWasUndefined() bool
-    SetParameterWasUndefined()
+    SetParameterWasUndefined(val bool)
     GetFieldValue() string
-    SetFieldValue()
+    SetFieldValue(val string)
 }
 
 // Struct proxy
@@ -6402,19 +6402,19 @@ func (p *Polymorphism) SayHello() string  {
 // Class interface
 type PowerIface interface {
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetExpression() scopejsiicalclib.NumericValue
-    SetExpression()
+    SetExpression(val scopejsiicalclib.NumericValue)
     GetDecorationPostfixes() []string
-    SetDecorationPostfixes()
+    SetDecorationPostfixes(val []string)
     GetDecorationPrefixes() []string
-    SetDecorationPrefixes()
+    SetDecorationPrefixes(val []string)
     GetStringStyle() composition.CompositionStringStyle
-    SetStringStyle()
+    SetStringStyle(val composition.CompositionStringStyle)
     GetBase() scopejsiicalclib.NumericValue
-    SetBase()
+    SetBase(val scopejsiicalclib.NumericValue)
     GetPow() scopejsiicalclib.NumericValue
-    SetPow()
+    SetPow(val scopejsiicalclib.NumericValue)
     TypeName() jsii.Any
     ToString() string
 }
@@ -6528,9 +6528,9 @@ func (p *Power) ToString() string  {
 // Class interface
 type PropertyNamedPropertyIface interface {
     GetProperty() string
-    SetProperty()
+    SetProperty(val string)
     GetYetAnoterOne() bool
-    SetYetAnoterOne()
+    SetYetAnoterOne(val bool)
 }
 
 // Reproduction for https://github.com/aws/jsii/issues/1113 Where a method or property named "property" would result in impossible to load Python code.
@@ -6933,7 +6933,7 @@ func (p *PythonReservedWords) Yield() jsii.Any  {
 // Class interface
 type ReferenceEnumFromScopedPackageIface interface {
     GetFoo() scopejsiicalclib.EnumFromScopedModule
-    SetFoo()
+    SetFoo(val scopejsiicalclib.EnumFromScopedModule)
     LoadFoo() scopejsiicalclib.EnumFromScopedModule
     SaveFoo() jsii.Any
 }
@@ -6983,7 +6983,7 @@ func (r *ReferenceEnumFromScopedPackage) SaveFoo() jsii.Any  {
 // Class interface
 type ReturnsPrivateImplementationOfInterfaceIface interface {
     GetPrivateImplementation() IPrivatelyImplemented
-    SetPrivateImplementation()
+    SetPrivateImplementation(val IPrivatelyImplemented)
 }
 
 // Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
@@ -7287,9 +7287,9 @@ func (s *SomeTypeJsii976) ReturnReturn() IReturnJsii976  {
 // Class interface
 type StableClassIface interface {
     GetReadonlyProperty() string
-    SetReadonlyProperty()
+    SetReadonlyProperty(val string)
     GetMutableProperty() float64
-    SetMutableProperty()
+    SetMutableProperty(val float64)
     Method() jsii.Any
 }
 
@@ -7359,7 +7359,7 @@ func (s StableStruct) GetReadonlyProperty() string {
 // Class interface
 type StaticContextIface interface {
     GetStaticVariable() bool
-    SetStaticVariable()
+    SetStaticVariable(val bool)
     CanAccessStaticContext() bool
 }
 
@@ -7392,19 +7392,19 @@ func (s *StaticContext) CanAccessStaticContext() bool  {
 // Class interface
 type StaticsIface interface {
     GetBar() float64
-    SetBar()
+    SetBar(val float64)
     GetConstObj() DoubleTrouble
-    SetConstObj()
+    SetConstObj(val DoubleTrouble)
     GetFoo() string
-    SetFoo()
+    SetFoo(val string)
     GetZooBar() map[string]string
-    SetZooBar()
+    SetZooBar(val map[string]string)
     GetInstance() Statics
-    SetInstance()
+    SetInstance(val Statics)
     GetNonConstStatic() float64
-    SetNonConstStatic()
+    SetNonConstStatic(val float64)
     GetValue() string
-    SetValue()
+    SetValue(val string)
     StaticMethod() string
     JustMethod() string
 }
@@ -7521,7 +7521,7 @@ const (
 // Class interface
 type StripInternalIface interface {
     GetYouSeeMe() string
-    SetYouSeeMe()
+    SetYouSeeMe(val string)
 }
 
 // Struct proxy
@@ -7729,17 +7729,17 @@ func (s StructWithJavaReservedWords) GetThat() string {
 // Class interface
 type SumIface interface {
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetExpression() scopejsiicalclib.NumericValue
-    SetExpression()
+    SetExpression(val scopejsiicalclib.NumericValue)
     GetDecorationPostfixes() []string
-    SetDecorationPostfixes()
+    SetDecorationPostfixes(val []string)
     GetDecorationPrefixes() []string
-    SetDecorationPrefixes()
+    SetDecorationPrefixes(val []string)
     GetStringStyle() composition.CompositionStringStyle
-    SetStringStyle()
+    SetStringStyle(val composition.CompositionStringStyle)
     GetParts() []scopejsiicalclib.NumericValue
-    SetParts()
+    SetParts(val []scopejsiicalclib.NumericValue)
     TypeName() jsii.Any
     ToString() string
 }
@@ -7842,13 +7842,13 @@ func (s *Sum) ToString() string  {
 // Class interface
 type SupportsNiceJavaBuilderIface interface {
     GetBar() float64
-    SetBar()
+    SetBar(val float64)
     GetId() float64
-    SetId()
+    SetId(val float64)
     GetPropId() string
-    SetPropId()
+    SetPropId(val string)
     GetRest() []string
-    SetRest()
+    SetRest(val []string)
 }
 
 // Struct proxy
@@ -7930,11 +7930,11 @@ func (s SupportsNiceJavaBuilderProps) GetId() string {
 // Class interface
 type SupportsNiceJavaBuilderWithRequiredPropsIface interface {
     GetBar() float64
-    SetBar()
+    SetBar(val float64)
     GetId() float64
-    SetId()
+    SetId(val float64)
     GetPropId() string
-    SetPropId()
+    SetPropId(val string)
 }
 
 // We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.
@@ -7983,17 +7983,17 @@ func (s SupportsNiceJavaBuilderWithRequiredProps) SetPropId(val string) {
 // Class interface
 type SyncVirtualMethodsIface interface {
     GetReadonlyProperty() string
-    SetReadonlyProperty()
+    SetReadonlyProperty(val string)
     GetA() float64
-    SetA()
+    SetA(val float64)
     GetCallerIsProperty() float64
-    SetCallerIsProperty()
+    SetCallerIsProperty(val float64)
     GetOtherProperty() string
-    SetOtherProperty()
+    SetOtherProperty(val string)
     GetTheProperty() string
-    SetTheProperty()
+    SetTheProperty(val string)
     GetValueOfOtherProperty() string
-    SetValueOfOtherProperty()
+    SetValueOfOtherProperty(val string)
     CallerIsAsync() float64
     CallerIsMethod() float64
     ModifyOtherProperty() jsii.Any
@@ -8245,9 +8245,9 @@ func (u *UmaskCheck) Mode() float64  {
 // Class interface
 type UnaryOperationIface interface {
     GetValue() float64
-    SetValue()
+    SetValue(val float64)
     GetOperand() scopejsiicalclib.NumericValue
-    SetOperand()
+    SetOperand(val scopejsiicalclib.NumericValue)
     TypeName() jsii.Any
     ToString() string
 }
@@ -8330,9 +8330,9 @@ func (u UnionProperties) GetFoo() jsii.Any {
 type UpcasingReflectableIface interface {
     submodule.IReflectable
     GetReflector() submodule.Reflector
-    SetReflector()
+    SetReflector(val submodule.Reflector)
     GetEntries() []submodule.ReflectableEntry
-    SetEntries()
+    SetEntries(val []submodule.ReflectableEntry)
 }
 
 // Ensures submodule-imported types from dependencies can be used correctly.
@@ -8426,7 +8426,7 @@ func (u *UseCalcBase) Hello() scopejsiicalcbase.Base  {
 // Class interface
 type UsesInterfaceWithPropertiesIface interface {
     GetObj() IInterfaceWithProperties
-    SetObj()
+    SetObj(val IInterfaceWithProperties)
     JustRead() string
     ReadStringAndNumber() string
     WriteAndRead() string
@@ -8606,7 +8606,7 @@ func (v *VirtualMethodPlayground) SumSync() float64  {
 // Class interface
 type VoidCallbackIface interface {
     GetMethodWasCalled() bool
-    SetMethodWasCalled()
+    SetMethodWasCalled(val bool)
     CallMe() jsii.Any
     OverrideMe() jsii.Any
 }
@@ -8660,7 +8660,7 @@ func (v *VoidCallback) OverrideMe() jsii.Any  {
 // Class interface
 type WithPrivatePropertyInConstructorIface interface {
     GetSuccess() bool
-    SetSuccess()
+    SetSuccess(val bool)
 }
 
 // Verifies that private property declarations in constructor arguments are hidden.
@@ -8700,7 +8700,7 @@ import (
 // Class interface
 type ClassWithSelfIface interface {
     GetSelf() string
-    SetSelf()
+    SetSelf(val string)
     Method() string
 }
 
@@ -8739,7 +8739,7 @@ func (c *ClassWithSelf) Method() string  {
 // Class interface
 type ClassWithSelfKwargIface interface {
     GetProps() StructWithSelf
-    SetProps()
+    SetProps(val StructWithSelf)
 }
 
 // Struct proxy
@@ -8837,7 +8837,7 @@ const (
 // Class interface
 type InnerClassIface interface {
     GetStaticProp() SomeStruct
-    SetStaticProp()
+    SetStaticProp(val SomeStruct)
 }
 
 // Struct proxy
@@ -8887,7 +8887,7 @@ func (k KwargsProps) GetExtra() string {
 // Class interface
 type OuterClassIface interface {
     GetInnerClass() InnerClass
-    SetInnerClass()
+    SetInnerClass(val InnerClass)
 }
 
 // Checks that classes can self-reference during initialization.
@@ -9010,9 +9010,9 @@ import (
 type NamespacedIface interface {
     deeplynested.INamespaced
     GetDefinedAt() string
-    SetDefinedAt()
+    SetDefinedAt(val string)
     GetGoodness() child.Goodness
-    SetGoodness()
+    SetGoodness(val child.Goodness)
 }
 
 // Struct proxy
@@ -9054,15 +9054,15 @@ import (
 type MyClassIface interface {
     deeplynested.INamespaced
     GetAwesomeness() child.Awesomeness
-    SetAwesomeness()
+    SetAwesomeness(val child.Awesomeness)
     GetDefinedAt() string
-    SetDefinedAt()
+    SetDefinedAt(val string)
     GetGoodness() child.Goodness
-    SetGoodness()
+    SetGoodness(val child.Goodness)
     GetProps() child.SomeStruct
-    SetProps()
+    SetProps(val child.SomeStruct)
     GetAllTypes() jsiicalc.AllTypes
-    SetAllTypes()
+    SetAllTypes(val jsiicalc.AllTypes)
 }
 
 // Struct proxy
