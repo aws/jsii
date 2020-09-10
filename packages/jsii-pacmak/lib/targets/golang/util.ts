@@ -40,8 +40,8 @@ export function flatMap<T, R>(
  */
 export function getFieldDependencies(fields: TypeField[]): Package[] {
   return fields.reduce((accum: Package[], field) => {
-    return field.references?.type?.parent
-      ? [...accum, field.references?.type.parent]
+    return field.reference?.type?.pkg
+      ? [...accum, field.reference?.type.pkg]
       : accum;
   }, []);
 }

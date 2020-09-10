@@ -6,5 +6,5 @@ import { GoClass, Interface, Struct, GoTypeRef } from './index';
 export interface TypeField {
   name: string;
   parent: GoClass | Interface | Struct;
-  references?: GoTypeRef;
+  reference?: GoTypeRef;
 }

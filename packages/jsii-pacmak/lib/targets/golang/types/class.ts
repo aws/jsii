@@ -121,7 +121,7 @@ export class GoClass extends GoStruct {
 
 export class ClassMethod implements TypeField {
   public readonly name: string;
-  public readonly references?: GoTypeRef;
+  public readonly reference?: GoTypeRef;
   public readonly runtimeCall: MethodCall;
 
   public constructor(
@@ -132,7 +132,7 @@ export class ClassMethod implements TypeField {
     this.runtimeCall = new MethodCall(this);
 
     if (method.returns.type) {
-      this.references = new GoTypeRef(parent.parent.root, method.returns.type);
+      this.reference = new GoTypeRef(parent.parent.root, method.returns.type);
     }
   }
 
@@ -162,7 +162,7 @@ export class ClassMethod implements TypeField {
 
   public get returnTypeString(): string {
     return (
-      this.references?.scopedName(this.parent.parent) ?? this.method.toString()
+      this.reference?.scopedName(this.parent.parent) ?? this.method.toString()
     );
   }
 }

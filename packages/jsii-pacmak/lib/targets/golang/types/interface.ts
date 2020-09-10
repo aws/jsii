@@ -9,7 +9,7 @@ import { getFieldDependencies } from '../util';
 
 class InterfaceProperty implements TypeField {
   public readonly name: string;
-  public readonly references?: GoTypeRef;
+  public readonly reference?: GoTypeRef;
 
   public constructor(
     public readonly parent: Interface,
@@ -18,7 +18,7 @@ class InterfaceProperty implements TypeField {
     this.name = toPascalCase(property.name);
 
     if (property.type) {
-      this.references = new GoTypeRef(parent.parent.root, property.type);
+      this.reference = new GoTypeRef(parent.parent.root, property.type);
     }
   }
 
@@ -41,7 +41,7 @@ class InterfaceProperty implements TypeField {
 
 class InterfaceMethod implements TypeField {
   public readonly name: string;
-  public readonly references?: GoTypeRef;
+  public readonly reference?: GoTypeRef;
 
   public constructor(
     public readonly parent: Interface,
@@ -50,7 +50,7 @@ class InterfaceMethod implements TypeField {
     this.name = toPascalCase(method.name);
 
     if (method.returns.type) {
-      this.references = new GoTypeRef(parent.parent.root, method.returns.type);
+      this.reference = new GoTypeRef(parent.parent.root, method.returns.type);
     }
   }
 
@@ -70,6 +70,12 @@ class InterfaceMethod implements TypeField {
     const methodName = this.name;
 
     code.line(`${methodName}()${returns}`);
+  }
+
+  public get returnTypeString(): string {
+    return (
+      this.reference?.scopedName(this.parent.parent) ?? this.method.toString()
+    );
   }
 }
 

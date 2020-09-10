@@ -29,7 +29,7 @@ export class MethodCall {
     );
     code.close(`})`);
 
-    const ret = this.parent.references;
+    const ret = this.parent.reference;
     if (ret?.type?.type.isClassType() || ret?.type instanceof Struct) {
       code.line(`return ${this.parent.returnTypeString}{}`);
     } else if (ret?.type?.type.isEnumType()) {

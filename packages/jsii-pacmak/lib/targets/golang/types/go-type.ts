@@ -40,7 +40,7 @@ export class GoType {
 export class GoProperty implements TypeField {
   public readonly name: string;
   public readonly getter: string;
-  public readonly references?: GoTypeRef;
+  public readonly reference?: GoTypeRef;
 
   public constructor(
     public parent: GoStruct,
@@ -50,13 +50,13 @@ export class GoProperty implements TypeField {
     this.getter = `Get${this.name}`;
 
     if (property.type) {
-      this.references = new GoTypeRef(parent.parent.root, property.type);
+      this.reference = new GoTypeRef(parent.parent.root, property.type);
     }
   }
 
   public get returnType(): string {
     return (
-      this.references?.scopedName(this.parent.parent) ??
+      this.reference?.scopedName(this.parent.parent) ??
       this.property.type.toString()
     );
   }
@@ -68,7 +68,7 @@ export class GoProperty implements TypeField {
     }
     const { code } = context;
     // If struct property is type of parent struct, use a pointer as type to avoid recursive struct type error
-    if (this.references?.type?.name === this.parent.name) {
+    if (this.reference?.type?.name === this.parent.name) {
       code.line(`${this.name} *${this.returnType}`);
     } else {
       code.line(`${this.name} ${this.returnType}`);
