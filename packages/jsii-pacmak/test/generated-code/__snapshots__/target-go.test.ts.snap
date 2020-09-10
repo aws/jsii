@@ -56,11 +56,11 @@ type BaseProps struct {
     Bar string
 }
 
-func (b BaseProps) GetFoo() scopejsiicalcbaseofbase.Very {
+func (b *BaseProps) GetFoo() scopejsiicalcbaseofbase.Very {
     return b.Foo
 }
 
-func (b BaseProps) GetBar() string {
+func (b *BaseProps) GetBar() string {
     return b.Bar
 }
 
@@ -149,7 +149,7 @@ type VeryBaseProps struct {
     Foo Very
 }
 
-func (v VeryBaseProps) GetFoo() Very {
+func (v *VeryBaseProps) GetFoo() Very {
     return v.Foo
 }
 
@@ -239,15 +239,15 @@ type MyFirstStruct struct {
     FirstOptional []string
 }
 
-func (m MyFirstStruct) GetAnumber() float64 {
+func (m *MyFirstStruct) GetAnumber() float64 {
     return m.Anumber
 }
 
-func (m MyFirstStruct) GetAstring() string {
+func (m *MyFirstStruct) GetAstring() string {
     return m.Astring
 }
 
-func (m MyFirstStruct) GetFirstOptional() []string {
+func (m *MyFirstStruct) GetFirstOptional() []string {
     return m.FirstOptional
 }
 
@@ -275,11 +275,11 @@ type Number struct {
     DoubleValue float64
 }
 
-func (n Number) GetValue() float64 {
+func (n *Number) GetValue() float64 {
     return n.Value
 }
 
-func (n Number) GetDoubleValue() float64 {
+func (n *Number) GetDoubleValue() float64 {
     return n.DoubleValue
 }
 
@@ -294,11 +294,11 @@ func NewNumber(value float64) NumberIface {
     return &Number{}
 }
 
-func (n Number) SetValue(val float64) {
+func (n *Number) SetValue(val float64) {
     n.Value = val
 }
 
-func (n Number) SetDoubleValue(val float64) {
+func (n *Number) SetDoubleValue(val float64) {
     n.DoubleValue = val
 }
 
@@ -337,7 +337,7 @@ type NumericValue struct {
     Value float64
 }
 
-func (n NumericValue) GetValue() float64 {
+func (n *NumericValue) GetValue() float64 {
     return n.Value
 }
 
@@ -351,7 +351,7 @@ func NewNumericValue() NumericValueIface {
     return &NumericValue{}
 }
 
-func (n NumericValue) SetValue(val float64) {
+func (n *NumericValue) SetValue(val float64) {
     n.Value = val
 }
 
@@ -390,7 +390,7 @@ type Operation struct {
     Value float64
 }
 
-func (o Operation) GetValue() float64 {
+func (o *Operation) GetValue() float64 {
     return o.Value
 }
 
@@ -404,7 +404,7 @@ func NewOperation() OperationIface {
     return &Operation{}
 }
 
-func (o Operation) SetValue(val float64) {
+func (o *Operation) SetValue(val float64) {
     o.Value = val
 }
 
@@ -447,15 +447,15 @@ type StructWithOnlyOptionals struct {
     Optional3 bool
 }
 
-func (s StructWithOnlyOptionals) GetOptional1() string {
+func (s *StructWithOnlyOptionals) GetOptional1() string {
     return s.Optional1
 }
 
-func (s StructWithOnlyOptionals) GetOptional2() float64 {
+func (s *StructWithOnlyOptionals) GetOptional2() float64 {
     return s.Optional2
 }
 
-func (s StructWithOnlyOptionals) GetOptional3() bool {
+func (s *StructWithOnlyOptionals) GetOptional3() bool {
     return s.Optional3
 }
 
@@ -500,7 +500,7 @@ type NestedClass struct {
     Property string
 }
 
-func (n NestedClass) GetProperty() string {
+func (n *NestedClass) GetProperty() string {
     return n.Property
 }
 
@@ -514,7 +514,7 @@ func NewNestedClass() NestedClassIface {
     return &NestedClass{}
 }
 
-func (n NestedClass) SetProperty(val string) {
+func (n *NestedClass) SetProperty(val string) {
     n.Property = val
 }
 
@@ -534,7 +534,7 @@ type NestedStruct struct {
     Name string
 }
 
-func (n NestedStruct) GetName() string {
+func (n *NestedStruct) GetName() string {
     return n.Name
 }
 
@@ -555,11 +555,11 @@ type ReflectableEntry struct {
     Value jsii.Any
 }
 
-func (r ReflectableEntry) GetKey() string {
+func (r *ReflectableEntry) GetKey() string {
     return r.Key
 }
 
-func (r ReflectableEntry) GetValue() jsii.Any {
+func (r *ReflectableEntry) GetValue() jsii.Any {
     return r.Value
 }
 
@@ -691,23 +691,23 @@ type CompositeOperation struct {
     StringStyle CompositionStringStyle
 }
 
-func (c CompositeOperation) GetValue() float64 {
+func (c *CompositeOperation) GetValue() float64 {
     return c.Value
 }
 
-func (c CompositeOperation) GetExpression() scopejsiicalclib.NumericValue {
+func (c *CompositeOperation) GetExpression() scopejsiicalclib.NumericValue {
     return c.Expression
 }
 
-func (c CompositeOperation) GetDecorationPostfixes() []string {
+func (c *CompositeOperation) GetDecorationPostfixes() []string {
     return c.DecorationPostfixes
 }
 
-func (c CompositeOperation) GetDecorationPrefixes() []string {
+func (c *CompositeOperation) GetDecorationPrefixes() []string {
     return c.DecorationPrefixes
 }
 
-func (c CompositeOperation) GetStringStyle() CompositionStringStyle {
+func (c *CompositeOperation) GetStringStyle() CompositionStringStyle {
     return c.StringStyle
 }
 
@@ -721,23 +721,23 @@ func NewCompositeOperation() CompositeOperationIface {
     return &CompositeOperation{}
 }
 
-func (c CompositeOperation) SetValue(val float64) {
+func (c *CompositeOperation) SetValue(val float64) {
     c.Value = val
 }
 
-func (c CompositeOperation) SetExpression(val scopejsiicalclib.NumericValue) {
+func (c *CompositeOperation) SetExpression(val scopejsiicalclib.NumericValue) {
     c.Expression = val
 }
 
-func (c CompositeOperation) SetDecorationPostfixes(val []string) {
+func (c *CompositeOperation) SetDecorationPostfixes(val []string) {
     c.DecorationPostfixes = val
 }
 
-func (c CompositeOperation) SetDecorationPrefixes(val []string) {
+func (c *CompositeOperation) SetDecorationPrefixes(val []string) {
     c.DecorationPrefixes = val
 }
 
-func (c CompositeOperation) SetStringStyle(val CompositionStringStyle) {
+func (c *CompositeOperation) SetStringStyle(val CompositionStringStyle) {
     c.StringStyle = val
 }
 
@@ -788,7 +788,7 @@ type Base struct {
     Prop string
 }
 
-func (b Base) GetProp() string {
+func (b *Base) GetProp() string {
     return b.Prop
 }
 
@@ -802,7 +802,7 @@ func NewBase() BaseIface {
     return &Base{}
 }
 
-func (b Base) SetProp(val string) {
+func (b *Base) SetProp(val string) {
     b.Prop = val
 }
 
@@ -817,7 +817,7 @@ type Derived struct {
     Prop string
 }
 
-func (d Derived) GetProp() string {
+func (d *Derived) GetProp() string {
     return d.Prop
 }
 
@@ -831,7 +831,7 @@ func NewDerived() DerivedIface {
     return &Derived{}
 }
 
-func (d Derived) SetProp(val string) {
+func (d *Derived) SetProp(val string) {
     d.Prop = val
 }
 
@@ -856,7 +856,7 @@ type Foo struct {
     Bar string
 }
 
-func (f Foo) GetBar() string {
+func (f *Foo) GetBar() string {
     return f.Bar
 }
 
@@ -870,7 +870,7 @@ func NewFoo() FooIface {
     return &Foo{}
 }
 
-func (f Foo) SetBar(val string) {
+func (f *Foo) SetBar(val string) {
     f.Bar = val
 }
 
@@ -884,7 +884,7 @@ type Hello struct {
     Foo float64
 }
 
-func (h Hello) GetFoo() float64 {
+func (h *Hello) GetFoo() float64 {
     return h.Foo
 }
 
@@ -909,7 +909,7 @@ type Hello struct {
     Foo float64
 }
 
-func (h Hello) GetFoo() float64 {
+func (h *Hello) GetFoo() float64 {
     return h.Foo
 }
 
@@ -947,11 +947,11 @@ type AbstractClass struct {
     PropFromInterface string
 }
 
-func (a AbstractClass) GetAbstractProperty() string {
+func (a *AbstractClass) GetAbstractProperty() string {
     return a.AbstractProperty
 }
 
-func (a AbstractClass) GetPropFromInterface() string {
+func (a *AbstractClass) GetPropFromInterface() string {
     return a.PropFromInterface
 }
 
@@ -965,11 +965,11 @@ func NewAbstractClass() AbstractClassIface {
     return &AbstractClass{}
 }
 
-func (a AbstractClass) SetAbstractProperty(val string) {
+func (a *AbstractClass) SetAbstractProperty(val string) {
     a.AbstractProperty = val
 }
 
-func (a AbstractClass) SetPropFromInterface(val string) {
+func (a *AbstractClass) SetPropFromInterface(val string) {
     a.PropFromInterface = val
 }
 
@@ -1002,7 +1002,7 @@ type AbstractClassBase struct {
     AbstractProperty string
 }
 
-func (a AbstractClassBase) GetAbstractProperty() string {
+func (a *AbstractClassBase) GetAbstractProperty() string {
     return a.AbstractProperty
 }
 
@@ -1016,7 +1016,7 @@ func NewAbstractClassBase() AbstractClassBaseIface {
     return &AbstractClassBase{}
 }
 
-func (a AbstractClassBase) SetAbstractProperty(val string) {
+func (a *AbstractClassBase) SetAbstractProperty(val string) {
     a.AbstractProperty = val
 }
 
@@ -1033,7 +1033,7 @@ type AbstractClassReturner struct {
     ReturnAbstractFromProperty AbstractClassBase
 }
 
-func (a AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBase {
+func (a *AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBase {
     return a.ReturnAbstractFromProperty
 }
 
@@ -1047,7 +1047,7 @@ func NewAbstractClassReturner() AbstractClassReturnerIface {
     return &AbstractClassReturner{}
 }
 
-func (a AbstractClassReturner) SetReturnAbstractFromProperty(val AbstractClassBase) {
+func (a *AbstractClassReturner) SetReturnAbstractFromProperty(val AbstractClassBase) {
     a.ReturnAbstractFromProperty = val
 }
 
@@ -1082,7 +1082,7 @@ type AbstractSuite struct {
     Property string
 }
 
-func (a AbstractSuite) GetProperty() string {
+func (a *AbstractSuite) GetProperty() string {
     return a.Property
 }
 
@@ -1096,7 +1096,7 @@ func NewAbstractSuite() AbstractSuiteIface {
     return &AbstractSuite{}
 }
 
-func (a AbstractSuite) SetProperty(val string) {
+func (a *AbstractSuite) SetProperty(val string) {
     a.Property = val
 }
 
@@ -1143,15 +1143,15 @@ type Add struct {
     Rhs scopejsiicalclib.NumericValue
 }
 
-func (a Add) GetValue() float64 {
+func (a *Add) GetValue() float64 {
     return a.Value
 }
 
-func (a Add) GetLhs() scopejsiicalclib.NumericValue {
+func (a *Add) GetLhs() scopejsiicalclib.NumericValue {
     return a.Lhs
 }
 
-func (a Add) GetRhs() scopejsiicalclib.NumericValue {
+func (a *Add) GetRhs() scopejsiicalclib.NumericValue {
     return a.Rhs
 }
 
@@ -1166,15 +1166,15 @@ func NewAdd(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue
     return &Add{}
 }
 
-func (a Add) SetValue(val float64) {
+func (a *Add) SetValue(val float64) {
     a.Value = val
 }
 
-func (a Add) SetLhs(val scopejsiicalclib.NumericValue) {
+func (a *Add) SetLhs(val scopejsiicalclib.NumericValue) {
     a.Lhs = val
 }
 
-func (a Add) SetRhs(val scopejsiicalclib.NumericValue) {
+func (a *Add) SetRhs(val scopejsiicalclib.NumericValue) {
     a.Rhs = val
 }
 
@@ -1277,79 +1277,79 @@ type AllTypes struct {
     OptionalEnumValue StringEnum
 }
 
-func (a AllTypes) GetEnumPropertyValue() float64 {
+func (a *AllTypes) GetEnumPropertyValue() float64 {
     return a.EnumPropertyValue
 }
 
-func (a AllTypes) GetAnyArrayProperty() []jsii.Any {
+func (a *AllTypes) GetAnyArrayProperty() []jsii.Any {
     return a.AnyArrayProperty
 }
 
-func (a AllTypes) GetAnyMapProperty() map[string]jsii.Any {
+func (a *AllTypes) GetAnyMapProperty() map[string]jsii.Any {
     return a.AnyMapProperty
 }
 
-func (a AllTypes) GetAnyProperty() jsii.Any {
+func (a *AllTypes) GetAnyProperty() jsii.Any {
     return a.AnyProperty
 }
 
-func (a AllTypes) GetArrayProperty() []string {
+func (a *AllTypes) GetArrayProperty() []string {
     return a.ArrayProperty
 }
 
-func (a AllTypes) GetBooleanProperty() bool {
+func (a *AllTypes) GetBooleanProperty() bool {
     return a.BooleanProperty
 }
 
-func (a AllTypes) GetDateProperty() string {
+func (a *AllTypes) GetDateProperty() string {
     return a.DateProperty
 }
 
-func (a AllTypes) GetEnumProperty() AllTypesEnum {
+func (a *AllTypes) GetEnumProperty() AllTypesEnum {
     return a.EnumProperty
 }
 
-func (a AllTypes) GetJsonProperty() map[string]jsii.Any {
+func (a *AllTypes) GetJsonProperty() map[string]jsii.Any {
     return a.JsonProperty
 }
 
-func (a AllTypes) GetMapProperty() map[string]scopejsiicalclib.Number {
+func (a *AllTypes) GetMapProperty() map[string]scopejsiicalclib.Number {
     return a.MapProperty
 }
 
-func (a AllTypes) GetNumberProperty() float64 {
+func (a *AllTypes) GetNumberProperty() float64 {
     return a.NumberProperty
 }
 
-func (a AllTypes) GetStringProperty() string {
+func (a *AllTypes) GetStringProperty() string {
     return a.StringProperty
 }
 
-func (a AllTypes) GetUnionArrayProperty() []jsii.Any {
+func (a *AllTypes) GetUnionArrayProperty() []jsii.Any {
     return a.UnionArrayProperty
 }
 
-func (a AllTypes) GetUnionMapProperty() map[string]jsii.Any {
+func (a *AllTypes) GetUnionMapProperty() map[string]jsii.Any {
     return a.UnionMapProperty
 }
 
-func (a AllTypes) GetUnionProperty() jsii.Any {
+func (a *AllTypes) GetUnionProperty() jsii.Any {
     return a.UnionProperty
 }
 
-func (a AllTypes) GetUnknownArrayProperty() []jsii.Any {
+func (a *AllTypes) GetUnknownArrayProperty() []jsii.Any {
     return a.UnknownArrayProperty
 }
 
-func (a AllTypes) GetUnknownMapProperty() map[string]jsii.Any {
+func (a *AllTypes) GetUnknownMapProperty() map[string]jsii.Any {
     return a.UnknownMapProperty
 }
 
-func (a AllTypes) GetUnknownProperty() jsii.Any {
+func (a *AllTypes) GetUnknownProperty() jsii.Any {
     return a.UnknownProperty
 }
 
-func (a AllTypes) GetOptionalEnumValue() StringEnum {
+func (a *AllTypes) GetOptionalEnumValue() StringEnum {
     return a.OptionalEnumValue
 }
 
@@ -1363,79 +1363,79 @@ func NewAllTypes() AllTypesIface {
     return &AllTypes{}
 }
 
-func (a AllTypes) SetEnumPropertyValue(val float64) {
+func (a *AllTypes) SetEnumPropertyValue(val float64) {
     a.EnumPropertyValue = val
 }
 
-func (a AllTypes) SetAnyArrayProperty(val []jsii.Any) {
+func (a *AllTypes) SetAnyArrayProperty(val []jsii.Any) {
     a.AnyArrayProperty = val
 }
 
-func (a AllTypes) SetAnyMapProperty(val map[string]jsii.Any) {
+func (a *AllTypes) SetAnyMapProperty(val map[string]jsii.Any) {
     a.AnyMapProperty = val
 }
 
-func (a AllTypes) SetAnyProperty(val jsii.Any) {
+func (a *AllTypes) SetAnyProperty(val jsii.Any) {
     a.AnyProperty = val
 }
 
-func (a AllTypes) SetArrayProperty(val []string) {
+func (a *AllTypes) SetArrayProperty(val []string) {
     a.ArrayProperty = val
 }
 
-func (a AllTypes) SetBooleanProperty(val bool) {
+func (a *AllTypes) SetBooleanProperty(val bool) {
     a.BooleanProperty = val
 }
 
-func (a AllTypes) SetDateProperty(val string) {
+func (a *AllTypes) SetDateProperty(val string) {
     a.DateProperty = val
 }
 
-func (a AllTypes) SetEnumProperty(val AllTypesEnum) {
+func (a *AllTypes) SetEnumProperty(val AllTypesEnum) {
     a.EnumProperty = val
 }
 
-func (a AllTypes) SetJsonProperty(val map[string]jsii.Any) {
+func (a *AllTypes) SetJsonProperty(val map[string]jsii.Any) {
     a.JsonProperty = val
 }
 
-func (a AllTypes) SetMapProperty(val map[string]scopejsiicalclib.Number) {
+func (a *AllTypes) SetMapProperty(val map[string]scopejsiicalclib.Number) {
     a.MapProperty = val
 }
 
-func (a AllTypes) SetNumberProperty(val float64) {
+func (a *AllTypes) SetNumberProperty(val float64) {
     a.NumberProperty = val
 }
 
-func (a AllTypes) SetStringProperty(val string) {
+func (a *AllTypes) SetStringProperty(val string) {
     a.StringProperty = val
 }
 
-func (a AllTypes) SetUnionArrayProperty(val []jsii.Any) {
+func (a *AllTypes) SetUnionArrayProperty(val []jsii.Any) {
     a.UnionArrayProperty = val
 }
 
-func (a AllTypes) SetUnionMapProperty(val map[string]jsii.Any) {
+func (a *AllTypes) SetUnionMapProperty(val map[string]jsii.Any) {
     a.UnionMapProperty = val
 }
 
-func (a AllTypes) SetUnionProperty(val jsii.Any) {
+func (a *AllTypes) SetUnionProperty(val jsii.Any) {
     a.UnionProperty = val
 }
 
-func (a AllTypes) SetUnknownArrayProperty(val []jsii.Any) {
+func (a *AllTypes) SetUnknownArrayProperty(val []jsii.Any) {
     a.UnknownArrayProperty = val
 }
 
-func (a AllTypes) SetUnknownMapProperty(val map[string]jsii.Any) {
+func (a *AllTypes) SetUnknownMapProperty(val map[string]jsii.Any) {
     a.UnknownMapProperty = val
 }
 
-func (a AllTypes) SetUnknownProperty(val jsii.Any) {
+func (a *AllTypes) SetUnknownProperty(val jsii.Any) {
     a.UnknownProperty = val
 }
 
-func (a AllTypes) SetOptionalEnumValue(val StringEnum) {
+func (a *AllTypes) SetOptionalEnumValue(val StringEnum) {
     a.OptionalEnumValue = val
 }
 
@@ -1545,11 +1545,11 @@ type AmbiguousParameters struct {
     Scope Bell
 }
 
-func (a AmbiguousParameters) GetProps() StructParameterType {
+func (a *AmbiguousParameters) GetProps() StructParameterType {
     return a.Props
 }
 
-func (a AmbiguousParameters) GetScope() Bell {
+func (a *AmbiguousParameters) GetScope() Bell {
     return a.Scope
 }
 
@@ -1563,11 +1563,11 @@ func NewAmbiguousParameters(scope Bell, props StructParameterType) AmbiguousPara
     return &AmbiguousParameters{}
 }
 
-func (a AmbiguousParameters) SetProps(val StructParameterType) {
+func (a *AmbiguousParameters) SetProps(val StructParameterType) {
     a.Props = val
 }
 
-func (a AmbiguousParameters) SetScope(val Bell) {
+func (a *AmbiguousParameters) SetScope(val Bell) {
     a.Scope = val
 }
 
@@ -1753,7 +1753,7 @@ type Bell struct {
     Rung bool
 }
 
-func (b Bell) GetRung() bool {
+func (b *Bell) GetRung() bool {
     return b.Rung
 }
 
@@ -1767,7 +1767,7 @@ func NewBell() BellIface {
     return &Bell{}
 }
 
-func (b Bell) SetRung(val bool) {
+func (b *Bell) SetRung(val bool) {
     b.Rung = val
 }
 
@@ -1806,15 +1806,15 @@ type BinaryOperation struct {
     Rhs scopejsiicalclib.NumericValue
 }
 
-func (b BinaryOperation) GetValue() float64 {
+func (b *BinaryOperation) GetValue() float64 {
     return b.Value
 }
 
-func (b BinaryOperation) GetLhs() scopejsiicalclib.NumericValue {
+func (b *BinaryOperation) GetLhs() scopejsiicalclib.NumericValue {
     return b.Lhs
 }
 
-func (b BinaryOperation) GetRhs() scopejsiicalclib.NumericValue {
+func (b *BinaryOperation) GetRhs() scopejsiicalclib.NumericValue {
     return b.Rhs
 }
 
@@ -1829,15 +1829,15 @@ func NewBinaryOperation(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.
     return &BinaryOperation{}
 }
 
-func (b BinaryOperation) SetValue(val float64) {
+func (b *BinaryOperation) SetValue(val float64) {
     b.Value = val
 }
 
-func (b BinaryOperation) SetLhs(val scopejsiicalclib.NumericValue) {
+func (b *BinaryOperation) SetLhs(val scopejsiicalclib.NumericValue) {
     b.Lhs = val
 }
 
-func (b BinaryOperation) SetRhs(val scopejsiicalclib.NumericValue) {
+func (b *BinaryOperation) SetRhs(val scopejsiicalclib.NumericValue) {
     b.Rhs = val
 }
 
@@ -1976,43 +1976,43 @@ type Calculator struct {
     UnionProperty jsii.Any
 }
 
-func (c Calculator) GetValue() float64 {
+func (c *Calculator) GetValue() float64 {
     return c.Value
 }
 
-func (c Calculator) GetExpression() scopejsiicalclib.NumericValue {
+func (c *Calculator) GetExpression() scopejsiicalclib.NumericValue {
     return c.Expression
 }
 
-func (c Calculator) GetDecorationPostfixes() []string {
+func (c *Calculator) GetDecorationPostfixes() []string {
     return c.DecorationPostfixes
 }
 
-func (c Calculator) GetDecorationPrefixes() []string {
+func (c *Calculator) GetDecorationPrefixes() []string {
     return c.DecorationPrefixes
 }
 
-func (c Calculator) GetStringStyle() composition.CompositionStringStyle {
+func (c *Calculator) GetStringStyle() composition.CompositionStringStyle {
     return c.StringStyle
 }
 
-func (c Calculator) GetOperationsLog() []scopejsiicalclib.NumericValue {
+func (c *Calculator) GetOperationsLog() []scopejsiicalclib.NumericValue {
     return c.OperationsLog
 }
 
-func (c Calculator) GetOperationsMap() map[string][]scopejsiicalclib.NumericValue {
+func (c *Calculator) GetOperationsMap() map[string][]scopejsiicalclib.NumericValue {
     return c.OperationsMap
 }
 
-func (c Calculator) GetCurr() scopejsiicalclib.NumericValue {
+func (c *Calculator) GetCurr() scopejsiicalclib.NumericValue {
     return c.Curr
 }
 
-func (c Calculator) GetMaxValue() float64 {
+func (c *Calculator) GetMaxValue() float64 {
     return c.MaxValue
 }
 
-func (c Calculator) GetUnionProperty() jsii.Any {
+func (c *Calculator) GetUnionProperty() jsii.Any {
     return c.UnionProperty
 }
 
@@ -2027,43 +2027,43 @@ func NewCalculator(props CalculatorProps) CalculatorIface {
     return &Calculator{}
 }
 
-func (c Calculator) SetValue(val float64) {
+func (c *Calculator) SetValue(val float64) {
     c.Value = val
 }
 
-func (c Calculator) SetExpression(val scopejsiicalclib.NumericValue) {
+func (c *Calculator) SetExpression(val scopejsiicalclib.NumericValue) {
     c.Expression = val
 }
 
-func (c Calculator) SetDecorationPostfixes(val []string) {
+func (c *Calculator) SetDecorationPostfixes(val []string) {
     c.DecorationPostfixes = val
 }
 
-func (c Calculator) SetDecorationPrefixes(val []string) {
+func (c *Calculator) SetDecorationPrefixes(val []string) {
     c.DecorationPrefixes = val
 }
 
-func (c Calculator) SetStringStyle(val composition.CompositionStringStyle) {
+func (c *Calculator) SetStringStyle(val composition.CompositionStringStyle) {
     c.StringStyle = val
 }
 
-func (c Calculator) SetOperationsLog(val []scopejsiicalclib.NumericValue) {
+func (c *Calculator) SetOperationsLog(val []scopejsiicalclib.NumericValue) {
     c.OperationsLog = val
 }
 
-func (c Calculator) SetOperationsMap(val map[string][]scopejsiicalclib.NumericValue) {
+func (c *Calculator) SetOperationsMap(val map[string][]scopejsiicalclib.NumericValue) {
     c.OperationsMap = val
 }
 
-func (c Calculator) SetCurr(val scopejsiicalclib.NumericValue) {
+func (c *Calculator) SetCurr(val scopejsiicalclib.NumericValue) {
     c.Curr = val
 }
 
-func (c Calculator) SetMaxValue(val float64) {
+func (c *Calculator) SetMaxValue(val float64) {
     c.MaxValue = val
 }
 
-func (c Calculator) SetUnionProperty(val jsii.Any) {
+func (c *Calculator) SetUnionProperty(val jsii.Any) {
     c.UnionProperty = val
 }
 
@@ -2147,11 +2147,11 @@ type CalculatorProps struct {
     MaximumValue float64
 }
 
-func (c CalculatorProps) GetInitialValue() float64 {
+func (c *CalculatorProps) GetInitialValue() float64 {
     return c.InitialValue
 }
 
-func (c CalculatorProps) GetMaximumValue() float64 {
+func (c *CalculatorProps) GetMaximumValue() float64 {
     return c.MaximumValue
 }
 
@@ -2168,11 +2168,11 @@ type ChildStruct982 struct {
     Bar float64
 }
 
-func (c ChildStruct982) GetFoo() string {
+func (c *ChildStruct982) GetFoo() string {
     return c.Foo
 }
 
-func (c ChildStruct982) GetBar() float64 {
+func (c *ChildStruct982) GetBar() float64 {
     return c.Bar
 }
 
@@ -2199,19 +2199,19 @@ type ClassThatImplementsTheInternalInterface struct {
     D string
 }
 
-func (c ClassThatImplementsTheInternalInterface) GetA() string {
+func (c *ClassThatImplementsTheInternalInterface) GetA() string {
     return c.A
 }
 
-func (c ClassThatImplementsTheInternalInterface) GetB() string {
+func (c *ClassThatImplementsTheInternalInterface) GetB() string {
     return c.B
 }
 
-func (c ClassThatImplementsTheInternalInterface) GetC() string {
+func (c *ClassThatImplementsTheInternalInterface) GetC() string {
     return c.C
 }
 
-func (c ClassThatImplementsTheInternalInterface) GetD() string {
+func (c *ClassThatImplementsTheInternalInterface) GetD() string {
     return c.D
 }
 
@@ -2225,19 +2225,19 @@ func NewClassThatImplementsTheInternalInterface() ClassThatImplementsTheInternal
     return &ClassThatImplementsTheInternalInterface{}
 }
 
-func (c ClassThatImplementsTheInternalInterface) SetA(val string) {
+func (c *ClassThatImplementsTheInternalInterface) SetA(val string) {
     c.A = val
 }
 
-func (c ClassThatImplementsTheInternalInterface) SetB(val string) {
+func (c *ClassThatImplementsTheInternalInterface) SetB(val string) {
     c.B = val
 }
 
-func (c ClassThatImplementsTheInternalInterface) SetC(val string) {
+func (c *ClassThatImplementsTheInternalInterface) SetC(val string) {
     c.C = val
 }
 
-func (c ClassThatImplementsTheInternalInterface) SetD(val string) {
+func (c *ClassThatImplementsTheInternalInterface) SetD(val string) {
     c.D = val
 }
 
@@ -2263,19 +2263,19 @@ type ClassThatImplementsThePrivateInterface struct {
     E string
 }
 
-func (c ClassThatImplementsThePrivateInterface) GetA() string {
+func (c *ClassThatImplementsThePrivateInterface) GetA() string {
     return c.A
 }
 
-func (c ClassThatImplementsThePrivateInterface) GetB() string {
+func (c *ClassThatImplementsThePrivateInterface) GetB() string {
     return c.B
 }
 
-func (c ClassThatImplementsThePrivateInterface) GetC() string {
+func (c *ClassThatImplementsThePrivateInterface) GetC() string {
     return c.C
 }
 
-func (c ClassThatImplementsThePrivateInterface) GetE() string {
+func (c *ClassThatImplementsThePrivateInterface) GetE() string {
     return c.E
 }
 
@@ -2289,19 +2289,19 @@ func NewClassThatImplementsThePrivateInterface() ClassThatImplementsThePrivateIn
     return &ClassThatImplementsThePrivateInterface{}
 }
 
-func (c ClassThatImplementsThePrivateInterface) SetA(val string) {
+func (c *ClassThatImplementsThePrivateInterface) SetA(val string) {
     c.A = val
 }
 
-func (c ClassThatImplementsThePrivateInterface) SetB(val string) {
+func (c *ClassThatImplementsThePrivateInterface) SetB(val string) {
     c.B = val
 }
 
-func (c ClassThatImplementsThePrivateInterface) SetC(val string) {
+func (c *ClassThatImplementsThePrivateInterface) SetC(val string) {
     c.C = val
 }
 
-func (c ClassThatImplementsThePrivateInterface) SetE(val string) {
+func (c *ClassThatImplementsThePrivateInterface) SetE(val string) {
     c.E = val
 }
 
@@ -2327,19 +2327,19 @@ type ClassWithCollections struct {
     Map map[string]string
 }
 
-func (c ClassWithCollections) GetStaticArray() []string {
+func (c *ClassWithCollections) GetStaticArray() []string {
     return c.StaticArray
 }
 
-func (c ClassWithCollections) GetStaticMap() map[string]string {
+func (c *ClassWithCollections) GetStaticMap() map[string]string {
     return c.StaticMap
 }
 
-func (c ClassWithCollections) GetArray() []string {
+func (c *ClassWithCollections) GetArray() []string {
     return c.Array
 }
 
-func (c ClassWithCollections) GetMap() map[string]string {
+func (c *ClassWithCollections) GetMap() map[string]string {
     return c.Map
 }
 
@@ -2353,19 +2353,19 @@ func NewClassWithCollections(map_ map[string]string, array []string) ClassWithCo
     return &ClassWithCollections{}
 }
 
-func (c ClassWithCollections) SetStaticArray(val []string) {
+func (c *ClassWithCollections) SetStaticArray(val []string) {
     c.StaticArray = val
 }
 
-func (c ClassWithCollections) SetStaticMap(val map[string]string) {
+func (c *ClassWithCollections) SetStaticMap(val map[string]string) {
     c.StaticMap = val
 }
 
-func (c ClassWithCollections) SetArray(val []string) {
+func (c *ClassWithCollections) SetArray(val []string) {
     c.Array = val
 }
 
-func (c ClassWithCollections) SetMap(val map[string]string) {
+func (c *ClassWithCollections) SetMap(val map[string]string) {
     c.Map = val
 }
 
@@ -2424,7 +2424,7 @@ type ClassWithJavaReservedWords struct {
     Int string
 }
 
-func (c ClassWithJavaReservedWords) GetInt() string {
+func (c *ClassWithJavaReservedWords) GetInt() string {
     return c.Int
 }
 
@@ -2438,7 +2438,7 @@ func NewClassWithJavaReservedWords(int string) ClassWithJavaReservedWordsIface {
     return &ClassWithJavaReservedWords{}
 }
 
-func (c ClassWithJavaReservedWords) SetInt(val string) {
+func (c *ClassWithJavaReservedWords) SetInt(val string) {
     c.Int = val
 }
 
@@ -2462,7 +2462,7 @@ type ClassWithMutableObjectLiteralProperty struct {
     MutableObject IMutableObjectLiteral
 }
 
-func (c ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjectLiteral {
+func (c *ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjectLiteral {
     return c.MutableObject
 }
 
@@ -2476,7 +2476,7 @@ func NewClassWithMutableObjectLiteralProperty() ClassWithMutableObjectLiteralPro
     return &ClassWithMutableObjectLiteralProperty{}
 }
 
-func (c ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObjectLiteral) {
+func (c *ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObjectLiteral) {
     c.MutableObject = val
 }
 
@@ -2497,20 +2497,20 @@ type ClassWithPrivateConstructorAndAutomaticProperties struct {
     ReadWriteString string
 }
 
-func (c ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() string {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() string {
     return c.ReadOnlyString
 }
 
-func (c ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() string {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() string {
     return c.ReadWriteString
 }
 
 
-func (c ClassWithPrivateConstructorAndAutomaticProperties) SetReadOnlyString(val string) {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadOnlyString(val string) {
     c.ReadOnlyString = val
 }
 
-func (c ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(val string) {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(val string) {
     c.ReadWriteString = val
 }
 
@@ -2539,12 +2539,12 @@ type ConfusingToJackson struct {
     UnionProperty jsii.Any
 }
 
-func (c ConfusingToJackson) GetUnionProperty() jsii.Any {
+func (c *ConfusingToJackson) GetUnionProperty() jsii.Any {
     return c.UnionProperty
 }
 
 
-func (c ConfusingToJackson) SetUnionProperty(val jsii.Any) {
+func (c *ConfusingToJackson) SetUnionProperty(val jsii.Any) {
     c.UnionProperty = val
 }
 
@@ -2576,7 +2576,7 @@ type ConfusingToJacksonStruct struct {
     UnionProperty jsii.Any
 }
 
-func (c ConfusingToJacksonStruct) GetUnionProperty() jsii.Any {
+func (c *ConfusingToJacksonStruct) GetUnionProperty() jsii.Any {
     return c.UnionProperty
 }
 
@@ -2915,15 +2915,15 @@ type DefaultedConstructorArgument struct {
     Arg2 string
 }
 
-func (d DefaultedConstructorArgument) GetArg1() float64 {
+func (d *DefaultedConstructorArgument) GetArg1() float64 {
     return d.Arg1
 }
 
-func (d DefaultedConstructorArgument) GetArg3() string {
+func (d *DefaultedConstructorArgument) GetArg3() string {
     return d.Arg3
 }
 
-func (d DefaultedConstructorArgument) GetArg2() string {
+func (d *DefaultedConstructorArgument) GetArg2() string {
     return d.Arg2
 }
 
@@ -2937,15 +2937,15 @@ func NewDefaultedConstructorArgument(arg1 float64, arg2 string, arg3 string) Def
     return &DefaultedConstructorArgument{}
 }
 
-func (d DefaultedConstructorArgument) SetArg1(val float64) {
+func (d *DefaultedConstructorArgument) SetArg1(val float64) {
     d.Arg1 = val
 }
 
-func (d DefaultedConstructorArgument) SetArg3(val string) {
+func (d *DefaultedConstructorArgument) SetArg3(val string) {
     d.Arg3 = val
 }
 
-func (d DefaultedConstructorArgument) SetArg2(val string) {
+func (d *DefaultedConstructorArgument) SetArg2(val string) {
     d.Arg2 = val
 }
 
@@ -3008,11 +3008,11 @@ type DeprecatedClass struct {
     MutableProperty float64
 }
 
-func (d DeprecatedClass) GetReadonlyProperty() string {
+func (d *DeprecatedClass) GetReadonlyProperty() string {
     return d.ReadonlyProperty
 }
 
-func (d DeprecatedClass) GetMutableProperty() float64 {
+func (d *DeprecatedClass) GetMutableProperty() float64 {
     return d.MutableProperty
 }
 
@@ -3026,11 +3026,11 @@ func NewDeprecatedClass(readonlyString string, mutableNumber float64) Deprecated
     return &DeprecatedClass{}
 }
 
-func (d DeprecatedClass) SetReadonlyProperty(val string) {
+func (d *DeprecatedClass) SetReadonlyProperty(val string) {
     d.ReadonlyProperty = val
 }
 
-func (d DeprecatedClass) SetMutableProperty(val float64) {
+func (d *DeprecatedClass) SetMutableProperty(val float64) {
     d.MutableProperty = val
 }
 
@@ -3064,7 +3064,7 @@ type DeprecatedStruct struct {
     ReadonlyProperty string
 }
 
-func (d DeprecatedStruct) GetReadonlyProperty() string {
+func (d *DeprecatedStruct) GetReadonlyProperty() string {
     return d.ReadonlyProperty
 }
 
@@ -3103,39 +3103,39 @@ type DerivedStruct struct {
     OptionalArray []string
 }
 
-func (d DerivedStruct) GetAnumber() float64 {
+func (d *DerivedStruct) GetAnumber() float64 {
     return d.Anumber
 }
 
-func (d DerivedStruct) GetAstring() string {
+func (d *DerivedStruct) GetAstring() string {
     return d.Astring
 }
 
-func (d DerivedStruct) GetFirstOptional() []string {
+func (d *DerivedStruct) GetFirstOptional() []string {
     return d.FirstOptional
 }
 
-func (d DerivedStruct) GetAnotherRequired() string {
+func (d *DerivedStruct) GetAnotherRequired() string {
     return d.AnotherRequired
 }
 
-func (d DerivedStruct) GetBool() bool {
+func (d *DerivedStruct) GetBool() bool {
     return d.Bool
 }
 
-func (d DerivedStruct) GetNonPrimitive() DoubleTrouble {
+func (d *DerivedStruct) GetNonPrimitive() DoubleTrouble {
     return d.NonPrimitive
 }
 
-func (d DerivedStruct) GetAnotherOptional() map[string]scopejsiicalclib.NumericValue {
+func (d *DerivedStruct) GetAnotherOptional() map[string]scopejsiicalclib.NumericValue {
     return d.AnotherOptional
 }
 
-func (d DerivedStruct) GetOptionalAny() jsii.Any {
+func (d *DerivedStruct) GetOptionalAny() jsii.Any {
     return d.OptionalAny
 }
 
-func (d DerivedStruct) GetOptionalArray() []string {
+func (d *DerivedStruct) GetOptionalArray() []string {
     return d.OptionalArray
 }
 
@@ -3150,7 +3150,7 @@ type DiamondInheritanceBaseLevelStruct struct {
     BaseLevelProperty string
 }
 
-func (d DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
+func (d *DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
     return d.BaseLevelProperty
 }
 
@@ -3167,11 +3167,11 @@ type DiamondInheritanceFirstMidLevelStruct struct {
     FirstMidLevelProperty string
 }
 
-func (d DiamondInheritanceFirstMidLevelStruct) GetBaseLevelProperty() string {
+func (d *DiamondInheritanceFirstMidLevelStruct) GetBaseLevelProperty() string {
     return d.BaseLevelProperty
 }
 
-func (d DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string {
+func (d *DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string {
     return d.FirstMidLevelProperty
 }
 
@@ -3188,11 +3188,11 @@ type DiamondInheritanceSecondMidLevelStruct struct {
     SecondMidLevelProperty string
 }
 
-func (d DiamondInheritanceSecondMidLevelStruct) GetBaseLevelProperty() string {
+func (d *DiamondInheritanceSecondMidLevelStruct) GetBaseLevelProperty() string {
     return d.BaseLevelProperty
 }
 
-func (d DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() string {
+func (d *DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() string {
     return d.SecondMidLevelProperty
 }
 
@@ -3213,19 +3213,19 @@ type DiamondInheritanceTopLevelStruct struct {
     TopLevelProperty string
 }
 
-func (d DiamondInheritanceTopLevelStruct) GetBaseLevelProperty() string {
+func (d *DiamondInheritanceTopLevelStruct) GetBaseLevelProperty() string {
     return d.BaseLevelProperty
 }
 
-func (d DiamondInheritanceTopLevelStruct) GetFirstMidLevelProperty() string {
+func (d *DiamondInheritanceTopLevelStruct) GetFirstMidLevelProperty() string {
     return d.FirstMidLevelProperty
 }
 
-func (d DiamondInheritanceTopLevelStruct) GetSecondMidLevelProperty() string {
+func (d *DiamondInheritanceTopLevelStruct) GetSecondMidLevelProperty() string {
     return d.SecondMidLevelProperty
 }
 
-func (d DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
+func (d *DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
     return d.TopLevelProperty
 }
 
@@ -3253,20 +3253,20 @@ type DisappointingCollectionSource struct {
     MaybeMap map[string]float64
 }
 
-func (d DisappointingCollectionSource) GetMaybeList() []string {
+func (d *DisappointingCollectionSource) GetMaybeList() []string {
     return d.MaybeList
 }
 
-func (d DisappointingCollectionSource) GetMaybeMap() map[string]float64 {
+func (d *DisappointingCollectionSource) GetMaybeMap() map[string]float64 {
     return d.MaybeMap
 }
 
 
-func (d DisappointingCollectionSource) SetMaybeList(val []string) {
+func (d *DisappointingCollectionSource) SetMaybeList(val []string) {
     d.MaybeList = val
 }
 
-func (d DisappointingCollectionSource) SetMaybeMap(val map[string]float64) {
+func (d *DisappointingCollectionSource) SetMaybeMap(val map[string]float64) {
     d.MaybeMap = val
 }
 
@@ -3470,11 +3470,11 @@ type DynamicPropertyBearer struct {
     ValueStore string
 }
 
-func (d DynamicPropertyBearer) GetDynamicProperty() string {
+func (d *DynamicPropertyBearer) GetDynamicProperty() string {
     return d.DynamicProperty
 }
 
-func (d DynamicPropertyBearer) GetValueStore() string {
+func (d *DynamicPropertyBearer) GetValueStore() string {
     return d.ValueStore
 }
 
@@ -3488,11 +3488,11 @@ func NewDynamicPropertyBearer(valueStore string) DynamicPropertyBearerIface {
     return &DynamicPropertyBearer{}
 }
 
-func (d DynamicPropertyBearer) SetDynamicProperty(val string) {
+func (d *DynamicPropertyBearer) SetDynamicProperty(val string) {
     d.DynamicProperty = val
 }
 
-func (d DynamicPropertyBearer) SetValueStore(val string) {
+func (d *DynamicPropertyBearer) SetValueStore(val string) {
     d.ValueStore = val
 }
 
@@ -3514,15 +3514,15 @@ type DynamicPropertyBearerChild struct {
     OriginalValue string
 }
 
-func (d DynamicPropertyBearerChild) GetDynamicProperty() string {
+func (d *DynamicPropertyBearerChild) GetDynamicProperty() string {
     return d.DynamicProperty
 }
 
-func (d DynamicPropertyBearerChild) GetValueStore() string {
+func (d *DynamicPropertyBearerChild) GetValueStore() string {
     return d.ValueStore
 }
 
-func (d DynamicPropertyBearerChild) GetOriginalValue() string {
+func (d *DynamicPropertyBearerChild) GetOriginalValue() string {
     return d.OriginalValue
 }
 
@@ -3536,15 +3536,15 @@ func NewDynamicPropertyBearerChild(originalValue string) DynamicPropertyBearerCh
     return &DynamicPropertyBearerChild{}
 }
 
-func (d DynamicPropertyBearerChild) SetDynamicProperty(val string) {
+func (d *DynamicPropertyBearerChild) SetDynamicProperty(val string) {
     d.DynamicProperty = val
 }
 
-func (d DynamicPropertyBearerChild) SetValueStore(val string) {
+func (d *DynamicPropertyBearerChild) SetValueStore(val string) {
     d.ValueStore = val
 }
 
-func (d DynamicPropertyBearerChild) SetOriginalValue(val string) {
+func (d *DynamicPropertyBearerChild) SetOriginalValue(val string) {
     d.OriginalValue = val
 }
 
@@ -3644,11 +3644,11 @@ type EraseUndefinedHashValuesOptions struct {
     Option2 string
 }
 
-func (e EraseUndefinedHashValuesOptions) GetOption1() string {
+func (e *EraseUndefinedHashValuesOptions) GetOption1() string {
     return e.Option1
 }
 
-func (e EraseUndefinedHashValuesOptions) GetOption2() string {
+func (e *EraseUndefinedHashValuesOptions) GetOption2() string {
     return e.Option2
 }
 
@@ -3671,11 +3671,11 @@ type ExperimentalClass struct {
     MutableProperty float64
 }
 
-func (e ExperimentalClass) GetReadonlyProperty() string {
+func (e *ExperimentalClass) GetReadonlyProperty() string {
     return e.ReadonlyProperty
 }
 
-func (e ExperimentalClass) GetMutableProperty() float64 {
+func (e *ExperimentalClass) GetMutableProperty() float64 {
     return e.MutableProperty
 }
 
@@ -3689,11 +3689,11 @@ func NewExperimentalClass(readonlyString string, mutableNumber float64) Experime
     return &ExperimentalClass{}
 }
 
-func (e ExperimentalClass) SetReadonlyProperty(val string) {
+func (e *ExperimentalClass) SetReadonlyProperty(val string) {
     e.ReadonlyProperty = val
 }
 
-func (e ExperimentalClass) SetMutableProperty(val float64) {
+func (e *ExperimentalClass) SetMutableProperty(val float64) {
     e.MutableProperty = val
 }
 
@@ -3727,7 +3727,7 @@ type ExperimentalStruct struct {
     ReadonlyProperty string
 }
 
-func (e ExperimentalStruct) GetReadonlyProperty() string {
+func (e *ExperimentalStruct) GetReadonlyProperty() string {
     return e.ReadonlyProperty
 }
 
@@ -3743,7 +3743,7 @@ type ExportedBaseClass struct {
     Success bool
 }
 
-func (e ExportedBaseClass) GetSuccess() bool {
+func (e *ExportedBaseClass) GetSuccess() bool {
     return e.Success
 }
 
@@ -3757,7 +3757,7 @@ func NewExportedBaseClass(success bool) ExportedBaseClassIface {
     return &ExportedBaseClass{}
 }
 
-func (e ExportedBaseClass) SetSuccess(val bool) {
+func (e *ExportedBaseClass) SetSuccess(val bool) {
     e.Success = val
 }
 
@@ -3773,11 +3773,11 @@ type ExtendsInternalInterface struct {
     Prop string
 }
 
-func (e ExtendsInternalInterface) GetBoom() bool {
+func (e *ExtendsInternalInterface) GetBoom() bool {
     return e.Boom
 }
 
-func (e ExtendsInternalInterface) GetProp() string {
+func (e *ExtendsInternalInterface) GetProp() string {
     return e.Prop
 }
 
@@ -3797,11 +3797,11 @@ type ExternalClass struct {
     MutableProperty float64
 }
 
-func (e ExternalClass) GetReadonlyProperty() string {
+func (e *ExternalClass) GetReadonlyProperty() string {
     return e.ReadonlyProperty
 }
 
-func (e ExternalClass) GetMutableProperty() float64 {
+func (e *ExternalClass) GetMutableProperty() float64 {
     return e.MutableProperty
 }
 
@@ -3815,11 +3815,11 @@ func NewExternalClass(readonlyString string, mutableNumber float64) ExternalClas
     return &ExternalClass{}
 }
 
-func (e ExternalClass) SetReadonlyProperty(val string) {
+func (e *ExternalClass) SetReadonlyProperty(val string) {
     e.ReadonlyProperty = val
 }
 
-func (e ExternalClass) SetMutableProperty(val float64) {
+func (e *ExternalClass) SetMutableProperty(val float64) {
     e.MutableProperty = val
 }
 
@@ -3849,7 +3849,7 @@ type ExternalStruct struct {
     ReadonlyProperty string
 }
 
-func (e ExternalStruct) GetReadonlyProperty() string {
+func (e *ExternalStruct) GetReadonlyProperty() string {
     return e.ReadonlyProperty
 }
 
@@ -3868,7 +3868,7 @@ type GiveMeStructs struct {
     StructLiteral scopejsiicalclib.StructWithOnlyOptionals
 }
 
-func (g GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals {
+func (g *GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals {
     return g.StructLiteral
 }
 
@@ -3882,7 +3882,7 @@ func NewGiveMeStructs() GiveMeStructsIface {
     return &GiveMeStructs{}
 }
 
-func (g GiveMeStructs) SetStructLiteral(val scopejsiicalclib.StructWithOnlyOptionals) {
+func (g *GiveMeStructs) SetStructLiteral(val scopejsiicalclib.StructWithOnlyOptionals) {
     g.StructLiteral = val
 }
 
@@ -3925,7 +3925,7 @@ type Greetee struct {
     Name string
 }
 
-func (g Greetee) GetName() string {
+func (g *Greetee) GetName() string {
     return g.Name
 }
 
@@ -4156,7 +4156,7 @@ type ImplementInternalInterface struct {
     Prop string
 }
 
-func (i ImplementInternalInterface) GetProp() string {
+func (i *ImplementInternalInterface) GetProp() string {
     return i.Prop
 }
 
@@ -4170,7 +4170,7 @@ func NewImplementInternalInterface() ImplementInternalInterfaceIface {
     return &ImplementInternalInterface{}
 }
 
-func (i ImplementInternalInterface) SetProp(val string) {
+func (i *ImplementInternalInterface) SetProp(val string) {
     i.Prop = val
 }
 
@@ -4185,7 +4185,7 @@ type Implementation struct {
     Value float64
 }
 
-func (i Implementation) GetValue() float64 {
+func (i *Implementation) GetValue() float64 {
     return i.Value
 }
 
@@ -4199,7 +4199,7 @@ func NewImplementation() ImplementationIface {
     return &Implementation{}
 }
 
-func (i Implementation) SetValue(val float64) {
+func (i *Implementation) SetValue(val float64) {
     i.Value = val
 }
 
@@ -4270,7 +4270,7 @@ type ImplementsPrivateInterface struct {
     Private string
 }
 
-func (i ImplementsPrivateInterface) GetPrivate() string {
+func (i *ImplementsPrivateInterface) GetPrivate() string {
     return i.Private
 }
 
@@ -4284,7 +4284,7 @@ func NewImplementsPrivateInterface() ImplementsPrivateInterfaceIface {
     return &ImplementsPrivateInterface{}
 }
 
-func (i ImplementsPrivateInterface) SetPrivate(val string) {
+func (i *ImplementsPrivateInterface) SetPrivate(val string) {
     i.Private = val
 }
 
@@ -4302,15 +4302,15 @@ type ImplictBaseOfBase struct {
     Goo string
 }
 
-func (i ImplictBaseOfBase) GetFoo() scopejsiicalcbaseofbase.Very {
+func (i *ImplictBaseOfBase) GetFoo() scopejsiicalcbaseofbase.Very {
     return i.Foo
 }
 
-func (i ImplictBaseOfBase) GetBar() string {
+func (i *ImplictBaseOfBase) GetBar() string {
     return i.Bar
 }
 
-func (i ImplictBaseOfBase) GetGoo() string {
+func (i *ImplictBaseOfBase) GetGoo() string {
     return i.Goo
 }
 
@@ -4471,11 +4471,11 @@ type Jsii417Derived struct {
     Property string
 }
 
-func (j Jsii417Derived) GetHasRoot() bool {
+func (j *Jsii417Derived) GetHasRoot() bool {
     return j.HasRoot
 }
 
-func (j Jsii417Derived) GetProperty() string {
+func (j *Jsii417Derived) GetProperty() string {
     return j.Property
 }
 
@@ -4489,11 +4489,11 @@ func NewJsii417Derived(property string) Jsii417DerivedIface {
     return &Jsii417Derived{}
 }
 
-func (j Jsii417Derived) SetHasRoot(val bool) {
+func (j *Jsii417Derived) SetHasRoot(val bool) {
     j.HasRoot = val
 }
 
-func (j Jsii417Derived) SetProperty(val string) {
+func (j *Jsii417Derived) SetProperty(val string) {
     j.Property = val
 }
 
@@ -4546,7 +4546,7 @@ type Jsii417PublicBaseOfBase struct {
     HasRoot bool
 }
 
-func (j Jsii417PublicBaseOfBase) GetHasRoot() bool {
+func (j *Jsii417PublicBaseOfBase) GetHasRoot() bool {
     return j.HasRoot
 }
 
@@ -4560,7 +4560,7 @@ func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBaseIface {
     return &Jsii417PublicBaseOfBase{}
 }
 
-func (j Jsii417PublicBaseOfBase) SetHasRoot(val bool) {
+func (j *Jsii417PublicBaseOfBase) SetHasRoot(val bool) {
     j.HasRoot = val
 }
 
@@ -4660,11 +4660,11 @@ type JsObjectLiteralToNativeClass struct {
     PropB float64
 }
 
-func (j JsObjectLiteralToNativeClass) GetPropA() string {
+func (j *JsObjectLiteralToNativeClass) GetPropA() string {
     return j.PropA
 }
 
-func (j JsObjectLiteralToNativeClass) GetPropB() float64 {
+func (j *JsObjectLiteralToNativeClass) GetPropB() float64 {
     return j.PropB
 }
 
@@ -4678,11 +4678,11 @@ func NewJsObjectLiteralToNativeClass() JsObjectLiteralToNativeClassIface {
     return &JsObjectLiteralToNativeClass{}
 }
 
-func (j JsObjectLiteralToNativeClass) SetPropA(val string) {
+func (j *JsObjectLiteralToNativeClass) SetPropA(val string) {
     j.PropA = val
 }
 
-func (j JsObjectLiteralToNativeClass) SetPropB(val float64) {
+func (j *JsObjectLiteralToNativeClass) SetPropB(val float64) {
     j.PropB = val
 }
 
@@ -4749,7 +4749,7 @@ type JavaReservedWords struct {
     While string
 }
 
-func (j JavaReservedWords) GetWhile() string {
+func (j *JavaReservedWords) GetWhile() string {
     return j.While
 }
 
@@ -4763,7 +4763,7 @@ func NewJavaReservedWords() JavaReservedWordsIface {
     return &JavaReservedWords{}
 }
 
-func (j JavaReservedWords) SetWhile(val string) {
+func (j *JavaReservedWords) SetWhile(val string) {
     j.While = val
 }
 
@@ -5285,7 +5285,7 @@ type JsiiAgent struct {
     Value string
 }
 
-func (j JsiiAgent) GetValue() string {
+func (j *JsiiAgent) GetValue() string {
     return j.Value
 }
 
@@ -5299,7 +5299,7 @@ func NewJsiiAgent() JsiiAgentIface {
     return &JsiiAgent{}
 }
 
-func (j JsiiAgent) SetValue(val string) {
+func (j *JsiiAgent) SetValue(val string) {
     j.Value = val
 }
 
@@ -5504,23 +5504,23 @@ type LoadBalancedFargateServiceProps struct {
     PublicTasks bool
 }
 
-func (l LoadBalancedFargateServiceProps) GetContainerPort() float64 {
+func (l *LoadBalancedFargateServiceProps) GetContainerPort() float64 {
     return l.ContainerPort
 }
 
-func (l LoadBalancedFargateServiceProps) GetCpu() string {
+func (l *LoadBalancedFargateServiceProps) GetCpu() string {
     return l.Cpu
 }
 
-func (l LoadBalancedFargateServiceProps) GetMemoryMiB() string {
+func (l *LoadBalancedFargateServiceProps) GetMemoryMiB() string {
     return l.MemoryMiB
 }
 
-func (l LoadBalancedFargateServiceProps) GetPublicLoadBalancer() bool {
+func (l *LoadBalancedFargateServiceProps) GetPublicLoadBalancer() bool {
     return l.PublicLoadBalancer
 }
 
-func (l LoadBalancedFargateServiceProps) GetPublicTasks() bool {
+func (l *LoadBalancedFargateServiceProps) GetPublicTasks() bool {
     return l.PublicTasks
 }
 
@@ -5537,7 +5537,7 @@ type MethodNamedProperty struct {
     Elite float64
 }
 
-func (m MethodNamedProperty) GetElite() float64 {
+func (m *MethodNamedProperty) GetElite() float64 {
     return m.Elite
 }
 
@@ -5551,7 +5551,7 @@ func NewMethodNamedProperty() MethodNamedPropertyIface {
     return &MethodNamedProperty{}
 }
 
-func (m MethodNamedProperty) SetElite(val float64) {
+func (m *MethodNamedProperty) SetElite(val float64) {
     m.Elite = val
 }
 
@@ -5595,15 +5595,15 @@ type Multiply struct {
     Rhs scopejsiicalclib.NumericValue
 }
 
-func (m Multiply) GetValue() float64 {
+func (m *Multiply) GetValue() float64 {
     return m.Value
 }
 
-func (m Multiply) GetLhs() scopejsiicalclib.NumericValue {
+func (m *Multiply) GetLhs() scopejsiicalclib.NumericValue {
     return m.Lhs
 }
 
-func (m Multiply) GetRhs() scopejsiicalclib.NumericValue {
+func (m *Multiply) GetRhs() scopejsiicalclib.NumericValue {
     return m.Rhs
 }
 
@@ -5618,15 +5618,15 @@ func NewMultiply(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.Numeric
     return &Multiply{}
 }
 
-func (m Multiply) SetValue(val float64) {
+func (m *Multiply) SetValue(val float64) {
     m.Value = val
 }
 
-func (m Multiply) SetLhs(val scopejsiicalclib.NumericValue) {
+func (m *Multiply) SetLhs(val scopejsiicalclib.NumericValue) {
     m.Lhs = val
 }
 
-func (m Multiply) SetRhs(val scopejsiicalclib.NumericValue) {
+func (m *Multiply) SetRhs(val scopejsiicalclib.NumericValue) {
     m.Rhs = val
 }
 
@@ -5707,11 +5707,11 @@ type Negate struct {
     Operand scopejsiicalclib.NumericValue
 }
 
-func (n Negate) GetValue() float64 {
+func (n *Negate) GetValue() float64 {
     return n.Value
 }
 
-func (n Negate) GetOperand() scopejsiicalclib.NumericValue {
+func (n *Negate) GetOperand() scopejsiicalclib.NumericValue {
     return n.Operand
 }
 
@@ -5725,11 +5725,11 @@ func NewNegate(operand scopejsiicalclib.NumericValue) NegateIface {
     return &Negate{}
 }
 
-func (n Negate) SetValue(val float64) {
+func (n *Negate) SetValue(val float64) {
     n.Value = val
 }
 
-func (n Negate) SetOperand(val scopejsiicalclib.NumericValue) {
+func (n *Negate) SetOperand(val scopejsiicalclib.NumericValue) {
     n.Operand = val
 }
 
@@ -5807,7 +5807,7 @@ type NestedStruct struct {
     NumberProp float64
 }
 
-func (n NestedStruct) GetNumberProp() float64 {
+func (n *NestedStruct) GetNumberProp() float64 {
     return n.NumberProp
 }
 
@@ -5828,7 +5828,7 @@ type NodeStandardLibrary struct {
     OsPlatform string
 }
 
-func (n NodeStandardLibrary) GetOsPlatform() string {
+func (n *NodeStandardLibrary) GetOsPlatform() string {
     return n.OsPlatform
 }
 
@@ -5842,7 +5842,7 @@ func NewNodeStandardLibrary() NodeStandardLibraryIface {
     return &NodeStandardLibrary{}
 }
 
-func (n NodeStandardLibrary) SetOsPlatform(val string) {
+func (n *NodeStandardLibrary) SetOsPlatform(val string) {
     n.OsPlatform = val
 }
 
@@ -5888,7 +5888,7 @@ type NullShouldBeTreatedAsUndefined struct {
     ChangeMeToUndefined string
 }
 
-func (n NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
+func (n *NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
     return n.ChangeMeToUndefined
 }
 
@@ -5902,7 +5902,7 @@ func NewNullShouldBeTreatedAsUndefined(_param1 string, optional jsii.Any) NullSh
     return &NullShouldBeTreatedAsUndefined{}
 }
 
-func (n NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
+func (n *NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
     n.ChangeMeToUndefined = val
 }
 
@@ -5945,11 +5945,11 @@ type NullShouldBeTreatedAsUndefinedData struct {
     ThisShouldBeUndefined jsii.Any
 }
 
-func (n NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []jsii.Any {
+func (n *NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []jsii.Any {
     return n.ArrayWithThreeElementsAndUndefinedAsSecondArgument
 }
 
-func (n NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() jsii.Any {
+func (n *NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() jsii.Any {
     return n.ThisShouldBeUndefined
 }
 
@@ -5968,7 +5968,7 @@ type NumberGenerator struct {
     Generator IRandomNumberGenerator
 }
 
-func (n NumberGenerator) GetGenerator() IRandomNumberGenerator {
+func (n *NumberGenerator) GetGenerator() IRandomNumberGenerator {
     return n.Generator
 }
 
@@ -5982,7 +5982,7 @@ func NewNumberGenerator(generator IRandomNumberGenerator) NumberGeneratorIface {
     return &NumberGenerator{}
 }
 
-func (n NumberGenerator) SetGenerator(val IRandomNumberGenerator) {
+func (n *NumberGenerator) SetGenerator(val IRandomNumberGenerator) {
     n.Generator = val
 }
 
@@ -6143,15 +6143,15 @@ type OptionalConstructorArgument struct {
     Arg3 string
 }
 
-func (o OptionalConstructorArgument) GetArg1() float64 {
+func (o *OptionalConstructorArgument) GetArg1() float64 {
     return o.Arg1
 }
 
-func (o OptionalConstructorArgument) GetArg2() string {
+func (o *OptionalConstructorArgument) GetArg2() string {
     return o.Arg2
 }
 
-func (o OptionalConstructorArgument) GetArg3() string {
+func (o *OptionalConstructorArgument) GetArg3() string {
     return o.Arg3
 }
 
@@ -6165,15 +6165,15 @@ func NewOptionalConstructorArgument(arg1 float64, arg2 string, arg3 string) Opti
     return &OptionalConstructorArgument{}
 }
 
-func (o OptionalConstructorArgument) SetArg1(val float64) {
+func (o *OptionalConstructorArgument) SetArg1(val float64) {
     o.Arg1 = val
 }
 
-func (o OptionalConstructorArgument) SetArg2(val string) {
+func (o *OptionalConstructorArgument) SetArg2(val string) {
     o.Arg2 = val
 }
 
-func (o OptionalConstructorArgument) SetArg3(val string) {
+func (o *OptionalConstructorArgument) SetArg3(val string) {
     o.Arg3 = val
 }
 
@@ -6187,7 +6187,7 @@ type OptionalStruct struct {
     Field string
 }
 
-func (o OptionalStruct) GetField() string {
+func (o *OptionalStruct) GetField() string {
     return o.Field
 }
 
@@ -6206,11 +6206,11 @@ type OptionalStructConsumer struct {
     FieldValue string
 }
 
-func (o OptionalStructConsumer) GetParameterWasUndefined() bool {
+func (o *OptionalStructConsumer) GetParameterWasUndefined() bool {
     return o.ParameterWasUndefined
 }
 
-func (o OptionalStructConsumer) GetFieldValue() string {
+func (o *OptionalStructConsumer) GetFieldValue() string {
     return o.FieldValue
 }
 
@@ -6224,11 +6224,11 @@ func NewOptionalStructConsumer(optionalStruct OptionalStruct) OptionalStructCons
     return &OptionalStructConsumer{}
 }
 
-func (o OptionalStructConsumer) SetParameterWasUndefined(val bool) {
+func (o *OptionalStructConsumer) SetParameterWasUndefined(val bool) {
     o.ParameterWasUndefined = val
 }
 
-func (o OptionalStructConsumer) SetFieldValue(val string) {
+func (o *OptionalStructConsumer) SetFieldValue(val string) {
     o.FieldValue = val
 }
 
@@ -6249,11 +6249,11 @@ type OverridableProtectedMember struct {
     OverrideReadWrite string
 }
 
-func (o OverridableProtectedMember) GetOverrideReadOnly() string {
+func (o *OverridableProtectedMember) GetOverrideReadOnly() string {
     return o.OverrideReadOnly
 }
 
-func (o OverridableProtectedMember) GetOverrideReadWrite() string {
+func (o *OverridableProtectedMember) GetOverrideReadWrite() string {
     return o.OverrideReadWrite
 }
 
@@ -6267,11 +6267,11 @@ func NewOverridableProtectedMember() OverridableProtectedMemberIface {
     return &OverridableProtectedMember{}
 }
 
-func (o OverridableProtectedMember) SetOverrideReadOnly(val string) {
+func (o *OverridableProtectedMember) SetOverrideReadOnly(val string) {
     o.OverrideReadOnly = val
 }
 
-func (o OverridableProtectedMember) SetOverrideReadWrite(val string) {
+func (o *OverridableProtectedMember) SetOverrideReadWrite(val string) {
     o.OverrideReadWrite = val
 }
 
@@ -6340,7 +6340,7 @@ type ParentStruct982 struct {
     Foo string
 }
 
-func (p ParentStruct982) GetFoo() string {
+func (p *ParentStruct982) GetFoo() string {
     return p.Foo
 }
 
@@ -6440,31 +6440,31 @@ type Power struct {
     Pow scopejsiicalclib.NumericValue
 }
 
-func (p Power) GetValue() float64 {
+func (p *Power) GetValue() float64 {
     return p.Value
 }
 
-func (p Power) GetExpression() scopejsiicalclib.NumericValue {
+func (p *Power) GetExpression() scopejsiicalclib.NumericValue {
     return p.Expression
 }
 
-func (p Power) GetDecorationPostfixes() []string {
+func (p *Power) GetDecorationPostfixes() []string {
     return p.DecorationPostfixes
 }
 
-func (p Power) GetDecorationPrefixes() []string {
+func (p *Power) GetDecorationPrefixes() []string {
     return p.DecorationPrefixes
 }
 
-func (p Power) GetStringStyle() composition.CompositionStringStyle {
+func (p *Power) GetStringStyle() composition.CompositionStringStyle {
     return p.StringStyle
 }
 
-func (p Power) GetBase() scopejsiicalclib.NumericValue {
+func (p *Power) GetBase() scopejsiicalclib.NumericValue {
     return p.Base
 }
 
-func (p Power) GetPow() scopejsiicalclib.NumericValue {
+func (p *Power) GetPow() scopejsiicalclib.NumericValue {
     return p.Pow
 }
 
@@ -6479,31 +6479,31 @@ func NewPower(base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericVa
     return &Power{}
 }
 
-func (p Power) SetValue(val float64) {
+func (p *Power) SetValue(val float64) {
     p.Value = val
 }
 
-func (p Power) SetExpression(val scopejsiicalclib.NumericValue) {
+func (p *Power) SetExpression(val scopejsiicalclib.NumericValue) {
     p.Expression = val
 }
 
-func (p Power) SetDecorationPostfixes(val []string) {
+func (p *Power) SetDecorationPostfixes(val []string) {
     p.DecorationPostfixes = val
 }
 
-func (p Power) SetDecorationPrefixes(val []string) {
+func (p *Power) SetDecorationPrefixes(val []string) {
     p.DecorationPrefixes = val
 }
 
-func (p Power) SetStringStyle(val composition.CompositionStringStyle) {
+func (p *Power) SetStringStyle(val composition.CompositionStringStyle) {
     p.StringStyle = val
 }
 
-func (p Power) SetBase(val scopejsiicalclib.NumericValue) {
+func (p *Power) SetBase(val scopejsiicalclib.NumericValue) {
     p.Base = val
 }
 
-func (p Power) SetPow(val scopejsiicalclib.NumericValue) {
+func (p *Power) SetPow(val scopejsiicalclib.NumericValue) {
     p.Pow = val
 }
 
@@ -6540,11 +6540,11 @@ type PropertyNamedProperty struct {
     YetAnoterOne bool
 }
 
-func (p PropertyNamedProperty) GetProperty() string {
+func (p *PropertyNamedProperty) GetProperty() string {
     return p.Property
 }
 
-func (p PropertyNamedProperty) GetYetAnoterOne() bool {
+func (p *PropertyNamedProperty) GetYetAnoterOne() bool {
     return p.YetAnoterOne
 }
 
@@ -6558,11 +6558,11 @@ func NewPropertyNamedProperty() PropertyNamedPropertyIface {
     return &PropertyNamedProperty{}
 }
 
-func (p PropertyNamedProperty) SetProperty(val string) {
+func (p *PropertyNamedProperty) SetProperty(val string) {
     p.Property = val
 }
 
-func (p PropertyNamedProperty) SetYetAnoterOne(val bool) {
+func (p *PropertyNamedProperty) SetYetAnoterOne(val bool) {
     p.YetAnoterOne = val
 }
 
@@ -6944,7 +6944,7 @@ type ReferenceEnumFromScopedPackage struct {
     Foo scopejsiicalclib.EnumFromScopedModule
 }
 
-func (r ReferenceEnumFromScopedPackage) GetFoo() scopejsiicalclib.EnumFromScopedModule {
+func (r *ReferenceEnumFromScopedPackage) GetFoo() scopejsiicalclib.EnumFromScopedModule {
     return r.Foo
 }
 
@@ -6958,7 +6958,7 @@ func NewReferenceEnumFromScopedPackage() ReferenceEnumFromScopedPackageIface {
     return &ReferenceEnumFromScopedPackage{}
 }
 
-func (r ReferenceEnumFromScopedPackage) SetFoo(val scopejsiicalclib.EnumFromScopedModule) {
+func (r *ReferenceEnumFromScopedPackage) SetFoo(val scopejsiicalclib.EnumFromScopedModule) {
     r.Foo = val
 }
 
@@ -6996,7 +6996,7 @@ type ReturnsPrivateImplementationOfInterface struct {
     PrivateImplementation IPrivatelyImplemented
 }
 
-func (r ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPrivatelyImplemented {
+func (r *ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPrivatelyImplemented {
     return r.PrivateImplementation
 }
 
@@ -7010,7 +7010,7 @@ func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOf
     return &ReturnsPrivateImplementationOfInterface{}
 }
 
-func (r ReturnsPrivateImplementationOfInterface) SetPrivateImplementation(val IPrivatelyImplemented) {
+func (r *ReturnsPrivateImplementationOfInterface) SetPrivateImplementation(val IPrivatelyImplemented) {
     r.PrivateImplementation = val
 }
 
@@ -7031,11 +7031,11 @@ type RootStruct struct {
     NestedStruct NestedStruct
 }
 
-func (r RootStruct) GetStringProp() string {
+func (r *RootStruct) GetStringProp() string {
     return r.StringProp
 }
 
-func (r RootStruct) GetNestedStruct() NestedStruct {
+func (r *RootStruct) GetNestedStruct() NestedStruct {
     return r.NestedStruct
 }
 
@@ -7119,11 +7119,11 @@ type SecondLevelStruct struct {
     DeeperOptionalProp string
 }
 
-func (s SecondLevelStruct) GetDeeperRequiredProp() string {
+func (s *SecondLevelStruct) GetDeeperRequiredProp() string {
     return s.DeeperRequiredProp
 }
 
-func (s SecondLevelStruct) GetDeeperOptionalProp() string {
+func (s *SecondLevelStruct) GetDeeperOptionalProp() string {
     return s.DeeperOptionalProp
 }
 
@@ -7238,11 +7238,11 @@ type SmellyStruct struct {
     YetAnoterOne bool
 }
 
-func (s SmellyStruct) GetProperty() string {
+func (s *SmellyStruct) GetProperty() string {
     return s.Property
 }
 
-func (s SmellyStruct) GetYetAnoterOne() bool {
+func (s *SmellyStruct) GetYetAnoterOne() bool {
     return s.YetAnoterOne
 }
 
@@ -7299,11 +7299,11 @@ type StableClass struct {
     MutableProperty float64
 }
 
-func (s StableClass) GetReadonlyProperty() string {
+func (s *StableClass) GetReadonlyProperty() string {
     return s.ReadonlyProperty
 }
 
-func (s StableClass) GetMutableProperty() float64 {
+func (s *StableClass) GetMutableProperty() float64 {
     return s.MutableProperty
 }
 
@@ -7317,11 +7317,11 @@ func NewStableClass(readonlyString string, mutableNumber float64) StableClassIfa
     return &StableClass{}
 }
 
-func (s StableClass) SetReadonlyProperty(val string) {
+func (s *StableClass) SetReadonlyProperty(val string) {
     s.ReadonlyProperty = val
 }
 
-func (s StableClass) SetMutableProperty(val float64) {
+func (s *StableClass) SetMutableProperty(val float64) {
     s.MutableProperty = val
 }
 
@@ -7351,7 +7351,7 @@ type StableStruct struct {
     ReadonlyProperty string
 }
 
-func (s StableStruct) GetReadonlyProperty() string {
+func (s *StableStruct) GetReadonlyProperty() string {
     return s.ReadonlyProperty
 }
 
@@ -7371,12 +7371,12 @@ type StaticContext struct {
     StaticVariable bool
 }
 
-func (s StaticContext) GetStaticVariable() bool {
+func (s *StaticContext) GetStaticVariable() bool {
     return s.StaticVariable
 }
 
 
-func (s StaticContext) SetStaticVariable(val bool) {
+func (s *StaticContext) SetStaticVariable(val bool) {
     s.StaticVariable = val
 }
 
@@ -7426,31 +7426,31 @@ type Statics struct {
     Value string
 }
 
-func (s Statics) GetBar() float64 {
+func (s *Statics) GetBar() float64 {
     return s.Bar
 }
 
-func (s Statics) GetConstObj() DoubleTrouble {
+func (s *Statics) GetConstObj() DoubleTrouble {
     return s.ConstObj
 }
 
-func (s Statics) GetFoo() string {
+func (s *Statics) GetFoo() string {
     return s.Foo
 }
 
-func (s Statics) GetZooBar() map[string]string {
+func (s *Statics) GetZooBar() map[string]string {
     return s.ZooBar
 }
 
-func (s Statics) GetInstance() Statics {
+func (s *Statics) GetInstance() Statics {
     return s.Instance
 }
 
-func (s Statics) GetNonConstStatic() float64 {
+func (s *Statics) GetNonConstStatic() float64 {
     return s.NonConstStatic
 }
 
-func (s Statics) GetValue() string {
+func (s *Statics) GetValue() string {
     return s.Value
 }
 
@@ -7464,31 +7464,31 @@ func NewStatics(value string) StaticsIface {
     return &Statics{}
 }
 
-func (s Statics) SetBar(val float64) {
+func (s *Statics) SetBar(val float64) {
     s.Bar = val
 }
 
-func (s Statics) SetConstObj(val DoubleTrouble) {
+func (s *Statics) SetConstObj(val DoubleTrouble) {
     s.ConstObj = val
 }
 
-func (s Statics) SetFoo(val string) {
+func (s *Statics) SetFoo(val string) {
     s.Foo = val
 }
 
-func (s Statics) SetZooBar(val map[string]string) {
+func (s *Statics) SetZooBar(val map[string]string) {
     s.ZooBar = val
 }
 
-func (s Statics) SetInstance(val Statics) {
+func (s *Statics) SetInstance(val Statics) {
     s.Instance = val
 }
 
-func (s Statics) SetNonConstStatic(val float64) {
+func (s *Statics) SetNonConstStatic(val float64) {
     s.NonConstStatic = val
 }
 
-func (s Statics) SetValue(val string) {
+func (s *Statics) SetValue(val string) {
     s.Value = val
 }
 
@@ -7529,7 +7529,7 @@ type StripInternal struct {
     YouSeeMe string
 }
 
-func (s StripInternal) GetYouSeeMe() string {
+func (s *StripInternal) GetYouSeeMe() string {
     return s.YouSeeMe
 }
 
@@ -7543,7 +7543,7 @@ func NewStripInternal() StripInternalIface {
     return &StripInternal{}
 }
 
-func (s StripInternal) SetYouSeeMe(val string) {
+func (s *StripInternal) SetYouSeeMe(val string) {
     s.YouSeeMe = val
 }
 
@@ -7562,15 +7562,15 @@ type StructA struct {
     OptionalString string
 }
 
-func (s StructA) GetRequiredString() string {
+func (s *StructA) GetRequiredString() string {
     return s.RequiredString
 }
 
-func (s StructA) GetOptionalNumber() float64 {
+func (s *StructA) GetOptionalNumber() float64 {
     return s.OptionalNumber
 }
 
-func (s StructA) GetOptionalString() string {
+func (s *StructA) GetOptionalString() string {
     return s.OptionalString
 }
 
@@ -7590,15 +7590,15 @@ type StructB struct {
     OptionalStructA StructA
 }
 
-func (s StructB) GetRequiredString() string {
+func (s *StructB) GetRequiredString() string {
     return s.RequiredString
 }
 
-func (s StructB) GetOptionalBoolean() bool {
+func (s *StructB) GetOptionalBoolean() bool {
     return s.OptionalBoolean
 }
 
-func (s StructB) GetOptionalStructA() StructA {
+func (s *StructB) GetOptionalStructA() StructA {
     return s.OptionalStructA
 }
 
@@ -7618,11 +7618,11 @@ type StructParameterType struct {
     Props bool
 }
 
-func (s StructParameterType) GetScope() string {
+func (s *StructParameterType) GetScope() string {
     return s.Scope
 }
 
-func (s StructParameterType) GetProps() bool {
+func (s *StructParameterType) GetProps() bool {
     return s.Props
 }
 
@@ -7709,19 +7709,19 @@ type StructWithJavaReservedWords struct {
     That string
 }
 
-func (s StructWithJavaReservedWords) GetDefault() string {
+func (s *StructWithJavaReservedWords) GetDefault() string {
     return s.Default
 }
 
-func (s StructWithJavaReservedWords) GetAssert() string {
+func (s *StructWithJavaReservedWords) GetAssert() string {
     return s.Assert
 }
 
-func (s StructWithJavaReservedWords) GetResult() string {
+func (s *StructWithJavaReservedWords) GetResult() string {
     return s.Result
 }
 
-func (s StructWithJavaReservedWords) GetThat() string {
+func (s *StructWithJavaReservedWords) GetThat() string {
     return s.That
 }
 
@@ -7763,27 +7763,27 @@ type Sum struct {
     Parts []scopejsiicalclib.NumericValue
 }
 
-func (s Sum) GetValue() float64 {
+func (s *Sum) GetValue() float64 {
     return s.Value
 }
 
-func (s Sum) GetExpression() scopejsiicalclib.NumericValue {
+func (s *Sum) GetExpression() scopejsiicalclib.NumericValue {
     return s.Expression
 }
 
-func (s Sum) GetDecorationPostfixes() []string {
+func (s *Sum) GetDecorationPostfixes() []string {
     return s.DecorationPostfixes
 }
 
-func (s Sum) GetDecorationPrefixes() []string {
+func (s *Sum) GetDecorationPrefixes() []string {
     return s.DecorationPrefixes
 }
 
-func (s Sum) GetStringStyle() composition.CompositionStringStyle {
+func (s *Sum) GetStringStyle() composition.CompositionStringStyle {
     return s.StringStyle
 }
 
-func (s Sum) GetParts() []scopejsiicalclib.NumericValue {
+func (s *Sum) GetParts() []scopejsiicalclib.NumericValue {
     return s.Parts
 }
 
@@ -7797,27 +7797,27 @@ func NewSum() SumIface {
     return &Sum{}
 }
 
-func (s Sum) SetValue(val float64) {
+func (s *Sum) SetValue(val float64) {
     s.Value = val
 }
 
-func (s Sum) SetExpression(val scopejsiicalclib.NumericValue) {
+func (s *Sum) SetExpression(val scopejsiicalclib.NumericValue) {
     s.Expression = val
 }
 
-func (s Sum) SetDecorationPostfixes(val []string) {
+func (s *Sum) SetDecorationPostfixes(val []string) {
     s.DecorationPostfixes = val
 }
 
-func (s Sum) SetDecorationPrefixes(val []string) {
+func (s *Sum) SetDecorationPrefixes(val []string) {
     s.DecorationPrefixes = val
 }
 
-func (s Sum) SetStringStyle(val composition.CompositionStringStyle) {
+func (s *Sum) SetStringStyle(val composition.CompositionStringStyle) {
     s.StringStyle = val
 }
 
-func (s Sum) SetParts(val []scopejsiicalclib.NumericValue) {
+func (s *Sum) SetParts(val []scopejsiicalclib.NumericValue) {
     s.Parts = val
 }
 
@@ -7860,19 +7860,19 @@ type SupportsNiceJavaBuilder struct {
     Rest []string
 }
 
-func (s SupportsNiceJavaBuilder) GetBar() float64 {
+func (s *SupportsNiceJavaBuilder) GetBar() float64 {
     return s.Bar
 }
 
-func (s SupportsNiceJavaBuilder) GetId() float64 {
+func (s *SupportsNiceJavaBuilder) GetId() float64 {
     return s.Id
 }
 
-func (s SupportsNiceJavaBuilder) GetPropId() string {
+func (s *SupportsNiceJavaBuilder) GetPropId() string {
     return s.PropId
 }
 
-func (s SupportsNiceJavaBuilder) GetRest() []string {
+func (s *SupportsNiceJavaBuilder) GetRest() []string {
     return s.Rest
 }
 
@@ -7886,19 +7886,19 @@ func NewSupportsNiceJavaBuilder(id float64, defaultBar float64, props SupportsNi
     return &SupportsNiceJavaBuilder{}
 }
 
-func (s SupportsNiceJavaBuilder) SetBar(val float64) {
+func (s *SupportsNiceJavaBuilder) SetBar(val float64) {
     s.Bar = val
 }
 
-func (s SupportsNiceJavaBuilder) SetId(val float64) {
+func (s *SupportsNiceJavaBuilder) SetId(val float64) {
     s.Id = val
 }
 
-func (s SupportsNiceJavaBuilder) SetPropId(val string) {
+func (s *SupportsNiceJavaBuilder) SetPropId(val string) {
     s.PropId = val
 }
 
-func (s SupportsNiceJavaBuilder) SetRest(val []string) {
+func (s *SupportsNiceJavaBuilder) SetRest(val []string) {
     s.Rest = val
 }
 
@@ -7918,11 +7918,11 @@ type SupportsNiceJavaBuilderProps struct {
     Id string
 }
 
-func (s SupportsNiceJavaBuilderProps) GetBar() float64 {
+func (s *SupportsNiceJavaBuilderProps) GetBar() float64 {
     return s.Bar
 }
 
-func (s SupportsNiceJavaBuilderProps) GetId() string {
+func (s *SupportsNiceJavaBuilderProps) GetId() string {
     return s.Id
 }
 
@@ -7946,15 +7946,15 @@ type SupportsNiceJavaBuilderWithRequiredProps struct {
     PropId string
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
     return s.Bar
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) GetId() float64 {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) GetId() float64 {
     return s.Id
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
     return s.PropId
 }
 
@@ -7968,15 +7968,15 @@ func NewSupportsNiceJavaBuilderWithRequiredProps(id float64, props SupportsNiceJ
     return &SupportsNiceJavaBuilderWithRequiredProps{}
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) SetBar(val float64) {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) SetBar(val float64) {
     s.Bar = val
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) SetId(val float64) {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) SetId(val float64) {
     s.Id = val
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) SetPropId(val string) {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) SetPropId(val string) {
     s.PropId = val
 }
 
@@ -8016,27 +8016,27 @@ type SyncVirtualMethods struct {
     ValueOfOtherProperty string
 }
 
-func (s SyncVirtualMethods) GetReadonlyProperty() string {
+func (s *SyncVirtualMethods) GetReadonlyProperty() string {
     return s.ReadonlyProperty
 }
 
-func (s SyncVirtualMethods) GetA() float64 {
+func (s *SyncVirtualMethods) GetA() float64 {
     return s.A
 }
 
-func (s SyncVirtualMethods) GetCallerIsProperty() float64 {
+func (s *SyncVirtualMethods) GetCallerIsProperty() float64 {
     return s.CallerIsProperty
 }
 
-func (s SyncVirtualMethods) GetOtherProperty() string {
+func (s *SyncVirtualMethods) GetOtherProperty() string {
     return s.OtherProperty
 }
 
-func (s SyncVirtualMethods) GetTheProperty() string {
+func (s *SyncVirtualMethods) GetTheProperty() string {
     return s.TheProperty
 }
 
-func (s SyncVirtualMethods) GetValueOfOtherProperty() string {
+func (s *SyncVirtualMethods) GetValueOfOtherProperty() string {
     return s.ValueOfOtherProperty
 }
 
@@ -8050,27 +8050,27 @@ func NewSyncVirtualMethods() SyncVirtualMethodsIface {
     return &SyncVirtualMethods{}
 }
 
-func (s SyncVirtualMethods) SetReadonlyProperty(val string) {
+func (s *SyncVirtualMethods) SetReadonlyProperty(val string) {
     s.ReadonlyProperty = val
 }
 
-func (s SyncVirtualMethods) SetA(val float64) {
+func (s *SyncVirtualMethods) SetA(val float64) {
     s.A = val
 }
 
-func (s SyncVirtualMethods) SetCallerIsProperty(val float64) {
+func (s *SyncVirtualMethods) SetCallerIsProperty(val float64) {
     s.CallerIsProperty = val
 }
 
-func (s SyncVirtualMethods) SetOtherProperty(val string) {
+func (s *SyncVirtualMethods) SetOtherProperty(val string) {
     s.OtherProperty = val
 }
 
-func (s SyncVirtualMethods) SetTheProperty(val string) {
+func (s *SyncVirtualMethods) SetTheProperty(val string) {
     s.TheProperty = val
 }
 
-func (s SyncVirtualMethods) SetValueOfOtherProperty(val string) {
+func (s *SyncVirtualMethods) SetValueOfOtherProperty(val string) {
     s.ValueOfOtherProperty = val
 }
 
@@ -8208,15 +8208,15 @@ type TopLevelStruct struct {
     Optional string
 }
 
-func (t TopLevelStruct) GetRequired() string {
+func (t *TopLevelStruct) GetRequired() string {
     return t.Required
 }
 
-func (t TopLevelStruct) GetSecondLevel() jsii.Any {
+func (t *TopLevelStruct) GetSecondLevel() jsii.Any {
     return t.SecondLevel
 }
 
-func (t TopLevelStruct) GetOptional() string {
+func (t *TopLevelStruct) GetOptional() string {
     return t.Optional
 }
 
@@ -8261,11 +8261,11 @@ type UnaryOperation struct {
     Operand scopejsiicalclib.NumericValue
 }
 
-func (u UnaryOperation) GetValue() float64 {
+func (u *UnaryOperation) GetValue() float64 {
     return u.Value
 }
 
-func (u UnaryOperation) GetOperand() scopejsiicalclib.NumericValue {
+func (u *UnaryOperation) GetOperand() scopejsiicalclib.NumericValue {
     return u.Operand
 }
 
@@ -8279,11 +8279,11 @@ func NewUnaryOperation(operand scopejsiicalclib.NumericValue) UnaryOperationIfac
     return &UnaryOperation{}
 }
 
-func (u UnaryOperation) SetValue(val float64) {
+func (u *UnaryOperation) SetValue(val float64) {
     u.Value = val
 }
 
-func (u UnaryOperation) SetOperand(val scopejsiicalclib.NumericValue) {
+func (u *UnaryOperation) SetOperand(val scopejsiicalclib.NumericValue) {
     u.Operand = val
 }
 
@@ -8317,11 +8317,11 @@ type UnionProperties struct {
     Foo jsii.Any
 }
 
-func (u UnionProperties) GetBar() jsii.Any {
+func (u *UnionProperties) GetBar() jsii.Any {
     return u.Bar
 }
 
-func (u UnionProperties) GetFoo() jsii.Any {
+func (u *UnionProperties) GetFoo() jsii.Any {
     return u.Foo
 }
 
@@ -8342,11 +8342,11 @@ type UpcasingReflectable struct {
     Entries []submodule.ReflectableEntry
 }
 
-func (u UpcasingReflectable) GetReflector() submodule.Reflector {
+func (u *UpcasingReflectable) GetReflector() submodule.Reflector {
     return u.Reflector
 }
 
-func (u UpcasingReflectable) GetEntries() []submodule.ReflectableEntry {
+func (u *UpcasingReflectable) GetEntries() []submodule.ReflectableEntry {
     return u.Entries
 }
 
@@ -8360,11 +8360,11 @@ func NewUpcasingReflectable(delegate map[string]jsii.Any) UpcasingReflectableIfa
     return &UpcasingReflectable{}
 }
 
-func (u UpcasingReflectable) SetReflector(val submodule.Reflector) {
+func (u *UpcasingReflectable) SetReflector(val submodule.Reflector) {
     u.Reflector = val
 }
 
-func (u UpcasingReflectable) SetEntries(val []submodule.ReflectableEntry) {
+func (u *UpcasingReflectable) SetEntries(val []submodule.ReflectableEntry) {
     u.Entries = val
 }
 
@@ -8437,7 +8437,7 @@ type UsesInterfaceWithProperties struct {
     Obj IInterfaceWithProperties
 }
 
-func (u UsesInterfaceWithProperties) GetObj() IInterfaceWithProperties {
+func (u *UsesInterfaceWithProperties) GetObj() IInterfaceWithProperties {
     return u.Obj
 }
 
@@ -8451,7 +8451,7 @@ func NewUsesInterfaceWithProperties(obj IInterfaceWithProperties) UsesInterfaceW
     return &UsesInterfaceWithProperties{}
 }
 
-func (u UsesInterfaceWithProperties) SetObj(val IInterfaceWithProperties) {
+func (u *UsesInterfaceWithProperties) SetObj(val IInterfaceWithProperties) {
     u.Obj = val
 }
 
@@ -8621,7 +8621,7 @@ type VoidCallback struct {
     MethodWasCalled bool
 }
 
-func (v VoidCallback) GetMethodWasCalled() bool {
+func (v *VoidCallback) GetMethodWasCalled() bool {
     return v.MethodWasCalled
 }
 
@@ -8635,7 +8635,7 @@ func NewVoidCallback() VoidCallbackIface {
     return &VoidCallback{}
 }
 
-func (v VoidCallback) SetMethodWasCalled(val bool) {
+func (v *VoidCallback) SetMethodWasCalled(val bool) {
     v.MethodWasCalled = val
 }
 
@@ -8669,7 +8669,7 @@ type WithPrivatePropertyInConstructor struct {
     Success bool
 }
 
-func (w WithPrivatePropertyInConstructor) GetSuccess() bool {
+func (w *WithPrivatePropertyInConstructor) GetSuccess() bool {
     return w.Success
 }
 
@@ -8683,7 +8683,7 @@ func NewWithPrivatePropertyInConstructor(privateField string) WithPrivatePropert
     return &WithPrivatePropertyInConstructor{}
 }
 
-func (w WithPrivatePropertyInConstructor) SetSuccess(val bool) {
+func (w *WithPrivatePropertyInConstructor) SetSuccess(val bool) {
     w.Success = val
 }
 
@@ -8709,7 +8709,7 @@ type ClassWithSelf struct {
     Self string
 }
 
-func (c ClassWithSelf) GetSelf() string {
+func (c *ClassWithSelf) GetSelf() string {
     return c.Self
 }
 
@@ -8723,7 +8723,7 @@ func NewClassWithSelf(self string) ClassWithSelfIface {
     return &ClassWithSelf{}
 }
 
-func (c ClassWithSelf) SetSelf(val string) {
+func (c *ClassWithSelf) SetSelf(val string) {
     c.Self = val
 }
 
@@ -8747,7 +8747,7 @@ type ClassWithSelfKwarg struct {
     Props StructWithSelf
 }
 
-func (c ClassWithSelfKwarg) GetProps() StructWithSelf {
+func (c *ClassWithSelfKwarg) GetProps() StructWithSelf {
     return c.Props
 }
 
@@ -8761,7 +8761,7 @@ func NewClassWithSelfKwarg(props StructWithSelf) ClassWithSelfKwargIface {
     return &ClassWithSelfKwarg{}
 }
 
-func (c ClassWithSelfKwarg) SetProps(val StructWithSelf) {
+func (c *ClassWithSelfKwarg) SetProps(val StructWithSelf) {
     c.Props = val
 }
 
@@ -8779,7 +8779,7 @@ type StructWithSelf struct {
     Self string
 }
 
-func (s StructWithSelf) GetSelf() string {
+func (s *StructWithSelf) GetSelf() string {
     return s.Self
 }
 
@@ -8805,7 +8805,7 @@ type MyClassReference struct {
     Reference submodule.MyClass
 }
 
-func (m MyClassReference) GetReference() submodule.MyClass {
+func (m *MyClassReference) GetReference() submodule.MyClass {
     return m.Reference
 }
 
@@ -8845,7 +8845,7 @@ type InnerClass struct {
     StaticProp SomeStruct
 }
 
-func (i InnerClass) GetStaticProp() SomeStruct {
+func (i *InnerClass) GetStaticProp() SomeStruct {
     return i.StaticProp
 }
 
@@ -8859,7 +8859,7 @@ func NewInnerClass() InnerClassIface {
     return &InnerClass{}
 }
 
-func (i InnerClass) SetStaticProp(val SomeStruct) {
+func (i *InnerClass) SetStaticProp(val SomeStruct) {
     i.StaticProp = val
 }
 
@@ -8875,11 +8875,11 @@ type KwargsProps struct {
     Extra string
 }
 
-func (k KwargsProps) GetProp() SomeEnum {
+func (k *KwargsProps) GetProp() SomeEnum {
     return k.Prop
 }
 
-func (k KwargsProps) GetExtra() string {
+func (k *KwargsProps) GetExtra() string {
     return k.Extra
 }
 
@@ -8898,7 +8898,7 @@ type OuterClass struct {
     InnerClass InnerClass
 }
 
-func (o OuterClass) GetInnerClass() InnerClass {
+func (o *OuterClass) GetInnerClass() InnerClass {
     return o.InnerClass
 }
 
@@ -8912,7 +8912,7 @@ func NewOuterClass() OuterClassIface {
     return &OuterClass{}
 }
 
-func (o OuterClass) SetInnerClass(val InnerClass) {
+func (o *OuterClass) SetInnerClass(val InnerClass) {
     o.InnerClass = val
 }
 
@@ -8932,7 +8932,7 @@ type SomeStruct struct {
     Prop SomeEnum
 }
 
-func (s SomeStruct) GetProp() SomeEnum {
+func (s *SomeStruct) GetProp() SomeEnum {
     return s.Prop
 }
 
@@ -8947,7 +8947,7 @@ type Structure struct {
     Bool bool
 }
 
-func (s Structure) GetBool() bool {
+func (s *Structure) GetBool() bool {
     return s.Bool
 }
 
@@ -9021,20 +9021,20 @@ type Namespaced struct {
     Goodness child.Goodness
 }
 
-func (n Namespaced) GetDefinedAt() string {
+func (n *Namespaced) GetDefinedAt() string {
     return n.DefinedAt
 }
 
-func (n Namespaced) GetGoodness() child.Goodness {
+func (n *Namespaced) GetGoodness() child.Goodness {
     return n.Goodness
 }
 
 
-func (n Namespaced) SetDefinedAt(val string) {
+func (n *Namespaced) SetDefinedAt(val string) {
     n.DefinedAt = val
 }
 
-func (n Namespaced) SetGoodness(val child.Goodness) {
+func (n *Namespaced) SetGoodness(val child.Goodness) {
     n.Goodness = val
 }
 
@@ -9074,23 +9074,23 @@ type MyClass struct {
     AllTypes jsiicalc.AllTypes
 }
 
-func (m MyClass) GetAwesomeness() child.Awesomeness {
+func (m *MyClass) GetAwesomeness() child.Awesomeness {
     return m.Awesomeness
 }
 
-func (m MyClass) GetDefinedAt() string {
+func (m *MyClass) GetDefinedAt() string {
     return m.DefinedAt
 }
 
-func (m MyClass) GetGoodness() child.Goodness {
+func (m *MyClass) GetGoodness() child.Goodness {
     return m.Goodness
 }
 
-func (m MyClass) GetProps() child.SomeStruct {
+func (m *MyClass) GetProps() child.SomeStruct {
     return m.Props
 }
 
-func (m MyClass) GetAllTypes() jsiicalc.AllTypes {
+func (m *MyClass) GetAllTypes() jsiicalc.AllTypes {
     return m.AllTypes
 }
 
@@ -9104,23 +9104,23 @@ func NewMyClass(props child.SomeStruct) MyClassIface {
     return &MyClass{}
 }
 
-func (m MyClass) SetAwesomeness(val child.Awesomeness) {
+func (m *MyClass) SetAwesomeness(val child.Awesomeness) {
     m.Awesomeness = val
 }
 
-func (m MyClass) SetDefinedAt(val string) {
+func (m *MyClass) SetDefinedAt(val string) {
     m.DefinedAt = val
 }
 
-func (m MyClass) SetGoodness(val child.Goodness) {
+func (m *MyClass) SetGoodness(val child.Goodness) {
     m.Goodness = val
 }
 
-func (m MyClass) SetProps(val child.SomeStruct) {
+func (m *MyClass) SetProps(val child.SomeStruct) {
     m.Props = val
 }
 
-func (m MyClass) SetAllTypes(val jsiicalc.AllTypes) {
+func (m *MyClass) SetAllTypes(val jsiicalc.AllTypes) {
     m.AllTypes = val
 }
 

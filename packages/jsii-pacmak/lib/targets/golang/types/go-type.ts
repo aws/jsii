@@ -88,7 +88,6 @@ export class GoProperty implements TypeField {
     }
   }
 
-  // TODO use pointer receiver?
   // Emits getter methods on the struct for each property
   public emitGetterImpl(context: EmitContext) {
     const { code } = context;
@@ -96,7 +95,7 @@ export class GoProperty implements TypeField {
     const instanceArg = receiver.substring(0, 1).toLowerCase();
 
     code.openBlock(
-      `func (${instanceArg} ${receiver}) ${
+      `func (${instanceArg} *${receiver}) ${
         this.getter
       }()${` ${this.returnType}`}`,
     );
@@ -111,7 +110,7 @@ export class GoProperty implements TypeField {
     const instanceArg = receiver.substring(0, 1).toLowerCase();
 
     code.openBlock(
-      `func (${instanceArg} ${receiver}) Set${this.name}(val ${this.returnType})`,
+      `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
     );
     code.line(`${instanceArg}.${this.name} = val`);
     code.closeBlock();
