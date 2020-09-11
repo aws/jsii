@@ -26,7 +26,7 @@ class PrimitiveMapper {
 }
 
 /*
- * Accepts a JSII type reference and can resolve the GoType within the module tree.
+ * Accepts a JSII TypeReference and Go Package and can resolve the GoType within the module tree.
  */
 export class GoTypeRef {
   public constructor(

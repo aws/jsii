@@ -1,5 +1,5 @@
-import { Package, ModuleType } from './package';
-import { TypeField } from './types';
+import { Package } from './package';
+import { TypeField, GoType } from './types';
 
 /*
  * Recursively search module for type with fqn
@@ -7,14 +7,14 @@ import { TypeField } from './types';
 export function findTypeInTree(
   module: Package,
   fqn: string,
-): ModuleType | undefined {
+): GoType | undefined {
   const result = module.types.find((t) => t.type.fqn === fqn);
 
   if (result) {
     return result;
   }
 
-  return module.submodules.reduce((accum: ModuleType | undefined, sm) => {
+  return module.submodules.reduce((accum: GoType | undefined, sm) => {
     return accum || findTypeInTree(sm, fqn);
   }, undefined);
 }

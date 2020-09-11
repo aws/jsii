@@ -9,16 +9,15 @@ import { getFieldDependencies } from '../util';
 // String appended to all go GoStruct Interfaces
 const STRUCT_INTERFACE_SUFFIX = 'Iface';
 
-export interface GoEmitter {
-  emit(context: EmitContext): void;
-}
-
-export class GoType {
+export abstract class GoType {
   public readonly name: string;
 
   public constructor(public parent: Package, public type: Type) {
     this.name = toPascalCase(type.name);
   }
+
+  public abstract emit(context: EmitContext): void;
+  public abstract get dependencies(): Package[];
 
   public get namespace() {
     return this.parent.packageName;
@@ -118,7 +117,7 @@ export class GoProperty implements TypeField {
   }
 }
 
-export abstract class GoStruct extends GoType implements GoEmitter {
+export abstract class GoStruct extends GoType {
   public readonly properties: GoProperty[];
   public readonly interfaceName: string;
 
