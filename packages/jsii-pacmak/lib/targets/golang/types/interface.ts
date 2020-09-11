@@ -18,7 +18,7 @@ class InterfaceProperty implements TypeField {
     this.name = toPascalCase(property.name);
 
     if (property.type) {
-      this.reference = new GoTypeRef(parent.parent.root, property.type);
+      this.reference = new GoTypeRef(parent.pkg.root, property.type);
     }
   }
 
@@ -31,9 +31,9 @@ class InterfaceProperty implements TypeField {
     const { code } = context;
     const propName = this.name;
     const type = new GoTypeRef(
-      this.parent.parent.root,
+      this.parent.pkg.root,
       this.property.type,
-    ).scopedName(this.parent.parent);
+    ).scopedName(this.parent.pkg);
 
     code.line(`Get${propName}() ${type}`);
   }
@@ -50,7 +50,7 @@ class InterfaceMethod implements TypeField {
     this.name = toPascalCase(method.name);
 
     if (method.returns.type) {
-      this.reference = new GoTypeRef(parent.parent.root, method.returns.type);
+      this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
     }
   }
 
@@ -63,9 +63,9 @@ class InterfaceMethod implements TypeField {
     const returns = this.method.returns.type.void
       ? ''
       : ` ${new GoTypeRef(
-          this.parent.parent.root,
+          this.parent.pkg.root,
           this.method.returns.type,
-        ).scopedName(this.parent.parent)}`;
+        ).scopedName(this.parent.pkg)}`;
 
     const methodName = this.name;
 
@@ -74,7 +74,7 @@ class InterfaceMethod implements TypeField {
 
   public get returnTypeString(): string {
     return (
-      this.reference?.scopedName(this.parent.parent) ?? this.method.toString()
+      this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
     );
   }
 }
@@ -83,8 +83,8 @@ export class Interface extends GoType {
   public readonly methods: InterfaceMethod[];
   public readonly properties: InterfaceProperty[];
 
-  public constructor(parent: Package, public type: InterfaceType) {
-    super(parent, type);
+  public constructor(pkg: Package, public type: InterfaceType) {
+    super(pkg, type);
     this.methods = Object.values(type.getMethods()).map(
       (method) => new InterfaceMethod(this, method),
     );
@@ -101,7 +101,7 @@ export class Interface extends GoType {
 
     // embed extended interfaces
     for (const iface of this.extends) {
-      code.line(iface.scopedName(this.parent));
+      code.line(iface.scopedName(this.pkg));
     }
 
     for (const method of this.methods) {
@@ -118,16 +118,16 @@ export class Interface extends GoType {
 
   public get extends(): GoTypeRef[] {
     return this.type.getInterfaces(true).map((iface) => {
-      return new GoTypeRef(this.parent.root, iface.reference);
+      return new GoTypeRef(this.pkg.root, iface.reference);
     });
   }
 
   public get extendsDependencies(): Package[] {
     const packages: Package[] = [];
     for (const ifaceRef of this.extends) {
-      const pack = ifaceRef.type?.parent;
-      if (pack) {
-        packages.push(pack);
+      const pkg = ifaceRef.type?.pkg;
+      if (pkg) {
+        packages.push(pkg);
       }
     }
 

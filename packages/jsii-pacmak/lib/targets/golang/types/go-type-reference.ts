@@ -51,7 +51,7 @@ export class GoTypeRef {
   }
 
   public get namespace() {
-    return this.type?.parent.packageName;
+    return this.type?.pkg.packageName;
   }
 
   /*

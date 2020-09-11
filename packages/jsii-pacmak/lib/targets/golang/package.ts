@@ -203,11 +203,11 @@ export class RootPackage extends Package {
  * InternalPackage refers to any go package within a given JSII module.
  */
 export class InternalPackage extends Package {
-  public readonly parent: Package;
+  public readonly pkg: Package;
 
-  public constructor(root: Package, parent: Package, assembly: JsiiSubmodule) {
+  public constructor(root: Package, pkg: Package, assembly: JsiiSubmodule) {
     const packageName = goPackageName(assembly.name);
-    const filePath = parent === root ? packageName : parent.filePath;
+    const filePath = pkg === root ? packageName : pkg.filePath;
 
     super(
       assembly.types,
@@ -218,6 +218,6 @@ export class InternalPackage extends Package {
       root,
     );
 
-    this.parent = parent;
+    this.pkg = pkg;
   }
 }

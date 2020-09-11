@@ -23,10 +23,9 @@ export class GoClassConstructor {
     const constr = `New${this.parent.name}`;
     const params = this.type.parameters.map((x) => {
       const paramName = substituteReservedWords(x.name);
-      const paramType = new GoTypeRef(
-        this.parent.parent.root,
-        x.type,
-      ).scopedName(this.parent.parent);
+      const paramType = new GoTypeRef(this.parent.pkg.root, x.type).scopedName(
+        this.parent.pkg,
+      );
       return `${paramName} ${paramType}`;
     });
 
@@ -55,8 +54,8 @@ export class GoClass extends GoStruct {
   public readonly methods: ClassMethod[];
   private readonly initializer?: GoClassConstructor;
 
-  public constructor(parent: Package, public type: ClassType) {
-    super(parent, type);
+  public constructor(pkg: Package, public type: ClassType) {
+    super(pkg, type);
 
     this.methods = Object.values(this.type.getMethods(true)).map(
       (method) => new ClassMethod(this, method),
@@ -89,7 +88,7 @@ export class GoClass extends GoStruct {
 
     // embed extended interfaces
     for (const iface of this.extends) {
-      code.line(iface.scopedName(this.parent));
+      code.line(iface.scopedName(this.pkg));
     }
 
     for (const property of this.properties) {
@@ -132,7 +131,7 @@ export class ClassMethod implements TypeField {
     this.runtimeCall = new MethodCall(this);
 
     if (method.returns.type) {
-      this.reference = new GoTypeRef(parent.parent.root, method.returns.type);
+      this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
     }
   }
 
@@ -162,7 +161,7 @@ export class ClassMethod implements TypeField {
 
   public get returnTypeString(): string {
     return (
-      this.reference?.scopedName(this.parent.parent) ?? this.method.toString()
+      this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
     );
   }
 }
