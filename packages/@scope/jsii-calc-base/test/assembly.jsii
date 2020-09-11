@@ -30,6 +30,13 @@
         "js": {
           "npm": "@scope/jsii-calc-base-of-base"
         },
+        "kotlin": {
+          "maven": {
+            "artifactId": "calculator-base-of-base",
+            "groupId": "software.amazon.jsii.tests.kotlin"
+          },
+          "package": "software.amazon.jsii.tests.kotlin.calculator.baseofbase"
+        },
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
@@ -65,6 +72,13 @@
     },
     "js": {
       "npm": "@scope/jsii-calc-base"
+    },
+    "kotlin": {
+      "maven": {
+        "artifactId": "calculator-base",
+        "groupId": "software.amazon.jsii.tests.kotlin"
+      },
+      "package": "software.amazon.jsii.tests.kotlin.calculator.base"
     },
     "python": {
       "distName": "scope.jsii-calc-base",
@@ -157,5 +171,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc="
+  "fingerprint": "0qco74Be84raOj8GEu5M/9AmucGcTll1RbsHck3qAWk="
 }

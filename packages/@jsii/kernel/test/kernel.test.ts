@@ -409,6 +409,13 @@ defineTest(
         },
       },
       js: { npm: 'jsii-calc' },
+      kotlin: {
+        package: 'software.amazon.jsii.tests.kotlin.calculator',
+        maven: {
+          groupId: 'software.amazon.jsii.tests.kotlin',
+          artifactId: 'calculator',
+        },
+      },
       python: {
         distName: 'jsii-calc',
         module: 'jsii_calc',
@@ -434,6 +441,14 @@ defineTest(
           },
         },
         js: { npm: '@scope/jsii-calc-lib' },
+        kotlin: {
+          package: 'software.amazon.jsii.tests.kotlin.calculator.lib',
+          maven: {
+            groupId: 'software.amazon.jsii.tests.kotlin',
+            artifactId: 'calculator-lib',
+            versionSuffix: '.DEVPREVIEW',
+          },
+        },
         python: {
           distName: 'scope.jsii-calc-lib',
           module: 'scope.jsii_calc_lib',

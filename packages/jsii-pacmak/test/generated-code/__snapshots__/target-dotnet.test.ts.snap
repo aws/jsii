@@ -58,6 +58,13 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
         "js": {
           "npm": "@scope/jsii-calc-base-of-base"
         },
+        "kotlin": {
+          "maven": {
+            "artifactId": "calculator-base-of-base",
+            "groupId": "software.amazon.jsii.tests.kotlin"
+          },
+          "package": "software.amazon.jsii.tests.kotlin.calculator.baseofbase"
+        },
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
@@ -93,6 +100,13 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     },
     "js": {
       "npm": "@scope/jsii-calc-base"
+    },
+    "kotlin": {
+      "maven": {
+        "artifactId": "calculator-base",
+        "groupId": "software.amazon.jsii.tests.kotlin"
+      },
+      "package": "software.amazon.jsii.tests.kotlin.calculator.base"
     },
     "python": {
       "distName": "scope.jsii-calc-base",
@@ -185,7 +199,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     }
   },
   "version": "0.0.0",
-  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc="
+  "fingerprint": "0qco74Be84raOj8GEu5M/9AmucGcTll1RbsHck3qAWk="
 }
 
 `;
@@ -504,6 +518,13 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     "js": {
       "npm": "@scope/jsii-calc-base-of-base"
     },
+    "kotlin": {
+      "maven": {
+        "artifactId": "calculator-base-of-base",
+        "groupId": "software.amazon.jsii.tests.kotlin"
+      },
+      "package": "software.amazon.jsii.tests.kotlin.calculator.baseofbase"
+    },
     "python": {
       "distName": "scope.jsii-calc-base-of-base",
       "module": "scope.jsii_calc_base_of_base"
@@ -619,7 +640,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     }
   },
   "version": "0.0.0",
-  "fingerprint": "XzppfL+BknRpBHYygvGjf8OOXrTyNAx6cllN3vONLoU="
+  "fingerprint": "aOStUOYOZMP3sor2CFunsRQPyFikJ/cqC/NvaiTXwsA="
 }
 
 `;
@@ -951,6 +972,13 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
         "js": {
           "npm": "@scope/jsii-calc-base"
         },
+        "kotlin": {
+          "maven": {
+            "artifactId": "calculator-base",
+            "groupId": "software.amazon.jsii.tests.kotlin"
+          },
+          "package": "software.amazon.jsii.tests.kotlin.calculator.base"
+        },
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
@@ -975,6 +1003,13 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
         },
         "js": {
           "npm": "@scope/jsii-calc-base-of-base"
+        },
+        "kotlin": {
+          "maven": {
+            "artifactId": "calculator-base-of-base",
+            "groupId": "software.amazon.jsii.tests.kotlin"
+          },
+          "package": "software.amazon.jsii.tests.kotlin.calculator.baseofbase"
         },
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
@@ -1036,6 +1071,14 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     },
     "js": {
       "npm": "@scope/jsii-calc-lib"
+    },
+    "kotlin": {
+      "maven": {
+        "artifactId": "calculator-lib",
+        "groupId": "software.amazon.jsii.tests.kotlin",
+        "versionSuffix": ".DEVPREVIEW"
+      },
+      "package": "software.amazon.jsii.tests.kotlin.calculator.lib"
     },
     "python": {
       "distName": "scope.jsii-calc-lib",
@@ -1686,7 +1729,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     }
   },
   "version": "0.0.0",
-  "fingerprint": "/PrQbD8BlAtg3N9iuntBks7Q/oIyS45A/S7RvNATePA="
+  "fingerprint": "8jA+nykSu86i5XE8FrFKl2qYRP9Uh1r4IJj6WkrRL+E="
 }
 
 `;
@@ -3394,6 +3437,13 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         "js": {
           "npm": "@scope/jsii-calc-base"
         },
+        "kotlin": {
+          "maven": {
+            "artifactId": "calculator-base",
+            "groupId": "software.amazon.jsii.tests.kotlin"
+          },
+          "package": "software.amazon.jsii.tests.kotlin.calculator.base"
+        },
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
@@ -3418,6 +3468,13 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         },
         "js": {
           "npm": "@scope/jsii-calc-base-of-base"
+        },
+        "kotlin": {
+          "maven": {
+            "artifactId": "calculator-base-of-base",
+            "groupId": "software.amazon.jsii.tests.kotlin"
+          },
+          "package": "software.amazon.jsii.tests.kotlin.calculator.baseofbase"
         },
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
@@ -3464,6 +3521,14 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         },
         "js": {
           "npm": "@scope/jsii-calc-lib"
+        },
+        "kotlin": {
+          "maven": {
+            "artifactId": "calculator-lib",
+            "groupId": "software.amazon.jsii.tests.kotlin",
+            "versionSuffix": ".DEVPREVIEW"
+          },
+          "package": "software.amazon.jsii.tests.kotlin.calculator.lib"
         },
         "python": {
           "distName": "scope.jsii-calc-lib",
@@ -3593,6 +3658,13 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     },
     "js": {
       "npm": "jsii-calc"
+    },
+    "kotlin": {
+      "maven": {
+        "artifactId": "calculator",
+        "groupId": "software.amazon.jsii.tests.kotlin"
+      },
+      "package": "software.amazon.jsii.tests.kotlin.calculator"
     },
     "python": {
       "classifiers": [
@@ -17306,7 +17378,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "Ddy05wOucU4yV7YP5fPUzEjiOsl5AGPrwJS7pXpJRPI="
+  "fingerprint": "Cfo0iYX6VJXKviy0wVl9m8myxOu+zehmAUY4jY3v5mM="
 }
 
 `;

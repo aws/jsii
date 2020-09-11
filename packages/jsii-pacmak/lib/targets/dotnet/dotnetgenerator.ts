@@ -42,11 +42,8 @@ export class DotNetGenerator extends Generator {
     };
   }
 
-  public async load(
-    packageRoot: string,
-    assembly: reflect.Assembly,
-  ): Promise<void> {
-    await super.load(packageRoot, assembly);
+  public load(packageRoot: string, assembly: reflect.Assembly): void {
+    super.load(packageRoot, assembly);
     this.jsiiFilePath = path.join(packageRoot, spec.SPEC_FILE_NAME);
   }
 

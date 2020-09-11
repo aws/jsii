@@ -82,7 +82,13 @@ COPY m2-settings.xml /root/.m2/settings.xml
 RUN curl -sL https://golang.org/dl/go1.15.2.linux-amd64.tar.gz -o /tmp/go.tar.gz                                        \
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
 ENV PATH="$GOROOT/bin:$PATH"
-
+    
+# Install Gradle
+RUN curl -sSL -o gradle-bin.zip "https://services.gradle.org/distributions/gradle-6.5-bin.zip"                        \
+  && yum -y install unzip                                                                                               \
+  && mkdir -p /opt/gradle                                                                                               \
+  && unzip -q -d /opt/gradle gradle-bin.zip
+ENV PATH="/opt/gradle/gradle-6.5/bin:${PATH}"
 
 # Install Docker
 RUN amazon-linux-extras install docker                                                                                  \
