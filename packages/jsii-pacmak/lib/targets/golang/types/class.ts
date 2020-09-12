@@ -2,7 +2,7 @@ import { Method, ClassType, Initializer } from 'jsii-reflect';
 import { toPascalCase } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
 import { GoStruct } from './go-type';
-import { TypeFieldBase, TypeField } from './type-field';
+import { GoTypeMemberBase, GoTypeMember } from './type-member';
 import { getFieldDependencies, substituteReservedWords } from '../util';
 import { Package } from '../package';
 import { ClassConstructor, MethodCall } from '../runtime';
@@ -118,7 +118,7 @@ export class GoClassConstructor {
   }
 }
 
-export class ClassMethod extends TypeFieldBase implements TypeField {
+export class ClassMethod extends GoTypeMemberBase implements GoTypeMember {
   public readonly name: string;
   public readonly reference?: GoTypeRef;
   public readonly runtimeCall: MethodCall;

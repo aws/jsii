@@ -1,5 +1,5 @@
 import { Package } from './package';
-import { TypeField, GoType } from './types';
+import { GoTypeMember, GoType } from './types';
 
 /*
  * Recursively search module for type with fqn
@@ -38,7 +38,7 @@ export function flatMap<T, R>(
 /*
  * Return module dependencies of a class or interface fields
  */
-export function getFieldDependencies(fields: TypeField[]): Package[] {
+export function getFieldDependencies(fields: GoTypeMember[]): Package[] {
   return fields.reduce((accum: Package[], field) => {
     return field.reference?.type?.pkg
       ? [...accum, field.reference?.type.pkg]

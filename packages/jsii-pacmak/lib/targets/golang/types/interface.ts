@@ -4,7 +4,7 @@ import { InterfaceType, Method, Property } from 'jsii-reflect';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { Package } from '../package';
-import { TypeFieldBase, TypeField } from './type-field';
+import { GoTypeMemberBase, GoTypeMember } from './type-member';
 import { getFieldDependencies } from '../util';
 
 export class Interface extends GoType {
@@ -71,7 +71,7 @@ export class Interface extends GoType {
   }
 }
 
-class InterfaceProperty extends TypeFieldBase implements TypeField {
+class InterfaceProperty extends GoTypeMemberBase implements GoTypeMember {
   public readonly name: string;
   public readonly getter: string;
   public readonly reference?: GoTypeRef;
@@ -107,7 +107,7 @@ class InterfaceProperty extends TypeFieldBase implements TypeField {
   }
 }
 
-class InterfaceMethod extends TypeFieldBase implements TypeField {
+class InterfaceMethod extends GoTypeMemberBase implements GoTypeMember {
   public readonly name: string;
   public readonly reference?: GoTypeRef;
 
