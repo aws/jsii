@@ -3,7 +3,7 @@ import { EmitContext } from '../emit-context';
 import { ClassType, InterfaceType, Property, Type } from 'jsii-reflect';
 import { Package } from '../package';
 import { GoTypeRef } from './go-type-reference';
-import { TypeField } from './type-field';
+import { TypeFieldBase, TypeField } from './type-field';
 import { getFieldDependencies } from '../util';
 
 // String appended to all go GoStruct Interfaces
@@ -127,7 +127,7 @@ export abstract class GoStruct extends GoType {
  * GoProperty encapsulates logic for public properties on a concrete struct, which could represent
  either a JSII class proxy or datatype interface proxy
 */
-export class GoProperty implements TypeField {
+export class GoProperty extends TypeFieldBase implements TypeField {
   public readonly name: string;
   public readonly getter: string;
   public readonly reference?: GoTypeRef;
@@ -136,6 +136,7 @@ export class GoProperty implements TypeField {
     public parent: GoStruct,
     public readonly property: Property,
   ) {
+    super();
     this.name = toPascalCase(this.property.name);
     this.getter = `Get${this.name}`;
 

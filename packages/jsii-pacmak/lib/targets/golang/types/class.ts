@@ -2,50 +2,11 @@ import { Method, ClassType, Initializer } from 'jsii-reflect';
 import { toPascalCase } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
 import { GoStruct } from './go-type';
-import { TypeField } from './type-field';
+import { TypeFieldBase, TypeField } from './type-field';
 import { getFieldDependencies, substituteReservedWords } from '../util';
 import { Package } from '../package';
 import { ClassConstructor, MethodCall } from '../runtime';
 import { EmitContext } from '../emit-context';
-
-export class GoClassConstructor {
-  private readonly constructorRuntimeCall: ClassConstructor;
-
-  public constructor(
-    public readonly parent: GoClass,
-    private readonly type: Initializer,
-  ) {
-    this.constructorRuntimeCall = new ClassConstructor(this);
-  }
-
-  public emit(context: EmitContext) {
-    const { code } = context;
-    const constr = `New${this.parent.name}`;
-    const params = this.type.parameters.map((x) => {
-      const paramName = substituteReservedWords(x.name);
-      const paramType = new GoTypeRef(this.parent.pkg.root, x.type).scopedName(
-        this.parent.pkg,
-      );
-      return `${paramName} ${paramType}`;
-    });
-
-    const parameters = params.length === 0 ? '' : params.join(', ');
-
-    let docstring = '';
-    if (this.type.docs.summary) {
-      docstring = this.type.docs.toString();
-      code.line(`// ${docstring}`);
-    }
-
-    code.openBlock(
-      `func ${constr}(${parameters}) ${this.parent.interfaceName}`,
-    );
-
-    this.constructorRuntimeCall.emit(code);
-    code.closeBlock();
-    code.line();
-  }
-}
 
 /*
  * GoClass wraps a Typescript class as a Go custom struct type
@@ -118,7 +79,46 @@ export class GoClass extends GoStruct {
   }
 }
 
-export class ClassMethod implements TypeField {
+export class GoClassConstructor {
+  private readonly constructorRuntimeCall: ClassConstructor;
+
+  public constructor(
+    public readonly parent: GoClass,
+    private readonly type: Initializer,
+  ) {
+    this.constructorRuntimeCall = new ClassConstructor(this);
+  }
+
+  public emit(context: EmitContext) {
+    const { code } = context;
+    const constr = `New${this.parent.name}`;
+    const params = this.type.parameters.map((x) => {
+      const paramName = substituteReservedWords(x.name);
+      const paramType = new GoTypeRef(this.parent.pkg.root, x.type).scopedName(
+        this.parent.pkg,
+      );
+      return `${paramName} ${paramType}`;
+    });
+
+    const parameters = params.length === 0 ? '' : params.join(', ');
+
+    let docstring = '';
+    if (this.type.docs.summary) {
+      docstring = this.type.docs.toString();
+      code.line(`// ${docstring}`);
+    }
+
+    code.openBlock(
+      `func ${constr}(${parameters}) ${this.parent.interfaceName}`,
+    );
+
+    this.constructorRuntimeCall.emit(code);
+    code.closeBlock();
+    code.line();
+  }
+}
+
+export class ClassMethod extends TypeFieldBase implements TypeField {
   public readonly name: string;
   public readonly reference?: GoTypeRef;
   public readonly runtimeCall: MethodCall;
@@ -127,6 +127,7 @@ export class ClassMethod implements TypeField {
     public readonly parent: GoClass,
     public readonly method: Method,
   ) {
+    super();
     this.name = toPascalCase(this.method.name);
     this.runtimeCall = new MethodCall(this);
 
@@ -135,16 +136,14 @@ export class ClassMethod implements TypeField {
     }
   }
 
-  /* emit generates method on the class */
+  /* emit generates method implementation on the class */
   public emit({ code }: EmitContext) {
     const name = this.name;
-    const returnType = `${
-      this.returnTypeString ? `${this.returnTypeString} ` : ''
-    }`;
+
     const instanceArg = this.parent.name.substring(0, 1).toLowerCase();
 
     code.openBlock(
-      `func (${instanceArg} *${this.parent.name}) ${name}() ${returnType}`,
+      `func (${instanceArg} *${this.parent.name}) ${name}() ${this.returnType}`,
     );
 
     this.runtimeCall.emit(code);
@@ -153,13 +152,13 @@ export class ClassMethod implements TypeField {
     code.line();
   }
 
+  /* emitDecl generates method declaration in the class interface */
   public emitDecl(context: EmitContext) {
     const { code } = context;
-    const name = this.name;
-    code.line(`${name}() ${this.returnTypeString}`);
+    code.line(`${this.name}() ${this.returnType}`);
   }
 
-  public get returnTypeString(): string {
+  public get returnType(): string {
     return (
       this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
     );

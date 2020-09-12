@@ -31,11 +31,11 @@ export class MethodCall {
 
     const ret = this.parent.reference;
     if (ret?.type?.type.isClassType() || ret?.type instanceof Struct) {
-      code.line(`return ${this.parent.returnTypeString}{}`);
+      code.line(`return ${this.parent.returnType}{}`);
     } else if (ret?.type?.type.isEnumType()) {
       code.line(`return "ENUM_DUMMY"`);
     } else {
-      code.line(`return ${this.getDummyReturn(this.parent.returnTypeString)}`);
+      code.line(`return ${this.getDummyReturn(this.parent.returnType)}`);
     }
   }
 

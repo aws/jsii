@@ -4,80 +4,8 @@ import { InterfaceType, Method, Property } from 'jsii-reflect';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { Package } from '../package';
-import { TypeField } from './type-field';
+import { TypeFieldBase, TypeField } from './type-field';
 import { getFieldDependencies } from '../util';
-
-class InterfaceProperty implements TypeField {
-  public readonly name: string;
-  public readonly reference?: GoTypeRef;
-
-  public constructor(
-    public readonly parent: Interface,
-    private readonly property: Property,
-  ) {
-    this.name = toPascalCase(property.name);
-
-    if (property.type) {
-      this.reference = new GoTypeRef(parent.pkg.root, property.type);
-    }
-  }
-
-  public emit(context: EmitContext) {
-    const docs = this.property.docs;
-    if (docs) {
-      context.documenter.emit(docs);
-    }
-
-    const { code } = context;
-    const propName = this.name;
-    const type = new GoTypeRef(
-      this.parent.pkg.root,
-      this.property.type,
-    ).scopedName(this.parent.pkg);
-
-    code.line(`Get${propName}() ${type}`);
-  }
-}
-
-class InterfaceMethod implements TypeField {
-  public readonly name: string;
-  public readonly reference?: GoTypeRef;
-
-  public constructor(
-    public readonly parent: Interface,
-    private readonly method: Method,
-  ) {
-    this.name = toPascalCase(method.name);
-
-    if (method.returns.type) {
-      this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
-    }
-  }
-
-  public emit(context: EmitContext) {
-    const docs = this.method.docs;
-    if (docs) {
-      context.documenter.emit(docs);
-    }
-    const { code } = context;
-    const returns = this.method.returns.type.void
-      ? ''
-      : ` ${new GoTypeRef(
-          this.parent.pkg.root,
-          this.method.returns.type,
-        ).scopedName(this.parent.pkg)}`;
-
-    const methodName = this.name;
-
-    code.line(`${methodName}()${returns}`);
-  }
-
-  public get returnTypeString(): string {
-    return (
-      this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
-    );
-  }
-}
 
 export class Interface extends GoType {
   public readonly methods: InterfaceMethod[];
@@ -140,5 +68,77 @@ export class Interface extends GoType {
       ...getFieldDependencies(this.methods),
       ...getFieldDependencies(this.properties),
     ];
+  }
+}
+
+class InterfaceProperty extends TypeFieldBase implements TypeField {
+  public readonly name: string;
+  public readonly getter: string;
+  public readonly reference?: GoTypeRef;
+
+  public constructor(
+    public readonly parent: Interface,
+    private readonly property: Property,
+  ) {
+    super();
+    this.name = toPascalCase(property.name);
+    this.getter = `Get${this.name}`;
+
+    if (property.type) {
+      this.reference = new GoTypeRef(parent.pkg.root, property.type);
+    }
+  }
+
+  public get returnType(): string {
+    return (
+      this.reference?.scopedName(this.parent.pkg) ??
+      this.property.type.toString()
+    );
+  }
+
+  public emit(context: EmitContext) {
+    const docs = this.property.docs;
+    if (docs) {
+      context.documenter.emit(docs);
+    }
+
+    const { code } = context;
+    code.line(`${this.getter}() ${this.returnType}`);
+  }
+}
+
+class InterfaceMethod extends TypeFieldBase implements TypeField {
+  public readonly name: string;
+  public readonly reference?: GoTypeRef;
+
+  public constructor(
+    public readonly parent: Interface,
+    private readonly method: Method,
+  ) {
+    super();
+    this.name = toPascalCase(method.name);
+
+    if (method.returns.type) {
+      this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
+    }
+  }
+
+  public emit(context: EmitContext) {
+    const docs = this.method.docs;
+    if (docs) {
+      context.documenter.emit(docs);
+    }
+    const { code } = context;
+    code.line(`${this.name}()${this.returnType}`);
+  }
+
+  public get returnType(): string {
+    const ret = this.method.returns.type.void
+      ? ''
+      : this.reference?.scopedName(this.parent.pkg) ?? this.method.toString();
+    if (ret !== '') {
+      return ` ${ret}`;
+    }
+    return ret;
   }
 }
