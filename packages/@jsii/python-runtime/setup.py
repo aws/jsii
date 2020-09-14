@@ -15,7 +15,10 @@ setuptools.setup(
     version=metadata["version"],
     license=metadata["license"],
     url=metadata["homepage"],
-    project_urls={"Bug Tracker": metadata["bugs"], "Source": metadata["repository"],},
+    project_urls={
+        "Bug Tracker": metadata["bugs"],
+        "Source": metadata["repository"],
+    },
     description=metadata["description"],
     long_description=long_description,
     long_description_content_type="text/markdown",
