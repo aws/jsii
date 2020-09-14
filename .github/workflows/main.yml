@@ -78,6 +78,7 @@ jobs:
         run: |-
           tar Jcvf ${{ runner.temp }}/built-tree.tar.xz                         \
             --exclude='**/.env'                                                 \
+            --exclude='**/.nuget'                                               \
             --exclude='**/node_modules'                                         \
             --exclude='**/project/.m2/repository'                               \
             --exclude-tag-all='pyenv.cfg'                                       \
