@@ -2,7 +2,7 @@ import abc
 
 from typing import Optional, Union, Type
 
-from jsii._kernel.types import (
+from ..types import (
     LoadRequest,
     LoadResponse,
     CreateRequest,

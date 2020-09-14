@@ -2,13 +2,9 @@ import { Docs } from 'jsii-reflect';
 import { Stability } from '@jsii/spec';
 import { Rosetta } from 'jsii-rosetta';
 import { CodeMaker } from 'codemaker';
-import * as logging from '../../logging';
 
 export class Documentation {
-  public constructor(
-    private readonly code: CodeMaker,
-    private readonly rosetta: Rosetta,
-  ) {}
+  public constructor(private readonly code: CodeMaker, _rosetta: Rosetta) {}
 
   /**
    * Emits all documentation depending on what is available in the jsii model
@@ -22,9 +18,6 @@ export class Documentation {
    * Stability/Deprecation description
    */
   public emit(docs: Docs): void {
-    // Placeholder, until rosetta is used
-    logging.debug('Rosetta instance: ', this.rosetta);
-
     if (docs.toString() !== '') {
       const lines = docs.toString().split('\n');
       for (const line of lines) {
