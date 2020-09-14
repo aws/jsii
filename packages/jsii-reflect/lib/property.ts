@@ -12,7 +12,8 @@ import { Type } from './type';
 import { MemberKind, TypeMember } from './type-member';
 import { TypeSystem } from './type-system';
 
-export class Property extends OptionalValue
+export class Property
+  extends OptionalValue
   implements Documentable, Overridable, TypeMember, SourceLocatable {
   public readonly kind = MemberKind.Property;
 

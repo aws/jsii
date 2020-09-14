@@ -62,6 +62,13 @@ ENV M2_HOME=/usr/local/apache-maven                                             
     M2=/usr/local/apache-maven/bin                                                                                      \
     MAVEN_OPTS="-Xms256m -Xmx512m"
 
+# Install Go
+RUN curl -sL https://golang.org/dl/go1.15.2.linux-amd64.tar.gz -o /tmp/go.tar.gz                                        \
+  && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
+ENV GOROOT=/usr/local/go
+ENV PATH="$GOROOT/bin:$PATH"
+    
+
 # Install Docker
 RUN amazon-linux-extras install docker                                                                                  \
   && yum clean all && rm -rf /var/cache/yum

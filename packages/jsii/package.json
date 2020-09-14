@@ -45,23 +45,24 @@
     "sort-json": "^2.0.0",
     "spdx-license-list": "^6.2.0",
     "typescript": "~4.0.2",
-    "yargs": "^15.4.1"
+    "yargs": "^16.0.3"
   },
   "devDependencies": {
     "@types/clone": "^2.1.0",
     "@types/deep-equal": "^1.0.1",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.10",
+    "@types/jest": "^26.0.13",
     "@types/jest-expect-message": "^1.0.2",
-    "@types/node": "^10.17.28",
+    "@types/node": "^10.17.32",
     "@types/semver": "^7.3.3",
     "@types/yargs": "^15.0.5",
     "clone": "^2.1.2",
-    "eslint": "^7.7.0",
+    "eslint": "^7.9.0",
     "jest": "^26.4.2",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.1.1",
+    "ts-jest": "^26.3.0"
   },
   "jest": {
     "collectCoverage": true,
@@ -85,7 +86,10 @@
     ],
     "testEnvironment": "node",
     "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
+      "**/?(*.)+(spec|test).ts"
+    ],
+    "transform": {
+      "\\.tsx?$": "ts-jest"
+    }
   }
 }

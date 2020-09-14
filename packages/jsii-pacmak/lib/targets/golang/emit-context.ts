@@ -1,5 +1,5 @@
 import { CodeMaker } from 'codemaker';
-import { Rosetta } from 'jsii-rosetta';
+import { Documentation } from './documentation';
 
 /**
  * The context in which Golang code is emitted.
@@ -7,6 +7,7 @@ import { Rosetta } from 'jsii-rosetta';
 export interface EmitContext {
   /** A CodeMaker to write out source code. */
   readonly code: CodeMaker;
-  /** A Rosetta stone to translate code examples. */
-  readonly rosetta: Rosetta;
+
+  /** A Documentation generator. Includes Rosetta stone to translate code examples. */
+  readonly documenter: Documentation;
 }

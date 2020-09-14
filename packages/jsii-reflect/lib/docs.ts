@@ -18,6 +18,9 @@ export class Docs {
     this.docs = spec ?? {};
   }
 
+  /**
+   * Returns docstring of summary and remarks
+   */
   public toString() {
     const ret = new Array<string>();
     if (this.docs.summary) {
@@ -60,16 +63,46 @@ export class Docs {
     return lowestStability(this.docs.stability, this.parentDocs?.stability);
   }
 
+  /**
+   * Return any custom tags on this type
+   */
   public customTag(tag: string): string | undefined {
     return this.docs.custom?.[tag];
   }
 
+  /**
+   * Return summary of this type
+   */
   public get summary(): string {
     return this.docs.summary ?? '';
   }
 
+  /**
+   * Return remarks for this type
+   */
   public get remarks(): string {
     return this.docs.remarks ?? '';
+  }
+
+  /**
+   * Return examples for this type
+   */
+  public get example(): string {
+    return this.docs.example ?? '';
+  }
+
+  /**
+   * Return documentation links for this type
+   */
+  public get link(): string {
+    return this.docs.see ?? '';
+  }
+
+  /**
+   * Returns the return type
+   */
+  public get returns(): string {
+    return this.docs.returns ?? '';
   }
 }
 

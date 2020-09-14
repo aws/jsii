@@ -14,7 +14,8 @@ import { TypeSystem } from './type-system';
  */
 export const INITIALIZER_NAME = '<initializer>';
 
-export class Method extends Callable
+export class Method
+  extends Callable
   implements Documentable, Overridable, TypeMember, SourceLocatable {
   public static isMethod(x: Callable): x is Method {
     return x instanceof Method;
