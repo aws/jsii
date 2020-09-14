@@ -1,7 +1,11 @@
 package jsii
 
 import (
+	"bufio"
 	"encoding/json"
+	"errors"
+	"io"
+	"io/ioutil"
 	"log"
 	"os/exec"
 	"regexp"
@@ -14,7 +18,7 @@ type Client struct {
 	RuntimeVersion string
 	writer         *json.Encoder
 	reader         *json.Decoder
-	err            *json.Decoder
+	stderr         io.ReadCloser
 }
 
 func CheckFatalError(e error) {
@@ -48,13 +52,12 @@ func InitClient() (Client, error) {
 
 	writer := json.NewEncoder(in)
 	reader := json.NewDecoder(out)
-	stderrreader := json.NewDecoder(stderr)
 
 	client := Client{
 		Process: cmd,
 		writer:  writer,
 		reader:  reader,
-		err:     stderrreader,
+		stderr:  stderr,
 	}
 
 	// Check for OK response and parse runtime version
@@ -78,8 +81,23 @@ func (c *Client) request(req interface{}, res interface{}) error {
 }
 
 func (c *Client) response(res interface{}) error {
-	// TODO: Check for non-empty stderr and return error from there
-	return c.reader.Decode(res)
+	if c.reader.More() {
+		return c.reader.Decode(res)
+	}
+
+	errrdr := bufio.NewReader(c.stderr)
+	if errrdr.Size() > 0 {
+		erroutput, err := ioutil.ReadAll(errrdr)
+
+		if err != nil {
+			return err
+		}
+
+		return errors.New(string(erroutput))
+	}
+
+	return errors.New("No Response from runtime")
+
 }
 
 func (c *Client) validateClientStart() (string, error) {

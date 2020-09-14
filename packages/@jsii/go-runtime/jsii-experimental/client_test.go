@@ -3,7 +3,6 @@ package jsii
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"testing"
 )
 
@@ -21,17 +20,17 @@ func TestClient(t *testing.T) {
 
 	t.Run("Client Load Error", func(t *testing.T) {
 		request := LoadRequest{
+			Api:     "load",
 			Name:    "jsii-calc",
 			Version: "0.0.0",
 			Tarball: "jsii-calc-tarball.tgz",
 		}
 
-		_, err := client.load(request)
+		res, err := client.load(request)
 
-		if err != io.EOF {
+		t.Log(res)
+		if err != nil {
 			t.Log(err)
-			requeststr, _ := json.Marshal(&request)
-			t.Errorf("Library load failure\nRequest: %s", string(requeststr))
 		}
 	})
 }
