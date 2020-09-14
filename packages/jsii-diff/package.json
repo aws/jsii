@@ -38,21 +38,21 @@
     "jsii-reflect": "^0.0.0",
     "log4js": "^6.3.0",
     "typescript": "~3.9.7",
-    "yargs": "^15.4.1"
+    "yargs": "^16.0.3"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.10",
+    "@types/jest": "^26.0.13",
     "@types/jest-expect-message": "^1.0.2",
-    "@types/node": "^10.17.28",
+    "@types/node": "^10.17.32",
     "@types/tar-fs": "^2.0.0",
     "@types/yargs": "^15.0.5",
-    "eslint": "^7.7.0",
-    "jest": "^26.4.1",
+    "eslint": "^7.9.0",
+    "jest": "^26.4.2",
     "jest-expect-message": "^1.0.2",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.1.1"
   },
   "jest": {
     "collectCoverage": true,

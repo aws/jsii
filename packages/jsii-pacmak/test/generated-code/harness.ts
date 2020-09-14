@@ -5,8 +5,9 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
+import { TargetName } from '../../lib/targets';
 
-const PACMAK_CLI = path.resolve(__dirname, '..', 'bin', 'jsii-pacmak');
+const PACMAK_CLI = path.resolve(__dirname, '..', '..', 'bin', 'jsii-pacmak');
 
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
@@ -34,36 +35,40 @@ expect.addSnapshotSerializer({
   },
 });
 
-let outDir: string;
-beforeEach((done) => {
-  outDir = fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
+export function verifyGeneratedCodeFor(targetName: TargetName) {
+  let outDir: string;
+  beforeEach((done) => {
+    outDir = fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
 
-  done();
-});
-afterEach((done) => {
-  fs.removeSync(outDir);
-  outDir = undefined as any;
-
-  done();
-});
-
-for (const pkg of [
-  '@scope/jsii-calc-base-of-base',
-  '@scope/jsii-calc-base',
-  '@scope/jsii-calc-lib',
-  'jsii-calc',
-]) {
-  // Extend timeout, because this could be slow...
-  jest.setTimeout(60_000);
-
-  test(`Generated code for ${JSON.stringify(pkg)}`, () => {
-    const pkgRoot = path.resolve(__dirname, '..', '..', pkg);
-    runPacmak(pkgRoot, outDir);
-
-    expect({ [TREE]: checkTree(outDir) }).toMatchSnapshot('<outDir>/');
-
-    runMypy(path.join(outDir, 'python'));
+    done();
   });
+  afterEach((done) => {
+    fs.removeSync(outDir);
+    outDir = undefined as any;
+
+    done();
+  });
+
+  for (const pkg of [
+    '@scope/jsii-calc-base-of-base',
+    '@scope/jsii-calc-base',
+    '@scope/jsii-calc-lib',
+    'jsii-calc',
+  ]) {
+    // Extend timeout, because this could be slow...
+    jest.setTimeout(60_000);
+
+    test(`Generated code for ${JSON.stringify(pkg)}`, () => {
+      const pkgRoot = path.resolve(__dirname, '..', '..', '..', pkg);
+      runPacmak(pkgRoot, targetName, outDir);
+
+      expect({ [TREE]: checkTree(outDir) }).toMatchSnapshot('<outDir>/');
+
+      if (targetName === 'python') {
+        runMypy(path.join(outDir, 'python'));
+      }
+    });
+  }
 }
 
 function checkTree(
@@ -116,7 +121,7 @@ function checkTree(
   }
 }
 
-function runPacmak(root: string, outdir: string): void {
+function runPacmak(root: string, targetName: TargetName, outdir: string): void {
   return runCommand(
     process.execPath,
     [
@@ -125,6 +130,8 @@ function runPacmak(root: string, outdir: string): void {
       `--code-only`,
       `--no-fingerprint`,
       `--outdir=${outdir}`,
+      `--target=${targetName}`,
+      '--',
       root,
     ],
     {

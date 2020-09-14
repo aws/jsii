@@ -5,7 +5,7 @@ import {
   MyFirstStruct,
   Number as LibNumber,
   StructWithOnlyOptionals,
-  Value,
+  NumericValue,
 } from '@scope/jsii-calc-lib';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -19,7 +19,6 @@ import {
 } from './calculator';
 
 /* eslint-disable
-  @typescript-eslint/explicit-module-boundary-types,
   @typescript-eslint/no-namespace,
   @typescript-eslint/member-ordering,
 */
@@ -189,7 +188,7 @@ export class AllTypes {
   // unions
 
   public unionProperty: string | number | LibNumber | Multiply = 'foo';
-  public unionArrayProperty: Array<Value | number> = [];
+  public unionArrayProperty: Array<NumericValue | number> = [];
   public unionMapProperty: { [key: string]: LibNumber | number | string } = {};
 
   // enum
@@ -265,7 +264,7 @@ export class ObjectRefsInCollections {
   /**
    * Returns the sum of all values
    */
-  public sumFromArray(values: Value[]) {
+  public sumFromArray(values: NumericValue[]) {
     let sum = 0;
     for (const val of values) {
       sum += val.value;
@@ -276,7 +275,7 @@ export class ObjectRefsInCollections {
   /**
    * Returns the sum of all values in a map
    */
-  public sumFromMap(values: { [key: string]: Value }) {
+  public sumFromMap(values: { [key: string]: NumericValue }) {
     let sum = 0;
     for (const key of Object.keys(values)) {
       sum += values[key].value;
@@ -550,7 +549,7 @@ export interface DerivedStruct extends MyFirstStruct {
   /**
    * This is optional.
    */
-  readonly anotherOptional?: { [key: string]: Value };
+  readonly anotherOptional?: { [key: string]: NumericValue };
 }
 
 export class GiveMeStructs {
@@ -1247,7 +1246,8 @@ export abstract class AbstractClassBase {
   public abstract readonly abstractProperty: string;
 }
 
-export abstract class AbstractClass extends AbstractClassBase
+export abstract class AbstractClass
+  extends AbstractClassBase
   implements IInterfaceImplementedByAbstractClass {
   public nonAbstractMethod() {
     return 42;
@@ -1515,7 +1515,8 @@ export interface IPrivatelyImplemented {
 export class ExportedBaseClass {
   public constructor(public readonly success: boolean) {}
 }
-class PrivateImplementation extends ExportedBaseClass
+class PrivateImplementation
+  extends ExportedBaseClass
   implements IPrivatelyImplemented {
   public constructor() {
     super(true);
@@ -1529,7 +1530,7 @@ export class JsiiAgent {
   /**
    * Returns the value of the JSII_AGENT environment variable.
    */
-  public static get jsiiAgent(): string | undefined {
+  public static get value(): string | undefined {
     return process.env.JSII_AGENT;
   }
 }
@@ -2786,3 +2787,36 @@ export abstract class BurriedAnonymousObject {
 }
 
 import { StaticConsumer } from '@scope/jsii-calc-base-of-base';
+
+/**
+ * Ensures we can override a dynamic property that was inherited.
+ */
+export class DynamicPropertyBearer {
+  public constructor(public valueStore: string) {}
+
+  public get dynamicProperty(): string {
+    return this.valueStore;
+  }
+
+  public set dynamicProperty(value: string) {
+    this.valueStore = value;
+  }
+}
+export class DynamicPropertyBearerChild extends DynamicPropertyBearer {
+  public constructor(public readonly originalValue: string) {
+    super(originalValue);
+  }
+
+  /**
+   * Sets `this.dynamicProperty` to the new value, and returns the old value.
+   *
+   * @param newValue the new value to be set.
+   *
+   * @returns the old value that was set.
+   */
+  public overrideValue(newValue: string): string {
+    const oldValue = this.dynamicProperty;
+    this.dynamicProperty = newValue;
+    return oldValue;
+  }
+}

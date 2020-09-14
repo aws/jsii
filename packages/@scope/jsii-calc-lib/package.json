@@ -39,16 +39,18 @@
     "@scope/jsii-calc-base-of-base": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.28",
+    "@types/node": "^10.17.32",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.1.1"
   },
   "jsii": {
     "outdir": "dist",
     "targets": {
-      "go": {},
+      "go": {
+        "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+      },
       "java": {
         "package": "software.amazon.jsii.tests.calculator.lib",
         "maven": {

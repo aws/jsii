@@ -4,6 +4,7 @@
     "module": "commonjs",                  /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
     "lib": ["es2018"],                     /* Specify library files to be included in the compilation:  */
     "strict": true,                        /* Enable all strict type-checking options. */
+    "strictPropertyInitialization": true,  /* Require all properties be initialized in the constructor. */
     "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
     "declaration": true,                   /* Generates corresponding '.d.ts' file. */
     "esModuleInterop": false,              /* Turn on babel and typesystem compatibility with ES modules */
@@ -17,5 +18,6 @@
     "resolveJsonModule": true,             /* Include modules imported with .json extension. */
     "composite": true,                     /* Ensure TypeScript can determine where to find the outputs of the referenced project to compile project. */
     "incremental": true,                   /* Enable incremental compilation by reading/writing information from prior compilations to a file on disk. */
+    "useDefineForClassFields": false,      /* Use Object.defineProperty for introducing class fields. */
   }
 }

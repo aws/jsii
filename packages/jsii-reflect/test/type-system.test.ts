@@ -171,6 +171,7 @@ describe('@deprecated', () => {
   test('can be read on an item', () => {
     const klass = typesys.findClass('jsii-calc.Old');
     expect(klass.docs.deprecated).toBeTruthy();
+    expect(klass.docs.stability).toBe(spec.Stability.Deprecated);
   });
 
   test('is inherited from class', () => {
@@ -183,7 +184,7 @@ describe('@deprecated', () => {
 test('overridden member knows about both parent types', async () => {
   const ts = await typeSystemFromSource(`
     export class Foo {
-      public foo() {
+      public bar() {
         Array.isArray(3);
       }
 
@@ -201,7 +202,7 @@ test('overridden member knows about both parent types', async () => {
 
   const superType = ts.findClass('testpkg.Foo');
   const subType = ts.findClass('testpkg.SubFoo');
-  const fooMethod = subType.allMethods.find((m) => m.name === 'foo')!;
+  const fooMethod = subType.allMethods.find((m) => m.name === 'bar')!;
   const booMethod = subType.allMethods.find((m) => m.name === 'boo')!;
 
   expect(fooMethod.parentType).toBe(subType);
@@ -243,7 +244,7 @@ describe('Stability', () => {
             Array.isArray(3);
           }
 
-          public foo() {
+          public bar() {
             Array.isArray(3);
           }
         }
@@ -256,7 +257,7 @@ describe('Stability', () => {
       `);
       const classType = ts.findClass('testpkg.SubFoo');
       const initializer = classType.initializer!;
-      const method = classType.allMethods.find((m) => m.name === 'foo')!;
+      const method = classType.allMethods.find((m) => m.name === 'bar')!;
 
       expect(initializer.docs.stability).toEqual(Stability.Experimental);
       expect(method.docs.stability).toEqual(Stability.Experimental);
@@ -278,7 +279,7 @@ describe('Stability', () => {
           /**
            * @experimental
            */
-          public foo() {
+          public bar() {
             Array.isArray(3);
           }
         }
@@ -292,7 +293,7 @@ describe('Stability', () => {
 
       const classType = ts.findClass('testpkg.SubFoo');
       const initializer = classType.initializer!;
-      const method = classType.allMethods.find((m) => m.name === 'foo')!;
+      const method = classType.allMethods.find((m) => m.name === 'bar')!;
 
       expect(initializer.docs.stability).toEqual(Stability.Experimental);
       expect(method.docs.stability).toEqual(Stability.Experimental);
@@ -314,7 +315,7 @@ describe('Stability', () => {
           /**
            * @stable
            */
-          public foo() {
+          public bar() {
             Array.isArray(3);
           }
         }
@@ -328,7 +329,7 @@ describe('Stability', () => {
 
       const classType = ts.findClass('testpkg.SubFoo');
       const initializer = classType.initializer!;
-      const method = classType.allMethods.find((m) => m.name === 'foo')!;
+      const method = classType.allMethods.find((m) => m.name === 'bar')!;
 
       expect(initializer.docs.stability).toEqual(Stability.Experimental);
       expect(method.docs.stability).toEqual(Stability.Experimental);
@@ -340,7 +341,7 @@ describe('Stability', () => {
          * @stability external
          */
         export class Foo {
-          public foo() {
+          public bar() {
             Array.isArray(3);
           }
         }
@@ -353,7 +354,7 @@ describe('Stability', () => {
       `);
 
       const classType = ts.findClass('testpkg.SubFoo');
-      const method = classType.allMethods.find((m) => m.name === 'foo')!;
+      const method = classType.allMethods.find((m) => m.name === 'bar')!;
 
       expect(method.docs.stability).toEqual(Stability.External);
     });

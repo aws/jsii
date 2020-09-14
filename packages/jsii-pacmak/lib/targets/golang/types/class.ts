@@ -1,189 +1,168 @@
-import { Method, Property, ClassType } from 'jsii-reflect';
-import { CodeMaker } from 'codemaker';
+import { Method, ClassType, Initializer } from 'jsii-reflect';
+import { toPascalCase } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
-import { GoType, GoEmitter } from './go-type';
+import { GoStruct } from './go-type';
 import { TypeField } from './type-field';
+import { getFieldDependencies, substituteReservedWords } from '../util';
 import { Package } from '../package';
-import { getFieldDependencies } from '../util';
+import { ClassConstructor, MethodCall } from '../runtime';
+import { EmitContext } from '../emit-context';
 
-// String appended to all go Class Interfaces
-const CLASS_INTERFACE_SUFFIX = 'Iface';
-
-export class ClassProperty implements TypeField {
-  public readonly name: string;
-  public readonly references?: GoTypeRef;
+export class GoClassConstructor {
+  private readonly constructorRuntimeCall: ClassConstructor;
 
   public constructor(
-    public parent: GoClass,
-    public readonly property: Property,
+    public readonly parent: GoClass,
+    private readonly type: Initializer,
   ) {
-    this.name = this.property.name;
+    this.constructorRuntimeCall = new ClassConstructor(this);
+  }
 
-    if (property.type) {
-      this.references = new GoTypeRef(parent.parent.root, property.type);
+  public emit(context: EmitContext) {
+    const { code } = context;
+    const constr = `New${this.parent.name}`;
+    const params = this.type.parameters.map((x) => {
+      const paramName = substituteReservedWords(x.name);
+      const paramType = new GoTypeRef(
+        this.parent.parent.root,
+        x.type,
+      ).scopedName(this.parent.parent);
+      return `${paramName} ${paramType}`;
+    });
+
+    const parameters = params.length === 0 ? '' : params.join(', ');
+
+    let docstring = '';
+    if (this.type.docs.summary) {
+      docstring = this.type.docs.toString();
+      code.line(`// ${docstring}`);
+    }
+
+    code.openBlock(
+      `func ${constr}(${parameters}) ${this.parent.interfaceName}`,
+    );
+
+    this.constructorRuntimeCall.emit(code);
+    code.closeBlock();
+    code.line();
+  }
+}
+
+/*
+ * GoClass wraps a Typescript class as a Go custom struct type
+ */
+export class GoClass extends GoStruct {
+  public readonly methods: ClassMethod[];
+  private readonly initializer?: GoClassConstructor;
+
+  public constructor(parent: Package, public type: ClassType) {
+    super(parent, type);
+
+    this.methods = Object.values(this.type.getMethods(true)).map(
+      (method) => new ClassMethod(this, method),
+    );
+
+    if (this.type.initializer) {
+      this.initializer = new GoClassConstructor(this, this.type.initializer);
     }
   }
 
-  public emit(code: CodeMaker) {
-    const name = code.toPascalCase(this.property.name);
-    const type =
-      this.references?.scopedName(this.parent.parent) ??
-      this.property.toString();
+  public emit(context: EmitContext): void {
+    // emits interface, struct proxy, and instance methods
+    super.emit(context);
 
-    // If struct property is type of parent struct, use a pointer as type to avoid recursive struct type error
-    if (this.references?.type?.name === this.parent.name) {
-      code.line(`${name} *${type}`);
-    } else {
-      code.line(`${name} ${type}`);
+    if (this.initializer) {
+      this.initializer.emit(context);
+    }
+
+    this.emitSetters(context);
+
+    for (const method of this.methods) {
+      method.emit(context);
     }
   }
 
-  public emitForInterface(code: CodeMaker) {
-    const name = code.toPascalCase(this.property.name);
-    const type =
-      this.references?.scopedName(this.parent.parent) ??
-      this.property.toString();
+  protected emitInterface(context: EmitContext): void {
+    const { code } = context;
+    code.line('// Class interface'); // FIXME for debugging
+    code.openBlock(`type ${this.interfaceName} interface`);
 
-    code.line(`Get${name}() ${type}`);
-    if (!this.property.protected) {
-      code.line(`Set${name}()`);
+    // embed extended interfaces
+    for (const iface of this.extends) {
+      code.line(iface.scopedName(this.parent));
     }
+
+    for (const property of this.properties) {
+      property.emitGetterDecl(context);
+      property.emitSetterDecl(context);
+    }
+
+    for (const method of this.methods) {
+      method.emitDecl(context);
+    }
+
+    code.closeBlock();
+    code.line();
+  }
+
+  // emits the implementation of the getters for the struct
+  private emitSetters(context: EmitContext): void {
+    if (this.properties.length !== 0) {
+      for (const property of this.properties) {
+        property.emitSetterImpl(context);
+      }
+    }
+  }
+
+  public get dependencies(): Package[] {
+    return [...super.dependencies, ...getFieldDependencies(this.methods)];
   }
 }
 
 export class ClassMethod implements TypeField {
   public readonly name: string;
   public readonly references?: GoTypeRef;
-
-  private readonly NOOP_RETURN_MAP: { [type: string]: string } = {
-    float64: '0.0',
-    string: '"NOOP_RETURN_STRING"',
-    bool: 'true',
-  };
+  public readonly runtimeCall: MethodCall;
 
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,
   ) {
-    this.name = this.method.name;
+    this.name = toPascalCase(this.method.name);
+    this.runtimeCall = new MethodCall(this);
 
     if (method.returns.type) {
       this.references = new GoTypeRef(parent.parent.root, method.returns.type);
     }
   }
 
-  public emit(code: CodeMaker) {
-    const name = code.toPascalCase(this.method.name);
-    const type =
-      this.references?.scopedName(this.parent.parent) ?? this.method.toString();
-
+  /* emit generates method on the class */
+  public emit({ code }: EmitContext) {
+    const name = this.name;
+    const returnType = `${
+      this.returnTypeString ? `${this.returnTypeString} ` : ''
+    }`;
     const instanceArg = this.parent.name.substring(0, 1).toLowerCase();
 
-    // TODO: Method Arguments
     code.openBlock(
-      `func (${instanceArg} *${this.parent.name}) ${name}() ${
-        type ? `${type} ` : ''
-      }`,
+      `func (${instanceArg} *${this.parent.name}) ${name}() ${returnType}`,
     );
 
-    code.line(`jsii.NoOpRequest(jsii.NoOpApiRequest {`);
-    code.indent();
-    code.line(`Class: "${this.parent.name}",`);
-    code.line(`Method: "${name}",`);
-    code.line(
-      `Args: []string{${this.method.parameters.reduce((accum: string, p, i) => {
-        const prefix = i === 0 ? '' : ' ';
-        return `${accum}${prefix}"${p.type.toString()}",`;
-      }, '')}},`,
-    );
-    code.unindent();
-    code.line(`})`);
-
-    const ret = this.references;
-    if (ret?.type?.type.isClassType()) {
-      code.line(`return ${type}{}`);
-    } else if (ret?.type?.type.isEnumType()) {
-      code.line(`return "ENUM_DUMMY"`);
-    } else {
-      code.line(`return ${this.getDummyReturn(type)}`);
-    }
+    this.runtimeCall.emit(code);
 
     code.closeBlock();
     code.line();
   }
 
-  public emitForInterface(code: CodeMaker) {
-    const name = code.toPascalCase(this.method.name);
-    const type =
-      this.references?.scopedName(this.parent.parent) ?? this.method.toString();
-
-    code.line(`${name}() ${type}`);
+  public emitDecl(context: EmitContext) {
+    const { code } = context;
+    const name = this.name;
+    code.line(`${name}() ${this.returnTypeString}`);
   }
 
-  private getDummyReturn(type: string): string {
-    return this.NOOP_RETURN_MAP[type] || 'nil';
-  }
-}
-
-/*
- * Class wraps a Typescript class as a Go custom struct type  TODO rename?
- */
-export class GoClass extends GoType implements GoEmitter {
-  public readonly properties: ClassProperty[];
-  public readonly methods: ClassMethod[];
-  public readonly interfaceName: string;
-
-  public constructor(parent: Package, public type: ClassType) {
-    super(parent, type);
-
-    this.properties = Object.values(this.type.getProperties()).map(
-      (prop) => new ClassProperty(this, prop),
+  public get returnTypeString(): string {
+    return (
+      this.references?.scopedName(this.parent.parent) ?? this.method.toString()
     );
-
-    this.methods = Object.values(this.type.getMethods()).map(
-      (method) => new ClassMethod(this, method),
-    );
-
-    this.interfaceName = `${this.type.name}${CLASS_INTERFACE_SUFFIX}`;
-  }
-
-  public emit(code: CodeMaker): void {
-    this.emitClassInterface(code);
-
-    code.openBlock(`type ${this.name} struct`);
-
-    for (const property of this.properties) {
-      property.emit(code);
-    }
-
-    code.closeBlock();
-    code.line();
-
-    for (const method of this.methods) {
-      method.emit(code);
-    }
-  }
-
-  // Generate interface that defines getters for public properties and any method signatures
-  private emitClassInterface(code: CodeMaker) {
-    code.openBlock(`type ${this.interfaceName} interface`);
-
-    for (const property of this.properties) {
-      property.emitForInterface(code);
-    }
-
-    for (const method of this.methods) {
-      method.emitForInterface(code);
-    }
-
-    code.closeBlock();
-    code.line();
-  }
-
-  public get dependencies(): Package[] {
-    return [
-      ...getFieldDependencies(this.properties),
-      ...getFieldDependencies(this.methods),
-    ];
   }
 }

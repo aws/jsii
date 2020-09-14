@@ -612,8 +612,8 @@ export class Kernel {
 
     // save the old property under $jsii$super$<prop>$ so that property overrides
     // can still access it via `super.<prop>`.
-    const prev = Object.getOwnPropertyDescriptor(obj, propertyName) ?? {
-      value: undefined,
+    const prev = getPropertyDescriptor(obj, propertyName) ?? {
+      value: obj[propertyName],
       writable: true,
       enumerable: true,
       configurable: true,
@@ -656,6 +656,22 @@ export class Kernel {
         });
       },
     });
+
+    function getPropertyDescriptor(
+      obj: any,
+      propertyName: string,
+    ): PropertyDescriptor | undefined {
+      const direct = Object.getOwnPropertyDescriptor(obj, propertyName);
+      if (direct != null) {
+        return direct;
+      }
+      const proto = Object.getPrototypeOf(obj);
+      if (proto == null && proto !== Object.prototype) {
+        // We reached Object or the prototype chain root, all hope is lost!
+        return undefined;
+      }
+      return getPropertyDescriptor(proto, propertyName);
+    }
   }
 
   private _applyMethodOverride(

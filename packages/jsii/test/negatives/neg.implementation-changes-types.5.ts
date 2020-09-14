@@ -10,7 +10,7 @@ export interface ISomethingElse extends ISomething {
 }
 
 // Should still fail even though 2-level inheritance
-export class Something implements ISomethingElse {
+export class SomethingImpl implements ISomethingElse {
   public something: Subclass = new Subclass();
-  public addUnrelatedMember: number = 1;
+  public addUnrelatedMember = 1;
 }

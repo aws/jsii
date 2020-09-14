@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
-import { sourceToAssemblyHelper as compile } from '../lib';
+import { sourceToAssemblyHelper as compile, compileJsiiForTest } from '../lib';
+import { renderSymbolDocumentation } from '../lib/docs';
 
 jest.setTimeout(60_000);
 
@@ -11,7 +12,7 @@ test('extract summary line from doc block, ends with a period', async () => {
      * Hello this is the documentation for this class
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -31,7 +32,7 @@ test('extract remarks from whitespace-separated doc block', async () => {
      * It looks pretty good, doesn't it?
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -49,7 +50,7 @@ test('separate long doc comment into summary and remarks', async () => {
      * doc block per API item and no structural separation.
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -71,7 +72,7 @@ test('separate non-space but newline terminated docs into summary&remarks', asyn
      * doc block per API item and no structural separation.
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -90,7 +91,7 @@ test('dont add period to summary that ends in exclamation mark', async () => {
      * I'm happy about this class!
      */
     export class Foo {
-      public foo() { }
+      public bar() { }
     }
   `);
 
@@ -106,7 +107,7 @@ test('parse method docs', async () => {
       /**
        * Do the foo
        */
-      public foo(arg: string) { Array.isArray(arg); }
+      public bar(arg: string) { Array.isArray(arg); }
     }
   `);
 
@@ -126,7 +127,7 @@ test('associate parameter comments with right parameter', async () => {
        *
        * @param arg First argument is best argument
        */
-      public foo(arg: string) { Array.isArray(arg); }
+      public bar(arg: string) { Array.isArray(arg); }
     }
   `);
 
@@ -147,16 +148,16 @@ test('read example', async () => {
        * @example
        *
        * // Example of fooing it up:
-       * new Foo().foo();
+       * new Foo().bar();
        */
-      public foo() {}
+      public bar() {}
     }
   `);
 
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
 
   expect(classType.methods![0].docs!.example).toBe(
-    '// Example of fooing it up:\n' + 'new Foo().foo();',
+    '// Example of fooing it up:\n' + 'new Foo().bar();',
   );
 });
 
@@ -200,7 +201,7 @@ test('read "returns" annotation', async () => {
        *
        * @returns Nothing, why would it?
        */
-      public foo(arg: string) { Array.isArray(arg); }
+      public bar(arg: string) { Array.isArray(arg); }
     }
   `);
 
@@ -218,7 +219,7 @@ test('can haz deprecated', async () => {
        *
        * @deprecated These days we do the bar
        */
-      public foo(arg: string) { Array.isArray(arg); }
+      public bar(arg: string) { Array.isArray(arg); }
     }
   `);
 
@@ -335,7 +336,7 @@ test('stability is inherited from parent type', async () => {
           Array.isArray(3);
         }
 
-        public foo() {
+        public bar() {
           Array.isArray(3);
         }
       }
@@ -344,7 +345,7 @@ test('stability is inherited from parent type', async () => {
 
     const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
     const initializer = classType.initializer!;
-    const method = classType.methods!.find((m) => m.name === 'foo')!;
+    const method = classType.methods!.find((m) => m.name === 'bar')!;
 
     expect(classType.docs!.stability).toBe(stability);
     expect(initializer.docs!.stability).toBe(stability);
@@ -369,3 +370,125 @@ test('@example can contain @ sign', async () => {
   const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
   expect(classType.docs!.example).toBe("import * as x from '@banana';");
 });
+
+// ----------------------------------------------------------------------
+
+test('@experimental status is reflected in generated docstring', async () => {
+  const result = await compileJsiiForTest(`
+    /**
+     * Here is a fresh class
+     *
+     * @experimental
+     */
+    export class Foo {
+    }
+  `);
+
+  expect(result.files['index.js']).toContain(
+    lines(
+      '/**',
+      ' * (experimental) Here is a fresh class.',
+      ' *',
+      ' * @experimental',
+      ' */',
+      'class Foo {',
+      '}',
+    ),
+  );
+
+  expect(result.files['index.d.ts']).toContain(
+    lines(
+      '/**',
+      ' * (experimental) Here is a fresh class.',
+      ' *',
+      ' * @experimental',
+      ' */',
+      'export declare class Foo {',
+      '}',
+    ),
+  );
+});
+
+// ----------------------------------------------------------------------
+
+test('@deprecated status is reflected in generated docstring', async () => {
+  const result = await compileJsiiForTest(`
+    /**
+     * Here is an old class
+     *
+     * @deprecated Use something else
+     */
+    export class Fogey {
+    }
+  `);
+
+  expect(result.files['index.js']).toContain(
+    lines(
+      '/**',
+      ' * (deprecated) Here is an old class.',
+      ' *',
+      ' * @deprecated Use something else',
+      ' */',
+      'class Fogey {',
+      '}',
+    ),
+  );
+
+  expect(result.files['index.d.ts']).toContain(
+    lines(
+      '/**',
+      ' * (deprecated) Here is an old class.',
+      ' *',
+      ' * @deprecated Use something else',
+      ' */',
+      'export declare class Fogey {',
+      '}',
+    ),
+  );
+});
+
+// ----------------------------------------------------------------------
+
+test('Rendering jsii docs back to a doc comment', () => {
+  expect(
+    renderSymbolDocumentation({
+      summary: 'This is the summary',
+      remarks: 'You can use this\nor not, as you see fit.',
+      default: 'thas a default value',
+      see: 'https://some.url/',
+      subclassable: true,
+      returns: 'A value',
+      example: 'print("a thing");',
+      custom: {
+        sing: 'whenyourewinning',
+      },
+    }),
+  ).toEqual(
+    lines(
+      'This is the summary',
+      '',
+      'You can use this',
+      'or not, as you see fit.',
+      '',
+      '@returns A value',
+      '@default thas a default value',
+      '@see https://some.url/',
+      '@subclassable',
+      '@sing whenyourewinning',
+      '@example',
+      '',
+      'print("a thing");',
+    ),
+  );
+});
+
+// ----------------------------------------------------------------------
+
+function lines(...ls: string[]) {
+  return indented(0, ...ls);
+}
+
+function indented(indent: number, ...lines: string[]) {
+  const prefix = ' '.repeat(indent);
+  return lines.map((l) => `${prefix}${l}`).join('\n');
+}

@@ -51,14 +51,14 @@ export class GoTypeRef {
   }
 
   public get namespace() {
-    return this.type?.parent.moduleName;
+    return this.type?.parent.packageName;
   }
 
   /*
-   * Return the name of a type for reference from the `BasePackage` passed in
+   * Return the name of a type for reference from the `Package` passed in
    */
   public scopedName(scope: Package): string {
-    // type references a primitie
+    // type references a primitive
     if (this.reference.primitive) {
       return new PrimitiveMapper(this.reference.primitive).goPrimitive;
     }
@@ -82,7 +82,7 @@ export class GoTypeRef {
     }
 
     // type is defined in the same scope as the current one, no namespace required
-    if (scope.moduleName === this.namespace && this.name) {
+    if (scope.packageName === this.namespace && this.name) {
       // if the current scope is the same as the types scope, return without a namespace
       return toPascalCase(this.name);
     }

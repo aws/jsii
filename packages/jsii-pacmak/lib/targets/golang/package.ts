@@ -1,6 +1,5 @@
 import { CodeMaker } from 'codemaker';
 import { Assembly } from 'jsii-reflect';
-import { join } from 'path';
 import { ReadmeFile } from './readme-file';
 import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { EmitContext } from './emit-context';
@@ -24,12 +23,13 @@ export abstract class Package {
   public constructor(
     private readonly typeSpec: readonly Type[],
     private readonly submoduleSpec: readonly JsiiSubmodule[],
-    public readonly moduleName: string,
+    public readonly packageName: string,
     public readonly filePath: string,
+    public readonly moduleName: string,
     // If no root is provided, this module is the root
     root?: Package,
   ) {
-    this.file = `${filePath}.go`;
+    this.file = `${filePath}/${packageName}.go`;
     this.root = root || this;
     this.submodules = this.submoduleSpec.map(
       (sm) => new InternalPackage(this.root, this, sm),
@@ -60,14 +60,22 @@ export abstract class Package {
     return flatMap(
       this.types,
       (t: ModuleType): Package[] => t.dependencies,
-    ).filter((mod) => mod.moduleName !== this.moduleName);
+    ).filter((mod) => mod.packageName !== this.packageName);
   }
 
   /*
    * The module names of this modules dependencies. Used for import statements
    */
   public get dependencyImports(): Set<string> {
-    return new Set(this.dependencies.map((mod) => mod.moduleName));
+    return new Set(
+      this.dependencies.map((pack) => {
+        const moduleName = pack.root.moduleName;
+        const prefix = moduleName !== '' ? `${moduleName}/` : '';
+        const rootPackageName = pack.root.packageName;
+        const suffix = pack.filePath !== '' ? `/${pack.filePath}` : '';
+        return `${prefix}${rootPackageName}${suffix}`;
+      }),
+    );
   }
 
   /*
@@ -82,14 +90,14 @@ export abstract class Package {
     code.openFile(this.file);
     this.emitHeader(code);
     this.emitImports(code);
-    this.emitTypes(code);
+    this.emitTypes(context);
     code.closeFile(this.file);
 
     this.emitInternalPackages(context);
   }
 
-  private emitHeader(code: CodeMaker) {
-    code.line(`package ${this.moduleName}`);
+  protected emitHeader(code: CodeMaker) {
+    code.line(`package ${this.packageName}`);
     code.line();
   }
 
@@ -97,10 +105,10 @@ export abstract class Package {
     code.open('import (');
     code.line(`"${JSII_MODULE_NAME}"`);
 
-    for (const modName of this.dependencyImports) {
+    for (const packageName of this.dependencyImports) {
       // If the module is the same as the current one being written, don't emit an import statement
-      if (modName !== this.moduleName) {
-        code.line(`"${modName}"`);
+      if (packageName !== this.packageName) {
+        code.line(`"${packageName}"`);
       }
     }
 
@@ -114,9 +122,9 @@ export abstract class Package {
     }
   }
 
-  private emitTypes(code: CodeMaker) {
+  private emitTypes(context: EmitContext) {
     for (const type of this.types) {
-      type.emit(code);
+      type.emit(context);
     }
   }
 }
@@ -128,27 +136,69 @@ export abstract class Package {
  */
 export class RootPackage extends Package {
   public readonly assembly: Assembly;
+  private readonly readme?: ReadmeFile;
 
   public constructor(assembly: Assembly) {
-    const moduleName = goPackageName(assembly.name);
-    const filePath = join(...moduleName.split('.'));
+    const packageName = goPackageName(assembly.name);
+    const filePath = '';
+    const moduleName = assembly.targets?.go?.moduleName ?? '';
 
     super(
       Object.values(assembly.types),
       assembly.submodules,
-      moduleName,
+      packageName,
       filePath,
+      moduleName,
     );
 
     this.assembly = assembly;
+
+    if (this.assembly.readme?.markdown) {
+      this.readme = new ReadmeFile(
+        this.packageName,
+        this.assembly.readme.markdown,
+      );
+    }
   }
 
   public emit(context: EmitContext): void {
     super.emit(context);
 
-    if (this.assembly.readme?.markdown) {
-      new ReadmeFile(this.moduleName, this.assembly.readme.markdown);
+    this.readme?.emit(context);
+  }
+
+  /*
+   * Override package findType for root Package.
+   *
+   * This allows resolving type references from other JSII modules
+   */
+  public findType(fqn: string): ModuleType | undefined {
+    return this.packageDependencies.reduce(
+      (accum: ModuleType | undefined, current: RootPackage) => {
+        if (accum) {
+          return accum;
+        }
+        return current.findType(fqn);
+      },
+      super.findType(fqn),
+    );
+  }
+
+  /*
+   * Get all JSII module dependencies of the package being generated
+   */
+  public get packageDependencies(): RootPackage[] {
+    return this.assembly.dependencies.map(
+      (dep) => new RootPackage(dep.assembly),
+    );
+  }
+
+  protected emitHeader(code: CodeMaker) {
+    if (this.assembly.description !== '') {
+      code.line(`// ${this.assembly.description}`);
     }
+    code.line(`package ${this.packageName}`);
+    code.line();
   }
 }
 
@@ -159,10 +209,17 @@ export class InternalPackage extends Package {
   public readonly parent: Package;
 
   public constructor(root: Package, parent: Package, assembly: JsiiSubmodule) {
-    const moduleName = goPackageName(assembly.name);
-    const filePath = `${parent.filePath}/${moduleName}`;
+    const packageName = goPackageName(assembly.name);
+    const filePath = parent === root ? packageName : parent.filePath;
 
-    super(assembly.types, assembly.submodules, moduleName, filePath, root);
+    super(
+      assembly.types,
+      assembly.submodules,
+      packageName,
+      filePath,
+      root.moduleName,
+      root,
+    );
 
     this.parent = parent;
   }

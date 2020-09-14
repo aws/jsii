@@ -27,6 +27,7 @@ import {
   toPackageName,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
+import { renderSummary } from './_utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
@@ -1982,7 +1983,7 @@ class PythonGenerator extends Generator {
     const lines = new Array<string>();
 
     if (docs.summary) {
-      lines.push(md2rst(docs.summary));
+      lines.push(md2rst(renderSummary(docs)));
       brk();
     } else {
       lines.push('');
@@ -2514,7 +2515,7 @@ function onelineDescription(docs: spec.Docs | undefined) {
 
   const parts = [];
   if (docs.summary) {
-    parts.push(md2rst(docs.summary));
+    parts.push(md2rst(renderSummary(docs)));
   }
   if (docs.remarks) {
     parts.push(md2rst(docs.remarks));

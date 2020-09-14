@@ -39,7 +39,7 @@
     "@jsii/spec": "^0.0.0",
     "clone": "^2.1.2",
     "codemaker": "^0.0.0",
-    "commonmark": "^0.29.1",
+    "commonmark": "^0.29.2",
     "escape-string-regexp": "^4.0.0",
     "fs-extra": "^9.0.1",
     "jsii-reflect": "^0.0.0",
@@ -47,7 +47,7 @@
     "semver": "^7.3.2",
     "spdx-license-list": "^6.2.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^15.4.1"
+    "yargs": "^16.0.3"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
@@ -56,18 +56,18 @@
     "@types/clone": "^2.1.0",
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.10",
+    "@types/jest": "^26.0.13",
     "@types/mock-fs": "^4.10.0",
-    "@types/node": "^10.17.28",
+    "@types/node": "^10.17.32",
     "@types/semver": "^7.3.3",
     "@types/yargs": "^15.0.5",
-    "eslint": "^7.7.0",
-    "jest": "^26.4.1",
+    "eslint": "^7.9.0",
+    "jest": "^26.4.2",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "mock-fs": "^4.13.0",
-    "prettier": "^2.0.5",
-    "ts-jest": "^26.2.0",
+    "prettier": "^2.1.1",
+    "ts-jest": "^26.3.0",
     "typescript": "~3.9.7"
   },
   "keywords": [
