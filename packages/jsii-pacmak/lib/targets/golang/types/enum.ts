@@ -4,8 +4,8 @@ import { Package } from '../package';
 import { EmitContext } from '../emit-context';
 
 export class Enum extends GoType {
-  public constructor(parent: Package, public type: EnumType) {
-    super(parent, type);
+  public constructor(pkg: Package, public type: EnumType) {
+    super(pkg, type);
   }
 
   public emit(context: EmitContext) {
