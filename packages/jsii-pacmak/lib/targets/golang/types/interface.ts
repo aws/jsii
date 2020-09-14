@@ -4,7 +4,7 @@ import { InterfaceType, Method, Property } from 'jsii-reflect';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { Package } from '../package';
-import { GoTypeMemberBase, GoTypeMember } from './type-member';
+import { GoTypeMember } from './type-member';
 import { getFieldDependencies } from '../util';
 
 export class Interface extends GoType {
@@ -71,7 +71,7 @@ export class Interface extends GoType {
   }
 }
 
-class InterfaceProperty extends GoTypeMemberBase implements GoTypeMember {
+class InterfaceProperty implements GoTypeMember {
   public readonly name: string;
   public readonly getter: string;
   public readonly reference?: GoTypeRef;
@@ -80,7 +80,6 @@ class InterfaceProperty extends GoTypeMemberBase implements GoTypeMember {
     public readonly parent: Interface,
     private readonly property: Property,
   ) {
-    super();
     this.name = toPascalCase(property.name);
     this.getter = `Get${this.name}`;
 
@@ -107,7 +106,7 @@ class InterfaceProperty extends GoTypeMemberBase implements GoTypeMember {
   }
 }
 
-class InterfaceMethod extends GoTypeMemberBase implements GoTypeMember {
+class InterfaceMethod implements GoTypeMember {
   public readonly name: string;
   public readonly reference?: GoTypeRef;
 
@@ -115,7 +114,6 @@ class InterfaceMethod extends GoTypeMemberBase implements GoTypeMember {
     public readonly parent: Interface,
     private readonly method: Method,
   ) {
-    super();
     this.name = toPascalCase(method.name);
 
     if (method.returns.type) {
