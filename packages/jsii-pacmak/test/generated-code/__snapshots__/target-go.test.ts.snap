@@ -35,7 +35,7 @@ func NewBase() BaseIface {
     return &Base{}
 }
 
-func (b *Base) TypeName() jsii.Any  {
+func (b *Base) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Base",
         Method: "TypeName",
@@ -56,11 +56,11 @@ type BaseProps struct {
     Bar string
 }
 
-func (b BaseProps) GetFoo() scopejsiicalcbaseofbase.Very {
+func (b *BaseProps) GetFoo() scopejsiicalcbaseofbase.Very {
     return b.Foo
 }
 
-func (b BaseProps) GetBar() string {
+func (b *BaseProps) GetBar() string {
     return b.Bar
 }
 
@@ -101,7 +101,7 @@ type StaticConsumerIface interface {
 type StaticConsumer struct {
 }
 
-func (s *StaticConsumer) Consume() jsii.Any  {
+func (s *StaticConsumer) Consume() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StaticConsumer",
         Method: "Consume",
@@ -130,7 +130,7 @@ func NewVery() VeryIface {
     return &Very{}
 }
 
-func (v *Very) Hey() float64  {
+func (v *Very) Hey() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Very",
         Method: "Hey",
@@ -149,7 +149,7 @@ type VeryBaseProps struct {
     Foo Very
 }
 
-func (v VeryBaseProps) GetFoo() Very {
+func (v *VeryBaseProps) GetFoo() Very {
     return v.Foo
 }
 
@@ -239,15 +239,15 @@ type MyFirstStruct struct {
     FirstOptional []string
 }
 
-func (m MyFirstStruct) GetAnumber() float64 {
+func (m *MyFirstStruct) GetAnumber() float64 {
     return m.Anumber
 }
 
-func (m MyFirstStruct) GetAstring() string {
+func (m *MyFirstStruct) GetAstring() string {
     return m.Astring
 }
 
-func (m MyFirstStruct) GetFirstOptional() []string {
+func (m *MyFirstStruct) GetFirstOptional() []string {
     return m.FirstOptional
 }
 
@@ -275,11 +275,11 @@ type Number struct {
     DoubleValue float64
 }
 
-func (n Number) GetValue() float64 {
+func (n *Number) GetValue() float64 {
     return n.Value
 }
 
-func (n Number) GetDoubleValue() float64 {
+func (n *Number) GetDoubleValue() float64 {
     return n.DoubleValue
 }
 
@@ -294,15 +294,15 @@ func NewNumber(value float64) NumberIface {
     return &Number{}
 }
 
-func (n Number) SetValue(val float64) {
+func (n *Number) SetValue(val float64) {
     n.Value = val
 }
 
-func (n Number) SetDoubleValue(val float64) {
+func (n *Number) SetDoubleValue(val float64) {
     n.DoubleValue = val
 }
 
-func (n *Number) TypeName() jsii.Any  {
+func (n *Number) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Number",
         Method: "TypeName",
@@ -311,7 +311,7 @@ func (n *Number) TypeName() jsii.Any  {
     return nil
 }
 
-func (n *Number) ToString() string  {
+func (n *Number) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Number",
         Method: "ToString",
@@ -337,7 +337,7 @@ type NumericValue struct {
     Value float64
 }
 
-func (n NumericValue) GetValue() float64 {
+func (n *NumericValue) GetValue() float64 {
     return n.Value
 }
 
@@ -351,11 +351,11 @@ func NewNumericValue() NumericValueIface {
     return &NumericValue{}
 }
 
-func (n NumericValue) SetValue(val float64) {
+func (n *NumericValue) SetValue(val float64) {
     n.Value = val
 }
 
-func (n *NumericValue) TypeName() jsii.Any  {
+func (n *NumericValue) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NumericValue",
         Method: "TypeName",
@@ -364,7 +364,7 @@ func (n *NumericValue) TypeName() jsii.Any  {
     return nil
 }
 
-func (n *NumericValue) ToString() string  {
+func (n *NumericValue) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NumericValue",
         Method: "ToString",
@@ -390,7 +390,7 @@ type Operation struct {
     Value float64
 }
 
-func (o Operation) GetValue() float64 {
+func (o *Operation) GetValue() float64 {
     return o.Value
 }
 
@@ -404,11 +404,11 @@ func NewOperation() OperationIface {
     return &Operation{}
 }
 
-func (o Operation) SetValue(val float64) {
+func (o *Operation) SetValue(val float64) {
     o.Value = val
 }
 
-func (o *Operation) TypeName() jsii.Any  {
+func (o *Operation) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Operation",
         Method: "TypeName",
@@ -417,7 +417,7 @@ func (o *Operation) TypeName() jsii.Any  {
     return nil
 }
 
-func (o *Operation) ToString() string  {
+func (o *Operation) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Operation",
         Method: "ToString",
@@ -447,15 +447,15 @@ type StructWithOnlyOptionals struct {
     Optional3 bool
 }
 
-func (s StructWithOnlyOptionals) GetOptional1() string {
+func (s *StructWithOnlyOptionals) GetOptional1() string {
     return s.Optional1
 }
 
-func (s StructWithOnlyOptionals) GetOptional2() float64 {
+func (s *StructWithOnlyOptionals) GetOptional2() float64 {
     return s.Optional2
 }
 
-func (s StructWithOnlyOptionals) GetOptional3() bool {
+func (s *StructWithOnlyOptionals) GetOptional3() bool {
     return s.Optional3
 }
 
@@ -500,7 +500,7 @@ type NestedClass struct {
     Property string
 }
 
-func (n NestedClass) GetProperty() string {
+func (n *NestedClass) GetProperty() string {
     return n.Property
 }
 
@@ -514,7 +514,7 @@ func NewNestedClass() NestedClassIface {
     return &NestedClass{}
 }
 
-func (n NestedClass) SetProperty(val string) {
+func (n *NestedClass) SetProperty(val string) {
     n.Property = val
 }
 
@@ -534,7 +534,7 @@ type NestedStruct struct {
     Name string
 }
 
-func (n NestedStruct) GetName() string {
+func (n *NestedStruct) GetName() string {
     return n.Name
 }
 
@@ -555,11 +555,11 @@ type ReflectableEntry struct {
     Value jsii.Any
 }
 
-func (r ReflectableEntry) GetKey() string {
+func (r *ReflectableEntry) GetKey() string {
     return r.Key
 }
 
-func (r ReflectableEntry) GetValue() jsii.Any {
+func (r *ReflectableEntry) GetValue() jsii.Any {
     return r.Value
 }
 
@@ -583,7 +583,7 @@ func NewReflector() ReflectorIface {
     return &Reflector{}
 }
 
-func (r *Reflector) AsMap() map[string]jsii.Any  {
+func (r *Reflector) AsMap() map[string]jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Reflector",
         Method: "AsMap",
@@ -691,23 +691,23 @@ type CompositeOperation struct {
     StringStyle CompositionStringStyle
 }
 
-func (c CompositeOperation) GetValue() float64 {
+func (c *CompositeOperation) GetValue() float64 {
     return c.Value
 }
 
-func (c CompositeOperation) GetExpression() scopejsiicalclib.NumericValue {
+func (c *CompositeOperation) GetExpression() scopejsiicalclib.NumericValue {
     return c.Expression
 }
 
-func (c CompositeOperation) GetDecorationPostfixes() []string {
+func (c *CompositeOperation) GetDecorationPostfixes() []string {
     return c.DecorationPostfixes
 }
 
-func (c CompositeOperation) GetDecorationPrefixes() []string {
+func (c *CompositeOperation) GetDecorationPrefixes() []string {
     return c.DecorationPrefixes
 }
 
-func (c CompositeOperation) GetStringStyle() CompositionStringStyle {
+func (c *CompositeOperation) GetStringStyle() CompositionStringStyle {
     return c.StringStyle
 }
 
@@ -721,27 +721,27 @@ func NewCompositeOperation() CompositeOperationIface {
     return &CompositeOperation{}
 }
 
-func (c CompositeOperation) SetValue(val float64) {
+func (c *CompositeOperation) SetValue(val float64) {
     c.Value = val
 }
 
-func (c CompositeOperation) SetExpression(val scopejsiicalclib.NumericValue) {
+func (c *CompositeOperation) SetExpression(val scopejsiicalclib.NumericValue) {
     c.Expression = val
 }
 
-func (c CompositeOperation) SetDecorationPostfixes(val []string) {
+func (c *CompositeOperation) SetDecorationPostfixes(val []string) {
     c.DecorationPostfixes = val
 }
 
-func (c CompositeOperation) SetDecorationPrefixes(val []string) {
+func (c *CompositeOperation) SetDecorationPrefixes(val []string) {
     c.DecorationPrefixes = val
 }
 
-func (c CompositeOperation) SetStringStyle(val CompositionStringStyle) {
+func (c *CompositeOperation) SetStringStyle(val CompositionStringStyle) {
     c.StringStyle = val
 }
 
-func (c *CompositeOperation) TypeName() jsii.Any  {
+func (c *CompositeOperation) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "CompositeOperation",
         Method: "TypeName",
@@ -750,7 +750,7 @@ func (c *CompositeOperation) TypeName() jsii.Any  {
     return nil
 }
 
-func (c *CompositeOperation) ToString() string  {
+func (c *CompositeOperation) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "CompositeOperation",
         Method: "ToString",
@@ -788,7 +788,7 @@ type Base struct {
     Prop string
 }
 
-func (b Base) GetProp() string {
+func (b *Base) GetProp() string {
     return b.Prop
 }
 
@@ -802,7 +802,7 @@ func NewBase() BaseIface {
     return &Base{}
 }
 
-func (b Base) SetProp(val string) {
+func (b *Base) SetProp(val string) {
     b.Prop = val
 }
 
@@ -817,7 +817,7 @@ type Derived struct {
     Prop string
 }
 
-func (d Derived) GetProp() string {
+func (d *Derived) GetProp() string {
     return d.Prop
 }
 
@@ -831,7 +831,7 @@ func NewDerived() DerivedIface {
     return &Derived{}
 }
 
-func (d Derived) SetProp(val string) {
+func (d *Derived) SetProp(val string) {
     d.Prop = val
 }
 
@@ -856,7 +856,7 @@ type Foo struct {
     Bar string
 }
 
-func (f Foo) GetBar() string {
+func (f *Foo) GetBar() string {
     return f.Bar
 }
 
@@ -870,7 +870,7 @@ func NewFoo() FooIface {
     return &Foo{}
 }
 
-func (f Foo) SetBar(val string) {
+func (f *Foo) SetBar(val string) {
     f.Bar = val
 }
 
@@ -884,7 +884,7 @@ type Hello struct {
     Foo float64
 }
 
-func (h Hello) GetFoo() float64 {
+func (h *Hello) GetFoo() float64 {
     return h.Foo
 }
 
@@ -909,7 +909,7 @@ type Hello struct {
     Foo float64
 }
 
-func (h Hello) GetFoo() float64 {
+func (h *Hello) GetFoo() float64 {
     return h.Foo
 }
 
@@ -947,11 +947,11 @@ type AbstractClass struct {
     PropFromInterface string
 }
 
-func (a AbstractClass) GetAbstractProperty() string {
+func (a *AbstractClass) GetAbstractProperty() string {
     return a.AbstractProperty
 }
 
-func (a AbstractClass) GetPropFromInterface() string {
+func (a *AbstractClass) GetPropFromInterface() string {
     return a.PropFromInterface
 }
 
@@ -965,15 +965,15 @@ func NewAbstractClass() AbstractClassIface {
     return &AbstractClass{}
 }
 
-func (a AbstractClass) SetAbstractProperty(val string) {
+func (a *AbstractClass) SetAbstractProperty(val string) {
     a.AbstractProperty = val
 }
 
-func (a AbstractClass) SetPropFromInterface(val string) {
+func (a *AbstractClass) SetPropFromInterface(val string) {
     a.PropFromInterface = val
 }
 
-func (a *AbstractClass) AbstractMethod() string  {
+func (a *AbstractClass) AbstractMethod() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AbstractClass",
         Method: "AbstractMethod",
@@ -982,7 +982,7 @@ func (a *AbstractClass) AbstractMethod() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (a *AbstractClass) NonAbstractMethod() float64  {
+func (a *AbstractClass) NonAbstractMethod() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AbstractClass",
         Method: "NonAbstractMethod",
@@ -1002,7 +1002,7 @@ type AbstractClassBase struct {
     AbstractProperty string
 }
 
-func (a AbstractClassBase) GetAbstractProperty() string {
+func (a *AbstractClassBase) GetAbstractProperty() string {
     return a.AbstractProperty
 }
 
@@ -1016,7 +1016,7 @@ func NewAbstractClassBase() AbstractClassBaseIface {
     return &AbstractClassBase{}
 }
 
-func (a AbstractClassBase) SetAbstractProperty(val string) {
+func (a *AbstractClassBase) SetAbstractProperty(val string) {
     a.AbstractProperty = val
 }
 
@@ -1033,7 +1033,7 @@ type AbstractClassReturner struct {
     ReturnAbstractFromProperty AbstractClassBase
 }
 
-func (a AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBase {
+func (a *AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBase {
     return a.ReturnAbstractFromProperty
 }
 
@@ -1047,11 +1047,11 @@ func NewAbstractClassReturner() AbstractClassReturnerIface {
     return &AbstractClassReturner{}
 }
 
-func (a AbstractClassReturner) SetReturnAbstractFromProperty(val AbstractClassBase) {
+func (a *AbstractClassReturner) SetReturnAbstractFromProperty(val AbstractClassBase) {
     a.ReturnAbstractFromProperty = val
 }
 
-func (a *AbstractClassReturner) GiveMeAbstract() AbstractClass  {
+func (a *AbstractClassReturner) GiveMeAbstract() AbstractClass {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AbstractClassReturner",
         Method: "GiveMeAbstract",
@@ -1060,7 +1060,7 @@ func (a *AbstractClassReturner) GiveMeAbstract() AbstractClass  {
     return AbstractClass{}
 }
 
-func (a *AbstractClassReturner) GiveMeInterface() IInterfaceImplementedByAbstractClass  {
+func (a *AbstractClassReturner) GiveMeInterface() IInterfaceImplementedByAbstractClass {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AbstractClassReturner",
         Method: "GiveMeInterface",
@@ -1082,7 +1082,7 @@ type AbstractSuite struct {
     Property string
 }
 
-func (a AbstractSuite) GetProperty() string {
+func (a *AbstractSuite) GetProperty() string {
     return a.Property
 }
 
@@ -1096,11 +1096,11 @@ func NewAbstractSuite() AbstractSuiteIface {
     return &AbstractSuite{}
 }
 
-func (a AbstractSuite) SetProperty(val string) {
+func (a *AbstractSuite) SetProperty(val string) {
     a.Property = val
 }
 
-func (a *AbstractSuite) SomeMethod() string  {
+func (a *AbstractSuite) SomeMethod() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AbstractSuite",
         Method: "SomeMethod",
@@ -1109,7 +1109,7 @@ func (a *AbstractSuite) SomeMethod() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (a *AbstractSuite) WorkItAll() string  {
+func (a *AbstractSuite) WorkItAll() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AbstractSuite",
         Method: "WorkItAll",
@@ -1143,15 +1143,15 @@ type Add struct {
     Rhs scopejsiicalclib.NumericValue
 }
 
-func (a Add) GetValue() float64 {
+func (a *Add) GetValue() float64 {
     return a.Value
 }
 
-func (a Add) GetLhs() scopejsiicalclib.NumericValue {
+func (a *Add) GetLhs() scopejsiicalclib.NumericValue {
     return a.Lhs
 }
 
-func (a Add) GetRhs() scopejsiicalclib.NumericValue {
+func (a *Add) GetRhs() scopejsiicalclib.NumericValue {
     return a.Rhs
 }
 
@@ -1166,19 +1166,19 @@ func NewAdd(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue
     return &Add{}
 }
 
-func (a Add) SetValue(val float64) {
+func (a *Add) SetValue(val float64) {
     a.Value = val
 }
 
-func (a Add) SetLhs(val scopejsiicalclib.NumericValue) {
+func (a *Add) SetLhs(val scopejsiicalclib.NumericValue) {
     a.Lhs = val
 }
 
-func (a Add) SetRhs(val scopejsiicalclib.NumericValue) {
+func (a *Add) SetRhs(val scopejsiicalclib.NumericValue) {
     a.Rhs = val
 }
 
-func (a *Add) TypeName() jsii.Any  {
+func (a *Add) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Add",
         Method: "TypeName",
@@ -1187,7 +1187,7 @@ func (a *Add) TypeName() jsii.Any  {
     return nil
 }
 
-func (a *Add) ToString() string  {
+func (a *Add) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Add",
         Method: "ToString",
@@ -1196,7 +1196,7 @@ func (a *Add) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (a *Add) Hello() string  {
+func (a *Add) Hello() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Add",
         Method: "Hello",
@@ -1277,79 +1277,79 @@ type AllTypes struct {
     OptionalEnumValue StringEnum
 }
 
-func (a AllTypes) GetEnumPropertyValue() float64 {
+func (a *AllTypes) GetEnumPropertyValue() float64 {
     return a.EnumPropertyValue
 }
 
-func (a AllTypes) GetAnyArrayProperty() []jsii.Any {
+func (a *AllTypes) GetAnyArrayProperty() []jsii.Any {
     return a.AnyArrayProperty
 }
 
-func (a AllTypes) GetAnyMapProperty() map[string]jsii.Any {
+func (a *AllTypes) GetAnyMapProperty() map[string]jsii.Any {
     return a.AnyMapProperty
 }
 
-func (a AllTypes) GetAnyProperty() jsii.Any {
+func (a *AllTypes) GetAnyProperty() jsii.Any {
     return a.AnyProperty
 }
 
-func (a AllTypes) GetArrayProperty() []string {
+func (a *AllTypes) GetArrayProperty() []string {
     return a.ArrayProperty
 }
 
-func (a AllTypes) GetBooleanProperty() bool {
+func (a *AllTypes) GetBooleanProperty() bool {
     return a.BooleanProperty
 }
 
-func (a AllTypes) GetDateProperty() string {
+func (a *AllTypes) GetDateProperty() string {
     return a.DateProperty
 }
 
-func (a AllTypes) GetEnumProperty() AllTypesEnum {
+func (a *AllTypes) GetEnumProperty() AllTypesEnum {
     return a.EnumProperty
 }
 
-func (a AllTypes) GetJsonProperty() map[string]jsii.Any {
+func (a *AllTypes) GetJsonProperty() map[string]jsii.Any {
     return a.JsonProperty
 }
 
-func (a AllTypes) GetMapProperty() map[string]scopejsiicalclib.Number {
+func (a *AllTypes) GetMapProperty() map[string]scopejsiicalclib.Number {
     return a.MapProperty
 }
 
-func (a AllTypes) GetNumberProperty() float64 {
+func (a *AllTypes) GetNumberProperty() float64 {
     return a.NumberProperty
 }
 
-func (a AllTypes) GetStringProperty() string {
+func (a *AllTypes) GetStringProperty() string {
     return a.StringProperty
 }
 
-func (a AllTypes) GetUnionArrayProperty() []jsii.Any {
+func (a *AllTypes) GetUnionArrayProperty() []jsii.Any {
     return a.UnionArrayProperty
 }
 
-func (a AllTypes) GetUnionMapProperty() map[string]jsii.Any {
+func (a *AllTypes) GetUnionMapProperty() map[string]jsii.Any {
     return a.UnionMapProperty
 }
 
-func (a AllTypes) GetUnionProperty() jsii.Any {
+func (a *AllTypes) GetUnionProperty() jsii.Any {
     return a.UnionProperty
 }
 
-func (a AllTypes) GetUnknownArrayProperty() []jsii.Any {
+func (a *AllTypes) GetUnknownArrayProperty() []jsii.Any {
     return a.UnknownArrayProperty
 }
 
-func (a AllTypes) GetUnknownMapProperty() map[string]jsii.Any {
+func (a *AllTypes) GetUnknownMapProperty() map[string]jsii.Any {
     return a.UnknownMapProperty
 }
 
-func (a AllTypes) GetUnknownProperty() jsii.Any {
+func (a *AllTypes) GetUnknownProperty() jsii.Any {
     return a.UnknownProperty
 }
 
-func (a AllTypes) GetOptionalEnumValue() StringEnum {
+func (a *AllTypes) GetOptionalEnumValue() StringEnum {
     return a.OptionalEnumValue
 }
 
@@ -1363,83 +1363,83 @@ func NewAllTypes() AllTypesIface {
     return &AllTypes{}
 }
 
-func (a AllTypes) SetEnumPropertyValue(val float64) {
+func (a *AllTypes) SetEnumPropertyValue(val float64) {
     a.EnumPropertyValue = val
 }
 
-func (a AllTypes) SetAnyArrayProperty(val []jsii.Any) {
+func (a *AllTypes) SetAnyArrayProperty(val []jsii.Any) {
     a.AnyArrayProperty = val
 }
 
-func (a AllTypes) SetAnyMapProperty(val map[string]jsii.Any) {
+func (a *AllTypes) SetAnyMapProperty(val map[string]jsii.Any) {
     a.AnyMapProperty = val
 }
 
-func (a AllTypes) SetAnyProperty(val jsii.Any) {
+func (a *AllTypes) SetAnyProperty(val jsii.Any) {
     a.AnyProperty = val
 }
 
-func (a AllTypes) SetArrayProperty(val []string) {
+func (a *AllTypes) SetArrayProperty(val []string) {
     a.ArrayProperty = val
 }
 
-func (a AllTypes) SetBooleanProperty(val bool) {
+func (a *AllTypes) SetBooleanProperty(val bool) {
     a.BooleanProperty = val
 }
 
-func (a AllTypes) SetDateProperty(val string) {
+func (a *AllTypes) SetDateProperty(val string) {
     a.DateProperty = val
 }
 
-func (a AllTypes) SetEnumProperty(val AllTypesEnum) {
+func (a *AllTypes) SetEnumProperty(val AllTypesEnum) {
     a.EnumProperty = val
 }
 
-func (a AllTypes) SetJsonProperty(val map[string]jsii.Any) {
+func (a *AllTypes) SetJsonProperty(val map[string]jsii.Any) {
     a.JsonProperty = val
 }
 
-func (a AllTypes) SetMapProperty(val map[string]scopejsiicalclib.Number) {
+func (a *AllTypes) SetMapProperty(val map[string]scopejsiicalclib.Number) {
     a.MapProperty = val
 }
 
-func (a AllTypes) SetNumberProperty(val float64) {
+func (a *AllTypes) SetNumberProperty(val float64) {
     a.NumberProperty = val
 }
 
-func (a AllTypes) SetStringProperty(val string) {
+func (a *AllTypes) SetStringProperty(val string) {
     a.StringProperty = val
 }
 
-func (a AllTypes) SetUnionArrayProperty(val []jsii.Any) {
+func (a *AllTypes) SetUnionArrayProperty(val []jsii.Any) {
     a.UnionArrayProperty = val
 }
 
-func (a AllTypes) SetUnionMapProperty(val map[string]jsii.Any) {
+func (a *AllTypes) SetUnionMapProperty(val map[string]jsii.Any) {
     a.UnionMapProperty = val
 }
 
-func (a AllTypes) SetUnionProperty(val jsii.Any) {
+func (a *AllTypes) SetUnionProperty(val jsii.Any) {
     a.UnionProperty = val
 }
 
-func (a AllTypes) SetUnknownArrayProperty(val []jsii.Any) {
+func (a *AllTypes) SetUnknownArrayProperty(val []jsii.Any) {
     a.UnknownArrayProperty = val
 }
 
-func (a AllTypes) SetUnknownMapProperty(val map[string]jsii.Any) {
+func (a *AllTypes) SetUnknownMapProperty(val map[string]jsii.Any) {
     a.UnknownMapProperty = val
 }
 
-func (a AllTypes) SetUnknownProperty(val jsii.Any) {
+func (a *AllTypes) SetUnknownProperty(val jsii.Any) {
     a.UnknownProperty = val
 }
 
-func (a AllTypes) SetOptionalEnumValue(val StringEnum) {
+func (a *AllTypes) SetOptionalEnumValue(val StringEnum) {
     a.OptionalEnumValue = val
 }
 
-func (a *AllTypes) AnyIn() jsii.Any  {
+func (a *AllTypes) AnyIn() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AllTypes",
         Method: "AnyIn",
@@ -1448,7 +1448,7 @@ func (a *AllTypes) AnyIn() jsii.Any  {
     return nil
 }
 
-func (a *AllTypes) AnyOut() jsii.Any  {
+func (a *AllTypes) AnyOut() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AllTypes",
         Method: "AnyOut",
@@ -1457,7 +1457,7 @@ func (a *AllTypes) AnyOut() jsii.Any  {
     return nil
 }
 
-func (a *AllTypes) EnumMethod() StringEnum  {
+func (a *AllTypes) EnumMethod() StringEnum {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AllTypes",
         Method: "EnumMethod",
@@ -1495,7 +1495,7 @@ func NewAllowedMethodNames() AllowedMethodNamesIface {
     return &AllowedMethodNames{}
 }
 
-func (a *AllowedMethodNames) GetBar() jsii.Any  {
+func (a *AllowedMethodNames) GetBar() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AllowedMethodNames",
         Method: "GetBar",
@@ -1504,7 +1504,7 @@ func (a *AllowedMethodNames) GetBar() jsii.Any  {
     return nil
 }
 
-func (a *AllowedMethodNames) GetFoo() string  {
+func (a *AllowedMethodNames) GetFoo() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AllowedMethodNames",
         Method: "GetFoo",
@@ -1513,7 +1513,7 @@ func (a *AllowedMethodNames) GetFoo() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (a *AllowedMethodNames) SetBar() jsii.Any  {
+func (a *AllowedMethodNames) SetBar() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AllowedMethodNames",
         Method: "SetBar",
@@ -1522,7 +1522,7 @@ func (a *AllowedMethodNames) SetBar() jsii.Any  {
     return nil
 }
 
-func (a *AllowedMethodNames) SetFoo() jsii.Any  {
+func (a *AllowedMethodNames) SetFoo() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AllowedMethodNames",
         Method: "SetFoo",
@@ -1545,11 +1545,11 @@ type AmbiguousParameters struct {
     Scope Bell
 }
 
-func (a AmbiguousParameters) GetProps() StructParameterType {
+func (a *AmbiguousParameters) GetProps() StructParameterType {
     return a.Props
 }
 
-func (a AmbiguousParameters) GetScope() Bell {
+func (a *AmbiguousParameters) GetScope() Bell {
     return a.Scope
 }
 
@@ -1563,11 +1563,11 @@ func NewAmbiguousParameters(scope Bell, props StructParameterType) AmbiguousPara
     return &AmbiguousParameters{}
 }
 
-func (a AmbiguousParameters) SetProps(val StructParameterType) {
+func (a *AmbiguousParameters) SetProps(val StructParameterType) {
     a.Props = val
 }
 
-func (a AmbiguousParameters) SetScope(val Bell) {
+func (a *AmbiguousParameters) SetScope(val Bell) {
     a.Scope = val
 }
 
@@ -1591,7 +1591,7 @@ func NewAnonymousImplementationProvider() AnonymousImplementationProviderIface {
     return &AnonymousImplementationProvider{}
 }
 
-func (a *AnonymousImplementationProvider) ProvideAsClass() Implementation  {
+func (a *AnonymousImplementationProvider) ProvideAsClass() Implementation {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AnonymousImplementationProvider",
         Method: "ProvideAsClass",
@@ -1600,7 +1600,7 @@ func (a *AnonymousImplementationProvider) ProvideAsClass() Implementation  {
     return Implementation{}
 }
 
-func (a *AnonymousImplementationProvider) ProvideAsInterface() IAnonymouslyImplementMe  {
+func (a *AnonymousImplementationProvider) ProvideAsInterface() IAnonymouslyImplementMe {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AnonymousImplementationProvider",
         Method: "ProvideAsInterface",
@@ -1632,7 +1632,7 @@ func NewAsyncVirtualMethods() AsyncVirtualMethodsIface {
     return &AsyncVirtualMethods{}
 }
 
-func (a *AsyncVirtualMethods) CallMe() float64  {
+func (a *AsyncVirtualMethods) CallMe() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AsyncVirtualMethods",
         Method: "CallMe",
@@ -1641,7 +1641,7 @@ func (a *AsyncVirtualMethods) CallMe() float64  {
     return 0.0
 }
 
-func (a *AsyncVirtualMethods) CallMe2() float64  {
+func (a *AsyncVirtualMethods) CallMe2() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AsyncVirtualMethods",
         Method: "CallMe2",
@@ -1650,7 +1650,7 @@ func (a *AsyncVirtualMethods) CallMe2() float64  {
     return 0.0
 }
 
-func (a *AsyncVirtualMethods) CallMeDoublePromise() float64  {
+func (a *AsyncVirtualMethods) CallMeDoublePromise() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AsyncVirtualMethods",
         Method: "CallMeDoublePromise",
@@ -1659,7 +1659,7 @@ func (a *AsyncVirtualMethods) CallMeDoublePromise() float64  {
     return 0.0
 }
 
-func (a *AsyncVirtualMethods) DontOverrideMe() float64  {
+func (a *AsyncVirtualMethods) DontOverrideMe() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AsyncVirtualMethods",
         Method: "DontOverrideMe",
@@ -1668,7 +1668,7 @@ func (a *AsyncVirtualMethods) DontOverrideMe() float64  {
     return 0.0
 }
 
-func (a *AsyncVirtualMethods) OverrideMe() float64  {
+func (a *AsyncVirtualMethods) OverrideMe() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AsyncVirtualMethods",
         Method: "OverrideMe",
@@ -1677,7 +1677,7 @@ func (a *AsyncVirtualMethods) OverrideMe() float64  {
     return 0.0
 }
 
-func (a *AsyncVirtualMethods) OverrideMeToo() float64  {
+func (a *AsyncVirtualMethods) OverrideMeToo() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AsyncVirtualMethods",
         Method: "OverrideMeToo",
@@ -1705,7 +1705,7 @@ func NewAugmentableClass() AugmentableClassIface {
     return &AugmentableClass{}
 }
 
-func (a *AugmentableClass) MethodOne() jsii.Any  {
+func (a *AugmentableClass) MethodOne() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AugmentableClass",
         Method: "MethodOne",
@@ -1714,7 +1714,7 @@ func (a *AugmentableClass) MethodOne() jsii.Any  {
     return nil
 }
 
-func (a *AugmentableClass) MethodTwo() jsii.Any  {
+func (a *AugmentableClass) MethodTwo() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "AugmentableClass",
         Method: "MethodTwo",
@@ -1753,7 +1753,7 @@ type Bell struct {
     Rung bool
 }
 
-func (b Bell) GetRung() bool {
+func (b *Bell) GetRung() bool {
     return b.Rung
 }
 
@@ -1767,11 +1767,11 @@ func NewBell() BellIface {
     return &Bell{}
 }
 
-func (b Bell) SetRung(val bool) {
+func (b *Bell) SetRung(val bool) {
     b.Rung = val
 }
 
-func (b *Bell) Ring() jsii.Any  {
+func (b *Bell) Ring() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Bell",
         Method: "Ring",
@@ -1806,15 +1806,15 @@ type BinaryOperation struct {
     Rhs scopejsiicalclib.NumericValue
 }
 
-func (b BinaryOperation) GetValue() float64 {
+func (b *BinaryOperation) GetValue() float64 {
     return b.Value
 }
 
-func (b BinaryOperation) GetLhs() scopejsiicalclib.NumericValue {
+func (b *BinaryOperation) GetLhs() scopejsiicalclib.NumericValue {
     return b.Lhs
 }
 
-func (b BinaryOperation) GetRhs() scopejsiicalclib.NumericValue {
+func (b *BinaryOperation) GetRhs() scopejsiicalclib.NumericValue {
     return b.Rhs
 }
 
@@ -1829,19 +1829,19 @@ func NewBinaryOperation(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.
     return &BinaryOperation{}
 }
 
-func (b BinaryOperation) SetValue(val float64) {
+func (b *BinaryOperation) SetValue(val float64) {
     b.Value = val
 }
 
-func (b BinaryOperation) SetLhs(val scopejsiicalclib.NumericValue) {
+func (b *BinaryOperation) SetLhs(val scopejsiicalclib.NumericValue) {
     b.Lhs = val
 }
 
-func (b BinaryOperation) SetRhs(val scopejsiicalclib.NumericValue) {
+func (b *BinaryOperation) SetRhs(val scopejsiicalclib.NumericValue) {
     b.Rhs = val
 }
 
-func (b *BinaryOperation) TypeName() jsii.Any  {
+func (b *BinaryOperation) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "BinaryOperation",
         Method: "TypeName",
@@ -1850,7 +1850,7 @@ func (b *BinaryOperation) TypeName() jsii.Any  {
     return nil
 }
 
-func (b *BinaryOperation) ToString() string  {
+func (b *BinaryOperation) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "BinaryOperation",
         Method: "ToString",
@@ -1859,7 +1859,7 @@ func (b *BinaryOperation) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (b *BinaryOperation) Hello() string  {
+func (b *BinaryOperation) Hello() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "BinaryOperation",
         Method: "Hello",
@@ -1888,7 +1888,7 @@ func NewBurriedAnonymousObject() BurriedAnonymousObjectIface {
     return &BurriedAnonymousObject{}
 }
 
-func (b *BurriedAnonymousObject) Check() bool  {
+func (b *BurriedAnonymousObject) Check() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "BurriedAnonymousObject",
         Method: "Check",
@@ -1897,7 +1897,7 @@ func (b *BurriedAnonymousObject) Check() bool  {
     return true
 }
 
-func (b *BurriedAnonymousObject) GiveItBack() jsii.Any  {
+func (b *BurriedAnonymousObject) GiveItBack() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "BurriedAnonymousObject",
         Method: "GiveItBack",
@@ -1976,43 +1976,43 @@ type Calculator struct {
     UnionProperty jsii.Any
 }
 
-func (c Calculator) GetValue() float64 {
+func (c *Calculator) GetValue() float64 {
     return c.Value
 }
 
-func (c Calculator) GetExpression() scopejsiicalclib.NumericValue {
+func (c *Calculator) GetExpression() scopejsiicalclib.NumericValue {
     return c.Expression
 }
 
-func (c Calculator) GetDecorationPostfixes() []string {
+func (c *Calculator) GetDecorationPostfixes() []string {
     return c.DecorationPostfixes
 }
 
-func (c Calculator) GetDecorationPrefixes() []string {
+func (c *Calculator) GetDecorationPrefixes() []string {
     return c.DecorationPrefixes
 }
 
-func (c Calculator) GetStringStyle() composition.CompositionStringStyle {
+func (c *Calculator) GetStringStyle() composition.CompositionStringStyle {
     return c.StringStyle
 }
 
-func (c Calculator) GetOperationsLog() []scopejsiicalclib.NumericValue {
+func (c *Calculator) GetOperationsLog() []scopejsiicalclib.NumericValue {
     return c.OperationsLog
 }
 
-func (c Calculator) GetOperationsMap() map[string][]scopejsiicalclib.NumericValue {
+func (c *Calculator) GetOperationsMap() map[string][]scopejsiicalclib.NumericValue {
     return c.OperationsMap
 }
 
-func (c Calculator) GetCurr() scopejsiicalclib.NumericValue {
+func (c *Calculator) GetCurr() scopejsiicalclib.NumericValue {
     return c.Curr
 }
 
-func (c Calculator) GetMaxValue() float64 {
+func (c *Calculator) GetMaxValue() float64 {
     return c.MaxValue
 }
 
-func (c Calculator) GetUnionProperty() jsii.Any {
+func (c *Calculator) GetUnionProperty() jsii.Any {
     return c.UnionProperty
 }
 
@@ -2027,47 +2027,47 @@ func NewCalculator(props CalculatorProps) CalculatorIface {
     return &Calculator{}
 }
 
-func (c Calculator) SetValue(val float64) {
+func (c *Calculator) SetValue(val float64) {
     c.Value = val
 }
 
-func (c Calculator) SetExpression(val scopejsiicalclib.NumericValue) {
+func (c *Calculator) SetExpression(val scopejsiicalclib.NumericValue) {
     c.Expression = val
 }
 
-func (c Calculator) SetDecorationPostfixes(val []string) {
+func (c *Calculator) SetDecorationPostfixes(val []string) {
     c.DecorationPostfixes = val
 }
 
-func (c Calculator) SetDecorationPrefixes(val []string) {
+func (c *Calculator) SetDecorationPrefixes(val []string) {
     c.DecorationPrefixes = val
 }
 
-func (c Calculator) SetStringStyle(val composition.CompositionStringStyle) {
+func (c *Calculator) SetStringStyle(val composition.CompositionStringStyle) {
     c.StringStyle = val
 }
 
-func (c Calculator) SetOperationsLog(val []scopejsiicalclib.NumericValue) {
+func (c *Calculator) SetOperationsLog(val []scopejsiicalclib.NumericValue) {
     c.OperationsLog = val
 }
 
-func (c Calculator) SetOperationsMap(val map[string][]scopejsiicalclib.NumericValue) {
+func (c *Calculator) SetOperationsMap(val map[string][]scopejsiicalclib.NumericValue) {
     c.OperationsMap = val
 }
 
-func (c Calculator) SetCurr(val scopejsiicalclib.NumericValue) {
+func (c *Calculator) SetCurr(val scopejsiicalclib.NumericValue) {
     c.Curr = val
 }
 
-func (c Calculator) SetMaxValue(val float64) {
+func (c *Calculator) SetMaxValue(val float64) {
     c.MaxValue = val
 }
 
-func (c Calculator) SetUnionProperty(val jsii.Any) {
+func (c *Calculator) SetUnionProperty(val jsii.Any) {
     c.UnionProperty = val
 }
 
-func (c *Calculator) TypeName() jsii.Any  {
+func (c *Calculator) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Calculator",
         Method: "TypeName",
@@ -2076,7 +2076,7 @@ func (c *Calculator) TypeName() jsii.Any  {
     return nil
 }
 
-func (c *Calculator) ToString() string  {
+func (c *Calculator) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Calculator",
         Method: "ToString",
@@ -2085,7 +2085,7 @@ func (c *Calculator) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (c *Calculator) Add() jsii.Any  {
+func (c *Calculator) Add() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Calculator",
         Method: "Add",
@@ -2094,7 +2094,7 @@ func (c *Calculator) Add() jsii.Any  {
     return nil
 }
 
-func (c *Calculator) Mul() jsii.Any  {
+func (c *Calculator) Mul() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Calculator",
         Method: "Mul",
@@ -2103,7 +2103,7 @@ func (c *Calculator) Mul() jsii.Any  {
     return nil
 }
 
-func (c *Calculator) Neg() jsii.Any  {
+func (c *Calculator) Neg() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Calculator",
         Method: "Neg",
@@ -2112,7 +2112,7 @@ func (c *Calculator) Neg() jsii.Any  {
     return nil
 }
 
-func (c *Calculator) Pow() jsii.Any  {
+func (c *Calculator) Pow() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Calculator",
         Method: "Pow",
@@ -2121,7 +2121,7 @@ func (c *Calculator) Pow() jsii.Any  {
     return nil
 }
 
-func (c *Calculator) ReadUnionValue() float64  {
+func (c *Calculator) ReadUnionValue() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Calculator",
         Method: "ReadUnionValue",
@@ -2147,11 +2147,11 @@ type CalculatorProps struct {
     MaximumValue float64
 }
 
-func (c CalculatorProps) GetInitialValue() float64 {
+func (c *CalculatorProps) GetInitialValue() float64 {
     return c.InitialValue
 }
 
-func (c CalculatorProps) GetMaximumValue() float64 {
+func (c *CalculatorProps) GetMaximumValue() float64 {
     return c.MaximumValue
 }
 
@@ -2168,11 +2168,11 @@ type ChildStruct982 struct {
     Bar float64
 }
 
-func (c ChildStruct982) GetFoo() string {
+func (c *ChildStruct982) GetFoo() string {
     return c.Foo
 }
 
-func (c ChildStruct982) GetBar() float64 {
+func (c *ChildStruct982) GetBar() float64 {
     return c.Bar
 }
 
@@ -2199,19 +2199,19 @@ type ClassThatImplementsTheInternalInterface struct {
     D string
 }
 
-func (c ClassThatImplementsTheInternalInterface) GetA() string {
+func (c *ClassThatImplementsTheInternalInterface) GetA() string {
     return c.A
 }
 
-func (c ClassThatImplementsTheInternalInterface) GetB() string {
+func (c *ClassThatImplementsTheInternalInterface) GetB() string {
     return c.B
 }
 
-func (c ClassThatImplementsTheInternalInterface) GetC() string {
+func (c *ClassThatImplementsTheInternalInterface) GetC() string {
     return c.C
 }
 
-func (c ClassThatImplementsTheInternalInterface) GetD() string {
+func (c *ClassThatImplementsTheInternalInterface) GetD() string {
     return c.D
 }
 
@@ -2225,19 +2225,19 @@ func NewClassThatImplementsTheInternalInterface() ClassThatImplementsTheInternal
     return &ClassThatImplementsTheInternalInterface{}
 }
 
-func (c ClassThatImplementsTheInternalInterface) SetA(val string) {
+func (c *ClassThatImplementsTheInternalInterface) SetA(val string) {
     c.A = val
 }
 
-func (c ClassThatImplementsTheInternalInterface) SetB(val string) {
+func (c *ClassThatImplementsTheInternalInterface) SetB(val string) {
     c.B = val
 }
 
-func (c ClassThatImplementsTheInternalInterface) SetC(val string) {
+func (c *ClassThatImplementsTheInternalInterface) SetC(val string) {
     c.C = val
 }
 
-func (c ClassThatImplementsTheInternalInterface) SetD(val string) {
+func (c *ClassThatImplementsTheInternalInterface) SetD(val string) {
     c.D = val
 }
 
@@ -2263,19 +2263,19 @@ type ClassThatImplementsThePrivateInterface struct {
     E string
 }
 
-func (c ClassThatImplementsThePrivateInterface) GetA() string {
+func (c *ClassThatImplementsThePrivateInterface) GetA() string {
     return c.A
 }
 
-func (c ClassThatImplementsThePrivateInterface) GetB() string {
+func (c *ClassThatImplementsThePrivateInterface) GetB() string {
     return c.B
 }
 
-func (c ClassThatImplementsThePrivateInterface) GetC() string {
+func (c *ClassThatImplementsThePrivateInterface) GetC() string {
     return c.C
 }
 
-func (c ClassThatImplementsThePrivateInterface) GetE() string {
+func (c *ClassThatImplementsThePrivateInterface) GetE() string {
     return c.E
 }
 
@@ -2289,19 +2289,19 @@ func NewClassThatImplementsThePrivateInterface() ClassThatImplementsThePrivateIn
     return &ClassThatImplementsThePrivateInterface{}
 }
 
-func (c ClassThatImplementsThePrivateInterface) SetA(val string) {
+func (c *ClassThatImplementsThePrivateInterface) SetA(val string) {
     c.A = val
 }
 
-func (c ClassThatImplementsThePrivateInterface) SetB(val string) {
+func (c *ClassThatImplementsThePrivateInterface) SetB(val string) {
     c.B = val
 }
 
-func (c ClassThatImplementsThePrivateInterface) SetC(val string) {
+func (c *ClassThatImplementsThePrivateInterface) SetC(val string) {
     c.C = val
 }
 
-func (c ClassThatImplementsThePrivateInterface) SetE(val string) {
+func (c *ClassThatImplementsThePrivateInterface) SetE(val string) {
     c.E = val
 }
 
@@ -2327,19 +2327,19 @@ type ClassWithCollections struct {
     Map map[string]string
 }
 
-func (c ClassWithCollections) GetStaticArray() []string {
+func (c *ClassWithCollections) GetStaticArray() []string {
     return c.StaticArray
 }
 
-func (c ClassWithCollections) GetStaticMap() map[string]string {
+func (c *ClassWithCollections) GetStaticMap() map[string]string {
     return c.StaticMap
 }
 
-func (c ClassWithCollections) GetArray() []string {
+func (c *ClassWithCollections) GetArray() []string {
     return c.Array
 }
 
-func (c ClassWithCollections) GetMap() map[string]string {
+func (c *ClassWithCollections) GetMap() map[string]string {
     return c.Map
 }
 
@@ -2353,23 +2353,23 @@ func NewClassWithCollections(map_ map[string]string, array []string) ClassWithCo
     return &ClassWithCollections{}
 }
 
-func (c ClassWithCollections) SetStaticArray(val []string) {
+func (c *ClassWithCollections) SetStaticArray(val []string) {
     c.StaticArray = val
 }
 
-func (c ClassWithCollections) SetStaticMap(val map[string]string) {
+func (c *ClassWithCollections) SetStaticMap(val map[string]string) {
     c.StaticMap = val
 }
 
-func (c ClassWithCollections) SetArray(val []string) {
+func (c *ClassWithCollections) SetArray(val []string) {
     c.Array = val
 }
 
-func (c ClassWithCollections) SetMap(val map[string]string) {
+func (c *ClassWithCollections) SetMap(val map[string]string) {
     c.Map = val
 }
 
-func (c *ClassWithCollections) CreateAList() []string  {
+func (c *ClassWithCollections) CreateAList() []string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithCollections",
         Method: "CreateAList",
@@ -2378,7 +2378,7 @@ func (c *ClassWithCollections) CreateAList() []string  {
     return nil
 }
 
-func (c *ClassWithCollections) CreateAMap() map[string]string  {
+func (c *ClassWithCollections) CreateAMap() map[string]string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithCollections",
         Method: "CreateAMap",
@@ -2424,7 +2424,7 @@ type ClassWithJavaReservedWords struct {
     Int string
 }
 
-func (c ClassWithJavaReservedWords) GetInt() string {
+func (c *ClassWithJavaReservedWords) GetInt() string {
     return c.Int
 }
 
@@ -2438,11 +2438,11 @@ func NewClassWithJavaReservedWords(int string) ClassWithJavaReservedWordsIface {
     return &ClassWithJavaReservedWords{}
 }
 
-func (c ClassWithJavaReservedWords) SetInt(val string) {
+func (c *ClassWithJavaReservedWords) SetInt(val string) {
     c.Int = val
 }
 
-func (c *ClassWithJavaReservedWords) Import() string  {
+func (c *ClassWithJavaReservedWords) Import() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithJavaReservedWords",
         Method: "Import",
@@ -2462,7 +2462,7 @@ type ClassWithMutableObjectLiteralProperty struct {
     MutableObject IMutableObjectLiteral
 }
 
-func (c ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjectLiteral {
+func (c *ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjectLiteral {
     return c.MutableObject
 }
 
@@ -2476,7 +2476,7 @@ func NewClassWithMutableObjectLiteralProperty() ClassWithMutableObjectLiteralPro
     return &ClassWithMutableObjectLiteralProperty{}
 }
 
-func (c ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObjectLiteral) {
+func (c *ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObjectLiteral) {
     c.MutableObject = val
 }
 
@@ -2497,24 +2497,24 @@ type ClassWithPrivateConstructorAndAutomaticProperties struct {
     ReadWriteString string
 }
 
-func (c ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() string {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() string {
     return c.ReadOnlyString
 }
 
-func (c ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() string {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() string {
     return c.ReadWriteString
 }
 
 
-func (c ClassWithPrivateConstructorAndAutomaticProperties) SetReadOnlyString(val string) {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadOnlyString(val string) {
     c.ReadOnlyString = val
 }
 
-func (c ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(val string) {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(val string) {
     c.ReadWriteString = val
 }
 
-func (c *ClassWithPrivateConstructorAndAutomaticProperties) Create() ClassWithPrivateConstructorAndAutomaticProperties  {
+func (c *ClassWithPrivateConstructorAndAutomaticProperties) Create() ClassWithPrivateConstructorAndAutomaticProperties {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithPrivateConstructorAndAutomaticProperties",
         Method: "Create",
@@ -2539,16 +2539,16 @@ type ConfusingToJackson struct {
     UnionProperty jsii.Any
 }
 
-func (c ConfusingToJackson) GetUnionProperty() jsii.Any {
+func (c *ConfusingToJackson) GetUnionProperty() jsii.Any {
     return c.UnionProperty
 }
 
 
-func (c ConfusingToJackson) SetUnionProperty(val jsii.Any) {
+func (c *ConfusingToJackson) SetUnionProperty(val jsii.Any) {
     c.UnionProperty = val
 }
 
-func (c *ConfusingToJackson) MakeInstance() ConfusingToJackson  {
+func (c *ConfusingToJackson) MakeInstance() ConfusingToJackson {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConfusingToJackson",
         Method: "MakeInstance",
@@ -2557,7 +2557,7 @@ func (c *ConfusingToJackson) MakeInstance() ConfusingToJackson  {
     return ConfusingToJackson{}
 }
 
-func (c *ConfusingToJackson) MakeStructInstance() ConfusingToJacksonStruct  {
+func (c *ConfusingToJackson) MakeStructInstance() ConfusingToJacksonStruct {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConfusingToJackson",
         Method: "MakeStructInstance",
@@ -2576,7 +2576,7 @@ type ConfusingToJacksonStruct struct {
     UnionProperty jsii.Any
 }
 
-func (c ConfusingToJacksonStruct) GetUnionProperty() jsii.Any {
+func (c *ConfusingToJacksonStruct) GetUnionProperty() jsii.Any {
     return c.UnionProperty
 }
 
@@ -2622,7 +2622,7 @@ func NewConstructors() ConstructorsIface {
     return &Constructors{}
 }
 
-func (c *Constructors) HiddenInterface() IPublicInterface  {
+func (c *Constructors) HiddenInterface() IPublicInterface {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Constructors",
         Method: "HiddenInterface",
@@ -2631,7 +2631,7 @@ func (c *Constructors) HiddenInterface() IPublicInterface  {
     return nil
 }
 
-func (c *Constructors) HiddenInterfaces() []IPublicInterface  {
+func (c *Constructors) HiddenInterfaces() []IPublicInterface {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Constructors",
         Method: "HiddenInterfaces",
@@ -2640,7 +2640,7 @@ func (c *Constructors) HiddenInterfaces() []IPublicInterface  {
     return nil
 }
 
-func (c *Constructors) HiddenSubInterfaces() []IPublicInterface  {
+func (c *Constructors) HiddenSubInterfaces() []IPublicInterface {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Constructors",
         Method: "HiddenSubInterfaces",
@@ -2649,7 +2649,7 @@ func (c *Constructors) HiddenSubInterfaces() []IPublicInterface  {
     return nil
 }
 
-func (c *Constructors) MakeClass() PublicClass  {
+func (c *Constructors) MakeClass() PublicClass {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Constructors",
         Method: "MakeClass",
@@ -2658,7 +2658,7 @@ func (c *Constructors) MakeClass() PublicClass  {
     return PublicClass{}
 }
 
-func (c *Constructors) MakeInterface() IPublicInterface  {
+func (c *Constructors) MakeInterface() IPublicInterface {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Constructors",
         Method: "MakeInterface",
@@ -2667,7 +2667,7 @@ func (c *Constructors) MakeInterface() IPublicInterface  {
     return nil
 }
 
-func (c *Constructors) MakeInterface2() IPublicInterface2  {
+func (c *Constructors) MakeInterface2() IPublicInterface2 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Constructors",
         Method: "MakeInterface2",
@@ -2676,7 +2676,7 @@ func (c *Constructors) MakeInterface2() IPublicInterface2  {
     return nil
 }
 
-func (c *Constructors) MakeInterfaces() []IPublicInterface  {
+func (c *Constructors) MakeInterfaces() []IPublicInterface {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Constructors",
         Method: "MakeInterfaces",
@@ -2703,7 +2703,7 @@ func NewConsumePureInterface(delegate IStructReturningDelegate) ConsumePureInter
     return &ConsumePureInterface{}
 }
 
-func (c *ConsumePureInterface) WorkItBaby() StructB  {
+func (c *ConsumePureInterface) WorkItBaby() StructB {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumePureInterface",
         Method: "WorkItBaby",
@@ -2741,7 +2741,7 @@ func NewConsumerCanRingBell() ConsumerCanRingBellIface {
     return &ConsumerCanRingBell{}
 }
 
-func (c *ConsumerCanRingBell) StaticImplementedByObjectLiteral() bool  {
+func (c *ConsumerCanRingBell) StaticImplementedByObjectLiteral() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumerCanRingBell",
         Method: "StaticImplementedByObjectLiteral",
@@ -2750,7 +2750,7 @@ func (c *ConsumerCanRingBell) StaticImplementedByObjectLiteral() bool  {
     return true
 }
 
-func (c *ConsumerCanRingBell) StaticImplementedByPrivateClass() bool  {
+func (c *ConsumerCanRingBell) StaticImplementedByPrivateClass() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumerCanRingBell",
         Method: "StaticImplementedByPrivateClass",
@@ -2759,7 +2759,7 @@ func (c *ConsumerCanRingBell) StaticImplementedByPrivateClass() bool  {
     return true
 }
 
-func (c *ConsumerCanRingBell) StaticImplementedByPublicClass() bool  {
+func (c *ConsumerCanRingBell) StaticImplementedByPublicClass() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumerCanRingBell",
         Method: "StaticImplementedByPublicClass",
@@ -2768,7 +2768,7 @@ func (c *ConsumerCanRingBell) StaticImplementedByPublicClass() bool  {
     return true
 }
 
-func (c *ConsumerCanRingBell) StaticWhenTypedAsClass() bool  {
+func (c *ConsumerCanRingBell) StaticWhenTypedAsClass() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumerCanRingBell",
         Method: "StaticWhenTypedAsClass",
@@ -2777,7 +2777,7 @@ func (c *ConsumerCanRingBell) StaticWhenTypedAsClass() bool  {
     return true
 }
 
-func (c *ConsumerCanRingBell) ImplementedByObjectLiteral() bool  {
+func (c *ConsumerCanRingBell) ImplementedByObjectLiteral() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumerCanRingBell",
         Method: "ImplementedByObjectLiteral",
@@ -2786,7 +2786,7 @@ func (c *ConsumerCanRingBell) ImplementedByObjectLiteral() bool  {
     return true
 }
 
-func (c *ConsumerCanRingBell) ImplementedByPrivateClass() bool  {
+func (c *ConsumerCanRingBell) ImplementedByPrivateClass() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumerCanRingBell",
         Method: "ImplementedByPrivateClass",
@@ -2795,7 +2795,7 @@ func (c *ConsumerCanRingBell) ImplementedByPrivateClass() bool  {
     return true
 }
 
-func (c *ConsumerCanRingBell) ImplementedByPublicClass() bool  {
+func (c *ConsumerCanRingBell) ImplementedByPublicClass() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumerCanRingBell",
         Method: "ImplementedByPublicClass",
@@ -2804,7 +2804,7 @@ func (c *ConsumerCanRingBell) ImplementedByPublicClass() bool  {
     return true
 }
 
-func (c *ConsumerCanRingBell) WhenTypedAsClass() bool  {
+func (c *ConsumerCanRingBell) WhenTypedAsClass() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumerCanRingBell",
         Method: "WhenTypedAsClass",
@@ -2832,7 +2832,7 @@ func NewConsumersOfThisCrazyTypeSystem() ConsumersOfThisCrazyTypeSystemIface {
     return &ConsumersOfThisCrazyTypeSystem{}
 }
 
-func (c *ConsumersOfThisCrazyTypeSystem) ConsumeAnotherPublicInterface() string  {
+func (c *ConsumersOfThisCrazyTypeSystem) ConsumeAnotherPublicInterface() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumersOfThisCrazyTypeSystem",
         Method: "ConsumeAnotherPublicInterface",
@@ -2841,7 +2841,7 @@ func (c *ConsumersOfThisCrazyTypeSystem) ConsumeAnotherPublicInterface() string 
     return "NOOP_RETURN_STRING"
 }
 
-func (c *ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface() jsii.Any  {
+func (c *ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ConsumersOfThisCrazyTypeSystem",
         Method: "ConsumeNonInternalInterface",
@@ -2871,7 +2871,7 @@ func NewDataRenderer() DataRendererIface {
     return &DataRenderer{}
 }
 
-func (d *DataRenderer) Render() string  {
+func (d *DataRenderer) Render() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DataRenderer",
         Method: "Render",
@@ -2880,7 +2880,7 @@ func (d *DataRenderer) Render() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (d *DataRenderer) RenderArbitrary() string  {
+func (d *DataRenderer) RenderArbitrary() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DataRenderer",
         Method: "RenderArbitrary",
@@ -2889,7 +2889,7 @@ func (d *DataRenderer) RenderArbitrary() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (d *DataRenderer) RenderMap() string  {
+func (d *DataRenderer) RenderMap() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DataRenderer",
         Method: "RenderMap",
@@ -2915,15 +2915,15 @@ type DefaultedConstructorArgument struct {
     Arg2 string
 }
 
-func (d DefaultedConstructorArgument) GetArg1() float64 {
+func (d *DefaultedConstructorArgument) GetArg1() float64 {
     return d.Arg1
 }
 
-func (d DefaultedConstructorArgument) GetArg3() string {
+func (d *DefaultedConstructorArgument) GetArg3() string {
     return d.Arg3
 }
 
-func (d DefaultedConstructorArgument) GetArg2() string {
+func (d *DefaultedConstructorArgument) GetArg2() string {
     return d.Arg2
 }
 
@@ -2937,15 +2937,15 @@ func NewDefaultedConstructorArgument(arg1 float64, arg2 string, arg3 string) Def
     return &DefaultedConstructorArgument{}
 }
 
-func (d DefaultedConstructorArgument) SetArg1(val float64) {
+func (d *DefaultedConstructorArgument) SetArg1(val float64) {
     d.Arg1 = val
 }
 
-func (d DefaultedConstructorArgument) SetArg3(val string) {
+func (d *DefaultedConstructorArgument) SetArg3(val string) {
     d.Arg3 = val
 }
 
-func (d DefaultedConstructorArgument) SetArg2(val string) {
+func (d *DefaultedConstructorArgument) SetArg2(val string) {
     d.Arg2 = val
 }
 
@@ -2972,7 +2972,7 @@ func NewDemonstrate982() Demonstrate982Iface {
     return &Demonstrate982{}
 }
 
-func (d *Demonstrate982) TakeThis() ChildStruct982  {
+func (d *Demonstrate982) TakeThis() ChildStruct982 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Demonstrate982",
         Method: "TakeThis",
@@ -2981,7 +2981,7 @@ func (d *Demonstrate982) TakeThis() ChildStruct982  {
     return ChildStruct982{}
 }
 
-func (d *Demonstrate982) TakeThisToo() ParentStruct982  {
+func (d *Demonstrate982) TakeThisToo() ParentStruct982 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Demonstrate982",
         Method: "TakeThisToo",
@@ -3008,11 +3008,11 @@ type DeprecatedClass struct {
     MutableProperty float64
 }
 
-func (d DeprecatedClass) GetReadonlyProperty() string {
+func (d *DeprecatedClass) GetReadonlyProperty() string {
     return d.ReadonlyProperty
 }
 
-func (d DeprecatedClass) GetMutableProperty() float64 {
+func (d *DeprecatedClass) GetMutableProperty() float64 {
     return d.MutableProperty
 }
 
@@ -3026,15 +3026,15 @@ func NewDeprecatedClass(readonlyString string, mutableNumber float64) Deprecated
     return &DeprecatedClass{}
 }
 
-func (d DeprecatedClass) SetReadonlyProperty(val string) {
+func (d *DeprecatedClass) SetReadonlyProperty(val string) {
     d.ReadonlyProperty = val
 }
 
-func (d DeprecatedClass) SetMutableProperty(val float64) {
+func (d *DeprecatedClass) SetMutableProperty(val float64) {
     d.MutableProperty = val
 }
 
-func (d *DeprecatedClass) Method() jsii.Any  {
+func (d *DeprecatedClass) Method() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DeprecatedClass",
         Method: "Method",
@@ -3064,7 +3064,7 @@ type DeprecatedStruct struct {
     ReadonlyProperty string
 }
 
-func (d DeprecatedStruct) GetReadonlyProperty() string {
+func (d *DeprecatedStruct) GetReadonlyProperty() string {
     return d.ReadonlyProperty
 }
 
@@ -3103,39 +3103,39 @@ type DerivedStruct struct {
     OptionalArray []string
 }
 
-func (d DerivedStruct) GetAnumber() float64 {
+func (d *DerivedStruct) GetAnumber() float64 {
     return d.Anumber
 }
 
-func (d DerivedStruct) GetAstring() string {
+func (d *DerivedStruct) GetAstring() string {
     return d.Astring
 }
 
-func (d DerivedStruct) GetFirstOptional() []string {
+func (d *DerivedStruct) GetFirstOptional() []string {
     return d.FirstOptional
 }
 
-func (d DerivedStruct) GetAnotherRequired() string {
+func (d *DerivedStruct) GetAnotherRequired() string {
     return d.AnotherRequired
 }
 
-func (d DerivedStruct) GetBool() bool {
+func (d *DerivedStruct) GetBool() bool {
     return d.Bool
 }
 
-func (d DerivedStruct) GetNonPrimitive() DoubleTrouble {
+func (d *DerivedStruct) GetNonPrimitive() DoubleTrouble {
     return d.NonPrimitive
 }
 
-func (d DerivedStruct) GetAnotherOptional() map[string]scopejsiicalclib.NumericValue {
+func (d *DerivedStruct) GetAnotherOptional() map[string]scopejsiicalclib.NumericValue {
     return d.AnotherOptional
 }
 
-func (d DerivedStruct) GetOptionalAny() jsii.Any {
+func (d *DerivedStruct) GetOptionalAny() jsii.Any {
     return d.OptionalAny
 }
 
-func (d DerivedStruct) GetOptionalArray() []string {
+func (d *DerivedStruct) GetOptionalArray() []string {
     return d.OptionalArray
 }
 
@@ -3150,7 +3150,7 @@ type DiamondInheritanceBaseLevelStruct struct {
     BaseLevelProperty string
 }
 
-func (d DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
+func (d *DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
     return d.BaseLevelProperty
 }
 
@@ -3167,11 +3167,11 @@ type DiamondInheritanceFirstMidLevelStruct struct {
     FirstMidLevelProperty string
 }
 
-func (d DiamondInheritanceFirstMidLevelStruct) GetBaseLevelProperty() string {
+func (d *DiamondInheritanceFirstMidLevelStruct) GetBaseLevelProperty() string {
     return d.BaseLevelProperty
 }
 
-func (d DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string {
+func (d *DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string {
     return d.FirstMidLevelProperty
 }
 
@@ -3188,11 +3188,11 @@ type DiamondInheritanceSecondMidLevelStruct struct {
     SecondMidLevelProperty string
 }
 
-func (d DiamondInheritanceSecondMidLevelStruct) GetBaseLevelProperty() string {
+func (d *DiamondInheritanceSecondMidLevelStruct) GetBaseLevelProperty() string {
     return d.BaseLevelProperty
 }
 
-func (d DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() string {
+func (d *DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() string {
     return d.SecondMidLevelProperty
 }
 
@@ -3213,19 +3213,19 @@ type DiamondInheritanceTopLevelStruct struct {
     TopLevelProperty string
 }
 
-func (d DiamondInheritanceTopLevelStruct) GetBaseLevelProperty() string {
+func (d *DiamondInheritanceTopLevelStruct) GetBaseLevelProperty() string {
     return d.BaseLevelProperty
 }
 
-func (d DiamondInheritanceTopLevelStruct) GetFirstMidLevelProperty() string {
+func (d *DiamondInheritanceTopLevelStruct) GetFirstMidLevelProperty() string {
     return d.FirstMidLevelProperty
 }
 
-func (d DiamondInheritanceTopLevelStruct) GetSecondMidLevelProperty() string {
+func (d *DiamondInheritanceTopLevelStruct) GetSecondMidLevelProperty() string {
     return d.SecondMidLevelProperty
 }
 
-func (d DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
+func (d *DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
     return d.TopLevelProperty
 }
 
@@ -3253,20 +3253,20 @@ type DisappointingCollectionSource struct {
     MaybeMap map[string]float64
 }
 
-func (d DisappointingCollectionSource) GetMaybeList() []string {
+func (d *DisappointingCollectionSource) GetMaybeList() []string {
     return d.MaybeList
 }
 
-func (d DisappointingCollectionSource) GetMaybeMap() map[string]float64 {
+func (d *DisappointingCollectionSource) GetMaybeMap() map[string]float64 {
     return d.MaybeMap
 }
 
 
-func (d DisappointingCollectionSource) SetMaybeList(val []string) {
+func (d *DisappointingCollectionSource) SetMaybeList(val []string) {
     d.MaybeList = val
 }
 
-func (d DisappointingCollectionSource) SetMaybeMap(val map[string]float64) {
+func (d *DisappointingCollectionSource) SetMaybeMap(val map[string]float64) {
     d.MaybeMap = val
 }
 
@@ -3290,7 +3290,7 @@ func NewDoNotOverridePrivates() DoNotOverridePrivatesIface {
     return &DoNotOverridePrivates{}
 }
 
-func (d *DoNotOverridePrivates) ChangePrivatePropertyValue() jsii.Any  {
+func (d *DoNotOverridePrivates) ChangePrivatePropertyValue() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DoNotOverridePrivates",
         Method: "ChangePrivatePropertyValue",
@@ -3299,7 +3299,7 @@ func (d *DoNotOverridePrivates) ChangePrivatePropertyValue() jsii.Any  {
     return nil
 }
 
-func (d *DoNotOverridePrivates) PrivateMethodValue() string  {
+func (d *DoNotOverridePrivates) PrivateMethodValue() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DoNotOverridePrivates",
         Method: "PrivateMethodValue",
@@ -3308,7 +3308,7 @@ func (d *DoNotOverridePrivates) PrivateMethodValue() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (d *DoNotOverridePrivates) PrivatePropertyValue() string  {
+func (d *DoNotOverridePrivates) PrivatePropertyValue() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DoNotOverridePrivates",
         Method: "PrivatePropertyValue",
@@ -3336,7 +3336,7 @@ func NewDoNotRecognizeAnyAsOptional() DoNotRecognizeAnyAsOptionalIface {
     return &DoNotRecognizeAnyAsOptional{}
 }
 
-func (d *DoNotRecognizeAnyAsOptional) Method() jsii.Any  {
+func (d *DoNotRecognizeAnyAsOptional) Method() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DoNotRecognizeAnyAsOptional",
         Method: "Method",
@@ -3370,7 +3370,7 @@ func NewDocumentedClass() DocumentedClassIface {
     return &DocumentedClass{}
 }
 
-func (d *DocumentedClass) Greet() float64  {
+func (d *DocumentedClass) Greet() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DocumentedClass",
         Method: "Greet",
@@ -3379,7 +3379,7 @@ func (d *DocumentedClass) Greet() float64  {
     return 0.0
 }
 
-func (d *DocumentedClass) Hola() jsii.Any  {
+func (d *DocumentedClass) Hola() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DocumentedClass",
         Method: "Hola",
@@ -3406,7 +3406,7 @@ func NewDontComplainAboutVariadicAfterOptional() DontComplainAboutVariadicAfterO
     return &DontComplainAboutVariadicAfterOptional{}
 }
 
-func (d *DontComplainAboutVariadicAfterOptional) OptionalAndVariadic() string  {
+func (d *DontComplainAboutVariadicAfterOptional) OptionalAndVariadic() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DontComplainAboutVariadicAfterOptional",
         Method: "OptionalAndVariadic",
@@ -3437,7 +3437,7 @@ func NewDoubleTrouble() DoubleTroubleIface {
     return &DoubleTrouble{}
 }
 
-func (d *DoubleTrouble) Hello() string  {
+func (d *DoubleTrouble) Hello() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DoubleTrouble",
         Method: "Hello",
@@ -3446,7 +3446,7 @@ func (d *DoubleTrouble) Hello() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (d *DoubleTrouble) Next() float64  {
+func (d *DoubleTrouble) Next() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DoubleTrouble",
         Method: "Next",
@@ -3470,11 +3470,11 @@ type DynamicPropertyBearer struct {
     ValueStore string
 }
 
-func (d DynamicPropertyBearer) GetDynamicProperty() string {
+func (d *DynamicPropertyBearer) GetDynamicProperty() string {
     return d.DynamicProperty
 }
 
-func (d DynamicPropertyBearer) GetValueStore() string {
+func (d *DynamicPropertyBearer) GetValueStore() string {
     return d.ValueStore
 }
 
@@ -3488,11 +3488,11 @@ func NewDynamicPropertyBearer(valueStore string) DynamicPropertyBearerIface {
     return &DynamicPropertyBearer{}
 }
 
-func (d DynamicPropertyBearer) SetDynamicProperty(val string) {
+func (d *DynamicPropertyBearer) SetDynamicProperty(val string) {
     d.DynamicProperty = val
 }
 
-func (d DynamicPropertyBearer) SetValueStore(val string) {
+func (d *DynamicPropertyBearer) SetValueStore(val string) {
     d.ValueStore = val
 }
 
@@ -3514,15 +3514,15 @@ type DynamicPropertyBearerChild struct {
     OriginalValue string
 }
 
-func (d DynamicPropertyBearerChild) GetDynamicProperty() string {
+func (d *DynamicPropertyBearerChild) GetDynamicProperty() string {
     return d.DynamicProperty
 }
 
-func (d DynamicPropertyBearerChild) GetValueStore() string {
+func (d *DynamicPropertyBearerChild) GetValueStore() string {
     return d.ValueStore
 }
 
-func (d DynamicPropertyBearerChild) GetOriginalValue() string {
+func (d *DynamicPropertyBearerChild) GetOriginalValue() string {
     return d.OriginalValue
 }
 
@@ -3536,19 +3536,19 @@ func NewDynamicPropertyBearerChild(originalValue string) DynamicPropertyBearerCh
     return &DynamicPropertyBearerChild{}
 }
 
-func (d DynamicPropertyBearerChild) SetDynamicProperty(val string) {
+func (d *DynamicPropertyBearerChild) SetDynamicProperty(val string) {
     d.DynamicProperty = val
 }
 
-func (d DynamicPropertyBearerChild) SetValueStore(val string) {
+func (d *DynamicPropertyBearerChild) SetValueStore(val string) {
     d.ValueStore = val
 }
 
-func (d DynamicPropertyBearerChild) SetOriginalValue(val string) {
+func (d *DynamicPropertyBearerChild) SetOriginalValue(val string) {
     d.OriginalValue = val
 }
 
-func (d *DynamicPropertyBearerChild) OverrideValue() string  {
+func (d *DynamicPropertyBearerChild) OverrideValue() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "DynamicPropertyBearerChild",
         Method: "OverrideValue",
@@ -3567,7 +3567,7 @@ type EnumDispenserIface interface {
 type EnumDispenser struct {
 }
 
-func (e *EnumDispenser) RandomIntegerLikeEnum() AllTypesEnum  {
+func (e *EnumDispenser) RandomIntegerLikeEnum() AllTypesEnum {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "EnumDispenser",
         Method: "RandomIntegerLikeEnum",
@@ -3576,7 +3576,7 @@ func (e *EnumDispenser) RandomIntegerLikeEnum() AllTypesEnum  {
     return "ENUM_DUMMY"
 }
 
-func (e *EnumDispenser) RandomStringLikeEnum() StringEnum  {
+func (e *EnumDispenser) RandomStringLikeEnum() StringEnum {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "EnumDispenser",
         Method: "RandomStringLikeEnum",
@@ -3605,7 +3605,7 @@ func NewEraseUndefinedHashValues() EraseUndefinedHashValuesIface {
     return &EraseUndefinedHashValues{}
 }
 
-func (e *EraseUndefinedHashValues) DoesKeyExist() bool  {
+func (e *EraseUndefinedHashValues) DoesKeyExist() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "EraseUndefinedHashValues",
         Method: "DoesKeyExist",
@@ -3614,7 +3614,7 @@ func (e *EraseUndefinedHashValues) DoesKeyExist() bool  {
     return true
 }
 
-func (e *EraseUndefinedHashValues) Prop1IsNull() map[string]jsii.Any  {
+func (e *EraseUndefinedHashValues) Prop1IsNull() map[string]jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "EraseUndefinedHashValues",
         Method: "Prop1IsNull",
@@ -3623,7 +3623,7 @@ func (e *EraseUndefinedHashValues) Prop1IsNull() map[string]jsii.Any  {
     return nil
 }
 
-func (e *EraseUndefinedHashValues) Prop2IsUndefined() map[string]jsii.Any  {
+func (e *EraseUndefinedHashValues) Prop2IsUndefined() map[string]jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "EraseUndefinedHashValues",
         Method: "Prop2IsUndefined",
@@ -3644,11 +3644,11 @@ type EraseUndefinedHashValuesOptions struct {
     Option2 string
 }
 
-func (e EraseUndefinedHashValuesOptions) GetOption1() string {
+func (e *EraseUndefinedHashValuesOptions) GetOption1() string {
     return e.Option1
 }
 
-func (e EraseUndefinedHashValuesOptions) GetOption2() string {
+func (e *EraseUndefinedHashValuesOptions) GetOption2() string {
     return e.Option2
 }
 
@@ -3671,11 +3671,11 @@ type ExperimentalClass struct {
     MutableProperty float64
 }
 
-func (e ExperimentalClass) GetReadonlyProperty() string {
+func (e *ExperimentalClass) GetReadonlyProperty() string {
     return e.ReadonlyProperty
 }
 
-func (e ExperimentalClass) GetMutableProperty() float64 {
+func (e *ExperimentalClass) GetMutableProperty() float64 {
     return e.MutableProperty
 }
 
@@ -3689,15 +3689,15 @@ func NewExperimentalClass(readonlyString string, mutableNumber float64) Experime
     return &ExperimentalClass{}
 }
 
-func (e ExperimentalClass) SetReadonlyProperty(val string) {
+func (e *ExperimentalClass) SetReadonlyProperty(val string) {
     e.ReadonlyProperty = val
 }
 
-func (e ExperimentalClass) SetMutableProperty(val float64) {
+func (e *ExperimentalClass) SetMutableProperty(val float64) {
     e.MutableProperty = val
 }
 
-func (e *ExperimentalClass) Method() jsii.Any  {
+func (e *ExperimentalClass) Method() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ExperimentalClass",
         Method: "Method",
@@ -3727,7 +3727,7 @@ type ExperimentalStruct struct {
     ReadonlyProperty string
 }
 
-func (e ExperimentalStruct) GetReadonlyProperty() string {
+func (e *ExperimentalStruct) GetReadonlyProperty() string {
     return e.ReadonlyProperty
 }
 
@@ -3743,7 +3743,7 @@ type ExportedBaseClass struct {
     Success bool
 }
 
-func (e ExportedBaseClass) GetSuccess() bool {
+func (e *ExportedBaseClass) GetSuccess() bool {
     return e.Success
 }
 
@@ -3757,7 +3757,7 @@ func NewExportedBaseClass(success bool) ExportedBaseClassIface {
     return &ExportedBaseClass{}
 }
 
-func (e ExportedBaseClass) SetSuccess(val bool) {
+func (e *ExportedBaseClass) SetSuccess(val bool) {
     e.Success = val
 }
 
@@ -3773,11 +3773,11 @@ type ExtendsInternalInterface struct {
     Prop string
 }
 
-func (e ExtendsInternalInterface) GetBoom() bool {
+func (e *ExtendsInternalInterface) GetBoom() bool {
     return e.Boom
 }
 
-func (e ExtendsInternalInterface) GetProp() string {
+func (e *ExtendsInternalInterface) GetProp() string {
     return e.Prop
 }
 
@@ -3797,11 +3797,11 @@ type ExternalClass struct {
     MutableProperty float64
 }
 
-func (e ExternalClass) GetReadonlyProperty() string {
+func (e *ExternalClass) GetReadonlyProperty() string {
     return e.ReadonlyProperty
 }
 
-func (e ExternalClass) GetMutableProperty() float64 {
+func (e *ExternalClass) GetMutableProperty() float64 {
     return e.MutableProperty
 }
 
@@ -3815,15 +3815,15 @@ func NewExternalClass(readonlyString string, mutableNumber float64) ExternalClas
     return &ExternalClass{}
 }
 
-func (e ExternalClass) SetReadonlyProperty(val string) {
+func (e *ExternalClass) SetReadonlyProperty(val string) {
     e.ReadonlyProperty = val
 }
 
-func (e ExternalClass) SetMutableProperty(val float64) {
+func (e *ExternalClass) SetMutableProperty(val float64) {
     e.MutableProperty = val
 }
 
-func (e *ExternalClass) Method() jsii.Any  {
+func (e *ExternalClass) Method() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ExternalClass",
         Method: "Method",
@@ -3849,7 +3849,7 @@ type ExternalStruct struct {
     ReadonlyProperty string
 }
 
-func (e ExternalStruct) GetReadonlyProperty() string {
+func (e *ExternalStruct) GetReadonlyProperty() string {
     return e.ReadonlyProperty
 }
 
@@ -3868,7 +3868,7 @@ type GiveMeStructs struct {
     StructLiteral scopejsiicalclib.StructWithOnlyOptionals
 }
 
-func (g GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals {
+func (g *GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals {
     return g.StructLiteral
 }
 
@@ -3882,11 +3882,11 @@ func NewGiveMeStructs() GiveMeStructsIface {
     return &GiveMeStructs{}
 }
 
-func (g GiveMeStructs) SetStructLiteral(val scopejsiicalclib.StructWithOnlyOptionals) {
+func (g *GiveMeStructs) SetStructLiteral(val scopejsiicalclib.StructWithOnlyOptionals) {
     g.StructLiteral = val
 }
 
-func (g *GiveMeStructs) DerivedToFirst() scopejsiicalclib.MyFirstStruct  {
+func (g *GiveMeStructs) DerivedToFirst() scopejsiicalclib.MyFirstStruct {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "GiveMeStructs",
         Method: "DerivedToFirst",
@@ -3895,7 +3895,7 @@ func (g *GiveMeStructs) DerivedToFirst() scopejsiicalclib.MyFirstStruct  {
     return scopejsiicalclib.MyFirstStruct{}
 }
 
-func (g *GiveMeStructs) ReadDerivedNonPrimitive() DoubleTrouble  {
+func (g *GiveMeStructs) ReadDerivedNonPrimitive() DoubleTrouble {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "GiveMeStructs",
         Method: "ReadDerivedNonPrimitive",
@@ -3904,7 +3904,7 @@ func (g *GiveMeStructs) ReadDerivedNonPrimitive() DoubleTrouble  {
     return DoubleTrouble{}
 }
 
-func (g *GiveMeStructs) ReadFirstNumber() float64  {
+func (g *GiveMeStructs) ReadFirstNumber() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "GiveMeStructs",
         Method: "ReadFirstNumber",
@@ -3925,7 +3925,7 @@ type Greetee struct {
     Name string
 }
 
-func (g Greetee) GetName() string {
+func (g *Greetee) GetName() string {
     return g.Name
 }
 
@@ -3948,7 +3948,7 @@ func NewGreetingAugmenter() GreetingAugmenterIface {
     return &GreetingAugmenter{}
 }
 
-func (g *GreetingAugmenter) BetterGreeting() string  {
+func (g *GreetingAugmenter) BetterGreeting() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "GreetingAugmenter",
         Method: "BetterGreeting",
@@ -4156,7 +4156,7 @@ type ImplementInternalInterface struct {
     Prop string
 }
 
-func (i ImplementInternalInterface) GetProp() string {
+func (i *ImplementInternalInterface) GetProp() string {
     return i.Prop
 }
 
@@ -4170,7 +4170,7 @@ func NewImplementInternalInterface() ImplementInternalInterfaceIface {
     return &ImplementInternalInterface{}
 }
 
-func (i ImplementInternalInterface) SetProp(val string) {
+func (i *ImplementInternalInterface) SetProp(val string) {
     i.Prop = val
 }
 
@@ -4185,7 +4185,7 @@ type Implementation struct {
     Value float64
 }
 
-func (i Implementation) GetValue() float64 {
+func (i *Implementation) GetValue() float64 {
     return i.Value
 }
 
@@ -4199,7 +4199,7 @@ func NewImplementation() ImplementationIface {
     return &Implementation{}
 }
 
-func (i Implementation) SetValue(val float64) {
+func (i *Implementation) SetValue(val float64) {
     i.Value = val
 }
 
@@ -4222,7 +4222,7 @@ func NewImplementsInterfaceWithInternal() ImplementsInterfaceWithInternalIface {
     return &ImplementsInterfaceWithInternal{}
 }
 
-func (i *ImplementsInterfaceWithInternal) Visible() jsii.Any  {
+func (i *ImplementsInterfaceWithInternal) Visible() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ImplementsInterfaceWithInternal",
         Method: "Visible",
@@ -4250,7 +4250,7 @@ func NewImplementsInterfaceWithInternalSubclass() ImplementsInterfaceWithInterna
     return &ImplementsInterfaceWithInternalSubclass{}
 }
 
-func (i *ImplementsInterfaceWithInternalSubclass) Visible() jsii.Any  {
+func (i *ImplementsInterfaceWithInternalSubclass) Visible() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ImplementsInterfaceWithInternalSubclass",
         Method: "Visible",
@@ -4270,7 +4270,7 @@ type ImplementsPrivateInterface struct {
     Private string
 }
 
-func (i ImplementsPrivateInterface) GetPrivate() string {
+func (i *ImplementsPrivateInterface) GetPrivate() string {
     return i.Private
 }
 
@@ -4284,7 +4284,7 @@ func NewImplementsPrivateInterface() ImplementsPrivateInterfaceIface {
     return &ImplementsPrivateInterface{}
 }
 
-func (i ImplementsPrivateInterface) SetPrivate(val string) {
+func (i *ImplementsPrivateInterface) SetPrivate(val string) {
     i.Private = val
 }
 
@@ -4302,15 +4302,15 @@ type ImplictBaseOfBase struct {
     Goo string
 }
 
-func (i ImplictBaseOfBase) GetFoo() scopejsiicalcbaseofbase.Very {
+func (i *ImplictBaseOfBase) GetFoo() scopejsiicalcbaseofbase.Very {
     return i.Foo
 }
 
-func (i ImplictBaseOfBase) GetBar() string {
+func (i *ImplictBaseOfBase) GetBar() string {
     return i.Bar
 }
 
-func (i ImplictBaseOfBase) GetGoo() string {
+func (i *ImplictBaseOfBase) GetGoo() string {
     return i.Goo
 }
 
@@ -4335,7 +4335,7 @@ func NewInbetweenClass() InbetweenClassIface {
     return &InbetweenClass{}
 }
 
-func (i *InbetweenClass) Hello() jsii.Any  {
+func (i *InbetweenClass) Hello() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "InbetweenClass",
         Method: "Hello",
@@ -4344,7 +4344,7 @@ func (i *InbetweenClass) Hello() jsii.Any  {
     return nil
 }
 
-func (i *InbetweenClass) Ciao() string  {
+func (i *InbetweenClass) Ciao() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "InbetweenClass",
         Method: "Ciao",
@@ -4368,7 +4368,7 @@ type InterfaceCollectionsIface interface {
 type InterfaceCollections struct {
 }
 
-func (i *InterfaceCollections) ListOfInterfaces() []IBell  {
+func (i *InterfaceCollections) ListOfInterfaces() []IBell {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "InterfaceCollections",
         Method: "ListOfInterfaces",
@@ -4377,7 +4377,7 @@ func (i *InterfaceCollections) ListOfInterfaces() []IBell  {
     return nil
 }
 
-func (i *InterfaceCollections) ListOfStructs() []StructA  {
+func (i *InterfaceCollections) ListOfStructs() []StructA {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "InterfaceCollections",
         Method: "ListOfStructs",
@@ -4386,7 +4386,7 @@ func (i *InterfaceCollections) ListOfStructs() []StructA  {
     return nil
 }
 
-func (i *InterfaceCollections) MapOfInterfaces() map[string]IBell  {
+func (i *InterfaceCollections) MapOfInterfaces() map[string]IBell {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "InterfaceCollections",
         Method: "MapOfInterfaces",
@@ -4395,7 +4395,7 @@ func (i *InterfaceCollections) MapOfInterfaces() map[string]IBell  {
     return nil
 }
 
-func (i *InterfaceCollections) MapOfStructs() map[string]StructA  {
+func (i *InterfaceCollections) MapOfStructs() map[string]StructA {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "InterfaceCollections",
         Method: "MapOfStructs",
@@ -4414,7 +4414,7 @@ type InterfacesMakerIface interface {
 type InterfacesMaker struct {
 }
 
-func (i *InterfacesMaker) MakeInterfaces() []scopejsiicalclib.IDoublable  {
+func (i *InterfacesMaker) MakeInterfaces() []scopejsiicalclib.IDoublable {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "InterfacesMaker",
         Method: "MakeInterfaces",
@@ -4445,7 +4445,7 @@ func NewIsomorphism() IsomorphismIface {
     return &Isomorphism{}
 }
 
-func (i *Isomorphism) Myself() Isomorphism  {
+func (i *Isomorphism) Myself() Isomorphism {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Isomorphism",
         Method: "Myself",
@@ -4471,11 +4471,11 @@ type Jsii417Derived struct {
     Property string
 }
 
-func (j Jsii417Derived) GetHasRoot() bool {
+func (j *Jsii417Derived) GetHasRoot() bool {
     return j.HasRoot
 }
 
-func (j Jsii417Derived) GetProperty() string {
+func (j *Jsii417Derived) GetProperty() string {
     return j.Property
 }
 
@@ -4489,15 +4489,15 @@ func NewJsii417Derived(property string) Jsii417DerivedIface {
     return &Jsii417Derived{}
 }
 
-func (j Jsii417Derived) SetHasRoot(val bool) {
+func (j *Jsii417Derived) SetHasRoot(val bool) {
     j.HasRoot = val
 }
 
-func (j Jsii417Derived) SetProperty(val string) {
+func (j *Jsii417Derived) SetProperty(val string) {
     j.Property = val
 }
 
-func (j *Jsii417Derived) MakeInstance() Jsii417PublicBaseOfBase  {
+func (j *Jsii417Derived) MakeInstance() Jsii417PublicBaseOfBase {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Jsii417Derived",
         Method: "MakeInstance",
@@ -4506,7 +4506,7 @@ func (j *Jsii417Derived) MakeInstance() Jsii417PublicBaseOfBase  {
     return Jsii417PublicBaseOfBase{}
 }
 
-func (j *Jsii417Derived) Foo() jsii.Any  {
+func (j *Jsii417Derived) Foo() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Jsii417Derived",
         Method: "Foo",
@@ -4515,7 +4515,7 @@ func (j *Jsii417Derived) Foo() jsii.Any  {
     return nil
 }
 
-func (j *Jsii417Derived) Bar() jsii.Any  {
+func (j *Jsii417Derived) Bar() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Jsii417Derived",
         Method: "Bar",
@@ -4524,7 +4524,7 @@ func (j *Jsii417Derived) Bar() jsii.Any  {
     return nil
 }
 
-func (j *Jsii417Derived) Baz() jsii.Any  {
+func (j *Jsii417Derived) Baz() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Jsii417Derived",
         Method: "Baz",
@@ -4546,7 +4546,7 @@ type Jsii417PublicBaseOfBase struct {
     HasRoot bool
 }
 
-func (j Jsii417PublicBaseOfBase) GetHasRoot() bool {
+func (j *Jsii417PublicBaseOfBase) GetHasRoot() bool {
     return j.HasRoot
 }
 
@@ -4560,11 +4560,11 @@ func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBaseIface {
     return &Jsii417PublicBaseOfBase{}
 }
 
-func (j Jsii417PublicBaseOfBase) SetHasRoot(val bool) {
+func (j *Jsii417PublicBaseOfBase) SetHasRoot(val bool) {
     j.HasRoot = val
 }
 
-func (j *Jsii417PublicBaseOfBase) MakeInstance() Jsii417PublicBaseOfBase  {
+func (j *Jsii417PublicBaseOfBase) MakeInstance() Jsii417PublicBaseOfBase {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Jsii417PublicBaseOfBase",
         Method: "MakeInstance",
@@ -4573,7 +4573,7 @@ func (j *Jsii417PublicBaseOfBase) MakeInstance() Jsii417PublicBaseOfBase  {
     return Jsii417PublicBaseOfBase{}
 }
 
-func (j *Jsii417PublicBaseOfBase) Foo() jsii.Any  {
+func (j *Jsii417PublicBaseOfBase) Foo() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Jsii417PublicBaseOfBase",
         Method: "Foo",
@@ -4601,7 +4601,7 @@ func NewJsObjectLiteralForInterface() JsObjectLiteralForInterfaceIface {
     return &JsObjectLiteralForInterface{}
 }
 
-func (j *JsObjectLiteralForInterface) GiveMeFriendly() scopejsiicalclib.IFriendly  {
+func (j *JsObjectLiteralForInterface) GiveMeFriendly() scopejsiicalclib.IFriendly {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsObjectLiteralForInterface",
         Method: "GiveMeFriendly",
@@ -4610,7 +4610,7 @@ func (j *JsObjectLiteralForInterface) GiveMeFriendly() scopejsiicalclib.IFriendl
     return nil
 }
 
-func (j *JsObjectLiteralForInterface) GiveMeFriendlyGenerator() IFriendlyRandomGenerator  {
+func (j *JsObjectLiteralForInterface) GiveMeFriendlyGenerator() IFriendlyRandomGenerator {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsObjectLiteralForInterface",
         Method: "GiveMeFriendlyGenerator",
@@ -4637,7 +4637,7 @@ func NewJsObjectLiteralToNative() JsObjectLiteralToNativeIface {
     return &JsObjectLiteralToNative{}
 }
 
-func (j *JsObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNativeClass  {
+func (j *JsObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNativeClass {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsObjectLiteralToNative",
         Method: "ReturnLiteral",
@@ -4660,11 +4660,11 @@ type JsObjectLiteralToNativeClass struct {
     PropB float64
 }
 
-func (j JsObjectLiteralToNativeClass) GetPropA() string {
+func (j *JsObjectLiteralToNativeClass) GetPropA() string {
     return j.PropA
 }
 
-func (j JsObjectLiteralToNativeClass) GetPropB() float64 {
+func (j *JsObjectLiteralToNativeClass) GetPropB() float64 {
     return j.PropB
 }
 
@@ -4678,11 +4678,11 @@ func NewJsObjectLiteralToNativeClass() JsObjectLiteralToNativeClassIface {
     return &JsObjectLiteralToNativeClass{}
 }
 
-func (j JsObjectLiteralToNativeClass) SetPropA(val string) {
+func (j *JsObjectLiteralToNativeClass) SetPropA(val string) {
     j.PropA = val
 }
 
-func (j JsObjectLiteralToNativeClass) SetPropB(val float64) {
+func (j *JsObjectLiteralToNativeClass) SetPropB(val float64) {
     j.PropB = val
 }
 
@@ -4749,7 +4749,7 @@ type JavaReservedWords struct {
     While string
 }
 
-func (j JavaReservedWords) GetWhile() string {
+func (j *JavaReservedWords) GetWhile() string {
     return j.While
 }
 
@@ -4763,11 +4763,11 @@ func NewJavaReservedWords() JavaReservedWordsIface {
     return &JavaReservedWords{}
 }
 
-func (j JavaReservedWords) SetWhile(val string) {
+func (j *JavaReservedWords) SetWhile(val string) {
     j.While = val
 }
 
-func (j *JavaReservedWords) Abstract() jsii.Any  {
+func (j *JavaReservedWords) Abstract() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Abstract",
@@ -4776,7 +4776,7 @@ func (j *JavaReservedWords) Abstract() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Assert() jsii.Any  {
+func (j *JavaReservedWords) Assert() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Assert",
@@ -4785,7 +4785,7 @@ func (j *JavaReservedWords) Assert() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Boolean() jsii.Any  {
+func (j *JavaReservedWords) Boolean() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Boolean",
@@ -4794,7 +4794,7 @@ func (j *JavaReservedWords) Boolean() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Break() jsii.Any  {
+func (j *JavaReservedWords) Break() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Break",
@@ -4803,7 +4803,7 @@ func (j *JavaReservedWords) Break() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Byte() jsii.Any  {
+func (j *JavaReservedWords) Byte() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Byte",
@@ -4812,7 +4812,7 @@ func (j *JavaReservedWords) Byte() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Case() jsii.Any  {
+func (j *JavaReservedWords) Case() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Case",
@@ -4821,7 +4821,7 @@ func (j *JavaReservedWords) Case() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Catch() jsii.Any  {
+func (j *JavaReservedWords) Catch() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Catch",
@@ -4830,7 +4830,7 @@ func (j *JavaReservedWords) Catch() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Char() jsii.Any  {
+func (j *JavaReservedWords) Char() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Char",
@@ -4839,7 +4839,7 @@ func (j *JavaReservedWords) Char() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Class() jsii.Any  {
+func (j *JavaReservedWords) Class() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Class",
@@ -4848,7 +4848,7 @@ func (j *JavaReservedWords) Class() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Const() jsii.Any  {
+func (j *JavaReservedWords) Const() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Const",
@@ -4857,7 +4857,7 @@ func (j *JavaReservedWords) Const() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Continue() jsii.Any  {
+func (j *JavaReservedWords) Continue() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Continue",
@@ -4866,7 +4866,7 @@ func (j *JavaReservedWords) Continue() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Default() jsii.Any  {
+func (j *JavaReservedWords) Default() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Default",
@@ -4875,7 +4875,7 @@ func (j *JavaReservedWords) Default() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Do() jsii.Any  {
+func (j *JavaReservedWords) Do() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Do",
@@ -4884,7 +4884,7 @@ func (j *JavaReservedWords) Do() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Double() jsii.Any  {
+func (j *JavaReservedWords) Double() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Double",
@@ -4893,7 +4893,7 @@ func (j *JavaReservedWords) Double() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Else() jsii.Any  {
+func (j *JavaReservedWords) Else() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Else",
@@ -4902,7 +4902,7 @@ func (j *JavaReservedWords) Else() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Enum() jsii.Any  {
+func (j *JavaReservedWords) Enum() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Enum",
@@ -4911,7 +4911,7 @@ func (j *JavaReservedWords) Enum() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Extends() jsii.Any  {
+func (j *JavaReservedWords) Extends() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Extends",
@@ -4920,7 +4920,7 @@ func (j *JavaReservedWords) Extends() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) False() jsii.Any  {
+func (j *JavaReservedWords) False() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "False",
@@ -4929,7 +4929,7 @@ func (j *JavaReservedWords) False() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Final() jsii.Any  {
+func (j *JavaReservedWords) Final() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Final",
@@ -4938,7 +4938,7 @@ func (j *JavaReservedWords) Final() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Finally() jsii.Any  {
+func (j *JavaReservedWords) Finally() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Finally",
@@ -4947,7 +4947,7 @@ func (j *JavaReservedWords) Finally() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Float() jsii.Any  {
+func (j *JavaReservedWords) Float() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Float",
@@ -4956,7 +4956,7 @@ func (j *JavaReservedWords) Float() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) For() jsii.Any  {
+func (j *JavaReservedWords) For() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "For",
@@ -4965,7 +4965,7 @@ func (j *JavaReservedWords) For() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Goto() jsii.Any  {
+func (j *JavaReservedWords) Goto() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Goto",
@@ -4974,7 +4974,7 @@ func (j *JavaReservedWords) Goto() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) If() jsii.Any  {
+func (j *JavaReservedWords) If() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "If",
@@ -4983,7 +4983,7 @@ func (j *JavaReservedWords) If() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Implements() jsii.Any  {
+func (j *JavaReservedWords) Implements() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Implements",
@@ -4992,7 +4992,7 @@ func (j *JavaReservedWords) Implements() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Import() jsii.Any  {
+func (j *JavaReservedWords) Import() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Import",
@@ -5001,7 +5001,7 @@ func (j *JavaReservedWords) Import() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Instanceof() jsii.Any  {
+func (j *JavaReservedWords) Instanceof() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Instanceof",
@@ -5010,7 +5010,7 @@ func (j *JavaReservedWords) Instanceof() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Int() jsii.Any  {
+func (j *JavaReservedWords) Int() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Int",
@@ -5019,7 +5019,7 @@ func (j *JavaReservedWords) Int() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Interface() jsii.Any  {
+func (j *JavaReservedWords) Interface() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Interface",
@@ -5028,7 +5028,7 @@ func (j *JavaReservedWords) Interface() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Long() jsii.Any  {
+func (j *JavaReservedWords) Long() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Long",
@@ -5037,7 +5037,7 @@ func (j *JavaReservedWords) Long() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Native() jsii.Any  {
+func (j *JavaReservedWords) Native() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Native",
@@ -5046,7 +5046,7 @@ func (j *JavaReservedWords) Native() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) New() jsii.Any  {
+func (j *JavaReservedWords) New() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "New",
@@ -5055,7 +5055,7 @@ func (j *JavaReservedWords) New() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Null() jsii.Any  {
+func (j *JavaReservedWords) Null() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Null",
@@ -5064,7 +5064,7 @@ func (j *JavaReservedWords) Null() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Package() jsii.Any  {
+func (j *JavaReservedWords) Package() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Package",
@@ -5073,7 +5073,7 @@ func (j *JavaReservedWords) Package() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Private() jsii.Any  {
+func (j *JavaReservedWords) Private() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Private",
@@ -5082,7 +5082,7 @@ func (j *JavaReservedWords) Private() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Protected() jsii.Any  {
+func (j *JavaReservedWords) Protected() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Protected",
@@ -5091,7 +5091,7 @@ func (j *JavaReservedWords) Protected() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Public() jsii.Any  {
+func (j *JavaReservedWords) Public() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Public",
@@ -5100,7 +5100,7 @@ func (j *JavaReservedWords) Public() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Return() jsii.Any  {
+func (j *JavaReservedWords) Return() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Return",
@@ -5109,7 +5109,7 @@ func (j *JavaReservedWords) Return() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Short() jsii.Any  {
+func (j *JavaReservedWords) Short() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Short",
@@ -5118,7 +5118,7 @@ func (j *JavaReservedWords) Short() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Static() jsii.Any  {
+func (j *JavaReservedWords) Static() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Static",
@@ -5127,7 +5127,7 @@ func (j *JavaReservedWords) Static() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Strictfp() jsii.Any  {
+func (j *JavaReservedWords) Strictfp() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Strictfp",
@@ -5136,7 +5136,7 @@ func (j *JavaReservedWords) Strictfp() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Super() jsii.Any  {
+func (j *JavaReservedWords) Super() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Super",
@@ -5145,7 +5145,7 @@ func (j *JavaReservedWords) Super() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Switch() jsii.Any  {
+func (j *JavaReservedWords) Switch() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Switch",
@@ -5154,7 +5154,7 @@ func (j *JavaReservedWords) Switch() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Synchronized() jsii.Any  {
+func (j *JavaReservedWords) Synchronized() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Synchronized",
@@ -5163,7 +5163,7 @@ func (j *JavaReservedWords) Synchronized() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) This() jsii.Any  {
+func (j *JavaReservedWords) This() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "This",
@@ -5172,7 +5172,7 @@ func (j *JavaReservedWords) This() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Throw() jsii.Any  {
+func (j *JavaReservedWords) Throw() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Throw",
@@ -5181,7 +5181,7 @@ func (j *JavaReservedWords) Throw() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Throws() jsii.Any  {
+func (j *JavaReservedWords) Throws() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Throws",
@@ -5190,7 +5190,7 @@ func (j *JavaReservedWords) Throws() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Transient() jsii.Any  {
+func (j *JavaReservedWords) Transient() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Transient",
@@ -5199,7 +5199,7 @@ func (j *JavaReservedWords) Transient() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) True() jsii.Any  {
+func (j *JavaReservedWords) True() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "True",
@@ -5208,7 +5208,7 @@ func (j *JavaReservedWords) True() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Try() jsii.Any  {
+func (j *JavaReservedWords) Try() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Try",
@@ -5217,7 +5217,7 @@ func (j *JavaReservedWords) Try() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Void() jsii.Any  {
+func (j *JavaReservedWords) Void() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Void",
@@ -5226,7 +5226,7 @@ func (j *JavaReservedWords) Void() jsii.Any  {
     return nil
 }
 
-func (j *JavaReservedWords) Volatile() jsii.Any  {
+func (j *JavaReservedWords) Volatile() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JavaReservedWords",
         Method: "Volatile",
@@ -5285,7 +5285,7 @@ type JsiiAgent struct {
     Value string
 }
 
-func (j JsiiAgent) GetValue() string {
+func (j *JsiiAgent) GetValue() string {
     return j.Value
 }
 
@@ -5299,7 +5299,7 @@ func NewJsiiAgent() JsiiAgentIface {
     return &JsiiAgent{}
 }
 
-func (j JsiiAgent) SetValue(val string) {
+func (j *JsiiAgent) SetValue(val string) {
     j.Value = val
 }
 
@@ -5328,7 +5328,7 @@ type JsonFormatterIface interface {
 type JsonFormatter struct {
 }
 
-func (j *JsonFormatter) AnyArray() jsii.Any  {
+func (j *JsonFormatter) AnyArray() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyArray",
@@ -5337,7 +5337,7 @@ func (j *JsonFormatter) AnyArray() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyBooleanFalse() jsii.Any  {
+func (j *JsonFormatter) AnyBooleanFalse() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyBooleanFalse",
@@ -5346,7 +5346,7 @@ func (j *JsonFormatter) AnyBooleanFalse() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyBooleanTrue() jsii.Any  {
+func (j *JsonFormatter) AnyBooleanTrue() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyBooleanTrue",
@@ -5355,7 +5355,7 @@ func (j *JsonFormatter) AnyBooleanTrue() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyDate() jsii.Any  {
+func (j *JsonFormatter) AnyDate() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyDate",
@@ -5364,7 +5364,7 @@ func (j *JsonFormatter) AnyDate() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyEmptyString() jsii.Any  {
+func (j *JsonFormatter) AnyEmptyString() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyEmptyString",
@@ -5373,7 +5373,7 @@ func (j *JsonFormatter) AnyEmptyString() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyFunction() jsii.Any  {
+func (j *JsonFormatter) AnyFunction() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyFunction",
@@ -5382,7 +5382,7 @@ func (j *JsonFormatter) AnyFunction() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyHash() jsii.Any  {
+func (j *JsonFormatter) AnyHash() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyHash",
@@ -5391,7 +5391,7 @@ func (j *JsonFormatter) AnyHash() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyNull() jsii.Any  {
+func (j *JsonFormatter) AnyNull() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyNull",
@@ -5400,7 +5400,7 @@ func (j *JsonFormatter) AnyNull() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyNumber() jsii.Any  {
+func (j *JsonFormatter) AnyNumber() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyNumber",
@@ -5409,7 +5409,7 @@ func (j *JsonFormatter) AnyNumber() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyRef() jsii.Any  {
+func (j *JsonFormatter) AnyRef() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyRef",
@@ -5418,7 +5418,7 @@ func (j *JsonFormatter) AnyRef() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyString() jsii.Any  {
+func (j *JsonFormatter) AnyString() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyString",
@@ -5427,7 +5427,7 @@ func (j *JsonFormatter) AnyString() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyUndefined() jsii.Any  {
+func (j *JsonFormatter) AnyUndefined() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyUndefined",
@@ -5436,7 +5436,7 @@ func (j *JsonFormatter) AnyUndefined() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) AnyZero() jsii.Any  {
+func (j *JsonFormatter) AnyZero() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "AnyZero",
@@ -5445,7 +5445,7 @@ func (j *JsonFormatter) AnyZero() jsii.Any  {
     return nil
 }
 
-func (j *JsonFormatter) Stringify() string  {
+func (j *JsonFormatter) Stringify() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "JsonFormatter",
         Method: "Stringify",
@@ -5504,23 +5504,23 @@ type LoadBalancedFargateServiceProps struct {
     PublicTasks bool
 }
 
-func (l LoadBalancedFargateServiceProps) GetContainerPort() float64 {
+func (l *LoadBalancedFargateServiceProps) GetContainerPort() float64 {
     return l.ContainerPort
 }
 
-func (l LoadBalancedFargateServiceProps) GetCpu() string {
+func (l *LoadBalancedFargateServiceProps) GetCpu() string {
     return l.Cpu
 }
 
-func (l LoadBalancedFargateServiceProps) GetMemoryMiB() string {
+func (l *LoadBalancedFargateServiceProps) GetMemoryMiB() string {
     return l.MemoryMiB
 }
 
-func (l LoadBalancedFargateServiceProps) GetPublicLoadBalancer() bool {
+func (l *LoadBalancedFargateServiceProps) GetPublicLoadBalancer() bool {
     return l.PublicLoadBalancer
 }
 
-func (l LoadBalancedFargateServiceProps) GetPublicTasks() bool {
+func (l *LoadBalancedFargateServiceProps) GetPublicTasks() bool {
     return l.PublicTasks
 }
 
@@ -5537,7 +5537,7 @@ type MethodNamedProperty struct {
     Elite float64
 }
 
-func (m MethodNamedProperty) GetElite() float64 {
+func (m *MethodNamedProperty) GetElite() float64 {
     return m.Elite
 }
 
@@ -5551,11 +5551,11 @@ func NewMethodNamedProperty() MethodNamedPropertyIface {
     return &MethodNamedProperty{}
 }
 
-func (m MethodNamedProperty) SetElite(val float64) {
+func (m *MethodNamedProperty) SetElite(val float64) {
     m.Elite = val
 }
 
-func (m *MethodNamedProperty) Property() string  {
+func (m *MethodNamedProperty) Property() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "MethodNamedProperty",
         Method: "Property",
@@ -5595,15 +5595,15 @@ type Multiply struct {
     Rhs scopejsiicalclib.NumericValue
 }
 
-func (m Multiply) GetValue() float64 {
+func (m *Multiply) GetValue() float64 {
     return m.Value
 }
 
-func (m Multiply) GetLhs() scopejsiicalclib.NumericValue {
+func (m *Multiply) GetLhs() scopejsiicalclib.NumericValue {
     return m.Lhs
 }
 
-func (m Multiply) GetRhs() scopejsiicalclib.NumericValue {
+func (m *Multiply) GetRhs() scopejsiicalclib.NumericValue {
     return m.Rhs
 }
 
@@ -5618,19 +5618,19 @@ func NewMultiply(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.Numeric
     return &Multiply{}
 }
 
-func (m Multiply) SetValue(val float64) {
+func (m *Multiply) SetValue(val float64) {
     m.Value = val
 }
 
-func (m Multiply) SetLhs(val scopejsiicalclib.NumericValue) {
+func (m *Multiply) SetLhs(val scopejsiicalclib.NumericValue) {
     m.Lhs = val
 }
 
-func (m Multiply) SetRhs(val scopejsiicalclib.NumericValue) {
+func (m *Multiply) SetRhs(val scopejsiicalclib.NumericValue) {
     m.Rhs = val
 }
 
-func (m *Multiply) TypeName() jsii.Any  {
+func (m *Multiply) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Multiply",
         Method: "TypeName",
@@ -5639,7 +5639,7 @@ func (m *Multiply) TypeName() jsii.Any  {
     return nil
 }
 
-func (m *Multiply) ToString() string  {
+func (m *Multiply) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Multiply",
         Method: "ToString",
@@ -5648,7 +5648,7 @@ func (m *Multiply) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (m *Multiply) Hello() string  {
+func (m *Multiply) Hello() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Multiply",
         Method: "Hello",
@@ -5657,7 +5657,7 @@ func (m *Multiply) Hello() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (m *Multiply) Farewell() string  {
+func (m *Multiply) Farewell() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Multiply",
         Method: "Farewell",
@@ -5666,7 +5666,7 @@ func (m *Multiply) Farewell() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (m *Multiply) Goodbye() string  {
+func (m *Multiply) Goodbye() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Multiply",
         Method: "Goodbye",
@@ -5675,7 +5675,7 @@ func (m *Multiply) Goodbye() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (m *Multiply) Next() float64  {
+func (m *Multiply) Next() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Multiply",
         Method: "Next",
@@ -5707,11 +5707,11 @@ type Negate struct {
     Operand scopejsiicalclib.NumericValue
 }
 
-func (n Negate) GetValue() float64 {
+func (n *Negate) GetValue() float64 {
     return n.Value
 }
 
-func (n Negate) GetOperand() scopejsiicalclib.NumericValue {
+func (n *Negate) GetOperand() scopejsiicalclib.NumericValue {
     return n.Operand
 }
 
@@ -5725,15 +5725,15 @@ func NewNegate(operand scopejsiicalclib.NumericValue) NegateIface {
     return &Negate{}
 }
 
-func (n Negate) SetValue(val float64) {
+func (n *Negate) SetValue(val float64) {
     n.Value = val
 }
 
-func (n Negate) SetOperand(val scopejsiicalclib.NumericValue) {
+func (n *Negate) SetOperand(val scopejsiicalclib.NumericValue) {
     n.Operand = val
 }
 
-func (n *Negate) TypeName() jsii.Any  {
+func (n *Negate) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Negate",
         Method: "TypeName",
@@ -5742,7 +5742,7 @@ func (n *Negate) TypeName() jsii.Any  {
     return nil
 }
 
-func (n *Negate) ToString() string  {
+func (n *Negate) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Negate",
         Method: "ToString",
@@ -5751,7 +5751,7 @@ func (n *Negate) ToString() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (n *Negate) Farewell() string  {
+func (n *Negate) Farewell() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Negate",
         Method: "Farewell",
@@ -5760,7 +5760,7 @@ func (n *Negate) Farewell() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (n *Negate) Goodbye() string  {
+func (n *Negate) Goodbye() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Negate",
         Method: "Goodbye",
@@ -5769,7 +5769,7 @@ func (n *Negate) Goodbye() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (n *Negate) Hello() string  {
+func (n *Negate) Hello() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Negate",
         Method: "Hello",
@@ -5787,7 +5787,7 @@ type NestedClassInstanceIface interface {
 type NestedClassInstance struct {
 }
 
-func (n *NestedClassInstance) MakeInstance() submodule.NestedClass  {
+func (n *NestedClassInstance) MakeInstance() submodule.NestedClass {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NestedClassInstance",
         Method: "MakeInstance",
@@ -5807,7 +5807,7 @@ type NestedStruct struct {
     NumberProp float64
 }
 
-func (n NestedStruct) GetNumberProp() float64 {
+func (n *NestedStruct) GetNumberProp() float64 {
     return n.NumberProp
 }
 
@@ -5828,7 +5828,7 @@ type NodeStandardLibrary struct {
     OsPlatform string
 }
 
-func (n NodeStandardLibrary) GetOsPlatform() string {
+func (n *NodeStandardLibrary) GetOsPlatform() string {
     return n.OsPlatform
 }
 
@@ -5842,11 +5842,11 @@ func NewNodeStandardLibrary() NodeStandardLibraryIface {
     return &NodeStandardLibrary{}
 }
 
-func (n NodeStandardLibrary) SetOsPlatform(val string) {
+func (n *NodeStandardLibrary) SetOsPlatform(val string) {
     n.OsPlatform = val
 }
 
-func (n *NodeStandardLibrary) CryptoSha256() string  {
+func (n *NodeStandardLibrary) CryptoSha256() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NodeStandardLibrary",
         Method: "CryptoSha256",
@@ -5855,7 +5855,7 @@ func (n *NodeStandardLibrary) CryptoSha256() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (n *NodeStandardLibrary) FsReadFile() string  {
+func (n *NodeStandardLibrary) FsReadFile() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NodeStandardLibrary",
         Method: "FsReadFile",
@@ -5864,7 +5864,7 @@ func (n *NodeStandardLibrary) FsReadFile() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (n *NodeStandardLibrary) FsReadFileSync() string  {
+func (n *NodeStandardLibrary) FsReadFileSync() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NodeStandardLibrary",
         Method: "FsReadFileSync",
@@ -5888,7 +5888,7 @@ type NullShouldBeTreatedAsUndefined struct {
     ChangeMeToUndefined string
 }
 
-func (n NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
+func (n *NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
     return n.ChangeMeToUndefined
 }
 
@@ -5902,11 +5902,11 @@ func NewNullShouldBeTreatedAsUndefined(_param1 string, optional jsii.Any) NullSh
     return &NullShouldBeTreatedAsUndefined{}
 }
 
-func (n NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
+func (n *NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
     n.ChangeMeToUndefined = val
 }
 
-func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined() jsii.Any  {
+func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NullShouldBeTreatedAsUndefined",
         Method: "GiveMeUndefined",
@@ -5915,7 +5915,7 @@ func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined() jsii.Any  {
     return nil
 }
 
-func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefinedInsideAnObject() jsii.Any  {
+func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefinedInsideAnObject() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NullShouldBeTreatedAsUndefined",
         Method: "GiveMeUndefinedInsideAnObject",
@@ -5924,7 +5924,7 @@ func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefinedInsideAnObject() jsii.An
     return nil
 }
 
-func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() jsii.Any  {
+func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NullShouldBeTreatedAsUndefined",
         Method: "VerifyPropertyIsUndefined",
@@ -5945,11 +5945,11 @@ type NullShouldBeTreatedAsUndefinedData struct {
     ThisShouldBeUndefined jsii.Any
 }
 
-func (n NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []jsii.Any {
+func (n *NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []jsii.Any {
     return n.ArrayWithThreeElementsAndUndefinedAsSecondArgument
 }
 
-func (n NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() jsii.Any {
+func (n *NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() jsii.Any {
     return n.ThisShouldBeUndefined
 }
 
@@ -5968,7 +5968,7 @@ type NumberGenerator struct {
     Generator IRandomNumberGenerator
 }
 
-func (n NumberGenerator) GetGenerator() IRandomNumberGenerator {
+func (n *NumberGenerator) GetGenerator() IRandomNumberGenerator {
     return n.Generator
 }
 
@@ -5982,11 +5982,11 @@ func NewNumberGenerator(generator IRandomNumberGenerator) NumberGeneratorIface {
     return &NumberGenerator{}
 }
 
-func (n NumberGenerator) SetGenerator(val IRandomNumberGenerator) {
+func (n *NumberGenerator) SetGenerator(val IRandomNumberGenerator) {
     n.Generator = val
 }
 
-func (n *NumberGenerator) IsSameGenerator() bool  {
+func (n *NumberGenerator) IsSameGenerator() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NumberGenerator",
         Method: "IsSameGenerator",
@@ -5995,7 +5995,7 @@ func (n *NumberGenerator) IsSameGenerator() bool  {
     return true
 }
 
-func (n *NumberGenerator) NextTimes100() float64  {
+func (n *NumberGenerator) NextTimes100() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "NumberGenerator",
         Method: "NextTimes100",
@@ -6024,7 +6024,7 @@ func NewObjectRefsInCollections() ObjectRefsInCollectionsIface {
     return &ObjectRefsInCollections{}
 }
 
-func (o *ObjectRefsInCollections) SumFromArray() float64  {
+func (o *ObjectRefsInCollections) SumFromArray() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ObjectRefsInCollections",
         Method: "SumFromArray",
@@ -6033,7 +6033,7 @@ func (o *ObjectRefsInCollections) SumFromArray() float64  {
     return 0.0
 }
 
-func (o *ObjectRefsInCollections) SumFromMap() float64  {
+func (o *ObjectRefsInCollections) SumFromMap() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ObjectRefsInCollections",
         Method: "SumFromMap",
@@ -6051,7 +6051,7 @@ type ObjectWithPropertyProviderIface interface {
 type ObjectWithPropertyProvider struct {
 }
 
-func (o *ObjectWithPropertyProvider) Provide() IObjectWithProperty  {
+func (o *ObjectWithPropertyProvider) Provide() IObjectWithProperty {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ObjectWithPropertyProvider",
         Method: "Provide",
@@ -6080,7 +6080,7 @@ func NewOld() OldIface {
     return &Old{}
 }
 
-func (o *Old) DoAThing() jsii.Any  {
+func (o *Old) DoAThing() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Old",
         Method: "DoAThing",
@@ -6108,7 +6108,7 @@ func NewOptionalArgumentInvoker(delegate IInterfaceWithOptionalMethodArguments) 
     return &OptionalArgumentInvoker{}
 }
 
-func (o *OptionalArgumentInvoker) InvokeWithOptional() jsii.Any  {
+func (o *OptionalArgumentInvoker) InvokeWithOptional() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "OptionalArgumentInvoker",
         Method: "InvokeWithOptional",
@@ -6117,7 +6117,7 @@ func (o *OptionalArgumentInvoker) InvokeWithOptional() jsii.Any  {
     return nil
 }
 
-func (o *OptionalArgumentInvoker) InvokeWithoutOptional() jsii.Any  {
+func (o *OptionalArgumentInvoker) InvokeWithoutOptional() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "OptionalArgumentInvoker",
         Method: "InvokeWithoutOptional",
@@ -6143,15 +6143,15 @@ type OptionalConstructorArgument struct {
     Arg3 string
 }
 
-func (o OptionalConstructorArgument) GetArg1() float64 {
+func (o *OptionalConstructorArgument) GetArg1() float64 {
     return o.Arg1
 }
 
-func (o OptionalConstructorArgument) GetArg2() string {
+func (o *OptionalConstructorArgument) GetArg2() string {
     return o.Arg2
 }
 
-func (o OptionalConstructorArgument) GetArg3() string {
+func (o *OptionalConstructorArgument) GetArg3() string {
     return o.Arg3
 }
 
@@ -6165,15 +6165,15 @@ func NewOptionalConstructorArgument(arg1 float64, arg2 string, arg3 string) Opti
     return &OptionalConstructorArgument{}
 }
 
-func (o OptionalConstructorArgument) SetArg1(val float64) {
+func (o *OptionalConstructorArgument) SetArg1(val float64) {
     o.Arg1 = val
 }
 
-func (o OptionalConstructorArgument) SetArg2(val string) {
+func (o *OptionalConstructorArgument) SetArg2(val string) {
     o.Arg2 = val
 }
 
-func (o OptionalConstructorArgument) SetArg3(val string) {
+func (o *OptionalConstructorArgument) SetArg3(val string) {
     o.Arg3 = val
 }
 
@@ -6187,7 +6187,7 @@ type OptionalStruct struct {
     Field string
 }
 
-func (o OptionalStruct) GetField() string {
+func (o *OptionalStruct) GetField() string {
     return o.Field
 }
 
@@ -6206,11 +6206,11 @@ type OptionalStructConsumer struct {
     FieldValue string
 }
 
-func (o OptionalStructConsumer) GetParameterWasUndefined() bool {
+func (o *OptionalStructConsumer) GetParameterWasUndefined() bool {
     return o.ParameterWasUndefined
 }
 
-func (o OptionalStructConsumer) GetFieldValue() string {
+func (o *OptionalStructConsumer) GetFieldValue() string {
     return o.FieldValue
 }
 
@@ -6224,11 +6224,11 @@ func NewOptionalStructConsumer(optionalStruct OptionalStruct) OptionalStructCons
     return &OptionalStructConsumer{}
 }
 
-func (o OptionalStructConsumer) SetParameterWasUndefined(val bool) {
+func (o *OptionalStructConsumer) SetParameterWasUndefined(val bool) {
     o.ParameterWasUndefined = val
 }
 
-func (o OptionalStructConsumer) SetFieldValue(val string) {
+func (o *OptionalStructConsumer) SetFieldValue(val string) {
     o.FieldValue = val
 }
 
@@ -6249,11 +6249,11 @@ type OverridableProtectedMember struct {
     OverrideReadWrite string
 }
 
-func (o OverridableProtectedMember) GetOverrideReadOnly() string {
+func (o *OverridableProtectedMember) GetOverrideReadOnly() string {
     return o.OverrideReadOnly
 }
 
-func (o OverridableProtectedMember) GetOverrideReadWrite() string {
+func (o *OverridableProtectedMember) GetOverrideReadWrite() string {
     return o.OverrideReadWrite
 }
 
@@ -6267,15 +6267,15 @@ func NewOverridableProtectedMember() OverridableProtectedMemberIface {
     return &OverridableProtectedMember{}
 }
 
-func (o OverridableProtectedMember) SetOverrideReadOnly(val string) {
+func (o *OverridableProtectedMember) SetOverrideReadOnly(val string) {
     o.OverrideReadOnly = val
 }
 
-func (o OverridableProtectedMember) SetOverrideReadWrite(val string) {
+func (o *OverridableProtectedMember) SetOverrideReadWrite(val string) {
     o.OverrideReadWrite = val
 }
 
-func (o *OverridableProtectedMember) OverrideMe() string  {
+func (o *OverridableProtectedMember) OverrideMe() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "OverridableProtectedMember",
         Method: "OverrideMe",
@@ -6284,7 +6284,7 @@ func (o *OverridableProtectedMember) OverrideMe() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (o *OverridableProtectedMember) SwitchModes() jsii.Any  {
+func (o *OverridableProtectedMember) SwitchModes() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "OverridableProtectedMember",
         Method: "SwitchModes",
@@ -6293,7 +6293,7 @@ func (o *OverridableProtectedMember) SwitchModes() jsii.Any  {
     return nil
 }
 
-func (o *OverridableProtectedMember) ValueFromProtected() string  {
+func (o *OverridableProtectedMember) ValueFromProtected() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "OverridableProtectedMember",
         Method: "ValueFromProtected",
@@ -6320,7 +6320,7 @@ func NewOverrideReturnsObject() OverrideReturnsObjectIface {
     return &OverrideReturnsObject{}
 }
 
-func (o *OverrideReturnsObject) Test() float64  {
+func (o *OverrideReturnsObject) Test() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "OverrideReturnsObject",
         Method: "Test",
@@ -6340,7 +6340,7 @@ type ParentStruct982 struct {
     Foo string
 }
 
-func (p ParentStruct982) GetFoo() string {
+func (p *ParentStruct982) GetFoo() string {
     return p.Foo
 }
 
@@ -6363,7 +6363,7 @@ func NewPartiallyInitializedThisConsumer() PartiallyInitializedThisConsumerIface
     return &PartiallyInitializedThisConsumer{}
 }
 
-func (p *PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis() string  {
+func (p *PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PartiallyInitializedThisConsumer",
         Method: "ConsumePartiallyInitializedThis",
@@ -6390,7 +6390,7 @@ func NewPolymorphism() PolymorphismIface {
     return &Polymorphism{}
 }
 
-func (p *Polymorphism) SayHello() string  {
+func (p *Polymorphism) SayHello() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Polymorphism",
         Method: "SayHello",
@@ -6440,31 +6440,31 @@ type Power struct {
     Pow scopejsiicalclib.NumericValue
 }
 
-func (p Power) GetValue() float64 {
+func (p *Power) GetValue() float64 {
     return p.Value
 }
 
-func (p Power) GetExpression() scopejsiicalclib.NumericValue {
+func (p *Power) GetExpression() scopejsiicalclib.NumericValue {
     return p.Expression
 }
 
-func (p Power) GetDecorationPostfixes() []string {
+func (p *Power) GetDecorationPostfixes() []string {
     return p.DecorationPostfixes
 }
 
-func (p Power) GetDecorationPrefixes() []string {
+func (p *Power) GetDecorationPrefixes() []string {
     return p.DecorationPrefixes
 }
 
-func (p Power) GetStringStyle() composition.CompositionStringStyle {
+func (p *Power) GetStringStyle() composition.CompositionStringStyle {
     return p.StringStyle
 }
 
-func (p Power) GetBase() scopejsiicalclib.NumericValue {
+func (p *Power) GetBase() scopejsiicalclib.NumericValue {
     return p.Base
 }
 
-func (p Power) GetPow() scopejsiicalclib.NumericValue {
+func (p *Power) GetPow() scopejsiicalclib.NumericValue {
     return p.Pow
 }
 
@@ -6479,35 +6479,35 @@ func NewPower(base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericVa
     return &Power{}
 }
 
-func (p Power) SetValue(val float64) {
+func (p *Power) SetValue(val float64) {
     p.Value = val
 }
 
-func (p Power) SetExpression(val scopejsiicalclib.NumericValue) {
+func (p *Power) SetExpression(val scopejsiicalclib.NumericValue) {
     p.Expression = val
 }
 
-func (p Power) SetDecorationPostfixes(val []string) {
+func (p *Power) SetDecorationPostfixes(val []string) {
     p.DecorationPostfixes = val
 }
 
-func (p Power) SetDecorationPrefixes(val []string) {
+func (p *Power) SetDecorationPrefixes(val []string) {
     p.DecorationPrefixes = val
 }
 
-func (p Power) SetStringStyle(val composition.CompositionStringStyle) {
+func (p *Power) SetStringStyle(val composition.CompositionStringStyle) {
     p.StringStyle = val
 }
 
-func (p Power) SetBase(val scopejsiicalclib.NumericValue) {
+func (p *Power) SetBase(val scopejsiicalclib.NumericValue) {
     p.Base = val
 }
 
-func (p Power) SetPow(val scopejsiicalclib.NumericValue) {
+func (p *Power) SetPow(val scopejsiicalclib.NumericValue) {
     p.Pow = val
 }
 
-func (p *Power) TypeName() jsii.Any  {
+func (p *Power) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Power",
         Method: "TypeName",
@@ -6516,7 +6516,7 @@ func (p *Power) TypeName() jsii.Any  {
     return nil
 }
 
-func (p *Power) ToString() string  {
+func (p *Power) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Power",
         Method: "ToString",
@@ -6540,11 +6540,11 @@ type PropertyNamedProperty struct {
     YetAnoterOne bool
 }
 
-func (p PropertyNamedProperty) GetProperty() string {
+func (p *PropertyNamedProperty) GetProperty() string {
     return p.Property
 }
 
-func (p PropertyNamedProperty) GetYetAnoterOne() bool {
+func (p *PropertyNamedProperty) GetYetAnoterOne() bool {
     return p.YetAnoterOne
 }
 
@@ -6558,11 +6558,11 @@ func NewPropertyNamedProperty() PropertyNamedPropertyIface {
     return &PropertyNamedProperty{}
 }
 
-func (p PropertyNamedProperty) SetProperty(val string) {
+func (p *PropertyNamedProperty) SetProperty(val string) {
     p.Property = val
 }
 
-func (p PropertyNamedProperty) SetYetAnoterOne(val bool) {
+func (p *PropertyNamedProperty) SetYetAnoterOne(val bool) {
     p.YetAnoterOne = val
 }
 
@@ -6584,7 +6584,7 @@ func NewPublicClass() PublicClassIface {
     return &PublicClass{}
 }
 
-func (p *PublicClass) Hello() jsii.Any  {
+func (p *PublicClass) Hello() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PublicClass",
         Method: "Hello",
@@ -6642,7 +6642,7 @@ func NewPythonReservedWords() PythonReservedWordsIface {
     return &PythonReservedWords{}
 }
 
-func (p *PythonReservedWords) And() jsii.Any  {
+func (p *PythonReservedWords) And() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "And",
@@ -6651,7 +6651,7 @@ func (p *PythonReservedWords) And() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) As() jsii.Any  {
+func (p *PythonReservedWords) As() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "As",
@@ -6660,7 +6660,7 @@ func (p *PythonReservedWords) As() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Assert() jsii.Any  {
+func (p *PythonReservedWords) Assert() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Assert",
@@ -6669,7 +6669,7 @@ func (p *PythonReservedWords) Assert() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Async() jsii.Any  {
+func (p *PythonReservedWords) Async() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Async",
@@ -6678,7 +6678,7 @@ func (p *PythonReservedWords) Async() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Await() jsii.Any  {
+func (p *PythonReservedWords) Await() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Await",
@@ -6687,7 +6687,7 @@ func (p *PythonReservedWords) Await() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Break() jsii.Any  {
+func (p *PythonReservedWords) Break() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Break",
@@ -6696,7 +6696,7 @@ func (p *PythonReservedWords) Break() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Class() jsii.Any  {
+func (p *PythonReservedWords) Class() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Class",
@@ -6705,7 +6705,7 @@ func (p *PythonReservedWords) Class() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Continue() jsii.Any  {
+func (p *PythonReservedWords) Continue() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Continue",
@@ -6714,7 +6714,7 @@ func (p *PythonReservedWords) Continue() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Def() jsii.Any  {
+func (p *PythonReservedWords) Def() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Def",
@@ -6723,7 +6723,7 @@ func (p *PythonReservedWords) Def() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Del() jsii.Any  {
+func (p *PythonReservedWords) Del() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Del",
@@ -6732,7 +6732,7 @@ func (p *PythonReservedWords) Del() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Elif() jsii.Any  {
+func (p *PythonReservedWords) Elif() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Elif",
@@ -6741,7 +6741,7 @@ func (p *PythonReservedWords) Elif() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Else() jsii.Any  {
+func (p *PythonReservedWords) Else() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Else",
@@ -6750,7 +6750,7 @@ func (p *PythonReservedWords) Else() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Except() jsii.Any  {
+func (p *PythonReservedWords) Except() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Except",
@@ -6759,7 +6759,7 @@ func (p *PythonReservedWords) Except() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Finally() jsii.Any  {
+func (p *PythonReservedWords) Finally() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Finally",
@@ -6768,7 +6768,7 @@ func (p *PythonReservedWords) Finally() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) For() jsii.Any  {
+func (p *PythonReservedWords) For() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "For",
@@ -6777,7 +6777,7 @@ func (p *PythonReservedWords) For() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) From() jsii.Any  {
+func (p *PythonReservedWords) From() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "From",
@@ -6786,7 +6786,7 @@ func (p *PythonReservedWords) From() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Global() jsii.Any  {
+func (p *PythonReservedWords) Global() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Global",
@@ -6795,7 +6795,7 @@ func (p *PythonReservedWords) Global() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) If() jsii.Any  {
+func (p *PythonReservedWords) If() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "If",
@@ -6804,7 +6804,7 @@ func (p *PythonReservedWords) If() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Import() jsii.Any  {
+func (p *PythonReservedWords) Import() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Import",
@@ -6813,7 +6813,7 @@ func (p *PythonReservedWords) Import() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) In() jsii.Any  {
+func (p *PythonReservedWords) In() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "In",
@@ -6822,7 +6822,7 @@ func (p *PythonReservedWords) In() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Is() jsii.Any  {
+func (p *PythonReservedWords) Is() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Is",
@@ -6831,7 +6831,7 @@ func (p *PythonReservedWords) Is() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Lambda() jsii.Any  {
+func (p *PythonReservedWords) Lambda() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Lambda",
@@ -6840,7 +6840,7 @@ func (p *PythonReservedWords) Lambda() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Nonlocal() jsii.Any  {
+func (p *PythonReservedWords) Nonlocal() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Nonlocal",
@@ -6849,7 +6849,7 @@ func (p *PythonReservedWords) Nonlocal() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Not() jsii.Any  {
+func (p *PythonReservedWords) Not() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Not",
@@ -6858,7 +6858,7 @@ func (p *PythonReservedWords) Not() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Or() jsii.Any  {
+func (p *PythonReservedWords) Or() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Or",
@@ -6867,7 +6867,7 @@ func (p *PythonReservedWords) Or() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Pass() jsii.Any  {
+func (p *PythonReservedWords) Pass() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Pass",
@@ -6876,7 +6876,7 @@ func (p *PythonReservedWords) Pass() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Raise() jsii.Any  {
+func (p *PythonReservedWords) Raise() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Raise",
@@ -6885,7 +6885,7 @@ func (p *PythonReservedWords) Raise() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Return() jsii.Any  {
+func (p *PythonReservedWords) Return() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Return",
@@ -6894,7 +6894,7 @@ func (p *PythonReservedWords) Return() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Try() jsii.Any  {
+func (p *PythonReservedWords) Try() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Try",
@@ -6903,7 +6903,7 @@ func (p *PythonReservedWords) Try() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) While() jsii.Any  {
+func (p *PythonReservedWords) While() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "While",
@@ -6912,7 +6912,7 @@ func (p *PythonReservedWords) While() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) With() jsii.Any  {
+func (p *PythonReservedWords) With() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "With",
@@ -6921,7 +6921,7 @@ func (p *PythonReservedWords) With() jsii.Any  {
     return nil
 }
 
-func (p *PythonReservedWords) Yield() jsii.Any  {
+func (p *PythonReservedWords) Yield() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "PythonReservedWords",
         Method: "Yield",
@@ -6944,7 +6944,7 @@ type ReferenceEnumFromScopedPackage struct {
     Foo scopejsiicalclib.EnumFromScopedModule
 }
 
-func (r ReferenceEnumFromScopedPackage) GetFoo() scopejsiicalclib.EnumFromScopedModule {
+func (r *ReferenceEnumFromScopedPackage) GetFoo() scopejsiicalclib.EnumFromScopedModule {
     return r.Foo
 }
 
@@ -6958,11 +6958,11 @@ func NewReferenceEnumFromScopedPackage() ReferenceEnumFromScopedPackageIface {
     return &ReferenceEnumFromScopedPackage{}
 }
 
-func (r ReferenceEnumFromScopedPackage) SetFoo(val scopejsiicalclib.EnumFromScopedModule) {
+func (r *ReferenceEnumFromScopedPackage) SetFoo(val scopejsiicalclib.EnumFromScopedModule) {
     r.Foo = val
 }
 
-func (r *ReferenceEnumFromScopedPackage) LoadFoo() scopejsiicalclib.EnumFromScopedModule  {
+func (r *ReferenceEnumFromScopedPackage) LoadFoo() scopejsiicalclib.EnumFromScopedModule {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ReferenceEnumFromScopedPackage",
         Method: "LoadFoo",
@@ -6971,7 +6971,7 @@ func (r *ReferenceEnumFromScopedPackage) LoadFoo() scopejsiicalclib.EnumFromScop
     return "ENUM_DUMMY"
 }
 
-func (r *ReferenceEnumFromScopedPackage) SaveFoo() jsii.Any  {
+func (r *ReferenceEnumFromScopedPackage) SaveFoo() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ReferenceEnumFromScopedPackage",
         Method: "SaveFoo",
@@ -6996,7 +6996,7 @@ type ReturnsPrivateImplementationOfInterface struct {
     PrivateImplementation IPrivatelyImplemented
 }
 
-func (r ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPrivatelyImplemented {
+func (r *ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPrivatelyImplemented {
     return r.PrivateImplementation
 }
 
@@ -7010,7 +7010,7 @@ func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOf
     return &ReturnsPrivateImplementationOfInterface{}
 }
 
-func (r ReturnsPrivateImplementationOfInterface) SetPrivateImplementation(val IPrivatelyImplemented) {
+func (r *ReturnsPrivateImplementationOfInterface) SetPrivateImplementation(val IPrivatelyImplemented) {
     r.PrivateImplementation = val
 }
 
@@ -7031,11 +7031,11 @@ type RootStruct struct {
     NestedStruct NestedStruct
 }
 
-func (r RootStruct) GetStringProp() string {
+func (r *RootStruct) GetStringProp() string {
     return r.StringProp
 }
 
-func (r RootStruct) GetNestedStruct() NestedStruct {
+func (r *RootStruct) GetNestedStruct() NestedStruct {
     return r.NestedStruct
 }
 
@@ -7049,7 +7049,7 @@ type RootStructValidatorIface interface {
 type RootStructValidator struct {
 }
 
-func (r *RootStructValidator) Validate() jsii.Any  {
+func (r *RootStructValidator) Validate() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "RootStructValidator",
         Method: "Validate",
@@ -7078,7 +7078,7 @@ func NewRuntimeTypeChecking() RuntimeTypeCheckingIface {
     return &RuntimeTypeChecking{}
 }
 
-func (r *RuntimeTypeChecking) MethodWithDefaultedArguments() jsii.Any  {
+func (r *RuntimeTypeChecking) MethodWithDefaultedArguments() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "RuntimeTypeChecking",
         Method: "MethodWithDefaultedArguments",
@@ -7087,7 +7087,7 @@ func (r *RuntimeTypeChecking) MethodWithDefaultedArguments() jsii.Any  {
     return nil
 }
 
-func (r *RuntimeTypeChecking) MethodWithOptionalAnyArgument() jsii.Any  {
+func (r *RuntimeTypeChecking) MethodWithOptionalAnyArgument() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "RuntimeTypeChecking",
         Method: "MethodWithOptionalAnyArgument",
@@ -7096,7 +7096,7 @@ func (r *RuntimeTypeChecking) MethodWithOptionalAnyArgument() jsii.Any  {
     return nil
 }
 
-func (r *RuntimeTypeChecking) MethodWithOptionalArguments() jsii.Any  {
+func (r *RuntimeTypeChecking) MethodWithOptionalArguments() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "RuntimeTypeChecking",
         Method: "MethodWithOptionalArguments",
@@ -7119,11 +7119,11 @@ type SecondLevelStruct struct {
     DeeperOptionalProp string
 }
 
-func (s SecondLevelStruct) GetDeeperRequiredProp() string {
+func (s *SecondLevelStruct) GetDeeperRequiredProp() string {
     return s.DeeperRequiredProp
 }
 
-func (s SecondLevelStruct) GetDeeperOptionalProp() string {
+func (s *SecondLevelStruct) GetDeeperOptionalProp() string {
     return s.DeeperOptionalProp
 }
 
@@ -7152,7 +7152,7 @@ func NewSingleInstanceTwoTypes() SingleInstanceTwoTypesIface {
     return &SingleInstanceTwoTypes{}
 }
 
-func (s *SingleInstanceTwoTypes) Interface1() InbetweenClass  {
+func (s *SingleInstanceTwoTypes) Interface1() InbetweenClass {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SingleInstanceTwoTypes",
         Method: "Interface1",
@@ -7161,7 +7161,7 @@ func (s *SingleInstanceTwoTypes) Interface1() InbetweenClass  {
     return InbetweenClass{}
 }
 
-func (s *SingleInstanceTwoTypes) Interface2() IPublicInterface  {
+func (s *SingleInstanceTwoTypes) Interface2() IPublicInterface {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SingleInstanceTwoTypes",
         Method: "Interface2",
@@ -7182,7 +7182,7 @@ type SingletonIntIface interface {
 type SingletonInt struct {
 }
 
-func (s *SingletonInt) IsSingletonInt() bool  {
+func (s *SingletonInt) IsSingletonInt() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SingletonInt",
         Method: "IsSingletonInt",
@@ -7210,7 +7210,7 @@ type SingletonStringIface interface {
 type SingletonString struct {
 }
 
-func (s *SingletonString) IsSingletonString() bool  {
+func (s *SingletonString) IsSingletonString() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SingletonString",
         Method: "IsSingletonString",
@@ -7238,11 +7238,11 @@ type SmellyStruct struct {
     YetAnoterOne bool
 }
 
-func (s SmellyStruct) GetProperty() string {
+func (s *SmellyStruct) GetProperty() string {
     return s.Property
 }
 
-func (s SmellyStruct) GetYetAnoterOne() bool {
+func (s *SmellyStruct) GetYetAnoterOne() bool {
     return s.YetAnoterOne
 }
 
@@ -7266,7 +7266,7 @@ func NewSomeTypeJsii976() SomeTypeJsii976Iface {
     return &SomeTypeJsii976{}
 }
 
-func (s *SomeTypeJsii976) ReturnAnonymous() jsii.Any  {
+func (s *SomeTypeJsii976) ReturnAnonymous() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SomeTypeJsii976",
         Method: "ReturnAnonymous",
@@ -7275,7 +7275,7 @@ func (s *SomeTypeJsii976) ReturnAnonymous() jsii.Any  {
     return nil
 }
 
-func (s *SomeTypeJsii976) ReturnReturn() IReturnJsii976  {
+func (s *SomeTypeJsii976) ReturnReturn() IReturnJsii976 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SomeTypeJsii976",
         Method: "ReturnReturn",
@@ -7299,11 +7299,11 @@ type StableClass struct {
     MutableProperty float64
 }
 
-func (s StableClass) GetReadonlyProperty() string {
+func (s *StableClass) GetReadonlyProperty() string {
     return s.ReadonlyProperty
 }
 
-func (s StableClass) GetMutableProperty() float64 {
+func (s *StableClass) GetMutableProperty() float64 {
     return s.MutableProperty
 }
 
@@ -7317,15 +7317,15 @@ func NewStableClass(readonlyString string, mutableNumber float64) StableClassIfa
     return &StableClass{}
 }
 
-func (s StableClass) SetReadonlyProperty(val string) {
+func (s *StableClass) SetReadonlyProperty(val string) {
     s.ReadonlyProperty = val
 }
 
-func (s StableClass) SetMutableProperty(val float64) {
+func (s *StableClass) SetMutableProperty(val float64) {
     s.MutableProperty = val
 }
 
-func (s *StableClass) Method() jsii.Any  {
+func (s *StableClass) Method() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StableClass",
         Method: "Method",
@@ -7351,7 +7351,7 @@ type StableStruct struct {
     ReadonlyProperty string
 }
 
-func (s StableStruct) GetReadonlyProperty() string {
+func (s *StableStruct) GetReadonlyProperty() string {
     return s.ReadonlyProperty
 }
 
@@ -7371,16 +7371,16 @@ type StaticContext struct {
     StaticVariable bool
 }
 
-func (s StaticContext) GetStaticVariable() bool {
+func (s *StaticContext) GetStaticVariable() bool {
     return s.StaticVariable
 }
 
 
-func (s StaticContext) SetStaticVariable(val bool) {
+func (s *StaticContext) SetStaticVariable(val bool) {
     s.StaticVariable = val
 }
 
-func (s *StaticContext) CanAccessStaticContext() bool  {
+func (s *StaticContext) CanAccessStaticContext() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StaticContext",
         Method: "CanAccessStaticContext",
@@ -7426,31 +7426,31 @@ type Statics struct {
     Value string
 }
 
-func (s Statics) GetBar() float64 {
+func (s *Statics) GetBar() float64 {
     return s.Bar
 }
 
-func (s Statics) GetConstObj() DoubleTrouble {
+func (s *Statics) GetConstObj() DoubleTrouble {
     return s.ConstObj
 }
 
-func (s Statics) GetFoo() string {
+func (s *Statics) GetFoo() string {
     return s.Foo
 }
 
-func (s Statics) GetZooBar() map[string]string {
+func (s *Statics) GetZooBar() map[string]string {
     return s.ZooBar
 }
 
-func (s Statics) GetInstance() Statics {
+func (s *Statics) GetInstance() Statics {
     return s.Instance
 }
 
-func (s Statics) GetNonConstStatic() float64 {
+func (s *Statics) GetNonConstStatic() float64 {
     return s.NonConstStatic
 }
 
-func (s Statics) GetValue() string {
+func (s *Statics) GetValue() string {
     return s.Value
 }
 
@@ -7464,35 +7464,35 @@ func NewStatics(value string) StaticsIface {
     return &Statics{}
 }
 
-func (s Statics) SetBar(val float64) {
+func (s *Statics) SetBar(val float64) {
     s.Bar = val
 }
 
-func (s Statics) SetConstObj(val DoubleTrouble) {
+func (s *Statics) SetConstObj(val DoubleTrouble) {
     s.ConstObj = val
 }
 
-func (s Statics) SetFoo(val string) {
+func (s *Statics) SetFoo(val string) {
     s.Foo = val
 }
 
-func (s Statics) SetZooBar(val map[string]string) {
+func (s *Statics) SetZooBar(val map[string]string) {
     s.ZooBar = val
 }
 
-func (s Statics) SetInstance(val Statics) {
+func (s *Statics) SetInstance(val Statics) {
     s.Instance = val
 }
 
-func (s Statics) SetNonConstStatic(val float64) {
+func (s *Statics) SetNonConstStatic(val float64) {
     s.NonConstStatic = val
 }
 
-func (s Statics) SetValue(val string) {
+func (s *Statics) SetValue(val string) {
     s.Value = val
 }
 
-func (s *Statics) StaticMethod() string  {
+func (s *Statics) StaticMethod() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Statics",
         Method: "StaticMethod",
@@ -7501,7 +7501,7 @@ func (s *Statics) StaticMethod() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (s *Statics) JustMethod() string  {
+func (s *Statics) JustMethod() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Statics",
         Method: "JustMethod",
@@ -7529,7 +7529,7 @@ type StripInternal struct {
     YouSeeMe string
 }
 
-func (s StripInternal) GetYouSeeMe() string {
+func (s *StripInternal) GetYouSeeMe() string {
     return s.YouSeeMe
 }
 
@@ -7543,7 +7543,7 @@ func NewStripInternal() StripInternalIface {
     return &StripInternal{}
 }
 
-func (s StripInternal) SetYouSeeMe(val string) {
+func (s *StripInternal) SetYouSeeMe(val string) {
     s.YouSeeMe = val
 }
 
@@ -7562,15 +7562,15 @@ type StructA struct {
     OptionalString string
 }
 
-func (s StructA) GetRequiredString() string {
+func (s *StructA) GetRequiredString() string {
     return s.RequiredString
 }
 
-func (s StructA) GetOptionalNumber() float64 {
+func (s *StructA) GetOptionalNumber() float64 {
     return s.OptionalNumber
 }
 
-func (s StructA) GetOptionalString() string {
+func (s *StructA) GetOptionalString() string {
     return s.OptionalString
 }
 
@@ -7590,15 +7590,15 @@ type StructB struct {
     OptionalStructA StructA
 }
 
-func (s StructB) GetRequiredString() string {
+func (s *StructB) GetRequiredString() string {
     return s.RequiredString
 }
 
-func (s StructB) GetOptionalBoolean() bool {
+func (s *StructB) GetOptionalBoolean() bool {
     return s.OptionalBoolean
 }
 
-func (s StructB) GetOptionalStructA() StructA {
+func (s *StructB) GetOptionalStructA() StructA {
     return s.OptionalStructA
 }
 
@@ -7618,11 +7618,11 @@ type StructParameterType struct {
     Props bool
 }
 
-func (s StructParameterType) GetScope() string {
+func (s *StructParameterType) GetScope() string {
     return s.Scope
 }
 
-func (s StructParameterType) GetProps() bool {
+func (s *StructParameterType) GetProps() bool {
     return s.Props
 }
 
@@ -7647,7 +7647,7 @@ func NewStructPassing() StructPassingIface {
     return &StructPassing{}
 }
 
-func (s *StructPassing) HowManyVarArgsDidIPass() float64  {
+func (s *StructPassing) HowManyVarArgsDidIPass() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StructPassing",
         Method: "HowManyVarArgsDidIPass",
@@ -7656,7 +7656,7 @@ func (s *StructPassing) HowManyVarArgsDidIPass() float64  {
     return 0.0
 }
 
-func (s *StructPassing) RoundTrip() TopLevelStruct  {
+func (s *StructPassing) RoundTrip() TopLevelStruct {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StructPassing",
         Method: "RoundTrip",
@@ -7675,7 +7675,7 @@ type StructUnionConsumerIface interface {
 type StructUnionConsumer struct {
 }
 
-func (s *StructUnionConsumer) IsStructA() bool  {
+func (s *StructUnionConsumer) IsStructA() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StructUnionConsumer",
         Method: "IsStructA",
@@ -7684,7 +7684,7 @@ func (s *StructUnionConsumer) IsStructA() bool  {
     return true
 }
 
-func (s *StructUnionConsumer) IsStructB() bool  {
+func (s *StructUnionConsumer) IsStructB() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StructUnionConsumer",
         Method: "IsStructB",
@@ -7709,19 +7709,19 @@ type StructWithJavaReservedWords struct {
     That string
 }
 
-func (s StructWithJavaReservedWords) GetDefault() string {
+func (s *StructWithJavaReservedWords) GetDefault() string {
     return s.Default
 }
 
-func (s StructWithJavaReservedWords) GetAssert() string {
+func (s *StructWithJavaReservedWords) GetAssert() string {
     return s.Assert
 }
 
-func (s StructWithJavaReservedWords) GetResult() string {
+func (s *StructWithJavaReservedWords) GetResult() string {
     return s.Result
 }
 
-func (s StructWithJavaReservedWords) GetThat() string {
+func (s *StructWithJavaReservedWords) GetThat() string {
     return s.That
 }
 
@@ -7763,27 +7763,27 @@ type Sum struct {
     Parts []scopejsiicalclib.NumericValue
 }
 
-func (s Sum) GetValue() float64 {
+func (s *Sum) GetValue() float64 {
     return s.Value
 }
 
-func (s Sum) GetExpression() scopejsiicalclib.NumericValue {
+func (s *Sum) GetExpression() scopejsiicalclib.NumericValue {
     return s.Expression
 }
 
-func (s Sum) GetDecorationPostfixes() []string {
+func (s *Sum) GetDecorationPostfixes() []string {
     return s.DecorationPostfixes
 }
 
-func (s Sum) GetDecorationPrefixes() []string {
+func (s *Sum) GetDecorationPrefixes() []string {
     return s.DecorationPrefixes
 }
 
-func (s Sum) GetStringStyle() composition.CompositionStringStyle {
+func (s *Sum) GetStringStyle() composition.CompositionStringStyle {
     return s.StringStyle
 }
 
-func (s Sum) GetParts() []scopejsiicalclib.NumericValue {
+func (s *Sum) GetParts() []scopejsiicalclib.NumericValue {
     return s.Parts
 }
 
@@ -7797,31 +7797,31 @@ func NewSum() SumIface {
     return &Sum{}
 }
 
-func (s Sum) SetValue(val float64) {
+func (s *Sum) SetValue(val float64) {
     s.Value = val
 }
 
-func (s Sum) SetExpression(val scopejsiicalclib.NumericValue) {
+func (s *Sum) SetExpression(val scopejsiicalclib.NumericValue) {
     s.Expression = val
 }
 
-func (s Sum) SetDecorationPostfixes(val []string) {
+func (s *Sum) SetDecorationPostfixes(val []string) {
     s.DecorationPostfixes = val
 }
 
-func (s Sum) SetDecorationPrefixes(val []string) {
+func (s *Sum) SetDecorationPrefixes(val []string) {
     s.DecorationPrefixes = val
 }
 
-func (s Sum) SetStringStyle(val composition.CompositionStringStyle) {
+func (s *Sum) SetStringStyle(val composition.CompositionStringStyle) {
     s.StringStyle = val
 }
 
-func (s Sum) SetParts(val []scopejsiicalclib.NumericValue) {
+func (s *Sum) SetParts(val []scopejsiicalclib.NumericValue) {
     s.Parts = val
 }
 
-func (s *Sum) TypeName() jsii.Any  {
+func (s *Sum) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Sum",
         Method: "TypeName",
@@ -7830,7 +7830,7 @@ func (s *Sum) TypeName() jsii.Any  {
     return nil
 }
 
-func (s *Sum) ToString() string  {
+func (s *Sum) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Sum",
         Method: "ToString",
@@ -7860,19 +7860,19 @@ type SupportsNiceJavaBuilder struct {
     Rest []string
 }
 
-func (s SupportsNiceJavaBuilder) GetBar() float64 {
+func (s *SupportsNiceJavaBuilder) GetBar() float64 {
     return s.Bar
 }
 
-func (s SupportsNiceJavaBuilder) GetId() float64 {
+func (s *SupportsNiceJavaBuilder) GetId() float64 {
     return s.Id
 }
 
-func (s SupportsNiceJavaBuilder) GetPropId() string {
+func (s *SupportsNiceJavaBuilder) GetPropId() string {
     return s.PropId
 }
 
-func (s SupportsNiceJavaBuilder) GetRest() []string {
+func (s *SupportsNiceJavaBuilder) GetRest() []string {
     return s.Rest
 }
 
@@ -7886,19 +7886,19 @@ func NewSupportsNiceJavaBuilder(id float64, defaultBar float64, props SupportsNi
     return &SupportsNiceJavaBuilder{}
 }
 
-func (s SupportsNiceJavaBuilder) SetBar(val float64) {
+func (s *SupportsNiceJavaBuilder) SetBar(val float64) {
     s.Bar = val
 }
 
-func (s SupportsNiceJavaBuilder) SetId(val float64) {
+func (s *SupportsNiceJavaBuilder) SetId(val float64) {
     s.Id = val
 }
 
-func (s SupportsNiceJavaBuilder) SetPropId(val string) {
+func (s *SupportsNiceJavaBuilder) SetPropId(val string) {
     s.PropId = val
 }
 
-func (s SupportsNiceJavaBuilder) SetRest(val []string) {
+func (s *SupportsNiceJavaBuilder) SetRest(val []string) {
     s.Rest = val
 }
 
@@ -7918,11 +7918,11 @@ type SupportsNiceJavaBuilderProps struct {
     Id string
 }
 
-func (s SupportsNiceJavaBuilderProps) GetBar() float64 {
+func (s *SupportsNiceJavaBuilderProps) GetBar() float64 {
     return s.Bar
 }
 
-func (s SupportsNiceJavaBuilderProps) GetId() string {
+func (s *SupportsNiceJavaBuilderProps) GetId() string {
     return s.Id
 }
 
@@ -7946,15 +7946,15 @@ type SupportsNiceJavaBuilderWithRequiredProps struct {
     PropId string
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
     return s.Bar
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) GetId() float64 {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) GetId() float64 {
     return s.Id
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
     return s.PropId
 }
 
@@ -7968,15 +7968,15 @@ func NewSupportsNiceJavaBuilderWithRequiredProps(id float64, props SupportsNiceJ
     return &SupportsNiceJavaBuilderWithRequiredProps{}
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) SetBar(val float64) {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) SetBar(val float64) {
     s.Bar = val
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) SetId(val float64) {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) SetId(val float64) {
     s.Id = val
 }
 
-func (s SupportsNiceJavaBuilderWithRequiredProps) SetPropId(val string) {
+func (s *SupportsNiceJavaBuilderWithRequiredProps) SetPropId(val string) {
     s.PropId = val
 }
 
@@ -8016,27 +8016,27 @@ type SyncVirtualMethods struct {
     ValueOfOtherProperty string
 }
 
-func (s SyncVirtualMethods) GetReadonlyProperty() string {
+func (s *SyncVirtualMethods) GetReadonlyProperty() string {
     return s.ReadonlyProperty
 }
 
-func (s SyncVirtualMethods) GetA() float64 {
+func (s *SyncVirtualMethods) GetA() float64 {
     return s.A
 }
 
-func (s SyncVirtualMethods) GetCallerIsProperty() float64 {
+func (s *SyncVirtualMethods) GetCallerIsProperty() float64 {
     return s.CallerIsProperty
 }
 
-func (s SyncVirtualMethods) GetOtherProperty() string {
+func (s *SyncVirtualMethods) GetOtherProperty() string {
     return s.OtherProperty
 }
 
-func (s SyncVirtualMethods) GetTheProperty() string {
+func (s *SyncVirtualMethods) GetTheProperty() string {
     return s.TheProperty
 }
 
-func (s SyncVirtualMethods) GetValueOfOtherProperty() string {
+func (s *SyncVirtualMethods) GetValueOfOtherProperty() string {
     return s.ValueOfOtherProperty
 }
 
@@ -8050,31 +8050,31 @@ func NewSyncVirtualMethods() SyncVirtualMethodsIface {
     return &SyncVirtualMethods{}
 }
 
-func (s SyncVirtualMethods) SetReadonlyProperty(val string) {
+func (s *SyncVirtualMethods) SetReadonlyProperty(val string) {
     s.ReadonlyProperty = val
 }
 
-func (s SyncVirtualMethods) SetA(val float64) {
+func (s *SyncVirtualMethods) SetA(val float64) {
     s.A = val
 }
 
-func (s SyncVirtualMethods) SetCallerIsProperty(val float64) {
+func (s *SyncVirtualMethods) SetCallerIsProperty(val float64) {
     s.CallerIsProperty = val
 }
 
-func (s SyncVirtualMethods) SetOtherProperty(val string) {
+func (s *SyncVirtualMethods) SetOtherProperty(val string) {
     s.OtherProperty = val
 }
 
-func (s SyncVirtualMethods) SetTheProperty(val string) {
+func (s *SyncVirtualMethods) SetTheProperty(val string) {
     s.TheProperty = val
 }
 
-func (s SyncVirtualMethods) SetValueOfOtherProperty(val string) {
+func (s *SyncVirtualMethods) SetValueOfOtherProperty(val string) {
     s.ValueOfOtherProperty = val
 }
 
-func (s *SyncVirtualMethods) CallerIsAsync() float64  {
+func (s *SyncVirtualMethods) CallerIsAsync() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "CallerIsAsync",
@@ -8083,7 +8083,7 @@ func (s *SyncVirtualMethods) CallerIsAsync() float64  {
     return 0.0
 }
 
-func (s *SyncVirtualMethods) CallerIsMethod() float64  {
+func (s *SyncVirtualMethods) CallerIsMethod() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "CallerIsMethod",
@@ -8092,7 +8092,7 @@ func (s *SyncVirtualMethods) CallerIsMethod() float64  {
     return 0.0
 }
 
-func (s *SyncVirtualMethods) ModifyOtherProperty() jsii.Any  {
+func (s *SyncVirtualMethods) ModifyOtherProperty() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "ModifyOtherProperty",
@@ -8101,7 +8101,7 @@ func (s *SyncVirtualMethods) ModifyOtherProperty() jsii.Any  {
     return nil
 }
 
-func (s *SyncVirtualMethods) ModifyValueOfTheProperty() jsii.Any  {
+func (s *SyncVirtualMethods) ModifyValueOfTheProperty() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "ModifyValueOfTheProperty",
@@ -8110,7 +8110,7 @@ func (s *SyncVirtualMethods) ModifyValueOfTheProperty() jsii.Any  {
     return nil
 }
 
-func (s *SyncVirtualMethods) ReadA() float64  {
+func (s *SyncVirtualMethods) ReadA() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "ReadA",
@@ -8119,7 +8119,7 @@ func (s *SyncVirtualMethods) ReadA() float64  {
     return 0.0
 }
 
-func (s *SyncVirtualMethods) RetrieveOtherProperty() string  {
+func (s *SyncVirtualMethods) RetrieveOtherProperty() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "RetrieveOtherProperty",
@@ -8128,7 +8128,7 @@ func (s *SyncVirtualMethods) RetrieveOtherProperty() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (s *SyncVirtualMethods) RetrieveReadOnlyProperty() string  {
+func (s *SyncVirtualMethods) RetrieveReadOnlyProperty() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "RetrieveReadOnlyProperty",
@@ -8137,7 +8137,7 @@ func (s *SyncVirtualMethods) RetrieveReadOnlyProperty() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (s *SyncVirtualMethods) RetrieveValueOfTheProperty() string  {
+func (s *SyncVirtualMethods) RetrieveValueOfTheProperty() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "RetrieveValueOfTheProperty",
@@ -8146,7 +8146,7 @@ func (s *SyncVirtualMethods) RetrieveValueOfTheProperty() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (s *SyncVirtualMethods) VirtualMethod() float64  {
+func (s *SyncVirtualMethods) VirtualMethod() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "VirtualMethod",
@@ -8155,7 +8155,7 @@ func (s *SyncVirtualMethods) VirtualMethod() float64  {
     return 0.0
 }
 
-func (s *SyncVirtualMethods) WriteA() jsii.Any  {
+func (s *SyncVirtualMethods) WriteA() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "SyncVirtualMethods",
         Method: "WriteA",
@@ -8182,7 +8182,7 @@ func NewThrower() ThrowerIface {
     return &Thrower{}
 }
 
-func (t *Thrower) ThrowError() jsii.Any  {
+func (t *Thrower) ThrowError() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Thrower",
         Method: "ThrowError",
@@ -8208,15 +8208,15 @@ type TopLevelStruct struct {
     Optional string
 }
 
-func (t TopLevelStruct) GetRequired() string {
+func (t *TopLevelStruct) GetRequired() string {
     return t.Required
 }
 
-func (t TopLevelStruct) GetSecondLevel() jsii.Any {
+func (t *TopLevelStruct) GetSecondLevel() jsii.Any {
     return t.SecondLevel
 }
 
-func (t TopLevelStruct) GetOptional() string {
+func (t *TopLevelStruct) GetOptional() string {
     return t.Optional
 }
 
@@ -8233,7 +8233,7 @@ type UmaskCheckIface interface {
 type UmaskCheck struct {
 }
 
-func (u *UmaskCheck) Mode() float64  {
+func (u *UmaskCheck) Mode() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "UmaskCheck",
         Method: "Mode",
@@ -8261,11 +8261,11 @@ type UnaryOperation struct {
     Operand scopejsiicalclib.NumericValue
 }
 
-func (u UnaryOperation) GetValue() float64 {
+func (u *UnaryOperation) GetValue() float64 {
     return u.Value
 }
 
-func (u UnaryOperation) GetOperand() scopejsiicalclib.NumericValue {
+func (u *UnaryOperation) GetOperand() scopejsiicalclib.NumericValue {
     return u.Operand
 }
 
@@ -8279,15 +8279,15 @@ func NewUnaryOperation(operand scopejsiicalclib.NumericValue) UnaryOperationIfac
     return &UnaryOperation{}
 }
 
-func (u UnaryOperation) SetValue(val float64) {
+func (u *UnaryOperation) SetValue(val float64) {
     u.Value = val
 }
 
-func (u UnaryOperation) SetOperand(val scopejsiicalclib.NumericValue) {
+func (u *UnaryOperation) SetOperand(val scopejsiicalclib.NumericValue) {
     u.Operand = val
 }
 
-func (u *UnaryOperation) TypeName() jsii.Any  {
+func (u *UnaryOperation) TypeName() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "UnaryOperation",
         Method: "TypeName",
@@ -8296,7 +8296,7 @@ func (u *UnaryOperation) TypeName() jsii.Any  {
     return nil
 }
 
-func (u *UnaryOperation) ToString() string  {
+func (u *UnaryOperation) ToString() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "UnaryOperation",
         Method: "ToString",
@@ -8317,11 +8317,11 @@ type UnionProperties struct {
     Foo jsii.Any
 }
 
-func (u UnionProperties) GetBar() jsii.Any {
+func (u *UnionProperties) GetBar() jsii.Any {
     return u.Bar
 }
 
-func (u UnionProperties) GetFoo() jsii.Any {
+func (u *UnionProperties) GetFoo() jsii.Any {
     return u.Foo
 }
 
@@ -8342,11 +8342,11 @@ type UpcasingReflectable struct {
     Entries []submodule.ReflectableEntry
 }
 
-func (u UpcasingReflectable) GetReflector() submodule.Reflector {
+func (u *UpcasingReflectable) GetReflector() submodule.Reflector {
     return u.Reflector
 }
 
-func (u UpcasingReflectable) GetEntries() []submodule.ReflectableEntry {
+func (u *UpcasingReflectable) GetEntries() []submodule.ReflectableEntry {
     return u.Entries
 }
 
@@ -8360,11 +8360,11 @@ func NewUpcasingReflectable(delegate map[string]jsii.Any) UpcasingReflectableIfa
     return &UpcasingReflectable{}
 }
 
-func (u UpcasingReflectable) SetReflector(val submodule.Reflector) {
+func (u *UpcasingReflectable) SetReflector(val submodule.Reflector) {
     u.Reflector = val
 }
 
-func (u UpcasingReflectable) SetEntries(val []submodule.ReflectableEntry) {
+func (u *UpcasingReflectable) SetEntries(val []submodule.ReflectableEntry) {
     u.Entries = val
 }
 
@@ -8386,7 +8386,7 @@ func NewUseBundledDependency() UseBundledDependencyIface {
     return &UseBundledDependency{}
 }
 
-func (u *UseBundledDependency) Value() jsii.Any  {
+func (u *UseBundledDependency) Value() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "UseBundledDependency",
         Method: "Value",
@@ -8414,7 +8414,7 @@ func NewUseCalcBase() UseCalcBaseIface {
     return &UseCalcBase{}
 }
 
-func (u *UseCalcBase) Hello() scopejsiicalcbase.Base  {
+func (u *UseCalcBase) Hello() scopejsiicalcbase.Base {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "UseCalcBase",
         Method: "Hello",
@@ -8437,7 +8437,7 @@ type UsesInterfaceWithProperties struct {
     Obj IInterfaceWithProperties
 }
 
-func (u UsesInterfaceWithProperties) GetObj() IInterfaceWithProperties {
+func (u *UsesInterfaceWithProperties) GetObj() IInterfaceWithProperties {
     return u.Obj
 }
 
@@ -8451,11 +8451,11 @@ func NewUsesInterfaceWithProperties(obj IInterfaceWithProperties) UsesInterfaceW
     return &UsesInterfaceWithProperties{}
 }
 
-func (u UsesInterfaceWithProperties) SetObj(val IInterfaceWithProperties) {
+func (u *UsesInterfaceWithProperties) SetObj(val IInterfaceWithProperties) {
     u.Obj = val
 }
 
-func (u *UsesInterfaceWithProperties) JustRead() string  {
+func (u *UsesInterfaceWithProperties) JustRead() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "UsesInterfaceWithProperties",
         Method: "JustRead",
@@ -8464,7 +8464,7 @@ func (u *UsesInterfaceWithProperties) JustRead() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (u *UsesInterfaceWithProperties) ReadStringAndNumber() string  {
+func (u *UsesInterfaceWithProperties) ReadStringAndNumber() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "UsesInterfaceWithProperties",
         Method: "ReadStringAndNumber",
@@ -8473,7 +8473,7 @@ func (u *UsesInterfaceWithProperties) ReadStringAndNumber() string  {
     return "NOOP_RETURN_STRING"
 }
 
-func (u *UsesInterfaceWithProperties) WriteAndRead() string  {
+func (u *UsesInterfaceWithProperties) WriteAndRead() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "UsesInterfaceWithProperties",
         Method: "WriteAndRead",
@@ -8500,7 +8500,7 @@ func NewVariadicInvoker(method VariadicMethod) VariadicInvokerIface {
     return &VariadicInvoker{}
 }
 
-func (v *VariadicInvoker) AsArray() []float64  {
+func (v *VariadicInvoker) AsArray() []float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VariadicInvoker",
         Method: "AsArray",
@@ -8527,7 +8527,7 @@ func NewVariadicMethod(prefix float64) VariadicMethodIface {
     return &VariadicMethod{}
 }
 
-func (v *VariadicMethod) AsArray() []float64  {
+func (v *VariadicMethod) AsArray() []float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VariadicMethod",
         Method: "AsArray",
@@ -8558,7 +8558,7 @@ func NewVirtualMethodPlayground() VirtualMethodPlaygroundIface {
     return &VirtualMethodPlayground{}
 }
 
-func (v *VirtualMethodPlayground) OverrideMeAsync() float64  {
+func (v *VirtualMethodPlayground) OverrideMeAsync() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VirtualMethodPlayground",
         Method: "OverrideMeAsync",
@@ -8567,7 +8567,7 @@ func (v *VirtualMethodPlayground) OverrideMeAsync() float64  {
     return 0.0
 }
 
-func (v *VirtualMethodPlayground) OverrideMeSync() float64  {
+func (v *VirtualMethodPlayground) OverrideMeSync() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VirtualMethodPlayground",
         Method: "OverrideMeSync",
@@ -8576,7 +8576,7 @@ func (v *VirtualMethodPlayground) OverrideMeSync() float64  {
     return 0.0
 }
 
-func (v *VirtualMethodPlayground) ParallelSumAsync() float64  {
+func (v *VirtualMethodPlayground) ParallelSumAsync() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VirtualMethodPlayground",
         Method: "ParallelSumAsync",
@@ -8585,7 +8585,7 @@ func (v *VirtualMethodPlayground) ParallelSumAsync() float64  {
     return 0.0
 }
 
-func (v *VirtualMethodPlayground) SerialSumAsync() float64  {
+func (v *VirtualMethodPlayground) SerialSumAsync() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VirtualMethodPlayground",
         Method: "SerialSumAsync",
@@ -8594,7 +8594,7 @@ func (v *VirtualMethodPlayground) SerialSumAsync() float64  {
     return 0.0
 }
 
-func (v *VirtualMethodPlayground) SumSync() float64  {
+func (v *VirtualMethodPlayground) SumSync() float64 {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VirtualMethodPlayground",
         Method: "SumSync",
@@ -8621,7 +8621,7 @@ type VoidCallback struct {
     MethodWasCalled bool
 }
 
-func (v VoidCallback) GetMethodWasCalled() bool {
+func (v *VoidCallback) GetMethodWasCalled() bool {
     return v.MethodWasCalled
 }
 
@@ -8635,11 +8635,11 @@ func NewVoidCallback() VoidCallbackIface {
     return &VoidCallback{}
 }
 
-func (v VoidCallback) SetMethodWasCalled(val bool) {
+func (v *VoidCallback) SetMethodWasCalled(val bool) {
     v.MethodWasCalled = val
 }
 
-func (v *VoidCallback) CallMe() jsii.Any  {
+func (v *VoidCallback) CallMe() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VoidCallback",
         Method: "CallMe",
@@ -8648,7 +8648,7 @@ func (v *VoidCallback) CallMe() jsii.Any  {
     return nil
 }
 
-func (v *VoidCallback) OverrideMe() jsii.Any  {
+func (v *VoidCallback) OverrideMe() jsii.Any {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "VoidCallback",
         Method: "OverrideMe",
@@ -8669,7 +8669,7 @@ type WithPrivatePropertyInConstructor struct {
     Success bool
 }
 
-func (w WithPrivatePropertyInConstructor) GetSuccess() bool {
+func (w *WithPrivatePropertyInConstructor) GetSuccess() bool {
     return w.Success
 }
 
@@ -8683,7 +8683,7 @@ func NewWithPrivatePropertyInConstructor(privateField string) WithPrivatePropert
     return &WithPrivatePropertyInConstructor{}
 }
 
-func (w WithPrivatePropertyInConstructor) SetSuccess(val bool) {
+func (w *WithPrivatePropertyInConstructor) SetSuccess(val bool) {
     w.Success = val
 }
 
@@ -8709,7 +8709,7 @@ type ClassWithSelf struct {
     Self string
 }
 
-func (c ClassWithSelf) GetSelf() string {
+func (c *ClassWithSelf) GetSelf() string {
     return c.Self
 }
 
@@ -8723,11 +8723,11 @@ func NewClassWithSelf(self string) ClassWithSelfIface {
     return &ClassWithSelf{}
 }
 
-func (c ClassWithSelf) SetSelf(val string) {
+func (c *ClassWithSelf) SetSelf(val string) {
     c.Self = val
 }
 
-func (c *ClassWithSelf) Method() string  {
+func (c *ClassWithSelf) Method() string {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "ClassWithSelf",
         Method: "Method",
@@ -8747,7 +8747,7 @@ type ClassWithSelfKwarg struct {
     Props StructWithSelf
 }
 
-func (c ClassWithSelfKwarg) GetProps() StructWithSelf {
+func (c *ClassWithSelfKwarg) GetProps() StructWithSelf {
     return c.Props
 }
 
@@ -8761,7 +8761,7 @@ func NewClassWithSelfKwarg(props StructWithSelf) ClassWithSelfKwargIface {
     return &ClassWithSelfKwarg{}
 }
 
-func (c ClassWithSelfKwarg) SetProps(val StructWithSelf) {
+func (c *ClassWithSelfKwarg) SetProps(val StructWithSelf) {
     c.Props = val
 }
 
@@ -8779,7 +8779,7 @@ type StructWithSelf struct {
     Self string
 }
 
-func (s StructWithSelf) GetSelf() string {
+func (s *StructWithSelf) GetSelf() string {
     return s.Self
 }
 
@@ -8805,7 +8805,7 @@ type MyClassReference struct {
     Reference submodule.MyClass
 }
 
-func (m MyClassReference) GetReference() submodule.MyClass {
+func (m *MyClassReference) GetReference() submodule.MyClass {
     return m.Reference
 }
 
@@ -8845,7 +8845,7 @@ type InnerClass struct {
     StaticProp SomeStruct
 }
 
-func (i InnerClass) GetStaticProp() SomeStruct {
+func (i *InnerClass) GetStaticProp() SomeStruct {
     return i.StaticProp
 }
 
@@ -8859,7 +8859,7 @@ func NewInnerClass() InnerClassIface {
     return &InnerClass{}
 }
 
-func (i InnerClass) SetStaticProp(val SomeStruct) {
+func (i *InnerClass) SetStaticProp(val SomeStruct) {
     i.StaticProp = val
 }
 
@@ -8875,11 +8875,11 @@ type KwargsProps struct {
     Extra string
 }
 
-func (k KwargsProps) GetProp() SomeEnum {
+func (k *KwargsProps) GetProp() SomeEnum {
     return k.Prop
 }
 
-func (k KwargsProps) GetExtra() string {
+func (k *KwargsProps) GetExtra() string {
     return k.Extra
 }
 
@@ -8898,7 +8898,7 @@ type OuterClass struct {
     InnerClass InnerClass
 }
 
-func (o OuterClass) GetInnerClass() InnerClass {
+func (o *OuterClass) GetInnerClass() InnerClass {
     return o.InnerClass
 }
 
@@ -8912,7 +8912,7 @@ func NewOuterClass() OuterClassIface {
     return &OuterClass{}
 }
 
-func (o OuterClass) SetInnerClass(val InnerClass) {
+func (o *OuterClass) SetInnerClass(val InnerClass) {
     o.InnerClass = val
 }
 
@@ -8932,7 +8932,7 @@ type SomeStruct struct {
     Prop SomeEnum
 }
 
-func (s SomeStruct) GetProp() SomeEnum {
+func (s *SomeStruct) GetProp() SomeEnum {
     return s.Prop
 }
 
@@ -8947,7 +8947,7 @@ type Structure struct {
     Bool bool
 }
 
-func (s Structure) GetBool() bool {
+func (s *Structure) GetBool() bool {
     return s.Bool
 }
 
@@ -8986,7 +8986,7 @@ type KwargsIface interface {
 type Kwargs struct {
 }
 
-func (k *Kwargs) Method() bool  {
+func (k *Kwargs) Method() bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Kwargs",
         Method: "Method",
@@ -9021,20 +9021,20 @@ type Namespaced struct {
     Goodness child.Goodness
 }
 
-func (n Namespaced) GetDefinedAt() string {
+func (n *Namespaced) GetDefinedAt() string {
     return n.DefinedAt
 }
 
-func (n Namespaced) GetGoodness() child.Goodness {
+func (n *Namespaced) GetGoodness() child.Goodness {
     return n.Goodness
 }
 
 
-func (n Namespaced) SetDefinedAt(val string) {
+func (n *Namespaced) SetDefinedAt(val string) {
     n.DefinedAt = val
 }
 
-func (n Namespaced) SetGoodness(val child.Goodness) {
+func (n *Namespaced) SetGoodness(val child.Goodness) {
     n.Goodness = val
 }
 
@@ -9074,23 +9074,23 @@ type MyClass struct {
     AllTypes jsiicalc.AllTypes
 }
 
-func (m MyClass) GetAwesomeness() child.Awesomeness {
+func (m *MyClass) GetAwesomeness() child.Awesomeness {
     return m.Awesomeness
 }
 
-func (m MyClass) GetDefinedAt() string {
+func (m *MyClass) GetDefinedAt() string {
     return m.DefinedAt
 }
 
-func (m MyClass) GetGoodness() child.Goodness {
+func (m *MyClass) GetGoodness() child.Goodness {
     return m.Goodness
 }
 
-func (m MyClass) GetProps() child.SomeStruct {
+func (m *MyClass) GetProps() child.SomeStruct {
     return m.Props
 }
 
-func (m MyClass) GetAllTypes() jsiicalc.AllTypes {
+func (m *MyClass) GetAllTypes() jsiicalc.AllTypes {
     return m.AllTypes
 }
 
@@ -9104,23 +9104,23 @@ func NewMyClass(props child.SomeStruct) MyClassIface {
     return &MyClass{}
 }
 
-func (m MyClass) SetAwesomeness(val child.Awesomeness) {
+func (m *MyClass) SetAwesomeness(val child.Awesomeness) {
     m.Awesomeness = val
 }
 
-func (m MyClass) SetDefinedAt(val string) {
+func (m *MyClass) SetDefinedAt(val string) {
     m.DefinedAt = val
 }
 
-func (m MyClass) SetGoodness(val child.Goodness) {
+func (m *MyClass) SetGoodness(val child.Goodness) {
     m.Goodness = val
 }
 
-func (m MyClass) SetProps(val child.SomeStruct) {
+func (m *MyClass) SetProps(val child.SomeStruct) {
     m.Props = val
 }
 
-func (m MyClass) SetAllTypes(val jsiicalc.AllTypes) {
+func (m *MyClass) SetAllTypes(val jsiicalc.AllTypes) {
     m.AllTypes = val
 }
 

@@ -59,7 +59,7 @@
     "@types/jest": "^26.0.13",
     "@types/mock-fs": "^4.10.0",
     "@types/node": "^10.17.32",
-    "@types/semver": "^7.3.3",
+    "@types/semver": "^7.3.4",
     "@types/yargs": "^15.0.5",
     "eslint": "^7.9.0",
     "jest": "^26.4.2",

@@ -3,13 +3,11 @@ import { Assembly } from 'jsii-reflect';
 import { ReadmeFile } from './readme-file';
 import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { EmitContext } from './emit-context';
-import { GoClass, Enum, Interface, Struct } from './types';
+import { GoClass, GoType, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
 
 // JSII golang runtime module name
 const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
-
-export type ModuleType = Interface | Enum | GoClass | Struct;
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -18,7 +16,7 @@ export abstract class Package {
   public readonly root: Package;
   public readonly file: string;
   public readonly submodules: InternalPackage[];
-  public readonly types: ModuleType[];
+  public readonly types: GoType[];
 
   public constructor(
     private readonly typeSpec: readonly Type[],
@@ -36,7 +34,7 @@ export abstract class Package {
     );
 
     this.types = this.typeSpec.map(
-      (type: Type): ModuleType => {
+      (type: Type): GoType => {
         if (type.isInterfaceType() && type.datatype) {
           return new Struct(this, type);
         } else if (type.isInterfaceType()) {
@@ -57,10 +55,9 @@ export abstract class Package {
    * Packages within this module
    */
   public get dependencies(): Package[] {
-    return flatMap(
-      this.types,
-      (t: ModuleType): Package[] => t.dependencies,
-    ).filter((mod) => mod.packageName !== this.packageName);
+    return flatMap(this.types, (t: GoType): Package[] => t.dependencies).filter(
+      (mod) => mod.packageName !== this.packageName,
+    );
   }
 
   /*
@@ -81,7 +78,7 @@ export abstract class Package {
   /*
    * Search for a type with a `fqn` within this. Searches all Children modules as well.
    */
-  public findType(fqn: string): ModuleType | undefined {
+  public findType(fqn: string): GoType | undefined {
     return findTypeInTree(this, fqn);
   }
 
@@ -172,9 +169,9 @@ export class RootPackage extends Package {
    *
    * This allows resolving type references from other JSII modules
    */
-  public findType(fqn: string): ModuleType | undefined {
+  public findType(fqn: string): GoType | undefined {
     return this.packageDependencies.reduce(
-      (accum: ModuleType | undefined, current: RootPackage) => {
+      (accum: GoType | undefined, current: RootPackage) => {
         if (accum) {
           return accum;
         }
@@ -206,11 +203,11 @@ export class RootPackage extends Package {
  * InternalPackage refers to any go package within a given JSII module.
  */
 export class InternalPackage extends Package {
-  public readonly parent: Package;
+  public readonly pkg: Package;
 
-  public constructor(root: Package, parent: Package, assembly: JsiiSubmodule) {
+  public constructor(root: Package, pkg: Package, assembly: JsiiSubmodule) {
     const packageName = goPackageName(assembly.name);
-    const filePath = parent === root ? packageName : parent.filePath;
+    const filePath = pkg === root ? packageName : pkg.filePath;
 
     super(
       assembly.types,
@@ -221,6 +218,6 @@ export class InternalPackage extends Package {
       root,
     );
 
-    this.parent = parent;
+    this.pkg = pkg;
   }
 }
