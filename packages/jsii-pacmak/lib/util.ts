@@ -112,7 +112,7 @@ export async function retry<R>(
   return Promise.reject(new AllAttemptsFailed(cb, errors));
 }
 
-export interface ShellOptions extends Omit<SpawnOptions, 'stdio'> {
+export interface ShellOptions extends Omit<SpawnOptions, 'shell' | 'stdio'> {
   /**
    * Configure in-line retries if the execution fails.
    *
@@ -122,16 +122,19 @@ export interface ShellOptions extends Omit<SpawnOptions, 'stdio'> {
 }
 
 /**
- * Spawns a child process with the provided command and arguments
+ * Spawns a child process with the provided command and arguments. The child
+ * process is always spawned using `shell: true`, and the contents of
+ * `process.env` is used as the initial value of the `env` spawn option (values
+ * provided in `options.env` can override those).
  *
  * @param cmd     the command to shell out to.
  * @param args    the arguments to provide to `cmd`
- * @param options any options to pass to `spawn` (`shell: true` is always passed)
+ * @param options any options to pass to `spawn`
  */
 export async function shell(
   cmd: string,
   args: string[],
-  options: ShellOptions = {},
+  { retry: retryOptions, ...options }: ShellOptions = {},
 ): Promise<string> {
   async function spawn1() {
     logging.debug(cmd, args.join(' '), JSON.stringify(options));
@@ -189,11 +192,11 @@ export async function shell(
     });
   }
 
-  if (options.retry != null) {
+  if (retryOptions != null) {
     return retry(spawn1, {
-      ...options.retry,
+      ...retryOptions,
       onFailedAttempt:
-        options.retry.onFailedAttempt ??
+        retryOptions.onFailedAttempt ??
         ((error, attemptsLeft, backoffMs) => {
           const message = (error as Error).message ?? error;
           const retryInfo =
@@ -209,20 +212,6 @@ export async function shell(
     });
   }
   return spawn1();
-
-  let attempts = options.retry ? 3 : 1;
-  while (attempts > 0) {
-    attempts--;
-    try {
-      return spawn1();
-    } catch (e: unknown) {
-      if (attempts === 0) {
-        throw e;
-      }
-      logging.info(`${(e as any).message ?? e} (retrying)`);
-    }
-  }
-  throw new Error('No attempts left'); // This is, in fact, unreachable code.
 }
 
 /**
