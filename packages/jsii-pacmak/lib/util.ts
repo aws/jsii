@@ -5,15 +5,6 @@ import * as os from 'os';
 import * as path from 'path';
 import * as logging from './logging';
 
-export interface ShellOptions extends SpawnOptions {
-  /**
-   * Retry execution up to 3 times if it fails
-   *
-   * @default false
-   */
-  retry?: boolean;
-}
-
 /**
  * Given an npm package directory and a dependency name, returns the package directory of the dep.
  * @param packageDir     the root of the package declaring the dependency.
@@ -30,12 +21,118 @@ export function resolveDependencyDirectory(
   );
 }
 
+export interface RetryOptions {
+  /**
+   * The maximum amount of attempts to make.
+   *
+   * @default 5
+   */
+  maxTries?: number;
+
+  /**
+   * The amount of time (in milliseconds) to wait after the first failed attempt.
+   *
+   * @default 150
+   */
+  backoffBaseMs?: number;
+
+  /**
+   * The multiplier to apply after each failed attempts. If the backoff before
+   * the previous attempt was `B`, the next backoff is computed as
+   * `B * backoffMultiplier`, creating an exponential series.
+   *
+   * @default 2
+   */
+  backoffMultiplier?: number;
+
+  /**
+   * An optionnal callback that gets invoked when an attempt failed. This can be
+   * used to give the user indications of what is happening.
+   *
+   * This callback must not throw.
+   *
+   * @param error               the error that just occurred
+   * @param attemptsLeft        the number of attempts left
+   * @param backoffMilliseconds the amount of milliseconds of back-off that will
+   *                            be awaited before making the next attempt (if
+   *                            there are attempts left)
+   */
+  onFailedAttempt?: (
+    error: unknown,
+    attemptsLeft: number,
+    backoffMilliseconds: number,
+  ) => void;
+}
+
+export class AllAttemptsFailed<R> extends Error {
+  public constructor(
+    public readonly callback: () => Promise<R>,
+    public readonly errors: readonly Error[],
+  ) {
+    super(
+      `All attempts failed. Last error: ${errors[errors.length - 1].message}`,
+    );
+  }
+}
+
+/**
+ * Adds back-off and retry logic around the provided callback.
+ *
+ * @param cb   the callback which is to be retried.
+ * @param opts the backoff-and-retry configuration
+ *
+ * @returns the result of `cb`
+ */
+export async function retry<R>(
+  cb: () => Promise<R>,
+  opts: RetryOptions = {},
+  waiter: (ms: number) => Promise<void> = wait,
+): Promise<R> {
+  let attemptsLeft = opts.maxTries ?? 5;
+  let backoffMs = opts.backoffBaseMs ?? 150;
+  const backoffMult = opts.backoffMultiplier ?? 2;
+
+  const errors = new Array<Error>();
+  while (attemptsLeft > 0) {
+    attemptsLeft--;
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      return await cb();
+    } catch (error) {
+      errors.push(error);
+      if (opts.onFailedAttempt != null) {
+        opts.onFailedAttempt(error, attemptsLeft, backoffMs);
+      }
+    }
+    if (attemptsLeft > 0) {
+      // eslint-disable-next-line no-await-in-loop
+      await waiter(backoffMs).then(() => (backoffMs *= backoffMult));
+    }
+  }
+  return Promise.reject(new AllAttemptsFailed(cb, errors));
+}
+
+export interface ShellOptions extends Omit<SpawnOptions, 'stdio'> {
+  /**
+   * Configure in-line retries if the execution fails.
+   *
+   * @default - no retries
+   */
+  readonly retry?: RetryOptions;
+}
+
+/**
+ * Spawns a child process with the provided command and arguments
+ *
+ * @param cmd     the command to shell out to.
+ * @param args    the arguments to provide to `cmd`
+ * @param options any options to pass to `spawn` (`shell: true` is always passed)
+ */
 export async function shell(
   cmd: string,
   args: string[],
   options: ShellOptions = {},
 ): Promise<string> {
-  // eslint-disable-next-line @typescript-eslint/require-await
   async function spawn1() {
     logging.debug(cmd, args.join(' '), JSON.stringify(options));
     return new Promise<string>((ok, ko) => {
@@ -91,18 +188,38 @@ export async function shell(
       });
     });
   }
-  /* eslint-enable @typescript-eslint/require-await */
+
+  if (options.retry != null) {
+    return retry(spawn1, {
+      ...options.retry,
+      onFailedAttempt:
+        options.retry.onFailedAttempt ??
+        ((error, attemptsLeft, backoffMs) => {
+          const message = (error as Error).message ?? error;
+          const retryInfo =
+            attemptsLeft > 0
+              ? `Waiting ${backoffMs} ms before retrying (${attemptsLeft} attempts left)`
+              : 'No attempts left';
+          logging.info(
+            `Command "${cmd} ${args.join(
+              ' ',
+            )}" failed with ${message}. ${retryInfo}.`,
+          );
+        }),
+    });
+  }
+  return spawn1();
 
   let attempts = options.retry ? 3 : 1;
   while (attempts > 0) {
     attempts--;
     try {
       return spawn1();
-    } catch (e) {
+    } catch (e: unknown) {
       if (attempts === 0) {
         throw e;
       }
-      logging.info(`${e.message} (retrying)`);
+      logging.info(`${(e as any).message ?? e} (retrying)`);
     }
   }
   throw new Error('No attempts left'); // This is, in fact, unreachable code.
@@ -180,4 +297,8 @@ export async function filterAsync<A>(
     xs.map(async (x) => ({ x, pred: await pred(x) })),
   );
   return mapped.filter(({ pred }) => pred).map(({ x }) => x);
+}
+
+export async function wait(ms: number): Promise<void> {
+  return new Promise((ok) => setTimeout(ok, ms));
 }

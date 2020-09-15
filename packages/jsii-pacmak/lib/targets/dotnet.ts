@@ -58,6 +58,7 @@ export class DotnetBuilder implements TargetBuilder {
         ['build', '--force', '--configuration', 'Release'],
         {
           cwd: tempSourceDir.directory,
+          retry: { maxTries: 5 },
         },
       );
 
