@@ -34,7 +34,7 @@ export interface RetryOptions {
    *
    * @default 150
    */
-  backoffBaseMs?: number;
+  backoffBaseMilliseconds?: number;
 
   /**
    * The multiplier to apply after each failed attempts. If the backoff before
@@ -89,8 +89,19 @@ export async function retry<R>(
   waiter: (ms: number) => Promise<void> = wait,
 ): Promise<R> {
   let attemptsLeft = opts.maxTries ?? 5;
-  let backoffMs = opts.backoffBaseMs ?? 150;
+  let backoffMs = opts.backoffBaseMilliseconds ?? 150;
   const backoffMult = opts.backoffMultiplier ?? 2;
+
+  // Check for incorrect usage
+  if (attemptsLeft <= 0) {
+    throw new Error('maxTries must be > 0');
+  }
+  if (backoffMs <= 0) {
+    throw new Error('backoffBaseMilliseconds must be > 0');
+  }
+  if (backoffMult <= 1) {
+    throw new Error('backoffMultiplier must be > 1');
+  }
 
   const errors = new Array<Error>();
   while (attemptsLeft > 0) {

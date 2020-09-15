@@ -15,6 +15,46 @@ describe(retry, () => {
     done();
   });
 
+  test('throws on invalid maxTries', async () => {
+    // GIVEN
+    const fakeCallback = jest.fn();
+
+    // WHEN
+    const result = retry(fakeCallback, { maxTries: 0 }, mockWaiter);
+
+    // THEN
+    await expect(result).rejects.toThrow('maxTries must be > 0');
+    expect(fakeCallback).not.toHaveBeenCalled();
+  });
+
+  test('throws on invalid backoffBaseMilliseconds', async () => {
+    // GIVEN
+    const fakeCallback = jest.fn();
+
+    // WHEN
+    const result = retry(
+      fakeCallback,
+      { backoffBaseMilliseconds: 0 },
+      mockWaiter,
+    );
+
+    // THEN
+    await expect(result).rejects.toThrow('backoffBaseMilliseconds must be > 0');
+    expect(fakeCallback).not.toHaveBeenCalled();
+  });
+
+  test('throws on invalid backoffMultiplier', async () => {
+    // GIVEN
+    const fakeCallback = jest.fn();
+
+    // WHEN
+    const result = retry(fakeCallback, { backoffMultiplier: 1 }, mockWaiter);
+
+    // THEN
+    await expect(result).rejects.toThrow('backoffMultiplier must be > 1');
+    expect(fakeCallback).not.toHaveBeenCalled();
+  });
+
   test('throws when it exhausted all attempts', async () => {
     // GIVEN
     const alwaysFail = () => Promise.reject(new Error('Always'));
@@ -37,7 +77,7 @@ describe(retry, () => {
     // WHEN
     const result = retry(
       alwaysFail,
-      { maxTries: 3, backoffBaseMs: 1337, backoffMultiplier: 42 },
+      { maxTries: 3, backoffBaseMilliseconds: 1337, backoffMultiplier: 42 },
       mockWaiter,
     );
 
@@ -74,7 +114,7 @@ describe(retry, () => {
     const result = await retry(
       failFourTimes,
       {
-        backoffBaseMs: 1337,
+        backoffBaseMilliseconds: 1337,
         backoffMultiplier: 42,
         onFailedAttempt,
       },
