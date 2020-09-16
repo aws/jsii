@@ -7,7 +7,7 @@ import { GoClass, GoType, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
 
 // JSII golang runtime module name
-const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii';
+const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii-experimental';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule

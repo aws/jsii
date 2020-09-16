@@ -1,0 +1,31 @@
+{
+  "name": "@jsii/go-runtime",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "fmt": "go fmt ./jsii-experimental ./jsii-calc-test",
+    "gen:calc": "ts-node build-tools/gen-calc.ts",
+    "gen:rt": "ts-node build-tools/gen.ts",
+    "generate": "npm run gen:rt && npm run gen:calc",
+    "build": "npm run generate && go build ./jsii-experimental",
+    "test": "go test ./jsii-experimental",
+    "test:calc": "npm run gen:calc && go run ./jsii-calc-test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@jsii/runtime": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.1.1",
+    "@types/node": "^10.17.32",
+    "fs-extra": "^9.0.1",
+    "jsii-calc": "^0.0.0",
+    "jsii-pacmak": "^0.0.0",
+    "ts-node": "^8.10.2",
+    "typescript": "~3.9.7"
+  }
+}
