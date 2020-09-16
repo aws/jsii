@@ -1,14 +1,35 @@
 FROM amazonlinux:2
 
+# Set locale and some other interesting environment variables
+ENV LANG="C.UTF-8"                                                                                                      \
+    LC_ALL="C.UTF-8"                                                                                                    \
+    CHARSET="UTF-8"                                                                                                     \
+                                                                                                                        \
+    DOTNET_CLI_TELEMETRY_OPTOUT="true"                                                                                  \
+    DOTNET_RUNNING_IN_CONTAINER="true"                                                                                  \
+    DOTNET_NOLOGO="true"                                                                                                \
+    DOTNET_USE_POLLING_FILE_WATCHER="true"                                                                              \
+    NUGET_XMLDOC_MODE="skip"                                                                                            \
+                                                                                                                        \
+    GEM_HOME="/usr/local/bundle"                                                                                        \
+    BUNDLE_SILENCE_ROOT_WARNING="1"                                                                                     \
+                                                                                                                        \
+    M2_VERSION="3.6.3"                                                                                                  \
+    M2_HOME="/usr/local/apache-maven"                                                                                   \
+    M2="/usr/local/apache-maven/bin"                                                                                    \
+    MAVEN_OPTS="-Xms256m -Xmx512m"                                                                                      \
+                                                                                                                        \
+    GOROOT="/usr/local/go"
+
 # Install deltarpm as it can speed up the upgrade processes, and tar as it's needed for installing Maven
-RUN yum -y install deltarpm tar
+# Also upgrading anything already installed, and adding some common dependencies for included tools
+RUN yum -y upgrade                                                                                                      \
+  && yum -y install deltarpm tar                                                                                        \
+                    gcc make system-rpm-config                                                                          \
+                    git gzip openssl rsync unzip which zip                                                              \
+  && yum clean all && rm -rf /var/cache/yum
 
 # Install .NET Core, mono & PowerShell
-ENV DOTNET_CLI_TELEMETRY_OPTOUT=true                                                                                    \
-    DOTNET_RUNNING_IN_CONTAINER=true                                                                                    \
-    DOTNET_NOLOGO=true                                                                                                  \
-    DOTNET_USE_POLLING_FILE_WATCHER=true                                                                                \
-    NUGET_XMLDOC_MODE=skip
 COPY gpg/mono.asc /tmp/mono.asc
 RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
   && rpm -Uvh "https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm"                                \
@@ -22,19 +43,18 @@ RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"            
 RUN yum -y install python3 python3-pip                                                                                  \
   && python3 -m pip install --no-input --upgrade pip                                                                    \
   && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
+  && rm -rf $(pip cache dir)                                                                                            \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Ruby 2.6+
-ENV GEM_HOME /usr/local/bundle
 RUN amazon-linux-extras install ruby2.6                                                                                 \
-  && yum -y install gcc make ruby-devel rubygem-rdoc system-rpm-config                                                  \
+  && yum -y install ruby-devel rubygem-rdoc                                                                             \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && echo 'install: --no-document' > /usr/local/etc/gemrc                                                               \
   && echo 'update: --no-document' >> /usr/local/etc/gemrc                                                               \
   && mkdir -p "$GEM_HOME"                                                                                               \
   && gem install 'bundler:~>1.17.3' 'bundler:~>2.1.4'
-ENV BUNDLE_SILENCE_ROOT_WARNING=1                                                                                       \
-	  PATH="$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH"
+ENV PATH="$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH"
 
 # Install JDK8 (Corretto)
 RUN amazon-linux-extras enable corretto8                                                                                \
@@ -42,7 +62,6 @@ RUN amazon-linux-extras enable corretto8                                        
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Maven
-ENV M2_VERSION 3.6.3
 RUN curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz     \
          -o /tmp/apache-maven.tar.gz                                                                                    \
   && curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/apache-maven-${M2_VERSION}-bin.tar.gz.asc\
@@ -58,25 +77,17 @@ RUN curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/ap
      done                                                                                                               \
   && rm -rf /tmp/apache-maven.tar.gz /tmp/apache-maven.tar.gz.asc /tmp/gpg-maven
 COPY m2-settings.xml /root/.m2/settings.xml
-ENV M2_HOME=/usr/local/apache-maven                                                                                     \
-    M2=/usr/local/apache-maven/bin                                                                                      \
-    MAVEN_OPTS="-Xms256m -Xmx512m"
 
 # Install Go
 RUN curl -sL https://golang.org/dl/go1.15.2.linux-amd64.tar.gz -o /tmp/go.tar.gz                                        \
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
-ENV GOROOT=/usr/local/go
 ENV PATH="$GOROOT/bin:$PATH"
-    
+
 
 # Install Docker
 RUN amazon-linux-extras install docker                                                                                  \
   && yum clean all && rm -rf /var/cache/yum
 VOLUME /var/lib/docker
-
-# Install shared dependencies
-RUN yum -y install git gzip openssl rsync unzip which zip                                                               \
-  && yum clean all && rm -rf /var/cache/yum
 
 # Install Node 10+
 RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -                                                             \
@@ -93,8 +104,6 @@ RUN curl -sSL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.r
 COPY ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
 COPY dockerd-entrypoint.sh /usr/local/bin/
-ENV CHARSET=UTF-8                                                                                                       \
-    LC_ALL=C.UTF-8
 
 # Add the source used to build this Docker image (to facilitate re-builds, forensics)
 COPY . /docker-source
@@ -111,6 +120,7 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"
 
 # Upgrade all packages that weren't up-to-date just yet (last so it risks invalidating cache less)
+# This is the second time we do it (this layer may be empty)... It's in case we re-used a cached layer the first time
 RUN yum -y upgrade                                                                                                      \
   && yum clean all && rm -rf /var/cache/yum
 
