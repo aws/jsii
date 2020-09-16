@@ -449,6 +449,7 @@ export default class Java extends Target {
             process.env.MAVEN_OPTS ?? ''
           } -XX:+TieredCompilation -XX:TieredStopAtLevel=1`,
         },
+        retry: { maxAttempts: 5 },
       },
     );
   }
@@ -1547,7 +1548,11 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.code.line('/**');
     // eslint-disable-next-line prettier/prettier
-    this.code.line(` * ${stabilityPrefixFor(cls.initializer)}A fluent builder for {@link ${builtType}}.`);
+    this.code.line(
+      ` * ${stabilityPrefixFor(
+        cls.initializer,
+      )}A fluent builder for {@link ${builtType}}.`,
+    );
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
     this.code.openBlock(
