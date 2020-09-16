@@ -9,38 +9,42 @@ import functools
 
 import attr
 
-from jsii.errors import JSIIError
-from jsii import _reference_map
-from jsii._utils import Singleton
-from jsii._kernel.providers import BaseProvider, ProcessProvider
-from jsii._kernel.types import Callback
-from jsii._kernel.types import (
+from ..errors import JSIIError
+from .. import _reference_map
+from .._utils import Singleton
+from .providers import BaseProvider, ProcessProvider
+from .types import Callback
+from .types import (
     EnumRef,
     LoadRequest,
     BeginRequest,
+    BeginResponse,
+    Callback,
     CallbacksRequest,
+    CompleteRequest,
+    CompleteRequest,
+    CompleteResponse,
     CreateRequest,
     CreateResponse,
-    CompleteRequest,
     DeleteRequest,
     EndRequest,
+    EnumRef,
     GetRequest,
+    GetResponse,
     InvokeRequest,
+    InvokeResponse,
+    KernelResponse,
+    LoadRequest,
+    ObjRef,
+    Override,
     SetRequest,
+    SetResponse,
     StaticGetRequest,
     StaticInvokeRequest,
     StaticSetRequest,
     StatsRequest,
-    ObjRef,
-    Override,
-    CompleteRequest,
-    CompleteResponse,
-    GetResponse,
-    SetResponse,
-    InvokeResponse,
-    KernelResponse,
-    BeginResponse,
 )
+from .._utils import Singleton
 
 
 _nothing = object()
@@ -138,7 +142,7 @@ def _make_reference_for_native(kernel, d):
     if getattr(d, "__jsii_type__", None) is not None:
         # Ugly delayed import here because I can't solve the cyclic
         # package dependency right now :(.
-        from jsii._runtime import python_jsii_mapping
+        from .._runtime import python_jsii_mapping
 
         typeFqn = getattr(d, "__jsii_type__")
         mapping = python_jsii_mapping(d)

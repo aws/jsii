@@ -66,6 +66,7 @@ export default class Python extends Target {
       VIRTUAL_ENV: venv,
     };
     const python = path.join(venvBin, 'python');
+
     // Install the necessary things
     await shell(
       python,
@@ -73,6 +74,7 @@ export default class Python extends Target {
       {
         cwd: sourceDir,
         env,
+        retry: { maxAttempts: 5 },
       },
     );
 

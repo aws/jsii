@@ -39,8 +39,8 @@
   },
   "devDependencies": {
     "@jsii/runtime": "^0.0.0",
-    "@types/node": "^10.17.32",
-    "@types/semver": "^7.3.3",
+    "@types/node": "^10.17.34",
+    "@types/semver": "^7.3.4",
     "jsii-build-tools": "^0.0.0",
     "semver": "^7.3.2",
     "typescript": "~4.0.2"
