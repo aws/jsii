@@ -74,7 +74,7 @@ export default class Python extends Target {
       {
         cwd: sourceDir,
         env,
-        retry: { maxTries: 5 },
+        retry: { maxAttempts: 5 },
       },
     );
 

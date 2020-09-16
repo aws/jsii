@@ -449,7 +449,7 @@ export default class Java extends Target {
             process.env.MAVEN_OPTS ?? ''
           } -XX:+TieredCompilation -XX:TieredStopAtLevel=1`,
         },
-        retry: { maxTries: 5 },
+        retry: { maxAttempts: 5 },
       },
     );
   }

@@ -27,7 +27,7 @@ export interface RetryOptions {
    *
    * @default 5
    */
-  maxTries?: number;
+  maxAttempts?: number;
 
   /**
    * The amount of time (in milliseconds) to wait after the first failed attempt.
@@ -88,7 +88,7 @@ export async function retry<R>(
   opts: RetryOptions = {},
   waiter: (ms: number) => Promise<void> = wait,
 ): Promise<R> {
-  let attemptsLeft = opts.maxTries ?? 5;
+  let attemptsLeft = opts.maxAttempts ?? 5;
   let backoffMs = opts.backoffBaseMilliseconds ?? 150;
   const backoffMult = opts.backoffMultiplier ?? 2;
 

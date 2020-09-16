@@ -20,7 +20,7 @@ describe(retry, () => {
     const fakeCallback = jest.fn();
 
     // WHEN
-    const result = retry(fakeCallback, { maxTries: 0 }, mockWaiter);
+    const result = retry(fakeCallback, { maxAttempts: 0 }, mockWaiter);
 
     // THEN
     await expect(result).rejects.toThrow('maxTries must be > 0');
@@ -77,7 +77,7 @@ describe(retry, () => {
     // WHEN
     const result = retry(
       alwaysFail,
-      { maxTries: 3, backoffBaseMilliseconds: 1337, backoffMultiplier: 42 },
+      { maxAttempts: 3, backoffBaseMilliseconds: 1337, backoffMultiplier: 42 },
       mockWaiter,
     );
 
