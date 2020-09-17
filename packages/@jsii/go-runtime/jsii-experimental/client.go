@@ -71,7 +71,7 @@ func InitClient() (Client, error) {
 	return client, nil
 }
 
-func (c *Client) request(req interface{}, res interface{}) error {
+func (c *Client) request(req KernelRequest, res KernelResponse) error {
 	err := c.writer.Encode(req)
 	if err != nil {
 		return err
@@ -80,7 +80,7 @@ func (c *Client) request(req interface{}, res interface{}) error {
 	return c.response(res)
 }
 
-func (c *Client) response(res interface{}) error {
+func (c *Client) response(res KernelResponse) error {
 	if c.reader.More() {
 		return c.reader.Decode(res)
 	}
