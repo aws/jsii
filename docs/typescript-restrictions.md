@@ -20,53 +20,53 @@ element (which will cause a compilation failure if `--fail-on-warnings` is set).
 The list of reserved words (which are not also reserved in **TypeScript**),
 derived from [`jsii/lib/reserved-words.ts`] is:
 
-**C#**         | **Java**       | **Python**
----------------|----------------|---------------
-`abstract`     | `abstract`     | `False`
-`base`         | `assert`       | `None`
-`bool`         | `boolean`      | `True`
-`byte`         | `byte`         | `and`
-`char`         | `char`         | `assert`
-`checked`      | `double`       | `def`
-`decimal`      | `final`        | `del`
-`delegate`     | `float`        | `elif`
-`double`       | `goto`         | `except`
-`event`        | `int`          | `from`
-`explicit`     | `long`         | `global`
-`extern`       | `native`       | `is`
-`fixed`        | `short`        | `lambda`
-`float`        | `strictfp`     | `nonlocal`
-`foreach`      | `synchronized` | `not`
-`goto`         | `throws`       | `or`
-`implicit`     | `transient`    | `pass`
-`int`          | `volatile`     | `raise`
-`internal`     |                |
-`is`           |                |
-`lock`         |                |
-`long`         |                |
-`namespace`    |                |
-`object`       |                |
-`operator`     |                |
-`out`          |                |
-`override`     |                |
-`params`       |                |
-`readonly`     |                |
-`ref`          |                |
-`sbyte`        |                |
-`sealed`       |                |
-`short`        |                |
-`sizeof`       |                |
-`stackalloc`   |                |
-`string`       |                |
-`struct`       |                |
-`uint`         |                |
-`ulong`        |                |
-`unchecked`    |                |
-`unsafe`       |                |
-`ushort`       |                |
-`using`        |                |
-`virtual`      |                |
-`volatile`     |                |
+**C#**         | **Java**       | **Python**   | **Go**
+---------------|----------------|--------------|-------------
+`abstract`     | `abstract`     | `False`      | `break`
+`base`         | `assert`       | `None`       | `case`
+`bool`         | `boolean`      | `True`       | `chan`
+`byte`         | `byte`         | `and`        | `const`
+`char`         | `char`         | `assert`     | `continue`
+`checked`      | `double`       | `def`        | `default`
+`decimal`      | `final`        | `del`        | `defer`
+`delegate`     | `float`        | `elif`       | `else`
+`double`       | `goto`         | `except`     | `fallthrough`
+`event`        | `int`          | `from`       | `for`
+`explicit`     | `long`         | `global`     | `func`
+`extern`       | `native`       | `is`         | `go`
+`fixed`        | `short`        | `lambda`     | `goto`
+`float`        | `strictfp`     | `nonlocal`   | `if`
+`foreach`      | `synchronized` | `not`        | `import`
+`goto`         | `throws`       | `or`         | `interface`
+`implicit`     | `transient`    | `pass`       | `map`
+`int`          | `volatile`     | `raise`      | `package`
+`internal`     |                |              | `range`
+`is`           |                |              | `return`
+`lock`         |                |              | `select`
+`long`         |                |              | `struct`
+`namespace`    |                |              | `switch`
+`object`       |                |              | `type`
+`operator`     |                |              | `var`
+`out`          |                |              |
+`override`     |                |              |
+`params`       |                |              |
+`readonly`     |                |              |
+`ref`          |                |              |
+`sbyte`        |                |              |
+`sealed`       |                |              |
+`short`        |                |              |
+`sizeof`       |                |              |
+`stackalloc`   |                |              |
+`string`       |                |              |
+`struct`       |                |              |
+`uint`         |                |              |
+`ulong`        |                |              |
+`unchecked`    |                |              |
+`unsafe`       |                |              |
+`ushort`       |                |              |
+`using`        |                |              |
+`virtual`      |                |              |
+`volatile`     |                |              |
 
 Code generators from `jsii-pacmak` will try to work around those reserved words
 when they are encountered, but may resort to using names that could clash with
