@@ -31,46 +31,50 @@ type MethodOverride struct {
 type PropertyOverride struct {
 	override
 
-	Property *string
-	Cookie   *string
+	Property *string `json:"property"`
+	Cookie   *string `json:"cookie"`
 }
 
 func isMethodOverride(value Override) bool {
-	_, ok := value.(MethodOverride)
-	return ok
+	switch value.(type) {
+	case MethodOverride, *MethodOverride:
+		return true
+	default:
+		return false
+	}
 }
 
 func isPropertyOverride(value Override) bool {
-	_, ok := value.(PropertyOverride)
-	return ok
+	switch value.(type) {
+	case PropertyOverride, *PropertyOverride:
+		return true
+	default:
+		return false
+	}
 }
 
 // KernelRequest and KernelResponse allow creating a union of KernelRequest and
 // KernelResponse types by defining private method implemented by a private
 // custom type, which is embedded in all relevant types.
 type KernelRequest interface {
-	req()
+	isRequest()
 }
 
 type kernelRequester struct {
 }
 
-func (r kernelRequester) req() {
+func (r kernelRequester) isRequest() {
 	return
 }
 
 type KernelResponse interface {
-	res()
+	isResponse()
 }
 
 type kernelResponder struct {
 }
 
-func (r kernelResponder) res() {
-	return
-}
-
-func (r kernelResponder) Api() {
+func (r kernelResponder) isResponse() {
 	return
 }
 
