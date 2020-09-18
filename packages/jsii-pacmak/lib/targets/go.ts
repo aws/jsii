@@ -1,12 +1,12 @@
 import { CodeMaker } from 'codemaker';
-import { Documentation } from './golang/documentation';
+import { Documentation } from './go/documentation';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import { join } from 'path';
-import { RootPackage } from './golang/package';
+import { RootPackage } from './go/package';
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
-import { goPackageName } from './golang/util';
+import { goPackageName } from './go/util';
 
 export class Golang extends Target {
   public readonly generator: IGenerator;
@@ -14,7 +14,7 @@ export class Golang extends Target {
   public constructor(options: TargetOptions) {
     super(options);
 
-    this.generator = new GolangGenerator(options.rosetta);
+    this.generator = new GoGenerator(options.rosetta);
   }
 
   /**
@@ -28,7 +28,7 @@ export class Golang extends Target {
   }
 }
 
-class GolangGenerator implements IGenerator {
+class GoGenerator implements IGenerator {
   private assembly!: Assembly;
   private readonly code = new CodeMaker();
   private readonly documenter: Documentation;

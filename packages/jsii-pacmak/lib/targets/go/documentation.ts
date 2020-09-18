@@ -32,7 +32,7 @@ export class Documentation {
 
     if (docs.example !== '') {
       this.code.line(`//`);
-      // TODO: Translate code examples to Golang with Rosetta (not implemented there yet)
+      // TODO: Translate code examples to Go with Rosetta (not implemented there yet)
       this.code.line('// TODO: EXAMPLE');
       this.code.line(`//`);
     }
