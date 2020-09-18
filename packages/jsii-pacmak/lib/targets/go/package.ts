@@ -3,7 +3,14 @@ import { Assembly } from 'jsii-reflect';
 import { ReadmeFile } from './readme-file';
 import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { EmitContext } from './emit-context';
-import { GoClass, GoType, Enum, Interface, Struct } from './types';
+import {
+  GoClass,
+  GoType,
+  Enum,
+  Interface,
+  StaticMethod,
+  Struct,
+} from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
 
 // JSII go runtime module name
@@ -17,6 +24,7 @@ export abstract class Package {
   public readonly file: string;
   public readonly submodules: InternalPackage[];
   public readonly types: GoType[];
+  public staticMethods: StaticMethod[] = [];
 
   public constructor(
     private readonly typeSpec: readonly Type[],
@@ -40,7 +48,10 @@ export abstract class Package {
         } else if (type.isInterfaceType()) {
           return new Interface(this, type);
         } else if (type.isClassType()) {
-          return new GoClass(this, type);
+          const goClass = new GoClass(this, type);
+          this.populateStaticMethods(goClass);
+
+          return goClass;
         } else if (type.isEnumType()) {
           return new Enum(this, type);
         }
@@ -93,6 +104,12 @@ export abstract class Package {
     this.emitInternalPackages(context);
   }
 
+  public emitInternalPackages(context: EmitContext) {
+    for (const submodule of this.submodules) {
+      submodule.emit(context);
+    }
+  }
+
   protected emitHeader(code: CodeMaker) {
     code.line(`package ${this.packageName}`);
     code.line();
@@ -113,16 +130,21 @@ export abstract class Package {
     code.line();
   }
 
-  public emitInternalPackages(context: EmitContext) {
-    for (const submodule of this.submodules) {
-      submodule.emit(context);
-    }
-  }
-
   private emitTypes(context: EmitContext) {
+    for (const method of this.staticMethods) {
+      method.emit(context);
+    }
     for (const type of this.types) {
       type.emit(context);
     }
+  }
+
+  private populateStaticMethods(goclass: GoClass) {
+    const statics = Object.values(goclass.type.getMethods(true))
+      .filter((method) => method.static)
+      .map((method) => new StaticMethod(goclass, method));
+
+    this.staticMethods = this.staticMethods.concat(statics);
   }
 }
 

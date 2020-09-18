@@ -1,4 +1,4 @@
-import { Method, ClassType, Initializer } from 'jsii-reflect';
+import { Method, Parameter, ClassType, Initializer } from 'jsii-reflect';
 import { toPascalCase } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
 import { GoStruct } from './go-type';
@@ -18,9 +18,10 @@ export class GoClass extends GoStruct {
   public constructor(pkg: Package, public type: ClassType) {
     super(pkg, type);
 
-    this.methods = Object.values(this.type.getMethods(true)).map(
-      (method) => new ClassMethod(this, method),
-    );
+    this.methods = Object.values(this.type.getMethods(true))
+      // do not populate with static methods, as they will be generated at the package level
+      .filter((method) => !method.static)
+      .map((method) => new ClassMethod(this, method));
 
     if (this.type.initializer) {
       this.initializer = new GoClassConstructor(this, this.type.initializer);
@@ -92,15 +93,7 @@ export class GoClassConstructor {
   public emit(context: EmitContext) {
     const { code } = context;
     const constr = `New${this.parent.name}`;
-    const params = this.type.parameters.map((x) => {
-      const paramName = substituteReservedWords(x.name);
-      const paramType = new GoTypeRef(this.parent.pkg.root, x.type).scopedName(
-        this.parent.pkg,
-      );
-      return `${paramName} ${paramType}`;
-    });
-
-    const parameters = params.length === 0 ? '' : params.join(', ');
+    const parameters = parametersToString(this.parent, this.type.parameters);
 
     let docstring = '';
     if (this.type.docs.summary) {
@@ -138,12 +131,12 @@ export class ClassMethod implements GoTypeMember {
   /* emit generates method implementation on the class */
   public emit({ code }: EmitContext) {
     const name = this.name;
-
     const instanceArg = this.parent.name.substring(0, 1).toLowerCase();
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
+    const parameters = parametersToString(this.parent, this.method.parameters);
 
     code.openBlock(
-      `func (${instanceArg} *${this.parent.name}) ${name}()${returnTypeString}`,
+      `func (${instanceArg} *${this.parent.name}) ${name}(${parameters})${returnTypeString}`,
     );
 
     this.runtimeCall.emit(code);
@@ -164,4 +157,37 @@ export class ClassMethod implements GoTypeMember {
       this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
     );
   }
+}
+
+export class StaticMethod extends ClassMethod {
+  public constructor(
+    public readonly parent: GoClass,
+    public readonly method: Method,
+  ) {
+    super(parent, method);
+  }
+
+  public emit({ code }: EmitContext) {
+    const name = `${this.parent.name}_${this.name}`;
+
+    const parameters = parametersToString(this.parent, this.method.parameters);
+    code.openBlock(`func ${name}(${parameters}) ${this.returnType}`);
+
+    this.runtimeCall.emit(code);
+
+    code.closeBlock();
+    code.line();
+  }
+}
+
+function parametersToString(parent: GoClass, params: Parameter[]): string {
+  const parameters = params.map((p) => {
+    const paramName = substituteReservedWords(p.name);
+    const paramType = new GoTypeRef(parent.pkg.root, p.type).scopedName(
+      parent.pkg,
+    );
+    return `${paramName} ${paramType}`;
+  });
+
+  return parameters.length === 0 ? '' : parameters.join(', ');
 }
