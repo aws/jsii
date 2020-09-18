@@ -59,6 +59,13 @@ export interface NamingContext {
    * @internal
    */
   readonly ignoreOptional?: boolean;
+
+  /**
+   * The set of jsii type FQNs that have already been emitted so far. This is
+   * used to determine whether a given type reference is a forward declaration
+   * or not when emitting type signatures.
+   */
+  readonly emittedTypes: Set<string>;
 }
 
 export function toTypeName(ref?: OptionalValue | TypeReference): TypeName {
@@ -269,8 +276,9 @@ class UserType implements TypeName {
 
   private resolve({
     assembly,
-    submodule,
+    emittedTypes,
     nestingScope,
+    submodule,
     typeAnnotation = true,
   }: NamingContext) {
     const { assemblyName, packageName, pythonFqn } = toPythonFqn(
@@ -299,12 +307,17 @@ class UserType implements TypeName {
       // local reference by dropping the nesting type's name prefix.
       const nestingParent =
         nestingScope && toPythonFqn(nestingScope, assembly).pythonFqn;
-      const localName =
-        nestingParent && pythonFqn.startsWith(`${nestingParent}.`)
-          ? pythonFqn.substring(nestingParent.length + 1)
-          : pythonFqn.substring(typeSubmodulePythonName.length + 1);
       return {
-        pythonType: typeAnnotation ? JSON.stringify(localName) : localName,
+        pythonType:
+          typeAnnotation && !emittedTypes.has(this.#fqn)
+            ? // Possibly a forward declaration, outputting the stringifierd python FQN
+              JSON.stringify(pythonFqn)
+            : // Not a forward declaration, so we strip the prefix to make a correct local reference
+            nestingParent && pythonFqn.startsWith(`${nestingParent}.`)
+            ? // This is a nested class, we'll need to un-prefix that, too
+              pythonFqn.substring(nestingParent.length + 1)
+            : // Otherwise we just strip the module name
+              pythonFqn.substring(typeSubmodulePythonName.length + 1),
       };
     }
 

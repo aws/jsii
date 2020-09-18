@@ -341,6 +341,10 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     }
 
     code.closeBlock();
+
+    if (this.fqn != null) {
+      context.emittedTypes.add(this.fqn);
+    }
   }
 
   protected boundResolver(resolver: TypeResolver): TypeResolver {
@@ -464,7 +468,7 @@ abstract class BaseMethod implements PythonBase {
       pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
     }
 
-    const documentableArgs = this.parameters
+    const documentableArgs: DocumentableArgument[] = this.parameters
       // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
       .filter((_, index) =>
         this.liftedProp != null ? index < this.parameters.length - 1 : true,
@@ -825,6 +829,10 @@ class Interface extends BasePythonClassType {
     }
 
     code.closeBlock();
+
+    if (this.fqn != null) {
+      context.emittedTypes.add(this.fqn);
+    }
   }
 
   protected getClassParams(context: EmitContext): string[] {
@@ -897,6 +905,10 @@ class Struct extends BasePythonClassType {
     this.emitMagicMethods(code);
 
     code.closeBlock();
+
+    if (this.fqn != null) {
+      context.emittedTypes.add(this.fqn);
+    }
   }
 
   public requiredImports(context: EmitContext) {
@@ -1995,15 +2007,14 @@ class PythonGenerator extends Generator {
       if (doBrk) {
         brk();
       }
-      lines.push(heading);
       const contentLines = md2rst(content).split('\n');
       if (contentLines.length <= 1) {
-        lines.push(`:${heading}: ${contentLines.join('')}`);
+        lines.push(`:${heading}: ${contentLines.join('')}`.trim());
       } else {
         lines.push(`:${heading}:`);
         brk();
         for (const line of contentLines) {
-          lines.push(`${line}`);
+          lines.push(line.trim());
         }
       }
       if (doBrk) {
@@ -2053,7 +2064,7 @@ class PythonGenerator extends Generator {
     }
 
     for (const [k, v] of Object.entries(docs.custom ?? {})) {
-      block(`${k}:`, v, false);
+      block(k, v, false);
     }
 
     if (docs.example) {
@@ -2172,8 +2183,9 @@ class PythonGenerator extends Generator {
     );
     this.package.write(this.code, {
       assembly: assm,
-      submodule: assm.name,
+      emittedTypes: new Set(),
       resolver,
+      submodule: assm.name,
     });
   }
 
@@ -2505,7 +2517,7 @@ interface DocumentableArgument {
  */
 function onelineDescription(docs: spec.Docs | undefined) {
   // Only consider a subset of fields here, we don't have a lot of formatting space
-  if (!docs) {
+  if (!docs || Object.keys(docs).length === 0) {
     return '-';
   }
 

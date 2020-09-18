@@ -219,8 +219,9 @@ describe(toTypeName, () => {
   for (const example of examples) {
     const context: NamingContext = {
       assembly,
-      submodule: example.inSubmodule ?? assembly.name,
+      emittedTypes: new Set(),
       nestingScope: example.inNestingContext,
+      submodule: example.inSubmodule ?? assembly.name,
     };
 
     describe(example.name, () => {
