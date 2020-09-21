@@ -62,7 +62,7 @@
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.3.0"
+    "ts-jest": "^26.4.0"
   },
   "jest": {
     "collectCoverage": true,
