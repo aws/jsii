@@ -1,9 +1,10 @@
 import {
   Assembly,
+  CollectionKind,
+  NamedTypeReference,
+  PrimitiveType,
   SchemaVersion,
   TypeReference,
-  PrimitiveType,
-  CollectionKind,
 } from '@jsii/spec';
 import {
   toTypeName,
@@ -66,6 +67,8 @@ describe(toTypeName, () => {
     readonly input: TypeReference | undefined;
     /** The expected python name of the type */
     readonly pythonType: string;
+    /** If different from pythonType, the forward declaration to use for the type */
+    readonly forwardPythonType?: string;
     /** The optional version of the type's name (if not provided, typing.Optional[<pythonType>]) */
     readonly optionalPythonType?: string;
     /** The required imports for this python type (if not provided, none) */
@@ -165,12 +168,14 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Local)',
       input: { fqn: `${assembly.name}.BoringClass` },
-      pythonType: '"BoringClass"',
+      pythonType: 'BoringClass',
+      forwardPythonType: '"local_module_name.BoringClass"',
     },
     {
       name: 'User Type (Local, Nested)',
       input: { fqn: `${assembly.name}.${BORING_TYPE}.${NESTED_TYPE}` },
-      pythonType: '"BoringClass.NestedType"',
+      pythonType: 'BoringClass.NestedType',
+      forwardPythonType: '"local_module_name.BoringClass.NestedType"',
     },
     {
       name: 'User Type (Local, Submodule)',
@@ -195,11 +200,12 @@ describe(toTypeName, () => {
       },
     },
     {
-      name: 'User Type (Local, Nested)',
+      name: 'User Type (Locally Nested)',
       input: {
         fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}`,
       },
-      pythonType: `"${SUBMODULE_NESTED_TYPE}"`,
+      pythonType: SUBMODULE_NESTED_TYPE,
+      forwardPythonType: `"${LOCAL_MODULE}.submodule.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}"`,
       inSubmodule: `${assembly.name}.submodule`,
       inNestingContext: `${assembly.name}.submodule.${SUBMODULE_TYPE}`,
     },
@@ -223,12 +229,26 @@ describe(toTypeName, () => {
       nestingScope: example.inNestingContext,
       submodule: example.inSubmodule ?? assembly.name,
     };
+    const contextWithEmittedType: NamingContext = {
+      ...context,
+      emittedTypes: new Set(
+        [
+          // Sneak through to get the type's FQN, but be null-safe, etc... then filter.
+          (example.input as NamedTypeReference | undefined)?.fqn as string,
+        ].filter((v) => !!v),
+      ),
+    };
 
     describe(example.name, () => {
       const typeName = toTypeName(example.input);
 
       test('typeName.pythonType(context)', () => {
-        expect(typeName.pythonType(context)).toBe(example.pythonType);
+        expect(typeName.pythonType(context)).toBe(
+          example.forwardPythonType ?? example.pythonType,
+        );
+        expect(typeName.pythonType(contextWithEmittedType)).toBe(
+          example.pythonType,
+        );
       });
 
       test('typeName.requiredImports(context)', () => {
@@ -248,6 +268,13 @@ describe(toTypeName, () => {
 
       test('typeName.pythonType(context)', () => {
         expect(typeName.pythonType(context)).toBe(
+          example.optionalPythonType ??
+            `typing.Optional[${
+              example.forwardPythonType ?? example.pythonType
+            }]`,
+        );
+
+        expect(typeName.pythonType(contextWithEmittedType)).toBe(
           example.optionalPythonType ??
             `typing.Optional[${example.pythonType}]`,
         );
