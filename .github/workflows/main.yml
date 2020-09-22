@@ -204,7 +204,7 @@ jobs:
             python: '3.6'
           # Test alternate .NETs
           - java: '8'
-            dotnet: '5.0.0-rc1' # Pre-release matching requires exact version for now
+            dotnet: '5.0.100-rc.1' # Pre-release matching requires exact version for now
             node: '10'
             os: ubuntu-latest
             python: '3.6'
