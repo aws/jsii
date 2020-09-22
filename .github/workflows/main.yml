@@ -177,7 +177,7 @@ jobs:
           path: ${{ github.workspace }}/dist/
 
   test:
-    name: Test (${{ matrix.os }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
+    name: Test (${{ matrix.os }} / dotnet ${{ matrix.dotnet }} / java ${{ matrix.java }} / node ${{ matrix.node }} / python ${{ matrix.python }})
     needs: build
     strategy:
       fail-fast: false
