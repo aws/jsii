@@ -88,14 +88,6 @@ import (
     "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
-func StaticConsumer_Consume(_args jsii.Any) jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "StaticConsumer",
-        Method: "Consume",
-        Args: []string{"any",},
-    })
-}
-
 type IVeryBaseInterface interface {
     Foo()
 }
@@ -106,6 +98,14 @@ type StaticConsumerIface interface {
 
 // Struct proxy
 type StaticConsumer struct {
+}
+
+func StaticConsumer_Consume(_args jsii.Any) jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "StaticConsumer",
+        Method: "Consume",
+        Args: []string{"any",},
+    })
 }
 
 // Class interface
@@ -927,509 +927,6 @@ import (
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase"
     "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib/submodule"
 )
-
-func ClassWithCollections_CreateAList() []string {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ClassWithCollections",
-        Method: "CreateAList",
-        Args: []string{},
-    })
-    return nil
-}
-
-func ClassWithCollections_CreateAMap() map[string]string {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ClassWithCollections",
-        Method: "CreateAMap",
-        Args: []string{},
-    })
-    return nil
-}
-
-func ClassWithPrivateConstructorAndAutomaticProperties_Create(readOnlyString string, readWriteString string) ClassWithPrivateConstructorAndAutomaticProperties {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ClassWithPrivateConstructorAndAutomaticProperties",
-        Method: "Create",
-        Args: []string{"string", "string",},
-    })
-    return ClassWithPrivateConstructorAndAutomaticProperties{}
-}
-
-func ConfusingToJackson_MakeInstance() ConfusingToJackson {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ConfusingToJackson",
-        Method: "MakeInstance",
-        Args: []string{},
-    })
-    return ConfusingToJackson{}
-}
-
-func ConfusingToJackson_MakeStructInstance() ConfusingToJacksonStruct {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ConfusingToJackson",
-        Method: "MakeStructInstance",
-        Args: []string{},
-    })
-    return ConfusingToJacksonStruct{}
-}
-
-func Constructors_HiddenInterface() IPublicInterface {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Constructors",
-        Method: "HiddenInterface",
-        Args: []string{},
-    })
-    return nil
-}
-
-func Constructors_HiddenInterfaces() []IPublicInterface {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Constructors",
-        Method: "HiddenInterfaces",
-        Args: []string{},
-    })
-    return nil
-}
-
-func Constructors_HiddenSubInterfaces() []IPublicInterface {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Constructors",
-        Method: "HiddenSubInterfaces",
-        Args: []string{},
-    })
-    return nil
-}
-
-func Constructors_MakeClass() PublicClass {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Constructors",
-        Method: "MakeClass",
-        Args: []string{},
-    })
-    return PublicClass{}
-}
-
-func Constructors_MakeInterface() IPublicInterface {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Constructors",
-        Method: "MakeInterface",
-        Args: []string{},
-    })
-    return nil
-}
-
-func Constructors_MakeInterface2() IPublicInterface2 {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Constructors",
-        Method: "MakeInterface2",
-        Args: []string{},
-    })
-    return nil
-}
-
-func Constructors_MakeInterfaces() []IPublicInterface {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Constructors",
-        Method: "MakeInterfaces",
-        Args: []string{},
-    })
-    return nil
-}
-
-func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRinger) bool {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ConsumerCanRingBell",
-        Method: "StaticImplementedByObjectLiteral",
-        Args: []string{"jsii-calc.IBellRinger",},
-    })
-    return true
-}
-
-func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRinger) bool {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ConsumerCanRingBell",
-        Method: "StaticImplementedByPrivateClass",
-        Args: []string{"jsii-calc.IBellRinger",},
-    })
-    return true
-}
-
-func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRinger) bool {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ConsumerCanRingBell",
-        Method: "StaticImplementedByPublicClass",
-        Args: []string{"jsii-calc.IBellRinger",},
-    })
-    return true
-}
-
-func ConsumerCanRingBell_StaticWhenTypedAsClass(ringer IConcreteBellRinger) bool {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ConsumerCanRingBell",
-        Method: "StaticWhenTypedAsClass",
-        Args: []string{"jsii-calc.IConcreteBellRinger",},
-    })
-    return true
-}
-
-func Demonstrate982_TakeThis() ChildStruct982 {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Demonstrate982",
-        Method: "TakeThis",
-        Args: []string{},
-    })
-    return ChildStruct982{}
-}
-
-func Demonstrate982_TakeThisToo() ParentStruct982 {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Demonstrate982",
-        Method: "TakeThisToo",
-        Args: []string{},
-    })
-    return ParentStruct982{}
-}
-
-func EnumDispenser_RandomIntegerLikeEnum() AllTypesEnum {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "EnumDispenser",
-        Method: "RandomIntegerLikeEnum",
-        Args: []string{},
-    })
-    return "ENUM_DUMMY"
-}
-
-func EnumDispenser_RandomStringLikeEnum() StringEnum {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "EnumDispenser",
-        Method: "RandomStringLikeEnum",
-        Args: []string{},
-    })
-    return "ENUM_DUMMY"
-}
-
-func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptions, key string) bool {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "EraseUndefinedHashValues",
-        Method: "DoesKeyExist",
-        Args: []string{"jsii-calc.EraseUndefinedHashValuesOptions", "string",},
-    })
-    return true
-}
-
-func EraseUndefinedHashValues_Prop1IsNull() map[string]jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "EraseUndefinedHashValues",
-        Method: "Prop1IsNull",
-        Args: []string{},
-    })
-    return nil
-}
-
-func EraseUndefinedHashValues_Prop2IsUndefined() map[string]jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "EraseUndefinedHashValues",
-        Method: "Prop2IsUndefined",
-        Args: []string{},
-    })
-    return nil
-}
-
-func InterfaceCollections_ListOfInterfaces() []IBell {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "InterfaceCollections",
-        Method: "ListOfInterfaces",
-        Args: []string{},
-    })
-    return nil
-}
-
-func InterfaceCollections_ListOfStructs() []StructA {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "InterfaceCollections",
-        Method: "ListOfStructs",
-        Args: []string{},
-    })
-    return nil
-}
-
-func InterfaceCollections_MapOfInterfaces() map[string]IBell {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "InterfaceCollections",
-        Method: "MapOfInterfaces",
-        Args: []string{},
-    })
-    return nil
-}
-
-func InterfaceCollections_MapOfStructs() map[string]StructA {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "InterfaceCollections",
-        Method: "MapOfStructs",
-        Args: []string{},
-    })
-    return nil
-}
-
-func InterfacesMaker_MakeInterfaces(count float64) []scopejsiicalclib.IDoublable {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "InterfacesMaker",
-        Method: "MakeInterfaces",
-        Args: []string{"number",},
-    })
-    return nil
-}
-
-func Jsii417Derived_MakeInstance() Jsii417PublicBaseOfBase {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Jsii417Derived",
-        Method: "MakeInstance",
-        Args: []string{},
-    })
-    return Jsii417PublicBaseOfBase{}
-}
-
-func Jsii417PublicBaseOfBase_MakeInstance() Jsii417PublicBaseOfBase {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Jsii417PublicBaseOfBase",
-        Method: "MakeInstance",
-        Args: []string{},
-    })
-    return Jsii417PublicBaseOfBase{}
-}
-
-func JsonFormatter_AnyArray() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyArray",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyBooleanFalse() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyBooleanFalse",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyBooleanTrue() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyBooleanTrue",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyDate() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyDate",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyEmptyString() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyEmptyString",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyFunction() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyFunction",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyHash() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyHash",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyNull() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyNull",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyNumber() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyNumber",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyRef() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyRef",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyString() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyString",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyUndefined() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyUndefined",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_AnyZero() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "AnyZero",
-        Args: []string{},
-    })
-    return nil
-}
-
-func JsonFormatter_Stringify(value jsii.Any) string {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "JsonFormatter",
-        Method: "Stringify",
-        Args: []string{"any",},
-    })
-    return "NOOP_RETURN_STRING"
-}
-
-func NestedClassInstance_MakeInstance() submodule.NestedClass {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "NestedClassInstance",
-        Method: "MakeInstance",
-        Args: []string{},
-    })
-    return submodule.NestedClass{}
-}
-
-func ObjectWithPropertyProvider_Provide() IObjectWithProperty {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "ObjectWithPropertyProvider",
-        Method: "Provide",
-        Args: []string{},
-    })
-    return nil
-}
-
-func RootStructValidator_Validate(struct RootStruct) jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "RootStructValidator",
-        Method: "Validate",
-        Args: []string{"jsii-calc.RootStruct",},
-    })
-}
-
-func SomeTypeJsii976_ReturnAnonymous() jsii.Any {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "SomeTypeJsii976",
-        Method: "ReturnAnonymous",
-        Args: []string{},
-    })
-    return nil
-}
-
-func SomeTypeJsii976_ReturnReturn() IReturnJsii976 {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "SomeTypeJsii976",
-        Method: "ReturnReturn",
-        Args: []string{},
-    })
-    return nil
-}
-
-func StaticContext_CanAccessStaticContext() bool {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "StaticContext",
-        Method: "CanAccessStaticContext",
-        Args: []string{},
-    })
-    return true
-}
-
-func Statics_StaticMethod(name string) string {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Statics",
-        Method: "StaticMethod",
-        Args: []string{"string",},
-    })
-    return "NOOP_RETURN_STRING"
-}
-
-func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelStruct) float64 {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "StructPassing",
-        Method: "HowManyVarArgsDidIPass",
-        Args: []string{"number", "jsii-calc.TopLevelStruct",},
-    })
-    return 0.0
-}
-
-func StructPassing_RoundTrip(_positional float64, input TopLevelStruct) TopLevelStruct {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "StructPassing",
-        Method: "RoundTrip",
-        Args: []string{"number", "jsii-calc.TopLevelStruct",},
-    })
-    return TopLevelStruct{}
-}
-
-func StructUnionConsumer_IsStructA(struct jsii.Any) bool {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "StructUnionConsumer",
-        Method: "IsStructA",
-        Args: []string{"jsii-calc.StructA | jsii-calc.StructB",},
-    })
-    return true
-}
-
-func StructUnionConsumer_IsStructB(struct jsii.Any) bool {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "StructUnionConsumer",
-        Method: "IsStructB",
-        Args: []string{"jsii-calc.StructA | jsii-calc.StructB",},
-    })
-    return true
-}
-
-func UmaskCheck_Mode() float64 {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "UmaskCheck",
-        Method: "Mode",
-        Args: []string{},
-    })
-    return 0.0
-}
 
 // Class interface
 type AbstractClassIface interface {
@@ -2857,6 +2354,24 @@ func (c *ClassWithCollections) SetMap(val map[string]string) {
     c.Map = val
 }
 
+func ClassWithCollections_CreateAList() []string {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ClassWithCollections",
+        Method: "CreateAList",
+        Args: []string{},
+    })
+    return nil
+}
+
+func ClassWithCollections_CreateAMap() map[string]string {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ClassWithCollections",
+        Method: "CreateAMap",
+        Args: []string{},
+    })
+    return nil
+}
+
 // Class interface
 type ClassWithDocsIface interface {
 }
@@ -2983,6 +2498,15 @@ func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(v
     c.ReadWriteString = val
 }
 
+func ClassWithPrivateConstructorAndAutomaticProperties_Create(readOnlyString string, readWriteString string) ClassWithPrivateConstructorAndAutomaticProperties {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ClassWithPrivateConstructorAndAutomaticProperties",
+        Method: "Create",
+        Args: []string{"string", "string",},
+    })
+    return ClassWithPrivateConstructorAndAutomaticProperties{}
+}
+
 // Class interface
 type ConfusingToJacksonIface interface {
     GetUnionProperty() jsii.Any
@@ -3004,6 +2528,24 @@ func (c *ConfusingToJackson) GetUnionProperty() jsii.Any {
 
 func (c *ConfusingToJackson) SetUnionProperty(val jsii.Any) {
     c.UnionProperty = val
+}
+
+func ConfusingToJackson_MakeInstance() ConfusingToJackson {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ConfusingToJackson",
+        Method: "MakeInstance",
+        Args: []string{},
+    })
+    return ConfusingToJackson{}
+}
+
+func ConfusingToJackson_MakeStructInstance() ConfusingToJacksonStruct {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ConfusingToJackson",
+        Method: "MakeStructInstance",
+        Args: []string{},
+    })
+    return ConfusingToJacksonStruct{}
 }
 
 // ConfusingToJacksonStructIface is the public interface for the custom type ConfusingToJacksonStruct
@@ -3053,6 +2595,69 @@ func NewConstructors() ConstructorsIface {
         Args: []string{},
     })
     return &Constructors{}
+}
+
+func Constructors_HiddenInterface() IPublicInterface {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Constructors",
+        Method: "HiddenInterface",
+        Args: []string{},
+    })
+    return nil
+}
+
+func Constructors_HiddenInterfaces() []IPublicInterface {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Constructors",
+        Method: "HiddenInterfaces",
+        Args: []string{},
+    })
+    return nil
+}
+
+func Constructors_HiddenSubInterfaces() []IPublicInterface {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Constructors",
+        Method: "HiddenSubInterfaces",
+        Args: []string{},
+    })
+    return nil
+}
+
+func Constructors_MakeClass() PublicClass {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Constructors",
+        Method: "MakeClass",
+        Args: []string{},
+    })
+    return PublicClass{}
+}
+
+func Constructors_MakeInterface() IPublicInterface {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Constructors",
+        Method: "MakeInterface",
+        Args: []string{},
+    })
+    return nil
+}
+
+func Constructors_MakeInterface2() IPublicInterface2 {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Constructors",
+        Method: "MakeInterface2",
+        Args: []string{},
+    })
+    return nil
+}
+
+func Constructors_MakeInterfaces() []IPublicInterface {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Constructors",
+        Method: "MakeInterfaces",
+        Args: []string{},
+    })
+    return nil
 }
 
 // Class interface
@@ -3105,6 +2710,42 @@ func NewConsumerCanRingBell() ConsumerCanRingBellIface {
         Args: []string{},
     })
     return &ConsumerCanRingBell{}
+}
+
+func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRinger) bool {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ConsumerCanRingBell",
+        Method: "StaticImplementedByObjectLiteral",
+        Args: []string{"jsii-calc.IBellRinger",},
+    })
+    return true
+}
+
+func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRinger) bool {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ConsumerCanRingBell",
+        Method: "StaticImplementedByPrivateClass",
+        Args: []string{"jsii-calc.IBellRinger",},
+    })
+    return true
+}
+
+func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRinger) bool {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ConsumerCanRingBell",
+        Method: "StaticImplementedByPublicClass",
+        Args: []string{"jsii-calc.IBellRinger",},
+    })
+    return true
+}
+
+func ConsumerCanRingBell_StaticWhenTypedAsClass(ringer IConcreteBellRinger) bool {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ConsumerCanRingBell",
+        Method: "StaticWhenTypedAsClass",
+        Args: []string{"jsii-calc.IConcreteBellRinger",},
+    })
+    return true
 }
 
 func (c *ConsumerCanRingBell) ImplementedByObjectLiteral(ringer IBellRinger) bool {
@@ -3298,6 +2939,24 @@ func NewDemonstrate982() Demonstrate982Iface {
         Args: []string{},
     })
     return &Demonstrate982{}
+}
+
+func Demonstrate982_TakeThis() ChildStruct982 {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Demonstrate982",
+        Method: "TakeThis",
+        Args: []string{},
+    })
+    return ChildStruct982{}
+}
+
+func Demonstrate982_TakeThisToo() ParentStruct982 {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Demonstrate982",
+        Method: "TakeThisToo",
+        Args: []string{},
+    })
+    return ParentStruct982{}
 }
 
 // Class interface
@@ -3871,6 +3530,24 @@ type EnumDispenserIface interface {
 type EnumDispenser struct {
 }
 
+func EnumDispenser_RandomIntegerLikeEnum() AllTypesEnum {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "EnumDispenser",
+        Method: "RandomIntegerLikeEnum",
+        Args: []string{},
+    })
+    return "ENUM_DUMMY"
+}
+
+func EnumDispenser_RandomStringLikeEnum() StringEnum {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "EnumDispenser",
+        Method: "RandomStringLikeEnum",
+        Args: []string{},
+    })
+    return "ENUM_DUMMY"
+}
+
 // Class interface
 type EraseUndefinedHashValuesIface interface {
 }
@@ -3886,6 +3563,33 @@ func NewEraseUndefinedHashValues() EraseUndefinedHashValuesIface {
         Args: []string{},
     })
     return &EraseUndefinedHashValues{}
+}
+
+func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptions, key string) bool {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "EraseUndefinedHashValues",
+        Method: "DoesKeyExist",
+        Args: []string{"jsii-calc.EraseUndefinedHashValuesOptions", "string",},
+    })
+    return true
+}
+
+func EraseUndefinedHashValues_Prop1IsNull() map[string]jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "EraseUndefinedHashValues",
+        Method: "Prop1IsNull",
+        Args: []string{},
+    })
+    return nil
+}
+
+func EraseUndefinedHashValues_Prop2IsUndefined() map[string]jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "EraseUndefinedHashValues",
+        Method: "Prop2IsUndefined",
+        Args: []string{},
+    })
+    return nil
 }
 
 // EraseUndefinedHashValuesOptionsIface is the public interface for the custom type EraseUndefinedHashValuesOptions
@@ -4615,6 +4319,42 @@ type InterfaceCollectionsIface interface {
 type InterfaceCollections struct {
 }
 
+func InterfaceCollections_ListOfInterfaces() []IBell {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "InterfaceCollections",
+        Method: "ListOfInterfaces",
+        Args: []string{},
+    })
+    return nil
+}
+
+func InterfaceCollections_ListOfStructs() []StructA {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "InterfaceCollections",
+        Method: "ListOfStructs",
+        Args: []string{},
+    })
+    return nil
+}
+
+func InterfaceCollections_MapOfInterfaces() map[string]IBell {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "InterfaceCollections",
+        Method: "MapOfInterfaces",
+        Args: []string{},
+    })
+    return nil
+}
+
+func InterfaceCollections_MapOfStructs() map[string]StructA {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "InterfaceCollections",
+        Method: "MapOfStructs",
+        Args: []string{},
+    })
+    return nil
+}
+
 // Class interface
 type InterfacesMakerIface interface {
 }
@@ -4622,6 +4362,15 @@ type InterfacesMakerIface interface {
 // We can return arrays of interfaces See aws/aws-cdk#2362.
 // Struct proxy
 type InterfacesMaker struct {
+}
+
+func InterfacesMaker_MakeInterfaces(count float64) []scopejsiicalclib.IDoublable {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "InterfacesMaker",
+        Method: "MakeInterfaces",
+        Args: []string{"number",},
+    })
+    return nil
 }
 
 // Class interface
@@ -4697,6 +4446,15 @@ func (j *Jsii417Derived) SetProperty(val string) {
     j.Property = val
 }
 
+func Jsii417Derived_MakeInstance() Jsii417PublicBaseOfBase {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Jsii417Derived",
+        Method: "MakeInstance",
+        Args: []string{},
+    })
+    return Jsii417PublicBaseOfBase{}
+}
+
 func (j *Jsii417Derived) Foo() {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "Jsii417Derived",
@@ -4749,6 +4507,15 @@ func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBaseIface {
 
 func (j *Jsii417PublicBaseOfBase) SetHasRoot(val bool) {
     j.HasRoot = val
+}
+
+func Jsii417PublicBaseOfBase_MakeInstance() Jsii417PublicBaseOfBase {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Jsii417PublicBaseOfBase",
+        Method: "MakeInstance",
+        Args: []string{},
+    })
+    return Jsii417PublicBaseOfBase{}
 }
 
 func (j *Jsii417PublicBaseOfBase) Foo() {
@@ -5439,6 +5206,132 @@ type JsonFormatterIface interface {
 type JsonFormatter struct {
 }
 
+func JsonFormatter_AnyArray() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyArray",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyBooleanFalse() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyBooleanFalse",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyBooleanTrue() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyBooleanTrue",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyDate() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyDate",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyEmptyString() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyEmptyString",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyFunction() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyFunction",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyHash() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyHash",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyNull() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyNull",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyNumber() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyNumber",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyRef() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyRef",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyString() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyString",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyUndefined() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyUndefined",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_AnyZero() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "AnyZero",
+        Args: []string{},
+    })
+    return nil
+}
+
+func JsonFormatter_Stringify(value jsii.Any) string {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "JsonFormatter",
+        Method: "Stringify",
+        Args: []string{"any",},
+    })
+    return "NOOP_RETURN_STRING"
+}
+
 // LoadBalancedFargateServicePropsIface is the public interface for the custom type LoadBalancedFargateServiceProps
 type LoadBalancedFargateServicePropsIface interface {
     GetContainerPort() float64
@@ -5771,6 +5664,15 @@ type NestedClassInstanceIface interface {
 type NestedClassInstance struct {
 }
 
+func NestedClassInstance_MakeInstance() submodule.NestedClass {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "NestedClassInstance",
+        Method: "MakeInstance",
+        Args: []string{},
+    })
+    return submodule.NestedClass{}
+}
+
 // NestedStructIface is the public interface for the custom type NestedStruct
 type NestedStructIface interface {
     GetNumberProp() float64
@@ -6020,6 +5922,15 @@ type ObjectWithPropertyProviderIface interface {
 
 // Struct proxy
 type ObjectWithPropertyProvider struct {
+}
+
+func ObjectWithPropertyProvider_Provide() IObjectWithProperty {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "ObjectWithPropertyProvider",
+        Method: "Provide",
+        Args: []string{},
+    })
+    return nil
 }
 
 // Class interface
@@ -6972,6 +6883,14 @@ type RootStructValidatorIface interface {
 type RootStructValidator struct {
 }
 
+func RootStructValidator_Validate(struct RootStruct) jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "RootStructValidator",
+        Method: "Validate",
+        Args: []string{"jsii-calc.RootStruct",},
+    })
+}
+
 // Class interface
 type RuntimeTypeCheckingIface interface {
     MethodWithDefaultedArguments()
@@ -7175,6 +7094,24 @@ func NewSomeTypeJsii976() SomeTypeJsii976Iface {
     return &SomeTypeJsii976{}
 }
 
+func SomeTypeJsii976_ReturnAnonymous() jsii.Any {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "SomeTypeJsii976",
+        Method: "ReturnAnonymous",
+        Args: []string{},
+    })
+    return nil
+}
+
+func SomeTypeJsii976_ReturnReturn() IReturnJsii976 {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "SomeTypeJsii976",
+        Method: "ReturnReturn",
+        Args: []string{},
+    })
+    return nil
+}
+
 // Class interface
 type StableClassIface interface {
     GetReadonlyProperty() string
@@ -7267,6 +7204,15 @@ func (s *StaticContext) GetStaticVariable() bool {
 
 func (s *StaticContext) SetStaticVariable(val bool) {
     s.StaticVariable = val
+}
+
+func StaticContext_CanAccessStaticContext() bool {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "StaticContext",
+        Method: "CanAccessStaticContext",
+        Args: []string{},
+    })
+    return true
 }
 
 // Class interface
@@ -7369,6 +7315,15 @@ func (s *Statics) SetNonConstStatic(val float64) {
 
 func (s *Statics) SetValue(val string) {
     s.Value = val
+}
+
+func Statics_StaticMethod(name string) string {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Statics",
+        Method: "StaticMethod",
+        Args: []string{"string",},
+    })
+    return "NOOP_RETURN_STRING"
 }
 
 func (s *Statics) JustMethod() string {
@@ -7515,12 +7470,48 @@ func NewStructPassing() StructPassingIface {
     return &StructPassing{}
 }
 
+func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelStruct) float64 {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "StructPassing",
+        Method: "HowManyVarArgsDidIPass",
+        Args: []string{"number", "jsii-calc.TopLevelStruct",},
+    })
+    return 0.0
+}
+
+func StructPassing_RoundTrip(_positional float64, input TopLevelStruct) TopLevelStruct {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "StructPassing",
+        Method: "RoundTrip",
+        Args: []string{"number", "jsii-calc.TopLevelStruct",},
+    })
+    return TopLevelStruct{}
+}
+
 // Class interface
 type StructUnionConsumerIface interface {
 }
 
 // Struct proxy
 type StructUnionConsumer struct {
+}
+
+func StructUnionConsumer_IsStructA(struct jsii.Any) bool {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "StructUnionConsumer",
+        Method: "IsStructA",
+        Args: []string{"jsii-calc.StructA | jsii-calc.StructB",},
+    })
+    return true
+}
+
+func StructUnionConsumer_IsStructB(struct jsii.Any) bool {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "StructUnionConsumer",
+        Method: "IsStructB",
+        Args: []string{"jsii-calc.StructA | jsii-calc.StructB",},
+    })
+    return true
 }
 
 // StructWithJavaReservedWordsIface is the public interface for the custom type StructWithJavaReservedWords
@@ -8056,6 +8047,15 @@ type UmaskCheckIface interface {
 //
 // Struct proxy
 type UmaskCheck struct {
+}
+
+func UmaskCheck_Mode() float64 {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "UmaskCheck",
+        Method: "Mode",
+        Args: []string{},
+    })
+    return 0.0
 }
 
 // Class interface
@@ -8790,15 +8790,6 @@ import (
     "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
-func Kwargs_Method(props child.KwargsProps) bool {
-    jsii.NoOpRequest(jsii.NoOpApiRequest {
-        Class: "Kwargs",
-        Method: "Method",
-        Args: []string{"jsii-calc.submodule.child.KwargsProps",},
-    })
-    return true
-}
-
 // Class interface
 type KwargsIface interface {
 }
@@ -8806,6 +8797,15 @@ type KwargsIface interface {
 // Ensures imports are correctly registered for kwargs lifted properties from super-structs.
 // Struct proxy
 type Kwargs struct {
+}
+
+func Kwargs_Method(props child.KwargsProps) bool {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Kwargs",
+        Method: "Method",
+        Args: []string{"jsii-calc.submodule.child.KwargsProps",},
+    })
+    return true
 }
 
 

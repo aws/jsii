@@ -13,15 +13,24 @@ import { EmitContext } from '../emit-context';
  */
 export class GoClass extends GoStruct {
   public readonly methods: ClassMethod[];
+  public readonly staticMethods: StaticMethod[];
   private readonly initializer?: GoClassConstructor;
 
   public constructor(pkg: Package, public type: ClassType) {
     super(pkg, type);
 
-    this.methods = Object.values(this.type.getMethods(true))
-      // do not populate with static methods, as they will be generated at the package level
-      .filter((method) => !method.static)
-      .map((method) => new ClassMethod(this, method));
+    const instanceMethods = [];
+    const staticMethods = [];
+
+    for (const method of Object.values(this.type.getMethods(true))) {
+      if (method.static) {
+        staticMethods.push(new StaticMethod(this, method));
+      } else {
+        instanceMethods.push(new ClassMethod(this, method));
+      }
+    }
+    this.methods = instanceMethods;
+    this.staticMethods = staticMethods;
 
     if (this.type.initializer) {
       this.initializer = new GoClassConstructor(this, this.type.initializer);
@@ -37,6 +46,10 @@ export class GoClass extends GoStruct {
     }
 
     this.emitSetters(context);
+
+    for (const method of this.staticMethods) {
+      method.emit(context);
+    }
 
     for (const method of this.methods) {
       method.emit(context);
