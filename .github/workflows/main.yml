@@ -202,6 +202,12 @@ jobs:
             java: '8'
             node: '10'
             python: '3.6'
+          # Test alternate .NETs
+          - java: '8'
+            dotnet: '5.0.0-rc1' # Pre-release matching requires exact version for now
+            node: '10'
+            os: ubuntu-latest
+            python: '3.6'
           # Test alternate Javas
           - java: '11'
             dotnet: '3.1.x'
