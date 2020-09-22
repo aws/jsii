@@ -54,11 +54,14 @@ export class GoTypeRef {
     return this.type?.pkg.packageName;
   }
 
+  public get void() {
+    return this.reference.void;
+  }
+
   /*
    * Return the name of a type for reference from the `Package` passed in
    */
   public scopedName(scope: Package): string {
-    // type references a primitive
     if (this.reference.primitive) {
       return new PrimitiveMapper(this.reference.primitive).goPrimitive;
     }

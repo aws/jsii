@@ -17,5 +17,5 @@ func main() {
 	fmt.Print(jsii.Client{RuntimeVersion: "100.100.100"})
 
 	// fmt.Printf("Client init successful\nRuntime version: %s", client.RuntimeVersion)
-	fmt.Println(jsiicalc.JsiiCalcType{})
+	fmt.Println(jsiicalc.AbstractClass{})
 }

@@ -140,9 +140,10 @@ export class ClassMethod implements GoTypeMember {
     const name = this.name;
 
     const instanceArg = this.parent.name.substring(0, 1).toLowerCase();
+    const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
     code.openBlock(
-      `func (${instanceArg} *${this.parent.name}) ${name}() ${this.returnType}`,
+      `func (${instanceArg} *${this.parent.name}) ${name}()${returnTypeString}`,
     );
 
     this.runtimeCall.emit(code);
@@ -154,7 +155,8 @@ export class ClassMethod implements GoTypeMember {
   /* emitDecl generates method declaration in the class interface */
   public emitDecl(context: EmitContext) {
     const { code } = context;
-    code.line(`${this.name}() ${this.returnType}`);
+    const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
+    code.line(`${this.name}()${returnTypeString}`);
   }
 
   public get returnType(): string {

@@ -30,7 +30,10 @@ export class MethodCall {
     code.close(`})`);
 
     const ret = this.parent.reference;
-    if (ret?.type?.type.isClassType() || ret?.type instanceof Struct) {
+    if (ret?.void) {
+      // don't emit a return statement if function doesn't return a value
+      return;
+    } else if (ret?.type?.type.isClassType() || ret?.type instanceof Struct) {
       code.line(`return ${this.parent.returnType}{}`);
     } else if (ret?.type?.type.isEnumType()) {
       code.line(`return "ENUM_DUMMY"`);
