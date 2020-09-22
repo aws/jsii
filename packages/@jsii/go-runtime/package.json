@@ -10,7 +10,7 @@
     "gen:rt": "ts-node build-tools/gen.ts",
     "generate": "npm run gen:rt && npm run gen:calc",
     "build": "npm run generate && go build ./jsii-experimental",
-    "test": "go test ./jsii-experimental",
+    "test": "go test ./jsii-experimental && npm run test:calc",
     "test:calc": "npm run gen:calc && go run ./jsii-calc-test"
   },
   "keywords": [],
