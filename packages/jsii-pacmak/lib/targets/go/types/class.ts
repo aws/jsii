@@ -1,8 +1,9 @@
 import { Method, Parameter, ClassType, Initializer } from 'jsii-reflect';
-import { toPascalCase } from 'codemaker';
+// import { toPascalCase } from 'codemaker';
 import { GoTypeRef } from './go-type-reference';
 import { GoStruct } from './go-type';
-import { GoTypeMember } from './type-member';
+// import { GoTypeMember } from './type-member';
+import { GoMethod } from './type-member';
 import { getFieldDependencies, substituteReservedWords } from '../util';
 import { Package } from '../package';
 import { ClassConstructor, MethodCall } from '../runtime';
@@ -124,21 +125,15 @@ export class GoClassConstructor {
   }
 }
 
-export class ClassMethod implements GoTypeMember {
-  public readonly name: string;
-  public readonly reference?: GoTypeRef;
+export class ClassMethod extends GoMethod {
   public readonly runtimeCall: MethodCall;
 
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,
   ) {
-    this.name = toPascalCase(this.method.name);
+    super(parent, method);
     this.runtimeCall = new MethodCall(this);
-
-    if (method.returns.type) {
-      this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
-    }
   }
 
   /* emit generates method implementation on the class */

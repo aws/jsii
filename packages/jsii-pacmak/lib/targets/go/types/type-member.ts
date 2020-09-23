@@ -1,7 +1,9 @@
 import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
 import { toPascalCase } from 'codemaker';
 import { EmitContext } from '../emit-context';
-import { Property } from 'jsii-reflect';
+// import { Parameter, Property } from 'jsii-reflect';
+import { Method, Property } from 'jsii-reflect';
+// import { getFieldDependencies, substituteReservedWords } from '../util';
 
 /*
  * Structure for Class and Interface methods. Useful for sharing logic for dependency resolution
@@ -105,5 +107,34 @@ export class GoProperty implements GoTypeMember {
     }
     code.closeBlock();
     code.line();
+  }
+}
+
+export abstract class GoMethod implements GoTypeMember {
+  public readonly name: string;
+  public readonly reference?: GoTypeRef;
+  // public readonly parameters: GoParameter[];
+
+  public constructor(
+    public readonly parent: GoClass | Interface,
+    public readonly method: Method,
+  ) {
+    this.name = toPascalCase(method.name);
+
+    if (method.returns.type) {
+      this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
+    }
+  }
+
+  public abstract emit(context: EmitContext): void;
+
+  public get returnType(): string {
+    const ret = this.method.returns.type.void
+      ? ''
+      : this.reference?.scopedName(this.parent.pkg) ?? this.method.toString();
+    if (ret !== '') {
+      return ` ${ret}`;
+    }
+    return ret;
   }
 }
