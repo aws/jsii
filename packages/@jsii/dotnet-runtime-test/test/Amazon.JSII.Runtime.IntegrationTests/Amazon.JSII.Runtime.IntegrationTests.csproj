@@ -9,6 +9,8 @@
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
         <VSTestLogger>xunit</VSTestLogger>
+
+        <RollForward>Major</RollForward>
     </PropertyGroup>
 
     <ItemGroup>
