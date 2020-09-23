@@ -5,15 +5,18 @@ import { Package } from '../package';
 import { GoTypeRef } from './go-type-reference';
 import { GoProperty } from './type-member';
 import { getFieldDependencies } from '../util';
+import { JSII_OBJ_IFACE_PROPERTY, JsiiObjImpl } from '../runtime';
 
 // String appended to all go GoStruct Interfaces
 const STRUCT_INTERFACE_SUFFIX = 'Iface';
 
 export abstract class GoType {
   public readonly name: string;
+  public readonly fqn: string;
 
   public constructor(public pkg: Package, public type: Type) {
     this.name = toPascalCase(type.name);
+    this.fqn = type.fqn;
   }
 
   public abstract emit(context: EmitContext): void;
@@ -35,6 +38,7 @@ export abstract class GoType {
 export abstract class GoStruct extends GoType {
   public readonly properties: GoProperty[];
   public readonly interfaceName: string;
+  private readonly jsiiObjImpl: JsiiObjImpl;
 
   public constructor(pkg: Package, public type: ClassType | InterfaceType) {
     super(pkg, type);
@@ -45,6 +49,7 @@ export abstract class GoStruct extends GoType {
     );
 
     this.interfaceName = `${this.name}${STRUCT_INTERFACE_SUFFIX}`;
+    this.jsiiObjImpl = new JsiiObjImpl(this);
   }
 
   // `emit` needs to generate both a Go interface and a struct, as well as the Getter methods on the struct
@@ -52,6 +57,7 @@ export abstract class GoStruct extends GoType {
     this.emitInterface(context);
     this.emitStruct(context);
     this.emitGetters(context);
+    this.jsiiObjImpl.emit(context);
   }
 
   protected emitInterface(context: EmitContext): void {
@@ -76,6 +82,9 @@ export abstract class GoStruct extends GoType {
     const { code } = context;
     code.line('// Struct proxy'); // FIXME for debugging
     code.openBlock(`type ${this.name} struct`);
+
+    // Emit private property for objInstanceId for objects passed by reference
+    code.line(`${JSII_OBJ_IFACE_PROPERTY} string`);
 
     for (const property of this.properties) {
       property.emitStructMember(context);

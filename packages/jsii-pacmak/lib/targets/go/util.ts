@@ -1,3 +1,4 @@
+import * as fs from 'fs-extra';
 import { Package } from './package';
 import { GoTypeMember, GoType } from './types';
 
@@ -80,4 +81,15 @@ const RESERVED_WORDS: { [word: string]: string } = {
  */
 export function substituteReservedWords(name: string): string {
   return RESERVED_WORDS[name] || name;
+}
+
+/* Encode file as byte slice */
+export function getByteSlice(path: string): string[] {
+  const fileData = fs.readFileSync(path).toString('hex');
+  const result = [];
+  for (let i = 0; i < fileData.length; i += 2) {
+    result.push(`0x${fileData[i]}${fileData[i + 1]}`);
+  }
+
+  return result;
 }

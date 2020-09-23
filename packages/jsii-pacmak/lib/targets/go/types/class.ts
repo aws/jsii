@@ -3,7 +3,7 @@ import { GoStruct } from './go-type';
 import { GoParameter, GoMethod } from './type-member';
 import { getFieldDependencies } from '../util';
 import { Package } from '../package';
-import { ClassConstructor, MethodCall } from '../runtime';
+import { ClassConstructor, MethodCall, StaticMethodCall } from '../runtime';
 import { EmitContext } from '../emit-context';
 
 /*
@@ -12,7 +12,6 @@ import { EmitContext } from '../emit-context';
 export class GoClass extends GoStruct {
   public readonly methods: ClassMethod[] = [];
   public readonly staticMethods: StaticMethod[] = [];
-
   private readonly initializer?: GoClassConstructor;
 
   public constructor(pkg: Package, public type: ClassType) {
@@ -86,6 +85,13 @@ export class GoClass extends GoStruct {
     // need to add dependencies of method arguments and constructor arguments
     return [...super.dependencies, ...getFieldDependencies(this.methods)];
   }
+
+  /*
+   * Get fqns of interfaces the class implements
+   */
+  public get interfaces(): string[] {
+    return this.type.interfaces.map((iFace) => iFace.fqn);
+  }
 }
 
 export class GoClassConstructor {
@@ -100,6 +106,10 @@ export class GoClassConstructor {
     this.parameters = Object.values(this.type.parameters).map(
       (param) => new GoParameter(parent, param),
     );
+  }
+
+  public get pkg() {
+    return this.parent.pkg;
   }
 
   public emit(context: EmitContext) {
@@ -140,11 +150,10 @@ export class ClassMethod extends GoMethod {
   /* emit generates method implementation on the class */
   public emit({ code }: EmitContext) {
     const name = this.name;
-    const instanceArg = this.parent.name.substring(0, 1).toLowerCase();
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
     code.openBlock(
-      `func (${instanceArg} *${
+      `func (${this.instanceArg} *${
         this.parent.name
       }) ${name}(${this.paramString()})${returnTypeString}`,
     );
@@ -162,6 +171,10 @@ export class ClassMethod extends GoMethod {
     code.line(`${this.name}(${this.paramString()})${returnTypeString}`);
   }
 
+  public get instanceArg(): string {
+    return this.parent.name.substring(0, 1).toLowerCase();
+  }
+
   public get returnType(): string {
     return (
       this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
@@ -170,11 +183,14 @@ export class ClassMethod extends GoMethod {
 }
 
 export class StaticMethod extends ClassMethod {
+  public readonly runtimeCall: StaticMethodCall;
+
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,
   ) {
     super(parent, method);
+    this.runtimeCall = new StaticMethodCall(this);
   }
 
   public emit({ code }: EmitContext) {

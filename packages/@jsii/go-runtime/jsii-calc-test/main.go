@@ -1,21 +1,20 @@
 package main
 
 import (
-	// "log"
 	"fmt"
-	jsiicalc "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
-	"github.com/aws-cdk/jsii/jsii-experimental"
+	calc "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
+	baseofbase "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
+	jsii "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 func main() {
+	defer jsii.Close()
+
 	fmt.Println("Hello, JSII")
-	// client, err := jsii.InitClient()
+	fmt.Printf("JSII_AGENT=%s\n", calc.NewJsiiAgent().GetValue())
 
-	// if err !=nil {
-	//   log.Fatal(err)
-	// }
-	fmt.Print(jsii.Client{RuntimeVersion: "100.100.100"})
-
-	// fmt.Printf("Client init successful\nRuntime version: %s", client.RuntimeVersion)
-	fmt.Println(jsiicalc.AbstractClass{})
+	// Class Creation
+	number := baseofbase.NewVery()
+	// Method invocation
+	number.Hey()
 }

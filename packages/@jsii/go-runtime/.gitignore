@@ -1,4 +1,3 @@
-jsii-experimental/embedded/*
-jsii-calc
-
-!jsii-experimental/embedded/.gitkeep
+/coverage/
+/jsii-calc/
+*.generated.go

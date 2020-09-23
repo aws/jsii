@@ -88,6 +88,10 @@ class InterfaceProperty implements GoTypeMember {
     }
   }
 
+  public get pkg() {
+    return this.parent.pkg;
+  }
+
   public get returnType(): string {
     return (
       this.reference?.scopedName(this.parent.pkg) ??

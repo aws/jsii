@@ -3,6 +3,8 @@ import { toPascalCase } from 'codemaker';
 import { EmitContext } from '../emit-context';
 import { Method, Parameter, Property } from 'jsii-reflect';
 import { substituteReservedWords } from '../util';
+import { GetProperty } from '../runtime';
+import { Package } from '../package';
 
 /*
  * Structure for Class and Interface methods. Useful for sharing logic for dependency resolution
@@ -10,6 +12,7 @@ import { substituteReservedWords } from '../util';
 export interface GoTypeMember {
   name: string;
   parent: GoClass | Interface | Struct;
+  pkg: Package;
   reference?: GoTypeRef;
   returnType: string;
 }
@@ -22,6 +25,7 @@ export class GoProperty implements GoTypeMember {
   public readonly name: string;
   public readonly getter: string;
   public readonly reference?: GoTypeRef;
+  public readonly propertyGetter: GetProperty;
 
   public constructor(
     public parent: GoStruct,
@@ -29,10 +33,15 @@ export class GoProperty implements GoTypeMember {
   ) {
     this.name = toPascalCase(this.property.name);
     this.getter = `Get${this.name}`;
+    this.propertyGetter = new GetProperty(this);
 
     if (property.type) {
       this.reference = new GoTypeRef(parent.pkg.root, property.type);
     }
+  }
+
+  public get pkg() {
+    return this.parent.pkg;
   }
 
   public get returnType(): string {
@@ -72,19 +81,19 @@ export class GoProperty implements GoTypeMember {
   // Emits getter methods on the struct for each property
   public emitGetterImpl(context: EmitContext) {
     const { code } = context;
-    const receiver = this.parent.name;
-    const instanceArg = receiver.substring(0, 1).toLowerCase();
 
     code.openBlock(
-      `func (${instanceArg} *${receiver}) ${
+      `func (${this.instanceArg} *${this.parent.name}) ${
         this.getter
       }()${` ${this.returnType}`}`,
     );
 
+    this.propertyGetter.emit(context);
+
     if (this.parent.name === this.returnType) {
-      code.line(`return *${instanceArg}.${this.name}`);
+      code.line(`return *${this.instanceArg}.${this.name}`);
     } else {
-      code.line(`return ${instanceArg}.${this.name}`);
+      code.line(`return ${this.instanceArg}.${this.name}`);
     }
     code.closeBlock();
     code.line();
@@ -106,6 +115,11 @@ export class GoProperty implements GoTypeMember {
     }
     code.closeBlock();
     code.line();
+  }
+
+  public get instanceArg(): string {
+    const receiver = this.parent.name;
+    return receiver.substring(0, 1).toLowerCase();
   }
 }
 
@@ -129,6 +143,10 @@ export abstract class GoMethod implements GoTypeMember {
   }
 
   public abstract emit(context: EmitContext): void;
+
+  public get pkg() {
+    return this.parent.pkg;
+  }
 
   public get returnType(): string {
     const ret = this.method.returns.type.void

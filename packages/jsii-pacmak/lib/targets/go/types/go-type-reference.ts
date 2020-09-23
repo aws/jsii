@@ -2,8 +2,7 @@ import { TypeReference } from 'jsii-reflect';
 import { Package } from '../package';
 import { GoType } from './go-type';
 import { toPascalCase } from 'codemaker';
-
-const GO_ANY = 'jsii.Any';
+import { GO_ANY } from '../runtime';
 
 /*
  * Maps names of JS primitives to corresponding Go types as strings

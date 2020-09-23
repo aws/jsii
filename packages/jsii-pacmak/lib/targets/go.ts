@@ -1,4 +1,3 @@
-import * as fs from 'fs-extra';
 import * as path from 'path';
 import { CodeMaker } from 'codemaker';
 import { Documentation } from './go/documentation';
@@ -7,7 +6,8 @@ import { Rosetta } from 'jsii-rosetta';
 import { RootPackage } from './go/package';
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
-import { goPackageName } from './go/util';
+import { getByteSlice, goPackageName } from './go/util';
+import { JSII_EMBEDDED_LOAD_MODULE_NAME } from './go/runtime';
 
 export class Golang extends Target {
   public readonly generator: IGenerator;
@@ -56,60 +56,33 @@ class GoGenerator implements IGenerator {
 
   public async save(outDir: string, tarball: string): Promise<any> {
     const output = path.join(outDir, goPackageName(this.assembly.name));
-    const fullPath = path.resolve(
-      path.join(output, '_jsii', this.getAssemblyFileName()),
-    );
-    await fs.mkdirp(path.dirname(fullPath));
-    await fs.copy(tarball, fullPath, { overwrite: true });
-
+    this.embedTarball(tarball);
     await this.code.save(output);
   }
 
-  private getAssemblyFileName() {
-    let name = this.assembly.name;
-    const parts = name.split('/');
+  private embedTarball(tarball: string) {
+    const filename = `${JSII_EMBEDDED_LOAD_MODULE_NAME}/tarball.generated.go`;
+    const tarballSlice = getByteSlice(tarball);
+    this.code.openFile(filename);
+    this.code.line(`package ${JSII_EMBEDDED_LOAD_MODULE_NAME}`);
+    this.code.line();
 
-    if (parts.length === 1) {
-      name = parts[0];
-    } else if (parts.length === 2 && parts[0].startsWith('@')) {
-      name = parts[1];
-    } else {
-      throw new Error(
-        'Malformed assembly name. Expecting either <name> or @<scope>/<name>',
-      );
+    this.code.open(`var tarball = []byte{`);
+    const bytesPerLine = 16;
+    for (let i = 0; i < tarballSlice.length; i += bytesPerLine) {
+      const line = tarballSlice.slice(i, i + bytesPerLine);
+      this.code.line(`${line.join(', ')},`);
     }
+    this.code.close('}');
 
-    return `${name}@${this.assembly.version}.jsii.tgz`;
+    // Dropping in a size check as added security.
+    this.code.line();
+    this.code.open('func init() {');
+    this.code.open(`if len(tarball) != ${tarballSlice.length} {`);
+    this.code.line('panic("Tarball data has unexpected length")');
+    this.code.close('}');
+    this.code.close('}');
+
+    this.code.closeFile(filename);
   }
 }
-
-// TODO: Replace with
-// async function* encodedSlices(path: string, sliceSize = 16) {
-//   const slice = Buffer.alloc(sliceSize);
-
-//   const fd = await fs.open(path, fs.constants.O_RDONLY);
-
-//   while (true) {
-//     // eslint-disable-next-line no-await-in-loop
-//     const { bytesRead } = await fs.read(fd, slice, 0, slice.length, null);
-//     if (bytesRead === 0) {
-//       return fs.close(fd);
-//     }
-//     yield inGroupsOf(slice.toString('hex', 0, bytesRead - 1), 2)
-//       .map((byte) => `0x${byte}`)
-//       .join(', ');
-//   }
-
-//   function inGroupsOf(str: string, count: number) {
-//     if (str.length % count !== 0) {
-//       throw new Error(
-//         `Expected a string with a multiple of ${count} characters, but it has ${str.length}`,
-//       );
-//     }
-//     const result = new Array<string>();
-//     for (let i = 0; i < str.length; i += count) {
-//       result.push(str.slice(i, i + count));
-//     }
-//     return result;
-//   }
-// }

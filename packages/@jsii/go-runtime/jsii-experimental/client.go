@@ -1,77 +1,106 @@
 package jsii
 
 import (
-	"bufio"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
+	"os"
 	"os/exec"
+	"path"
 	"regexp"
+	goruntime "runtime"
+	"time"
 )
 
-type Any interface{}
-
-type Client struct {
-	Process        *exec.Cmd
+// client is the data structure responsible for intializing and managing the
+// JSII kernel process. It has handles for writing and reading JSON to/from
+// the processes STDIN and STDOUT.
+type client struct {
+	process        *exec.Cmd
 	RuntimeVersion string
 	writer         *json.Encoder
 	reader         *json.Decoder
-	stderr         io.ReadCloser
+
+	// Keeping track of the things we might have to clean up after ourselves...
+	stdin  io.WriteCloser
+	tmpdir string
 }
 
-func CheckFatalError(e error) {
-	if e != nil {
-		log.Fatal(e)
+// initClient starts the kernel child process and verifies that the runtime has
+// intialized properly.
+func initClient() (*client, error) {
+	clientinstance := &client{}
+
+	// Register a finalizer for this pointer
+	goruntime.SetFinalizer(clientinstance, func(c *client) {
+		c.close()
+	})
+
+	customruntime := os.Getenv("JSII_RUNTIME")
+	if customruntime != "" {
+		// The user has provided a custom JSII_RUNTIME, so we'll just honor that
+		clientinstance.process = exec.Command(customruntime)
+	} else {
+		// The user hasn't provided a custom JSII_RUNTIME, so we'll unpack the built-in one
+		tmpdir, err := ioutil.TempDir("", "jsii-runtime.*")
+		if err != nil {
+			return nil, err
+		}
+		clientinstance.tmpdir = tmpdir
+
+		for file, data := range embeddedruntime {
+			filepath := path.Join(tmpdir, file)
+			if err := ioutil.WriteFile(filepath, data, 0644); err != nil {
+				return nil, err
+			}
+		}
+
+		entrypoint := path.Join(tmpdir, embeddedruntimeMain)
+		clientinstance.process = exec.Command("node", "--max-old-space-size=4096", entrypoint)
 	}
-}
 
-func InitClient() (Client, error) {
-	cmd := exec.Command("node", "./embedded/jsii-runtime.js")
+	clientinstance.process.Env = append(
+		os.Environ(),
+		fmt.Sprintf("JSII_AGENT=%s/%s/%s", goruntime.Version(), goruntime.GOOS, goruntime.GOARCH),
+	)
 
-	out, err := cmd.StdoutPipe()
+	clientinstance.process.Stderr = os.Stderr
+
+	out, err := clientinstance.process.StdoutPipe()
 	if err != nil {
-		return Client{}, err
+		return nil, err
 	}
+	clientinstance.reader = json.NewDecoder(out)
 
-	in, err := cmd.StdinPipe()
+	in, err := clientinstance.process.StdinPipe()
 	if err != nil {
-		return Client{}, err
+		return nil, err
 	}
-
-	stderr, err := cmd.StderrPipe()
-	if err != nil {
-		return Client{}, err
-	}
+	clientinstance.stdin = in
+	clientinstance.writer = json.NewEncoder(in)
 
 	// Start Process
-	if err := cmd.Start(); err != nil {
-		return Client{}, err
-	}
-
-	writer := json.NewEncoder(in)
-	reader := json.NewDecoder(out)
-
-	client := Client{
-		Process: cmd,
-		writer:  writer,
-		reader:  reader,
-		stderr:  stderr,
+	if err := clientinstance.process.Start(); err != nil {
+		return nil, err
 	}
 
 	// Check for OK response and parse runtime version
-	rtver, err := client.validateClientStart()
+	rtver, err := clientinstance.validateClientStart()
 
 	if err != nil {
-		return Client{}, err
+		return nil, err
 	}
 
-	client.RuntimeVersion = rtver
-	return client, nil
+	clientinstance.RuntimeVersion = rtver
+	return clientinstance, nil
 }
 
-func (c *Client) request(req KernelRequest, res KernelResponse) error {
+// request accepts a KernelRequest struct which is encoded into a JSON string
+// and written to the kernel processess' STDIN. It also accepts a pointer to a
+// struct that is used for the output.
+func (c *client) request(req KernelRequest, res KernelResponse) error {
 	err := c.writer.Encode(req)
 	if err != nil {
 		return err
@@ -80,27 +109,25 @@ func (c *Client) request(req KernelRequest, res KernelResponse) error {
 	return c.response(res)
 }
 
-func (c *Client) response(res KernelResponse) error {
+// response attempts to read a json value from the kernel processess' STDOUT and
+// decode it into the passed response struct. If no value is found on STDOUT and
+// STDERR has content, it will read the output of STDERR and return an error
+// with that content as the error message.
+func (c *client) response(res KernelResponse) error {
+	// TODO: identify source of this race condition
+	// Runtime locks without this timeout currently
+	time.Sleep(time.Millisecond * 100)
 	if c.reader.More() {
 		return c.reader.Decode(res)
 	}
 
-	errrdr := bufio.NewReader(c.stderr)
-	if errrdr.Size() > 0 {
-		erroutput, err := ioutil.ReadAll(errrdr)
-
-		if err != nil {
-			return err
-		}
-
-		return errors.New(string(erroutput))
-	}
-
 	return errors.New("No Response from runtime")
-
 }
 
-func (c *Client) validateClientStart() (string, error) {
+// validateClientStart verifies that the expected response is written to the
+// process STDOUT after initialization. It parses the version of the kernel
+// runtime returned on the initial output.
+func (c *client) validateClientStart() (string, error) {
 	response := InitOkResponse{}
 
 	if err := c.response(&response); err != nil {
@@ -111,7 +138,14 @@ func (c *Client) validateClientStart() (string, error) {
 	return version, nil
 }
 
-func (c *Client) load(request LoadRequest) (LoadResponse, error) {
-	response := LoadResponse{}
-	return response, c.request(request, &response)
+func (c *client) close() {
+	if c.process != nil {
+		c.stdin.Close()
+		c.process.Wait()
+	}
+	if c.tmpdir != "" {
+		os.RemoveAll(c.tmpdir)
+	}
+	// We no longer need a finalizer to run
+	goruntime.SetFinalizer(c, nil)
 }
