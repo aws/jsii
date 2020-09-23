@@ -1,9 +1,8 @@
 import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
 import { toPascalCase } from 'codemaker';
 import { EmitContext } from '../emit-context';
-// import { Parameter, Property } from 'jsii-reflect';
-import { Method, Property } from 'jsii-reflect';
-// import { getFieldDependencies, substituteReservedWords } from '../util';
+import { Method, Parameter, Property } from 'jsii-reflect';
+import { substituteReservedWords } from '../util';
 
 /*
  * Structure for Class and Interface methods. Useful for sharing logic for dependency resolution
@@ -113,7 +112,7 @@ export class GoProperty implements GoTypeMember {
 export abstract class GoMethod implements GoTypeMember {
   public readonly name: string;
   public readonly reference?: GoTypeRef;
-  // public readonly parameters: GoParameter[];
+  public readonly parameters: GoParameter[];
 
   public constructor(
     public readonly parent: GoClass | Interface,
@@ -124,6 +123,9 @@ export abstract class GoMethod implements GoTypeMember {
     if (method.returns.type) {
       this.reference = new GoTypeRef(parent.pkg.root, method.returns.type);
     }
+    this.parameters = Object.values(this.method.parameters).map(
+      (param) => new GoParameter(parent, param),
+    );
   }
 
   public abstract emit(context: EmitContext): void;
@@ -137,4 +139,28 @@ export abstract class GoMethod implements GoTypeMember {
     }
     return ret;
   }
+
+  public paramString(): string {
+    return this.parameters.length === 0
+      ? ''
+      : this.parameters.map((p) => p.toString()).join(', ');
+  }
+}
+
+export class GoParameter {
+  public readonly name: string;
+  public readonly reference: GoTypeRef;
+  public constructor(
+    public parent: GoClass | Interface,
+    public readonly parameter: Parameter,
+  ) {
+    this.name = substituteReservedWords(parameter.name);
+    this.reference = new GoTypeRef(parent.pkg.root, parameter.type);
+  }
+  public toString(): string {
+    const paramType = this.reference.scopedName(this.parent.pkg);
+    return `${this.name} ${paramType}`;
+  }
+
+  // return parameters.length === 0 ? '' : parameters.join(', ');
 }

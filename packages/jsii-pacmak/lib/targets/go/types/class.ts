@@ -1,10 +1,7 @@
-import { Method, Parameter, ClassType, Initializer } from 'jsii-reflect';
-// import { toPascalCase } from 'codemaker';
-import { GoTypeRef } from './go-type-reference';
+import { Method, ClassType, Initializer } from 'jsii-reflect';
 import { GoStruct } from './go-type';
-// import { GoTypeMember } from './type-member';
-import { GoMethod } from './type-member';
-import { getFieldDependencies, substituteReservedWords } from '../util';
+import { GoParameter, GoMethod } from './type-member';
+import { getFieldDependencies } from '../util';
 import { Package } from '../package';
 import { ClassConstructor, MethodCall } from '../runtime';
 import { EmitContext } from '../emit-context';
@@ -96,18 +93,25 @@ export class GoClass extends GoStruct {
 
 export class GoClassConstructor {
   private readonly constructorRuntimeCall: ClassConstructor;
+  public readonly parameters: GoParameter[];
 
   public constructor(
     public readonly parent: GoClass,
     private readonly type: Initializer,
   ) {
     this.constructorRuntimeCall = new ClassConstructor(this);
+    this.parameters = Object.values(this.type.parameters).map(
+      (param) => new GoParameter(parent, param),
+    );
   }
 
   public emit(context: EmitContext) {
     const { code } = context;
     const constr = `New${this.parent.name}`;
-    const parameters = parametersToString(this.parent, this.type.parameters);
+    const paramString =
+      this.parameters.length === 0
+        ? ''
+        : this.parameters.map((p) => p.toString()).join(', ');
 
     let docstring = '';
     if (this.type.docs.summary) {
@@ -116,7 +120,7 @@ export class GoClassConstructor {
     }
 
     code.openBlock(
-      `func ${constr}(${parameters}) ${this.parent.interfaceName}`,
+      `func ${constr}(${paramString}) ${this.parent.interfaceName}`,
     );
 
     this.constructorRuntimeCall.emit(code);
@@ -141,10 +145,11 @@ export class ClassMethod extends GoMethod {
     const name = this.name;
     const instanceArg = this.parent.name.substring(0, 1).toLowerCase();
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
-    const parameters = parametersToString(this.parent, this.method.parameters);
 
     code.openBlock(
-      `func (${instanceArg} *${this.parent.name}) ${name}(${parameters})${returnTypeString}`,
+      `func (${instanceArg} *${
+        this.parent.name
+      }) ${name}(${this.paramString()})${returnTypeString}`,
     );
 
     this.runtimeCall.emit(code);
@@ -178,24 +183,11 @@ export class StaticMethod extends ClassMethod {
   public emit({ code }: EmitContext) {
     const name = `${this.parent.name}_${this.name}`;
 
-    const parameters = parametersToString(this.parent, this.method.parameters);
-    code.openBlock(`func ${name}(${parameters}) ${this.returnType}`);
+    code.openBlock(`func ${name}(${this.paramString()}) ${this.returnType}`);
 
     this.runtimeCall.emit(code);
 
     code.closeBlock();
     code.line();
   }
-}
-
-function parametersToString(parent: GoClass, params: Parameter[]): string {
-  const parameters = params.map((p) => {
-    const paramName = substituteReservedWords(p.name);
-    const paramType = new GoTypeRef(parent.pkg.root, p.type).scopedName(
-      parent.pkg,
-    );
-    return `${paramName} ${paramType}`;
-  });
-
-  return parameters.length === 0 ? '' : parameters.join(', ');
 }

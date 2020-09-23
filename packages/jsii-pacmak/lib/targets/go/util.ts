@@ -46,6 +46,13 @@ export function getFieldDependencies(fields: GoTypeMember[]): Package[] {
   }, []);
 }
 
+// export function getParameterDependencies(params: GoParameter[]): Package[] {
+//   return params.reduce((accum: Package[], param) => {
+//     return param.reference?.type?.pkg
+//       ? [...accum, param.reference?.type.pkg]
+//       : accum;
+//   }, []);
+// }
 const RESERVED_WORDS: { [word: string]: string } = {
   map: 'map_',
 };
