@@ -6883,7 +6883,7 @@ type RootStructValidatorIface interface {
 type RootStructValidator struct {
 }
 
-func RootStructValidator_Validate(struct RootStruct) {
+func RootStructValidator_Validate(struct_ RootStruct) {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "RootStructValidator",
         Method: "Validate",
@@ -7496,7 +7496,7 @@ type StructUnionConsumerIface interface {
 type StructUnionConsumer struct {
 }
 
-func StructUnionConsumer_IsStructA(struct jsii.Any) bool {
+func StructUnionConsumer_IsStructA(struct_ jsii.Any) bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StructUnionConsumer",
         Method: "IsStructA",
@@ -7505,7 +7505,7 @@ func StructUnionConsumer_IsStructA(struct jsii.Any) bool {
     return true
 }
 
-func StructUnionConsumer_IsStructB(struct jsii.Any) bool {
+func StructUnionConsumer_IsStructB(struct_ jsii.Any) bool {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StructUnionConsumer",
         Method: "IsStructB",

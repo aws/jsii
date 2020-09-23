@@ -54,7 +54,31 @@ export function getFieldDependencies(fields: GoTypeMember[]): Package[] {
 //   }, []);
 // }
 const RESERVED_WORDS: { [word: string]: string } = {
+  break: 'break_',
+  default: 'default_',
+  func: 'func_',
+  interface: 'interface_',
+  select: 'select_',
+  case: 'case_',
+  defer: 'defer_',
+  go: 'go_',
   map: 'map_',
+  struct: 'struct_',
+  chan: 'chan_',
+  else: 'else_',
+  goto: 'goto_',
+  package: 'package_',
+  switch: 'switch_',
+  const: 'const_',
+  fallthrough: 'fallthrough_',
+  if: 'if_',
+  range: 'range_',
+  type: 'type_',
+  continue: 'continue_',
+  for: 'for_',
+  import: 'import_',
+  return: 'return_',
+  var: 'var_',
 };
 /*
  * Sanitize reserved words
