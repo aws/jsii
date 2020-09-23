@@ -120,6 +120,6 @@ class InterfaceMethod extends GoMethod {
       context.documenter.emit(docs);
     }
     const { code } = context;
-    code.line(`${this.name}()${this.returnType}`);
+    code.line(`${this.name}(${this.paramString()})${this.returnType}`);
   }
 }

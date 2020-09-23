@@ -3936,12 +3936,12 @@ type IBell interface {
 
 // Takes the object parameter as an interface.
 type IBellRinger interface {
-    YourTurn()
+    YourTurn(bell IBell)
 }
 
 // Takes the object parameter as a calss.
 type IConcreteBellRinger interface {
-    YourTurn()
+    YourTurn(bell Bell)
 }
 
 // Deprecated: useless interface
@@ -4008,7 +4008,7 @@ type IInterfaceWithMethods interface {
 
 // awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.
 type IInterfaceWithOptionalMethodArguments interface {
-    Hello()
+    Hello(arg1 string, arg2 float64)
 }
 
 type IInterfaceWithProperties interface {
@@ -8580,7 +8580,7 @@ func (c *ClassWithSelfKwarg) SetProps(val StructWithSelf) {
 }
 
 type IInterfaceWithSelf interface {
-    Method() string
+    Method(self float64) string
 }
 
 // StructWithSelfIface is the public interface for the custom type StructWithSelf
