@@ -100,7 +100,7 @@ type StaticConsumerIface interface {
 type StaticConsumer struct {
 }
 
-func StaticConsumer_Consume(_args jsii.Any) jsii.Any {
+func StaticConsumer_Consume(_args jsii.Any) {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "StaticConsumer",
         Method: "Consume",
@@ -6883,7 +6883,7 @@ type RootStructValidatorIface interface {
 type RootStructValidator struct {
 }
 
-func RootStructValidator_Validate(struct RootStruct) jsii.Any {
+func RootStructValidator_Validate(struct RootStruct) {
     jsii.NoOpRequest(jsii.NoOpApiRequest {
         Class: "RootStructValidator",
         Method: "Validate",

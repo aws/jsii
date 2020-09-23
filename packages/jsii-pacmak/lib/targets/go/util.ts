@@ -36,7 +36,7 @@ export function flatMap<T, R>(
 }
 
 /*
- * Return module dependencies of a class or interface fields
+ * Return module dependencies of a class or interface members
  */
 export function getFieldDependencies(fields: GoTypeMember[]): Package[] {
   return fields.reduce((accum: Package[], field) => {

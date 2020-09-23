@@ -179,8 +179,9 @@ export class StaticMethod extends ClassMethod {
 
   public emit({ code }: EmitContext) {
     const name = `${this.parent.name}_${this.name}`;
+    const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
-    code.openBlock(`func ${name}(${this.paramString()}) ${this.returnType}`);
+    code.openBlock(`func ${name}(${this.paramString()})${returnTypeString}`);
 
     this.runtimeCall.emit(code);
 
