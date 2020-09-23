@@ -10,25 +10,21 @@ import { EmitContext } from '../emit-context';
  * GoClass wraps a Typescript class as a Go custom struct type
  */
 export class GoClass extends GoStruct {
-  public readonly methods: ClassMethod[];
-  public readonly staticMethods: StaticMethod[];
+  public readonly methods: ClassMethod[] = [];
+  public readonly staticMethods: StaticMethod[] = [];
+
   private readonly initializer?: GoClassConstructor;
 
   public constructor(pkg: Package, public type: ClassType) {
     super(pkg, type);
 
-    const instanceMethods = [];
-    const staticMethods = [];
-
     for (const method of Object.values(this.type.getMethods(true))) {
       if (method.static) {
-        staticMethods.push(new StaticMethod(this, method));
+        this.staticMethods.push(new StaticMethod(this, method));
       } else {
-        instanceMethods.push(new ClassMethod(this, method));
+        this.methods.push(new ClassMethod(this, method));
       }
     }
-    this.methods = instanceMethods;
-    this.staticMethods = staticMethods;
 
     if (this.type.initializer) {
       this.initializer = new GoClassConstructor(this, this.type.initializer);
@@ -87,6 +83,7 @@ export class GoClass extends GoStruct {
   }
 
   public get dependencies(): Package[] {
+    // need to add dependencies of method arguments and constructor arguments
     return [...super.dependencies, ...getFieldDependencies(this.methods)];
   }
 }
@@ -162,7 +159,7 @@ export class ClassMethod extends GoMethod {
   public emitDecl(context: EmitContext) {
     const { code } = context;
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
-    code.line(`${this.name}()${returnTypeString}`);
+    code.line(`${this.name}(${this.paramString()})${returnTypeString}`);
   }
 
   public get returnType(): string {

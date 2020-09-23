@@ -564,7 +564,7 @@ func (r *ReflectableEntry) GetValue() jsii.Any {
 
 // Class interface
 type ReflectorIface interface {
-    AsMap() map[string]jsii.Any
+    AsMap(reflectable IReflectable) map[string]jsii.Any
 }
 
 // Deprecated.
@@ -935,7 +935,7 @@ type AbstractClassIface interface {
     SetAbstractProperty(val string)
     GetPropFromInterface() string
     SetPropFromInterface(val string)
-    AbstractMethod() string
+    AbstractMethod(name string) string
     NonAbstractMethod() float64
 }
 
@@ -1070,8 +1070,8 @@ func (a *AbstractClassReturner) GiveMeInterface() IInterfaceImplementedByAbstrac
 // Class interface
 type AbstractSuiteIface interface {
     GetProperty() string
-    SomeMethod() string
-    WorkItAll() string
+    SomeMethod(str string) string
+    WorkItAll(seed string) string
 }
 
 // Ensures abstract members implementations correctly register overrides in various languages.
@@ -1243,9 +1243,9 @@ type AllTypesIface interface {
     SetUnknownProperty(val jsii.Any)
     GetOptionalEnumValue() StringEnum
     SetOptionalEnumValue(val StringEnum)
-    AnyIn()
+    AnyIn(inp jsii.Any)
     AnyOut() jsii.Any
-    EnumMethod() StringEnum
+    EnumMethod(value StringEnum) StringEnum
 }
 
 // This class includes property for all types supported by jsii.
@@ -1473,10 +1473,10 @@ const (
 
 // Class interface
 type AllowedMethodNamesIface interface {
-    GetBar()
-    GetFoo() string
-    SetBar()
-    SetFoo()
+    GetBar(_p1 string, _p2 float64)
+    GetFoo(withParam string) string
+    SetBar(_x string, _y float64, _z bool)
+    SetFoo(_x string, _y float64)
 }
 
 // Struct proxy
@@ -1609,7 +1609,7 @@ type AsyncVirtualMethodsIface interface {
     CallMe2() float64
     CallMeDoublePromise() float64
     DontOverrideMe() float64
-    OverrideMe() float64
+    OverrideMe(mult float64) float64
     OverrideMeToo() float64
 }
 
@@ -1862,7 +1862,7 @@ func (b *BinaryOperation) Hello() string {
 // Class interface
 type BurriedAnonymousObjectIface interface {
     Check() bool
-    GiveItBack() jsii.Any
+    GiveItBack(value jsii.Any) jsii.Any
 }
 
 // See https://github.com/aws/aws-cdk/issues/7977.
@@ -1921,10 +1921,10 @@ type CalculatorIface interface {
     SetUnionProperty(val jsii.Any)
     TypeName() jsii.Any
     ToString() string
-    Add()
-    Mul()
+    Add(value float64)
+    Mul(value float64)
     Neg()
-    Pow()
+    Pow(value float64)
     ReadUnionValue() float64
 }
 
@@ -2401,7 +2401,7 @@ func NewClassWithDocs() ClassWithDocsIface {
 type ClassWithJavaReservedWordsIface interface {
     GetInt() string
     SetInt(val string)
-    Import() string
+    Import(assert string) string
 }
 
 // Struct proxy
@@ -2689,10 +2689,10 @@ func (c *ConsumePureInterface) WorkItBaby() StructB {
 
 // Class interface
 type ConsumerCanRingBellIface interface {
-    ImplementedByObjectLiteral() bool
-    ImplementedByPrivateClass() bool
-    ImplementedByPublicClass() bool
-    WhenTypedAsClass() bool
+    ImplementedByObjectLiteral(ringer IBellRinger) bool
+    ImplementedByPrivateClass(ringer IBellRinger) bool
+    ImplementedByPublicClass(ringer IBellRinger) bool
+    WhenTypedAsClass(ringer IConcreteBellRinger) bool
 }
 
 // Test calling back to consumers that implement interfaces.
@@ -2786,8 +2786,8 @@ func (c *ConsumerCanRingBell) WhenTypedAsClass(ringer IConcreteBellRinger) bool 
 
 // Class interface
 type ConsumersOfThisCrazyTypeSystemIface interface {
-    ConsumeAnotherPublicInterface() string
-    ConsumeNonInternalInterface() jsii.Any
+    ConsumeAnotherPublicInterface(obj IAnotherPublicInterface) string
+    ConsumeNonInternalInterface(obj INonInternalInterface) jsii.Any
 }
 
 // Struct proxy
@@ -2823,9 +2823,9 @@ func (c *ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface(obj INonInt
 
 // Class interface
 type DataRendererIface interface {
-    Render() string
-    RenderArbitrary() string
-    RenderMap() string
+    Render(data scopejsiicalclib.MyFirstStruct) string
+    RenderArbitrary(data map[string]jsii.Any) string
+    RenderMap(map_ map[string]jsii.Any) string
 }
 
 // Verifies proper type handling through dynamic overrides.
@@ -3240,7 +3240,7 @@ func (d *DisappointingCollectionSource) SetMaybeMap(val map[string]float64) {
 
 // Class interface
 type DoNotOverridePrivatesIface interface {
-    ChangePrivatePropertyValue()
+    ChangePrivatePropertyValue(newValue string)
     PrivateMethodValue() string
     PrivatePropertyValue() string
 }
@@ -3286,7 +3286,7 @@ func (d *DoNotOverridePrivates) PrivatePropertyValue() string {
 
 // Class interface
 type DoNotRecognizeAnyAsOptionalIface interface {
-    Method()
+    Method(_requiredAny jsii.Any, _optionalAny jsii.Any, _optionalString string)
 }
 
 // jsii#284: do not recognize "any" as an optional argument.
@@ -3313,7 +3313,7 @@ func (d *DoNotRecognizeAnyAsOptional) Method(_requiredAny jsii.Any, _optionalAny
 
 // Class interface
 type DocumentedClassIface interface {
-    Greet() float64
+    Greet(greetee Greetee) float64
     Hola()
 }
 
@@ -3355,7 +3355,7 @@ func (d *DocumentedClass) Hola() {
 
 // Class interface
 type DontComplainAboutVariadicAfterOptionalIface interface {
-    OptionalAndVariadic() string
+    OptionalAndVariadic(optional string, things string) string
 }
 
 // Struct proxy
@@ -3469,7 +3469,7 @@ type DynamicPropertyBearerChildIface interface {
     SetValueStore(val string)
     GetOriginalValue() string
     SetOriginalValue(val string)
-    OverrideValue() string
+    OverrideValue(newValue string) string
 }
 
 // Struct proxy
@@ -3816,9 +3816,9 @@ func (e *ExternalStruct) GetReadonlyProperty() string {
 type GiveMeStructsIface interface {
     GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals
     SetStructLiteral(val scopejsiicalclib.StructWithOnlyOptionals)
-    DerivedToFirst() scopejsiicalclib.MyFirstStruct
-    ReadDerivedNonPrimitive() DoubleTrouble
-    ReadFirstNumber() float64
+    DerivedToFirst(derived DerivedStruct) scopejsiicalclib.MyFirstStruct
+    ReadDerivedNonPrimitive(derived DerivedStruct) DoubleTrouble
+    ReadFirstNumber(first scopejsiicalclib.MyFirstStruct) float64
 }
 
 // Struct proxy
@@ -3890,7 +3890,7 @@ func (g *Greetee) GetName() string {
 
 // Class interface
 type GreetingAugmenterIface interface {
-    BetterGreeting() string
+    BetterGreeting(friendly scopejsiicalclib.IFriendly) string
 }
 
 // Struct proxy
@@ -5754,8 +5754,8 @@ func (n *NodeStandardLibrary) FsReadFileSync() string {
 type NullShouldBeTreatedAsUndefinedIface interface {
     GetChangeMeToUndefined() string
     SetChangeMeToUndefined(val string)
-    GiveMeUndefined()
-    GiveMeUndefinedInsideAnObject()
+    GiveMeUndefined(value jsii.Any)
+    GiveMeUndefinedInsideAnObject(input NullShouldBeTreatedAsUndefinedData)
     VerifyPropertyIsUndefined()
 }
 
@@ -5832,7 +5832,7 @@ func (n *NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() jsii.Any
 type NumberGeneratorIface interface {
     GetGenerator() IRandomNumberGenerator
     SetGenerator(val IRandomNumberGenerator)
-    IsSameGenerator() bool
+    IsSameGenerator(gen IRandomNumberGenerator) bool
     NextTimes100() float64
 }
 
@@ -5880,8 +5880,8 @@ func (n *NumberGenerator) NextTimes100() float64 {
 
 // Class interface
 type ObjectRefsInCollectionsIface interface {
-    SumFromArray() float64
-    SumFromMap() float64
+    SumFromArray(values []scopejsiicalclib.NumericValue) float64
+    SumFromMap(values map[string]scopejsiicalclib.NumericValue) float64
 }
 
 // Verify that object references can be passed inside collections.
@@ -6173,7 +6173,7 @@ func (o *OverridableProtectedMember) ValueFromProtected() string {
 
 // Class interface
 type OverrideReturnsObjectIface interface {
-    Test() float64
+    Test(obj IReturnsNumber) float64
 }
 
 // Struct proxy
@@ -6216,7 +6216,7 @@ func (p *ParentStruct982) GetFoo() string {
 
 // Class interface
 type PartiallyInitializedThisConsumerIface interface {
-    ConsumePartiallyInitializedThis() string
+    ConsumePartiallyInitializedThis(obj ConstructorPassesThisOut, dt string, ev AllTypesEnum) string
 }
 
 // Struct proxy
@@ -6243,7 +6243,7 @@ func (p *PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis(obj C
 
 // Class interface
 type PolymorphismIface interface {
-    SayHello() string
+    SayHello(friendly scopejsiicalclib.IFriendly) string
 }
 
 // Struct proxy
@@ -6771,7 +6771,7 @@ type ReferenceEnumFromScopedPackageIface interface {
     GetFoo() scopejsiicalclib.EnumFromScopedModule
     SetFoo(val scopejsiicalclib.EnumFromScopedModule)
     LoadFoo() scopejsiicalclib.EnumFromScopedModule
-    SaveFoo()
+    SaveFoo(value scopejsiicalclib.EnumFromScopedModule)
 }
 
 // See awslabs/jsii#138.
@@ -6893,9 +6893,9 @@ func RootStructValidator_Validate(struct RootStruct) jsii.Any {
 
 // Class interface
 type RuntimeTypeCheckingIface interface {
-    MethodWithDefaultedArguments()
-    MethodWithOptionalAnyArgument()
-    MethodWithOptionalArguments()
+    MethodWithDefaultedArguments(arg1 float64, arg2 string, arg3 string)
+    MethodWithOptionalAnyArgument(arg jsii.Any)
+    MethodWithOptionalArguments(arg1 float64, arg2 string, arg3 string)
 }
 
 // Struct proxy
@@ -7002,7 +7002,7 @@ func (s *SingleInstanceTwoTypes) Interface2() IPublicInterface {
 
 // Class interface
 type SingletonIntIface interface {
-    IsSingletonInt() bool
+    IsSingletonInt(value float64) bool
 }
 
 // Verifies that singleton enums are handled correctly.
@@ -7030,7 +7030,7 @@ const (
 
 // Class interface
 type SingletonStringIface interface {
-    IsSingletonString() bool
+    IsSingletonString(value string) bool
 }
 
 // Verifies that singleton enums are handled correctly.
@@ -7817,14 +7817,14 @@ type SyncVirtualMethodsIface interface {
     SetValueOfOtherProperty(val string)
     CallerIsAsync() float64
     CallerIsMethod() float64
-    ModifyOtherProperty()
-    ModifyValueOfTheProperty()
+    ModifyOtherProperty(value string)
+    ModifyValueOfTheProperty(value string)
     ReadA() float64
     RetrieveOtherProperty() string
     RetrieveReadOnlyProperty() string
     RetrieveValueOfTheProperty() string
-    VirtualMethod() float64
-    WriteA()
+    VirtualMethod(n float64) float64
+    WriteA(value float64)
 }
 
 // Struct proxy
@@ -8244,8 +8244,8 @@ type UsesInterfaceWithPropertiesIface interface {
     GetObj() IInterfaceWithProperties
     SetObj(val IInterfaceWithProperties)
     JustRead() string
-    ReadStringAndNumber() string
-    WriteAndRead() string
+    ReadStringAndNumber(ext IInterfaceWithPropertiesExtension) string
+    WriteAndRead(value string) string
 }
 
 // Struct proxy
@@ -8300,7 +8300,7 @@ func (u *UsesInterfaceWithProperties) WriteAndRead(value string) string {
 
 // Class interface
 type VariadicInvokerIface interface {
-    AsArray() []float64
+    AsArray(values float64) []float64
 }
 
 // Struct proxy
@@ -8327,7 +8327,7 @@ func (v *VariadicInvoker) AsArray(values float64) []float64 {
 
 // Class interface
 type VariadicMethodIface interface {
-    AsArray() []float64
+    AsArray(first float64, others float64) []float64
 }
 
 // Struct proxy
@@ -8354,11 +8354,11 @@ func (v *VariadicMethod) AsArray(first float64, others float64) []float64 {
 
 // Class interface
 type VirtualMethodPlaygroundIface interface {
-    OverrideMeAsync() float64
-    OverrideMeSync() float64
-    ParallelSumAsync() float64
-    SerialSumAsync() float64
-    SumSync() float64
+    OverrideMeAsync(index float64) float64
+    OverrideMeSync(index float64) float64
+    ParallelSumAsync(count float64) float64
+    SerialSumAsync(count float64) float64
+    SumSync(count float64) float64
 }
 
 // Struct proxy
@@ -8515,7 +8515,7 @@ import (
 type ClassWithSelfIface interface {
     GetSelf() string
     SetSelf(val string)
-    Method() string
+    Method(self float64) string
 }
 
 // Struct proxy
