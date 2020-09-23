@@ -2530,6 +2530,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 JSObjectLiteralToNative.java
           ┃                 ┣━ 📄 JSObjectLiteralToNativeClass.java
           ┃                 ┣━ 📄 JsonFormatter.java
+          ┃                 ┣━ 📄 LevelOne.java
+          ┃                 ┣━ 📄 LevelOneProps.java
           ┃                 ┣━ 📄 LoadBalancedFargateServiceProps.java
           ┃                 ┣━ 📄 MethodNamedProperty.java
           ┃                 ┣━ 📄 Multiply.java
@@ -11751,6 +11753,428 @@ public class JsonFormatter extends software.amazon.jsii.JsiiObject {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/LevelOne.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Validates that nested classes get correct code generation for the occasional forward reference.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.LevelOne")
+public class LevelOne extends software.amazon.jsii.JsiiObject {
+
+    protected LevelOne(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected LevelOne(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * @param props This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public LevelOne(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.LevelOneProps props) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(props, "props is required") });
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.LevelOneProps getProps() {
+        return this.jsiiGet("props", software.amazon.jsii.tests.calculator.LevelOneProps.class);
+    }
+    /**
+     */
+    @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.LevelOne.PropBooleanValue")
+    @software.amazon.jsii.Jsii.Proxy(PropBooleanValue.Jsii$Proxy.class)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static interface PropBooleanValue extends software.amazon.jsii.JsiiSerializable {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @org.jetbrains.annotations.NotNull java.lang.Boolean getValue();
+
+        /**
+         * @return a {@link Builder} of {@link PropBooleanValue}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        static Builder builder() {
+            return new Builder();
+        }
+        /**
+         * A builder for {@link PropBooleanValue}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static final class Builder implements software.amazon.jsii.Builder<PropBooleanValue> {
+            private java.lang.Boolean value;
+
+            /**
+             * Sets the value of {@link PropBooleanValue#getValue}
+             * @param value the value to be set. This parameter is required.
+             * @return {@code this}
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            public Builder value(java.lang.Boolean value) {
+                this.value = value;
+                return this;
+            }
+
+            /**
+             * Builds the configured instance.
+             * @return a new instance of {@link PropBooleanValue}
+             * @throws NullPointerException if any required attribute was not provided
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            @Override
+            public PropBooleanValue build() {
+                return new Jsii$Proxy(value);
+            }
+        }
+
+        /**
+         * An implementation for {@link PropBooleanValue}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements PropBooleanValue {
+            private final java.lang.Boolean value;
+
+            /**
+             * Constructor that initializes the object based on values retrieved from the JsiiObject.
+             * @param objRef Reference to the JSII managed object.
+             */
+            protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+                super(objRef);
+                this.value = this.jsiiGet("value", java.lang.Boolean.class);
+            }
+
+            /**
+             * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+             */
+            private Jsii$Proxy(final java.lang.Boolean value) {
+                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+                this.value = java.util.Objects.requireNonNull(value, "value is required");
+            }
+
+            @Override
+            public java.lang.Boolean getValue() {
+                return this.value;
+            }
+
+            @Override
+            public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+                final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+                data.set("value", om.valueToTree(this.getValue()));
+
+                final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                struct.set("fqn", om.valueToTree("jsii-calc.LevelOne.PropBooleanValue"));
+                struct.set("data", data);
+
+                final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                obj.set("$jsii.struct", struct);
+
+                return obj;
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                PropBooleanValue.Jsii$Proxy that = (PropBooleanValue.Jsii$Proxy) o;
+
+                return this.value.equals(that.value);
+            }
+
+            @Override
+            public int hashCode() {
+                int result = this.value.hashCode();
+                return result;
+            }
+        }
+    }
+    /**
+     */
+    @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.LevelOne.PropProperty")
+    @software.amazon.jsii.Jsii.Proxy(PropProperty.Jsii$Proxy.class)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static interface PropProperty extends software.amazon.jsii.JsiiSerializable {
+
+        /**
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue getProp();
+
+        /**
+         * @return a {@link Builder} of {@link PropProperty}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        static Builder builder() {
+            return new Builder();
+        }
+        /**
+         * A builder for {@link PropProperty}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static final class Builder implements software.amazon.jsii.Builder<PropProperty> {
+            private software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue prop;
+
+            /**
+             * Sets the value of {@link PropProperty#getProp}
+             * @param prop the value to be set. This parameter is required.
+             * @return {@code this}
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            public Builder prop(software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue prop) {
+                this.prop = prop;
+                return this;
+            }
+
+            /**
+             * Builds the configured instance.
+             * @return a new instance of {@link PropProperty}
+             * @throws NullPointerException if any required attribute was not provided
+             */
+            @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            @Override
+            public PropProperty build() {
+                return new Jsii$Proxy(prop);
+            }
+        }
+
+        /**
+         * An implementation for {@link PropProperty}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements PropProperty {
+            private final software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue prop;
+
+            /**
+             * Constructor that initializes the object based on values retrieved from the JsiiObject.
+             * @param objRef Reference to the JSII managed object.
+             */
+            protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+                super(objRef);
+                this.prop = this.jsiiGet("prop", software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue.class);
+            }
+
+            /**
+             * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+             */
+            private Jsii$Proxy(final software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue prop) {
+                super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+                this.prop = java.util.Objects.requireNonNull(prop, "prop is required");
+            }
+
+            @Override
+            public software.amazon.jsii.tests.calculator.LevelOne.PropBooleanValue getProp() {
+                return this.prop;
+            }
+
+            @Override
+            public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+                final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+                data.set("prop", om.valueToTree(this.getProp()));
+
+                final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                struct.set("fqn", om.valueToTree("jsii-calc.LevelOne.PropProperty"));
+                struct.set("data", data);
+
+                final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                obj.set("$jsii.struct", struct);
+
+                return obj;
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                PropProperty.Jsii$Proxy that = (PropProperty.Jsii$Proxy) o;
+
+                return this.prop.equals(that.prop);
+            }
+
+            @Override
+            public int hashCode() {
+                int result = this.prop.hashCode();
+                return result;
+            }
+        }
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.LevelOne}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<software.amazon.jsii.tests.calculator.LevelOne> {
+        /**
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private final software.amazon.jsii.tests.calculator.LevelOneProps.Builder props;
+
+        private Builder() {
+            this.props = new software.amazon.jsii.tests.calculator.LevelOneProps.Builder();
+        }
+
+        /**
+         * @return {@code this}
+         * @param prop This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder prop(final software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop) {
+            this.props.prop(prop);
+            return this;
+        }
+
+        /**
+         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.LevelOne}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public software.amazon.jsii.tests.calculator.LevelOne build() {
+            return new software.amazon.jsii.tests.calculator.LevelOne(
+                this.props.build()
+            );
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/LevelOneProps.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.LevelOneProps")
+@software.amazon.jsii.Jsii.Proxy(LevelOneProps.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface LevelOneProps extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.LevelOne.PropProperty getProp();
+
+    /**
+     * @return a {@link Builder} of {@link LevelOneProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    static Builder builder() {
+        return new Builder();
+    }
+    /**
+     * A builder for {@link LevelOneProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public static final class Builder implements software.amazon.jsii.Builder<LevelOneProps> {
+        private software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop;
+
+        /**
+         * Sets the value of {@link LevelOneProps#getProp}
+         * @param prop the value to be set. This parameter is required.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        public Builder prop(software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop) {
+            this.prop = prop;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link LevelOneProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public LevelOneProps build() {
+            return new Jsii$Proxy(prop);
+        }
+    }
+
+    /**
+     * An implementation for {@link LevelOneProps}
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements LevelOneProps {
+        private final software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+            this.prop = this.jsiiGet("prop", software.amazon.jsii.tests.calculator.LevelOne.PropProperty.class);
+        }
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(final software.amazon.jsii.tests.calculator.LevelOne.PropProperty prop) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.prop = java.util.Objects.requireNonNull(prop, "prop is required");
+        }
+
+        @Override
+        public software.amazon.jsii.tests.calculator.LevelOne.PropProperty getProp() {
+            return this.prop;
+        }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("prop", om.valueToTree(this.getProp()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.LevelOneProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            LevelOneProps.Jsii$Proxy that = (LevelOneProps.Jsii$Proxy) o;
+
+            return this.prop.equals(that.prop);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = this.prop.hashCode();
+            return result;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/LoadBalancedFargateServiceProps.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -19524,6 +19948,10 @@ jsii-calc.Jsii487Derived=software.amazon.jsii.tests.calculator.Jsii487Derived
 jsii-calc.Jsii496Derived=software.amazon.jsii.tests.calculator.Jsii496Derived
 jsii-calc.JsiiAgent=software.amazon.jsii.tests.calculator.JsiiAgent
 jsii-calc.JsonFormatter=software.amazon.jsii.tests.calculator.JsonFormatter
+jsii-calc.LevelOne=software.amazon.jsii.tests.calculator.LevelOne
+jsii-calc.LevelOne.PropBooleanValue=software.amazon.jsii.tests.calculator.LevelOne$PropBooleanValue
+jsii-calc.LevelOne.PropProperty=software.amazon.jsii.tests.calculator.LevelOne$PropProperty
+jsii-calc.LevelOneProps=software.amazon.jsii.tests.calculator.LevelOneProps
 jsii-calc.LoadBalancedFargateServiceProps=software.amazon.jsii.tests.calculator.LoadBalancedFargateServiceProps
 jsii-calc.MethodNamedProperty=software.amazon.jsii.tests.calculator.MethodNamedProperty
 jsii-calc.Multiply=software.amazon.jsii.tests.calculator.Multiply

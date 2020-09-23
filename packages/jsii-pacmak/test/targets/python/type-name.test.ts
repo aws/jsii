@@ -76,7 +76,7 @@ describe(toTypeName, () => {
     /** The submodule from which to generate names (if not provided, the root submodule) */
     readonly inSubmodule?: string;
     /** The nesting context in which to generate names (if not provided, none) */
-    readonly inNestingContext?: string;
+    readonly inNestingContext?: readonly string[];
   };
 
   const examples: readonly Example[] = [
@@ -169,13 +169,13 @@ describe(toTypeName, () => {
       name: 'User Type (Local)',
       input: { fqn: `${assembly.name}.BoringClass` },
       pythonType: 'BoringClass',
-      forwardPythonType: '"local_module_name.BoringClass"',
+      forwardPythonType: '"BoringClass"',
     },
     {
       name: 'User Type (Local, Nested)',
       input: { fqn: `${assembly.name}.${BORING_TYPE}.${NESTED_TYPE}` },
       pythonType: 'BoringClass.NestedType',
-      forwardPythonType: '"local_module_name.BoringClass.NestedType"',
+      forwardPythonType: '"BoringClass.NestedType"',
     },
     {
       name: 'User Type (Local, Submodule)',
@@ -204,10 +204,10 @@ describe(toTypeName, () => {
       input: {
         fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}`,
       },
-      pythonType: SUBMODULE_NESTED_TYPE,
-      forwardPythonType: `"${LOCAL_MODULE}.submodule.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}"`,
+      // Always a forward reference, since the surrounding type isn't *defined* just yet!
+      pythonType: `"${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}"`,
       inSubmodule: `${assembly.name}.submodule`,
-      inNestingContext: `${assembly.name}.submodule.${SUBMODULE_TYPE}`,
+      inNestingContext: [`${assembly.name}.submodule.${SUBMODULE_TYPE}`],
     },
     {
       name: 'User Type (Local, Parent)',
@@ -226,7 +226,7 @@ describe(toTypeName, () => {
     const context: NamingContext = {
       assembly,
       emittedTypes: new Set(),
-      nestingScope: example.inNestingContext,
+      surroundingTypeFqns: example.inNestingContext,
       submodule: example.inSubmodule ?? assembly.name,
     };
     const contextWithEmittedType: NamingContext = {

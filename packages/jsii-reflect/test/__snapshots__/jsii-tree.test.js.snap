@@ -1205,6 +1205,15 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ value
  │   │     │   └── type: any
  │   │     └── returns: Optional<string>
+ │   ├─┬ class LevelOne (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(props) initializer (stable)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ props
+ │   │   │     └── type: jsii-calc.LevelOneProps
+ │   │   └─┬ props property (stable)
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.LevelOneProps
  │   ├─┬ class MethodNamedProperty (stable)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (stable)
@@ -2330,6 +2339,24 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: date
+ │   ├─┬ interface PropBooleanValue (stable)
+ │   │ └─┬ members
+ │   │   └─┬ value property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: boolean
+ │   ├─┬ interface PropProperty (stable)
+ │   │ └─┬ members
+ │   │   └─┬ prop property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.LevelOne.PropBooleanValue
+ │   ├─┬ interface LevelOneProps (stable)
+ │   │ └─┬ members
+ │   │   └─┬ prop property (stable)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: jsii-calc.LevelOne.PropProperty
  │   ├─┬ interface LoadBalancedFargateServiceProps (stable)
  │   │ └─┬ members
  │   │   ├─┬ containerPort property (stable)
@@ -2857,6 +2884,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IJsii496
  │   ├── class JsiiAgent
  │   ├── class JsonFormatter
+ │   ├── class LevelOne
  │   ├── class MethodNamedProperty
  │   ├─┬ class Multiply
  │   │ ├── base: BinaryOperation
@@ -2994,6 +3022,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ interfaces
  │   │   └── BaseProps
+ │   ├── interface PropBooleanValue
+ │   ├── interface PropProperty
+ │   ├── interface LevelOneProps
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData
@@ -3617,6 +3648,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static anyUndefined() method
  │   │   ├── static anyZero() method
  │   │   └── static stringify(value) method
+ │   ├─┬ class LevelOne
+ │   │ └─┬ members
+ │   │   ├── <initializer>(props) initializer
+ │   │   └── props property
  │   ├─┬ class MethodNamedProperty
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -4094,6 +4129,15 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ members
  │   │   └── goo property
+ │   ├─┬ interface PropBooleanValue
+ │   │ └─┬ members
+ │   │   └── value property
+ │   ├─┬ interface PropProperty
+ │   │ └─┬ members
+ │   │   └── prop property
+ │   ├─┬ interface LevelOneProps
+ │   │ └─┬ members
+ │   │   └── prop property
  │   ├─┬ interface LoadBalancedFargateServiceProps
  │   │ └─┬ members
  │   │   ├── containerPort property
@@ -4422,6 +4466,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class Jsii496Derived
  │   ├── class JsiiAgent
  │   ├── class JsonFormatter
+ │   ├── class LevelOne
  │   ├── class MethodNamedProperty
  │   ├── class Multiply
  │   ├── class Negate
@@ -4524,6 +4569,9 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IStableInterface
  │   ├── interface IStructReturningDelegate
  │   ├── interface ImplictBaseOfBase
+ │   ├── interface PropBooleanValue
+ │   ├── interface PropProperty
+ │   ├── interface LevelOneProps
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NestedStruct
  │   ├── interface NullShouldBeTreatedAsUndefinedData

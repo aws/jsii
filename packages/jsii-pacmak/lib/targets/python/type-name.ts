@@ -47,11 +47,15 @@ export interface NamingContext {
   readonly typeAnnotation?: boolean;
 
   /**
-   * The nesting scope in which the PythonType is expressed (if any)
+   * A an array representing the stack of declarations currently being
+   * initialized. All of these names can only be referred to using a forward
+   * reference (stringified type name) in the context of type signatures (but
+   * they can be used safely from implementations so long as those are not *run*
+   * as part of the declaration).
    *
-   * @default - none
+   * @default []
    */
-  readonly nestingScope?: string | undefined;
+  readonly surroundingTypeFqns?: readonly string[];
 
   /**
    * Disables generating typing.Optional wrappers
@@ -277,8 +281,8 @@ class UserType implements TypeName {
   private resolve({
     assembly,
     emittedTypes,
-    nestingScope,
     submodule,
+    surroundingTypeFqns,
     typeAnnotation = true,
   }: NamingContext) {
     const { assemblyName, packageName, pythonFqn } = toPythonFqn(
@@ -302,22 +306,37 @@ class UserType implements TypeName {
     ).pythonFqn;
 
     if (typeSubmodulePythonName === submodulePythonName) {
-      // Submodule-local type, so we'll just drop the submodule name prefix here, unless we are
-      // referencing a type within the current nesting context, where we'll want to make a context
-      // local reference by dropping the nesting type's name prefix.
-      const nestingParent =
-        nestingScope && toPythonFqn(nestingScope, assembly).pythonFqn;
+      // Identifiy declarations that are not yet initialized and hence cannot be
+      // used as part of a type qualification. Since this is not a forward
+      // reference, the type was already emitted and its un-qualified name must
+      // be used instead of it's locally qualified name.
+      const nestingParent = surroundingTypeFqns
+        ?.map((fqn) => toPythonFqn(fqn, assembly).pythonFqn)
+        ?.reverse()
+        ?.find((parent) => pythonFqn.startsWith(`${parent}.`));
+
+      if (
+        typeAnnotation &&
+        (!emittedTypes.has(this.#fqn) || nestingParent != null)
+      ) {
+        // Possibly a forward reference, outputting the stringifierd python FQN
+        return {
+          pythonType: JSON.stringify(
+            pythonFqn.substring(submodulePythonName.length + 1),
+          ),
+        };
+      }
+
+      if (!typeAnnotation && nestingParent) {
+        // This is not for a type annotation, so we should be at a point in time
+        // where the surrounding symbol has been defined entirely, so we can
+        // refer to it "normally" now.
+        return { pythonType: pythonFqn.substring(nestingParent.length + 1) };
+      }
+
+      // We'll just make a module-qualified reference at this point.
       return {
-        pythonType:
-          typeAnnotation && !emittedTypes.has(this.#fqn)
-            ? // Possibly a forward declaration, outputting the stringifierd python FQN
-              JSON.stringify(pythonFqn)
-            : // Not a forward declaration, so we strip the prefix to make a correct local reference
-            nestingParent && pythonFqn.startsWith(`${nestingParent}.`)
-            ? // This is a nested class, we'll need to un-prefix that, too
-              pythonFqn.substring(nestingParent.length + 1)
-            : // Otherwise we just strip the module name
-              pythonFqn.substring(typeSubmodulePythonName.length + 1),
+        pythonType: pythonFqn.substring(submodulePythonName.length + 1),
       };
     }
 
