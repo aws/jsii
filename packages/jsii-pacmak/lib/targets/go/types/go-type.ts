@@ -189,7 +189,12 @@ export class GoProperty implements GoTypeMember {
         this.getter
       }()${` ${this.returnType}`}`,
     );
-    code.line(`return ${instanceArg}.${this.name}`);
+
+    if (this.parent.name === this.returnType) {
+      code.line(`return *${instanceArg}.${this.name}`);
+    } else {
+      code.line(`return ${instanceArg}.${this.name}`);
+    }
     code.closeBlock();
     code.line();
   }
@@ -202,7 +207,12 @@ export class GoProperty implements GoTypeMember {
     code.openBlock(
       `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
     );
-    code.line(`${instanceArg}.${this.name} = val`);
+
+    if (this.parent.name === this.returnType) {
+      code.line(`${instanceArg}.${this.name} = &val`);
+    } else {
+      code.line(`${instanceArg}.${this.name} = val`);
+    }
     code.closeBlock();
     code.line();
   }

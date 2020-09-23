@@ -8,6 +8,8 @@
 
         <IsPackable>false</IsPackable>
         <VSTestLogger>xunit</VSTestLogger>
+
+        <RollForward>Major</RollForward>
     </PropertyGroup>
 
     <ItemGroup>
