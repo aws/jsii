@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "A simple calcuator built on JSII.",
-  "stability": "experimental",
+  "stability": "stable",
   "license": "Apache-2.0",
   "author": {
     "name": "Amazon Web Services",
@@ -49,17 +49,19 @@
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.28",
-    "eslint": "^7.7.0",
+    "@types/node": "^10.17.35",
+    "eslint": "^7.9.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.1.2"
   },
   "jsii": {
     "outdir": "dist",
     "targets": {
-      "go": {},
+      "go": {
+        "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+      },
       "java": {
         "package": "software.amazon.jsii.tests.calculator",
         "maven": {

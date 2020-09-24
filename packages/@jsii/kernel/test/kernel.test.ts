@@ -398,7 +398,9 @@ defineTest(
         namespace: 'Amazon.JSII.Tests.CalculatorNamespace',
         packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
       },
-      go: {},
+      go: {
+        moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
+      },
       java: {
         package: 'software.amazon.jsii.tests.calculator',
         maven: {
@@ -420,7 +422,9 @@ defineTest(
           packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId',
           versionSuffix: '-devpreview',
         },
-        go: {},
+        go: {
+          moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
+        },
         java: {
           package: 'software.amazon.jsii.tests.calculator.lib',
           maven: {
@@ -1482,7 +1486,7 @@ defineTest('nulls are converted to undefined - properties', (sandbox) => {
 
 defineTest('JSII_AGENT is undefined in node.js', (sandbox) => {
   expect(
-    sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'jsiiAgent' }).value,
+    sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'value' }).value,
   ).toBe(undefined);
 });
 

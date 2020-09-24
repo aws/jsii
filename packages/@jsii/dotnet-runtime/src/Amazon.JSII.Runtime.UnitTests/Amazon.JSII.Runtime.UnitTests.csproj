@@ -7,6 +7,8 @@
 
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <RollForward>Major</RollForward>
   </PropertyGroup>
 
   <ItemGroup>

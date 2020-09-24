@@ -8,15 +8,21 @@ import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
-import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
-import { Diagnostic, EmitResult, Emitter } from './emitter';
+import {
+  getReferencedDocParams,
+  parseSymbolDocumentation,
+  renderSymbolDocumentation,
+} from './docs';
+import { Emitter } from './emitter';
+import { JsiiDiagnostic } from './jsii-diagnostic';
 import * as literate from './literate';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
-import { JSII_DIAGNOSTICS_CODE } from './utils';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
+import { TsCommentReplacer } from './ts-comment-replacer';
+import { Docs, Parameter } from '@jsii/spec';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
@@ -27,9 +33,11 @@ const LOG = log4js.getLogger('jsii/assembler');
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
  */
 export class Assembler implements Emitter {
+  public readonly commentReplacer = new TsCommentReplacer();
+
   private readonly mainFile: string;
 
-  private _diagnostics = new Array<Diagnostic>();
+  private _diagnostics = new Array<JsiiDiagnostic>();
   private _deferred = new Array<DeferredRecord>();
   private _types: { [fqn: string]: spec.Type } = {};
 
@@ -77,28 +85,22 @@ export class Assembler implements Emitter {
    *
    * @return the result of the assembly emission.
    */
-  public async emit(): Promise<EmitResult> {
+  public async emit(): Promise<ts.EmitResult> {
     this._diagnostics = [];
     if (!this.projectInfo.description) {
-      this._diagnostic(
-        null,
-        ts.DiagnosticCategory.Suggestion,
-        'A "description" field should be specified in "package.json"',
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_0001_PKG_MISSING_DESCRIPTION.createDetached(),
       );
     }
     if (!this.projectInfo.homepage) {
-      this._diagnostic(
-        null,
-        ts.DiagnosticCategory.Suggestion,
-        'A "homepage" field should be specified in "package.json"',
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_0002_PKG_MISSING_HOMEPAGE.createDetached(),
       );
     }
     const readme = await _loadReadme.call(this);
     if (readme == null) {
-      this._diagnostic(
-        null,
-        ts.DiagnosticCategory.Warning,
-        'There is no "README.md" file. It is required in order to generate valid PyPI (Python) packages.',
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_0003_MISSING_README.createDetached(),
       );
     }
     const docs = _loadDocs.call(this);
@@ -110,10 +112,10 @@ export class Assembler implements Emitter {
     const sourceFile = this.program.getSourceFile(this.mainFile);
 
     if (sourceFile == null) {
-      this._diagnostic(
-        null,
-        ts.DiagnosticCategory.Error,
-        `Could not find "main" file: ${this.mainFile}`,
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_0004_COULD_NOT_FIND_ENTRYPOINT.createDetached(
+          this.mainFile,
+        ),
       );
     } else {
       await this._registerDependenciesNamespaces(sourceFile);
@@ -316,7 +318,7 @@ export class Assembler implements Emitter {
    */
   private _dereference(
     ref: string | spec.NamedTypeReference,
-    referencingNode: ts.Node | null,
+    referencingNode: ts.Node | undefined,
   ): spec.Type | undefined {
     if (typeof ref !== 'string') {
       ref = ref.fqn;
@@ -336,44 +338,27 @@ export class Assembler implements Emitter {
       // we expect it to appear as a peer dependency instead of a normal dependency.
       if (assembly) {
         if (!(assembly.name in this.projectInfo.peerDependencies)) {
-          this._diagnostic(
-            referencingNode,
-            ts.DiagnosticCategory.Warning,
-            `The type '${ref}' is exposed in the public API of this module. ` +
-              `Therefore, the module '${assembly.name}' must also be defined under "peerDependencies". ` +
-              'This will be auto-corrected unless --no-fix-peer-dependencies was specified.',
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_0005_MISSING_PEER_DEPENDENCY.create(
+              referencingNode!, // Cheating here for now, until the referencingNode can be made required
+              assembly.name,
+              ref,
+            ),
           );
         }
       }
     }
 
     if (!type) {
-      this._diagnostic(
-        referencingNode,
-        ts.DiagnosticCategory.Error,
-        `Unable to resolve referenced type '${ref}'. Type may be @internal or unexported`,
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_9002_UNRESOLVEABLE_TYPE.create(
+          referencingNode!, // Cheating here for now, until the referencingNode can be made required
+          ref,
+        ),
       );
     }
 
     return type;
-  }
-
-  private _diagnostic(
-    node: ts.Node | null,
-    category: ts.DiagnosticCategory,
-    messageText: string,
-    relatedInformation?: ts.DiagnosticRelatedInformation[],
-  ) {
-    this._diagnostics.push({
-      domain: 'JSII',
-      category,
-      code: JSII_DIAGNOSTICS_CODE,
-      messageText: `JSII: ${messageText}`,
-      file: node != null ? node.getSourceFile() : undefined,
-      start: node != null ? node.getStart() : undefined,
-      length: node != null ? node.getEnd() - node.getStart() : undefined,
-      relatedInformation,
-    });
   }
 
   /**
@@ -417,14 +402,16 @@ export class Assembler implements Emitter {
 
     if (this._isPrivateOrInternal(type.symbol)) {
       // Check if this type is "this" (explicit or inferred method return type).
-      const commonMessage = `cannot be used as the ${typeUse} because it is private or @internal`;
-      this._diagnostic(
-        typeAnnotationNode,
-        ts.DiagnosticCategory.Error,
-        isThisType
-          ? `Type "this" (aka: "${type.symbol.name}") ${commonMessage}`
-          : `Type "${type.symbol.name}" ${commonMessage}`,
-        makeCause(typeDeclaration),
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
+          typeAnnotationNode,
+          type.symbol,
+          isThisType,
+          typeUse,
+        ).addRelatedInformation(
+          typeDeclaration,
+          `The referenced type is declared here`,
+        ),
       );
 
       hasError = true;
@@ -433,11 +420,16 @@ export class Assembler implements Emitter {
     const groups = /^"([^"]+)"\.(.*)$/.exec(tsName);
     if (!groups) {
       if (!hasError) {
-        this._diagnostic(
-          typeAnnotationNode,
-          ts.DiagnosticCategory.Error,
-          `Cannot use internal type ${tsName} as a ${typeUse} in exported declarations`,
-          makeCause(typeDeclaration),
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_3001_EXPOSED_INTERNAL_TYPE.create(
+            typeAnnotationNode,
+            type.symbol,
+            isThisType,
+            typeUse,
+          ).addRelatedInformation(
+            typeDeclaration,
+            `The referenced type is declared here`,
+          ),
         );
         hasError = true;
       }
@@ -447,11 +439,14 @@ export class Assembler implements Emitter {
     const pkg = await findPackageInfo(modulePath);
     if (!pkg) {
       if (!hasError) {
-        this._diagnostic(
-          typeAnnotationNode,
-          ts.DiagnosticCategory.Error,
-          `Could not find module corresponding to ${modulePath}`,
-          makeCause(typeDeclaration),
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_9003_UNRESOLVEABLE_MODULE.create(
+            typeAnnotationNode,
+            modulePath,
+          ).addRelatedInformation(
+            typeDeclaration,
+            `The referenced type is declared here`,
+          ),
         );
         hasError = true;
       }
@@ -470,37 +465,21 @@ export class Assembler implements Emitter {
       !this._dereference({ fqn }, type.symbol.valueDeclaration)
     ) {
       if (!hasError) {
-        this._diagnostic(
-          typeAnnotationNode,
-          ts.DiagnosticCategory.Error,
-          `Type "${fqn}" cannot be used as a ${typeUse} because it is not exported from ${pkg.name}`,
-          makeCause(typeDeclaration),
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_3002_USE_OF_UNEXPORTED_FOREIGN_TYPE.create(
+            typeAnnotationNode,
+            fqn,
+            typeUse,
+            pkg,
+          ).addRelatedInformation(
+            typeDeclaration,
+            `The referenced type is declared here`,
+          ),
         );
         hasError = true;
       }
     }
     return fqn;
-
-    function makeCause(node: ts.Node): ts.DiagnosticRelatedInformation[] {
-      const declNode =
-        ts.isClassDeclaration(node) ||
-        ts.isEnumDeclaration(node) ||
-        ts.isInterfaceDeclaration(node) ||
-        ts.isTypeAliasDeclaration(node)
-          ? node.name ?? node
-          : node;
-      return [
-        {
-          category: ts.DiagnosticCategory.Message,
-          code: JSII_DIAGNOSTICS_CODE,
-          file: declNode.getSourceFile(),
-          start: declNode.getStart(declNode.getSourceFile()),
-          length:
-            declNode.getEnd() - declNode.getStart(declNode.getSourceFile()),
-          messageText: `The referenced type is declared here`,
-        },
-      ];
-    }
   }
 
   /**
@@ -625,12 +604,11 @@ export class Assembler implements Emitter {
         symbol.name !== Case.camel(symbol.name) &&
         symbol.name !== Case.snake(symbol.name)
       ) {
-        this._diagnostic(
-          declaration.name,
-          ts.DiagnosticCategory.Error,
-          `Submodule namespaces must be camelCased or snake_cased. Consider renaming to "${Case.camel(
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_8004_SUBMOULE_NAME_CASING.create(
+            declaration.name,
             symbol.name,
-          )}".`,
+          ),
         );
       }
 
@@ -714,39 +692,25 @@ export class Assembler implements Emitter {
 
           // Make sure the error message always lists causes in the same order
           const refs = [
-            [currNs.name, currNsDecl] as const,
-            [ns.name, nsDecl] as const,
-          ].sort(([l], [r]) => l.localeCompare(r));
+            { decl: currNsDecl, name: currNs.name } as const,
+            { decl: nsDecl, name: ns.name } as const,
+          ].sort(({ name: l }, { name: r }) => l.localeCompare(r));
 
-          this._diagnostic(
-            (symbol.valueDeclaration as { name?: ts.Node }).name ??
-              symbol.valueDeclaration,
-            ts.DiagnosticCategory.Error,
-            `Symbol is re-exported under two distinct submodules (${refs
-              .map(([name]) => name)
-              .join(' and ')})`,
-            [
-              {
-                category: ts.DiagnosticCategory.Warning,
-                file: refs[0][1].getSourceFile(),
-                length:
-                  refs[0][1].getEnd() -
-                  refs[0][1].getStart(refs[0][1].getSourceFile()),
-                messageText: `Symbol is exported under the "${refs[0][0]}" submodule`,
-                start: refs[0][1].getStart(refs[0][1].getSourceFile()),
-                code: JSII_DIAGNOSTICS_CODE,
-              },
-              {
-                category: ts.DiagnosticCategory.Warning,
-                file: refs[1][1].getSourceFile(),
-                length:
-                  refs[1][1].getEnd() -
-                  refs[1][1].getStart(refs[1][1].getSourceFile()),
-                messageText: `Symbol is exported under the "${refs[1][0]}" submodule`,
-                start: refs[1][1].getStart(refs[1][1].getSourceFile()),
-                code: JSII_DIAGNOSTICS_CODE,
-              },
-            ],
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_3003_SYMBOL_IS_EXPORTED_TWICE.create(
+              (symbol.valueDeclaration as { name?: ts.Node }).name ??
+                symbol.valueDeclaration,
+              refs[0].name,
+              refs[1].name,
+            )
+              .addRelatedInformation(
+                refs[0].decl,
+                `Symbol is exported under the "${refs[0].name}" submodule`,
+              )
+              .addRelatedInformation(
+                refs[1].decl,
+                `Symbol is exported under the "${refs[1].name}" submodule`,
+              ),
           );
         }
         // Found two re-exports, which is odd, but they use the same submodule,
@@ -861,6 +825,7 @@ export class Assembler implements Emitter {
     if (ts.isClassDeclaration(node) && _isExported(node)) {
       // export class Name { ... }
       this._validateHeritageClauses(node.heritageClauses);
+
       jsiiType = await this._visitClass(
         this._typeChecker.getTypeAtLocation(node),
         context,
@@ -911,12 +876,8 @@ export class Assembler implements Emitter {
       }
       return allTypes;
     } else {
-      this._diagnostic(
-        node,
-        ts.DiagnosticCategory.Message,
-        `Ignoring ${
-          ts.SyntaxKind[node.kind]
-        } node (it cannot be represented in the jsii type model)`,
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(node, node.kind),
       );
     }
 
@@ -943,22 +904,16 @@ export class Assembler implements Emitter {
           submodule.valueDeclaration ?? submodule.declarations[0];
         const submoduleDeclName =
           (submoduleDecl as { name?: ts.Node }).name ?? submoduleDecl;
-        this._diagnostic(
-          (node as { name?: ts.Node }).name ?? node,
-          ts.DiagnosticCategory.Error,
-          `Submodule "${submodule.name}" conflicts with "${
-            jsiiType.name
-          }". Restricted names are: ${candidates.join(', ')}`,
-          [
-            {
-              category: ts.DiagnosticCategory.Warning,
-              code: JSII_DIAGNOSTICS_CODE,
-              file: submoduleDeclName.getSourceFile(),
-              length: submoduleDeclName.getEnd() - submoduleDeclName.getStart(),
-              messageText: 'This is the conflicting submodule declaration.',
-              start: submoduleDeclName.getStart(),
-            },
-          ],
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_5011_SUBMODULE_NAME_CONFLICT.create(
+            (node as { name?: ts.Node }).name ?? node,
+            submodule.name,
+            jsiiType.name,
+            candidates,
+          ).addRelatedInformation(
+            submoduleDeclName,
+            `This is the conflicting submodule declaration`,
+          ),
         );
       }
     }
@@ -985,10 +940,12 @@ export class Assembler implements Emitter {
       for (const nestedTypes of await Promise.all(visitedNodes)) {
         for (const nestedType of nestedTypes) {
           if (nestedType.namespace !== nestedContext.namespace.join('.')) {
-            this._diagnostic(
-              node,
-              ts.DiagnosticCategory.Error,
-              `All child names of a type '${jsiiType.fqn}' must point to concrete types, but '${nestedType.namespace}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`,
+            this._diagnostics.push(
+              JsiiDiagnostic.JSII_5012_NAMESPACE_IN_TYPE.create(
+                (node as { name?: ts.Node }).name ?? node,
+                jsiiType.fqn,
+                nestedType.namespace!,
+              ),
             );
           }
         }
@@ -1014,25 +971,17 @@ export class Assembler implements Emitter {
             !ts.isModuleDeclaration(decl), // <-- imported types
         );
         if (badDecl != null) {
-          this._diagnostic(
-            node,
-            ts.DiagnosticCategory.Error,
-            `Illegal "${clauseType(clause.token)}" value for an exported API: ${
-              ts.SyntaxKind[badDecl.kind]
-            }`,
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_3004_INVALID_SUPERTYPE.create(
+              node,
+              clause,
+              badDecl,
+            ).addRelatedInformation(
+              badDecl,
+              `The invalid super type is declared here.`,
+            ),
           );
         }
-      }
-    }
-
-    function clauseType(token: ts.SyntaxKind): string {
-      switch (token) {
-        case ts.SyntaxKind.ExtendsKeyword:
-          return 'extends';
-        case ts.SyntaxKind.ImplementsKeyword:
-          return 'implements';
-        default:
-          return ts.SyntaxKind[token];
       }
     }
   }
@@ -1080,24 +1029,19 @@ export class Assembler implements Emitter {
     });
     for (const { decl, typeRef } of await Promise.all(typeRefs)) {
       if (!spec.isNamedTypeReference(typeRef)) {
-        this._diagnostic(
-          decl,
-          ts.DiagnosticCategory.Error,
-          `Interface of ${fqn} is not a named type (${spec.describeTypeReference(
-            typeRef,
-          )})`,
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_3005_TYPE_USED_AS_INTERFACE.create(decl, typeRef),
         );
         continue;
       }
 
       this._deferUntilTypesAvailable(fqn, [typeRef], decl, (deref) => {
         if (!spec.isInterfaceType(deref)) {
-          this._diagnostic(
-            decl,
-            ts.DiagnosticCategory.Error,
-            `Inheritance clause of ${fqn} uses ${spec.describeTypeReference(
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_3005_TYPE_USED_AS_INTERFACE.create(
+              decl,
               typeRef,
-            )} as an interface`,
+            ),
           );
         }
       });
@@ -1150,11 +1094,7 @@ export class Assembler implements Emitter {
     const erasedBases = new Array<ts.BaseType>();
     for (let base of type.getBaseTypes() ?? []) {
       if (jsiiType.base) {
-        this._diagnostic(
-          base.symbol.valueDeclaration,
-          ts.DiagnosticCategory.Error,
-          `Found multiple base types for ${jsiiType.fqn}`,
-        );
+        // Ignoring this - there has already been a compilation error generated by tsc here.
         continue;
       }
 
@@ -1185,12 +1125,11 @@ export class Assembler implements Emitter {
       );
 
       if (!spec.isNamedTypeReference(ref)) {
-        this._diagnostic(
-          base.symbol.valueDeclaration,
-          ts.DiagnosticCategory.Error,
-          `Base type of ${
-            jsiiType.fqn
-          } is not a named type (${spec.describeTypeReference(ref)})`,
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_3006_TYPE_USED_AS_CLASS.create(
+            base.symbol.valueDeclaration ?? base.symbol.declarations[0],
+            ref,
+          ),
         );
         continue;
       }
@@ -1200,12 +1139,11 @@ export class Assembler implements Emitter {
         base.symbol.valueDeclaration,
         (deref) => {
           if (!spec.isClassType(deref)) {
-            this._diagnostic(
-              base.symbol.valueDeclaration,
-              ts.DiagnosticCategory.Error,
-              `Base type of ${
-                jsiiType.fqn
-              } is not a class (${spec.describeTypeReference(ref)})`,
+            this._diagnostics.push(
+              JsiiDiagnostic.JSII_3006_TYPE_USED_AS_CLASS.create(
+                base.symbol.valueDeclaration ?? base.symbol.declarations[0],
+                ref,
+              ),
             );
           }
         },
@@ -1229,10 +1167,11 @@ export class Assembler implements Emitter {
           // Handled by `getBaseTypes`
           continue;
         } else if (clause.token !== ts.SyntaxKind.ImplementsKeyword) {
-          this._diagnostic(
-            clause,
-            ts.DiagnosticCategory.Error,
-            `Ignoring ${ts.SyntaxKind[clause.token]} heritage clause`,
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
+              clause,
+              `Ignoring ${ts.SyntaxKind[clause.token]} heritage clause`,
+            ),
           );
           continue;
         }
@@ -1261,10 +1200,12 @@ export class Assembler implements Emitter {
           (...ifaces) => {
             for (const iface of ifaces) {
               if (spec.isInterfaceType(iface) && iface.datatype) {
-                this._diagnostic(
-                  type.symbol.valueDeclaration,
-                  ts.DiagnosticCategory.Error,
-                  `Attempted to implement struct ${iface.fqn} from class ${jsiiType.fqn}`,
+                this._diagnostics.push(
+                  JsiiDiagnostic.JSII_3007_ILLEGAL_STRUCT_EXTENSION.create(
+                    type.symbol.valueDeclaration ?? type.symbol.declarations[0],
+                    jsiiType,
+                    iface,
+                  ),
                 );
               }
             }
@@ -1332,6 +1273,7 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            classDecl,
           );
         } else if (
           ts.isPropertyDeclaration(memberDecl) ||
@@ -1343,12 +1285,14 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            classDecl,
           );
         } else {
-          this._diagnostic(
-            memberDecl,
-            ts.DiagnosticCategory.Warning,
-            `Ignoring un-handled ${ts.SyntaxKind[memberDecl.kind]} member`,
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
+              memberDecl,
+              memberDecl.kind,
+            ),
           );
         }
         /* eslint-enable no-await-in-loop */
@@ -1406,6 +1350,11 @@ export class Assembler implements Emitter {
           constructor,
           memberEmitContext,
         );
+        this.overrideDocComment(
+          constructor,
+          jsiiType.initializer.docs,
+          paramDocs(jsiiType.initializer.parameters),
+        );
       }
 
       // Process constructor-based property declarations even if constructor is private
@@ -1419,7 +1368,12 @@ export class Assembler implements Emitter {
             !this._isPrivateOrInternal(param)
           ) {
             // eslint-disable-next-line no-await-in-loop
-            await this._visitProperty(param, jsiiType, memberEmitContext);
+            await this._visitProperty(
+              param,
+              jsiiType,
+              memberEmitContext,
+              ctorDeclaration.parent,
+            );
           }
         }
       }
@@ -1432,10 +1386,11 @@ export class Assembler implements Emitter {
           if (spec.isClassType(baseType)) {
             jsiiType.initializer = baseType.initializer;
           } else {
-            this._diagnostic(
-              type.symbol.valueDeclaration,
-              ts.DiagnosticCategory.Error,
-              `Base type of ${jsiiType.fqn} (${jsiiType.base}) is not a class`,
+            this._diagnostics.push(
+              JsiiDiagnostic.JSII_3999_INCOHERENT_TYPE_MODEL.create(
+                type.symbol.valueDeclaration ?? type.symbol.declarations[0],
+                `Base type of ${jsiiType.fqn} (${jsiiType.base}) is not a class`,
+              ),
             );
           }
         },
@@ -1447,6 +1402,8 @@ export class Assembler implements Emitter {
     }
 
     this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);
+
+    this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
 
     return _sortMembers(jsiiType);
   }
@@ -1468,10 +1425,6 @@ export class Assembler implements Emitter {
    * Check that this class doesn't declare any members that are of different staticness in itself or any of its bases
    */
   private _verifyNoStaticMixing(klass: spec.ClassType, decl: ts.Declaration) {
-    function stat(s?: boolean) {
-      return s ? 'static' : 'non-static';
-    }
-
     // Check class itself--may have two methods/props with the same name, so check the arrays
     const statics = new Set(
       (klass.methods ?? [])
@@ -1487,10 +1440,12 @@ export class Assembler implements Emitter {
     );
     // Intersect
     for (const member of intersect(statics, nonStatics)) {
-      this._diagnostic(
-        decl,
-        ts.DiagnosticCategory.Error,
-        `member '${member}' of class '${klass.name}' cannot be declared both statically and non-statically`,
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_5013_STATIC_INSTANCE_CONFLICT.create(
+          decl,
+          member,
+          klass,
+        ),
       );
     }
 
@@ -1505,14 +1460,14 @@ export class Assembler implements Emitter {
         }
 
         if (!!baseMember.static !== !!member.static) {
-          this._diagnostic(
-            decl,
-            ts.DiagnosticCategory.Error,
-            `${stat(member.static)} member '${name}' of class '${
-              klass.name
-            }' conflicts with ${stat(baseMember.static)} member in ancestor '${
-              base.name
-            }'`,
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_5014_INHERITED_STATIC_CONFLICT.create(
+              decl,
+              member,
+              klass,
+              baseMember,
+              base,
+            ),
           );
         }
       }
@@ -1571,22 +1526,20 @@ export class Assembler implements Emitter {
     // we only validate if we have a declaration
     if (validateDeclaration) {
       if (!hasUnderscorePrefix) {
-        this._diagnostic(
-          validateDeclaration.name ?? validateDeclaration,
-          ts.DiagnosticCategory.Error,
-          `${colors.cyan(
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_8005_INTERNAL_UNDERSCORE.create(
+            validateDeclaration.name ?? validateDeclaration,
             symbol.name,
-          )}: the name of members marked as @internal must begin with an underscore`,
+          ),
         );
       }
 
       if (!hasInternalJsDocTag) {
-        this._diagnostic(
-          validateDeclaration.name ?? validateDeclaration,
-          ts.DiagnosticCategory.Error,
-          `${colors.cyan(
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_8006_UNDERSCORE_INTERNAL.create(
+            validateDeclaration.name ?? validateDeclaration,
             symbol.name,
-          )}: members with names that begin with an underscore must be marked as @internal via a JSDoc tag`,
+          ),
         );
       }
     }
@@ -1625,10 +1578,12 @@ export class Assembler implements Emitter {
     const decl = symbol.valueDeclaration;
     const flags = ts.getCombinedModifierFlags(decl);
     if (flags & ts.ModifierFlags.Const) {
-      this._diagnostic(
-        decl,
-        ts.DiagnosticCategory.Error,
-        "Exported enum cannot be declared 'const'",
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_1000_NO_CONST_ENUM.create(
+          (decl as ts.EnumDeclaration).modifiers?.find(
+            (mod) => mod.kind === ts.SyntaxKind.ConstKeyword,
+          ) ?? decl,
+        ),
       );
     }
 
@@ -1643,14 +1598,17 @@ export class Assembler implements Emitter {
         symbol.name
       }`,
       kind: spec.TypeKind.Enum,
-      members: members.map((m) => ({
-        name: m.symbol.name,
-        docs: this._visitDocumentation(m.symbol, typeContext),
-      })),
+      members: members.map((m) => {
+        const docs = this._visitDocumentation(m.symbol, typeContext);
+        this.overrideDocComment(m.symbol, docs);
+        return { name: m.symbol.name, docs };
+      }),
       name: symbol.name,
       namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
       docs,
     };
+
+    this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
 
     return Promise.resolve(jsiiType);
   }
@@ -1665,7 +1623,12 @@ export class Assembler implements Emitter {
     const result = parseSymbolDocumentation(sym, this._typeChecker);
 
     for (const diag of result.diagnostics ?? []) {
-      this._diagnostic(sym.declarations[0], ts.DiagnosticCategory.Error, diag);
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_7999_DOCUMENTATION_ERROR.create(
+          sym.valueDeclaration ?? sym.declarations[0],
+          diag,
+        ),
+      );
     }
 
     // Apply the current context's stability if none was specified locally.
@@ -1690,10 +1653,12 @@ export class Assembler implements Emitter {
     const actualNames = new Set((method.parameters ?? []).map((p) => p.name));
     for (const param of params) {
       if (!actualNames.has(param)) {
-        this._diagnostic(
-          methodSym.valueDeclaration,
-          ts.DiagnosticCategory.Warning,
-          `In doc block of '${method.name}', '@param ${param}' refers to a nonexistent parameter.`,
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_7000_NON_EXISTENT_PARAMETER.create(
+            methodSym.valueDeclaration ?? methodSym.declarations[0],
+            method,
+            param,
+          ),
         );
       }
     }
@@ -1764,6 +1729,8 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            (type.symbol.valueDeclaration ??
+              type.symbol.declarations[0]) as ts.InterfaceDeclaration,
           );
         } else if (
           ts.isPropertyDeclaration(member.valueDeclaration) ||
@@ -1775,14 +1742,16 @@ export class Assembler implements Emitter {
             member,
             jsiiType,
             ctx.replaceStability(jsiiType.docs?.stability),
+            (type.symbol.valueDeclaration ??
+              type.symbol.declarations[0]) as ts.InterfaceDeclaration,
           );
         } else {
-          this._diagnostic(
-            member.valueDeclaration,
-            ts.DiagnosticCategory.Warning,
-            `Ignoring un-handled ${
-              ts.SyntaxKind[member.valueDeclaration.kind]
-            } member`,
+          const declaration = member.valueDeclaration ?? member.declarations[0];
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
+              declaration,
+              declaration.kind,
+            ),
           );
         }
       }
@@ -1811,10 +1780,11 @@ export class Assembler implements Emitter {
 
         // If it's not a datatype the name must start with an "I".
         if (!jsiiType.datatype && !interfaceName) {
-          this._diagnostic(
-            (declaration as { name?: ts.Node }).name ?? declaration,
-            ts.DiagnosticCategory.Error,
-            `Interface contains behavior: name should be "I${jsiiType.name}"`,
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_8007_BEHAVIORAL_INTERFACE_NAME.create(
+              (declaration as { name?: ts.Node }).name ?? declaration,
+              jsiiType.name,
+            ),
           );
         }
 
@@ -1828,10 +1798,14 @@ export class Assembler implements Emitter {
           for (const prop of jsiiType.properties ?? []) {
             if (!prop.immutable) {
               const p = type.getProperty(prop.name)!;
-              this._diagnostic(
-                p.valueDeclaration,
-                ts.DiagnosticCategory.Error,
-                `The property '${prop.name}' in data type '${jsiiType.name}' must be 'readonly' since data is passed by-value`,
+              const declaration: ts.Node & { name?: ts.Node } =
+                p.valueDeclaration ?? p.declarations[0];
+              this._diagnostics.push(
+                JsiiDiagnostic.JSII_3008_STRUCT_PROPS_MUST_BE_READONLY.create(
+                  declaration.name ?? declaration,
+                  p.name,
+                  jsiiType,
+                ),
               );
 
               // force property to be "readonly" since jsii languages will pass this by-value
@@ -1846,10 +1820,12 @@ export class Assembler implements Emitter {
               continue;
             }
             if (base.datatype) {
-              this._diagnostic(
-                type.symbol.valueDeclaration,
-                ts.DiagnosticCategory.Error,
-                `Attempted to extend struct ${base.fqn} from regular interface ${jsiiType.fqn}`,
+              this._diagnostics.push(
+                JsiiDiagnostic.JSII_3007_ILLEGAL_STRUCT_EXTENSION.create(
+                  type.symbol.valueDeclaration ?? type.symbol.declarations[0],
+                  jsiiType,
+                  base,
+                ),
               );
             }
           }
@@ -1869,10 +1845,12 @@ export class Assembler implements Emitter {
         const baseMembers = memberNames(base);
         for (const memberName of names) {
           if (baseMembers.includes(memberName)) {
-            this._diagnostic(
-              type.symbol.declarations[0],
-              ts.DiagnosticCategory.Error,
-              `Interface declares same member as inherited interface: ${memberName}`,
+            this._diagnostics.push(
+              JsiiDiagnostic.JSII_5015_REDECLARED_INTERFACE_MEMBER.create(
+                type.symbol.valueDeclaration ?? type.symbol.declarations[0],
+                memberName,
+                jsiiType,
+              ),
             );
           }
         }
@@ -1892,6 +1870,8 @@ export class Assembler implements Emitter {
       checkNoIntersection,
     );
 
+    this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
+
     return _sortMembers(jsiiType);
   }
 
@@ -1899,6 +1879,7 @@ export class Assembler implements Emitter {
     symbol: ts.Symbol,
     type: spec.ClassType | spec.InterfaceType,
     ctx: EmitContext,
+    declaringTypeDecl: ts.ClassLikeDeclaration | ts.InterfaceDeclaration,
   ) {
     if (LOG.isTraceEnabled()) {
       LOG.trace(
@@ -1915,18 +1896,36 @@ export class Assembler implements Emitter {
       declaration,
     );
     if (!signature) {
-      this._diagnostic(
-        declaration,
-        ts.DiagnosticCategory.Error,
-        `Unable to compute signature for ${type.fqn}#${symbol.name}`,
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_9004_UNABLE_TO_COMPUTE_SIGNATURE.create(
+          declaration,
+          symbol.name,
+          type,
+        ),
       );
       return;
     }
+
+    if (Case.pascal(type.name) === Case.pascal(symbol.name)) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_5019_MEMBER_TYPE_NAME_CONFLICT.create(
+          declaration.name,
+          'method',
+          symbol,
+          type,
+        ).addRelatedInformation(
+          declaringTypeDecl.name ?? declaringTypeDecl,
+          `The declaring ${type.kind} is introduced here`,
+        ),
+      );
+    }
+
     if (isProhibitedMemberName(symbol.name)) {
-      this._diagnostic(
-        declaration,
-        ts.DiagnosticCategory.Error,
-        `Prohibited member name: ${symbol.name}`,
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_5016_PROHIBITED_MEMBER_NAME.create(
+          declaration.name,
+          symbol.name,
+        ),
       );
       return;
     }
@@ -1981,13 +1980,12 @@ export class Assembler implements Emitter {
           );
           const sharedNames = intersection(propNames, paramNames);
 
-          if (sharedNames.size > 0) {
-            this._diagnostic(
-              declaration,
-              ts.DiagnosticCategory.Error,
-              `Name occurs in both function arguments and in datatype properties, rename one: ${Array.from(
-                sharedNames,
-              ).join(', ')}`,
+          for (const badName of sharedNames) {
+            this._diagnostics.push(
+              JsiiDiagnostic.JSII_5017_POSITIONAL_KEYWORD_CONFLICT.create(
+                declaration,
+                badName,
+              ),
             );
           }
         },
@@ -2010,6 +2008,7 @@ export class Assembler implements Emitter {
       return;
     }
     type.methods.push(method);
+    this.overrideDocComment(symbol, method.docs, paramDocs(method.parameters));
   }
 
   private _warnAboutReservedWords(symbol: ts.Symbol) {
@@ -2019,14 +2018,13 @@ export class Assembler implements Emitter {
 
     const reservingLanguages = isReservedName(symbol.name);
     if (reservingLanguages) {
-      this._diagnostic(
-        ts.getNameOfDeclaration(symbol.valueDeclaration) ||
-          symbol.valueDeclaration,
-        ts.DiagnosticCategory.Warning,
-        `'${symbol.name}' is a reserved word in ${reservingLanguages.join(
-          ', ',
-        )}. Using this name may cause problems ` +
-          'when generating language bindings. Consider using a different name.',
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_5018_RESERVED_WORD.create(
+          ts.getNameOfDeclaration(symbol.valueDeclaration) ||
+            symbol.valueDeclaration,
+          symbol.name,
+          reservingLanguages,
+        ),
       );
     }
   }
@@ -2035,6 +2033,7 @@ export class Assembler implements Emitter {
     symbol: ts.Symbol,
     type: spec.ClassType | spec.InterfaceType,
     ctx: EmitContext,
+    declaringTypeDecl: ts.ClassLikeDeclaration | ts.InterfaceDeclaration,
   ) {
     if (type.properties?.find((p) => p.name === symbol.name)) {
       /*
@@ -2052,22 +2051,40 @@ export class Assembler implements Emitter {
         )}`,
       );
     }
+
+    const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
+    const signature = declaration as
+      | ts.PropertySignature
+      | ts.PropertyDeclaration
+      | ts.AccessorDeclaration
+      | ts.ParameterPropertyDeclaration;
+
+    if (Case.pascal(type.name) === Case.pascal(symbol.name)) {
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_5019_MEMBER_TYPE_NAME_CONFLICT.create(
+          signature.name,
+          'property',
+          symbol,
+          type,
+        ).addRelatedInformation(
+          declaringTypeDecl.name ?? declaringTypeDecl,
+          `The declaring ${type.kind} is introduced here`,
+        ),
+      );
+    }
+
     if (isProhibitedMemberName(symbol.name)) {
-      this._diagnostic(
-        symbol.valueDeclaration,
-        ts.DiagnosticCategory.Error,
-        `Prohibited member name: ${symbol.name}`,
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_5016_PROHIBITED_MEMBER_NAME.create(
+          symbol.valueDeclaration ?? symbol.declarations[0],
+          symbol.name,
+        ),
       );
       return;
     }
 
     this._warnAboutReservedWords(symbol);
 
-    const signature = symbol.valueDeclaration as
-      | ts.PropertySignature
-      | ts.PropertyDeclaration
-      | ts.AccessorDeclaration
-      | ts.ParameterPropertyDeclaration;
     const property: spec.Property = {
       ...(await this._optionalValue(
         this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature),
@@ -2121,6 +2138,7 @@ export class Assembler implements Emitter {
       return;
     }
     type.properties.push(property);
+    this.overrideDocComment(symbol, property.docs);
   }
 
   private async _toParameter(
@@ -2157,6 +2175,9 @@ export class Assembler implements Emitter {
       ctx.removeStability(),
     ); // No inheritance on purpose
 
+    // Don't rewrite doc comment here on purpose -- instead, we add them as '@param'
+    // into the parent's doc comment.
+
     return parameter;
   }
 
@@ -2167,10 +2188,11 @@ export class Assembler implements Emitter {
   ): Promise<spec.TypeReference> {
     const optionalValue = await this._optionalValue(type, declaration, purpose);
     if (optionalValue.optional) {
-      this._diagnostic(
-        declaration,
-        ts.DiagnosticCategory.Error,
-        'Encountered optional value in location where a plan type reference is expected',
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_3999_INCOHERENT_TYPE_MODEL.create(
+          declaration,
+          'Encountered optional value in location where a plain type reference is expected',
+        ),
       );
     }
     return optionalValue.type;
@@ -2199,10 +2221,8 @@ export class Assembler implements Emitter {
     }
 
     if (!type.symbol) {
-      this._diagnostic(
-        declaration,
-        ts.DiagnosticCategory.Error,
-        'Non-primitive types must have a symbol',
+      this._diagnostics.push(
+        JsiiDiagnostic.JSII_1001_TYPE_HAS_NO_SYMBOL.create(declaration),
       );
       return { type: spec.CANONICAL_ANY };
     }
@@ -2218,10 +2238,8 @@ export class Assembler implements Emitter {
     if (type.symbol.escapedName === 'Promise') {
       const typeRef = type as ts.TypeReference;
       if (!typeRef.typeArguments || typeRef.typeArguments.length !== 1) {
-        this._diagnostic(
-          declaration,
-          ts.DiagnosticCategory.Error,
-          'Un-specified promise type (need to specify as Promise<T>)',
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_1002_UNSPECIFIED_PROMISE.create(declaration),
         );
         return { type: spec.CANONICAL_ANY };
       }
@@ -2254,10 +2272,11 @@ export class Assembler implements Emitter {
         const count = typeRef.typeArguments
           ? typeRef.typeArguments.length
           : 'none';
-        this._diagnostic(
-          declaration,
-          ts.DiagnosticCategory.Error,
-          `Array references must have exactly one type argument (found ${count})`,
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_1003_UNSUPPORTED_TYPE.create(
+            declaration,
+            `Array references must have exactly one type argument (found ${count})`,
+          ),
         );
         elementtype = spec.CANONICAL_ANY;
       }
@@ -2282,10 +2301,11 @@ export class Assembler implements Emitter {
           'map element type',
         );
       } else {
-        this._diagnostic(
-          declaration,
-          ts.DiagnosticCategory.Error,
-          'Only string-indexed map types are supported',
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_1003_UNSUPPORTED_TYPE.create(
+            declaration,
+            'Only string-indexed map types are supported',
+          ),
         );
         elementtype = spec.CANONICAL_ANY;
       }
@@ -2416,7 +2436,7 @@ export class Assembler implements Emitter {
       }
 
       for (const baseRef of int.interfaces ?? []) {
-        const base = this._dereference(baseRef, null);
+        const base = this._dereference(baseRef, undefined);
         if (!base) {
           throw new Error(
             'Impossible to have unresolvable base in allProperties()',
@@ -2449,14 +2469,81 @@ export class Assembler implements Emitter {
         if (offender == null) {
           continue;
         }
-        this._diagnostic(
-          node,
-          ts.DiagnosticCategory.Error,
-          `Parameter ${current.name} cannot be optional, as it precedes non-optional parameter ${offender.name}`,
+        this._diagnostics.push(
+          JsiiDiagnostic.JSII_3009_OPTIONAL_PARAMETER_BEFORE_REQUIRED.create(
+            node,
+            current,
+            offender,
+          ),
         );
         delete current.optional;
       }
     }
+  }
+
+  /**
+   * From the given JSIIDocs, re-render the TSDoc comment for the Node
+   *
+   * We may change the documentation a little, so that the doc comment that gets
+   * written is not necessarily exactly the same as the docs that go into the
+   * JSII manifest.
+   *
+   * This makes it possible for the code doc comments to highlight things
+   * slighly differently from the API Reference, and makes sure we don't
+   * duplicate information.
+   *
+   * Unless the docs got changed, this yields the same output back as the one that
+   * we originally saw (modulo whitespace changes).
+   */
+  private overrideDocComment(
+    symbol?: ts.Symbol,
+    docs?: Docs,
+    parameters?: Record<string, Docs>,
+  ) {
+    if (!docs || !symbol) {
+      return;
+    }
+
+    docs = this.docCommentDocs(docs);
+
+    // Some symbols have multiple declarations (for example, a class + interface
+    // mixins, or a property declartaion + constructor argument).
+    //
+    // We DON'T wwant to put the doc comment on the constructor argument, because it
+    // looks silly there.
+    for (const decl of symbol.getDeclarations() ?? []) {
+      if (ts.isParameter(decl)) {
+        continue;
+      }
+
+      this.commentReplacer.overrideNodeDocComment(
+        decl,
+        renderSymbolDocumentation(docs, parameters),
+      );
+    }
+  }
+
+  /**
+   * Return a potentially new set of Docs, for rendering back to a TypeScript doc comment
+   *
+   * We put the "(experimental)"/"(deprecated)" status into the doc
+   * comment summary, so that it's presented front and center.
+   */
+  private docCommentDocs(docs: Readonly<Docs>): Docs {
+    // Modify the summary if this API element has a special stability
+    if (docs.stability === spec.Stability.Experimental && docs.summary) {
+      return {
+        ...docs,
+        summary: `(experimental) ${docs.summary}`,
+      };
+    }
+    if (docs.stability === spec.Stability.Deprecated && docs.summary) {
+      return {
+        ...docs,
+        summary: `(deprecated) ${docs.summary}`,
+      };
+    }
+    return docs;
   }
 }
 
@@ -2938,6 +3025,16 @@ async function findPackageInfo(fromDir: string): Promise<any> {
     return undefined;
   }
   return findPackageInfo(parent);
+}
+
+function paramDocs(params?: Parameter[]): Record<string, Docs> {
+  const ret: Record<string, Docs> = {};
+  for (const param of params ?? []) {
+    if (param.docs) {
+      ret[param.name] = param.docs;
+    }
+  }
+  return ret;
 }
 
 /**

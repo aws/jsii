@@ -53,7 +53,8 @@ export interface IJsii487External {}
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IJsii487External2 {}
 class Jsii487Internal implements IJsii487External {}
-export class Jsii487Derived extends Jsii487Internal
+export class Jsii487Derived
+  extends Jsii487Internal
   implements IJsii487External2 {}
 
 //
