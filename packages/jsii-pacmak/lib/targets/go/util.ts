@@ -46,13 +46,8 @@ export function getFieldDependencies(fields: GoTypeMember[]): Package[] {
   }, []);
 }
 
-// export function getParameterDependencies(params: GoParameter[]): Package[] {
-//   return params.reduce((accum: Package[], param) => {
-//     return param.reference?.type?.pkg
-//       ? [...accum, param.reference?.type.pkg]
-//       : accum;
-//   }, []);
-// }
+// TODO: add getParameterDependency utility function
+
 const RESERVED_WORDS: { [word: string]: string } = {
   break: 'break_',
   default: 'default_',
