@@ -46,7 +46,7 @@
     "@types/jest-expect-message": "^1.0.2",
     "@types/node": "^10.17.35",
     "@types/tar-fs": "^2.0.0",
-    "@types/yargs": "^15.0.5",
+    "@types/yargs": "^15.0.6",
     "eslint": "^7.9.0",
     "jest": "^26.4.2",
     "jest-expect-message": "^1.0.2",
