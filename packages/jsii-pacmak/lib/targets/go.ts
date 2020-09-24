@@ -1,3 +1,5 @@
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import { CodeMaker } from 'codemaker';
 import { Documentation } from './go/documentation';
 import { Assembly } from 'jsii-reflect';
@@ -6,8 +8,6 @@ import { RootPackage } from './go/package';
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
 import { goPackageName } from './go/util';
-import * as fs from 'fs-extra';
-import * as path from 'path';
 
 export class Golang extends Target {
   public readonly generator: IGenerator;

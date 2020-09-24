@@ -1,9 +1,9 @@
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import * as spec from '@jsii/spec';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
-import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
-import * as path from 'path';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
