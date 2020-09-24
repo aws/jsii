@@ -319,10 +319,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '8'
-      - name: Set up Node 12
+      - name: Set up Node 10
         uses: actions/setup-node@v2.1.1
         with:
-          node-version: '12'
+          node-version: '10'
       - name: Set up Python 3.6
         uses: actions/setup-python@v2
         with:
