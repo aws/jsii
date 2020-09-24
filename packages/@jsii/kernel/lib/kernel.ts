@@ -58,22 +58,6 @@ export class Kernel {
     });
   }
 
-  private getPackageDir(pkgname: string): string {
-    if (!this.installDir) {
-      this.installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
-      fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
-      this._debug('creating jsii-kernel modules workdir:', this.installDir);
-
-      process.on('exit', () => {
-        if (this.installDir) {
-          this._debug('removing install dir', this.installDir);
-          fs.removeSync(this.installDir); // can't use async version during exit
-        }
-      });
-    }
-    return path.join(this.installDir, 'node_modules', pkgname);
-  }
-
   public load(req: api.LoadRequest): api.LoadResponse {
     this._debug('load', req);
 
@@ -87,7 +71,7 @@ export class Kernel {
     const pkgver = req.version;
 
     // check if we already have such a module
-    const packageDir = this.getPackageDir(pkgname);
+    const packageDir = this._getPackageDir(pkgname);
     if (fs.pathExistsSync(packageDir)) {
       // module exists, verify version
       const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
@@ -156,7 +140,7 @@ export class Kernel {
     req: api.InvokeScriptRequest,
   ): api.InvokeScriptResponse {
     const result = cp.spawnSync(
-      path.join(this.getPackageDir(req.pkgname), req.script),
+      path.join(this._getPackageDir(req.pkgname), req.script),
       req.args,
     );
 
@@ -512,6 +496,22 @@ export class Kernel {
       default:
         throw new Error(`Unexpected FQN kind: ${fqn}`);
     }
+  }
+
+  private _getPackageDir(pkgname: string): string {
+    if (!this.installDir) {
+      this.installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
+      fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
+      this._debug('creating jsii-kernel modules workdir:', this.installDir);
+
+      process.on('exit', () => {
+        if (this.installDir) {
+          this._debug('removing install dir', this.installDir);
+          fs.removeSync(this.installDir); // can't use async version during exit
+        }
+      });
+    }
+    return path.join(this.installDir, 'node_modules', pkgname);
   }
 
   // prefixed with _ to allow calling this method internally without
