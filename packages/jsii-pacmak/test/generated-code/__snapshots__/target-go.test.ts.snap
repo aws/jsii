@@ -4,8 +4,12 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 golang
     ┗━ 📁 scopejsiicalcbase
+       ┣━ 📁 _jsii
+       ┃  ┗━ 📄 jsii-calc-base@0.0.0.jsii.tgz
        ┗━ 📄 scopejsiicalcbase.go
 `;
+
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/golang/scopejsiicalcbase/_jsii/jsii-calc-base@0.0.0.jsii.tgz 1`] = `golang/scopejsiicalcbase/_jsii/jsii-calc-base@0.0.0.jsii.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/golang/scopejsiicalcbase/scopejsiicalcbase.go 1`] = `
 // An example direct dependency for jsii-calc.
@@ -77,8 +81,12 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 golang
     ┗━ 📁 scopejsiicalcbaseofbase
+       ┣━ 📁 _jsii
+       ┃  ┗━ 📄 jsii-calc-base-of-base@0.0.0.jsii.tgz
        ┗━ 📄 scopejsiicalcbaseofbase.go
 `;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/golang/scopejsiicalcbaseofbase/_jsii/jsii-calc-base-of-base@0.0.0.jsii.tgz 1`] = `golang/scopejsiicalcbaseofbase/_jsii/jsii-calc-base-of-base@0.0.0.jsii.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/golang/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase.go 1`] = `
 // An example transitive dependency for jsii-calc.
@@ -160,10 +168,14 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 golang
     ┗━ 📁 scopejsiicalclib
+       ┣━ 📁 _jsii
+       ┃  ┗━ 📄 jsii-calc-lib@0.0.0.jsii.tgz
        ┣━ 📄 scopejsiicalclib.go
        ┗━ 📁 submodule
           ┗━ 📄 submodule.go
 `;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiicalclib/_jsii/jsii-calc-lib@0.0.0.jsii.tgz 1`] = `golang/scopejsiicalclib/_jsii/jsii-calc-lib@0.0.0.jsii.tgz is a tarball`;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiicalclib/scopejsiicalclib.go 1`] = `
 // A simple calcuator library built on JSII.
@@ -598,6 +610,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 golang
     ┗━ 📁 jsiicalc
+       ┣━ 📁 _jsii
+       ┃  ┗━ 📄 jsii-calc@0.0.0.jsii.tgz
        ┣━ 📁 composition
        ┃  ┗━ 📄 composition.go
        ┣━ 📁 derivedclasshasnoproperties
@@ -618,6 +632,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┣━ 📄 nestedsubmodule.go
           ┗━ 📄 submodule.go
 `;
+
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/_jsii/jsii-calc@0.0.0.jsii.tgz 1`] = `golang/jsiicalc/_jsii/jsii-calc@0.0.0.jsii.tgz is a tarball`;
 
 exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/README.md 1`] = `
 # jsii Calculator
