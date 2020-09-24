@@ -93,6 +93,12 @@ export abstract class Package {
     this.emitInternalPackages(context);
   }
 
+  public emitInternalPackages(context: EmitContext) {
+    for (const submodule of this.submodules) {
+      submodule.emit(context);
+    }
+  }
+
   protected emitHeader(code: CodeMaker) {
     code.line(`package ${this.packageName}`);
     code.line();
@@ -111,12 +117,6 @@ export abstract class Package {
 
     code.close(')');
     code.line();
-  }
-
-  public emitInternalPackages(context: EmitContext) {
-    for (const submodule of this.submodules) {
-      submodule.emit(context);
-    }
   }
 
   private emitTypes(context: EmitContext) {
