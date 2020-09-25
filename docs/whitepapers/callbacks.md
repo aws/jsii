@@ -62,7 +62,7 @@ Once object instances have been created in the _jsii kernel_ with overrides, exe
 require executing _foreign_ code. The _jsii kernel_ signals this to the _jsii runtime library_ by responding with a
 [`callback` request][kernel.callback] instead of the typical response type for the original request (i.e:
 `InvokeResponse`, `GetResponse` or `SetResponse`). Several such [callbacks][kernel.callback] may be necessary in order
-to complete the original request. When the original request is finally able to complete, it's response is returned.
+to complete the original request. When the original request is finally able to complete, its response is returned.
 
 The _jsii runtime library_ must respond to each [`callback` request][kernel.callback] with a `complete` response,
 allowing the _jsii kernel_ to resume fulfilling the original request. In order to do this, the _jsii runtime library_
