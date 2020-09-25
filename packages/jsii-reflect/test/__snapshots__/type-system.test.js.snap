@@ -90,6 +90,7 @@ Array [
   "jsii-calc.Jsii496Derived",
   "jsii-calc.JsiiAgent",
   "jsii-calc.JsonFormatter",
+  "jsii-calc.LevelOne",
   "jsii-calc.MethodNamedProperty",
   "jsii-calc.Multiply",
   "jsii-calc.Negate",

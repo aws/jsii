@@ -3126,6 +3126,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 IJsii487ExternalProxy.cs
        ┃           ┣━ 📄 IJsii496.cs
        ┃           ┣━ 📄 IJsii496Proxy.cs
+       ┃           ┣━ 📄 ILevelOneProps.cs
        ┃           ┣━ 📄 ILoadBalancedFargateServiceProps.cs
        ┃           ┣━ 📄 Implementation.cs
        ┃           ┣━ 📄 ImplementInternalInterface.cs
@@ -3200,6 +3201,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 JSObjectLiteralToNative.cs
        ┃           ┣━ 📄 JSObjectLiteralToNativeClass.cs
        ┃           ┣━ 📄 JsonFormatter.cs
+       ┃           ┣━ 📄 LevelOne.cs
+       ┃           ┣━ 📄 LevelOneProps.cs
+       ┃           ┣━ 📄 LevelOnePropsProxy.cs
        ┃           ┣━ 📄 LoadBalancedFargateServiceProps.cs
        ┃           ┣━ 📄 LoadBalancedFargateServicePropsProxy.cs
        ┃           ┣━ 📄 MethodNamedProperty.cs
@@ -11505,6 +11509,148 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
       ],
       "name": "JsonFormatter"
     },
+    "jsii-calc.LevelOne": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Validates that nested classes get correct code generation for the occasional forward reference."
+      },
+      "fqn": "jsii-calc.LevelOne",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
+        },
+        "locationInModule": {
+          "filename": "lib/compliance.ts",
+          "line": 2829
+        },
+        "parameters": [
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.LevelOneProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2828
+      },
+      "name": "LevelOne",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2829
+          },
+          "name": "props",
+          "type": {
+            "fqn": "jsii-calc.LevelOneProps"
+          }
+        }
+      ]
+    },
+    "jsii-calc.LevelOne.PropBooleanValue": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.LevelOne.PropBooleanValue",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2839
+      },
+      "name": "PropBooleanValue",
+      "namespace": "LevelOne",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2840
+          },
+          "name": "value",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
+    "jsii-calc.LevelOne.PropProperty": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.LevelOne.PropProperty",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2835
+      },
+      "name": "PropProperty",
+      "namespace": "LevelOne",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2836
+          },
+          "name": "prop",
+          "type": {
+            "fqn": "jsii-calc.LevelOne.PropBooleanValue"
+          }
+        }
+      ]
+    },
+    "jsii-calc.LevelOneProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.LevelOneProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2831
+      },
+      "name": "LevelOneProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2832
+          },
+          "name": "prop",
+          "type": {
+            "fqn": "jsii-calc.LevelOne.PropProperty"
+          }
+        }
+      ]
+    },
     "jsii-calc.LoadBalancedFargateServiceProps": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -17306,7 +17452,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "Ddy05wOucU4yV7YP5fPUzEjiOsl5AGPrwJS7pXpJRPI="
+  "fingerprint": "ary2D/3pPPIqMW0FmZnYMsKzvk8r29qmK5+1KyEcTQA="
 }
 
 `;
@@ -23223,6 +23369,26 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ILevelOneProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiInterface(nativeType: typeof(ILevelOneProps), fullyQualifiedName: "jsii-calc.LevelOneProps")]
+    public interface ILevelOneProps
+    {
+        [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropProperty\\"}")]
+        Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropProperty Prop
+        {
+            get;
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ILoadBalancedFargateServiceProps.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -25842,6 +26008,160 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public static string? Stringify(object? @value = null)
         {
             return InvokeStaticMethod<string?>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsonFormatter), new System.Type[]{typeof(object)}, new object?[]{@value});
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/LevelOne.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Validates that nested classes get correct code generation for the occasional forward reference.</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LevelOne), fullyQualifiedName: "jsii-calc.LevelOne", parametersJson: "[{\\"name\\":\\"props\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.LevelOneProps\\"}}]")]
+    public class LevelOne : DeputyBase
+    {
+        public LevelOne(Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps props): base(new DeputyProps(new object[]{props}))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected LevelOne(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected LevelOne(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiProperty(name: "props", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOneProps\\"}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps Props
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps>();
+        }
+        [JsiiInterface(nativeType: typeof(IPropBooleanValue), fullyQualifiedName: "jsii-calc.LevelOne.PropBooleanValue")]
+        public interface IPropBooleanValue
+        {
+            [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+            bool Value
+            {
+                get;
+            }
+        }
+        [JsiiTypeProxy(nativeType: typeof(IPropBooleanValue), fullyQualifiedName: "jsii-calc.LevelOne.PropBooleanValue")]
+        internal sealed class PropBooleanValueProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropBooleanValue
+        {
+            private PropBooleanValueProxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"boolean\\"}")]
+            public bool Value
+            {
+                get => GetInstanceProperty<bool>();
+            }
+        }
+        #pragma warning disable CS8618
+
+        [JsiiByValue(fqn: "jsii-calc.LevelOne.PropBooleanValue")]
+        public class PropBooleanValue : Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropBooleanValue
+        {
+            [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"boolean\\"}", isOverride: true)]
+            public bool Value
+            {
+                get;
+                set;
+            }
+        }
+        [JsiiInterface(nativeType: typeof(IPropProperty), fullyQualifiedName: "jsii-calc.LevelOne.PropProperty")]
+        public interface IPropProperty
+        {
+            [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropBooleanValue\\"}")]
+            Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropBooleanValue Prop
+            {
+                get;
+            }
+        }
+        [JsiiTypeProxy(nativeType: typeof(IPropProperty), fullyQualifiedName: "jsii-calc.LevelOne.PropProperty")]
+        internal sealed class PropPropertyProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropProperty
+        {
+            private PropPropertyProxy(ByRefValue reference): base(reference)
+            {
+            }
+
+            [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropBooleanValue\\"}")]
+            public Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropBooleanValue Prop
+            {
+                get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropBooleanValue>();
+            }
+        }
+        #pragma warning disable CS8618
+
+        [JsiiByValue(fqn: "jsii-calc.LevelOne.PropProperty")]
+        public class PropProperty : Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropProperty
+        {
+            [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropBooleanValue\\"}", isOverride: true)]
+            public Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropBooleanValue Prop
+            {
+                get;
+                set;
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/LevelOneProps.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.LevelOneProps")]
+    public class LevelOneProps : Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps
+    {
+        [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropProperty\\"}", isOverride: true)]
+        public Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropProperty Prop
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/LevelOnePropsProxy.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    [JsiiTypeProxy(nativeType: typeof(ILevelOneProps), fullyQualifiedName: "jsii-calc.LevelOneProps")]
+    internal sealed class LevelOnePropsProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ILevelOneProps
+    {
+        private LevelOnePropsProxy(ByRefValue reference): base(reference)
+        {
+        }
+
+        [JsiiProperty(name: "prop", typeJson: "{\\"fqn\\":\\"jsii-calc.LevelOne.PropProperty\\"}")]
+        public Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropProperty Prop
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LevelOne.IPropProperty>();
         }
     }
 }

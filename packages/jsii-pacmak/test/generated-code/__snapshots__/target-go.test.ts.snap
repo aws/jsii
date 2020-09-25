@@ -5348,6 +5348,81 @@ func JsonFormatter_Stringify(value jsii.Any) string {
     return "NOOP_RETURN_STRING"
 }
 
+// Class interface
+type LevelOneIface interface {
+    GetProps() LevelOneProps
+    SetProps(val LevelOneProps)
+}
+
+// Validates that nested classes get correct code generation for the occasional forward reference.
+// Struct proxy
+type LevelOne struct {
+    Props LevelOneProps
+}
+
+func (l *LevelOne) GetProps() LevelOneProps {
+    return l.Props
+}
+
+
+func NewLevelOne(props LevelOneProps) LevelOneIface {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "LevelOne",
+        Method: "Constructor",
+        Args: []string{"jsii-calc.LevelOneProps",},
+    })
+    return &LevelOne{}
+}
+
+func (l *LevelOne) SetProps(val LevelOneProps) {
+    l.Props = val
+}
+
+// PropBooleanValueIface is the public interface for the custom type PropBooleanValue
+type PropBooleanValueIface interface {
+    GetValue() bool
+}
+
+// Struct proxy
+type PropBooleanValue struct {
+    Value bool
+}
+
+func (p *PropBooleanValue) GetValue() bool {
+    return p.Value
+}
+
+
+// PropPropertyIface is the public interface for the custom type PropProperty
+type PropPropertyIface interface {
+    GetProp() PropBooleanValue
+}
+
+// Struct proxy
+type PropProperty struct {
+    Prop PropBooleanValue
+}
+
+func (p *PropProperty) GetProp() PropBooleanValue {
+    return p.Prop
+}
+
+
+// LevelOnePropsIface is the public interface for the custom type LevelOneProps
+type LevelOnePropsIface interface {
+    GetProp() PropProperty
+}
+
+// Struct proxy
+type LevelOneProps struct {
+    Prop PropProperty
+}
+
+func (l *LevelOneProps) GetProp() PropProperty {
+    return l.Prop
+}
+
+
 // LoadBalancedFargateServicePropsIface is the public interface for the custom type LoadBalancedFargateServiceProps
 type LoadBalancedFargateServicePropsIface interface {
     GetContainerPort() float64
