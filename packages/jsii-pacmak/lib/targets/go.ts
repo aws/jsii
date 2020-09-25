@@ -1,8 +1,9 @@
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import { CodeMaker } from 'codemaker';
 import { Documentation } from './go/documentation';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
-import { join } from 'path';
 import { RootPackage } from './go/package';
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
@@ -53,23 +54,32 @@ class GoGenerator implements IGenerator {
     });
   }
 
-  public async save(outDir: string, _tarball: string): Promise<any> {
-    // TODO: Replace with [go-embed](https://github.com/pyros2097/go-embed)
-    // const bundledRuntimeDotGo = path.join('_jsii', 'bundled-runtime.go');
-    // this.code.openFile(bundledRuntimeDotGo);
+  public async save(outDir: string, tarball: string): Promise<any> {
+    const output = path.join(outDir, goPackageName(this.assembly.name));
+    const fullPath = path.resolve(
+      path.join(output, '_jsii', this.getAssemblyFileName()),
+    );
+    await fs.mkdirp(path.dirname(fullPath));
+    await fs.copy(tarball, fullPath, { overwrite: true });
 
-    // this.code.line(
-    //   `// Embedded data for the tarball containing the runtime of ${this.assembly.name}@${this.assembly.version}`,
-    // );
-    // this.code.openBlock('const tarball = []byte');
-    // for await (const line of encodedSlices(tarball)) {
-    //   this.code.line(`${line},`);
-    // }
-    // this.code.closeBlock();
+    await this.code.save(output);
+  }
 
-    // this.code.closeFile(bundledRuntimeDotGo);
+  private getAssemblyFileName() {
+    let name = this.assembly.name;
+    const parts = name.split('/');
 
-    await this.code.save(join(outDir, goPackageName(this.assembly.name)));
+    if (parts.length === 1) {
+      name = parts[0];
+    } else if (parts.length === 2 && parts[0].startsWith('@')) {
+      name = parts[1];
+    } else {
+      throw new Error(
+        'Malformed assembly name. Expecting either <name> or @<scope>/<name>',
+      );
+    }
+
+    return `${name}@${this.assembly.version}.jsii.tgz`;
   }
 }
 
