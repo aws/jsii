@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/node": "^10.17.35",
-    "eslint": "^7.9.0",
+    "eslint": "^7.10.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
