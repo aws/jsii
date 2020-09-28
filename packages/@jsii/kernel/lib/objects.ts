@@ -75,7 +75,7 @@ export function tagJsiiConstructor(constructor: any, fqn: string) {
  * type.
  */
 export class ObjectTable {
-  private objects: { [objid: string]: RegisteredObject } = {};
+  private readonly objects = new Map<string, RegisteredObject>();
   private nextid = 10000;
 
   public constructor(
@@ -103,7 +103,7 @@ export class ObjectTable {
         for (const iface of existingRef[api.TOKEN_INTERFACES] ?? []) {
           allIfaces.add(iface);
         }
-        this.objects[existingRef[api.TOKEN_REF]].interfaces = (obj as any)[
+        this.objects.get(existingRef[api.TOKEN_REF])!.interfaces = (obj as any)[
           IFACES_SYMBOL
         ] = existingRef[
           api.TOKEN_INTERFACES
@@ -115,7 +115,7 @@ export class ObjectTable {
     interfaces = this.removeRedundant(interfaces, fqn);
 
     const objid = this.makeId(fqn);
-    this.objects[objid] = { instance: obj, fqn, interfaces };
+    this.objects.set(objid, { instance: obj, fqn, interfaces });
     tagObject(obj, objid, interfaces);
 
     return { [api.TOKEN_REF]: objid, [api.TOKEN_INTERFACES]: interfaces };
@@ -130,7 +130,7 @@ export class ObjectTable {
     }
 
     const objid = objref[api.TOKEN_REF];
-    const obj = this.objects[objid];
+    const obj = this.objects.get(objid);
     if (!obj) {
       throw new Error(`Object ${objid} not found`);
     }
@@ -142,11 +142,11 @@ export class ObjectTable {
    */
   public deleteObject(objref: api.ObjRef) {
     this.findObject(objref); // make sure object exists
-    delete this.objects[objref[api.TOKEN_REF]];
+    this.objects.delete(objref[api.TOKEN_REF]);
   }
 
   public get count(): number {
-    return Object.keys(this.objects).length;
+    return this.objects.size;
   }
 
   private makeId(fqn: string) {

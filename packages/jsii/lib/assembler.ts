@@ -158,12 +158,12 @@ export class Assembler implements Emitter {
     ) {
       LOG.debug('Skipping emit due to errors.');
       // Clearing ``this._types`` to allow contents to be garbage-collected.
-      delete this._types;
+      this._types = {};
       try {
         return { diagnostics: this._diagnostics, emitSkipped: true };
       } finally {
         // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
-        delete this._diagnostics;
+        this._diagnostics = [];
       }
     }
 
@@ -221,10 +221,10 @@ export class Assembler implements Emitter {
       };
     } finally {
       // Clearing ``this._types`` to allow contents to be garbage-collected.
-      delete this._types;
+      this._types = {};
 
       // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
-      delete this._diagnostics;
+      this._diagnostics = [];
     }
 
     async function _loadReadme(this: Assembler) {
@@ -1789,7 +1789,7 @@ export class Assembler implements Emitter {
 
         // If the name starts with an "I" it is not intended as a datatype, so switch that off.
         if (jsiiType.datatype && interfaceName) {
-          delete jsiiType.datatype;
+          jsiiType.datatype = undefined;
         }
 
         // Okay, this is a data type, check that all properties are readonly
@@ -2475,7 +2475,7 @@ export class Assembler implements Emitter {
             offender,
           ),
         );
-        delete current.optional;
+        current.optional = undefined;
       }
     }
   }
@@ -2571,7 +2571,8 @@ interface SubmoduleSpec {
 }
 
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
-  delete assembly.fingerprint;
+  // Remove the fingerprint entry prior to computing it...
+  (assembly as any).fingerprint = undefined;
   assembly = sortJson(assembly);
   const fingerprint = crypto
     .createHash('sha256')

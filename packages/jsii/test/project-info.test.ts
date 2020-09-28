@@ -36,7 +36,7 @@ describe('loadProjectInfo', () => {
       expect(info.version).toBe(BASE_PROJECT.version);
       expect(info.description).toBe(BASE_PROJECT.description);
       expect(info.license).toBe(BASE_PROJECT.license);
-      expect(_stripUndefined(info.author)).toEqual({
+      expect(info.author).toEqual({
         ...BASE_PROJECT.author,
         roles: ['author'],
       });
@@ -107,7 +107,7 @@ describe('loadProjectInfo', () => {
         const info = await loadProjectInfo(projectRoot, {
           fixPeerDependencies: false,
         });
-        expect(info?.contributors?.map(_stripUndefined)).toEqual(
+        expect(info?.contributors).toEqual(
           contributors.map((c) => ({ ...c, roles: ['contributor'] })),
         );
       },
@@ -160,7 +160,7 @@ describe('loadProjectInfo', () => {
           `The "package.json" file has "${TEST_DEP_ASSEMBLY.name}" in "dependencies", but not in "peerDependencies"`,
         ),
       (info) => {
-        delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
+        info.peerDependencies[TEST_DEP_ASSEMBLY.name] = undefined;
       },
     ));
 
@@ -173,7 +173,7 @@ describe('loadProjectInfo', () => {
         expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe('^1.2.3');
       },
       (info) => {
-        delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
+        info.peerDependencies[TEST_DEP_ASSEMBLY.name] = undefined;
       },
     ));
 
@@ -297,25 +297,4 @@ async function _withTestProject<T>(
   } finally {
     await fs.remove(tmpdir);
   }
-}
-
-/**
- * Removes keys from an object if the associated value is ``undefined``.
- *
- * @param obj the object to be stripped.
- *
- * @return ``obj`` after it has been stripped.
- */
-function _stripUndefined(
-  obj: { [key: string]: any } | undefined,
-): { [key: string]: any } | undefined {
-  if (!obj) {
-    return obj;
-  }
-  for (const key of Object.keys(obj)) {
-    if (obj[key] === undefined) {
-      delete obj[key];
-    }
-  }
-  return obj;
 }

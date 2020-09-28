@@ -140,6 +140,7 @@
   "docs": {
     "stability": "stable"
   },
+  "fingerprint": "ary2D/3pPPIqMW0FmZnYMsKzvk8r29qmK5+1KyEcTQA=",
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "keywords": [
@@ -14111,6 +14112,5 @@
       ]
     }
   },
-  "version": "0.0.0",
-  "fingerprint": "ary2D/3pPPIqMW0FmZnYMsKzvk8r29qmK5+1KyEcTQA="
+  "version": "0.0.0"
 }

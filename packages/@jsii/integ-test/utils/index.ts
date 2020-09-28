@@ -17,12 +17,13 @@ export function minutes(num: number): number {
  * Used to track and clean up processes if tests fail or timeout
  */
 export class ProcessManager {
-  private readonly processes: {
-    [pid: string]: {
+  private readonly processes = new Map<
+    cp.ChildProcess['pid'],
+    {
       proc: cp.ChildProcess;
       promise: Promise<void>;
-    };
-  } = {};
+    }
+  >();
 
   /**
    * kill all still running processes
@@ -41,11 +42,11 @@ export class ProcessManager {
   }
 
   private add(proc: cp.ChildProcess, promise: Promise<void>) {
-    this.processes[proc.pid] = { proc, promise };
+    this.processes.set(proc.pid, { proc, promise });
   }
 
   private remove(proc: cp.ChildProcess) {
-    delete this.processes[proc.pid];
+    this.processes.delete(proc.pid);
   }
 
   /**

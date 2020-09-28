@@ -12,8 +12,8 @@ import { JSII_DIAGNOSTICS_CODE } from './utils';
 export class Code<
   T extends DiagnosticMessageFormatter = DiagnosticMessageFormatter
 > {
-  private static readonly byCode: { [code: number]: Code } = {};
-  private static readonly byName: { [name: string]: Code } = {};
+  private static readonly byCode = new Map<number, Code>();
+  private static readonly byName = new Map<string, Code>();
 
   /**
    * @internal
@@ -87,9 +87,9 @@ export class Code<
    */
   public static lookup(codeOrName: string | number): Code | undefined {
     if (typeof codeOrName === 'number') {
-      return this.byCode[codeOrName];
+      return this.byCode.get(codeOrName);
     }
-    return this.byName[codeOrName];
+    return this.byName.get(codeOrName);
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
@@ -118,17 +118,18 @@ export class Code<
     this.#defaultCategory = defaultCategory;
     this.#formatter = formatter;
 
-    if (code in Code.byCode) {
+    if (Code.byCode.has(code)) {
       throw new Error(
         `Attempted to create two instances of ${this.constructor.name} with code ${code}`,
       );
     }
-    if (name in Code.byName) {
+    if (Code.byName.has(name)) {
       throw new Error(
         `Attempted to create two instances of ${this.constructor.name} with name ${name}`,
       );
     }
-    Code.byCode[code] = Code.byName[name] = this;
+    Code.byCode.set(code, this);
+    Code.byName.set(name, this);
   }
 
   /**

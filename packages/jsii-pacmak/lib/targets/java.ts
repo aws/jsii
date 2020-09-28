@@ -622,7 +622,7 @@ class JavaGenerator extends Generator {
 
   protected onEndAssembly(assm: spec.Assembly, fingerprint: boolean) {
     this.emitMavenPom(assm, fingerprint);
-    delete this.emitFullGeneratorInfo;
+    this.emitFullGeneratorInfo = undefined;
   }
 
   protected getAssemblyOutputDir(mod: spec.Assembly) {

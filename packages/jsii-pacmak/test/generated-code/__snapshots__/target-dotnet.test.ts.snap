@@ -66,6 +66,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     }
   },
   "description": "An example direct dependency for jsii-calc.",
+  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc=",
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
@@ -184,8 +185,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
       "name": "IBaseInterface"
     }
   },
-  "version": "0.0.0",
-  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc="
+  "version": "0.0.0"
 }
 
 `;
@@ -476,6 +476,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     "url": "https://aws.amazon.com"
   },
   "description": "An example transitive dependency for jsii-calc.",
+  "fingerprint": "XzppfL+BknRpBHYygvGjf8OOXrTyNAx6cllN3vONLoU=",
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
@@ -618,8 +619,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
       ]
     }
   },
-  "version": "0.0.0",
-  "fingerprint": "XzppfL+BknRpBHYygvGjf8OOXrTyNAx6cllN3vONLoU="
+  "version": "0.0.0"
 }
 
 `;
@@ -988,6 +988,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     "deprecated": "Really just deprecated for shows...",
     "stability": "deprecated"
   },
+  "fingerprint": "/PrQbD8BlAtg3N9iuntBks7Q/oIyS45A/S7RvNATePA=",
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
@@ -1685,8 +1686,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
       "namespace": "submodule"
     }
   },
-  "version": "0.0.0",
-  "fingerprint": "/PrQbD8BlAtg3N9iuntBks7Q/oIyS45A/S7RvNATePA="
+  "version": "0.0.0"
 }
 
 `;
@@ -3480,6 +3480,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
   "docs": {
     "stability": "stable"
   },
+  "fingerprint": "ary2D/3pPPIqMW0FmZnYMsKzvk8r29qmK5+1KyEcTQA=",
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "keywords": [
@@ -17451,8 +17452,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
       ]
     }
   },
-  "version": "0.0.0",
-  "fingerprint": "ary2D/3pPPIqMW0FmZnYMsKzvk8r29qmK5+1KyEcTQA="
+  "version": "0.0.0"
 }
 
 `;

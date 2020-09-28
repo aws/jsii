@@ -19,7 +19,7 @@ export class Kernel {
   private assemblies: { [name: string]: Assembly } = {};
   private readonly objects = new ObjectTable(this._typeInfoForFqn.bind(this));
   private cbs: { [cbid: string]: Callback } = {};
-  private waiting: { [cbid: string]: Callback } = {};
+  private readonly waiting = new Map<string, Callback>();
   private promises: { [prid: string]: AsyncInvocation } = {};
   private nextid = 20000; // incrementing counter for objid, cbid, promiseid
   private syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
@@ -377,7 +377,7 @@ export class Kernel {
     this._debug('callbacks');
     const ret = Object.keys(this.cbs).map((cbid) => {
       const cb = this.cbs[cbid];
-      this.waiting[cbid] = cb; // move to waiting
+      this.waiting.set(cbid, cb); // move to waiting
       const callback: api.Callback = {
         cbid,
         cookie: cb.override.cookie,
@@ -399,12 +399,12 @@ export class Kernel {
     const { cbid, err, result } = req;
 
     this._debug('complete', cbid, err, result);
+    const cb = this.waiting.get(cbid);
 
-    if (!(cbid in this.waiting)) {
+    if (cb == null) {
       throw new Error(`Callback ${cbid} not found`);
     }
 
-    const cb = this.waiting[cbid];
     if (err) {
       this._debug('completed with error:', err);
       cb.fail(new Error(err));
@@ -417,7 +417,7 @@ export class Kernel {
       cb.succeed(sandoxResult);
     }
 
-    delete this.waiting[cbid];
+    this.waiting.delete(cbid);
 
     return { cbid };
   }
@@ -1141,7 +1141,7 @@ export class Kernel {
     try {
       return fn();
     } finally {
-      delete this.syncInProgress;
+      this.syncInProgress = undefined;
     }
   }
 

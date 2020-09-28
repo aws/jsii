@@ -89,15 +89,15 @@ describe('jsii-config', () => {
             maven: {
               groupId: 'software.amazon.module',
               artifactId: 'core',
-              versionSuffix: '',
+              versionSuffix: '' as string | undefined,
             },
           },
           dotnet: {
             namespace: 'Amazon.Module',
             packageId: 'Amazon.Module',
             iconUrl: undefined,
-            versionSuffix: '',
-            signAssembly: false,
+            versionSuffix: '' as string | undefined,
+            signAssembly: false as boolean | undefined,
           },
         },
       },
@@ -258,10 +258,10 @@ describe('jsii-config', () => {
     it('returns new config with empty values removed', async () => {
       const subject = await jsiiConfig('./package.json');
       const expected = { ...configAnswers };
-      delete expected.jsii.targets.dotnet.iconUrl;
-      delete expected.jsii.targets.dotnet.signAssembly;
-      delete expected.jsii.targets.dotnet.versionSuffix;
-      delete expected.jsii.targets.java.maven.versionSuffix;
+      expected.jsii.targets.dotnet.iconUrl = undefined;
+      expected.jsii.targets.dotnet.signAssembly = undefined;
+      expected.jsii.targets.dotnet.versionSuffix = undefined;
+      expected.jsii.targets.java.maven.versionSuffix = undefined;
 
       expect(subject).toEqual({
         ...packageJsonObject,

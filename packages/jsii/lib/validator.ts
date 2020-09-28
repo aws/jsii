@@ -34,7 +34,7 @@ export class Validator implements Emitter {
       });
     } finally {
       // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
-      delete this._diagnostics;
+      this._diagnostics = [];
     }
   }
 }

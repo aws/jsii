@@ -38,6 +38,7 @@
     }
   },
   "description": "An example direct dependency for jsii-calc.",
+  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc=",
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
@@ -156,6 +157,5 @@
       "name": "IBaseInterface"
     }
   },
-  "version": "0.0.0",
-  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc="
+  "version": "0.0.0"
 }

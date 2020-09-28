@@ -8,6 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "description": "An example transitive dependency for jsii-calc.",
+  "fingerprint": "XzppfL+BknRpBHYygvGjf8OOXrTyNAx6cllN3vONLoU=",
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
@@ -150,6 +151,5 @@
       ]
     }
   },
-  "version": "0.0.0",
-  "fingerprint": "XzppfL+BknRpBHYygvGjf8OOXrTyNAx6cllN3vONLoU="
+  "version": "0.0.0"
 }

@@ -68,6 +68,7 @@
     "deprecated": "Really just deprecated for shows...",
     "stability": "deprecated"
   },
+  "fingerprint": "/PrQbD8BlAtg3N9iuntBks7Q/oIyS45A/S7RvNATePA=",
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
@@ -765,6 +766,5 @@
       "namespace": "submodule"
     }
   },
-  "version": "0.0.0",
-  "fingerprint": "/PrQbD8BlAtg3N9iuntBks7Q/oIyS45A/S7RvNATePA="
+  "version": "0.0.0"
 }
