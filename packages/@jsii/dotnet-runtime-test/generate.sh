@@ -4,7 +4,7 @@ test="./test"
 genRoot="${test}/generated"
 
 # Clean up before we start working
-rm -rf genRoot
+rm -rf ${genRoot}
 
 # Generate .NET projects for jsii-calc and its dependencies.
 jsii-pacmak -t dotnet --code-only --recurse -o ${genRoot} ../../jsii-calc
