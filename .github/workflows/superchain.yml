@@ -16,6 +16,18 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
+
+      # We only authenticate to Docker for 'push' events, as 'pull_request' from forks will not have the secret
+      - name: Login to Docker
+        if: github.event_name == 'push'
+        # The DOCKER_CREDENTIALS secret is expected to contain a username:token pair
+        run: |-
+          docker login                                                          \
+            --username=$(cut -d: -f1 <<< '${{ secrets.DOCKER_CREDENTIALS }})'   \
+            --password=$(cut -d: -f2 <<< '${{ secrets.DOCKER_CREDENTIALS }})'
+        # Ensure we run with bash, because that's the syntax we're using here...
+        shell: bash
+
       - name: Build Image
         run: |-
           docker build                                                          \
@@ -43,3 +55,15 @@ jobs:
         with:
           name: 'jsii-superchain.nightly'
           path: ${{ runner.temp }}/jsii-superchain.nightly.tar
+
+      # Only when puhsing to master/main/release from now on
+      - name: Publish (nightly)
+        if: github.event_name == 'push' && github.ref != 'ref/heads/release'
+        run: |-
+          docker push jsii/superchain:nightly
+      - name: Publish (latest)
+        if: github.event_name == 'push' && github.ref == 'ref/heads/release'
+        run: |-
+          docker tag jsii/superchain:nightly jsii/superchain:latest
+          docker push jsii/superchain:latest
+
