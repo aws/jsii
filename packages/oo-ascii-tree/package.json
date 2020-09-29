@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "@types/node": "^10.17.35",
-    "eslint": "^7.9.0",
+    "eslint": "^7.10.0",
     "jest": "^26.4.2",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.1.2",
