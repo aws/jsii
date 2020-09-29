@@ -1,7 +1,7 @@
 import { OneByOneBuilder, TargetBuilder, BuildOptions } from '../builder';
 
 import { DotnetBuilder } from './dotnet';
-import { Golang } from './golang';
+import { Golang } from './go';
 import { JavaBuilder } from './java';
 import JavaScript from './js';
 import Python from './python';

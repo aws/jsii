@@ -9,6 +9,8 @@
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
         <VSTestLogger>xunit</VSTestLogger>
+
+        <RollForward>Major</RollForward>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,6 +29,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\dotnet-runtime\src\Amazon.JSII.Runtime\Amazon.JSII.Runtime.csproj" />
+      <ProjectReference Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId\Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId.csproj" />
+      <ProjectReference Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.BasePackageId\Amazon.JSII.Tests.CalculatorPackageId.BasePackageId.csproj" />
+      <ProjectReference Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.LibPackageId\Amazon.JSII.Tests.CalculatorPackageId.LibPackageId.csproj" />
+      <ProjectReference Include="..\generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId\Amazon.JSII.Tests.CalculatorPackageId.csproj" />
     </ItemGroup>
 
 </Project>

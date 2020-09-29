@@ -26,6 +26,32 @@ export async function sourceToAssemblyHelper(
   source: string | { 'index.ts': string; [name: string]: string },
   cb?: (obj: PackageInfo) => void,
 ): Promise<spec.Assembly> {
+  return (await compileJsiiForTest(source, cb)).assembly;
+}
+
+export interface HelperCompilationResult {
+  /**
+   * The generated assembly
+   */
+  readonly assembly: any;
+  /**
+   * Generated .js/.d.ts file(s)
+   */
+  readonly files: Record<string, string>;
+}
+
+/**
+ * Compile a piece of source and return the assembly and compiled sources for it
+ *
+ * Only usable for trivial cases and tests.
+ *
+ * @param source can either be a single `string` (the content of `index.ts`), or
+ *               a map of fileName to content, which *must* include `index.ts`.
+ */
+export async function compileJsiiForTest(
+  source: string | { 'index.ts': string; [name: string]: string },
+  cb?: (obj: PackageInfo) => void,
+): Promise<HelperCompilationResult> {
   if (typeof source === 'string') {
     source = { 'index.ts': source };
   }
@@ -53,7 +79,20 @@ export async function sourceToAssemblyHelper(
     if (errors.length > 0) {
       throw new Error('There were compiler errors');
     }
-    return fs.readJSON('.jsii', { encoding: 'utf-8' });
+    const assembly = await fs.readJSON('.jsii', { encoding: 'utf-8' });
+    const files: Record<string, string> = {};
+
+    for (const filename of Object.keys(source)) {
+      const jsFile = filename.replace(/\.ts$/, '.js');
+      const dtsFile = filename.replace(/\.ts$/, '.d.ts');
+
+      // eslint-disable-next-line no-await-in-loop
+      files[jsFile] = await fs.readFile(jsFile, { encoding: 'utf-8' });
+      // eslint-disable-next-line no-await-in-loop
+      files[dtsFile] = await fs.readFile(dtsFile, { encoding: 'utf-8' });
+    }
+
+    return { assembly, files };
   });
 }
 

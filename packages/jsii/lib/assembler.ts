@@ -8,7 +8,11 @@ import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
-import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
+import {
+  getReferencedDocParams,
+  parseSymbolDocumentation,
+  renderSymbolDocumentation,
+} from './docs';
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import * as literate from './literate';
@@ -17,6 +21,8 @@ import { isReservedName } from './reserved-words';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
+import { TsCommentReplacer } from './ts-comment-replacer';
+import { Docs, Parameter } from '@jsii/spec';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
@@ -27,6 +33,8 @@ const LOG = log4js.getLogger('jsii/assembler');
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
  */
 export class Assembler implements Emitter {
+  public readonly commentReplacer = new TsCommentReplacer();
+
   private readonly mainFile: string;
 
   private _diagnostics = new Array<JsiiDiagnostic>();
@@ -816,6 +824,7 @@ export class Assembler implements Emitter {
     if (ts.isClassDeclaration(node) && _isExported(node)) {
       // export class Name { ... }
       this._validateHeritageClauses(node.heritageClauses);
+
       jsiiType = await this._visitClass(
         this._typeChecker.getTypeAtLocation(node),
         context,
@@ -1340,6 +1349,11 @@ export class Assembler implements Emitter {
           constructor,
           memberEmitContext,
         );
+        this.overrideDocComment(
+          constructor,
+          jsiiType.initializer.docs,
+          paramDocs(jsiiType.initializer.parameters),
+        );
       }
 
       // Process constructor-based property declarations even if constructor is private
@@ -1387,6 +1401,8 @@ export class Assembler implements Emitter {
     }
 
     this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);
+
+    this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
 
     return _sortMembers(jsiiType);
   }
@@ -1581,14 +1597,17 @@ export class Assembler implements Emitter {
         symbol.name
       }`,
       kind: spec.TypeKind.Enum,
-      members: members.map((m) => ({
-        name: m.symbol.name,
-        docs: this._visitDocumentation(m.symbol, typeContext),
-      })),
+      members: members.map((m) => {
+        const docs = this._visitDocumentation(m.symbol, typeContext);
+        this.overrideDocComment(m.symbol, docs);
+        return { name: m.symbol.name, docs };
+      }),
       name: symbol.name,
       namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
       docs,
     };
+
+    this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
 
     return Promise.resolve(jsiiType);
   }
@@ -1850,6 +1869,8 @@ export class Assembler implements Emitter {
       checkNoIntersection,
     );
 
+    this.overrideDocComment(type.getSymbol(), jsiiType?.docs);
+
     return _sortMembers(jsiiType);
   }
 
@@ -1986,6 +2007,7 @@ export class Assembler implements Emitter {
       return;
     }
     type.methods.push(method);
+    this.overrideDocComment(symbol, method.docs, paramDocs(method.parameters));
   }
 
   private _warnAboutReservedWords(symbol: ts.Symbol) {
@@ -2115,6 +2137,7 @@ export class Assembler implements Emitter {
       return;
     }
     type.properties.push(property);
+    this.overrideDocComment(symbol, property.docs);
   }
 
   private async _toParameter(
@@ -2150,6 +2173,9 @@ export class Assembler implements Emitter {
       paramSymbol,
       ctx.removeStability(),
     ); // No inheritance on purpose
+
+    // Don't rewrite doc comment here on purpose -- instead, we add them as '@param'
+    // into the parent's doc comment.
 
     return parameter;
   }
@@ -2452,6 +2478,71 @@ export class Assembler implements Emitter {
         delete current.optional;
       }
     }
+  }
+
+  /**
+   * From the given JSIIDocs, re-render the TSDoc comment for the Node
+   *
+   * We may change the documentation a little, so that the doc comment that gets
+   * written is not necessarily exactly the same as the docs that go into the
+   * JSII manifest.
+   *
+   * This makes it possible for the code doc comments to highlight things
+   * slighly differently from the API Reference, and makes sure we don't
+   * duplicate information.
+   *
+   * Unless the docs got changed, this yields the same output back as the one that
+   * we originally saw (modulo whitespace changes).
+   */
+  private overrideDocComment(
+    symbol?: ts.Symbol,
+    docs?: Docs,
+    parameters?: Record<string, Docs>,
+  ) {
+    if (!docs || !symbol) {
+      return;
+    }
+
+    docs = this.docCommentDocs(docs);
+
+    // Some symbols have multiple declarations (for example, a class + interface
+    // mixins, or a property declartaion + constructor argument).
+    //
+    // We DON'T wwant to put the doc comment on the constructor argument, because it
+    // looks silly there.
+    for (const decl of symbol.getDeclarations() ?? []) {
+      if (ts.isParameter(decl)) {
+        continue;
+      }
+
+      this.commentReplacer.overrideNodeDocComment(
+        decl,
+        renderSymbolDocumentation(docs, parameters),
+      );
+    }
+  }
+
+  /**
+   * Return a potentially new set of Docs, for rendering back to a TypeScript doc comment
+   *
+   * We put the "(experimental)"/"(deprecated)" status into the doc
+   * comment summary, so that it's presented front and center.
+   */
+  private docCommentDocs(docs: Readonly<Docs>): Docs {
+    // Modify the summary if this API element has a special stability
+    if (docs.stability === spec.Stability.Experimental && docs.summary) {
+      return {
+        ...docs,
+        summary: `(experimental) ${docs.summary}`,
+      };
+    }
+    if (docs.stability === spec.Stability.Deprecated && docs.summary) {
+      return {
+        ...docs,
+        summary: `(deprecated) ${docs.summary}`,
+      };
+    }
+    return docs;
   }
 }
 
@@ -2933,6 +3024,16 @@ async function findPackageInfo(fromDir: string): Promise<any> {
     return undefined;
   }
   return findPackageInfo(parent);
+}
+
+function paramDocs(params?: Parameter[]): Record<string, Docs> {
+  const ret: Record<string, Docs> = {};
+  for (const param of params ?? []) {
+    if (param.docs) {
+      ret[param.name] = param.docs;
+    }
+  }
+  return ret;
 }
 
 /**

@@ -15,6 +15,7 @@ SDK             | Version
 `Javascript`    | `node >= 10.19.0` with `npm >= 6.13.4`
 `PowerShell`    | `pwsh >= 6.2.3`
 `Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
+`Go`            | `go >= 1.15.2`
 `Ruby`          | `ruby >= 2.6.3p62`
 
 ## Included Tools & Utilities

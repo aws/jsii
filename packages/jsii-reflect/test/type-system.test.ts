@@ -171,6 +171,7 @@ describe('@deprecated', () => {
   test('can be read on an item', () => {
     const klass = typesys.findClass('jsii-calc.Old');
     expect(klass.docs.deprecated).toBeTruthy();
+    expect(klass.docs.stability).toBe(spec.Stability.Deprecated);
   });
 
   test('is inherited from class', () => {

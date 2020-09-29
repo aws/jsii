@@ -2820,3 +2820,23 @@ export class DynamicPropertyBearerChild extends DynamicPropertyBearer {
     return oldValue;
   }
 }
+
+/**
+ * Validates that nested classes get correct code generation for the occasional
+ * forward reference.
+ */
+export class LevelOne {
+  public constructor(public readonly props: LevelOneProps) {}
+}
+export interface LevelOneProps {
+  readonly prop: LevelOne.PropProperty;
+}
+export namespace LevelOne {
+  export interface PropProperty {
+    readonly prop: PropBooleanValue;
+  }
+
+  export interface PropBooleanValue {
+    readonly value: boolean;
+  }
+}

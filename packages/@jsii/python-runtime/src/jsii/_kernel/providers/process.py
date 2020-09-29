@@ -17,11 +17,11 @@ import dateutil.parser
 
 import jsii._embedded.jsii
 
-from jsii.__meta__ import __jsii_runtime_version__
-from jsii._compat import importlib_resources
-from jsii._utils import memoized_property
-from jsii._kernel.providers.base import BaseProvider
-from jsii._kernel.types import (
+from ...__meta__ import __jsii_runtime_version__
+from ..._compat import importlib_resources
+from ..._utils import memoized_property
+from .base import BaseProvider
+from ..types import (
     ObjRef,
     EnumRef,
     Override,
@@ -56,7 +56,7 @@ from jsii._kernel.types import (
     CompleteRequest,
     CompleteResponse,
 )
-from jsii.errors import JSIIError, JavaScriptError
+from ...errors import JSIIError, JavaScriptError
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)

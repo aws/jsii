@@ -18,6 +18,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   inlineSources: true,
   lib: ['lib.es2018.d.ts'],
   module: ts.ModuleKind.CommonJS,
+  newLine: ts.NewLineKind.LineFeed,
   noEmitOnError: true,
   noFallthroughCasesInSwitch: true,
   noImplicitAny: true,
@@ -215,43 +216,63 @@ export class Compiler implements Emitter {
     program: ts.Program,
     stdlib: string,
   ): Promise<ts.EmitResult> {
-    const emit = program.emit();
-    let hasErrors = emitHasErrors(emit, this.options.failOnWarnings);
-    const diagnostics = [...emit.diagnostics];
+    const diagnostics = [...ts.getPreEmitDiagnostics(program)];
+    let hasErrors = false;
 
-    if (hasErrors) {
+    if (!hasErrors && this.diagsHaveAbortableErrors(diagnostics)) {
+      hasErrors = true;
       LOG.error(
         'Compilation errors prevented the JSII assembly from being created',
       );
     }
 
-    // we continue to do jsii checker even if there are compilation errors so that
-    // jsii warnings will appear. However, the Assembler might throw an exception
-    // because broken/missing type information might lead it to fail completely.
+    // Do the "Assembler" part first because we need some of the analysis done in there
+    // to post-process the AST
+    const assembler = new Assembler(this.options.projectInfo, program, stdlib);
+
     try {
-      const assembler = new Assembler(
-        this.options.projectInfo,
-        program,
-        stdlib,
-      );
       const assmEmit = await assembler.emit();
-      if (assmEmit.emitSkipped) {
+      if (
+        !hasErrors &&
+        (assmEmit.emitSkipped ||
+          this.diagsHaveAbortableErrors(assmEmit.diagnostics))
+      ) {
+        hasErrors = true;
         LOG.error(
           'Type model errors prevented the JSII assembly from being created',
         );
       }
 
-      hasErrors =
-        hasErrors || emitHasErrors(assmEmit, this.options.failOnWarnings);
       diagnostics.push(...assmEmit.diagnostics);
     } catch (e) {
       LOG.error(`Error during type model analysis: ${e}\n${e.stack}`);
       hasErrors = true;
     }
 
+    // Do the emit, but add in transformers which are going to replace real
+    // comments with synthetic ones.
+    const emit = program.emit(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      assembler.commentReplacer.makeTransformers(),
+    );
+    diagnostics.push(...emit.diagnostics);
+
+    if (
+      !hasErrors &&
+      (emit.emitSkipped || this.diagsHaveAbortableErrors(emit.diagnostics))
+    ) {
+      hasErrors = true;
+      LOG.error(
+        'Compilation errors prevented the JSII assembly from being created',
+      );
+    }
+
     return {
       emitSkipped: hasErrors,
-      diagnostics,
+      diagnostics: ts.sortAndDeduplicateDiagnostics(diagnostics),
       emittedFiles: emit.emittedFiles,
     };
   }
@@ -334,6 +355,9 @@ export class Compiler implements Emitter {
         // Re-write the module, targets & jsx to be the JSON format instead of Programmatic API
         module: (this.typescriptConfig?.compilerOptions?.module &&
           ts.ModuleKind[this.typescriptConfig.compilerOptions.module]) as any,
+        newLine: newLineForTsconfigJson(
+          this.typescriptConfig?.compilerOptions.newLine,
+        ),
         target: (this.typescriptConfig?.compilerOptions?.target &&
           ts.ScriptTarget[this.typescriptConfig.compilerOptions.target]) as any,
         jsx: (this.typescriptConfig?.compilerOptions?.jsx &&
@@ -348,6 +372,26 @@ export class Compiler implements Emitter {
       encoding: 'utf8',
       spaces: 2,
     });
+
+    /**
+     * This is annoying - the values expected in the tsconfig.json file are not
+     * the same as the enum constant names, or their values. So we need this
+     * function to map the "compiler API version" to the "tsconfig.json version"
+     *
+     * @param newLine the compiler form of the new line configuration
+     *
+     * @return the requivalent value to put in tsconfig.json
+     */
+    function newLineForTsconfigJson(newLine: ts.NewLineKind | undefined) {
+      switch (newLine) {
+        case ts.NewLineKind.CarriageReturnLineFeed:
+          return 'crlf';
+        case ts.NewLineKind.LineFeed:
+          return 'lf';
+        default:
+          return undefined;
+      }
+    }
   }
 
   /**
@@ -479,6 +523,15 @@ export class Compiler implements Emitter {
 
     return dependencyRealPath;
   }
+
+  private diagsHaveAbortableErrors(diags: readonly ts.Diagnostic[]) {
+    return diags.some(
+      (d) =>
+        d.category === ts.DiagnosticCategory.Error ||
+        (this.options.failOnWarnings &&
+          d.category === ts.DiagnosticCategory.Warning),
+    );
+  }
 }
 
 /**
@@ -562,14 +615,4 @@ function parseConfigHostFromCompilerHost(
     useCaseSensitiveFileNames: host.useCaseSensitiveFileNames(),
     trace: host.trace ? (s) => host.trace!(s) : undefined,
   };
-}
-
-function emitHasErrors(result: ts.EmitResult, includeWarnings?: boolean) {
-  return (
-    result.diagnostics.some(
-      (d) =>
-        d.category === ts.DiagnosticCategory.Error ||
-        (includeWarnings && d.category === ts.DiagnosticCategory.Warning),
-    ) || result.emitSkipped
-  );
 }
