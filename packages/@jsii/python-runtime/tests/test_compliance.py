@@ -1284,7 +1284,7 @@ def test_iso8601_does_not_deserialize_to_date():
         def repeat(self, word: str) -> str:
             return word
 
-    now = datetime.utcnow().isoformat() + 'Z'
+    now = datetime.utcnow().isoformat() + "Z"
     wall_clock = WallClock(now)
     entropy = MildEntropy(wall_clock)
 
