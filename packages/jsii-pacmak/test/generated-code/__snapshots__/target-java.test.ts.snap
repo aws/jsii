@@ -2455,6 +2455,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 DoubleTrouble.java
           ┃                 ┣━ 📄 DynamicPropertyBearer.java
           ┃                 ┣━ 📄 DynamicPropertyBearerChild.java
+          ┃                 ┣━ 📄 Entropy.java
           ┃                 ┣━ 📄 EnumDispenser.java
           ┃                 ┣━ 📄 EraseUndefinedHashValues.java
           ┃                 ┣━ 📄 EraseUndefinedHashValuesOptions.java
@@ -2520,6 +2521,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 Isomorphism.java
           ┃                 ┣━ 📄 IStableInterface.java
           ┃                 ┣━ 📄 IStructReturningDelegate.java
+          ┃                 ┣━ 📄 IWallClock.java
           ┃                 ┣━ 📄 JavaReservedWords.java
           ┃                 ┣━ 📄 JSII417Derived.java
           ┃                 ┣━ 📄 JSII417PublicBaseOfBase.java
@@ -7504,6 +7506,79 @@ public class DynamicPropertyBearerChild extends software.amazon.jsii.tests.calcu
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/Entropy.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either).
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Entropy")
+public abstract class Entropy extends software.amazon.jsii.JsiiObject {
+
+    protected Entropy(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Entropy(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     * Creates a new instance of Entropy.
+     * <p>
+     * @param clock your implementation of \`WallClock\`. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    protected Entropy(final @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.IWallClock clock) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(clock, "clock is required") });
+    }
+
+    /**
+     * Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
+     * <p>
+     * @return the time from the \`WallClock\`.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull java.lang.String increase() {
+        return this.jsiiCall("increase", java.lang.String.class);
+    }
+
+    /**
+     * Implement this method such that it returns \`word\`.
+     * <p>
+     * @return \`word\`.
+     * @param word the value to return. This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public abstract @org.jetbrains.annotations.NotNull java.lang.String repeat(final @org.jetbrains.annotations.NotNull java.lang.String word);
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.Entropy {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         * Implement this method such that it returns \`word\`.
+         * <p>
+         * @return \`word\`.
+         * @param word the value to return. This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public @org.jetbrains.annotations.NotNull java.lang.String repeat(final @org.jetbrains.annotations.NotNull java.lang.String word) {
+            return this.jsiiCall("repeat", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(word, "word is required") });
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/EnumDispenser.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -10358,6 +10433,45 @@ public interface IStructReturningDelegate extends software.amazon.jsii.JsiiSeria
         @Override
         public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.StructB returnStruct() {
             return this.jsiiCall("returnStruct", software.amazon.jsii.tests.calculator.StructB.class);
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/IWallClock.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ * Implement this interface.
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IWallClock")
+@software.amazon.jsii.Jsii.Proxy(IWallClock.Jsii$Proxy.class)
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+public interface IWallClock extends software.amazon.jsii.JsiiSerializable {
+
+    /**
+     * Returns the current time, formatted as an ISO-8601 string.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    @org.jetbrains.annotations.NotNull java.lang.String iso8601Now();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IWallClock {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(objRef);
+        }
+
+        /**
+         * Returns the current time, formatted as an ISO-8601 string.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        @Override
+        public @org.jetbrains.annotations.NotNull java.lang.String iso8601Now() {
+            return this.jsiiCall("iso8601Now", java.lang.String.class);
         }
     }
 }
@@ -19875,6 +19989,7 @@ jsii-calc.DontComplainAboutVariadicAfterOptional=software.amazon.jsii.tests.calc
 jsii-calc.DoubleTrouble=software.amazon.jsii.tests.calculator.DoubleTrouble
 jsii-calc.DynamicPropertyBearer=software.amazon.jsii.tests.calculator.DynamicPropertyBearer
 jsii-calc.DynamicPropertyBearerChild=software.amazon.jsii.tests.calculator.DynamicPropertyBearerChild
+jsii-calc.Entropy=software.amazon.jsii.tests.calculator.Entropy
 jsii-calc.EnumDispenser=software.amazon.jsii.tests.calculator.EnumDispenser
 jsii-calc.EraseUndefinedHashValues=software.amazon.jsii.tests.calculator.EraseUndefinedHashValues
 jsii-calc.EraseUndefinedHashValuesOptions=software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions
@@ -19925,6 +20040,7 @@ jsii-calc.IReturnJsii976=software.amazon.jsii.tests.calculator.IReturnJsii976
 jsii-calc.IReturnsNumber=software.amazon.jsii.tests.calculator.IReturnsNumber
 jsii-calc.IStableInterface=software.amazon.jsii.tests.calculator.IStableInterface
 jsii-calc.IStructReturningDelegate=software.amazon.jsii.tests.calculator.IStructReturningDelegate
+jsii-calc.IWallClock=software.amazon.jsii.tests.calculator.IWallClock
 jsii-calc.ImplementInternalInterface=software.amazon.jsii.tests.calculator.ImplementInternalInterface
 jsii-calc.Implementation=software.amazon.jsii.tests.calculator.Implementation
 jsii-calc.ImplementsInterfaceWithInternal=software.amazon.jsii.tests.calculator.ImplementsInterfaceWithInternal

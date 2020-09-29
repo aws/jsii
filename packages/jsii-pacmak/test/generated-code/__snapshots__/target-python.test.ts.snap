@@ -3352,6 +3352,52 @@ class DynamicPropertyBearerChild(
         return jsii.get(self, "originalValue")
 
 
+class Entropy(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.Entropy"):
+    """This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either)."""
+
+    @builtins.staticmethod
+    def __jsii_proxy_class__():
+        return _EntropyProxy
+
+    def __init__(self, clock: "IWallClock") -> None:
+        """Creates a new instance of Entropy.
+
+        :param clock: your implementation of \`\`WallClock\`\`.
+        """
+        jsii.create(Entropy, self, [clock])
+
+    @jsii.member(jsii_name="increase")
+    def increase(self) -> builtins.str:
+        """Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
+
+        :return: the time from the \`\`WallClock\`\`.
+        """
+        return jsii.invoke(self, "increase", [])
+
+    @jsii.member(jsii_name="repeat")
+    @abc.abstractmethod
+    def repeat(self, word: builtins.str) -> builtins.str:
+        """Implement this method such that it returns \`\`word\`\`.
+
+        :param word: the value to return.
+
+        :return: \`\`word\`\`.
+        """
+        ...
+
+
+class _EntropyProxy(Entropy):
+    @jsii.member(jsii_name="repeat")
+    def repeat(self, word: builtins.str) -> builtins.str:
+        """Implement this method such that it returns \`\`word\`\`.
+
+        :param word: the value to return.
+
+        :return: \`\`word\`\`.
+        """
+        return jsii.invoke(self, "repeat", [word])
+
+
 class EnumDispenser(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.EnumDispenser"):
     @jsii.member(jsii_name="randomIntegerLikeEnum")
     @builtins.classmethod
@@ -4888,6 +4934,31 @@ class _IStructReturningDelegateProxy:
     @jsii.member(jsii_name="returnStruct")
     def return_struct(self) -> "StructB":
         return jsii.invoke(self, "returnStruct", [])
+
+
+@jsii.interface(jsii_type="jsii-calc.IWallClock")
+class IWallClock(typing_extensions.Protocol):
+    """Implement this interface."""
+
+    @builtins.staticmethod
+    def __jsii_proxy_class__():
+        return _IWallClockProxy
+
+    @jsii.member(jsii_name="iso8601Now")
+    def iso8601_now(self) -> builtins.str:
+        """Returns the current time, formatted as an ISO-8601 string."""
+        ...
+
+
+class _IWallClockProxy:
+    """Implement this interface."""
+
+    __jsii_type__: typing.ClassVar[str] = "jsii-calc.IWallClock"
+
+    @jsii.member(jsii_name="iso8601Now")
+    def iso8601_now(self) -> builtins.str:
+        """Returns the current time, formatted as an ISO-8601 string."""
+        return jsii.invoke(self, "iso8601Now", [])
 
 
 class ImplementInternalInterface(
@@ -8489,6 +8560,7 @@ __all__ = [
     "DoubleTrouble",
     "DynamicPropertyBearer",
     "DynamicPropertyBearerChild",
+    "Entropy",
     "EnumDispenser",
     "EraseUndefinedHashValues",
     "EraseUndefinedHashValuesOptions",
@@ -8539,6 +8611,7 @@ __all__ = [
     "IReturnsNumber",
     "IStableInterface",
     "IStructReturningDelegate",
+    "IWallClock",
     "ImplementInternalInterface",
     "Implementation",
     "ImplementsInterfaceWithInternal",

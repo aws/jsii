@@ -27,12 +27,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.security.AccessController;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -1775,5 +1779,27 @@ public class ComplianceTest {
     public void classesCanSelfReferenceDuringClassInitialization() {
         final OuterClass outerClass = new OuterClass();
         assertNotNull(outerClass.getInnerClass());
+    }
+
+    @Test
+    public void iso8601DoesNotDeserializeToDate() {
+        final TimeZone tz = TimeZone.getTimeZone("UTC");
+        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+        df.setTimeZone(tz);
+        final String nowAsISO = df.format(new Date());
+
+        final IWallClock wallClock = new IWallClock() {
+            public String iso8601Now() {
+                return nowAsISO;
+            }
+        };
+
+        final Entropy entropy = new Entropy(wallClock) {
+            public String repeat(final String word) {
+                return word;
+            }
+        };
+
+        assertEquals(nowAsISO, entropy.increase());
     }
 }

@@ -836,6 +836,20 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ originalValue property (stable)
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ class Entropy (stable)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(clock) initializer (stable)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ clock
+ │   │   │     └── type: jsii-calc.IWallClock
+ │   │   ├─┬ increase() method (stable)
+ │   │   │ └── returns: string
+ │   │   └─┬ repeat(word) method (stable)
+ │   │     ├── abstract
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ word
+ │   │     │   └── type: string
+ │   │     └── returns: string
  │   ├─┬ class EnumDispenser (stable)
  │   │ └─┬ members
  │   │   ├─┬ static randomIntegerLikeEnum() method (stable)
@@ -2331,6 +2345,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ returnStruct() method (stable)
  │   │     ├── abstract
  │   │     └── returns: jsii-calc.StructB
+ │   ├─┬ interface IWallClock (stable)
+ │   │ └─┬ members
+ │   │   └─┬ iso8601Now() method (stable)
+ │   │     ├── abstract
+ │   │     └── returns: string
  │   ├─┬ interface ImplictBaseOfBase (stable)
  │   │ ├─┬ interfaces
  │   │ │ └── BaseProps
@@ -2851,6 +2870,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class DynamicPropertyBearer
  │   ├─┬ class DynamicPropertyBearerChild
  │   │ └── base: DynamicPropertyBearer
+ │   ├── class Entropy
  │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass
@@ -3019,6 +3039,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
  │   ├── interface IStructReturningDelegate
+ │   ├── interface IWallClock
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ interfaces
  │   │   └── BaseProps
@@ -3467,6 +3488,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>(originalValue) initializer
  │   │   ├── overrideValue(newValue) method
  │   │   └── originalValue property
+ │   ├─┬ class Entropy
+ │   │ └─┬ members
+ │   │   ├── <initializer>(clock) initializer
+ │   │   ├── increase() method
+ │   │   └── repeat(word) method
  │   ├─┬ class EnumDispenser
  │   │ └─┬ members
  │   │   ├── static randomIntegerLikeEnum() method
@@ -4126,6 +4152,9 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface IStructReturningDelegate
  │   │ └─┬ members
  │   │   └── returnStruct() method
+ │   ├─┬ interface IWallClock
+ │   │ └─┬ members
+ │   │   └── iso8601Now() method
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ members
  │   │   └── goo property
@@ -4440,6 +4469,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class DoubleTrouble
  │   ├── class DynamicPropertyBearer
  │   ├── class DynamicPropertyBearerChild
+ │   ├── class Entropy
  │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass
@@ -4568,6 +4598,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IReturnsNumber
  │   ├── interface IStableInterface
  │   ├── interface IStructReturningDelegate
+ │   ├── interface IWallClock
  │   ├── interface ImplictBaseOfBase
  │   ├── interface PropBooleanValue
  │   ├── interface PropProperty

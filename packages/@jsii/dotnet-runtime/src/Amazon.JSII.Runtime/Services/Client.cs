@@ -100,7 +100,10 @@ namespace Amazon.JSII.Runtime.Services
 
         TResponse TryDeserialize<TResponse>(string responseJson) where TResponse : class, IKernelResponse
         {
-            JObject responseObject = (JObject)JsonConvert.DeserializeObject(responseJson)!;
+            JObject responseObject = (JObject)JsonConvert.DeserializeObject(responseJson, new JsonSerializerSettings
+            {
+                DateParseHandling = DateParseHandling.None
+            })!;
 
             if (responseObject.ContainsKey("error"))
             {

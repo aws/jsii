@@ -1476,5 +1476,41 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 return value;
             }
         }
+
+        [Fact(DisplayName = Prefix + nameof(Iso8601DoesNotDeserializeToDate))]
+        public void Iso8601DoesNotDeserializeToDate()
+        {
+            var now = $"{DateTime.UtcNow.ToString("s")}Z";
+            var wallClock = new WallClock(now);
+            var entropy = new MildEntropy(wallClock);
+
+            Assert.Equal(now, entropy.Increase());
+        }
+
+        private sealed class WallClock: DeputyBase, IWallClock
+        {
+            private String _frozenTime;
+
+            public WallClock(String frozenTime)
+            {
+                _frozenTime = frozenTime;
+            }
+
+            public String Iso8601Now()
+            {
+                return _frozenTime;
+            }
+        }
+
+        private sealed class MildEntropy: Entropy
+        {
+            public MildEntropy(IWallClock clock): base(clock)
+            {
+            }
+            public override String Repeat(String word)
+            {
+                return word;
+            }
+        }
     }
 }
