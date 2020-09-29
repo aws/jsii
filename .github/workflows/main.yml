@@ -96,7 +96,7 @@ jobs:
           # Make sure the index is up-to-date (git diff-index assumes it was done)
           git update-index --refresh
           # Check for modifications in tracked files
-          git diff-index --exit-code --stat=HEAD
+          git diff-index --exit-code --stat HEAD
           # Check for new untracked files
           untracked=$(git ls-files --others --exclude-standard)                 \
             && echo "Untracked files: ${untracked:-<none>}"                     \
@@ -320,7 +320,7 @@ jobs:
           # Make sure the index is up-to-date (git diff-index assumes it was done)
           git update-index --refresh
           # Check for modifications in tracked files
-          git diff-index --exit-code --stat=HEAD
+          git diff-index --exit-code --stat HEAD
           # Check for new untracked files
           untracked=$(git ls-files --others --exclude-standard)                 \
             && echo "Untracked files: ${untracked:-<none>}"                     \
