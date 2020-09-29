@@ -3539,6 +3539,45 @@ func (d *DynamicPropertyBearerChild) OverrideValue(newValue string) string {
 }
 
 // Class interface
+type EntropyIface interface {
+    Increase() string
+    Repeat(word string) string
+}
+
+// This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either).
+// Struct proxy
+type Entropy struct {
+}
+
+// Creates a new instance of Entropy.
+func NewEntropy(clock IWallClock) EntropyIface {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Entropy",
+        Method: "Constructor",
+        Args: []string{"jsii-calc.IWallClock",},
+    })
+    return &Entropy{}
+}
+
+func (e *Entropy) Increase() string {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Entropy",
+        Method: "Increase",
+        Args: []string{},
+    })
+    return "NOOP_RETURN_STRING"
+}
+
+func (e *Entropy) Repeat(word string) string {
+    jsii.NoOpRequest(jsii.NoOpApiRequest {
+        Class: "Entropy",
+        Method: "Repeat",
+        Args: []string{"string",},
+    })
+    return "NOOP_RETURN_STRING"
+}
+
+// Class interface
 type EnumDispenserIface interface {
 }
 
@@ -4117,6 +4156,12 @@ type IStableInterface interface {
 // Verifies that a "pure" implementation of an interface works correctly.
 type IStructReturningDelegate interface {
     ReturnStruct() StructB
+}
+
+// Implement this interface.
+type IWallClock interface {
+    // Returns the current time, formatted as an ISO-8601 string.
+    Iso8601Now() string
 }
 
 // Class interface

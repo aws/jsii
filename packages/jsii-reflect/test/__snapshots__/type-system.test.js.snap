@@ -63,6 +63,7 @@ Array [
   "jsii-calc.DoubleTrouble",
   "jsii-calc.DynamicPropertyBearer",
   "jsii-calc.DynamicPropertyBearerChild",
+  "jsii-calc.Entropy",
   "jsii-calc.EnumDispenser",
   "jsii-calc.EraseUndefinedHashValues",
   "jsii-calc.ExperimentalClass",

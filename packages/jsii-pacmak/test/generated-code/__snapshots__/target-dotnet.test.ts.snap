@@ -3044,6 +3044,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 DoubleTrouble.cs
        ┃           ┣━ 📄 DynamicPropertyBearer.cs
        ┃           ┣━ 📄 DynamicPropertyBearerChild.cs
+       ┃           ┣━ 📄 Entropy.cs
+       ┃           ┣━ 📄 EntropyProxy.cs
        ┃           ┣━ 📄 EnumDispenser.cs
        ┃           ┣━ 📄 EraseUndefinedHashValues.cs
        ┃           ┣━ 📄 EraseUndefinedHashValuesOptions.cs
@@ -3191,6 +3193,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┣━ 📄 ISupportsNiceJavaBuilderProps.cs
        ┃           ┣━ 📄 ITopLevelStruct.cs
        ┃           ┣━ 📄 IUnionProperties.cs
+       ┃           ┣━ 📄 IWallClock.cs
+       ┃           ┣━ 📄 IWallClockProxy.cs
        ┃           ┣━ 📄 JavaReservedWords.cs
        ┃           ┣━ 📄 JSII417Derived.cs
        ┃           ┣━ 📄 JSII417PublicBaseOfBase.cs
@@ -3545,7 +3549,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 9
+        "line": 10
       }
     },
     "jsii-calc.submodule.back_references": {
@@ -7767,6 +7771,90 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         }
       ]
     },
+    "jsii-calc.Entropy": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either)."
+      },
+      "fqn": "jsii-calc.Entropy",
+      "initializer": {
+        "docs": {
+          "stability": "stable",
+          "summary": "Creates a new instance of Entropy."
+        },
+        "locationInModule": {
+          "filename": "lib/date.ts",
+          "line": 14
+        },
+        "parameters": [
+          {
+            "docs": {
+              "summary": "your implementation of \`WallClock\`."
+            },
+            "name": "clock",
+            "type": {
+              "fqn": "jsii-calc.IWallClock"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/date.ts",
+        "line": 8
+      },
+      "methods": [
+        {
+          "docs": {
+            "returns": "the time from the \`WallClock\`.",
+            "stability": "stable",
+            "summary": "Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge)."
+          },
+          "locationInModule": {
+            "filename": "lib/date.ts",
+            "line": 22
+          },
+          "name": "increase",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "returns": "\`word\`.",
+            "stability": "stable",
+            "summary": "Implement this method such that it returns \`word\`."
+          },
+          "locationInModule": {
+            "filename": "lib/date.ts",
+            "line": 47
+          },
+          "name": "repeat",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "the value to return."
+              },
+              "name": "word",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "Entropy"
+    },
     "jsii-calc.EnumDispenser": {
       "assembly": "jsii-calc",
       "docs": {
@@ -9848,6 +9936,39 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
         }
       ],
       "name": "IStructReturningDelegate"
+    },
+    "jsii-calc.IWallClock": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Implement this interface."
+      },
+      "fqn": "jsii-calc.IWallClock",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/date.ts",
+        "line": 53
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable",
+            "summary": "Returns the current time, formatted as an ISO-8601 string."
+          },
+          "locationInModule": {
+            "filename": "lib/date.ts",
+            "line": 57
+          },
+          "name": "iso8601Now",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IWallClock"
     },
     "jsii-calc.ImplementInternalInterface": {
       "assembly": "jsii-calc",
@@ -17452,7 +17573,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "ary2D/3pPPIqMW0FmZnYMsKzvk8r29qmK5+1KyEcTQA="
+  "fingerprint": "azqNkkl+/4FLzTVBLkOyHcokS4xLoYtHsri0z9kIehQ="
 }
 
 `;
@@ -20939,6 +21060,84 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual string OriginalValue
         {
             get => GetInstanceProperty<string>();
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Entropy.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either).</summary>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Entropy), fullyQualifiedName: "jsii-calc.Entropy", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"your implementation of \`WallClock\`.\\"},\\"name\\":\\"clock\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.IWallClock\\"}}]")]
+    public abstract class Entropy : DeputyBase
+    {
+        /// <summary>Creates a new instance of Entropy.</summary>
+        /// <param name="clock">your implementation of \`WallClock\`.</param>
+        protected Entropy(Amazon.JSII.Tests.CalculatorNamespace.IWallClock clock): base(new DeputyProps(new object[]{clock}))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Entropy(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected Entropy(DeputyProps props): base(props)
+        {
+        }
+
+        /// <summary>Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).</summary>
+        /// <returns>the time from the \`WallClock\`.</returns>
+        [JsiiMethod(name: "increase", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public virtual string Increase()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+        }
+
+        /// <summary>Implement this method such that it returns \`word\`.</summary>
+        /// <param name="word">the value to return.</param>
+        /// <returns>\`word\`.</returns>
+        [JsiiMethod(name: "repeat", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the value to return.\\"},\\"name\\":\\"word\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public abstract string Repeat(string word);
+
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/EntropyProxy.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either).</summary>
+    [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Entropy), fullyQualifiedName: "jsii-calc.Entropy")]
+    internal sealed class EntropyProxy : Amazon.JSII.Tests.CalculatorNamespace.Entropy
+    {
+        private EntropyProxy(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Implement this method such that it returns \`word\`.</summary>
+        /// <param name="word">the value to return.</param>
+        /// <returns>\`word\`.</returns>
+        [JsiiMethod(name: "repeat", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"docs\\":{\\"summary\\":\\"the value to return.\\"},\\"name\\":\\"word\\",\\"type\\":{\\"primitive\\":\\"string\\"}}]")]
+        public override string Repeat(string word)
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{word});
         }
     }
 }
@@ -24562,6 +24761,51 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             {
                 return null;
             }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IWallClock.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Implement this interface.</summary>
+    [JsiiInterface(nativeType: typeof(IWallClock), fullyQualifiedName: "jsii-calc.IWallClock")]
+    public interface IWallClock
+    {
+        /// <summary>Returns the current time, formatted as an ISO-8601 string.</summary>
+        [JsiiMethod(name: "iso8601Now", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        string Iso8601Now();
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/IWallClockProxy.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace
+{
+    /// <summary>Implement this interface.</summary>
+    [JsiiTypeProxy(nativeType: typeof(IWallClock), fullyQualifiedName: "jsii-calc.IWallClock")]
+    internal sealed class IWallClockProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IWallClock
+    {
+        private IWallClockProxy(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Returns the current time, formatted as an ISO-8601 string.</summary>
+        [JsiiMethod(name: "iso8601Now", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}")]
+        public string Iso8601Now()
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
     }
 }
