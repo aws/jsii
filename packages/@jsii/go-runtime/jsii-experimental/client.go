@@ -1,24 +1,30 @@
 package jsii
 
 import (
-	"bufio"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
+	"os"
 	"os/exec"
+	"path"
 	"regexp"
+	goruntime "runtime"
 )
 
 type Any interface{}
 
-type Client struct {
-	Process        *exec.Cmd
+type client struct {
+	process        *exec.Cmd
 	RuntimeVersion string
 	writer         *json.Encoder
 	reader         *json.Decoder
-	stderr         io.ReadCloser
+
+	// Keeping track of state that'll need cleaning up in close()
+	stdin  io.WriteCloser
+	tmpdir string
 }
 
 func CheckFatalError(e error) {
@@ -27,51 +33,78 @@ func CheckFatalError(e error) {
 	}
 }
 
-func InitClient() (Client, error) {
-	cmd := exec.Command("node", "./embedded/jsii-runtime.js")
+// newClient starts the kernel child process and verifies the "hello" message
+// was correct.
+func newClient() (*client, error) {
+	clientinstance := &client{}
 
-	out, err := cmd.StdoutPipe()
+	// Register a finalizer to call Close()
+	goruntime.SetFinalizer(clientinstance, func(c *client) {
+		c.close()
+	})
+
+	customruntime := os.Getenv("JSII_RUNTIME")
+	if customruntime != "" {
+		// The user has provided a custom JSII_RUNTIME, so we'll just honor that
+		clientinstance.process = exec.Command(customruntime)
+	} else {
+		// The user hasn't provided a custom JSII_RUNTIME, so we'll unpack the built-in one
+		tmpdir, err := ioutil.TempDir("", "jsii-runtime.*")
+		if err != nil {
+			return nil, err
+		}
+		clientinstance.tmpdir = tmpdir
+
+		for file, data := range embeddedruntime {
+			filepath := path.Join(tmpdir, file)
+			if err := ioutil.WriteFile(filepath, data, 0644); err != nil {
+				return nil, err
+			}
+		}
+
+		entrypoint := path.Join(tmpdir, embeddedruntimeMain)
+		clientinstance.process = exec.Command("node", "--max-old-space-size=4069", entrypoint)
+	}
+
+	clientinstance.process.Env = append(
+		os.Environ(),
+		fmt.Sprintf("JSII_AGENT=%s/%s/%s", goruntime.Version(), goruntime.GOOS, goruntime.GOARCH),
+	)
+
+	// Forward child process STDERR to this process' STDERR for immediate feedback
+	clientinstance.process.Stderr = os.Stderr
+
+	// Pipe child process STDIN from a JSON encoder
+	in, err := clientinstance.process.StdinPipe()
 	if err != nil {
-		return Client{}, err
+		return nil, err
 	}
+	clientinstance.stdin = in
+	clientinstance.writer = json.NewEncoder(in)
 
-	in, err := cmd.StdinPipe()
+	// Pipe child process STDOUT to a JSON decoder
+	out, err := clientinstance.process.StdoutPipe()
 	if err != nil {
-		return Client{}, err
+		return nil, err
+	}
+	clientinstance.reader = json.NewDecoder(out)
+
+	// Start process
+	if err := clientinstance.process.Start(); err != nil {
+		return nil, err
 	}
 
-	stderr, err := cmd.StderrPipe()
+	// Check for "hello" message and parse runtime version
+	rtversion, err := clientinstance.processHello()
 	if err != nil {
-		return Client{}, err
+		return nil, err
 	}
+	clientinstance.RuntimeVersion = rtversion
 
-	// Start Process
-	if err := cmd.Start(); err != nil {
-		return Client{}, err
-	}
-
-	writer := json.NewEncoder(in)
-	reader := json.NewDecoder(out)
-
-	client := Client{
-		Process: cmd,
-		writer:  writer,
-		reader:  reader,
-		stderr:  stderr,
-	}
-
-	// Check for OK response and parse runtime version
-	rtver, err := client.validateClientStart()
-
-	if err != nil {
-		return Client{}, err
-	}
-
-	client.RuntimeVersion = rtver
-	return client, nil
+	return clientinstance, nil
 }
 
-func (c *Client) request(req KernelRequest, res KernelResponse) error {
+func (c *client) request(req KernelRequest, res KernelResponse) error {
 	err := c.writer.Encode(req)
 	if err != nil {
 		return err
@@ -80,38 +113,41 @@ func (c *Client) request(req KernelRequest, res KernelResponse) error {
 	return c.response(res)
 }
 
-func (c *Client) response(res KernelResponse) error {
+func (c *client) response(res KernelResponse) error {
 	if c.reader.More() {
 		return c.reader.Decode(res)
-	}
-
-	errrdr := bufio.NewReader(c.stderr)
-	if errrdr.Size() > 0 {
-		erroutput, err := ioutil.ReadAll(errrdr)
-
-		if err != nil {
-			return err
-		}
-
-		return errors.New(string(erroutput))
 	}
 
 	return errors.New("No Response from runtime")
 
 }
 
-func (c *Client) validateClientStart() (string, error) {
+func (c *client) processHello() (string, error) {
 	response := InitOkResponse{}
 
 	if err := c.response(&response); err != nil {
 		return "", err
 	}
 
-	version := regexp.MustCompile("@").Split(response.Hello, 3)[2]
+	parts := regexp.MustCompile("@").Split(response.Hello, 3)
+	version := parts[len(parts)-1]
 	return version, nil
 }
 
-func (c *Client) load(request LoadRequest) (LoadResponse, error) {
+func (c *client) load(request LoadRequest) (LoadResponse, error) {
 	response := LoadResponse{}
 	return response, c.request(request, &response)
+}
+
+func (c *client) close() {
+	if c.process != nil {
+		c.stdin.Close()
+		c.process.Wait()
+	}
+	if c.tmpdir != "" {
+		os.RemoveAll(c.tmpdir)
+	}
+
+	// We no longer need a finalizer to run
+	goruntime.SetFinalizer(c, nil)
 }
