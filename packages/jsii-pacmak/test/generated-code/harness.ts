@@ -26,7 +26,10 @@ expect.addSnapshotSerializer({
 
 expect.addSnapshotSerializer({
   test: (val) => val?.[TARBALL] != null,
-  serialize: (val) => `${val[TARBALL]} is a tarball`,
+  serialize: (val) =>
+    `${val[TARBALL]} ${
+      val[TARBALL].endsWith('.tgz') ? 'is' : 'embeds'
+    } a tarball`,
 });
 expect.addSnapshotSerializer({
   test: (val) => val?.[TREE] != null,
@@ -87,7 +90,7 @@ function checkTree(
   }
 
   if (stat.isFile()) {
-    if (file.endsWith('.tgz')) {
+    if (file.endsWith('.tgz') || file.endsWith('.embedded.go')) {
       // Special-cased to avoid binary differences being annoying
       expect({ [TARBALL]: relativeFile }).toMatchSnapshot(snapshotName);
     } else {

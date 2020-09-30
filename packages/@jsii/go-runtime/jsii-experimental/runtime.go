@@ -1,6 +1,10 @@
 package jsii
 
 import (
+	"fmt"
+	"io/ioutil"
+	"os"
+	"regexp"
 	"sync"
 )
 
@@ -27,6 +31,35 @@ func getClient() *client {
 	})
 
 	return clientInstance
+}
+
+// Load ensures a npm package is loaded in the jsii kernel.
+func Load(name string, version string, tarball []byte) {
+	client := getClient()
+
+	tmpfile, err := ioutil.TempFile("", fmt.Sprintf(
+		"%s-%s.*.tgz",
+		regexp.MustCompile("[^a-zA-Z0-9_-]").ReplaceAllString(name, "-"),
+		version,
+	))
+	if err != nil {
+		panic(err)
+	}
+	defer os.Remove(tmpfile.Name())
+	if _, err := tmpfile.Write(tarball); err != nil {
+		panic(err)
+	}
+	tmpfile.Close()
+
+	_, err = client.load(LoadRequest{
+		Api:     "load",
+		Name:    name,
+		Version: version,
+		Tarball: tmpfile.Name(),
+	})
+	if err != nil {
+		panic(err)
+	}
 }
 
 // Close finalizes the runtime process, signalling the end of the execution to
