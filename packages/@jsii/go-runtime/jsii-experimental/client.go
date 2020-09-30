@@ -12,7 +12,54 @@ import (
 	"path"
 	"regexp"
 	goruntime "runtime"
+	"sync"
 )
+
+var (
+	clientInstance      *client
+	clientInstanceMutex sync.Mutex
+	clientOnce          sync.Once
+)
+
+// getClient returns a singleton client instance, initializing one the first
+// time it is called.
+func getClient() *client {
+	clientOnce.Do(func() {
+		// Locking early to be safe with a concurrent Close execution
+		clientInstanceMutex.Lock()
+		defer clientInstanceMutex.Unlock()
+
+		client, err := newClient()
+		if err != nil {
+			panic(err)
+		}
+
+		clientInstance = client
+	})
+
+	return clientInstance
+}
+
+// closeClient finalizes the runtime process, signalling the end of the
+// execution to the jsii kernel process, and waiting for graceful termination.
+//
+// If a jsii client is used *after* closeClient was called, a new jsii kernel
+// process will be initialized, and closeClient should be called again to
+// correctly finalize that, too.
+func closeClient() {
+	// Locking early to be safe with a concurrent getClient execution
+	clientInstanceMutex.Lock()
+	defer clientInstanceMutex.Unlock()
+
+	// Reset the "once" so a new client would get initialized next time around
+	clientOnce = sync.Once{}
+
+	if clientInstance != nil {
+		// Close the client & reset it
+		clientInstance.close()
+		clientInstance = nil
+	}
+}
 
 type Any interface{}
 
@@ -45,7 +92,11 @@ func newClient() (*client, error) {
 
 	customruntime := os.Getenv("JSII_RUNTIME")
 	if customruntime != "" {
-		// The user has provided a custom JSII_RUNTIME, so we'll just honor that
+		// The user has provided a custom JSII_RUNTIME, so we'll just honor that. This feature can
+		// greatly help during development iterations or when trying to diagnose a user-discovered bug
+		// that resists reproduction. The "built-in" runtime is webpack'd, and this can degrade the
+		// debugger experience with certain debuggers (so far, only Chrome's was found to give the right
+		// experience)
 		clientinstance.process = exec.Command(customruntime)
 	} else {
 		// The user hasn't provided a custom JSII_RUNTIME, so we'll unpack the built-in one
@@ -63,6 +114,10 @@ func newClient() (*client, error) {
 		}
 
 		entrypoint := path.Join(tmpdir, embeddedruntimeMain)
+		// --max-old-space-size is recommended to be set because `jsii` currently does not quite do
+		// garbage collection (the kernel API only allows the host library to report object deleting,
+		// but in order to be effective, the jsii kernel needs to also have a way to signal objects it
+		// no longer has a reference to).
 		clientinstance.process = exec.Command("node", "--max-old-space-size=4069", entrypoint)
 	}
 
