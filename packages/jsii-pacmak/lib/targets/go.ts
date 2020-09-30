@@ -31,7 +31,10 @@ export class Golang extends Target {
 
 class GoGenerator implements IGenerator {
   private assembly!: Assembly;
-  private readonly code = new CodeMaker();
+  private readonly code = new CodeMaker({
+    indentCharacter: '\t',
+    indentationLevel: 1,
+  });
   private readonly documenter: Documentation;
 
   public constructor(private readonly rosetta: Rosetta) {

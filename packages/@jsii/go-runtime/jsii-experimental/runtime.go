@@ -5,33 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"regexp"
-	"sync"
 )
-
-var (
-	clientInstance      *client
-	clientInstanceMutex sync.Mutex
-	once                sync.Once
-)
-
-// getClient returns a singleton client instance, initializing one the first
-// time it is called.
-func getClient() *client {
-	once.Do(func() {
-		// Locking early to be safe with a concurrent Close execution
-		clientInstanceMutex.Lock()
-		defer clientInstanceMutex.Unlock()
-
-		client, err := newClient()
-		if err != nil {
-			panic(err)
-		}
-
-		clientInstance = client
-	})
-
-	return clientInstance
-}
 
 // Load ensures a npm package is loaded in the jsii kernel.
 func Load(name string, version string, tarball []byte) {
@@ -70,16 +44,5 @@ func Load(name string, version string, tarball []byte) {
 // will be initialized, and Close should be called again to correctly finalize
 // that, too. This behavior is intended for use in unit/integration tests.
 func Close() {
-	// Locking early to be safe with a concurrent getClient execution
-	clientInstanceMutex.Lock()
-	defer clientInstanceMutex.Unlock()
-
-	// Reset the "once" so a new client would get initialized next time around
-	once = sync.Once{}
-
-	if clientInstance != nil {
-		// Close the client & reset it
-		clientInstance.close()
-		clientInstance = nil
-	}
+	closeClient()
 }
