@@ -101,6 +101,7 @@ jobs:
           untracked=$(git ls-files --others --exclude-standard)                 \
             && echo "Untracked files: ${untracked:-<none>}"                     \
             && test -z "${untracked}"
+        shell: bash
 
   create-release-package:
     name: Create Release Package
@@ -325,6 +326,7 @@ jobs:
           untracked=$(git ls-files --others --exclude-standard)                 \
             && echo "Untracked files: ${untracked:-<none>}"                     \
             && test -z "${untracked}"
+        shell: bash
 
   integ-test:
     name: Integration Test
