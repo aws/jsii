@@ -101,16 +101,16 @@ export interface LoadResponse {
 }
 
 export interface InvokeScriptRequest {
-  readonly pkgname: string;
+  readonly assembly: string;
   readonly script: string;
-  readonly args?: any[];
+  readonly args?: string[];
 }
 
 export interface InvokeScriptResponse {
   readonly status: number | null;
-  readonly stdout: string;
-  readonly stderr: string;
-  readonly output: string[];
+  readonly stdout: Buffer;
+  readonly stderr: Buffer;
+  readonly signal: string | null;
 }
 
 export interface CreateRequest {

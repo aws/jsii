@@ -2133,6 +2133,15 @@ defineTest('Override transitive property', (sandbox) => {
   expect(propValue).toBe('N3W');
 });
 
+defineTest('invokeBinScript() return output', (sandbox) => {
+  const result = sandbox.invokeBinScript({
+    assembly: 'jsii-calc',
+    script: 'calc',
+  });
+
+  expect(result.stdout).toEqual('Hello World!\n');
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = {};

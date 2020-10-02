@@ -85,6 +85,7 @@ from jsii_calc.submodule.child import SomeEnum
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 from scope.jsii_calc_lib.custom_submodule_name import IReflectable, ReflectableEntry
 
+from subprocess import Popen, PIPE, STDOUT
 
 # Note: The names of these test functions have been chosen to map as closely to the
 #       Java Compliance tests as possible.

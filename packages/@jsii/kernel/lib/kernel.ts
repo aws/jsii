@@ -139,17 +139,40 @@ export class Kernel {
   public invokeBinScript(
     req: api.InvokeScriptRequest,
   ): api.InvokeScriptResponse {
-    const result = cp.spawnSync(
-      path.join(this._getPackageDir(req.pkgname), req.script),
-      req.args,
-    );
+    const packageDir = this._getPackageDir(req.assembly);
+    if (fs.pathExistsSync(packageDir)) {
+      // module exists, verify version
+      const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
 
-    return {
-      output: result.output,
-      stdout: result.stdout,
-      stderr: result.stderr,
-      status: result.status,
-    };
+      if (!epkg.bin) {
+        throw new Error('There is no bin scripts defined for this package.');
+      }
+
+      const scriptPath = epkg.bin[req.script];
+
+      if (!epkg.bin) {
+        throw new Error(`Script with name ${req.script} was not defined.`);
+      }
+
+      const result = cp.spawnSync(
+        process.execPath,
+        [
+          ...process.execArgv,
+          '--',
+          path.join(packageDir, scriptPath),
+          ...(req.args ?? []),
+        ],
+        { encoding: 'utf-8' },
+      );
+
+      return {
+        stdout: result.stdout,
+        stderr: result.stderr,
+        status: result.status,
+        signal: result.signal,
+      };
+    }
+    throw new Error(`Package with name ${req.assembly} was not loaded.`);
   }
 
   public create(req: api.CreateRequest): api.CreateResponse {

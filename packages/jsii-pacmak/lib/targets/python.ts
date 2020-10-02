@@ -1482,10 +1482,10 @@ class PythonModule implements PythonType {
    * Emit the bin scripts if bin section defined.
    */
   public emitBinScripts(code: CodeMaker): string[] {
-    const scripts: string[] = [];
+    const scripts = new Array<string>();
     if (this.loadAssembly) {
       if (this.assembly.bin != null) {
-        for (const [name, script_path] of Object.entries(this.assembly.bin)) {
+        for (const name of Object.keys(this.assembly.bin)) {
           const script_file = path.join(
             'src',
             pythonModuleNameToFilename(this.pythonName),
@@ -1515,7 +1515,7 @@ class PythonModule implements PythonType {
             '__jsii_assembly__.invokeBinScript(',
             [
               JSON.stringify(this.assembly.name),
-              JSON.stringify(script_path),
+              JSON.stringify(name),
               'sys.argv[1:]',
             ],
             ')',
@@ -1681,7 +1681,7 @@ class Package {
       a.pythonName.localeCompare(b.pythonName),
     );
 
-    const scripts: string[] = [];
+    const scripts = new Array<string>();
 
     // Iterate over all of our modules, and write them out to disk.
     for (const mod of modules) {
@@ -1695,11 +1695,7 @@ class Package {
       mod.emit(code, context);
       code.closeFile(filename);
 
-      for (const script of mod.emitBinScripts(code)) {
-        if (scripts.indexOf(script) < 0) {
-          scripts.push(script);
-        }
-      }
+      Array.prototype.push.apply(scripts, mod.emitBinScripts(code));
     }
 
     // Handle our package data.

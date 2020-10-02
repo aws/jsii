@@ -200,8 +200,8 @@ export class Assembler implements Emitter {
       docs,
       readme,
       jsiiVersion,
-      fingerprint: '<TBD>',
       bin: this.projectInfo.bin,
+      fingerprint: '<TBD>',
     };
 
     const validator = new Validator(this.projectInfo, assembly);
