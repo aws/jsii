@@ -359,20 +359,83 @@ describe('implement base types need to be present in updated type system', () =>
 
 // ----------------------------------------------------------------------
 
-test('cannot make a class property optional', () =>
+test.each([
+  [
+    'name: string',
+    'name?: string',
+    /type Optional<string> \(formerly string\): output type is now optional/,
+  ],
+  [
+    'name?: string',
+    'name: string',
+    undefined, // Strengthening is okay
+  ],
+  [
+    'name: string',
+    'name: string | number',
+    /string \| number is not assignable to string/,
+  ],
+  [
+    'name: string | number',
+    'name: string',
+    undefined, // Strengthening is okay
+  ],
+])('change class property ', (oldDecl, newDecl, error) =>
   expectError(
-    /prop.*henk.*type Optional<string> \(formerly string\): output type is now optional/i,
+    error,
     `
     export class Henk {
-      public name: string = 'henk';
+      public readonly ${oldDecl} = 'henk';
     }
   `,
     `
     export class Henk {
-      public name?: string = 'henk';
+      public readonly ${newDecl} = 'henk';
     }
   `,
-  ));
+  ),
+);
+
+// ----------------------------------------------------------------------
+
+test.each([
+  [
+    'name: string',
+    'name?: string',
+    /changed to Optional<string> \(formerly string\)/,
+  ],
+  [
+    'name?: string',
+    'name: string',
+    /changed to string \(formerly Optional<string>\)/,
+  ],
+  [
+    'name: string',
+    'name: string | number',
+    /changed to string \| number \(formerly string\)/,
+  ],
+  [
+    'name: string | number',
+    'name: string',
+    /changed to string \(formerly string \| number\)/,
+  ],
+])(
+  'cannot change a mutable class property type: %p to %p',
+  (oldDecl, newDecl, error) =>
+    expectError(
+      error,
+      `
+      export class Henk {
+        public ${oldDecl} = 'henk';
+      }
+    `,
+      `
+      export class Henk {
+        public ${newDecl} = 'henk';
+      }
+    `,
+    ),
+);
 
 // ----------------------------------------------------------------------
 
@@ -510,6 +573,8 @@ test('change from method to property', () =>
     `,
   ));
 
+// ----------------------------------------------------------------------
+
 test('change from method with arguments to property', () =>
   expectError(
     /changed from method to property/,
@@ -525,6 +590,8 @@ test('change from method with arguments to property', () =>
     `,
   ));
 
+// ----------------------------------------------------------------------
+
 test('change from property to method', () =>
   expectError(
     /changed from property to method/,
@@ -539,3 +606,133 @@ test('change from property to method', () =>
     }
     `,
   ));
+
+// ----------------------------------------------------------------------
+
+test.each([
+  [
+    'foo(arg: string) { Array.isArray(arg); }',
+    'foo(arg: string | number) { Array.isArray(arg); }',
+  ],
+  ['foo(): string { return "x"; }', 'foo(): string | number { return "x"; }'],
+  ['readonly foo: string = "x";', 'readonly foo: string | number = "x";'],
+])(
+  'cannot change any type in @subclassable class: %p to %p',
+  (oldDecl, newDecl) =>
+    expectError(
+      /type is @subclassable/,
+      `
+      /** @subclassable */
+      export class Boom {
+        public ${oldDecl}
+      }
+      `,
+      `
+      /** @subclassable */
+      export class Boom {
+        public ${newDecl}
+      }
+      `,
+    ),
+);
+
+// ----------------------------------------------------------------------
+
+test.each([
+  ['foo(arg: string): void;', 'foo(arg: string | number): void;'],
+  ['foo(): string;', 'foo(): string | number;'],
+  ['readonly foo: string;', 'readonly foo: string | number;'],
+])(
+  'cannot change any type in @subclassable interface: %p to %p',
+  (oldDecl, newDecl) =>
+    expectError(
+      /type is @subclassable/,
+      `
+      /** @subclassable */
+      export interface IBoom {
+        ${oldDecl}
+      }
+      `,
+      `
+      /** @subclassable */
+      export interface IBoom {
+        ${newDecl}
+      }
+      `,
+    ),
+);
+
+// ----------------------------------------------------------------------
+
+test.each([
+  // No usage => can add field
+  ['', true],
+  // Return type => can add field
+  ['foo(): TheStruct;', true],
+  ['readonly foo: TheStruct;', true],
+  // Input type => can NOT add field
+  ['foo: TheStruct;', false],
+  ['foo(arg: TheStruct): void', false],
+])(
+  'add required field to structs: refencing via %p -> allowed %p',
+  (usageDecl, allowed) =>
+    expectError(
+      allowed ? undefined : /newly required property 'fieldTwo' added/,
+      `
+      export interface TheStruct {
+        readonly fieldOne: string;
+      }
+
+      export interface IConsumer {
+        ${usageDecl}
+      }
+      `,
+      `
+      export interface TheStruct {
+        readonly fieldOne: string;
+        readonly fieldTwo: string;
+      }
+
+      export interface IConsumer {
+        ${usageDecl}
+      }
+      `,
+    ),
+);
+
+// ----------------------------------------------------------------------
+
+test.each([
+  // No usage => can add field
+  ['', true],
+  // Return type => can NOT remove information
+  ['foo(): TheStruct;', false],
+  ['readonly foo: TheStruct;', false],
+  ['foo: TheStruct;', false],
+  // Input type => can make optional
+  ['foo(arg: TheStruct): void', true],
+])(
+  'make required field optional: refencing via %p -> allowed %p',
+  (usageDecl, allowed) =>
+    expectError(
+      allowed ? undefined : /formerly required property 'fieldOne' is optional/,
+      `
+      export interface TheStruct {
+        readonly fieldOne: string;
+      }
+
+      export interface IConsumer {
+        ${usageDecl}
+      }
+      `,
+      `
+      export interface TheStruct {
+        readonly fieldOne?: string;
+      }
+
+      export interface IConsumer {
+        ${usageDecl}
+      }
+      `,
+    ),
+);
