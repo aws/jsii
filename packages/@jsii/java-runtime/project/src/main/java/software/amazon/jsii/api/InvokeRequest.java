@@ -5,9 +5,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.List;
 
+import software.amazon.jsii.Internal;
+
 /**
  * Represents a method invocation jsii-runtime request.
  */
+@Internal
 public class InvokeRequest {
     /**
      * The object reference.

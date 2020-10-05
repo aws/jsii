@@ -37,6 +37,7 @@ const BUILDER_CLASS_NAME = 'Builder';
 
 const ANN_NOT_NULL = '@org.jetbrains.annotations.NotNull';
 const ANN_NULLABLE = '@org.jetbrains.annotations.Nullable';
+const ANN_INTERNAL = '@software.amazon.jsii.Internal';
 
 /**
  * Build Java packages all together, by generating an aggregate POM
@@ -1226,8 +1227,11 @@ class JavaGenerator extends Generator {
   private emitProperty(
     cls: spec.Type,
     prop: spec.Property,
-    includeGetter = true,
-    overrides = !!prop.overrides,
+    {
+      final = false,
+      includeGetter = true,
+      overrides = !!prop.overrides,
+    }: { final?: boolean; includeGetter?: boolean; overrides?: boolean } = {},
   ) {
     const getterType = this.toDecoratedJavaType(prop);
     const setterTypes = this.toDecoratedJavaTypes(prop, {
@@ -1249,7 +1253,9 @@ class JavaGenerator extends Generator {
         this.code.line('@Override');
       }
       this.emitStabilityAnnotations(prop);
-      const signature = `${access} ${abstract}${statc}${getterType} get${propName}()`;
+      const signature = `${access} ${
+        final ? 'final ' : ''
+      }${abstract}${statc}${getterType} get${propName}()`;
       if (prop.abstract) {
         this.code.line(`${signature};`);
       } else {
@@ -1306,7 +1312,10 @@ class JavaGenerator extends Generator {
   private emitMethod(
     cls: spec.Type,
     method: spec.Method,
-    overrides = !!method.overrides,
+    {
+      final = false,
+      overrides = !!method.overrides,
+    }: { final?: boolean; overrides?: boolean } = {},
   ) {
     const returnType = method.returns
       ? this.toDecoratedJavaType(method.returns)
@@ -1327,7 +1336,9 @@ class JavaGenerator extends Generator {
     if (method.abstract) {
       this.code.line(`${access} abstract ${signature};`);
     } else {
-      this.code.openBlock(`${access} ${statc}${signature}`);
+      this.code.openBlock(
+        `${access} ${statc}${final ? 'final ' : ''}${signature}`,
+      );
       this.code.line(this.renderMethodCall(cls, method, async));
       this.code.closeBlock();
     }
@@ -1352,14 +1363,24 @@ class JavaGenerator extends Generator {
     );
     this.code.line(' */');
 
-    const suffix =
-      ifc.kind === spec.TypeKind.Interface
-        ? `extends software.amazon.jsii.JsiiObject implements ${this.toNativeFqn(
-            ifc.fqn,
-          )}`
-        : `extends ${this.toNativeFqn(ifc.fqn)}`;
+    // If this is an interface with a single base, then we will extend it's proxy instead of
+    // implementing everything afresh.
+    const baseInterface =
+      spec.isInterfaceType(ifc) && ifc.interfaces?.length === 1
+        ? ifc.interfaces[0]
+        : undefined;
+    const suffix = spec.isInterfaceType(ifc)
+      ? `extends ${
+          baseInterface != null
+            ? `${this.toNativeFqn(baseInterface)}.${INTERFACE_PROXY_CLASS_NAME}`
+            : 'software.amazon.jsii.JsiiObject'
+        } implements ${this.toNativeFqn(ifc.fqn)}`
+      : `extends ${this.toNativeFqn(ifc.fqn)}`;
 
-    this.code.openBlock(`final static class ${name} ${suffix}`);
+    const visibility = spec.isInterfaceType(ifc) ? 'public' : 'protected';
+
+    this.code.line(ANN_INTERNAL);
+    this.code.openBlock(`${visibility} static class ${name} ${suffix}`);
     this.code.openBlock(
       `protected ${name}(final software.amazon.jsii.JsiiObjectRef objRef)`,
     );
@@ -1388,10 +1409,14 @@ class JavaGenerator extends Generator {
       bases.push(
         ...(currentType.interfaces ?? []).map((iface) => this.findType(iface)),
       );
-      if (currentType.kind === spec.TypeKind.Class && currentType.base) {
+      if (spec.isClassType(currentType) && currentType.base) {
         bases.push(this.findType(currentType.base));
       }
       for (const base of bases) {
+        if (base.fqn === baseInterface) {
+          // Ignoring members we inherit from our base proxy class
+          continue;
+        }
         const type = this.findType(base.fqn);
         if (
           type.kind !== spec.TypeKind.Interface &&
@@ -1410,23 +1435,23 @@ class JavaGenerator extends Generator {
     for (const propName of Object.keys(properties)) {
       const prop = clone(properties[propName]);
       prop.abstract = false;
-      this.emitProperty(
-        ifc,
-        prop,
-        /* includeGetter: */ undefined,
-        /* overrides: */ true,
-      );
+      // Emitting "final" since this is a proxy and nothing will/should override this
+      this.emitProperty(ifc, prop, { final: true, overrides: true });
     }
 
     // emit all the methods
     for (const methodName of Object.keys(methods)) {
       const method = clone(methods[methodName]);
       method.abstract = false;
-      this.emitMethod(ifc, method, /* overrides: */ true);
+      // Emitting "final" since this is a proxy and nothing will/should override this
+      this.emitMethod(ifc, method, { final: true, overrides: true });
 
       for (const overloadedMethod of this.createOverloadsForOptionals(method)) {
         overloadedMethod.abstract = false;
-        this.emitMethod(ifc, overloadedMethod, /* overrides: */ true);
+        this.emitMethod(ifc, overloadedMethod, {
+          final: true,
+          overrides: true,
+        });
       }
     }
 
@@ -1849,18 +1874,33 @@ class JavaGenerator extends Generator {
     const props = Object.values(propsByName);
     this.emitInterfaceBuilder(ifc, INTERFACE_PROXY_CLASS_NAME, props);
 
+    // If the data type has exactly 1 base datatype, we'll extend the base's proxy
+    const baseInterface =
+      ifc.interfaces?.length === 1 ? ifc.interfaces[0] : undefined;
+    const ownProps = props.filter(
+      (prop) => baseInterface == null || !prop.inherited,
+    );
+    const baseProps = props.filter(
+      (prop) => baseInterface != null && prop.inherited,
+    );
+
     // Start implementation class
     this.code.line();
     this.code.line('/**');
     this.code.line(` * An implementation for {@link ${ifc.name}}`);
     this.code.line(' */');
     this.emitStabilityAnnotations(ifc);
+    this.code.line(ANN_INTERNAL);
+    const baseClass =
+      baseInterface != null
+        ? `${this.toNativeFqn(baseInterface)}.${INTERFACE_PROXY_CLASS_NAME}`
+        : 'software.amazon.jsii.JsiiObject';
     this.code.openBlock(
-      `final class ${INTERFACE_PROXY_CLASS_NAME} extends software.amazon.jsii.JsiiObject implements ${ifc.name}`,
+      `public class ${INTERFACE_PROXY_CLASS_NAME} extends ${baseClass} implements ${ifc.name}`,
     );
 
     // Immutable properties
-    props.forEach((prop) =>
+    ownProps.forEach((prop) =>
       this.code.line(`private final ${prop.fieldJavaType} ${prop.fieldName};`),
     );
 
@@ -1876,7 +1916,7 @@ class JavaGenerator extends Generator {
       `protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`,
     );
     this.code.line('super(objRef);');
-    props.forEach((prop) =>
+    ownProps.forEach((prop) =>
       this.code.line(
         `this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldNativeType});`,
       ),
@@ -1898,12 +1938,18 @@ class JavaGenerator extends Generator {
       .map((prop) => `final ${prop.paramJavaType} ${prop.fieldName}`)
       .join(', ');
     this.code.openBlock(
-      `private ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`,
+      `protected ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`,
     );
-    this.code.line(
-      'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
-    );
-    props.forEach((prop) => {
+    if (baseInterface != null) {
+      this.code.line(
+        `super(${baseProps.map((prop) => prop.fieldName).join(', ')});`,
+      );
+    } else {
+      this.code.line(
+        'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
+      );
+    }
+    ownProps.forEach((prop) => {
       const explicitCast =
         prop.fieldJavaType !== prop.paramJavaType
           ? `(${prop.fieldJavaType})`
@@ -1919,10 +1965,12 @@ class JavaGenerator extends Generator {
     // End literal constructor
 
     // Getters
-    props.forEach((prop) => {
+    ownProps.forEach((prop) => {
       this.code.line();
       this.code.line('@Override');
-      this.code.openBlock(`public ${prop.fieldJavaType} get${prop.propName}()`);
+      this.code.openBlock(
+        `public final ${prop.fieldJavaType} get${prop.propName}()`,
+      );
       this.code.line(`return this.${prop.fieldName};`);
       this.code.closeBlock();
     });
@@ -1930,18 +1978,23 @@ class JavaGenerator extends Generator {
     // emit $jsii$toJson which will be called to serialize this object when sent to JS
     this.code.line();
     this.code.line('@Override');
+    this.code.line(ANN_INTERNAL);
     this.code.openBlock(
       'public com.fasterxml.jackson.databind.JsonNode $jsii$toJson()',
     );
     this.code.line(
       'final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;',
     );
+    const initialValue =
+      baseInterface != null
+        ? '(com.fasterxml.jackson.databind.node.ObjectNode)super.$jsii$toJson().get("$jsii.struct").get("data")'
+        : 'com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode()';
     this.code.line(
-      'final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();',
+      `final com.fasterxml.jackson.databind.node.ObjectNode data = ${initialValue};`,
     );
 
     this.code.line();
-    for (const prop of props) {
+    for (const prop of ownProps) {
       if (prop.nullable) {
         this.code.openBlock(`if (this.get${prop.propName}() != null)`);
       }
@@ -1972,10 +2025,10 @@ class JavaGenerator extends Generator {
     // End $jsii$toJson
 
     // Generate equals() override
-    this.emitEqualsOverride(ifc.name, props);
+    this.emitEqualsOverride(ifc.name, ownProps, baseInterface != null);
 
     // Generate hashCode() override
-    this.emitHashCodeOverride(props);
+    this.emitHashCodeOverride(ownProps, baseInterface != null);
 
     this.code.closeBlock();
     // End implementation class
@@ -1988,7 +2041,11 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private emitEqualsOverride(className: string, props: JavaProp[]) {
+  private emitEqualsOverride(
+    className: string,
+    props: JavaProp[],
+    callSuper = false,
+  ) {
     // A class without properties does not need to override equals()
     if (props.length === 0) {
       return;
@@ -1996,12 +2053,17 @@ class JavaGenerator extends Generator {
 
     this.code.line();
     this.code.line('@Override');
-    this.code.openBlock('public boolean equals(Object o)');
+    this.code.openBlock('public boolean equals(final Object o)');
     this.code.line('if (this == o) return true;');
 
-    this.code.line(
-      'if (o == null || getClass() != o.getClass()) return false;',
-    );
+    if (callSuper) {
+      this.code.line('if (!super.equals(o)) return false;');
+    } else {
+      // This was already checked by `super.equals(o)`, so we skip it here...
+      this.code.line(
+        'if (o == null || getClass() != o.getClass()) return false;',
+      );
+    }
     this.code.line();
     this.code.line(
       `${className}.${INTERFACE_PROXY_CLASS_NAME} that = (${className}.${INTERFACE_PROXY_CLASS_NAME}) o;`,
@@ -2029,7 +2091,7 @@ class JavaGenerator extends Generator {
     this.code.closeBlock();
   }
 
-  private emitHashCodeOverride(props: JavaProp[]) {
+  private emitHashCodeOverride(props: JavaProp[], callSuper = false) {
     // A class without properties does not need to override hashCode()
     if (props.length === 0) {
       return;
@@ -2042,7 +2104,14 @@ class JavaGenerator extends Generator {
     const firstProp = props[0];
     const remainingProps = props.slice(1);
 
-    this.code.line(`int result = ${_hashCodeForProp(firstProp)};`);
+    if (callSuper) {
+      this.code.line('int result = super.hashCode();');
+      this.code.line(
+        `result = 31 * result + (${_hashCodeForProp(firstProp)});`,
+      );
+    } else {
+      this.code.line(`int result = ${_hashCodeForProp(firstProp)};`);
+    }
     remainingProps.forEach((prop) =>
       this.code.line(`result = 31 * result + (${_hashCodeForProp(prop)});`),
     );
@@ -2530,6 +2599,7 @@ class JavaGenerator extends Generator {
     this.code.line('import software.amazon.jsii.JsiiModule;');
     this.code.line();
 
+    this.code.line(ANN_INTERNAL);
     this.code.openBlock(
       `public final class ${MODULE_CLASS_NAME} extends JsiiModule`,
     );

@@ -21,6 +21,7 @@ import static software.amazon.jsii.Util.javaScriptPropertyToJavaPropertyName;
 /**
  * The javascript engine which supports jsii objects.
  */
+@Internal
 public final class JsiiEngine implements JsiiCallbackHandler {
     /**
      * The singleton instance.

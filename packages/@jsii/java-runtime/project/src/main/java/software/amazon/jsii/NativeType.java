@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Internal
 public abstract class NativeType<T> {
     protected static final JavaType[] NO_TYPE_PARAMS = {};
 

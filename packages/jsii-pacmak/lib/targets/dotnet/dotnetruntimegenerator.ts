@@ -78,11 +78,9 @@ export class DotNetRuntimeGenerator {
     method: spec.Method /*, emitForProxyOrDatatype: boolean = false*/,
   ): void {
     const isOverride =
-      cls.kind === spec.TypeKind.Class && method.overrides
-        ? ', isOverride: true'
-        : '';
+      spec.isClassType(cls) && method.overrides ? ', isOverride: true' : '';
     const isAsync =
-      cls.kind === spec.TypeKind.Class && method.async ? ', isAsync: true' : '';
+      spec.isClassType(cls) && method.async ? ', isAsync: true' : '';
     const parametersJson = method.parameters
       ? `, parametersJson: "${JSON.stringify(method.parameters)
           .replace(/"/g, '\\"')
@@ -127,10 +125,9 @@ export class DotNetRuntimeGenerator {
   public emitAttributesForInterfaceProxy(
     ifc: spec.ClassType | spec.InterfaceType,
   ): void {
-    const name =
-      ifc.kind === spec.TypeKind.Interface
-        ? this.nameutils.convertInterfaceName(ifc)
-        : this.typeresolver.toNativeFqn(ifc.fqn);
+    const name = spec.isInterfaceType(ifc)
+      ? this.nameutils.convertInterfaceName(ifc)
+      : this.typeresolver.toNativeFqn(ifc.fqn);
     this.code.line(
       `[JsiiTypeProxy(nativeType: typeof(${name}), fullyQualifiedName: "${ifc.fqn}")]`,
     );

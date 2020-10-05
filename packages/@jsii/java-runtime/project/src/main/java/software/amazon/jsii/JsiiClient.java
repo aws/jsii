@@ -21,6 +21,7 @@ import static software.amazon.jsii.Util.extractResource;
 /**
  * HTTP client for jsii-server.
  */
+@Internal
 public final class JsiiClient {
     /**
      * JSON node factory.

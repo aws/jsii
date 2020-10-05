@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.TreeNode;
  * types, but Jackson doesn't support selecting serializers by annotations, so we needed a type as a marker.
  * See {@link JsiiObjectMapper} for details.
  */
+@Internal
 public interface JsiiSerializable {
     /**
      * Serializes this object to JSON. The default behavior is to return an object reference.

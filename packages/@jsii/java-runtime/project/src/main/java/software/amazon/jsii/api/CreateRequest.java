@@ -2,9 +2,12 @@ package software.amazon.jsii.api;
 
 import java.util.Collection;
 
+import software.amazon.jsii.Internal;
+
 /**
  * Represents a "create" jsii-runtime request.
  */
+@Internal
 public class CreateRequest {
     /**
      * The FQN of the class to create.

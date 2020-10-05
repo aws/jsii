@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Represents a jsii JavaScript module.
  */
+@Internal
 public abstract class JsiiModule {
     /**
      * The module class.

@@ -22,6 +22,7 @@ import static software.amazon.jsii.Util.extractResource;
 /**
  * Manages the jsii-runtime child process.
  */
+@Internal
 public final class JsiiRuntime {
     /**
      * Extract the "+<sha>" postfix from a full version number.
