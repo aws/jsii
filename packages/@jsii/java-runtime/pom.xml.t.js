@@ -60,8 +60,8 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions of the dependencies -->
         <hamcrest.version>[1.3,1.4)</hamcrest.version>
-        <jackson-core.version>2.11.3</jackson-core.version>
-        <jackson-databind.version>2.11.3</jackson-databind.version>
+        <jackson-core.version>[2.11.3,3.0.0)</jackson-core.version>
+        <jackson-databind.version>[2.11.3,3.0.0)</jackson-databind.version>
         <jetbrains-annotations.version>[13.0.0,20.0.0)</jetbrains-annotations.version>
         <junit.version>[5.6.1,5.7.0)</junit.version>
         <mockito.version>[3.2.4,3.3.0)</mockito.version>
