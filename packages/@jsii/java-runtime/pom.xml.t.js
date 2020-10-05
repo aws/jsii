@@ -64,7 +64,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <jackson-databind.version>[2.10.1,2.11.0)</jackson-databind.version>
         <jetbrains-annotations.version>[13.0.0,20.0.0)</jetbrains-annotations.version>
         <junit.version>[5.6.1,5.7.0)</junit.version>
-        <mockito.version>[3.2.4,3.3.0)</mockito.version>
+        <mockito.version>[3.5.13,4.0.0)</mockito.version>
     </properties>
 
     <dependencies>
