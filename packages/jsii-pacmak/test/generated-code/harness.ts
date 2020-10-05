@@ -13,7 +13,6 @@ const FILE = Symbol('file');
 const MISSING = Symbol('missing');
 const TARBALL = Symbol('tarball');
 const TREE = Symbol('tree');
-const EMBEDDED_ASSET = Symbol('embedded asset');
 
 // Custom serializers so we can see the source without escape sequences
 expect.addSnapshotSerializer({
@@ -27,19 +26,15 @@ expect.addSnapshotSerializer({
 
 expect.addSnapshotSerializer({
   test: (val) => val?.[TARBALL] != null,
-  serialize: (val) => `${val[TARBALL]} is a tarball`,
+  serialize: (val) =>
+    `${val[TARBALL]} ${
+      val[TARBALL].endsWith('.tgz') ? 'is' : 'embeds'
+    } a tarball`,
 });
 expect.addSnapshotSerializer({
   test: (val) => val?.[TREE] != null,
   serialize: (val) => {
     return `<root>\n${formatTree(val[TREE])}`;
-  },
-});
-
-expect.addSnapshotSerializer({
-  test: (val) => val?.[EMBEDDED_ASSET] != null,
-  serialize: (val) => {
-    return `<root>\n${val[EMBEDDED_ASSET]} is an embedded asset file`;
   },
 });
 
@@ -95,11 +90,9 @@ function checkTree(
   }
 
   if (stat.isFile()) {
-    if (file.endsWith('.tgz')) {
+    if (file.endsWith('.tgz') || file.endsWith('.embedded.go')) {
       // Special-cased to avoid binary differences being annoying
       expect({ [TARBALL]: relativeFile }).toMatchSnapshot(snapshotName);
-    } else if (file.endsWith('.generated.go')) {
-      expect({ [EMBEDDED_ASSET]: relativeFile }).toMatchSnapshot(snapshotName);
     } else {
       expect({
         [FILE]: fs.readFileSync(file, { encoding: 'utf-8' }),

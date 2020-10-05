@@ -8,7 +8,7 @@ import {
   Struct,
 } from './types';
 import { EmitContext } from './emit-context';
-import { RootPackage } from './package';
+import { JSII_INIT_ALIAS, JSII_INIT_FUNC, RootPackage } from './package';
 
 // Embedded JS Module Naming Constants
 export const JSII_EMBEDDED_LOAD_MODULE_NAME = 'jsii';
@@ -133,14 +133,19 @@ export class ModuleLoad {
 }
 
 export class MethodCall {
-  public constructor(public readonly parent: ClassMethod) {}
+  public constructor(
+    public readonly parent: ClassMethod,
+    private readonly inStatic: boolean,
+  ) {}
 
   public get pkg() {
     return this.parent.pkg;
   }
 
   public emit(code: CodeMaker) {
-    this.pkg.emitLibLoad(code);
+    if (this.inStatic) {
+      emitInitialization(code);
+    }
     code.open(`_, err := ${JSII_INVOKE_FN}(${JSII_INVOKE_REQUEST} {`);
 
     code.line(`Api: "invoke",`);
@@ -187,11 +192,11 @@ export class MethodCall {
 
 export class StaticMethodCall extends MethodCall {
   public constructor(public readonly parent: StaticMethod) {
-    super(parent);
+    super(parent, true);
   }
 
   public emit(code: CodeMaker) {
-    this.pkg.emitLibLoad(code);
+    emitInitialization(code);
     code.open(
       `_, err := ${JSII_STATIC_INVOKE_FN}(${JSII_STATIC_INVOKE_REQUEST} {`,
     );
@@ -216,7 +221,7 @@ export class ClassConstructor extends RuntimeFnCall {
   }
 
   public emit(code: CodeMaker) {
-    this.pkg.emitLibLoad(code);
+    emitInitialization(code);
     code.open(`res, err := ${JSII_CREATE_FN}(${JSII_CREATE_REQUEST} {`);
 
     code.line(`Api: "create",`);
@@ -274,7 +279,6 @@ export class GetProperty {
   }
 
   public emit({ code }: EmitContext) {
-    this.pkg.emitLibLoad(code);
     code.open(`_, err := ${JSII_GET_FN}(${JSII_GET_REQUEST} {`);
     code.line(`Api: "get",`);
     code.line(`Property: "${this.parent.property.name}",`);
@@ -288,4 +292,8 @@ export class GetProperty {
     code.close(`})`);
     emitPanicErr(code);
   }
+}
+
+export function emitInitialization(code: CodeMaker) {
+  code.line(`${JSII_INIT_ALIAS}.${JSII_INIT_FUNC}()`);
 }

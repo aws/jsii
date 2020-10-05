@@ -296,7 +296,7 @@ type ErrorResponse struct {
 	Stack *string `json:"stack"`
 }
 
-// Custom unmarshalling implementation for response structs. Creating a new type
+// Custom unmarshalling implementation for response structs. Creating new types
 // is required in order to avoid infinite recursion.
 func (r *LoadResponse) UnmarshalJSON(data []byte) error {
 	type response LoadResponse

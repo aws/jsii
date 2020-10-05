@@ -11,36 +11,83 @@ import (
 	"path"
 	"regexp"
 	goruntime "runtime"
-	"time"
+	"sync"
 )
 
-// client is the data structure responsible for intializing and managing the
-// JSII kernel process. It has handles for writing and reading JSON to/from
-// the processes STDIN and STDOUT.
+var (
+	clientInstance      *client
+	clientInstanceMutex sync.Mutex
+	clientOnce          sync.Once
+)
+
+// getClient returns a singleton client instance, initializing one the first
+// time it is called.
+func getClient() *client {
+	clientOnce.Do(func() {
+		// Locking early to be safe with a concurrent Close execution
+		clientInstanceMutex.Lock()
+		defer clientInstanceMutex.Unlock()
+
+		client, err := newClient()
+		if err != nil {
+			panic(err)
+		}
+
+		clientInstance = client
+	})
+
+	return clientInstance
+}
+
+// closeClient finalizes the runtime process, signalling the end of the
+// execution to the jsii kernel process, and waiting for graceful termination.
+//
+// If a jsii client is used *after* closeClient was called, a new jsii kernel
+// process will be initialized, and closeClient should be called again to
+// correctly finalize that, too.
+func closeClient() {
+	// Locking early to be safe with a concurrent getClient execution
+	clientInstanceMutex.Lock()
+	defer clientInstanceMutex.Unlock()
+
+	// Reset the "once" so a new client would get initialized next time around
+	clientOnce = sync.Once{}
+
+	if clientInstance != nil {
+		// Close the client & reset it
+		clientInstance.close()
+		clientInstance = nil
+	}
+}
+
 type client struct {
 	process        *exec.Cmd
 	RuntimeVersion string
 	writer         *json.Encoder
 	reader         *json.Decoder
 
-	// Keeping track of the things we might have to clean up after ourselves...
+	// Keeping track of state that'll need cleaning up in close()
 	stdin  io.WriteCloser
 	tmpdir string
 }
 
-// initClient starts the kernel child process and verifies that the runtime has
-// intialized properly.
-func initClient() (*client, error) {
+// newClient starts the kernel child process and verifies the "hello" message
+// was correct.
+func newClient() (*client, error) {
 	clientinstance := &client{}
 
-	// Register a finalizer for this pointer
+	// Register a finalizer to call Close()
 	goruntime.SetFinalizer(clientinstance, func(c *client) {
 		c.close()
 	})
 
 	customruntime := os.Getenv("JSII_RUNTIME")
 	if customruntime != "" {
-		// The user has provided a custom JSII_RUNTIME, so we'll just honor that
+		// The user has provided a custom JSII_RUNTIME, so we'll just honor that. This feature can
+		// greatly help during development iterations or when trying to diagnose a user-discovered bug
+		// that resists reproduction. The "built-in" runtime is webpack'd, and this can degrade the
+		// debugger experience with certain debuggers (so far, only Chrome's was found to give the right
+		// experience)
 		clientinstance.process = exec.Command(customruntime)
 	} else {
 		// The user hasn't provided a custom JSII_RUNTIME, so we'll unpack the built-in one
@@ -58,7 +105,11 @@ func initClient() (*client, error) {
 		}
 
 		entrypoint := path.Join(tmpdir, embeddedruntimeMain)
-		clientinstance.process = exec.Command("node", "--max-old-space-size=4096", entrypoint)
+		// --max-old-space-size is recommended to be set because `jsii` currently does not quite do
+		// garbage collection (the kernel API only allows the host library to report object deleting,
+		// but in order to be effective, the jsii kernel needs to also have a way to signal objects it
+		// no longer has a reference to).
+		clientinstance.process = exec.Command("node", "--max-old-space-size=4069", entrypoint)
 	}
 
 	clientinstance.process.Env = append(
@@ -66,14 +117,10 @@ func initClient() (*client, error) {
 		fmt.Sprintf("JSII_AGENT=%s/%s/%s", goruntime.Version(), goruntime.GOOS, goruntime.GOARCH),
 	)
 
+	// Forward child process STDERR to this process' STDERR for immediate feedback
 	clientinstance.process.Stderr = os.Stderr
 
-	out, err := clientinstance.process.StdoutPipe()
-	if err != nil {
-		return nil, err
-	}
-	clientinstance.reader = json.NewDecoder(out)
-
+	// Pipe child process STDIN from a JSON encoder
 	in, err := clientinstance.process.StdinPipe()
 	if err != nil {
 		return nil, err
@@ -81,25 +128,28 @@ func initClient() (*client, error) {
 	clientinstance.stdin = in
 	clientinstance.writer = json.NewEncoder(in)
 
-	// Start Process
+	// Pipe child process STDOUT to a JSON decoder
+	out, err := clientinstance.process.StdoutPipe()
+	if err != nil {
+		return nil, err
+	}
+	clientinstance.reader = json.NewDecoder(out)
+
+	// Start process
 	if err := clientinstance.process.Start(); err != nil {
 		return nil, err
 	}
 
-	// Check for OK response and parse runtime version
-	rtver, err := clientinstance.validateClientStart()
-
+	// Check for "hello" message and parse runtime version
+	rtversion, err := clientinstance.processHello()
 	if err != nil {
 		return nil, err
 	}
+	clientinstance.RuntimeVersion = rtversion
 
-	clientinstance.RuntimeVersion = rtver
 	return clientinstance, nil
 }
 
-// request accepts a KernelRequest struct which is encoded into a JSON string
-// and written to the kernel processess' STDIN. It also accepts a pointer to a
-// struct that is used for the output.
 func (c *client) request(req KernelRequest, res KernelResponse) error {
 	err := c.writer.Encode(req)
 	if err != nil {
@@ -109,33 +159,30 @@ func (c *client) request(req KernelRequest, res KernelResponse) error {
 	return c.response(res)
 }
 
-// response attempts to read a json value from the kernel processess' STDOUT and
-// decode it into the passed response struct. If no value is found on STDOUT and
-// STDERR has content, it will read the output of STDERR and return an error
-// with that content as the error message.
 func (c *client) response(res KernelResponse) error {
-	// TODO: identify source of this race condition
-	// Runtime locks without this timeout currently
-	time.Sleep(time.Millisecond * 100)
 	if c.reader.More() {
 		return c.reader.Decode(res)
 	}
 
 	return errors.New("No Response from runtime")
+
 }
 
-// validateClientStart verifies that the expected response is written to the
-// process STDOUT after initialization. It parses the version of the kernel
-// runtime returned on the initial output.
-func (c *client) validateClientStart() (string, error) {
+func (c *client) processHello() (string, error) {
 	response := InitOkResponse{}
 
 	if err := c.response(&response); err != nil {
 		return "", err
 	}
 
-	version := regexp.MustCompile("@").Split(response.Hello, 3)[2]
+	parts := regexp.MustCompile("@").Split(response.Hello, 3)
+	version := parts[len(parts)-1]
 	return version, nil
+}
+
+func (c *client) load(request LoadRequest) (LoadResponse, error) {
+	response := LoadResponse{}
+	return response, c.request(request, &response)
 }
 
 func (c *client) close() {
@@ -146,6 +193,7 @@ func (c *client) close() {
 	if c.tmpdir != "" {
 		os.RemoveAll(c.tmpdir)
 	}
+
 	// We no longer need a finalizer to run
 	goruntime.SetFinalizer(c, nil)
 }

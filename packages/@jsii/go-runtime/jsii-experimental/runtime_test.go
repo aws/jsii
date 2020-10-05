@@ -7,7 +7,7 @@ import (
 )
 
 func TestClient(t *testing.T) {
-	client, err := initClient()
+	client, err := newClient()
 	if err != nil {
 		t.Log(err)
 		t.Errorf(fmt.Sprintf("Client init error: %s", err.Error()))

@@ -1,7 +1,8 @@
-import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
 import { toPascalCase } from 'codemaker';
-import { EmitContext } from '../emit-context';
 import { Method, Parameter, Property } from 'jsii-reflect';
+import { EmitContext } from '../emit-context';
+import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
+import { emitInitialization } from '../runtime';
 import { substituteReservedWords } from '../util';
 import { GetProperty } from '../runtime';
 import { Package } from '../package';
@@ -88,6 +89,9 @@ export class GoProperty implements GoTypeMember {
       }()${` ${this.returnType}`}`,
     );
 
+    if (this.property.static) {
+      emitInitialization(code);
+    }
     this.propertyGetter.emit(context);
 
     if (this.parent.name === this.returnType) {
@@ -107,6 +111,10 @@ export class GoProperty implements GoTypeMember {
     code.openBlock(
       `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
     );
+
+    if (this.property.static) {
+      emitInitialization(code);
+    }
 
     if (this.parent.name === this.returnType) {
       code.line(`${instanceArg}.${this.name} = &val`);

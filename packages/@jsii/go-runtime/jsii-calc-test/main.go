@@ -1,20 +1,21 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	calc "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
-	baseofbase "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
-	jsii "github.com/aws-cdk/jsii/jsii-experimental"
+	"github.com/aws-cdk/jsii/jsii-experimental"
+	"math"
 )
 
 func main() {
 	defer jsii.Close()
 
-	fmt.Println("Hello, JSII")
-	fmt.Printf("JSII_AGENT=%s\n", calc.NewJsiiAgent().GetValue())
+	calculator := calc.NewCalculator(calc.CalculatorProps{InitialValue: 0, MaximumValue: math.MaxFloat64})
+	calculator.Add(1337)
+	calculator.Mul(42)
 
-	// Class Creation
-	number := baseofbase.NewVery()
-	// Method invocation
-	number.Hey()
+	if calculator.GetValue() != 1337.*42. {
+		// TODO: right now implementations are just NOOP.
+		// panic(fmt.Sprintf("Unexpected calculator value: expected %f, but received %f", 1337.*42., calculator.GetValue()))
+	}
 }

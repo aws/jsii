@@ -1,16 +1,18 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly } from 'jsii-reflect';
+import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
+import { join } from 'path';
 import { ReadmeFile } from './readme-file';
-import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { EmitContext } from './emit-context';
+import { JSII_MODULE_NAME, JSII_RT_ALIAS } from './runtime';
 import { GoClass, GoType, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
-import {
-  JSII_EMBEDDED_LOAD_FN,
-  JSII_MODULE_NAME,
-  JSII_RT_ALIAS,
-  ModuleLoad,
-} from './runtime';
+
+// Jsii initializer package name
+export const JSII_INIT_PACKAGE = 'jsii';
+// Function to initialize a jsii-generated module
+export const JSII_INIT_FUNC = 'Initialize';
+// Alias used for the jsii init
+export const JSII_INIT_ALIAS = '_init_';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -31,7 +33,7 @@ export abstract class Package {
     root?: Package,
   ) {
     this.file = `${filePath}/${packageName}.go`;
-    this.root = root || this;
+    this.root = root ?? this;
     this.submodules = this.submoduleSpec.map(
       (sm) => new InternalPackage(this.root, this, sm),
     );
@@ -102,53 +104,33 @@ export abstract class Package {
     }
   }
 
-  public emitLibLoad(code: CodeMaker) {
-    code.line(`jsii.${JSII_EMBEDDED_LOAD_FN}()`);
-  }
-
   protected emitHeader(code: CodeMaker) {
     code.line(`package ${this.packageName}`);
     code.line();
   }
 
-  protected emitTypes(context: EmitContext) {
-    for (const type of this.types) {
-      type.emit(context);
-    }
-  }
-
-  protected get imports(): readonly GoImport[] {
-    const result: GoImport[] = [
-      { alias: JSII_RT_ALIAS, package: JSII_MODULE_NAME },
-      { package: `${this.root.moduleName}/${this.root.packageName}/jsii` },
-    ];
-    for (const packageName of this.dependencyImports) {
-      if (packageName !== this.packageName) {
-        result.push({ package: packageName });
-      }
-    }
-    return result;
-  }
-
-  protected emitImports(code: CodeMaker) {
-    const imports = this.imports;
-    if (imports.length === 0) {
-      return;
-    }
-
+  private emitImports(code: CodeMaker) {
     code.open('import (');
-    for (const goImport of Array.from(imports).sort(sortImports)) {
-      if (goImport.alias) {
-        code.line(`${goImport.alias} ${JSON.stringify(goImport.package)}`);
-      } else {
-        code.line(JSON.stringify(goImport.package));
+    code.line(`${JSII_RT_ALIAS} "${JSII_MODULE_NAME}"`);
+
+    for (const packageName of this.dependencyImports) {
+      // If the module is the same as the current one being written, don't emit an import statement
+      if (packageName !== this.packageName) {
+        code.line(`"${packageName}"`);
       }
     }
+
+    code.line(
+      `${JSII_INIT_ALIAS} "${this.root.moduleName}/${this.root.packageName}/${JSII_INIT_PACKAGE}"`,
+    );
+
     code.close(')');
     code.line();
+  }
 
-    function sortImports(left: GoImport, right: GoImport) {
-      return left.package.localeCompare(right.package);
+  private emitTypes(context: EmitContext) {
+    for (const type of this.types) {
+      type.emit(context);
     }
   }
 }
@@ -186,24 +168,9 @@ export class RootPackage extends Package {
   }
 
   public emit(context: EmitContext): void {
-    this.emitLoadFunction(context);
-
-    const { code } = context;
-    code.openFile(this.file);
-    this.emitHeader(code);
-    this.emitImports(code);
-    this.emitTypes(context);
-    code.closeFile(this.file);
-
-    this.emitInternalPackages(context);
-
+    super.emit(context);
+    this.emitJsiiPackage(context);
     this.readme?.emit(context);
-  }
-
-  private emitLoadFunction(context: EmitContext): void {
-    new ModuleLoad(this.assembly.name, this.assembly.version, this).emit(
-      context,
-    );
   }
 
   /*
@@ -224,12 +191,6 @@ export class RootPackage extends Package {
   }
 
   /*
-   * Override with known package imports for root package, used for load call functionality */
-  public get dependencyImports(): Set<string> {
-    return new Set(super.dependencyImports);
-  }
-
-  /*
    * Get all JSII module dependencies of the package being generated
    */
   public get packageDependencies(): RootPackage[] {
@@ -244,6 +205,52 @@ export class RootPackage extends Package {
     }
     code.line(`package ${this.packageName}`);
     code.line();
+  }
+
+  private emitJsiiPackage({ code }: EmitContext) {
+    const dependencies = this.packageDependencies.sort((l, r) =>
+      l.moduleName.localeCompare(r.moduleName),
+    );
+
+    const file = join(JSII_INIT_PACKAGE, `${JSII_INIT_PACKAGE}.go`);
+    code.openFile(file);
+    code.line('package jsii');
+    code.line();
+    code.open('import (');
+    code.line(`rt "${JSII_MODULE_NAME}"`);
+    code.line('"sync"');
+    if (dependencies.length > 0) {
+      code.line('// Initialization endpoints of dependencies');
+      for (const pkg of dependencies) {
+        code.line(
+          `${pkg.packageName} "${pkg.root.moduleName}/${pkg.root.packageName}/${JSII_INIT_PACKAGE}"`,
+        );
+      }
+    }
+    code.close(')');
+    code.line();
+    code.line('var once sync.Once');
+    code.line();
+    code.line(
+      `// ${JSII_INIT_FUNC} performs the necessary work for the enclosing`,
+    );
+    code.line('// module to be loaded in the jsii kernel.');
+    code.open(`func ${JSII_INIT_FUNC}() {`);
+    code.open('once.Do(func(){');
+    if (dependencies.length > 0) {
+      code.line('// Ensure all dependencies are initialized');
+      for (const pkg of this.packageDependencies) {
+        code.line(`${pkg.packageName}.${JSII_INIT_FUNC}()`);
+      }
+      code.line();
+    }
+    code.line('// Load this library into the kernel');
+    code.line(
+      `rt.Load("${this.assembly.name}", "${this.assembly.version}", tarball)`,
+    );
+    code.close('})');
+    code.close('}');
+    code.closeFile(file);
   }
 }
 
@@ -268,18 +275,4 @@ export class InternalPackage extends Package {
 
     this.pkg = pkg;
   }
-}
-
-interface GoImport {
-  /**
-   * The alias name to emit for this package import, if any.
-   *
-   * @default none
-   */
-  readonly alias?: string;
-
-  /**
-   * The package to be imported.
-   */
-  readonly package: string;
 }
