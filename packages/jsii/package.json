@@ -37,7 +37,7 @@
     "@jsii/spec": "^0.0.0",
     "case": "^1.6.3",
     "colors": "^1.4.0",
-    "deep-equal": "^2.0.3",
+    "deep-equal": "^2.0.4",
     "fs-extra": "^9.0.1",
     "log4js": "^6.3.0",
     "semver": "^7.3.2",
@@ -62,7 +62,7 @@
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.4.0"
+    "ts-jest": "^26.4.1"
   },
   "jest": {
     "collectCoverage": true,
