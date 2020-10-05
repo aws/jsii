@@ -180,6 +180,8 @@ export class DotNetRuntimeGenerator {
           method.returns.optional ? '?' : ''
         }>`
       : '';
+    // If the method returns a non-optional value, apply a "!" to silence compilation warning.
+    const bang = method.returns && !method.returns.optional ? '!' : '';
     const typeofStatement = method.static ? `typeof(${className}), ` : '';
     const paramTypes = new Array<string>();
     const params = new Array<string>();
@@ -197,7 +199,7 @@ export class DotNetRuntimeGenerator {
       method.parameters?.find((param) => param.optional) != null ? '?' : '';
     return `${invokeMethodName}${returnType}(${typeofStatement}new System.Type[]{${paramTypes.join(
       ', ',
-    )}}, new object${hasOptional}[]{${params.join(', ')}});`;
+    )}}, new object${hasOptional}[]{${params.join(', ')}})${bang};`;
   }
 
   /**
