@@ -17,7 +17,7 @@ const OUTPUT_DIR = resolve(__dirname, '..', 'jsii-experimental');
 const RUNTIME_FILE = 'embeddedruntime.generated.go';
 const VERSION_FILE = 'version.generated.go';
 
-const code = new CodeMaker();
+const code = new CodeMaker({ indentationLevel: 1, indentCharacter: '\t' });
 
 code.openFile(RUNTIME_FILE);
 code.line('package jsii');
