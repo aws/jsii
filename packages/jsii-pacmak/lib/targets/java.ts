@@ -1877,10 +1877,10 @@ class JavaGenerator extends Generator {
     // If the data type has exactly 1 base datatype, we'll extend the base's proxy
     const baseInterface =
       ifc.interfaces?.length === 1 ? ifc.interfaces[0] : undefined;
-    const ownProps = props.filter(
+    const propsToGenerate = props.filter(
       (prop) => baseInterface == null || !prop.inherited,
     );
-    const baseProps = props.filter(
+    const propsToInherit = props.filter(
       (prop) => baseInterface != null && prop.inherited,
     );
 
@@ -1900,7 +1900,7 @@ class JavaGenerator extends Generator {
     );
 
     // Immutable properties
-    ownProps.forEach((prop) =>
+    propsToGenerate.forEach((prop) =>
       this.code.line(`private final ${prop.fieldJavaType} ${prop.fieldName};`),
     );
 
@@ -1916,7 +1916,7 @@ class JavaGenerator extends Generator {
       `protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`,
     );
     this.code.line('super(objRef);');
-    ownProps.forEach((prop) =>
+    propsToGenerate.forEach((prop) =>
       this.code.line(
         `this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldNativeType});`,
       ),
@@ -1942,14 +1942,14 @@ class JavaGenerator extends Generator {
     );
     if (baseInterface != null) {
       this.code.line(
-        `super(${baseProps.map((prop) => prop.fieldName).join(', ')});`,
+        `super(${propsToInherit.map((prop) => prop.fieldName).join(', ')});`,
       );
     } else {
       this.code.line(
         'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
       );
     }
-    ownProps.forEach((prop) => {
+    propsToGenerate.forEach((prop) => {
       const explicitCast =
         prop.fieldJavaType !== prop.paramJavaType
           ? `(${prop.fieldJavaType})`
@@ -1965,7 +1965,7 @@ class JavaGenerator extends Generator {
     // End literal constructor
 
     // Getters
-    ownProps.forEach((prop) => {
+    propsToGenerate.forEach((prop) => {
       this.code.line();
       this.code.line('@Override');
       this.code.openBlock(
@@ -1994,7 +1994,7 @@ class JavaGenerator extends Generator {
     );
 
     this.code.line();
-    for (const prop of ownProps) {
+    for (const prop of propsToGenerate) {
       if (prop.nullable) {
         this.code.openBlock(`if (this.get${prop.propName}() != null)`);
       }
@@ -2025,10 +2025,10 @@ class JavaGenerator extends Generator {
     // End $jsii$toJson
 
     // Generate equals() override
-    this.emitEqualsOverride(ifc.name, ownProps, baseInterface != null);
+    this.emitEqualsOverride(ifc.name, propsToGenerate, baseInterface != null);
 
     // Generate hashCode() override
-    this.emitHashCodeOverride(ownProps, baseInterface != null);
+    this.emitHashCodeOverride(propsToGenerate, baseInterface != null);
 
     this.code.closeBlock();
     // End implementation class
