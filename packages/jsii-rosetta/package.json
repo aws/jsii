@@ -23,7 +23,7 @@
     "@types/node": "^10.17.35",
     "@types/yargs": "^15.0.7",
     "eslint": "^7.10.0",
-    "jest": "^26.4.2",
+    "jest": "^26.5.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "memory-streams": "^0.1.3",

@@ -25,7 +25,7 @@
     "@types/node": "^10.17.35",
     "@types/yargs": "^15.0.7",
     "eslint": "^7.10.0",
-    "jest": "^26.4.2",
+    "jest": "^26.5.0",
     "jest-expect-message": "^1.0.2",
     "prettier": "^2.1.2",
     "typescript": "~3.9.7"
