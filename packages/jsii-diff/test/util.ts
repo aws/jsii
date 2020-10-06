@@ -16,7 +16,7 @@ export async function expectError(
   original: string,
   updated: string,
 ) {
-  if (error === undefined) {
+  if (error == null) {
     await expectNoError(original, updated);
     return;
   }

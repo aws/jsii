@@ -104,7 +104,7 @@ export function flatMap<T, U>(xs: T[], fn: (x: T) => U[]): U[] {
 }
 
 /**
- * Don't recurse unnecessarily
+ * Don't recurse infinitely by guarding a block with `do()`.
  */
 export class RecursionBreaker<A> {
   private readonly elements = new Set<A>();

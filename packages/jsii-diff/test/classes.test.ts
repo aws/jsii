@@ -360,27 +360,27 @@ describe('implement base types need to be present in updated type system', () =>
 // ----------------------------------------------------------------------
 
 test.each([
-  [
-    'name: string',
-    'name?: string',
-    /type Optional<string> \(formerly string\): output type is now optional/,
-  ],
-  [
-    'name?: string',
-    'name: string',
-    undefined, // Strengthening is okay
-  ],
-  [
-    'name: string',
-    'name: string | number',
-    /string \| number is not assignable to string/,
-  ],
-  [
-    'name: string | number',
-    'name: string',
-    undefined, // Strengthening is okay
-  ],
-])('change class property ', (oldDecl, newDecl, error) =>
+  {
+    oldDecl: 'name: string',
+    newDecl: 'name?: string',
+    error: /type Optional<string> \(formerly string\): output type is now optional/,
+  },
+  {
+    oldDecl: 'name?: string',
+    newDecl: 'name: string',
+    error: undefined, // Strengthening is okay
+  },
+  {
+    oldDecl: 'name: string',
+    newDecl: 'name: string | number',
+    error: /string \| number is not assignable to string/,
+  },
+  {
+    oldDecl: 'name: string | number',
+    newDecl: 'name: string',
+    error: undefined, // Strengthening is okay
+  },
+])('change class property ', ({ oldDecl, newDecl, error }) =>
   expectError(
     error,
     `
@@ -399,29 +399,29 @@ test.each([
 // ----------------------------------------------------------------------
 
 test.each([
-  [
-    'name: string',
-    'name?: string',
-    /changed to Optional<string> \(formerly string\)/,
-  ],
-  [
-    'name?: string',
-    'name: string',
-    /changed to string \(formerly Optional<string>\)/,
-  ],
-  [
-    'name: string',
-    'name: string | number',
-    /changed to string \| number \(formerly string\)/,
-  ],
-  [
-    'name: string | number',
-    'name: string',
-    /changed to string \(formerly string \| number\)/,
-  ],
+  {
+    oldDecl: 'name: string',
+    newDecl: 'name?: string',
+    error: /changed to Optional<string> \(formerly string\)/,
+  },
+  {
+    oldDecl: 'name?: string',
+    newDecl: 'name: string',
+    error: /changed to string \(formerly Optional<string>\)/,
+  },
+  {
+    oldDecl: 'name: string',
+    newDecl: 'name: string | number',
+    error: /changed to string \| number \(formerly string\)/,
+  },
+  {
+    oldDecl: 'name: string | number',
+    newDecl: 'name: string',
+    error: /changed to string \(formerly string \| number\)/,
+  },
 ])(
   'cannot change a mutable class property type: %p to %p',
-  (oldDecl, newDecl, error) =>
+  ({ oldDecl, newDecl, error }) =>
     expectError(
       error,
       `
@@ -610,15 +610,21 @@ test('change from property to method', () =>
 // ----------------------------------------------------------------------
 
 test.each([
-  [
-    'foo(arg: string) { Array.isArray(arg); }',
-    'foo(arg: string | number) { Array.isArray(arg); }',
-  ],
-  ['foo(): string { return "x"; }', 'foo(): string | number { return "x"; }'],
-  ['readonly foo: string = "x";', 'readonly foo: string | number = "x";'],
+  {
+    oldDecl: 'foo(arg: string) { Array.isArray(arg); }',
+    newDecl: 'foo(arg: string | number) { Array.isArray(arg); }',
+  },
+  {
+    oldDecl: 'foo(): string { return "x"; }',
+    newDecl: 'foo(): string | number { return "x"; }',
+  },
+  {
+    oldDecl: 'readonly foo: string = "x";',
+    newDecl: 'readonly foo: string | number = "x";',
+  },
 ])(
   'cannot change any type in @subclassable class: %p to %p',
-  (oldDecl, newDecl) =>
+  ({ oldDecl, newDecl }) =>
     expectError(
       /type is @subclassable/,
       `
@@ -639,12 +645,18 @@ test.each([
 // ----------------------------------------------------------------------
 
 test.each([
-  ['foo(arg: string): void;', 'foo(arg: string | number): void;'],
-  ['foo(): string;', 'foo(): string | number;'],
-  ['readonly foo: string;', 'readonly foo: string | number;'],
+  {
+    oldDecl: 'foo(arg: string): void;',
+    newDecl: 'foo(arg: string | number): void;',
+  },
+  { oldDecl: 'foo(): string;', newDecl: 'foo(): string | number;' },
+  {
+    oldDecl: 'readonly foo: string;',
+    newDecl: 'readonly foo: string | number;',
+  },
 ])(
   'cannot change any type in @subclassable interface: %p to %p',
-  (oldDecl, newDecl) =>
+  ({ oldDecl, newDecl }) =>
     expectError(
       /type is @subclassable/,
       `
