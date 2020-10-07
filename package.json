@@ -15,8 +15,8 @@
     "test:update": "lerna run test:update --concurrency=1 --stream"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.3.0",
-    "@typescript-eslint/parser": "^4.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/parser": "^4.4.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-import-resolver-node": "^0.3.4",

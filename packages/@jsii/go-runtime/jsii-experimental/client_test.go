@@ -7,11 +7,12 @@ import (
 )
 
 func TestClient(t *testing.T) {
-	client, err := InitClient()
+	client, err := newClient()
 	if err != nil {
 		t.Log(err)
 		t.Errorf(fmt.Sprintf("Client init error: %s", err.Error()))
 	}
+	defer client.close()
 
 	if client.RuntimeVersion == "" {
 		clientstr, _ := json.Marshal(&client)

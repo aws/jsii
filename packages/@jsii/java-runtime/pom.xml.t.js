@@ -60,11 +60,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions of the dependencies -->
         <hamcrest.version>[1.3,1.4)</hamcrest.version>
-        <jackson-core.version>[2.10.1,2.11.0)</jackson-core.version>
-        <jackson-databind.version>[2.10.1,2.11.0)</jackson-databind.version>
+        <jackson-core.version>[2.11.3,3.0.0)</jackson-core.version>
+        <jackson-databind.version>[2.11.3,3.0.0)</jackson-databind.version>
         <jetbrains-annotations.version>[13.0.0,20.0.0)</jetbrains-annotations.version>
         <junit.version>[5.6.1,5.7.0)</junit.version>
-        <mockito.version>[3.2.4,3.3.0)</mockito.version>
+        <mockito.version>[3.5.13,4.0.0)</mockito.version>
     </properties>
 
     <dependencies>
@@ -168,12 +168,12 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <version>3.0.0-M5</version>
             </plugin>
 
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <version>3.0.0-M5</version>
             </plugin>
 
             <plugin>
