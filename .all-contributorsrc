@@ -1,6 +1,7 @@
 {
   "projectName": "jsii",
   "projectOwner": "aws",
+  "badgeTemplate": "[![All Contributors](https://img.shields.io/static/v1?label=%E2%9C%A8%20All%20Contributors&message=<%= contributors.length %>&color=brightgreen)](#contributors-)",
   "commit": false,
   "commitConvention": "angular",
   "contributorsSortAlphabetically": true,
