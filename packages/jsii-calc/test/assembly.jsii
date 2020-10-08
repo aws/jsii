@@ -205,7 +205,7 @@
     "jsii-calc.submodule": {
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 9
+        "line": 10
       }
     },
     "jsii-calc.submodule.back_references": {
@@ -4427,6 +4427,90 @@
         }
       ]
     },
+    "jsii-calc.Entropy": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either)."
+      },
+      "fqn": "jsii-calc.Entropy",
+      "initializer": {
+        "docs": {
+          "stability": "stable",
+          "summary": "Creates a new instance of Entropy."
+        },
+        "locationInModule": {
+          "filename": "lib/date.ts",
+          "line": 14
+        },
+        "parameters": [
+          {
+            "docs": {
+              "summary": "your implementation of `WallClock`."
+            },
+            "name": "clock",
+            "type": {
+              "fqn": "jsii-calc.IWallClock"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/date.ts",
+        "line": 8
+      },
+      "methods": [
+        {
+          "docs": {
+            "returns": "the time from the `WallClock`.",
+            "stability": "stable",
+            "summary": "Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge)."
+          },
+          "locationInModule": {
+            "filename": "lib/date.ts",
+            "line": 22
+          },
+          "name": "increase",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "returns": "`word`.",
+            "stability": "stable",
+            "summary": "Implement this method such that it returns `word`."
+          },
+          "locationInModule": {
+            "filename": "lib/date.ts",
+            "line": 47
+          },
+          "name": "repeat",
+          "parameters": [
+            {
+              "docs": {
+                "summary": "the value to return."
+              },
+              "name": "word",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "Entropy"
+    },
     "jsii-calc.EnumDispenser": {
       "assembly": "jsii-calc",
       "docs": {
@@ -6508,6 +6592,39 @@
         }
       ],
       "name": "IStructReturningDelegate"
+    },
+    "jsii-calc.IWallClock": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "Implement this interface."
+      },
+      "fqn": "jsii-calc.IWallClock",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/date.ts",
+        "line": 53
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable",
+            "summary": "Returns the current time, formatted as an ISO-8601 string."
+          },
+          "locationInModule": {
+            "filename": "lib/date.ts",
+            "line": 57
+          },
+          "name": "iso8601Now",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IWallClock"
     },
     "jsii-calc.ImplementInternalInterface": {
       "assembly": "jsii-calc",
@@ -14112,5 +14229,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "ary2D/3pPPIqMW0FmZnYMsKzvk8r29qmK5+1KyEcTQA="
+  "fingerprint": "azqNkkl+/4FLzTVBLkOyHcokS4xLoYtHsri0z9kIehQ="
 }
