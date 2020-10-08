@@ -1,11 +1,11 @@
 import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
-import { ApiElement, ComparisonContext } from './types';
+import { ApiElement, IReport } from './types';
 
-export function compareStabilities(
+export function validateStabilities(
   original: reflect.Documentable & ApiElement,
   updated: reflect.Documentable,
-  context: ComparisonContext,
+  mismatches: IReport,
 ) {
   // Nothing to do in these cases
   if (
@@ -17,7 +17,7 @@ export function compareStabilities(
 
   // Not allowed to disavow stability
   if (updated.docs.stability === undefined) {
-    context.mismatches.report({
+    mismatches.report({
       ruleKey: 'removed-stability',
       message: `stability was '${original.docs.stability}', has been removed`,
       violator: original,
@@ -27,7 +27,7 @@ export function compareStabilities(
 
   const allowed = allowedTransitions(original.docs.stability);
   if (!allowed.includes(updated.docs.stability)) {
-    context.mismatches.report({
+    mismatches.report({
       ruleKey: 'changed-stability',
       message: `stability not allowed to go from '${original.docs.stability}' to '${updated.docs.stability}'`,
       violator: original,
