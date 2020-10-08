@@ -462,6 +462,7 @@ export default class Java extends Target {
 
 const MODULE_CLASS_NAME = '$Module';
 const INTERFACE_PROXY_CLASS_NAME = 'Jsii$Proxy';
+const INTERFACE_DEFAULT_CLASS_NAME = 'Jsii$Default';
 
 // Struct that stores metadata about a property that can be used in Java code generation.
 interface JavaProp {
@@ -666,7 +667,8 @@ class JavaGenerator extends Generator {
 
   protected onEndClass(cls: spec.ClassType) {
     if (cls.abstract) {
-      this.emitProxy(cls);
+      const type = this.reflectAssembly.findType(cls.fqn) as reflect.ClassType;
+      this.emitProxy(type);
     } else {
       this.emitClassBuilder(cls);
     }
@@ -829,7 +831,16 @@ class JavaGenerator extends Generator {
     if (ifc.datatype) {
       this.emitDataType(ifc);
     } else {
-      this.emitProxy(ifc);
+      const type = this.reflectAssembly.findType(
+        ifc.fqn,
+      ) as reflect.InterfaceType;
+
+      this.emitProxy(type);
+      // We don't emit Jsii$Default if the assembly opted out of it explicitly.
+      // This is mostly to facilitate compatibility testing...
+      if (hasDefaultInterfaces(this.reflectAssembly)) {
+        this.emitDefaultImplementation(type);
+      }
     }
 
     this.code.closeBlock();
@@ -1228,10 +1239,16 @@ class JavaGenerator extends Generator {
     cls: spec.Type,
     prop: spec.Property,
     {
+      defaultImpl = false,
       final = false,
       includeGetter = true,
       overrides = !!prop.overrides,
-    }: { final?: boolean; includeGetter?: boolean; overrides?: boolean } = {},
+    }: {
+      defaultImpl?: boolean;
+      final?: boolean;
+      includeGetter?: boolean;
+      overrides?: boolean;
+    } = {},
   ) {
     const getterType = this.toDecoratedJavaType(prop);
     const setterTypes = this.toDecoratedJavaTypes(prop, {
@@ -1240,9 +1257,12 @@ class JavaGenerator extends Generator {
     const propName = this.code.toPascalCase(
       JavaGenerator.safeJavaPropertyName(prop.name),
     );
-    const access = this.renderAccessLevel(prop);
-    const statc = prop.static ? 'static ' : '';
-    const abstract = prop.abstract ? 'abstract ' : '';
+
+    const modifiers = [defaultImpl ? 'default' : this.renderAccessLevel(prop)];
+    if (prop.static) modifiers.push('static');
+    if (prop.abstract && !defaultImpl) modifiers.push('abstract');
+    if (final && !prop.abstract && !defaultImpl) modifiers.push('final');
+
     const javaClass = this.toJavaType(cls);
 
     // for unions we only generate overloads for setters, not getters.
@@ -1253,18 +1273,18 @@ class JavaGenerator extends Generator {
         this.code.line('@Override');
       }
       this.emitStabilityAnnotations(prop);
-      const signature = `${access} ${
-        final ? 'final ' : ''
-      }${abstract}${statc}${getterType} get${propName}()`;
-      if (prop.abstract) {
+      const signature = `${modifiers.join(' ')} ${getterType} get${propName}()`;
+      if (prop.abstract && !defaultImpl) {
         this.code.line(`${signature};`);
       } else {
         this.code.openBlock(signature);
         let statement;
         if (prop.static) {
-          statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
+          statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${this.toJavaType(
+            cls,
+          )}.class, `;
         } else {
-          statement = 'this.jsiiGet(';
+          statement = 'this.$jsii$get(';
         }
 
         statement += `"${prop.name}", ${this.toNativeType(prop.type, {
@@ -1286,8 +1306,10 @@ class JavaGenerator extends Generator {
           this.code.line('@Override');
         }
         this.emitStabilityAnnotations(prop);
-        const signature = `${access} ${abstract}${statc}void set${propName}(final ${type} value)`;
-        if (prop.abstract) {
+        const signature = `${modifiers.join(
+          ' ',
+        )} void set${propName}(final ${type} value)`;
+        if (prop.abstract && !defaultImpl) {
           this.code.line(`${signature};`);
         } else {
           this.code.openBlock(signature);
@@ -1296,7 +1318,7 @@ class JavaGenerator extends Generator {
           if (prop.static) {
             statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
           } else {
-            statement += 'this.jsiiSet(';
+            statement += 'this.$jsii$set(';
           }
           const value = prop.optional
             ? 'value'
@@ -1313,15 +1335,22 @@ class JavaGenerator extends Generator {
     cls: spec.Type,
     method: spec.Method,
     {
+      defaultImpl = false,
       final = false,
       overrides = !!method.overrides,
-    }: { final?: boolean; overrides?: boolean } = {},
+    }: { defaultImpl?: boolean; final?: boolean; overrides?: boolean } = {},
   ) {
     const returnType = method.returns
       ? this.toDecoratedJavaType(method.returns)
       : 'void';
-    const statc = method.static ? 'static ' : '';
-    const access = this.renderAccessLevel(method);
+
+    const modifiers = [
+      defaultImpl ? 'default' : this.renderAccessLevel(method),
+    ];
+    if (method.static) modifiers.push('static');
+    if (method.abstract && !defaultImpl) modifiers.push('abstract');
+    if (final && !method.abstract && !defaultImpl) modifiers.push('final');
+
     const async = !!method.async;
     const methodName = JavaGenerator.safeJavaMethodName(method.name);
     const signature = `${returnType} ${methodName}(${this.renderMethodParameters(
@@ -1333,12 +1362,10 @@ class JavaGenerator extends Generator {
     if (overrides) {
       this.code.line('@Override');
     }
-    if (method.abstract) {
-      this.code.line(`${access} abstract ${signature};`);
+    if (method.abstract && !defaultImpl) {
+      this.code.line(`${modifiers.join(' ')} ${signature};`);
     } else {
-      this.code.openBlock(
-        `${access} ${statc}${final ? 'final ' : ''}${signature}`,
-      );
+      this.code.openBlock(`${modifiers.join(' ')} ${signature}`);
       this.code.line(this.renderMethodCall(cls, method, async));
       this.code.closeBlock();
     }
@@ -1353,7 +1380,7 @@ class JavaGenerator extends Generator {
    * These proxies are also used to extend abstract classes to allow the JSII
    * engine to instantiate an abstract class in Java.
    */
-  private emitProxy(ifc: spec.InterfaceType | spec.ClassType) {
+  private emitProxy(type: reflect.InterfaceType | reflect.ClassType) {
     const name = INTERFACE_PROXY_CLASS_NAME;
 
     this.code.line();
@@ -1363,98 +1390,119 @@ class JavaGenerator extends Generator {
     );
     this.code.line(' */');
 
-    // If this is an interface with a single base, then we will extend it's proxy instead of
-    // implementing everything afresh.
-    const baseInterface =
-      spec.isInterfaceType(ifc) && ifc.interfaces?.length === 1
-        ? ifc.interfaces[0]
-        : undefined;
-    const suffix = spec.isInterfaceType(ifc)
-      ? `extends ${
-          baseInterface != null
-            ? `${this.toNativeFqn(baseInterface)}.${INTERFACE_PROXY_CLASS_NAME}`
-            : 'software.amazon.jsii.JsiiObject'
-        } implements ${this.toNativeFqn(ifc.fqn)}`
-      : `extends ${this.toNativeFqn(ifc.fqn)}`;
+    const baseInterfaces = this.defaultInterfacesFor(type, {
+      includeThisType: true,
+    });
 
-    const visibility = spec.isInterfaceType(ifc) ? 'public' : 'protected';
+    if (type.isInterfaceType() && !hasDefaultInterfaces(type.assembly)) {
+      // Extend this interface directly since this module does not have the Jsii$Default
+      baseInterfaces.push(this.toNativeFqn(type.fqn));
+    }
+
+    const suffix = type.isInterfaceType()
+      ? `extends software.amazon.jsii.JsiiObject implements ${baseInterfaces.join(
+          ', ',
+        )}`
+      : `extends ${this.toNativeFqn(type.fqn)}${
+          baseInterfaces.length > 0
+            ? ` implements ${baseInterfaces.join(', ')}`
+            : ''
+        }`;
+
+    const modifiers = type.isInterfaceType() ? 'final' : 'private static final';
 
     this.code.line(ANN_INTERNAL);
-    this.code.openBlock(`${visibility} static class ${name} ${suffix}`);
+    this.code.openBlock(`${modifiers} class ${name} ${suffix}`);
     this.code.openBlock(
       `protected ${name}(final software.amazon.jsii.JsiiObjectRef objRef)`,
     );
     this.code.line('super(objRef);');
     this.code.closeBlock();
 
-    // compile a list of all unique methods from the current interface and all
-    // base interfaces (and their bases).
-    const methods: { [name: string]: spec.Method } = {};
-    const properties: { [name: string]: spec.Property } = {};
-    const collectAbstractMembers = (
-      currentType: spec.InterfaceType | spec.ClassType,
-    ) => {
-      for (const prop of currentType.properties ?? []) {
-        if (prop.abstract) {
-          properties[prop.name] = prop;
-        }
-      }
-      for (const method of currentType.methods ?? []) {
-        if (method.abstract) {
-          methods[method.name] = method;
-        }
-      }
-
-      const bases = new Array<spec.NamedTypeReference>();
-      bases.push(
-        ...(currentType.interfaces ?? []).map((iface) => this.findType(iface)),
-      );
-      if (spec.isClassType(currentType) && currentType.base) {
-        bases.push(this.findType(currentType.base));
-      }
-      for (const base of bases) {
-        if (base.fqn === baseInterface) {
-          // Ignoring members we inherit from our base proxy class
-          continue;
-        }
-        const type = this.findType(base.fqn);
-        if (
-          type.kind !== spec.TypeKind.Interface &&
-          type.kind !== spec.TypeKind.Class
-        ) {
-          throw new Error(
-            `Base interfaces of an interface must be an interface or a class (${base.fqn} is of type ${type.kind})`,
-          );
-        }
-        collectAbstractMembers(type);
-      }
-    };
-    collectAbstractMembers(ifc);
-
     // emit all properties
-    for (const propName of Object.keys(properties)) {
-      const prop = clone(properties[propName]);
+    for (const reflectProp of type.allProperties.filter(
+      (prop) =>
+        prop.abstract &&
+        (prop.parentType.fqn === type.fqn ||
+          prop.parentType.isClassType() ||
+          !hasDefaultInterfaces(prop.assembly)),
+    )) {
+      const prop = clone(reflectProp.spec);
       prop.abstract = false;
       // Emitting "final" since this is a proxy and nothing will/should override this
-      this.emitProperty(ifc, prop, { final: true, overrides: true });
+      this.emitProperty(type.spec, prop, { final: true, overrides: true });
     }
 
     // emit all the methods
-    for (const methodName of Object.keys(methods)) {
-      const method = clone(methods[methodName]);
+    for (const reflectMethod of type.allMethods.filter(
+      (method) =>
+        method.abstract &&
+        (method.parentType.fqn === type.fqn ||
+          method.parentType.isClassType() ||
+          !hasDefaultInterfaces(method.assembly)),
+    )) {
+      const method = clone(reflectMethod.spec);
       method.abstract = false;
       // Emitting "final" since this is a proxy and nothing will/should override this
-      this.emitMethod(ifc, method, { final: true, overrides: true });
+      this.emitMethod(type.spec, method, { final: true, overrides: true });
 
       for (const overloadedMethod of this.createOverloadsForOptionals(method)) {
         overloadedMethod.abstract = false;
-        this.emitMethod(ifc, overloadedMethod, {
+        this.emitMethod(type.spec, overloadedMethod, {
           final: true,
           overrides: true,
         });
       }
     }
 
+    this.code.closeBlock();
+  }
+
+  private emitDefaultImplementation(type: reflect.InterfaceType) {
+    const baseInterfaces = [
+      'software.amazon.jsii.IJsiiObject',
+      type.name,
+      ...this.defaultInterfacesFor(type),
+    ];
+
+    this.code.line();
+    this.code.line('/**');
+    this.code.line(
+      ` * Internal default implementation for {@link ${type.name}}.`,
+    );
+    this.code.line(' */');
+    this.code.line(ANN_INTERNAL);
+    this.code.openBlock(
+      `interface ${INTERFACE_DEFAULT_CLASS_NAME} extends ${baseInterfaces
+        .sort()
+        .join(', ')}`,
+    );
+
+    for (const property of type.allProperties.filter(
+      (prop) =>
+        prop.abstract &&
+        // Only checking the getter - java.lang.Object has no setters.
+        !isJavaLangObjectMethodName(`get${toPascalCase(prop.name)}`) &&
+        (prop.parentType.fqn === type.fqn ||
+          !hasDefaultInterfaces(prop.assembly)),
+    )) {
+      this.emitProperty(type.spec, property.spec, {
+        defaultImpl: true,
+        overrides: type.isInterfaceType(),
+      });
+    }
+    for (const method of type.allMethods.filter(
+      (method) =>
+        method.abstract &&
+        !isJavaLangObjectMethodName(method.name) &&
+        (method.parentType.fqn === type.fqn ||
+          !hasDefaultInterfaces(method.assembly)),
+    )) {
+      this.emitMethod(type.spec, method.spec, {
+        defaultImpl: true,
+        overrides: type.isInterfaceType(),
+      });
+    }
     this.code.closeBlock();
   }
 
@@ -1874,16 +1922,6 @@ class JavaGenerator extends Generator {
     const props = Object.values(propsByName);
     this.emitInterfaceBuilder(ifc, INTERFACE_PROXY_CLASS_NAME, props);
 
-    // If the data type has exactly 1 base datatype, we'll extend the base's proxy
-    const baseInterface =
-      ifc.interfaces?.length === 1 ? ifc.interfaces[0] : undefined;
-    const propsToGenerate = props.filter(
-      (prop) => baseInterface == null || !prop.inherited,
-    );
-    const propsToInherit = props.filter(
-      (prop) => baseInterface != null && prop.inherited,
-    );
-
     // Start implementation class
     this.code.line();
     this.code.line('/**');
@@ -1891,16 +1929,12 @@ class JavaGenerator extends Generator {
     this.code.line(' */');
     this.emitStabilityAnnotations(ifc);
     this.code.line(ANN_INTERNAL);
-    const baseClass =
-      baseInterface != null
-        ? `${this.toNativeFqn(baseInterface)}.${INTERFACE_PROXY_CLASS_NAME}`
-        : 'software.amazon.jsii.JsiiObject';
     this.code.openBlock(
-      `public class ${INTERFACE_PROXY_CLASS_NAME} extends ${baseClass} implements ${ifc.name}`,
+      `final class ${INTERFACE_PROXY_CLASS_NAME} extends software.amazon.jsii.JsiiObject implements ${ifc.name}`,
     );
 
     // Immutable properties
-    propsToGenerate.forEach((prop) =>
+    props.forEach((prop) =>
       this.code.line(`private final ${prop.fieldJavaType} ${prop.fieldName};`),
     );
 
@@ -1916,9 +1950,9 @@ class JavaGenerator extends Generator {
       `protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`,
     );
     this.code.line('super(objRef);');
-    propsToGenerate.forEach((prop) =>
+    props.forEach((prop) =>
       this.code.line(
-        `this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldNativeType});`,
+        `this.${prop.fieldName} = this.$jsii$get("${prop.jsiiName}", ${prop.fieldNativeType});`,
       ),
     );
     this.code.closeBlock();
@@ -1940,16 +1974,10 @@ class JavaGenerator extends Generator {
     this.code.openBlock(
       `protected ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`,
     );
-    if (baseInterface != null) {
-      this.code.line(
-        `super(${propsToInherit.map((prop) => prop.fieldName).join(', ')});`,
-      );
-    } else {
-      this.code.line(
-        'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
-      );
-    }
-    propsToGenerate.forEach((prop) => {
+    this.code.line(
+      'super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);',
+    );
+    props.forEach((prop) => {
       const explicitCast =
         prop.fieldJavaType !== prop.paramJavaType
           ? `(${prop.fieldJavaType})`
@@ -1965,7 +1993,7 @@ class JavaGenerator extends Generator {
     // End literal constructor
 
     // Getters
-    propsToGenerate.forEach((prop) => {
+    props.forEach((prop) => {
       this.code.line();
       this.code.line('@Override');
       this.code.openBlock(
@@ -1985,16 +2013,12 @@ class JavaGenerator extends Generator {
     this.code.line(
       'final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;',
     );
-    const initialValue =
-      baseInterface != null
-        ? '(com.fasterxml.jackson.databind.node.ObjectNode)super.$jsii$toJson().get("$jsii.struct").get("data")'
-        : 'com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode()';
     this.code.line(
-      `final com.fasterxml.jackson.databind.node.ObjectNode data = ${initialValue};`,
+      `final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();`,
     );
 
     this.code.line();
-    for (const prop of propsToGenerate) {
+    for (const prop of props) {
       if (prop.nullable) {
         this.code.openBlock(`if (this.get${prop.propName}() != null)`);
       }
@@ -2025,10 +2049,10 @@ class JavaGenerator extends Generator {
     // End $jsii$toJson
 
     // Generate equals() override
-    this.emitEqualsOverride(ifc.name, propsToGenerate, baseInterface != null);
+    this.emitEqualsOverride(ifc.name, props);
 
     // Generate hashCode() override
-    this.emitHashCodeOverride(propsToGenerate, baseInterface != null);
+    this.emitHashCodeOverride(props);
 
     this.code.closeBlock();
     // End implementation class
@@ -2041,11 +2065,7 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private emitEqualsOverride(
-    className: string,
-    props: JavaProp[],
-    callSuper = false,
-  ) {
+  private emitEqualsOverride(className: string, props: JavaProp[]) {
     // A class without properties does not need to override equals()
     if (props.length === 0) {
       return;
@@ -2053,17 +2073,14 @@ class JavaGenerator extends Generator {
 
     this.code.line();
     this.code.line('@Override');
-    this.code.openBlock('public boolean equals(final Object o)');
+    this.code.openBlock('public final boolean equals(final Object o)');
     this.code.line('if (this == o) return true;');
 
-    if (callSuper) {
-      this.code.line('if (!super.equals(o)) return false;');
-    } else {
-      // This was already checked by `super.equals(o)`, so we skip it here...
-      this.code.line(
-        'if (o == null || getClass() != o.getClass()) return false;',
-      );
-    }
+    // This was already checked by `super.equals(o)`, so we skip it here...
+    this.code.line(
+      'if (o == null || getClass() != o.getClass()) return false;',
+    );
+
     this.code.line();
     this.code.line(
       `${className}.${INTERFACE_PROXY_CLASS_NAME} that = (${className}.${INTERFACE_PROXY_CLASS_NAME}) o;`,
@@ -2091,7 +2108,7 @@ class JavaGenerator extends Generator {
     this.code.closeBlock();
   }
 
-  private emitHashCodeOverride(props: JavaProp[], callSuper = false) {
+  private emitHashCodeOverride(props: JavaProp[]) {
     // A class without properties does not need to override hashCode()
     if (props.length === 0) {
       return;
@@ -2099,19 +2116,12 @@ class JavaGenerator extends Generator {
 
     this.code.line();
     this.code.line('@Override');
-    this.code.openBlock('public int hashCode()');
+    this.code.openBlock('public final int hashCode()');
 
     const firstProp = props[0];
     const remainingProps = props.slice(1);
 
-    if (callSuper) {
-      this.code.line('int result = super.hashCode();');
-      this.code.line(
-        `result = 31 * result + (${_hashCodeForProp(firstProp)});`,
-      );
-    } else {
-      this.code.line(`int result = ${_hashCodeForProp(firstProp)};`);
-    }
+    this.code.line(`int result = ${_hashCodeForProp(firstProp)};`);
     remainingProps.forEach((prop) =>
       this.code.line(`result = 31 * result + (${_hashCodeForProp(prop)});`),
     );
@@ -2311,13 +2321,12 @@ class JavaGenerator extends Generator {
 
   private toNativeType(
     type: spec.TypeReference,
-    { forMarshalling = false, covariant = false, recursing = false } = {},
+    { forMarshalling = false, covariant = false } = {},
   ): string {
     if (spec.isCollectionTypeReference(type)) {
       const nativeElementType = this.toNativeType(type.collection.elementtype, {
         forMarshalling,
         covariant,
-        recursing: true,
       });
       switch (type.collection.kind) {
         case spec.CollectionKind.Array:
@@ -2330,12 +2339,10 @@ class JavaGenerator extends Generator {
           );
       }
     }
-    return recursing
-      ? `software.amazon.jsii.NativeType.forClass(${this.toJavaType(type, {
-          forMarshalling,
-          covariant,
-        })}.class)`
-      : `${this.toJavaType(type, { forMarshalling, covariant })}.class`;
+    return `software.amazon.jsii.NativeType.forClass(${this.toJavaType(type, {
+      forMarshalling,
+      covariant,
+    })}.class)`;
   }
 
   private toJavaTypes(
@@ -2460,9 +2467,9 @@ class JavaGenerator extends Generator {
       statement += `software.amazon.jsii.JsiiObject.jsiiStaticCall(${javaClass}.class, `;
     } else {
       if (async) {
-        statement += 'this.jsiiAsyncCall(';
+        statement += 'this.$jsii$asyncCall(';
       } else {
-        statement += 'this.jsiiCall(';
+        statement += 'this.$jsii$call(';
       }
     }
 
@@ -2844,6 +2851,51 @@ class JavaGenerator extends Generator {
     }
     return translated.source;
   }
+
+  /**
+   * Fins the Java FQN of the default implementation interfaces that should be implemented when a new
+   * default interface or proxy class is being emitted.
+   *
+   * @param type the type for which a default interface or proxy is emitted.
+   * @param includeThisType whether this class's default interface should be included or not.
+   *
+   * @returns a list of Java fully qualified class names.
+   */
+  private defaultInterfacesFor(
+    type: reflect.ClassType | reflect.InterfaceType,
+    { includeThisType = false }: { includeThisType?: boolean } = {},
+  ): string[] {
+    const result = new Set<string>();
+
+    if (
+      includeThisType &&
+      hasDefaultInterfaces(type.assembly) &&
+      type.isInterfaceType()
+    ) {
+      result.add(
+        `${this.toNativeFqn(type.fqn)}.${INTERFACE_DEFAULT_CLASS_NAME}`,
+      );
+    } else {
+      for (const iface of type.interfaces) {
+        if (hasDefaultInterfaces(iface.assembly)) {
+          result.add(
+            `${this.toNativeFqn(iface.fqn)}.${INTERFACE_DEFAULT_CLASS_NAME}`,
+          );
+        } else {
+          for (const item of this.defaultInterfacesFor(iface)) {
+            result.add(item);
+          }
+        }
+      }
+      if (type.isClassType() && type.base != null) {
+        for (const item of this.defaultInterfacesFor(type.base)) {
+          result.add(item);
+        }
+      }
+    }
+
+    return Array.from(result);
+  }
 }
 
 /**
@@ -2972,3 +3024,39 @@ function resolvePackageName(
   }
   return { javaPackage };
 }
+
+/**
+ * Determines whether the provided assembly exposes the "hasDefaultInterfaces"
+ * jsii-pacmak feature flag.
+ *
+ * @param assembly the assembly that is tested
+ *
+ * @returns true if the Jsii$Default interfaces can be used
+ */
+function hasDefaultInterfaces(assembly: reflect.Assembly): boolean {
+  return !!assembly.metadata?.jsii?.pacmak?.hasDefaultInterfaces;
+}
+
+/**
+ * Whecks whether a name corresponds to a method on `java.lang.Object`. It is not
+ * possible to emit default interface implementation for those names because
+ * these would always be replaced by the implementations on `Object`.
+ *
+ * @param name the checked name
+ *
+ * @returns `true` if a default implementation cannot be generated for this name.
+ */
+function isJavaLangObjectMethodName(name: string): boolean {
+  return JAVA_LANG_OBJECT_METHOD_NAMES.has(name);
+}
+const JAVA_LANG_OBJECT_METHOD_NAMES = new Set([
+  'clone',
+  'equals',
+  'finalize',
+  'getClass',
+  'hashCode',
+  'notify',
+  'notifyAll',
+  'toString',
+  'wait',
+]);

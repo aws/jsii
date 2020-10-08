@@ -42,6 +42,13 @@
     "prettier": "^2.1.2"
   },
   "jsii": {
+    "metadata": {
+      "jsii": {
+        "pacmak": {
+          "hasDefaultInterfaces": false
+        }
+      }
+    },
     "outdir": "dist",
     "targets": {
       "go": {

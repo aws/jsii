@@ -41,6 +41,13 @@
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
+  "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": false
+      }
+    }
+  },
   "name": "@scope/jsii-calc-base",
   "repository": {
     "directory": "packages/@scope/jsii-calc-base",
@@ -157,5 +164,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc="
+  "fingerprint": "1y5Dpq3CxsGkxqhWAsKiEv90WSf5/CZmp7g/ktNUUc0="
 }

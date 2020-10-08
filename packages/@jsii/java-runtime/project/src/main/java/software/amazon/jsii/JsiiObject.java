@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * Represents a JavaScript object in the Java world.
  */
-public class JsiiObject implements JsiiSerializable {
+public class JsiiObject implements IJsiiObject, JsiiSerializable {
 
     /**
      * The jsii engine used by this object.
@@ -106,17 +106,15 @@ public class JsiiObject implements JsiiSerializable {
         return jsiiCall(method, NativeType.forType(returnType), args);
     }
 
-    /**
-     * Calls a JavaScript method on the object.
-     * @param method The name of the method.
-     * @param nativeType The return type.
-     * @param args Method arguments.
-     * @param <T> Java type for the return value.
-     *
-     * @return A return value.
-     */
     @Nullable
+    @Deprecated
     protected final <T> T jsiiCall(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
+        return this.$jsii$call(method, nativeType, args);
+    }
+
+    @Nullable
+    @Override
+    public final <T> T $jsii$call(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
         final JsonNode result = this.engine.getClient().callMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
         return JsiiObjectMapper.treeToValue(result, nativeType);
     }
@@ -200,9 +198,17 @@ public class JsiiObject implements JsiiSerializable {
      * @param <T> Java type for the return value.
      *
      * @return A return value.
+     *
+     * @deprecated Use {@link #$jsii$asyncCall} instead
      */
     @Nullable
     protected final <T> T jsiiAsyncCall(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
+        return this.$jsii$asyncCall(method, nativeType, args);
+    }
+
+    @Nullable
+    @Override
+    public final <T> T $jsii$asyncCall(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
         final JsiiClient client = engine.getClient();
         final JsiiPromise promise = client.beginAsyncMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
 
@@ -234,9 +240,16 @@ public class JsiiObject implements JsiiSerializable {
      * @param type The Java type of the property.
      * @param <T> The Java type of the property.
      * @return The property value.
+     * @deprecated Use {@link #$jsii$get} instead
      */
     @Nullable
     protected final <T> T jsiiGet(final String property, final NativeType<T> type) {
+        return this.$jsii$get(property, type);
+    }
+
+    @Nullable
+    @Override
+    public final <T> T $jsii$get(final String property, final NativeType<T> type) {
         final JsonNode result = engine.getClient().getPropertyValue(this.objRef, property);
         return JsiiObjectMapper.treeToValue(result, type);
     }
@@ -297,8 +310,16 @@ public class JsiiObject implements JsiiSerializable {
      *
      * @param property The name of the property.
      * @param value The property value.
+     *
+     * @deprecated Use {@link #$jsii$set} instead
      */
+    @Deprecated
     protected final void jsiiSet(final String property, @Nullable final Object value) {
+        this.$jsii$set(property, value);
+    }
+
+    @Override
+    public final void $jsii$set(final String property, @Nullable final Object value) {
         engine.getClient().setPropertyValue(this.objRef, property, JsiiObjectMapper.valueToTree(value));
     }
 
