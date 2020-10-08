@@ -69,6 +69,13 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
+  "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": false
+      }
+    }
+  },
   "name": "@scope/jsii-calc-base",
   "repository": {
     "directory": "packages/@scope/jsii-calc-base",
@@ -185,7 +192,7 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/dotnet/Amazon.JSII
     }
   },
   "version": "0.0.0",
-  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc="
+  "fingerprint": "1y5Dpq3CxsGkxqhWAsKiEv90WSf5/CZmp7g/ktNUUc0="
 }
 
 `;
@@ -479,6 +486,13 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
+  "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": true
+      }
+    }
+  },
   "name": "@scope/jsii-calc-base-of-base",
   "repository": {
     "directory": "packages/@scope/jsii-calc-base-of-base",
@@ -619,7 +633,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/dotnet/Ama
     }
   },
   "version": "0.0.0",
-  "fingerprint": "XzppfL+BknRpBHYygvGjf8OOXrTyNAx6cllN3vONLoU="
+  "fingerprint": "Cj150WaTlCJ7fRsgnSfy2UkF6LVkhYEcPLiY+4/9+mk="
 }
 
 `;
@@ -991,6 +1005,13 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
+  "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": true
+      }
+    }
+  },
   "name": "@scope/jsii-calc-lib",
   "repository": {
     "directory": "packages/@scope/jsii-calc-lib",
@@ -1686,7 +1707,7 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/dotnet/Amazon.JSII.
     }
   },
   "version": "0.0.0",
-  "fingerprint": "/PrQbD8BlAtg3N9iuntBks7Q/oIyS45A/S7RvNATePA="
+  "fingerprint": "JC9qnARgpQGZoczmnaeB0bFJ2MKRRqmNwdpmKZZnRw8="
 }
 
 `;
@@ -3493,6 +3514,11 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
   ],
   "license": "Apache-2.0",
   "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": true
+      }
+    },
     "jsii:boolean": true,
     "jsii:number": 1337,
     "jsii:object": {
@@ -17573,7 +17599,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "azqNkkl+/4FLzTVBLkOyHcokS4xLoYtHsri0z9kIehQ="
+  "fingerprint": "JPXdjRohlwLqXDtWQKPODWFF3KQJt1Bq5BNbCQr5elg="
 }
 
 `;
