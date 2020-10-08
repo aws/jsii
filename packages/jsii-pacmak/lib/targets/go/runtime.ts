@@ -1,5 +1,6 @@
 import { CodeMaker } from 'codemaker';
 import { GoClassConstructor, ClassMethod, Struct } from './types';
+import { JSII_INIT_ALIAS, JSII_INIT_FUNC } from './package';
 
 const NOOP_RETURN_MAP: { [type: string]: string } = {
   float64: '0.0',
@@ -15,9 +16,16 @@ function paramsString(params: string[]): string {
 }
 
 export class MethodCall {
-  public constructor(public readonly parent: ClassMethod) {}
+  public constructor(
+    public readonly parent: ClassMethod,
+    private readonly inStatic: boolean,
+  ) {}
 
   public emit(code: CodeMaker) {
+    if (this.inStatic) {
+      emitInitialization(code);
+    }
+
     const name = code.toPascalCase(this.parent.name);
     code.open(`jsii.NoOpRequest(jsii.NoOpApiRequest {`);
     code.line(`Class: "${this.parent.parent.name}",`);
@@ -51,6 +59,7 @@ export class ClassConstructor {
   public constructor(public readonly parent: GoClassConstructor) {}
 
   public emit(code: CodeMaker) {
+    emitInitialization(code);
     code.open(`jsii.NoOpRequest(jsii.NoOpApiRequest {`);
     code.line(`Class: "${this.parent.parent.name}",`);
     code.line(`Method: "Constructor",`);
@@ -65,4 +74,8 @@ export class ClassConstructor {
 
     code.line(`return &${this.parent.parent.name}{}`);
   }
+}
+
+export function emitInitialization(code: CodeMaker) {
+  code.line(`${JSII_INIT_ALIAS}.${JSII_INIT_FUNC}()`);
 }
