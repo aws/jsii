@@ -175,14 +175,6 @@ async function runMypy(pythonRoot: string): Promise<void> {
       JSON.stringify(venvRoot),
     ]),
   ).resolves.not.toThrowError();
-  // Ensure pip is at least somewhat up-to-date
-  await expect(
-    shell(
-      venvPython,
-      ['-m', 'pip', 'install', '--no-input', '--upgrade', '"pip~=20.2"'],
-      { env, retry: { maxAttempts: 5 } },
-    ),
-  ).resolves.not.toThrowError();
   // Install mypy and the jsii runtime in there as needed
   await expect(
     shell(
