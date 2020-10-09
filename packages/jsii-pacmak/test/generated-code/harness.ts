@@ -1,11 +1,9 @@
-#!/usr/bin/env node
-
-import { spawnSync, SpawnSyncOptions } from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
 import { TargetName } from '../../lib/targets';
+import { shell } from '../../lib/util';
 
 const PACMAK_CLI = path.resolve(__dirname, '..', '..', 'bin', 'jsii-pacmak');
 
@@ -61,14 +59,14 @@ export function verifyGeneratedCodeFor(targetName: TargetName) {
     // Extend timeout, because this could be slow...
     jest.setTimeout(60_000);
 
-    test(`Generated code for ${JSON.stringify(pkg)}`, () => {
+    test(`Generated code for ${JSON.stringify(pkg)}`, async () => {
       const pkgRoot = path.resolve(__dirname, '..', '..', '..', pkg);
-      runPacmak(pkgRoot, targetName, outDir);
+      await runPacmak(pkgRoot, targetName, outDir);
 
       expect({ [TREE]: checkTree(outDir) }).toMatchSnapshot('<outDir>/');
 
       if (targetName === 'python') {
-        runMypy(path.join(outDir, 'python'));
+        await runMypy(path.join(outDir, 'python'));
       }
     });
   }
@@ -124,27 +122,30 @@ function checkTree(
   }
 }
 
-function runPacmak(root: string, targetName: TargetName, outdir: string): void {
-  return runCommand(
-    process.execPath,
-    [
-      ...process.execArgv,
-      PACMAK_CLI,
-      `--code-only`,
-      `--no-fingerprint`,
-      `--outdir=${outdir}`,
-      `--target=${targetName}`,
-      '--',
-      root,
-    ],
-    {
-      cwd: root,
-      stdio: ['inherit', 'pipe', 'pipe'],
-    },
-  );
+async function runPacmak(
+  root: string,
+  targetName: TargetName,
+  outdir: string,
+): Promise<void> {
+  return expect(
+    shell(
+      process.execPath,
+      [
+        ...process.execArgv,
+        JSON.stringify(PACMAK_CLI),
+        `--code-only`,
+        `--no-fingerprint`,
+        `--outdir=${JSON.stringify(outdir)}`,
+        `--target=${JSON.stringify(targetName)}`,
+        '--',
+        JSON.stringify(root),
+      ],
+      { cwd: root },
+    ),
+  ).resolves.not.toThrowError();
 }
 
-function runMypy(pythonRoot: string): void {
+async function runMypy(pythonRoot: string): Promise<void> {
   const venvRoot = path.join(__dirname, '.venv');
   const venvBin = path.join(
     venvRoot,
@@ -159,91 +160,59 @@ function runMypy(pythonRoot: string): void {
   };
 
   // Create a Python virtual environment
-  runCommand('python3', [
-    '-m',
-    'venv',
-    '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
-    venvRoot,
-  ]);
+  await expect(
+    shell('python3', [
+      '-m',
+      'venv',
+      '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
+      JSON.stringify(venvRoot),
+    ]),
+  ).resolves.not.toThrowError();
+  // Ensure pip is at least somewhat up-to-date
+  await expect(
+    shell(
+      venvPython,
+      ['-m', 'pip', 'install', '--no-input', '--upgrade', '"pip~=20.2"'],
+      { env, retry: { maxAttempts: 5 } },
+    ),
+  ).resolves.not.toThrowError();
   // Install mypy and the jsii runtime in there as needed
-  runCommand(
-    venvPython,
-    [
-      '-m',
-      'pip',
-      'install',
-      '--no-input',
-      'mypy>=0.782',
-      // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
-      path.resolve(require.resolve('@jsii/python-runtime/package.json'), '..'),
-    ],
-    {
-      env,
-    },
-  );
-  // Now run mypy on the Python code
-  runCommand(
-    venvPython,
-    [
-      '-m',
-      'mypy',
-      '--ignore-missing-imports', // We may not have the package's dependencies in scope. Let's just ignore that for now.
-      '--pretty', // Output in readable form, with source excerpts and problem markers
-      '--show-error-codes', // Show the "standard" error codes to make it easier to google around
-      '--strict', // Enable all optional checks -- let's be pedantic about everything!
-      pythonRoot,
-    ],
-    { env },
-  );
-}
-
-/**
- * Runs a command and asserts that it was successful. If the command failed,
- * it's standard out and error from the child process will be made visible
- * through `console.error`, unless the `stdio` option for `stdout` and/or
- * `stderr` is overridden from `inherit`.
- *
- * By default, `spawnSync` is invoked with `shell: true` if the current platform
- * is `win32`. This can be overridden through `options`.
- *
- * @param argv0   the entry point for the command to be run.
- * @param argv    the arguments to pass to argv0.
- * @param options options to be provided to `spawnSync`.
- */
-function runCommand(
-  argv0: string,
-  argv: readonly string[],
-  options?: SpawnSyncOptions,
-) {
-  const { error, signal, status, stderr, stdout } = spawnSync(argv0, argv, {
-    shell: process.platform === 'win32',
-    stdio: ['inherit', 'pipe', 'pipe'],
-    ...options,
-  });
-
-  expect(error).toBeUndefined();
-
-  if (status !== 0) {
-    const reason = signal ? `signal ${signal}` : `status ${status}`;
-    console.error(
+  await expect(
+    shell(
+      venvPython,
       [
-        `Command failed with ${reason}: ${argv0} ${argv.join(' ')}`,
-        prefix(stdout, '#STDOUT> '),
-        prefix(stderr, '#STDERR> '),
-      ].join('\n'),
-    );
-  }
-
-  expect(signal).toBeNull();
-  expect(status).toBe(0);
-
-  function prefix(buffer: Buffer, prefix: string): string {
-    return buffer
-      .toString('utf-8')
-      .split('\n')
-      .map((line) => prefix + line)
-      .join('\n');
-  }
+        '-m',
+        'pip',
+        'install',
+        '--no-input',
+        '"mypy>=0.782"',
+        // Note: this resolution is a little ugly, but it's there to avoid creating a dependency cycle
+        JSON.stringify(
+          path.resolve(
+            require.resolve('@jsii/python-runtime/package.json'),
+            '..',
+          ),
+        ),
+      ],
+      { env, retry: { maxAttempts: 5 } },
+    ),
+  ).resolves.not.toThrowError();
+  // Now run mypy on the Python code
+  await expect(
+    shell(
+      venvPython,
+      [
+        '-m',
+        'mypy',
+        '--ignore-missing-imports', // We may not have the package's dependencies in scope. Let's just ignore that for now.
+        '--pretty', // Output in readable form, with source excerpts and problem markers
+        '--show-error-codes', // Show the "standard" error codes to make it easier to google around
+        '--strict', // Enable all optional checks -- let's be pedantic about everything!
+        JSON.stringify(pythonRoot),
+      ],
+      { env },
+    ),
+  ).resolves.not.toThrowError();
 }
 
 type TreeStructure = string | { [name: string]: TreeStructure };
