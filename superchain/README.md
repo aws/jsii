@@ -1,4 +1,5 @@
 # Superchain
+
 An [`amazonlinux:2`][al2]-based Docker image bundling all the SDKs and tools
 required in order to package [jsii] projects in all supported languages.
 
@@ -16,7 +17,6 @@ SDK             | Version
 `PowerShell`    | `pwsh >= 6.2.3`
 `Python 3`      | `python3 >= 3.7.4` with `pip3 >= 20.0.2`
 `Go`            | `go >= 1.15.2`
-`Ruby`          | `ruby >= 2.6.3p62`
 
 ## Included Tools & Utilities
 
@@ -24,7 +24,6 @@ Tool / Utility | Version
 ---------------|--------------------------------------------
 `aws`          | `>= 1.16.300`
 `bundler`      | `>= 1.17.3` and `>= 2.1.4`
-`gcc`          | `>= 7.3.1`
 `docker`       | `>= 18.09.9-ce`
 `git`          | `>= 2.23.1`
 `make`         | `>= 3.82`
