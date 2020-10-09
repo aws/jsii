@@ -1,7 +1,7 @@
-import { transformMarkdown } from './markdown';
 import { JavaDocRenderer } from './javadoc-renderer';
-import { CSharpXmlCommentRenderer } from './xml-comment-renderer';
+import { transformMarkdown } from './markdown';
 import { StructureRenderer } from './structure-renderer';
+import { CSharpXmlCommentRenderer } from './xml-comment-renderer';
 
 /**
  * All the visitors in this module expose CommonMark types in their API

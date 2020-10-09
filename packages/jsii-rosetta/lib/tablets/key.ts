@@ -1,4 +1,5 @@
 import * as crypto from 'crypto';
+
 import { TypeScriptSnippet } from '../snippet';
 
 /**

@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+
 import * as api from './api';
 import { EMPTY_OBJECT_FQN } from './serialization';
 

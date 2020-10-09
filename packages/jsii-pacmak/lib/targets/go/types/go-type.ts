@@ -1,10 +1,11 @@
 import { toPascalCase } from 'codemaker';
-import { EmitContext } from '../emit-context';
 import { ClassType, InterfaceType, Type } from 'jsii-reflect';
+
+import { EmitContext } from '../emit-context';
 import { Package } from '../package';
+import { getFieldDependencies } from '../util';
 import { GoTypeRef } from './go-type-reference';
 import { GoProperty } from './type-member';
-import { getFieldDependencies } from '../util';
 
 // String appended to all go GoStruct Interfaces
 const STRUCT_INTERFACE_SUFFIX = 'Iface';

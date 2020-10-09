@@ -1,9 +1,10 @@
+import * as spec from '@jsii/spec';
 import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
-import * as spec from '@jsii/spec';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
+
 import { Generator } from '../../generator';
 import { DotNetDocGenerator } from './dotnetdocgenerator';
 import { DotNetRuntimeGenerator } from './dotnetruntimegenerator';

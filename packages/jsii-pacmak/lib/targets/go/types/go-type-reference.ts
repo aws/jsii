@@ -1,7 +1,8 @@
+import { toPascalCase } from 'codemaker';
 import { TypeReference } from 'jsii-reflect';
+
 import { Package } from '../package';
 import { GoType } from './go-type';
-import { toPascalCase } from 'codemaker';
 
 const GO_ANY = 'jsii.Any';
 

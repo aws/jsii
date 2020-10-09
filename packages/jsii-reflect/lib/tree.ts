@@ -1,6 +1,7 @@
-import * as colors from 'colors/safe';
 import { Stability } from '@jsii/spec';
+import * as colors from 'colors/safe';
 import { AsciiTree } from 'oo-ascii-tree';
+
 import { Assembly } from './assembly';
 import { ClassType } from './class';
 import { Dependency } from './dependency';
@@ -12,8 +13,8 @@ import { Method } from './method';
 import { OptionalValue } from './optional-value';
 import { Parameter } from './parameter';
 import { Property } from './property';
-import { TypeSystem } from './type-system';
 import { Submodule } from './submodule';
+import { TypeSystem } from './type-system';
 
 export interface TypeSystemTreeOptions {
   /**

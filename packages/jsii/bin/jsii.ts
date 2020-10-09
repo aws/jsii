@@ -2,6 +2,7 @@ import * as log4js from 'log4js';
 import * as path from 'path';
 import * as process from 'process';
 import * as yargs from 'yargs';
+
 import { Compiler } from '../lib/compiler';
 import { loadProjectInfo } from '../lib/project-info';
 import * as utils from '../lib/utils';

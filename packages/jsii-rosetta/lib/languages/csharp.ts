@@ -1,16 +1,8 @@
 import * as ts from 'typescript';
-import { DefaultVisitor } from './default';
-import { AstRenderer, nimpl } from '../renderer';
+
+import { jsiiTargetParam } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
-import {
-  typeWithoutUndefinedUnion,
-  builtInTypeName,
-  typeContainsUndefined,
-  parameterAcceptsUndefined,
-  mapElementType,
-  inferMapElementType,
-} from '../typescript/types';
-import { flat, partition, setExtend } from '../util';
+import { AstRenderer, nimpl } from '../renderer';
 import {
   matchAst,
   nodeOfType,
@@ -21,7 +13,16 @@ import {
   privatePropertyNames,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { jsiiTargetParam } from '../jsii/packages';
+import {
+  typeWithoutUndefinedUnion,
+  builtInTypeName,
+  typeContainsUndefined,
+  parameterAcceptsUndefined,
+  mapElementType,
+  inferMapElementType,
+} from '../typescript/types';
+import { flat, partition, setExtend } from '../util';
+import { DefaultVisitor } from './default';
 
 interface CSharpLanguageContext {
   /**

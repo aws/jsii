@@ -1,6 +1,7 @@
-import { GoStruct } from './go-type';
-import { Package } from '../package';
 import { InterfaceType } from 'jsii-reflect';
+
+import { Package } from '../package';
+import { GoStruct } from './go-type';
 
 /*
  * Struct wraps a JSII datatype interface aka, structs

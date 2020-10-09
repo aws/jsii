@@ -1,7 +1,8 @@
 import * as cm from 'commonmark';
+
+import { makeXmlEscaper } from './escapes';
 import { prefixLines, RendererContext } from './markdown';
 import { MarkdownRenderer, para, stripPara } from './markdown-renderer';
-import { makeXmlEscaper } from './escapes';
 
 const ESCAPE = makeXmlEscaper();
 

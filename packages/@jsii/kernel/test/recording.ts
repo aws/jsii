@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+
 import { Kernel } from '../lib';
 
 export async function closeRecording(kernel: Kernel): Promise<void> {

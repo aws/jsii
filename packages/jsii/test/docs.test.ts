@@ -1,5 +1,6 @@
 import * as spec from '@jsii/spec';
 import { Stability } from '@jsii/spec';
+
 import { sourceToAssemblyHelper as compile, compileJsiiForTest } from '../lib';
 import { renderSymbolDocumentation } from '../lib/docs';
 

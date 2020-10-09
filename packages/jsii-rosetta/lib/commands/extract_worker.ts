@@ -1,11 +1,12 @@
 /**
  * Pool worker for extract.ts
  */
-import { TypeScriptSnippet } from '../snippet';
 import * as ts from 'typescript';
-import { singleThreadedTranslateAll } from './extract';
 import * as worker from 'worker_threads';
+
+import { TypeScriptSnippet } from '../snippet';
 import { TranslatedSnippetSchema } from '../tablets/schema';
+import { singleThreadedTranslateAll } from './extract';
 
 export interface TranslateRequest {
   includeCompilerDiagnostics: boolean;

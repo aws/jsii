@@ -1,6 +1,7 @@
 import { CodeMaker } from 'codemaker';
-import { GoClassConstructor, ClassMethod, Struct } from './types';
+
 import { JSII_INIT_ALIAS, JSII_INIT_FUNC } from './package';
+import { GoClassConstructor, ClassMethod, Struct } from './types';
 
 const NOOP_RETURN_MAP: { [type: string]: string } = {
   float64: '0.0',

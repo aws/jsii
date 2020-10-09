@@ -1,10 +1,14 @@
 import * as jsii from '@jsii/spec';
+
 import { Assembly } from './assembly';
 import { Docs, Documentable } from './docs';
 import { Overridable } from './overridable';
 import { Parameter } from './parameter';
-import { SourceLocatable } from './source';
-import { locationInRepository, SourceLocation } from './source';
+import {
+  SourceLocatable,
+  locationInRepository,
+  SourceLocation,
+} from './source';
 import { Type } from './type';
 import { MemberKind, TypeMember } from './type-member';
 import { TypeSystem } from './type-system';

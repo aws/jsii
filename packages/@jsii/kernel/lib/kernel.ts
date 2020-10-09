@@ -1,10 +1,11 @@
-import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import { SourceMapConsumer } from 'source-map';
 import * as tar from 'tar';
 import * as vm from 'vm';
+
 import * as api from './api';
 import { TOKEN_REF } from './api';
 import { ObjectTable, tagJsiiConstructor } from './objects';

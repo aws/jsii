@@ -1,5 +1,5 @@
-import { readFilePromise } from './util';
 import prompt from './prompt';
+import { readFilePromise } from './util';
 import validatePackageJson from './validate';
 
 export default async function jsiiConfig(packageJsonLocation: string) {

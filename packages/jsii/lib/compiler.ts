@@ -4,6 +4,7 @@ import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
+
 import { Assembler } from './assembler';
 import { Emitter } from './emitter';
 import { ProjectInfo } from './project-info';

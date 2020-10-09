@@ -1,12 +1,12 @@
+import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
-import * as spec from '@jsii/spec';
+import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
 import { traverseDependencyGraph } from './dependency-graph';
 import { IGenerator } from './generator';
 import * as logging from './logging';
-import { Rosetta } from 'jsii-rosetta';
 
 export abstract class Target {
   protected readonly packageDir: string;

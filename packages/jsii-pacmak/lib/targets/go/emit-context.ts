@@ -1,4 +1,5 @@
 import { CodeMaker } from 'codemaker';
+
 import { Documentation } from './documentation';
 
 /**

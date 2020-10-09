@@ -1,5 +1,6 @@
-import { CodeMaker } from 'codemaker';
 import * as spec from '@jsii/spec';
+import { CodeMaker } from 'codemaker';
+
 import { DotNetTypeResolver } from './dotnettyperesolver';
 import { DotNetNameUtils } from './nameutils';
 

@@ -1,9 +1,10 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
+
 import { JavaVisitor, PythonVisitor, SnippetTranslator } from '../lib';
-import { AstHandler } from '../lib/renderer';
-import { VisualizeAstVisitor } from '../lib/languages/visualize';
 import { CSharpVisitor } from '../lib/languages/csharp';
+import { VisualizeAstVisitor } from '../lib/languages/visualize';
+import { AstHandler } from '../lib/renderer';
 
 // This iterates through all subdirectories of this directory,
 // and creates a Jest test for each, by translating the TypeScript file it finds there,

@@ -1,5 +1,5 @@
-import { Question, Separator } from 'inquirer';
 import { Config, PackageJson, Stability } from '@jsii/spec';
+import { Question, Separator } from 'inquirer';
 
 /*
  * Structure of package.json accepted by jsii-config

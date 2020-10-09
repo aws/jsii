@@ -1,6 +1,7 @@
 import * as ts from 'typescript';
-import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
+
 import { OTree } from '../o-tree';
+import { AstRenderer, AstHandler, nimpl, CommentSyntax } from '../renderer';
 import { ImportStatement } from '../typescript/imports';
 
 export class VisualizeAstVisitor implements AstHandler<void> {

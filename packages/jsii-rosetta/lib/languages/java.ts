@@ -1,12 +1,9 @@
 import * as ts from 'typescript';
-import { DefaultVisitor } from './default';
-import { AstRenderer } from '../renderer';
+
+import { isStructType } from '../jsii/jsii-utils';
+import { jsiiTargetParam } from '../jsii/packages';
 import { OTree, NO_SYNTAX } from '../o-tree';
-import {
-  builtInTypeName,
-  mapElementType,
-  typeWithoutUndefinedUnion,
-} from '../typescript/types';
+import { AstRenderer } from '../renderer';
 import {
   isReadOnly,
   matchAst,
@@ -15,8 +12,12 @@ import {
   visibility,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
-import { jsiiTargetParam } from '../jsii/packages';
-import { isStructType } from '../jsii/jsii-utils';
+import {
+  builtInTypeName,
+  mapElementType,
+  typeWithoutUndefinedUnion,
+} from '../typescript/types';
+import { DefaultVisitor } from './default';
 
 interface JavaContext {
   /**

@@ -1,6 +1,7 @@
-import * as yargs from 'yargs';
-import { promisify } from 'util';
 import { writeFile } from 'fs';
+import { promisify } from 'util';
+import * as yargs from 'yargs';
+
 import jsiiConfig from '../lib';
 
 const writeFilePromise = promisify(writeFile);

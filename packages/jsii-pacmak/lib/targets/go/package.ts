@@ -1,9 +1,9 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly } from 'jsii-reflect';
+import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { join } from 'path';
-import { ReadmeFile } from './readme-file';
-import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
+
 import { EmitContext } from './emit-context';
+import { ReadmeFile } from './readme-file';
 import { GoClass, GoType, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
 

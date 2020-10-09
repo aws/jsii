@@ -6,11 +6,12 @@
  * well put it in one reusable place.
  */
 
-import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import { DiagnosticCategory } from 'typescript';
+
 import { Compiler } from './compiler';
 import { loadProjectInfo, ProjectInfo } from './project-info';
 

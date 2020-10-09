@@ -1,8 +1,9 @@
+import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
-import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as yargs from 'yargs';
+
 import { compareAssemblies } from '../lib';
 import {
   classifyDiagnostics,

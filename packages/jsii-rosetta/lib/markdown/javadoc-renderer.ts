@@ -1,4 +1,6 @@
 import * as cm from 'commonmark';
+
+import { makeJavaEscaper } from './escapes';
 import { RendererContext } from './markdown';
 import {
   MarkdownRenderer,
@@ -7,7 +9,6 @@ import {
   stripTrailingWhitespace,
   stripPara,
 } from './markdown-renderer';
-import { makeJavaEscaper } from './escapes';
 
 const ESCAPE = makeJavaEscaper();
 

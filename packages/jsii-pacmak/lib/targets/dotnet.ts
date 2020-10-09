@@ -1,8 +1,11 @@
-import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as logging from '../logging';
 import * as xmlbuilder from 'xmlbuilder';
+
+import { TargetBuilder, BuildOptions } from '../builder';
+import * as logging from '../logging';
+import { JsiiModule } from '../packaging';
 import {
   PackageInfo,
   Target,
@@ -11,8 +14,6 @@ import {
 } from '../target';
 import { shell, Scratch, setExtend, filterAsync } from '../util';
 import { DotNetGenerator } from './dotnet/dotnetgenerator';
-import { TargetBuilder, BuildOptions } from '../builder';
-import { JsiiModule } from '../packaging';
 
 export const TARGET_FRAMEWORK = 'netcoreapp3.1';
 

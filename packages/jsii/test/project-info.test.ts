@@ -1,8 +1,9 @@
+import * as spec from '@jsii/spec';
 import * as clone from 'clone';
 import * as fs from 'fs-extra';
-import * as spec from '@jsii/spec';
 import * as os from 'os';
 import * as path from 'path';
+
 import { loadProjectInfo } from '../lib/project-info';
 import { VERSION } from '../lib/version';
 

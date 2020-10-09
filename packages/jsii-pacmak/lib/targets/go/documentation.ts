@@ -1,7 +1,7 @@
-import { Docs } from 'jsii-reflect';
 import { Stability } from '@jsii/spec';
-import { Rosetta } from 'jsii-rosetta';
 import { CodeMaker } from 'codemaker';
+import { Docs } from 'jsii-reflect';
+import { Rosetta } from 'jsii-rosetta';
 
 export class Documentation {
   public constructor(private readonly code: CodeMaker, _rosetta: Rosetta) {}

@@ -1,12 +1,12 @@
-import * as Case from 'case';
 import * as spec from '@jsii/spec';
+import * as Case from 'case';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import deepEqual = require('deep-equal');
 import * as ts from 'typescript';
+
 import { Emitter } from './emitter';
 import { JsiiDiagnostic } from './jsii-diagnostic';
 import { ProjectInfo } from './project-info';
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import deepEqual = require('deep-equal');
 
 export class Validator implements Emitter {
   public static VALIDATIONS: ValidationFunction[] = _defaultValidations();

@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import { camel, constant as allCaps, pascal } from 'case';
 import * as ts from 'typescript';
+
 import { JSII_DIAGNOSTICS_CODE } from './utils';
 
 /**

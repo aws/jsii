@@ -1,4 +1,5 @@
 import * as mockfs from 'mock-fs';
+
 import { findJsiiModules } from '../lib/npm-modules';
 
 describe(findJsiiModules, () => {

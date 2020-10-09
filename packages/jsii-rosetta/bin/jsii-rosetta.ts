@@ -1,17 +1,18 @@
 import * as fs from 'fs-extra';
+import * as path from 'path';
 import * as yargs from 'yargs';
+
 import {
   TranslateResult,
   DEFAULT_TABLET_NAME,
   translateTypeScript,
 } from '../lib';
+import { translateMarkdown } from '../lib/commands/convert';
+import { extractSnippets } from '../lib/commands/extract';
+import { readTablet } from '../lib/commands/read';
 import { PythonVisitor } from '../lib/languages/python';
 import { VisualizeAstVisitor } from '../lib/languages/visualize';
-import { extractSnippets } from '../lib/commands/extract';
 import * as logging from '../lib/logging';
-import * as path from 'path';
-import { readTablet } from '../lib/commands/read';
-import { translateMarkdown } from '../lib/commands/convert';
 import { File, printDiagnostics, isErrorDiagnostic } from '../lib/util';
 
 function main() {

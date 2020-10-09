@@ -1,4 +1,5 @@
 import { sourceToAssemblyHelper } from 'jsii/lib/helpers';
+
 import { Assembly, TypeSystem } from '../lib';
 
 export async function typeSystemFromSource(source: string) {

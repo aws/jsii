@@ -1,7 +1,15 @@
 import * as calcLib from '@scope/jsii-calc-lib';
 import * as assert from 'assert';
-import { Add, Calculator, Multiply, Negate, Power, Sum } from '../lib';
-import { composition } from '../lib';
+
+import {
+  Add,
+  Calculator,
+  Multiply,
+  Negate,
+  Power,
+  Sum,
+  composition,
+} from '../lib';
 
 //
 // * Constructors

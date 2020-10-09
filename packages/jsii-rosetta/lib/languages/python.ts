@@ -1,12 +1,14 @@
 import * as ts from 'typescript';
-import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
+
 import {
   isStructType,
   propertiesOfStruct,
   StructProperty,
   structPropertyAcceptsUndefined,
 } from '../jsii/jsii-utils';
+import { jsiiTargetParam } from '../jsii/packages';
 import { NO_SYNTAX, OTree, renderTree } from '../o-tree';
+import { AstRenderer, nimpl, CommentSyntax } from '../renderer';
 import {
   matchAst,
   nodeOfType,
@@ -15,10 +17,9 @@ import {
   quoteStringLiteral,
 } from '../typescript/ast-utils';
 import { ImportStatement } from '../typescript/imports';
+import { parameterAcceptsUndefined } from '../typescript/types';
 import { startsWithUppercase, flat } from '../util';
 import { DefaultVisitor } from './default';
-import { jsiiTargetParam } from '../jsii/packages';
-import { parameterAcceptsUndefined } from '../typescript/types';
 
 interface StructVar {
   variableName: string;

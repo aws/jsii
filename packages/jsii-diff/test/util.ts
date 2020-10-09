@@ -1,5 +1,6 @@
 import { sourceToAssemblyHelper } from 'jsii';
 import * as reflect from 'jsii-reflect';
+
 import { compareAssemblies } from '../lib';
 import { Mismatches } from '../lib/types';
 

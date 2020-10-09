@@ -1,4 +1,5 @@
 import * as cm from 'commonmark';
+
 import { CommonMarkRenderer, prefixLines, RendererContext } from './markdown';
 
 /**

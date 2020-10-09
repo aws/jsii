@@ -1,5 +1,5 @@
-import { InputOutput, Input, Output } from '../lib/in-out';
 import { KernelHost } from '../lib/host';
+import { InputOutput, Input, Output } from '../lib/in-out';
 
 const requestCount = 250_000;
 

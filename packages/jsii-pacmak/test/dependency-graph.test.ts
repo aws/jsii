@@ -1,5 +1,6 @@
 import { tmpdir } from 'os';
 import { join } from 'path';
+
 import { Callback, traverseDependencyGraph } from '../lib/dependency-graph';
 
 const mockHost = {

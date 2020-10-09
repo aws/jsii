@@ -1,13 +1,14 @@
-import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
-import * as logging from '../logging';
 import * as os from 'os';
 import * as path from 'path';
 import * as ts from 'typescript';
+
+import { loadAssemblies, allTypeScriptSnippets } from '../jsii/assemblies';
+import * as logging from '../logging';
+import { TypeScriptSnippet } from '../snippet';
+import { snippetKey } from '../tablets/key';
 import { LanguageTablet, TranslatedSnippet } from '../tablets/tablets';
 import { Translator } from '../translate';
-import { TypeScriptSnippet } from '../snippet';
 import { divideEvenly } from '../util';
-import { snippetKey } from '../tablets/key';
 
 export interface ExtractResult {
   diagnostics: ts.Diagnostic[];

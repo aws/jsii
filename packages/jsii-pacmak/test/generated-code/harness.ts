@@ -5,6 +5,7 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
+
 import { TargetName } from '../../lib/targets';
 
 const PACMAK_CLI = path.resolve(__dirname, '..', '..', 'bin', 'jsii-pacmak');

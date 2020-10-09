@@ -1,18 +1,19 @@
-import { CodeMaker } from 'codemaker';
 import * as spec from '@jsii/spec';
-import * as xmlbuilder from 'xmlbuilder';
-import { DotNetNameUtils } from './nameutils';
+import { CodeMaker } from 'codemaker';
 import {
   Rosetta,
   Translation,
   typeScriptSnippetFromSource,
   markDownToXmlDoc,
 } from 'jsii-rosetta';
+import * as xmlbuilder from 'xmlbuilder';
+
 import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
 } from '..';
 import { renderSummary } from '../_utils';
+import { DotNetNameUtils } from './nameutils';
 
 /**
  * Generates the Jsii attributes and calls for the .NET runtime

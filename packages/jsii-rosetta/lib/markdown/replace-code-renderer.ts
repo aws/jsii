@@ -1,4 +1,5 @@
 import * as cm from 'commonmark';
+
 import { CommonMarkVisitor } from './markdown';
 import { CodeBlock } from './types';
 
