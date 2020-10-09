@@ -46,16 +46,6 @@ RUN yum -y install python3 python3-pip                                          
   && rm -rf $(pip cache dir)                                                                                            \
   && yum clean all && rm -rf /var/cache/yum
 
-# Install Ruby 2.6+
-#RUN amazon-linux-extras install ruby2.6                                                                                \
-#  && yum -y install ruby-devel rubygem-rdoc                                                                            \
-#  && yum clean all && rm -rf /var/cache/yum                                                                            \
-#  && echo 'install: --no-document' > /usr/local/etc/gemrc                                                              \
-#  && echo 'update: --no-document' >> /usr/local/etc/gemrc                                                              \
-#  && mkdir -p "$GEM_HOME"                                                                                              \
-#  && gem install 'bundler:~>1.17.3' 'bundler:~>2.1.4'
-#ENV PATH="$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH"
-
 # Install JDK8 (Corretto)
 RUN amazon-linux-extras enable corretto8                                                                                \
   && yum -y install java-1.8.0-amazon-corretto-devel                                                                    \
