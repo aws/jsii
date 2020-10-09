@@ -890,7 +890,8 @@
         "bug",
         "code",
         "doc",
-        "ideas"
+        "ideas",
+        "maintenance"
       ]
     },
     {
@@ -939,5 +940,11 @@
       ]
     }
   ],
-  "repoType": "github"
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true,
+  "files": [
+    "README.md"
+  ],
+  "contributorsPerLine": 7
 }
