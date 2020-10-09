@@ -36,7 +36,10 @@ expect.addSnapshotSerializer({
   },
 });
 
-export function verifyGeneratedCodeFor(targetName: TargetName) {
+export function verifyGeneratedCodeFor(
+  targetName: TargetName,
+  timeout = 60_000,
+) {
   let outDir: string;
   beforeEach((done) => {
     outDir = fs.mkdtempSync(path.join(os.tmpdir(), path.basename(__filename)));
@@ -56,8 +59,8 @@ export function verifyGeneratedCodeFor(targetName: TargetName) {
     '@scope/jsii-calc-lib',
     'jsii-calc',
   ]) {
-    // Extend timeout, because this could be slow...
-    jest.setTimeout(60_000);
+    // Extend timeout, because this could be slow (python has more time because of the mypy pass)...
+    jest.setTimeout(timeout);
 
     test(`Generated code for ${JSON.stringify(pkg)}`, async () => {
       const pkgRoot = path.resolve(__dirname, '..', '..', '..', pkg);
@@ -65,9 +68,10 @@ export function verifyGeneratedCodeFor(targetName: TargetName) {
 
       expect({ [TREE]: checkTree(outDir) }).toMatchSnapshot('<outDir>/');
 
-      if (targetName === 'python') {
-        await runMypy(path.join(outDir, 'python'));
+      if (targetName !== 'python') {
+        return Promise.resolve();
       }
+      return runMypy(path.join(outDir, 'python'));
     });
   }
 }
@@ -151,7 +155,10 @@ async function runMypy(pythonRoot: string): Promise<void> {
     venvRoot,
     process.platform === 'win32' ? 'Scripts' : 'bin',
   );
-  const venvPython = path.join(venvBin, 'python');
+  const venvPython = path.join(
+    venvBin,
+    process.platform === 'win32' ? 'python.exe' : 'python',
+  );
 
   const env = {
     ...process.env,
@@ -198,7 +205,7 @@ async function runMypy(pythonRoot: string): Promise<void> {
     ),
   ).resolves.not.toThrowError();
   // Now run mypy on the Python code
-  await expect(
+  return expect(
     shell(
       venvPython,
       [
