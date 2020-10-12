@@ -30,7 +30,7 @@ jobs:
             git fetch --depth=1 --quiet origin ${{ github.base_ref }} ${{ github.head_ref }}
             # Otherwise, only run if the Dockerfile changed
             changed=$(git diff --name-only origin/${{ github.base_ref }}..origin/${{ github.head_ref }})
-            if echo ${changed} | grep Dockerfile; then
+            if grep Dockerfile <<< "${changed}" ; then
               echo '⏯ Dockerfile changed'
               echo "::set-output name=result::true"
             else
