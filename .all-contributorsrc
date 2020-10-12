@@ -158,7 +158,7 @@
       "profile": "https://github.com/campionfellin",
       "contributions": [
         "code",
-        "review"
+        "java"
       ]
     },
     {
@@ -219,6 +219,7 @@
       "profile": "https://github.com/dagnir",
       "contributions": [
         "code",
+        "java",
         "review"
       ]
     },
@@ -229,8 +230,7 @@
       "profile": "https://danieldinu.com/",
       "contributions": [
         "bug",
-        "code",
-        "review"
+        "code"
       ]
     },
     {
@@ -393,8 +393,7 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/1287829?v=4",
       "profile": "https://github.com/hoegertn",
       "contributions": [
-        "code",
-        "review"
+        "code"
       ]
     },
     {
@@ -503,7 +502,7 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/68875428?v=4",
       "profile": "https://github.com/kozlove-aws",
       "contributions": [
-        "review"
+        "code"
       ]
     },
     {
@@ -891,7 +890,8 @@
         "bug",
         "code",
         "doc",
-        "ideas"
+        "ideas",
+        "maintenance"
       ]
     },
     {
@@ -938,7 +938,22 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "edsenabr",
+      "name": "Eduardo Sena S. Rosa",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/15689137?v=4",
+      "profile": "https://github.com/edsenabr",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
-  "repoType": "github"
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true,
+  "files": [
+    "README.md"
+  ],
+  "contributorsPerLine": 7
 }
