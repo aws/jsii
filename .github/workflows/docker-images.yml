@@ -20,10 +20,10 @@ jobs:
         id: should-run
         run: |-
           echo -n "::set-output name=result::"
-          if [ "${{ github.event_name }}" = "push"]; then
+          if [ "${{ github.event_name }}" = "push" ]; then
             # Always run in the "push" workflow
             echo "true"
-          elif [ "${{ github.hbase_ref }}" = "refs/heads/release" ]; then
+          elif [ "${{ github.base_ref }}" = "refs/heads/release" ]; then
             # Always run for PRs against "release"
             echo "true"
           else
