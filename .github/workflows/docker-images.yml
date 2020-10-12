@@ -19,6 +19,8 @@ jobs:
       - name: Should this run?
         id: should-run
         run: |-
+          set -euo pipefail
+
           echo -n "::set-output name=result::"
           if [ "${{ github.event_name }}" = "push" ]; then
             # Always run in the "push" workflow
