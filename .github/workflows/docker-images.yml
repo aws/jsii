@@ -4,8 +4,6 @@ name: Docker Images
 on:
   pull_request:
     branches: [main, master, release]
-    # For PRs, only run if there are changes around the Dockerfile
-    paths: ['superchain/**']
   push:
     branches: [main, master, release]
 
@@ -17,9 +15,29 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
 
+      # Determine if we should run the validation or not
+      - name: Should this run?
+        id: should-run
+        run: |-
+          echo -n "::set-output name=result::"
+          if [ "${{ github.event_name }}" = "push"]; then
+            # Always run in the "push" workflow
+            echo "true"
+          elif [ "${{ github.hbase_ref }}" = "refs/heads/release" ]; then
+            # Always run for PRs against "release"
+            echo "true"
+          else
+            # Otherwise, only run if the Dockerfile changed
+            if git diff --name-only ${{ github.base_ref }}...${{ github.head_ref }} | grep Dockerfile; then
+              echo "true"
+            else
+              echo "false"
+            fi
+          fi
+
       # We only authenticate to Docker for 'push' events, as 'pull_request' from forks will not have the secret
       - name: Login to Docker
-        if: github.event_name == 'push'
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push'
         # The DOCKER_CREDENTIALS secret is expected to contain a username:token pair
         run: |-
           docker login                                                          \
@@ -29,6 +47,7 @@ jobs:
         shell: bash
 
       - name: Build Image
+        if: steps.should-run.outputs.result == 'true'
         run: |-
           docker build                                                          \
             --pull                                                              \
@@ -37,6 +56,7 @@ jobs:
             --tag 'jsii/superchain:nightly'                                     \
             ./superchain
       - name: Test Image
+        if: steps.should-run.outputs.result == 'true'
         run: |-
           docker run                                                            \
             --rm                                                                \
@@ -47,10 +67,12 @@ jobs:
             'jsii/superchain:nightly'                                           \
             bash -c "yarn install --frozen-lockfile && yarn build && yarn test"
       - name: Dump Image
+        if: steps.should-run.outputs.result == 'true'
         run: |-
           docker image save 'jsii/superchain:nightly'                           \
             > ${{ runner.temp }}/jsii-superchain.nightly.tar
       - name: Upload Artifact
+        if: steps.should-run.outputs.result == 'true'
         uses: actions/upload-artifact@v2
         with:
           name: 'jsii-superchain.nightly'
@@ -58,11 +80,11 @@ jobs:
 
       # Only when puhsing to master/main/release from now on
       - name: Publish (nightly)
-        if: github.event_name == 'push' && github.ref != 'ref/heads/release'
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref != 'ref/heads/release'
         run: |-
           docker push jsii/superchain:nightly
       - name: Publish (latest)
-        if: github.event_name == 'push' && github.ref == 'ref/heads/release'
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'ref/heads/release'
         run: |-
           docker tag jsii/superchain:nightly jsii/superchain:latest
           docker push jsii/superchain:latest
