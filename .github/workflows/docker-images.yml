@@ -19,22 +19,23 @@ jobs:
       - name: Should this run?
         id: should-run
         run: |-
-          echo -n "::set-output name=result::"
           if [ "${{ github.event_name }}" = "push" ]; then
-            # Always run in the "push" workflow
-            echo "true"
+            echo '⏯ -- Triggered by "push" event'
+            echo "::set-output name=result::true"
           elif [ "${{ github.base_ref }}" = "release" ]; then
-            # Always run for PRs against "release"
-            echo "true"
+            echo '⏯ -- Triggered by "pull_request" event against "release"'
+            echo "::set-output name=result::true"
           else
             # Fetch the base and head refs from origin so we can safely diff 'em
-            git fetch origin ${{ github.base_ref }} ${{ github.head_ref }}
+            git fetch --quiet origin ${{ github.base_ref }} ${{ github.head_ref }}
             # Otherwise, only run if the Dockerfile changed
             changed=$(git diff --name-only origin/${{ github.base_ref }}...origin/${{ github.head_ref }})
             if echo ${changed} | grep Dockerfile; then
-              echo "true"
+              echo '⏯ -- Dockerfile changed'
+              echo "::set-output name=result::true"
             else
-              echo "false"
+              echo '⏭ -- Dockerfile not changed'
+              echo "::set-output name=result::false"
             fi
           fi
 
