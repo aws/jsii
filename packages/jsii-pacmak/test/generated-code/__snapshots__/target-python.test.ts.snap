@@ -90,7 +90,7 @@ kwargs = json.loads(
 """
 )
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     kwargs["long_description"] = fp.read()
 
 
@@ -336,7 +336,7 @@ kwargs = json.loads(
 """
 )
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     kwargs["long_description"] = fp.read()
 
 
@@ -578,7 +578,7 @@ kwargs = json.loads(
 """
 )
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     kwargs["long_description"] = fp.read()
 
 
@@ -1424,7 +1424,7 @@ kwargs = json.loads(
 """
 )
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     kwargs["long_description"] = fp.read()
 
 

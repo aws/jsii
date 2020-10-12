@@ -6,7 +6,7 @@ with open("src/jsii/_metadata.json") as fp:
     metadata = json.load(fp)
 
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     long_description = fp.read()
 
 
