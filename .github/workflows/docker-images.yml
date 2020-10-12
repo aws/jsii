@@ -19,8 +19,6 @@ jobs:
       - name: Should this run?
         id: should-run
         run: |-
-          set -euo pipefail
-
           echo -n "::set-output name=result::"
           if [ "${{ github.event_name }}" = "push" ]; then
             # Always run in the "push" workflow
@@ -30,7 +28,8 @@ jobs:
             echo "true"
           else
             # Otherwise, only run if the Dockerfile changed
-            if git diff --name-only ${{ github.base_ref }}...${{ github.head_ref }} | grep Dockerfile; then
+            changed=$(git diff --name-only ${{ github.base_ref }}...${{ github.head_ref }})
+            if echo ${changed} | grep Dockerfile; then
               echo "true"
             else
               echo "false"
