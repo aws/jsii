@@ -23,7 +23,7 @@ jobs:
           if [ "${{ github.event_name }}" = "push" ]; then
             # Always run in the "push" workflow
             echo "true"
-          elif [ "${{ github.base_ref }}" = "refs/heads/release" ]; then
+          elif [ "${{ github.base_ref }}" = "release" ]; then
             # Always run for PRs against "release"
             echo "true"
           else
