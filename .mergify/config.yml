@@ -30,6 +30,8 @@ pull_request_rules:
       - "#changes-requested-reviews-by=0"
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
+      # Docker image validation
+      - status-success=Docker Images
       # Integration Tests
       - status-success=Integration Test
       # One test for each OS
@@ -76,6 +78,8 @@ pull_request_rules:
       - "#changes-requested-reviews-by=0"
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
+      # Docker image validation
+      - status-success=Docker Images
       # Integration Tests
       - status-success=Integration Test
       # One test for each OS
@@ -122,6 +126,8 @@ pull_request_rules:
       - "#changes-requested-reviews-by=0"
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
+      # Docker image validation
+      - status-success=Docker Images
       # Integration Tests
       - status-success=Integration Test
       # One test for each OS
