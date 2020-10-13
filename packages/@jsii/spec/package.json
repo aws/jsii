@@ -31,7 +31,7 @@
     "package": "package-js"
   },
   "dependencies": {
-    "jsonschema": "^1.2.10"
+    "jsonschema": "^1.2.11"
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",
