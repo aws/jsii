@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/node": "^10.17.37",
+    "@types/node": "^10.17.39",
     "codemaker": "^0.0.0",
     "fs-extra": "^9.0.1",
     "jsii-calc": "^0.0.0",
