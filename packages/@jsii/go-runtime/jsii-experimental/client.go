@@ -74,9 +74,10 @@ type client struct {
 	reader         *json.Decoder
 
 	// Keeping track of state that'll need cleaning up in close()
-	stdin   io.WriteCloser
-	tmpdir  string
-	objects map[string]interface{}
+	stdin  io.WriteCloser
+	tmpdir string
+	// objects map[string]interface{}
+	objects map[interface{}]string
 }
 
 func CheckFatalError(e error) {
@@ -89,7 +90,8 @@ func CheckFatalError(e error) {
 // was correct.
 func newClient() (*client, error) {
 	// Initialize map of object instances
-	objmap := make(map[string]interface{})
+	// objmap := make(map[string]interface{})
+	objmap := make(map[interface{}]string)
 
 	clientinstance := &client{
 		objects: objmap,
@@ -197,6 +199,11 @@ func (c *client) processHello() (string, error) {
 	parts := regexp.MustCompile("@").Split(response.Hello, 3)
 	version := parts[len(parts)-1]
 	return version, nil
+}
+
+func (c *client) findObjectRef(obj interface{}) (refid string, ok bool) {
+	refid, ok = c.objects[obj]
+	return
 }
 
 func (c *client) load(request LoadRequest) (LoadResponse, error) {

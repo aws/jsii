@@ -52,7 +52,8 @@ func Create(fqn string, args []interface{}, interfaces []string, overrides []Ove
 		panic(err)
 	}
 
-	client.objects[res.JsiiInstanceId] = &returns
+	// client.objects[res.JsiiInstanceId] = &returns
+        client.objects[&returns] = res.JsiiInstanceId
 }
 
 // Close finalizes the runtime process, signalling the end of the execution to
