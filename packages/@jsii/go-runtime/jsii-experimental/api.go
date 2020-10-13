@@ -97,16 +97,18 @@ type LoadResponse struct {
 type CreateRequest struct {
 	kernelRequester
 
-	Api        string     `json:"api"`
-	Fqn        string     `json:"fqn"`
-	Interfaces []string   `json:"interfaces"`
-	Args       []Any      `json:"args"`
-	Overrides  []Override `json:"overrides"`
+	Api        string        `json:"api"`
+	Fqn        string        `json:"fqn"`
+	Interfaces []string      `json:"interfaces"`
+	Args       []interface{} `json:"args"`
+	Overrides  []Override    `json:"overrides"`
 }
 
 // TODO extends AnnotatedObjRef?
 type CreateResponse struct {
 	kernelResponder
+
+	JsiiInstanceId string `json:"$jsii.byref"`
 }
 
 type DelRequest struct {
@@ -299,6 +301,11 @@ func (r *LoadResponse) UnmarshalJSON(data []byte) error {
 	return unmarshalKernelResponse(data, (*response)(r))
 }
 
+func (r *CreateResponse) UnmarshalJSON(data []byte) error {
+	type response CreateResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
 // Custom unmarshaling for kernel responses, checks for presence of `error` key on json and returns if present
 func unmarshalKernelResponse(data []byte, resstruct interface{}) error {
 	datacopy := make([]byte, len(data))
@@ -313,5 +320,6 @@ func unmarshalKernelResponse(data []byte, resstruct interface{}) error {
 		return errors.New(string(errmessage))
 	}
 
-	return json.Unmarshal(data, resstruct)
+	err := json.Unmarshal(response["ok"], resstruct)
+	return err
 }

@@ -36,6 +36,25 @@ func Load(name string, version string, tarball []byte) {
 	}
 }
 
+// Create will construct a new JSII object within the kernel runtime. This is
+// called by jsii object constructors.
+func Create(fqn string, args []interface{}, interfaces []string, overrides []Override, returns interface{}) {
+	client := getClient()
+	res, err := client.create(CreateRequest{
+		Api:        "create",
+		Fqn:        fqn,
+		Args:       args,
+		Interfaces: interfaces,
+		Overrides:  overrides,
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
+	client.objects[res.JsiiInstanceId] = &returns
+}
+
 // Close finalizes the runtime process, signalling the end of the execution to
 // the jsii kernel process, and waiting for graceful termination. The best
 // practice is to defer call thins at the beginning of the "main" function.
