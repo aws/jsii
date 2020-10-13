@@ -92,6 +92,7 @@ jobs:
           path: ${{ runner.temp }}/built-tree.tar.xz
       # Ensure working directory is clean (build should not change checked in source code)
       - name: 'Assert clean working directory'
+        if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
         run: |-
           # Make sure the index is up-to-date (git diff-index assumes it was done)
           git update-index --refresh
@@ -317,6 +318,7 @@ jobs:
           yarn test
       # Ensure working directory is clean (tests should not change checked in source code)
       - name: 'Assert clean working directory'
+        if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
         run: |-
           # Make sure the index is up-to-date (git diff-index assumes it was done)
           git update-index --refresh
