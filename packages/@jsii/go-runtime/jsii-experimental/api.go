@@ -186,7 +186,7 @@ type InvokeRequest struct {
 type InvokeResponse struct {
 	kernelResponder
 
-	Result Any `json:result`
+	Result Any `json:"result"`
 }
 
 type BeginRequest struct {
