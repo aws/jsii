@@ -64,7 +64,7 @@ func NewBase() BaseIface {
 	_jsii_.Create(
 		"@scope/jsii-calc-base.Base",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -189,7 +189,7 @@ func NewVery() VeryIface {
 	_jsii_.Create(
 		"@scope/jsii-calc-base-of-base.Very",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -391,7 +391,7 @@ func NewNumber(value float64) NumberIface {
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.Number",
 		[]interface{}{value},
-		[]string{"@scope/jsii-calc-lib.IDoublable"},
+		[]_jsii_.FQN{"@scope/jsii-calc-lib.IDoublable"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -452,7 +452,7 @@ func NewNumericValue() NumericValueIface {
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.NumericValue",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -509,7 +509,7 @@ func NewOperation() OperationIface {
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.Operation",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -624,7 +624,7 @@ func NewNestedClass() NestedClassIface {
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -697,7 +697,7 @@ func NewReflector() ReflectorIface {
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.submodule.Reflector",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -843,7 +843,7 @@ func NewCompositeOperation() CompositeOperationIface {
 	_jsii_.Create(
 		"jsii-calc.composition.CompositeOperation",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -929,7 +929,7 @@ func NewBase() BaseIface {
 	_jsii_.Create(
 		"jsii-calc.DerivedClassHasNoProperties.Base",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -962,7 +962,7 @@ func NewDerived() DerivedIface {
 	_jsii_.Create(
 		"jsii-calc.DerivedClassHasNoProperties.Derived",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1006,7 +1006,7 @@ func NewFoo() FooIface {
 	_jsii_.Create(
 		"jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1139,7 +1139,7 @@ func NewAbstractClass() AbstractClassIface {
 	_jsii_.Create(
 		"jsii-calc.AbstractClass",
 		[]interface{}{},
-		[]string{"jsii-calc.IInterfaceImplementedByAbstractClass"},
+		[]_jsii_.FQN{"jsii-calc.IInterfaceImplementedByAbstractClass"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1194,7 +1194,7 @@ func NewAbstractClassBase() AbstractClassBaseIface {
 	_jsii_.Create(
 		"jsii-calc.AbstractClassBase",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1229,7 +1229,7 @@ func NewAbstractClassReturner() AbstractClassReturnerIface {
 	_jsii_.Create(
 		"jsii-calc.AbstractClassReturner",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1282,7 +1282,7 @@ func NewAbstractSuite() AbstractSuiteIface {
 	_jsii_.Create(
 		"jsii-calc.AbstractSuite",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1356,7 +1356,7 @@ func NewAdd(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue
 	_jsii_.Create(
 		"jsii-calc.Add",
 		[]interface{}{lhs, rhs},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1557,7 +1557,7 @@ func NewAllTypes() AllTypesIface {
 	_jsii_.Create(
 		"jsii-calc.AllTypes",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1692,7 +1692,7 @@ func NewAllowedMethodNames() AllowedMethodNamesIface {
 	_jsii_.Create(
 		"jsii-calc.AllowedMethodNames",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1761,7 +1761,7 @@ func NewAmbiguousParameters(scope Bell, props StructParameterType) AmbiguousPara
 	_jsii_.Create(
 		"jsii-calc.AmbiguousParameters",
 		[]interface{}{scope, props},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1793,7 +1793,7 @@ func NewAnonymousImplementationProvider() AnonymousImplementationProviderIface {
 	_jsii_.Create(
 		"jsii-calc.AnonymousImplementationProvider",
 		[]interface{}{},
-		[]string{"jsii-calc.IAnonymousImplementationProvider"},
+		[]_jsii_.FQN{"jsii-calc.IAnonymousImplementationProvider"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1838,7 +1838,7 @@ func NewAsyncVirtualMethods() AsyncVirtualMethodsIface {
 	_jsii_.Create(
 		"jsii-calc.AsyncVirtualMethods",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1915,7 +1915,7 @@ func NewAugmentableClass() AugmentableClassIface {
 	_jsii_.Create(
 		"jsii-calc.AugmentableClass",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1952,7 +1952,7 @@ func NewBaseJsii976() BaseJsii976Iface {
 	_jsii_.Create(
 		"jsii-calc.BaseJsii976",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -1983,7 +1983,7 @@ func NewBell() BellIface {
 	_jsii_.Create(
 		"jsii-calc.Bell",
 		[]interface{}{},
-		[]string{"jsii-calc.IBell"},
+		[]_jsii_.FQN{"jsii-calc.IBell"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2048,7 +2048,7 @@ func NewBinaryOperation(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.
 	_jsii_.Create(
 		"jsii-calc.BinaryOperation",
 		[]interface{}{lhs, rhs},
-		[]string{"@scope/jsii-calc-lib.IFriendly"},
+		[]_jsii_.FQN{"@scope/jsii-calc-lib.IFriendly"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2111,7 +2111,7 @@ func NewBurriedAnonymousObject() BurriedAnonymousObjectIface {
 	_jsii_.Create(
 		"jsii-calc.BurriedAnonymousObject",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2254,7 +2254,7 @@ func NewCalculator(props CalculatorProps) CalculatorIface {
 	_jsii_.Create(
 		"jsii-calc.Calculator",
 		[]interface{}{props},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2452,7 +2452,7 @@ func NewClassThatImplementsTheInternalInterface() ClassThatImplementsTheInternal
 	_jsii_.Create(
 		"jsii-calc.ClassThatImplementsTheInternalInterface",
 		[]interface{}{},
-		[]string{"jsii-calc.INonInternalInterface"},
+		[]_jsii_.FQN{"jsii-calc.INonInternalInterface"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2520,7 +2520,7 @@ func NewClassThatImplementsThePrivateInterface() ClassThatImplementsThePrivateIn
 	_jsii_.Create(
 		"jsii-calc.ClassThatImplementsThePrivateInterface",
 		[]interface{}{},
-		[]string{"jsii-calc.INonInternalInterface"},
+		[]_jsii_.FQN{"jsii-calc.INonInternalInterface"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2588,7 +2588,7 @@ func NewClassWithCollections(map_ map[string]string, array []string) ClassWithCo
 	_jsii_.Create(
 		"jsii-calc.ClassWithCollections",
 		[]interface{}{map_, array},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2655,7 +2655,7 @@ func NewClassWithDocs() ClassWithDocsIface {
 	_jsii_.Create(
 		"jsii-calc.ClassWithDocs",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2685,7 +2685,7 @@ func NewClassWithJavaReservedWords(int string) ClassWithJavaReservedWordsIface {
 	_jsii_.Create(
 		"jsii-calc.ClassWithJavaReservedWords",
 		[]interface{}{int},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2727,7 +2727,7 @@ func NewClassWithMutableObjectLiteralProperty() ClassWithMutableObjectLiteralPro
 	_jsii_.Create(
 		"jsii-calc.ClassWithMutableObjectLiteralProperty",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2853,7 +2853,7 @@ func NewConstructorPassesThisOut(consumer PartiallyInitializedThisConsumer) Cons
 	_jsii_.Create(
 		"jsii-calc.ConstructorPassesThisOut",
 		[]interface{}{consumer},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2874,7 +2874,7 @@ func NewConstructors() ConstructorsIface {
 	_jsii_.Create(
 		"jsii-calc.Constructors",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -2966,7 +2966,7 @@ func NewConsumePureInterface(delegate IStructReturningDelegate) ConsumePureInter
 	_jsii_.Create(
 		"jsii-calc.ConsumePureInterface",
 		[]interface{}{delegate},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3004,7 +3004,7 @@ func NewConsumerCanRingBell() ConsumerCanRingBellIface {
 	_jsii_.Create(
 		"jsii-calc.ConsumerCanRingBell",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3103,7 +3103,7 @@ func NewConsumersOfThisCrazyTypeSystem() ConsumersOfThisCrazyTypeSystemIface {
 	_jsii_.Create(
 		"jsii-calc.ConsumersOfThisCrazyTypeSystem",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3146,7 +3146,7 @@ func NewDataRenderer() DataRendererIface {
 	_jsii_.Create(
 		"jsii-calc.DataRenderer",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3216,7 +3216,7 @@ func NewDefaultedConstructorArgument(arg1 float64, arg2 string, arg3 string) Def
 	_jsii_.Create(
 		"jsii-calc.DefaultedConstructorArgument",
 		[]interface{}{arg1, arg2, arg3},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3253,7 +3253,7 @@ func NewDemonstrate982() Demonstrate982Iface {
 	_jsii_.Create(
 		"jsii-calc.Demonstrate982",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3313,7 +3313,7 @@ func NewDeprecatedClass(readonlyString string, mutableNumber float64) Deprecated
 	_jsii_.Create(
 		"jsii-calc.DeprecatedClass",
 		[]interface{}{readonlyString, mutableNumber},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3584,7 +3584,7 @@ func NewDoNotOverridePrivates() DoNotOverridePrivatesIface {
 	_jsii_.Create(
 		"jsii-calc.DoNotOverridePrivates",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3633,7 +3633,7 @@ func NewDoNotRecognizeAnyAsOptional() DoNotRecognizeAnyAsOptionalIface {
 	_jsii_.Create(
 		"jsii-calc.DoNotRecognizeAnyAsOptional",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3670,7 +3670,7 @@ func NewDocumentedClass() DocumentedClassIface {
 	_jsii_.Create(
 		"jsii-calc.DocumentedClass",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3709,7 +3709,7 @@ func NewDontComplainAboutVariadicAfterOptional() DontComplainAboutVariadicAfterO
 	_jsii_.Create(
 		"jsii-calc.DontComplainAboutVariadicAfterOptional",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3744,7 +3744,7 @@ func NewDoubleTrouble() DoubleTroubleIface {
 	_jsii_.Create(
 		"jsii-calc.DoubleTrouble",
 		[]interface{}{},
-		[]string{"jsii-calc.IFriendlyRandomGenerator"},
+		[]_jsii_.FQN{"jsii-calc.IFriendlyRandomGenerator"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3799,7 +3799,7 @@ func NewDynamicPropertyBearer(valueStore string) DynamicPropertyBearerIface {
 	_jsii_.Create(
 		"jsii-calc.DynamicPropertyBearer",
 		[]interface{}{valueStore},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3851,7 +3851,7 @@ func NewDynamicPropertyBearerChild(originalValue string) DynamicPropertyBearerCh
 	_jsii_.Create(
 		"jsii-calc.DynamicPropertyBearerChild",
 		[]interface{}{originalValue},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3897,7 +3897,7 @@ func NewEntropy(clock IWallClock) EntropyIface {
 	_jsii_.Create(
 		"jsii-calc.Entropy",
 		[]interface{}{clock},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -3964,7 +3964,7 @@ func NewEraseUndefinedHashValues() EraseUndefinedHashValuesIface {
 	_jsii_.Create(
 		"jsii-calc.EraseUndefinedHashValues",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4055,7 +4055,7 @@ func NewExperimentalClass(readonlyString string, mutableNumber float64) Experime
 	_jsii_.Create(
 		"jsii-calc.ExperimentalClass",
 		[]interface{}{readonlyString, mutableNumber},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4126,7 +4126,7 @@ func NewExportedBaseClass(success bool) ExportedBaseClassIface {
 	_jsii_.Create(
 		"jsii-calc.ExportedBaseClass",
 		[]interface{}{success},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4188,7 +4188,7 @@ func NewExternalClass(readonlyString string, mutableNumber float64) ExternalClas
 	_jsii_.Create(
 		"jsii-calc.ExternalClass",
 		[]interface{}{readonlyString, mutableNumber},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4258,7 +4258,7 @@ func NewGiveMeStructs() GiveMeStructsIface {
 	_jsii_.Create(
 		"jsii-calc.GiveMeStructs",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4328,7 +4328,7 @@ func NewGreetingAugmenter() GreetingAugmenterIface {
 	_jsii_.Create(
 		"jsii-calc.GreetingAugmenter",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4560,7 +4560,7 @@ func NewImplementInternalInterface() ImplementInternalInterfaceIface {
 	_jsii_.Create(
 		"jsii-calc.ImplementInternalInterface",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4593,7 +4593,7 @@ func NewImplementation() ImplementationIface {
 	_jsii_.Create(
 		"jsii-calc.Implementation",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4620,7 +4620,7 @@ func NewImplementsInterfaceWithInternal() ImplementsInterfaceWithInternalIface {
 	_jsii_.Create(
 		"jsii-calc.ImplementsInterfaceWithInternal",
 		[]interface{}{},
-		[]string{"jsii-calc.IInterfaceWithInternal"},
+		[]_jsii_.FQN{"jsii-calc.IInterfaceWithInternal"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4651,7 +4651,7 @@ func NewImplementsInterfaceWithInternalSubclass() ImplementsInterfaceWithInterna
 	_jsii_.Create(
 		"jsii-calc.ImplementsInterfaceWithInternalSubclass",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4688,7 +4688,7 @@ func NewImplementsPrivateInterface() ImplementsPrivateInterfaceIface {
 	_jsii_.Create(
 		"jsii-calc.ImplementsPrivateInterface",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4743,7 +4743,7 @@ func NewInbetweenClass() InbetweenClassIface {
 	_jsii_.Create(
 		"jsii-calc.InbetweenClass",
 		[]interface{}{},
-		[]string{"jsii-calc.IPublicInterface2"},
+		[]_jsii_.FQN{"jsii-calc.IPublicInterface2"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4856,7 +4856,7 @@ func NewIsomorphism() IsomorphismIface {
 	_jsii_.Create(
 		"jsii-calc.Isomorphism",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4903,7 +4903,7 @@ func NewJsii417Derived(property string) Jsii417DerivedIface {
 	_jsii_.Create(
 		"jsii-calc.JSII417Derived",
 		[]interface{}{property},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -4975,7 +4975,7 @@ func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBaseIface {
 	_jsii_.Create(
 		"jsii-calc.JSII417PublicBaseOfBase",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -5020,7 +5020,7 @@ func NewJsObjectLiteralForInterface() JsObjectLiteralForInterfaceIface {
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralForInterface",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -5060,7 +5060,7 @@ func NewJsObjectLiteralToNative() JsObjectLiteralToNativeIface {
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralToNative",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -5105,7 +5105,7 @@ func NewJsObjectLiteralToNativeClass() JsObjectLiteralToNativeClassIface {
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralToNativeClass",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -5194,7 +5194,7 @@ func NewJavaReservedWords() JavaReservedWordsIface {
 	_jsii_.Create(
 		"jsii-calc.JavaReservedWords",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -5637,7 +5637,7 @@ func NewJsii487Derived() Jsii487DerivedIface {
 	_jsii_.Create(
 		"jsii-calc.Jsii487Derived",
 		[]interface{}{},
-		[]string{"jsii-calc.IJsii487External2", "jsii-calc.IJsii487External"},
+		[]_jsii_.FQN{"jsii-calc.IJsii487External2", "jsii-calc.IJsii487External"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -5659,7 +5659,7 @@ func NewJsii496Derived() Jsii496DerivedIface {
 	_jsii_.Create(
 		"jsii-calc.Jsii496Derived",
 		[]interface{}{},
-		[]string{"jsii-calc.IJsii496"},
+		[]_jsii_.FQN{"jsii-calc.IJsii496"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -5691,7 +5691,7 @@ func NewJsiiAgent() JsiiAgentIface {
 	_jsii_.Create(
 		"jsii-calc.JsiiAgent",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -5877,7 +5877,7 @@ func NewLevelOne(props LevelOneProps) LevelOneIface {
 	_jsii_.Create(
 		"jsii-calc.LevelOne",
 		[]interface{}{props},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6027,7 +6027,7 @@ func NewMethodNamedProperty() MethodNamedPropertyIface {
 	_jsii_.Create(
 		"jsii-calc.MethodNamedProperty",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6098,7 +6098,7 @@ func NewMultiply(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.Numeric
 	_jsii_.Create(
 		"jsii-calc.Multiply",
 		[]interface{}{lhs, rhs},
-		[]string{"jsii-calc.IFriendlier", "jsii-calc.IRandomNumberGenerator"},
+		[]_jsii_.FQN{"jsii-calc.IFriendlier", "jsii-calc.IRandomNumberGenerator"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6209,7 +6209,7 @@ func NewNegate(operand scopejsiicalclib.NumericValue) NegateIface {
 	_jsii_.Create(
 		"jsii-calc.Negate",
 		[]interface{}{operand},
-		[]string{"jsii-calc.IFriendlier"},
+		[]_jsii_.FQN{"jsii-calc.IFriendlier"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6330,7 +6330,7 @@ func NewNodeStandardLibrary() NodeStandardLibraryIface {
 	_jsii_.Create(
 		"jsii-calc.NodeStandardLibrary",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6394,7 +6394,7 @@ func NewNullShouldBeTreatedAsUndefined(_param1 string, optional _jsii_.Any) Null
 	_jsii_.Create(
 		"jsii-calc.NullShouldBeTreatedAsUndefined",
 		[]interface{}{_param1, optional},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6475,7 +6475,7 @@ func NewNumberGenerator(generator IRandomNumberGenerator) NumberGeneratorIface {
 	_jsii_.Create(
 		"jsii-calc.NumberGenerator",
 		[]interface{}{generator},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6521,7 +6521,7 @@ func NewObjectRefsInCollections() ObjectRefsInCollectionsIface {
 	_jsii_.Create(
 		"jsii-calc.ObjectRefsInCollections",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6581,7 +6581,7 @@ func NewOld() OldIface {
 	_jsii_.Create(
 		"jsii-calc.Old",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6612,7 +6612,7 @@ func NewOptionalArgumentInvoker(delegate IInterfaceWithOptionalMethodArguments) 
 	_jsii_.Create(
 		"jsii-calc.OptionalArgumentInvoker",
 		[]interface{}{delegate},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6671,7 +6671,7 @@ func NewOptionalConstructorArgument(arg1 float64, arg2 string, arg3 string) Opti
 	_jsii_.Create(
 		"jsii-calc.OptionalConstructorArgument",
 		[]interface{}{arg1, arg2, arg3},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6734,7 +6734,7 @@ func NewOptionalStructConsumer(optionalStruct OptionalStruct) OptionalStructCons
 	_jsii_.Create(
 		"jsii-calc.OptionalStructConsumer",
 		[]interface{}{optionalStruct},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6781,7 +6781,7 @@ func NewOverridableProtectedMember() OverridableProtectedMemberIface {
 	_jsii_.Create(
 		"jsii-calc.OverridableProtectedMember",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6837,7 +6837,7 @@ func NewOverrideReturnsObject() OverrideReturnsObjectIface {
 	_jsii_.Create(
 		"jsii-calc.OverrideReturnsObject",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6884,7 +6884,7 @@ func NewPartiallyInitializedThisConsumer() PartiallyInitializedThisConsumerIface
 	_jsii_.Create(
 		"jsii-calc.PartiallyInitializedThisConsumer",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -6915,7 +6915,7 @@ func NewPolymorphism() PolymorphismIface {
 	_jsii_.Create(
 		"jsii-calc.Polymorphism",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7008,7 +7008,7 @@ func NewPower(base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericVa
 	_jsii_.Create(
 		"jsii-calc.Power",
 		[]interface{}{base, pow},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7091,7 +7091,7 @@ func NewPropertyNamedProperty() PropertyNamedPropertyIface {
 	_jsii_.Create(
 		"jsii-calc.PropertyNamedProperty",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7121,7 +7121,7 @@ func NewPublicClass() PublicClassIface {
 	_jsii_.Create(
 		"jsii-calc.PublicClass",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7182,7 +7182,7 @@ func NewPythonReservedWords() PythonReservedWordsIface {
 	_jsii_.Create(
 		"jsii-calc.PythonReservedWords",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7470,7 +7470,7 @@ func NewReferenceEnumFromScopedPackage() ReferenceEnumFromScopedPackageIface {
 	_jsii_.Create(
 		"jsii-calc.ReferenceEnumFromScopedPackage",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7525,7 +7525,7 @@ func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOf
 	_jsii_.Create(
 		"jsii-calc.ReturnsPrivateImplementationOfInterface",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7596,7 +7596,7 @@ func NewRuntimeTypeChecking() RuntimeTypeCheckingIface {
 	_jsii_.Create(
 		"jsii-calc.RuntimeTypeChecking",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7671,7 +7671,7 @@ func NewSingleInstanceTwoTypes() SingleInstanceTwoTypesIface {
 	_jsii_.Create(
 		"jsii-calc.SingleInstanceTwoTypes",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7787,7 +7787,7 @@ func NewSomeTypeJsii976() SomeTypeJsii976Iface {
 	_jsii_.Create(
 		"jsii-calc.SomeTypeJsii976",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -7844,7 +7844,7 @@ func NewStableClass(readonlyString string, mutableNumber float64) StableClassIfa
 	_jsii_.Create(
 		"jsii-calc.StableClass",
 		[]interface{}{readonlyString, mutableNumber},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8001,7 +8001,7 @@ func NewStatics(value string) StaticsIface {
 	_jsii_.Create(
 		"jsii-calc.Statics",
 		[]interface{}{value},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8091,7 +8091,7 @@ func NewStripInternal() StripInternalIface {
 	_jsii_.Create(
 		"jsii-calc.StripInternal",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8197,7 +8197,7 @@ func NewStructPassing() StructPassingIface {
 	_jsii_.Create(
 		"jsii-calc.StructPassing",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8353,7 +8353,7 @@ func NewSum() SumIface {
 	_jsii_.Create(
 		"jsii-calc.Sum",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8446,7 +8446,7 @@ func NewSupportsNiceJavaBuilder(id float64, defaultBar float64, props SupportsNi
 	_jsii_.Create(
 		"jsii-calc.SupportsNiceJavaBuilder",
 		[]interface{}{id, defaultBar, props, rest},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8532,7 +8532,7 @@ func NewSupportsNiceJavaBuilderWithRequiredProps(id float64, props SupportsNiceJ
 	_jsii_.Create(
 		"jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
 		[]interface{}{id, props},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8618,7 +8618,7 @@ func NewSyncVirtualMethods() SyncVirtualMethodsIface {
 	_jsii_.Create(
 		"jsii-calc.SyncVirtualMethods",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8751,7 +8751,7 @@ func NewThrower() ThrowerIface {
 	_jsii_.Create(
 		"jsii-calc.Thrower",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8851,7 +8851,7 @@ func NewUnaryOperation(operand scopejsiicalclib.NumericValue) UnaryOperationIfac
 	_jsii_.Create(
 		"jsii-calc.UnaryOperation",
 		[]interface{}{operand},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8937,7 +8937,7 @@ func NewUpcasingReflectable(delegate map[string]_jsii_.Any) UpcasingReflectableI
 	_jsii_.Create(
 		"jsii-calc.UpcasingReflectable",
 		[]interface{}{delegate},
-		[]string{"@scope/jsii-calc-lib.submodule.IReflectable"},
+		[]_jsii_.FQN{"@scope/jsii-calc-lib.submodule.IReflectable"},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -8968,7 +8968,7 @@ func NewUseBundledDependency() UseBundledDependencyIface {
 	_jsii_.Create(
 		"jsii-calc.UseBundledDependency",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9000,7 +9000,7 @@ func NewUseCalcBase() UseCalcBaseIface {
 	_jsii_.Create(
 		"jsii-calc.UseCalcBase",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9041,7 +9041,7 @@ func NewUsesInterfaceWithProperties(obj IInterfaceWithProperties) UsesInterfaceW
 	_jsii_.Create(
 		"jsii-calc.UsesInterfaceWithProperties",
 		[]interface{}{obj},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9094,7 +9094,7 @@ func NewVariadicInvoker(method VariadicMethod) VariadicInvokerIface {
 	_jsii_.Create(
 		"jsii-calc.VariadicInvoker",
 		[]interface{}{method},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9125,7 +9125,7 @@ func NewVariadicMethod(prefix float64) VariadicMethodIface {
 	_jsii_.Create(
 		"jsii-calc.VariadicMethod",
 		[]interface{}{prefix},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9160,7 +9160,7 @@ func NewVirtualMethodPlayground() VirtualMethodPlaygroundIface {
 	_jsii_.Create(
 		"jsii-calc.VirtualMethodPlayground",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9241,7 +9241,7 @@ func NewVoidCallback() VoidCallbackIface {
 	_jsii_.Create(
 		"jsii-calc.VoidCallback",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9291,7 +9291,7 @@ func NewWithPrivatePropertyInConstructor(privateField string) WithPrivatePropert
 	_jsii_.Create(
 		"jsii-calc.WithPrivatePropertyInConstructor",
 		[]interface{}{privateField},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9336,7 +9336,7 @@ func NewClassWithSelf(self string) ClassWithSelfIface {
 	_jsii_.Create(
 		"jsii-calc.PythonSelf.ClassWithSelf",
 		[]interface{}{self},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self_,
 	)
@@ -9378,7 +9378,7 @@ func NewClassWithSelfKwarg(props StructWithSelf) ClassWithSelfKwargIface {
 	_jsii_.Create(
 		"jsii-calc.PythonSelf.ClassWithSelfKwarg",
 		[]interface{}{props},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9483,7 +9483,7 @@ func NewInnerClass() InnerClassIface {
 	_jsii_.Create(
 		"jsii-calc.submodule.child.InnerClass",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9541,7 +9541,7 @@ func NewOuterClass() OuterClassIface {
 	_jsii_.Create(
 		"jsii-calc.submodule.child.OuterClass",
 		[]interface{}{},
-		[]string{},
+		[]_jsii_.FQN{},
 		[]_jsii_.Override{},
 		&self,
 	)
@@ -9741,7 +9741,7 @@ func NewMyClass(props child.SomeStruct) MyClassIface {
 	_jsii_.Create(
 		"jsii-calc.submodule.MyClass",
 		[]interface{}{props},
-		[]string{"jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced"},
+		[]_jsii_.FQN{"jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced"},
 		[]_jsii_.Override{},
 		&self,
 	)

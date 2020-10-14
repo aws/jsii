@@ -17,3 +17,5 @@ export const JSII_CREATE_FUNC = `${JSII_RT_ALIAS}.Create`;
 export const JSII_OVERRIDE = `${JSII_RT_ALIAS}.Override`;
 // Jsii Any mock
 export const JSII_ANY = `${JSII_RT_ALIAS}.Any`;
+// Jsii FQN type
+export const JSII_FQN = `${JSII_RT_ALIAS}.FQN`;
