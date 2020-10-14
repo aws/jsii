@@ -10,13 +10,15 @@ import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.ReloadingClassLoader;
 import software.amazon.jsii.tests.calculator.*;
+import software.amazon.jsii.tests.calculator.baseofbase.StaticConsumer;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
+import software.amazon.jsii.tests.calculator.custom_submodule_name.NestingClass.NestedStruct;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
 import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
 import software.amazon.jsii.tests.calculator.lib.Number;
+import software.amazon.jsii.tests.calculator.lib.NumericValue;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
-import software.amazon.jsii.tests.calculator.lib.Value;
 import software.amazon.jsii.tests.calculator.submodule.child.OuterClass;
 
 import java.io.IOException;
@@ -25,12 +27,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.security.AccessController;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -41,6 +47,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("deprecated")
 @ExtendWith(ComplianceSuiteHarness.class)
 public class ComplianceTest {
+    @Test
+    public void useNestedStruct() {
+        StaticConsumer.consume(
+            new NestedStruct.Builder()
+                .name("Bond, James Bond")
+                .build()
+        );
+    }
+
     /**
      * Verify that we can marshal and unmarshal objects without type information.
      */
@@ -205,7 +220,7 @@ public class ComplianceTest {
     public void unmarshallIntoAbstractType() {
         Calculator calc = new Calculator();
         calc.add(120);
-        Value value = calc.getCurr();
+        NumericValue value = calc.getCurr();
         assertEquals(120, value.getValue());
     }
 
@@ -1195,7 +1210,7 @@ public class ComplianceTest {
 
     @Test
     public void testJsiiAgent() {
-        assertEquals("Java/" + System.getProperty("java.version"), JsiiAgent.getJsiiAgent());
+        assertEquals("Java/" + System.getProperty("java.version"), JsiiAgent.getValue());
     }
 
     /**
@@ -1764,5 +1779,27 @@ public class ComplianceTest {
     public void classesCanSelfReferenceDuringClassInitialization() {
         final OuterClass outerClass = new OuterClass();
         assertNotNull(outerClass.getInnerClass());
+    }
+
+    @Test
+    public void iso8601DoesNotDeserializeToDate() {
+        final TimeZone tz = TimeZone.getTimeZone("UTC");
+        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+        df.setTimeZone(tz);
+        final String nowAsISO = df.format(new Date());
+
+        final IWallClock wallClock = new IWallClock() {
+            public String iso8601Now() {
+                return nowAsISO;
+            }
+        };
+
+        final Entropy entropy = new Entropy(wallClock) {
+            public String repeat(final String word) {
+                return word;
+            }
+        };
+
+        assertEquals(nowAsISO, entropy.increase());
     }
 }

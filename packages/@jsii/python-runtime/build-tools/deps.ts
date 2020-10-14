@@ -1,6 +1,6 @@
 #!/usr/bin/env npx ts-node
 
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { venv, runCommand } from './_constants';
 
 const python = join(venv.bin, 'python');
@@ -15,19 +15,6 @@ const env = {
 
 runCommand(
   python,
-  [
-    '-m',
-    'pip',
-    'install',
-    '--no-input',
-    'pip~=20.2',
-    'setuptools~=46.1.3',
-    'wheel~=0.34.2',
-  ],
-  { env },
-);
-runCommand(
-  python,
-  ['-m', 'pip', 'install', '--no-input', '-r', 'requirements.txt'],
+  ['-m', 'pip', 'install', '-r', resolve(__dirname, '..', 'requirements.txt')],
   { env },
 );

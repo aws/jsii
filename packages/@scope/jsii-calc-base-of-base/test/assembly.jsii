@@ -23,6 +23,9 @@
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
     },
+    "go": {
+      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+    },
     "java": {
       "maven": {
         "artifactId": "calculator-base-of-base",
@@ -59,20 +62,57 @@
       ],
       "name": "IVeryBaseInterface"
     },
-    "@scope/jsii-calc-base-of-base.Very": {
+    "@scope/jsii-calc-base-of-base.StaticConsumer": {
       "assembly": "@scope/jsii-calc-base-of-base",
-      "fqn": "@scope/jsii-calc-base-of-base.Very",
-      "initializer": {},
+      "fqn": "@scope/jsii-calc-base-of-base.StaticConsumer",
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 9
+        "line": 19
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 10
+            "line": 22
+          },
+          "name": "consume",
+          "parameters": [
+            {
+              "name": "_args",
+              "type": {
+                "primitive": "any"
+              },
+              "variadic": true
+            }
+          ],
+          "static": true,
+          "variadic": true
+        }
+      ],
+      "name": "StaticConsumer"
+    },
+    "@scope/jsii-calc-base-of-base.Very": {
+      "assembly": "@scope/jsii-calc-base-of-base",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Something here."
+      },
+      "fqn": "@scope/jsii-calc-base-of-base.Very",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 13
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 14
           },
           "name": "hey",
           "returns": {
@@ -111,5 +151,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "v3mwSbKGQ2aa8g0DEKIeaEXh3csX7PX2MJJxHVRufhI="
+  "fingerprint": "XzppfL+BknRpBHYygvGjf8OOXrTyNAx6cllN3vONLoU="
 }

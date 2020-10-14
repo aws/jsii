@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "A simple calcuator built on JSII.",
-  "stability": "experimental",
+  "stability": "stable",
   "license": "Apache-2.0",
   "author": {
     "name": "Amazon Web Services",
@@ -32,7 +32,7 @@
   "scripts": {
     "build": "jsii --project-references --silence-warnings reserved-word && npm run lint && jsii-rosetta --compile",
     "watch": "jsii --project-references -w",
-    "lint": "eslint . --ext=.js,.ts --format=codeframe --ignore-path=.gitignore",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
     "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
@@ -49,18 +49,19 @@
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.28",
-    "eslint": "^7.6.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "@types/node": "^10.17.39",
+    "eslint": "^7.11.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.1.2"
   },
   "jsii": {
     "outdir": "dist",
     "targets": {
+      "go": {
+        "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+      },
       "java": {
         "package": "software.amazon.jsii.tests.calculator",
         "maven": {
@@ -75,7 +76,10 @@
       },
       "python": {
         "distName": "jsii-calc",
-        "module": "jsii_calc"
+        "module": "jsii_calc",
+        "classifiers": [
+          "Test :: Classifier :: Is Dummy"
+        ]
       }
     },
     "metadata": {

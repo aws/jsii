@@ -4,13 +4,13 @@ import { expectError, expectNoError } from './util';
 
 test('cannot add required fields to an input struct', () =>
   expectError(
-    /required property 'super' used to be missing/,
+    /required property 'super' added/,
     `
     export interface Henk {
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -21,7 +21,7 @@ test('cannot add required fields to an input struct', () =>
       readonly super: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -37,7 +37,7 @@ test('can add required fields to an output struct', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(): Henk {
+      public bar(): Henk {
         return { henk: 'henk' };
       }
     }
@@ -48,7 +48,7 @@ test('can add required fields to an output struct', () =>
       readonly super: string;
     }
     export class Foo {
-      public foo(): Henk {
+      public bar(): Henk {
         return { henk: 'henk', super: 'super' };
       }
     }
@@ -64,7 +64,7 @@ test('can change argument type to a supertype if it adds only optional fields', 
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -77,7 +77,7 @@ test('can change argument type to a supertype if it adds only optional fields', 
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Super): void {
+      public bar(arg1: Super): void {
         Array.isArray(arg1);
       }
     }
@@ -96,7 +96,7 @@ test('cannot take fields away from input struct', () =>
       readonly piet: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -106,7 +106,7 @@ test('cannot take fields away from input struct', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -117,14 +117,14 @@ test('cannot take fields away from input struct', () =>
 
 test('cannot take fields away from output struct', () =>
   expectError(
-    /formerly required property 'piet' is missing/,
+    /formerly required property 'piet' removed/,
     `
     export interface Henk {
       readonly henk: string;
       readonly piet: string;
     }
     export class Foo {
-      public foo(): Henk {
+      public bar(): Henk {
         return { henk: 'henk', piet: 'piet' };
       }
     }
@@ -134,7 +134,7 @@ test('cannot take fields away from output struct', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(): Henk {
+      public bar(): Henk {
         return { henk: 'henk' };
       }
     }
@@ -145,13 +145,13 @@ test('cannot take fields away from output struct', () =>
 
 test('cannot change argument type to a supertype it adds required fields', () =>
   expectError(
-    /required property 'super' used to be missing/,
+    /required property 'super' added/,
     `
     export interface Henk {
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Henk): void {
+      public bar(arg1: Henk): void {
         Array.isArray(arg1);
       }
     }
@@ -164,7 +164,7 @@ test('cannot change argument type to a supertype it adds required fields', () =>
       readonly henk: string;
     }
     export class Foo {
-      public foo(arg1: Super): void {
+      public bar(arg1: Super): void {
         Array.isArray(arg1);
       }
     }
@@ -197,7 +197,7 @@ test('can make an input struct property optional', () =>
 
 test('cannot make an input struct property required', () =>
   expectError(
-    /newly required property 'henk' used to be optional in testpkg.Henk/,
+    /newly required property 'henk' used to be optional/,
     `
     export interface Henk {
       readonly henk?: string;
@@ -220,7 +220,7 @@ test('cannot make an input struct property required', () =>
 
 test('cannot make an output struct property optional', () =>
   expectError(
-    /formerly required property 'henk' is optional in testpkg.Henk/,
+    /formerly required property 'henk' is optional/,
     `
     export interface Henk {
       readonly henk: string;

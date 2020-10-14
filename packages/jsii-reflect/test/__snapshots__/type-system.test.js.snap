@@ -11,11 +11,12 @@ Array [
 
 exports[`TypeSystem.classes lists all the classes in the typesystem 1`] = `
 Array [
+  "@scope/jsii-calc-base-of-base.StaticConsumer",
   "@scope/jsii-calc-base-of-base.Very",
   "@scope/jsii-calc-base.Base",
   "@scope/jsii-calc-lib.Number",
+  "@scope/jsii-calc-lib.NumericValue",
   "@scope/jsii-calc-lib.Operation",
-  "@scope/jsii-calc-lib.Value",
   "@scope/jsii-calc-lib.submodule.NestingClass",
   "@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
   "@scope/jsii-calc-lib.submodule.Reflector",
@@ -60,6 +61,9 @@ Array [
   "jsii-calc.DocumentedClass",
   "jsii-calc.DontComplainAboutVariadicAfterOptional",
   "jsii-calc.DoubleTrouble",
+  "jsii-calc.DynamicPropertyBearer",
+  "jsii-calc.DynamicPropertyBearerChild",
+  "jsii-calc.Entropy",
   "jsii-calc.EnumDispenser",
   "jsii-calc.EraseUndefinedHashValues",
   "jsii-calc.ExperimentalClass",
@@ -87,6 +91,7 @@ Array [
   "jsii-calc.Jsii496Derived",
   "jsii-calc.JsiiAgent",
   "jsii-calc.JsonFormatter",
+  "jsii-calc.LevelOne",
   "jsii-calc.MethodNamedProperty",
   "jsii-calc.Multiply",
   "jsii-calc.Negate",

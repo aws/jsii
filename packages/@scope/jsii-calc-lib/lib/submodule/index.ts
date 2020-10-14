@@ -30,4 +30,11 @@ export namespace NestingClass {
   export class NestedClass {
     public readonly property: string = 'property';
   }
+
+  /**
+   * This is a struct, nested within a class. Normal.
+   */
+  export interface NestedStruct {
+    readonly name: string;
+  }
 }

@@ -398,6 +398,9 @@ defineTest(
         namespace: 'Amazon.JSII.Tests.CalculatorNamespace',
         packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
       },
+      go: {
+        moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
+      },
       java: {
         package: 'software.amazon.jsii.tests.calculator',
         maven: {
@@ -406,7 +409,11 @@ defineTest(
         },
       },
       js: { npm: 'jsii-calc' },
-      python: { distName: 'jsii-calc', module: 'jsii_calc' },
+      python: {
+        distName: 'jsii-calc',
+        module: 'jsii_calc',
+        classifiers: ['Test :: Classifier :: Is Dummy'],
+      },
     });
     expect(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming).toEqual(
       {
@@ -414,6 +421,9 @@ defineTest(
           namespace: 'Amazon.JSII.Tests.CalculatorNamespace.LibNamespace',
           packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId',
           versionSuffix: '-devpreview',
+        },
+        go: {
+          moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
         },
         java: {
           package: 'software.amazon.jsii.tests.calculator.lib',
@@ -1476,7 +1486,7 @@ defineTest('nulls are converted to undefined - properties', (sandbox) => {
 
 defineTest('JSII_AGENT is undefined in node.js', (sandbox) => {
   expect(
-    sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'jsiiAgent' }).value,
+    sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'value' }).value,
   ).toBe(undefined);
 });
 
@@ -2060,6 +2070,69 @@ defineTest('ANY serializer: ref', (sandbox) => {
   });
 });
 
+defineTest('Override transitive property', (sandbox) => {
+  //////////
+  // GIVEN
+  //////////
+  const originalString = 'r00t';
+  const initialOverriddenPropValue = 'Overridden Value';
+  let propValue = initialOverriddenPropValue;
+  sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
+    const getOrSet = callback.get ?? callback.set;
+    // We don't expect to receive any other callback
+    expect(getOrSet).toBeDefined();
+    expect(getOrSet?.property).toBe('dynamicProperty');
+
+    if (callback.get) {
+      return propValue;
+    }
+    propValue = callback.set?.value;
+    return void 0;
+  });
+
+  //////////
+  // WHEN
+  //////////
+  const objref = sandbox.create({
+    fqn: 'jsii-calc.DynamicPropertyBearerChild',
+    args: [originalString],
+    overrides: [{ property: 'dynamicProperty' }],
+  });
+
+  //////////
+  // THEN
+  //////////
+
+  // Reading the "super" property
+  expect(sandbox.get({ objref, property: 'dynamicProperty' }).value).toBe(
+    originalString,
+  );
+  expect(sandbox.get({ objref, property: 'valueStore' }).value).toBe(
+    originalString,
+  );
+
+  // Setting the dynamicProperty value through the override
+  expect(
+    sandbox.invoke({ objref, method: 'overrideValue', args: ['N3W'] }).result,
+  ).toBe(initialOverriddenPropValue);
+  // Checking the side effect happened on the override:
+  expect(propValue).toBe('N3W');
+  // Check the "super" property didn't change:
+  expect(sandbox.get({ objref, property: 'dynamicProperty' }).value).toBe(
+    originalString,
+  );
+  expect(sandbox.get({ objref, property: 'valueStore' }).value).toBe(
+    originalString,
+  );
+
+  // Set the "super" property now
+  sandbox.set({ objref, property: 'dynamicProperty', value: '' });
+  // Check the side effect made it to the storage
+  expect(sandbox.get({ objref, property: 'valueStore' }).value).toBe('');
+  // Check the overridden property didn't change...
+  expect(propValue).toBe('N3W');
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = {};
@@ -2082,6 +2155,11 @@ async function createCalculatorSandbox(name: string) {
 
   sandbox.traceEnabled = `${process.env.JSII_DEBUG}` === '1';
 
+  sandbox.load({
+    tarball: await preparePackage('@scope/jsii-calc-base-of-base'),
+    name: '@scope/jsii-calc-base-of-base',
+    version: calcBaseVersion,
+  });
   sandbox.load({
     tarball: await preparePackage('@scope/jsii-calc-base'),
     name: '@scope/jsii-calc-base',

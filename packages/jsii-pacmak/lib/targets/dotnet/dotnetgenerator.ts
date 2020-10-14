@@ -325,12 +325,12 @@ export class DotNetGenerator extends Generator {
       // Abstract classes have protected constructors.
       const visibility = cls.abstract ? 'protected' : 'public';
 
-      const hasOptional =
-        initializer.parameters?.find((param) => param.optional) != null
-          ? '?'
-          : '';
+      const args =
+        parametersBase.length > 0
+          ? `new object?[]{${parametersBase}}`
+          : `System.Array.Empty<object?>()`;
       this.code.openBlock(
-        `${visibility} ${className}(${parametersDefinition}): base(new DeputyProps(new object${hasOptional}[]{${parametersBase}}))`,
+        `${visibility} ${className}(${parametersDefinition}): base(new DeputyProps(${args}))`,
       );
       this.code.closeBlock();
       this.code.line();
@@ -859,13 +859,15 @@ export class DotNetGenerator extends Generator {
     if (datatype || prop.const || prop.abstract) {
       this.code.line('get;');
     } else {
+      // If the property is non-optional, add a bang to silence compiler warning
+      const bang = prop.optional ? '' : '!';
       if (prop.static) {
         this.code.line(
-          `get => GetStaticProperty<${propTypeFQN}${isOptional}>(typeof(${className}));`,
+          `get => GetStaticProperty<${propTypeFQN}${isOptional}>(typeof(${className}))${bang};`,
         );
       } else {
         this.code.line(
-          `get => GetInstanceProperty<${propTypeFQN}${isOptional}>();`,
+          `get => GetInstanceProperty<${propTypeFQN}${isOptional}>()${bang};`,
         );
       }
     }
@@ -897,19 +899,24 @@ export class DotNetGenerator extends Generator {
     this.emitNewLineIfNecessary();
     this.flagFirstMemberWritten(true);
     const propType = this.typeresolver.toDotNetType(prop.type);
+    const isOptional = prop.optional ? '?' : '';
     this.dotnetDocGenerator.emitDocs(prop);
     this.dotnetRuntimeGenerator.emitAttributesForProperty(prop);
     const access = this.renderAccessLevel(prop);
     const propName = this.nameutils.convertPropertyName(prop.name);
     const staticKeyword = prop.static ? 'static ' : '';
 
-    this.code.openBlock(`${access} ${staticKeyword}${propType} ${propName}`);
+    this.code.openBlock(
+      `${access} ${staticKeyword}${propType}${isOptional} ${propName}`,
+    );
     this.code.line('get;');
     this.code.closeBlock();
     const className = this.typeresolver.toNativeFqn(cls.fqn);
+    // If the property is non-optional, add a bang to silence the compiler warning
+    const bang = prop.optional ? '' : '!';
     const initializer = prop.static
-      ? `= GetStaticProperty<${propType}>(typeof(${className}));`
-      : `= GetInstanceProperty<${propType}>(typeof(${className}));`;
+      ? `= GetStaticProperty<${propType}>(typeof(${className}))${bang};`
+      : `= GetInstanceProperty<${propType}>(typeof(${className}))${bang};`;
     this.code.line(initializer);
   }
 

@@ -25,7 +25,8 @@
     "generate": "ts-node build-tools/gen.ts",
     "deps": "ts-node build-tools/deps.ts",
     "dist-clean": "rm -rf dist",
-    "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps",
+    "build": "cp ../../../README.md . && rm -f jsii-*.whl && npm run generate && npm run deps && npm run lint",
+    "lint": "ts-node build-tools/venv.ts black .",
     "package": "package-python && package-private",
     "test": "npm run test:gen && npm run test:run",
     "test:gen": "npm run deps && ts-node build-tools/gen-calc.ts",
@@ -40,7 +41,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
-    "ts-node": "^8.10.2",
+    "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   }
 }

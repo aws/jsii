@@ -2,6 +2,61 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/aws/jsii/compare/v1.12.0...v1.13.0) (2020-09-29)
+
+
+### Features
+
+* add go to superchain ([#1994](https://github.com/aws/jsii/issues/1994)) ([30f76c7](https://github.com/aws/jsii/commit/30f76c7e867226837597ce07763fae329c8b677a))
+* **go:** runtime library definition ([#1996](https://github.com/aws/jsii/issues/1996)) ([adbf44d](https://github.com/aws/jsii/commit/adbf44dbe634461cac26547ece0a11a80011c019))
+* **jsii:** reflect stabilities in doc comment summaries ([#1951](https://github.com/aws/jsii/issues/1951)) ([ce8c0c4](https://github.com/aws/jsii/commit/ce8c0c4d1dd75e8e53d0f22d75cc0bf0b3fe2703))
+* **pacmak:** go module resolution & compiler fixes ([#1956](https://github.com/aws/jsii/issues/1956)) ([7e2512f](https://github.com/aws/jsii/commit/7e2512f55cba40e8eededf895a6c6a10ef76e021))
+* **pacmak:** retry select external command invocations ([#2013](https://github.com/aws/jsii/issues/2013)) ([66cf186](https://github.com/aws/jsii/commit/66cf1862fd56197bfc61234764841c709352116e))
+
+
+### Bug Fixes
+
+* **dontet:** iso-8601 date strings get turned into DateTime ([#2058](https://github.com/aws/jsii/issues/2058)) ([52d7382](https://github.com/aws/jsii/commit/52d7382ca0a073326cbe22c2115909a28b00b49f)), closes [aws/aws-cdk#10513](https://github.com/aws/aws-cdk/issues/10513)
+* **go:** null returns and pointer getters/setters ([807568d](https://github.com/aws/jsii/commit/807568df3fc73d202031347b54c89cf69d5590f1))
+* **go:** Only embed behavioral interfaces ([#1966](https://github.com/aws/jsii/issues/1966)) ([e1f4e18](https://github.com/aws/jsii/commit/e1f4e184abec9d03be1ed5b8a39f3cb31453a7f8))
+* **pacmak:** go bad local package imports ([#1973](https://github.com/aws/jsii/issues/1973)) ([f9311b2](https://github.com/aws/jsii/commit/f9311b2a280b194011e09ca6597aad0191e88ac5))
+
+## [1.12.0](https://github.com/aws/jsii/compare/v1.11.0...v1.12.0) (2020-08-27)
+
+
+### Features
+
+* **golang:** introduce Golang code generation ([#1551](https://github.com/aws/jsii/issues/1551)) ([2833db4](https://github.com/aws/jsii/commit/2833db48e7f32191aebd81d5eebf97d111406589)), closes [#83](https://github.com/aws/jsii/issues/83)
+* **java:** use covariant types for collection elements ([#1884](https://github.com/aws/jsii/issues/1884)) ([be2c7e2](https://github.com/aws/jsii/commit/be2c7e2aceecc1a6cb9f8a97cee90ea35b80f5f5)), closes [#1517](https://github.com/aws/jsii/issues/1517)
+* **jsii:** standardized error messages ([#1931](https://github.com/aws/jsii/issues/1931)) ([b146286](https://github.com/aws/jsii/commit/b146286fe66f78a1851228159b48d9bd2c2b6f3b))
+
+
+### Bug Fixes
+
+* **java:** module "<module name>" not found error ([#1906](https://github.com/aws/jsii/issues/1906)) ([d0b9ffd](https://github.com/aws/jsii/commit/d0b9ffd8797ff5547a89d43134c40b4744d5e852)), closes [#1904](https://github.com/aws/jsii/issues/1904)
+* **jsii:** class members named after the class result in illegal C# ([#1903](https://github.com/aws/jsii/issues/1903)) ([bc71154](https://github.com/aws/jsii/commit/bc711541c17019eba3af16ec7efadc6a25287514)), closes [#1931](https://github.com/aws/jsii/issues/1931) [#1880](https://github.com/aws/jsii/issues/1880)
+* **kernel:** calling super.property unexpectedly returns `undefined` ([#1932](https://github.com/aws/jsii/issues/1932)) ([3b48778](https://github.com/aws/jsii/commit/3b48778a6554bf009eb461651bc32b8341d3416f))
+* **python:** generate type-checking code ([#1881](https://github.com/aws/jsii/issues/1881)) ([e6d1bc1](https://github.com/aws/jsii/commit/e6d1bc161ed426261f39c5ccadfa80a4020e4ffc)), closes [awslabs/cdk8s#194](https://github.com/awslabs/cdk8s/issues/194)
+
+## [1.11.0](https://github.com/aws/jsii/compare/v1.10.0...v1.11.0) (2020-08-18)
+
+
+### Features
+
+* **jsii:** detect changing visibility when overriding ([#1876](https://github.com/aws/jsii/issues/1876)) ([cfc99c2](https://github.com/aws/jsii/commit/cfc99c2c7f2577de5b7832ad30ba28458813c868)), closes [aws/aws-cdk#9616](https://github.com/aws/aws-cdk/issues/9616)
+* **jsii-pacmak:** option to disallow parallel generation of languages ([#1890](https://github.com/aws/jsii/issues/1890)) ([9d5a439](https://github.com/aws/jsii/commit/9d5a439aaddef7ffd6e6add6e215a7cc3268e58a))
+* **python:** allow setting additional trove classifiers ([#1902](https://github.com/aws/jsii/issues/1902)) ([26be2b6](https://github.com/aws/jsii/commit/26be2b6ec7ceb15a3abb842eb2e34190dd99bbb1)), closes [aws/cdk-ops#393](https://github.com/aws/cdk-ops/issues/393)
+
+
+### Bug Fixes
+
+* **dotnet:** "Could not infer JSII type for .NET type 'AnonymousObject'" ([#1718](https://github.com/aws/jsii/issues/1718)) ([41d79e7](https://github.com/aws/jsii/commit/41d79e7f31a8e7c59c7274c91f17dcd23187757f)), closes [aws/aws-cdk#7977](https://github.com/aws/aws-cdk/issues/7977)
+* **dotnet:** crash when TEMP contains certain unicode characters ([#1913](https://github.com/aws/jsii/issues/1913)) ([8f31b1a](https://github.com/aws/jsii/commit/8f31b1ac5cd20c18d0da20dad33782a9cb113643)), closes [aws/aws-cdk#7456](https://github.com/aws/aws-cdk/issues/7456)
+* **jsii:** README.md filename is case sensitive ([#1871](https://github.com/aws/jsii/issues/1871)) ([e375647](https://github.com/aws/jsii/commit/e375647d21255cf3efa84081d672143a920854d2)), closes [#1862](https://github.com/aws/jsii/issues/1862)
+* **jsii:** unable to use nested types from dependencies ([#1866](https://github.com/aws/jsii/issues/1866)) ([44f9109](https://github.com/aws/jsii/commit/44f91092a34179e6f5edbe1699cbaddac2f9a99b)), closes [#1861](https://github.com/aws/jsii/issues/1861)
+* **pacmak:** `EMFILE` error when running `jsii-pacmak` ([#1891](https://github.com/aws/jsii/issues/1891)) ([7316b44](https://github.com/aws/jsii/commit/7316b44690eed46ce7e5d5089af77ee1f49a6a5e))
+* **rosetta:** use of keyword 'lambda' produces invalid Python code ([#1850](https://github.com/aws/jsii/issues/1850)) ([39769b0](https://github.com/aws/jsii/commit/39769b0311886158631f56be6dce0b6262ba9c5c))
+
 ## [1.10.0](https://github.com/aws/jsii/compare/v1.9.0...v1.10.0) (2020-08-05)
 
 

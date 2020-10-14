@@ -27,6 +27,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "jsii --project-references && jsii-rosetta",
+    "pacmak": "jsii-pacmak",
     "test": "diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
@@ -38,17 +39,18 @@
     "@scope/jsii-calc-base-of-base": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.28",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "@types/node": "^10.17.39",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^1.19.1"
+    "prettier": "^2.1.2"
   },
   "jsii": {
     "outdir": "dist",
     "targets": {
+      "go": {
+        "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+      },
       "java": {
         "package": "software.amazon.jsii.tests.calculator.lib",
         "maven": {

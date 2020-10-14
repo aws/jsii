@@ -28,6 +28,7 @@ from jsii_calc import (
     DisappointingCollectionSource,
     DoNotOverridePrivates,
     DoubleTrouble,
+    Entropy,
     GreetingAugmenter,
     IBellRinger,
     IConcreteBellRinger,
@@ -37,6 +38,7 @@ from jsii_calc import (
     InterfaceCollections,
     IInterfaceWithProperties,
     IStructReturningDelegate,
+    IWallClock,
     Isomorphism,
     JsiiAgent,
     JSObjectLiteralForInterface,
@@ -219,8 +221,8 @@ def test_primitiveTypes():
     assert types.date_property == datetime.fromtimestamp(123 / 1000.0, tz=timezone.utc)
 
     # json
-    types.json_property = { "Foo": { "bar": 123  } }
-    assert types.json_property.get("Foo") == { "bar": 123 }
+    types.json_property = {"Foo": {"bar": 123}}
+    assert types.json_property.get("Foo") == {"bar": 123}
 
 
 def test_dates():
@@ -555,11 +557,13 @@ def test_syncOverrides():
     obj.multiplier = 3
     assert obj.caller_is_async() == 10 * 5 * 3
 
+
 def test_propertyOverrides_get_set():
     so = SyncOverrides()
     assert so.retrieve_value_of_the_property() == "I am an override!"
     so.modify_value_of_the_property("New Value")
     assert so.another_the_property == "New Value"
+
 
 def test_propertyOverrides_get_calls_super():
     class SuperSyncVirtualMethods(SyncVirtualMethods):
@@ -576,6 +580,7 @@ def test_propertyOverrides_get_calls_super():
     assert so.retrieve_value_of_the_property() == "super:initial value"
     assert so.the_property == "super:initial value"
 
+
 def test_propertyOverrides_set_calls_super():
     class SuperSyncVirtualMethods(SyncVirtualMethods):
         @property
@@ -590,12 +595,15 @@ def test_propertyOverrides_set_calls_super():
             # but this causes a problem because of:
             #   https://bugs.python.org/issue14965
             # so now we have this more convoluted form.
-            super(self.__class__, self.__class__).the_property.__set__(self, f"{value}:by override")
+            super(self.__class__, self.__class__).the_property.__set__(
+                self, f"{value}:by override"
+            )
 
     so = SuperSyncVirtualMethods()
     so.modify_value_of_the_property("New Value")
 
     assert so.the_property == "New Value:by override"
+
 
 def test_propertyOverrides_get_throws():
     class ThrowingSyncVirtualMethods(SyncVirtualMethods):
@@ -676,6 +684,7 @@ def test_interfaceBuilder():
     interact = UsesInterfaceWithProperties(obj)
     assert interact.just_read() == "READ_ONLY"
     assert interact.write_and_read("Hello") == "Hello"
+
 
 def test_syncOverrides_callsSuper():
     obj = SyncOverrides()
@@ -908,16 +917,15 @@ def test_nullShouldBeTreatedAsUndefined():
 
 
 def test_testJsiiAgent():
-    assert JsiiAgent.jsii_agent == f"Python/{platform.python_version()}"
+    assert JsiiAgent.value == f"Python/{platform.python_version()}"
 
 
 def test_receiveInstanceOfPrivateClass():
     assert ReturnsPrivateImplementationOfInterface().private_implementation.success
 
+
 def test_eraseUnsetDataValues():
-    opts = EraseUndefinedHashValuesOptions(
-        option1="option1"
-    )
+    opts = EraseUndefinedHashValuesOptions(option1="option1")
     assert EraseUndefinedHashValues.does_key_exist(opts, "option1")
     assert not EraseUndefinedHashValues.does_key_exist(opts, "option2")
 
@@ -939,58 +947,76 @@ def test_variadicMethodCanBeInvoked():
     variadic = VariadicMethod(1)
     assert variadic.as_array(3, 4, 5, 6) == [1, 3, 4, 5, 6]
 
+
 def test_callbacksCorrectlyDeserializeArguments():
     class DataRendererSubclass(DataRenderer):
         def render_map(self, map):
             return super().render_map(map)
+
     renderer = DataRendererSubclass()
-    assert renderer.render(anumber = 42, astring = "bazinga!") == "{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}"
+    assert (
+        renderer.render(anumber=42, astring="bazinga!")
+        == '{\n  "anumber": 42,\n  "astring": "bazinga!"\n}'
+    )
+
 
 def test_passNestedStruct():
-    output = StructPassing.round_trip(123,
-            required='hello',
-            second_level=SecondLevelStruct(deeper_required_prop='exists'))
+    output = StructPassing.round_trip(
+        123,
+        required="hello",
+        second_level=SecondLevelStruct(deeper_required_prop="exists"),
+    )
 
-    assert output.required == 'hello'
+    assert output.required == "hello"
     assert output.optional is None
-    assert output.second_level.deeper_required_prop == 'exists'
+    assert output.second_level.deeper_required_prop == "exists"
 
     # Test stringification
     # Dicts are ordered in Python 3.7+, so this is fine: https://mail.python.org/pipermail/python-dev/2017-December/151283.html
-    assert str(output) == "TopLevelStruct(required='hello', second_level=SecondLevelStruct(deeper_required_prop='exists'))"
+    assert (
+        str(output)
+        == "TopLevelStruct(required='hello', second_level=SecondLevelStruct(deeper_required_prop='exists'))"
+    )
+
 
 def test_passNestedScalar():
-    output = StructPassing.round_trip(123,
-            required='hello',
-            second_level=5)
+    output = StructPassing.round_trip(123, required="hello", second_level=5)
 
-    assert output.required == 'hello'
+    assert output.required == "hello"
     assert output.optional is None
     assert output.second_level == 5
 
+
 def test_passStructsInVariadic():
-    output = StructPassing.how_many_var_args_did_i_pass(123,
-        TopLevelStruct(required='hello', second_level=1),
-        TopLevelStruct(required='bye', second_level=SecondLevelStruct(deeper_required_prop='ciao'))
+    output = StructPassing.how_many_var_args_did_i_pass(
+        123,
+        TopLevelStruct(required="hello", second_level=1),
+        TopLevelStruct(
+            required="bye", second_level=SecondLevelStruct(deeper_required_prop="ciao")
+        ),
     )
     assert output == 2
 
+
 def test_structEquality():
-    a = TopLevelStruct(required='bye', second_level=SecondLevelStruct(deeper_required_prop='ciao'))
-    b = TopLevelStruct(required='hello', second_level=1),
-    c = TopLevelStruct(required='hello', second_level=1),
-    d = SecondLevelStruct(deeper_required_prop='exists')
+    a = TopLevelStruct(
+        required="bye", second_level=SecondLevelStruct(deeper_required_prop="ciao")
+    )
+    b = (TopLevelStruct(required="hello", second_level=1),)
+    c = (TopLevelStruct(required="hello", second_level=1),)
+    d = SecondLevelStruct(deeper_required_prop="exists")
 
     assert a != b
     assert b == c
     assert a != 5
     assert a != d
 
+
 def test_correctly_handling_struct_unions():
-    a0 = StructA(required_string='Present!', optional_string='Bazinga!')
-    a1 = StructA(required_string='Present!', optional_number=1337)
-    b0 = StructB(required_string='Present!', optional_boolean=True)
-    b1 = StructB(required_string='Present!', optional_struct_a=a1)
+    a0 = StructA(required_string="Present!", optional_string="Bazinga!")
+    a1 = StructA(required_string="Present!", optional_number=1337)
+    b0 = StructB(required_string="Present!", optional_boolean=True)
+    b1 = StructB(required_string="Present!", optional_struct_a=a1)
 
     assert StructUnionConsumer.is_struct_a(a0)
     assert StructUnionConsumer.is_struct_a(a1)
@@ -1002,40 +1028,47 @@ def test_correctly_handling_struct_unions():
     assert StructUnionConsumer.is_struct_b(b0)
     assert StructUnionConsumer.is_struct_b(b1)
 
+
 def test_consumer_calls_method_static_objliteral():
     assert ConsumerCanRingBell.static_implemented_by_object_literal(PythonBellRinger())
+
 
 def test_consumer_calls_method_static_publicclass():
     assert ConsumerCanRingBell.static_implemented_by_public_class(PythonBellRinger())
 
+
 def test_consumer_calls_method_static_privateclass():
     assert ConsumerCanRingBell.static_implemented_by_private_class(PythonBellRinger())
+
 
 def test_consumer_calls_method_static_typed_as_class():
     assert ConsumerCanRingBell.static_when_typed_as_class(PythonConcreteBellRinger())
 
+
 def test_consumer_calls_method_objliteral():
     assert ConsumerCanRingBell().implemented_by_object_literal(PythonBellRinger())
+
 
 def test_consumer_calls_method_publicclass():
     assert ConsumerCanRingBell().implemented_by_public_class(PythonBellRinger())
 
+
 def test_consumer_calls_method_privateclass():
     assert ConsumerCanRingBell().implemented_by_private_class(PythonBellRinger())
+
 
 def test_consumer_calls_method_typed_as_class():
     assert ConsumerCanRingBell().when_typed_as_class(PythonConcreteBellRinger())
 
+
 def test_can_pass_nested_struct_as_dict():
     # Those shouldn't raise:
-    RootStructValidator.validate(string_prop= 'Pickle Rick!!!')
-    RootStructValidator.validate(string_prop= 'Pickle Rick!!!', nested_struct= None)
+    RootStructValidator.validate(string_prop="Pickle Rick!!!")
+    RootStructValidator.validate(string_prop="Pickle Rick!!!", nested_struct=None)
     RootStructValidator.validate(
-        string_prop= 'Pickle Rick!!!',
-        nested_struct= {
-            'number_prop': 1337
-        }
+        string_prop="Pickle Rick!!!", nested_struct={"number_prop": 1337}
     )
+
 
 def test_can_leverage_indirect_interface_polymorphism():
     provider = AnonymousImplementationProvider()
@@ -1043,10 +1076,12 @@ def test_can_leverage_indirect_interface_polymorphism():
     assert provider.provide_as_interface().value == 1337
     assert provider.provide_as_interface().verb() == "to implement"
 
+
 # https://github.com/aws/jsii/issues/976
 def test_return_subclass_that_implements_interface_976():
     obj = SomeTypeJsii976.return_return()
     assert obj.foo == 333
+
 
 def test_return_subclass_that_implements_interface_976_raises_attributeerror_when_using_non_existent_method():
     obj = SomeTypeJsii976.return_return()
@@ -1055,46 +1090,62 @@ def test_return_subclass_that_implements_interface_976_raises_attributeerror_whe
         failed = False
     except AttributeError as err:
         failed = True
-        assert err.args[0] == "'<class 'jsii_calc.BaseJsii976'>+<class 'jsii_calc._IReturnJsii976Proxy'>' object has no attribute 'not_a_real_method_I_swear'"
+        assert (
+            err.args[0]
+            == "'<class 'jsii_calc.BaseJsii976'>+<class 'jsii_calc._IReturnJsii976Proxy'>' object has no attribute 'not_a_real_method_I_swear'"
+        )
     assert failed
+
 
 def test_return_anonymous_implementation_of_interface():
     assert SomeTypeJsii976.return_anonymous() is not None
 
+
 def test_structs_can_be_downcasted_to_parent_type():
     assert Demonstrate982.take_this() is not None
     assert Demonstrate982.take_this_too() is not None
+
 
 @jsii.implements(IBellRinger)
 class PythonBellRinger:
     def your_turn(self, bell):
         bell.ring()
 
+
 @jsii.implements(IConcreteBellRinger)
 class PythonConcreteBellRinger:
     def your_turn(self, bell):
         bell.ring()
 
+
 def test_null_is_a_valid_optional_list():
     assert DisappointingCollectionSource.MAYBE_LIST is None
+
 
 def test_null_is_a_valid_optional_map():
     assert DisappointingCollectionSource.MAYBE_MAP is None
 
+
 def test_can_use_interface_setters():
     obj = ObjectWithPropertyProvider.provide()
-    obj.property = 'New Value'
+    obj.property = "New Value"
     assert obj.was_set()
 
+
 def test_structs_are_undecorated_on_the_way_to_kernel():
-    json = JsonFormatter.stringify(StructB(required_string='Bazinga!', optional_boolean=False))
-    assert loads(json) == {'requiredString': 'Bazinga!', 'optionalBoolean': False}
+    json = JsonFormatter.stringify(
+        StructB(required_string="Bazinga!", optional_boolean=False)
+    )
+    assert loads(json) == {"requiredString": "Bazinga!", "optionalBoolean": False}
+
 
 def test_can_obtain_reference_with_overloaded_setter():
     assert ConfusingToJackson.make_instance() is not None
 
+
 def test_can_obtain_struct_reference_with_overloaded_setter():
     assert ConfusingToJackson.make_struct_instance() is not None
+
 
 def test_pure_interfaces_can_be_used_transparently():
     expected = StructB(required_string="It's Britney b**ch!")
@@ -1108,6 +1159,7 @@ def test_pure_interfaces_can_be_used_transparently():
     consumer = ConsumePureInterface(delegate)
     assert consumer.work_it_baby() == expected
 
+
 def test_pure_interfaces_can_be_used_transparently_when_transitively_implementing():
     expected = StructB(required_string="It's Britney b**ch!")
 
@@ -1116,12 +1168,15 @@ def test_pure_interfaces_can_be_used_transparently_when_transitively_implementin
         def return_struct(self):
             return expected
 
-    class IndirectlyImplementsStructReturningDelegate(ImplementsStructReturningDelegate):
+    class IndirectlyImplementsStructReturningDelegate(
+        ImplementsStructReturningDelegate
+    ):
         ...
 
     delegate = IndirectlyImplementsStructReturningDelegate()
     consumer = ConsumePureInterface(delegate)
     assert consumer.work_it_baby() == expected
+
 
 def test_pure_interfaces_can_be_used_transparently_when_added_to_jsii_type():
     expected = StructB(required_string="It's Britney b**ch!")
@@ -1135,12 +1190,14 @@ def test_pure_interfaces_can_be_used_transparently_when_added_to_jsii_type():
     consumer = ConsumePureInterface(delegate)
     assert consumer.work_it_baby() == expected
 
+
 def test_lifted_kwarg_with_same_name_as_positional_arg():
     bell = Bell()
-    amb = AmbiguousParameters(bell, scope='Driiiing!')
+    amb = AmbiguousParameters(bell, scope="Driiiing!")
 
     assert amb.scope == bell
-    assert amb.props == StructParameterType(scope='Driiiing!')
+    assert amb.props == StructParameterType(scope="Driiiing!")
+
 
 def test_abstract_members_are_correctly_handled():
     class AbstractSuiteImpl(AbstractSuite):
@@ -1161,7 +1218,7 @@ def test_abstract_members_are_correctly_handled():
 
 def test_collection_of_interfaces_list_of_structs():
     for elt in InterfaceCollections.list_of_structs():
-        assert getattr(elt, 'required_string') is not None
+        assert getattr(elt, "required_string") is not None
 
 
 def test_collection_of_interfaces_list_of_interfaces():
@@ -1171,7 +1228,7 @@ def test_collection_of_interfaces_list_of_interfaces():
 
 def test_collection_of_interfaces_map_of_structs():
     for elt in InterfaceCollections.map_of_structs().values():
-        assert getattr(elt, 'required_string') is not None
+        assert getattr(elt, "required_string") is not None
 
 
 def test_collection_of_interfaces_map_of_interfaces():
@@ -1180,9 +1237,9 @@ def test_collection_of_interfaces_map_of_interfaces():
 
 
 def test_dependency_submodule_types_are_usable():
-    subject = UpcasingReflectable({ 'foo': 'bar' })
+    subject = UpcasingReflectable({"foo": "bar"})
 
-    assert UpcasingReflectable.REFLECTOR.as_map(subject) == { 'FOO': 'bar' }
+    assert UpcasingReflectable.REFLECTOR.as_map(subject) == {"FOO": "bar"}
 
 
 def test_load_submodules():
@@ -1191,14 +1248,14 @@ def test_load_submodules():
 
 
 def test_parameter_named_self_ClassWithSelf():
-    subject = ClassWithSelf('Howdy!')
-    assert subject.self == 'Howdy!'
-    assert subject.method(1337) == '1337'
+    subject = ClassWithSelf("Howdy!")
+    assert subject.self == "Howdy!"
+    assert subject.method(1337) == "1337"
 
 
 def test_parameter_named_self_ClassWithSelfKwarg():
-    subject = ClassWithSelfKwarg(self='Howdy!')
-    assert subject.props.self == 'Howdy!'
+    subject = ClassWithSelfKwarg(self="Howdy!")
+    assert subject.props.self == "Howdy!"
 
 
 def test_isomorphism_within_constructor():
@@ -1211,4 +1268,24 @@ def test_isomorphism_within_constructor():
 
 
 def test_kwargs_from_superinterface_are_working():
-   assert Kwargs.method(extra='ordinary', prop=SomeEnum.SOME)
+    assert Kwargs.method(extra="ordinary", prop=SomeEnum.SOME)
+
+
+def test_iso8601_does_not_deserialize_to_date():
+    @jsii.implements(IWallClock)
+    class WallClock:
+        def __init__(self, now: str):
+            self.now = now
+
+        def iso8601_now(self) -> str:
+            return self.now
+
+    class MildEntropy(Entropy):
+        def repeat(self, word: str) -> str:
+            return word
+
+    now = datetime.utcnow().isoformat() + "Z"
+    wall_clock = WallClock(now)
+    entropy = MildEntropy(wall_clock)
+
+    assert now == entropy.increase()

@@ -15,14 +15,19 @@
     "test:update": "lerna run test:update --concurrency=1 --stream"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.9.0",
-    "@typescript-eslint/parser": "^3.9.0",
-    "eslint": "^7.6.0",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "all-contributors-cli": "^6.19.0",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.12.0",
     "eslint-import-resolver-node": "^0.3.4",
-    "eslint-import-resolver-typescript": "^2.2.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "lerna": "^3.22.1",
-    "standard-version": "^8.0.2"
+    "prettier": "^2.1.2",
+    "standard-version": "^9.0.0",
+    "typescript": "~3.9.7"
   },
   "repository": {
     "type": "git",

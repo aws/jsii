@@ -9,39 +9,42 @@ import functools
 
 import attr
 
-from jsii.errors import JSIIError
-from jsii import _reference_map
-from jsii._utils import Singleton
-from jsii._kernel.providers import BaseProvider, ProcessProvider
-from jsii._kernel.types import JSClass, Referenceable
-from jsii._kernel.types import Callback
-from jsii._kernel.types import (
+from ..errors import JSIIError
+from .. import _reference_map
+from .._utils import Singleton
+from .providers import BaseProvider, ProcessProvider
+from .types import Callback
+from .types import (
     EnumRef,
     LoadRequest,
     BeginRequest,
+    BeginResponse,
+    Callback,
     CallbacksRequest,
+    CompleteRequest,
+    CompleteRequest,
+    CompleteResponse,
     CreateRequest,
     CreateResponse,
-    CompleteRequest,
     DeleteRequest,
     EndRequest,
+    EnumRef,
     GetRequest,
+    GetResponse,
     InvokeRequest,
+    InvokeResponse,
+    KernelResponse,
+    LoadRequest,
+    ObjRef,
+    Override,
     SetRequest,
+    SetResponse,
     StaticGetRequest,
     StaticInvokeRequest,
     StaticSetRequest,
     StatsRequest,
-    ObjRef,
-    Override,
-    CompleteRequest,
-    CompleteResponse,
-    GetResponse,
-    SetResponse,
-    InvokeResponse,
-    KernelResponse,
-    BeginResponse
 )
+from .._utils import Singleton
 
 
 _nothing = object()
@@ -51,10 +54,10 @@ class Object:
     __jsii_type__ = "Object"
 
 
-def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
+def _get_overides(klass: Type, obj: Any) -> List[Override]:
     overrides: List[Override] = []
 
-    # We need to inspect each item in the MRO, until we get to our JSClass, at that
+    # We need to inspect each item in the MRO, until we get to our Type, at that
     # point we'll bail, because those methods are not the overriden methods, but the
     # "real" methods.
     jsii_classes = [klass] + list(
@@ -63,7 +66,10 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
         )
     )
     for mro_klass in type(obj).mro():
-        if mro_klass is klass and getattr(mro_klass, "__jsii_type__", "Object") is not None:
+        if (
+            mro_klass is klass
+            and getattr(mro_klass, "__jsii_type__", "Object") is not None
+        ):
             break
         if mro_klass is Object:
             break
@@ -75,7 +81,10 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                 original = getattr(jsii_class, name, _nothing)
                 if original is not _nothing:
                     if inspect.isfunction(item) and hasattr(original, "__jsii_name__"):
-                        if any(entry.method == original.__jsii_name__ for entry in overrides):
+                        if any(
+                            entry.method == original.__jsii_name__
+                            for entry in overrides
+                        ):
                             # Don't re-register an override we already discovered through a previous type
                             continue
                         overrides.append(
@@ -84,7 +93,10 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                     elif inspect.isdatadescriptor(item) and hasattr(
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
-                        if any(entry.property == original.fget.__jsii_name__ for entry in overrides):
+                        if any(
+                            entry.property == original.fget.__jsii_name__
+                            for entry in overrides
+                        ):
                             # Don't re-register an override we already discovered through a previous type
                             continue
                         overrides.append(
@@ -119,24 +131,31 @@ def _dereferenced(fn):
 # doesn't natively handle. These items will be created as "Object" types in the JSII.
 def _make_reference_for_native(kernel, d):
     if isinstance(d, dict):
-        return {"$jsii.map": {k: _make_reference_for_native(kernel, v) for k, v in d.items()}}
+        return {
+            "$jsii.map": {
+                k: _make_reference_for_native(kernel, v) for k, v in d.items()
+            }
+        }
     elif isinstance(d, list):
         return [_make_reference_for_native(kernel, i) for i in d]
 
     if getattr(d, "__jsii_type__", None) is not None:
         # Ugly delayed import here because I can't solve the cyclic
         # package dependency right now :(.
-        from jsii._runtime import python_jsii_mapping
+        from .._runtime import python_jsii_mapping
 
         typeFqn = getattr(d, "__jsii_type__")
         mapping = python_jsii_mapping(d)
-        if mapping: # This means we are handling a data_type (aka Struct)
+        if mapping:  # This means we are handling a data_type (aka Struct)
             return {
                 "$jsii.struct": {
                     "fqn": typeFqn,
                     "data": {
-                        jsii_name: _make_reference_for_native(kernel, getattr(d, python_name)) for python_name, jsii_name in mapping.items()
-                    }
+                        jsii_name: _make_reference_for_native(
+                            kernel, getattr(d, python_name)
+                        )
+                        for python_name, jsii_name in mapping.items()
+                    },
                 }
             }
         return d
@@ -146,7 +165,10 @@ def _make_reference_for_native(kernel, d):
         # Whether a given object is a function-like object.
         # We won't use iscallable() since objects may implement __call__()
         # but we still want to serialize them as normal.
-        raise JSIIError("Cannot pass function as argument here (did you mean to call this function?): %r" % d)
+        raise JSIIError(
+            "Cannot pass function as argument here (did you mean to call this function?): %r"
+            % d
+        )
     else:
         kernel.create(d.__class__, d)
         _reference_map.register_reference(d)
@@ -158,7 +180,9 @@ def _handle_callback(kernel, callback):
     if callback.invoke:
         obj = _reference_map.resolve_id(callback.invoke.objref.ref)
         method = getattr(obj, callback.cookie)
-        hydrated_args = [_recursize_dereference(kernel, a) for a in callback.invoke.args]
+        hydrated_args = [
+            _recursize_dereference(kernel, a) for a in callback.invoke.args
+        ]
         return method(*hydrated_args)
     elif callback.get:
         obj = _reference_map.resolve_id(callback.get.objref.ref)
@@ -171,12 +195,16 @@ def _handle_callback(kernel, callback):
         raise JSIIError("Callback does not contain invoke|get|set")
 
 
-def _callback_till_result(kernel, response: Callback, response_type: Type[KernelResponse]) -> Any:
+def _callback_till_result(
+    kernel, response: Callback, response_type: Type[KernelResponse]
+) -> Any:
     while isinstance(response, Callback):
         try:
             result = _handle_callback(kernel, response)
         except Exception as exc:
-            response = kernel.sync_complete(response.cbid, str(exc), None, response_type)
+            response = kernel.sync_complete(
+                response.cbid, str(exc), None, response_type
+            )
         else:
             response = kernel.sync_complete(response.cbid, None, result, response_type)
 
@@ -215,9 +243,7 @@ class Kernel(metaclass=Singleton):
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
 
     # TODO: Is there a way to say that obj has to be an instance of klass?
-    def create(
-        self, klass: JSClass, obj: Any, args: Optional[List[Any]] = None
-    ) -> ObjRef:
+    def create(self, klass: Type, obj: Any, args: Optional[List[Any]] = None) -> ObjRef:
         if args is None:
             args = []
 
@@ -226,11 +252,14 @@ class Kernel(metaclass=Singleton):
                 fqn=klass.__jsii_type__ or "Object",
                 args=_make_reference_for_native(self, args),
                 overrides=_get_overides(klass, obj),
-                interfaces=[iface.__jsii_type__ for iface in getattr(klass, "__jsii_ifaces__", [])],
+                interfaces=[
+                    iface.__jsii_type__
+                    for iface in getattr(klass, "__jsii_ifaces__", [])
+                ],
             )
         )
         if isinstance(response, Callback):
-            obj.__jsii_ref__ =  _callback_till_result(self, response, CreateResponse)
+            obj.__jsii_ref__ = _callback_till_result(self, response, CreateResponse)
         else:
             obj.__jsii_ref__ = response
 
@@ -243,7 +272,7 @@ class Kernel(metaclass=Singleton):
         self.provider.delete(DeleteRequest(objref=ref))
 
     @_dereferenced
-    def get(self, obj: Referenceable, property: str) -> Any:
+    def get(self, obj: Any, property: str) -> Any:
         response = self.provider.get(
             GetRequest(objref=obj.__jsii_ref__, property=property)
         )
@@ -252,7 +281,7 @@ class Kernel(metaclass=Singleton):
         else:
             return response.value
 
-    def set(self, obj: Referenceable, property: str, value: Any) -> None:
+    def set(self, obj: Any, property: str, value: Any) -> None:
         response = self.provider.set(
             SetRequest(
                 objref=obj.__jsii_ref__,
@@ -264,12 +293,12 @@ class Kernel(metaclass=Singleton):
             _callback_till_result(self, response, SetResponse)
 
     @_dereferenced
-    def sget(self, klass: JSClass, property: str) -> Any:
+    def sget(self, klass: Type, property: str) -> Any:
         return self.provider.sget(
             StaticGetRequest(fqn=klass.__jsii_type__, property=property)
         ).value
 
-    def sset(self, klass: JSClass, property: str, value: Any) -> None:
+    def sset(self, klass: Type, property: str, value: Any) -> None:
         self.provider.sset(
             StaticSetRequest(
                 fqn=klass.__jsii_type__,
@@ -279,9 +308,7 @@ class Kernel(metaclass=Singleton):
         )
 
     @_dereferenced
-    def invoke(
-        self, obj: Referenceable, method: str, args: Optional[List[Any]] = None
-    ) -> Any:
+    def invoke(self, obj: Any, method: str, args: Optional[List[Any]] = None) -> Any:
         if args is None:
             args = []
 
@@ -299,7 +326,7 @@ class Kernel(metaclass=Singleton):
 
     @_dereferenced
     def sinvoke(
-        self, klass: JSClass, method: str, args: Optional[List[Any]] = None
+        self, klass: Type, method: str, args: Optional[List[Any]] = None
     ) -> Any:
         if args is None:
             args = []
@@ -317,31 +344,28 @@ class Kernel(metaclass=Singleton):
             return response.result
 
     @_dereferenced
-    def complete(
-        self, cbid: str, err: Optional[str], result: Any
-    ) -> Any:
+    def complete(self, cbid: str, err: Optional[str], result: Any) -> Any:
         return self.provider.complete(
             CompleteRequest(
-                cbid=cbid,
-                err=err,
-                result=_make_reference_for_native(self, result)
+                cbid=cbid, err=err, result=_make_reference_for_native(self, result)
             )
         )
 
     def sync_complete(
-        self, cbid: str, err: Optional[str], result: Any, response_type: Type[KernelResponse]
+        self,
+        cbid: str,
+        err: Optional[str],
+        result: Any,
+        response_type: Type[KernelResponse],
     ) -> Any:
         return self.provider.sync_complete(
             CompleteRequest(
-                cbid=cbid,
-                err=err,
-                result=_make_reference_for_native(self, result)),
-            response_type=response_type
+                cbid=cbid, err=err, result=_make_reference_for_native(self, result)
+            ),
+            response_type=response_type,
         )
 
-    def ainvoke(
-        self, obj: Referenceable, method: str, args: Optional[List[Any]] = None
-    ) -> Any:
+    def ainvoke(self, obj: Any, method: str, args: Optional[List[Any]] = None) -> Any:
         if args is None:
             args = []
 

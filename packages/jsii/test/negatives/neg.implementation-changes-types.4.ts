@@ -5,6 +5,6 @@ export interface ISomething {
   something: Superclass;
 }
 
-export class Something implements ISomething {
+export class SomethingImpl implements ISomething {
   public something: Subclass = new Subclass();
 }

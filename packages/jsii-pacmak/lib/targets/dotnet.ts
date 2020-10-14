@@ -53,9 +53,14 @@ export class DotnetBuilder implements TargetBuilder {
 
       // Build solution
       logging.debug('Building .NET');
-      await shell('dotnet', ['build', '--force', '-c', 'Release'], {
-        cwd: tempSourceDir.directory,
-      });
+      await shell(
+        'dotnet',
+        ['build', '--force', '--configuration', 'Release'],
+        {
+          cwd: tempSourceDir.directory,
+          retry: { maxAttempts: 5 },
+        },
+      );
 
       await this.copyOutArtifacts(tempSourceDir.object);
       if (this.options.clean) {
@@ -203,6 +208,22 @@ export class DotnetBuilder implements TargetBuilder {
       add.att('key', `local-${index}`);
       add.att('value', path.join(repo));
     });
+
+    if (this.options.arguments['dotnet-nuget-global-packages-folder']) {
+      // Ensure we're not using the configured cache folder
+      configuration
+        .ele('config')
+        .ele('add')
+        .att('key', 'globalPackagesFolder')
+        .att(
+          'value',
+          path.resolve(
+            this.options.arguments['dotnet-nuget-global-packages-folder'],
+            '.nuget',
+            'packages',
+          ),
+        );
+    }
 
     const xml = configuration.end({ pretty: true });
 

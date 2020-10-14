@@ -1,3 +1,4 @@
+import atexit
 import datetime
 import contextlib
 import enum
@@ -17,11 +18,11 @@ import dateutil.parser
 
 import jsii._embedded.jsii
 
-from jsii.__meta__ import __jsii_runtime_version__
-from jsii._compat import importlib_resources
-from jsii._utils import memoized_property
-from jsii._kernel.providers.base import BaseProvider
-from jsii._kernel.types import (
+from ...__meta__ import __jsii_runtime_version__
+from ..._compat import importlib_resources
+from ..._utils import memoized_property
+from .base import BaseProvider
+from ..types import (
     ObjRef,
     EnumRef,
     Override,
@@ -56,7 +57,7 @@ from jsii._kernel.types import (
     CompleteRequest,
     CompleteResponse,
 )
-from jsii.errors import JSIIError, JavaScriptError
+from ...errors import JSIIError, JavaScriptError
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -82,15 +83,18 @@ class _ErrorRespose:
     error: str
     stack: str
 
+
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _CallbackResponse:
 
     callback: Callback
 
+
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class _CompleteRequest:
 
     complete: CompleteRequest
+
 
 _ProcessResponse = Union[_OkayResponse, _ErrorRespose, _CallbackResponse]
 # Workaround for mypy#5354
@@ -227,7 +231,7 @@ class _NodeProcess:
         # just use importlib.resources.path.
 
         # jsii-runtime.js MUST be the first item in this list.
-        filenames = ["jsii-runtime.js", "jsii-runtime.js.map", "mappings.wasm"]
+        filenames = ["jsii-runtime.js", "jsii-runtime.js.map"]
 
         if isinstance(
             jsii._embedded.jsii.__loader__, importlib.machinery.SourceFileLoader
@@ -264,7 +268,7 @@ class _NodeProcess:
         environ = os.environ.copy()
         environ["JSII_AGENT"] = f"Python/{platform.python_version()}"
 
-        jsii_runtime = environ.get('JSII_RUNTIME', self._jsii_runtime())
+        jsii_runtime = environ.get("JSII_RUNTIME", self._jsii_runtime())
 
         self._process = subprocess.Popen(
             ["node", jsii_runtime],
@@ -272,16 +276,26 @@ class _NodeProcess:
             stdout=subprocess.PIPE,
             env=environ,
         )
+
+        # Clean this process up at exit, so it terminates "gracefully"
+        atexit.register(self.stop)
+
         self.handshake()
 
     def stop(self):
-        # TODO: We can write an empty string here instead?
-        self._process.terminate()
+        # This process is closing already, un-registering the hook to not fire twice
+        atexit.unregister(self.stop)
+
+        # Close the process' STDIN, singalling we are done with it
+        self._process.stdin.close()
 
         try:
             self._process.wait(timeout=5)
         except subprocess.TimeoutExpired:
-            self._process.kill()
+            try:
+                self._process.terminate(timeout=5)
+            except subprocess.TimeoutExpired:
+                self._process.kill()
 
         self._ctx_stack.close()
 
@@ -365,7 +379,9 @@ class ProcessProvider(BaseProvider):
     def complete(self, request: CompleteRequest) -> CompleteResponse:
         return self._process.send(request, CompleteResponse)
 
-    def sync_complete(self, request: CompleteRequest, response_type: Type[KernelResponse]) -> Union[InvokeResponse, GetResponse]:
+    def sync_complete(
+        self, request: CompleteRequest, response_type: Type[KernelResponse]
+    ) -> Union[InvokeResponse, GetResponse]:
         resp = self._process.send(_CompleteRequest(complete=request), response_type)
         return resp
 

@@ -1,11 +1,11 @@
-import * as lib from '@scope/jsii-calc-lib';
 import {
   EnumFromScopedModule,
   IDoublable,
   IFriendly,
   MyFirstStruct,
+  Number as LibNumber,
   StructWithOnlyOptionals,
-  Value,
+  NumericValue,
 } from '@scope/jsii-calc-lib';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -19,7 +19,6 @@ import {
 } from './calculator';
 
 /* eslint-disable
-  @typescript-eslint/explicit-module-boundary-types,
   @typescript-eslint/no-namespace,
   @typescript-eslint/member-ordering,
 */
@@ -145,13 +144,13 @@ export class AllTypes {
 
   // map
 
-  private mapValue: { [key: string]: lib.Number } = {};
+  private mapValue: { [key: string]: LibNumber } = {};
 
-  public get mapProperty(): { [key: string]: lib.Number } {
+  public get mapProperty(): { [key: string]: LibNumber } {
     return this.mapValue;
   }
 
-  public set mapProperty(value: { [key: string]: lib.Number }) {
+  public set mapProperty(value: { [key: string]: LibNumber }) {
     if (typeof value !== 'object') {
       throw new Error('not a map');
     }
@@ -188,9 +187,9 @@ export class AllTypes {
 
   // unions
 
-  public unionProperty: string | number | lib.Number | Multiply = 'foo';
-  public unionArrayProperty: Array<Value | number> = [];
-  public unionMapProperty: { [key: string]: lib.Number | number | string } = {};
+  public unionProperty: string | number | LibNumber | Multiply = 'foo';
+  public unionArrayProperty: Array<NumericValue | number> = [];
+  public unionMapProperty: { [key: string]: LibNumber | number | string } = {};
 
   // enum
 
@@ -222,7 +221,7 @@ export class AllTypes {
   }
 
   public anyOut(): any {
-    const ret = new lib.Number(42);
+    const ret = new LibNumber(42);
     Object.defineProperty(ret, 'tag', {
       value: "you're it",
     });
@@ -265,7 +264,7 @@ export class ObjectRefsInCollections {
   /**
    * Returns the sum of all values
    */
-  public sumFromArray(values: Value[]) {
+  public sumFromArray(values: NumericValue[]) {
     let sum = 0;
     for (const val of values) {
       sum += val.value;
@@ -276,7 +275,7 @@ export class ObjectRefsInCollections {
   /**
    * Returns the sum of all values in a map
    */
-  public sumFromMap(values: { [key: string]: Value }) {
+  public sumFromMap(values: { [key: string]: NumericValue }) {
     let sum = 0;
     for (const key of Object.keys(values)) {
       sum += values[key].value;
@@ -290,7 +289,7 @@ export class RuntimeTypeChecking {
    * Used to verify verification of number of method arguments.
    */
   public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
-    consume(arg1, arg2, arg3);
+    StaticConsumer.consume(arg1, arg2, arg3);
   }
 
   public methodWithDefaultedArguments(
@@ -298,11 +297,11 @@ export class RuntimeTypeChecking {
     arg2?: string,
     arg3: Date = new Date(),
   ) {
-    consume(arg1, arg2, arg3);
+    StaticConsumer.consume(arg1, arg2, arg3);
   }
 
   public methodWithOptionalAnyArgument(arg?: any) {
-    consume(arg);
+    StaticConsumer.consume(arg);
   }
 }
 
@@ -550,7 +549,7 @@ export interface DerivedStruct extends MyFirstStruct {
   /**
    * This is optional.
    */
-  readonly anotherOptional?: { [key: string]: Value };
+  readonly anotherOptional?: { [key: string]: NumericValue };
 }
 
 export class GiveMeStructs {
@@ -639,7 +638,7 @@ export class AllowedMethodNames {
 export interface IReturnsNumber {
   obtainNumber(): IDoublable;
 
-  readonly numberProp: lib.Number;
+  readonly numberProp: LibNumber;
 }
 
 export class OverrideReturnsObject {
@@ -1247,7 +1246,8 @@ export abstract class AbstractClassBase {
   public abstract readonly abstractProperty: string;
 }
 
-export abstract class AbstractClass extends AbstractClassBase
+export abstract class AbstractClass
+  extends AbstractClassBase
   implements IInterfaceImplementedByAbstractClass {
   public nonAbstractMethod() {
     return 42;
@@ -1515,7 +1515,8 @@ export interface IPrivatelyImplemented {
 export class ExportedBaseClass {
   public constructor(public readonly success: boolean) {}
 }
-class PrivateImplementation extends ExportedBaseClass
+class PrivateImplementation
+  extends ExportedBaseClass
   implements IPrivatelyImplemented {
   public constructor() {
     super(true);
@@ -1529,7 +1530,7 @@ export class JsiiAgent {
   /**
    * Returns the value of the JSII_AGENT environment variable.
    */
-  public static get jsiiAgent(): string | undefined {
+  public static get value(): string | undefined {
     return process.env.JSII_AGENT;
   }
 }
@@ -2618,15 +2619,15 @@ export class JsonFormatter {
   }
 
   public static anyArray(): any {
-    return [1, 2, 3, new lib.Number(123), { foo: 'bar' }];
+    return [1, 2, 3, new LibNumber(123), { foo: 'bar' }];
   }
 
   public static anyHash(): any {
-    return { hello: 1234, world: new lib.Number(122) };
+    return { hello: 1234, world: new LibNumber(122) };
   }
 
   public static anyRef(): any {
-    return new lib.Number(444);
+    return new LibNumber(444);
   }
 
   private constructor() {}
@@ -2785,7 +2786,57 @@ export abstract class BurriedAnonymousObject {
   public abstract giveItBack(value: any): any;
 }
 
-/** Does nothing with provided arguments, useful to artifically use parameters */
-function consume(..._args: readonly any[]) {
-  return;
+import { StaticConsumer } from '@scope/jsii-calc-base-of-base';
+
+/**
+ * Ensures we can override a dynamic property that was inherited.
+ */
+export class DynamicPropertyBearer {
+  public constructor(public valueStore: string) {}
+
+  public get dynamicProperty(): string {
+    return this.valueStore;
+  }
+
+  public set dynamicProperty(value: string) {
+    this.valueStore = value;
+  }
+}
+export class DynamicPropertyBearerChild extends DynamicPropertyBearer {
+  public constructor(public readonly originalValue: string) {
+    super(originalValue);
+  }
+
+  /**
+   * Sets `this.dynamicProperty` to the new value, and returns the old value.
+   *
+   * @param newValue the new value to be set.
+   *
+   * @returns the old value that was set.
+   */
+  public overrideValue(newValue: string): string {
+    const oldValue = this.dynamicProperty;
+    this.dynamicProperty = newValue;
+    return oldValue;
+  }
+}
+
+/**
+ * Validates that nested classes get correct code generation for the occasional
+ * forward reference.
+ */
+export class LevelOne {
+  public constructor(public readonly props: LevelOneProps) {}
+}
+export interface LevelOneProps {
+  readonly prop: LevelOne.PropProperty;
+}
+export namespace LevelOne {
+  export interface PropProperty {
+    readonly prop: PropBooleanValue;
+  }
+
+  export interface PropBooleanValue {
+    readonly value: boolean;
+  }
 }

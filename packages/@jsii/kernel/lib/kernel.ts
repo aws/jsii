@@ -2,7 +2,6 @@ import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
 import * as os from 'os';
 import * as path from 'path';
-import { SourceMapConsumer } from 'source-map';
 import * as tar from 'tar';
 import * as vm from 'vm';
 import * as api from './api';
@@ -26,7 +25,6 @@ export class Kernel {
   private installDir?: string;
 
   private readonly sandbox: vm.Context;
-  private readonly sourceMaps: { [assm: string]: SourceMapConsumer } = {};
 
   /**
    * Creates a jsii kernel object.
@@ -367,7 +365,7 @@ export class Kernel {
       this._debug('promise result:', result);
     } catch (e) {
       this._debug('promise error:', e);
-      throw mapSource(e, this.sourceMaps);
+      throw e;
     }
 
     return { result: this._fromSandbox(result, method.returns ?? 'void') };
@@ -612,8 +610,8 @@ export class Kernel {
 
     // save the old property under $jsii$super$<prop>$ so that property overrides
     // can still access it via `super.<prop>`.
-    const prev = Object.getOwnPropertyDescriptor(obj, propertyName) ?? {
-      value: undefined,
+    const prev = getPropertyDescriptor(obj, propertyName) ?? {
+      value: obj[propertyName],
       writable: true,
       enumerable: true,
       configurable: true,
@@ -656,6 +654,22 @@ export class Kernel {
         });
       },
     });
+
+    function getPropertyDescriptor(
+      obj: any,
+      propertyName: string,
+    ): PropertyDescriptor | undefined {
+      const direct = Object.getOwnPropertyDescriptor(obj, propertyName);
+      if (direct != null) {
+        return direct;
+      }
+      const proto = Object.getPrototypeOf(obj);
+      if (proto == null && proto !== Object.prototype) {
+        // We reached Object or the prototype chain root, all hope is lost!
+        return undefined;
+      }
+      return getPropertyDescriptor(proto, propertyName);
+    }
   }
 
   private _applyMethodOverride(
@@ -1150,11 +1164,7 @@ export class Kernel {
   }
 
   private _wrapSandboxCode<T>(fn: () => T): T {
-    try {
-      return fn();
-    } catch (err) {
-      throw mapSource(err, this.sourceMaps);
-    }
+    return fn();
   }
 
   /**
@@ -1169,11 +1179,7 @@ export class Kernel {
    */
   private _execute(code: string, filename: string) {
     const script = new vm.Script(code, { filename });
-    try {
-      return script.runInContext(this.sandbox, { displayErrors: true });
-    } catch (err) {
-      throw mapSource(err, this.sourceMaps);
-    }
+    return script.runInContext(this.sandbox, { displayErrors: true });
   }
 }
 
@@ -1198,65 +1204,4 @@ class Assembly {
     public readonly metadata: spec.Assembly,
     public readonly closure: any,
   ) {}
-}
-
-/**
- * Applies source maps to an error's stack trace and returns the mapped error,
- * and stitches stack trace elements to adapt the context to the current trace.
- *
- * @param err        is the error to be mapped
- * @param sourceMaps the source maps to be used
- *
- * @returns the mapped error
- */
-function mapSource(
-  err: Error,
-  sourceMaps: { [assm: string]: SourceMapConsumer },
-): Error {
-  if (!err.stack) {
-    return err;
-  }
-  const oldFrames = err.stack.split('\n');
-  const obj = { stack: '' };
-  const previousLimit = Error.stackTraceLimit;
-  try {
-    Error.stackTraceLimit = err.stack.split('\n').length;
-    Error.captureStackTrace(obj, mapSource);
-    const realFrames = obj.stack.split('\n').slice(1);
-    const topFrame = realFrames[0].substring(0, realFrames[0].indexOf(' ('));
-    err.stack = [
-      ...oldFrames
-        .slice(
-          0,
-          oldFrames.findIndex((frame) => frame.startsWith(topFrame)),
-        )
-        .map(applyMaps),
-      ...realFrames,
-    ].join('\n');
-    return err;
-  } finally {
-    Error.stackTraceLimit = previousLimit;
-  }
-
-  function applyMaps(frame: string): string {
-    const mappable = /^(\s*at\s+.+)\(jsii\/(.+)\.js:(\d+):(\d+)\)$/;
-    const matches = mappable.exec(frame);
-    if (!matches) {
-      return frame;
-    }
-    const assm = matches[2];
-    if (!(assm in sourceMaps)) {
-      return frame;
-    }
-    const prefix = matches[1];
-    const line = parseInt(matches[3], 10);
-    const column = parseInt(matches[4], 10);
-    const sourceMap = sourceMaps[assm];
-    const pos = sourceMap.originalPositionFor({ line, column });
-    if (pos.source != null && pos.line != null) {
-      const source = pos.source.replace(/^webpack:\/\//, `${assm}`);
-      return `${prefix}(${source}:${pos.line}:${pos.column || 0})`;
-    }
-    return frame;
-  }
 }

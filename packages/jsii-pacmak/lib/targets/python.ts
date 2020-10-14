@@ -1,8 +1,9 @@
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import * as spec from '@jsii/spec';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
-import * as path from 'path';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
@@ -26,9 +27,12 @@ import {
   toPackageName,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
+import { renderSummary } from './_utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');
+
+const pythonBuildTools = ['setuptools~=49.3', 'wheel~=0.34'];
 
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
@@ -44,54 +48,54 @@ export default class Python extends Target {
   }
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
+    // Create a fresh virtual env
+    const venv = await fs.mkdtemp(path.join(sourceDir, '.env'));
+    const venvBin = path.join(
+      venv,
+      process.platform === 'win32' ? 'Scripts' : 'bin',
+    );
+    await shell('python3', [
+      '-m',
+      'venv',
+      '--system-site-packages', // Allow using globally installed packages (saves time & disk space)
+      venv,
+    ]);
+    const env = {
+      ...process.env,
+      PATH: `${venvBin}:${process.env.PATH}`,
+      VIRTUAL_ENV: venv,
+    };
+    const python = path.join(venvBin, 'python');
+
+    // Install the necessary things
+    await shell(
+      python,
+      ['-m', 'pip', 'install', '--no-input', ...pythonBuildTools, 'twine~=3.2'],
+      {
+        cwd: sourceDir,
+        env,
+        retry: { maxAttempts: 5 },
+      },
+    );
+
     // Actually package up our code, both as a sdist and a wheel for publishing.
-    await shell('python3', ['setup.py', 'sdist', '--dist-dir', outDir], {
+    await shell(python, ['setup.py', 'sdist', '--dist-dir', outDir], {
       cwd: sourceDir,
+      env,
     });
     await shell(
-      'python3',
+      python,
       ['-m', 'pip', 'wheel', '--no-deps', '--wheel-dir', outDir, sourceDir],
       {
         cwd: sourceDir,
+        env,
+        retry: { maxAttempts: 5 },
       },
     );
-    if (await isPresent('twine', sourceDir)) {
-      await shell('twine', ['check', path.join(outDir, '*')], {
-        cwd: sourceDir,
-      });
-    } else if (await isPresent('pipx', sourceDir)) {
-      await shell('pipx', ['run', 'twine', 'check', path.join(outDir, '*')], {
-        cwd: sourceDir,
-        env: {
-          ...process.env,
-          PIPX_HOME: path.join(sourceDir, '.pipx'),
-        },
-      });
-    } else {
-      warn(
-        'Unable to validate distribution packages because `twine` is not present. ' +
-          'Run `pip3 install twine` to enable distribution package validation.',
-      );
-    }
-  }
-}
-
-// Approximating existence check using `which`, falling back on `pip3 show`.
-async function isPresent(binary: string, sourceDir?: string): Promise<boolean> {
-  try {
-    await shell('which', [binary], {
+    await shell(python, ['-m', 'twine', 'check', path.join(outDir, '*')], {
       cwd: sourceDir,
+      env,
     });
-    return true;
-  } catch {
-    try {
-      const output = await shell('pip3', ['show', binary], {
-        cwd: sourceDir,
-      });
-      return output.trim() !== '';
-    } catch {
-      return false;
-    }
   }
 }
 
@@ -228,7 +232,7 @@ interface PythonBase {
 interface PythonType extends PythonBase {
   // The JSII FQN for this item, if this item doesn't exist as a JSII type, then it
   // doesn't have a FQN and it should be null;
-  readonly fqn: string | null;
+  readonly fqn?: string;
 
   addMember(member: PythonBase): void;
 }
@@ -253,7 +257,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
   public constructor(
     protected readonly generator: PythonGenerator,
     public readonly pythonName: string,
-    public readonly fqn: string | null,
+    public readonly fqn: string | undefined,
     opts: PythonTypeOpts,
     protected readonly docs: spec.Docs | undefined,
   ) {
@@ -308,7 +312,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
-    context = { ...context, nestingScope: this.fqn! };
+    context = nestedContext(context, this.fqn);
 
     const classParams = this.getClassParams(context);
     openSignature(code, 'class', this.pythonName, classParams);
@@ -338,6 +342,10 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     }
 
     code.closeBlock();
+
+    if (this.fqn != null) {
+      context.emittedTypes.add(this.fqn);
+    }
   }
 
   protected boundResolver(resolver: TypeResolver): TypeResolver {
@@ -461,7 +469,7 @@ abstract class BaseMethod implements PythonBase {
       pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
     }
 
-    const documentableArgs = this.parameters
+    const documentableArgs: DocumentableArgument[] = this.parameters
       // If there's liftedProps, the last argument is the struct and it won't be _actually_ emitted.
       .filter((_, index) =>
         this.liftedProp != null ? index < this.parameters.length - 1 : true,
@@ -724,7 +732,8 @@ abstract class BaseProperty implements PythonBase {
     const { renderAbstract = true, forceEmitBody = false } = opts ?? {};
     const pythonType = toTypeName(this.type).pythonType(context);
 
-    code.line(`@${this.decorator}`);
+    // # type: ignore is needed because mypy cannot check decorated things
+    code.line(`@${this.decorator} # type: ignore`);
     code.line(`@jsii.member(jsii_name="${this.jsName}")`);
     if (renderAbstract && this.abstract) {
       code.line('@abc.abstractmethod');
@@ -754,7 +763,8 @@ abstract class BaseProperty implements PythonBase {
 
     if (!this.immutable) {
       code.line();
-      code.line(`@${this.pythonName}.setter`);
+      // # type: ignore is required because mypy cannot check decorated things
+      code.line(`@${this.pythonName}.setter # type: ignore`);
       if (renderAbstract && this.abstract) {
         code.line('@abc.abstractmethod');
       }
@@ -783,7 +793,7 @@ abstract class BaseProperty implements PythonBase {
 
 class Interface extends BasePythonClassType {
   public emit(code: CodeMaker, context: EmitContext) {
-    context = { ...context, nestingScope: this.fqn! };
+    context = nestedContext(context, this.fqn);
     emitList(code, '@jsii.interface(', [`jsii_type="${this.fqn}"`], ')');
 
     // First we do our normal class logic for emitting our members.
@@ -795,17 +805,18 @@ class Interface extends BasePythonClassType {
     // Then, we have to emit a Proxy class which implements our proxy interface.
     const proxyBases: string[] = this.bases.map(
       (b) =>
+        // MyPy cannot check dynamic base classes (naturally)
         `jsii.proxy_for(${toTypeName(b).pythonType({
           ...context,
           typeAnnotation: false,
-        })})`,
+        })}) # type: ignore`,
     );
     openSignature(code, 'class', this.getProxyClassName(), proxyBases);
     this.generator.emitDocString(code, this.docs, {
       documentableItem: `class-${this.pythonName}`,
       trailingNewLine: true,
     });
-    code.line(`__jsii_type__ = "${this.fqn}"`);
+    code.line(`__jsii_type__: typing.ClassVar[str] = "${this.fqn}"`);
 
     if (this.members.length > 0) {
       for (const member of this.members) {
@@ -819,6 +830,10 @@ class Interface extends BasePythonClassType {
     }
 
     code.closeBlock();
+
+    if (this.fqn != null) {
+      context.emittedTypes.add(this.fqn);
+    }
   }
 
   protected getClassParams(context: EmitContext): string[] {
@@ -826,7 +841,7 @@ class Interface extends BasePythonClassType {
       toTypeName(b).pythonType({ ...context, typeAnnotation: false }),
     );
 
-    params.push('jsii.compat.Protocol');
+    params.push('typing_extensions.Protocol');
 
     return params;
   }
@@ -872,7 +887,7 @@ class Struct extends BasePythonClassType {
   }
 
   public emit(code: CodeMaker, context: EmitContext) {
-    context = { ...context, nestingScope: this.fqn! };
+    context = nestedContext(context, this.fqn);
     const baseInterfaces = this.getClassParams(context);
 
     code.indent('@jsii.data_type(');
@@ -891,6 +906,10 @@ class Struct extends BasePythonClassType {
     this.emitMagicMethods(code);
 
     code.closeBlock();
+
+    if (this.fqn != null) {
+      context.emittedTypes.add(this.fqn);
+    }
   }
 
   public requiredImports(context: EmitContext) {
@@ -916,7 +935,7 @@ class Struct extends BasePythonClassType {
   }
 
   private get thisInterface() {
-    if (this.fqn === null) {
+    if (this.fqn == null) {
       throw new Error('FQN not set');
     }
     return this.generator.reflectAssembly.system.findInterface(this.fqn);
@@ -954,7 +973,7 @@ class Struct extends BasePythonClassType {
     // Required properties, those will always be put into the dict
     assignDictionary(
       code,
-      `${implicitParameter}._values`,
+      `${implicitParameter}._values: typing.Dict[str, typing.Any]`,
       members
         .filter((m) => !m.optional)
         .map(
@@ -1001,20 +1020,29 @@ class Struct extends BasePythonClassType {
       member.typeAnnotation(context),
     );
     member.emitDocString(code);
-    code.line(`return self._values.get(${JSON.stringify(member.pythonName)})`);
+    code.line(
+      `result = self._values.get(${JSON.stringify(member.pythonName)})`,
+    );
+    if (!member.optional) {
+      // Add an assertion to maye MyPY happy!
+      code.line(
+        `assert result is not None, "Required property '${member.pythonName}' is missing"`,
+      );
+    }
+    code.line('return result');
     code.closeBlock();
   }
 
   private emitMagicMethods(code: CodeMaker) {
     code.line();
-    code.openBlock('def __eq__(self, rhs) -> bool');
+    code.openBlock('def __eq__(self, rhs: typing.Any) -> builtins.bool');
     code.line(
       'return isinstance(rhs, self.__class__) and rhs._values == self._values',
     );
     code.closeBlock();
 
     code.line();
-    code.openBlock('def __ne__(self, rhs) -> bool');
+    code.openBlock('def __ne__(self, rhs: typing.Any) -> builtins.bool');
     code.line('return not (rhs == self)');
     code.closeBlock();
 
@@ -1175,15 +1203,16 @@ class Class extends BasePythonClassType implements ISortableType {
     // this logic, except only emiting abstract methods and properties as non
     // abstract, and subclassing our initial class.
     if (this.abstract) {
-      context = { ...context, nestingScope: this.fqn! };
+      context = nestedContext(context, this.fqn);
 
       const proxyBases = [this.pythonName];
       for (const base of this.abstractBases) {
+        // MyPy cannot check dynamic base types (naturally)
         proxyBases.push(
           `jsii.proxy_for(${toTypeName(base).pythonType({
             ...context,
             typeAnnotation: false,
-          })})`,
+          })}) # type: ignore`,
         );
       }
 
@@ -1286,7 +1315,7 @@ class Enum extends BasePythonClassType {
   protected readonly separateMembers = false;
 
   public emit(code: CodeMaker, context: EmitContext) {
-    context = { ...context, nestingScope: this.fqn! };
+    context = nestedContext(context, this.fqn);
     emitList(code, '@jsii.enum(', [`jsii_type="${this.fqn}"`], ')');
     return super.emit(code, context);
   }
@@ -1343,7 +1372,7 @@ class PythonModule implements PythonType {
 
   public constructor(
     public readonly pythonName: string,
-    public readonly fqn: string | null,
+    public readonly fqn: string | undefined,
     opts: ModuleOpts,
   ) {
     this.assembly = opts.assembly;
@@ -1383,8 +1412,8 @@ class PythonModule implements PythonType {
     code.line('import typing');
     code.line();
     code.line('import jsii');
-    code.line('import jsii.compat');
     code.line('import publication');
+    code.line('import typing_extensions');
 
     // Determine if we need to write out the kernel load line.
     if (this.loadAssembly) {
@@ -1550,7 +1579,7 @@ class PythonModule implements PythonType {
 
 interface PackageData {
   filename: string;
-  data: string | null;
+  data: string | undefined;
 }
 
 class Package {
@@ -1578,7 +1607,11 @@ class Package {
     this.modules.set(module.pythonName, module);
   }
 
-  public addData(module: PythonModule, filename: string, data: string | null) {
+  public addData(
+    module: PythonModule,
+    filename: string,
+    data: string | undefined,
+  ) {
     if (!this.data.has(module.pythonName)) {
       this.data.set(module.pythonName, []);
     }
@@ -1709,10 +1742,54 @@ class Package {
       setupKwargs.classifiers.push('License :: OSI Approved');
     }
 
+    const additionalClassifiers = this.metadata.targets?.python?.classifiers;
+    if (additionalClassifiers != null) {
+      if (!Array.isArray(additionalClassifiers)) {
+        throw new Error(
+          `The "jsii.targets.python.classifiers" value must be an array of strings if provided, but found ${JSON.stringify(
+            additionalClassifiers,
+            null,
+            2,
+          )}`,
+        );
+      }
+      // We discourage using those since we automatically set a value for them
+      for (let classifier of additionalClassifiers.sort()) {
+        if (typeof classifier !== 'string') {
+          throw new Error(
+            `The "jsii.targets.python.classifiers" value can only contain strings, but found ${JSON.stringify(
+              classifier,
+              null,
+              2,
+            )}`,
+          );
+        }
+        // We'll split on `::` and re-join later so classifiers are "normalized" to a standard spacing
+        const parts = classifier.split('::').map((part) => part.trim());
+        const reservedClassifiers = [
+          'Development Status',
+          'License',
+          'Operating System',
+          'Typing',
+        ];
+        if (reservedClassifiers.includes(parts[0])) {
+          warn(
+            `Classifiers starting with ${reservedClassifiers
+              .map((x) => `"${x} ::"`)
+              .join(
+                ', ',
+              )} are automatically set and should not be manually configured`,
+          );
+        }
+        classifier = parts.join(' :: ');
+        if (setupKwargs.classifiers.includes(classifier)) {
+          continue;
+        }
+        setupKwargs.classifiers.push(classifier);
+      }
+    }
+
     // We Need a setup.py to make this Package, actually a Package.
-    // TODO:
-    //      - License
-    //      - Classifiers
     code.openFile('setup.py');
     code.line('import json');
     code.line('import setuptools');
@@ -1723,7 +1800,7 @@ class Package {
     code.line('"""');
     code.line(')');
     code.line();
-    code.openBlock('with open("README.md") as fp');
+    code.openBlock('with open("README.md", encoding="utf8") as fp');
     code.line('kwargs["long_description"] = fp.read()');
     code.closeBlock();
     code.line();
@@ -1736,7 +1813,9 @@ class Package {
     // TODO: Might be easier to just use a TOML library to write this out.
     code.openFile('pyproject.toml');
     code.line('[build-system]');
-    code.line('requires = ["setuptools >= 49.3.1", "wheel >= 0.34.2"]');
+    code.line(
+      `requires = [${pythonBuildTools.map((x) => `"${x}"`).join(', ')}]`,
+    );
     code.line('build-backend = "setuptools.build_meta"');
     code.closeFile('pyproject.toml');
 
@@ -1917,7 +1996,7 @@ class PythonGenerator extends Generator {
     const lines = new Array<string>();
 
     if (docs.summary) {
-      lines.push(md2rst(docs.summary));
+      lines.push(md2rst(renderSummary(docs)));
       brk();
     } else {
       lines.push('');
@@ -1933,15 +2012,14 @@ class PythonGenerator extends Generator {
       if (doBrk) {
         brk();
       }
-      lines.push(heading);
       const contentLines = md2rst(content).split('\n');
       if (contentLines.length <= 1) {
-        lines.push(`:${heading}: ${contentLines.join('')}`);
+        lines.push(`:${heading}: ${contentLines.join('')}`.trim());
       } else {
         lines.push(`:${heading}:`);
         brk();
         for (const line of contentLines) {
-          lines.push(`${line}`);
+          lines.push(line.trim());
         }
       }
       if (doBrk) {
@@ -1991,7 +2069,7 @@ class PythonGenerator extends Generator {
     }
 
     for (const [k, v] of Object.entries(docs.custom ?? {})) {
-      block(`${k}:`, v, false);
+      block(k, v, false);
     }
 
     if (docs.example) {
@@ -2089,7 +2167,7 @@ class PythonGenerator extends Generator {
     // This is the '<package>._jsii' module
     const assemblyModule = new PythonModule(
       this.getAssemblyModuleName(assm),
-      null,
+      undefined,
       {
         assembly: assm,
         assemblyFilename: this.getAssemblyFileName(),
@@ -2099,7 +2177,7 @@ class PythonGenerator extends Generator {
     );
 
     this.package.addModule(assemblyModule);
-    this.package.addData(assemblyModule, this.getAssemblyFileName(), null);
+    this.package.addData(assemblyModule, this.getAssemblyFileName(), undefined);
   }
 
   protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
@@ -2110,8 +2188,9 @@ class PythonGenerator extends Generator {
     );
     this.package.write(this.code, {
       assembly: assm,
-      submodule: assm.name,
+      emittedTypes: new Set(),
       resolver,
+      submodule: assm.name,
     });
   }
 
@@ -2366,7 +2445,7 @@ class PythonGenerator extends Generator {
   private getParentFQN(fqn: string): string {
     const m = /^(.+)\.[^.]+$/.exec(fqn);
 
-    if (m === null) {
+    if (m == null) {
       throw new Error(`Could not determine parent FQN of: ${fqn}`);
     }
 
@@ -2378,7 +2457,7 @@ class PythonGenerator extends Generator {
   }
 
   private addPythonType(type: PythonType) {
-    if (type.fqn === null) {
+    if (type.fqn == null) {
       throw new Error('Cannot add a Python type without a FQN.');
     }
 
@@ -2443,13 +2522,13 @@ interface DocumentableArgument {
  */
 function onelineDescription(docs: spec.Docs | undefined) {
   // Only consider a subset of fields here, we don't have a lot of formatting space
-  if (!docs) {
+  if (!docs || Object.keys(docs).length === 0) {
     return '-';
   }
 
   const parts = [];
   if (docs.summary) {
-    parts.push(md2rst(docs.summary));
+    parts.push(md2rst(renderSummary(docs)));
   }
   if (docs.remarks) {
     parts.push(md2rst(docs.remarks));
@@ -2532,14 +2611,17 @@ function openSignature(
   const join = ', ';
   const { elementsSize, joinSize } = totalSizeOf(params, join);
 
+  const hasComments = !params.some((param) => /# .+$/.exec(param));
+
   if (
+    hasComments &&
     TARGET_LINE_LENGTH >
-    code.currentIndentLength +
-      prefix.length +
-      elementsSize +
-      joinSize +
-      suffix.length +
-      2
+      code.currentIndentLength +
+        prefix.length +
+        elementsSize +
+        joinSize +
+        suffix.length +
+        2
   ) {
     code.openBlock(`${prefix}(${params.join(join)})${suffix}`);
     return;
@@ -2547,13 +2629,17 @@ function openSignature(
 
   code.indent(`${prefix}(`);
   if (
+    !hasComments &&
     TARGET_LINE_LENGTH >
-    code.currentIndentLength + elementsSize + joinSize + (trailingComma ? 1 : 0)
+      code.currentIndentLength +
+        elementsSize +
+        joinSize +
+        (trailingComma ? 1 : 0)
   ) {
     code.line(`${params.join(join)}${trailingComma ? ',' : ''}`);
   } else {
     for (const param of params) {
-      code.line(`${param},`);
+      code.line(param.replace(/(\s*# .+)?$/, ',$1'));
     }
   }
   code.unindent(false);
@@ -2692,5 +2778,18 @@ function totalSizeOf(strings: readonly string[], join: string) {
       .map((str) => str.length)
       .reduce((acc, elt) => acc + elt, 0),
     joinSize: strings.length > 1 ? join.length * (strings.length - 1) : 0,
+  };
+}
+
+function nestedContext(
+  context: EmitContext,
+  fqn: string | undefined,
+): EmitContext {
+  return {
+    ...context,
+    surroundingTypeFqns:
+      fqn != null
+        ? [...(context.surroundingTypeFqns ?? []), fqn]
+        : context.surroundingTypeFqns,
   };
 }
