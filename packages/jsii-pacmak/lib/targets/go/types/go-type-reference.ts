@@ -3,6 +3,7 @@ import { Package } from '../package';
 import { GoType } from './go-type';
 import { toPascalCase } from 'codemaker';
 import { JSII_ANY } from '../runtime';
+import * as log from '../../../logging';
 
 /*
  * Maps names of JS primitives to corresponding Go types as strings
@@ -95,7 +96,9 @@ export class GoTypeRef {
     }
 
     // type isn't handled
-    // TODO: Are there other cases to handle? if not throw an error.
+    log.debug(
+      `Type ${this.name} does not resolve to a known Go type. It is being mapped to "Any".`,
+    );
     return JSII_ANY;
   }
 }
