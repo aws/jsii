@@ -1,0 +1,6 @@
+printWidth: 120
+proseWrap: always
+semi: true
+singleQuote: true
+quoteProps: as-needed
+trailingComma: all
