@@ -27,7 +27,7 @@ setuptools.setup(
     packages=setuptools.find_packages(where="src"),
     package_data={
         "jsii": ["_metadata.json", "py.typed"],
-        "jsii._embedded.jsii": ["*.js", "*.js.map", "*.wasm"],
+        "jsii._embedded.jsii": ["*.js", "*.js.map"],
     },
     install_requires=[
         "attrs~=20.1",

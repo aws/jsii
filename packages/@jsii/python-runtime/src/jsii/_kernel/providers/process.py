@@ -231,7 +231,7 @@ class _NodeProcess:
         # just use importlib.resources.path.
 
         # jsii-runtime.js MUST be the first item in this list.
-        filenames = ["jsii-runtime.js", "jsii-runtime.js.map", "mappings.wasm"]
+        filenames = ["jsii-runtime.js", "jsii-runtime.js.map"]
 
         if isinstance(
             jsii._embedded.jsii.__loader__, importlib.machinery.SourceFileLoader
