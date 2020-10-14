@@ -1,9 +1,10 @@
 [build-system]
 requires = [
   "pip~=20.2",
-  "setuptools~=46.1",
-  "wheel~=0.34",
+  "setuptools~=50.3",
+  "wheel~=0.35",
 ]
+build-backend = 'setuptools.build_meta'
 
 [tool.black]
 target-version = ['py36', 'py37', 'py38']

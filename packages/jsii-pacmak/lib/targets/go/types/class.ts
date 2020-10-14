@@ -134,7 +134,7 @@ export class ClassMethod extends GoMethod {
     public readonly method: Method,
   ) {
     super(parent, method);
-    this.runtimeCall = new MethodCall(this);
+    this.runtimeCall = new MethodCall(this, this.method.static);
   }
 
   /* emit generates method implementation on the class */

@@ -4,7 +4,7 @@ import { expectError, expectNoError } from './util';
 
 test('cannot add required fields to an input struct', () =>
   expectError(
-    /required property 'super' used to be missing/,
+    /required property 'super' added/,
     `
     export interface Henk {
       readonly henk: string;
@@ -117,7 +117,7 @@ test('cannot take fields away from input struct', () =>
 
 test('cannot take fields away from output struct', () =>
   expectError(
-    /formerly required property 'piet' is missing/,
+    /formerly required property 'piet' removed/,
     `
     export interface Henk {
       readonly henk: string;
@@ -145,7 +145,7 @@ test('cannot take fields away from output struct', () =>
 
 test('cannot change argument type to a supertype it adds required fields', () =>
   expectError(
-    /required property 'super' used to be missing/,
+    /required property 'super' added/,
     `
     export interface Henk {
       readonly henk: string;
@@ -197,7 +197,7 @@ test('can make an input struct property optional', () =>
 
 test('cannot make an input struct property required', () =>
   expectError(
-    /newly required property 'henk' used to be optional in testpkg.Henk/,
+    /newly required property 'henk' used to be optional/,
     `
     export interface Henk {
       readonly henk?: string;
@@ -220,7 +220,7 @@ test('cannot make an input struct property required', () =>
 
 test('cannot make an output struct property optional', () =>
   expectError(
-    /formerly required property 'henk' is optional in testpkg.Henk/,
+    /formerly required property 'henk' is optional/,
     `
     export interface Henk {
       readonly henk: string;
