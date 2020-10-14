@@ -60,7 +60,7 @@
     "@types/mock-fs": "^4.13.0",
     "@types/node": "^10.17.39",
     "@types/semver": "^7.3.4",
-    "@types/yargs": "^15.0.7",
+    "@types/yargs": "^15.0.8",
     "eslint": "^7.11.0",
     "jest": "^26.5.2",
     "jsii-build-tools": "^0.0.0",
