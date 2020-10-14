@@ -107,6 +107,13 @@ function main() {
             type: 'boolean',
             describe: 'Fail if there are compilation errors',
             default: false,
+          })
+          .option('workers', {
+            alias: 'w',
+            type: 'boolean',
+            describe:
+              'Use node worker threads if possible (see https://nodejs.org/docs/latest-v10.x/api/worker_threads.html)',
+            default: true,
           }),
       wrapHandler(async (args) => {
         // Easiest way to get a fixed working directory (for sources) in is to
@@ -123,9 +130,10 @@ function main() {
         }
 
         const result = await extractSnippets(absAssemblies, {
+          only: args.include,
           outputFile: absOutput,
           includeCompilerDiagnostics: args.compile,
-          only: args.include,
+          tryWorkerParallelization: args.workers,
         });
 
         printDiagnostics(result.diagnostics, process.stderr);

@@ -43,8 +43,18 @@ async function loadAssemblyFromFile(filename: string) {
 }
 
 export type AssemblySnippetSource =
-  | { type: 'markdown'; markdown: string; where: string }
-  | { type: 'literal'; source: string; where: string };
+  | {
+      type: 'markdown';
+      context: { assembly: string; typeName?: string };
+      markdown: string;
+      where: string;
+    }
+  | {
+      type: 'literal';
+      context: { assembly: string; typeName: string };
+      source: string;
+      where: string;
+    };
 
 /**
  * Return all markdown and example snippets from the given assembly
@@ -58,25 +68,29 @@ export function allSnippetSources(
     ret.push({
       type: 'markdown',
       markdown: assembly.readme.markdown,
+      context: { assembly: assembly.name },
       where: removeSlashes(`${assembly.name}-README`),
     });
   }
 
   if (assembly.types) {
     Object.values(assembly.types).forEach((type) => {
-      emitDocs(type.docs, `${assembly.name}.${type.name}`);
+      const qualifiedTypeName = type.namespace
+        ? `${type.namespace.substr(assembly.name.length)}.${type.name}`
+        : type.name;
+      emitDocs(type.docs, assembly.name, qualifiedTypeName);
 
       if (spec.isEnumType(type)) {
         type.members.forEach((m) =>
-          emitDocs(m.docs, `${assembly.name}.${type.name}.${m.name}`),
+          emitDocs(m.docs, assembly.name, qualifiedTypeName, m.name),
         );
       }
       if (spec.isClassOrInterfaceType(type)) {
         (type.methods ?? []).forEach((m) =>
-          emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`),
+          emitDocs(m.docs, assembly.name, qualifiedTypeName, m.name),
         );
         (type.properties ?? []).forEach((m) =>
-          emitDocs(m.docs, `${assembly.name}.${type.name}#${m.name}`),
+          emitDocs(m.docs, assembly.name, qualifiedTypeName, m.name),
         );
       }
     });
@@ -84,22 +98,33 @@ export function allSnippetSources(
 
   return ret;
 
-  function emitDocs(docs: spec.Docs | undefined, where: string) {
+  function emitDocs(
+    docs: spec.Docs | undefined,
+    assembly: string,
+    typeName: string,
+    memberName?: string,
+  ) {
     if (!docs) {
       return;
     }
+
+    const where = `${assembly}.${typeName}${
+      memberName ? `#${memberName}` : ''
+    }`;
 
     if (docs.remarks) {
       ret.push({
         type: 'markdown',
         markdown: docs.remarks,
-        where: removeSlashes(where),
+        context: { assembly, typeName },
+        where,
       });
     }
     if (docs.example && exampleLooksLikeSource(docs.example)) {
       ret.push({
         type: 'literal',
         source: docs.example,
+        context: { assembly, typeName },
         where: removeSlashes(`${where}-example`),
       });
     }
@@ -117,14 +142,16 @@ function removeSlashes(x: string) {
 export function* allTypeScriptSnippets(
   assemblies: Array<{ assembly: spec.Assembly; directory: string }>,
 ): IterableIterator<TypeScriptSnippet> {
-  for (const assembly of assemblies) {
-    for (const source of allSnippetSources(assembly.assembly)) {
+  for (const { assembly, directory } of assemblies) {
+    for (const source of allSnippetSources(assembly)) {
       switch (source.type) {
         case 'literal':
           const snippet = updateParameters(
             typeScriptSnippetFromSource(source.source, source.where),
             {
-              [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory,
+              [SnippetParameters.$PROJECT_DIRECTORY]: directory,
+              [SnippetParameters.ASSEMBLY]: source.context?.assembly,
+              [SnippetParameters.TYPE_NAME]: source.context?.typeName,
             },
           );
           yield fixturize(snippet);
@@ -135,7 +162,9 @@ export function* allTypeScriptSnippets(
             source.where,
           )) {
             const withDirectory = updateParameters(snippet, {
-              [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory,
+              [SnippetParameters.$PROJECT_DIRECTORY]: directory,
+              [SnippetParameters.ASSEMBLY]: source.context?.assembly,
+              [SnippetParameters.TYPE_NAME]: source.context?.typeName,
             });
             yield fixturize(withDirectory);
           }

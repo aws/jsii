@@ -41,10 +41,10 @@ translation.
 
 To mark special locations in the source tree, we can use one of three mechanisms:
 
-* Use a `void` expression statement to mark statement locations in the AST.
-* Use the `comma` operator combined with a `void` expression to mark expression
+- Use a `void` expression statement to mark statement locations in the AST.
+- Use the `comma` operator combined with a `void` expression to mark expression
   locations in the AST.
-* Use special directive comments (`/// !hide`, `/// !show`) to mark locations
+- Use special directive comments (`/// !hide`, `/// !show`) to mark locations
   that span AST nodes. This is less reliable (because the source location of
   translated syntax sometimes will have to be estimated) but the only option if
   you want to mark non-contiguous nodes (such as hide part of a class
@@ -63,13 +63,13 @@ code into the void".
 Statement hiding looks like this:
 
 ```ts
-before();    // will be shown
+before(); // will be shown
 
-void 0;      // start hiding (the argument to 'void' doesn't matter)
-middle();    // will not be shown
+void 0; // start hiding (the argument to 'void' doesn't matter)
+middle(); // will not be shown
 void 'show'; // stop hiding
 
-after();     // will be shown again
+after(); // will be shown again
 ```
 
 ### Hiding expressions
@@ -126,25 +126,49 @@ must contain the text `/// here` and may look like this:
 const module = require('@some/dependency');
 
 class MyClass {
-    constructor() {
-        const obj = new MyObject();
+  constructor() {
+    const obj = new MyObject();
 
-        /// here
-    }
+    /// here
+  }
 }
 ```
 
 The example will be inserted at the location marked as `/// here` and
-will have access to `module`, `obj` and `this`.
+will have access to `module`, `obj` and `this`. If the example code includes
+`import` statements, those will transparently be hoisted at the very top of the
+fixture, so they are guaranteed to be at the top-level of the compilation unit
+(which is the only location where they are valid), right before the first line
+of the fixture content.
 
 The default file loaded as a fixture is called `rosetta/default.ts-fixture`
 in the package directory (if it exists).
 
+> Snippet that are part of a type's inline documentation, contained in a module
+> that does not have a `rosetta/default.ts-fixture` file; the following template
+> is automatically rendered:
+>
+> ```ts
+> import * as ${importName} from '${assemblyName}';
+> const ${variableName}: ${importName}.${qualifiedName} = undefined as any;
+> /// here
+> ```
+>
+> | Placeholder        | Value                             | Example                     |
+> | ------------------ | --------------------------------- | --------------------------- |
+> | `${assemblyName}`  | Assembly name                     | `@aws-cdk/aws-s3`           |
+> | `${importName}`    | Assembly name's alphanumeric tail | `s3`                        |
+> | `${qualifiedName}` | Qualified type name               | `CfnBucket.LifecyclePolicy` |
+> | `${variableName}`  | Camel-cased unqualified type name | `lifecyclePolicy`           |
+
 Examples can request an alternative fixture by specifying a `fixture` parameter
 as part of the code block fence:
 
-    ` ` `ts fixture=some-fixture
-    ...
+````
+```ts fixture=some-fixture
+...
+```
+````
 
 Or opt out of using the default fixture by specifying `nofixture`.
 

@@ -15,9 +15,10 @@ export interface ExtractResult {
 }
 
 export interface ExtractOptions {
-  outputFile: string;
   includeCompilerDiagnostics: boolean;
   only?: string[];
+  outputFile: string;
+  tryWorkerParallelization: boolean;
 }
 
 /**
@@ -42,10 +43,7 @@ export async function extractSnippets(
   logging.info('Translating');
   const startTime = Date.now();
 
-  const result = await translateAll(
-    snippets,
-    options.includeCompilerDiagnostics,
-  );
+  const result = await translateAll(snippets, options);
 
   for (const snippet of result.translatedSnippets) {
     tablet.addSnippet(snippet);
@@ -89,26 +87,30 @@ function* filterSnippets(
  */
 async function translateAll(
   snippets: IterableIterator<TypeScriptSnippet>,
-  includeCompilerDiagnostics: boolean,
+  {
+    includeCompilerDiagnostics,
+    tryWorkerParallelization,
+  }: { includeCompilerDiagnostics: boolean; tryWorkerParallelization: boolean },
 ): Promise<TranslateAllResult> {
-  try {
-    const worker = await import('worker_threads');
+  if (tryWorkerParallelization) {
+    try {
+      const worker = await import('worker_threads');
 
-    return workerBasedTranslateAll(
-      worker,
-      snippets,
-      includeCompilerDiagnostics,
-    );
-  } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND') {
-      throw e;
+      return workerBasedTranslateAll(
+        worker,
+        snippets,
+        includeCompilerDiagnostics,
+      );
+    } catch (e) {
+      if (e.code !== 'MODULE_NOT_FOUND') {
+        throw e;
+      }
+      logging.warn(
+        'Worker threads not available (use NodeJS >= 10.5 and --experimental-worker). Working sequentially.',
+      );
     }
-    logging.warn(
-      'Worker threads not available (use NodeJS >= 10.5 and --experimental-worker). Working sequentially.',
-    );
-
-    return singleThreadedTranslateAll(snippets, includeCompilerDiagnostics);
   }
+  return singleThreadedTranslateAll(snippets, includeCompilerDiagnostics);
 }
 
 /**

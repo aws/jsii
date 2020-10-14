@@ -45,7 +45,7 @@ export function typeScriptSnippetFromSource(
 
 export function updateParameters(
   snippet: TypeScriptSnippet,
-  params: Record<string, string>,
+  params: Record<string, string | undefined>,
 ): TypeScriptSnippet {
   return {
     ...snippet,
@@ -105,6 +105,11 @@ export function parseKeyValueList(
  */
 export enum SnippetParameters {
   /**
+   * The name of the assembly that includes a snippet.
+   */
+  ASSEMBLY = 'assembly',
+
+  /**
    * Use fixture with the given name (author parameter)
    */
   FIXTURE = 'fixture',
@@ -121,6 +126,11 @@ export enum SnippetParameters {
    * process as usual.
    */
   LITERATE_SOURCE = 'lit',
+
+  /**
+   * The name of the type in which this snippet was defined.
+   */
+  TYPE_NAME = 'typename',
 
   /**
    * What directory to resolve fixtures in for this snippet (system parameter)
