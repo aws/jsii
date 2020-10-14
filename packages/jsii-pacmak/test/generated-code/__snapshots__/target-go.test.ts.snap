@@ -60,15 +60,15 @@ type Base struct {
 
 func NewBase() BaseIface {
 	_init_.Initialize()
-	returnval := Base{}
+	self := Base{}
 	_jsii_.Create(
 		"@scope/jsii-calc-base.Base",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (b *Base) TypeName() _jsii_.Any {
@@ -185,15 +185,15 @@ type Very struct {
 
 func NewVery() VeryIface {
 	_init_.Initialize()
-	returnval := Very{}
+	self := Very{}
 	_jsii_.Create(
 		"@scope/jsii-calc-base-of-base.Very",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (v *Very) Hey() float64 {
@@ -387,15 +387,15 @@ func (n *Number) GetDoubleValue() float64 {
 // Creates a Number object.
 func NewNumber(value float64) NumberIface {
 	_init_.Initialize()
-	returnval := Number{}
+	self := Number{}
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.Number",
 		[]interface{}{value},
 		[]string{"@scope/jsii-calc-lib.IDoublable"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (n *Number) SetValue(val float64) {
@@ -448,15 +448,15 @@ func (n *NumericValue) GetValue() float64 {
 
 func NewNumericValue() NumericValueIface {
 	_init_.Initialize()
-	returnval := NumericValue{}
+	self := NumericValue{}
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.NumericValue",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (n *NumericValue) SetValue(val float64) {
@@ -505,15 +505,15 @@ func (o *Operation) GetValue() float64 {
 
 func NewOperation() OperationIface {
 	_init_.Initialize()
-	returnval := Operation{}
+	self := Operation{}
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.Operation",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (o *Operation) SetValue(val float64) {
@@ -620,15 +620,15 @@ func (n *NestedClass) GetProperty() string {
 
 func NewNestedClass() NestedClassIface {
 	_init_.Initialize()
-	returnval := NestedClass{}
+	self := NestedClass{}
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.submodule.NestingClass.NestedClass",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (n *NestedClass) SetProperty(val string) {
@@ -693,15 +693,15 @@ type Reflector struct {
 
 func NewReflector() ReflectorIface {
 	_init_.Initialize()
-	returnval := Reflector{}
+	self := Reflector{}
 	_jsii_.Create(
 		"@scope/jsii-calc-lib.submodule.Reflector",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (r *Reflector) AsMap(reflectable IReflectable) map[string]_jsii_.Any {
@@ -839,15 +839,15 @@ func (c *CompositeOperation) GetStringStyle() CompositionStringStyle {
 
 func NewCompositeOperation() CompositeOperationIface {
 	_init_.Initialize()
-	returnval := CompositeOperation{}
+	self := CompositeOperation{}
 	_jsii_.Create(
 		"jsii-calc.composition.CompositeOperation",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *CompositeOperation) SetValue(val float64) {
@@ -925,15 +925,15 @@ func (b *Base) GetProp() string {
 
 func NewBase() BaseIface {
 	_init_.Initialize()
-	returnval := Base{}
+	self := Base{}
 	_jsii_.Create(
 		"jsii-calc.DerivedClassHasNoProperties.Base",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (b *Base) SetProp(val string) {
@@ -958,15 +958,15 @@ func (d *Derived) GetProp() string {
 
 func NewDerived() DerivedIface {
 	_init_.Initialize()
-	returnval := Derived{}
+	self := Derived{}
 	_jsii_.Create(
 		"jsii-calc.DerivedClassHasNoProperties.Derived",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *Derived) SetProp(val string) {
@@ -1002,15 +1002,15 @@ func (f *Foo) GetBar() string {
 
 func NewFoo() FooIface {
 	_init_.Initialize()
-	returnval := Foo{}
+	self := Foo{}
 	_jsii_.Create(
 		"jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (f *Foo) SetBar(val string) {
@@ -1135,15 +1135,15 @@ func (a *AbstractClass) GetPropFromInterface() string {
 
 func NewAbstractClass() AbstractClassIface {
 	_init_.Initialize()
-	returnval := AbstractClass{}
+	self := AbstractClass{}
 	_jsii_.Create(
 		"jsii-calc.AbstractClass",
 		[]interface{}{},
 		[]string{"jsii-calc.IInterfaceImplementedByAbstractClass"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AbstractClass) SetAbstractProperty(val string) {
@@ -1190,15 +1190,15 @@ func (a *AbstractClassBase) GetAbstractProperty() string {
 
 func NewAbstractClassBase() AbstractClassBaseIface {
 	_init_.Initialize()
-	returnval := AbstractClassBase{}
+	self := AbstractClassBase{}
 	_jsii_.Create(
 		"jsii-calc.AbstractClassBase",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AbstractClassBase) SetAbstractProperty(val string) {
@@ -1225,15 +1225,15 @@ func (a *AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBas
 
 func NewAbstractClassReturner() AbstractClassReturnerIface {
 	_init_.Initialize()
-	returnval := AbstractClassReturner{}
+	self := AbstractClassReturner{}
 	_jsii_.Create(
 		"jsii-calc.AbstractClassReturner",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AbstractClassReturner) SetReturnAbstractFromProperty(val AbstractClassBase) {
@@ -1278,15 +1278,15 @@ func (a *AbstractSuite) GetProperty() string {
 
 func NewAbstractSuite() AbstractSuiteIface {
 	_init_.Initialize()
-	returnval := AbstractSuite{}
+	self := AbstractSuite{}
 	_jsii_.Create(
 		"jsii-calc.AbstractSuite",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AbstractSuite) SetProperty(val string) {
@@ -1352,15 +1352,15 @@ func (a *Add) GetRhs() scopejsiicalclib.NumericValue {
 // Creates a BinaryOperation.
 func NewAdd(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) AddIface {
 	_init_.Initialize()
-	returnval := Add{}
+	self := Add{}
 	_jsii_.Create(
 		"jsii-calc.Add",
 		[]interface{}{lhs, rhs},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *Add) SetValue(val float64) {
@@ -1553,15 +1553,15 @@ func (a *AllTypes) GetOptionalEnumValue() StringEnum {
 
 func NewAllTypes() AllTypesIface {
 	_init_.Initialize()
-	returnval := AllTypes{}
+	self := AllTypes{}
 	_jsii_.Create(
 		"jsii-calc.AllTypes",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AllTypes) SetEnumPropertyValue(val float64) {
@@ -1688,15 +1688,15 @@ type AllowedMethodNames struct {
 
 func NewAllowedMethodNames() AllowedMethodNamesIface {
 	_init_.Initialize()
-	returnval := AllowedMethodNames{}
+	self := AllowedMethodNames{}
 	_jsii_.Create(
 		"jsii-calc.AllowedMethodNames",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AllowedMethodNames) GetBar(_p1 string, _p2 float64) {
@@ -1757,15 +1757,15 @@ func (a *AmbiguousParameters) GetScope() Bell {
 
 func NewAmbiguousParameters(scope Bell, props StructParameterType) AmbiguousParametersIface {
 	_init_.Initialize()
-	returnval := AmbiguousParameters{}
+	self := AmbiguousParameters{}
 	_jsii_.Create(
 		"jsii-calc.AmbiguousParameters",
 		[]interface{}{scope, props},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AmbiguousParameters) SetProps(val StructParameterType) {
@@ -1789,15 +1789,15 @@ type AnonymousImplementationProvider struct {
 
 func NewAnonymousImplementationProvider() AnonymousImplementationProviderIface {
 	_init_.Initialize()
-	returnval := AnonymousImplementationProvider{}
+	self := AnonymousImplementationProvider{}
 	_jsii_.Create(
 		"jsii-calc.AnonymousImplementationProvider",
 		[]interface{}{},
 		[]string{"jsii-calc.IAnonymousImplementationProvider"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AnonymousImplementationProvider) ProvideAsClass() Implementation {
@@ -1834,15 +1834,15 @@ type AsyncVirtualMethods struct {
 
 func NewAsyncVirtualMethods() AsyncVirtualMethodsIface {
 	_init_.Initialize()
-	returnval := AsyncVirtualMethods{}
+	self := AsyncVirtualMethods{}
 	_jsii_.Create(
 		"jsii-calc.AsyncVirtualMethods",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AsyncVirtualMethods) CallMe() float64 {
@@ -1911,15 +1911,15 @@ type AugmentableClass struct {
 
 func NewAugmentableClass() AugmentableClassIface {
 	_init_.Initialize()
-	returnval := AugmentableClass{}
+	self := AugmentableClass{}
 	_jsii_.Create(
 		"jsii-calc.AugmentableClass",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (a *AugmentableClass) MethodOne() {
@@ -1948,15 +1948,15 @@ type BaseJsii976 struct {
 
 func NewBaseJsii976() BaseJsii976Iface {
 	_init_.Initialize()
-	returnval := BaseJsii976{}
+	self := BaseJsii976{}
 	_jsii_.Create(
 		"jsii-calc.BaseJsii976",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 // Class interface
@@ -1979,15 +1979,15 @@ func (b *Bell) GetRung() bool {
 
 func NewBell() BellIface {
 	_init_.Initialize()
-	returnval := Bell{}
+	self := Bell{}
 	_jsii_.Create(
 		"jsii-calc.Bell",
 		[]interface{}{},
 		[]string{"jsii-calc.IBell"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (b *Bell) SetRung(val bool) {
@@ -2044,15 +2044,15 @@ func (b *BinaryOperation) GetRhs() scopejsiicalclib.NumericValue {
 // Creates a BinaryOperation.
 func NewBinaryOperation(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) BinaryOperationIface {
 	_init_.Initialize()
-	returnval := BinaryOperation{}
+	self := BinaryOperation{}
 	_jsii_.Create(
 		"jsii-calc.BinaryOperation",
 		[]interface{}{lhs, rhs},
 		[]string{"@scope/jsii-calc-lib.IFriendly"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (b *BinaryOperation) SetValue(val float64) {
@@ -2107,15 +2107,15 @@ type BurriedAnonymousObject struct {
 
 func NewBurriedAnonymousObject() BurriedAnonymousObjectIface {
 	_init_.Initialize()
-	returnval := BurriedAnonymousObject{}
+	self := BurriedAnonymousObject{}
 	_jsii_.Create(
 		"jsii-calc.BurriedAnonymousObject",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (b *BurriedAnonymousObject) Check() bool {
@@ -2250,15 +2250,15 @@ func (c *Calculator) GetUnionProperty() _jsii_.Any {
 // Creates a Calculator object.
 func NewCalculator(props CalculatorProps) CalculatorIface {
 	_init_.Initialize()
-	returnval := Calculator{}
+	self := Calculator{}
 	_jsii_.Create(
 		"jsii-calc.Calculator",
 		[]interface{}{props},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *Calculator) SetValue(val float64) {
@@ -2448,15 +2448,15 @@ func (c *ClassThatImplementsTheInternalInterface) GetD() string {
 
 func NewClassThatImplementsTheInternalInterface() ClassThatImplementsTheInternalInterfaceIface {
 	_init_.Initialize()
-	returnval := ClassThatImplementsTheInternalInterface{}
+	self := ClassThatImplementsTheInternalInterface{}
 	_jsii_.Create(
 		"jsii-calc.ClassThatImplementsTheInternalInterface",
 		[]interface{}{},
 		[]string{"jsii-calc.INonInternalInterface"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *ClassThatImplementsTheInternalInterface) SetA(val string) {
@@ -2516,15 +2516,15 @@ func (c *ClassThatImplementsThePrivateInterface) GetE() string {
 
 func NewClassThatImplementsThePrivateInterface() ClassThatImplementsThePrivateInterfaceIface {
 	_init_.Initialize()
-	returnval := ClassThatImplementsThePrivateInterface{}
+	self := ClassThatImplementsThePrivateInterface{}
 	_jsii_.Create(
 		"jsii-calc.ClassThatImplementsThePrivateInterface",
 		[]interface{}{},
 		[]string{"jsii-calc.INonInternalInterface"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *ClassThatImplementsThePrivateInterface) SetA(val string) {
@@ -2584,15 +2584,15 @@ func (c *ClassWithCollections) GetMap() map[string]string {
 
 func NewClassWithCollections(map_ map[string]string, array []string) ClassWithCollectionsIface {
 	_init_.Initialize()
-	returnval := ClassWithCollections{}
+	self := ClassWithCollections{}
 	_jsii_.Create(
 		"jsii-calc.ClassWithCollections",
 		[]interface{}{map_, array},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *ClassWithCollections) SetStaticArray(val []string) {
@@ -2651,15 +2651,15 @@ type ClassWithDocs struct {
 
 func NewClassWithDocs() ClassWithDocsIface {
 	_init_.Initialize()
-	returnval := ClassWithDocs{}
+	self := ClassWithDocs{}
 	_jsii_.Create(
 		"jsii-calc.ClassWithDocs",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 // Class interface
@@ -2681,15 +2681,15 @@ func (c *ClassWithJavaReservedWords) GetInt() string {
 
 func NewClassWithJavaReservedWords(int string) ClassWithJavaReservedWordsIface {
 	_init_.Initialize()
-	returnval := ClassWithJavaReservedWords{}
+	self := ClassWithJavaReservedWords{}
 	_jsii_.Create(
 		"jsii-calc.ClassWithJavaReservedWords",
 		[]interface{}{int},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *ClassWithJavaReservedWords) SetInt(val string) {
@@ -2723,15 +2723,15 @@ func (c *ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjec
 
 func NewClassWithMutableObjectLiteralProperty() ClassWithMutableObjectLiteralPropertyIface {
 	_init_.Initialize()
-	returnval := ClassWithMutableObjectLiteralProperty{}
+	self := ClassWithMutableObjectLiteralProperty{}
 	_jsii_.Create(
 		"jsii-calc.ClassWithMutableObjectLiteralProperty",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObjectLiteral) {
@@ -2849,15 +2849,15 @@ type ConstructorPassesThisOut struct {
 
 func NewConstructorPassesThisOut(consumer PartiallyInitializedThisConsumer) ConstructorPassesThisOutIface {
 	_init_.Initialize()
-	returnval := ConstructorPassesThisOut{}
+	self := ConstructorPassesThisOut{}
 	_jsii_.Create(
 		"jsii-calc.ConstructorPassesThisOut",
 		[]interface{}{consumer},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 // Class interface
@@ -2870,15 +2870,15 @@ type Constructors struct {
 
 func NewConstructors() ConstructorsIface {
 	_init_.Initialize()
-	returnval := Constructors{}
+	self := Constructors{}
 	_jsii_.Create(
 		"jsii-calc.Constructors",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func Constructors_HiddenInterface() IPublicInterface {
@@ -2962,15 +2962,15 @@ type ConsumePureInterface struct {
 
 func NewConsumePureInterface(delegate IStructReturningDelegate) ConsumePureInterfaceIface {
 	_init_.Initialize()
-	returnval := ConsumePureInterface{}
+	self := ConsumePureInterface{}
 	_jsii_.Create(
 		"jsii-calc.ConsumePureInterface",
 		[]interface{}{delegate},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *ConsumePureInterface) WorkItBaby() StructB {
@@ -3000,15 +3000,15 @@ type ConsumerCanRingBell struct {
 
 func NewConsumerCanRingBell() ConsumerCanRingBellIface {
 	_init_.Initialize()
-	returnval := ConsumerCanRingBell{}
+	self := ConsumerCanRingBell{}
 	_jsii_.Create(
 		"jsii-calc.ConsumerCanRingBell",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRinger) bool {
@@ -3099,15 +3099,15 @@ type ConsumersOfThisCrazyTypeSystem struct {
 
 func NewConsumersOfThisCrazyTypeSystem() ConsumersOfThisCrazyTypeSystemIface {
 	_init_.Initialize()
-	returnval := ConsumersOfThisCrazyTypeSystem{}
+	self := ConsumersOfThisCrazyTypeSystem{}
 	_jsii_.Create(
 		"jsii-calc.ConsumersOfThisCrazyTypeSystem",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *ConsumersOfThisCrazyTypeSystem) ConsumeAnotherPublicInterface(obj IAnotherPublicInterface) string {
@@ -3142,15 +3142,15 @@ type DataRenderer struct {
 
 func NewDataRenderer() DataRendererIface {
 	_init_.Initialize()
-	returnval := DataRenderer{}
+	self := DataRenderer{}
 	_jsii_.Create(
 		"jsii-calc.DataRenderer",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DataRenderer) Render(data scopejsiicalclib.MyFirstStruct) string {
@@ -3212,15 +3212,15 @@ func (d *DefaultedConstructorArgument) GetArg2() string {
 
 func NewDefaultedConstructorArgument(arg1 float64, arg2 string, arg3 string) DefaultedConstructorArgumentIface {
 	_init_.Initialize()
-	returnval := DefaultedConstructorArgument{}
+	self := DefaultedConstructorArgument{}
 	_jsii_.Create(
 		"jsii-calc.DefaultedConstructorArgument",
 		[]interface{}{arg1, arg2, arg3},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DefaultedConstructorArgument) SetArg1(val float64) {
@@ -3249,15 +3249,15 @@ type Demonstrate982 struct {
 
 func NewDemonstrate982() Demonstrate982Iface {
 	_init_.Initialize()
-	returnval := Demonstrate982{}
+	self := Demonstrate982{}
 	_jsii_.Create(
 		"jsii-calc.Demonstrate982",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func Demonstrate982_TakeThis() ChildStruct982 {
@@ -3309,15 +3309,15 @@ func (d *DeprecatedClass) GetMutableProperty() float64 {
 
 func NewDeprecatedClass(readonlyString string, mutableNumber float64) DeprecatedClassIface {
 	_init_.Initialize()
-	returnval := DeprecatedClass{}
+	self := DeprecatedClass{}
 	_jsii_.Create(
 		"jsii-calc.DeprecatedClass",
 		[]interface{}{readonlyString, mutableNumber},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DeprecatedClass) SetReadonlyProperty(val string) {
@@ -3580,15 +3580,15 @@ type DoNotOverridePrivates struct {
 
 func NewDoNotOverridePrivates() DoNotOverridePrivatesIface {
 	_init_.Initialize()
-	returnval := DoNotOverridePrivates{}
+	self := DoNotOverridePrivates{}
 	_jsii_.Create(
 		"jsii-calc.DoNotOverridePrivates",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DoNotOverridePrivates) ChangePrivatePropertyValue(newValue string) {
@@ -3629,15 +3629,15 @@ type DoNotRecognizeAnyAsOptional struct {
 
 func NewDoNotRecognizeAnyAsOptional() DoNotRecognizeAnyAsOptionalIface {
 	_init_.Initialize()
-	returnval := DoNotRecognizeAnyAsOptional{}
+	self := DoNotRecognizeAnyAsOptional{}
 	_jsii_.Create(
 		"jsii-calc.DoNotRecognizeAnyAsOptional",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DoNotRecognizeAnyAsOptional) Method(_requiredAny _jsii_.Any, _optionalAny _jsii_.Any, _optionalString string) {
@@ -3666,15 +3666,15 @@ type DocumentedClass struct {
 
 func NewDocumentedClass() DocumentedClassIface {
 	_init_.Initialize()
-	returnval := DocumentedClass{}
+	self := DocumentedClass{}
 	_jsii_.Create(
 		"jsii-calc.DocumentedClass",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DocumentedClass) Greet(greetee Greetee) float64 {
@@ -3705,15 +3705,15 @@ type DontComplainAboutVariadicAfterOptional struct {
 
 func NewDontComplainAboutVariadicAfterOptional() DontComplainAboutVariadicAfterOptionalIface {
 	_init_.Initialize()
-	returnval := DontComplainAboutVariadicAfterOptional{}
+	self := DontComplainAboutVariadicAfterOptional{}
 	_jsii_.Create(
 		"jsii-calc.DontComplainAboutVariadicAfterOptional",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DontComplainAboutVariadicAfterOptional) OptionalAndVariadic(optional string, things string) string {
@@ -3740,15 +3740,15 @@ type DoubleTrouble struct {
 
 func NewDoubleTrouble() DoubleTroubleIface {
 	_init_.Initialize()
-	returnval := DoubleTrouble{}
+	self := DoubleTrouble{}
 	_jsii_.Create(
 		"jsii-calc.DoubleTrouble",
 		[]interface{}{},
 		[]string{"jsii-calc.IFriendlyRandomGenerator"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DoubleTrouble) Hello() string {
@@ -3795,15 +3795,15 @@ func (d *DynamicPropertyBearer) GetValueStore() string {
 
 func NewDynamicPropertyBearer(valueStore string) DynamicPropertyBearerIface {
 	_init_.Initialize()
-	returnval := DynamicPropertyBearer{}
+	self := DynamicPropertyBearer{}
 	_jsii_.Create(
 		"jsii-calc.DynamicPropertyBearer",
 		[]interface{}{valueStore},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DynamicPropertyBearer) SetDynamicProperty(val string) {
@@ -3847,15 +3847,15 @@ func (d *DynamicPropertyBearerChild) GetOriginalValue() string {
 
 func NewDynamicPropertyBearerChild(originalValue string) DynamicPropertyBearerChildIface {
 	_init_.Initialize()
-	returnval := DynamicPropertyBearerChild{}
+	self := DynamicPropertyBearerChild{}
 	_jsii_.Create(
 		"jsii-calc.DynamicPropertyBearerChild",
 		[]interface{}{originalValue},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (d *DynamicPropertyBearerChild) SetDynamicProperty(val string) {
@@ -3893,15 +3893,15 @@ type Entropy struct {
 // Creates a new instance of Entropy.
 func NewEntropy(clock IWallClock) EntropyIface {
 	_init_.Initialize()
-	returnval := Entropy{}
+	self := Entropy{}
 	_jsii_.Create(
 		"jsii-calc.Entropy",
 		[]interface{}{clock},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (e *Entropy) Increase() string {
@@ -3960,15 +3960,15 @@ type EraseUndefinedHashValues struct {
 
 func NewEraseUndefinedHashValues() EraseUndefinedHashValuesIface {
 	_init_.Initialize()
-	returnval := EraseUndefinedHashValues{}
+	self := EraseUndefinedHashValues{}
 	_jsii_.Create(
 		"jsii-calc.EraseUndefinedHashValues",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptions, key string) bool {
@@ -4051,15 +4051,15 @@ func (e *ExperimentalClass) GetMutableProperty() float64 {
 
 func NewExperimentalClass(readonlyString string, mutableNumber float64) ExperimentalClassIface {
 	_init_.Initialize()
-	returnval := ExperimentalClass{}
+	self := ExperimentalClass{}
 	_jsii_.Create(
 		"jsii-calc.ExperimentalClass",
 		[]interface{}{readonlyString, mutableNumber},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (e *ExperimentalClass) SetReadonlyProperty(val string) {
@@ -4122,15 +4122,15 @@ func (e *ExportedBaseClass) GetSuccess() bool {
 
 func NewExportedBaseClass(success bool) ExportedBaseClassIface {
 	_init_.Initialize()
-	returnval := ExportedBaseClass{}
+	self := ExportedBaseClass{}
 	_jsii_.Create(
 		"jsii-calc.ExportedBaseClass",
 		[]interface{}{success},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (e *ExportedBaseClass) SetSuccess(val bool) {
@@ -4184,15 +4184,15 @@ func (e *ExternalClass) GetMutableProperty() float64 {
 
 func NewExternalClass(readonlyString string, mutableNumber float64) ExternalClassIface {
 	_init_.Initialize()
-	returnval := ExternalClass{}
+	self := ExternalClass{}
 	_jsii_.Create(
 		"jsii-calc.ExternalClass",
 		[]interface{}{readonlyString, mutableNumber},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (e *ExternalClass) SetReadonlyProperty(val string) {
@@ -4254,15 +4254,15 @@ func (g *GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOption
 
 func NewGiveMeStructs() GiveMeStructsIface {
 	_init_.Initialize()
-	returnval := GiveMeStructs{}
+	self := GiveMeStructs{}
 	_jsii_.Create(
 		"jsii-calc.GiveMeStructs",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (g *GiveMeStructs) SetStructLiteral(val scopejsiicalclib.StructWithOnlyOptionals) {
@@ -4324,15 +4324,15 @@ type GreetingAugmenter struct {
 
 func NewGreetingAugmenter() GreetingAugmenterIface {
 	_init_.Initialize()
-	returnval := GreetingAugmenter{}
+	self := GreetingAugmenter{}
 	_jsii_.Create(
 		"jsii-calc.GreetingAugmenter",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (g *GreetingAugmenter) BetterGreeting(friendly scopejsiicalclib.IFriendly) string {
@@ -4556,15 +4556,15 @@ func (i *ImplementInternalInterface) GetProp() string {
 
 func NewImplementInternalInterface() ImplementInternalInterfaceIface {
 	_init_.Initialize()
-	returnval := ImplementInternalInterface{}
+	self := ImplementInternalInterface{}
 	_jsii_.Create(
 		"jsii-calc.ImplementInternalInterface",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (i *ImplementInternalInterface) SetProp(val string) {
@@ -4589,15 +4589,15 @@ func (i *Implementation) GetValue() float64 {
 
 func NewImplementation() ImplementationIface {
 	_init_.Initialize()
-	returnval := Implementation{}
+	self := Implementation{}
 	_jsii_.Create(
 		"jsii-calc.Implementation",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (i *Implementation) SetValue(val float64) {
@@ -4616,15 +4616,15 @@ type ImplementsInterfaceWithInternal struct {
 
 func NewImplementsInterfaceWithInternal() ImplementsInterfaceWithInternalIface {
 	_init_.Initialize()
-	returnval := ImplementsInterfaceWithInternal{}
+	self := ImplementsInterfaceWithInternal{}
 	_jsii_.Create(
 		"jsii-calc.ImplementsInterfaceWithInternal",
 		[]interface{}{},
 		[]string{"jsii-calc.IInterfaceWithInternal"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (i *ImplementsInterfaceWithInternal) Visible() {
@@ -4647,15 +4647,15 @@ type ImplementsInterfaceWithInternalSubclass struct {
 
 func NewImplementsInterfaceWithInternalSubclass() ImplementsInterfaceWithInternalSubclassIface {
 	_init_.Initialize()
-	returnval := ImplementsInterfaceWithInternalSubclass{}
+	self := ImplementsInterfaceWithInternalSubclass{}
 	_jsii_.Create(
 		"jsii-calc.ImplementsInterfaceWithInternalSubclass",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (i *ImplementsInterfaceWithInternalSubclass) Visible() {
@@ -4684,15 +4684,15 @@ func (i *ImplementsPrivateInterface) GetPrivate() string {
 
 func NewImplementsPrivateInterface() ImplementsPrivateInterfaceIface {
 	_init_.Initialize()
-	returnval := ImplementsPrivateInterface{}
+	self := ImplementsPrivateInterface{}
 	_jsii_.Create(
 		"jsii-calc.ImplementsPrivateInterface",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (i *ImplementsPrivateInterface) SetPrivate(val string) {
@@ -4739,15 +4739,15 @@ type InbetweenClass struct {
 
 func NewInbetweenClass() InbetweenClassIface {
 	_init_.Initialize()
-	returnval := InbetweenClass{}
+	self := InbetweenClass{}
 	_jsii_.Create(
 		"jsii-calc.InbetweenClass",
 		[]interface{}{},
 		[]string{"jsii-calc.IPublicInterface2"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (i *InbetweenClass) Hello() {
@@ -4852,15 +4852,15 @@ type Isomorphism struct {
 
 func NewIsomorphism() IsomorphismIface {
 	_init_.Initialize()
-	returnval := Isomorphism{}
+	self := Isomorphism{}
 	_jsii_.Create(
 		"jsii-calc.Isomorphism",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (i *Isomorphism) Myself() Isomorphism {
@@ -4899,15 +4899,15 @@ func (j *Jsii417Derived) GetProperty() string {
 
 func NewJsii417Derived(property string) Jsii417DerivedIface {
 	_init_.Initialize()
-	returnval := Jsii417Derived{}
+	self := Jsii417Derived{}
 	_jsii_.Create(
 		"jsii-calc.JSII417Derived",
 		[]interface{}{property},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (j *Jsii417Derived) SetHasRoot(val bool) {
@@ -4971,15 +4971,15 @@ func (j *Jsii417PublicBaseOfBase) GetHasRoot() bool {
 
 func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBaseIface {
 	_init_.Initialize()
-	returnval := Jsii417PublicBaseOfBase{}
+	self := Jsii417PublicBaseOfBase{}
 	_jsii_.Create(
 		"jsii-calc.JSII417PublicBaseOfBase",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (j *Jsii417PublicBaseOfBase) SetHasRoot(val bool) {
@@ -5016,15 +5016,15 @@ type JsObjectLiteralForInterface struct {
 
 func NewJsObjectLiteralForInterface() JsObjectLiteralForInterfaceIface {
 	_init_.Initialize()
-	returnval := JsObjectLiteralForInterface{}
+	self := JsObjectLiteralForInterface{}
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralForInterface",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (j *JsObjectLiteralForInterface) GiveMeFriendly() scopejsiicalclib.IFriendly {
@@ -5056,15 +5056,15 @@ type JsObjectLiteralToNative struct {
 
 func NewJsObjectLiteralToNative() JsObjectLiteralToNativeIface {
 	_init_.Initialize()
-	returnval := JsObjectLiteralToNative{}
+	self := JsObjectLiteralToNative{}
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralToNative",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (j *JsObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNativeClass {
@@ -5101,15 +5101,15 @@ func (j *JsObjectLiteralToNativeClass) GetPropB() float64 {
 
 func NewJsObjectLiteralToNativeClass() JsObjectLiteralToNativeClassIface {
 	_init_.Initialize()
-	returnval := JsObjectLiteralToNativeClass{}
+	self := JsObjectLiteralToNativeClass{}
 	_jsii_.Create(
 		"jsii-calc.JSObjectLiteralToNativeClass",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (j *JsObjectLiteralToNativeClass) SetPropA(val string) {
@@ -5190,15 +5190,15 @@ func (j *JavaReservedWords) GetWhile() string {
 
 func NewJavaReservedWords() JavaReservedWordsIface {
 	_init_.Initialize()
-	returnval := JavaReservedWords{}
+	self := JavaReservedWords{}
 	_jsii_.Create(
 		"jsii-calc.JavaReservedWords",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (j *JavaReservedWords) SetWhile(val string) {
@@ -5633,15 +5633,15 @@ type Jsii487Derived struct {
 
 func NewJsii487Derived() Jsii487DerivedIface {
 	_init_.Initialize()
-	returnval := Jsii487Derived{}
+	self := Jsii487Derived{}
 	_jsii_.Create(
 		"jsii-calc.Jsii487Derived",
 		[]interface{}{},
 		[]string{"jsii-calc.IJsii487External2", "jsii-calc.IJsii487External"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 // Class interface
@@ -5655,15 +5655,15 @@ type Jsii496Derived struct {
 
 func NewJsii496Derived() Jsii496DerivedIface {
 	_init_.Initialize()
-	returnval := Jsii496Derived{}
+	self := Jsii496Derived{}
 	_jsii_.Create(
 		"jsii-calc.Jsii496Derived",
 		[]interface{}{},
 		[]string{"jsii-calc.IJsii496"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 // Class interface
@@ -5687,15 +5687,15 @@ func (j *JsiiAgent) GetValue() string {
 
 func NewJsiiAgent() JsiiAgentIface {
 	_init_.Initialize()
-	returnval := JsiiAgent{}
+	self := JsiiAgent{}
 	_jsii_.Create(
 		"jsii-calc.JsiiAgent",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (j *JsiiAgent) SetValue(val string) {
@@ -5873,15 +5873,15 @@ func (l *LevelOne) GetProps() LevelOneProps {
 
 func NewLevelOne(props LevelOneProps) LevelOneIface {
 	_init_.Initialize()
-	returnval := LevelOne{}
+	self := LevelOne{}
 	_jsii_.Create(
 		"jsii-calc.LevelOne",
 		[]interface{}{props},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (l *LevelOne) SetProps(val LevelOneProps) {
@@ -6023,15 +6023,15 @@ func (m *MethodNamedProperty) GetElite() float64 {
 
 func NewMethodNamedProperty() MethodNamedPropertyIface {
 	_init_.Initialize()
-	returnval := MethodNamedProperty{}
+	self := MethodNamedProperty{}
 	_jsii_.Create(
 		"jsii-calc.MethodNamedProperty",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (m *MethodNamedProperty) SetElite(val float64) {
@@ -6094,15 +6094,15 @@ func (m *Multiply) GetRhs() scopejsiicalclib.NumericValue {
 // Creates a BinaryOperation.
 func NewMultiply(lhs scopejsiicalclib.NumericValue, rhs scopejsiicalclib.NumericValue) MultiplyIface {
 	_init_.Initialize()
-	returnval := Multiply{}
+	self := Multiply{}
 	_jsii_.Create(
 		"jsii-calc.Multiply",
 		[]interface{}{lhs, rhs},
 		[]string{"jsii-calc.IFriendlier", "jsii-calc.IRandomNumberGenerator"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (m *Multiply) SetValue(val float64) {
@@ -6205,15 +6205,15 @@ func (n *Negate) GetOperand() scopejsiicalclib.NumericValue {
 
 func NewNegate(operand scopejsiicalclib.NumericValue) NegateIface {
 	_init_.Initialize()
-	returnval := Negate{}
+	self := Negate{}
 	_jsii_.Create(
 		"jsii-calc.Negate",
 		[]interface{}{operand},
 		[]string{"jsii-calc.IFriendlier"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (n *Negate) SetValue(val float64) {
@@ -6326,15 +6326,15 @@ func (n *NodeStandardLibrary) GetOsPlatform() string {
 
 func NewNodeStandardLibrary() NodeStandardLibraryIface {
 	_init_.Initialize()
-	returnval := NodeStandardLibrary{}
+	self := NodeStandardLibrary{}
 	_jsii_.Create(
 		"jsii-calc.NodeStandardLibrary",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (n *NodeStandardLibrary) SetOsPlatform(val string) {
@@ -6390,15 +6390,15 @@ func (n *NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
 
 func NewNullShouldBeTreatedAsUndefined(_param1 string, optional _jsii_.Any) NullShouldBeTreatedAsUndefinedIface {
 	_init_.Initialize()
-	returnval := NullShouldBeTreatedAsUndefined{}
+	self := NullShouldBeTreatedAsUndefined{}
 	_jsii_.Create(
 		"jsii-calc.NullShouldBeTreatedAsUndefined",
 		[]interface{}{_param1, optional},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (n *NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
@@ -6471,15 +6471,15 @@ func (n *NumberGenerator) GetGenerator() IRandomNumberGenerator {
 
 func NewNumberGenerator(generator IRandomNumberGenerator) NumberGeneratorIface {
 	_init_.Initialize()
-	returnval := NumberGenerator{}
+	self := NumberGenerator{}
 	_jsii_.Create(
 		"jsii-calc.NumberGenerator",
 		[]interface{}{generator},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (n *NumberGenerator) SetGenerator(val IRandomNumberGenerator) {
@@ -6517,15 +6517,15 @@ type ObjectRefsInCollections struct {
 
 func NewObjectRefsInCollections() ObjectRefsInCollectionsIface {
 	_init_.Initialize()
-	returnval := ObjectRefsInCollections{}
+	self := ObjectRefsInCollections{}
 	_jsii_.Create(
 		"jsii-calc.ObjectRefsInCollections",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (o *ObjectRefsInCollections) SumFromArray(values []scopejsiicalclib.NumericValue) float64 {
@@ -6577,15 +6577,15 @@ type Old struct {
 
 func NewOld() OldIface {
 	_init_.Initialize()
-	returnval := Old{}
+	self := Old{}
 	_jsii_.Create(
 		"jsii-calc.Old",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (o *Old) DoAThing() {
@@ -6608,15 +6608,15 @@ type OptionalArgumentInvoker struct {
 
 func NewOptionalArgumentInvoker(delegate IInterfaceWithOptionalMethodArguments) OptionalArgumentInvokerIface {
 	_init_.Initialize()
-	returnval := OptionalArgumentInvoker{}
+	self := OptionalArgumentInvoker{}
 	_jsii_.Create(
 		"jsii-calc.OptionalArgumentInvoker",
 		[]interface{}{delegate},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (o *OptionalArgumentInvoker) InvokeWithOptional() {
@@ -6667,15 +6667,15 @@ func (o *OptionalConstructorArgument) GetArg3() string {
 
 func NewOptionalConstructorArgument(arg1 float64, arg2 string, arg3 string) OptionalConstructorArgumentIface {
 	_init_.Initialize()
-	returnval := OptionalConstructorArgument{}
+	self := OptionalConstructorArgument{}
 	_jsii_.Create(
 		"jsii-calc.OptionalConstructorArgument",
 		[]interface{}{arg1, arg2, arg3},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (o *OptionalConstructorArgument) SetArg1(val float64) {
@@ -6730,15 +6730,15 @@ func (o *OptionalStructConsumer) GetFieldValue() string {
 
 func NewOptionalStructConsumer(optionalStruct OptionalStruct) OptionalStructConsumerIface {
 	_init_.Initialize()
-	returnval := OptionalStructConsumer{}
+	self := OptionalStructConsumer{}
 	_jsii_.Create(
 		"jsii-calc.OptionalStructConsumer",
 		[]interface{}{optionalStruct},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (o *OptionalStructConsumer) SetParameterWasUndefined(val bool) {
@@ -6777,15 +6777,15 @@ func (o *OverridableProtectedMember) GetOverrideReadWrite() string {
 
 func NewOverridableProtectedMember() OverridableProtectedMemberIface {
 	_init_.Initialize()
-	returnval := OverridableProtectedMember{}
+	self := OverridableProtectedMember{}
 	_jsii_.Create(
 		"jsii-calc.OverridableProtectedMember",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (o *OverridableProtectedMember) SetOverrideReadOnly(val string) {
@@ -6833,15 +6833,15 @@ type OverrideReturnsObject struct {
 
 func NewOverrideReturnsObject() OverrideReturnsObjectIface {
 	_init_.Initialize()
-	returnval := OverrideReturnsObject{}
+	self := OverrideReturnsObject{}
 	_jsii_.Create(
 		"jsii-calc.OverrideReturnsObject",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (o *OverrideReturnsObject) Test(obj IReturnsNumber) float64 {
@@ -6880,15 +6880,15 @@ type PartiallyInitializedThisConsumer struct {
 
 func NewPartiallyInitializedThisConsumer() PartiallyInitializedThisConsumerIface {
 	_init_.Initialize()
-	returnval := PartiallyInitializedThisConsumer{}
+	self := PartiallyInitializedThisConsumer{}
 	_jsii_.Create(
 		"jsii-calc.PartiallyInitializedThisConsumer",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (p *PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis(obj ConstructorPassesThisOut, dt string, ev AllTypesEnum) string {
@@ -6911,15 +6911,15 @@ type Polymorphism struct {
 
 func NewPolymorphism() PolymorphismIface {
 	_init_.Initialize()
-	returnval := Polymorphism{}
+	self := Polymorphism{}
 	_jsii_.Create(
 		"jsii-calc.Polymorphism",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (p *Polymorphism) SayHello(friendly scopejsiicalclib.IFriendly) string {
@@ -7004,15 +7004,15 @@ func (p *Power) GetPow() scopejsiicalclib.NumericValue {
 // Creates a Power operation.
 func NewPower(base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericValue) PowerIface {
 	_init_.Initialize()
-	returnval := Power{}
+	self := Power{}
 	_jsii_.Create(
 		"jsii-calc.Power",
 		[]interface{}{base, pow},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (p *Power) SetValue(val float64) {
@@ -7087,15 +7087,15 @@ func (p *PropertyNamedProperty) GetYetAnoterOne() bool {
 
 func NewPropertyNamedProperty() PropertyNamedPropertyIface {
 	_init_.Initialize()
-	returnval := PropertyNamedProperty{}
+	self := PropertyNamedProperty{}
 	_jsii_.Create(
 		"jsii-calc.PropertyNamedProperty",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (p *PropertyNamedProperty) SetProperty(val string) {
@@ -7117,15 +7117,15 @@ type PublicClass struct {
 
 func NewPublicClass() PublicClassIface {
 	_init_.Initialize()
-	returnval := PublicClass{}
+	self := PublicClass{}
 	_jsii_.Create(
 		"jsii-calc.PublicClass",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (p *PublicClass) Hello() {
@@ -7178,15 +7178,15 @@ type PythonReservedWords struct {
 
 func NewPythonReservedWords() PythonReservedWordsIface {
 	_init_.Initialize()
-	returnval := PythonReservedWords{}
+	self := PythonReservedWords{}
 	_jsii_.Create(
 		"jsii-calc.PythonReservedWords",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (p *PythonReservedWords) And() {
@@ -7466,15 +7466,15 @@ func (r *ReferenceEnumFromScopedPackage) GetFoo() scopejsiicalclib.EnumFromScope
 
 func NewReferenceEnumFromScopedPackage() ReferenceEnumFromScopedPackageIface {
 	_init_.Initialize()
-	returnval := ReferenceEnumFromScopedPackage{}
+	self := ReferenceEnumFromScopedPackage{}
 	_jsii_.Create(
 		"jsii-calc.ReferenceEnumFromScopedPackage",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (r *ReferenceEnumFromScopedPackage) SetFoo(val scopejsiicalclib.EnumFromScopedModule) {
@@ -7521,15 +7521,15 @@ func (r *ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPr
 
 func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOfInterfaceIface {
 	_init_.Initialize()
-	returnval := ReturnsPrivateImplementationOfInterface{}
+	self := ReturnsPrivateImplementationOfInterface{}
 	_jsii_.Create(
 		"jsii-calc.ReturnsPrivateImplementationOfInterface",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (r *ReturnsPrivateImplementationOfInterface) SetPrivateImplementation(val IPrivatelyImplemented) {
@@ -7592,15 +7592,15 @@ type RuntimeTypeChecking struct {
 
 func NewRuntimeTypeChecking() RuntimeTypeCheckingIface {
 	_init_.Initialize()
-	returnval := RuntimeTypeChecking{}
+	self := RuntimeTypeChecking{}
 	_jsii_.Create(
 		"jsii-calc.RuntimeTypeChecking",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (r *RuntimeTypeChecking) MethodWithDefaultedArguments(arg1 float64, arg2 string, arg3 string) {
@@ -7667,15 +7667,15 @@ type SingleInstanceTwoTypes struct {
 
 func NewSingleInstanceTwoTypes() SingleInstanceTwoTypesIface {
 	_init_.Initialize()
-	returnval := SingleInstanceTwoTypes{}
+	self := SingleInstanceTwoTypes{}
 	_jsii_.Create(
 		"jsii-calc.SingleInstanceTwoTypes",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (s *SingleInstanceTwoTypes) Interface1() InbetweenClass {
@@ -7783,15 +7783,15 @@ type SomeTypeJsii976 struct {
 
 func NewSomeTypeJsii976() SomeTypeJsii976Iface {
 	_init_.Initialize()
-	returnval := SomeTypeJsii976{}
+	self := SomeTypeJsii976{}
 	_jsii_.Create(
 		"jsii-calc.SomeTypeJsii976",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func SomeTypeJsii976_ReturnAnonymous() _jsii_.Any {
@@ -7840,15 +7840,15 @@ func (s *StableClass) GetMutableProperty() float64 {
 
 func NewStableClass(readonlyString string, mutableNumber float64) StableClassIface {
 	_init_.Initialize()
-	returnval := StableClass{}
+	self := StableClass{}
 	_jsii_.Create(
 		"jsii-calc.StableClass",
 		[]interface{}{readonlyString, mutableNumber},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (s *StableClass) SetReadonlyProperty(val string) {
@@ -7997,15 +7997,15 @@ func (s *Statics) GetValue() string {
 
 func NewStatics(value string) StaticsIface {
 	_init_.Initialize()
-	returnval := Statics{}
+	self := Statics{}
 	_jsii_.Create(
 		"jsii-calc.Statics",
 		[]interface{}{value},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (s *Statics) SetBar(val float64) {
@@ -8087,15 +8087,15 @@ func (s *StripInternal) GetYouSeeMe() string {
 
 func NewStripInternal() StripInternalIface {
 	_init_.Initialize()
-	returnval := StripInternal{}
+	self := StripInternal{}
 	_jsii_.Create(
 		"jsii-calc.StripInternal",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (s *StripInternal) SetYouSeeMe(val string) {
@@ -8193,15 +8193,15 @@ type StructPassing struct {
 
 func NewStructPassing() StructPassingIface {
 	_init_.Initialize()
-	returnval := StructPassing{}
+	self := StructPassing{}
 	_jsii_.Create(
 		"jsii-calc.StructPassing",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelStruct) float64 {
@@ -8349,15 +8349,15 @@ func (s *Sum) GetParts() []scopejsiicalclib.NumericValue {
 
 func NewSum() SumIface {
 	_init_.Initialize()
-	returnval := Sum{}
+	self := Sum{}
 	_jsii_.Create(
 		"jsii-calc.Sum",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (s *Sum) SetValue(val float64) {
@@ -8442,15 +8442,15 @@ func (s *SupportsNiceJavaBuilder) GetRest() []string {
 
 func NewSupportsNiceJavaBuilder(id float64, defaultBar float64, props SupportsNiceJavaBuilderProps, rest string) SupportsNiceJavaBuilderIface {
 	_init_.Initialize()
-	returnval := SupportsNiceJavaBuilder{}
+	self := SupportsNiceJavaBuilder{}
 	_jsii_.Create(
 		"jsii-calc.SupportsNiceJavaBuilder",
 		[]interface{}{id, defaultBar, props, rest},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (s *SupportsNiceJavaBuilder) SetBar(val float64) {
@@ -8528,15 +8528,15 @@ func (s *SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
 
 func NewSupportsNiceJavaBuilderWithRequiredProps(id float64, props SupportsNiceJavaBuilderProps) SupportsNiceJavaBuilderWithRequiredPropsIface {
 	_init_.Initialize()
-	returnval := SupportsNiceJavaBuilderWithRequiredProps{}
+	self := SupportsNiceJavaBuilderWithRequiredProps{}
 	_jsii_.Create(
 		"jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
 		[]interface{}{id, props},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (s *SupportsNiceJavaBuilderWithRequiredProps) SetBar(val float64) {
@@ -8614,15 +8614,15 @@ func (s *SyncVirtualMethods) GetValueOfOtherProperty() string {
 
 func NewSyncVirtualMethods() SyncVirtualMethodsIface {
 	_init_.Initialize()
-	returnval := SyncVirtualMethods{}
+	self := SyncVirtualMethods{}
 	_jsii_.Create(
 		"jsii-calc.SyncVirtualMethods",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (s *SyncVirtualMethods) SetReadonlyProperty(val string) {
@@ -8747,15 +8747,15 @@ type Thrower struct {
 
 func NewThrower() ThrowerIface {
 	_init_.Initialize()
-	returnval := Thrower{}
+	self := Thrower{}
 	_jsii_.Create(
 		"jsii-calc.Thrower",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (t *Thrower) ThrowError() {
@@ -8847,15 +8847,15 @@ func (u *UnaryOperation) GetOperand() scopejsiicalclib.NumericValue {
 
 func NewUnaryOperation(operand scopejsiicalclib.NumericValue) UnaryOperationIface {
 	_init_.Initialize()
-	returnval := UnaryOperation{}
+	self := UnaryOperation{}
 	_jsii_.Create(
 		"jsii-calc.UnaryOperation",
 		[]interface{}{operand},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (u *UnaryOperation) SetValue(val float64) {
@@ -8933,15 +8933,15 @@ func (u *UpcasingReflectable) GetEntries() []submodule.ReflectableEntry {
 
 func NewUpcasingReflectable(delegate map[string]_jsii_.Any) UpcasingReflectableIface {
 	_init_.Initialize()
-	returnval := UpcasingReflectable{}
+	self := UpcasingReflectable{}
 	_jsii_.Create(
 		"jsii-calc.UpcasingReflectable",
 		[]interface{}{delegate},
 		[]string{"@scope/jsii-calc-lib.submodule.IReflectable"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (u *UpcasingReflectable) SetReflector(val submodule.Reflector) {
@@ -8964,15 +8964,15 @@ type UseBundledDependency struct {
 
 func NewUseBundledDependency() UseBundledDependencyIface {
 	_init_.Initialize()
-	returnval := UseBundledDependency{}
+	self := UseBundledDependency{}
 	_jsii_.Create(
 		"jsii-calc.UseBundledDependency",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (u *UseBundledDependency) Value() _jsii_.Any {
@@ -8996,15 +8996,15 @@ type UseCalcBase struct {
 
 func NewUseCalcBase() UseCalcBaseIface {
 	_init_.Initialize()
-	returnval := UseCalcBase{}
+	self := UseCalcBase{}
 	_jsii_.Create(
 		"jsii-calc.UseCalcBase",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (u *UseCalcBase) Hello() scopejsiicalcbase.Base {
@@ -9037,15 +9037,15 @@ func (u *UsesInterfaceWithProperties) GetObj() IInterfaceWithProperties {
 
 func NewUsesInterfaceWithProperties(obj IInterfaceWithProperties) UsesInterfaceWithPropertiesIface {
 	_init_.Initialize()
-	returnval := UsesInterfaceWithProperties{}
+	self := UsesInterfaceWithProperties{}
 	_jsii_.Create(
 		"jsii-calc.UsesInterfaceWithProperties",
 		[]interface{}{obj},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (u *UsesInterfaceWithProperties) SetObj(val IInterfaceWithProperties) {
@@ -9090,15 +9090,15 @@ type VariadicInvoker struct {
 
 func NewVariadicInvoker(method VariadicMethod) VariadicInvokerIface {
 	_init_.Initialize()
-	returnval := VariadicInvoker{}
+	self := VariadicInvoker{}
 	_jsii_.Create(
 		"jsii-calc.VariadicInvoker",
 		[]interface{}{method},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (v *VariadicInvoker) AsArray(values float64) []float64 {
@@ -9121,15 +9121,15 @@ type VariadicMethod struct {
 
 func NewVariadicMethod(prefix float64) VariadicMethodIface {
 	_init_.Initialize()
-	returnval := VariadicMethod{}
+	self := VariadicMethod{}
 	_jsii_.Create(
 		"jsii-calc.VariadicMethod",
 		[]interface{}{prefix},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (v *VariadicMethod) AsArray(first float64, others float64) []float64 {
@@ -9156,15 +9156,15 @@ type VirtualMethodPlayground struct {
 
 func NewVirtualMethodPlayground() VirtualMethodPlaygroundIface {
 	_init_.Initialize()
-	returnval := VirtualMethodPlayground{}
+	self := VirtualMethodPlayground{}
 	_jsii_.Create(
 		"jsii-calc.VirtualMethodPlayground",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (v *VirtualMethodPlayground) OverrideMeAsync(index float64) float64 {
@@ -9237,15 +9237,15 @@ func (v *VoidCallback) GetMethodWasCalled() bool {
 
 func NewVoidCallback() VoidCallbackIface {
 	_init_.Initialize()
-	returnval := VoidCallback{}
+	self := VoidCallback{}
 	_jsii_.Create(
 		"jsii-calc.VoidCallback",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (v *VoidCallback) SetMethodWasCalled(val bool) {
@@ -9287,15 +9287,15 @@ func (w *WithPrivatePropertyInConstructor) GetSuccess() bool {
 
 func NewWithPrivatePropertyInConstructor(privateField string) WithPrivatePropertyInConstructorIface {
 	_init_.Initialize()
-	returnval := WithPrivatePropertyInConstructor{}
+	self := WithPrivatePropertyInConstructor{}
 	_jsii_.Create(
 		"jsii-calc.WithPrivatePropertyInConstructor",
 		[]interface{}{privateField},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (w *WithPrivatePropertyInConstructor) SetSuccess(val bool) {
@@ -9332,15 +9332,15 @@ func (c *ClassWithSelf) GetSelf() string {
 
 func NewClassWithSelf(self string) ClassWithSelfIface {
 	_init_.Initialize()
-	returnval := ClassWithSelf{}
+	self_ := ClassWithSelf{}
 	_jsii_.Create(
 		"jsii-calc.PythonSelf.ClassWithSelf",
 		[]interface{}{self},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self_,
 	)
-	return &returnval
+	return &self_
 }
 
 func (c *ClassWithSelf) SetSelf(val string) {
@@ -9374,15 +9374,15 @@ func (c *ClassWithSelfKwarg) GetProps() StructWithSelf {
 
 func NewClassWithSelfKwarg(props StructWithSelf) ClassWithSelfKwargIface {
 	_init_.Initialize()
-	returnval := ClassWithSelfKwarg{}
+	self := ClassWithSelfKwarg{}
 	_jsii_.Create(
 		"jsii-calc.PythonSelf.ClassWithSelfKwarg",
 		[]interface{}{props},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (c *ClassWithSelfKwarg) SetProps(val StructWithSelf) {
@@ -9479,15 +9479,15 @@ func (i *InnerClass) GetStaticProp() SomeStruct {
 
 func NewInnerClass() InnerClassIface {
 	_init_.Initialize()
-	returnval := InnerClass{}
+	self := InnerClass{}
 	_jsii_.Create(
 		"jsii-calc.submodule.child.InnerClass",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (i *InnerClass) SetStaticProp(val SomeStruct) {
@@ -9537,15 +9537,15 @@ func (o *OuterClass) GetInnerClass() InnerClass {
 
 func NewOuterClass() OuterClassIface {
 	_init_.Initialize()
-	returnval := OuterClass{}
+	self := OuterClass{}
 	_jsii_.Create(
 		"jsii-calc.submodule.child.OuterClass",
 		[]interface{}{},
 		[]string{},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (o *OuterClass) SetInnerClass(val InnerClass) {
@@ -9737,15 +9737,15 @@ func (m *MyClass) GetAllTypes() jsiicalc.AllTypes {
 
 func NewMyClass(props child.SomeStruct) MyClassIface {
 	_init_.Initialize()
-	returnval := MyClass{}
+	self := MyClass{}
 	_jsii_.Create(
 		"jsii-calc.submodule.MyClass",
 		[]interface{}{props},
 		[]string{"jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced"},
 		[]_jsii_.Override{},
-		&returnval,
+		&self,
 	)
-	return &returnval
+	return &self
 }
 
 func (m *MyClass) SetAwesomeness(val child.Awesomeness) {
