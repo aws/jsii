@@ -21,6 +21,9 @@ func (o override) isOverride() {
 	return
 }
 
+// FQN represents a fully-qualified type name in the jsii type system.
+type FQN string
+
 type MethodOverride struct {
 	override
 
@@ -94,18 +97,18 @@ type LoadResponse struct {
 	Types    float64 `json:"types"`
 }
 
-type CreateRequest struct {
+type createRequest struct {
 	kernelRequester
 
 	Api        string        `json:"api"`
-	Fqn        string        `json:"fqn"`
-	Interfaces []string      `json:"interfaces"`
+	Fqn        FQN           `json:"fqn"`
+	Interfaces []FQN         `json:"interfaces"`
 	Args       []interface{} `json:"args"`
 	Overrides  []Override    `json:"overrides"`
 }
 
 // TODO extends AnnotatedObjRef?
-type CreateResponse struct {
+type createResponse struct {
 	kernelResponder
 
 	JsiiInstanceId string `json:"$jsii.byref"`
@@ -134,7 +137,7 @@ type StaticGetRequest struct {
 	kernelRequester
 
 	Api      string  `json:"api"`
-	Fqn      *string `json:"fqn"`
+	Fqn      *FQN    `json:"fqn"`
 	Property *string `json:"property"`
 }
 type GetResponse struct {
@@ -147,7 +150,7 @@ type StaticSetRequest struct {
 	kernelRequester
 
 	Api      string  `json:"api"`
-	Fqn      *string `json:"fqn"`
+	Fqn      *FQN    `json:"fqn"`
 	Property *string `json:"property"`
 	Value    Any     `json:"value"`
 }
@@ -169,7 +172,7 @@ type StaticInvokeRequest struct {
 	kernelRequester
 
 	Api    string  `json:"api"`
-	Fqn    *string `json:"fqn"`
+	Fqn    *FQN    `json:"fqn"`
 	Method *string `json:"method"`
 	Args   []Any   `json:"args"`
 }
@@ -301,8 +304,8 @@ func (r *LoadResponse) UnmarshalJSON(data []byte) error {
 	return unmarshalKernelResponse(data, (*response)(r))
 }
 
-func (r *CreateResponse) UnmarshalJSON(data []byte) error {
-	type response CreateResponse
+func (r *createResponse) UnmarshalJSON(data []byte) error {
+	type response createResponse
 	return unmarshalKernelResponse(data, (*response)(r))
 }
 

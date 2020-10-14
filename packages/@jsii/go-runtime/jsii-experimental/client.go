@@ -211,8 +211,8 @@ func (c *client) load(request LoadRequest) (LoadResponse, error) {
 	return response, c.request(request, &response)
 }
 
-func (c *client) create(request CreateRequest) (CreateResponse, error) {
-	response := CreateResponse{}
+func (c *client) create(request createRequest) (createResponse, error) {
+	response := createResponse{}
 	return response, c.request(request, &response)
 }
 

@@ -6,6 +6,7 @@ import {
   JSII_INIT_FUNC,
   JSII_OVERRIDE,
 } from './constants';
+export * from './constants';
 
 const NOOP_RETURN_MAP: { [type: string]: string } = {
   float64: '0.0',
@@ -65,18 +66,24 @@ export class ClassConstructor {
 
   public emit(code: CodeMaker) {
     emitInitialization(code);
-    code.line(`returnval := ${this.parent.parent.name}{}`);
+
+    const resultVar = slugify(
+      'self',
+      this.parent.parameters.map((p) => p.name),
+    );
+
+    code.line(`${resultVar} := ${this.parent.parent.name}{}`);
     code.open(`${JSII_CREATE_FUNC}(`);
 
     code.line(`"${this.parent.parent.fqn}",`);
     code.line(`${this.argsString},`);
     code.line(`${this.interfacesString},`);
     code.line(`[]${JSII_OVERRIDE}{},`);
-    code.line(`&returnval,`);
+    code.line(`&${resultVar},`);
 
     code.close(`)`);
 
-    code.line(`return &returnval`);
+    code.line(`return &${resultVar}`);
   }
 
   public get interfacesString(): string {
@@ -98,4 +105,19 @@ export function emitInitialization(code: CodeMaker) {
   code.line(`${JSII_INIT_ALIAS}.${JSII_INIT_FUNC}()`);
 }
 
-export * from './constants';
+/**
+ * Slugify a name by appending '_' at the end until the resulting name is not
+ * present in the list of reserved names.
+ *
+ * @param name     the name to be slugified
+ * @param reserved the list of names that are already sued in-scope
+ *
+ * @returns the slugified name
+ */
+function slugify(name: string, reserved: Iterable<string>): string {
+  const used = new Set(reserved);
+  while (used.has(name)) {
+    name += '_';
+  }
+  return name;
+}
