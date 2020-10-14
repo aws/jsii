@@ -2,8 +2,8 @@ import { TypeReference } from 'jsii-reflect';
 import { Package } from '../package';
 import { GoType } from './go-type';
 import { toPascalCase } from 'codemaker';
-
-const GO_ANY = 'jsii.Any';
+import { JSII_ANY } from '../runtime';
+import * as log from '../../../logging';
 
 /*
  * Maps names of JS primitives to corresponding Go types as strings
@@ -12,10 +12,10 @@ class PrimitiveMapper {
   private readonly MAP: { [key: string]: string } = {
     number: 'float64',
     boolean: 'bool',
-    any: GO_ANY,
+    any: JSII_ANY,
     // TODO: Resolve "time" package dependency where needed and change to "time.Time"
     date: 'string',
-    json: `map[string]${GO_ANY}`,
+    json: `map[string]${JSII_ANY}`,
   };
 
   public constructor(private readonly name: string) {}
@@ -71,7 +71,7 @@ export class GoTypeRef {
       const innerName =
         new GoTypeRef(this.root, this.reference.arrayOfType).scopedName(
           scope,
-        ) ?? GO_ANY;
+        ) ?? JSII_ANY;
 
       return `[]${innerName}`;
     }
@@ -80,7 +80,7 @@ export class GoTypeRef {
     if (this.reference.mapOfType) {
       const innerName =
         new GoTypeRef(this.root, this.reference.mapOfType).scopedName(scope) ??
-        GO_ANY;
+        JSII_ANY;
       return `map[string]${innerName}`;
     }
 
@@ -96,7 +96,9 @@ export class GoTypeRef {
     }
 
     // type isn't handled
-    // TODO: Are there other cases to handle? if not throw an error.
-    return GO_ANY;
+    log.debug(
+      `Type ${this.name} does not resolve to a known Go type. It is being mapped to "Any".`,
+    );
+    return JSII_ANY;
   }
 }

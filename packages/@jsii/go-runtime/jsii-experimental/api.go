@@ -21,6 +21,9 @@ func (o override) isOverride() {
 	return
 }
 
+// FQN represents a fully-qualified type name in the jsii type system.
+type FQN string
+
 type MethodOverride struct {
 	override
 
@@ -94,19 +97,21 @@ type LoadResponse struct {
 	Types    float64 `json:"types"`
 }
 
-type CreateRequest struct {
+type createRequest struct {
 	kernelRequester
 
-	Api        string     `json:"api"`
-	Fqn        string     `json:"fqn"`
-	Interfaces []string   `json:"interfaces"`
-	Args       []Any      `json:"args"`
-	Overrides  []Override `json:"overrides"`
+	Api        string        `json:"api"`
+	Fqn        FQN           `json:"fqn"`
+	Interfaces []FQN         `json:"interfaces"`
+	Args       []interface{} `json:"args"`
+	Overrides  []Override    `json:"overrides"`
 }
 
 // TODO extends AnnotatedObjRef?
-type CreateResponse struct {
+type createResponse struct {
 	kernelResponder
+
+	JsiiInstanceId string `json:"$jsii.byref"`
 }
 
 type DelRequest struct {
@@ -132,7 +137,7 @@ type StaticGetRequest struct {
 	kernelRequester
 
 	Api      string  `json:"api"`
-	Fqn      *string `json:"fqn"`
+	Fqn      *FQN    `json:"fqn"`
 	Property *string `json:"property"`
 }
 type GetResponse struct {
@@ -145,7 +150,7 @@ type StaticSetRequest struct {
 	kernelRequester
 
 	Api      string  `json:"api"`
-	Fqn      *string `json:"fqn"`
+	Fqn      *FQN    `json:"fqn"`
 	Property *string `json:"property"`
 	Value    Any     `json:"value"`
 }
@@ -167,7 +172,7 @@ type StaticInvokeRequest struct {
 	kernelRequester
 
 	Api    string  `json:"api"`
-	Fqn    *string `json:"fqn"`
+	Fqn    *FQN    `json:"fqn"`
 	Method *string `json:"method"`
 	Args   []Any   `json:"args"`
 }
@@ -184,7 +189,7 @@ type InvokeRequest struct {
 type InvokeResponse struct {
 	kernelResponder
 
-	Result Any `json:result`
+	Result Any `json:"result"`
 }
 
 type BeginRequest struct {
@@ -299,6 +304,11 @@ func (r *LoadResponse) UnmarshalJSON(data []byte) error {
 	return unmarshalKernelResponse(data, (*response)(r))
 }
 
+func (r *createResponse) UnmarshalJSON(data []byte) error {
+	type response createResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
 // Custom unmarshaling for kernel responses, checks for presence of `error` key on json and returns if present
 func unmarshalKernelResponse(data []byte, resstruct interface{}) error {
 	datacopy := make([]byte, len(data))
@@ -313,5 +323,6 @@ func unmarshalKernelResponse(data []byte, resstruct interface{}) error {
 		return errors.New(string(errmessage))
 	}
 
-	return json.Unmarshal(data, resstruct)
+	err := json.Unmarshal(response["ok"], resstruct)
+	return err
 }
