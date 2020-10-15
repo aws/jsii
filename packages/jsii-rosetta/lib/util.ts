@@ -13,7 +13,9 @@ export function printDiagnostics(
   diags: ts.Diagnostic[],
   stream: NodeJS.WritableStream,
 ) {
-  diags.forEach((d) => printDiagnostic(d, stream));
+  ts.sortAndDeduplicateDiagnostics(diags).forEach((d) =>
+    printDiagnostic(d, stream),
+  );
 }
 
 export function printDiagnostic(
