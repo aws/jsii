@@ -141,9 +141,9 @@ export class SnippetTranslator {
       const program = this.compilation.program;
       this.compileDiagnostics.push(
         ...program.getGlobalDiagnostics(),
-        ...program.getSyntacticDiagnostics(),
-        ...program.getDeclarationDiagnostics(),
-        ...program.getSemanticDiagnostics(),
+        ...program.getSyntacticDiagnostics(this.compilation.rootFile),
+        ...program.getDeclarationDiagnostics(this.compilation.rootFile),
+        ...program.getSemanticDiagnostics(this.compilation.rootFile),
       );
     }
   }

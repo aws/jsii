@@ -1,11 +1,10 @@
 import * as ts from 'typescript';
 
 export class TypeScriptCompiler {
-  private readonly realHost: ts.CompilerHost;
-
-  public constructor() {
-    this.realHost = ts.createCompilerHost(STANDARD_COMPILER_OPTIONS, true);
-  }
+  private readonly realHost = ts.createCompilerHost(
+    STANDARD_COMPILER_OPTIONS,
+    true,
+  );
 
   public createInMemoryCompilerHost(
     sourcePath: string,
@@ -20,16 +19,13 @@ export class TypeScriptCompiler {
     );
 
     return {
+      ...realHost,
       fileExists: (filePath) =>
         filePath === sourcePath || realHost.fileExists(filePath),
-      directoryExists: realHost.directoryExists?.bind(realHost),
-      getCurrentDirectory: () =>
-        currentDirectory || realHost.getCurrentDirectory(),
-      getDirectories: realHost.getDirectories?.bind(realHost),
-      getCanonicalFileName: (fileName) =>
-        realHost.getCanonicalFileName(fileName),
-      getNewLine: realHost.getNewLine.bind(realHost),
-      getDefaultLibFileName: realHost.getDefaultLibFileName.bind(realHost),
+      getCurrentDirectory:
+        currentDirectory != null
+          ? () => currentDirectory
+          : realHost.getCurrentDirectory,
       getSourceFile: (
         fileName,
         languageVersion,
@@ -46,10 +42,7 @@ export class TypeScriptCompiler {
             ),
       readFile: (filePath) =>
         filePath === sourcePath ? sourceContents : realHost.readFile(filePath),
-      useCaseSensitiveFileNames: () => realHost.useCaseSensitiveFileNames(),
-      writeFile(_fileName, _data) {
-        /* nothing */
-      },
+      writeFile: () => void undefined,
     };
   }
 
