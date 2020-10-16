@@ -141,17 +141,16 @@ export class ClassMethod extends GoMethod {
     public readonly method: Method,
   ) {
     super(parent, method);
-    this.runtimeCall = new MethodCall(this, this.method.static);
+    this.runtimeCall = new MethodCall(this);
   }
 
   /* emit generates method implementation on the class */
   public emit({ code }: EmitContext) {
     const name = this.name;
-    const instanceArg = this.parent.name.substring(0, 1).toLowerCase();
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
     code.openBlock(
-      `func (${instanceArg} *${
+      `func (${this.instanceArg} *${
         this.parent.name
       }) ${name}(${this.paramString()})${returnTypeString}`,
     );
@@ -173,6 +172,10 @@ export class ClassMethod extends GoMethod {
     return (
       this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
     );
+  }
+
+  public get instanceArg(): string {
+    return this.parent.name.substring(0, 1).toLowerCase();
   }
 }
 

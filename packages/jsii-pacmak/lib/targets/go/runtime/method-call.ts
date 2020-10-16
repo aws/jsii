@@ -1,42 +1,60 @@
 import { CodeMaker } from 'codemaker';
 import { ClassMethod, Struct } from '../types';
 import { emitInitialization } from './util';
+import { JSII_INVOKE_FUNC, JSII_SINVOKE_FUNC } from './constants';
 
+// NOOP type returns
 const NOOP_RETURN_MAP: { [type: string]: string } = {
   float64: '0.0',
   string: '"NOOP_RETURN_STRING"',
   bool: 'true',
 };
 
-function paramsString(params: string[]): string {
-  return `[]string{${params.reduce((accum: string, p: string, i: number) => {
-    const prefix = i === 0 ? '' : ' ';
-    return `${accum}${prefix}"${p}",`;
-  }, '')}}`;
-}
-
 export class MethodCall {
-  public constructor(
-    public readonly parent: ClassMethod,
-    private readonly inStatic: boolean,
-  ) {}
+  public constructor(public readonly parent: ClassMethod) {}
 
   public emit(code: CodeMaker) {
     if (this.inStatic) {
-      emitInitialization(code);
+      this.emitStatic(code);
+    } else {
+      this.emitDynamic(code);
     }
+  }
 
-    const name = code.toPascalCase(this.parent.name);
-    code.open(`_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {`);
-    code.line(`Class: "${this.parent.parent.name}",`);
-    code.line(`Method: "${name}",`);
-    code.line(
-      `Args: ${paramsString(
-        this.parent.method.parameters.map((p) => p.type.toString()),
-      )},`,
-    );
-    code.close(`})`);
+  private emitDynamic(code: CodeMaker) {
+    code.line(`returns := ""`);
+    code.open(`${JSII_INVOKE_FUNC}(`);
 
+    code.line(`${this.parent.instanceArg},`);
+    code.line(`"${this.parent.method.name}",`);
+    code.line(`${this.argsString},`);
+    code.line(`&returns,`);
+
+    code.close(`)`);
+
+    this.emitReturnStatement(code);
+  }
+
+  private emitStatic(code: CodeMaker) {
+    emitInitialization(code);
+    code.line(`returns := ""`);
+    code.open(`${JSII_SINVOKE_FUNC}(`);
+
+    code.line(`"${this.parent.parent.fqn}",`);
+    code.line(`"${this.parent.method.name}",`);
+    code.line(`${this.argsString},`);
+    code.line(`&returns,`);
+
+    code.close(`)`);
+
+    this.emitReturnStatement(code);
+  }
+
+  private getDummyReturn(type: string): string {
+    return NOOP_RETURN_MAP[type] || 'nil';
+  }
+
+  protected emitReturnStatement(code: CodeMaker) {
     const ret = this.parent.reference;
     if (ret?.void) {
       // don't emit a return statement if function doesn't return a value
@@ -50,7 +68,14 @@ export class MethodCall {
     }
   }
 
-  private getDummyReturn(type: string): string {
-    return NOOP_RETURN_MAP[type] || 'nil';
+  private get inStatic(): boolean {
+    return this.parent.method.static;
+  }
+
+  private get argsString(): string {
+    const argsList = this.parent.parameters
+      .map((param) => param.name)
+      .join(', ');
+    return `[]interface{}{${argsList}}`;
   }
 }
