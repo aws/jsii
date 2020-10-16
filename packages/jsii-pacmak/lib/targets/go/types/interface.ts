@@ -3,7 +3,7 @@ import { InterfaceType, Method, Property } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
-import { getFieldDependencies } from '../util';
+import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
 import { GoMethod, GoTypeMember } from './type-member';
@@ -66,8 +66,9 @@ export class Interface extends GoType {
   public get dependencies(): Package[] {
     return [
       ...this.extendsDependencies,
-      ...getFieldDependencies(this.methods),
-      ...getFieldDependencies(this.properties),
+      ...getMemberDependencies(this.methods),
+      ...getParamDependencies(this.methods),
+      ...getMemberDependencies(this.properties),
     ];
   }
 }

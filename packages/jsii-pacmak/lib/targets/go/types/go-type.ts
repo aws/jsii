@@ -3,7 +3,7 @@ import { ClassType, InterfaceType, Type } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
-import { getFieldDependencies } from '../util';
+import { getMemberDependencies } from '../util';
 import { GoTypeRef } from './go-type-reference';
 import { GoProperty } from './type-member';
 
@@ -121,7 +121,7 @@ export abstract class GoStruct extends GoType {
   public get dependencies(): Package[] {
     return [
       ...this.extendsDependencies,
-      ...getFieldDependencies(this.properties),
+      ...getMemberDependencies(this.properties),
     ];
   }
 }

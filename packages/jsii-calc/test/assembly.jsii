@@ -211,7 +211,7 @@
     "jsii-calc.submodule.back_references": {
       "locationInModule": {
         "filename": "lib/submodule/index.ts",
-        "line": 5
+        "line": 6
       }
     },
     "jsii-calc.submodule.child": {
@@ -236,6 +236,12 @@
       "locationInModule": {
         "filename": "lib/submodule/nested_submodule.ts",
         "line": 6
+      }
+    },
+    "jsii-calc.submodule.param": {
+      "locationInModule": {
+        "filename": "lib/submodule/index.ts",
+        "line": 3
       }
     }
   },
@@ -13717,7 +13723,7 @@
         },
         "locationInModule": {
           "filename": "lib/submodule/my-class.ts",
-          "line": 11
+          "line": 12
         },
         "parameters": [
           {
@@ -13734,8 +13740,33 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/submodule/my-class.ts",
-        "line": 5
+        "line": 6
       },
+      "methods": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/submodule/my-class.ts",
+            "line": 14
+          },
+          "name": "methodWithSpecialParam",
+          "parameters": [
+            {
+              "name": "param",
+              "type": {
+                "fqn": "jsii-calc.submodule.param.SpecialParameter"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
       "name": "MyClass",
       "namespace": "submodule",
       "properties": [
@@ -13746,7 +13777,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/my-class.ts",
-            "line": 8
+            "line": 9
           },
           "name": "awesomeness",
           "type": {
@@ -13760,7 +13791,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/my-class.ts",
-            "line": 6
+            "line": 7
           },
           "name": "definedAt",
           "overrides": "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced",
@@ -13775,7 +13806,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/my-class.ts",
-            "line": 7
+            "line": 8
           },
           "name": "goodness",
           "type": {
@@ -13789,7 +13820,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/submodule/my-class.ts",
-            "line": 11
+            "line": 12
           },
           "name": "props",
           "type": {
@@ -13802,7 +13833,7 @@
           },
           "locationInModule": {
             "filename": "lib/submodule/my-class.ts",
-            "line": 9
+            "line": 10
           },
           "name": "allTypes",
           "optional": true,
@@ -14226,8 +14257,40 @@
           }
         }
       ]
+    },
+    "jsii-calc.submodule.param.SpecialParameter": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.submodule.param.SpecialParameter",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/submodule/param/index.ts",
+        "line": 1
+      },
+      "name": "SpecialParameter",
+      "namespace": "submodule.param",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/submodule/param/index.ts",
+            "line": 2
+          },
+          "name": "value",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     }
   },
   "version": "0.0.0",
-  "fingerprint": "4hmiA8QnhJ/PpHaXii6GsyuZBd0aju0TBacsPwLER8U="
+  "fingerprint": "AjQxRIlQZGmhu7jMnxmBqMb4qO0moTM+pjHvCOiegwQ="
 }

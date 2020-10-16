@@ -766,6 +766,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┣━ 📁 deeplynested
           ┃  ┃  ┗━ 📄 deeplynested.go
           ┃  ┗━ 📄 nestedsubmodule.go
+          ┣━ 📁 param
+          ┃  ┗━ 📄 param.go
           ┗━ 📄 submodule.go
 `;
 
@@ -10304,6 +10306,32 @@ func (n *Namespaced) SetGoodness(val child.Goodness) {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/param/param.go 1`] = `
+package param
+
+import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+)
+
+// SpecialParameterIface is the public interface for the custom type SpecialParameter
+type SpecialParameterIface interface {
+	GetValue() string
+}
+
+// Struct proxy
+type SpecialParameter struct {
+	Value string
+}
+
+func (s *SpecialParameter) GetValue() string {
+	return s.Value
+}
+
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/submodule.go 1`] = `
 package submodule
 
@@ -10312,6 +10340,7 @@ import (
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/child"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
+	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/param"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
@@ -10328,6 +10357,7 @@ type MyClassIface interface {
 	SetProps(val child.SomeStruct)
 	GetAllTypes() jsiicalc.AllTypes
 	SetAllTypes(val jsiicalc.AllTypes)
+	MethodWithSpecialParam(param param.SpecialParameter) string
 }
 
 // Struct proxy
@@ -10391,6 +10421,15 @@ func (m *MyClass) SetProps(val child.SomeStruct) {
 
 func (m *MyClass) SetAllTypes(val jsiicalc.AllTypes) {
 	m.AllTypes = val
+}
+
+func (m *MyClass) MethodWithSpecialParam(param param.SpecialParameter) string {
+	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
+		Class: "MyClass",
+		Method: "MethodWithSpecialParam",
+		Args: []string{"jsii-calc.submodule.param.SpecialParameter",},
+	})
+	return "NOOP_RETURN_STRING"
 }
 
 
