@@ -1,3 +1,4 @@
+import atexit
 import datetime
 import contextlib
 import enum
@@ -230,7 +231,7 @@ class _NodeProcess:
         # just use importlib.resources.path.
 
         # jsii-runtime.js MUST be the first item in this list.
-        filenames = ["jsii-runtime.js", "jsii-runtime.js.map", "mappings.wasm"]
+        filenames = ["jsii-runtime.js", "jsii-runtime.js.map"]
 
         if isinstance(
             jsii._embedded.jsii.__loader__, importlib.machinery.SourceFileLoader
@@ -275,16 +276,26 @@ class _NodeProcess:
             stdout=subprocess.PIPE,
             env=environ,
         )
+
+        # Clean this process up at exit, so it terminates "gracefully"
+        atexit.register(self.stop)
+
         self.handshake()
 
     def stop(self):
-        # TODO: We can write an empty string here instead?
-        self._process.terminate()
+        # This process is closing already, un-registering the hook to not fire twice
+        atexit.unregister(self.stop)
+
+        # Close the process' STDIN, singalling we are done with it
+        self._process.stdin.close()
 
         try:
             self._process.wait(timeout=5)
         except subprocess.TimeoutExpired:
-            self._process.kill()
+            try:
+                self._process.terminate(timeout=5)
+            except subprocess.TimeoutExpired:
+                self._process.kill()
 
         self._ctx_stack.close()
 

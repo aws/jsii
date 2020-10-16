@@ -6,16 +6,13 @@ import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { EmitContext } from './emit-context';
 import { GoClass, GoType, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
-
-// JSII go runtime module name
-const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii-experimental';
-
-// Jsii initializer package name
-export const JSII_INIT_PACKAGE = 'jsii';
-// Function to initialize a jsii-generated module
-export const JSII_INIT_FUNC = 'Initialize';
-// Alias used for the jsii init
-export const JSII_INIT_ALIAS = '_init_';
+import {
+  JSII_RT_ALIAS,
+  JSII_RT_MODULE_NAME,
+  JSII_INIT_PACKAGE,
+  JSII_INIT_FUNC,
+  JSII_INIT_ALIAS,
+} from './runtime';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -114,7 +111,7 @@ export abstract class Package {
 
   private emitImports(code: CodeMaker) {
     code.open('import (');
-    code.line(`"${JSII_MODULE_NAME}"`);
+    code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
 
     for (const packageName of this.dependencyImports) {
       // If the module is the same as the current one being written, don't emit an import statement
@@ -220,7 +217,7 @@ export class RootPackage extends Package {
     code.line('package jsii');
     code.line();
     code.open('import (');
-    code.line(`rt "${JSII_MODULE_NAME}"`);
+    code.line(`rt "${JSII_RT_MODULE_NAME}"`);
     code.line('"sync"');
     if (dependencies.length > 0) {
       code.line('// Initialization endpoints of dependencies');
