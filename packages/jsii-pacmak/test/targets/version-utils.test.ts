@@ -1,7 +1,9 @@
+import { TargetName } from '../../lib/targets';
 import {
   toMavenVersionRange,
   toNuGetVersionRange,
   toPythonVersionRange,
+  toReleaseVersion,
 } from '../../lib/targets/version-utils';
 
 const examples: Record<
@@ -100,5 +102,56 @@ describe(toPythonVersionRange, () => {
   for (const [semver, { python }] of Object.entries(examples)) {
     test(`${semver} translates to ${python}`, () =>
       expect(toPythonVersionRange(semver)).toEqual(python));
+  }
+});
+
+describe(toReleaseVersion, () => {
+  type Expectations = { readonly [K in TargetName]: string };
+  const examples: Record<string, Expectations> = {
+    '1.2.3': {
+      dotnet: '1.2.3',
+      go: '1.2.3',
+      java: '1.2.3',
+      js: '1.2.3',
+      python: '1.2.3',
+    },
+    '1.2.3-pre': {
+      dotnet: '1.2.3-pre',
+      go: '1.2.3-pre',
+      java: '1.2.3-pre',
+      js: '1.2.3-pre',
+      python: '1.2.3-pre',
+    },
+    '1.2.3-alpha.1337': {
+      dotnet: '1.2.3-alpha.1337',
+      go: '1.2.3-alpha.1337',
+      java: '1.2.3-alpha.1337',
+      js: '1.2.3-alpha.1337',
+      python: '1.2.3.a1337',
+    },
+    '1.2.3-beta.42': {
+      dotnet: '1.2.3-beta.42',
+      go: '1.2.3-beta.42',
+      java: '1.2.3-beta.42',
+      js: '1.2.3-beta.42',
+      python: '1.2.3.b42',
+    },
+    '1.2.3-rc.9': {
+      dotnet: '1.2.3-rc.9',
+      go: '1.2.3-rc.9',
+      java: '1.2.3-rc.9',
+      js: '1.2.3-rc.9',
+      python: '1.2.3.rc9',
+    },
+  };
+
+  for (const [version, targets] of Object.entries(examples)) {
+    test(`"${version}" translations`, () => {
+      for (const [target, targetVersion] of Object.entries(targets)) {
+        expect(toReleaseVersion(version, target as TargetName)).toBe(
+          targetVersion,
+        );
+      }
+    });
   }
 });

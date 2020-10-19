@@ -5,7 +5,7 @@ import * as xmlbuilder from 'xmlbuilder';
 import { DotNetNameUtils } from './nameutils';
 import * as logging from '../../logging';
 import { TARGET_FRAMEWORK } from '../dotnet';
-import { toNuGetVersionRange } from '../version-utils';
+import { toNuGetVersionRange, toReleaseVersion } from '../version-utils';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
@@ -182,6 +182,6 @@ export class FileGenerator {
       // suffix is guaranteed to start with a leading `-`
       return `${assembly.version}${suffix}`;
     }
-    return assembly.version;
+    return toReleaseVersion(assembly.version, 'dotnet');
   }
 }

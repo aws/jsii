@@ -14,7 +14,7 @@ import {
   Rosetta,
   typeScriptSnippetFromSource,
 } from 'jsii-rosetta';
-import { toPythonVersionRange } from './version-utils';
+import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
@@ -2160,7 +2160,7 @@ class PythonGenerator extends Generator {
     this.package = new Package(
       this,
       assm.targets!.python!.distName,
-      assm.version,
+      toReleaseVersion(assm.version, 'python'),
       assm,
     );
 
