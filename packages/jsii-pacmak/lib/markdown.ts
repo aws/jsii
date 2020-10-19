@@ -20,17 +20,7 @@ export function md2rst(text: string) {
   }
 
   function textOf(node: commonmark.Node) {
-    if (node.literal) {
-      if (
-        node.prev?.literal === '\\' && // following a \ (might need escaping)
-        !/^\\.*/.exec(node.literal) && // doesn't start with a \ (not being escaped)
-        node.prev.prev?.literal !== '\\' // not two \ in a row (not already escaped)
-      ) {
-        return `\\${node.literal}`;
-      }
-      return node.literal;
-    }
-    return '';
+    return node.literal?.replace(/\\/g, '\\\\') ?? '';
   }
 
   pump(ast, {
