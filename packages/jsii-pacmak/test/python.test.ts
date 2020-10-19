@@ -116,10 +116,10 @@ test('list with multiline text', () => {
 test('escape character escaping', () => {
   converts(
     [
-      'For example, if you specify \\N, BigQuery interprets \\N as a null value',
+      `For example, if you specify \\N, BigQuery interprets \\N as a null value`,
     ],
     [
-      'For example, if you specify \\N, BigQuery interprets \\N as a null value',
+      `For example, if you specify \\\\N, BigQuery interprets \\\\N as a null value`,
     ],
   );
 });

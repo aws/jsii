@@ -20,7 +20,16 @@ export function md2rst(text: string) {
   }
 
   function textOf(node: commonmark.Node) {
-    return node.literal?.replace(/\\([a-zA-Z])/, '\\\\$1') ?? '';
+    if (node.literal) {
+      if (
+        node.prev?.literal === '\\' &&
+        /[a-zA-Z][^a-zA-Z]/.exec(node.literal)
+      ) {
+        return `\\${node.literal}`;
+      }
+      return node.literal;
+    }
+    return '';
   }
 
   pump(ast, {
