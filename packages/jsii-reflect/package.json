@@ -38,7 +38,7 @@
     "colors": "^1.4.0",
     "fs-extra": "^9.0.1",
     "oo-ascii-tree": "^0.0.0",
-    "yargs": "^16.0.3"
+    "yargs": "^16.1.0"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.0.0",
