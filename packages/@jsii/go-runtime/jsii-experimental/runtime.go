@@ -81,7 +81,7 @@ func Invoke(obj interface{}, method string, args []interface{}, returns interfac
 	}
 }
 
-func SInvoke(fqn FQN, method string, args []interface{}, returns interface{}) {
+func InvokeStatic(fqn FQN, method string, args []interface{}, returns interface{}) {
 	client := getClient()
 
 	_, err := client.sinvoke(staticInvokeRequest{

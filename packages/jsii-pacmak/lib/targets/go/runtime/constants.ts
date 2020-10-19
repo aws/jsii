@@ -14,7 +14,7 @@ export const JSII_CREATE_FUNC = `${JSII_RT_ALIAS}.Create`;
 // JSII invoke request
 export const JSII_INVOKE_FUNC = `${JSII_RT_ALIAS}.Invoke`;
 // JSII static invoke
-export const JSII_SINVOKE_FUNC = `${JSII_RT_ALIAS}.SInvoke`;
+export const JSII_SINVOKE_FUNC = `${JSII_RT_ALIAS}.InvokeStatic`;
 
 // MISC types & functions
 // Jsii override struct type
