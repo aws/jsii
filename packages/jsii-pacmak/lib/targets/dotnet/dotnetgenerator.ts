@@ -15,9 +15,6 @@ import { DotNetNameUtils } from './nameutils';
  * CODE GENERATOR V2
  */
 export class DotNetGenerator extends Generator {
-  // The path of the original jsii input model.
-  private jsiiFilePath!: string;
-
   // Flags that tracks if we have already wrote the first member of the class
   private firstMemberWritten = false;
 
@@ -47,7 +44,6 @@ export class DotNetGenerator extends Generator {
     assembly: reflect.Assembly,
   ): Promise<void> {
     await super.load(packageRoot, assembly);
-    this.jsiiFilePath = path.join(packageRoot, spec.SPEC_FILE_NAME);
   }
 
   /**
@@ -99,12 +95,6 @@ export class DotNetGenerator extends Generator {
 
     // Create an anchor file for the current model
     this.generateDependencyAnchorFile();
-
-    // Copying the .jsii file
-    await fs.copyFile(
-      this.jsiiFilePath,
-      path.join(outdir, packageId, spec.SPEC_FILE_NAME),
-    );
 
     // Saving the generated code.
     return this.code.save(outdir);
