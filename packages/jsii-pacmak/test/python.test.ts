@@ -116,10 +116,16 @@ test('list with multiline text', () => {
 test('escape character escaping', () => {
   converts(
     [
-      `For example, if you specify \\N, BigQuery interprets \\N as a null value`,
+      String.raw`For example, if you specify "\N", BigQuery interprets "\N" as a null value`,
+      String.raw`Single slash \\`, // markdown parses the escape even if ts doesn't
+      String.raw`Double slash \\\\`,
+      String.raw`Triple slash \\\\\\`,
     ],
     [
-      `For example, if you specify \\\\N, BigQuery interprets \\\\N as a null value`,
+      String.raw`For example, if you specify "\\N", BigQuery interprets "\\N" as a null value`,
+      String.raw`Single slash \\`,
+      String.raw`Double slash \\\\`,
+      String.raw`Triple slash \\\\\\`,
     ],
   );
 });
