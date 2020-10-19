@@ -420,8 +420,11 @@ jobs:
 
       - name: Integration Test (build)
         run: |-
-          npx lerna run build --stream 2>&1 > ${{ runner.temp }}/build.log
+          npx lerna run build --concurrency=1 --stream 2>&1 > ${{ runner.temp }}/build.log
         working-directory: aws-cdk
+        env:
+          # Make lots of memory available, aws-cdk-lib is __large__
+          NODE_OPTIONS: --max-old-space-size=8192
 
         # In the interest of speed, only process monocdk-experiment / aws-cdk-lib from now on
       - name: Integration Test (jsii-rosetta)
