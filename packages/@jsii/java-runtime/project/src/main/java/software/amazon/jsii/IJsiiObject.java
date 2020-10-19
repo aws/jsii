@@ -25,6 +25,7 @@ public interface IJsiiObject extends JsiiSerializable {
      * @return A return value.
      */
     @Nullable
+    @Internal
     <T> T $jsii$call(final String method, final NativeType<T> nativeType, @Nullable final Object... args);
 
     /**
@@ -37,6 +38,7 @@ public interface IJsiiObject extends JsiiSerializable {
      * @return A return value.
      */
     @Nullable
+    @Internal
     <T> T $jsii$asyncCall(final String method, final NativeType<T> nativeType, @Nullable final Object... args);
 
     /**
@@ -47,6 +49,7 @@ public interface IJsiiObject extends JsiiSerializable {
      * @return The property value.
      */
     @Nullable
+    @Internal
     <T> T $jsii$get(final String property, final NativeType<T> type);
 
     /**
@@ -55,5 +58,6 @@ public interface IJsiiObject extends JsiiSerializable {
      * @param property The name of the property.
      * @param value The property value.
      */
+    @Internal
     void $jsii$set(final String property, @Nullable final Object value);
 }
