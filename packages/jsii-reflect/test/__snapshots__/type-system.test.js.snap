@@ -117,6 +117,7 @@ Array [
   "jsii-calc.PythonSelf.ClassWithSelfKwarg",
   "jsii-calc.ReferenceEnumFromScopedPackage",
   "jsii-calc.ReturnsPrivateImplementationOfInterface",
+  "jsii-calc.ReturnsSpecialParameter",
   "jsii-calc.RootStructValidator",
   "jsii-calc.RuntimeTypeChecking",
   "jsii-calc.SingleInstanceTwoTypes",

@@ -1570,6 +1570,11 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ privateImplementation property (stable)
  │   │     ├── immutable
  │   │     └── type: jsii-calc.IPrivatelyImplemented
+ │   ├─┬ class ReturnsSpecialParameter (stable)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   └─┬ returnsSpecialParam() method (stable)
+ │   │     └── returns: jsii-calc.submodule.param.SpecialParameter
  │   ├─┬ class RootStructValidator (stable)
  │   │ └─┬ members
  │   │   └─┬ static validate(struct) method (stable)
@@ -2949,6 +2954,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
+ │   ├── class ReturnsSpecialParameter
  │   ├── class RootStructValidator
  │   ├── class RuntimeTypeChecking
  │   ├── class SingleInstanceTwoTypes
@@ -3852,6 +3858,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── privateImplementation property
+ │   ├─┬ class ReturnsSpecialParameter
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── returnsSpecialParam() method
  │   ├─┬ class RootStructValidator
  │   │ └─┬ members
  │   │   └── static validate(struct) method
@@ -4546,6 +4556,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
+ │   ├── class ReturnsSpecialParameter
  │   ├── class RootStructValidator
  │   ├── class RuntimeTypeChecking
  │   ├── class SingleInstanceTwoTypes
