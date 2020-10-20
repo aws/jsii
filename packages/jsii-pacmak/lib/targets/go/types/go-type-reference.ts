@@ -1,9 +1,10 @@
-import { TypeReference } from 'jsii-reflect';
-import { Package } from '../package';
-import { GoType } from './go-type';
 import { toPascalCase } from 'codemaker';
-import { JSII_ANY } from '../runtime';
+import { TypeReference } from 'jsii-reflect';
+
 import * as log from '../../../logging';
+import { Package } from '../package';
+import { JSII_ANY } from '../runtime';
+import { GoType } from './go-type';
 
 /*
  * Maps names of JS primitives to corresponding Go types as strings

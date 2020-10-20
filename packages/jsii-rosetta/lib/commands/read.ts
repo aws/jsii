@@ -1,9 +1,9 @@
+import { TargetLanguage } from '../languages';
 import {
   LanguageTablet,
   TranslatedSnippet,
   Translation,
 } from '../tablets/tablets';
-import { TargetLanguage } from '../languages';
 
 export async function readTablet(
   tabletFile: string,

@@ -1,9 +1,10 @@
 import * as jsii from '@jsii/spec';
+
 import { ClassType } from './class';
 import { Dependency } from './dependency';
 import { EnumType } from './enum';
-import { ModuleLike } from './module-like';
 import { InterfaceType } from './interface';
+import { ModuleLike } from './module-like';
 import { Submodule } from './submodule';
 import { Type } from './type';
 import { TypeSystem } from './type-system';

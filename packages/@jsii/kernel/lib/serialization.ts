@@ -27,6 +27,7 @@
  */
 
 import * as spec from '@jsii/spec';
+
 import {
   isObjRef,
   isWireDate,
@@ -42,6 +43,7 @@ import {
   TOKEN_STRUCT,
 } from './api';
 import { jsiiTypeFqn, objectReference, ObjectTable } from './objects';
+
 import { api } from '.';
 
 /**

@@ -1,14 +1,15 @@
 #!/usr/bin/env node
+import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 import * as process from 'process';
 import * as yargs from 'yargs';
-import { Rosetta } from 'jsii-rosetta';
+
 import * as logging from '../lib/logging';
-import { Timers } from '../lib/timer';
-import { VERSION_DESC } from '../lib/version';
 import { findJsiiModules, updateAllNpmIgnores } from '../lib/npm-modules';
 import { JsiiModule } from '../lib/packaging';
 import { ALL_BUILDERS, TargetName } from '../lib/targets';
+import { Timers } from '../lib/timer';
+import { VERSION_DESC } from '../lib/version';
 
 (async function main() {
   const argv = yargs

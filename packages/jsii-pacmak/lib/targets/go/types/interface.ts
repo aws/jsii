@@ -1,11 +1,12 @@
 import { toPascalCase } from 'codemaker';
-import { EmitContext } from '../emit-context';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
+
+import { EmitContext } from '../emit-context';
+import { Package } from '../package';
+import { getFieldDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
-import { Package } from '../package';
 import { GoMethod, GoTypeMember } from './type-member';
-import { getFieldDependencies } from '../util';
 
 export class Interface extends GoType {
   public readonly methods: InterfaceMethod[];

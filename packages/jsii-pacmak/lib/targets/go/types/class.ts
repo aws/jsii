@@ -1,10 +1,11 @@
 import { Method, ClassType, Initializer } from 'jsii-reflect';
-import { GoStruct } from './go-type';
-import { GoParameter, GoMethod } from './type-member';
-import { getFieldDependencies } from '../util';
+
+import { EmitContext } from '../emit-context';
 import { Package } from '../package';
 import { ClassConstructor, MethodCall } from '../runtime';
-import { EmitContext } from '../emit-context';
+import { getFieldDependencies } from '../util';
+import { GoStruct } from './go-type';
+import { GoParameter, GoMethod } from './type-member';
 
 /*
  * GoClass wraps a Typescript class as a Go custom struct type
