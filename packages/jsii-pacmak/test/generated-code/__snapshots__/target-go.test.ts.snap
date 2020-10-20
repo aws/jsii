@@ -756,11 +756,16 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┗━ 📄 pythonself.go
        ┣━ 📄 README.md
        ┗━ 📁 submodule
-          ┣━ 📄 backreferences.go
-          ┣━ 📄 child.go
-          ┣━ 📄 deeplynested.go
-          ┣━ 📄 isolated.go
-          ┣━ 📄 nestedsubmodule.go
+          ┣━ 📁 backreferences
+          ┃  ┗━ 📄 backreferences.go
+          ┣━ 📁 child
+          ┃  ┗━ 📄 child.go
+          ┣━ 📁 isolated
+          ┃  ┗━ 📄 isolated.go
+          ┣━ 📁 nestedsubmodule
+          ┃  ┣━ 📁 deeplynested
+          ┃  ┃  ┗━ 📄 deeplynested.go
+          ┃  ┗━ 📄 nestedsubmodule.go
           ┗━ 📄 submodule.go
 `;
 
@@ -10027,7 +10032,7 @@ func (s *StructWithSelf) GetSelf() string {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/backreferences.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/backreferences/backreferences.go 1`] = `
 package backreferences
 
 import (
@@ -10054,7 +10059,7 @@ func (m *MyClassReference) GetReference() submodule.MyClass {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/child.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/child/child.go 1`] = `
 package child
 
 import (
@@ -10207,22 +10212,7 @@ func (s *Structure) GetBool() bool {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/deeplynested.go 1`] = `
-package deeplynested
-
-import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
-)
-
-type INamespaced interface {
-	GetDefinedAt() string
-}
-
-
-`;
-
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/isolated.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/isolated/isolated.go 1`] = `
 package isolated
 
 import (
@@ -10254,12 +10244,28 @@ func Kwargs_Method(props child.KwargsProps) bool {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/nestedsubmodule.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/nestedsubmodule/deeplynested/deeplynested.go 1`] = `
+package deeplynested
+
+import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+)
+
+type INamespaced interface {
+	GetDefinedAt() string
+}
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/nestedsubmodule/nestedsubmodule.go 1`] = `
 package nestedsubmodule
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
+	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/nestedsubmodule/deeplynested"
+	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/child"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
@@ -10303,7 +10309,8 @@ package submodule
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
+	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/nestedsubmodule/deeplynested"
+	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/child"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
