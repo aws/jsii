@@ -433,8 +433,10 @@ export class Compiler implements Emitter {
         continue;
       }
 
-      // eslint-disable-next-line no-await-in-loop
-      const tsconfig = await fs.readJson(tsconfigFile);
+      const { config: tsconfig } = ts.readConfigFile(
+        tsconfigFile,
+        ts.sys.readFile,
+      );
 
       // Add references to any TypeScript package we find that is 'composite' enabled.
       // Make it relative.
