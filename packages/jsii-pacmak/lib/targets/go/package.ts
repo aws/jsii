@@ -1,11 +1,9 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly } from 'jsii-reflect';
+import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { join } from 'path';
-import { ReadmeFile } from './readme-file';
-import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
+
 import { EmitContext } from './emit-context';
-import { GoClass, GoType, Enum, Interface, Struct } from './types';
-import { findTypeInTree, goPackageName, flatMap } from './util';
+import { ReadmeFile } from './readme-file';
 import {
   JSII_RT_ALIAS,
   JSII_RT_MODULE_NAME,
@@ -13,6 +11,8 @@ import {
   JSII_INIT_FUNC,
   JSII_INIT_ALIAS,
 } from './runtime';
+import { GoClass, GoType, Enum, Interface, Struct } from './types';
+import { findTypeInTree, goPackageName, flatMap } from './util';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule

@@ -138,6 +138,9 @@ rules:
     - always
     - null: ignore
 
+  'import/no-duplicates':
+    - error
+
   'import/no-extraneous-dependencies':
     - error
     - devDependencies: ['**/test/**'] # Only allow importing devDependencies from tests
@@ -146,6 +149,17 @@ rules:
 
   'import/no-unresolved':
     - error
+
+  'import/order':
+    - error
+    - alphabetize:
+        order: asc
+        caseInsensitive: true
+      groups:
+        - [builtin, external]
+        - [parent, sibling]
+        - [index, unknown]
+      newlines-between: always
 
   'no-alert':
     - error

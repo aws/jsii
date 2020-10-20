@@ -1,4 +1,5 @@
 import { CodeMaker } from 'codemaker';
+
 import { ClassMethod, Struct } from '../types';
 import { emitInitialization } from './util';
 

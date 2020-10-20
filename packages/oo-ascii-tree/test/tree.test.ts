@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { promisify } from 'util';
+
 import { AsciiTree } from '../lib';
 
 const readFile = promisify(fs.readFile);

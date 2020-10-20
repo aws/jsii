@@ -1,9 +1,11 @@
 import { toPascalCase } from 'codemaker';
 import { Method, Parameter, Property } from 'jsii-reflect';
+
 import { EmitContext } from '../emit-context';
-import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
 import { emitInitialization } from '../runtime';
 import { substituteReservedWords } from '../util';
+
+import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
 
 /*
  * Structure for Class and Interface methods. Useful for sharing logic for dependency resolution

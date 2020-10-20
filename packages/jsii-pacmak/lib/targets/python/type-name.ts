@@ -11,9 +11,10 @@ import {
   isUnionTypeReference,
   Type,
 } from '@jsii/spec';
-import { createHash } from 'crypto';
-import { die, toPythonIdentifier } from './util';
 import { toSnakeCase } from 'codemaker';
+import { createHash } from 'crypto';
+
+import { die, toPythonIdentifier } from './util';
 
 export interface TypeName {
   pythonType(context: NamingContext): string;
