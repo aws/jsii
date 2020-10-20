@@ -21,6 +21,9 @@ func (o override) isOverride() {
 	return
 }
 
+// FQN represents a fully-qualified type name in the jsii type system.
+type FQN string
+
 type MethodOverride struct {
 	override
 
@@ -94,19 +97,21 @@ type LoadResponse struct {
 	Types    float64 `json:"types"`
 }
 
-type CreateRequest struct {
+type createRequest struct {
 	kernelRequester
 
-	Api        string     `json:"api"`
-	Fqn        string     `json:"fqn"`
-	Interfaces []string   `json:interfaces`
-	Args       []Any      `json:args`
-	Overrides  []Override `json:overrides`
+	Api        string        `json:"api"`
+	Fqn        FQN           `json:"fqn"`
+	Interfaces []FQN         `json:"interfaces"`
+	Args       []interface{} `json:"args"`
+	Overrides  []Override    `json:"overrides"`
 }
 
 // TODO extends AnnotatedObjRef?
-type CreateResponse struct {
+type createResponse struct {
 	kernelResponder
+
+	JsiiInstanceId string `json:"$jsii.byref"`
 }
 
 type DelRequest struct {
@@ -124,7 +129,7 @@ type GetRequest struct {
 	kernelRequester
 
 	Api      string  `json:"api"`
-	Property *string `json:property`
+	Property *string `json:"property"`
 	// Objref   ObjRef
 }
 
@@ -132,30 +137,30 @@ type StaticGetRequest struct {
 	kernelRequester
 
 	Api      string  `json:"api"`
-	Fqn      *string `json:fqn`
-	Property *string `json:property`
+	Fqn      *FQN    `json:"fqn"`
+	Property *string `json:"property"`
 }
 type GetResponse struct {
 	kernelResponder
 
-	Value Any `json:value`
+	Value Any `json:"value"`
 }
 
 type StaticSetRequest struct {
 	kernelRequester
 
 	Api      string  `json:"api"`
-	Fqn      *string `json:fqn`
-	Property *string `json:property`
-	Value    Any     `json:value`
+	Fqn      *FQN    `json:"fqn"`
+	Property *string `json:"property"`
+	Value    Any     `json:"value"`
 }
 
 type SetRequest struct {
 	kernelRequester
 
 	Api      string  `json:"api"`
-	Property *string `json:property`
-	Value    Any     `json:value`
+	Property *string `json:"property"`
+	Value    Any     `json:"value"`
 	// Objref   ObjRef
 }
 
@@ -167,52 +172,52 @@ type StaticInvokeRequest struct {
 	kernelRequester
 
 	Api    string  `json:"api"`
-	Fqn    *string `json:fqn`
-	Method *string `json:method`
-	Args   []Any   `json:args`
+	Fqn    *FQN    `json:"fqn"`
+	Method *string `json:"method"`
+	Args   []Any   `json:"args"`
 }
 
 type InvokeRequest struct {
 	kernelRequester
 
 	Api    string  `json:"api"`
-	Method *string `json:method`
-	Args   []Any   `json:args`
+	Method *string `json:"method"`
+	Args   []Any   `json:"args"`
 	// Objref ObjRef
 }
 
 type InvokeResponse struct {
 	kernelResponder
 
-	Result Any `json:result`
+	Result Any `json:"result"`
 }
 
 type BeginRequest struct {
 	kernelRequester
 
 	Api    string  `json:"api"`
-	Method *string `json:method`
-	Args   []Any   `json:args`
+	Method *string `json:"method"`
+	Args   []Any   `json:"args"`
 	// Objref   ObjRef
 }
 
 type BeginResponse struct {
 	kernelResponder
 
-	Promiseid *string `json:promise_id`
+	Promiseid *string `json:"promise_id"`
 }
 
 type EndRequest struct {
 	kernelRequester
 
 	Api       string  `json:"api"`
-	Promiseid *string `json:promise_id`
+	Promiseid *string `json:"promise_id"`
 }
 
 type EndResponse struct {
 	kernelResponder
 
-	Result Any `json:result`
+	Result Any `json:"result"`
 }
 
 type CallbacksRequest struct {
@@ -224,29 +229,29 @@ type CallbacksRequest struct {
 type CallbacksResponse struct {
 	kernelResponder
 
-	Callbacks []Callback `json:callbacks`
+	Callbacks []Callback `json:"callbacks"`
 }
 
 type CompleteRequest struct {
 	kernelRequester
 
 	Api    string  `json:"api"`
-	Cbid   *string `json:cbid`
-	Err    *string `json:err`
-	Result Any     `json:result`
+	Cbid   *string `json:"cbid"`
+	Err    *string `json:"err"`
+	Result Any     `json:"result"`
 }
 
 type CompleteResponse struct {
 	kernelResponder
 
-	Cbid *string `json:cbid`
+	Cbid *string `json:"cbid"`
 }
 
 type NamingRequest struct {
 	kernelRequester
 
 	Api      string `json:"api"`
-	Assembly string `json:assembly`
+	Assembly string `json:"assembly"`
 }
 
 type NamingResponse struct {
@@ -265,7 +270,7 @@ type StatsRequest struct {
 type StatsResponse struct {
 	kernelResponder
 
-	ObjectCount float64 `json:object_count`
+	ObjectCount float64 `json:"object_count"`
 }
 
 // HelloResponse?
@@ -276,26 +281,31 @@ type InitOkResponse struct {
 }
 
 type Callback struct {
-	Cbid   *string       `json:cbid`
-	Cookie *string       `json:cookie`
-	Invoke InvokeRequest `json:invoke`
-	Get    GetRequest    `json:get`
-	Set    SetRequest    `json:set`
+	Cbid   *string       `json:"cbid"`
+	Cookie *string       `json:"cookie"`
+	Invoke InvokeRequest `json:"invoke"`
+	Get    GetRequest    `json:"get"`
+	Set    SetRequest    `json:"set"`
 }
 
 type OkayResponse struct {
-	Ok Any `json:ok`
+	Ok Any `json:"ok"`
 }
 
 type ErrorResponse struct {
-	Error *string `json:error`
-	Stack *string `json:stack`
+	Error *string `json:"error"`
+	Stack *string `json:"stack"`
 }
 
 // Custom unmarshalling implementation for response structs. Creating new types
 // is required in order to avoid infinite recursion.
 func (r *LoadResponse) UnmarshalJSON(data []byte) error {
 	type response LoadResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
+func (r *createResponse) UnmarshalJSON(data []byte) error {
+	type response createResponse
 	return unmarshalKernelResponse(data, (*response)(r))
 }
 
@@ -313,5 +323,6 @@ func unmarshalKernelResponse(data []byte, resstruct interface{}) error {
 		return errors.New(string(errmessage))
 	}
 
-	return json.Unmarshal(data, resstruct)
+	err := json.Unmarshal(response["ok"], resstruct)
+	return err
 }

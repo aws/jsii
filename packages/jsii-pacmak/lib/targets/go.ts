@@ -7,7 +7,8 @@ import * as path from 'path';
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
 import { Documentation } from './go/documentation';
-import { JSII_INIT_PACKAGE, RootPackage } from './go/package';
+import { RootPackage } from './go/package';
+import { JSII_INIT_PACKAGE } from './go/runtime';
 import { goPackageName } from './go/util';
 
 export class Golang extends Target {

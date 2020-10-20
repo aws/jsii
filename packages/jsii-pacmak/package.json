@@ -47,7 +47,7 @@
     "semver": "^7.3.2",
     "spdx-license-list": "^6.3.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^16.0.3"
+    "yargs": "^16.1.0"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
@@ -58,11 +58,11 @@
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.14",
     "@types/mock-fs": "^4.13.0",
-    "@types/node": "^10.17.37",
+    "@types/node": "^10.17.39",
     "@types/semver": "^7.3.4",
-    "@types/yargs": "^15.0.7",
-    "eslint": "^7.10.0",
-    "jest": "^26.5.2",
+    "@types/yargs": "^15.0.8",
+    "eslint": "^7.11.0",
+    "jest": "^26.5.3",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "mock-fs": "^4.13.0",

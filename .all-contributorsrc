@@ -938,6 +938,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "edsenabr",
+      "name": "Eduardo Sena S. Rosa",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/15689137?v=4",
+      "profile": "https://github.com/edsenabr",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",

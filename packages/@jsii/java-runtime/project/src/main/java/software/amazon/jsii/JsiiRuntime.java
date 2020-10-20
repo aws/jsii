@@ -369,7 +369,6 @@ public final class JsiiRuntime {
             entrypoint.toFile().deleteOnExit();
 
             extractResource(getClass(), "jsii-runtime.js.map", directory).toFile().deleteOnExit();
-            extractResource(getClass(), "mappings.wasm", directory).toFile().deleteOnExit();
 
             return entrypoint.toString();
         } catch (IOException e) {

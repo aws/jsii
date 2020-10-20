@@ -7,15 +7,11 @@ module.exports = {
         filename: 'jsii-runtime.js'
     },
     devtool: 'source-map',
-    target: 'node',
+    target: 'node10.3',
     node: {
-        console: false,
-        process: false,
         global: false,
         __filename: false,
         __dirname: false,
-        Buffer: false,
-        setImmediate: false,
     },
     module: {
         rules: [{

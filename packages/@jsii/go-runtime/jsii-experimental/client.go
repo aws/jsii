@@ -63,6 +63,10 @@ func closeClient() {
 
 type Any interface{}
 
+// The client struct owns the jsii child process and its io interfaces. It
+// also owns a map that tracks all object references by ID. This is used to
+// call methods and access properties on objects passed by the runtime process
+// by reference.
 type client struct {
 	process        *exec.Cmd
 	RuntimeVersion string
@@ -72,6 +76,8 @@ type client struct {
 	// Keeping track of state that'll need cleaning up in close()
 	stdin  io.WriteCloser
 	tmpdir string
+	// objects map[string]interface{}
+	objects map[interface{}]string
 }
 
 func CheckFatalError(e error) {
@@ -83,7 +89,13 @@ func CheckFatalError(e error) {
 // newClient starts the kernel child process and verifies the "hello" message
 // was correct.
 func newClient() (*client, error) {
-	clientinstance := &client{}
+	// Initialize map of object instances
+	// objmap := make(map[string]interface{})
+	objmap := make(map[interface{}]string)
+
+	clientinstance := &client{
+		objects: objmap,
+	}
 
 	// Register a finalizer to call Close()
 	goruntime.SetFinalizer(clientinstance, func(c *client) {
@@ -189,8 +201,18 @@ func (c *client) processHello() (string, error) {
 	return version, nil
 }
 
+func (c *client) findObjectRef(obj interface{}) (refid string, ok bool) {
+	refid, ok = c.objects[obj]
+	return
+}
+
 func (c *client) load(request LoadRequest) (LoadResponse, error) {
 	response := LoadResponse{}
+	return response, c.request(request, &response)
+}
+
+func (c *client) create(request createRequest) (createResponse, error) {
+	response := createResponse{}
 	return response, c.request(request, &response)
 }
 

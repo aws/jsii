@@ -1802,7 +1802,7 @@ class Package {
     code.line('"""');
     code.line(')');
     code.line();
-    code.openBlock('with open("README.md") as fp');
+    code.openBlock('with open("README.md", encoding="utf8") as fp');
     code.line('kwargs["long_description"] = fp.read()');
     code.closeBlock();
     code.line();

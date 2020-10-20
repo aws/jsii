@@ -6,10 +6,11 @@ on:
     branches:
       - master
     paths:
-      - "!**"               # <-- Excludes everything by default
-      - "**/package.json"   # <-- Allows modfying any package.json
-      - "**/*.csproj"       # <-- Allows modifying any .csproj file
-      - "yarn.lock"         # <-- Allows modifying yarn.lock
+      - "!**"                         # <-- Excludes everything by default
+      - "**/package.json"             # <-- Allows modfying any package.json
+      - "**/*.csproj"                 # <-- Allows modifying any .csproj file
+      - "**/Directory.Build.targets"  # <-- Allows modifying any Directory.Build.targets file
+      - "yarn.lock"                   # <-- Allows modifying yarn.lock
 
 jobs:
   approve:

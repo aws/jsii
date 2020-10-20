@@ -22,10 +22,10 @@
     "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.14",
     "@types/jest-expect-message": "^1.0.2",
-    "@types/node": "^10.17.37",
-    "@types/yargs": "^15.0.7",
-    "eslint": "^7.10.0",
-    "jest": "^26.5.2",
+    "@types/node": "^10.17.39",
+    "@types/yargs": "^15.0.8",
+    "eslint": "^7.11.0",
+    "jest": "^26.5.3",
     "jest-expect-message": "^1.0.2",
     "prettier": "^2.1.2",
     "typescript": "~3.9.7"
@@ -33,7 +33,7 @@
   "dependencies": {
     "@jsii/spec": "^0.0.0",
     "inquirer": "^7.3.3",
-    "yargs": "^16.0.3"
+    "yargs": "^16.1.0"
   },
   "jest": {
     "collectCoverage": true,

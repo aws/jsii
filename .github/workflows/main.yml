@@ -90,6 +90,19 @@ jobs:
         with:
           name: built-tree
           path: ${{ runner.temp }}/built-tree.tar.xz
+      # Ensure working directory is clean (build should not change checked in source code)
+      - name: 'Assert clean working directory'
+        if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
+        run: |-
+          # Make sure the index is up-to-date (git diff-index assumes it was done)
+          git update-index --refresh
+          # Check for modifications in tracked files
+          git diff-index --exit-code --stat HEAD
+          # Check for new untracked files
+          untracked=$(git ls-files --others --exclude-standard)                 \
+            && echo "Untracked files: ${untracked:-<none>}"                     \
+            && test -z "${untracked}"
+        shell: bash
 
   create-release-package:
     name: Create Release Package
@@ -204,7 +217,7 @@ jobs:
             python: '3.6'
           # Test alternate .NETs
           - java: '8'
-            dotnet: '5.0.100-rc.1.20452.10' # Pre-release matching requires exact version for now
+            dotnet: '5.0.100-rc.2.20479.15' # Pre-release matching requires exact version for now
             node: '10'
             os: ubuntu-latest
             python: '3.6'
@@ -303,6 +316,19 @@ jobs:
       - name: Test
         run: |-
           yarn test
+      # Ensure working directory is clean (tests should not change checked in source code)
+      - name: 'Assert clean working directory'
+        if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
+        run: |-
+          # Make sure the index is up-to-date (git diff-index assumes it was done)
+          git update-index --refresh
+          # Check for modifications in tracked files
+          git diff-index --exit-code --stat HEAD
+          # Check for new untracked files
+          untracked=$(git ls-files --others --exclude-standard)                 \
+            && echo "Untracked files: ${untracked:-<none>}"                     \
+            && test -z "${untracked}"
+        shell: bash
 
   integ-test:
     name: Integration Test
@@ -394,8 +420,11 @@ jobs:
 
       - name: Integration Test (build)
         run: |-
-          npx lerna run build --stream 2>&1 > ${{ runner.temp }}/build.log
+          npx lerna run build --concurrency=1 --stream 2>&1 > ${{ runner.temp }}/build.log
         working-directory: aws-cdk
+        env:
+          # Make lots of memory available, aws-cdk-lib is __large__
+          NODE_OPTIONS: --max-old-space-size=8192
 
         # In the interest of speed, only process monocdk-experiment / aws-cdk-lib from now on
       - name: Integration Test (jsii-rosetta)

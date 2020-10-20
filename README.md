@@ -477,6 +477,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://wcauchois.github.io/"><img src="https://avatars1.githubusercontent.com/u/300544?v=4" width="100px;" alt=""/><br /><sub><b>Bill Cauchois</b></sub></a><br /><a href="#ideas-wcauchois" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/workeitel"><img src="https://avatars1.githubusercontent.com/u/7794947?v=4" width="100px;" alt=""/><br /><sub><b>Florian Eitel</b></sub></a><br /><a href="#ideas-workeitel" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="http://yanex.org/"><img src="https://avatars2.githubusercontent.com/u/95996?v=4" width="100px;" alt=""/><br /><sub><b>Yan Zhulanow</b></sub></a><br /><a href="https://github.com/aws/jsii/commits?author=yanex" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/edsenabr"><img src="https://avatars3.githubusercontent.com/u/15689137?v=4" width="100px;" alt=""/><br /><sub><b>Eduardo Sena S. Rosa</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Aedsenabr" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

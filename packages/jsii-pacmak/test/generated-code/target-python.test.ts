@@ -1,3 +1,3 @@
 import { verifyGeneratedCodeFor } from './harness';
 
-verifyGeneratedCodeFor('python');
+verifyGeneratedCodeFor('python', 120_000);

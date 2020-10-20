@@ -87,6 +87,13 @@ export class GoClass extends GoStruct {
     // need to add dependencies of method arguments and constructor arguments
     return [...super.dependencies, ...getFieldDependencies(this.methods)];
   }
+
+  /*
+   * Get fqns of interfaces the class implements
+   */
+  public get interfaces(): string[] {
+    return this.type.interfaces.map((iFace) => iFace.fqn);
+  }
 }
 
 export class GoClassConstructor {

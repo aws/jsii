@@ -33,7 +33,6 @@
   "dependencies": {
     "@jsii/spec": "^0.0.0",
     "fs-extra": "^9.0.1",
-    "source-map": "^0.7.3",
     "tar": "^6.0.5"
   },
   "devDependencies": {
@@ -42,10 +41,10 @@
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.14",
     "@types/jest-expect-message": "^1.0.2",
-    "@types/node": "^10.17.37",
+    "@types/node": "^10.17.39",
     "@types/tar": "^4.0.3",
-    "eslint": "^7.10.0",
-    "jest": "^26.5.2",
+    "eslint": "^7.11.0",
+    "jest": "^26.5.3",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",

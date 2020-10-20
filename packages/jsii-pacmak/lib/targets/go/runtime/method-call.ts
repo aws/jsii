@@ -1,7 +1,7 @@
 import { CodeMaker } from 'codemaker';
 
-import { JSII_INIT_ALIAS, JSII_INIT_FUNC } from './package';
-import { GoClassConstructor, ClassMethod, Struct } from './types';
+import { ClassMethod, Struct } from '../types';
+import { emitInitialization } from './util';
 
 const NOOP_RETURN_MAP: { [type: string]: string } = {
   float64: '0.0',
@@ -28,7 +28,7 @@ export class MethodCall {
     }
 
     const name = code.toPascalCase(this.parent.name);
-    code.open(`jsii.NoOpRequest(jsii.NoOpApiRequest {`);
+    code.open(`_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {`);
     code.line(`Class: "${this.parent.parent.name}",`);
     code.line(`Method: "${name}",`);
     code.line(
@@ -54,29 +54,4 @@ export class MethodCall {
   private getDummyReturn(type: string): string {
     return NOOP_RETURN_MAP[type] || 'nil';
   }
-}
-
-export class ClassConstructor {
-  public constructor(public readonly parent: GoClassConstructor) {}
-
-  public emit(code: CodeMaker) {
-    emitInitialization(code);
-    code.open(`jsii.NoOpRequest(jsii.NoOpApiRequest {`);
-    code.line(`Class: "${this.parent.parent.name}",`);
-    code.line(`Method: "Constructor",`);
-    code.line(
-      `Args: ${paramsString(
-        this.parent.parent.type.initializer!.parameters.map((p) =>
-          p.type.toString(),
-        ),
-      )},`,
-    );
-    code.close(`})`);
-
-    code.line(`return &${this.parent.parent.name}{}`);
-  }
-}
-
-export function emitInitialization(code: CodeMaker) {
-  code.line(`${JSII_INIT_ALIAS}.${JSII_INIT_FUNC}()`);
 }

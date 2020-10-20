@@ -12,9 +12,11 @@ const STRUCT_INTERFACE_SUFFIX = 'Iface';
 
 export abstract class GoType {
   public readonly name: string;
+  public readonly fqn: string;
 
   public constructor(public pkg: Package, public type: Type) {
     this.name = toPascalCase(type.name);
+    this.fqn = type.fqn;
   }
 
   public abstract emit(context: EmitContext): void;
