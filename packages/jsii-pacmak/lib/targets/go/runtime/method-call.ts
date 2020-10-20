@@ -1,8 +1,8 @@
 import { CodeMaker } from 'codemaker';
 
 import { ClassMethod, Struct } from '../types';
-import { emitInitialization } from './util';
 import { JSII_INVOKE_FUNC, JSII_SINVOKE_FUNC } from './constants';
+import { emitInitialization } from './util';
 
 // NOOP type returns
 const NOOP_RETURN_MAP: { [type: string]: string } = {
