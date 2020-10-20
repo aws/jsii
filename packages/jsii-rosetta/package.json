@@ -38,28 +38,6 @@
     "xmldom": "^0.3.0",
     "yargs": "^16.1.0"
   },
-  "jest": {
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "collectCoverageFrom": [
-      "lib/**/*.js"
-    ],
-    "collectCoverage": true,
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "text",
-      "clover",
-      "html"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 70,
-        "statements": 70
-      }
-    }
-  },
   "license": "Apache-2.0",
   "author": {
     "name": "Amazon Web Services",
