@@ -72,11 +72,13 @@ func NewBase() BaseIface {
 }
 
 func (b *Base) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Base",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		b,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -165,11 +167,13 @@ type StaticConsumer struct {
 
 func StaticConsumer_Consume(_args _jsii_.Any) {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "StaticConsumer",
-		Method: "Consume",
-		Args: []string{"any",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"@scope/jsii-calc-base-of-base.StaticConsumer",
+		"consume",
+		[]interface{}{_args},
+		&returns,
+	)
 }
 
 // Class interface
@@ -197,11 +201,13 @@ func NewVery() VeryIface {
 }
 
 func (v *Very) Hey() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Very",
-		Method: "Hey",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"hey",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -407,20 +413,24 @@ func (n *Number) SetDoubleValue(val float64) {
 }
 
 func (n *Number) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Number",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (n *Number) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Number",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -464,20 +474,24 @@ func (n *NumericValue) SetValue(val float64) {
 }
 
 func (n *NumericValue) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NumericValue",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (n *NumericValue) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NumericValue",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -521,20 +535,24 @@ func (o *Operation) SetValue(val float64) {
 }
 
 func (o *Operation) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Operation",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (o *Operation) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Operation",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -705,11 +723,13 @@ func NewReflector() ReflectorIface {
 }
 
 func (r *Reflector) AsMap(reflectable IReflectable) map[string]_jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Reflector",
-		Method: "AsMap",
-		Args: []string{"@scope/jsii-calc-lib.submodule.IReflectable",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		r,
+		"asMap",
+		[]interface{}{reflectable},
+		&returns,
+	)
 	return nil
 }
 
@@ -876,20 +896,24 @@ func (c *CompositeOperation) SetStringStyle(val CompositionStringStyle) {
 }
 
 func (c *CompositeOperation) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "CompositeOperation",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (c *CompositeOperation) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "CompositeOperation",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -1160,20 +1184,24 @@ func (a *AbstractClass) SetPropFromInterface(val string) {
 }
 
 func (a *AbstractClass) AbstractMethod(name string) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AbstractClass",
-		Method: "AbstractMethod",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"abstractMethod",
+		[]interface{}{name},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (a *AbstractClass) NonAbstractMethod() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AbstractClass",
-		Method: "NonAbstractMethod",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"nonAbstractMethod",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -1246,20 +1274,24 @@ func (a *AbstractClassReturner) SetReturnAbstractFromProperty(val AbstractClassB
 }
 
 func (a *AbstractClassReturner) GiveMeAbstract() AbstractClass {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AbstractClassReturner",
-		Method: "GiveMeAbstract",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"giveMeAbstract",
+		[]interface{}{},
+		&returns,
+	)
 	return AbstractClass{}
 }
 
 func (a *AbstractClassReturner) GiveMeInterface() IInterfaceImplementedByAbstractClass {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AbstractClassReturner",
-		Method: "GiveMeInterface",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"giveMeInterface",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -1299,20 +1331,24 @@ func (a *AbstractSuite) SetProperty(val string) {
 }
 
 func (a *AbstractSuite) SomeMethod(str string) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AbstractSuite",
-		Method: "SomeMethod",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"someMethod",
+		[]interface{}{str},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (a *AbstractSuite) WorkItAll(seed string) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AbstractSuite",
-		Method: "WorkItAll",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"workItAll",
+		[]interface{}{seed},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -1381,29 +1417,35 @@ func (a *Add) SetRhs(val scopejsiicalclib.NumericValue) {
 }
 
 func (a *Add) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Add",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (a *Add) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Add",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (a *Add) Hello() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Add",
-		Method: "Hello",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"hello",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -1646,28 +1688,34 @@ func (a *AllTypes) SetOptionalEnumValue(val StringEnum) {
 }
 
 func (a *AllTypes) AnyIn(inp _jsii_.Any) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AllTypes",
-		Method: "AnyIn",
-		Args: []string{"any",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"anyIn",
+		[]interface{}{inp},
+		&returns,
+	)
 }
 
 func (a *AllTypes) AnyOut() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AllTypes",
-		Method: "AnyOut",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"anyOut",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (a *AllTypes) EnumMethod(value StringEnum) StringEnum {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AllTypes",
-		Method: "EnumMethod",
-		Args: []string{"jsii-calc.StringEnum",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"enumMethod",
+		[]interface{}{value},
+		&returns,
+	)
 	return "ENUM_DUMMY"
 }
 
@@ -1705,36 +1753,44 @@ func NewAllowedMethodNames() AllowedMethodNamesIface {
 }
 
 func (a *AllowedMethodNames) GetBar(_p1 string, _p2 float64) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AllowedMethodNames",
-		Method: "GetBar",
-		Args: []string{"string", "number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"getBar",
+		[]interface{}{_p1, _p2},
+		&returns,
+	)
 }
 
 func (a *AllowedMethodNames) GetFoo(withParam string) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AllowedMethodNames",
-		Method: "GetFoo",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"getFoo",
+		[]interface{}{withParam},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (a *AllowedMethodNames) SetBar(_x string, _y float64, _z bool) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AllowedMethodNames",
-		Method: "SetBar",
-		Args: []string{"string", "number", "boolean",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"setBar",
+		[]interface{}{_x, _y, _z},
+		&returns,
+	)
 }
 
 func (a *AllowedMethodNames) SetFoo(_x string, _y float64) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AllowedMethodNames",
-		Method: "SetFoo",
-		Args: []string{"string", "number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"setFoo",
+		[]interface{}{_x, _y},
+		&returns,
+	)
 }
 
 // Class interface
@@ -1806,20 +1862,24 @@ func NewAnonymousImplementationProvider() AnonymousImplementationProviderIface {
 }
 
 func (a *AnonymousImplementationProvider) ProvideAsClass() Implementation {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AnonymousImplementationProvider",
-		Method: "ProvideAsClass",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"provideAsClass",
+		[]interface{}{},
+		&returns,
+	)
 	return Implementation{}
 }
 
 func (a *AnonymousImplementationProvider) ProvideAsInterface() IAnonymouslyImplementMe {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AnonymousImplementationProvider",
-		Method: "ProvideAsInterface",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"provideAsInterface",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -1851,56 +1911,68 @@ func NewAsyncVirtualMethods() AsyncVirtualMethodsIface {
 }
 
 func (a *AsyncVirtualMethods) CallMe() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AsyncVirtualMethods",
-		Method: "CallMe",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"callMe",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
 func (a *AsyncVirtualMethods) CallMe2() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AsyncVirtualMethods",
-		Method: "CallMe2",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"callMe2",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
 func (a *AsyncVirtualMethods) CallMeDoublePromise() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AsyncVirtualMethods",
-		Method: "CallMeDoublePromise",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"callMeDoublePromise",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
 func (a *AsyncVirtualMethods) DontOverrideMe() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AsyncVirtualMethods",
-		Method: "DontOverrideMe",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"dontOverrideMe",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
 func (a *AsyncVirtualMethods) OverrideMe(mult float64) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AsyncVirtualMethods",
-		Method: "OverrideMe",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"overrideMe",
+		[]interface{}{mult},
+		&returns,
+	)
 	return 0.0
 }
 
 func (a *AsyncVirtualMethods) OverrideMeToo() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AsyncVirtualMethods",
-		Method: "OverrideMeToo",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"overrideMeToo",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -1928,19 +2000,23 @@ func NewAugmentableClass() AugmentableClassIface {
 }
 
 func (a *AugmentableClass) MethodOne() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AugmentableClass",
-		Method: "MethodOne",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"methodOne",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (a *AugmentableClass) MethodTwo() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "AugmentableClass",
-		Method: "MethodTwo",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		a,
+		"methodTwo",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -2000,11 +2076,13 @@ func (b *Bell) SetRung(val bool) {
 }
 
 func (b *Bell) Ring() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Bell",
-		Method: "Ring",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		b,
+		"ring",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -2073,29 +2151,35 @@ func (b *BinaryOperation) SetRhs(val scopejsiicalclib.NumericValue) {
 }
 
 func (b *BinaryOperation) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "BinaryOperation",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		b,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (b *BinaryOperation) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "BinaryOperation",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		b,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (b *BinaryOperation) Hello() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "BinaryOperation",
-		Method: "Hello",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		b,
+		"hello",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -2124,20 +2208,24 @@ func NewBurriedAnonymousObject() BurriedAnonymousObjectIface {
 }
 
 func (b *BurriedAnonymousObject) Check() bool {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "BurriedAnonymousObject",
-		Method: "Check",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		b,
+		"check",
+		[]interface{}{},
+		&returns,
+	)
 	return true
 }
 
 func (b *BurriedAnonymousObject) GiveItBack(value _jsii_.Any) _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "BurriedAnonymousObject",
-		Method: "GiveItBack",
-		Args: []string{"any",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		b,
+		"giveItBack",
+		[]interface{}{value},
+		&returns,
+	)
 	return nil
 }
 
@@ -2307,61 +2395,75 @@ func (c *Calculator) SetUnionProperty(val _jsii_.Any) {
 }
 
 func (c *Calculator) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Calculator",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (c *Calculator) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Calculator",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (c *Calculator) Add(value float64) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Calculator",
-		Method: "Add",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"add",
+		[]interface{}{value},
+		&returns,
+	)
 }
 
 func (c *Calculator) Mul(value float64) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Calculator",
-		Method: "Mul",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"mul",
+		[]interface{}{value},
+		&returns,
+	)
 }
 
 func (c *Calculator) Neg() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Calculator",
-		Method: "Neg",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"neg",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (c *Calculator) Pow(value float64) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Calculator",
-		Method: "Pow",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"pow",
+		[]interface{}{value},
+		&returns,
+	)
 }
 
 func (c *Calculator) ReadUnionValue() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Calculator",
-		Method: "ReadUnionValue",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"readUnionValue",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -2620,21 +2722,25 @@ func (c *ClassWithCollections) SetMap(val map[string]string) {
 
 func ClassWithCollections_CreateAList() []string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ClassWithCollections",
-		Method: "CreateAList",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ClassWithCollections",
+		"createAList",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func ClassWithCollections_CreateAMap() map[string]string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ClassWithCollections",
-		Method: "CreateAMap",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ClassWithCollections",
+		"createAMap",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -2702,11 +2808,13 @@ func (c *ClassWithJavaReservedWords) SetInt(val string) {
 }
 
 func (c *ClassWithJavaReservedWords) Import(assert string) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ClassWithJavaReservedWords",
-		Method: "Import",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"import",
+		[]interface{}{assert},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -2778,11 +2886,13 @@ func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(v
 
 func ClassWithPrivateConstructorAndAutomaticProperties_Create(readOnlyString string, readWriteString string) ClassWithPrivateConstructorAndAutomaticProperties {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ClassWithPrivateConstructorAndAutomaticProperties",
-		Method: "Create",
-		Args: []string{"string", "string",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
+		"create",
+		[]interface{}{readOnlyString, readWriteString},
+		&returns,
+	)
 	return ClassWithPrivateConstructorAndAutomaticProperties{}
 }
 
@@ -2811,21 +2921,25 @@ func (c *ConfusingToJackson) SetUnionProperty(val _jsii_.Any) {
 
 func ConfusingToJackson_MakeInstance() ConfusingToJackson {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConfusingToJackson",
-		Method: "MakeInstance",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ConfusingToJackson",
+		"makeInstance",
+		[]interface{}{},
+		&returns,
+	)
 	return ConfusingToJackson{}
 }
 
 func ConfusingToJackson_MakeStructInstance() ConfusingToJacksonStruct {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConfusingToJackson",
-		Method: "MakeStructInstance",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ConfusingToJackson",
+		"makeStructInstance",
+		[]interface{}{},
+		&returns,
+	)
 	return ConfusingToJacksonStruct{}
 }
 
@@ -2888,71 +3002,85 @@ func NewConstructors() ConstructorsIface {
 
 func Constructors_HiddenInterface() IPublicInterface {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Constructors",
-		Method: "HiddenInterface",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Constructors",
+		"hiddenInterface",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func Constructors_HiddenInterfaces() []IPublicInterface {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Constructors",
-		Method: "HiddenInterfaces",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Constructors",
+		"hiddenInterfaces",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func Constructors_HiddenSubInterfaces() []IPublicInterface {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Constructors",
-		Method: "HiddenSubInterfaces",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Constructors",
+		"hiddenSubInterfaces",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func Constructors_MakeClass() PublicClass {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Constructors",
-		Method: "MakeClass",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Constructors",
+		"makeClass",
+		[]interface{}{},
+		&returns,
+	)
 	return PublicClass{}
 }
 
 func Constructors_MakeInterface() IPublicInterface {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Constructors",
-		Method: "MakeInterface",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Constructors",
+		"makeInterface",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func Constructors_MakeInterface2() IPublicInterface2 {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Constructors",
-		Method: "MakeInterface2",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Constructors",
+		"makeInterface2",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func Constructors_MakeInterfaces() []IPublicInterface {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Constructors",
-		Method: "MakeInterfaces",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Constructors",
+		"makeInterfaces",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -2979,11 +3107,13 @@ func NewConsumePureInterface(delegate IStructReturningDelegate) ConsumePureInter
 }
 
 func (c *ConsumePureInterface) WorkItBaby() StructB {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumePureInterface",
-		Method: "WorkItBaby",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"workItBaby",
+		[]interface{}{},
+		&returns,
+	)
 	return StructB{}
 }
 
@@ -3018,77 +3148,93 @@ func NewConsumerCanRingBell() ConsumerCanRingBellIface {
 
 func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRinger) bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumerCanRingBell",
-		Method: "StaticImplementedByObjectLiteral",
-		Args: []string{"jsii-calc.IBellRinger",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ConsumerCanRingBell",
+		"staticImplementedByObjectLiteral",
+		[]interface{}{ringer},
+		&returns,
+	)
 	return true
 }
 
 func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRinger) bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumerCanRingBell",
-		Method: "StaticImplementedByPrivateClass",
-		Args: []string{"jsii-calc.IBellRinger",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ConsumerCanRingBell",
+		"staticImplementedByPrivateClass",
+		[]interface{}{ringer},
+		&returns,
+	)
 	return true
 }
 
 func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRinger) bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumerCanRingBell",
-		Method: "StaticImplementedByPublicClass",
-		Args: []string{"jsii-calc.IBellRinger",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ConsumerCanRingBell",
+		"staticImplementedByPublicClass",
+		[]interface{}{ringer},
+		&returns,
+	)
 	return true
 }
 
 func ConsumerCanRingBell_StaticWhenTypedAsClass(ringer IConcreteBellRinger) bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumerCanRingBell",
-		Method: "StaticWhenTypedAsClass",
-		Args: []string{"jsii-calc.IConcreteBellRinger",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ConsumerCanRingBell",
+		"staticWhenTypedAsClass",
+		[]interface{}{ringer},
+		&returns,
+	)
 	return true
 }
 
 func (c *ConsumerCanRingBell) ImplementedByObjectLiteral(ringer IBellRinger) bool {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumerCanRingBell",
-		Method: "ImplementedByObjectLiteral",
-		Args: []string{"jsii-calc.IBellRinger",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"implementedByObjectLiteral",
+		[]interface{}{ringer},
+		&returns,
+	)
 	return true
 }
 
 func (c *ConsumerCanRingBell) ImplementedByPrivateClass(ringer IBellRinger) bool {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumerCanRingBell",
-		Method: "ImplementedByPrivateClass",
-		Args: []string{"jsii-calc.IBellRinger",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"implementedByPrivateClass",
+		[]interface{}{ringer},
+		&returns,
+	)
 	return true
 }
 
 func (c *ConsumerCanRingBell) ImplementedByPublicClass(ringer IBellRinger) bool {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumerCanRingBell",
-		Method: "ImplementedByPublicClass",
-		Args: []string{"jsii-calc.IBellRinger",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"implementedByPublicClass",
+		[]interface{}{ringer},
+		&returns,
+	)
 	return true
 }
 
 func (c *ConsumerCanRingBell) WhenTypedAsClass(ringer IConcreteBellRinger) bool {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumerCanRingBell",
-		Method: "WhenTypedAsClass",
-		Args: []string{"jsii-calc.IConcreteBellRinger",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"whenTypedAsClass",
+		[]interface{}{ringer},
+		&returns,
+	)
 	return true
 }
 
@@ -3116,20 +3262,24 @@ func NewConsumersOfThisCrazyTypeSystem() ConsumersOfThisCrazyTypeSystemIface {
 }
 
 func (c *ConsumersOfThisCrazyTypeSystem) ConsumeAnotherPublicInterface(obj IAnotherPublicInterface) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumersOfThisCrazyTypeSystem",
-		Method: "ConsumeAnotherPublicInterface",
-		Args: []string{"jsii-calc.IAnotherPublicInterface",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"consumeAnotherPublicInterface",
+		[]interface{}{obj},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (c *ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface(obj INonInternalInterface) _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ConsumersOfThisCrazyTypeSystem",
-		Method: "ConsumeNonInternalInterface",
-		Args: []string{"jsii-calc.INonInternalInterface",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"consumeNonInternalInterface",
+		[]interface{}{obj},
+		&returns,
+	)
 	return nil
 }
 
@@ -3159,29 +3309,35 @@ func NewDataRenderer() DataRendererIface {
 }
 
 func (d *DataRenderer) Render(data scopejsiicalclib.MyFirstStruct) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DataRenderer",
-		Method: "Render",
-		Args: []string{"@scope/jsii-calc-lib.MyFirstStruct",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"render",
+		[]interface{}{data},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (d *DataRenderer) RenderArbitrary(data map[string]_jsii_.Any) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DataRenderer",
-		Method: "RenderArbitrary",
-		Args: []string{"Map<string => any>",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"renderArbitrary",
+		[]interface{}{data},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (d *DataRenderer) RenderMap(map_ map[string]_jsii_.Any) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DataRenderer",
-		Method: "RenderMap",
-		Args: []string{"Map<string => any>",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"renderMap",
+		[]interface{}{map_},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -3267,21 +3423,25 @@ func NewDemonstrate982() Demonstrate982Iface {
 
 func Demonstrate982_TakeThis() ChildStruct982 {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Demonstrate982",
-		Method: "TakeThis",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Demonstrate982",
+		"takeThis",
+		[]interface{}{},
+		&returns,
+	)
 	return ChildStruct982{}
 }
 
 func Demonstrate982_TakeThisToo() ParentStruct982 {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Demonstrate982",
-		Method: "TakeThisToo",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Demonstrate982",
+		"takeThisToo",
+		[]interface{}{},
+		&returns,
+	)
 	return ParentStruct982{}
 }
 
@@ -3334,11 +3494,13 @@ func (d *DeprecatedClass) SetMutableProperty(val float64) {
 }
 
 func (d *DeprecatedClass) Method() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DeprecatedClass",
-		Method: "Method",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"method",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Deprecated: your deprecated selection of bad options
@@ -3597,28 +3759,34 @@ func NewDoNotOverridePrivates() DoNotOverridePrivatesIface {
 }
 
 func (d *DoNotOverridePrivates) ChangePrivatePropertyValue(newValue string) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DoNotOverridePrivates",
-		Method: "ChangePrivatePropertyValue",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"changePrivatePropertyValue",
+		[]interface{}{newValue},
+		&returns,
+	)
 }
 
 func (d *DoNotOverridePrivates) PrivateMethodValue() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DoNotOverridePrivates",
-		Method: "PrivateMethodValue",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"privateMethodValue",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (d *DoNotOverridePrivates) PrivatePropertyValue() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DoNotOverridePrivates",
-		Method: "PrivatePropertyValue",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"privatePropertyValue",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -3646,11 +3814,13 @@ func NewDoNotRecognizeAnyAsOptional() DoNotRecognizeAnyAsOptionalIface {
 }
 
 func (d *DoNotRecognizeAnyAsOptional) Method(_requiredAny _jsii_.Any, _optionalAny _jsii_.Any, _optionalString string) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DoNotRecognizeAnyAsOptional",
-		Method: "Method",
-		Args: []string{"any", "any", "string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"method",
+		[]interface{}{_requiredAny, _optionalAny, _optionalString},
+		&returns,
+	)
 }
 
 // Class interface
@@ -3683,20 +3853,24 @@ func NewDocumentedClass() DocumentedClassIface {
 }
 
 func (d *DocumentedClass) Greet(greetee Greetee) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DocumentedClass",
-		Method: "Greet",
-		Args: []string{"jsii-calc.Greetee",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"greet",
+		[]interface{}{greetee},
+		&returns,
+	)
 	return 0.0
 }
 
 func (d *DocumentedClass) Hola() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DocumentedClass",
-		Method: "Hola",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"hola",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -3722,11 +3896,13 @@ func NewDontComplainAboutVariadicAfterOptional() DontComplainAboutVariadicAfterO
 }
 
 func (d *DontComplainAboutVariadicAfterOptional) OptionalAndVariadic(optional string, things string) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DontComplainAboutVariadicAfterOptional",
-		Method: "OptionalAndVariadic",
-		Args: []string{"string", "string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"optionalAndVariadic",
+		[]interface{}{optional, things},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -3757,20 +3933,24 @@ func NewDoubleTrouble() DoubleTroubleIface {
 }
 
 func (d *DoubleTrouble) Hello() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DoubleTrouble",
-		Method: "Hello",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"hello",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (d *DoubleTrouble) Next() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DoubleTrouble",
-		Method: "Next",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"next",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -3876,11 +4056,13 @@ func (d *DynamicPropertyBearerChild) SetOriginalValue(val string) {
 }
 
 func (d *DynamicPropertyBearerChild) OverrideValue(newValue string) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DynamicPropertyBearerChild",
-		Method: "OverrideValue",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		d,
+		"overrideValue",
+		[]interface{}{newValue},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -3910,20 +4092,24 @@ func NewEntropy(clock IWallClock) EntropyIface {
 }
 
 func (e *Entropy) Increase() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Entropy",
-		Method: "Increase",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		e,
+		"increase",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (e *Entropy) Repeat(word string) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Entropy",
-		Method: "Repeat",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		e,
+		"repeat",
+		[]interface{}{word},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -3937,21 +4123,25 @@ type EnumDispenser struct {
 
 func EnumDispenser_RandomIntegerLikeEnum() AllTypesEnum {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "EnumDispenser",
-		Method: "RandomIntegerLikeEnum",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.EnumDispenser",
+		"randomIntegerLikeEnum",
+		[]interface{}{},
+		&returns,
+	)
 	return "ENUM_DUMMY"
 }
 
 func EnumDispenser_RandomStringLikeEnum() StringEnum {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "EnumDispenser",
-		Method: "RandomStringLikeEnum",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.EnumDispenser",
+		"randomStringLikeEnum",
+		[]interface{}{},
+		&returns,
+	)
 	return "ENUM_DUMMY"
 }
 
@@ -3978,31 +4168,37 @@ func NewEraseUndefinedHashValues() EraseUndefinedHashValuesIface {
 
 func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptions, key string) bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "EraseUndefinedHashValues",
-		Method: "DoesKeyExist",
-		Args: []string{"jsii-calc.EraseUndefinedHashValuesOptions", "string",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.EraseUndefinedHashValues",
+		"doesKeyExist",
+		[]interface{}{opts, key},
+		&returns,
+	)
 	return true
 }
 
 func EraseUndefinedHashValues_Prop1IsNull() map[string]_jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "EraseUndefinedHashValues",
-		Method: "Prop1IsNull",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.EraseUndefinedHashValues",
+		"prop1IsNull",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func EraseUndefinedHashValues_Prop2IsUndefined() map[string]_jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "EraseUndefinedHashValues",
-		Method: "Prop2IsUndefined",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.EraseUndefinedHashValues",
+		"prop2IsUndefined",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -4076,11 +4272,13 @@ func (e *ExperimentalClass) SetMutableProperty(val float64) {
 }
 
 func (e *ExperimentalClass) Method() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ExperimentalClass",
-		Method: "Method",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		e,
+		"method",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Experimental.
@@ -4209,11 +4407,13 @@ func (e *ExternalClass) SetMutableProperty(val float64) {
 }
 
 func (e *ExternalClass) Method() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ExternalClass",
-		Method: "Method",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		e,
+		"method",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 type ExternalEnum string
@@ -4275,29 +4475,35 @@ func (g *GiveMeStructs) SetStructLiteral(val scopejsiicalclib.StructWithOnlyOpti
 }
 
 func (g *GiveMeStructs) DerivedToFirst(derived DerivedStruct) scopejsiicalclib.MyFirstStruct {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "GiveMeStructs",
-		Method: "DerivedToFirst",
-		Args: []string{"jsii-calc.DerivedStruct",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		g,
+		"derivedToFirst",
+		[]interface{}{derived},
+		&returns,
+	)
 	return scopejsiicalclib.MyFirstStruct{}
 }
 
 func (g *GiveMeStructs) ReadDerivedNonPrimitive(derived DerivedStruct) DoubleTrouble {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "GiveMeStructs",
-		Method: "ReadDerivedNonPrimitive",
-		Args: []string{"jsii-calc.DerivedStruct",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		g,
+		"readDerivedNonPrimitive",
+		[]interface{}{derived},
+		&returns,
+	)
 	return DoubleTrouble{}
 }
 
 func (g *GiveMeStructs) ReadFirstNumber(first scopejsiicalclib.MyFirstStruct) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "GiveMeStructs",
-		Method: "ReadFirstNumber",
-		Args: []string{"@scope/jsii-calc-lib.MyFirstStruct",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		g,
+		"readFirstNumber",
+		[]interface{}{first},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -4341,11 +4547,13 @@ func NewGreetingAugmenter() GreetingAugmenterIface {
 }
 
 func (g *GreetingAugmenter) BetterGreeting(friendly scopejsiicalclib.IFriendly) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "GreetingAugmenter",
-		Method: "BetterGreeting",
-		Args: []string{"@scope/jsii-calc-lib.IFriendly",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		g,
+		"betterGreeting",
+		[]interface{}{friendly},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -4633,11 +4841,13 @@ func NewImplementsInterfaceWithInternal() ImplementsInterfaceWithInternalIface {
 }
 
 func (i *ImplementsInterfaceWithInternal) Visible() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ImplementsInterfaceWithInternal",
-		Method: "Visible",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		i,
+		"visible",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -4664,11 +4874,13 @@ func NewImplementsInterfaceWithInternalSubclass() ImplementsInterfaceWithInterna
 }
 
 func (i *ImplementsInterfaceWithInternalSubclass) Visible() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ImplementsInterfaceWithInternalSubclass",
-		Method: "Visible",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		i,
+		"visible",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -4756,19 +4968,23 @@ func NewInbetweenClass() InbetweenClassIface {
 }
 
 func (i *InbetweenClass) Hello() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "InbetweenClass",
-		Method: "Hello",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		i,
+		"hello",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (i *InbetweenClass) Ciao() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "InbetweenClass",
-		Method: "Ciao",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		i,
+		"ciao",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -4785,41 +5001,49 @@ type InterfaceCollections struct {
 
 func InterfaceCollections_ListOfInterfaces() []IBell {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "InterfaceCollections",
-		Method: "ListOfInterfaces",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.InterfaceCollections",
+		"listOfInterfaces",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func InterfaceCollections_ListOfStructs() []StructA {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "InterfaceCollections",
-		Method: "ListOfStructs",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.InterfaceCollections",
+		"listOfStructs",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func InterfaceCollections_MapOfInterfaces() map[string]IBell {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "InterfaceCollections",
-		Method: "MapOfInterfaces",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.InterfaceCollections",
+		"mapOfInterfaces",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func InterfaceCollections_MapOfStructs() map[string]StructA {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "InterfaceCollections",
-		Method: "MapOfStructs",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.InterfaceCollections",
+		"mapOfStructs",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -4834,11 +5058,13 @@ type InterfacesMaker struct {
 
 func InterfacesMaker_MakeInterfaces(count float64) []scopejsiicalclib.IDoublable {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "InterfacesMaker",
-		Method: "MakeInterfaces",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.InterfacesMaker",
+		"makeInterfaces",
+		[]interface{}{count},
+		&returns,
+	)
 	return nil
 }
 
@@ -4869,11 +5095,13 @@ func NewIsomorphism() IsomorphismIface {
 }
 
 func (i *Isomorphism) Myself() Isomorphism {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Isomorphism",
-		Method: "Myself",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		i,
+		"myself",
+		[]interface{}{},
+		&returns,
+	)
 	return Isomorphism{}
 }
 
@@ -4925,36 +5153,44 @@ func (j *Jsii417Derived) SetProperty(val string) {
 
 func Jsii417Derived_MakeInstance() Jsii417PublicBaseOfBase {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Jsii417Derived",
-		Method: "MakeInstance",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JSII417Derived",
+		"makeInstance",
+		[]interface{}{},
+		&returns,
+	)
 	return Jsii417PublicBaseOfBase{}
 }
 
 func (j *Jsii417Derived) Foo() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Jsii417Derived",
-		Method: "Foo",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"foo",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *Jsii417Derived) Bar() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Jsii417Derived",
-		Method: "Bar",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"bar",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *Jsii417Derived) Baz() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Jsii417Derived",
-		Method: "Baz",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"baz",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -4993,20 +5229,24 @@ func (j *Jsii417PublicBaseOfBase) SetHasRoot(val bool) {
 
 func Jsii417PublicBaseOfBase_MakeInstance() Jsii417PublicBaseOfBase {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Jsii417PublicBaseOfBase",
-		Method: "MakeInstance",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JSII417PublicBaseOfBase",
+		"makeInstance",
+		[]interface{}{},
+		&returns,
+	)
 	return Jsii417PublicBaseOfBase{}
 }
 
 func (j *Jsii417PublicBaseOfBase) Foo() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Jsii417PublicBaseOfBase",
-		Method: "Foo",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"foo",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -5033,20 +5273,24 @@ func NewJsObjectLiteralForInterface() JsObjectLiteralForInterfaceIface {
 }
 
 func (j *JsObjectLiteralForInterface) GiveMeFriendly() scopejsiicalclib.IFriendly {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsObjectLiteralForInterface",
-		Method: "GiveMeFriendly",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"giveMeFriendly",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (j *JsObjectLiteralForInterface) GiveMeFriendlyGenerator() IFriendlyRandomGenerator {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsObjectLiteralForInterface",
-		Method: "GiveMeFriendlyGenerator",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"giveMeFriendlyGenerator",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -5073,11 +5317,13 @@ func NewJsObjectLiteralToNative() JsObjectLiteralToNativeIface {
 }
 
 func (j *JsObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNativeClass {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsObjectLiteralToNative",
-		Method: "ReturnLiteral",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"returnLiteral",
+		[]interface{}{},
+		&returns,
+	)
 	return JsObjectLiteralToNativeClass{}
 }
 
@@ -5211,419 +5457,523 @@ func (j *JavaReservedWords) SetWhile(val string) {
 }
 
 func (j *JavaReservedWords) Abstract() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Abstract",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"abstract",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Assert() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Assert",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"assert",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Boolean() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Boolean",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"boolean",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Break() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Break",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"break",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Byte() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Byte",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"byte",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Case() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Case",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"case",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Catch() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Catch",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"catch",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Char() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Char",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"char",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Class() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Class",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"class",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Const() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Const",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"const",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Continue() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Continue",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"continue",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Default() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Default",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"default",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Do() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Do",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"do",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Double() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Double",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"double",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Else() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Else",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"else",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Enum() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Enum",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"enum",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Extends() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Extends",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"extends",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) False() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "False",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"false",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Final() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Final",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"final",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Finally() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Finally",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"finally",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Float() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Float",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"float",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) For() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "For",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"for",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Goto() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Goto",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"goto",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) If() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "If",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"if",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Implements() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Implements",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"implements",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Import() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Import",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"import",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Instanceof() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Instanceof",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"instanceof",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Int() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Int",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"int",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Interface() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Interface",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"interface",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Long() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Long",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"long",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Native() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Native",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"native",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) New() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "New",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"new",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Null() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Null",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"null",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Package() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Package",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"package",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Private() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Private",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"private",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Protected() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Protected",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"protected",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Public() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Public",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"public",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Return() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Return",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"return",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Short() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Short",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"short",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Static() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Static",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"static",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Strictfp() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Strictfp",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"strictfp",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Super() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Super",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"super",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Switch() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Switch",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"switch",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Synchronized() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Synchronized",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"synchronized",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) This() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "This",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"this",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Throw() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Throw",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"throw",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Throws() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Throws",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"throws",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Transient() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Transient",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"transient",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) True() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "True",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"true",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Try() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Try",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"try",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Void() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Void",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"void",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (j *JavaReservedWords) Volatile() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JavaReservedWords",
-		Method: "Volatile",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		j,
+		"volatile",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -5721,141 +6071,169 @@ type JsonFormatter struct {
 
 func JsonFormatter_AnyArray() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyArray",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyArray",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyBooleanFalse() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyBooleanFalse",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyBooleanFalse",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyBooleanTrue() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyBooleanTrue",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyBooleanTrue",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyDate() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyDate",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyDate",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyEmptyString() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyEmptyString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyEmptyString",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyFunction() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyFunction",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyFunction",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyHash() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyHash",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyHash",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyNull() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyNull",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyNull",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyNumber() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyNumber",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyNumber",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyRef() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyRef",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyRef",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyString() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyString",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyUndefined() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyUndefined",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyUndefined",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_AnyZero() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "AnyZero",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"anyZero",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func JsonFormatter_Stringify(value _jsii_.Any) string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsonFormatter",
-		Method: "Stringify",
-		Args: []string{"any",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.JsonFormatter",
+		"stringify",
+		[]interface{}{value},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -6044,11 +6422,13 @@ func (m *MethodNamedProperty) SetElite(val float64) {
 }
 
 func (m *MethodNamedProperty) Property() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "MethodNamedProperty",
-		Method: "Property",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		m,
+		"property",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -6123,56 +6503,68 @@ func (m *Multiply) SetRhs(val scopejsiicalclib.NumericValue) {
 }
 
 func (m *Multiply) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Multiply",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		m,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (m *Multiply) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Multiply",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		m,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (m *Multiply) Hello() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Multiply",
-		Method: "Hello",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		m,
+		"hello",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (m *Multiply) Farewell() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Multiply",
-		Method: "Farewell",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		m,
+		"farewell",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (m *Multiply) Goodbye() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Multiply",
-		Method: "Goodbye",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		m,
+		"goodbye",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (m *Multiply) Next() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Multiply",
-		Method: "Next",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		m,
+		"next",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -6230,47 +6622,57 @@ func (n *Negate) SetOperand(val scopejsiicalclib.NumericValue) {
 }
 
 func (n *Negate) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Negate",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (n *Negate) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Negate",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (n *Negate) Farewell() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Negate",
-		Method: "Farewell",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"farewell",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (n *Negate) Goodbye() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Negate",
-		Method: "Goodbye",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"goodbye",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (n *Negate) Hello() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Negate",
-		Method: "Hello",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"hello",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -6284,11 +6686,13 @@ type NestedClassInstance struct {
 
 func NestedClassInstance_MakeInstance() submodule.NestedClass {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NestedClassInstance",
-		Method: "MakeInstance",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.NestedClassInstance",
+		"makeInstance",
+		[]interface{}{},
+		&returns,
+	)
 	return submodule.NestedClass{}
 }
 
@@ -6347,29 +6751,35 @@ func (n *NodeStandardLibrary) SetOsPlatform(val string) {
 }
 
 func (n *NodeStandardLibrary) CryptoSha256() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NodeStandardLibrary",
-		Method: "CryptoSha256",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"cryptoSha256",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (n *NodeStandardLibrary) FsReadFile() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NodeStandardLibrary",
-		Method: "FsReadFile",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"fsReadFile",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (n *NodeStandardLibrary) FsReadFileSync() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NodeStandardLibrary",
-		Method: "FsReadFileSync",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"fsReadFileSync",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -6411,27 +6821,33 @@ func (n *NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
 }
 
 func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined(value _jsii_.Any) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NullShouldBeTreatedAsUndefined",
-		Method: "GiveMeUndefined",
-		Args: []string{"any",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"giveMeUndefined",
+		[]interface{}{value},
+		&returns,
+	)
 }
 
 func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefinedInsideAnObject(input NullShouldBeTreatedAsUndefinedData) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NullShouldBeTreatedAsUndefined",
-		Method: "GiveMeUndefinedInsideAnObject",
-		Args: []string{"jsii-calc.NullShouldBeTreatedAsUndefinedData",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"giveMeUndefinedInsideAnObject",
+		[]interface{}{input},
+		&returns,
+	)
 }
 
 func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NullShouldBeTreatedAsUndefined",
-		Method: "VerifyPropertyIsUndefined",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"verifyPropertyIsUndefined",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // NullShouldBeTreatedAsUndefinedDataIface is the public interface for the custom type NullShouldBeTreatedAsUndefinedData
@@ -6492,20 +6908,24 @@ func (n *NumberGenerator) SetGenerator(val IRandomNumberGenerator) {
 }
 
 func (n *NumberGenerator) IsSameGenerator(gen IRandomNumberGenerator) bool {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NumberGenerator",
-		Method: "IsSameGenerator",
-		Args: []string{"jsii-calc.IRandomNumberGenerator",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"isSameGenerator",
+		[]interface{}{gen},
+		&returns,
+	)
 	return true
 }
 
 func (n *NumberGenerator) NextTimes100() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "NumberGenerator",
-		Method: "NextTimes100",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		n,
+		"nextTimes100",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -6534,20 +6954,24 @@ func NewObjectRefsInCollections() ObjectRefsInCollectionsIface {
 }
 
 func (o *ObjectRefsInCollections) SumFromArray(values []scopejsiicalclib.NumericValue) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ObjectRefsInCollections",
-		Method: "SumFromArray",
-		Args: []string{"Array<@scope/jsii-calc-lib.NumericValue>",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"sumFromArray",
+		[]interface{}{values},
+		&returns,
+	)
 	return 0.0
 }
 
 func (o *ObjectRefsInCollections) SumFromMap(values map[string]scopejsiicalclib.NumericValue) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ObjectRefsInCollections",
-		Method: "SumFromMap",
-		Args: []string{"Map<string => @scope/jsii-calc-lib.NumericValue>",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"sumFromMap",
+		[]interface{}{values},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -6561,11 +6985,13 @@ type ObjectWithPropertyProvider struct {
 
 func ObjectWithPropertyProvider_Provide() IObjectWithProperty {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ObjectWithPropertyProvider",
-		Method: "Provide",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.ObjectWithPropertyProvider",
+		"provide",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -6594,11 +7020,13 @@ func NewOld() OldIface {
 }
 
 func (o *Old) DoAThing() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Old",
-		Method: "DoAThing",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"doAThing",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -6625,19 +7053,23 @@ func NewOptionalArgumentInvoker(delegate IInterfaceWithOptionalMethodArguments) 
 }
 
 func (o *OptionalArgumentInvoker) InvokeWithOptional() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "OptionalArgumentInvoker",
-		Method: "InvokeWithOptional",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"invokeWithOptional",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (o *OptionalArgumentInvoker) InvokeWithoutOptional() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "OptionalArgumentInvoker",
-		Method: "InvokeWithoutOptional",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"invokeWithoutOptional",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -6802,28 +7234,34 @@ func (o *OverridableProtectedMember) SetOverrideReadWrite(val string) {
 }
 
 func (o *OverridableProtectedMember) OverrideMe() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "OverridableProtectedMember",
-		Method: "OverrideMe",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"overrideMe",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (o *OverridableProtectedMember) SwitchModes() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "OverridableProtectedMember",
-		Method: "SwitchModes",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"switchModes",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (o *OverridableProtectedMember) ValueFromProtected() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "OverridableProtectedMember",
-		Method: "ValueFromProtected",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"valueFromProtected",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -6850,11 +7288,13 @@ func NewOverrideReturnsObject() OverrideReturnsObjectIface {
 }
 
 func (o *OverrideReturnsObject) Test(obj IReturnsNumber) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "OverrideReturnsObject",
-		Method: "Test",
-		Args: []string{"jsii-calc.IReturnsNumber",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		o,
+		"test",
+		[]interface{}{obj},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -6897,11 +7337,13 @@ func NewPartiallyInitializedThisConsumer() PartiallyInitializedThisConsumerIface
 }
 
 func (p *PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis(obj ConstructorPassesThisOut, dt string, ev AllTypesEnum) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PartiallyInitializedThisConsumer",
-		Method: "ConsumePartiallyInitializedThis",
-		Args: []string{"jsii-calc.ConstructorPassesThisOut", "date", "jsii-calc.AllTypesEnum",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"consumePartiallyInitializedThis",
+		[]interface{}{obj, dt, ev},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -6928,11 +7370,13 @@ func NewPolymorphism() PolymorphismIface {
 }
 
 func (p *Polymorphism) SayHello(friendly scopejsiicalclib.IFriendly) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Polymorphism",
-		Method: "SayHello",
-		Args: []string{"@scope/jsii-calc-lib.IFriendly",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"sayHello",
+		[]interface{}{friendly},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -7049,20 +7493,24 @@ func (p *Power) SetPow(val scopejsiicalclib.NumericValue) {
 }
 
 func (p *Power) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Power",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (p *Power) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Power",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -7134,11 +7582,13 @@ func NewPublicClass() PublicClassIface {
 }
 
 func (p *PublicClass) Hello() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PublicClass",
-		Method: "Hello",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"hello",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -7195,259 +7645,323 @@ func NewPythonReservedWords() PythonReservedWordsIface {
 }
 
 func (p *PythonReservedWords) And() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "And",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"and",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) As() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "As",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"as",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Assert() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Assert",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"assert",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Async() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Async",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"async",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Await() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Await",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"await",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Break() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Break",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"break",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Class() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Class",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"class",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Continue() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Continue",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"continue",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Def() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Def",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"def",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Del() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Del",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"del",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Elif() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Elif",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"elif",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Else() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Else",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"else",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Except() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Except",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"except",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Finally() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Finally",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"finally",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) For() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "For",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"for",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) From() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "From",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"from",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Global() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Global",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"global",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) If() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "If",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"if",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Import() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Import",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"import",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) In() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "In",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"in",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Is() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Is",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"is",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Lambda() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Lambda",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"lambda",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Nonlocal() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Nonlocal",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"nonlocal",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Not() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Not",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"not",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Or() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Or",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"or",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Pass() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Pass",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"pass",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Raise() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Raise",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"raise",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Return() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Return",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"return",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Try() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Try",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"try",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) While() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "While",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"while",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) With() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "With",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"with",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (p *PythonReservedWords) Yield() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "PythonReservedWords",
-		Method: "Yield",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		p,
+		"yield",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -7487,20 +8001,24 @@ func (r *ReferenceEnumFromScopedPackage) SetFoo(val scopejsiicalclib.EnumFromSco
 }
 
 func (r *ReferenceEnumFromScopedPackage) LoadFoo() scopejsiicalclib.EnumFromScopedModule {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ReferenceEnumFromScopedPackage",
-		Method: "LoadFoo",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		r,
+		"loadFoo",
+		[]interface{}{},
+		&returns,
+	)
 	return "ENUM_DUMMY"
 }
 
 func (r *ReferenceEnumFromScopedPackage) SaveFoo(value scopejsiicalclib.EnumFromScopedModule) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ReferenceEnumFromScopedPackage",
-		Method: "SaveFoo",
-		Args: []string{"@scope/jsii-calc-lib.EnumFromScopedModule",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		r,
+		"saveFoo",
+		[]interface{}{value},
+		&returns,
+	)
 }
 
 // Class interface
@@ -7577,11 +8095,13 @@ type RootStructValidator struct {
 
 func RootStructValidator_Validate(struct_ RootStruct) {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "RootStructValidator",
-		Method: "Validate",
-		Args: []string{"jsii-calc.RootStruct",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.RootStructValidator",
+		"validate",
+		[]interface{}{struct_},
+		&returns,
+	)
 }
 
 // Class interface
@@ -7609,27 +8129,33 @@ func NewRuntimeTypeChecking() RuntimeTypeCheckingIface {
 }
 
 func (r *RuntimeTypeChecking) MethodWithDefaultedArguments(arg1 float64, arg2 string, arg3 string) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "RuntimeTypeChecking",
-		Method: "MethodWithDefaultedArguments",
-		Args: []string{"number", "string", "date",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		r,
+		"methodWithDefaultedArguments",
+		[]interface{}{arg1, arg2, arg3},
+		&returns,
+	)
 }
 
 func (r *RuntimeTypeChecking) MethodWithOptionalAnyArgument(arg _jsii_.Any) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "RuntimeTypeChecking",
-		Method: "MethodWithOptionalAnyArgument",
-		Args: []string{"any",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		r,
+		"methodWithOptionalAnyArgument",
+		[]interface{}{arg},
+		&returns,
+	)
 }
 
 func (r *RuntimeTypeChecking) MethodWithOptionalArguments(arg1 float64, arg2 string, arg3 string) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "RuntimeTypeChecking",
-		Method: "MethodWithOptionalArguments",
-		Args: []string{"number", "string", "date",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		r,
+		"methodWithOptionalArguments",
+		[]interface{}{arg1, arg2, arg3},
+		&returns,
+	)
 }
 
 // SecondLevelStructIface is the public interface for the custom type SecondLevelStruct
@@ -7684,20 +8210,24 @@ func NewSingleInstanceTwoTypes() SingleInstanceTwoTypesIface {
 }
 
 func (s *SingleInstanceTwoTypes) Interface1() InbetweenClass {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SingleInstanceTwoTypes",
-		Method: "Interface1",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"interface1",
+		[]interface{}{},
+		&returns,
+	)
 	return InbetweenClass{}
 }
 
 func (s *SingleInstanceTwoTypes) Interface2() IPublicInterface {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SingleInstanceTwoTypes",
-		Method: "Interface2",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"interface2",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -7714,11 +8244,13 @@ type SingletonInt struct {
 }
 
 func (s *SingletonInt) IsSingletonInt(value float64) bool {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SingletonInt",
-		Method: "IsSingletonInt",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"isSingletonInt",
+		[]interface{}{value},
+		&returns,
+	)
 	return true
 }
 
@@ -7742,11 +8274,13 @@ type SingletonString struct {
 }
 
 func (s *SingletonString) IsSingletonString(value string) bool {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SingletonString",
-		Method: "IsSingletonString",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"isSingletonString",
+		[]interface{}{value},
+		&returns,
+	)
 	return true
 }
 
@@ -7801,21 +8335,25 @@ func NewSomeTypeJsii976() SomeTypeJsii976Iface {
 
 func SomeTypeJsii976_ReturnAnonymous() _jsii_.Any {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SomeTypeJsii976",
-		Method: "ReturnAnonymous",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.SomeTypeJsii976",
+		"returnAnonymous",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func SomeTypeJsii976_ReturnReturn() IReturnJsii976 {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SomeTypeJsii976",
-		Method: "ReturnReturn",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.SomeTypeJsii976",
+		"returnReturn",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -7865,11 +8403,13 @@ func (s *StableClass) SetMutableProperty(val float64) {
 }
 
 func (s *StableClass) Method() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "StableClass",
-		Method: "Method",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"method",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 type StableEnum string
@@ -7921,11 +8461,13 @@ func (s *StaticContext) SetStaticVariable(val bool) {
 
 func StaticContext_CanAccessStaticContext() bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "StaticContext",
-		Method: "CanAccessStaticContext",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.StaticContext",
+		"canAccessStaticContext",
+		[]interface{}{},
+		&returns,
+	)
 	return true
 }
 
@@ -8049,20 +8591,24 @@ func (s *Statics) SetValue(val string) {
 
 func Statics_StaticMethod(name string) string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "StaticMethod",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.Statics",
+		"staticMethod",
+		[]interface{}{name},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (s *Statics) JustMethod() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "JustMethod",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"justMethod",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -8211,21 +8757,25 @@ func NewStructPassing() StructPassingIface {
 
 func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelStruct) float64 {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "StructPassing",
-		Method: "HowManyVarArgsDidIPass",
-		Args: []string{"number", "jsii-calc.TopLevelStruct",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.StructPassing",
+		"howManyVarArgsDidIPass",
+		[]interface{}{_positional, inputs},
+		&returns,
+	)
 	return 0.0
 }
 
 func StructPassing_RoundTrip(_positional float64, input TopLevelStruct) TopLevelStruct {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "StructPassing",
-		Method: "RoundTrip",
-		Args: []string{"number", "jsii-calc.TopLevelStruct",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.StructPassing",
+		"roundTrip",
+		[]interface{}{_positional, input},
+		&returns,
+	)
 	return TopLevelStruct{}
 }
 
@@ -8239,21 +8789,25 @@ type StructUnionConsumer struct {
 
 func StructUnionConsumer_IsStructA(struct_ _jsii_.Any) bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "StructUnionConsumer",
-		Method: "IsStructA",
-		Args: []string{"jsii-calc.StructA | jsii-calc.StructB",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.StructUnionConsumer",
+		"isStructA",
+		[]interface{}{struct_},
+		&returns,
+	)
 	return true
 }
 
 func StructUnionConsumer_IsStructB(struct_ _jsii_.Any) bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "StructUnionConsumer",
-		Method: "IsStructB",
-		Args: []string{"jsii-calc.StructA | jsii-calc.StructB",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.StructUnionConsumer",
+		"isStructB",
+		[]interface{}{struct_},
+		&returns,
+	)
 	return true
 }
 
@@ -8390,20 +8944,24 @@ func (s *Sum) SetParts(val []scopejsiicalclib.NumericValue) {
 }
 
 func (s *Sum) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Sum",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (s *Sum) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Sum",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -8655,90 +9213,110 @@ func (s *SyncVirtualMethods) SetValueOfOtherProperty(val string) {
 }
 
 func (s *SyncVirtualMethods) CallerIsAsync() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "CallerIsAsync",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"callerIsAsync",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
 func (s *SyncVirtualMethods) CallerIsMethod() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "CallerIsMethod",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"callerIsMethod",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
 func (s *SyncVirtualMethods) ModifyOtherProperty(value string) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "ModifyOtherProperty",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"modifyOtherProperty",
+		[]interface{}{value},
+		&returns,
+	)
 }
 
 func (s *SyncVirtualMethods) ModifyValueOfTheProperty(value string) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "ModifyValueOfTheProperty",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"modifyValueOfTheProperty",
+		[]interface{}{value},
+		&returns,
+	)
 }
 
 func (s *SyncVirtualMethods) ReadA() float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "ReadA",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"readA",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
 func (s *SyncVirtualMethods) RetrieveOtherProperty() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "RetrieveOtherProperty",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"retrieveOtherProperty",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (s *SyncVirtualMethods) RetrieveReadOnlyProperty() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "RetrieveReadOnlyProperty",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"retrieveReadOnlyProperty",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (s *SyncVirtualMethods) RetrieveValueOfTheProperty() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "RetrieveValueOfTheProperty",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"retrieveValueOfTheProperty",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (s *SyncVirtualMethods) VirtualMethod(n float64) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "VirtualMethod",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"virtualMethod",
+		[]interface{}{n},
+		&returns,
+	)
 	return 0.0
 }
 
 func (s *SyncVirtualMethods) WriteA(value float64) {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "SyncVirtualMethods",
-		Method: "WriteA",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		s,
+		"writeA",
+		[]interface{}{value},
+		&returns,
+	)
 }
 
 // Class interface
@@ -8764,11 +9342,13 @@ func NewThrower() ThrowerIface {
 }
 
 func (t *Thrower) ThrowError() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Thrower",
-		Method: "ThrowError",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		t,
+		"throwError",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // TopLevelStructIface is the public interface for the custom type TopLevelStruct
@@ -8814,11 +9394,13 @@ type UmaskCheck struct {
 
 func UmaskCheck_Mode() float64 {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "UmaskCheck",
-		Method: "Mode",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.UmaskCheck",
+		"mode",
+		[]interface{}{},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -8872,20 +9454,24 @@ func (u *UnaryOperation) SetOperand(val scopejsiicalclib.NumericValue) {
 }
 
 func (u *UnaryOperation) TypeName() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "UnaryOperation",
-		Method: "TypeName",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		u,
+		"typeName",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
 func (u *UnaryOperation) ToString() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "UnaryOperation",
-		Method: "ToString",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		u,
+		"toString",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -8981,11 +9567,13 @@ func NewUseBundledDependency() UseBundledDependencyIface {
 }
 
 func (u *UseBundledDependency) Value() _jsii_.Any {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "UseBundledDependency",
-		Method: "Value",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		u,
+		"value",
+		[]interface{}{},
+		&returns,
+	)
 	return nil
 }
 
@@ -9013,11 +9601,13 @@ func NewUseCalcBase() UseCalcBaseIface {
 }
 
 func (u *UseCalcBase) Hello() scopejsiicalcbase.Base {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "UseCalcBase",
-		Method: "Hello",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		u,
+		"hello",
+		[]interface{}{},
+		&returns,
+	)
 	return scopejsiicalcbase.Base{}
 }
 
@@ -9058,29 +9648,35 @@ func (u *UsesInterfaceWithProperties) SetObj(val IInterfaceWithProperties) {
 }
 
 func (u *UsesInterfaceWithProperties) JustRead() string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "UsesInterfaceWithProperties",
-		Method: "JustRead",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		u,
+		"justRead",
+		[]interface{}{},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (u *UsesInterfaceWithProperties) ReadStringAndNumber(ext IInterfaceWithPropertiesExtension) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "UsesInterfaceWithProperties",
-		Method: "ReadStringAndNumber",
-		Args: []string{"jsii-calc.IInterfaceWithPropertiesExtension",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		u,
+		"readStringAndNumber",
+		[]interface{}{ext},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func (u *UsesInterfaceWithProperties) WriteAndRead(value string) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "UsesInterfaceWithProperties",
-		Method: "WriteAndRead",
-		Args: []string{"string",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		u,
+		"writeAndRead",
+		[]interface{}{value},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -9107,11 +9703,13 @@ func NewVariadicInvoker(method VariadicMethod) VariadicInvokerIface {
 }
 
 func (v *VariadicInvoker) AsArray(values float64) []float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "VariadicInvoker",
-		Method: "AsArray",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"asArray",
+		[]interface{}{values},
+		&returns,
+	)
 	return nil
 }
 
@@ -9138,11 +9736,13 @@ func NewVariadicMethod(prefix float64) VariadicMethodIface {
 }
 
 func (v *VariadicMethod) AsArray(first float64, others float64) []float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "VariadicMethod",
-		Method: "AsArray",
-		Args: []string{"number", "number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"asArray",
+		[]interface{}{first, others},
+		&returns,
+	)
 	return nil
 }
 
@@ -9173,47 +9773,57 @@ func NewVirtualMethodPlayground() VirtualMethodPlaygroundIface {
 }
 
 func (v *VirtualMethodPlayground) OverrideMeAsync(index float64) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "VirtualMethodPlayground",
-		Method: "OverrideMeAsync",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"overrideMeAsync",
+		[]interface{}{index},
+		&returns,
+	)
 	return 0.0
 }
 
 func (v *VirtualMethodPlayground) OverrideMeSync(index float64) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "VirtualMethodPlayground",
-		Method: "OverrideMeSync",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"overrideMeSync",
+		[]interface{}{index},
+		&returns,
+	)
 	return 0.0
 }
 
 func (v *VirtualMethodPlayground) ParallelSumAsync(count float64) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "VirtualMethodPlayground",
-		Method: "ParallelSumAsync",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"parallelSumAsync",
+		[]interface{}{count},
+		&returns,
+	)
 	return 0.0
 }
 
 func (v *VirtualMethodPlayground) SerialSumAsync(count float64) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "VirtualMethodPlayground",
-		Method: "SerialSumAsync",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"serialSumAsync",
+		[]interface{}{count},
+		&returns,
+	)
 	return 0.0
 }
 
 func (v *VirtualMethodPlayground) SumSync(count float64) float64 {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "VirtualMethodPlayground",
-		Method: "SumSync",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"sumSync",
+		[]interface{}{count},
+		&returns,
+	)
 	return 0.0
 }
 
@@ -9258,19 +9868,23 @@ func (v *VoidCallback) SetMethodWasCalled(val bool) {
 }
 
 func (v *VoidCallback) CallMe() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "VoidCallback",
-		Method: "CallMe",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"callMe",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 func (v *VoidCallback) OverrideMe() {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "VoidCallback",
-		Method: "OverrideMe",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		v,
+		"overrideMe",
+		[]interface{}{},
+		&returns,
+	)
 }
 
 // Class interface
@@ -9353,11 +9967,13 @@ func (c *ClassWithSelf) SetSelf(val string) {
 }
 
 func (c *ClassWithSelf) Method(self float64) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ClassWithSelf",
-		Method: "Method",
-		Args: []string{"number",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		c,
+		"method",
+		[]interface{}{self},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -9615,11 +10231,13 @@ type Kwargs struct {
 
 func Kwargs_Method(props child.KwargsProps) bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Kwargs",
-		Method: "Method",
-		Args: []string{"jsii-calc.submodule.child.KwargsProps",},
-	})
+	returns := ""
+	_jsii_.InvokeStatic(
+		"jsii-calc.submodule.isolated.Kwargs",
+		"method",
+		[]interface{}{props},
+		&returns,
+	)
 	return true
 }
 
