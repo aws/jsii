@@ -74,7 +74,7 @@ export abstract class Package {
         const moduleName = pack.root.moduleName;
         const prefix = moduleName !== '' ? `${moduleName}/` : '';
         const rootPackageName = pack.root.packageName;
-        const suffix = pack.filePath !== '' ? `/${pack.filePath}` : '';
+        const suffix = pack.filePath !== '' ? `/${pack.filePath}` : ``;
         return `${prefix}${rootPackageName}${suffix}`;
       }),
     );
@@ -258,11 +258,12 @@ export class RootPackage extends Package {
  * InternalPackage refers to any go package within a given JSII module.
  */
 export class InternalPackage extends Package {
-  public readonly pkg: Package;
+  public readonly parent: Package;
 
-  public constructor(root: Package, pkg: Package, assembly: JsiiSubmodule) {
+  public constructor(root: Package, parent: Package, assembly: JsiiSubmodule) {
     const packageName = goPackageName(assembly.name);
-    const filePath = pkg === root ? packageName : pkg.filePath;
+    const filePath =
+      parent === root ? packageName : `${parent.filePath}/${packageName}`;
 
     super(
       assembly.types,
@@ -273,6 +274,6 @@ export class InternalPackage extends Package {
       root,
     );
 
-    this.pkg = pkg;
+    this.parent = parent;
   }
 }
