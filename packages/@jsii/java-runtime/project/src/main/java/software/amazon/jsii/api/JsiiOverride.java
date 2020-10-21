@@ -1,8 +1,11 @@
 package software.amazon.jsii.api;
 
+import software.amazon.jsii.Internal;
+
 /**
  * Represents an override.
  */
+@Internal
 public class JsiiOverride {
     /**
      * The name of the overridden method (or null if this is property override).

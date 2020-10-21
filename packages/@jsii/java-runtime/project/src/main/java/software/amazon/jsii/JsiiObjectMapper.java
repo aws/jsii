@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Provides a correctly configured JSON processor for handling JSII requests and responses.
  */
+@Internal
 public final class JsiiObjectMapper {
   /**
    * An ObjectMapper that can be used to serialize and deserialize JSII requests and responses.

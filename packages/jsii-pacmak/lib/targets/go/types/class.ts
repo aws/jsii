@@ -1,11 +1,17 @@
+import { toPascalCase } from 'codemaker';
 import { Method, ClassType, Initializer } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
 import { Package } from '../package';
-import { ClassConstructor, MethodCall } from '../runtime';
+import {
+  ClassConstructor,
+  MethodCall,
+  StaticGetProperty,
+  StaticSetProperty,
+} from '../runtime';
 import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoStruct } from './go-type';
-import { GoParameter, GoMethod } from './type-member';
+import { GoParameter, GoMethod, GoProperty } from './type-member';
 
 /*
  * GoClass wraps a Typescript class as a Go custom struct type
@@ -13,6 +19,7 @@ import { GoParameter, GoMethod } from './type-member';
 export class GoClass extends GoStruct {
   public readonly methods: ClassMethod[] = [];
   public readonly staticMethods: StaticMethod[] = [];
+  public readonly staticProperties: GoProperty[] = [];
 
   private readonly initializer?: GoClassConstructor;
 
@@ -24,6 +31,12 @@ export class GoClass extends GoStruct {
         this.staticMethods.push(new StaticMethod(this, method));
       } else {
         this.methods.push(new ClassMethod(this, method));
+      }
+    }
+
+    for (const prop of Object.values(this.type.getProperties(true))) {
+      if (prop.static) {
+        this.staticProperties.push(new GoProperty(this, prop));
       }
     }
 
@@ -44,6 +57,10 @@ export class GoClass extends GoStruct {
 
     for (const method of this.staticMethods) {
       method.emit(context);
+    }
+
+    for (const prop of this.staticProperties) {
+      this.emitStaticProperty(context, prop);
     }
 
     for (const method of this.methods) {
@@ -74,7 +91,30 @@ export class GoClass extends GoStruct {
     code.line();
   }
 
-  // emits the implementation of the getters for the struct
+  private emitStaticProperty({ code }: EmitContext, prop: GoProperty): void {
+    const getCaller = new StaticGetProperty(prop);
+
+    const propertyName = toPascalCase(prop.name);
+    const name = `${this.name}_${propertyName}`;
+
+    code.openBlock(`func ${name}() ${prop.returnType}`);
+    getCaller.emit(code);
+
+    code.closeBlock();
+    code.line();
+
+    if (!prop.immutable) {
+      const setCaller = new StaticSetProperty(prop);
+      const name = `${this.name}_Set${propertyName}`;
+      code.openBlock(`func ${name}(val ${prop.returnType})`);
+      setCaller.emit(code);
+
+      code.closeBlock();
+      code.line();
+    }
+  }
+
+  // emits the implementation of the setters for the struct
   private emitSetters(context: EmitContext): void {
     if (this.properties.length !== 0) {
       for (const property of this.properties) {

@@ -733,7 +733,7 @@ export class Statics {
   }
 
   /**
-   *Jsdocs for static setter.
+   * Jsdocs for static setter.
    */
   public static set instance(val: Statics) {
     this._instance = val;
