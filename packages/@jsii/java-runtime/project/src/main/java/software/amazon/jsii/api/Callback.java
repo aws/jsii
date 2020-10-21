@@ -1,8 +1,11 @@
 package software.amazon.jsii.api;
 
+import software.amazon.jsii.Internal;
+
 /**
  * The "callback" struct.
  */
+@Internal
 public class Callback {
     /**
      * Callback ID.

@@ -478,17 +478,16 @@ export class DotNetGenerator extends Generator {
 
     let definedOnAncestor = false;
     // In the case of the source being a class, we check if it is already defined on an ancestor
-    if (cls.kind === spec.TypeKind.Class) {
+    if (spec.isClassType(cls)) {
       definedOnAncestor = this.isMemberDefinedOnAncestor(cls, method);
     }
     // The method is an override if it's defined on the ancestor, or if the parent is a class and we are generating a proxy or datatype class
     let overrides =
-      definedOnAncestor ||
-      (cls.kind === spec.TypeKind.Class && emitForProxyOrDatatype);
+      definedOnAncestor || (spec.isClassType(cls) && emitForProxyOrDatatype);
     // We also inspect the jsii model to see if it overrides a class member.
     if (method.overrides) {
       const overrideType = this.findType(method.overrides);
-      if (overrideType.kind === spec.TypeKind.Class) {
+      if (spec.isClassType(overrideType)) {
         // Overrides a class, needs overrides keyword
         overrides = true;
       }
@@ -641,10 +640,9 @@ export class DotNetGenerator extends Generator {
     this.dotnetDocGenerator.emitDocs(ifc);
     this.dotnetRuntimeGenerator.emitAttributesForInterfaceProxy(ifc);
     const interfaceFqn = this.typeresolver.toNativeFqn(ifc.fqn);
-    const suffix =
-      ifc.kind === spec.TypeKind.Interface
-        ? `: DeputyBase, ${interfaceFqn}`
-        : `: ${interfaceFqn}`;
+    const suffix = spec.isInterfaceType(ifc)
+      ? `: DeputyBase, ${interfaceFqn}`
+      : `: ${interfaceFqn}`;
     this.code.openBlock(`internal sealed class ${name} ${suffix}`);
 
     // Create the private constructor
@@ -751,7 +749,7 @@ export class DotNetGenerator extends Generator {
       bases.push(
         ...(currentType.interfaces ?? []).map((iface) => this.findType(iface)),
       );
-      if (currentType.kind === spec.TypeKind.Class && currentType.base) {
+      if (spec.isClassType(currentType) && currentType.base) {
         bases.push(this.findType(currentType.base));
       }
       for (const base of bases) {
@@ -824,7 +822,7 @@ export class DotNetGenerator extends Generator {
     let isAbstractKeyword = '';
 
     // If the prop parent is a class
-    if (cls.kind === spec.TypeKind.Class) {
+    if (spec.isClassType(cls)) {
       const implementedInBase = this.isMemberDefinedOnAncestor(
         cls as spec.ClassType,
         prop,
