@@ -1,6 +1,6 @@
 import { CodeMaker } from 'codemaker';
 
-import { ClassMethod, Struct } from '../types';
+import { GoProperty, ClassMethod, Struct } from '../types';
 import { JSII_INVOKE_FUNC, JSII_SINVOKE_FUNC } from './constants';
 import { emitInitialization } from './util';
 
@@ -78,5 +78,47 @@ export class MethodCall {
       .map((param) => param.name)
       .join(', ');
     return `[]interface{}{${argsList}}`;
+  }
+}
+
+// TODO placeholder - use StaticGet api
+export class StaticGetProperty {
+  public constructor(public readonly parent: GoProperty) {}
+
+  public emit(code: CodeMaker) {
+    emitInitialization(code);
+
+    code.openBlock(`_jsii_.NoOpRequest(_jsii_.NoOpApiRequest`);
+    code.line(`Class: "${this.parent.parent.name}",`);
+    code.line(`Method: "${this.parent.property.name}",`);
+    code.close(`})`);
+
+    const ret = this.parent.reference;
+    if (ret?.type?.type.isClassType() || ret?.type instanceof Struct) {
+      code.line(`return ${this.parent.returnType}{}`);
+    } else if (ret?.type?.type.isEnumType()) {
+      code.line(`return "ENUM_DUMMY"`);
+    } else {
+      code.line(`return ${this.getDummyReturn(this.parent.returnType)}`);
+    }
+  }
+
+  private getDummyReturn(type: string): string {
+    return NOOP_RETURN_MAP[type] || 'nil';
+  }
+}
+
+// TODO placeholder - use StaticGet api
+export class StaticSetProperty {
+  public constructor(public readonly parent: GoProperty) {}
+
+  public emit(code: CodeMaker) {
+    emitInitialization(code);
+
+    code.openBlock(`_jsii_.NoOpRequest(_jsii_.NoOpApiRequest`);
+    code.line(`Class: "${this.parent.parent.name}",`);
+    code.line(`Method: "${this.parent.property.name}",`);
+    code.close(`})`);
+    code.line(`return`);
   }
 }
