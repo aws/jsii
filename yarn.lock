@@ -1619,10 +1619,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest-expect-message@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@types/jest-expect-message/-/jest-expect-message-1.0.2.tgz#5e354d78f01db717ff280fdca5bc48be19eccce0"
-  integrity sha512-a6En2I1lLW0oW1FmukuPR056n+zGBN6CIctrQN9znBrC+6/GsBRg1ICtZUzHtRn9U0hd4vXjRMd2D2BMefMy2Q==
+"@types/jest-expect-message@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/jest-expect-message/-/jest-expect-message-1.0.3.tgz#433ad89565c871acefafedeb957d0a8ec2a977a0"
+  integrity sha512-sp70Lc8POkOcXHEcLERpX/7B/BtQiqIYz3AvC9ZMNKSaiDttr8hKvz9DljIn7N6WJi3ioVoTtB1utDAX46oPlg==
   dependencies:
     "@types/jest" "*"
 
