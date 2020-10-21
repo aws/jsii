@@ -2149,7 +2149,6 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┗━ 📄 StructWithSelfProxy.cs
        ┃           ┣━ 📄 ReferenceEnumFromScopedPackage.cs
        ┃           ┣━ 📄 ReturnsPrivateImplementationOfInterface.cs
-       ┃           ┣━ 📄 ReturnsSpecialParameter.cs
        ┃           ┣━ 📄 RootStruct.cs
        ┃           ┣━ 📄 RootStructProxy.cs
        ┃           ┣━ 📄 RootStructValidator.cs
@@ -2211,10 +2210,12 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┃  ┃  ┗━ 📄 INamespacedProxy.cs
        ┃           ┃  ┃  ┣━ 📄 Namespaced.cs
        ┃           ┃  ┃  ┗━ 📄 NamespacedProxy.cs
-       ┃           ┃  ┗━ 📁 Param
-       ┃           ┃     ┣━ 📄 ISpecialParameter.cs
-       ┃           ┃     ┣━ 📄 SpecialParameter.cs
-       ┃           ┃     ┗━ 📄 SpecialParameterProxy.cs
+       ┃           ┃  ┣━ 📁 Param
+       ┃           ┃  ┃  ┣━ 📄 ISpecialParameter.cs
+       ┃           ┃  ┃  ┣━ 📄 SpecialParameter.cs
+       ┃           ┃  ┃  ┗━ 📄 SpecialParameterProxy.cs
+       ┃           ┃  ┗━ 📁 Returnsparam
+       ┃           ┃     ┗━ 📄 ReturnsSpecialParameter.cs
        ┃           ┣━ 📄 Sum.cs
        ┃           ┣━ 📄 SupportsNiceJavaBuilder.cs
        ┃           ┣━ 📄 SupportsNiceJavaBuilderProps.cs
@@ -13044,44 +13045,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/ReturnsSpecialParameter.cs 1`] = `
-using Amazon.JSII.Runtime.Deputy;
-
-#pragma warning disable CS0672,CS0809,CS1591
-
-namespace Amazon.JSII.Tests.CalculatorNamespace
-{
-    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ReturnsSpecialParameter), fullyQualifiedName: "jsii-calc.ReturnsSpecialParameter")]
-    public class ReturnsSpecialParameter : DeputyBase
-    {
-        public ReturnsSpecialParameter(): base(new DeputyProps(System.Array.Empty<object?>()))
-        {
-        }
-
-        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
-        /// <param name="reference">The Javascript-owned object reference</param>
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        protected ReturnsSpecialParameter(ByRefValue reference): base(reference)
-        {
-        }
-
-        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
-        /// <param name="props">The deputy props</param>
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        protected ReturnsSpecialParameter(DeputyProps props): base(props)
-        {
-        }
-
-        [JsiiMethod(name: "returnsSpecialParam", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.param.SpecialParameter\\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter ReturnsSpecialParam()
-        {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter>(new System.Type[]{}, new object[]{})!;
-        }
-    }
-}
-
-`;
-
 exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/RootStruct.cs 1`] = `
 using Amazon.JSII.Runtime.Deputy;
 
@@ -15010,6 +14973,44 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param
         public string Value
         {
             get => GetInstanceProperty<string>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/Returnsparam/ReturnsSpecialParameter.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Returnsparam
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Returnsparam.ReturnsSpecialParameter), fullyQualifiedName: "jsii-calc.submodule.returnsparam.ReturnsSpecialParameter")]
+    public class ReturnsSpecialParameter : DeputyBase
+    {
+        public ReturnsSpecialParameter(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ReturnsSpecialParameter(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ReturnsSpecialParameter(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "returnsSpecialParam", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.param.SpecialParameter\\"}}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter ReturnsSpecialParam()
+        {
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter>(new System.Type[]{}, new object[]{})!;
         }
     }
 }

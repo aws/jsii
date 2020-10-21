@@ -188,14 +188,21 @@ exports[`jsii-tree --all 1`] = `
  │ │   │ │         ├── abstract
  │ │   │ │         ├── immutable
  │ │   │ │         └── type: jsii-calc.submodule.child.Goodness
- │ │   │ └─┬ param
+ │ │   │ ├─┬ param
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ interface SpecialParameter (stable)
+ │ │   │ │     └─┬ members
+ │ │   │ │       └─┬ value property (stable)
+ │ │   │ │         ├── abstract
+ │ │   │ │         ├── immutable
+ │ │   │ │         └── type: string
+ │ │   │ └─┬ returnsparam
  │ │   │   └─┬ types
- │ │   │     └─┬ interface SpecialParameter (stable)
+ │ │   │     └─┬ class ReturnsSpecialParameter (stable)
  │ │   │       └─┬ members
- │ │   │         └─┬ value property (stable)
- │ │   │           ├── abstract
- │ │   │           ├── immutable
- │ │   │           └── type: string
+ │ │   │         ├── <initializer>() initializer (stable)
+ │ │   │         └─┬ returnsSpecialParam() method (stable)
+ │ │   │           └── returns: jsii-calc.submodule.param.SpecialParameter
  │ │   └─┬ types
  │ │     └─┬ class MyClass (stable)
  │ │       ├── interfaces: INamespaced
@@ -1570,11 +1577,6 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ privateImplementation property (stable)
  │   │     ├── immutable
  │   │     └── type: jsii-calc.IPrivatelyImplemented
- │   ├─┬ class ReturnsSpecialParameter (stable)
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer (stable)
- │   │   └─┬ returnsSpecialParam() method (stable)
- │   │     └── returns: jsii-calc.submodule.param.SpecialParameter
  │   ├─┬ class RootStructValidator (stable)
  │   │ └─┬ members
  │   │   └─┬ static validate(struct) method (stable)
@@ -2830,9 +2832,12 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │   │ │ └─┬ types
  │ │   │ │   └─┬ class Namespaced
  │ │   │ │     └── interfaces: INamespaced
- │ │   │ └─┬ param
+ │ │   │ ├─┬ param
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface SpecialParameter
+ │ │   │ └─┬ returnsparam
  │ │   │   └─┬ types
- │ │   │     └── interface SpecialParameter
+ │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
  │ │     └─┬ class MyClass
  │ │       └── interfaces: INamespaced
@@ -2954,7 +2959,6 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
- │   ├── class ReturnsSpecialParameter
  │   ├── class RootStructValidator
  │   ├── class RuntimeTypeChecking
  │   ├── class SingleInstanceTwoTypes
@@ -3245,11 +3249,17 @@ exports[`jsii-tree --members 1`] = `
  │ │   │ │     └─┬ members
  │ │   │ │       ├── definedAt property
  │ │   │ │       └── goodness property
- │ │   │ └─┬ param
+ │ │   │ ├─┬ param
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ interface SpecialParameter
+ │ │   │ │     └─┬ members
+ │ │   │ │       └── value property
+ │ │   │ └─┬ returnsparam
  │ │   │   └─┬ types
- │ │   │     └─┬ interface SpecialParameter
+ │ │   │     └─┬ class ReturnsSpecialParameter
  │ │   │       └─┬ members
- │ │   │         └── value property
+ │ │   │         ├── <initializer>() initializer
+ │ │   │         └── returnsSpecialParam() method
  │ │   └─┬ types
  │ │     └─┬ class MyClass
  │ │       └─┬ members
@@ -3858,10 +3868,6 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── privateImplementation property
- │   ├─┬ class ReturnsSpecialParameter
- │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └── returnsSpecialParam() method
  │   ├─┬ class RootStructValidator
  │   │ └─┬ members
  │   │   └── static validate(struct) method
@@ -4399,7 +4405,8 @@ exports[`jsii-tree --signatures 1`] = `
  │       ├─┬ nested_submodule
  │       │ └─┬ submodules
  │       │   └── deeplyNested
- │       └── param
+ │       ├── param
+ │       └── returnsparam
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
@@ -4458,9 +4465,12 @@ exports[`jsii-tree --types 1`] = `
  │ │   │ │ │     └── interface INamespaced
  │ │   │ │ └─┬ types
  │ │   │ │   └── class Namespaced
- │ │   │ └─┬ param
+ │ │   │ ├─┬ param
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface SpecialParameter
+ │ │   │ └─┬ returnsparam
  │ │   │   └─┬ types
- │ │   │     └── interface SpecialParameter
+ │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
  │ │     └── class MyClass
  │ └─┬ types
@@ -4556,7 +4566,6 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
- │   ├── class ReturnsSpecialParameter
  │   ├── class RootStructValidator
  │   ├── class RuntimeTypeChecking
  │   ├── class SingleInstanceTwoTypes
@@ -4715,7 +4724,8 @@ exports[`jsii-tree 1`] = `
  │       ├─┬ nested_submodule
  │       │ └─┬ submodules
  │       │   └── deeplyNested
- │       └── param
+ │       ├── param
+ │       └── returnsparam
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib

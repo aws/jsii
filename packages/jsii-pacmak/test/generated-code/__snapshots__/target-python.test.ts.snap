@@ -1308,7 +1308,9 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
              ┃  ┣━ 📄 __init__.py
              ┃  ┗━ 📁 deeply_nested
              ┃     ┗━ 📄 __init__.py
-             ┗━ 📁 param
+             ┣━ 📁 param
+             ┃  ┗━ 📄 __init__.py
+             ┗━ 📁 returnsparam
                 ┗━ 📄 __init__.py
 `;
 
@@ -1392,7 +1394,8 @@ kwargs = json.loads(
         "jsii_calc.submodule.isolated",
         "jsii_calc.submodule.nested_submodule",
         "jsii_calc.submodule.nested_submodule.deeply_nested",
-        "jsii_calc.submodule.param"
+        "jsii_calc.submodule.param",
+        "jsii_calc.submodule.returnsparam"
     ],
     "package_data": {
         "jsii_calc._jsii": [
@@ -1482,7 +1485,6 @@ import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
 import scope.jsii_calc_lib.custom_submodule_name
 from .composition import CompositeOperation as _CompositeOperation_1c4d123b
-from .submodule.param import SpecialParameter as _SpecialParameter_5bbf34a2
 
 
 class AbstractClassBase(
@@ -6647,18 +6649,6 @@ class ReturnsPrivateImplementationOfInterface(
         return jsii.get(self, "privateImplementation")
 
 
-class ReturnsSpecialParameter(
-    metaclass=jsii.JSIIMeta,
-    jsii_type="jsii-calc.ReturnsSpecialParameter",
-):
-    def __init__(self) -> None:
-        jsii.create(ReturnsSpecialParameter, self, [])
-
-    @jsii.member(jsii_name="returnsSpecialParam")
-    def returns_special_param(self) -> _SpecialParameter_5bbf34a2:
-        return jsii.invoke(self, "returnsSpecialParam", [])
-
-
 @jsii.data_type(
     jsii_type="jsii-calc.RootStruct",
     jsii_struct_bases=[],
@@ -8678,7 +8668,6 @@ __all__ = [
     "PythonReservedWords",
     "ReferenceEnumFromScopedPackage",
     "ReturnsPrivateImplementationOfInterface",
-    "ReturnsSpecialParameter",
     "RootStruct",
     "RootStructValidator",
     "RuntimeTypeChecking",
@@ -9693,6 +9682,42 @@ class SpecialParameter:
 
 __all__ = [
     "SpecialParameter",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/returnsparam/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+from ..param import SpecialParameter as _SpecialParameter_5bbf34a2
+
+
+class ReturnsSpecialParameter(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
+):
+    def __init__(self) -> None:
+        jsii.create(ReturnsSpecialParameter, self, [])
+
+    @jsii.member(jsii_name="returnsSpecialParam")
+    def returns_special_param(self) -> _SpecialParameter_5bbf34a2:
+        return jsii.invoke(self, "returnsSpecialParam", [])
+
+
+__all__ = [
+    "ReturnsSpecialParameter",
 ]
 
 publication.publish()

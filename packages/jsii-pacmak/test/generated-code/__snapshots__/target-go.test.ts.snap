@@ -743,6 +743,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┗━ 📄 nestedsubmodule.go
           ┣━ 📁 param
           ┃  ┗━ 📄 param.go
+          ┣━ 📁 returnsparam
+          ┃  ┗━ 📄 returnsparam.go
           ┗━ 📄 submodule.go
 `;
 
@@ -1099,7 +1101,6 @@ import (
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/composition"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/param"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib/submodule"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
@@ -7753,39 +7754,6 @@ func NewReturnsPrivateImplementationOfInterface() ReturnsPrivateImplementationOf
 	return &self
 }
 
-// Class interface
-type ReturnsSpecialParameterIface interface {
-	ReturnsSpecialParam() param.SpecialParameter
-}
-
-// Struct proxy
-type ReturnsSpecialParameter struct {
-}
-
-func NewReturnsSpecialParameter() ReturnsSpecialParameterIface {
-	_init_.Initialize()
-	self := ReturnsSpecialParameter{}
-	_jsii_.Create(
-		"jsii-calc.ReturnsSpecialParameter",
-		[]interface{}{},
-		[]_jsii_.FQN{},
-		[]_jsii_.Override{},
-		&self,
-	)
-	return &self
-}
-
-func (r *ReturnsSpecialParameter) ReturnsSpecialParam() param.SpecialParameter {
-	returns := ""
-	_jsii_.Invoke(
-		r,
-		"returnsSpecialParam",
-		[]interface{}{},
-		&returns,
-	)
-	return param.SpecialParameter{}
-}
-
 // RootStructIface is the public interface for the custom type RootStruct
 type RootStructIface interface {
 	GetStringProp() string
@@ -9921,6 +9889,51 @@ func (s *SpecialParameter) GetValue() string {
 	return s.Value
 }
 
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/returnsparam/returnsparam.go 1`] = `
+package returnsparam
+
+import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/param"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+)
+
+// Class interface
+type ReturnsSpecialParameterIface interface {
+	ReturnsSpecialParam() param.SpecialParameter
+}
+
+// Struct proxy
+type ReturnsSpecialParameter struct {
+}
+
+func NewReturnsSpecialParameter() ReturnsSpecialParameterIface {
+	_init_.Initialize()
+	self := ReturnsSpecialParameter{}
+	_jsii_.Create(
+		"jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&self,
+	)
+	return &self
+}
+
+func (r *ReturnsSpecialParameter) ReturnsSpecialParam() param.SpecialParameter {
+	returns := ""
+	_jsii_.Invoke(
+		r,
+		"returnsSpecialParam",
+		[]interface{}{},
+		&returns,
+	)
+	return param.SpecialParameter{}
+}
 
 
 `;

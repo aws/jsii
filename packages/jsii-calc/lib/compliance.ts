@@ -20,7 +20,6 @@ import {
   IRandomNumberGenerator,
   Multiply,
 } from './calculator';
-import { SpecialParameter } from './submodule/param';
 
 /* eslint-disable
   @typescript-eslint/no-namespace,
@@ -2839,12 +2838,5 @@ export namespace LevelOne {
 
   export interface PropBooleanValue {
     readonly value: boolean;
-  }
-}
-
-export class ReturnsSpecialParameter {
-  public returnsSpecialParam(): SpecialParameter {
-    const ret = { value: 'foo' };
-    return ret;
   }
 }
