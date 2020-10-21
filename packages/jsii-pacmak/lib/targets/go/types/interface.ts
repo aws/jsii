@@ -45,6 +45,20 @@ export class Interface extends GoType {
     code.line();
   }
 
+  public get usesInitPackage() {
+    return (
+      this.properties.some((p) => p.usesInitPackage) ||
+      this.methods.some((m) => m.usesInitPackage)
+    );
+  }
+
+  public get usesRuntimePackage() {
+    return (
+      this.properties.some((p) => p.usesRuntimePackage) ||
+      this.methods.some((m) => m.usesRuntimePackage)
+    );
+  }
+
   public get extends(): GoTypeRef[] {
     return this.type.getInterfaces(true).map((iface) => {
       return new GoTypeRef(this.pkg.root, iface.reference);
@@ -78,6 +92,9 @@ class InterfaceProperty implements GoTypeMember {
   public readonly getter: string;
   public readonly reference?: GoTypeRef;
 
+  public readonly usesInitPackage = false;
+  public readonly usesRuntimePackage = false;
+
   public constructor(
     public readonly parent: Interface,
     private readonly property: Property,
@@ -109,6 +126,9 @@ class InterfaceProperty implements GoTypeMember {
 }
 
 class InterfaceMethod extends GoMethod {
+  public readonly usesInitPackage = false;
+  public readonly usesRuntimePackage = false;
+
   public constructor(
     public readonly parent: Interface,
     public readonly method: Method,

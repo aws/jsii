@@ -1037,8 +1037,6 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/interfaceinnam
 package interfaceinnamespaceonlyinterface
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 // HelloIface is the public interface for the custom type Hello
@@ -9619,9 +9617,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/back
 package backreferences
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 // MyClassReferenceIface is the public interface for the custom type MyClassReference
@@ -9789,8 +9785,6 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/isol
 package isolated
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 // Class interface
@@ -9821,8 +9815,6 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/nest
 package deeplynested
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 type INamespaced interface {
@@ -9839,7 +9831,6 @@ import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/child"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 // Class interface
@@ -9871,8 +9862,6 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/para
 package param
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 // SpecialParameterIface is the public interface for the custom type SpecialParameter

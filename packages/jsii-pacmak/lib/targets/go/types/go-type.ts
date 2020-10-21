@@ -21,6 +21,8 @@ export abstract class GoType {
 
   public abstract emit(context: EmitContext): void;
   public abstract get dependencies(): Package[];
+  public abstract get usesInitPackage(): boolean;
+  public abstract get usesRuntimePackage(): boolean;
 
   public get namespace() {
     return this.pkg.packageName;
@@ -55,6 +57,14 @@ export abstract class GoStruct extends GoType {
     this.emitInterface(context);
     this.emitStruct(context);
     this.emitGetters(context);
+  }
+
+  public get usesInitPackage() {
+    return this.properties.some((p) => p.usesInitPackage);
+  }
+
+  public get usesRuntimePackage() {
+    return this.properties.some((p) => p.usesRuntimePackage);
   }
 
   protected emitInterface(context: EmitContext): void {

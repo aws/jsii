@@ -68,6 +68,22 @@ export class GoClass extends GoStruct {
     }
   }
 
+  public get usesInitPackage() {
+    return (
+      this.initializer != null ||
+      this.methods.some((m) => m.usesInitPackage) ||
+      this.properties.some((p) => p.usesInitPackage)
+    );
+  }
+
+  public get usesRuntimePackage() {
+    return (
+      this.initializer != null ||
+      this.methods.length > 0 ||
+      this.properties.length > 0
+    );
+  }
+
   protected emitInterface(context: EmitContext): void {
     const { code } = context;
     code.line('// Class interface'); // FIXME for debugging
@@ -180,6 +196,8 @@ export class GoClassConstructor {
 
 export class ClassMethod extends GoMethod {
   public readonly runtimeCall: MethodCall;
+  public readonly usesInitPackage: boolean = false;
+  public readonly usesRuntimePackage = true;
 
   public constructor(
     public readonly parent: GoClass,
@@ -225,6 +243,8 @@ export class ClassMethod extends GoMethod {
 }
 
 export class StaticMethod extends ClassMethod {
+  public readonly usesInitPackage = true;
+
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,
