@@ -8,7 +8,7 @@ import { env } from 'process';
  * in all the packages, so it gets properly discovered. If some values need to
  * be overridden (for example, the coverage threshold), then a new
  * `jest.config.ts` file should be created that imports from this one and
- * modifies just what needs to be modified.
+ * modifies just what needs to be modified, typically using `overriddenConfig`.
  */
 const config: Config.InitialOptions = {
   ...defaults,
@@ -32,5 +32,39 @@ const config: Config.InitialOptions = {
     '\\.tsx?$': 'ts-jest',
   },
 };
+
+/**
+ * Overrides the default configuration with the provided values. The merge
+ * operation works deeply on objects, but overrides that are not objects (e.g:
+ * arrays, strings, ...) simply replace the original value.
+ *
+ * @param overrides values to be used for overriding the orignal configuration.
+ */
+export function overriddenConfig(overrides: Config.InitialOptions) {
+  return merge(config, overrides);
+
+  function merge<T>(original: T, override: T): T {
+    if (typeof original === 'object') {
+      const result: any = {};
+      const allKeys = new Set([
+        ...Object.keys(original),
+        ...Object.keys(overrides),
+      ]);
+      for (const key of Array.from(allKeys).sort()) {
+        const originalValue = original[key];
+        const overrideValue = override[key];
+        if (originalValue == null) {
+          result[key] = overrideValue;
+        } else if (overrideValue == null) {
+          result[key] = originalValue;
+        } else {
+          result[key] = merge(originalValue, overrideValue);
+        }
+      }
+      return result;
+    }
+    return override;
+  }
+}
 
 export default config;

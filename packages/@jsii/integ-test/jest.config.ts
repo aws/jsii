@@ -1,10 +1,6 @@
-import type { Config } from '@jest/types';
-import base from '../../../jest.config';
+import { overriddenConfig } from '../../../jest.config';
 
-const config: Config.InitialOptions = {
-  ...base,
+export default overriddenConfig({
   // We don't need coverage for the integration tests
   collectCoverage: false,
-};
-
-export default config;
+});
