@@ -8,27 +8,27 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Represents a JavaScript object in the Java world.
  */
-public class JsiiObject implements IJsiiObject, JsiiSerializable {
-
-    /**
-     * The jsii engine used by this object.
-     */
-    private final JsiiEngine engine;
-
+public class JsiiObject implements JsiiSerializable {
     /**
      * The interface-proxies that this object can also be represented as.
      */
     private final Map<Class<? extends JsiiObject>, JsiiObject> proxies = new HashMap<>();
 
     /**
+     * The jsii engine used by this object.
+     */
+    final JsiiEngine jsii$engine;
+
+    /**
      * The underlying {@link JsiiObjectRef} instance.
      */
-    private JsiiObjectRef objRef;
+    @Nullable
+    @Internal
+    JsiiObjectRef jsii$objRef;
 
     /**
      * A special constructor that allows creating wrapper objects while bypassing the normal constructor
@@ -37,7 +37,7 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @param initializationMode Must always be set to "JSII".
      */
     protected JsiiObject(final InitializationMode initializationMode) {
-        this(JsiiEngine.getInstance(), initializationMode);
+        this(null, initializationMode);
     }
 
     /**
@@ -49,8 +49,9 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @param engine The {@link JsiiEngine} to use.
      * @param initializationMode Must always be set to "JSII".
      */
-    JsiiObject(final JsiiEngine engine, final InitializationMode initializationMode) {
-        this.engine = Objects.requireNonNull(engine);
+    @Internal
+    JsiiObject(@Nullable final JsiiEngine engine, final InitializationMode initializationMode) {
+        this.jsii$engine = JsiiEngine.getEngineFor(this, engine);
         if (initializationMode != InitializationMode.JSII) {
             throw new JsiiException("The only supported initialization mode is '" + InitializationMode.JSII + "'");
         }
@@ -61,8 +62,9 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      *
      * @param objRef Reference to existing managed JSII node object.
      */
+    @Internal
     protected JsiiObject(final JsiiObjectRef objRef) {
-        this(JsiiEngine.getInstance(), objRef);
+        this(null, objRef);
     }
 
     /**
@@ -73,9 +75,12 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @param engine the {@link JsiiEngine} to use.
      * @param objRef Reference to existing managed JSII node object.
      */
-    JsiiObject(final JsiiEngine engine, final JsiiObjectRef objRef) {
-        this.objRef = objRef;
-        this.engine = Objects.requireNonNull(engine);
+    @Internal
+    JsiiObject(@Nullable final JsiiEngine engine, @Nullable final JsiiObjectRef objRef) {
+        this.jsii$engine = JsiiEngine.getEngineFor(this, engine);
+        this.jsii$objRef = objRef;
+
+        this.jsii$engine.registerObject(objRef, this);
     }
 
     /**
@@ -98,25 +103,31 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @param <T> Java type for the return value.
      * @return A return value.
      *
-     * @deprecated use {@link #jsiiCall(String, NativeType, Object...)} instead
+     * @deprecated use {@link Kernel#call(Object, String, NativeType, Object...)} instead
      */
     @Nullable
     @Deprecated
+    @Internal
     protected final <T> T jsiiCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
         return jsiiCall(method, NativeType.forType(returnType), args);
     }
 
+    /**
+     * Calls a JavaScript method on the object.
+     *
+     * @param method The name of the method.
+     * @param nativeType The return type.
+     * @param args Method arguments.
+     * @param <T> Java type for the return value.
+     * @return A return value.
+     *
+     * @deprecated use {@link Kernel#call(Object, String, NativeType, Object...)} instead
+     */
     @Nullable
     @Deprecated
+    @Internal
     protected final <T> T jsiiCall(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
-        return this.$jsii$call(method, nativeType, args);
-    }
-
-    @Nullable
-    @Override
-    public final <T> T $jsii$call(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
-        final JsonNode result = this.engine.getClient().callMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
-        return JsiiObjectMapper.treeToValue(result, nativeType);
+        return Kernel.call(this, method, nativeType, args);
     }
 
     /**
@@ -133,12 +144,14 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      */
     @Nullable
     @Deprecated
+    @Internal
     protected static <T> T jsiiStaticCall(final Class<?> nativeClass, final String method, final Class<T> returnType, @Nullable final Object... args) {
         return jsiiStaticCall(nativeClass, method, NativeType.forType(returnType), args);
     }
 
     /**
      * Calls a static method.
+     *
      * @param nativeClass The java class.
      * @param method The method to call.
      * @param nativeType The return type.
@@ -148,6 +161,7 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @return Return value.
      */
     @Nullable
+    @Internal
     protected static <T> T jsiiStaticCall(final Class<?> nativeClass, final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
         return jsiiStaticCall(JsiiEngine.getInstance(), nativeClass, method, nativeType, args);
     }
@@ -167,6 +181,7 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @return Return value.
      */
     @Nullable
+    @Internal
     static <T> T jsiiStaticCall(final JsiiEngine engine, final Class<?> nativeClass, final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
         final String fqn = engine.loadModuleForClass(nativeClass);
         final JsonNode result = engine.getClient().callStaticMethod(fqn, method, JsiiObjectMapper.valueToTree(args));
@@ -182,10 +197,11 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @param <T> Java type for the return value.
      * @return A return value.
      *
-     * @deprecated use {@link #jsiiAsyncCall(String, NativeType, Object...)} instead
+     * @deprecated use {@link Kernel#asyncCall(Object, String, NativeType, Object...)} instead
      */
     @Nullable
     @Deprecated
+    @Internal
     protected final <T> T jsiiAsyncCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
         return jsiiAsyncCall(method, NativeType.forType(returnType), args);
     }
@@ -199,22 +215,12 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      *
      * @return A return value.
      *
-     * @deprecated Use {@link #$jsii$asyncCall} instead
+     * @deprecated Use {@link Kernel#asyncCall(Object, String, NativeType, Object...)} instead
      */
     @Nullable
+    @Internal
     protected final <T> T jsiiAsyncCall(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
-        return this.$jsii$asyncCall(method, nativeType, args);
-    }
-
-    @Nullable
-    @Override
-    public final <T> T $jsii$asyncCall(final String method, final NativeType<T> nativeType, @Nullable final Object... args) {
-        final JsiiClient client = engine.getClient();
-        final JsiiPromise promise = client.beginAsyncMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
-
-        engine.processAllPendingCallbacks();
-
-        return JsiiObjectMapper.treeToValue(client.endAsyncMethod(promise), nativeType);
+        return Kernel.asyncCall(this, method, nativeType, args);
     }
 
     /**
@@ -226,32 +232,31 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      *
      * @return The property value.
      *
-     * @deprecated use {@link #jsiiGet(String, NativeType)} instead
+     * @deprecated use {@link Kernel#get(Object, String, NativeType)} instead
      */
     @Nullable
     @Deprecated
+    @Internal
     protected final <T> T jsiiGet(final String property, final Class<T> type) {
         return jsiiGet(property, NativeType.forType(type));
     }
 
     /**
      * Gets a property value from the object.
+     *
      * @param property The property name.
      * @param type The Java type of the property.
      * @param <T> The Java type of the property.
+     *
      * @return The property value.
-     * @deprecated Use {@link #$jsii$get} instead
+     *
+     * @deprecated use {@link Kernel#get(Object, String, NativeType)} instead
      */
     @Nullable
+    @Deprecated
+    @Internal
     protected final <T> T jsiiGet(final String property, final NativeType<T> type) {
-        return this.$jsii$get(property, type);
-    }
-
-    @Nullable
-    @Override
-    public final <T> T $jsii$get(final String property, final NativeType<T> type) {
-        final JsonNode result = engine.getClient().getPropertyValue(this.objRef, property);
-        return JsiiObjectMapper.treeToValue(result, type);
+        return Kernel.get(this, property, type);
     }
 
     /**
@@ -268,19 +273,23 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      */
     @Nullable
     @Deprecated
+    @Internal
     protected static <T> T jsiiStaticGet(final Class<?> nativeClass, final String property, final Class<T> type) {
         return jsiiStaticGet(nativeClass, property, NativeType.forType(type));
     }
 
     /**
      * Returns the value of a static property.
+     *
      * @param nativeClass The java class.
      * @param property The name of the property.
      * @param type The expected java return type.
      * @param <T> Return type
+     *
      * @return Return value
      */
     @Nullable
+    @Internal
     protected static <T> T jsiiStaticGet(final Class<?> nativeClass, final String property, final NativeType<T> type) {
         return jsiiStaticGet(JsiiEngine.getInstance(), nativeClass, property, type);
     }
@@ -299,6 +308,7 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @return Return value
      */
     @Nullable
+    @Internal
     static <T> T jsiiStaticGet(final JsiiEngine engine, final Class<?> nativeClass, final String property, final NativeType<T> type) {
         final String fqn = engine.loadModuleForClass(nativeClass);
         final JsonNode result = engine.getClient().getStaticPropertyValue(fqn, property);
@@ -311,16 +321,12 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @param property The name of the property.
      * @param value The property value.
      *
-     * @deprecated Use {@link #$jsii$set} instead
+     * @deprecated Use {@link Kernel#set(Object, String, Object)} instead
      */
     @Deprecated
+    @Internal
     protected final void jsiiSet(final String property, @Nullable final Object value) {
-        this.$jsii$set(property, value);
-    }
-
-    @Override
-    public final void $jsii$set(final String property, @Nullable final Object value) {
-        engine.getClient().setPropertyValue(this.objRef, property, JsiiObjectMapper.valueToTree(value));
+        Kernel.set(this, property, value);
     }
 
     /**
@@ -330,6 +336,7 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @param property The name of the property
      * @param value The value
      */
+    @Internal
     protected static void jsiiStaticSet(final Class<?> nativeClass, final String property, @Nullable final Object value) {
         jsiiStaticSet(JsiiEngine.getInstance(), nativeClass, property, value);
     }
@@ -344,27 +351,10 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      * @param property The name of the property
      * @param value The value
      */
-    static void jsiiStaticSet(final JsiiEngine engine, final Class<?> nativeClass, final String property, @Nullable final Object value) {
+    @Internal
+    protected static void jsiiStaticSet(final JsiiEngine engine, final Class<?> nativeClass, final String property, @Nullable final Object value) {
         final String fqn = engine.loadModuleForClass(nativeClass);
         engine.getClient().setStaticPropertyValue(fqn, property, JsiiObjectMapper.valueToTree(value));
-    }
-
-    /**
-     * Sets the jsii object reference for this object.
-     *
-     * @param objRef The objref
-     */
-    final void setObjRef(final JsiiObjectRef objRef) {
-        this.objRef = objRef;
-    }
-
-    /**
-     * Gets the jsii object reference for this object.
-     *
-     * @return The objref.
-     */
-    final JsiiObjectRef getObjRef() {
-        return objRef;
     }
 
     /**
@@ -375,6 +365,7 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
      *
      * @return a view on the same {@link JsiiObject}.
      */
+    @Internal
     final <T extends JsiiObject> T asInterfaceProxy(final Class<? extends T> proxyClass) {
         if (!this.proxies.containsKey(proxyClass)) {
             try {
@@ -383,7 +374,7 @@ public class JsiiObject implements IJsiiObject, JsiiSerializable {
                 final boolean oldAccessible = constructor.isAccessible();
                 try {
                     constructor.setAccessible(true);
-                    final JsiiObject proxyInstance = constructor.newInstance(this.getObjRef());
+                    final JsiiObject proxyInstance = constructor.newInstance(this.jsii$engine.nativeToObjRef(this));
                     this.proxies.put(proxyClass, proxyInstance);
                 } finally {
                     constructor.setAccessible(oldAccessible);

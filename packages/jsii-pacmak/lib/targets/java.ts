@@ -1286,7 +1286,7 @@ class JavaGenerator extends Generator {
             cls,
           )}.class, `;
         } else {
-          statement = 'this.$jsii$get(';
+          statement = 'software.amazon.jsii.Kernel.get(this, ';
         }
 
         statement += `"${prop.name}", ${this.toNativeType(prop.type, {
@@ -1320,7 +1320,7 @@ class JavaGenerator extends Generator {
           if (prop.static) {
             statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
           } else {
-            statement += 'this.$jsii$set(';
+            statement += 'software.amazon.jsii.Kernel.set(this, ';
           }
           const value = prop.optional
             ? 'value'
@@ -1461,11 +1461,7 @@ class JavaGenerator extends Generator {
   }
 
   private emitDefaultImplementation(type: reflect.InterfaceType) {
-    const baseInterfaces = [
-      'software.amazon.jsii.IJsiiObject',
-      type.name,
-      ...this.defaultInterfacesFor(type),
-    ];
+    const baseInterfaces = [type.name, ...this.defaultInterfacesFor(type)];
 
     this.code.line();
     this.code.line('/**');
@@ -1954,7 +1950,7 @@ class JavaGenerator extends Generator {
     this.code.line('super(objRef);');
     props.forEach((prop) =>
       this.code.line(
-        `this.${prop.fieldName} = this.$jsii$get("${prop.jsiiName}", ${prop.fieldNativeType});`,
+        `this.${prop.fieldName} = software.amazon.jsii.Kernel.get(this, "${prop.jsiiName}", ${prop.fieldNativeType});`,
       ),
     );
     this.code.closeBlock();
@@ -2468,11 +2464,9 @@ class JavaGenerator extends Generator {
       const javaClass = this.toJavaType(cls);
       statement += `software.amazon.jsii.JsiiObject.jsiiStaticCall(${javaClass}.class, `;
     } else {
-      if (async) {
-        statement += 'this.$jsii$asyncCall(';
-      } else {
-        statement += 'this.$jsii$call(';
-      }
+      statement += `software.amazon.jsii.Kernel.${
+        async ? 'asyncCall' : 'call'
+      }(this, `;
     }
 
     statement += `"${method.name}"`;

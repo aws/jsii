@@ -240,7 +240,7 @@ public final class JsiiRuntime {
         try {
             this.childProcess = pb.start();
         } catch (IOException e) {
-            throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)");
+            throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)", e);
         }
 
         OutputStreamWriter stdinStream = new OutputStreamWriter(this.childProcess.getOutputStream(), StandardCharsets.UTF_8);

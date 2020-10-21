@@ -8,6 +8,8 @@ import software.amazon.jsii.api.SetRequest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -34,6 +36,14 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     private static final String INTERFACE_PROXY_CLASS_NAME = "Jsii$Proxy";
 
     /**
+     * A map that associates value instances with the {@link JsiiEngine} that
+     * created them or which first interacted with them. Using a weak hash map
+     * so that {@link JsiiEngine} instances can be garbage collected after all
+     * instances they are assigned to are themselves collected.
+     */
+    private static Map<Object, JsiiEngine> engineAssociations = new WeakHashMap<>();
+
+    /**
      * Object cache.
      */
     private final Map<String, Object> objects = new HashMap<>();
@@ -49,6 +59,14 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     private Map<String, JsiiModule> loadedModules = new HashMap<>();
 
     /**
+     * A map that associates value instances with the {@link JsiiObjectRef} that
+     * represents them across the jsii process boundary. Using a weak hash map
+     * so that {@link JsiiObjectRef} instances can be garbage collected after
+     * all instances they are assigned to are themselves collected.
+     */
+    private Map<Object, JsiiObjectRef> objectRefs = new WeakHashMap<>();
+
+    /**
      * @return The singleton instance.
      */
     public static JsiiEngine getInstance() {
@@ -56,6 +74,47 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             INSTANCE = new JsiiEngine();
         }
         return INSTANCE;
+    }
+
+    /**
+     * Retrieves the {@link JsiiEngine} associated with the provided instance. If none was assigned yet, the current
+     * value of {@link JsiiEngine#getInstance()} will be assigned then returned.
+     *
+     * @param instance The object instance for which a {@link JsiiEngine} is requested.
+     *
+     * @return a {@link JsiiEngine} instance.
+     */
+    static JsiiEngine getEngineFor(final Object instance) {
+        return JsiiEngine.getEngineFor(instance, null);
+    }
+
+    /**
+     * Retrieves the {@link JsiiEngine} associated with the provided instance. If none was assigned yet, the current
+     * value of {@code defaultEngine} will be assigned then returned. If {@code instance} is a {@link JsiiObject}
+     * instance, then the value will be recorded on the instance itself (the responsibility of this process is on the
+     * {@link JsiiObject} constructors).
+     *
+     * @param instance The object instance for which a {@link JsiiEngine} is requested.
+     * @param defaultEngine The engine to use if none was previously assigned. If {@code null}, the value of
+     *                      {@link #getInstance()} is used instead.
+     *
+     * @return a {@link JsiiEngine} instance.
+     */
+    static JsiiEngine getEngineFor(final Object instance, @Nullable final JsiiEngine defaultEngine) {
+        Objects.requireNonNull(instance, "instance is required");
+
+        if (instance instanceof JsiiObject) {
+            final JsiiObject jsiiObject = (JsiiObject) instance;
+            if (jsiiObject.jsii$engine != null) {
+                return jsiiObject.jsii$engine;
+            }
+            return defaultEngine != null ? defaultEngine : JsiiEngine.getInstance();
+        }
+
+        return engineAssociations.computeIfAbsent(
+            instance,
+            (_k) -> defaultEngine != null ? defaultEngine : JsiiEngine.getInstance()
+        );
     }
 
     /**
@@ -133,15 +192,6 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     }
 
     /**
-     * Registers an object into the object cache.
-     * @param objRef The object reference.
-     * @param obj The object to register.
-     */
-    public void registerObject(final JsiiObjectRef objRef, final Object obj) {
-        this.objects.put(objRef.getObjId(), obj);
-    }
-
-    /**
      * Returns the native java object for a given jsii object reference.
      * If it already exists in our native objects cache, we return it.
      *
@@ -161,32 +211,58 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     }
 
     /**
-     * Returns the jsii object reference given a native object.
+     * Assigns a {@link JsiiObjectRef} to a given instance.
      *
-     * If the native object extends JsiiObject (directly or indirectly), we can grab the objref
-     * from within the JsiiObject.
+     * @param objRef The object reference to be assigned.
+     * @param instance The instance to which the JsiiObjectRef is to be linked.
      *
-     * Otherwise, we have a "pure" native object on our hands, so we will first perform a reverse lookup in
-     * the objects cache to see if it was already created, and if it wasn't, we create a new empty JS object.
-     * Note that any native overrides will be applied by createNewObject().
+     * @throws IllegalStateException if another {@link JsiiObjectRef} was
+     *                               previously assigned to {@code instance}.
+     */
+    final void registerObject(final JsiiObjectRef objRef, final Object instance) {
+        Objects.requireNonNull(instance, "instance is required");
+        Objects.requireNonNull(objRef, "objRef is required");
+
+        final JsiiObjectRef assigned;
+        if (instance instanceof JsiiObject) {
+            final JsiiObject jsiiObject = (JsiiObject) instance;
+            if (jsiiObject.jsii$objRef == null) {
+                jsiiObject.jsii$objRef = objRef;
+            }
+            assigned = jsiiObject.jsii$objRef;
+        } else {
+            assigned = this.objectRefs.computeIfAbsent(
+                    instance,
+                    (key) -> objRef
+            );
+        }
+        if (!assigned.equals(objRef)) {
+            throw new IllegalStateException("Another object reference was previously assigned to this instance!");
+        }
+        this.objects.put(assigned.getObjId(), instance);
+    }
+
+    /**
+     * Returns the jsii object reference given a native object. If the object
+     * does not have one yet, a new object reference is requested from the jsii
+     * kernel, and gets assigned to the instance before being returned.
      *
      * @param nativeObject The native object to obtain the reference for
+     *
      * @return A jsii object reference
      */
     public JsiiObjectRef nativeToObjRef(final Object nativeObject) {
         if (nativeObject instanceof JsiiObject) {
-            return ((JsiiObject) nativeObject).getObjRef();
-        }
-
-        for (String objid : this.objects.keySet()) {
-            Object obj = this.objects.get(objid);
-            if (obj == nativeObject) {
-                return JsiiObjectRef.fromObjId(objid);
+            final JsiiObject jsiiObject = (JsiiObject) nativeObject;
+            if (jsiiObject.jsii$objRef == null) {
+                jsiiObject.jsii$objRef = this.createNewObject(jsiiObject);
             }
+            return jsiiObject.jsii$objRef;
         }
-
-        // we don't know of an jsii object that represents this object, so we will need to create it.
-        return createNewObject(nativeObject);
+        return this.objectRefs.computeIfAbsent(
+            nativeObject,
+            (_k) -> this.createNewObject(nativeObject)
+        );
     }
 
     /**
@@ -526,10 +602,6 @@ public final class JsiiEngine implements JsiiCallbackHandler {
 
         JsiiObjectRef objRef = this.getClient().createObject(fqn, Arrays.asList(args), overrides, interfaces);
         registerObject(objRef, uninitializedNativeObject);
-
-        if (uninitializedNativeObject instanceof JsiiObject) {
-            ((JsiiObject) uninitializedNativeObject).setObjRef(objRef);
-        }
 
         return objRef;
     }
