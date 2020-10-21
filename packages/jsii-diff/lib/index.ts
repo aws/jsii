@@ -1,6 +1,7 @@
 import * as reflect from 'jsii-reflect';
-import { ComparisonOptions, Mismatches } from './types';
+
 import { AssemblyComparison } from './type-comparison';
+import { ComparisonOptions, Mismatches } from './types';
 
 /**
  * Compare two assemblies

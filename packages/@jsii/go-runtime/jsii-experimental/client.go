@@ -216,6 +216,16 @@ func (c *client) create(request createRequest) (createResponse, error) {
 	return response, c.request(request, &response)
 }
 
+func (c *client) invoke(request invokeRequest) (invokeResponse, error) {
+	response := invokeResponse{}
+	return response, c.request(request, &response)
+}
+
+func (c *client) sinvoke(request staticInvokeRequest) (invokeResponse, error) {
+	response := invokeResponse{}
+	return response, c.request(request, &response)
+}
+
 func (c *client) close() {
 	if c.process != nil {
 		c.stdin.Close()

@@ -1,6 +1,9 @@
-import * as log4js from 'log4js';
 import { Stability } from '@jsii/spec';
 import * as reflect from 'jsii-reflect';
+import * as log4js from 'log4js';
+
+import { validateStabilities } from './stability';
+import { isStructuralSuperType, Analysis } from './type-analysis';
 import {
   describeInterfaceType,
   describeType,
@@ -9,7 +12,7 @@ import {
   apiElementIdentifier,
   IReport,
 } from './types';
-import { validateStabilities } from './stability';
+import { RecursionBreaker } from './util';
 import {
   validateBaseTypeAssignability,
   validateNotMadeAbstract,
@@ -32,8 +35,6 @@ import {
   validatePropertyTypeSame,
   validateExistingMembers,
 } from './validations';
-import { isStructuralSuperType, Analysis } from './type-analysis';
-import { RecursionBreaker } from './util';
 
 const LOG = log4js.getLogger('jsii-diff');
 

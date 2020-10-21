@@ -1,4 +1,5 @@
 import * as jsii from '@jsii/spec';
+
 import { Assembly } from './assembly';
 import { ClassType } from './class';
 import { Docs, Documentable } from './docs';
@@ -9,8 +10,8 @@ import {
   SourceLocatable,
   SourceLocation,
 } from './source';
-import { TypeSystem } from './type-system';
 import { TypeReference } from './type-ref';
+import { TypeSystem } from './type-system';
 
 export abstract class Type implements Documentable, SourceLocatable {
   public constructor(

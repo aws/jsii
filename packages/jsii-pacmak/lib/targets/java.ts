@@ -1,3 +1,4 @@
+import * as spec from '@jsii/spec';
 import * as clone from 'clone';
 import { toPascalCase, toSnakeCase } from 'codemaker/lib/case-utils';
 import * as fs from 'fs-extra';
@@ -8,27 +9,28 @@ import {
   Translation,
   markDownToJavaDoc,
 } from 'jsii-rosetta';
-import * as spec from '@jsii/spec';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
+
+import { TargetBuilder, BuildOptions } from '../builder';
 import { Generator } from '../generator';
+import * as logging from '../logging';
+import { JsiiModule } from '../packaging';
 import {
   PackageInfo,
   Target,
   findLocalBuildDirs,
   TargetOptions,
 } from '../target';
-import * as logging from '../logging';
 import { shell, Scratch, slugify, setExtend } from '../util';
-import { TargetBuilder, BuildOptions } from '../builder';
-import { JsiiModule } from '../packaging';
 import { VERSION, VERSION_DESC } from '../version';
+import { stabilityPrefixFor, renderSummary } from './_utils';
 import { toMavenVersionRange } from './version-utils';
+
 import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
 } from '.';
-import { stabilityPrefixFor, renderSummary } from './_utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');

@@ -1,9 +1,11 @@
 import { toPascalCase } from 'codemaker';
 import { Method, Parameter, Property } from 'jsii-reflect';
+
 import { EmitContext } from '../emit-context';
-import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
 import { emitInitialization } from '../runtime';
 import { substituteReservedWords } from '../util';
+
+import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
 
 /*
  * Structure for Class and Interface methods. Useful for sharing logic for dependency resolution
@@ -23,6 +25,7 @@ export class GoProperty implements GoTypeMember {
   public readonly name: string;
   public readonly getter: string;
   public readonly reference?: GoTypeRef;
+  public readonly immutable: boolean;
 
   public constructor(
     public parent: GoStruct,
@@ -30,10 +33,15 @@ export class GoProperty implements GoTypeMember {
   ) {
     this.name = toPascalCase(this.property.name);
     this.getter = `Get${this.name}`;
+    this.immutable = property.immutable;
 
     if (property.type) {
       this.reference = new GoTypeRef(parent.pkg.root, property.type);
     }
+  }
+
+  public get static(): boolean {
+    return !!this.property.static;
   }
 
   public get returnType(): string {
@@ -65,7 +73,7 @@ export class GoProperty implements GoTypeMember {
 
   public emitSetterDecl(context: EmitContext) {
     const { code } = context;
-    if (!this.property.protected) {
+    if (!this.property.protected && !this.immutable) {
       code.line(`Set${this.name}(val ${this.returnType})`);
     }
   }
@@ -96,25 +104,27 @@ export class GoProperty implements GoTypeMember {
   }
 
   public emitSetterImpl(context: EmitContext) {
-    const { code } = context;
-    const receiver = this.parent.name;
-    const instanceArg = receiver.substring(0, 1).toLowerCase();
+    if (!this.immutable) {
+      const { code } = context;
+      const receiver = this.parent.name;
+      const instanceArg = receiver.substring(0, 1).toLowerCase();
 
-    code.openBlock(
-      `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
-    );
+      code.openBlock(
+        `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
+      );
 
-    if (this.property.static) {
-      emitInitialization(code);
+      if (this.property.static) {
+        emitInitialization(code);
+      }
+
+      if (this.parent.name === this.returnType) {
+        code.line(`${instanceArg}.${this.name} = &val`);
+      } else {
+        code.line(`${instanceArg}.${this.name} = val`);
+      }
+      code.closeBlock();
+      code.line();
     }
-
-    if (this.parent.name === this.returnType) {
-      code.line(`${instanceArg}.${this.name} = &val`);
-    } else {
-      code.line(`${instanceArg}.${this.name} = val`);
-    }
-    code.closeBlock();
-    code.line();
   }
 }
 

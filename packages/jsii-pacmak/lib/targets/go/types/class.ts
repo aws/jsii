@@ -1,10 +1,17 @@
+import { toPascalCase } from 'codemaker';
 import { Method, ClassType, Initializer } from 'jsii-reflect';
-import { GoStruct } from './go-type';
-import { GoParameter, GoMethod } from './type-member';
-import { getFieldDependencies } from '../util';
-import { Package } from '../package';
-import { ClassConstructor, MethodCall } from '../runtime';
+
 import { EmitContext } from '../emit-context';
+import { Package } from '../package';
+import {
+  ClassConstructor,
+  MethodCall,
+  StaticGetProperty,
+  StaticSetProperty,
+} from '../runtime';
+import { getFieldDependencies } from '../util';
+import { GoStruct } from './go-type';
+import { GoParameter, GoMethod, GoProperty } from './type-member';
 
 /*
  * GoClass wraps a Typescript class as a Go custom struct type
@@ -12,6 +19,7 @@ import { EmitContext } from '../emit-context';
 export class GoClass extends GoStruct {
   public readonly methods: ClassMethod[] = [];
   public readonly staticMethods: StaticMethod[] = [];
+  public readonly staticProperties: GoProperty[] = [];
 
   private readonly initializer?: GoClassConstructor;
 
@@ -23,6 +31,12 @@ export class GoClass extends GoStruct {
         this.staticMethods.push(new StaticMethod(this, method));
       } else {
         this.methods.push(new ClassMethod(this, method));
+      }
+    }
+
+    for (const prop of Object.values(this.type.getProperties(true))) {
+      if (prop.static) {
+        this.staticProperties.push(new GoProperty(this, prop));
       }
     }
 
@@ -43,6 +57,10 @@ export class GoClass extends GoStruct {
 
     for (const method of this.staticMethods) {
       method.emit(context);
+    }
+
+    for (const prop of this.staticProperties) {
+      this.emitStaticProperty(context, prop);
     }
 
     for (const method of this.methods) {
@@ -73,7 +91,30 @@ export class GoClass extends GoStruct {
     code.line();
   }
 
-  // emits the implementation of the getters for the struct
+  private emitStaticProperty({ code }: EmitContext, prop: GoProperty): void {
+    const getCaller = new StaticGetProperty(prop);
+
+    const propertyName = toPascalCase(prop.name);
+    const name = `${this.name}_${propertyName}`;
+
+    code.openBlock(`func ${name}() ${prop.returnType}`);
+    getCaller.emit(code);
+
+    code.closeBlock();
+    code.line();
+
+    if (!prop.immutable) {
+      const setCaller = new StaticSetProperty(prop);
+      const name = `${this.name}_Set${propertyName}`;
+      code.openBlock(`func ${name}(val ${prop.returnType})`);
+      setCaller.emit(code);
+
+      code.closeBlock();
+      code.line();
+    }
+  }
+
+  // emits the implementation of the setters for the struct
   private emitSetters(context: EmitContext): void {
     if (this.properties.length !== 0) {
       for (const property of this.properties) {
@@ -141,17 +182,16 @@ export class ClassMethod extends GoMethod {
     public readonly method: Method,
   ) {
     super(parent, method);
-    this.runtimeCall = new MethodCall(this, this.method.static);
+    this.runtimeCall = new MethodCall(this);
   }
 
   /* emit generates method implementation on the class */
   public emit({ code }: EmitContext) {
     const name = this.name;
-    const instanceArg = this.parent.name.substring(0, 1).toLowerCase();
     const returnTypeString = this.reference?.void ? '' : ` ${this.returnType}`;
 
     code.openBlock(
-      `func (${instanceArg} *${
+      `func (${this.instanceArg} *${
         this.parent.name
       }) ${name}(${this.paramString()})${returnTypeString}`,
     );
@@ -173,6 +213,10 @@ export class ClassMethod extends GoMethod {
     return (
       this.reference?.scopedName(this.parent.pkg) ?? this.method.toString()
     );
+  }
+
+  public get instanceArg(): string {
+    return this.parent.name.substring(0, 1).toLowerCase();
   }
 }
 

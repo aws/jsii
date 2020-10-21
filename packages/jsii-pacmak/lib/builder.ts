@@ -1,9 +1,10 @@
+import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
+
 import * as logging from './logging';
 import { JsiiModule } from './packaging';
 import { TargetConstructor, Target } from './target';
 import { Scratch } from './util';
-import { Rosetta } from 'jsii-rosetta';
 
 export interface BuildOptions {
   /**
