@@ -52,8 +52,48 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 		panic(err)
 	}
 
-	// client.objects[res.JsiiInstanceId] = &returns
-	client.objects[&returns] = res.JsiiInstanceId
+	client.objects[returns] = res.JsiiInstanceId
+}
+
+// Invoke will call a method on a jsii class instance. The response should be
+// decoded into the expected return type for the method being called.
+func Invoke(obj interface{}, method string, args []interface{}, returns interface{}) {
+	client := getClient()
+
+	// Find reference to class instance in client
+	refid, found := client.findObjectRef(obj)
+
+	if !found {
+		panic("No Object Found")
+	}
+
+	_, err := client.invoke(invokeRequest{
+		Api:    "invoke",
+		Method: method,
+		Args:   args,
+		Objref: objref{
+			JsiiInstanceId: refid,
+		},
+	})
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+func InvokeStatic(fqn FQN, method string, args []interface{}, returns interface{}) {
+	client := getClient()
+
+	_, err := client.sinvoke(staticInvokeRequest{
+		Api:    "sinvoke",
+		Fqn:    fqn,
+		Method: method,
+		Args:   args,
+	})
+
+	if err != nil {
+		panic(err)
+	}
 }
 
 // Close finalizes the runtime process, signalling the end of the execution to
