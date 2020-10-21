@@ -2568,6 +2568,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                 ┣━ 📄 PythonReservedWords.java
           ┃                 ┣━ 📄 ReferenceEnumFromScopedPackage.java
           ┃                 ┣━ 📄 ReturnsPrivateImplementationOfInterface.java
+          ┃                 ┣━ 📄 ReturnsSpecialParameter.java
           ┃                 ┣━ 📄 RootStruct.java
           ┃                 ┣━ 📄 RootStructValidator.java
           ┃                 ┣━ 📄 RuntimeTypeChecking.java
@@ -14584,6 +14585,42 @@ public class ReturnsPrivateImplementationOfInterface extends software.amazon.jsi
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/ReturnsSpecialParameter.java 1`] = `
+package software.amazon.jsii.tests.calculator;
+
+/**
+ */
+@javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ReturnsSpecialParameter")
+public class ReturnsSpecialParameter extends software.amazon.jsii.JsiiObject {
+
+    protected ReturnsSpecialParameter(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ReturnsSpecialParameter(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public ReturnsSpecialParameter() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
+
+    /**
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    public @org.jetbrains.annotations.NotNull software.amazon.jsii.tests.calculator.submodule.param.SpecialParameter returnsSpecialParam() {
+        return this.jsiiCall("returnsSpecialParam", software.amazon.jsii.tests.calculator.submodule.param.SpecialParameter.class);
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/amazon/jsii/tests/calculator/RootStruct.java 1`] = `
 package software.amazon.jsii.tests.calculator;
 
@@ -20229,6 +20266,7 @@ jsii-calc.PythonSelf.IInterfaceWithSelf=software.amazon.jsii.tests.calculator.py
 jsii-calc.PythonSelf.StructWithSelf=software.amazon.jsii.tests.calculator.python_self.StructWithSelf
 jsii-calc.ReferenceEnumFromScopedPackage=software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage
 jsii-calc.ReturnsPrivateImplementationOfInterface=software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface
+jsii-calc.ReturnsSpecialParameter=software.amazon.jsii.tests.calculator.ReturnsSpecialParameter
 jsii-calc.RootStruct=software.amazon.jsii.tests.calculator.RootStruct
 jsii-calc.RootStructValidator=software.amazon.jsii.tests.calculator.RootStructValidator
 jsii-calc.RuntimeTypeChecking=software.amazon.jsii.tests.calculator.RuntimeTypeChecking

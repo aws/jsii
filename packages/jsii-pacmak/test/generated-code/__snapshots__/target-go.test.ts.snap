@@ -8085,11 +8085,13 @@ func NewReturnsSpecialParameter() ReturnsSpecialParameterIface {
 }
 
 func (r *ReturnsSpecialParameter) ReturnsSpecialParam() param.SpecialParameter {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ReturnsSpecialParameter",
-		Method: "ReturnsSpecialParam",
-		Args: []string{},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		r,
+		"returnsSpecialParam",
+		[]interface{}{},
+		&returns,
+	)
 	return param.SpecialParameter{}
 }
 
@@ -10456,11 +10458,13 @@ func (m *MyClass) SetAllTypes(val jsiicalc.AllTypes) {
 }
 
 func (m *MyClass) MethodWithSpecialParam(param param.SpecialParameter) string {
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "MyClass",
-		Method: "MethodWithSpecialParam",
-		Args: []string{"jsii-calc.submodule.param.SpecialParameter",},
-	})
+	returns := ""
+	_jsii_.Invoke(
+		m,
+		"methodWithSpecialParam",
+		[]interface{}{param},
+		&returns,
+	)
 	return "NOOP_RETURN_STRING"
 }
 
