@@ -14314,8 +14314,8 @@
       },
       "kind": "class",
       "locationInModule": {
-        "filename": "lib/submodule/returns-param.d.ts",
-        "line": 2
+        "filename": "lib/submodule/returns-param/index.ts",
+        "line": 3
       },
       "methods": [
         {
@@ -14323,8 +14323,8 @@
             "stability": "stable"
           },
           "locationInModule": {
-            "filename": "lib/submodule/returns-param.d.ts",
-            "line": 3
+            "filename": "lib/submodule/returns-param/index.ts",
+            "line": 4
           },
           "name": "returnsSpecialParam",
           "returns": {
@@ -14339,5 +14339,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "GCcHST2XrgNy2/ENtMGyYIMMFkKWRSWczLsjt6ZoQxQ="
+  "fingerprint": "qQdb+/Kd7WJdD/0RyNE1gs4qPwMzBT3w+osyHpk0VeI="
 }
