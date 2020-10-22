@@ -53,33 +53,5 @@
     "wasm-loader": "^1.3.0",
     "webpack": "^5.1.3",
     "webpack-cli": "^4.1.0"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 43,
-        "statements": 56
-      }
-    },
-    "errorOnDeprecated": true,
-    "setupFilesAfterEnv": [
-      "jest-expect-message"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).ts"
-    ],
-    "transform": {
-      "\\.tsx?$": "ts-jest"
-    }
   }
 }

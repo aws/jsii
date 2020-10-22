@@ -34,30 +34,5 @@
     "@jsii/spec": "^0.0.0",
     "inquirer": "^7.3.3",
     "yargs": "^16.1.0"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 60,
-        "statements": 60
-      }
-    },
-    "errorOnDeprecated": true,
-    "setupFilesAfterEnv": [
-      "jest-expect-message"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
   }
 }

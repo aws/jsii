@@ -63,33 +63,5 @@
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.1"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 70,
-        "statements": 75
-      }
-    },
-    "errorOnDeprecated": true,
-    "setupFilesAfterEnv": [
-      "jest-expect-message"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).ts"
-    ],
-    "transform": {
-      "\\.tsx?$": "ts-jest"
-    }
   }
 }

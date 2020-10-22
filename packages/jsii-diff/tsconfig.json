@@ -3,7 +3,8 @@
   "include": [
     "**/*.ts"
   ],
+  "exclude": ["jest.config.ts"],
   "references": [
-    { "path": "../jsii-reflect" }
-  ]
+    { "path": "../jsii-reflect" },
+  ],
 }

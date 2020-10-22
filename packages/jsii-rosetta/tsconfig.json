@@ -5,10 +5,11 @@
   ],
   "exclude": [
     "examples",
-    "test/translations/**/*.ts"
+    "test/translations/**/*.ts",
+    "jest.config.ts",
   ],
   "references": [
       { "path": "../jsii" },
-      { "path": "../@jsii/spec" }
-  ]
+      { "path": "../@jsii/spec" },
+  ],
 }
