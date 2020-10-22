@@ -149,6 +149,7 @@ rules:
 
   'import/no-unresolved':
     - error
+    - ignore: [worker_threads]
 
   'import/order':
     - error
