@@ -1240,10 +1240,18 @@ export class Assembler implements Emitter {
       }
 
       for (const memberDecl of classDecl.members) {
-        // The "??" is to get to the __constructor symbol (getSymbolAtLocation wouldn't work there..)
-        const member =
-          this._typeChecker.getSymbolAtLocation(memberDecl.name!) ??
-          ((memberDecl as any).symbol as ts.Symbol);
+        if (ts.isSemicolonClassElement(memberDecl)) {
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_9996_UNNECESSARY_TOKEN.create(memberDecl),
+          );
+          continue;
+        }
+
+        const member: ts.Symbol = ts.isConstructorDeclaration(memberDecl)
+          ? (memberDecl as any).symbol
+          : this._typeChecker.getSymbolAtLocation(
+              ts.getNameOfDeclaration(memberDecl)!,
+            )!;
 
         if (
           !(declaringType.symbol.getDeclarations() ?? []).find(
