@@ -143,6 +143,13 @@ describe(toReleaseVersion, () => {
       js: '1.2.3-rc.9',
       python: '1.2.3.rc9',
     },
+    '1.2.3-pr4567.8': {
+      dotnet: '1.2.3-pr4567.8',
+      go: '1.2.3-pr4567.8',
+      java: '1.2.3-pr4567.8',
+      js: '1.2.3-pr4567.8',
+      python: '1.2.3.post4567.dev8',
+    },
   };
 
   for (const [version, targets] of Object.entries(examples)) {

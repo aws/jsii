@@ -100,7 +100,7 @@ export function toReleaseVersion(
         throw new Error(
           `Unable to map prerelease identifier (in: ${assemblyVersion}) components to python: ${inspect(
             version.prerelease,
-          )}`,
+          )}. The format should be 'X.Y.Z-label.sequence', where sequence is a positive integer, and label is "pr####", "dev", "pre", "alpha", beta", or "rc"`,
         );
       }
       if (!Number.isInteger(sequence)) {
@@ -110,21 +110,26 @@ export function toReleaseVersion(
           )} is not an integer`,
         );
       }
+      const baseVersion = `${version.major}.${version.minor}.${version.patch}`;
       switch (label) {
         case 'dev':
         case 'pre':
-          return `${version.major}.${version.minor}.${version.patch}.dev${sequence}`;
+          return `${baseVersion}.dev${sequence}`;
         case 'alpha':
-          return `${version.major}.${version.minor}.${version.patch}.a${sequence}`;
+          return `${baseVersion}.a${sequence}`;
         case 'beta':
-          return `${version.major}.${version.minor}.${version.patch}.b${sequence}`;
+          return `${baseVersion}.b${sequence}`;
         case 'rc':
-          return `${version.major}.${version.minor}.${version.patch}.rc${sequence}`;
+          return `${baseVersion}.rc${sequence}`;
         default:
+          // We emit `-pr${pull_request_id}.0`
+          if (typeof label === 'string' && /^pr\d+$/.test(label)) {
+            return `${baseVersion}.post${label.substr(2)}.dev${sequence}`;
+          }
           throw new Error(
             `Unable to map prerelease identifier  (in: ${assemblyVersion}) to python, as label ${inspect(
               label,
-            )} is not mapped (only "dev", "pre", "alpha", "beta" and "rc" are)`,
+            )} is not mapped (only "pr####", "dev", "pre", "alpha", "beta" and "rc" are)`,
           );
       }
     case TargetName.DOTNET:
