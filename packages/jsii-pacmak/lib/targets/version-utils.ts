@@ -136,6 +136,17 @@ export function toReleaseVersion(
   return assemblyVersion;
 }
 
+/**
+ * Converts a semantic version range to the kind of bracket notation used by
+ * Maven and NuGet. For example, this turns `^1.2.3` into `[1.2.3,2.0.0)`.
+ *
+ * @param semverRange The semantic version range to be converted.
+ * @param suffix A version suffix to apply to versions in the resulting expression.
+ * @param semver Whether the target supports full semantic versioning (including
+ *               `-0` as the lowest possible prerelease identifier)
+ *
+ * @returns a bracket-notation version range.
+ */
 function toBracketNotation(
   semverRange: string,
   suffix?: string,
