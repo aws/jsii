@@ -28,6 +28,8 @@ const config: Config.InitialOptions = {
   testEnvironment: 'node',
   testMatch: ['**/?(*.)+(spec|test).ts'],
   testRunner: 'jest-circus/runner',
+  // When in Continuous Integration, allow double the default test timeout (assuming "frugal" runner type)
+  testTimeout: env.CI === 'true' ? 10_000 : undefined,
   transform: {
     '\\.tsx?$': 'ts-jest',
   },
