@@ -1,4 +1,4 @@
-import { verifyGeneratedCodeFor } from './harness';
 import { TargetName } from '../../lib/targets';
+import { verifyGeneratedCodeFor } from './harness';
 
 verifyGeneratedCodeFor(TargetName.DOTNET);

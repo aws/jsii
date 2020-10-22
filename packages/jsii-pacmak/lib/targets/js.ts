@@ -3,6 +3,7 @@ import * as spec from '@jsii/spec';
 import { Generator } from '../generator';
 import { PackageInfo, Target } from '../target';
 import { toReleaseVersion } from './version-utils';
+
 import { TargetName } from '.';
 
 export default class JavaScript extends Target {

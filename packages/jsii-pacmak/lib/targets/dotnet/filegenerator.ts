@@ -3,11 +3,11 @@ import { CodeMaker } from 'codemaker';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
 
+import { TargetName } from '..';
 import * as logging from '../../logging';
 import { TARGET_FRAMEWORK } from '../dotnet';
 import { toNuGetVersionRange, toReleaseVersion } from '../version-utils';
 import { DotNetNameUtils } from './nameutils';
-import { TargetName } from '..';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
