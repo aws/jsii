@@ -7,6 +7,7 @@ import * as ts from 'typescript';
 
 import { Assembler } from './assembler';
 import { Emitter } from './emitter';
+import { JsiiDiagnostic } from './jsii-diagnostic';
 import { ProjectInfo } from './project-info';
 import * as utils from './utils';
 
@@ -246,7 +247,9 @@ export class Compiler implements Emitter {
 
       diagnostics.push(...assmEmit.diagnostics);
     } catch (e) {
-      LOG.error(`Error during type model analysis: ${e}\n${e.stack}`);
+      diagnostics.push(
+        JsiiDiagnostic.JSII_9997_UNKNOWN_ERROR.createDetached(e),
+      );
       hasErrors = true;
     }
 

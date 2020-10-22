@@ -77,7 +77,7 @@ export async function compileJsiiForTest(
       console.error(error.messageText);
       // logDiagnostic() doesn't work out of the box, so console.error() it is.
     }
-    if (errors.length > 0) {
+    if (errors.length > 0 || emitResult.emitSkipped) {
       throw new Error('There were compiler errors');
     }
     const assembly = await fs.readJSON('.jsii', { encoding: 'utf-8' });
