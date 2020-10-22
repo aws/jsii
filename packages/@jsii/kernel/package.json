@@ -51,32 +51,5 @@
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.1",
     "typescript": "~3.9.7"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 60,
-        "statements": 60
-      }
-    },
-    "errorOnDeprecated": true,
-    "setupFilesAfterEnv": [
-      "jest-expect-message"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).ts"
-    ],
-    "transform": {
-      "\\.tsx?$": "ts-jest"
-    }
   }
 }

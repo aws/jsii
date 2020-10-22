@@ -35,12 +35,5 @@
     "eslint": "^7.11.0",
     "prettier": "^2.1.2",
     "typescript": "~3.9.7"
-  },
-  "jest": {
-    "errorOnDeprecated": true,
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
   }
 }

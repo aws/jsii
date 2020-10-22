@@ -436,8 +436,10 @@ export class Compiler implements Emitter {
         continue;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-      const tsconfig = require(tsconfigFile);
+      const { config: tsconfig } = ts.readConfigFile(
+        tsconfigFile,
+        ts.sys.readFile,
+      );
 
       // Add references to any TypeScript package we find that is 'composite' enabled.
       // Make it relative.

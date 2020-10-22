@@ -30,7 +30,8 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "jest && npm run test:build",
+    "test": "npm run test:unit && npm run test:build",
+    "test:unit": "jest",
     "test:build": "bash test/build-test.sh",
     "test:update": "jest -u && npm run test:build",
     "package": "package-js"
@@ -73,24 +74,5 @@
   "keywords": [
     "jsii",
     "aws"
-  ],
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "errorOnDeprecated": true,
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).ts"
-    ],
-    "transform": {
-      "\\.tsx?$": "ts-jest"
-    }
-  }
+  ]
 }

@@ -38,27 +38,5 @@
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.1.2",
     "typescript": "~3.9.7"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 85,
-        "statements": 85
-      }
-    },
-    "errorOnDeprecated": true,
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
   }
 }
