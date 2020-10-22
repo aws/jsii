@@ -74,7 +74,7 @@ export function toPythonVersionRange(semverRange: string): string {
  * unmodified.
  *
  * @param assemblyVersion the assembly version being released
- * @param target          the target language for which the verison is destined
+ * @param target          the target language for which the version is destined
  *
  * @returns the version that should be serialized
  */
