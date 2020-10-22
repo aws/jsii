@@ -9,7 +9,7 @@ import {
   StaticGetProperty,
   StaticSetProperty,
 } from '../runtime';
-import { getFieldDependencies } from '../util';
+import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoStruct } from './go-type';
 import { GoParameter, GoMethod, GoProperty } from './type-member';
 
@@ -66,6 +66,22 @@ export class GoClass extends GoStruct {
     for (const method of this.methods) {
       method.emit(context);
     }
+  }
+
+  public get usesInitPackage() {
+    return (
+      this.initializer != null ||
+      this.methods.some((m) => m.usesInitPackage) ||
+      this.properties.some((p) => p.usesInitPackage)
+    );
+  }
+
+  public get usesRuntimePackage() {
+    return (
+      this.initializer != null ||
+      this.methods.length > 0 ||
+      this.properties.length > 0
+    );
   }
 
   protected emitInterface(context: EmitContext): void {
@@ -125,7 +141,11 @@ export class GoClass extends GoStruct {
 
   public get dependencies(): Package[] {
     // need to add dependencies of method arguments and constructor arguments
-    return [...super.dependencies, ...getFieldDependencies(this.methods)];
+    return [
+      ...super.dependencies,
+      ...getMemberDependencies(this.methods),
+      ...getParamDependencies(this.methods),
+    ];
   }
 
   /*
@@ -176,6 +196,8 @@ export class GoClassConstructor {
 
 export class ClassMethod extends GoMethod {
   public readonly runtimeCall: MethodCall;
+  public readonly usesInitPackage: boolean = false;
+  public readonly usesRuntimePackage = true;
 
   public constructor(
     public readonly parent: GoClass,
@@ -221,6 +243,8 @@ export class ClassMethod extends GoMethod {
 }
 
 export class StaticMethod extends ClassMethod {
+  public readonly usesInitPackage = true;
+
   public constructor(
     public readonly parent: GoClass,
     public readonly method: Method,

@@ -167,27 +167,42 @@ exports[`jsii-tree --all 1`] = `
  │ │   │ │         │ └─┬ props
  │ │   │ │         │   └── type: Optional<jsii-calc.submodule.child.KwargsProps>
  │ │   │ │         └── returns: boolean
- │ │   │ └─┬ nested_submodule
- │ │   │   ├─┬ submodules
- │ │   │   │ └─┬ deeplyNested
- │ │   │   │   └─┬ types
- │ │   │   │     └─┬ interface INamespaced (stable)
- │ │   │   │       └─┬ members
- │ │   │   │         └─┬ definedAt property (stable)
- │ │   │   │           ├── abstract
- │ │   │   │           ├── immutable
- │ │   │   │           └── type: string
+ │ │   │ ├─┬ nested_submodule
+ │ │   │ │ ├─┬ submodules
+ │ │   │ │ │ └─┬ deeplyNested
+ │ │   │ │ │   └─┬ types
+ │ │   │ │ │     └─┬ interface INamespaced (stable)
+ │ │   │ │ │       └─┬ members
+ │ │   │ │ │         └─┬ definedAt property (stable)
+ │ │   │ │ │           ├── abstract
+ │ │   │ │ │           ├── immutable
+ │ │   │ │ │           └── type: string
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ class Namespaced (stable)
+ │ │   │ │     ├── interfaces: INamespaced
+ │ │   │ │     └─┬ members
+ │ │   │ │       ├─┬ definedAt property (stable)
+ │ │   │ │       │ ├── immutable
+ │ │   │ │       │ └── type: string
+ │ │   │ │       └─┬ goodness property (stable)
+ │ │   │ │         ├── abstract
+ │ │   │ │         ├── immutable
+ │ │   │ │         └── type: jsii-calc.submodule.child.Goodness
+ │ │   │ ├─┬ param
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ interface SpecialParameter (stable)
+ │ │   │ │     └─┬ members
+ │ │   │ │       └─┬ value property (stable)
+ │ │   │ │         ├── abstract
+ │ │   │ │         ├── immutable
+ │ │   │ │         └── type: string
+ │ │   │ └─┬ returnsparam
  │ │   │   └─┬ types
- │ │   │     └─┬ class Namespaced (stable)
- │ │   │       ├── interfaces: INamespaced
+ │ │   │     └─┬ class ReturnsSpecialParameter (stable)
  │ │   │       └─┬ members
- │ │   │         ├─┬ definedAt property (stable)
- │ │   │         │ ├── immutable
- │ │   │         │ └── type: string
- │ │   │         └─┬ goodness property (stable)
- │ │   │           ├── abstract
- │ │   │           ├── immutable
- │ │   │           └── type: jsii-calc.submodule.child.Goodness
+ │ │   │         ├── <initializer>() initializer (stable)
+ │ │   │         └─┬ returnsSpecialParam() method (stable)
+ │ │   │           └── returns: jsii-calc.submodule.param.SpecialParameter
  │ │   └─┬ types
  │ │     └─┬ class MyClass (stable)
  │ │       ├── interfaces: INamespaced
@@ -196,6 +211,11 @@ exports[`jsii-tree --all 1`] = `
  │ │         │ └─┬ parameters
  │ │         │   └─┬ props
  │ │         │     └── type: jsii-calc.submodule.child.SomeStruct
+ │ │         ├─┬ methodWithSpecialParam(param) method (stable)
+ │ │         │ ├─┬ parameters
+ │ │         │ │ └─┬ param
+ │ │         │ │   └── type: jsii-calc.submodule.param.SpecialParameter
+ │ │         │ └── returns: string
  │ │         ├─┬ awesomeness property (stable)
  │ │         │ ├── immutable
  │ │         │ └── type: jsii-calc.submodule.child.Awesomeness
@@ -2804,14 +2824,20 @@ exports[`jsii-tree --inheritance 1`] = `
  │ │   │ ├─┬ isolated
  │ │   │ │ └─┬ types
  │ │   │ │   └── class Kwargs
- │ │   │ └─┬ nested_submodule
- │ │   │   ├─┬ submodules
- │ │   │   │ └─┬ deeplyNested
- │ │   │   │   └─┬ types
- │ │   │   │     └── interface INamespaced
+ │ │   │ ├─┬ nested_submodule
+ │ │   │ │ ├─┬ submodules
+ │ │   │ │ │ └─┬ deeplyNested
+ │ │   │ │ │   └─┬ types
+ │ │   │ │ │     └── interface INamespaced
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ class Namespaced
+ │ │   │ │     └── interfaces: INamespaced
+ │ │   │ ├─┬ param
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface SpecialParameter
+ │ │   │ └─┬ returnsparam
  │ │   │   └─┬ types
- │ │   │     └─┬ class Namespaced
- │ │   │       └── interfaces: INamespaced
+ │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
  │ │     └─┬ class MyClass
  │ │       └── interfaces: INamespaced
@@ -3211,22 +3237,34 @@ exports[`jsii-tree --members 1`] = `
  │ │   │ │   └─┬ class Kwargs
  │ │   │ │     └─┬ members
  │ │   │ │       └── static method(props) method
- │ │   │ └─┬ nested_submodule
- │ │   │   ├─┬ submodules
- │ │   │   │ └─┬ deeplyNested
- │ │   │   │   └─┬ types
- │ │   │   │     └─┬ interface INamespaced
- │ │   │   │       └─┬ members
- │ │   │   │         └── definedAt property
+ │ │   │ ├─┬ nested_submodule
+ │ │   │ │ ├─┬ submodules
+ │ │   │ │ │ └─┬ deeplyNested
+ │ │   │ │ │   └─┬ types
+ │ │   │ │ │     └─┬ interface INamespaced
+ │ │   │ │ │       └─┬ members
+ │ │   │ │ │         └── definedAt property
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ class Namespaced
+ │ │   │ │     └─┬ members
+ │ │   │ │       ├── definedAt property
+ │ │   │ │       └── goodness property
+ │ │   │ ├─┬ param
+ │ │   │ │ └─┬ types
+ │ │   │ │   └─┬ interface SpecialParameter
+ │ │   │ │     └─┬ members
+ │ │   │ │       └── value property
+ │ │   │ └─┬ returnsparam
  │ │   │   └─┬ types
- │ │   │     └─┬ class Namespaced
+ │ │   │     └─┬ class ReturnsSpecialParameter
  │ │   │       └─┬ members
- │ │   │         ├── definedAt property
- │ │   │         └── goodness property
+ │ │   │         ├── <initializer>() initializer
+ │ │   │         └── returnsSpecialParam() method
  │ │   └─┬ types
  │ │     └─┬ class MyClass
  │ │       └─┬ members
  │ │         ├── <initializer>(props) initializer
+ │ │         ├── methodWithSpecialParam(param) method
  │ │         ├── awesomeness property
  │ │         ├── definedAt property
  │ │         ├── goodness property
@@ -4364,9 +4402,11 @@ exports[`jsii-tree --signatures 1`] = `
  │       ├── back_references
  │       ├── child
  │       ├── isolated
- │       └─┬ nested_submodule
- │         └─┬ submodules
- │           └── deeplyNested
+ │       ├─┬ nested_submodule
+ │       │ └─┬ submodules
+ │       │   └── deeplyNested
+ │       ├── param
+ │       └── returnsparam
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib
@@ -4418,13 +4458,19 @@ exports[`jsii-tree --types 1`] = `
  │ │   │ ├─┬ isolated
  │ │   │ │ └─┬ types
  │ │   │ │   └── class Kwargs
- │ │   │ └─┬ nested_submodule
- │ │   │   ├─┬ submodules
- │ │   │   │ └─┬ deeplyNested
- │ │   │   │   └─┬ types
- │ │   │   │     └── interface INamespaced
+ │ │   │ ├─┬ nested_submodule
+ │ │   │ │ ├─┬ submodules
+ │ │   │ │ │ └─┬ deeplyNested
+ │ │   │ │ │   └─┬ types
+ │ │   │ │ │     └── interface INamespaced
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── class Namespaced
+ │ │   │ ├─┬ param
+ │ │   │ │ └─┬ types
+ │ │   │ │   └── interface SpecialParameter
+ │ │   │ └─┬ returnsparam
  │ │   │   └─┬ types
- │ │   │     └── class Namespaced
+ │ │   │     └── class ReturnsSpecialParameter
  │ │   └─┬ types
  │ │     └── class MyClass
  │ └─┬ types
@@ -4675,9 +4721,11 @@ exports[`jsii-tree 1`] = `
  │       ├── back_references
  │       ├── child
  │       ├── isolated
- │       └─┬ nested_submodule
- │         └─┬ submodules
- │           └── deeplyNested
+ │       ├─┬ nested_submodule
+ │       │ └─┬ submodules
+ │       │   └── deeplyNested
+ │       ├── param
+ │       └── returnsparam
  ├── @scope/jsii-calc-base
  ├── @scope/jsii-calc-base-of-base
  └─┬ @scope/jsii-calc-lib

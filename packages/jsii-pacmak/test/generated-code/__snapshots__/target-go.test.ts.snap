@@ -741,6 +741,10 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃  ┣━ 📁 deeplynested
           ┃  ┃  ┗━ 📄 deeplynested.go
           ┃  ┗━ 📄 nestedsubmodule.go
+          ┣━ 📁 param
+          ┃  ┗━ 📄 param.go
+          ┣━ 📁 returnsparam
+          ┃  ┗━ 📄 returnsparam.go
           ┗━ 📄 submodule.go
 `;
 
@@ -1033,8 +1037,6 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/interfaceinnam
 package interfaceinnamespaceonlyinterface
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 // HelloIface is the public interface for the custom type Hello
@@ -9615,9 +9617,7 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/back
 package backreferences
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 // MyClassReferenceIface is the public interface for the custom type MyClassReference
@@ -9785,8 +9785,6 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/isol
 package isolated
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 // Class interface
@@ -9817,8 +9815,6 @@ exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/nest
 package deeplynested
 
 import (
-	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 type INamespaced interface {
@@ -9835,7 +9831,6 @@ import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/child"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
 // Class interface
@@ -9863,6 +9858,75 @@ func (n *Namespaced) GetGoodness() child.Goodness {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/param/param.go 1`] = `
+package param
+
+import (
+)
+
+// SpecialParameterIface is the public interface for the custom type SpecialParameter
+type SpecialParameterIface interface {
+	GetValue() string
+}
+
+// Struct proxy
+type SpecialParameter struct {
+	Value string
+}
+
+func (s *SpecialParameter) GetValue() string {
+	return s.Value
+}
+
+
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/returnsparam/returnsparam.go 1`] = `
+package returnsparam
+
+import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/param"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+)
+
+// Class interface
+type ReturnsSpecialParameterIface interface {
+	ReturnsSpecialParam() param.SpecialParameter
+}
+
+// Struct proxy
+type ReturnsSpecialParameter struct {
+}
+
+func NewReturnsSpecialParameter() ReturnsSpecialParameterIface {
+	_init_.Initialize()
+	self := ReturnsSpecialParameter{}
+	_jsii_.Create(
+		"jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
+		[]interface{}{},
+		[]_jsii_.FQN{},
+		[]_jsii_.Override{},
+		&self,
+	)
+	return &self
+}
+
+func (r *ReturnsSpecialParameter) ReturnsSpecialParam() param.SpecialParameter {
+	returns := ""
+	_jsii_.Invoke(
+		r,
+		"returnsSpecialParam",
+		[]interface{}{},
+		&returns,
+	)
+	return param.SpecialParameter{}
+}
+
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/submodule.go 1`] = `
 package submodule
 
@@ -9871,6 +9935,7 @@ import (
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/child"
 	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
+	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/param"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
 )
 
@@ -9883,6 +9948,7 @@ type MyClassIface interface {
 	GetProps() child.SomeStruct
 	GetAllTypes() jsiicalc.AllTypes
 	SetAllTypes(val jsiicalc.AllTypes)
+	MethodWithSpecialParam(param param.SpecialParameter) string
 }
 
 // Struct proxy
@@ -9930,6 +9996,17 @@ func NewMyClass(props child.SomeStruct) MyClassIface {
 
 func (m *MyClass) SetAllTypes(val jsiicalc.AllTypes) {
 	m.AllTypes = val
+}
+
+func (m *MyClass) MethodWithSpecialParam(param param.SpecialParameter) string {
+	returns := ""
+	_jsii_.Invoke(
+		m,
+		"methodWithSpecialParam",
+		[]interface{}{param},
+		&returns,
+	)
+	return "NOOP_RETURN_STRING"
 }
 
 

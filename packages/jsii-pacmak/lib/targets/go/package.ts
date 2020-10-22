@@ -109,9 +109,25 @@ export abstract class Package {
     code.line();
   }
 
+  protected get usesRuntimePackage(): boolean {
+    return (
+      this.types.some((type) => type.usesRuntimePackage) ||
+      this.submodules.some((sub) => sub.usesRuntimePackage)
+    );
+  }
+
+  protected get usesInitPackage(): boolean {
+    return (
+      this.types.some((type) => type.usesInitPackage) ||
+      this.submodules.some((sub) => sub.usesInitPackage)
+    );
+  }
+
   private emitImports(code: CodeMaker) {
     code.open('import (');
-    code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
+    if (this.usesRuntimePackage) {
+      code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
+    }
 
     for (const packageName of this.dependencyImports) {
       // If the module is the same as the current one being written, don't emit an import statement
@@ -120,9 +136,11 @@ export abstract class Package {
       }
     }
 
-    code.line(
-      `${JSII_INIT_ALIAS} "${this.root.moduleName}/${this.root.packageName}/${JSII_INIT_PACKAGE}"`,
-    );
+    if (this.usesInitPackage) {
+      code.line(
+        `${JSII_INIT_ALIAS} "${this.root.moduleName}/${this.root.packageName}/${JSII_INIT_PACKAGE}"`,
+      );
+    }
 
     code.close(')');
     code.line();
