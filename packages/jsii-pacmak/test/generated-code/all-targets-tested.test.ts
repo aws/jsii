@@ -26,8 +26,8 @@ describe('target is tested', () => {
       ).resolves.toMatch(
         new RegExp(
           [
-            "import \\{ verifyGeneratedCodeFor \\} from '\\./harness';",
             "import \\{ TargetName \\} from '\\.\\./\\.\\./lib/targets';",
+            "import \\{ verifyGeneratedCodeFor \\} from '\\./harness';",
             '',
             `verifyGeneratedCodeFor\\(TargetName.${key}(?:, [0-9_]+)?\\);`,
           ].join('\\n'),
