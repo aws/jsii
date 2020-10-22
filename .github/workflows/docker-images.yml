@@ -45,8 +45,8 @@ jobs:
         # The DOCKER_CREDENTIALS secret is expected to contain a username:token pair
         run: |-
           docker login                                                          \
-            --username=$(cut -d: -f1 <<< '${{ secrets.DOCKER_CREDENTIALS }})'   \
-            --password=$(cut -d: -f2 <<< '${{ secrets.DOCKER_CREDENTIALS }})'
+            --username=$(cut -d: -f1 <<< '${{ secrets.DOCKER_CREDENTIALS }}')   \
+            --password=$(cut -d: -f2 <<< '${{ secrets.DOCKER_CREDENTIALS }}')
         # Ensure we run with bash, because that's the syntax we're using here...
         shell: bash
 

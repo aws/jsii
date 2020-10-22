@@ -1,7 +1,7 @@
 import { Comparator, Range, parse } from 'semver';
 import { inspect } from 'util';
-import type { TargetName } from '.';
-import { info } from '../logging';
+
+import { TargetName } from '.';
 
 /**
  * Converts a SemVer range expression to a Maven version range expression.
@@ -17,7 +17,7 @@ export function toMavenVersionRange(
 ): string {
   return toBracketNotation(semverRange, suffix, {
     semver: false,
-    target: 'java',
+    target: TargetName.JAVA,
   });
 }
 
@@ -31,7 +31,7 @@ export function toMavenVersionRange(
 export function toNuGetVersionRange(semverRange: string): string {
   return toBracketNotation(semverRange, undefined, {
     semver: false,
-    target: 'dotnet',
+    target: TargetName.DOTNET,
   });
 }
 
@@ -49,7 +49,7 @@ export function toPythonVersionRange(semverRange: string): string {
         .map((comp) => {
           const versionId = toReleaseVersion(
             comp.semver.raw?.replace(/-0$/, '') ?? '0.0.0',
-            'python',
+            TargetName.PYTHON,
           );
           switch (comp.operator) {
             case '':
@@ -92,28 +92,27 @@ export function toReleaseVersion(
     return assemblyVersion;
   }
   switch (target) {
-    case 'python':
+    case TargetName.PYTHON:
       // Python supports a limited set of identifiers... And we have a mapping table...
       // https://packaging.python.org/guides/distributing-packages-using-setuptools/#pre-release-versioning
       const [label, sequence, ...rest] = version.prerelease;
       if (rest.length > 0) {
-        info(
+        throw new Error(
           `Unable to map prerelease identifier (in: ${assemblyVersion}) components to python: ${inspect(
             version.prerelease,
           )}`,
         );
-        break;
       }
       if (!Number.isInteger(sequence)) {
-        info(
+        throw new Error(
           `Unable to map prerelease identifier (in: ${assemblyVersion}) to python, as sequence ${inspect(
             sequence,
           )} is not an integer`,
         );
-        break;
       }
       switch (label) {
         case 'dev':
+        case 'pre':
           return `${version.major}.${version.minor}.${version.patch}.dev${sequence}`;
         case 'alpha':
           return `${version.major}.${version.minor}.${version.patch}.a${sequence}`;
@@ -122,24 +121,17 @@ export function toReleaseVersion(
         case 'rc':
           return `${version.major}.${version.minor}.${version.patch}.rc${sequence}`;
         default:
-          info(
+          throw new Error(
             `Unable to map prerelease identifier  (in: ${assemblyVersion}) to python, as label ${inspect(
               label,
-            )} is not mapped (only "dev", "alpha", "beta" and "rc" are)`,
+            )} is not mapped (only "dev", "pre", "alpha", "beta" and "rc" are)`,
           );
       }
-      break;
-    case 'dotnet':
-    case 'java':
-    case 'js':
+    case TargetName.DOTNET:
+    case TargetName.JAVA:
+    case TargetName.JAVASCRIPT:
       // Not touching - the NPM version number should be usable as-is
       break;
-    default:
-      info(
-        `Unknown target ${inspect(
-          target,
-        )} for ${assemblyVersion}. Returning version as-is.`,
-      );
   }
   return assemblyVersion;
 }
@@ -149,7 +141,7 @@ function toBracketNotation(
   suffix?: string,
   {
     semver = true,
-    target = 'js',
+    target = TargetName.JAVASCRIPT,
   }: { semver?: boolean; target?: TargetName } = {},
 ): string {
   if (semverRange === '*') {

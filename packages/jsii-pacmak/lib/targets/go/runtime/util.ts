@@ -1,4 +1,5 @@
 import { CodeMaker } from 'codemaker';
+
 import { JSII_INIT_ALIAS, JSII_INIT_FUNC } from './constants';
 
 // Emits call to initialize runtime client if not already

@@ -1,11 +1,13 @@
-import { CodeMaker } from 'codemaker';
 import { Assembly } from '@jsii/spec';
+import { CodeMaker } from 'codemaker';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
-import { DotNetNameUtils } from './nameutils';
+
 import * as logging from '../../logging';
 import { TARGET_FRAMEWORK } from '../dotnet';
 import { toNuGetVersionRange, toReleaseVersion } from '../version-utils';
+import { DotNetNameUtils } from './nameutils';
+import { TargetName } from '..';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
@@ -182,6 +184,6 @@ export class FileGenerator {
       // suffix is guaranteed to start with a leading `-`
       return `${assembly.version}${suffix}`;
     }
-    return toReleaseVersion(assembly.version, 'dotnet');
+    return toReleaseVersion(assembly.version, TargetName.DOTNET);
   }
 }

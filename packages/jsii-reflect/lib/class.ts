@@ -1,4 +1,5 @@
 import * as jsii from '@jsii/spec';
+
 import { Assembly } from './assembly';
 import { Initializer } from './initializer';
 import { InterfaceType } from './interface';

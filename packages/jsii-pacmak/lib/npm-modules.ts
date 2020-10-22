@@ -1,11 +1,11 @@
+import * as spec from '@jsii/spec';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as spec from '@jsii/spec';
-import { resolveDependencyDirectory } from './util';
 
 import * as logging from '../lib/logging';
 import { JsiiModule } from './packaging';
 import { topologicalSort } from './toposort';
+import { resolveDependencyDirectory } from './util';
 
 /**
  * Find all modules that need to be packagerd

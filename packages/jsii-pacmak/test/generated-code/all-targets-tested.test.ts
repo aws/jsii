@@ -1,19 +1,20 @@
 import { pathExists, readFile } from 'fs-extra';
 import { join, relative, resolve } from 'path';
-import { ALL_BUILDERS } from '../../lib/targets';
+
+import { TargetName } from '../../lib/targets';
 
 const packageRoot = resolve(__dirname, '..', '..');
 
 describe('target is tested', () => {
-  for (const targetName of Object.keys(ALL_BUILDERS)) {
-    if (targetName === 'js') {
+  for (const [key, targetName] of Object.entries(TargetName)) {
+    if (targetName === TargetName.JAVASCRIPT) {
       // We don't test this one because it's just a tarball
       continue;
     }
     const testFileName = `target-${targetName}.test.ts`;
     const testFilePath = join(__dirname, testFileName);
 
-    test(`${targetName} at ${relative(
+    test(`TargetName.${key} at ${relative(
       packageRoot,
       testFilePath,
     )}`, async () => {
@@ -26,8 +27,9 @@ describe('target is tested', () => {
         new RegExp(
           [
             "import \\{ verifyGeneratedCodeFor \\} from '\\./harness';",
+            "import \\{ TargetName \\} from '\\.\\./\\.\\./lib/targets';",
             '',
-            `verifyGeneratedCodeFor\\('${targetName}'(?:, [0-9_]+)?\\);`,
+            `verifyGeneratedCodeFor\\(TargetName.${key}(?:, [0-9_]+)?\\);`,
           ].join('\\n'),
         ),
       );

@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync } from 'fs';
 import { resolve } from 'path';
+
 import { validateAssembly } from '../lib/validate-assembly';
 
 test('rejects invalid assembly', () =>

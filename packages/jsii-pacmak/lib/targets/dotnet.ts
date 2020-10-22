@@ -1,8 +1,11 @@
-import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as logging from '../logging';
 import * as xmlbuilder from 'xmlbuilder';
+
+import { TargetBuilder, BuildOptions } from '../builder';
+import * as logging from '../logging';
+import { JsiiModule } from '../packaging';
 import {
   PackageInfo,
   Target,
@@ -11,9 +14,8 @@ import {
 } from '../target';
 import { shell, Scratch, setExtend, filterAsync } from '../util';
 import { DotNetGenerator } from './dotnet/dotnetgenerator';
-import { TargetBuilder, BuildOptions } from '../builder';
-import { JsiiModule } from '../packaging';
 import { toReleaseVersion } from './version-utils';
+import { TargetName } from '.';
 
 export const TARGET_FRAMEWORK = 'netcoreapp3.1';
 
@@ -275,7 +277,7 @@ export default class Dotnet extends Target {
     assm: spec.Assembly,
   ): { [language: string]: PackageInfo } {
     const packageId = assm.targets!.dotnet!.packageId;
-    const version = toReleaseVersion(assm.version, 'dotnet');
+    const version = toReleaseVersion(assm.version, TargetName.DOTNET);
     const packageInfo: PackageInfo = {
       repository: 'Nuget',
       url: `https://www.nuget.org/packages/${packageId}/${version}`,

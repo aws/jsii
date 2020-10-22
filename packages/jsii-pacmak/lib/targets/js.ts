@@ -1,7 +1,9 @@
 import * as spec from '@jsii/spec';
+
 import { Generator } from '../generator';
 import { PackageInfo, Target } from '../target';
 import { toReleaseVersion } from './version-utils';
+import { TargetName } from '.';
 
 export default class JavaScript extends Target {
   public static toPackageInfos(
@@ -11,7 +13,7 @@ export default class JavaScript extends Target {
       repository: 'NPM',
       url: `https://www.npmjs.com/package/${assm.name}/v/${toReleaseVersion(
         assm.version,
-        'js',
+        TargetName.JAVASCRIPT,
       )}`,
       usage: {
         'package.json': {
@@ -20,13 +22,16 @@ export default class JavaScript extends Target {
         },
         npm: {
           language: 'console',
-          code: `$ npm i ${assm.name}@${toReleaseVersion(assm.version, 'js')}`,
+          code: `$ npm i ${assm.name}@${toReleaseVersion(
+            assm.version,
+            TargetName.JAVASCRIPT,
+          )}`,
         },
         yarn: {
           language: 'console',
           code: `$ yarn add ${assm.name}@${toReleaseVersion(
             assm.version,
-            'js',
+            TargetName.JAVASCRIPT,
           )}`,
         },
       },

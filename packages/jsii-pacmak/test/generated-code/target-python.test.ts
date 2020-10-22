@@ -1,3 +1,4 @@
 import { verifyGeneratedCodeFor } from './harness';
+import { TargetName } from '../../lib/targets';
 
-verifyGeneratedCodeFor('python', 120_000);
+verifyGeneratedCodeFor(TargetName.PYTHON, 120_000);

@@ -1,13 +1,19 @@
 import { OneByOneBuilder, TargetBuilder, BuildOptions } from '../builder';
-
+import { JsiiModule } from '../packaging';
 import { DotnetBuilder } from './dotnet';
 import { Golang } from './go';
 import { JavaBuilder } from './java';
 import JavaScript from './js';
 import Python from './python';
-import { JsiiModule } from '../packaging';
 
-export type TargetName = 'dotnet' | 'go' | 'java' | 'js' | 'python';
+export enum TargetName {
+  DOTNET = 'dotnet',
+  GO = 'go',
+  JAVA = 'java',
+  JAVASCRIPT = 'js',
+  PYTHON = 'python',
+}
+
 export type BuilderFactory = (
   modules: JsiiModule[],
   options: BuildOptions,

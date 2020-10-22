@@ -1,4 +1,5 @@
 import { CodeMaker } from 'codemaker';
+
 import { GoClassConstructor } from '../types';
 import { JSII_CREATE_FUNC, JSII_OVERRIDE, JSII_FQN } from './constants';
 import { slugify, emitInitialization } from './util';

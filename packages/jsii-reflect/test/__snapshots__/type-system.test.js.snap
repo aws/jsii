@@ -151,6 +151,7 @@ Array [
   "jsii-calc.submodule.child.OuterClass",
   "jsii-calc.submodule.isolated.Kwargs",
   "jsii-calc.submodule.nested_submodule.Namespaced",
+  "jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
 ]
 `;
 
