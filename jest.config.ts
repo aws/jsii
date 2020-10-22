@@ -48,7 +48,7 @@ export function overriddenConfig(overrides: Config.InitialOptions) {
       const result: any = {};
       const allKeys = new Set([
         ...Object.keys(original),
-        ...Object.keys(overrides),
+        ...Object.keys(override),
       ]);
       for (const key of Array.from(allKeys).sort()) {
         const originalValue: unknown = (original as any)[key];
