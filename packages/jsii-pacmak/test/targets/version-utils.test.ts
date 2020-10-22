@@ -106,7 +106,7 @@ describe(toPythonVersionRange, () => {
 });
 
 describe(toReleaseVersion, () => {
-  type Expectations = { readonly [K in TargetName]: string };
+  type Expectations = { readonly [K in TargetName]: string | RegExp };
   const examples: Record<string, Expectations> = {
     '1.2.3': {
       dotnet: '1.2.3',
@@ -120,7 +120,7 @@ describe(toReleaseVersion, () => {
       go: '1.2.3-pre',
       java: '1.2.3-pre',
       js: '1.2.3-pre',
-      python: '1.2.3-pre',
+      python: /Unable to map prerelease identifier \(in: 1\.2\.3-pre\) components to python: \[ 'pre' \]/,
     },
     '1.2.3-alpha.1337': {
       dotnet: '1.2.3-alpha.1337',
@@ -147,10 +147,16 @@ describe(toReleaseVersion, () => {
 
   for (const [version, targets] of Object.entries(examples)) {
     test(`"${version}" translations`, () => {
-      for (const [target, targetVersion] of Object.entries(targets)) {
-        expect(toReleaseVersion(version, target as TargetName)).toBe(
-          targetVersion,
-        );
+      for (const [target, expectedResult] of Object.entries(targets)) {
+        if (typeof expectedResult === 'string') {
+          expect(toReleaseVersion(version, target as TargetName)).toBe(
+            expectedResult,
+          );
+        } else {
+          expect(() => toReleaseVersion(version, target as TargetName)).toThrow(
+            expectedResult,
+          );
+        }
       }
     });
   }

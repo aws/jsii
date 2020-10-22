@@ -96,7 +96,7 @@ export function toReleaseVersion(
       // Python supports a limited set of identifiers... And we have a mapping table...
       // https://packaging.python.org/guides/distributing-packages-using-setuptools/#pre-release-versioning
       const [label, sequence, ...rest] = version.prerelease;
-      if (rest.length > 0) {
+      if (rest.length > 0 || sequence == null) {
         throw new Error(
           `Unable to map prerelease identifier (in: ${assemblyVersion}) components to python: ${inspect(
             version.prerelease,
