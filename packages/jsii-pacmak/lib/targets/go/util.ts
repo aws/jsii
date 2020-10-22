@@ -1,5 +1,5 @@
 import { Package } from './package';
-import { GoTypeMember, GoType } from './types';
+import { GoMethod, GoTypeMember, GoType } from './types';
 
 /*
  * Recursively search module for type with fqn
@@ -38,15 +38,26 @@ export function flatMap<T, R>(
 /*
  * Return module dependencies of a class or interface members
  */
-export function getFieldDependencies(fields: GoTypeMember[]): Package[] {
-  return fields.reduce((accum: Package[], field) => {
-    return field.reference?.type?.pkg
-      ? [...accum, field.reference?.type.pkg]
+export function getMemberDependencies(members: GoTypeMember[]): Package[] {
+  return members.reduce((accum: Package[], member) => {
+    return member.reference?.type?.pkg
+      ? [...accum, member.reference?.type.pkg]
       : accum;
   }, []);
 }
 
-// TODO: add getParameterDependency utility function
+export function getParamDependencies(methods: GoMethod[]): Package[] {
+  const dependencies: Package[] = [];
+  for (const method of methods) {
+    for (const param of method.parameters) {
+      const pkg = param.reference?.type?.pkg;
+      if (pkg) {
+        dependencies.push(pkg);
+      }
+    }
+  }
+  return dependencies;
+}
 
 const RESERVED_WORDS: { [word: string]: string } = {
   break: 'break_',

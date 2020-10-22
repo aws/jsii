@@ -1,4 +1,6 @@
 import * as ts from 'typescript';
+
+import { TargetLanguage } from './languages';
 import { NO_SYNTAX, OTree, UnknownSyntax, Span } from './o-tree';
 import {
   commentRangeFromTextRange,
@@ -13,7 +15,6 @@ import {
   analyzeImportEquals,
   ImportStatement,
 } from './typescript/imports';
-import { TargetLanguage } from './languages';
 
 /**
  * Render a TypeScript AST to some other representation (encoded in OTrees)

@@ -1,6 +1,7 @@
 import { api, Kernel } from '@jsii/kernel';
-import { Input, InputOutput } from './in-out';
 import { EventEmitter } from 'events';
+
+import { Input, InputOutput } from './in-out';
 
 export class KernelHost {
   private readonly kernel = new Kernel(this.callbackHandler.bind(this));

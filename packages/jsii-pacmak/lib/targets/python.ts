@@ -1,24 +1,21 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
 import * as spec from '@jsii/spec';
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
+import * as fs from 'fs-extra';
 import * as reflect from 'jsii-reflect';
-import { Generator, GeneratorOptions } from '../generator';
-import { warn } from '../logging';
-import { md2rst } from '../markdown';
-import { Target, TargetOptions } from '../target';
-import { shell } from '../util';
 import {
   Translation,
   Rosetta,
   typeScriptSnippetFromSource,
 } from 'jsii-rosetta';
-import { toPythonVersionRange } from './version-utils';
-import {
-  INCOMPLETE_DISCLAIMER_COMPILING,
-  INCOMPLETE_DISCLAIMER_NONCOMPILING,
-} from '.';
+import * as path from 'path';
+
+import { Generator, GeneratorOptions } from '../generator';
+import { warn } from '../logging';
+import { md2rst } from '../markdown';
+import { Target, TargetOptions } from '../target';
+import { shell } from '../util';
+import { renderSummary } from './_utils';
 import {
   NamingContext,
   toTypeName,
@@ -27,7 +24,12 @@ import {
   toPackageName,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
-import { renderSummary } from './_utils';
+import { toPythonVersionRange } from './version-utils';
+
+import {
+  INCOMPLETE_DISCLAIMER_COMPILING,
+  INCOMPLETE_DISCLAIMER_NONCOMPILING,
+} from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
 const spdxLicenseList = require('spdx-license-list');

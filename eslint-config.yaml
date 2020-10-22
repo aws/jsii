@@ -33,6 +33,9 @@ settings:
     typescript:
       directory: ./**/tsconfig.json
 
+ignorePatterns:
+  # Ignore Jest configuration file (it's excluded from tsconfig.json, so it's problematic!)
+  - jest.config.ts
 
 rules:
   # Custom Configurations
@@ -138,6 +141,9 @@ rules:
     - always
     - null: ignore
 
+  'import/no-duplicates':
+    - error
+
   'import/no-extraneous-dependencies':
     - error
     - devDependencies: ['**/test/**'] # Only allow importing devDependencies from tests
@@ -146,6 +152,18 @@ rules:
 
   'import/no-unresolved':
     - error
+    - ignore: [worker_threads]
+
+  'import/order':
+    - error
+    - alphabetize:
+        order: asc
+        caseInsensitive: true
+      groups:
+        - [builtin, external]
+        - [parent, sibling]
+        - [index, unknown]
+      newlines-between: always
 
   'no-alert':
     - error

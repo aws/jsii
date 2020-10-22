@@ -1,11 +1,12 @@
 import { toPascalCase } from 'codemaker';
-import { EmitContext } from '../emit-context';
 import { InterfaceType, Method, Property } from 'jsii-reflect';
+
+import { EmitContext } from '../emit-context';
+import { Package } from '../package';
+import { getMemberDependencies, getParamDependencies } from '../util';
 import { GoType } from './go-type';
 import { GoTypeRef } from './go-type-reference';
-import { Package } from '../package';
 import { GoMethod, GoTypeMember } from './type-member';
-import { getFieldDependencies } from '../util';
 
 export class Interface extends GoType {
   public readonly methods: InterfaceMethod[];
@@ -44,6 +45,20 @@ export class Interface extends GoType {
     code.line();
   }
 
+  public get usesInitPackage() {
+    return (
+      this.properties.some((p) => p.usesInitPackage) ||
+      this.methods.some((m) => m.usesInitPackage)
+    );
+  }
+
+  public get usesRuntimePackage() {
+    return (
+      this.properties.some((p) => p.usesRuntimePackage) ||
+      this.methods.some((m) => m.usesRuntimePackage)
+    );
+  }
+
   public get extends(): GoTypeRef[] {
     return this.type.getInterfaces(true).map((iface) => {
       return new GoTypeRef(this.pkg.root, iface.reference);
@@ -65,8 +80,9 @@ export class Interface extends GoType {
   public get dependencies(): Package[] {
     return [
       ...this.extendsDependencies,
-      ...getFieldDependencies(this.methods),
-      ...getFieldDependencies(this.properties),
+      ...getMemberDependencies(this.methods),
+      ...getParamDependencies(this.methods),
+      ...getMemberDependencies(this.properties),
     ];
   }
 }
@@ -75,6 +91,9 @@ class InterfaceProperty implements GoTypeMember {
   public readonly name: string;
   public readonly getter: string;
   public readonly reference?: GoTypeRef;
+
+  public readonly usesInitPackage = false;
+  public readonly usesRuntimePackage = false;
 
   public constructor(
     public readonly parent: Interface,
@@ -107,6 +126,9 @@ class InterfaceProperty implements GoTypeMember {
 }
 
 class InterfaceMethod extends GoMethod {
+  public readonly usesInitPackage = false;
+  public readonly usesRuntimePackage = false;
+
   public constructor(
     public readonly parent: Interface,
     public readonly method: Method,

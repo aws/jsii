@@ -30,7 +30,8 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "lint:fix": "yarn lint --fix",
-    "test": "jest && npm run test:build",
+    "test": "npm run test:unit && npm run test:build",
+    "test:unit": "jest",
     "test:build": "bash test/build-test.sh",
     "test:update": "jest -u && npm run test:build",
     "package": "package-js"
@@ -47,7 +48,7 @@
     "semver": "^7.3.2",
     "spdx-license-list": "^6.3.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^16.0.3"
+    "yargs": "^16.1.0"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
@@ -56,13 +57,13 @@
     "@types/clone": "^2.1.0",
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.14",
+    "@types/jest": "^26.0.15",
     "@types/mock-fs": "^4.13.0",
-    "@types/node": "^10.17.39",
+    "@types/node": "^10.17.42",
     "@types/semver": "^7.3.4",
-    "@types/yargs": "^15.0.8",
+    "@types/yargs": "^15.0.9",
     "eslint": "^7.11.0",
-    "jest": "^26.5.3",
+    "jest": "^26.6.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "mock-fs": "^4.13.0",
@@ -73,24 +74,5 @@
   "keywords": [
     "jsii",
     "aws"
-  ],
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "errorOnDeprecated": true,
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).ts"
-    ],
-    "transform": {
-      "\\.tsx?$": "ts-jest"
-    }
-  }
+  ]
 }

@@ -4,6 +4,7 @@ import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
+
 import { Assembler } from './assembler';
 import { Emitter } from './emitter';
 import { ProjectInfo } from './project-info';
@@ -432,8 +433,10 @@ export class Compiler implements Emitter {
         continue;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-      const tsconfig = require(tsconfigFile);
+      const { config: tsconfig } = ts.readConfigFile(
+        tsconfigFile,
+        ts.sys.readFile,
+      );
 
       // Add references to any TypeScript package we find that is 'composite' enabled.
       // Make it relative.

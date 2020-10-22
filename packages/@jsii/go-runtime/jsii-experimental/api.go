@@ -81,6 +81,10 @@ func (r kernelResponder) isResponse() {
 	return
 }
 
+type objref struct {
+	JsiiInstanceId string `json:"$jsii.byref"`
+}
+
 type LoadRequest struct {
 	kernelRequester
 
@@ -168,28 +172,28 @@ type SetResponse struct {
 	kernelResponder
 }
 
-type StaticInvokeRequest struct {
+type staticInvokeRequest struct {
 	kernelRequester
 
-	Api    string  `json:"api"`
-	Fqn    *FQN    `json:"fqn"`
-	Method *string `json:"method"`
-	Args   []Any   `json:"args"`
+	Api    string        `json:"api"`
+	Fqn    FQN           `json:"fqn"`
+	Method string        `json:"method"`
+	Args   []interface{} `json:"args"`
 }
 
-type InvokeRequest struct {
+type invokeRequest struct {
 	kernelRequester
 
-	Api    string  `json:"api"`
-	Method *string `json:"method"`
-	Args   []Any   `json:"args"`
-	// Objref ObjRef
+	Api    string        `json:"api"`
+	Method string        `json:"method"`
+	Args   []interface{} `json:"args"`
+	Objref objref        `json:"objref"`
 }
 
-type InvokeResponse struct {
+type invokeResponse struct {
 	kernelResponder
 
-	Result Any `json:"result"`
+	Result interface{} `json:"result"`
 }
 
 type BeginRequest struct {
@@ -283,7 +287,7 @@ type InitOkResponse struct {
 type Callback struct {
 	Cbid   *string       `json:"cbid"`
 	Cookie *string       `json:"cookie"`
-	Invoke InvokeRequest `json:"invoke"`
+	Invoke invokeRequest `json:"invoke"`
 	Get    GetRequest    `json:"get"`
 	Set    SetRequest    `json:"set"`
 }
@@ -306,6 +310,11 @@ func (r *LoadResponse) UnmarshalJSON(data []byte) error {
 
 func (r *createResponse) UnmarshalJSON(data []byte) error {
 	type response createResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
+func (r *invokeResponse) UnmarshalJSON(data []byte) error {
+	type response invokeResponse
 	return unmarshalKernelResponse(data, (*response)(r))
 }
 
