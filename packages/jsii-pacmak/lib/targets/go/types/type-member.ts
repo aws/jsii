@@ -15,6 +15,9 @@ export interface GoTypeMember {
   parent: GoClass | Interface | Struct;
   reference?: GoTypeRef;
   returnType: string;
+
+  usesInitPackage: boolean;
+  usesRuntimePackage: boolean;
 }
 
 /*
@@ -38,6 +41,14 @@ export class GoProperty implements GoTypeMember {
     if (property.type) {
       this.reference = new GoTypeRef(parent.pkg.root, property.type);
     }
+  }
+
+  public get usesInitPackage() {
+    return this.static;
+  }
+
+  public get usesRuntimePackage() {
+    return true;
   }
 
   public get static(): boolean {
@@ -148,6 +159,8 @@ export abstract class GoMethod implements GoTypeMember {
   }
 
   public abstract emit(context: EmitContext): void;
+  public abstract get usesInitPackage(): boolean;
+  public abstract get usesRuntimePackage(): boolean;
 
   public get returnType(): string {
     const ret = this.method.returns.type.void
@@ -169,6 +182,7 @@ export abstract class GoMethod implements GoTypeMember {
 export class GoParameter {
   public readonly name: string;
   public readonly reference: GoTypeRef;
+
   public constructor(
     public parent: GoClass | Interface,
     public readonly parameter: Parameter,
@@ -176,10 +190,9 @@ export class GoParameter {
     this.name = substituteReservedWords(parameter.name);
     this.reference = new GoTypeRef(parent.pkg.root, parameter.type);
   }
+
   public toString(): string {
     const paramType = this.reference.scopedName(this.parent.pkg);
     return `${this.name} ${paramType}`;
   }
-
-  // return parameters.length === 0 ? '' : parameters.join(', ');
 }

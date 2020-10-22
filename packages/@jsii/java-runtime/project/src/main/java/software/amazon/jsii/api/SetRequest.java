@@ -2,9 +2,12 @@ package software.amazon.jsii.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import software.amazon.jsii.Internal;
+
 /**
  * Represents a "set property" jsii-runtime request.
  */
+@Internal
 public class SetRequest {
     /**
      * The jsii object reference.

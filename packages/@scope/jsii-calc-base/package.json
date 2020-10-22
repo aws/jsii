@@ -35,13 +35,20 @@
     "@scope/jsii-calc-base-of-base": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.40",
+    "@types/node": "^10.17.42",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
     "prettier": "^2.1.2"
   },
   "jsii": {
+    "metadata": {
+      "jsii": {
+        "pacmak": {
+          "hasDefaultInterfaces": false
+        }
+      }
+    },
     "outdir": "dist",
     "targets": {
       "go": {

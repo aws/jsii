@@ -2204,12 +2204,18 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃           ┃  ┣━ 📁 Isolated
        ┃           ┃  ┃  ┗━ 📄 Kwargs.cs
        ┃           ┃  ┣━ 📄 MyClass.cs
-       ┃           ┃  ┗━ 📁 NestedSubmodule
-       ┃           ┃     ┣━ 📁 DeeplyNested
-       ┃           ┃     ┃  ┣━ 📄 INamespaced.cs
-       ┃           ┃     ┃  ┗━ 📄 INamespacedProxy.cs
-       ┃           ┃     ┣━ 📄 Namespaced.cs
-       ┃           ┃     ┗━ 📄 NamespacedProxy.cs
+       ┃           ┃  ┣━ 📁 NestedSubmodule
+       ┃           ┃  ┃  ┣━ 📁 DeeplyNested
+       ┃           ┃  ┃  ┃  ┣━ 📄 INamespaced.cs
+       ┃           ┃  ┃  ┃  ┗━ 📄 INamespacedProxy.cs
+       ┃           ┃  ┃  ┣━ 📄 Namespaced.cs
+       ┃           ┃  ┃  ┗━ 📄 NamespacedProxy.cs
+       ┃           ┃  ┣━ 📁 Param
+       ┃           ┃  ┃  ┣━ 📄 ISpecialParameter.cs
+       ┃           ┃  ┃  ┣━ 📄 SpecialParameter.cs
+       ┃           ┃  ┃  ┗━ 📄 SpecialParameterProxy.cs
+       ┃           ┃  ┗━ 📁 Returnsparam
+       ┃           ┃     ┗━ 📄 ReturnsSpecialParameter.cs
        ┃           ┣━ 📄 Sum.cs
        ┃           ┣━ 📄 SupportsNiceJavaBuilder.cs
        ┃           ┣━ 📄 SupportsNiceJavaBuilderProps.cs
@@ -14756,6 +14762,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule
         {
         }
 
+        [JsiiMethod(name: "methodWithSpecialParam", returnsJson: "{\\"type\\":{\\"primitive\\":\\"string\\"}}", parametersJson: "[{\\"name\\":\\"param\\",\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.param.SpecialParameter\\"}}]")]
+        public virtual string MethodWithSpecialParam(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter param)
+        {
+            return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter)}, new object[]{param})!;
+        }
+
         [JsiiProperty(name: "awesomeness", typeJson: "{\\"fqn\\":\\"jsii-calc.submodule.child.Awesomeness\\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Awesomeness Awesomeness
         {
@@ -14894,6 +14906,111 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.NestedSubmodule
         public override Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Goodness Goodness
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Child.Goodness>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/Param/ISpecialParameter.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param
+{
+    [JsiiInterface(nativeType: typeof(ISpecialParameter), fullyQualifiedName: "jsii-calc.submodule.param.SpecialParameter")]
+    public interface ISpecialParameter
+    {
+        [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        string Value
+        {
+            get;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/Param/SpecialParameter.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param
+{
+    #pragma warning disable CS8618
+
+    [JsiiByValue(fqn: "jsii-calc.submodule.param.SpecialParameter")]
+    public class SpecialParameter : Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter
+    {
+        [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"string\\"}", isOverride: true)]
+        public string Value
+        {
+            get;
+            set;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/Param/SpecialParameterProxy.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param
+{
+    [JsiiTypeProxy(nativeType: typeof(ISpecialParameter), fullyQualifiedName: "jsii-calc.submodule.param.SpecialParameter")]
+    internal sealed class SpecialParameterProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter
+    {
+        private SpecialParameterProxy(ByRefValue reference): base(reference)
+        {
+        }
+
+        [JsiiProperty(name: "value", typeJson: "{\\"primitive\\":\\"string\\"}")]
+        public string Value
+        {
+            get => GetInstanceProperty<string>()!;
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.CalculatorPackageId/Amazon/JSII/Tests/CalculatorNamespace/Submodule/Returnsparam/ReturnsSpecialParameter.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Amazon.JSII.Tests.CalculatorNamespace.Submodule.Returnsparam
+{
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Submodule.Returnsparam.ReturnsSpecialParameter), fullyQualifiedName: "jsii-calc.submodule.returnsparam.ReturnsSpecialParameter")]
+    public class ReturnsSpecialParameter : DeputyBase
+    {
+        public ReturnsSpecialParameter(): base(new DeputyProps(System.Array.Empty<object?>()))
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from a Javascript-owned object reference</summary>
+        /// <param name="reference">The Javascript-owned object reference</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ReturnsSpecialParameter(ByRefValue reference): base(reference)
+        {
+        }
+
+        /// <summary>Used by jsii to construct an instance of this class from DeputyProps</summary>
+        /// <param name="props">The deputy props</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        protected ReturnsSpecialParameter(DeputyProps props): base(props)
+        {
+        }
+
+        [JsiiMethod(name: "returnsSpecialParam", returnsJson: "{\\"type\\":{\\"fqn\\":\\"jsii-calc.submodule.param.SpecialParameter\\"}}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter ReturnsSpecialParam()
+        {
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.Submodule.Param.ISpecialParameter>(new System.Type[]{}, new object[]{})!;
         }
     }
 }

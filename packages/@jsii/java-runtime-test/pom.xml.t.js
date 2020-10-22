@@ -19,6 +19,13 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 
     <dependencies>
         <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${artifactId}</artifactId>
+            <version>${version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>software.amazon.jsii.tests</groupId>
             <artifactId>calculator</artifactId>
             <version>${calculatorVersion}</version>

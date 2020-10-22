@@ -2,9 +2,12 @@ package software.amazon.jsii.api;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import software.amazon.jsii.Internal;
+
 /**
  * Represents a "get property" jsii-runtime request.
  */
+@Internal
 public class GetRequest {
     /**
      * The object reference.

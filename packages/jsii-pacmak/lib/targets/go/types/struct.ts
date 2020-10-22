@@ -11,4 +11,8 @@ export class Struct extends GoStruct {
     super(parent, type);
     // TODO check if datatype? (isDataType() on jsii-reflect seems wrong)
   }
+
+  public get usesRuntimePackage(): boolean {
+    return false;
+  }
 }
