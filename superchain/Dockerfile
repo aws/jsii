@@ -68,17 +68,21 @@ RUN curl -sL https://www.apache.org/dist/maven/maven-3/${M2_VERSION}/binaries/ap
   && rm -rf /tmp/apache-maven.tar.gz /tmp/apache-maven.tar.gz.asc /tmp/gpg-maven
 COPY m2-settings.xml /root/.m2/settings.xml
 
+# Install Gradle
+RUN export GRADLE_VERSION="6.7"                                                                                         \
+  && export GRADLE_DIST="https://services.gradle.org/distributions"                                                     \
+  && curl -sSL -o gradle-bin.zip "${GRADLE_DIST}/gradle-${GRADLE_VERSION}-bin.zip"                                      \
+  && curl -sSL -o gradle-bin.zip.sha256 "${GRADLE_DIST}/gradle-${GRADLE_VERSION}-bin.zip.sha256"                        \
+  && mkdir -p /opt                                                                                                      \
+  && unzip -q -d /opt gradle-bin.zip                                                                                    \
+  && ln -s /opt/gradle-${GRADLE_VERSION} /opt/gradle
+ENV PATH="/opt/gradle/bin:${PATH}"                                                                                      \
+    GRADLE_HOME="/opt/gradle"
+
 # Install Go
 RUN curl -sL https://golang.org/dl/go1.15.2.linux-amd64.tar.gz -o /tmp/go.tar.gz                                        \
   && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
 ENV PATH="$GOROOT/bin:$PATH"
-    
-# Install Gradle
-RUN curl -sSL -o gradle-bin.zip "https://services.gradle.org/distributions/gradle-6.5-bin.zip"                        \
-  && yum -y install unzip                                                                                               \
-  && mkdir -p /opt/gradle                                                                                               \
-  && unzip -q -d /opt/gradle gradle-bin.zip
-ENV PATH="/opt/gradle/gradle-6.5/bin:${PATH}"
 
 # Install Docker
 RUN amazon-linux-extras install docker                                                                                  \
