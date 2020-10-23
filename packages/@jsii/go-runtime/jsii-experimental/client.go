@@ -21,6 +21,31 @@ var (
 	clientOnce          sync.Once
 )
 
+type Any interface{}
+
+// The client struct owns the jsii child process and its io interfaces. It also
+// owns a map (objects) that tracks all object references by ID. This is used
+// to call methods and access properties on objects passed by the runtime
+// process by reference.
+type client struct {
+	process        *exec.Cmd
+	RuntimeVersion string
+	writer         *json.Encoder
+	reader         *json.Decoder
+
+	// Keeping track of state that'll need cleaning up in close()
+	stdin  io.WriteCloser
+	tmpdir string
+
+	objects map[interface{}]string
+}
+
+func CheckFatalError(e error) {
+	if e != nil {
+		log.Fatal(e)
+	}
+}
+
 // getClient returns a singleton client instance, initializing one the first
 // time it is called.
 func getClient() *client {
@@ -61,36 +86,10 @@ func closeClient() {
 	}
 }
 
-type Any interface{}
-
-// The client struct owns the jsii child process and its io interfaces. It
-// also owns a map that tracks all object references by ID. This is used to
-// call methods and access properties on objects passed by the runtime process
-// by reference.
-type client struct {
-	process        *exec.Cmd
-	RuntimeVersion string
-	writer         *json.Encoder
-	reader         *json.Decoder
-
-	// Keeping track of state that'll need cleaning up in close()
-	stdin  io.WriteCloser
-	tmpdir string
-	// objects map[string]interface{}
-	objects map[interface{}]string
-}
-
-func CheckFatalError(e error) {
-	if e != nil {
-		log.Fatal(e)
-	}
-}
-
 // newClient starts the kernel child process and verifies the "hello" message
 // was correct.
 func newClient() (*client, error) {
 	// Initialize map of object instances
-	// objmap := make(map[string]interface{})
 	objmap := make(map[interface{}]string)
 
 	clientinstance := &client{
@@ -223,6 +222,26 @@ func (c *client) invoke(request invokeRequest) (invokeResponse, error) {
 
 func (c *client) sinvoke(request staticInvokeRequest) (invokeResponse, error) {
 	response := invokeResponse{}
+	return response, c.request(request, &response)
+}
+
+func (c *client) get(request getRequest) (getResponse, error) {
+	response := getResponse{}
+	return response, c.request(request, &response)
+}
+
+func (c *client) sget(request staticGetRequest) (getResponse, error) {
+	response := getResponse{}
+	return response, c.request(request, &response)
+}
+
+func (c *client) set(request setRequest) (setResponse, error) {
+	response := setResponse{}
+	return response, c.request(request, &response)
+}
+
+func (c *client) sset(request staticSetRequest) (setResponse, error) {
+	response := setResponse{}
 	return response, c.request(request, &response)
 }
 

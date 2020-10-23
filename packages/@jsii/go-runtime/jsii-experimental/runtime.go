@@ -96,6 +96,79 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, returns interface{
 	}
 }
 
+func Get(property string, obj, returns interface{}) {
+	client := getClient()
+
+	// Find reference to class instance in client
+	refid, found := client.findObjectRef(obj)
+
+	if !found {
+		panic("No Object Found")
+	}
+
+	_, err := client.get(getRequest{
+		Api:      "get",
+		Property: property,
+		Objref:   objref{JsiiInstanceId: refid},
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
+	// Do we need to return Value from getResponse?
+}
+
+func StaticGet(fqn FQN, property string, returns interface{}) {
+	client := getClient()
+
+	_, err := client.sget(staticGetRequest{
+		Api:      "sget",
+		Fqn:      fqn,
+		Property: property,
+	})
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+func Set(property string, value, obj, returns interface{}) {
+	client := getClient()
+
+	// Find reference to class instance in client
+	refid, found := client.findObjectRef(obj)
+
+	if !found {
+		panic("No Object Found")
+	}
+
+	_, err := client.set(setRequest{
+		Api:      "set",
+		Property: property,
+		Objref:   objref{JsiiInstanceId: refid},
+	})
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+func StaticSet(fqn FQN, property string, value, returns interface{}) {
+	client := getClient()
+
+	_, err := client.sset(staticSetRequest{
+		Api:      "sset",
+		Fqn:      fqn,
+		Property: property,
+		Value:    value,
+	})
+
+	if err != nil {
+		panic(err)
+	}
+}
+
 // Close finalizes the runtime process, signalling the end of the execution to
 // the jsii kernel process, and waiting for graceful termination. The best
 // practice is to defer call thins at the beginning of the "main" function.
