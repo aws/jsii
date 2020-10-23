@@ -8,3 +8,4 @@ coverage
 .eslintrc.*
 tsconfig.json
 *.tsbuildinfo
+test
