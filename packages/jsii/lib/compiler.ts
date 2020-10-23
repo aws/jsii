@@ -32,7 +32,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   strict: true,
   strictNullChecks: true,
   strictPropertyInitialization: true,
-  stripInternal: true,
+  stripInternal: false,
   target: ts.ScriptTarget.ES2018,
 };
 
