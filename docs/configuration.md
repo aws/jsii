@@ -52,7 +52,7 @@ Field       | Required | Extensions
   can be used to signal the `author` field refers to an `organization` and not
   and individual person.
 * The [`license`][npm-license] field must be set to a valid [SPDX license id].
-  If you do not intend to release your package for third party consumption,
+  If you do not intend to release your package for third-party consumption,
   `UNLICENSED` (not to be confused with `Unlicense`) is a valid option.
 
 [npm-author]: https://docs.npmjs.com/files/package.json#people-fields-author-contributors
@@ -98,8 +98,8 @@ the exact semantic value of those fields is defined by the package maintainer,
 the generic interpretation for those on packages is:
 
 * `experimental` - the package is not yet ready for production usage, as it is
-  still in the early stages if it's development.
-* `stable` - the package is ready for production and it's APIs should be
+  still in the early stages of its development.
+* `stable` - the package is ready for production and its APIs should be
   expected to adhere to [semantic versioning].
 * `deprecated` - the package should no longer be used and may no longer be
   maintained. It is a good practice to set the `deprecated` field in
@@ -156,7 +156,7 @@ The `python` target requires two configuration entries:
 * `distName` - the [PyPI] distribution name for the package.
 * `classifiers` - a list of [trove classifiers] to declare on the package. It is
   the user's responsibility to specify *valid* values (the authoritative list of
-  valid [trove classifiers] is masted in the [pypa/trove-classifiers] package).
+  valid [trove classifiers] is mastered in the [pypa/trove-classifiers] package).
   * Some classifiers are automatically included (and should not be added to the
   `classifiers` property) based on relevant configuration from the
   `package.json` file:
