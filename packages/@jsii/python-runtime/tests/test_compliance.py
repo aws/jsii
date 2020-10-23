@@ -28,6 +28,7 @@ from jsii_calc import (
     DisappointingCollectionSource,
     DoNotOverridePrivates,
     DoubleTrouble,
+    Entropy,
     GreetingAugmenter,
     IBellRinger,
     IConcreteBellRinger,
@@ -37,6 +38,7 @@ from jsii_calc import (
     InterfaceCollections,
     IInterfaceWithProperties,
     IStructReturningDelegate,
+    IWallClock,
     Isomorphism,
     JsiiAgent,
     JSObjectLiteralForInterface,
@@ -1267,3 +1269,23 @@ def test_isomorphism_within_constructor():
 
 def test_kwargs_from_superinterface_are_working():
     assert Kwargs.method(extra="ordinary", prop=SomeEnum.SOME)
+
+
+def test_iso8601_does_not_deserialize_to_date():
+    @jsii.implements(IWallClock)
+    class WallClock:
+        def __init__(self, now: str):
+            self.now = now
+
+        def iso8601_now(self) -> str:
+            return self.now
+
+    class MildEntropy(Entropy):
+        def repeat(self, word: str) -> str:
+            return word
+
+    now = datetime.utcnow().isoformat() + "Z"
+    wall_clock = WallClock(now)
+    entropy = MildEntropy(wall_clock)
+
+    assert now == entropy.increase()

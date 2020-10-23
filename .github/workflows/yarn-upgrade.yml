@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Node
-        uses: actions/setup-node@v2.1.0
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: 10
 
@@ -37,32 +37,75 @@ jobs:
           npm -g install lerna npm-check-updates@^9.0.0
 
       - name: List Mono-Repo Packages
-        id: list-packages
+        id: monorepo-packages
         # These need to be ignored from the `ncu` runs!
         run: |-
           echo -n "::set-output name=list::"
           node -p "$(lerna ls --all --json 2>/dev/null).map(item => item.name).join(',')"
 
-      - name: Run "ncu -u"
-        # We special-case @types/node because we want to stay on the current major (minimum supported node release)
-        # We special-case @types/fs-extra because the current major (9.x) is broken with @types/node@10
+      - name: Identify production dependencies
+        id: production-dependencies
+        # These should be limited to `--target=minor` in the `ncu` run
+        # We assume repository-root has no production dependencies (it shouldn't have any!)
+        # We always consider @types/node to be a production dependency (it must relate to our minimum supported engine)
         run: |-
-          # Upgrade dependencies at repository root
-          ncu --upgrade --filter=@types/node,@types/fs-extra --target=minor
-          ncu --upgrade --filter=typescript --target=patch
-          ncu --upgrade --reject=@types/node,@types/fs-extra,typescript
+          echo -n "::set-output name=list::"
+          node -p <<-EOF
+            const path = require('path');
 
-          # Upgrade all the packages
-          lerna exec --parallel ncu -- --upgrade --filter=@types/node,@types/fs-extra --target=minor
-          lerna exec --parallel ncu -- --upgrade --filter=typescript --target=patch
-          lerna exec --parallel ncu -- --upgrade --reject='@types/node,@types/fs-extra,typescript,${{ steps.list-packages.outputs.list }}'
+            const prodDependencies = new Set(['@types/node']);
+            function processManifest(file) {
+              const manifest = require(file);
+              for (const kind of ['dependencies', 'peerDependencies']) {
+                // We assume the manifests are well-formed here (should be safe, since it's in the trunk)
+                if (!(kind in manifest)) {
+                  continue;
+                }
+                for (const dep of Object.keys(manifest[kind])) {
+                  prodDependencies.add(dep);
+                }
+              }
+            }
 
-      # This will create a brand new `yarn.lock` file (this is more efficient than `yarn install && yarn upgrade`)
-      - name: Run "yarn install --force"
-        run: yarn install --force
+            const lernaPackagesDirs = $(lerna ls --all --json 2>/dev/null).map(item => item.location);
+            for (const packageDir of lernaPackagesDirs) {
+              processManifest(path.join(packageDir, 'package.json'));
+            }
+
+            Array.from(prodDependencies).sort().join(',');
+          EOF
+
+      - name: Run "ncu -u"
+        # We special-case @types/fs-extra because the current major (9.x) is broken with @types/node@10
+        # We special-case typescript because it's not semantically versionned, and major.minor is the API contract
+        run: |-
+          # Upgrade devDependencies at repository root
+          ncu --upgrade --target=minor --filter=@types/node,@types/fs-extra
+          ncu --upgrade --target=patch --filter=typescript
+          ncu --upgrade --target=latest --reject=@types/node,@types/fs-extra,typescript
+
+          # Upgrade all production dependencies (and other always major-pinned dependencies)
+          lerna exec --parallel ncu -- --upgrade --target=minor                                     \
+            --filter='@types/fs-extra,${{ steps.production-dependencies.outputs.list }}'            \
+            --reject='typescript,${{ steps.monorepo-packages.outputs.list }}'
+
+          # Upgrade all minor-pinned dependencies
+          lerna exec --parallel ncu -- --upgrade --target=patch                                     \
+            --filter=typescript
+
+          # Upgrade all other dependencies (devDependencies) to the latest
+          lerna exec --parallel ncu -- --upgrade --target=latest                                    \
+            --reject='@types/fs-extra,typescript,${{ steps.production-dependencies.outputs.list }},${{ steps.monorepo-packages.outputs.list }}'
+
+      # This will ensure the current lockfile is up-to-date with the dependency specifications (necessary for "yarn update" to run)
+      - name: Run "yarn install"
+        run: yarn install
+
+      - name: Run "yarn upgrade"
+        run: yarn upgrade
 
       - name: Make Pull Request
-        uses: peter-evans/create-pull-request@v2
+        uses: peter-evans/create-pull-request@v3
         with:
           # Git commit details
           branch: automation/yarn-upgrade

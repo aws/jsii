@@ -10,7 +10,7 @@
     "gen:rt": "ts-node build-tools/gen.ts",
     "generate": "npm run gen:rt && npm run gen:calc",
     "build": "npm run generate && go build ./jsii-experimental",
-    "test": "go test ./jsii-experimental",
+    "test": "go test ./jsii-experimental && npm run test:calc",
     "test:calc": "npm run gen:calc && go run ./jsii-calc-test"
   },
   "keywords": [],
@@ -21,7 +21,8 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/node": "^10.17.35",
+    "@types/node": "^10.17.42",
+    "codemaker": "^0.0.0",
     "fs-extra": "^9.0.1",
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",

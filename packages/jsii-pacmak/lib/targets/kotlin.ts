@@ -1,19 +1,20 @@
 import * as spec from '@jsii/spec';
+
+import { BuildOptions } from '../builder';
+import * as logging from '../logging';
+import { JsiiModule } from '../packaging';
 import { PackageInfo, Target, TargetOptions } from '../target';
 import { Scratch } from '../util';
-import { KotlinGenerator } from './kotlin/kotlingenerator';
-import * as logging from '../logging';
-import { BuildOptions } from '../builder';
-import { JsiiModule } from '../packaging';
-import { getJvmPackageInfos } from './jvm/mavenutils';
 import { TemporaryPackage } from './aggregatebuilder';
-import { KotlinGradleBuilder } from './kotlin/kotlingradlebuilder';
 import { JvmAggregateBuilder } from './jvm/jvmaggregatebuilder';
+import { getJvmPackageInfos } from './jvm/mavenutils';
 import { KotlinCodeMaker } from './kotlin/kotlincodemaker';
+import { KotlinGenerator } from './kotlin/kotlingenerator';
 import {
   KotlinGeneratorConfiguration,
   KotlinArtifactConfiguration,
 } from './kotlin/kotlingeneratorconfiguration';
+import { KotlinGradleBuilder } from './kotlin/kotlingradlebuilder';
 
 export class KotlinBuilder extends JvmAggregateBuilder {
   public constructor(modules: JsiiModule[], options: BuildOptions) {

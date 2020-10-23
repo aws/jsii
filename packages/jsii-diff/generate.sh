@@ -8,9 +8,11 @@ if [ -z "${commit}" ]; then
   commit="$(git rev-parse --verify HEAD)"
 fi
 
+VERSION=$(node -p "require('./package.json').version.replace(/\\+[0-9a-f]+\$/, '')")
+
 cat > lib/version.ts <<HERE
 // Generated at $(date -u +"%Y-%m-%dT%H:%M:%SZ") by generate.sh
 
 /** The qualified version number for this JSII compiler. */
-export const VERSION = \`\${require('../package.json').version.replace(/\\+[0-9a-f]+\$/, '')} (build ${commit:0:7})\`;
+export const VERSION = '${VERSION} (build ${commit:0:7})';
 HERE

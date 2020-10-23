@@ -1,3 +1,5 @@
+import * as base from '@scope/jsii-calc-base';
+import { StaticConsumer } from '@scope/jsii-calc-base-of-base';
 import {
   EnumFromScopedModule,
   IDoublable,
@@ -7,11 +9,12 @@ import {
   StructWithOnlyOptionals,
   NumericValue,
 } from '@scope/jsii-calc-lib';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as os from 'os';
 import * as crypto from 'crypto';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
 import { promisify } from 'util';
+
 import {
   IFriendlyRandomGenerator,
   IRandomNumberGenerator,
@@ -25,7 +28,6 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
 const bundled = require('@fixtures/jsii-calc-bundled');
-import * as base from '@scope/jsii-calc-base';
 
 const readFile = promisify(fs.readFile);
 
@@ -730,7 +732,7 @@ export class Statics {
   }
 
   /**
-   *Jsdocs for static setter.
+   * Jsdocs for static setter.
    */
   public static set instance(val: Statics) {
     this._instance = val;
@@ -2786,8 +2788,6 @@ export abstract class BurriedAnonymousObject {
   public abstract giveItBack(value: any): any;
 }
 
-import { StaticConsumer } from '@scope/jsii-calc-base-of-base';
-
 /**
  * Ensures we can override a dynamic property that was inherited.
  */
@@ -2818,5 +2818,25 @@ export class DynamicPropertyBearerChild extends DynamicPropertyBearer {
     const oldValue = this.dynamicProperty;
     this.dynamicProperty = newValue;
     return oldValue;
+  }
+}
+
+/**
+ * Validates that nested classes get correct code generation for the occasional
+ * forward reference.
+ */
+export class LevelOne {
+  public constructor(public readonly props: LevelOneProps) {}
+}
+export interface LevelOneProps {
+  readonly prop: LevelOne.PropProperty;
+}
+export namespace LevelOne {
+  export interface PropProperty {
+    readonly prop: PropBooleanValue;
+  }
+
+  export interface PropBooleanValue {
+    readonly value: boolean;
   }
 }

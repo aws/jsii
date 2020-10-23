@@ -1,8 +1,9 @@
 import * as spec from '@jsii/spec';
-import * as reflect from 'jsii-reflect';
-import { KotlinPlatform } from './kotlingeneratorconfiguration';
-import { TypeSystem } from 'jsii-reflect';
 import { isUnionTypeReference } from '@jsii/spec';
+import * as reflect from 'jsii-reflect';
+import { TypeSystem } from 'jsii-reflect';
+
+import { KotlinPlatform } from './kotlingeneratorconfiguration';
 
 export class KotlinTypeMapper {
   public static getPackageName(assembly: reflect.Assembly): string | undefined {

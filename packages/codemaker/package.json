@@ -31,39 +31,17 @@
     "package": "rm -fr dist/js && mkdir -p dist/js && mv $(npm pack) dist/js"
   },
   "dependencies": {
-    "camelcase": "^6.0.0",
+    "camelcase": "^6.1.0",
     "decamelize": "^4.0.0",
     "fs-extra": "^9.0.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.14",
-    "@types/node": "^10.17.35",
-    "eslint": "^7.9.0",
-    "jest": "^26.4.2",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^10.17.42",
+    "eslint": "^7.11.0",
+    "jest": "^26.6.0",
     "prettier": "^2.1.2",
     "typescript": "~3.9.7"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 60,
-        "statements": 85
-      }
-    },
-    "errorOnDeprecated": true,
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
   }
 }

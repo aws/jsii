@@ -1,5 +1,6 @@
 import { sourceToAssemblyHelper } from 'jsii';
 import * as reflect from 'jsii-reflect';
+
 import { compareAssemblies } from '../lib';
 import { Mismatches } from '../lib/types';
 
@@ -12,10 +13,15 @@ export async function expectNoError(original: string, updated: string) {
 }
 
 export async function expectError(
-  error: RegExp,
+  error: RegExp | undefined,
   original: string,
   updated: string,
 ) {
+  if (error == null) {
+    await expectNoError(original, updated);
+    return;
+  }
+
   const mms = await compare(original, updated);
   expect(mms.count).not.toBe(0);
 

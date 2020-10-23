@@ -1,12 +1,11 @@
 import { OneByOneBuilder, TargetBuilder, BuildOptions } from '../builder';
-
-import { DotnetBuilder } from './dotnet';
-import { Golang } from './golang';
-import { JavaBuilder } from './java';
-import { KotlinBuilder } from './kotlin';
-import JavaScript from './js';
-import Python from './python';
 import { JsiiModule } from '../packaging';
+import { DotnetBuilder } from './dotnet';
+import { Golang } from './go';
+import { JavaBuilder } from './java';
+import JavaScript from './js';
+import { KotlinBuilder } from './kotlin';
+import Python from './python';
 
 export type TargetName = 'dotnet' | 'go' | 'java' | 'js' | 'kotlin' | 'python';
 export type BuilderFactory = (

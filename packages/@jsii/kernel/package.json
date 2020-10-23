@@ -33,51 +33,23 @@
   "dependencies": {
     "@jsii/spec": "^0.0.0",
     "fs-extra": "^9.0.1",
-    "source-map": "^0.7.3",
     "tar": "^6.0.5"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.0.0",
     "@scope/jsii-calc-lib": "^0.0.0",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.14",
-    "@types/jest-expect-message": "^1.0.2",
-    "@types/node": "^10.17.35",
+    "@types/jest": "^26.0.15",
+    "@types/jest-expect-message": "^1.0.3",
+    "@types/node": "^10.17.42",
     "@types/tar": "^4.0.3",
-    "eslint": "^7.9.0",
-    "jest": "^26.4.2",
+    "eslint": "^7.11.0",
+    "jest": "^26.6.0",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.3.0",
+    "ts-jest": "^26.4.1",
     "typescript": "~3.9.7"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 60,
-        "statements": 60
-      }
-    },
-    "errorOnDeprecated": true,
-    "setupFilesAfterEnv": [
-      "jest-expect-message"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).ts"
-    ],
-    "transform": {
-      "\\.tsx?$": "ts-jest"
-    }
   }
 }

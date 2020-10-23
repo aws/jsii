@@ -38,45 +38,20 @@
     "jsii-reflect": "^0.0.0",
     "log4js": "^6.3.0",
     "typescript": "~3.9.7",
-    "yargs": "^16.0.3"
+    "yargs": "^16.1.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.14",
-    "@types/jest-expect-message": "^1.0.2",
-    "@types/node": "^10.17.35",
+    "@types/jest": "^26.0.15",
+    "@types/jest-expect-message": "^1.0.3",
+    "@types/node": "^10.17.42",
     "@types/tar-fs": "^2.0.0",
-    "@types/yargs": "^15.0.5",
-    "eslint": "^7.9.0",
-    "jest": "^26.4.2",
+    "@types/yargs": "^15.0.9",
+    "eslint": "^7.11.0",
+    "jest": "^26.6.0",
     "jest-expect-message": "^1.0.2",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "prettier": "^2.1.2"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 60,
-        "statements": 60
-      }
-    },
-    "errorOnDeprecated": true,
-    "setupFilesAfterEnv": [
-      "jest-expect-message"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
   }
 }

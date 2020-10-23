@@ -11,6 +11,13 @@
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
+  "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": true
+      }
+    }
+  },
   "name": "@scope/jsii-calc-base-of-base",
   "repository": {
     "directory": "packages/@scope/jsii-calc-base-of-base",
@@ -158,5 +165,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "aOStUOYOZMP3sor2CFunsRQPyFikJ/cqC/NvaiTXwsA="
+  "fingerprint": "R2kxJvPJiO63xB06U5xnDjeDjRhvIxm/SYkl+09q7fI="
 }

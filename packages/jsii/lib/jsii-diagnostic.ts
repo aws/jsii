@@ -1,6 +1,7 @@
 import * as spec from '@jsii/spec';
 import { camel, constant as allCaps, pascal } from 'case';
 import * as ts from 'typescript';
+
 import { JSII_DIAGNOSTICS_CODE } from './utils';
 
 /**
@@ -707,7 +708,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public static readonly JSII_9002_UNRESOLVEABLE_TYPE = Code.error({
     code: 9002,
     formatter: (reference: string) =>
-      `Unable to resolve type "${reference}". It may be @iternal or not exported from the module's entry point (as configured in "package.json" as "main").`,
+      `Unable to resolve type "${reference}". It may be @internal or not exported from the module's entry point (as configured in "package.json" as "main").`,
     name: 'miscellaneous/unresolveable-type',
   });
 
@@ -723,6 +724,19 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     formatter: (methodName: string, type: spec.Type) =>
       `Unable to compute signature for method "${methodName}" of "${type.fqn}"`,
     name: 'miscellaneous/unable-to-compute-signature',
+  });
+
+  public static readonly JSII_9996_UNNECESSARY_TOKEN = Code.message({
+    code: 9996,
+    formatter: () => 'Unnecessary token, consider removing it',
+    name: 'miscellaneous/unnecessary-token',
+  });
+
+  public static readonly JSII_9997_UNKNOWN_ERROR = Code.error({
+    code: 9997,
+    formatter: (error: Error) =>
+      `Unknown error: ${error.message} -- ${error.stack}`,
+    name: 'miscellaneous/unknown-error',
   });
 
   public static readonly JSII_9998_UNSUPORTED_NODE = Code.message({

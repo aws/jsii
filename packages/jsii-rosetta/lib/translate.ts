@@ -1,22 +1,23 @@
-import * as logging from './logging';
 import * as ts from 'typescript';
 import { inspect } from 'util';
-import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
-import { renderTree, Span, spanContains } from './o-tree';
-import {
-  TypeScriptCompiler,
-  CompilationResult,
-} from './typescript/ts-compiler';
-import { TranslatedSnippet } from './tablets/tablets';
+
 import { TARGET_LANGUAGES, TargetLanguage } from './languages';
-import { calculateVisibleSpans } from './typescript/ast-utils';
-import { File } from './util';
+import * as logging from './logging';
+import { renderTree, Span, spanContains } from './o-tree';
+import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
 import {
   TypeScriptSnippet,
   completeSource,
   SnippetParameters,
 } from './snippet';
 import { snippetKey } from './tablets/key';
+import { TranslatedSnippet } from './tablets/tablets';
+import { calculateVisibleSpans } from './typescript/ast-utils';
+import {
+  TypeScriptCompiler,
+  CompilationResult,
+} from './typescript/ts-compiler';
+import { File } from './util';
 
 export function translateTypeScript(
   source: File,
@@ -141,9 +142,9 @@ export class SnippetTranslator {
       const program = this.compilation.program;
       this.compileDiagnostics.push(
         ...program.getGlobalDiagnostics(),
-        ...program.getSyntacticDiagnostics(),
-        ...program.getDeclarationDiagnostics(),
-        ...program.getSemanticDiagnostics(),
+        ...program.getSyntacticDiagnostics(this.compilation.rootFile),
+        ...program.getDeclarationDiagnostics(this.compilation.rootFile),
+        ...program.getSemanticDiagnostics(this.compilation.rootFile),
       );
     }
   }

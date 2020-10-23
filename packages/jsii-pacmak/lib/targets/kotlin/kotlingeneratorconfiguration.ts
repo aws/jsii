@@ -1,6 +1,7 @@
 import { Assembly } from 'jsii-reflect';
-import { KotlinTypeMapper } from './kotlintypemapper';
+
 import { KotlinNamer } from './kotlinnamer';
+import { KotlinTypeMapper } from './kotlintypemapper';
 
 export class KotlinGeneratorConfiguration {
   public static of(

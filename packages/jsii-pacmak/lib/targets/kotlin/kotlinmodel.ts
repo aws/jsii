@@ -1,8 +1,4 @@
-import {
-  KotlinGeneratorConfiguration,
-  KotlinPlatform,
-} from './kotlingeneratorconfiguration';
-import { DeclarationNode } from './declarationnode';
+import { TypeKind, Stability } from '@jsii/spec';
 import {
   ClassType,
   EnumType,
@@ -19,11 +15,16 @@ import {
   Initializer,
   OptionalValue,
 } from 'jsii-reflect';
+
 import { VERSION_DESC } from '../../version';
 import { JvmAbi } from '../jvm/jvmabi';
-import { TypeKind, Stability } from '@jsii/spec';
+import { DeclarationNode } from './declarationnode';
 import { KDocBuilder } from './kdocbuilder';
 import { KotlinCodeMaker } from './kotlincodemaker';
+import {
+  KotlinGeneratorConfiguration,
+  KotlinPlatform,
+} from './kotlingeneratorconfiguration';
 import { KotlinTypeMapper } from './kotlintypemapper';
 
 export function createDeclaration(

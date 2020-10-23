@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Runtime.IntegrationTests", "Amazon.JSII.Runtime.IntegrationTests\Amazon.JSII.Runtime.IntegrationTests.csproj", "{CE3CAFBD-25F8-422D-925A-8F9CCEA1F548}"
@@ -8,6 +8,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.JsonModel", "..\..\dotnet-runtime\src\Amazon.JSII.JsonModel\Amazon.JSII.JsonModel.csproj", "{1E0BFD79-D221-425D-ADFF-1DF939BCFC58}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Amazon.JSII.Runtime.IntegrationTests.FSharp", "Amazon.JSII.Runtime.IntegrationTests.FSharp\Amazon.JSII.Runtime.IntegrationTests.FSharp.fsproj", "{224406B0-12D5-408C-91E9-7420F72C2855}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "generated", "generated", "{5B76E4C5-B66F-4263-87A4-111E944AB744}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet", "dotnet", "{37A4E9E1-89D6-42FC-AF9D-4C4453D29857}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId", "generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId\Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId.csproj", "{BBF82641-F1B7-44CC-BFE6-C82E6B00BC13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId", "generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.BasePackageId\Amazon.JSII.Tests.CalculatorPackageId.BasePackageId.csproj", "{A1287897-A767-4F1E-B83E-874797851732}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId", "generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId.LibPackageId\Amazon.JSII.Tests.CalculatorPackageId.LibPackageId.csproj", "{A2830012-1C9D-4D42-80B1-61A360AFA3C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Tests.CalculatorPackageId", "generated\dotnet\Amazon.JSII.Tests.CalculatorPackageId\Amazon.JSII.Tests.CalculatorPackageId.csproj", "{B246A5D7-FF6F-47B1-A47B-6B2B3205A2FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,5 +43,28 @@ Global
 		{224406B0-12D5-408C-91E9-7420F72C2855}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{224406B0-12D5-408C-91E9-7420F72C2855}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{224406B0-12D5-408C-91E9-7420F72C2855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF82641-F1B7-44CC-BFE6-C82E6B00BC13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF82641-F1B7-44CC-BFE6-C82E6B00BC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF82641-F1B7-44CC-BFE6-C82E6B00BC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF82641-F1B7-44CC-BFE6-C82E6B00BC13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1287897-A767-4F1E-B83E-874797851732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1287897-A767-4F1E-B83E-874797851732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1287897-A767-4F1E-B83E-874797851732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1287897-A767-4F1E-B83E-874797851732}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2830012-1C9D-4D42-80B1-61A360AFA3C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2830012-1C9D-4D42-80B1-61A360AFA3C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2830012-1C9D-4D42-80B1-61A360AFA3C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2830012-1C9D-4D42-80B1-61A360AFA3C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B246A5D7-FF6F-47B1-A47B-6B2B3205A2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B246A5D7-FF6F-47B1-A47B-6B2B3205A2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B246A5D7-FF6F-47B1-A47B-6B2B3205A2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B246A5D7-FF6F-47B1-A47B-6B2B3205A2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{37A4E9E1-89D6-42FC-AF9D-4C4453D29857} = {5B76E4C5-B66F-4263-87A4-111E944AB744}
+		{BBF82641-F1B7-44CC-BFE6-C82E6B00BC13} = {37A4E9E1-89D6-42FC-AF9D-4C4453D29857}
+		{A1287897-A767-4F1E-B83E-874797851732} = {37A4E9E1-89D6-42FC-AF9D-4C4453D29857}
+		{A2830012-1C9D-4D42-80B1-61A360AFA3C9} = {37A4E9E1-89D6-42FC-AF9D-4C4453D29857}
+		{B246A5D7-FF6F-47B1-A47B-6B2B3205A2FC} = {37A4E9E1-89D6-42FC-AF9D-4C4453D29857}
 	EndGlobalSection
 EndGlobal

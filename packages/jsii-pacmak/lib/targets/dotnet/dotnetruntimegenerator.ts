@@ -1,5 +1,6 @@
-import { CodeMaker } from 'codemaker';
 import * as spec from '@jsii/spec';
+import { CodeMaker } from 'codemaker';
+
 import { DotNetTypeResolver } from './dotnettyperesolver';
 import { DotNetNameUtils } from './nameutils';
 
@@ -78,11 +79,9 @@ export class DotNetRuntimeGenerator {
     method: spec.Method /*, emitForProxyOrDatatype: boolean = false*/,
   ): void {
     const isOverride =
-      cls.kind === spec.TypeKind.Class && method.overrides
-        ? ', isOverride: true'
-        : '';
+      spec.isClassType(cls) && method.overrides ? ', isOverride: true' : '';
     const isAsync =
-      cls.kind === spec.TypeKind.Class && method.async ? ', isAsync: true' : '';
+      spec.isClassType(cls) && method.async ? ', isAsync: true' : '';
     const parametersJson = method.parameters
       ? `, parametersJson: "${JSON.stringify(method.parameters)
           .replace(/"/g, '\\"')
@@ -127,10 +126,9 @@ export class DotNetRuntimeGenerator {
   public emitAttributesForInterfaceProxy(
     ifc: spec.ClassType | spec.InterfaceType,
   ): void {
-    const name =
-      ifc.kind === spec.TypeKind.Interface
-        ? this.nameutils.convertInterfaceName(ifc)
-        : this.typeresolver.toNativeFqn(ifc.fqn);
+    const name = spec.isInterfaceType(ifc)
+      ? this.nameutils.convertInterfaceName(ifc)
+      : this.typeresolver.toNativeFqn(ifc.fqn);
     this.code.line(
       `[JsiiTypeProxy(nativeType: typeof(${name}), fullyQualifiedName: "${ifc.fqn}")]`,
     );
@@ -180,6 +178,8 @@ export class DotNetRuntimeGenerator {
           method.returns.optional ? '?' : ''
         }>`
       : '';
+    // If the method returns a non-optional value, apply a "!" to silence compilation warning.
+    const bang = method.returns && !method.returns.optional ? '!' : '';
     const typeofStatement = method.static ? `typeof(${className}), ` : '';
     const paramTypes = new Array<string>();
     const params = new Array<string>();
@@ -197,7 +197,7 @@ export class DotNetRuntimeGenerator {
       method.parameters?.find((param) => param.optional) != null ? '?' : '';
     return `${invokeMethodName}${returnType}(${typeofStatement}new System.Type[]{${paramTypes.join(
       ', ',
-    )}}, new object${hasOptional}[]{${params.join(', ')}});`;
+    )}}, new object${hasOptional}[]{${params.join(', ')}})${bang};`;
   }
 
   /**

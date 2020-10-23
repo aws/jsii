@@ -1,9 +1,10 @@
-import * as logging from '../../logging';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { Scratch, slugify, setExtend } from '../../util';
-import { findLocalBuildDirs } from '../../target';
+
+import * as logging from '../../logging';
 import { JsiiModule } from '../../packaging';
+import { findLocalBuildDirs } from '../../target';
+import { Scratch, slugify, setExtend } from '../../util';
 import { AggregateBuilder, TemporaryPackage } from '../aggregatebuilder';
 
 export abstract class JvmAggregateBuilder extends AggregateBuilder {

@@ -11,9 +11,10 @@ import {
   isUnionTypeReference,
   Type,
 } from '@jsii/spec';
-import { createHash } from 'crypto';
-import { die, toPythonIdentifier } from './util';
 import { toSnakeCase } from 'codemaker';
+import { createHash } from 'crypto';
+
+import { die, toPythonIdentifier } from './util';
 
 export interface TypeName {
   pythonType(context: NamingContext): string;
@@ -47,11 +48,15 @@ export interface NamingContext {
   readonly typeAnnotation?: boolean;
 
   /**
-   * The nesting scope in which the PythonType is expressed (if any)
+   * A an array representing the stack of declarations currently being
+   * initialized. All of these names can only be referred to using a forward
+   * reference (stringified type name) in the context of type signatures (but
+   * they can be used safely from implementations so long as those are not *run*
+   * as part of the declaration).
    *
-   * @default - none
+   * @default []
    */
-  readonly nestingScope?: string | undefined;
+  readonly surroundingTypeFqns?: readonly string[];
 
   /**
    * Disables generating typing.Optional wrappers
@@ -59,6 +64,13 @@ export interface NamingContext {
    * @internal
    */
   readonly ignoreOptional?: boolean;
+
+  /**
+   * The set of jsii type FQNs that have already been emitted so far. This is
+   * used to determine whether a given type reference is a forward declaration
+   * or not when emitting type signatures.
+   */
+  readonly emittedTypes: Set<string>;
 }
 
 export function toTypeName(ref?: OptionalValue | TypeReference): TypeName {
@@ -269,8 +281,9 @@ class UserType implements TypeName {
 
   private resolve({
     assembly,
+    emittedTypes,
     submodule,
-    nestingScope,
+    surroundingTypeFqns,
     typeAnnotation = true,
   }: NamingContext) {
     const { assemblyName, packageName, pythonFqn } = toPythonFqn(
@@ -294,17 +307,37 @@ class UserType implements TypeName {
     ).pythonFqn;
 
     if (typeSubmodulePythonName === submodulePythonName) {
-      // Submodule-local type, so we'll just drop the submodule name prefix here, unless we are
-      // referencing a type within the current nesting context, where we'll want to make a context
-      // local reference by dropping the nesting type's name prefix.
-      const nestingParent =
-        nestingScope && toPythonFqn(nestingScope, assembly).pythonFqn;
-      const localName =
-        nestingParent && pythonFqn.startsWith(`${nestingParent}.`)
-          ? pythonFqn.substring(nestingParent.length + 1)
-          : pythonFqn.substring(typeSubmodulePythonName.length + 1);
+      // Identifiy declarations that are not yet initialized and hence cannot be
+      // used as part of a type qualification. Since this is not a forward
+      // reference, the type was already emitted and its un-qualified name must
+      // be used instead of it's locally qualified name.
+      const nestingParent = surroundingTypeFqns
+        ?.map((fqn) => toPythonFqn(fqn, assembly).pythonFqn)
+        ?.reverse()
+        ?.find((parent) => pythonFqn.startsWith(`${parent}.`));
+
+      if (
+        typeAnnotation &&
+        (!emittedTypes.has(this.#fqn) || nestingParent != null)
+      ) {
+        // Possibly a forward reference, outputting the stringifierd python FQN
+        return {
+          pythonType: JSON.stringify(
+            pythonFqn.substring(submodulePythonName.length + 1),
+          ),
+        };
+      }
+
+      if (!typeAnnotation && nestingParent) {
+        // This is not for a type annotation, so we should be at a point in time
+        // where the surrounding symbol has been defined entirely, so we can
+        // refer to it "normally" now.
+        return { pythonType: pythonFqn.substring(nestingParent.length + 1) };
+      }
+
+      // We'll just make a module-qualified reference at this point.
       return {
-        pythonType: typeAnnotation ? JSON.stringify(localName) : localName,
+        pythonType: pythonFqn.substring(submodulePythonName.length + 1),
       };
     }
 

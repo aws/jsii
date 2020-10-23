@@ -1385,6 +1385,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                    ┣━ 📄 DoubleTrouble.kt
           ┃                    ┣━ 📄 DynamicPropertyBearer.kt
           ┃                    ┣━ 📄 DynamicPropertyBearerChild.kt
+          ┃                    ┣━ 📄 Entropy.kt
           ┃                    ┣━ 📄 EnumDispenser.kt
           ┃                    ┣━ 📄 EraseUndefinedHashValues.kt
           ┃                    ┣━ 📄 EraseUndefinedHashValuesOptions.kt
@@ -1450,6 +1451,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                    ┣━ 📄 Isomorphism.kt
           ┃                    ┣━ 📄 IStableInterface.kt
           ┃                    ┣━ 📄 IStructReturningDelegate.kt
+          ┃                    ┣━ 📄 IWallClock.kt
           ┃                    ┣━ 📄 JavaReservedWords.kt
           ┃                    ┣━ 📄 JSII417Derived.kt
           ┃                    ┣━ 📄 JSII417PublicBaseOfBase.kt
@@ -1460,6 +1462,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                    ┣━ 📄 JSObjectLiteralToNative.kt
           ┃                    ┣━ 📄 JSObjectLiteralToNativeClass.kt
           ┃                    ┣━ 📄 JsonFormatter.kt
+          ┃                    ┣━ 📄 LevelOne.kt
+          ┃                    ┣━ 📄 LevelOneProps.kt
           ┃                    ┣━ 📄 LoadBalancedFargateServiceProps.kt
           ┃                    ┣━ 📄 MethodNamedProperty.kt
           ┃                    ┣━ 📄 Multiply.kt
@@ -1532,10 +1536,14 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┃                    ┃  ┣━ 📁 isolated
           ┃                    ┃  ┃  ┗━ 📄 Kwargs.kt
           ┃                    ┃  ┣━ 📄 MyClass.kt
-          ┃                    ┃  ┗━ 📁 nested_submodule
-          ┃                    ┃     ┣━ 📁 deeplyNested
-          ┃                    ┃     ┃  ┗━ 📄 INamespaced.kt
-          ┃                    ┃     ┗━ 📄 Namespaced.kt
+          ┃                    ┃  ┣━ 📁 nested_submodule
+          ┃                    ┃  ┃  ┣━ 📁 deeplyNested
+          ┃                    ┃  ┃  ┃  ┗━ 📄 INamespaced.kt
+          ┃                    ┃  ┃  ┗━ 📄 Namespaced.kt
+          ┃                    ┃  ┣━ 📁 param
+          ┃                    ┃  ┃  ┗━ 📄 SpecialParameter.kt
+          ┃                    ┃  ┗━ 📁 returnsparam
+          ┃                    ┃     ┗━ 📄 ReturnsSpecialParameter.kt
           ┃                    ┣━ 📄 Sum.kt
           ┃                    ┣━ 📄 SupportsNiceJavaBuilder.kt
           ┃                    ┣━ 📄 SupportsNiceJavaBuilderProps.kt
@@ -1678,6 +1686,7 @@ class \`$Module\`: software.amazon.jsii.JsiiModule("jsii-calc", "0.0.0", \`$Modu
             "jsii-calc.DoubleTrouble" -> software.amazon.jsii.tests.kotlin.calculator.DoubleTrouble::class.java
             "jsii-calc.DynamicPropertyBearer" -> software.amazon.jsii.tests.kotlin.calculator.DynamicPropertyBearer::class.java
             "jsii-calc.DynamicPropertyBearerChild" -> software.amazon.jsii.tests.kotlin.calculator.DynamicPropertyBearerChild::class.java
+            "jsii-calc.Entropy" -> software.amazon.jsii.tests.kotlin.calculator.Entropy::class.java
             "jsii-calc.EnumDispenser" -> software.amazon.jsii.tests.kotlin.calculator.EnumDispenser::class.java
             "jsii-calc.EraseUndefinedHashValues" -> software.amazon.jsii.tests.kotlin.calculator.EraseUndefinedHashValues::class.java
             "jsii-calc.EraseUndefinedHashValuesOptions" -> software.amazon.jsii.tests.kotlin.calculator.EraseUndefinedHashValuesOptions::class.java
@@ -1728,6 +1737,7 @@ class \`$Module\`: software.amazon.jsii.JsiiModule("jsii-calc", "0.0.0", \`$Modu
             "jsii-calc.IReturnsNumber" -> software.amazon.jsii.tests.kotlin.calculator.IReturnsNumber::class.java
             "jsii-calc.IStableInterface" -> software.amazon.jsii.tests.kotlin.calculator.IStableInterface::class.java
             "jsii-calc.IStructReturningDelegate" -> software.amazon.jsii.tests.kotlin.calculator.IStructReturningDelegate::class.java
+            "jsii-calc.IWallClock" -> software.amazon.jsii.tests.kotlin.calculator.IWallClock::class.java
             "jsii-calc.ImplementInternalInterface" -> software.amazon.jsii.tests.kotlin.calculator.ImplementInternalInterface::class.java
             "jsii-calc.Implementation" -> software.amazon.jsii.tests.kotlin.calculator.Implementation::class.java
             "jsii-calc.ImplementsInterfaceWithInternal" -> software.amazon.jsii.tests.kotlin.calculator.ImplementsInterfaceWithInternal::class.java
@@ -1751,6 +1761,8 @@ class \`$Module\`: software.amazon.jsii.JsiiModule("jsii-calc", "0.0.0", \`$Modu
             "jsii-calc.Jsii496Derived" -> software.amazon.jsii.tests.kotlin.calculator.Jsii496Derived::class.java
             "jsii-calc.JsiiAgent" -> software.amazon.jsii.tests.kotlin.calculator.JsiiAgent::class.java
             "jsii-calc.JsonFormatter" -> software.amazon.jsii.tests.kotlin.calculator.JsonFormatter::class.java
+            "jsii-calc.LevelOne" -> software.amazon.jsii.tests.kotlin.calculator.LevelOne::class.java
+            "jsii-calc.LevelOneProps" -> software.amazon.jsii.tests.kotlin.calculator.LevelOneProps::class.java
             "jsii-calc.LoadBalancedFargateServiceProps" -> software.amazon.jsii.tests.kotlin.calculator.LoadBalancedFargateServiceProps::class.java
             "jsii-calc.MethodNamedProperty" -> software.amazon.jsii.tests.kotlin.calculator.MethodNamedProperty::class.java
             "jsii-calc.Multiply" -> software.amazon.jsii.tests.kotlin.calculator.Multiply::class.java
@@ -1840,6 +1852,8 @@ class \`$Module\`: software.amazon.jsii.JsiiModule("jsii-calc", "0.0.0", \`$Modu
             "jsii-calc.submodule.isolated.Kwargs" -> software.amazon.jsii.tests.kotlin.calculator.submodule.isolated.Kwargs::class.java
             "jsii-calc.submodule.nested_submodule.Namespaced" -> software.amazon.jsii.tests.kotlin.calculator.submodule.nested_submodule.Namespaced::class.java
             "jsii-calc.submodule.nested_submodule.deeplyNested.INamespaced" -> software.amazon.jsii.tests.kotlin.calculator.submodule.nested_submodule.deeplyNested.INamespaced::class.java
+            "jsii-calc.submodule.param.SpecialParameter" -> software.amazon.jsii.tests.kotlin.calculator.submodule.param.SpecialParameter::class.java
+            "jsii-calc.submodule.returnsparam.ReturnsSpecialParameter" -> software.amazon.jsii.tests.kotlin.calculator.submodule.returnsparam.ReturnsSpecialParameter::class.java
             else -> throw ClassNotFoundException("Unknown JSII type: $fqn")
         }
     }
@@ -4811,6 +4825,82 @@ open class DynamicPropertyBearerChild : software.amazon.jsii.tests.kotlin.calcul
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/kotlin/src/main/kotlin/software/amazon/jsii/tests/kotlin/calculator/Entropy.kt 1`] = `
+package software.amazon.jsii.tests.kotlin.calculator
+
+/**
+ * This class is used to validate that serialization and deserialization does not interpret ISO-8601-formatted timestampts to the native date/time object, as the jsii protocol has a $jsii$date wrapper for this purpose (node's JSON parsing does *NOT* detect dates automatically in this way, so host libraries should not either).
+ */
+@javax.annotation.Generated("jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.kotlin.calculator.\`$Module\`::class, fqn = "jsii-calc.Entropy")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+abstract class Entropy : software.amazon.jsii.JsiiObject {
+    constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef)
+    constructor(mode: software.amazon.jsii.JsiiObject.InitializationMode) : super(mode)
+
+    /**
+     * Creates a new instance of Entropy.
+     */
+    constructor(clock: software.amazon.jsii.tests.kotlin.calculator.IWallClock) : super(software.amazon.jsii.JsiiObject.InitializationMode.JSII) {
+        val args: kotlin.Array<kotlin.Any?> = kotlin.arrayOf(
+            clock
+        )
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, args)
+    }
+
+    /**
+     * Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
+     * 
+     * @return the time from the \`WallClock\`.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    open fun increase(): kotlin.String {
+        return this.jsiiCall("increase", kotlin.String::class.java) ?: error("Method 'increase()' returned null value")
+    }
+
+    /**
+     * Implement this method such that it returns \`word\`.
+     * 
+     * @return \`word\`.
+     * 
+     * @param wordthe value to return.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    abstract fun repeat(word: kotlin.String): kotlin.String
+
+    class \`Jsii$Proxy\` : software.amazon.jsii.tests.kotlin.calculator.Entropy {
+        protected constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef) {
+        }
+
+        /**
+         * Increases entropy by consuming time from the clock (yes, this is a long shot, please don't judge).
+         * 
+         * @return the time from the \`WallClock\`.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        override fun increase(): kotlin.String {
+            return this.jsiiCall("increase", kotlin.String::class.java) ?: error("Method 'increase()' returned null value")
+        }
+
+        /**
+         * Implement this method such that it returns \`word\`.
+         * 
+         * @return \`word\`.
+         * 
+         * @param wordthe value to return.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        override fun repeat(word: kotlin.String): kotlin.String {
+            val args: kotlin.Array<kotlin.Any?> = kotlin.arrayOf(
+                word
+            )
+            return this.jsiiCall("repeat", kotlin.String::class.java, args) ?: error("Method 'repeat()' returned null value")
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/kotlin/src/main/kotlin/software/amazon/jsii/tests/kotlin/calculator/EnumDispenser.kt 1`] = `
 package software.amazon.jsii.tests.kotlin.calculator
 
@@ -6522,6 +6612,37 @@ interface IStructReturningDelegate : software.amazon.jsii.JsiiSerializable {
 
 `;
 
+exports[`Generated code for "jsii-calc": <outDir>/kotlin/src/main/kotlin/software/amazon/jsii/tests/kotlin/calculator/IWallClock.kt 1`] = `
+package software.amazon.jsii.tests.kotlin.calculator
+
+/**
+ * Implement this interface.
+ */
+@javax.annotation.Generated("jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+interface IWallClock : software.amazon.jsii.JsiiSerializable {
+    /**
+     * Returns the current time, formatted as an ISO-8601 string.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    fun iso8601Now(): kotlin.String
+
+    class \`Jsii$Proxy\` : software.amazon.jsii.JsiiObject, software.amazon.jsii.tests.kotlin.calculator.IWallClock {
+        protected constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef) {
+        }
+
+        /**
+         * Returns the current time, formatted as an ISO-8601 string.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        override fun iso8601Now(): kotlin.String {
+            return this.jsiiCall("iso8601Now", kotlin.String::class.java) ?: error("Method 'iso8601Now()' returned null value")
+        }
+    }
+}
+
+`;
+
 exports[`Generated code for "jsii-calc": <outDir>/kotlin/src/main/kotlin/software/amazon/jsii/tests/kotlin/calculator/ImplementInternalInterface.kt 1`] = `
 package software.amazon.jsii.tests.kotlin.calculator
 
@@ -7571,6 +7692,185 @@ open class JsonFormatter : software.amazon.jsii.JsiiObject {
     }
     constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef)
     constructor(mode: software.amazon.jsii.JsiiObject.InitializationMode) : super(mode)
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/kotlin/src/main/kotlin/software/amazon/jsii/tests/kotlin/calculator/LevelOne.kt 1`] = `
+package software.amazon.jsii.tests.kotlin.calculator
+
+/**
+ * Validates that nested classes get correct code generation for the occasional forward reference.
+ */
+@javax.annotation.Generated("jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.kotlin.calculator.\`$Module\`::class, fqn = "jsii-calc.LevelOne")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+open class LevelOne : software.amazon.jsii.JsiiObject {
+    constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef)
+    constructor(mode: software.amazon.jsii.JsiiObject.InitializationMode) : super(mode)
+
+    constructor(props: software.amazon.jsii.tests.kotlin.calculator.LevelOneProps) : super(software.amazon.jsii.JsiiObject.InitializationMode.JSII) {
+        val args: kotlin.Array<kotlin.Any?> = kotlin.arrayOf(
+            props
+        )
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, args)
+    }
+
+    @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    open val props: software.amazon.jsii.tests.kotlin.calculator.LevelOneProps
+        get() {
+            return this.jsiiGet("props", software.amazon.jsii.tests.kotlin.calculator.LevelOneProps::class.java) ?: error("'props' should be present")
+        }
+
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    interface PropBooleanValue : software.amazon.jsii.JsiiSerializable {
+        @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        val value: kotlin.Boolean
+
+        class Builder {
+            @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            var value: kotlin.Boolean? = null
+
+            fun build(): software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropBooleanValue {
+                val value = this.value ?: kotlin.error("Value for property 'value' must be specified")
+                return \`Jsii$Proxy\`(value)
+            }
+        }
+
+        class \`Jsii$Proxy\` : software.amazon.jsii.JsiiObject, software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropBooleanValue {
+            @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            override val value: kotlin.Boolean
+
+            protected constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef) {
+                this.value = this.jsiiCall("value", kotlin.Boolean::class.java) ?: error("'value' should be present")
+            }
+
+            constructor(value: kotlin.Boolean) : super(software.amazon.jsii.JsiiObject.InitializationMode.JSII) {
+                this.value = value
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) return true
+                if (javaClass != other?.javaClass) return false
+                other as software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropBooleanValue
+                if (value != other.value) return false
+                return true
+            }
+
+            override fun hashCode(): Int {
+                return this.value.hashCode()
+            }
+
+            override fun \`$jsii$toJson\`(): com.fasterxml.jackson.databind.JsonNode {
+                val om = software.amazon.jsii.JsiiObjectMapper.INSTANCE
+                val obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode()
+                obj.set<com.fasterxml.jackson.databind.JsonNode>("value", om.valueToTree(this.value))
+                return obj
+            }
+        }
+    }
+
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    interface PropProperty : software.amazon.jsii.JsiiSerializable {
+        @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        val prop: software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropBooleanValue
+
+        class Builder {
+            @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            var prop: software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropBooleanValue? = null
+
+            fun build(): software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropProperty {
+                val prop = this.prop ?: kotlin.error("Value for property 'prop' must be specified")
+                return \`Jsii$Proxy\`(prop)
+            }
+        }
+
+        class \`Jsii$Proxy\` : software.amazon.jsii.JsiiObject, software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropProperty {
+            @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+            override val prop: software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropBooleanValue
+
+            protected constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef) {
+                this.prop = this.jsiiCall("prop", software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropBooleanValue::class.java) ?: error("'prop' should be present")
+            }
+
+            constructor(prop: software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropBooleanValue) : super(software.amazon.jsii.JsiiObject.InitializationMode.JSII) {
+                this.prop = prop
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) return true
+                if (javaClass != other?.javaClass) return false
+                other as software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropProperty
+                if (prop != other.prop) return false
+                return true
+            }
+
+            override fun hashCode(): Int {
+                return this.prop.hashCode()
+            }
+
+            override fun \`$jsii$toJson\`(): com.fasterxml.jackson.databind.JsonNode {
+                val om = software.amazon.jsii.JsiiObjectMapper.INSTANCE
+                val obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode()
+                obj.set<com.fasterxml.jackson.databind.JsonNode>("prop", om.valueToTree(this.prop))
+                return obj
+            }
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/kotlin/src/main/kotlin/software/amazon/jsii/tests/kotlin/calculator/LevelOneProps.kt 1`] = `
+package software.amazon.jsii.tests.kotlin.calculator
+
+@javax.annotation.Generated("jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+interface LevelOneProps : software.amazon.jsii.JsiiSerializable {
+    @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    val prop: software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropProperty
+
+    class Builder {
+        @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        var prop: software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropProperty? = null
+
+        fun build(): software.amazon.jsii.tests.kotlin.calculator.LevelOneProps {
+            val prop = this.prop ?: kotlin.error("Value for property 'prop' must be specified")
+            return \`Jsii$Proxy\`(prop)
+        }
+    }
+
+    class \`Jsii$Proxy\` : software.amazon.jsii.JsiiObject, software.amazon.jsii.tests.kotlin.calculator.LevelOneProps {
+        @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        override val prop: software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropProperty
+
+        protected constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef) {
+            this.prop = this.jsiiCall("prop", software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropProperty::class.java) ?: error("'prop' should be present")
+        }
+
+        constructor(prop: software.amazon.jsii.tests.kotlin.calculator.LevelOne.PropProperty) : super(software.amazon.jsii.JsiiObject.InitializationMode.JSII) {
+            this.prop = prop
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+            other as software.amazon.jsii.tests.kotlin.calculator.LevelOneProps
+            if (prop != other.prop) return false
+            return true
+        }
+
+        override fun hashCode(): Int {
+            return this.prop.hashCode()
+        }
+
+        override fun \`$jsii$toJson\`(): com.fasterxml.jackson.databind.JsonNode {
+            val om = software.amazon.jsii.JsiiObjectMapper.INSTANCE
+            val obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode()
+            obj.set<com.fasterxml.jackson.databind.JsonNode>("prop", om.valueToTree(this.prop))
+            return obj
+        }
+    }
 }
 
 `;
@@ -11648,6 +11948,13 @@ open class MyClass : software.amazon.jsii.JsiiObject, software.amazon.jsii.tests
             this.jsiiSet("allTypes", v)
         }
 
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    open fun methodWithSpecialParam(paramValue: software.amazon.jsii.tests.kotlin.calculator.submodule.param.SpecialParameter): kotlin.String {
+        val args: kotlin.Array<kotlin.Any?> = kotlin.arrayOf(
+            paramValue
+        )
+        return this.jsiiCall("methodWithSpecialParam", kotlin.String::class.java, args) ?: error("Method 'methodWithSpecialParam()' returned null value")
+    }
 }
 
 `;
@@ -12071,6 +12378,82 @@ interface INamespaced : software.amazon.jsii.JsiiSerializable {
 
         protected constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef) {
         }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/kotlin/src/main/kotlin/software/amazon/jsii/tests/kotlin/calculator/submodule/param/SpecialParameter.kt 1`] = `
+package software.amazon.jsii.tests.kotlin.calculator.submodule.param
+
+@javax.annotation.Generated("jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+interface SpecialParameter : software.amazon.jsii.JsiiSerializable {
+    @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    val value: kotlin.String
+
+    class Builder {
+        @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        var value: kotlin.String? = null
+
+        fun build(): software.amazon.jsii.tests.kotlin.calculator.submodule.param.SpecialParameter {
+            val value = this.value ?: kotlin.error("Value for property 'value' must be specified")
+            return \`Jsii$Proxy\`(value)
+        }
+    }
+
+    class \`Jsii$Proxy\` : software.amazon.jsii.JsiiObject, software.amazon.jsii.tests.kotlin.calculator.submodule.param.SpecialParameter {
+        @get:software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+        override val value: kotlin.String
+
+        protected constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef) {
+            this.value = this.jsiiCall("value", kotlin.String::class.java) ?: error("'value' should be present")
+        }
+
+        constructor(value: kotlin.String) : super(software.amazon.jsii.JsiiObject.InitializationMode.JSII) {
+            this.value = value
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+            other as software.amazon.jsii.tests.kotlin.calculator.submodule.param.SpecialParameter
+            if (value != other.value) return false
+            return true
+        }
+
+        override fun hashCode(): Int {
+            return this.value.hashCode()
+        }
+
+        override fun \`$jsii$toJson\`(): com.fasterxml.jackson.databind.JsonNode {
+            val om = software.amazon.jsii.JsiiObjectMapper.INSTANCE
+            val obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode()
+            obj.set<com.fasterxml.jackson.databind.JsonNode>("value", om.valueToTree(this.value))
+            return obj
+        }
+    }
+}
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/kotlin/src/main/kotlin/software/amazon/jsii/tests/kotlin/calculator/submodule/returnsparam/ReturnsSpecialParameter.kt 1`] = `
+package software.amazon.jsii.tests.kotlin.calculator.submodule.returnsparam
+
+@javax.annotation.Generated("jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.kotlin.calculator.\`$Module\`::class, fqn = "jsii-calc.submodule.returnsparam.ReturnsSpecialParameter")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+open class ReturnsSpecialParameter : software.amazon.jsii.JsiiObject {
+    constructor(objRef: software.amazon.jsii.JsiiObjectRef) : super(objRef)
+    constructor(mode: software.amazon.jsii.JsiiObject.InitializationMode) : super(mode)
+
+    constructor() : super(software.amazon.jsii.JsiiObject.InitializationMode.JSII) {
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this)
+    }
+
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
+    open fun returnsSpecialParam(): software.amazon.jsii.tests.kotlin.calculator.submodule.param.SpecialParameter {
+        return this.jsiiCall("returnsSpecialParam", software.amazon.jsii.tests.kotlin.calculator.submodule.param.SpecialParameter::class.java) ?: error("Method 'returnsSpecialParam()' returned null value")
     }
 }
 

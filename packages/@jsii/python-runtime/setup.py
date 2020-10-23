@@ -6,7 +6,7 @@ with open("src/jsii/_metadata.json") as fp:
     metadata = json.load(fp)
 
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     long_description = fp.read()
 
 
@@ -27,7 +27,7 @@ setuptools.setup(
     packages=setuptools.find_packages(where="src"),
     package_data={
         "jsii": ["_metadata.json", "py.typed"],
-        "jsii._embedded.jsii": ["*.js", "*.js.map", "*.wasm"],
+        "jsii._embedded.jsii": ["*.js", "*.js.map"],
     },
     install_requires=[
         "attrs~=20.1",

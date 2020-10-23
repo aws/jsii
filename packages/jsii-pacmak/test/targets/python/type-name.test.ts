@@ -1,10 +1,12 @@
 import {
   Assembly,
+  CollectionKind,
+  NamedTypeReference,
+  PrimitiveType,
   SchemaVersion,
   TypeReference,
-  PrimitiveType,
-  CollectionKind,
 } from '@jsii/spec';
+
 import {
   toTypeName,
   NamingContext,
@@ -66,6 +68,8 @@ describe(toTypeName, () => {
     readonly input: TypeReference | undefined;
     /** The expected python name of the type */
     readonly pythonType: string;
+    /** If different from pythonType, the forward declaration to use for the type */
+    readonly forwardPythonType?: string;
     /** The optional version of the type's name (if not provided, typing.Optional[<pythonType>]) */
     readonly optionalPythonType?: string;
     /** The required imports for this python type (if not provided, none) */
@@ -73,7 +77,7 @@ describe(toTypeName, () => {
     /** The submodule from which to generate names (if not provided, the root submodule) */
     readonly inSubmodule?: string;
     /** The nesting context in which to generate names (if not provided, none) */
-    readonly inNestingContext?: string;
+    readonly inNestingContext?: readonly string[];
   };
 
   const examples: readonly Example[] = [
@@ -165,12 +169,14 @@ describe(toTypeName, () => {
     {
       name: 'User Type (Local)',
       input: { fqn: `${assembly.name}.BoringClass` },
-      pythonType: '"BoringClass"',
+      pythonType: 'BoringClass',
+      forwardPythonType: '"BoringClass"',
     },
     {
       name: 'User Type (Local, Nested)',
       input: { fqn: `${assembly.name}.${BORING_TYPE}.${NESTED_TYPE}` },
-      pythonType: '"BoringClass.NestedType"',
+      pythonType: 'BoringClass.NestedType',
+      forwardPythonType: '"BoringClass.NestedType"',
     },
     {
       name: 'User Type (Local, Submodule)',
@@ -195,13 +201,14 @@ describe(toTypeName, () => {
       },
     },
     {
-      name: 'User Type (Local, Nested)',
+      name: 'User Type (Locally Nested)',
       input: {
         fqn: `${assembly.name}.submodule.${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}`,
       },
-      pythonType: `"${SUBMODULE_NESTED_TYPE}"`,
+      // Always a forward reference, since the surrounding type isn't *defined* just yet!
+      pythonType: `"${SUBMODULE_TYPE}.${SUBMODULE_NESTED_TYPE}"`,
       inSubmodule: `${assembly.name}.submodule`,
-      inNestingContext: `${assembly.name}.submodule.${SUBMODULE_TYPE}`,
+      inNestingContext: [`${assembly.name}.submodule.${SUBMODULE_TYPE}`],
     },
     {
       name: 'User Type (Local, Parent)',
@@ -219,15 +226,30 @@ describe(toTypeName, () => {
   for (const example of examples) {
     const context: NamingContext = {
       assembly,
+      emittedTypes: new Set(),
+      surroundingTypeFqns: example.inNestingContext,
       submodule: example.inSubmodule ?? assembly.name,
-      nestingScope: example.inNestingContext,
+    };
+    const contextWithEmittedType: NamingContext = {
+      ...context,
+      emittedTypes: new Set(
+        [
+          // Sneak through to get the type's FQN, but be null-safe, etc... then filter.
+          (example.input as NamedTypeReference | undefined)?.fqn as string,
+        ].filter((v) => !!v),
+      ),
     };
 
     describe(example.name, () => {
       const typeName = toTypeName(example.input);
 
       test('typeName.pythonType(context)', () => {
-        expect(typeName.pythonType(context)).toBe(example.pythonType);
+        expect(typeName.pythonType(context)).toBe(
+          example.forwardPythonType ?? example.pythonType,
+        );
+        expect(typeName.pythonType(contextWithEmittedType)).toBe(
+          example.pythonType,
+        );
       });
 
       test('typeName.requiredImports(context)', () => {
@@ -247,6 +269,13 @@ describe(toTypeName, () => {
 
       test('typeName.pythonType(context)', () => {
         expect(typeName.pythonType(context)).toBe(
+          example.optionalPythonType ??
+            `typing.Optional[${
+              example.forwardPythonType ?? example.pythonType
+            }]`,
+        );
+
+        expect(typeName.pythonType(contextWithEmittedType)).toBe(
           example.optionalPythonType ??
             `typing.Optional[${example.pythonType}]`,
         );

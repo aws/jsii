@@ -5,10 +5,15 @@ on:
   pull_request:
     branches:
       - master
+      - main
     paths:
-      - "!**"               # <-- Excludes everything by default
-      - "**/package.json"   # <-- Allows modfying any package.json
-      - "yarn.lock"         # <-- Allows modifying yarn.lock
+      - "!**"                         # <-- Excludes everything by default
+      - "**/package.json"             # <-- Allows modfying any package.json
+      - "**/*.csproj"                 # <-- Allows modifying any .csproj file
+      - "**/Directory.Build.targets"  # <-- Allows modifying any Directory.Build.targets file
+      - "yarn.lock"                   # <-- Allows modifying yarn.lock
+    types:
+      - opened
 
 jobs:
   approve:
@@ -16,6 +21,9 @@ jobs:
     if: github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'dependabot-preview[bot]'
     runs-on: ubuntu-latest
     steps:
-      - uses: hmarr/auto-approve-action@v2.0.0
+      - name: Request @dependabot auto-merge
+        uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
-          github-token: "${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}"
+          command: 'squash and merge'
+          github-token: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
+          target: minor

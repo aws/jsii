@@ -23,12 +23,12 @@ namespace Amazon.JSII.Runtime.Deputy
         /// </summary>
         protected sealed class DeputyProps
         {
-            public DeputyProps(object[]? arguments = null)
+            public DeputyProps(object?[]? arguments = null)
             {
-                Arguments = arguments ?? Array.Empty<object>();
+                Arguments = arguments ?? Array.Empty<object?>();
             }
 
-            public object[] Arguments { get; }
+            public object?[] Arguments { get; }
         }
 
         private const BindingFlags StaticMemberFlags = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
@@ -220,18 +220,18 @@ namespace Amazon.JSII.Runtime.Deputy
 
         #region InvokeMethod
 
-        protected static void InvokeStaticVoidMethod(System.Type type, System.Type[] parameterTypes, object[] arguments, [CallerMemberName] string methodName = "")
+        protected static void InvokeStaticVoidMethod(System.Type type, System.Type[] parameterTypes, object?[] arguments, [CallerMemberName] string methodName = "")
         {
             InvokeStaticMethod<object>(type, parameterTypes, arguments, methodName);
         }
 
-        protected void InvokeInstanceVoidMethod(System.Type[] parameterTypes, object[] arguments, [CallerMemberName] string methodName = "")
+        protected void InvokeInstanceVoidMethod(System.Type[] parameterTypes, object?[] arguments, [CallerMemberName] string methodName = "")
         {
             InvokeInstanceMethod<object>(parameterTypes, arguments, methodName);
         }
         
         [return: MaybeNull]
-        protected static T InvokeStaticMethod<T>(System.Type type, System.Type[] parameterTypes, object[] arguments, [CallerMemberName] string methodName = "")
+        protected static T InvokeStaticMethod<T>(System.Type type, System.Type[] parameterTypes, object?[] arguments, [CallerMemberName] string methodName = "")
         {
             JsiiTypeAttributeBase.Load(type.Assembly);
             
@@ -251,7 +251,7 @@ namespace Amazon.JSII.Runtime.Deputy
         }
 
         [return: MaybeNull]
-        protected T InvokeInstanceMethod<T>(System.Type[] parameterTypes, object[] arguments, [CallerMemberName] string methodName = "")
+        protected T InvokeInstanceMethod<T>(System.Type[] parameterTypes, object?[] arguments, [CallerMemberName] string methodName = "")
         {
             var methodAttribute = GetInstanceMethodAttribute(methodName, parameterTypes);
 

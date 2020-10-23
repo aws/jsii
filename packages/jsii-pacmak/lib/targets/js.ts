@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+
 import { Generator } from '../generator';
 import { PackageInfo, Target } from '../target';
 

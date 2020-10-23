@@ -1,21 +1,21 @@
 package main
 
 import (
-	// "log"
-	"fmt"
-	jsiicalc "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
+	// "fmt"
+	calc "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
 	"github.com/aws-cdk/jsii/jsii-experimental"
+	"math"
 )
 
 func main() {
-	fmt.Println("Hello, JSII")
-	// client, err := jsii.InitClient()
+	defer jsii.Close()
 
-	// if err !=nil {
-	//   log.Fatal(err)
-	// }
-	fmt.Print(jsii.Client{RuntimeVersion: "100.100.100"})
+	calculator := calc.NewCalculator(calc.CalculatorProps{InitialValue: 0, MaximumValue: math.MaxFloat64})
+	calculator.Add(1337)
+	calculator.Mul(42)
 
-	// fmt.Printf("Client init successful\nRuntime version: %s", client.RuntimeVersion)
-	fmt.Println(jsiicalc.JsiiCalcType{})
+	if calculator.GetValue() != 1337.*42. {
+		// TODO: right now implementations are just NOOP.
+		// panic(fmt.Sprintf("Unexpected calculator value: expected %f, but received %f", 1337.*42., calculator.GetValue()))
+	}
 }

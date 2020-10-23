@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/aws/jsii/compare/v1.12.0...v1.13.0) (2020-09-29)
+
+
+### Features
+
+* add go to superchain ([#1994](https://github.com/aws/jsii/issues/1994)) ([30f76c7](https://github.com/aws/jsii/commit/30f76c7e867226837597ce07763fae329c8b677a))
+* **go:** runtime library definition ([#1996](https://github.com/aws/jsii/issues/1996)) ([adbf44d](https://github.com/aws/jsii/commit/adbf44dbe634461cac26547ece0a11a80011c019))
+* **jsii:** reflect stabilities in doc comment summaries ([#1951](https://github.com/aws/jsii/issues/1951)) ([ce8c0c4](https://github.com/aws/jsii/commit/ce8c0c4d1dd75e8e53d0f22d75cc0bf0b3fe2703))
+* **pacmak:** go module resolution & compiler fixes ([#1956](https://github.com/aws/jsii/issues/1956)) ([7e2512f](https://github.com/aws/jsii/commit/7e2512f55cba40e8eededf895a6c6a10ef76e021))
+* **pacmak:** retry select external command invocations ([#2013](https://github.com/aws/jsii/issues/2013)) ([66cf186](https://github.com/aws/jsii/commit/66cf1862fd56197bfc61234764841c709352116e))
+
+
+### Bug Fixes
+
+* **dontet:** iso-8601 date strings get turned into DateTime ([#2058](https://github.com/aws/jsii/issues/2058)) ([52d7382](https://github.com/aws/jsii/commit/52d7382ca0a073326cbe22c2115909a28b00b49f)), closes [aws/aws-cdk#10513](https://github.com/aws/aws-cdk/issues/10513)
+* **go:** null returns and pointer getters/setters ([807568d](https://github.com/aws/jsii/commit/807568df3fc73d202031347b54c89cf69d5590f1))
+* **go:** Only embed behavioral interfaces ([#1966](https://github.com/aws/jsii/issues/1966)) ([e1f4e18](https://github.com/aws/jsii/commit/e1f4e184abec9d03be1ed5b8a39f3cb31453a7f8))
+* **pacmak:** go bad local package imports ([#1973](https://github.com/aws/jsii/issues/1973)) ([f9311b2](https://github.com/aws/jsii/commit/f9311b2a280b194011e09ca6597aad0191e88ac5))
+
 ## [1.12.0](https://github.com/aws/jsii/compare/v1.11.0...v1.12.0) (2020-08-27)
 
 

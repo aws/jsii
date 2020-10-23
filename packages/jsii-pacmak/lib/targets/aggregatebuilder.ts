@@ -1,9 +1,10 @@
 import * as path from 'path';
-import { Target, TargetOptions } from '../target';
-import * as logging from '../logging';
-import { Scratch } from '../util';
+
 import { TargetBuilder, BuildOptions } from '../builder';
+import * as logging from '../logging';
 import { JsiiModule } from '../packaging';
+import { Target, TargetOptions } from '../target';
+import { Scratch } from '../util';
 
 export class TemporaryPackage {
   public constructor(

@@ -1,6 +1,7 @@
-import { PackageInfo } from '../../target';
-import * as logging from '../../logging';
 import * as xmlbuilder from 'xmlbuilder';
+
+import * as logging from '../../logging';
+import { PackageInfo } from '../../target';
 
 export function getJvmPackageInfos(
   language: string,

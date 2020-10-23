@@ -1,13 +1,14 @@
-import { GeneratorBase } from '../../generator';
-import * as path from 'path';
 import * as fs from 'fs-extra';
-import { createDeclaration, KTypeDeclaration, KElement } from './kotlinmodel';
-import { KotlinGeneratorConfiguration } from './kotlingeneratorconfiguration';
-import { DeclarationNode } from './declarationnode';
 import { Assembly, ReferenceType, EnumType, TypeSystem } from 'jsii-reflect';
-import { KotlinCodeMaker } from './kotlincodemaker';
-import { JvmAbi } from '../jvm/jvmabi';
+import * as path from 'path';
+
+import { GeneratorBase } from '../../generator';
 import { VERSION } from '../../version';
+import { JvmAbi } from '../jvm/jvmabi';
+import { DeclarationNode } from './declarationnode';
+import { KotlinCodeMaker } from './kotlincodemaker';
+import { KotlinGeneratorConfiguration } from './kotlingeneratorconfiguration';
+import { createDeclaration, KTypeDeclaration, KElement } from './kotlinmodel';
 import { KotlinTypeMapper } from './kotlintypemapper';
 
 export class KotlinGenerator extends GeneratorBase {

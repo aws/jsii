@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 import * as reflect from 'jsii-reflect';
+
 import { flatMap } from './util';
 
 /**
@@ -19,11 +20,6 @@ export function isSuperType(
     throw new Error('isSuperType() does not handle voids');
   }
   if (a.isAny) {
-    return { success: true };
-  }
-
-  // Assume true if we're currently already checking this.
-  if (CURRENTLY_CHECKING.has(a, b)) {
     return { success: true };
   }
 
@@ -84,7 +80,6 @@ export function isSuperType(
   }
 
   // We have two named types, recursion might happen so protect against it.
-  CURRENTLY_CHECKING.add(a, b);
   try {
     // For named types, we'll always do a nominal typing relationship.
     // That is, if in the updated typesystem someone were to use the type name
@@ -95,32 +90,12 @@ export function isSuperType(
       return nominalCheck;
     }
 
-    // At this point, the types are legal in the updated assembly's type system.
-    // However, for structs we also structurally check the fields between the OLD
-    // and the NEW type system.
-    // We could do more complex analysis on typing of methods, but it doesn't seem
-    // worth it.
-    try {
-      const A = a.type!; // Note: lookup in old type system!
-      const B = b.type!;
-      if (
-        A.isInterfaceType() &&
-        A.isDataType() &&
-        B.isInterfaceType() &&
-        B.datatype
-      ) {
-        return isStructuralSuperType(A, B, updatedSystem);
-      }
-    } catch (e) {
-      // We might get an exception if the type is supposed to come from a different
-      // assembly and the lookup fails.
-      return failure(e.message);
-    }
-
-    // All seems good
+    // At this point, the only thing left to do is recurse into the structs.
+    // We used to do that here, but we don't anymore; structs check themselves
+    // for structural weakening/strengthening.
     return { success: true };
-  } finally {
-    CURRENTLY_CHECKING.remove(a, b);
+  } catch (e) {
+    return failure(e.message);
   }
 }
 
@@ -189,7 +164,7 @@ export function isNominalSuperType(
  * Nullable members of A must either not exist in B, or be of a compatible
  * type.
  */
-function isStructuralSuperType(
+export function isStructuralSuperType(
   a: reflect.InterfaceType,
   b: reflect.InterfaceType,
   updatedSystem: reflect.TypeSystem,
@@ -200,6 +175,7 @@ function isStructuralSuperType(
   // Use timing words in error message to make it more understandable
   const formerly = b.system === updatedSystem ? 'formerly' : 'newly';
   const is = b.system === updatedSystem ? 'is' : 'used to be';
+  const removed = b.system === updatedSystem ? 'removed' : 'added';
 
   for (const [name, aProp] of Object.entries(a.getProperties(true))) {
     const bProp = bProps[name];
@@ -211,13 +187,11 @@ function isStructuralSuperType(
       }
     } else {
       if (!bProp) {
-        return failure(
-          `${formerly} required property '${name}' ${is} missing in ${b.fqn}`,
-        );
+        return failure(`${formerly} required property '${name}' ${removed}`);
       }
       if (bProp.optional) {
         return failure(
-          `${formerly} required property '${name}' ${is} optional in ${b.fqn}`,
+          `${formerly} required property '${name}' ${is} optional`,
         );
       }
     }
@@ -246,55 +220,3 @@ export function prependReason(analysis: Analysis, message: string): Analysis {
   }
   return failure(message, ...analysis.reasons);
 }
-
-/**
- * Keep a set of type pairs.
- *
- * Needs more code than it should because JavaScript has an anemic runtime.
- *
- * (The ideal type would have been Set<[string, string]> but different
- * instances of those pairs wouldn't count as "the same")
- */
-class TypePairs {
-  private readonly pairs = new Map<string, Set<string>>();
-
-  public add(a: reflect.TypeReference, b: reflect.TypeReference): void {
-    if (!a.fqn || !b.fqn) {
-      return;
-    } // Only for user-defined types
-
-    let image = this.pairs.get(a.fqn);
-    if (!image) {
-      this.pairs.set(a.fqn, (image = new Set<string>()));
-    }
-    image.add(b.fqn);
-  }
-
-  public remove(a: reflect.TypeReference, b: reflect.TypeReference): void {
-    if (!a.fqn || !b.fqn) {
-      return;
-    } // Only for user-defined types
-
-    const image = this.pairs.get(a.fqn);
-    if (image) {
-      image.delete(b.fqn);
-    }
-  }
-
-  public has(a: reflect.TypeReference, b: reflect.TypeReference): boolean {
-    if (!a.fqn || !b.fqn) {
-      return false;
-    } // Only for user-defined types
-
-    const image = this.pairs.get(a.fqn);
-    return !!image?.has(b.fqn);
-  }
-}
-
-/**
- * To avoid recursion, we keep a set of relationships we're *currently*
- * checking, so that if we're recursing we can just assume the subtyping
- * relationship holds (and let the other struct members falsify that
- * statement).
- */
-const CURRENTLY_CHECKING = new TypePairs();

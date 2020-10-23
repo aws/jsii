@@ -1,5 +1,6 @@
 import * as jsii from '@jsii/spec';
 import { Stability } from '@jsii/spec';
+
 import { TypeSystem } from './type-system';
 
 export interface Documentable {

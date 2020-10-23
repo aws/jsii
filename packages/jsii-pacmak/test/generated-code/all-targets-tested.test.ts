@@ -1,5 +1,6 @@
 import { pathExists, readFile } from 'fs-extra';
 import { join, relative, resolve } from 'path';
+
 import { ALL_BUILDERS } from '../../lib/targets';
 
 const packageRoot = resolve(__dirname, '..', '..');
@@ -22,12 +23,14 @@ describe('target is tested', () => {
         readFile(testFilePath, { encoding: 'utf-8' }).then((content) =>
           content.trim(),
         ),
-      ).resolves.toEqual(
-        [
-          "import { verifyGeneratedCodeFor } from './harness';",
-          '',
-          `verifyGeneratedCodeFor('${targetName}');`,
-        ].join('\n'),
+      ).resolves.toMatch(
+        new RegExp(
+          [
+            "import \\{ verifyGeneratedCodeFor \\} from '\\./harness';",
+            '',
+            `verifyGeneratedCodeFor\\('${targetName}'(?:, [0-9_]+)?\\);`,
+          ].join('\\n'),
+        ),
       );
     });
   }
