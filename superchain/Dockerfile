@@ -73,15 +73,21 @@ RUN export GRADLE_VERSION="6.7"                                                 
   && export GRADLE_DIST="https://services.gradle.org/distributions"                                                     \
   && curl -sSL -o gradle-bin.zip "${GRADLE_DIST}/gradle-${GRADLE_VERSION}-bin.zip"                                      \
   && curl -sSL -o gradle-bin.zip.sha256 "${GRADLE_DIST}/gradle-${GRADLE_VERSION}-bin.zip.sha256"                        \
+  && echo "  ./gradle-bin.zip" >> gradle-bin.zip.sha256                                                                 \
+  && sha256sum --check gradle-bin.zip.sha256                                                                            \
   && mkdir -p /opt                                                                                                      \
   && unzip -q -d /opt gradle-bin.zip                                                                                    \
+  && rm -f gradle-bin.zip gradle-bin.zip.sha256                                                                         \
   && ln -s /opt/gradle-${GRADLE_VERSION} /opt/gradle
 ENV PATH="/opt/gradle/bin:${PATH}"                                                                                      \
     GRADLE_HOME="/opt/gradle"
 
 # Install Go
-RUN curl -sL https://golang.org/dl/go1.15.2.linux-amd64.tar.gz -o /tmp/go.tar.gz                                        \
-  && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)
+RUN curl -sSL https://golang.org/dl/go1.15.3.linux-amd64.tar.gz -o /tmp/go.tar.gz                                       \
+  && echo "010a88df924a81ec21b293b5da8f9b11c176d27c0ee3962dc1738d2352d3c02d  /tmp/go.tar.gz" > /tmp/go.tar.gz.sha256    \
+  && sha256sum --check /tmp/go.tar.gz.sha256                                                                            \
+  && mkdir -p /usr/local && (cd /usr/local && tar -xzf /tmp/go.tar.gz)                                                  \
+  && rm -f /tmp/go.tar.gz /tmp/go.tar.gz.sha256
 ENV PATH="$GOROOT/bin:$PATH"
 
 # Install Docker
