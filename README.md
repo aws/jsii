@@ -11,19 +11,16 @@
 
 ## Overview
 
-`jsii` allows code in any language to naturally interact with JavaScript
-classes. It is the technology that enables the [AWS Cloud Development Kit][cdk]
-to deliver polyglot libraries from a single codebase!
+`jsii` allows code in any language to naturally interact with JavaScript classes. It is the technology that enables the
+[AWS Cloud Development Kit][cdk] to deliver polyglot libraries from a single codebase!
 
 [cdk]: https://github.com/aws/aws-cdk
 
-A class library written in **TypeScript** can be used in projects authored in
-**TypeScript** or **Javascript** (as usual), but also in **Python**, **Java**,
-**C#** (and other languages from the _.NET_ family), ...
+A class library written in **TypeScript** can be used in projects authored in **TypeScript** or **Javascript** (as
+usual), but also in **Python**, **Java**, **C#** (and other languages from the _.NET_ family), ...
 
-> NOTE: Due to performance of the hosted **Javascript** engine and marshaling
-> costs, `jsii` modules are best suited for development and build tools, as
-> opposed to performance-sensitive or resource-constrained applications.
+> NOTE: Due to performance of the hosted **Javascript** engine and marshaling costs, `jsii` modules are best suited for
+> development and build tools, as opposed to performance-sensitive or resource-constrained applications.
 >
 > See [Runtime Architecture] for more information.
 >
@@ -41,9 +38,8 @@ export class HelloJsii {
 }
 ```
 
-By compiling our source module using `jsii`, we can now package it as modules
-in one of the supported target languages. Each target module has the exact same
-API as the source. This allows users of that target language to use `HelloJsii`
+By compiling our source module using `jsii`, we can now package it as modules in one of the supported target languages.
+Each target module has the exact same API as the source. This allows users of that target language to use `HelloJsii`
 like any other class:
 
 - In **Python**:
@@ -95,8 +91,7 @@ like any other class:
 
 ## Getting Started
 
-Let's create our first jsii TypeScript module (actual outputs may slightly
-differ):
+Let's create our first jsii TypeScript module (actual outputs may slightly differ):
 
 ```console
 $ mkdir hello-jsii
@@ -170,8 +165,7 @@ Edit the `package.json` file:
 }
 ```
 
-Read more about what those configuration entries do in the [configuration]
-documentation.
+Read more about what those configuration entries do in the [configuration] documentation.
 
 [configuration]: ./docs/configuration.md
 
@@ -192,9 +186,8 @@ Build your module:
 $ npm run build
 ```
 
-If build succeeds, you will see the resulting `lib/index.js` and
-`lib/index.d.ts` files were produced, as well as the `.jsii` file (contents may
-vary):
+If build succeeds, you will see the resulting `lib/index.js` and `lib/index.d.ts` files were produced, as well as the
+`.jsii` file (contents may vary):
 
 ```js
 /// .jsii
@@ -275,9 +268,8 @@ vary):
 }
 ```
 
-This file includes all the information needed in order to package your module
-into every `jsii`-supported language. It contains the module metadata from
-`package.json` and a full declaration of your module's public API.
+This file includes all the information needed in order to package your module into every `jsii`-supported language. It
+contains the module metadata from `package.json` and a full declaration of your module's public API.
 
 Okay, now the magic happens:
 
@@ -326,9 +318,8 @@ dist
     └── acme.hello_jsii-1.0.0-py3-none-any.whl
 ```
 
-These files are ready-to-publish artifacts for each target language. You can see
-the npm tarball under `js`, the `python` package under `python`, the Maven repo
-under `java`, etc...
+These files are ready-to-publish artifacts for each target language. You can see the npm tarball under `js`, the
+`python` package under `python`, the Maven repo under `java`, etc...
 
 That's it. You are ready to rock!
 
@@ -340,28 +331,25 @@ That's it. You are ready to rock!
 
 ### Target Languages
 
-- **Javascript** - generates an NPM package implicitly (no configuration
-  required).
+- **Javascript** - generates an NPM package implicitly (no configuration required).
 - **Python** - generates a ready-to-publish PyPI package.
 - **Java** - generates a ready-to-publish Maven package.
 - **.NET** - generates a ready-to-publish NuGet package.
 
-See the [configuration](./docs/configuration.md#targets) documentation for more
-information on configuring the various targets.
+See the [configuration](./docs/configuration.md#targets) documentation for more information on configuring the various
+targets.
 
 # :book: Blog Posts
 
 Here's a collection of blog posts (in chronological order) related to `jsii`:
 
-- **2020-01-11:** <a id="blog-mbonig" />
-  [How to Create CDK Constructs][mbonig-2020-01-11],
-  by [Matthew Bonig][@mbonig]
-- **2020-05-27:** <a id="blog-floydpink" />
-  [Generate Python, Java, and .NET software libraries from a TypeScript source][floydpink-2020-05-27],
-  by [Hari Pachuveetil][@floydpink]
+- **2020-01-11:** <a id="blog-mbonig" /> [How to Create CDK Constructs][mbonig-2020-01-11], by [Matthew Bonig][@mbonig]
+- **2020-05-27:** <a id="blog-floydpink" /> [Generate Python, Java, and .NET software libraries from a TypeScript
+  source][floydpink-2020-05-27], by [Hari Pachuveetil][@floydpink]
 
 [mbonig-2020-01-11]: https://www.matthewbonig.com/2020/01/11/creating-constructs/
-[floydpink-2020-05-27]: https://aws.amazon.com/fr/blogs/opensource/generate-python-java-dotnet-software-libraries-from-typescript-source/
+[floydpink-2020-05-27]:
+  https://aws.amazon.com/fr/blogs/opensource/generate-python-java-dotnet-software-libraries-from-typescript-source/
 [@mbonig]: http://www.matthewbonig.com/
 [@floydpink]: https://harimenon.com/
 
@@ -507,7 +495,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
+Contributions of any kind welcome!
 
 ## :balance_scale: License
 
