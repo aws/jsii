@@ -96,7 +96,7 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, returns interface{
 	}
 }
 
-func Get(property string, obj, returns interface{}) {
+func Get(property string, obj interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -119,7 +119,7 @@ func Get(property string, obj, returns interface{}) {
 	// Do we need to return Value from getResponse?
 }
 
-func StaticGet(fqn FQN, property string, returns interface{}) {
+func StaticGet(fqn FQN, property string) {
 	client := getClient()
 
 	_, err := client.sget(staticGetRequest{
@@ -133,7 +133,7 @@ func StaticGet(fqn FQN, property string, returns interface{}) {
 	}
 }
 
-func Set(property string, value, obj, returns interface{}) {
+func Set(property string, value, obj interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -154,7 +154,7 @@ func Set(property string, value, obj, returns interface{}) {
 	}
 }
 
-func StaticSet(fqn FQN, property string, value, returns interface{}) {
+func StaticSet(fqn FQN, property string, value interface{}) {
 	client := getClient()
 
 	_, err := client.sset(staticSetRequest{
