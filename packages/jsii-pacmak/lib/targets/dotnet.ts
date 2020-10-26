@@ -24,7 +24,7 @@ export class DotnetBuilder implements TargetBuilder {
   private readonly targetName = 'dotnet';
 
   public constructor(
-    private readonly modules: JsiiModule[],
+    private readonly modules: readonly JsiiModule[],
     private readonly options: BuildOptions,
   ) {}
 
@@ -78,7 +78,7 @@ export class DotnetBuilder implements TargetBuilder {
   }
 
   private async generateAggregateSourceDir(
-    modules: JsiiModule[],
+    modules: readonly JsiiModule[],
   ): Promise<Scratch<TemporaryDotnetPackage[]>> {
     return Scratch.make(async (tmpDir: string) => {
       logging.debug(`Generating aggregate .NET source dir at ${tmpDir}`);

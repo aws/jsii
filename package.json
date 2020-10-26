@@ -15,7 +15,7 @@
     "test:update": "lerna run test:update --concurrency=1 --stream"
   },
   "devDependencies": {
-    "@jest/types": "^26.6.0",
+    "@jest/types": "^26.6.1",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "all-contributors-cli": "^6.19.0",
@@ -26,7 +26,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",
     "jest-circus": "^26.6.0",
-    "jest-config": "^26.6.0",
+    "jest-config": "^26.6.1",
     "jest-expect-message": "^1.0.2",
     "lerna": "^3.22.1",
     "prettier": "^2.1.2",
