@@ -19,7 +19,7 @@
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "all-contributors-cli": "^6.19.0",
-    "eslint": "^7.11.0",
+    "eslint": "^7.12.0",
     "eslint-config-prettier": "^6.14.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-import-resolver-typescript": "^2.3.0",
