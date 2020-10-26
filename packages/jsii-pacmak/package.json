@@ -68,7 +68,7 @@
     "jsii-calc": "^0.0.0",
     "mock-fs": "^4.13.0",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.4.1",
+    "ts-jest": "^26.4.2",
     "typescript": "~3.9.7"
   },
   "keywords": [
