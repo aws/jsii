@@ -2,7 +2,7 @@ package main
 
 import (
 	// "fmt"
-	calc "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
+	calc "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc"
 	"github.com/aws-cdk/jsii/jsii-experimental"
 	"math"
 )

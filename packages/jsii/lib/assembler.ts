@@ -1,13 +1,14 @@
+import * as spec from '@jsii/spec';
 import * as Case from 'case';
 import * as colors from 'colors/safe';
 import * as crypto from 'crypto';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
 import * as fs from 'fs-extra';
-import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
+
 import {
   getReferencedDocParams,
   parseSymbolDocumentation,
@@ -18,11 +19,10 @@ import { JsiiDiagnostic } from './jsii-diagnostic';
 import * as literate from './literate';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
+import { TsCommentReplacer } from './ts-comment-replacer';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
-import { TsCommentReplacer } from './ts-comment-replacer';
-import { Docs, Parameter } from '@jsii/spec';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
@@ -1240,10 +1240,18 @@ export class Assembler implements Emitter {
       }
 
       for (const memberDecl of classDecl.members) {
-        // The "??" is to get to the __constructor symbol (getSymbolAtLocation wouldn't work there..)
-        const member =
-          this._typeChecker.getSymbolAtLocation(memberDecl.name!) ??
-          ((memberDecl as any).symbol as ts.Symbol);
+        if (ts.isSemicolonClassElement(memberDecl)) {
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_9996_UNNECESSARY_TOKEN.create(memberDecl),
+          );
+          continue;
+        }
+
+        const member: ts.Symbol = ts.isConstructorDeclaration(memberDecl)
+          ? (memberDecl as any).symbol
+          : this._typeChecker.getSymbolAtLocation(
+              ts.getNameOfDeclaration(memberDecl)!,
+            )!;
 
         if (
           !(declaringType.symbol.getDeclarations() ?? []).find(
@@ -2496,8 +2504,8 @@ export class Assembler implements Emitter {
    */
   private overrideDocComment(
     symbol?: ts.Symbol,
-    docs?: Docs,
-    parameters?: Record<string, Docs>,
+    docs?: spec.Docs,
+    parameters?: Record<string, spec.Docs>,
   ) {
     if (!docs || !symbol) {
       return;
@@ -2528,7 +2536,7 @@ export class Assembler implements Emitter {
    * We put the "(experimental)"/"(deprecated)" status into the doc
    * comment summary, so that it's presented front and center.
    */
-  private docCommentDocs(docs: Readonly<Docs>): Docs {
+  private docCommentDocs(docs: Readonly<spec.Docs>): spec.Docs {
     // Modify the summary if this API element has a special stability
     if (docs.stability === spec.Stability.Experimental && docs.summary) {
       return {
@@ -3026,8 +3034,10 @@ async function findPackageInfo(fromDir: string): Promise<any> {
   return findPackageInfo(parent);
 }
 
-function paramDocs(params?: Parameter[]): Record<string, Docs> {
-  const ret: Record<string, Docs> = {};
+function paramDocs(
+  params?: readonly spec.Parameter[],
+): Record<string, spec.Docs> {
+  const ret: Record<string, spec.Docs> = {};
   for (const param of params ?? []) {
     if (param.docs) {
       ret[param.name] = param.docs;

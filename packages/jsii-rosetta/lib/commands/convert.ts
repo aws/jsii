@@ -1,9 +1,9 @@
+import { transformMarkdown } from '../markdown/markdown';
+import { MarkdownRenderer } from '../markdown/markdown-renderer';
+import { ReplaceTypeScriptTransform } from '../markdown/replace-typescript-transform';
 import { AstHandler, AstRendererOptions } from '../renderer';
 import { TranslateResult, Translator } from '../translate';
-import { MarkdownRenderer } from '../markdown/markdown-renderer';
-import { transformMarkdown } from '../markdown/markdown';
 import { File } from '../util';
-import { ReplaceTypeScriptTransform } from '../markdown/replace-typescript-transform';
 
 export interface TranslateMarkdownOptions extends AstRendererOptions {
   /**

@@ -1,11 +1,12 @@
-import { CodeMaker } from 'codemaker';
 import { Assembly } from '@jsii/spec';
+import { CodeMaker } from 'codemaker';
 import * as path from 'path';
 import * as xmlbuilder from 'xmlbuilder';
-import { DotNetNameUtils } from './nameutils';
+
 import * as logging from '../../logging';
 import { TARGET_FRAMEWORK } from '../dotnet';
 import { toNuGetVersionRange } from '../version-utils';
+import { DotNetNameUtils } from './nameutils';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {

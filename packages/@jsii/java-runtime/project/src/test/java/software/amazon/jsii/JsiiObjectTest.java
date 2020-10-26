@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -35,17 +36,23 @@ public final class JsiiObjectTest {
 
         // WHEN
         when(mockEngine.getClient()).thenReturn(mockClient);
+        when(mockEngine.nativeToObjRef(any())).thenReturn(objectRef);
         when(mockClient.callMethod(objectRef, "listOfInterfaces", nodeFactory.arrayNode()))
                 .thenReturn(nodeFactory.arrayNode()
                         .add(makeObjectReferenceNode())
                         .add(makeObjectReferenceNode()));
         // THEN
-        final List<TestInterface> result = new LegacySubject(mockEngine, objectRef).listOfInterfaces();
+        final LegacySubject subject = new LegacySubject(mockEngine, objectRef);
+        final List<TestInterface> result = subject.listOfInterfaces();
         assertNotNull(result);
         for (final Object element : result) {
             assertTrue(element instanceof JsiiObject,
                     String.format("Element %s (of type %s) is not a %s", element, element.getClass(), JsiiObject.class));
         }
+
+        final ArgumentCaptor<LegacySubject> capture = ArgumentCaptor.forClass(LegacySubject.class);
+        verify(mockEngine).registerObject(eq(objectRef), capture.capture());
+        assertEquals(subject, capture.getValue());
     }
 
     /**
@@ -63,17 +70,23 @@ public final class JsiiObjectTest {
 
         // WHEN
         when(mockEngine.getClient()).thenReturn(mockClient);
+        when(mockEngine.nativeToObjRef(any())).thenReturn(objectRef);
         when(mockClient.getPropertyValue(objectRef, "interfaces"))
                 .thenReturn(nodeFactory.arrayNode()
                         .add(makeObjectReferenceNode())
                         .add(makeObjectReferenceNode()));
         // THEN
-        final List<TestInterface> result = new LegacySubject(mockEngine, objectRef).getInterfaces();
+        final LegacySubject subject = new LegacySubject(mockEngine, objectRef);
+        final List<TestInterface> result = subject.getInterfaces();
         assertNotNull(result);
         for (final Object element : result) {
             assertTrue(element instanceof JsiiObject,
                     String.format("Element %s (of type %s) is not a %s", element, element.getClass(), JsiiObject.class));
         }
+
+        final ArgumentCaptor<LegacySubject> capture = ArgumentCaptor.forClass(LegacySubject.class);
+        verify(mockEngine).registerObject(eq(objectRef), capture.capture());
+        assertEquals(subject, capture.getValue());
     }
 
     /**
@@ -91,16 +104,22 @@ public final class JsiiObjectTest {
 
         // WHEN
         when(mockEngine.getClient()).thenReturn(mockClient);
+        when(mockEngine.nativeToObjRef(any())).thenReturn(objectRef);
         when(mockClient.callMethod(objectRef, "mapOfInterfaces", nodeFactory.arrayNode()))
                 .thenReturn(nodeFactory.objectNode().set("A", makeObjectReferenceNode()));
 
         // THEN
-        final Map<String, TestInterface> result = new LegacySubject(mockEngine, objectRef).mapOfInterfaces();
+        final LegacySubject subject = new LegacySubject(mockEngine, objectRef);
+        final Map<String, TestInterface> result = subject.mapOfInterfaces();
         assertNotNull(result);
         for (final Object element : result.values()) {
             assertTrue(element instanceof JsiiObject,
                     String.format("Element %s (of type %s) is not a %s", element, element.getClass(), JsiiObject.class));
         }
+
+        final ArgumentCaptor<LegacySubject> capture = ArgumentCaptor.forClass(LegacySubject.class);
+        verify(mockEngine).registerObject(eq(objectRef), capture.capture());
+        assertEquals(subject, capture.getValue());
     }
 
     /**
@@ -118,16 +137,22 @@ public final class JsiiObjectTest {
 
         // WHEN
         when(mockEngine.getClient()).thenReturn(mockClient);
+        when(mockEngine.nativeToObjRef(any())).thenReturn(objectRef);
         when(mockClient.getPropertyValue(objectRef, "interfaceMap"))
                 .thenReturn(nodeFactory.objectNode().set("A", makeObjectReferenceNode()));
 
         // THEN
-        final Map<String, TestInterface> result = new LegacySubject(mockEngine, objectRef).getInterfaceMap();
+        final LegacySubject subject = new LegacySubject(mockEngine, objectRef);
+        final Map<String, TestInterface> result = subject.getInterfaceMap();
         assertNotNull(result);
         for (final Object element : result.values()) {
             assertTrue(element instanceof JsiiObject,
                     String.format("Element %s (of type %s) is not a %s", element, element.getClass(), JsiiObject.class));
         }
+
+        final ArgumentCaptor<LegacySubject> capture = ArgumentCaptor.forClass(LegacySubject.class);
+        verify(mockEngine).registerObject(eq(objectRef), capture.capture());
+        assertEquals(subject, capture.getValue());
     }
 
     private ObjectNode makeObjectReferenceNode() {

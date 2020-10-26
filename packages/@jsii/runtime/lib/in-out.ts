@@ -1,5 +1,6 @@
-import { SyncStdio } from './sync-stdio';
 import { api } from '@jsii/kernel';
+
+import { SyncStdio } from './sync-stdio';
 
 export type Output =
   | { hello: string }

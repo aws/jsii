@@ -1,9 +1,10 @@
-import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
 import { intersect } from 'semver-intersect';
+
 import { parsePerson, parseRepository } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
@@ -137,6 +138,18 @@ export async function loadProjectInfo(
 
   const transitiveDependencies = Object.values(transitiveAssemblies);
 
+  const metadata = mergeMetadata(
+    {
+      jsii: {
+        pacmak: {
+          // When `true`, `jsii-pacmak` will use the `Jsii$Default` implementation in code generation even for dependencies.
+          hasDefaultInterfaces: true,
+        },
+      },
+    },
+    pkg.jsii?.metadata,
+  );
+
   return {
     projectRoot,
     packageJson: pkg,
@@ -187,7 +200,7 @@ export async function loadProjectInfo(
       ).targets,
       js: { npm: pkg.name },
     },
-    metadata: pkg.jsii?.metadata,
+    metadata,
     jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat ?? 'full'),
 
     description: pkg.description,
@@ -408,4 +421,45 @@ function _resolveVersion(
     version: `^${require(path.join(localPackage, 'package.json')).version}`,
     localPackage,
   };
+}
+
+/**
+ * Merges two metadata blocks together.
+ *
+ * @param base the base values
+ * @param user the user-supplied values, which can override the `base` values
+ *
+ * @returns the merged metadata block
+ */
+function mergeMetadata(
+  base: NonNullable<ProjectInfo['metadata']>,
+  user: ProjectInfo['metadata'],
+): ProjectInfo['metadata'] {
+  if (user == null) {
+    return base;
+  }
+  return mergeObjects(base, user);
+
+  function mergeObjects(
+    base: Record<string, any>,
+    override: Record<string, any>,
+  ): Record<string, any> {
+    const result: Record<string, any> = {};
+    const allKeys = Array.from(
+      new Set([...Object.keys(base), ...Object.keys(override)]),
+    ).sort();
+    for (const key of allKeys) {
+      const baseValue = base[key];
+      const overrideValue = override[key];
+
+      if (typeof baseValue === 'object' && typeof overrideValue === 'object') {
+        if (overrideValue != null) {
+          result[key] = mergeObjects(baseValue, overrideValue);
+        }
+      } else {
+        result[key] = overrideValue ?? baseValue;
+      }
+    }
+    return result;
+  }
 }

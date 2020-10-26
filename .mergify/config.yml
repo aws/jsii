@@ -31,7 +31,7 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
       # Docker image validation
-      - status-success=Docker Images / jsii/superchain
+      - status-success=jsii/superchain
       # Integration Tests
       - status-success=Integration Test
       # One test for each OS
@@ -56,7 +56,7 @@ pull_request_rules:
         approved: true
         changes_requested: false
       merge:
-        strict: smart
+        strict: smart+fasttrack
         method: squash
         strict_method: merge
         commit_message: title+body
@@ -79,7 +79,7 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
       # Docker image validation
-      - status-success=Docker Images / jsii/superchain
+      - status-success=jsii/superchain
       # Integration Tests
       - status-success=Integration Test
       # One test for each OS
@@ -104,7 +104,7 @@ pull_request_rules:
         approved: true
         changes_requested: false
       merge:
-        strict: smart
+        strict: smart+fasttrack
         method: merge
         strict_method: merge
         commit_message: title+body
@@ -127,7 +127,7 @@ pull_request_rules:
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
       # Docker image validation
-      - status-success=Docker Images / jsii/superchain
+      - status-success=jsii/superchain
       # Integration Tests
       - status-success=Integration Test
       # One test for each OS

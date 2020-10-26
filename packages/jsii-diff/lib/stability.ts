@@ -1,5 +1,6 @@
-import * as reflect from 'jsii-reflect';
 import * as spec from '@jsii/spec';
+import * as reflect from 'jsii-reflect';
+
 import { ApiElement, IReport } from './types';
 
 export function validateStabilities(

@@ -27,9 +27,9 @@ jobs:
             echo "::set-output name=result::true"
           else
             # Fetch the base and head refs from origin so we can safely diff 'em
-            git fetch --depth=1 --quiet origin ${{ github.base_ref }} ${{ github.head_ref }}
+            git fetch --depth=1 --quiet origin ${{ github.base_ref }}
             # Otherwise, only run if the Dockerfile changed
-            changed=$(git diff --name-only origin/${{ github.base_ref }}..origin/${{ github.head_ref }})
+            changed=$(git diff --name-only origin/${{ github.base_ref }}..HEAD)
             if grep Dockerfile <<< "${changed}" ; then
               echo '⏯ Dockerfile changed'
               echo "::set-output name=result::true"
@@ -45,8 +45,8 @@ jobs:
         # The DOCKER_CREDENTIALS secret is expected to contain a username:token pair
         run: |-
           docker login                                                          \
-            --username=$(cut -d: -f1 <<< '${{ secrets.DOCKER_CREDENTIALS }})'   \
-            --password=$(cut -d: -f2 <<< '${{ secrets.DOCKER_CREDENTIALS }})'
+            --username=$(cut -d: -f1 <<< '${{ secrets.DOCKER_CREDENTIALS }}')   \
+            --password=$(cut -d: -f2 <<< '${{ secrets.DOCKER_CREDENTIALS }}')
         # Ensure we run with bash, because that's the syntax we're using here...
         shell: bash
 

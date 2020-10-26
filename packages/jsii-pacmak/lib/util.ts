@@ -1,8 +1,9 @@
+import * as spec from '@jsii/spec';
 import { spawn, SpawnOptions } from 'child_process';
 import * as fs from 'fs-extra';
-import * as spec from '@jsii/spec';
 import * as os from 'os';
 import * as path from 'path';
+
 import * as logging from './logging';
 
 /**

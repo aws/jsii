@@ -1,10 +1,11 @@
 import { toPascalCase } from 'codemaker';
-import { EmitContext } from '../emit-context';
 import { ClassType, InterfaceType, Type } from 'jsii-reflect';
+
+import { EmitContext } from '../emit-context';
 import { Package } from '../package';
+import { getMemberDependencies } from '../util';
 import { GoTypeRef } from './go-type-reference';
 import { GoProperty } from './type-member';
-import { getFieldDependencies } from '../util';
 
 // String appended to all go GoStruct Interfaces
 const STRUCT_INTERFACE_SUFFIX = 'Iface';
@@ -20,6 +21,8 @@ export abstract class GoType {
 
   public abstract emit(context: EmitContext): void;
   public abstract get dependencies(): Package[];
+  public abstract get usesInitPackage(): boolean;
+  public abstract get usesRuntimePackage(): boolean;
 
   public get namespace() {
     return this.pkg.packageName;
@@ -42,9 +45,9 @@ export abstract class GoStruct extends GoType {
     super(pkg, type);
 
     // Flatten any inherited properties on the struct
-    this.properties = Object.values(this.type.getProperties(true)).map(
-      (prop) => new GoProperty(this, prop),
-    );
+    this.properties = Object.values(this.type.getProperties(true))
+      .map((prop) => new GoProperty(this, prop))
+      .filter((prop) => !prop.static);
 
     this.interfaceName = `${this.name}${STRUCT_INTERFACE_SUFFIX}`;
   }
@@ -54,6 +57,14 @@ export abstract class GoStruct extends GoType {
     this.emitInterface(context);
     this.emitStruct(context);
     this.emitGetters(context);
+  }
+
+  public get usesInitPackage() {
+    return this.properties.some((p) => p.usesInitPackage);
+  }
+
+  public get usesRuntimePackage() {
+    return this.properties.some((p) => p.usesRuntimePackage);
   }
 
   protected emitInterface(context: EmitContext): void {
@@ -120,7 +131,7 @@ export abstract class GoStruct extends GoType {
   public get dependencies(): Package[] {
     return [
       ...this.extendsDependencies,
-      ...getFieldDependencies(this.properties),
+      ...getMemberDependencies(this.properties),
     ];
   }
 }
