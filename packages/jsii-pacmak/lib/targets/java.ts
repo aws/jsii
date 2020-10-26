@@ -54,7 +54,7 @@ export class JavaBuilder implements TargetBuilder {
   private readonly targetName = 'java';
 
   public constructor(
-    private readonly modules: JsiiModule[],
+    private readonly modules: readonly JsiiModule[],
     private readonly options: BuildOptions,
   ) {}
 
@@ -124,7 +124,7 @@ export class JavaBuilder implements TargetBuilder {
   }
 
   private async generateAggregateSourceDir(
-    modules: JsiiModule[],
+    modules: readonly JsiiModule[],
     options: BuildOptions,
   ): Promise<Scratch<TemporaryJavaPackage[]>> {
     return Scratch.make(async (tmpDir: string) => {

@@ -2,7 +2,7 @@
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
- ┗━ 📁 golang
+ ┗━ 📁 go
     ┗━ 📁 scopejsiicalcbase
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
@@ -10,14 +10,14 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
        ┗━ 📄 scopejsiicalcbase.go
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/golang/scopejsiicalcbase/jsii/jsii.go 1`] = `
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/jsii.go 1`] = `
 package jsii
 
 import (
 	rt "github.com/aws-cdk/jsii/jsii-experimental"
 	"sync"
 	// Initialization endpoints of dependencies
-	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase/jsii"
+	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
 )
 
 var once sync.Once
@@ -36,16 +36,16 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/golang/scopejsiicalcbase/jsii/tarball.embedded.go 1`] = `golang/scopejsiicalcbase/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/tarball.embedded.go 1`] = `go/scopejsiicalcbase/jsii/tarball.embedded.go embeds a tarball`;
 
-exports[`Generated code for "@scope/jsii-calc-base": <outDir>/golang/scopejsiicalcbase/scopejsiicalcbase.go 1`] = `
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/scopejsiicalcbase.go 1`] = `
 // An example direct dependency for jsii-calc.
 package scopejsiicalcbase
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase/jsii"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
 )
 
 // Class interface
@@ -113,7 +113,7 @@ type IBaseInterface interface {
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 <root>
- ┗━ 📁 golang
+ ┗━ 📁 go
     ┗━ 📁 scopejsiicalcbaseofbase
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
@@ -121,7 +121,7 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
        ┗━ 📄 scopejsiicalcbaseofbase.go
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/golang/scopejsiicalcbaseofbase/jsii/jsii.go 1`] = `
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/jsii/jsii.go 1`] = `
 package jsii
 
 import (
@@ -142,15 +142,15 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/golang/scopejsiicalcbaseofbase/jsii/tarball.embedded.go 1`] = `golang/scopejsiicalcbaseofbase/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/jsii/tarball.embedded.go 1`] = `go/scopejsiicalcbaseofbase/jsii/tarball.embedded.go embeds a tarball`;
 
-exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/golang/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase.go 1`] = `
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/scopejsiicalcbaseofbase.go 1`] = `
 // An example transitive dependency for jsii-calc.
 package scopejsiicalcbaseofbase
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase/jsii"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
 )
 
 type IVeryBaseInterface interface {
@@ -231,7 +231,7 @@ func (v *VeryBaseProps) GetFoo() Very {
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
- ┗━ 📁 golang
+ ┗━ 📁 go
     ┗━ 📁 scopejsiicalclib
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
@@ -241,15 +241,15 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
           ┗━ 📄 submodule.go
 `;
 
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiicalclib/jsii/jsii.go 1`] = `
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/jsii.go 1`] = `
 package jsii
 
 import (
 	rt "github.com/aws-cdk/jsii/jsii-experimental"
 	"sync"
 	// Initialization endpoints of dependencies
-	scopejsiicalcbase "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase/jsii"
-	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase/jsii"
+	scopejsiicalcbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
 )
 
 var once sync.Once
@@ -269,17 +269,17 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiicalclib/jsii/tarball.embedded.go 1`] = `golang/scopejsiicalclib/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/tarball.embedded.go 1`] = `go/scopejsiicalclib/jsii/tarball.embedded.go embeds a tarball`;
 
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiicalclib/scopejsiicalclib.go 1`] = `
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/scopejsiicalclib.go 1`] = `
 // A simple calcuator library built on JSII.
 package scopejsiicalclib
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib/jsii"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
 // Check that enums from \\@scoped packages can be references.
@@ -573,12 +573,12 @@ func (s *StructWithOnlyOptionals) GetOptional3() bool {
 
 `;
 
-exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/golang/scopejsiicalclib/submodule/submodule.go 1`] = `
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/submodule/submodule.go 1`] = `
 package submodule
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib/jsii"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
 // Deprecated.
@@ -713,7 +713,7 @@ func (r *Reflector) AsMap(reflectable IReflectable) map[string]_jsii_.Any {
 
 exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
 <root>
- ┗━ 📁 golang
+ ┗━ 📁 go
     ┗━ 📁 jsiicalc
        ┣━ 📁 composition
        ┃  ┗━ 📄 composition.go
@@ -748,7 +748,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┗━ 📄 submodule.go
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/README.md 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/README.md 1`] = `
 # jsii Calculator
 
 This library is used to demonstrate and test the features of JSII
@@ -778,13 +778,13 @@ const foo = 'bar';
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/composition/composition.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/composition/composition.go 1`] = `
 package composition
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -897,12 +897,12 @@ const (
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/derivedclasshasnoproperties/derivedclasshasnoproperties.go 1`] = `
 package derivedclasshasnoproperties
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -974,12 +974,12 @@ func (d *Derived) SetProp(val string) {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/interfaceinnamespaceincludesclasses/interfaceinnamespaceincludesclasses.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/interfaceinnamespaceincludesclasses/interfaceinnamespaceincludesclasses.go 1`] = `
 package interfaceinnamespaceincludesclasses
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -1033,7 +1033,7 @@ func (h *Hello) GetFoo() float64 {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/interfaceinnamespaceonlyinterface/interfaceinnamespaceonlyinterface.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/interfaceinnamespaceonlyinterface/interfaceinnamespaceonlyinterface.go 1`] = `
 package interfaceinnamespaceonlyinterface
 
 import (
@@ -1057,16 +1057,16 @@ func (h *Hello) GetFoo() float64 {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/jsii/jsii.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/jsii.go 1`] = `
 package jsii
 
 import (
 	rt "github.com/aws-cdk/jsii/jsii-experimental"
 	"sync"
 	// Initialization endpoints of dependencies
-	scopejsiicalcbase "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase/jsii"
-	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase/jsii"
-	scopejsiicalclib "github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib/jsii"
+	scopejsiicalcbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+	scopejsiicalcbaseofbase "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
+	scopejsiicalclib "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
 var once sync.Once
@@ -1087,20 +1087,20 @@ func Initialize() {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/jsii/tarball.embedded.go 1`] = `golang/jsiicalc/jsii/tarball.embedded.go embeds a tarball`;
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsii/tarball.embedded.go 1`] = `go/jsiicalc/jsii/tarball.embedded.go embeds a tarball`;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/jsiicalc.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/jsiicalc.go 1`] = `
 // A simple calcuator built on JSII.
 package jsiicalc
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/composition"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbaseofbase"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalcbase"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/scopejsiicalclib/submodule"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/composition"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/submodule"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -9515,12 +9515,12 @@ func NewWithPrivatePropertyInConstructor(privateField string) WithPrivatePropert
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/pythonself/pythonself.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/pythonself/pythonself.go 1`] = `
 package pythonself
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -9613,11 +9613,11 @@ func (s *StructWithSelf) GetSelf() string {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/backreferences/backreferences.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/backreferences/backreferences.go 1`] = `
 package backreferences
 
 import (
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule"
 )
 
 // MyClassReferenceIface is the public interface for the custom type MyClassReference
@@ -9638,12 +9638,12 @@ func (m *MyClassReference) GetReference() submodule.MyClass {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/child/child.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/child/child.go 1`] = `
 package child
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 type Awesomeness string
@@ -9781,7 +9781,7 @@ func (s *Structure) GetBool() bool {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/isolated/isolated.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/isolated/isolated.go 1`] = `
 package isolated
 
 import (
@@ -9811,7 +9811,7 @@ func Kwargs_Method(props child.KwargsProps) bool {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/nestedsubmodule/deeplynested/deeplynested.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/nestedsubmodule/deeplynested/deeplynested.go 1`] = `
 package deeplynested
 
 import (
@@ -9824,13 +9824,13 @@ type INamespaced interface {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/nestedsubmodule/nestedsubmodule.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/nestedsubmodule/nestedsubmodule.go 1`] = `
 package nestedsubmodule
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/nestedsubmodule/deeplynested"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/child"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/child"
 )
 
 // Class interface
@@ -9858,7 +9858,7 @@ func (n *Namespaced) GetGoodness() child.Goodness {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/param/param.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/param/param.go 1`] = `
 package param
 
 import (
@@ -9882,13 +9882,13 @@ func (s *SpecialParameter) GetValue() string {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/returnsparam/returnsparam.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/returnsparam/returnsparam.go 1`] = `
 package returnsparam
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/param"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -9927,16 +9927,16 @@ func (r *ReturnsSpecialParameter) ReturnsSpecialParam() param.SpecialParameter {
 
 `;
 
-exports[`Generated code for "jsii-calc": <outDir>/golang/jsiicalc/submodule/submodule.go 1`] = `
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/submodule.go 1`] = `
 package submodule
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/nestedsubmodule/deeplynested"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/child"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc"
-	"github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/submodule/param"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/golang/jsiicalc/jsii"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/child"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
