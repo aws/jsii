@@ -739,7 +739,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
     name: 'miscellaneous/unknown-error',
   });
 
-  public static readonly JSII_9998_UNSUPORTED_NODE = Code.message({
+  public static readonly JSII_9998_UNSUPPORTED_NODE = Code.message({
     code: 9998,
     formatter: (kindOrMessage: ts.SyntaxKind | string) =>
       typeof kindOrMessage === 'string'
