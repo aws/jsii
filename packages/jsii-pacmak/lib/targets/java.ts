@@ -2748,11 +2748,10 @@ class JavaGenerator extends Generator {
       return this.getNativeName(depMod, name.join('.'), mod);
     }
 
-    const { packageName, typeName } = this.toNativeName(
-      this.assembly,
-      // It's okay for this parameter to be `undefined` (there is an overload for that):
-      this.assembly.types?.[fqn]!,
-    );
+    const { packageName, typeName } =
+      fqn === this.assembly.name
+        ? this.toNativeName(this.assembly)
+        : this.toNativeName(this.assembly, this.assembly.types![fqn]);
     const className =
       typeName && binaryName ? typeName.replace('.', '$') : typeName;
     return `${packageName}${className ? `.${className}` : ''}`;
@@ -2773,7 +2772,9 @@ class JavaGenerator extends Generator {
     return `${javaPackage}${tail ? `.${tail}` : ''}`;
   }
 
-  private toNativeName(assm: spec.Assembly): { packageName: string };
+  private toNativeName(
+    assm: spec.Assembly,
+  ): { packageName: string; typeName: undefined };
   private toNativeName(
     assm: spec.Assembly,
     type: spec.Type,
