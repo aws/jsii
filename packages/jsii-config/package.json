@@ -22,7 +22,7 @@
     "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.15",
     "@types/jest-expect-message": "^1.0.3",
-    "@types/node": "^10.17.42",
+    "@types/node": "^10.17.43",
     "@types/yargs": "^15.0.9",
     "eslint": "^7.12.1",
     "jest": "^26.6.1",
