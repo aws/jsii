@@ -9,7 +9,7 @@ import { shell } from '../../lib/util';
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
 const TARBALL = Symbol('tarball');
-const TREE = Symbol('tree');
+export const TREE = Symbol('tree');
 
 // Custom serializers so we can see the source without escape sequences
 expect.addSnapshotSerializer({
@@ -75,7 +75,7 @@ export function verifyGeneratedCodeFor(
   }
 }
 
-function checkTree(
+export function checkTree(
   file: string,
   root: string = file,
 ): TreeStructure | undefined {

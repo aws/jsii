@@ -2750,7 +2750,8 @@ class JavaGenerator extends Generator {
 
     const { packageName, typeName } = this.toNativeName(
       this.assembly,
-      this.assembly.types![fqn],
+      // It's okay for this parameter to be `undefined` (there is an overload for that):
+      this.assembly.types?.[fqn]!,
     );
     const className =
       typeName && binaryName ? typeName.replace('.', '$') : typeName;
