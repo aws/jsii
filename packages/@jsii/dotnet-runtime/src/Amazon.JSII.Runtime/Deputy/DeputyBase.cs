@@ -12,6 +12,8 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Authentication.ExtendedProtection;
+using Newtonsoft.Json;
+using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Deputy
 {
@@ -500,9 +502,9 @@ namespace Amazon.JSII.Runtime.Deputy
             catch (InvalidCastException)
             {
                 // At this point, we are converting to a type that we don't know for sure is applicable
-                if (MakeProxy<T>(true, out var proxy))
+                if (MakeProxy(typeof(T), true, out var proxy))
                 {
-                    return proxy;
+                    return (T)proxy;
                 }
 
                 throw;
@@ -532,7 +534,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
             bool ToTypeCore(out object? result)
             {
-                if (!conversionType.IsInstanceOfType(this)) return MakeProxy(false, out result);
+                if (!conversionType.IsInstanceOfType(this)) return MakeProxy(conversionType, false, out result);
                 
                 result = this;
                 return true;
@@ -540,15 +542,15 @@ namespace Amazon.JSII.Runtime.Deputy
             }
         }
 
-        private bool MakeProxy<T>(bool force, [NotNullWhen(true)] out T? result) where T: class
+        private bool MakeProxy(Type interfaceType, bool force, [NotNullWhen(true)] out object? result)
         {
-            if (!typeof(T).IsInterface)
+            if (!interfaceType.IsInterface)
             {
                 result = null;
                 return false;
             }
             
-            var interfaceAttribute = typeof(T).GetCustomAttribute<JsiiInterfaceAttribute>();
+            var interfaceAttribute = interfaceType.GetCustomAttribute<JsiiInterfaceAttribute>();
             if (interfaceAttribute == null)
             {
                 // We can only convert to interfaces decorated with the JsiiInterfaceAttribute
@@ -577,7 +579,7 @@ namespace Amazon.JSII.Runtime.Deputy
                 throw new JsiiException($"Could not find constructor to instantiate {proxyType.FullName}");
             }
 
-            result = (T)constructorInfo.Invoke(new object[]{ Reference.ForProxy() });
+            result = constructorInfo.Invoke(new object[]{ Reference.ForProxy() });
             return true;
             
             bool TryFindSupportedInterface(string declaredFqn, string[] availableFqns, ITypeCache types, out string? foundFqn)
