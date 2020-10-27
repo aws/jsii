@@ -7,6 +7,7 @@ import * as ts from 'typescript';
 
 import { Assembler } from './assembler';
 import { Emitter } from './emitter';
+import { JsiiDiagnostic } from './jsii-diagnostic';
 import { ProjectInfo } from './project-info';
 import * as utils from './utils';
 
@@ -31,7 +32,7 @@ const BASE_COMPILER_OPTIONS: ts.CompilerOptions = {
   strict: true,
   strictNullChecks: true,
   strictPropertyInitialization: true,
-  stripInternal: true,
+  stripInternal: false,
   target: ts.ScriptTarget.ES2018,
 };
 
@@ -246,7 +247,9 @@ export class Compiler implements Emitter {
 
       diagnostics.push(...assmEmit.diagnostics);
     } catch (e) {
-      LOG.error(`Error during type model analysis: ${e}\n${e.stack}`);
+      diagnostics.push(
+        JsiiDiagnostic.JSII_9997_UNKNOWN_ERROR.createDetached(e),
+      );
       hasErrors = true;
     }
 
@@ -433,8 +436,10 @@ export class Compiler implements Emitter {
         continue;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-      const tsconfig = require(tsconfigFile);
+      const { config: tsconfig } = ts.readConfigFile(
+        tsconfigFile,
+        ts.sys.readFile,
+      );
 
       // Add references to any TypeScript package we find that is 'composite' enabled.
       // Make it relative.

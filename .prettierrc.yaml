@@ -4,3 +4,13 @@ semi: true
 singleQuote: true
 tabWidth: 2
 trailingComma: all
+
+overrides:
+  - files: "*.md"
+    options:
+      printWidth: 120
+      proseWrap: always
+      semi: true
+      singleQuote: true
+      quoteProps: as-needed
+      trailingComma: all

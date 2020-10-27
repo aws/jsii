@@ -3,10 +3,8 @@ import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
 
-import { TargetName } from '../../lib/targets';
+import { pacmak, TargetName } from '../../lib';
 import { shell } from '../../lib/util';
-
-const PACMAK_CLI = path.resolve(__dirname, '..', '..', 'bin', 'jsii-pacmak');
 
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
@@ -69,10 +67,10 @@ export function verifyGeneratedCodeFor(
 
       expect({ [TREE]: checkTree(outDir) }).toMatchSnapshot('<outDir>/');
 
-      if (targetName !== 'python') {
+      if (targetName !== TargetName.PYTHON) {
         return Promise.resolve();
       }
-      return runMypy(path.join(outDir, 'python'));
+      return runMypy(path.join(outDir, targetName));
     });
   }
 }
@@ -133,20 +131,13 @@ async function runPacmak(
   outdir: string,
 ): Promise<void> {
   return expect(
-    shell(
-      process.execPath,
-      [
-        ...process.execArgv,
-        JSON.stringify(PACMAK_CLI),
-        `--code-only`,
-        `--no-fingerprint`,
-        `--outdir=${JSON.stringify(outdir)}`,
-        `--target=${JSON.stringify(targetName)}`,
-        '--',
-        JSON.stringify(root),
-      ],
-      { cwd: root },
-    ),
+    pacmak({
+      codeOnly: true,
+      fingerprint: false,
+      inputDirectories: [root],
+      outputDirectory: outdir,
+      targets: [targetName],
+    }),
   ).resolves.not.toThrowError();
 }
 

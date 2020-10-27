@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as logging from './logging';
 import { JsiiModule } from './packaging';
 import { TargetConstructor, Target } from './target';
+import { TargetName } from './targets';
 import { Scratch } from './util';
 
 export interface BuildOptions {
@@ -22,7 +23,7 @@ export interface BuildOptions {
   /**
    * Arguments provided by the user (how they are used is target-dependent)
    */
-  arguments: { [name: string]: any };
+  arguments: { readonly [name: string]: any };
 
   /**
    * Only generate code, don't build
@@ -59,9 +60,9 @@ export interface TargetBuilder {
  */
 export class OneByOneBuilder implements TargetBuilder {
   public constructor(
-    private readonly targetName: string,
+    private readonly targetName: TargetName,
     private readonly targetConstructor: TargetConstructor,
-    private readonly modules: JsiiModule[],
+    private readonly modules: readonly JsiiModule[],
     private readonly options: BuildOptions,
   ) {}
 

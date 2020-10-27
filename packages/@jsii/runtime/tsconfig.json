@@ -4,8 +4,11 @@
     "**/*.ts",
     "package.json"
   ],
-  "exclude": ["./package.d.ts"],
+  "exclude": [
+    "package.d.ts",
+    "jest.config.ts",
+  ],
   "references": [
-    { "path": "../kernel" }
-  ]
+    { "path": "../kernel" },
+  ],
 }

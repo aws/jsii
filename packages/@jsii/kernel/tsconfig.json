@@ -1,7 +1,8 @@
 {
   "extends": "../../../tsconfig-base",
   "include": ["**/*.ts"],
-  "references": [{
-    "path": "../spec"
-  }]
+  "exclude": ["jest.config.ts"],
+  "references": [
+    { "path": "../spec" },
+  ],
 }
