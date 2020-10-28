@@ -385,7 +385,7 @@ kwargs = json.loads(
     """
 {
     "name": "foo",
-    "version": "0.0.0.post1234.dev0",
+    "version": "0.0.0.dev1234",
     "description": "Test assembly: foo",
     "license": "UNLICENSED",
     "url": "https://test.nope/foo",
@@ -890,7 +890,7 @@ kwargs = json.loads(
     },
     "python_requires": ">=3.6",
     "install_requires": [
-        "bar>=0.0.0.post1234.dev0, <0.0.1",
+        "bar>=0.0.0.dev1234, <0.0.1",
         "jsii>=1337.42.1337, <1338.0.0",
         "publication>=0.0.3"
     ],
