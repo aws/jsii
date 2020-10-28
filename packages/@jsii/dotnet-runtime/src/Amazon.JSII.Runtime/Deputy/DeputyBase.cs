@@ -7,9 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Authentication.ExtendedProtection;
+using Newtonsoft.Json;
+using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Deputy
 {
@@ -127,7 +131,7 @@ namespace Amazon.JSII.Runtime.Deputy
             propertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
 
             JsiiTypeAttributeBase.Load(type.Assembly);
-            
+
             var classAttribute = ReflectionUtils.GetClassAttribute(type)!;
             var propertyAttribute = GetStaticPropertyAttribute(type, propertyName);
 
@@ -178,7 +182,7 @@ namespace Amazon.JSII.Runtime.Deputy
             propertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
 
             JsiiTypeAttributeBase.Load(type.Assembly);
-            
+
             var classAttribute = ReflectionUtils.GetClassAttribute(type)!;
             var propertyAttribute = GetStaticPropertyAttribute(type, propertyName);
 
@@ -229,12 +233,12 @@ namespace Amazon.JSII.Runtime.Deputy
         {
             InvokeInstanceMethod<object>(parameterTypes, arguments, methodName);
         }
-        
+
         [return: MaybeNull]
         protected static T InvokeStaticMethod<T>(System.Type type, System.Type[] parameterTypes, object?[] arguments, [CallerMemberName] string methodName = "")
         {
             JsiiTypeAttributeBase.Load(type.Assembly);
-            
+
             var methodAttribute = GetStaticMethodAttribute(type, methodName, parameterTypes);
             var classAttribute = ReflectionUtils.GetClassAttribute(type)!;
 
@@ -289,7 +293,7 @@ namespace Amazon.JSII.Runtime.Deputy
             {
                 throw new NotSupportedException($"Could not convert result '{result}' for method '{methodAttribute.Name}'");
             }
-            
+
             return (T)frameworkValue!;
 
             object? GetResult()
@@ -466,99 +470,137 @@ namespace Amazon.JSII.Runtime.Deputy
         }
 
         #endregion
-        
+
         #region IConvertible
-        
+
+        /// <summary>
+        /// Unsafely obtains a proxy of a given type for this instance. This method allows obtaining a proxy instance
+        /// that is not known to be supported by the backing object instance; in which case the behavior of any
+        /// operation that is not supported by the backing instance is undefined. 
+        /// </summary>
+        /// <typeparam name="T">
+        /// A jsii-managed interface to obtain a proxy for.
+        /// This interface must carry a <see cref="JsiiInterfaceAttribute" /> attribute.
+        /// </typeparam>
+        /// <returns>
+        /// An instance of <c>T</c>
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// If the type provided for <c>T</c> does not carry the <see cref="JsiiInterfaceAttribute" /> attribute.
+        /// </exception>
+        public T UnsafeCast<T>() where T: class
+        {
+            if (this is T result)
+            {
+                return result;
+            }
+
+            try
+            {
+                return (T) Convert.ChangeType(this, typeof(T), CultureInfo.InvariantCulture);
+            }
+            catch (InvalidCastException)
+            {
+                // At this point, we are converting to a type that we don't know for sure is applicable
+                if (MakeProxy(typeof(T), true, out var proxy))
+                {
+                    return (T)proxy;
+                }
+
+                throw;
+            }
+        }
+
         private IDictionary<System.Type, object> Proxies { get; } = new Dictionary<System.Type, object>();
-        
+
         TypeCode IConvertible.GetTypeCode()
         {
             return TypeCode.Object;
         }
-        
+
         object IConvertible.ToType(System.Type conversionType, IFormatProvider? provider)
         {
             if (Proxies.ContainsKey(conversionType))
             {
                 return Proxies[conversionType];
             }
-            
+
             if (ToTypeCore(out var converted))
             {
                 return Proxies[conversionType] = converted!;
             }
-            
+
             throw new InvalidCastException($"Unable to cast {this.GetType().FullName} into {conversionType.FullName}");
-            
+
             bool ToTypeCore(out object? result)
             {
-                if (conversionType.IsInstanceOfType(this))
-                {
-                    result = this;
-                    return true;
-                }
+                if (!conversionType.IsInstanceOfType(this)) return MakeProxy(conversionType, false, out result);
                 
-                if (!conversionType.IsInterface || Reference.Interfaces.Length == 0)
-                {
-                    // We can only convert to interfaces that are declared on the Reference.
-                    result = null;
-                    return false;
-                }
-
-                var interfaceAttribute = conversionType.GetCustomAttribute<JsiiInterfaceAttribute>();
-                if (interfaceAttribute == null)
-                {
-                    // We can only convert to interfaces decorated with the JsiiInterfaceAttribute
-                    result = null;
-                    return false;
-                }
-
-                var types = ServiceContainer.ServiceProvider.GetRequiredService<ITypeCache>();
-                
-                if (!TryFindSupportedInterface(interfaceAttribute.FullyQualifiedName, Reference.Interfaces, types, out var adequateFqn))
-                {
-                    // We can only convert to interfaces declared by this Reference
-                    result = null;
-                    return false;
-                }
-                
-                var proxyType = types.GetProxyType(interfaceAttribute.FullyQualifiedName);
-                var constructorInfo = proxyType.GetConstructor(
-                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
-                    null,
-                    new[] {typeof(ByRefValue)},
-                    null
-                );
-                if (constructorInfo == null)
-                {
-                    throw new JsiiException($"Could not find constructor to instantiate {proxyType.FullName}");
-                }
-
-                result = constructorInfo.Invoke(new object[]{ Reference.ForProxy() });
+                result = this;
                 return true;
 
-                bool TryFindSupportedInterface(string declaredFqn, string[] availableFqns, ITypeCache types, out string? foundFqn)
-                {
-                    var declaredType = types.GetInterfaceType(declaredFqn);
+            }
+        }
 
-                    foreach (var candidate in availableFqns)
-                    {
-                        var candidateType = types.GetInterfaceType(candidate);
-                        if (declaredType.IsAssignableFrom(candidateType))
-                        {
-                            foundFqn = candidate;
-                            return true;
-                        }
-                    }
-                    
-                    foundFqn = null;
-                    return false;
+        private bool MakeProxy(Type interfaceType, bool force, [NotNullWhen(true)] out object? result)
+        {
+            if (!interfaceType.IsInterface)
+            {
+                result = null;
+                return false;
+            }
+            
+            var interfaceAttribute = interfaceType.GetCustomAttribute<JsiiInterfaceAttribute>();
+            if (interfaceAttribute == null)
+            {
+                // We can only convert to interfaces decorated with the JsiiInterfaceAttribute
+                result = null;
+                return false;
+            }
+
+            var types = ServiceContainer.ServiceProvider.GetRequiredService<ITypeCache>();
+
+            if (!TryFindSupportedInterface(interfaceAttribute.FullyQualifiedName, Reference.Interfaces, types, out var adequateFqn))
+            {
+                // We can only convert to interfaces declared by this Reference
+                result = null;
+                return false;
+            }
+
+            var proxyType = types.GetProxyType(interfaceAttribute.FullyQualifiedName);
+            var constructorInfo = proxyType.GetConstructor(
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                null,
+                new[] {typeof(ByRefValue)},
+                null
+            );
+            if (constructorInfo == null)
+            {
+                throw new JsiiException($"Could not find constructor to instantiate {proxyType.FullName}");
+            }
+
+            result = constructorInfo.Invoke(new object[]{ Reference.ForProxy() });
+            return true;
+            
+            bool TryFindSupportedInterface(string declaredFqn, string[] availableFqns, ITypeCache types, out string? foundFqn)
+            {
+                var declaredType = types.GetInterfaceType(declaredFqn);
+
+                foreach (var candidate in availableFqns)
+                {
+                    var candidateType = types.GetInterfaceType(candidate);
+                    if (!declaredType.IsAssignableFrom(candidateType)) continue;
+                    foundFqn = candidate;
+                    return true;
                 }
+
+                foundFqn = declaredFqn;
+                return force;
             }
         }
 
         #region Impossible Conversions
-        
+
         bool IConvertible.ToBoolean(IFormatProvider? provider)
         {
             throw new InvalidCastException();
@@ -568,17 +610,17 @@ namespace Amazon.JSII.Runtime.Deputy
         {
             throw new InvalidCastException();
         }
-        
+
         char IConvertible.ToChar(IFormatProvider? provider)
         {
             throw new InvalidCastException();
         }
-        
+
         DateTime IConvertible.ToDateTime(IFormatProvider? provider)
         {
             throw new InvalidCastException();
         }
-        
+
         decimal IConvertible.ToDecimal(IFormatProvider? provider)
         {
             throw new InvalidCastException();
@@ -635,7 +677,7 @@ namespace Amazon.JSII.Runtime.Deputy
         }
 
         #endregion
-        
+
         #endregion
     }
 }
