@@ -233,7 +233,7 @@ Example:
 The resulting artifact is a **Maven** package that can be deployed to [Maven Central] using the
 `deploy-staged-repository` command of the [nexus-staging-maven-plugin].
 
-[maven centra]: https://search.maven.org
+[maven central]: https://search.maven.org
 [nexus-staging-maven-plugin]: https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin
 
 #### Configuring `.NET`
