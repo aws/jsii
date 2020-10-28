@@ -24,11 +24,12 @@ import {
   toPackageName,
 } from './python/type-name';
 import { die, toPythonIdentifier } from './python/util';
-import { toPythonVersionRange } from './version-utils';
+import { toPythonVersionRange, toReleaseVersion } from './version-utils';
 
 import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
+  TargetName,
 } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
@@ -2162,7 +2163,7 @@ class PythonGenerator extends Generator {
     this.package = new Package(
       this,
       assm.targets!.python!.distName,
-      assm.version,
+      toReleaseVersion(assm.version, TargetName.PYTHON),
       assm,
     );
 

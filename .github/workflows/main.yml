@@ -163,14 +163,14 @@ jobs:
         run: |-
           npx standard-version                                                                                          \
             --compareUrlFormat='{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${{ github.sha }}'          \
-            --prerelease=pr${{ github.event.pull_request.number }}                                                      \
+            --prerelease=dev.${{ github.event.pull_request.number }}                                                    \
             --skip.commit
       - name: Standard Version (Nightly)
         if: github.event_name == 'push'
         run: |-
           npx standard-version                                                                                          \
             --compareUrlFormat='{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${{ github.sha }}'          \
-            --prerelease=nightly.$(date -u +'%Y%m%d')                                                                   \
+            --prerelease=dev.$(date -u +'%Y%m%d')                                                                       \
             --skip.commit
       # Now we'll be preparing a release package (with the "real" version)
       - name: Run "align-version.sh"

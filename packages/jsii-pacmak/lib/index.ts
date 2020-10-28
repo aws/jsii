@@ -1,3 +1,4 @@
+import { TypeSystem } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 
 import * as logging from './logging';
@@ -61,9 +62,10 @@ export async function pacmak({
 
   await timers.recordAsync('load jsii', () => {
     logging.info('Loading jsii assemblies and translations');
+    const system = new TypeSystem();
     return Promise.all(
       modulesToPackage.map(async (m) => {
-        await m.load();
+        await m.load(system);
         return rosetta.addAssembly(m.assembly.spec, m.moduleDirectory);
       }),
     );
