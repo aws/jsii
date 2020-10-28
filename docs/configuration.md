@@ -194,7 +194,6 @@ are accepted by `jsii-pacmak`, and are translated according to the following tab
 | Source Version (`npm`) | Python Version ([PEP-440]) | Notes                            |
 | ---------------------- | -------------------------- | -------------------------------- |
 | `X.Y.Z.dev.N`          | `X.Y.Z.devN`               | Development, iteration `N`.      |
-| `X.Y.Z.prN.0`          | `X.Y.Z.devM`               | Development, iteration `N`       |
 | `X.Y.Z.pre.N`          | `X.Y.Z.devN`               | Development, iteration `N`       |
 | `X.Y.Z.alpha.N`        | `X.Y.Z.aN`                 | Alpha release, iteration `N`     |
 | `X.Y.Z.beta.N`         | `X.Y.Z.bN`                 | Beta release, iteration `N`      |

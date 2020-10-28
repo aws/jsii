@@ -7,7 +7,7 @@ import { join } from 'path';
 import { pacmak } from '../../lib';
 import { checkTree, TREE } from './harness';
 
-for (const prerelease of ['4.5.6-pre.1337', '0.0.0-pr1234.0', '2.0.0-rc.42']) {
+for (const prerelease of ['4.5.6-pre.1337', '2.0.0-rc.42']) {
   test(`foo@1.2.3 depends on bar@^${prerelease}`, async () => {
     const outDir = await fs.mkdtemp(
       join(tmpdir(), 'jsii-pacmak.prerelease-identifiers.test.output.'),

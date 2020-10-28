@@ -143,20 +143,6 @@ describe(toReleaseVersion, () => {
       js: '1.2.3-rc.9',
       python: '1.2.3.rc9',
     },
-    '1.2.3-pr4567.8': {
-      dotnet: '1.2.3-pr4567.8',
-      go: '1.2.3-pr4567.8',
-      java: '1.2.3-pr4567.8',
-      js: '1.2.3-pr4567.8',
-      python: /Unable to map prerelease identifier \(in: 1\.2\.3-pr4567\.8\) to python, as label 'pr4567' is not mapped/,
-    },
-    '1.2.3-pr4567.0': {
-      dotnet: '1.2.3-pr4567.0',
-      go: '1.2.3-pr4567.0',
-      java: '1.2.3-pr4567.0',
-      js: '1.2.3-pr4567.0',
-      python: '1.2.3.dev4567',
-    },
   };
 
   for (const [version, targets] of Object.entries(examples)) {
