@@ -22,6 +22,10 @@ test('get full github source location for a class or method', async () => {
   expect(reflect.repositoryUrl(klass, 'main')).toBe(
     'https://github.com/aws/jsii/blob/main/some/sub/dir/index.ts#L1',
   );
+
+  expect(reflect.repositoryUrl(klass)).toBe(
+    'https://github.com/aws/jsii/blob/master/some/sub/dir/index.ts#L1',
+  );
 });
 
 async function loadSource(
