@@ -8,7 +8,7 @@ process. It provides the basic interaction API that allows language-specific
 proxy object to interact with javascript objects they represent.
 
 [jsii]: https://github.com/aws/jsii
-[@jsii/runtime]: https://github.com/aws/jsii/tree/master/packages/@jsii/runtime
+[@jsii/runtime]: https://github.com/aws/jsii/tree/main/packages/@jsii/runtime
 
 See [`api.ts`](./lib/api.ts) for request/response API.
 

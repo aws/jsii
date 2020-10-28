@@ -1,11 +1,11 @@
-# Workflows pertaining to the main/master branch
+# Workflows pertaining to the main branch
 name: Main
 
 on:
   pull_request:
-    branches: [main, master, release]
+    branches: [main, release]
   push:
-    branches: [main, master, release]
+    branches: [main, release]
 
 env:
   DOTNET_NOLOGO: true

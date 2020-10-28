@@ -104,7 +104,7 @@ ARG COMMIT_ID
 LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                                                               \
       org.opencontainers.image.title="jsii/superchain"                                                                  \
       org.opencontainers.image.description="An image to build cross-language artifacts with AWS jsii"                   \
-      org.opencontainers.image.url="https://github.com/aws/jsii/tree/master/superchain"                                 \
+      org.opencontainers.image.url="https://github.com/aws/jsii/tree/main/superchain"                                 \
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"

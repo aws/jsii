@@ -77,12 +77,12 @@ like any other class:
 | [`jsii-srcmak`]  | Community    | Generates relocatable source code in jsii languages from typescript   |
 | [`jsii-docgen`]  | Community    | Generates markdown API documentation for jsii modules                 |
 
-[`jsii`]: https://github.com/aws/jsii/tree/master/packages/jsii
-[`jsii-pacmak`]: https://github.com/aws/jsii/tree/master/packages/jsii-pacmak
-[`jsii-reflect`]: https://github.com/aws/jsii/tree/master/packages/jsii-reflect
-[`jsii-config`]: https://github.com/aws/jsii/tree/master/packages/jsii-config
-[`jsii-diff`]: https://github.com/aws/jsii/tree/master/packages/jsii-diff
-[`jsii-rosetta`]: https://github.com/aws/jsii/tree/master/packages/jsii-rosetta
+[`jsii`]: https://github.com/aws/jsii/tree/main/packages/jsii
+[`jsii-pacmak`]: https://github.com/aws/jsii/tree/main/packages/jsii-pacmak
+[`jsii-reflect`]: https://github.com/aws/jsii/tree/main/packages/jsii-reflect
+[`jsii-config`]: https://github.com/aws/jsii/tree/main/packages/jsii-config
+[`jsii-diff`]: https://github.com/aws/jsii/tree/main/packages/jsii-diff
+[`jsii-rosetta`]: https://github.com/aws/jsii/tree/main/packages/jsii-rosetta
 [`jsii-release`]: https://github.com/eladb/jsii-release
 [`jsii-srcmak`]: https://github.com/eladb/jsii-srcmak
 [`jsii-docgen`]: https://github.com/eladb/jsii-docgen

@@ -156,7 +156,7 @@ The `python` target requires two configuration entries:
 * `distName` - the [PyPI] distribution name for the package.
 * `classifiers` - a list of [trove classifiers] to declare on the package. It is
   the user's responsibility to specify *valid* values (the authoritative list of
-  valid [trove classifiers] is mastered in the [pypa/trove-classifiers] package).
+  valid [trove classifiers] is defined in the [pypa/trove-classifiers] package).
   * Some classifiers are automatically included (and should not be added to the
   `classifiers` property) based on relevant configuration from the
   `package.json` file:
