@@ -1,11 +1,11 @@
-# Workflows pertaining to the main/master branch
+# Workflows pertaining to the main branch
 name: Main
 
 on:
   pull_request:
-    branches: [main, master, release]
+    branches: [main, release]
   push:
-    branches: [main, master, release]
+    branches: [main, release]
 
 env:
   DOTNET_NOLOGO: true
@@ -275,7 +275,7 @@ jobs:
       - name: 'Windows: Put GitBash ahead of $PATH'
         if: runner.os == 'Windows'
         run: |-
-          echo "::add-path::C:\Program Files\Git\usr\bin"
+          echo "C:\Program Files\Git\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Extract Artifact
         run: |-
           echo "::group::Untar Archive"
@@ -409,14 +409,14 @@ jobs:
           npm install --no-save ${{ runner.temp }}/private/*.tgz --only=prod
 
           # Setting environment variables for next jobs
-          echo "::set-env name=JSII::${{ github.workspace }}/node_modules/.bin/jsii"
-          echo "::set-env name=CDK_BUILD_JSII::${{ github.workspace }}/node_modules/.bin/jsii"
+          echo "JSII=${{ github.workspace }}/node_modules/.bin/jsii" >> $GITHUB_ENV
+          echo "CDK_BUILD_JSII=${{ github.workspace }}/node_modules/.bin/jsii" >> $GITHUB_ENV
 
-          echo "::set-env name=PACMAK::${{ github.workspace }}/node_modules/.bin/jsii-pacmak"
-          echo "::set-env name=CDK_PACKAGE_JSII_PACMAK::${{ github.workspace }}/node_modules/.bin/jsii-pacmak"
+          echo "PACMAK=${{ github.workspace }}/node_modules/.bin/jsii-pacmak" >> $GITHUB_ENV
+          echo "CDK_PACKAGE_JSII_PACMAK=${{ github.workspace }}/node_modules/.bin/jsii-pacmak" >> $GITHUB_ENV
 
-          echo "::set-env name=ROSETTA::${{ github.workspace }}/node_modules/.bin/jsii-rosetta"
-          echo "::set-env name=CDK_PACKAGE_JSII_ROSETTA::${{ github.workspace }}/node_modules/.bin/jsii-rosetta"
+          echo "ROSETTA=${{ github.workspace }}/node_modules/.bin/jsii-rosetta" >> $GITHUB_ENV
+          echo "CDK_PACKAGE_JSII_ROSETTA=${{ github.workspace }}/node_modules/.bin/jsii-rosetta" >> $GITHUB_ENV
 
       - name: Integration Test (build)
         run: |-

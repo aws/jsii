@@ -165,7 +165,7 @@ pull_request_rules:
         approved: true
         changes_requested: false
     conditions:
-      - base=master
+      - base=main
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
       - label!=contribution/core

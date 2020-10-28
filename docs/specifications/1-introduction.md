@@ -13,11 +13,11 @@ living document that describes the current understanding of how the various
 [components](#components) of *jsii* are operating, as well as the approaches
 used to ensure consistent behavior across the various supported languages.
 
-The document is mastered with the *jsii* codebase, making it easy to determine
+The document is hosted with the *jsii* codebase, making it easy to determine
 what specification was in place at the time of a give *jsii* release (by ways of
 referring to the `vX.Y.Z` git tag). A single version of the specification is
 considered **active** at any given time: the version of the specification that
-is represented on the `HEAD` commit of the `master` branch of the [`aws/jsii`]
+is represented on the `HEAD` commit of the `main` branch of the [`aws/jsii`]
 repository. The **active** specification must be the base version for any update
 proposal.
 

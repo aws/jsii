@@ -3,9 +3,9 @@ name: Docker Images
 
 on:
   pull_request:
-    branches: [main, master, release]
+    branches: [main, release]
   push:
-    branches: [main, master, release]
+    branches: [main, release]
 
 jobs:
   superchain:
@@ -82,7 +82,7 @@ jobs:
           name: 'jsii-superchain.nightly'
           path: ${{ runner.temp }}/jsii-superchain.nightly.tar
 
-      # Only when puhsing to master/main/release from now on
+      # Only when puhsing to main/release from now on
       - name: Publish (nightly)
         if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref != 'ref/heads/release'
         run: |-
