@@ -10,30 +10,26 @@ export default class JavaScript extends Target {
   public static toPackageInfos(
     assm: spec.Assembly,
   ): { [language: string]: PackageInfo } {
+    const releaseVersion = toReleaseVersion(
+      assm.version,
+      TargetName.JAVASCRIPT,
+    );
+
     const packageInfo: PackageInfo = {
       repository: 'NPM',
-      url: `https://www.npmjs.com/package/${assm.name}/v/${toReleaseVersion(
-        assm.version,
-        TargetName.JAVASCRIPT,
-      )}`,
+      url: `https://www.npmjs.com/package/${assm.name}/v/${releaseVersion}`,
       usage: {
         'package.json': {
           language: 'js',
-          code: JSON.stringify({ [assm.name]: `^${assm.version}` }, null, 2),
+          code: JSON.stringify({ [assm.name]: `^${releaseVersion}` }, null, 2),
         },
         npm: {
           language: 'console',
-          code: `$ npm i ${assm.name}@${toReleaseVersion(
-            assm.version,
-            TargetName.JAVASCRIPT,
-          )}`,
+          code: `$ npm i ${assm.name}@${releaseVersion}`,
         },
         yarn: {
           language: 'console',
-          code: `$ yarn add ${assm.name}@${toReleaseVersion(
-            assm.version,
-            TargetName.JAVASCRIPT,
-          )}`,
+          code: `$ yarn add ${assm.name}@${releaseVersion}`,
         },
       },
     };

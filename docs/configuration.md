@@ -191,14 +191,14 @@ identifer (e.g: `1.2.3-pre.4`). Python packages distributed to [PyPI] must howev
 prerelease versions, as specified in [PEP-440]. In order to generate valid packages, only certain prerelease identifiers
 are accepted by `jsii-pacmak`, and are translated according to the following table:
 
-| Source Version (`npm`) | Python Version ([PEP-440]) | Notes                                  |
-| ---------------------- | -------------------------- | -------------------------------------- |
-| `X.Y.Z.dev.N`          | `X.Y.Z.devN`               | Development, iteration `N`.            |
-| `X.Y.Z.pre.N`          | `X.Y.Z.devN`               | Development, iteration `N`             |
-| `X.Y.Z.alpha.N`        | `X.Y.Z.aN`                 | Alpha release, iteration `N`           |
-| `X.Y.Z.beta.N`         | `X.Y.Z.bN`                 | Beta release, iteration `N`            |
-| `X.Y.Z.rc.N`           | `X.Y.Z.rcN`                | Release candidate, iteration `N`       |
-| `X.Y.Z.prN.M`          | `X.Y.Z.postN.devM`         | Post-release number `N`, iteration `M` |
+| Source Version (`npm`) | Python Version ([PEP-440]) | Notes                            |
+| ---------------------- | -------------------------- | -------------------------------- |
+| `X.Y.Z.dev.N`          | `X.Y.Z.devN`               | Development, iteration `N`.      |
+| `X.Y.Z.prN.0`          | `X.Y.Z.devM`               | Development, iteration `N`       |
+| `X.Y.Z.pre.N`          | `X.Y.Z.devN`               | Development, iteration `N`       |
+| `X.Y.Z.alpha.N`        | `X.Y.Z.aN`                 | Alpha release, iteration `N`     |
+| `X.Y.Z.beta.N`         | `X.Y.Z.bN`                 | Beta release, iteration `N`      |
+| `X.Y.Z.rc.N`           | `X.Y.Z.rcN`                | Release candidate, iteration `N` |
 
 [semver]: https://semver.org/spec/v2.0.0.html
 [pep-440]: https://www.python.org/dev/peps/pep-0440/#pre-releases
