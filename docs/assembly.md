@@ -6,7 +6,7 @@ it represents. This serves as a reference for front-end language implementors.
 
 ## Schema
 
-`.jsii` assemblies are JSON-formatted documents. The specification is mastered
+`.jsii` assemblies are JSON-formatted documents. The specification is hosted
 under the [`jsii-spec`](../packages/jsii-spec) package. Refer to the inline
 documentation in the [`spec.ts`](../packages/jsii-spec/lib/spec.ts) file for
 more information about the general content of the assembly documents.
