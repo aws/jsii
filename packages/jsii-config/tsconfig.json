@@ -3,10 +3,8 @@
   "include": [
     "**/*.ts"
   ],
-  "exclude": [
-    "test/negatives/*"
-  ],
+  "exclude": ["jest.config.ts"],
   "references": [
-    { "path": "../@jsii/spec" }
-  ]
+    { "path": "../@jsii/spec" },
+  ],
 }

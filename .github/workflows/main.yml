@@ -1,11 +1,11 @@
-# Workflows pertaining to the main/master branch
+# Workflows pertaining to the main branch
 name: Main
 
 on:
   pull_request:
-    branches: [main, master, release]
+    branches: [main, release]
   push:
-    branches: [main, master, release]
+    branches: [main, release]
 
 env:
   DOTNET_NOLOGO: true
@@ -31,7 +31,7 @@ jobs:
         with:
           java-version: '8'
       - name: Set up Node 12
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: '12'
       - name: Set up Python 3.6
@@ -90,6 +90,19 @@ jobs:
         with:
           name: built-tree
           path: ${{ runner.temp }}/built-tree.tar.xz
+      # Ensure working directory is clean (build should not change checked in source code)
+      - name: 'Assert clean working directory'
+        if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
+        run: |-
+          # Make sure the index is up-to-date (git diff-index assumes it was done)
+          git update-index --refresh
+          # Check for modifications in tracked files
+          git diff-index --exit-code --stat HEAD
+          # Check for new untracked files
+          untracked=$(git ls-files --others --exclude-standard)                 \
+            && echo "Untracked files: ${untracked:-<none>}"                     \
+            && test -z "${untracked}"
+        shell: bash
 
   create-release-package:
     name: Create Release Package
@@ -105,7 +118,7 @@ jobs:
         with:
           java-version: '8'
       - name: Set up Node 12
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: '12'
       - name: Set up Python 3.6
@@ -150,14 +163,14 @@ jobs:
         run: |-
           npx standard-version                                                                                          \
             --compareUrlFormat='{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${{ github.sha }}'          \
-            --prerelease=pr${{ github.event.pull_request.number }}                                                      \
+            --prerelease=dev.${{ github.event.pull_request.number }}                                                    \
             --skip.commit
       - name: Standard Version (Nightly)
         if: github.event_name == 'push'
         run: |-
           npx standard-version                                                                                          \
             --compareUrlFormat='{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...${{ github.sha }}'          \
-            --prerelease=nightly.$(date -u +'%Y%m%d')                                                                   \
+            --prerelease=dev.$(date -u +'%Y%m%d')                                                                       \
             --skip.commit
       # Now we'll be preparing a release package (with the "real" version)
       - name: Run "align-version.sh"
@@ -204,7 +217,7 @@ jobs:
             python: '3.6'
           # Test alternate .NETs
           - java: '8'
-            dotnet: '5.0.100-rc.1.20452.10' # Pre-release matching requires exact version for now
+            dotnet: '5.0.100-rc.2.20479.15' # Pre-release matching requires exact version for now
             node: '10'
             os: ubuntu-latest
             python: '3.6'
@@ -239,7 +252,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Set up Node ${{ matrix.node }}
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node }}
       - name: Set up Python ${{ matrix.python }}
@@ -262,7 +275,7 @@ jobs:
       - name: 'Windows: Put GitBash ahead of $PATH'
         if: runner.os == 'Windows'
         run: |-
-          echo "::add-path::C:\Program Files\Git\usr\bin"
+          echo "C:\Program Files\Git\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Extract Artifact
         run: |-
           echo "::group::Untar Archive"
@@ -303,6 +316,19 @@ jobs:
       - name: Test
         run: |-
           yarn test
+      # Ensure working directory is clean (tests should not change checked in source code)
+      - name: 'Assert clean working directory'
+        if: runner.os != 'Windows' # Windows will see artificial permission changes, so we ignore it
+        run: |-
+          # Make sure the index is up-to-date (git diff-index assumes it was done)
+          git update-index --refresh
+          # Check for modifications in tracked files
+          git diff-index --exit-code --stat HEAD
+          # Check for new untracked files
+          untracked=$(git ls-files --others --exclude-standard)                 \
+            && echo "Untracked files: ${untracked:-<none>}"                     \
+            && test -z "${untracked}"
+        shell: bash
 
   integ-test:
     name: Integration Test
@@ -320,7 +346,7 @@ jobs:
         with:
           java-version: '8'
       - name: Set up Node 10
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: '10'
       - name: Set up Python 3.6
@@ -383,19 +409,22 @@ jobs:
           npm install --no-save ${{ runner.temp }}/private/*.tgz --only=prod
 
           # Setting environment variables for next jobs
-          echo "::set-env name=JSII::${{ github.workspace }}/node_modules/.bin/jsii"
-          echo "::set-env name=CDK_BUILD_JSII::${{ github.workspace }}/node_modules/.bin/jsii"
+          echo "JSII=${{ github.workspace }}/node_modules/.bin/jsii" >> $GITHUB_ENV
+          echo "CDK_BUILD_JSII=${{ github.workspace }}/node_modules/.bin/jsii" >> $GITHUB_ENV
 
-          echo "::set-env name=PACMAK::${{ github.workspace }}/node_modules/.bin/jsii-pacmak"
-          echo "::set-env name=CDK_PACKAGE_JSII_PACMAK::${{ github.workspace }}/node_modules/.bin/jsii-pacmak"
+          echo "PACMAK=${{ github.workspace }}/node_modules/.bin/jsii-pacmak" >> $GITHUB_ENV
+          echo "CDK_PACKAGE_JSII_PACMAK=${{ github.workspace }}/node_modules/.bin/jsii-pacmak" >> $GITHUB_ENV
 
-          echo "::set-env name=ROSETTA::${{ github.workspace }}/node_modules/.bin/jsii-rosetta"
-          echo "::set-env name=CDK_PACKAGE_JSII_ROSETTA::${{ github.workspace }}/node_modules/.bin/jsii-rosetta"
+          echo "ROSETTA=${{ github.workspace }}/node_modules/.bin/jsii-rosetta" >> $GITHUB_ENV
+          echo "CDK_PACKAGE_JSII_ROSETTA=${{ github.workspace }}/node_modules/.bin/jsii-rosetta" >> $GITHUB_ENV
 
       - name: Integration Test (build)
         run: |-
-          npx lerna run build --stream 2>&1 > ${{ runner.temp }}/build.log
+          npx lerna run build --concurrency=2 --stream 2>&1 > ${{ runner.temp }}/build.log
         working-directory: aws-cdk
+        env:
+          # Make lots of memory available, aws-cdk-lib is __large__
+          NODE_OPTIONS: --max-old-space-size=8192
 
         # In the interest of speed, only process monocdk-experiment / aws-cdk-lib from now on
       - name: Integration Test (jsii-rosetta)

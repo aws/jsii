@@ -1,12 +1,14 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
 import { CodeMaker } from 'codemaker';
-import { Documentation } from './go/documentation';
+import * as fs from 'fs-extra';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
-import { RootPackage } from './go/package';
+import * as path from 'path';
+
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
+import { Documentation } from './go/documentation';
+import { RootPackage } from './go/package';
+import { JSII_INIT_PACKAGE } from './go/runtime';
 import { goPackageName } from './go/util';
 
 export class Golang extends Target {
@@ -31,7 +33,10 @@ export class Golang extends Target {
 
 class GoGenerator implements IGenerator {
   private assembly!: Assembly;
-  private readonly code = new CodeMaker();
+  private readonly code = new CodeMaker({
+    indentCharacter: '\t',
+    indentationLevel: 1,
+  });
   private readonly documenter: Documentation;
 
   public constructor(private readonly rosetta: Rosetta) {
@@ -55,61 +60,37 @@ class GoGenerator implements IGenerator {
   }
 
   public async save(outDir: string, tarball: string): Promise<any> {
-    const output = path.join(outDir, goPackageName(this.assembly.name));
-    const fullPath = path.resolve(
-      path.join(output, '_jsii', this.getAssemblyFileName()),
-    );
-    await fs.mkdirp(path.dirname(fullPath));
-    await fs.copy(tarball, fullPath, { overwrite: true });
+    await this.embedTarball(tarball);
 
+    const output = path.join(outDir, goPackageName(this.assembly.name));
     await this.code.save(output);
   }
 
-  private getAssemblyFileName() {
-    let name = this.assembly.name;
-    const parts = name.split('/');
+  private async embedTarball(source: string) {
+    const data = await fs.readFile(source);
+    const bytesPerLine = 16;
 
-    if (parts.length === 1) {
-      name = parts[0];
-    } else if (parts.length === 2 && parts[0].startsWith('@')) {
-      name = parts[1];
-    } else {
-      throw new Error(
-        'Malformed assembly name. Expecting either <name> or @<scope>/<name>',
-      );
+    const file = path.join(JSII_INIT_PACKAGE, 'tarball.embedded.go');
+    this.code.openFile(file);
+    this.code.line(`package ${JSII_INIT_PACKAGE}`);
+    this.code.line();
+    this.code.open('var tarball = []byte{');
+    for (let i = 0; i < data.byteLength; i += bytesPerLine) {
+      const encoded = Array.from(data.slice(i, i + bytesPerLine))
+        .map((byte) => `0x${byte.toString(16).padStart(2, '0')}`)
+        .join(', ');
+      this.code.line(`${encoded},`);
     }
-
-    return `${name}@${this.assembly.version}.jsii.tgz`;
+    this.code.close('}');
+    this.code.line();
+    // Check the byte slice has the expect size
+    this.code.open('func init() {');
+    this.code.open(`if len(tarball) != ${data.byteLength} {`);
+    this.code.line(
+      `panic("Tarball data does not have expected length (${data.byteLength} bytes)")`,
+    );
+    this.code.close('}');
+    this.code.close('}');
+    this.code.closeFile(file);
   }
 }
-
-// TODO: Replace with
-// async function* encodedSlices(path: string, sliceSize = 16) {
-//   const slice = Buffer.alloc(sliceSize);
-
-//   const fd = await fs.open(path, fs.constants.O_RDONLY);
-
-//   while (true) {
-//     // eslint-disable-next-line no-await-in-loop
-//     const { bytesRead } = await fs.read(fd, slice, 0, slice.length, null);
-//     if (bytesRead === 0) {
-//       return fs.close(fd);
-//     }
-//     yield inGroupsOf(slice.toString('hex', 0, bytesRead - 1), 2)
-//       .map((byte) => `0x${byte}`)
-//       .join(', ');
-//   }
-
-//   function inGroupsOf(str: string, count: number) {
-//     if (str.length % count !== 0) {
-//       throw new Error(
-//         `Expected a string with a multiple of ${count} characters, but it has ${str.length}`,
-//       );
-//     }
-//     const result = new Array<string>();
-//     for (let i = 0; i < str.length; i += count) {
-//       result.push(str.slice(i, i + count));
-//     }
-//     return result;
-//   }
-// }

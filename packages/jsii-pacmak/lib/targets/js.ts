@@ -1,26 +1,35 @@
 import * as spec from '@jsii/spec';
+
 import { Generator } from '../generator';
 import { PackageInfo, Target } from '../target';
+import { toReleaseVersion } from './version-utils';
+
+import { TargetName } from '.';
 
 export default class JavaScript extends Target {
   public static toPackageInfos(
     assm: spec.Assembly,
   ): { [language: string]: PackageInfo } {
+    const releaseVersion = toReleaseVersion(
+      assm.version,
+      TargetName.JAVASCRIPT,
+    );
+
     const packageInfo: PackageInfo = {
       repository: 'NPM',
-      url: `https://www.npmjs.com/package/${assm.name}/v/${assm.version}`,
+      url: `https://www.npmjs.com/package/${assm.name}/v/${releaseVersion}`,
       usage: {
         'package.json': {
           language: 'js',
-          code: JSON.stringify({ [assm.name]: `^${assm.version}` }, null, 2),
+          code: JSON.stringify({ [assm.name]: `^${releaseVersion}` }, null, 2),
         },
         npm: {
           language: 'console',
-          code: `$ npm i ${assm.name}@${assm.version}`,
+          code: `$ npm i ${assm.name}@${releaseVersion}`,
         },
         yarn: {
           language: 'console',
-          code: `$ yarn add ${assm.name}@${assm.version}`,
+          code: `$ yarn add ${assm.name}@${releaseVersion}`,
         },
       },
     };

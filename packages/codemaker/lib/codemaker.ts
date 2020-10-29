@@ -1,4 +1,5 @@
 import * as util from 'util';
+
 import * as caseutils from './case-utils';
 import FileBuffer from './filebuff';
 
@@ -9,12 +10,29 @@ export class CodeMaker {
   /**
    * The indentation level of the file.
    */
-  public indentation = 4;
+  public indentation: number;
+
+  /**
+   * The character to use for indentation. When setting this to `\t`, consider
+   * also setting `indentation` to `1`.
+   */
+  public indentCharacter: ' ' | '\t';
 
   private currIndent = 0;
   private currentFile?: FileBuffer;
   private readonly files = new Array<FileBuffer>();
   private readonly excludes = new Array<string>();
+
+  public constructor({
+    indentationLevel = 4,
+    indentCharacter = ' ',
+  }: {
+    indentationLevel?: CodeMaker['indentation'];
+    indentCharacter?: CodeMaker['indentCharacter'];
+  } = {}) {
+    this.indentation = indentationLevel;
+    this.indentCharacter = indentCharacter;
+  }
 
   public get currentIndentLength(): number {
     return this.currIndent * this.indentation;
@@ -183,6 +201,6 @@ export class CodeMaker {
     if (length <= 0) {
       return '';
     }
-    return ' '.repeat(length);
+    return this.indentCharacter.repeat(length);
   }
 }

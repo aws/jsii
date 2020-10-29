@@ -11,6 +11,7 @@ import java.util.Set;
 /**
  * Represents a remote jsii object reference.
  */
+@Internal
 public final class JsiiObjectRef {
 
     /**

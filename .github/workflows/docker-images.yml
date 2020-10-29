@@ -1,0 +1,95 @@
+# Workflows pertaining to the jsii/superchain Docker image
+name: Docker Images
+
+on:
+  pull_request:
+    branches: [main, release]
+  push:
+    branches: [main, release]
+
+jobs:
+  superchain:
+    name: jsii/superchain
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      # Determine if we should run the validation or not
+      - name: Should this run?
+        id: should-run
+        run: |-
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo '⏯ Triggered by "push" event'
+            echo "::set-output name=result::true"
+          elif [ "${{ github.base_ref }}" = "release" ]; then
+            echo '⏯ Triggered by "pull_request" event against "release"'
+            echo "::set-output name=result::true"
+          else
+            # Fetch the base and head refs from origin so we can safely diff 'em
+            git fetch --depth=1 --quiet origin ${{ github.base_ref }}
+            # Otherwise, only run if the Dockerfile changed
+            changed=$(git diff --name-only origin/${{ github.base_ref }}..HEAD)
+            if grep Dockerfile <<< "${changed}" ; then
+              echo '⏯ Dockerfile changed'
+              echo "::set-output name=result::true"
+            else
+              echo '⏭ Dockerfile not changed'
+              echo "::set-output name=result::false"
+            fi
+          fi
+
+      # We only authenticate to Docker for 'push' events, as 'pull_request' from forks will not have the secret
+      - name: Login to Docker
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push'
+        # The DOCKER_CREDENTIALS secret is expected to contain a username:token pair
+        run: |-
+          docker login                                                          \
+            --username=$(cut -d: -f1 <<< '${{ secrets.DOCKER_CREDENTIALS }}')   \
+            --password=$(cut -d: -f2 <<< '${{ secrets.DOCKER_CREDENTIALS }}')
+        # Ensure we run with bash, because that's the syntax we're using here...
+        shell: bash
+
+      - name: Build Image
+        if: steps.should-run.outputs.result == 'true'
+        run: |-
+          docker build                                                          \
+            --pull                                                              \
+            --build-arg BUILD_TIMESTAMP="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"      \
+            --build-arg COMMIT_ID='${{ github.sha }}'                           \
+            --tag 'jsii/superchain:nightly'                                     \
+            ./superchain
+      - name: Test Image
+        if: steps.should-run.outputs.result == 'true'
+        run: |-
+          docker run                                                            \
+            --rm                                                                \
+            --tty                                                               \
+            --network=host                                                      \
+            -v${{ github.workspace }}:${{ github.workspace }}                   \
+            -w${{ github.workspace }}                                           \
+            'jsii/superchain:nightly'                                           \
+            bash -c "yarn install --frozen-lockfile && yarn build && yarn test"
+      - name: Dump Image
+        if: steps.should-run.outputs.result == 'true'
+        run: |-
+          docker image save 'jsii/superchain:nightly'                           \
+            > ${{ runner.temp }}/jsii-superchain.nightly.tar
+      - name: Upload Artifact
+        if: steps.should-run.outputs.result == 'true'
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'jsii-superchain.nightly'
+          path: ${{ runner.temp }}/jsii-superchain.nightly.tar
+
+      # Only when puhsing to main/release from now on
+      - name: Publish (nightly)
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref != 'ref/heads/release'
+        run: |-
+          docker push jsii/superchain:nightly
+      - name: Publish (latest)
+        if: steps.should-run.outputs.result == 'true' && github.event_name == 'push' && github.ref == 'ref/heads/release'
+        run: |-
+          docker tag jsii/superchain:nightly jsii/superchain:latest
+          docker push jsii/superchain:latest
+

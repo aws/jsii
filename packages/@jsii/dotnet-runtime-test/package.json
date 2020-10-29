@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
-    "@types/node": "^10.17.35",
+    "@types/node": "^10.17.44",
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "typescript": "~3.9.7"

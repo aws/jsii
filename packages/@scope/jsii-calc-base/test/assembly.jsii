@@ -18,7 +18,7 @@
           "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
         },
         "go": {
-          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+          "moduleName": "github.com/aws-cdk/jsii/jsii-calc/go"
         },
         "java": {
           "maven": {
@@ -41,6 +41,13 @@
   "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.0.0",
   "license": "Apache-2.0",
+  "metadata": {
+    "jsii": {
+      "pacmak": {
+        "hasDefaultInterfaces": false
+      }
+    }
+  },
   "name": "@scope/jsii-calc-base",
   "repository": {
     "directory": "packages/@scope/jsii-calc-base",
@@ -54,7 +61,7 @@
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
     },
     "go": {
-      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+      "moduleName": "github.com/aws-cdk/jsii/jsii-calc/go"
     },
     "java": {
       "maven": {
@@ -157,5 +164,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "wIp2/3p7NHxnOxUbXktrzg6Y+CqdjDLxChiFLMaYQXc="
+  "fingerprint": "5eEZgTecKzEaeEs7p70e7+fyVMKVp/Qt5h9Hk0yvWAE="
 }

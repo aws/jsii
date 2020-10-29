@@ -1,13 +1,14 @@
+import * as spec from '@jsii/spec';
 import * as Case from 'case';
 import * as colors from 'colors/safe';
 import * as crypto from 'crypto';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import deepEqual = require('deep-equal');
 import * as fs from 'fs-extra';
-import * as spec from '@jsii/spec';
 import * as log4js from 'log4js';
 import * as path from 'path';
 import * as ts from 'typescript';
+
 import {
   getReferencedDocParams,
   parseSymbolDocumentation,
@@ -18,11 +19,10 @@ import { JsiiDiagnostic } from './jsii-diagnostic';
 import * as literate from './literate';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
+import { TsCommentReplacer } from './ts-comment-replacer';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 import { enabledWarnings } from './warnings';
-import { TsCommentReplacer } from './ts-comment-replacer';
-import { Docs, Parameter } from '@jsii/spec';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const sortJson = require('sort-json');
@@ -697,8 +697,7 @@ export class Assembler implements Emitter {
 
           this._diagnostics.push(
             JsiiDiagnostic.JSII_3003_SYMBOL_IS_EXPORTED_TWICE.create(
-              (symbol.valueDeclaration as { name?: ts.Node }).name ??
-                symbol.valueDeclaration,
+              _nameOrDeclarationNode(symbol),
               refs[0].name,
               refs[1].name,
             )
@@ -876,7 +875,7 @@ export class Assembler implements Emitter {
       return allTypes;
     } else {
       this._diagnostics.push(
-        JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(node, node.kind),
+        JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(node, node.kind),
       );
     }
 
@@ -899,13 +898,10 @@ export class Assembler implements Emitter {
         (name) => `${this.projectInfo.name}.${name}` === jsiiType!.fqn,
       );
       if (colliding != null) {
-        const submoduleDecl =
-          submodule.valueDeclaration ?? submodule.declarations[0];
-        const submoduleDeclName =
-          (submoduleDecl as { name?: ts.Node }).name ?? submoduleDecl;
+        const submoduleDeclName = _nameOrDeclarationNode(submodule);
         this._diagnostics.push(
           JsiiDiagnostic.JSII_5011_SUBMODULE_NAME_CONFLICT.create(
-            (node as { name?: ts.Node }).name ?? node,
+            ts.getNameOfDeclaration(node) ?? node,
             submodule.name,
             jsiiType.name,
             candidates,
@@ -941,7 +937,7 @@ export class Assembler implements Emitter {
           if (nestedType.namespace !== nestedContext.namespace.join('.')) {
             this._diagnostics.push(
               JsiiDiagnostic.JSII_5012_NAMESPACE_IN_TYPE.create(
-                (node as { name?: ts.Node }).name ?? node,
+                ts.getNameOfDeclaration(node) ?? node,
                 jsiiType.fqn,
                 nestedType.namespace!,
               ),
@@ -1167,7 +1163,7 @@ export class Assembler implements Emitter {
           continue;
         } else if (clause.token !== ts.SyntaxKind.ImplementsKeyword) {
           this._diagnostics.push(
-            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
+            JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(
               clause,
               `Ignoring ${ts.SyntaxKind[clause.token]} heritage clause`,
             ),
@@ -1240,10 +1236,18 @@ export class Assembler implements Emitter {
       }
 
       for (const memberDecl of classDecl.members) {
-        // The "??" is to get to the __constructor symbol (getSymbolAtLocation wouldn't work there..)
-        const member =
-          this._typeChecker.getSymbolAtLocation(memberDecl.name!) ??
-          ((memberDecl as any).symbol as ts.Symbol);
+        if (ts.isSemicolonClassElement(memberDecl)) {
+          this._diagnostics.push(
+            JsiiDiagnostic.JSII_9996_UNNECESSARY_TOKEN.create(memberDecl),
+          );
+          continue;
+        }
+
+        const member: ts.Symbol = ts.isConstructorDeclaration(memberDecl)
+          ? (memberDecl as any).symbol
+          : this._typeChecker.getSymbolAtLocation(
+              ts.getNameOfDeclaration(memberDecl)!,
+            )!;
 
         if (
           !(declaringType.symbol.getDeclarations() ?? []).find(
@@ -1288,7 +1292,7 @@ export class Assembler implements Emitter {
           );
         } else {
           this._diagnostics.push(
-            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
+            JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(
               memberDecl,
               memberDecl.kind,
             ),
@@ -1503,7 +1507,7 @@ export class Assembler implements Emitter {
    */
   private _isPrivateOrInternal(
     symbol: ts.Symbol,
-    validateDeclaration?: ts.Declaration & { name?: ts.Node },
+    validateDeclaration?: ts.Declaration,
   ): boolean {
     const hasInternalJsDocTag = _hasInternalJsDocTag(symbol);
     const hasUnderscorePrefix =
@@ -1527,7 +1531,7 @@ export class Assembler implements Emitter {
       if (!hasUnderscorePrefix) {
         this._diagnostics.push(
           JsiiDiagnostic.JSII_8005_INTERNAL_UNDERSCORE.create(
-            validateDeclaration.name ?? validateDeclaration,
+            ts.getNameOfDeclaration(validateDeclaration) ?? validateDeclaration,
             symbol.name,
           ),
         );
@@ -1536,7 +1540,7 @@ export class Assembler implements Emitter {
       if (!hasInternalJsDocTag) {
         this._diagnostics.push(
           JsiiDiagnostic.JSII_8006_UNDERSCORE_INTERNAL.create(
-            validateDeclaration.name ?? validateDeclaration,
+            ts.getNameOfDeclaration(validateDeclaration) ?? validateDeclaration,
             symbol.name,
           ),
         );
@@ -1745,11 +1749,10 @@ export class Assembler implements Emitter {
               type.symbol.declarations[0]) as ts.InterfaceDeclaration,
           );
         } else {
-          const declaration = member.valueDeclaration ?? member.declarations[0];
           this._diagnostics.push(
-            JsiiDiagnostic.JSII_9998_UNSUPORTED_NODE.create(
-              declaration,
-              declaration.kind,
+            JsiiDiagnostic.JSII_9998_UNSUPPORTED_NODE.create(
+              _nameOrDeclarationNode(member),
+              (member.valueDeclaration ?? member.declarations[0]).kind,
             ),
           );
         }
@@ -1781,7 +1784,7 @@ export class Assembler implements Emitter {
         if (!jsiiType.datatype && !interfaceName) {
           this._diagnostics.push(
             JsiiDiagnostic.JSII_8007_BEHAVIORAL_INTERFACE_NAME.create(
-              (declaration as { name?: ts.Node }).name ?? declaration,
+              ts.getNameOfDeclaration(declaration) ?? declaration,
               jsiiType.name,
             ),
           );
@@ -1797,11 +1800,9 @@ export class Assembler implements Emitter {
           for (const prop of jsiiType.properties ?? []) {
             if (!prop.immutable) {
               const p = type.getProperty(prop.name)!;
-              const declaration: ts.Node & { name?: ts.Node } =
-                p.valueDeclaration ?? p.declarations[0];
               this._diagnostics.push(
                 JsiiDiagnostic.JSII_3008_STRUCT_PROPS_MUST_BE_READONLY.create(
-                  declaration.name ?? declaration,
+                  _nameOrDeclarationNode(p),
                   p.name,
                   jsiiType,
                 ),
@@ -2496,8 +2497,8 @@ export class Assembler implements Emitter {
    */
   private overrideDocComment(
     symbol?: ts.Symbol,
-    docs?: Docs,
-    parameters?: Record<string, Docs>,
+    docs?: spec.Docs,
+    parameters?: Record<string, spec.Docs>,
   ) {
     if (!docs || !symbol) {
       return;
@@ -2528,7 +2529,7 @@ export class Assembler implements Emitter {
    * We put the "(experimental)"/"(deprecated)" status into the doc
    * comment summary, so that it's presented front and center.
    */
-  private docCommentDocs(docs: Readonly<Docs>): Docs {
+  private docCommentDocs(docs: Readonly<spec.Docs>): spec.Docs {
     // Modify the summary if this API element has a special stability
     if (docs.stability === spec.Stability.Experimental && docs.summary) {
       return {
@@ -3026,8 +3027,10 @@ async function findPackageInfo(fromDir: string): Promise<any> {
   return findPackageInfo(parent);
 }
 
-function paramDocs(params?: Parameter[]): Record<string, Docs> {
-  const ret: Record<string, Docs> = {};
+function paramDocs(
+  params?: readonly spec.Parameter[],
+): Record<string, spec.Docs> {
+  const ret: Record<string, spec.Docs> = {};
   for (const param of params ?? []) {
     if (param.docs) {
       ret[param.name] = param.docs;
@@ -3046,6 +3049,19 @@ function paramDocs(params?: Parameter[]): Record<string, Docs> {
  */
 function _isThisType(type: ts.Type, typeChecker: ts.TypeChecker): boolean {
   return typeChecker.typeToTypeNode(type)?.kind === ts.SyntaxKind.ThisKeyword;
+}
+
+/**
+ * Gets the name node for a given symbol; or it's first declaration if no name can be found. This is
+ * intended for use in placing problem markers on the right location.
+ *
+ * @param symbol the symbol for which the name node is needed.
+ *
+ * @returns the name node for the symbol, or the symbol's first declaration.
+ */
+function _nameOrDeclarationNode(symbol: ts.Symbol): ts.Node {
+  const declaration = symbol.valueDeclaration ?? symbol.declarations[0];
+  return ts.getNameOfDeclaration(declaration) ?? declaration;
 }
 
 /**

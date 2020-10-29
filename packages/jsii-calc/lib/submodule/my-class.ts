@@ -1,6 +1,7 @@
-import { nested_submodule } from './nested_submodule';
-import { Awesomeness, Goodness, SomeStruct } from './child';
 import { AllTypes } from '..';
+import { Awesomeness, Goodness, SomeStruct } from './child';
+import { nested_submodule } from './nested_submodule';
+import { SpecialParameter } from './param';
 
 export class MyClass implements nested_submodule.deeplyNested.INamespaced {
   public readonly definedAt = __filename;
@@ -9,4 +10,8 @@ export class MyClass implements nested_submodule.deeplyNested.INamespaced {
   public allTypes?: AllTypes;
 
   public constructor(public readonly props: SomeStruct) {}
+
+  public methodWithSpecialParam(param: SpecialParameter) {
+    return param.value;
+  }
 }

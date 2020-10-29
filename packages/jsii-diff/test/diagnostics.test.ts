@@ -125,3 +125,36 @@ test('changing stable to experimental is breaking', async () => {
   ).toBeTruthy();
   expect(hasErrors(diags)).toBeTruthy();
 });
+
+// ----------------------------------------------------------------------
+
+test('can make fields optional in output struct if it is marked @external', async () => {
+  const mms = await compare(
+    `
+    /** @stability external */
+    export interface TheStruct {
+      readonly fieldOne: string;
+    }
+
+    export interface IConsumer {
+      foo(): TheStruct;
+    }
+    `,
+    `
+    /** @stability external */
+    export interface TheStruct {
+      readonly fieldOne?: string;
+    }
+
+    export interface IConsumer {
+      foo(): TheStruct;
+    }
+    `,
+  );
+
+  const experimentalErrors = true;
+  const diags = classifyDiagnostics(mms, experimentalErrors, new Set());
+
+  expect(diags.length).toBe(1);
+  expect(hasErrors(diags)).toBeFalsy();
+});

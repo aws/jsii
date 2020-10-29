@@ -1,4 +1,2 @@
-jsii-experimental/embedded/*
-jsii-calc
-
-!jsii-experimental/embedded/.gitkeep
+/jsii-calc/
+*.generated.go

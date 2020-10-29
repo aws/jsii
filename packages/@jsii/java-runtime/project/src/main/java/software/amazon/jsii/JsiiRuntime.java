@@ -22,6 +22,7 @@ import static software.amazon.jsii.Util.extractResource;
 /**
  * Manages the jsii-runtime child process.
  */
+@Internal
 public final class JsiiRuntime {
     /**
      * Extract the "+<sha>" postfix from a full version number.
@@ -239,7 +240,7 @@ public final class JsiiRuntime {
         try {
             this.childProcess = pb.start();
         } catch (IOException e) {
-            throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)");
+            throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)", e);
         }
 
         OutputStreamWriter stdinStream = new OutputStreamWriter(this.childProcess.getOutputStream(), StandardCharsets.UTF_8);
@@ -369,7 +370,6 @@ public final class JsiiRuntime {
             entrypoint.toFile().deleteOnExit();
 
             extractResource(getClass(), "jsii-runtime.js.map", directory).toFile().deleteOnExit();
-            extractResource(getClass(), "mappings.wasm", directory).toFile().deleteOnExit();
 
             return entrypoint.toString();
         } catch (IOException e) {

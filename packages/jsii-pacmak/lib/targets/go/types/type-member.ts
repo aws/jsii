@@ -1,8 +1,11 @@
-import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
 import { toPascalCase } from 'codemaker';
-import { EmitContext } from '../emit-context';
 import { Method, Parameter, Property } from 'jsii-reflect';
+
+import { EmitContext } from '../emit-context';
+import { emitInitialization } from '../runtime';
 import { substituteReservedWords } from '../util';
+
+import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
 
 /*
  * Structure for Class and Interface methods. Useful for sharing logic for dependency resolution
@@ -12,6 +15,9 @@ export interface GoTypeMember {
   parent: GoClass | Interface | Struct;
   reference?: GoTypeRef;
   returnType: string;
+
+  usesInitPackage: boolean;
+  usesRuntimePackage: boolean;
 }
 
 /*
@@ -22,6 +28,7 @@ export class GoProperty implements GoTypeMember {
   public readonly name: string;
   public readonly getter: string;
   public readonly reference?: GoTypeRef;
+  public readonly immutable: boolean;
 
   public constructor(
     public parent: GoStruct,
@@ -29,10 +36,23 @@ export class GoProperty implements GoTypeMember {
   ) {
     this.name = toPascalCase(this.property.name);
     this.getter = `Get${this.name}`;
+    this.immutable = property.immutable;
 
     if (property.type) {
       this.reference = new GoTypeRef(parent.pkg.root, property.type);
     }
+  }
+
+  public get usesInitPackage() {
+    return this.static;
+  }
+
+  public get usesRuntimePackage() {
+    return true;
+  }
+
+  public get static(): boolean {
+    return !!this.property.static;
   }
 
   public get returnType(): string {
@@ -64,7 +84,7 @@ export class GoProperty implements GoTypeMember {
 
   public emitSetterDecl(context: EmitContext) {
     const { code } = context;
-    if (!this.property.protected) {
+    if (!this.property.protected && !this.immutable) {
       code.line(`Set${this.name}(val ${this.returnType})`);
     }
   }
@@ -81,6 +101,10 @@ export class GoProperty implements GoTypeMember {
       }()${` ${this.returnType}`}`,
     );
 
+    if (this.property.static) {
+      emitInitialization(code);
+    }
+
     if (this.parent.name === this.returnType) {
       code.line(`return *${instanceArg}.${this.name}`);
     } else {
@@ -91,21 +115,27 @@ export class GoProperty implements GoTypeMember {
   }
 
   public emitSetterImpl(context: EmitContext) {
-    const { code } = context;
-    const receiver = this.parent.name;
-    const instanceArg = receiver.substring(0, 1).toLowerCase();
+    if (!this.immutable) {
+      const { code } = context;
+      const receiver = this.parent.name;
+      const instanceArg = receiver.substring(0, 1).toLowerCase();
 
-    code.openBlock(
-      `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
-    );
+      code.openBlock(
+        `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
+      );
 
-    if (this.parent.name === this.returnType) {
-      code.line(`${instanceArg}.${this.name} = &val`);
-    } else {
-      code.line(`${instanceArg}.${this.name} = val`);
+      if (this.property.static) {
+        emitInitialization(code);
+      }
+
+      if (this.parent.name === this.returnType) {
+        code.line(`${instanceArg}.${this.name} = &val`);
+      } else {
+        code.line(`${instanceArg}.${this.name} = val`);
+      }
+      code.closeBlock();
+      code.line();
     }
-    code.closeBlock();
-    code.line();
   }
 }
 
@@ -129,6 +159,8 @@ export abstract class GoMethod implements GoTypeMember {
   }
 
   public abstract emit(context: EmitContext): void;
+  public abstract get usesInitPackage(): boolean;
+  public abstract get usesRuntimePackage(): boolean;
 
   public get returnType(): string {
     const ret = this.method.returns.type.void
@@ -150,6 +182,7 @@ export abstract class GoMethod implements GoTypeMember {
 export class GoParameter {
   public readonly name: string;
   public readonly reference: GoTypeRef;
+
   public constructor(
     public parent: GoClass | Interface,
     public readonly parameter: Parameter,
@@ -157,10 +190,9 @@ export class GoParameter {
     this.name = substituteReservedWords(parameter.name);
     this.reference = new GoTypeRef(parent.pkg.root, parameter.type);
   }
+
   public toString(): string {
     const paramType = this.reference.scopedName(this.parent.pkg);
     return `${this.name} ${paramType}`;
   }
-
-  // return parameters.length === 0 ? '' : parameters.join(', ');
 }

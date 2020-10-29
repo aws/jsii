@@ -90,7 +90,7 @@ kwargs = json.loads(
 """
 )
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     kwargs["long_description"] = fp.read()
 
 
@@ -336,7 +336,7 @@ kwargs = json.loads(
 """
 )
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     kwargs["long_description"] = fp.read()
 
 
@@ -578,7 +578,7 @@ kwargs = json.loads(
 """
 )
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     kwargs["long_description"] = fp.read()
 
 
@@ -1304,10 +1304,14 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
              ┃  ┗━ 📄 __init__.py
              ┣━ 📁 isolated
              ┃  ┗━ 📄 __init__.py
-             ┗━ 📁 nested_submodule
-                ┣━ 📄 __init__.py
-                ┗━ 📁 deeply_nested
-                   ┗━ 📄 __init__.py
+             ┣━ 📁 nested_submodule
+             ┃  ┣━ 📄 __init__.py
+             ┃  ┗━ 📁 deeply_nested
+             ┃     ┗━ 📄 __init__.py
+             ┣━ 📁 param
+             ┃  ┗━ 📄 __init__.py
+             ┗━ 📁 returnsparam
+                ┗━ 📄 __init__.py
 `;
 
 exports[`Generated code for "jsii-calc": <outDir>/python/MANIFEST.in 1`] = `
@@ -1389,7 +1393,9 @@ kwargs = json.loads(
         "jsii_calc.submodule.child",
         "jsii_calc.submodule.isolated",
         "jsii_calc.submodule.nested_submodule",
-        "jsii_calc.submodule.nested_submodule.deeply_nested"
+        "jsii_calc.submodule.nested_submodule.deeply_nested",
+        "jsii_calc.submodule.param",
+        "jsii_calc.submodule.returnsparam"
     ],
     "package_data": {
         "jsii_calc._jsii": [
@@ -1424,7 +1430,7 @@ kwargs = json.loads(
 """
 )
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     kwargs["long_description"] = fp.read()
 
 
@@ -9178,6 +9184,7 @@ from .child import (
     SomeStruct as _SomeStruct_91627123,
 )
 from .nested_submodule.deeply_nested import INamespaced as _INamespaced_e2f386ad
+from .param import SpecialParameter as _SpecialParameter_5bbf34a2
 
 
 @jsii.implements(_INamespaced_e2f386ad)
@@ -9189,6 +9196,15 @@ class MyClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.submodule.MyClass"):
         props = _SomeStruct_91627123(prop=prop)
 
         jsii.create(MyClass, self, [props])
+
+    @jsii.member(jsii_name="methodWithSpecialParam")
+    def method_with_special_param(self, *, value: builtins.str) -> builtins.str:
+        """
+        :param value: 
+        """
+        param = _SpecialParameter_5bbf34a2(value=value)
+
+        return jsii.invoke(self, "methodWithSpecialParam", [param])
 
     @builtins.property # type: ignore
     @jsii.member(jsii_name="awesomeness")
@@ -9612,6 +9628,96 @@ class _INamespacedProxy:
 
 __all__ = [
     "INamespaced",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/param/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+
+@jsii.data_type(
+    jsii_type="jsii-calc.submodule.param.SpecialParameter",
+    jsii_struct_bases=[],
+    name_mapping={"value": "value"},
+)
+class SpecialParameter:
+    def __init__(self, *, value: builtins.str) -> None:
+        """
+        :param value: 
+        """
+        self._values: typing.Dict[str, typing.Any] = {
+            "value": value,
+        }
+
+    @builtins.property
+    def value(self) -> builtins.str:
+        result = self._values.get("value")
+        assert result is not None, "Required property 'value' is missing"
+        return result
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SpecialParameter(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+__all__ = [
+    "SpecialParameter",
+]
+
+publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/submodule/returnsparam/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+from ..._jsii import *
+
+from ..param import SpecialParameter as _SpecialParameter_5bbf34a2
+
+
+class ReturnsSpecialParameter(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="jsii-calc.submodule.returnsparam.ReturnsSpecialParameter",
+):
+    def __init__(self) -> None:
+        jsii.create(ReturnsSpecialParameter, self, [])
+
+    @jsii.member(jsii_name="returnsSpecialParam")
+    def returns_special_param(self) -> _SpecialParameter_5bbf34a2:
+        return jsii.invoke(self, "returnsSpecialParam", [])
+
+
+__all__ = [
+    "ReturnsSpecialParameter",
 ]
 
 publication.publish()

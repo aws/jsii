@@ -8,7 +8,7 @@ namespace Amazon.JSII.Runtime.Services
 
         public JsiiRuntimeProvider(IResourceExtractor resourceExtractor)
         {
-            string[] files = { ENTRYPOINT, ENTRYPOINT + ".map", "mappings.wasm" };
+            string[] files = { ENTRYPOINT, ENTRYPOINT + ".map" };
 
             // deploy embedded resources to the temp directory
             var assembly = Assembly.GetExecutingAssembly();

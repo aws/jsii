@@ -9,12 +9,14 @@ import com.fasterxml.jackson.core.TreeNode;
  * types, but Jackson doesn't support selecting serializers by annotations, so we needed a type as a marker.
  * See {@link JsiiObjectMapper} for details.
  */
+@Internal
 public interface JsiiSerializable {
     /**
      * Serializes this object to JSON. The default behavior is to return an object reference.
      * However, builders implement this method by emitting an actual JSON object of the key/values.
      * @return the jsii/JSON representation of this object
      */
+    @Internal
     default TreeNode $jsii$toJson() {
         JsiiObjectRef objRef = JsiiEngine.getInstance().nativeToObjRef(this);
         return objRef.toJson();

@@ -20,12 +20,12 @@
   },
   "devDependencies": {
     "@types/inquirer": "^7.3.1",
-    "@types/jest": "^26.0.14",
-    "@types/jest-expect-message": "^1.0.2",
-    "@types/node": "^10.17.35",
-    "@types/yargs": "^15.0.7",
-    "eslint": "^7.10.0",
-    "jest": "^26.4.2",
+    "@types/jest": "^26.0.15",
+    "@types/jest-expect-message": "^1.0.3",
+    "@types/node": "^10.17.44",
+    "@types/yargs": "^15.0.9",
+    "eslint": "^7.12.1",
+    "jest": "^26.6.1",
     "jest-expect-message": "^1.0.2",
     "prettier": "^2.1.2",
     "typescript": "~3.9.7"
@@ -33,31 +33,6 @@
   "dependencies": {
     "@jsii/spec": "^0.0.0",
     "inquirer": "^7.3.3",
-    "yargs": "^16.0.3"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/bin/**/*.js",
-      "**/lib/**/*.js"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 60,
-        "statements": 60
-      }
-    },
-    "errorOnDeprecated": true,
-    "setupFilesAfterEnv": [
-      "jest-expect-message"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/?(*.)+(spec|test).js"
-    ]
+    "yargs": "^16.1.0"
   }
 }

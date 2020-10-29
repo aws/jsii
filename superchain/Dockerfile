@@ -25,7 +25,7 @@ ENV LANG="C.UTF-8"                                                              
 # Also upgrading anything already installed, and adding some common dependencies for included tools
 RUN yum -y upgrade                                                                                                      \
   && yum -y install deltarpm tar                                                                                        \
-                    gcc make system-rpm-config                                                                          \
+                    make system-rpm-config                                                                              \
                     git gzip openssl rsync unzip which zip                                                              \
   && yum clean all && rm -rf /var/cache/yum
 
@@ -45,16 +45,6 @@ RUN yum -y install python3 python3-pip                                          
   && python3 -m pip install --no-input --upgrade awscli black setuptools twine wheel                                    \
   && rm -rf $(pip cache dir)                                                                                            \
   && yum clean all && rm -rf /var/cache/yum
-
-# Install Ruby 2.6+
-RUN amazon-linux-extras install ruby2.6                                                                                 \
-  && yum -y install ruby-devel rubygem-rdoc                                                                             \
-  && yum clean all && rm -rf /var/cache/yum                                                                             \
-  && echo 'install: --no-document' > /usr/local/etc/gemrc                                                               \
-  && echo 'update: --no-document' >> /usr/local/etc/gemrc                                                               \
-  && mkdir -p "$GEM_HOME"                                                                                               \
-  && gem install 'bundler:~>1.17.3' 'bundler:~>2.1.4'
-ENV PATH="$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH"
 
 # Install JDK8 (Corretto)
 RUN amazon-linux-extras enable corretto8                                                                                \
@@ -114,7 +104,7 @@ ARG COMMIT_ID
 LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                                                               \
       org.opencontainers.image.title="jsii/superchain"                                                                  \
       org.opencontainers.image.description="An image to build cross-language artifacts with AWS jsii"                   \
-      org.opencontainers.image.url="https://github.com/aws/jsii/tree/master/superchain"                                 \
+      org.opencontainers.image.url="https://github.com/aws/jsii/tree/main/superchain"                                 \
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
       org.opencontainers.image.revision=$COMMIT_ID                                                                      \
       org.opencontainers.image.authors="Amazon Web Services (https://aws.amazon.com)"

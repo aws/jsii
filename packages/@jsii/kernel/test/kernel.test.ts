@@ -4,6 +4,7 @@ import * as os from 'os';
 import { join } from 'path';
 import * as path from 'path';
 import * as vm from 'vm';
+
 import { api, Kernel } from '../lib';
 import {
   Callback,
@@ -399,7 +400,7 @@ defineTest(
         packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
       },
       go: {
-        moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
+        moduleName: 'github.com/aws-cdk/jsii/jsii-calc/go',
       },
       java: {
         package: 'software.amazon.jsii.tests.calculator',
@@ -423,7 +424,7 @@ defineTest(
           versionSuffix: '-devpreview',
         },
         go: {
-          moduleName: 'github.com/aws-cdk/jsii/jsii-calc/golang',
+          moduleName: 'github.com/aws-cdk/jsii/jsii-calc/go',
         },
         java: {
           package: 'software.amazon.jsii.tests.calculator.lib',

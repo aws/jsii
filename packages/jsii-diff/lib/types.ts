@@ -1,5 +1,5 @@
-import * as reflect from 'jsii-reflect';
 import { Stability } from '@jsii/spec';
+import * as reflect from 'jsii-reflect';
 
 export interface ComparisonOptions {
   /**
@@ -31,7 +31,12 @@ export interface ReportOptions {
   message: string;
 }
 
-export class Mismatches {
+export interface IReport {
+  report(options: ReportOptions): void;
+  withMotivation(reason: string): IReport;
+}
+
+export class Mismatches implements IReport {
   public readonly mismatches = new Array<ApiMismatch>();
   private readonly defaultStability: Stability;
 
@@ -40,7 +45,7 @@ export class Mismatches {
   }
 
   public report(options: ReportOptions) {
-    const fqn = identifier(options.violator);
+    const fqn = apiElementIdentifier(options.violator);
     const key = `${options.ruleKey}:${fqn}`;
 
     this.mismatches.push({
@@ -67,9 +72,21 @@ export class Mismatches {
     ret.mismatches.push(...this.mismatches.filter(pred));
     return ret;
   }
+
+  public withMotivation(motivation: string): IReport {
+    return {
+      report: (options) =>
+        this.report({
+          ...options,
+          message: `${options.message}: ${motivation}`,
+        }),
+      withMotivation: (innerMotivation) =>
+        this.withMotivation(`${innerMotivation}: ${motivation}`),
+    };
+  }
 }
 
-function identifier(apiElement: ApiElement) {
+export function apiElementIdentifier(apiElement: ApiElement) {
   return dispatch(apiElement, {
     method(x) {
       return `${x.parentType.fqn}.${x.name}`;
@@ -169,4 +186,8 @@ export function describeType(type: reflect.Type) {
     return 'ENUM';
   }
   return 'TYPE';
+}
+
+export function describeInterfaceType(dataType: boolean) {
+  return dataType ? 'struct' : 'regular interface';
 }
