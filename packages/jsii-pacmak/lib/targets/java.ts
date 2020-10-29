@@ -25,11 +25,12 @@ import {
 import { shell, Scratch, slugify, setExtend } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { stabilityPrefixFor, renderSummary } from './_utils';
-import { toMavenVersionRange } from './version-utils';
+import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 
 import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
+  TargetName,
 } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
@@ -369,6 +370,7 @@ export default class Java extends Target {
   ): { [language: string]: PackageInfo } {
     const groupId = assm.targets!.java!.maven.groupId;
     const artifactId = assm.targets!.java!.maven.artifactId;
+    const releaseVersion = toReleaseVersion(assm.version, TargetName.JAVA);
     const url = `https://repo1.maven.org/maven2/${groupId.replace(
       /\./g,
       '/',
@@ -382,12 +384,12 @@ export default class Java extends Target {
             language: 'xml',
             code: xmlbuilder
               .create({
-                dependency: { groupId, artifactId, version: assm.version },
+                dependency: { groupId, artifactId, version: releaseVersion },
               })
               .end({ pretty: true })
               .replace(/<\?\s*xml(\s[^>]+)?>\s*/m, ''),
           },
-          'Apache Buildr': `'${groupId}:${artifactId}:jar:${assm.version}'`,
+          'Apache Buildr': `'${groupId}:${artifactId}:jar:${releaseVersion}'`,
           'Apache Ivy': {
             language: 'xml',
             code: xmlbuilder
@@ -395,14 +397,14 @@ export default class Java extends Target {
                 dependency: {
                   '@groupId': groupId,
                   '@name': artifactId,
-                  '@rev': assm.version,
+                  '@rev': releaseVersion,
                 },
               })
               .end({ pretty: true })
               .replace(/<\?\s*xml(\s[^>]+)?>\s*/m, ''),
           },
-          'Groovy Grape': `@Grapes(\n@Grab(group='${groupId}', module='${artifactId}', version='${assm.version}')\n)`,
-          'Gradle / Grails': `compile '${groupId}:${artifactId}:${assm.version}'`,
+          'Groovy Grape': `@Grapes(\n@Grab(group='${groupId}', module='${artifactId}', version='${releaseVersion}')\n)`,
+          'Gradle / Grails': `compile '${groupId}:${artifactId}:${releaseVersion}'`,
         },
       },
     };
@@ -1102,7 +1104,7 @@ class JavaGenerator extends Generator {
      */
     function makeVersion(version: string, suffix?: string): string {
       if (!suffix) {
-        return version;
+        return toReleaseVersion(version, TargetName.JAVA);
       }
       if (!suffix.startsWith('-') && !suffix.startsWith('.')) {
         throw new Error(
@@ -2746,10 +2748,10 @@ class JavaGenerator extends Generator {
       return this.getNativeName(depMod, name.join('.'), mod);
     }
 
-    const { packageName, typeName } = this.toNativeName(
-      this.assembly,
-      this.assembly.types![fqn],
-    );
+    const { packageName, typeName } =
+      fqn === this.assembly.name
+        ? this.toNativeName(this.assembly)
+        : this.toNativeName(this.assembly, this.assembly.types![fqn]);
     const className =
       typeName && binaryName ? typeName.replace('.', '$') : typeName;
     return `${packageName}${className ? `.${className}` : ''}`;
@@ -2770,7 +2772,9 @@ class JavaGenerator extends Generator {
     return `${javaPackage}${tail ? `.${tail}` : ''}`;
   }
 
-  private toNativeName(assm: spec.Assembly): { packageName: string };
+  private toNativeName(
+    assm: spec.Assembly,
+  ): { packageName: string; typeName: undefined };
   private toNativeName(
     assm: spec.Assembly,
     type: spec.Type,

@@ -2602,37 +2602,39 @@ func ClassWithCollections_CreateAMap() map[string]string {
 
 func ClassWithCollections_StaticArray() []string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ClassWithCollections",
-		Method: "staticArray",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.ClassWithCollections",
+		"staticArray",
+	)
 	return nil
 }
 
 func ClassWithCollections_SetStaticArray(val []string) {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ClassWithCollections",
-		Method: "staticArray",
-	})
+	_jsii_.StaticSet(
+		"jsii-calc.ClassWithCollections",
+		"staticArray",
+		val,
+	)
 	return
 }
 
 func ClassWithCollections_StaticMap() map[string]string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ClassWithCollections",
-		Method: "staticMap",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.ClassWithCollections",
+		"staticMap",
+	)
 	return nil
 }
 
 func ClassWithCollections_SetStaticMap(val map[string]string) {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "ClassWithCollections",
-		Method: "staticMap",
-	})
+	_jsii_.StaticSet(
+		"jsii-calc.ClassWithCollections",
+		"staticMap",
+		val,
+	)
 	return
 }
 
@@ -3565,19 +3567,19 @@ type DisappointingCollectionSource struct {
 
 func DisappointingCollectionSource_MaybeList() []string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DisappointingCollectionSource",
-		Method: "maybeList",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.DisappointingCollectionSource",
+		"maybeList",
+	)
 	return nil
 }
 
 func DisappointingCollectionSource_MaybeMap() map[string]float64 {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "DisappointingCollectionSource",
-		Method: "maybeMap",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.DisappointingCollectionSource",
+		"maybeMap",
+	)
 	return nil
 }
 
@@ -5848,10 +5850,10 @@ func NewJsiiAgent() JsiiAgentIface {
 
 func JsiiAgent_Value() string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "JsiiAgent",
-		Method: "value",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.JsiiAgent",
+		"value",
+	)
 	return "NOOP_RETURN_STRING"
 }
 
@@ -8147,19 +8149,20 @@ func StaticContext_CanAccessStaticContext() bool {
 
 func StaticContext_StaticVariable() bool {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "StaticContext",
-		Method: "staticVariable",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.StaticContext",
+		"staticVariable",
+	)
 	return true
 }
 
 func StaticContext_SetStaticVariable(val bool) {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "StaticContext",
-		Method: "staticVariable",
-	})
+	_jsii_.StaticSet(
+		"jsii-calc.StaticContext",
+		"staticVariable",
+		val,
+	)
 	return
 }
 
@@ -8206,73 +8209,75 @@ func Statics_StaticMethod(name string) string {
 
 func Statics_Bar() float64 {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "BAR",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.Statics",
+		"BAR",
+	)
 	return 0.0
 }
 
 func Statics_ConstObj() DoubleTrouble {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "ConstObj",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.Statics",
+		"ConstObj",
+	)
 	return DoubleTrouble{}
 }
 
 func Statics_Foo() string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "Foo",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.Statics",
+		"Foo",
+	)
 	return "NOOP_RETURN_STRING"
 }
 
 func Statics_ZooBar() map[string]string {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "zooBar",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.Statics",
+		"zooBar",
+	)
 	return nil
 }
 
 func Statics_Instance() Statics {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "instance",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.Statics",
+		"instance",
+	)
 	return Statics{}
 }
 
 func Statics_SetInstance(val Statics) {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "instance",
-	})
+	_jsii_.StaticSet(
+		"jsii-calc.Statics",
+		"instance",
+		val,
+	)
 	return
 }
 
 func Statics_NonConstStatic() float64 {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "nonConstStatic",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.Statics",
+		"nonConstStatic",
+	)
 	return 0.0
 }
 
 func Statics_SetNonConstStatic(val float64) {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "Statics",
-		Method: "nonConstStatic",
-	})
+	_jsii_.StaticSet(
+		"jsii-calc.Statics",
+		"nonConstStatic",
+		val,
+	)
 	return
 }
 
@@ -9143,10 +9148,10 @@ func NewUpcasingReflectable(delegate map[string]_jsii_.Any) UpcasingReflectableI
 
 func UpcasingReflectable_Reflector() submodule.Reflector {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "UpcasingReflectable",
-		Method: "reflector",
-	})
+	_jsii_.StaticGet(
+		"jsii-calc.UpcasingReflectable",
+		"reflector",
+	)
 	return submodule.Reflector{}
 }
 
@@ -9683,11 +9688,11 @@ func NewInnerClass() InnerClassIface {
 
 func InnerClass_StaticProp() SomeStruct {
 	_init_.Initialize()
-	_jsii_.NoOpRequest(_jsii_.NoOpApiRequest {
-		Class: "InnerClass",
-		Method: "staticProp",
-	})
-	return SomeStruct{}
+	_jsii_.StaticGet(
+		"jsii-calc.submodule.child.InnerClass",
+		"staticProp",
+	)
+	return nil
 }
 
 // KwargsPropsIface is the public interface for the custom type KwargsProps

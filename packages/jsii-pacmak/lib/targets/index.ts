@@ -13,6 +13,7 @@ export enum TargetName {
   JAVASCRIPT = 'js',
   PYTHON = 'python',
 }
+
 export type BuilderFactory = (
   modules: readonly JsiiModule[],
   options: BuildOptions,

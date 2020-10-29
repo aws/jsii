@@ -121,54 +121,55 @@ type createResponse struct {
 type DelRequest struct {
 	kernelRequester
 
-	Api string `json:"api"`
-	// Objref   ObjRef
+	Api    string `json:"api"`
+	Objref objref `json:"objref"`
 }
 
 type DelResponse struct {
 	kernelResponder
 }
 
-type GetRequest struct {
+type getRequest struct {
 	kernelRequester
 
-	Api      string  `json:"api"`
-	Property *string `json:"property"`
-	// Objref   ObjRef
+	Api      string `json:"api"`
+	Property string `json:"property"`
+	Objref   objref `json:"objref"`
 }
 
-type StaticGetRequest struct {
+type staticGetRequest struct {
 	kernelRequester
 
-	Api      string  `json:"api"`
-	Fqn      *FQN    `json:"fqn"`
-	Property *string `json:"property"`
+	Api      string `json:"api"`
+	Fqn      FQN    `json:"fqn"`
+	Property string `json:"property"`
 }
-type GetResponse struct {
+
+type getResponse struct {
 	kernelResponder
 
-	Value Any `json:"value"`
+	Value interface{} `json:"value"`
 }
 
-type StaticSetRequest struct {
+type setRequest struct {
 	kernelRequester
 
-	Api      string  `json:"api"`
-	Fqn      *FQN    `json:"fqn"`
-	Property *string `json:"property"`
-	Value    Any     `json:"value"`
+	Api      string      `json:"api"`
+	Property string      `json:"property"`
+	Value    interface{} `json:"value"`
+	Objref   objref      `json:"objref"`
 }
 
-type SetRequest struct {
+type staticSetRequest struct {
 	kernelRequester
 
-	Api      string  `json:"api"`
-	Property *string `json:"property"`
-	Value    Any     `json:"value"`
-	// Objref   ObjRef
+	Api      string      `json:"api"`
+	Fqn      FQN         `json:"fqn"`
+	Property string      `json:"property"`
+	Value    interface{} `json:"value"`
 }
 
-type SetResponse struct {
+type setResponse struct {
 	kernelResponder
 }
 
@@ -199,10 +200,10 @@ type invokeResponse struct {
 type BeginRequest struct {
 	kernelRequester
 
-	Api    string  `json:"api"`
-	Method *string `json:"method"`
-	Args   []Any   `json:"args"`
-	// Objref   ObjRef
+	Api    string        `json:"api"`
+	Method *string       `json:"method"`
+	Args   []interface{} `json:"args"`
+	Objref objref        `json:"objref"`
 }
 
 type BeginResponse struct {
@@ -221,7 +222,7 @@ type EndRequest struct {
 type EndResponse struct {
 	kernelResponder
 
-	Result Any `json:"result"`
+	Result interface{} `json:"result"`
 }
 
 type CallbacksRequest struct {
@@ -239,10 +240,10 @@ type CallbacksResponse struct {
 type CompleteRequest struct {
 	kernelRequester
 
-	Api    string  `json:"api"`
-	Cbid   *string `json:"cbid"`
-	Err    *string `json:"err"`
-	Result Any     `json:"result"`
+	Api    string      `json:"api"`
+	Cbid   *string     `json:"cbid"`
+	Err    *string     `json:"err"`
+	Result interface{} `json:"result"`
 }
 
 type CompleteResponse struct {
@@ -288,12 +289,12 @@ type Callback struct {
 	Cbid   *string       `json:"cbid"`
 	Cookie *string       `json:"cookie"`
 	Invoke invokeRequest `json:"invoke"`
-	Get    GetRequest    `json:"get"`
-	Set    SetRequest    `json:"set"`
+	Get    getRequest    `json:"get"`
+	Set    setRequest    `json:"set"`
 }
 
 type OkayResponse struct {
-	Ok Any `json:"ok"`
+	Ok interface{} `json:"ok"`
 }
 
 type ErrorResponse struct {
@@ -315,6 +316,16 @@ func (r *createResponse) UnmarshalJSON(data []byte) error {
 
 func (r *invokeResponse) UnmarshalJSON(data []byte) error {
 	type response invokeResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
+func (r *getResponse) UnmarshalJSON(data []byte) error {
+	type response getResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
+func (r *setResponse) UnmarshalJSON(data []byte) error {
+	type response setResponse
 	return unmarshalKernelResponse(data, (*response)(r))
 }
 

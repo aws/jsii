@@ -1,7 +1,12 @@
 import { CodeMaker } from 'codemaker';
 
 import { GoProperty, ClassMethod, Struct } from '../types';
-import { JSII_INVOKE_FUNC, JSII_SINVOKE_FUNC } from './constants';
+import {
+  JSII_SGET_FUNC,
+  JSII_SSET_FUNC,
+  JSII_INVOKE_FUNC,
+  JSII_SINVOKE_FUNC,
+} from './constants';
 import { emitInitialization } from './util';
 
 // NOOP type returns
@@ -88,15 +93,15 @@ export class StaticGetProperty {
   public emit(code: CodeMaker) {
     emitInitialization(code);
 
-    code.openBlock(`_jsii_.NoOpRequest(_jsii_.NoOpApiRequest`);
-    code.line(`Class: "${this.parent.parent.name}",`);
-    code.line(`Method: "${this.parent.property.name}",`);
-    code.close(`})`);
+    code.open(`${JSII_SGET_FUNC}(`);
+    code.line(`"${this.parent.parent.fqn}",`);
+    code.line(`"${this.parent.property.name}",`);
+    code.close(`)`);
 
-    const ret = this.parent.reference;
-    if (ret?.type?.type.isClassType() || ret?.type instanceof Struct) {
+    const ret = this.parent.property;
+    if (ret?.type?.type?.isClassType() || ret?.type instanceof Struct) {
       code.line(`return ${this.parent.returnType}{}`);
-    } else if (ret?.type?.type.isEnumType()) {
+    } else if (ret?.type?.type?.isEnumType()) {
       code.line(`return "ENUM_DUMMY"`);
     } else {
       code.line(`return ${this.getDummyReturn(this.parent.returnType)}`);
@@ -115,10 +120,11 @@ export class StaticSetProperty {
   public emit(code: CodeMaker) {
     emitInitialization(code);
 
-    code.openBlock(`_jsii_.NoOpRequest(_jsii_.NoOpApiRequest`);
-    code.line(`Class: "${this.parent.parent.name}",`);
-    code.line(`Method: "${this.parent.property.name}",`);
-    code.close(`})`);
+    code.open(`${JSII_SSET_FUNC}(`);
+    code.line(`"${this.parent.parent.fqn}",`);
+    code.line(`"${this.parent.property.name}",`);
+    code.line(`val,`);
+    code.close(`)`);
     code.line(`return`);
   }
 }

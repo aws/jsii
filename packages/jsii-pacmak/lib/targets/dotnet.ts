@@ -14,6 +14,9 @@ import {
 } from '../target';
 import { shell, Scratch, setExtend, filterAsync } from '../util';
 import { DotNetGenerator } from './dotnet/dotnetgenerator';
+import { toReleaseVersion } from './version-utils';
+
+import { TargetName } from '.';
 
 export const TARGET_FRAMEWORK = 'netcoreapp3.1';
 
@@ -275,7 +278,7 @@ export default class Dotnet extends Target {
     assm: spec.Assembly,
   ): { [language: string]: PackageInfo } {
     const packageId = assm.targets!.dotnet!.packageId;
-    const version = assm.version;
+    const version = toReleaseVersion(assm.version, TargetName.DOTNET);
     const packageInfo: PackageInfo = {
       repository: 'Nuget',
       url: `https://www.nuget.org/packages/${packageId}/${version}`,

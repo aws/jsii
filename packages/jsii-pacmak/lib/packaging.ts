@@ -1,11 +1,9 @@
-import * as reflect from 'jsii-reflect';
+import type { Assembly, TypeSystem } from 'jsii-reflect';
 import * as os from 'os';
 import * as path from 'path';
 
 import * as logging from '../lib/logging';
 import { Scratch, shell } from './util';
-
-const SHARED_TS = new reflect.TypeSystem();
 
 export interface JsiiModuleOptions {
   /**
@@ -41,7 +39,7 @@ export class JsiiModule {
   public outputDirectory: string;
 
   private _tarball?: Scratch<string>;
-  public _assembly?: reflect.Assembly;
+  public _assembly?: Assembly;
 
   public constructor(options: JsiiModuleOptions) {
     this.name = options.name;
@@ -87,11 +85,13 @@ export class JsiiModule {
     return this._tarball.object;
   }
 
-  public async load() {
-    this._assembly = await SHARED_TS.loadModule(this.moduleDirectory);
+  public async load(system: TypeSystem) {
+    return system
+      .loadModule(this.moduleDirectory)
+      .then((assembly) => (this._assembly = assembly));
   }
 
-  public get assembly(): reflect.Assembly {
+  public get assembly(): Assembly {
     if (!this._assembly) {
       throw new Error('Assembly not available yet, call load() first');
     }
