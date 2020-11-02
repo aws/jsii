@@ -446,8 +446,7 @@ export class AstRenderer<C> {
       }
       if (trivia != null) {
         // Set spans on comments to make sure their visibility is toggled correctly.
-        const commentRange = commentRangeFromTextRange(range);
-        trivia.setSpan(commentRange.pos, commentRange.end);
+        trivia.setSpan(range.pos, range.end);
         precede.push(trivia);
       }
     }

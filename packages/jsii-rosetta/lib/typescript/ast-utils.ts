@@ -14,7 +14,7 @@ export function calculateVisibleSpans(source: string): Span[] {
 }
 
 export function calculateMarkedSpans(source: string): MarkedSpan[] {
-  const regEx = /[/]{3}\s*(!(?:show|hide))(?:\r?\n)?/gm;
+  const regEx = /[/]{3}[ \t]*(!(?:show|hide))[ \t]*$/gm;
 
   const ret = new Array<MarkedSpan>();
   let match;
