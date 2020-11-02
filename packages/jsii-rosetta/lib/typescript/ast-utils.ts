@@ -14,7 +14,7 @@ export function calculateVisibleSpans(source: string): Span[] {
 }
 
 export function calculateMarkedSpans(source: string): MarkedSpan[] {
-  const regEx = /\/\/\/ (.*)(\r?\n)?$/gm;
+  const regEx = /[/]{3}\s*(!(?:show|hide))(?:\r?\n)?/gm;
 
   const ret = new Array<MarkedSpan>();
   let match;
@@ -56,7 +56,7 @@ export function stripCommentMarkers(comment: string, multiline: boolean) {
       .replace(/^[ \t]*\*[ \t]?/gm, ''); // Strip "* " from start of line
   }
   // The text *must* start with '//'
-  return comment.replace(/^\/\/[ \t]?/gm, '');
+  return comment.replace(/^[/]{2}[ \t]?/gm, '');
 }
 
 export function stringFromLiteral(expr: ts.Expression) {

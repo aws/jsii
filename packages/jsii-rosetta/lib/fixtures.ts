@@ -81,7 +81,7 @@ function loadAndSubFixture(
     encoding: 'utf-8',
   });
 
-  const subRegex = /\/\/\/ here/i;
+  const subRegex = /[/]{3}\s*here\s*/i;
   if (!subRegex.test(fixtureContents)) {
     throw new Error(`Fixture does not contain '/// here': ${fixtureFileName}`);
   }
