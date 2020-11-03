@@ -4,20 +4,28 @@ export class DeclarationNode {
   public static of(assembly: Assembly): DeclarationNode {
     const tree = new DeclarationNode('');
 
+    for (const type of assembly.types) {
+      registerType(type);
+    }
+
+    for (const submodule of assembly.submodules) {
+      registerSubmodule(submodule);
+    }
+
+    return tree;
+
     function registerType(type: Type) {
       tree.register(type, DeclarationNode.getTypeName(type).split('.'));
     }
 
-    assembly.types.forEach(registerType);
-
     function registerSubmodule(submodule: Submodule) {
-      submodule.types.forEach(registerType);
-      submodule.submodules.forEach(registerSubmodule);
+      for (const type of submodule.types) {
+        registerType(type);
+      }
+      for (const child of submodule.submodules) {
+        registerSubmodule(child);
+      }
     }
-
-    assembly.submodules.forEach(registerSubmodule);
-
-    return tree;
   }
 
   private static getTypeName(type: Type): string {
@@ -45,7 +53,7 @@ export class DeclarationNode {
     return children;
   }
 
-  private register(type: Type, path: string[]): this {
+  private register(type: Type, path: readonly string[]): this {
     if (path.length === 0) {
       this._type = type;
     } else {

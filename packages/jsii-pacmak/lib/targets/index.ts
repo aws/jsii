@@ -7,19 +7,27 @@ import JavaScript from './js';
 import { KotlinBuilder } from './kotlin';
 import Python from './python';
 
-export type TargetName = 'dotnet' | 'go' | 'java' | 'js' | 'kotlin' | 'python';
+export enum TargetName {
+  DOTNET = 'dotnet',
+  GO = 'go',
+  JAVA = 'java',
+  JAVASCRIPT = 'js',
+  KOTLIN = 'kotlin',
+  PYTHON = 'python',
+}
+
 export type BuilderFactory = (
-  modules: JsiiModule[],
+  modules: readonly JsiiModule[],
   options: BuildOptions,
 ) => TargetBuilder;
 
 export const ALL_BUILDERS: { [key in TargetName]: BuilderFactory } = {
   dotnet: (ms, o) => new DotnetBuilder(ms, o),
-  go: (ms, o) => new OneByOneBuilder('golang', Golang, ms, o),
+  go: (ms, o) => new OneByOneBuilder(TargetName.GO, Golang, ms, o),
   java: (ms, o) => new JavaBuilder(ms, o),
-  js: (ms, o) => new OneByOneBuilder('js', JavaScript, ms, o),
-  python: (ms, o) => new OneByOneBuilder('python', Python, ms, o),
+  js: (ms, o) => new OneByOneBuilder(TargetName.JAVASCRIPT, JavaScript, ms, o),
   kotlin: (ms, o) => new KotlinBuilder(ms, o),
+  python: (ms, o) => new OneByOneBuilder(TargetName.PYTHON, Python, ms, o),
 };
 
 export const INCOMPLETE_DISCLAIMER_COMPILING =

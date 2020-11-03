@@ -16,6 +16,18 @@ export const JSII_INVOKE_FUNC = `${JSII_RT_ALIAS}.Invoke`;
 // JSII static invoke
 export const JSII_SINVOKE_FUNC = `${JSII_RT_ALIAS}.InvokeStatic`;
 
+// JSII get request
+export const JSII_GET_FUNC = `${JSII_RT_ALIAS}.Get`;
+
+// JSII static get request
+export const JSII_SGET_FUNC = `${JSII_RT_ALIAS}.StaticGet`;
+
+// JSII set request
+export const JSII_SET_FUNC = `${JSII_RT_ALIAS}.Get`;
+
+// JSII static set request
+export const JSII_SSET_FUNC = `${JSII_RT_ALIAS}.StaticSet`;
+
 // MISC types & functions
 // Jsii override struct type
 export const JSII_OVERRIDE = `${JSII_RT_ALIAS}.Override`;

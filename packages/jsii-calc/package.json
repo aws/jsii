@@ -49,8 +49,8 @@
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.42",
-    "eslint": "^7.11.0",
+    "@types/node": "^10.17.44",
+    "eslint": "^7.12.1",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
@@ -60,7 +60,7 @@
     "outdir": "dist",
     "targets": {
       "go": {
-        "moduleName": "github.com/aws-cdk/jsii/jsii-calc/golang"
+        "moduleName": "github.com/aws-cdk/jsii/jsii-calc/go"
       },
       "java": {
         "package": "software.amazon.jsii.tests.calculator",

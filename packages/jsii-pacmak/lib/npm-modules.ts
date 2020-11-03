@@ -15,7 +15,7 @@ import { resolveDependencyDirectory } from './util';
  * The result is topologically sorted.
  */
 export async function findJsiiModules(
-  directories: string[],
+  directories: readonly string[],
   recurse: boolean,
 ): Promise<JsiiModule[]> {
   const ret: JsiiModule[] = [];

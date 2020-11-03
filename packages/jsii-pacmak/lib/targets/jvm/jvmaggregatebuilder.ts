@@ -10,7 +10,7 @@ import { AggregateBuilder, TemporaryPackage } from '../aggregatebuilder';
 export abstract class JvmAggregateBuilder extends AggregateBuilder {
   protected abstract async generateAdditionalAggregateFiles(
     tempDir: string,
-    ret: TemporaryPackage[],
+    ret: readonly TemporaryPackage[],
   ): Promise<void>;
 
   protected async generateAggregateSourceDir(): Promise<
@@ -45,16 +45,14 @@ export abstract class JvmAggregateBuilder extends AggregateBuilder {
         ret.push(pkg);
       }
 
-      await this.generateAdditionalAggregateFiles(tmpDir, ret);
-
-      return ret;
+      return this.generateAdditionalAggregateFiles(tmpDir, ret).then(() => ret);
     });
   }
 
   protected async copyOutArtifacts(
     artifactsRoot: string,
-    packages: TemporaryPackage[],
-  ) {
+    packages: readonly TemporaryPackage[],
+  ): Promise<void> {
     logging.debug('Copying out Java artifacts');
     // The artifacts directory looks like this:
     //  /tmp/XXX/software/amazon/awscdk/something/v1.2.3
@@ -65,7 +63,7 @@ export abstract class JvmAggregateBuilder extends AggregateBuilder {
     // the files we need to copy, including Maven metadata. But we need to recreate
     // the whole path in the target directory.
 
-    await Promise.all(
+    return Promise.all(
       packages.map(async (pkg) => {
         const artifactsSource = path.join(
           artifactsRoot,
@@ -77,9 +75,9 @@ export abstract class JvmAggregateBuilder extends AggregateBuilder {
         );
 
         await fs.mkdirp(artifactsDest);
-        await fs.copy(artifactsSource, artifactsDest, { recursive: true });
+        return fs.copy(artifactsSource, artifactsDest, { recursive: true });
       }),
-    );
+    ).then(() => void null);
   }
 
   protected async collectLocalRepos(): Promise<string[]> {

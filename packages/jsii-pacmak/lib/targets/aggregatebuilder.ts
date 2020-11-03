@@ -24,7 +24,7 @@ export class TemporaryPackage {
 export abstract class AggregateBuilder implements TargetBuilder {
   protected constructor(
     protected readonly targetName: string,
-    protected readonly modules: JsiiModule[],
+    protected readonly modules: readonly JsiiModule[],
     protected readonly options: BuildOptions,
   ) {}
 
@@ -100,7 +100,7 @@ export abstract class AggregateBuilder implements TargetBuilder {
   }
 
   /**
-   * Decide whether or not to append 'java' to the given output directory
+   * Decide whether or not to append the target name to the given output directory
    */
   protected outputDir(declaredDir: string) {
     return this.options.languageSubdirectory

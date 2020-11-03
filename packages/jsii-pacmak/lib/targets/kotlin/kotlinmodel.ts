@@ -129,7 +129,7 @@ export abstract class KDeclaration implements KElement {
       code.line(`@Deprecated("${escapeString(reason)}")`);
     }
 
-    if (config.platform === KotlinPlatform.Jvm && docs.stability) {
+    if (config.platform === KotlinPlatform.JVM && docs.stability) {
       const annotationType = JvmAbi.stabilityAnnotationType;
       const levelName = JvmAbi.getStabilityLevelName(docs.stability);
       const levelConst = `${annotationType}.Level.${levelName}`;
@@ -151,7 +151,7 @@ export abstract class KTypeDeclaration extends KDeclaration {
     code: KotlinCodeMaker,
     config: KotlinGeneratorConfiguration,
   ) {
-    if (this.isTopLevel && config.platform === KotlinPlatform.Jvm) {
+    if (this.isTopLevel && config.platform === KotlinPlatform.JVM) {
       const annotationName = 'javax.annotation.Generated';
       if (config.fingerprint) {
         const version = `jsii-pacmak/${VERSION_DESC}`;
@@ -321,7 +321,7 @@ abstract class KReferenceTypeDeclaration extends KTypeDeclaration {
     code: KotlinCodeMaker,
     config: KotlinGeneratorConfiguration,
   ) {
-    if (config.platform === KotlinPlatform.Jvm) {
+    if (config.platform === KotlinPlatform.JVM) {
       const proxy = new KProxyClass(this.type);
       proxy.render(code, config);
     }
@@ -498,7 +498,7 @@ class KInterface extends KReferenceTypeDeclaration {
 
   private getSuperTypeList(config: KotlinGeneratorConfiguration): string[] {
     const result = [];
-    if (config.platform === KotlinPlatform.Jvm) {
+    if (config.platform === KotlinPlatform.JVM) {
       result.push('software.amazon.jsii.JsiiSerializable');
     }
 

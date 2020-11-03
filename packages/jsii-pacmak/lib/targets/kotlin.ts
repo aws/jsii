@@ -17,7 +17,7 @@ import {
 import { KotlinGradleBuilder } from './kotlin/kotlingradlebuilder';
 
 export class KotlinBuilder extends JvmAggregateBuilder {
-  public constructor(modules: JsiiModule[], options: BuildOptions) {
+  public constructor(modules: readonly JsiiModule[], options: BuildOptions) {
     super('kotlin', modules, options);
   }
 
@@ -31,24 +31,24 @@ export class KotlinBuilder extends JvmAggregateBuilder {
       await builder.build(tempSourceDir.directory, dir);
     });
     scratchDirs.push(tempOutputDir);
-    await this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object);
+    return this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object);
   }
 
   protected async generateAdditionalAggregateFiles(
     tmpDir: string,
-    ret: TemporaryPackage[],
+    ret: readonly TemporaryPackage[],
   ): Promise<void> {
     const code = new KotlinCodeMaker();
 
     this.generateSettingsGradle(code, ret);
     await this.generateBuildGradle(code, ret);
 
-    await code.save(tmpDir);
+    return code.save(tmpDir).then(() => void null);
   }
 
   private generateSettingsGradle(
     code: KotlinCodeMaker,
-    ret: TemporaryPackage[],
+    ret: readonly TemporaryPackage[],
   ): void {
     const fileName = 'settings.gradle';
     code.openFile(fileName);
@@ -66,7 +66,7 @@ export class KotlinBuilder extends JvmAggregateBuilder {
 
   private async generateBuildGradle(
     code: KotlinCodeMaker,
-    ret: TemporaryPackage[],
+    ret: readonly TemporaryPackage[],
   ): Promise<void> {
     const localRepos = await this.collectLocalRepos();
 
@@ -95,7 +95,7 @@ export class KotlinBuilder extends JvmAggregateBuilder {
   }
 
   private iterateArtifacts(
-    ret: TemporaryPackage[],
+    ret: readonly TemporaryPackage[],
     block: (
       pkg: TemporaryPackage,
       artifact: KotlinArtifactConfiguration,

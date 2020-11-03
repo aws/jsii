@@ -4,7 +4,6 @@ name: Dependabot Pull Requests
 on:
   pull_request:
     branches:
-      - master
       - main
     paths:
       - "!**"                         # <-- Excludes everything by default

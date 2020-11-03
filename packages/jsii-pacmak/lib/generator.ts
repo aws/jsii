@@ -58,7 +58,7 @@ export abstract class GeneratorBase implements IGenerator {
 
   public abstract generate(fingerprint: boolean): void;
   public abstract load(packageDir: string, assembly: reflect.Assembly): void;
-  public abstract upToDate(outDir: string): Promise<boolean>;
+  public abstract async upToDate(outDir: string): Promise<boolean>;
   public abstract async save(outdir: string, tarball: string): Promise<any>;
 
   protected calculateFingerprint(assembly: reflect.Assembly): string {
@@ -101,10 +101,6 @@ export abstract class Generator extends GeneratorBase {
   private _assembly?: spec.Assembly;
   protected _reflectAssembly?: reflect.Assembly;
   private fingerprint?: string;
-
-  public constructor(options: GeneratorOptions = {}) {
-    super(options);
-  }
 
   protected get assembly(): spec.Assembly {
     if (!this._assembly) {

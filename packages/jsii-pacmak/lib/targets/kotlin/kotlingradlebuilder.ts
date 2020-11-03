@@ -18,7 +18,7 @@ export class KotlinGradleBuilder {
     await shell(
       'gradle',
       ['publish', `-PdeployRepo=${url}`, ...gradleArguments],
-      { cwd: sourceDir },
+      { cwd: sourceDir, retry: { maxAttempts: 5 } },
     );
   }
 }

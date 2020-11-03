@@ -27,10 +27,6 @@ export class KotlinGenerator extends GeneratorBase {
   private packageDir?: string;
   private _assembly?: Assembly;
 
-  public constructor() {
-    super();
-  }
-
   private get assembly(): Assembly {
     const assembly = this._assembly;
 

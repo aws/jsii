@@ -15,6 +15,9 @@ import {
 import { shell, Scratch, setExtend, filterAsync, slugify } from '../util';
 import { AggregateBuilder, TemporaryPackage } from './aggregatebuilder';
 import { DotNetGenerator } from './dotnet/dotnetgenerator';
+import { toReleaseVersion } from './version-utils';
+
+import { TargetName } from '.';
 
 export const TARGET_FRAMEWORK = 'netcoreapp3.1';
 
@@ -22,7 +25,7 @@ export const TARGET_FRAMEWORK = 'netcoreapp3.1';
  * Build .NET packages all together, by generating an aggregate solution file
  */
 export class DotnetBuilder extends AggregateBuilder {
-  public constructor(modules: JsiiModule[], options: BuildOptions) {
+  public constructor(modules: readonly JsiiModule[], options: BuildOptions) {
     super('dotnet', modules, options);
   }
 
@@ -170,10 +173,14 @@ export class DotnetBuilder extends AggregateBuilder {
     );
   }
 
-  private async copyOutArtifacts(packages: TemporaryPackage[]) {
+  private async copyOutArtifacts(
+    packages: readonly TemporaryPackage[],
+  ): Promise<void> {
     logging.debug('Copying out .NET artifacts');
 
-    await Promise.all(packages.map(copyOutIndividualArtifacts.bind(this)));
+    return Promise.all(
+      packages.map(copyOutIndividualArtifacts.bind(this)),
+    ).then(() => void null);
 
     async function copyOutIndividualArtifacts(
       this: DotnetBuilder,
@@ -182,7 +189,7 @@ export class DotnetBuilder extends AggregateBuilder {
       const targetDirectory = this.outputDir(pkg.outputTargetDirectory);
 
       await fs.mkdirp(targetDirectory);
-      await fs.copy(pkg.relativeArtifactsDir, targetDirectory, {
+      return fs.copy(pkg.relativeArtifactsDir, targetDirectory, {
         recursive: true,
         filter: (_, dst) => {
           return dst !== path.join(targetDirectory, TARGET_FRAMEWORK);
@@ -205,7 +212,7 @@ export default class Dotnet extends Target {
     assm: spec.Assembly,
   ): { [language: string]: PackageInfo } {
     const packageId = assm.targets!.dotnet!.packageId;
-    const version = assm.version;
+    const version = toReleaseVersion(assm.version, TargetName.DOTNET);
     const packageInfo: PackageInfo = {
       repository: 'Nuget',
       url: `https://www.nuget.org/packages/${packageId}/${version}`,

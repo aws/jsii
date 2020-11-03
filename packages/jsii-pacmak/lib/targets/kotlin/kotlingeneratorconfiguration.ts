@@ -8,7 +8,7 @@ export class KotlinGeneratorConfiguration {
     assembly: Assembly,
     fingerprint: boolean,
   ): KotlinGeneratorConfiguration {
-    const platform = KotlinPlatform.Jvm;
+    const platform = KotlinPlatform.JVM;
     const kotlinTarget = KotlinGeneratorConfiguration.findKotlinTarget(
       assembly,
     );
@@ -103,5 +103,5 @@ export class KotlinArtifactConfiguration {
 }
 
 export enum KotlinPlatform {
-  Jvm,
+  JVM,
 }

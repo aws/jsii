@@ -33,7 +33,7 @@ relevant context information as possible.
 ## Initialization - the `hello` message
 The *host* library is responsible for spawning the `node` process that will run
 the original module's code. This `node` process runs the `@jsii/kernel`
-application, and API messages are exchanged of the `node` processes' standard
+application, and API messages are exchanged via the `node` processes' standard
 input and output pipes.
 
 Upon initialization, the `@jsii/kernel` process introduces itself to the *host*
@@ -83,7 +83,7 @@ interface Request {
 Before any *jsii* type can be used, the assembly that provides it must be loaded
 into the kernel. Similarly, all dependencies of a given *jsii* module must have
 been loaded into the kernel before the module itself can be loaded (the
-`@jsii/kernel` do not perofrm any kind of dependency resolution).
+`@jsii/kernel` does not perform any kind of dependency resolution).
 
 Loading new assemblies into the `@jsii/kernel` is done using the `load` API:
 
@@ -101,7 +101,7 @@ interface LoadRequest {
 }
 ```
 
-The response to the `load` call provides some high level information pertaining
+The response to the `load` call provides some high-level information pertaining
 to the loaded assembly, which may be used by the *host* app to validate the
 result of the operation:
 

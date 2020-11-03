@@ -1,7 +1,6 @@
 import * as spec from '@jsii/spec';
 import * as clone from 'clone';
 import * as fs from 'fs-extra';
-import * as reflect from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
 import * as path from 'path';
 
@@ -38,10 +37,6 @@ export class DotNetGenerator extends Generator {
       this.line(text);
       this.open('{');
     };
-  }
-
-  public load(packageRoot: string, assembly: reflect.Assembly): void {
-    super.load(packageRoot, assembly);
   }
 
   /**

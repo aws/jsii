@@ -1,11 +1,8 @@
 # ![jsii](./logo/png/128.png)
 
 [![Join the chat at https://cdk.Dev](https://img.shields.io/static/v1?label=Slack&message=cdk.dev&color=brightgreen&logo=slack)](https://cdk.dev)
-[![All Contributors](https://img.shields.io/github/all-contributors/aws/jsii?label=%E2%9C%A8%20All%20Contributors)](#contributors-)
-
-![Build Status](https://github.com/aws/jsii/workflows/Main/badge.svg)
-![Build Status](https://img.shields.io/travis/aws/jsii?label=Travis-CI&logo=travis)
-
+[![All Contributors](https://img.shields.io/github/all-contributors/aws/jsii/main?label=%E2%9C%A8%20All%20Contributors)](#contributors-)
+[![Build Status](https://github.com/aws/jsii/workflows/Main/badge.svg)](https://github.com/aws/jsii/actions?query=workflow%3AMain+branch%3Amain)
 [![npm](https://img.shields.io/npm/v/jsii?logo=npm)](https://www.npmjs.com/package/jsii)
 [![docker](https://img.shields.io/badge/docker-jsii%2Fsuperchain-brightgreen?logo=docker)](https://hub.docker.com/r/jsii/superchain)
 
@@ -77,12 +74,12 @@ like any other class:
 | [`jsii-srcmak`]  | Community    | Generates relocatable source code in jsii languages from typescript   |
 | [`jsii-docgen`]  | Community    | Generates markdown API documentation for jsii modules                 |
 
-[`jsii`]: https://github.com/aws/jsii/tree/master/packages/jsii
-[`jsii-pacmak`]: https://github.com/aws/jsii/tree/master/packages/jsii-pacmak
-[`jsii-reflect`]: https://github.com/aws/jsii/tree/master/packages/jsii-reflect
-[`jsii-config`]: https://github.com/aws/jsii/tree/master/packages/jsii-config
-[`jsii-diff`]: https://github.com/aws/jsii/tree/master/packages/jsii-diff
-[`jsii-rosetta`]: https://github.com/aws/jsii/tree/master/packages/jsii-rosetta
+[`jsii`]: https://github.com/aws/jsii/tree/main/packages/jsii
+[`jsii-pacmak`]: https://github.com/aws/jsii/tree/main/packages/jsii-pacmak
+[`jsii-reflect`]: https://github.com/aws/jsii/tree/main/packages/jsii-reflect
+[`jsii-config`]: https://github.com/aws/jsii/tree/main/packages/jsii-config
+[`jsii-diff`]: https://github.com/aws/jsii/tree/main/packages/jsii-diff
+[`jsii-rosetta`]: https://github.com/aws/jsii/tree/main/packages/jsii-rosetta
 [`jsii-release`]: https://github.com/eladb/jsii-release
 [`jsii-srcmak`]: https://github.com/eladb/jsii-srcmak
 [`jsii-docgen`]: https://github.com/eladb/jsii-docgen

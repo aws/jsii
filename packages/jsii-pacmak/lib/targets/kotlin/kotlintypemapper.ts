@@ -7,11 +7,7 @@ import { KotlinPlatform } from './kotlingeneratorconfiguration';
 
 export class KotlinTypeMapper {
   public static getPackageName(assembly: reflect.Assembly): string | undefined {
-    return (
-      assembly.targets &&
-      assembly.targets.kotlin &&
-      assembly.targets.kotlin.package
-    );
+    return assembly.targets?.kotlin?.package;
   }
 
   public static mapReferenceName(fqn: string, system: TypeSystem): string {
@@ -95,7 +91,7 @@ export class KotlinTypeMapper {
         return 'kotlin.Any';
       case spec.PrimitiveType.Date: {
         switch (platform) {
-          case KotlinPlatform.Jvm:
+          case KotlinPlatform.JVM:
             return 'java.time.Instant';
           default:
             return unsupportedPlatform();
@@ -103,7 +99,7 @@ export class KotlinTypeMapper {
       }
       case spec.PrimitiveType.Json: {
         switch (platform) {
-          case KotlinPlatform.Jvm:
+          case KotlinPlatform.JVM:
             return 'com.fasterxml.jackson.databind.node.ObjectNode';
           default:
             return unsupportedPlatform();

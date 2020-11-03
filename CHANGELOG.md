@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/aws/jsii/compare/v1.13.0...v1.14.0) (2020-10-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `jsii/superchain` Docker image no longer includes `ruby` and `gcc`. Users who need those should install them as part of their initialization script.
+
+### Features
+
+* **dotnet:** introduce `UnsafeCast<T>()` method ([#2192](https://github.com/aws/jsii/issues/2192)) ([5e22e81](https://github.com/aws/jsii/commit/5e22e8182516c17757f857f8a4d50feca9a79b42)), closes [aws/aws-cdk#3284](https://github.com/aws/aws-cdk/issues/3284) [aws/aws-cdk-rfcs#193](https://github.com/aws/aws-cdk-rfcs/issues/193)
+* **go:** dynamically load npm packages as needed ([#2067](https://github.com/aws/jsii/issues/2067)) ([7dbdbeb](https://github.com/aws/jsii/commit/7dbdbebe336bde2d02de598dc21d86d469a6abf0))
+* **go:** embed jsii runtime application ([#2066](https://github.com/aws/jsii/issues/2066)) ([85764de](https://github.com/aws/jsii/commit/85764deffd70af92333363bf38478440351654da))
+* **go:** Runtime method and static invoke support ([#2145](https://github.com/aws/jsii/issues/2145)) ([ff882c1](https://github.com/aws/jsii/commit/ff882c12defd6b703a32efe77cd3979b5cd2de9c))
+* **go:** runtime object creation ([#2117](https://github.com/aws/jsii/issues/2117)) ([977a063](https://github.com/aws/jsii/commit/977a063013601d70cc7a66e0a4cc6dce64789976))
+* **pacmak:** prerelease identifier support ([#2146](https://github.com/aws/jsii/issues/2146)) ([1338fc2](https://github.com/aws/jsii/commit/1338fc2492295f683381d00a04fb88517f3c4d55)), closes [#2114](https://github.com/aws/jsii/issues/2114)
+* **pacmak/java:** emit default interface implementations ([#2076](https://github.com/aws/jsii/issues/2076)) ([c618de3](https://github.com/aws/jsii/commit/c618de3940085847bf0a0b44acc758b57508a842)), closes [#2014](https://github.com/aws/jsii/issues/2014)
+
+
+### Bug Fixes
+
+* **dotnet:** abundant nullability warnings in generated code ([#2061](https://github.com/aws/jsii/issues/2061)) ([01a2951](https://github.com/aws/jsii/commit/01a295105b9d60edaf0ee0a3133e4b5942a971f2))
+* **go:** fix generation of readonly and static properties ([#2133](https://github.com/aws/jsii/issues/2133)) ([57b7d56](https://github.com/aws/jsii/commit/57b7d566bffb3516863308c4eb33d71a50b065bd)), closes [#2093](https://github.com/aws/jsii/issues/2093)
+* **go:** runtime api json invalid tags ([#2115](https://github.com/aws/jsii/issues/2115)) ([a9d96db](https://github.com/aws/jsii/commit/a9d96db055b6b48797eaf0dad41c238807a75015))
+* **go:** Submodule File Paths ([#2147](https://github.com/aws/jsii/issues/2147)) ([8863493](https://github.com/aws/jsii/commit/886349335778b89ba57191a9b747940382df9497))
+* **jsii:** annotation '[@internal](https://github.com/internal)' causes missing type declarations downstream ([#2172](https://github.com/aws/jsii/issues/2172)) ([e80a4f7](https://github.com/aws/jsii/commit/e80a4f7869d11bcd9de8078e86fe137ac4d54237)), closes [#1947](https://github.com/aws/jsii/issues/1947) [#1830](https://github.com/aws/jsii/issues/1830)
+* **jsii:** TypeError: Cannot read property 'getJsDocTags' of undefined ([#2163](https://github.com/aws/jsii/issues/2163)) ([5d87101](https://github.com/aws/jsii/commit/5d87101941ea71555927f5354a8f1da58df2d6d5)), closes [#2098](https://github.com/aws/jsii/issues/2098)
+* **jsii-diff:** external structs returned from methods cannot be changed ([#2070](https://github.com/aws/jsii/issues/2070)) ([11e9389](https://github.com/aws/jsii/commit/11e9389c0fa2444502e2c8e232e7ac549dc13f04)), closes [#2064](https://github.com/aws/jsii/issues/2064)
+* **pacmak/python:** escape character escapes in python docs ([#2138](https://github.com/aws/jsii/issues/2138)) ([1578899](https://github.com/aws/jsii/commit/1578899b524494b11f39faf9764fa17b854b51d1)), closes [#2137](https://github.com/aws/jsii/issues/2137)
+* **python:** leftover jsii-kernel-* directories in TMPDIR ([#2100](https://github.com/aws/jsii/issues/2100)) ([c119994](https://github.com/aws/jsii/commit/c11999499e6f9679da0272d96a1422025bbc0502))
+* **rosetta:** duplicated problem markers ([#2130](https://github.com/aws/jsii/issues/2130)) ([21c6fb5](https://github.com/aws/jsii/commit/21c6fb5df90751323a0e71a205a4f71185d1e8f4))
+
+
+* removes unused software from superchain to reduce image size ([#2092](https://github.com/aws/jsii/issues/2092)) ([fe2c597](https://github.com/aws/jsii/commit/fe2c5972a4c5c867b21cfa5c7d37a428f271296b))
+
 ## [1.13.0](https://github.com/aws/jsii/compare/v1.12.0...v1.13.0) (2020-09-29)
 
 

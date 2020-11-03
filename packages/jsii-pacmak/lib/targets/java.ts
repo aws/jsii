@@ -23,11 +23,12 @@ import { stabilityPrefixFor, renderSummary } from './_utils';
 import { TemporaryPackage } from './aggregatebuilder';
 import { JvmAggregateBuilder } from './jvm/jvmaggregatebuilder';
 import { getJvmPackageInfos } from './jvm/mavenutils';
-import { toMavenVersionRange } from './version-utils';
+import { toMavenVersionRange, toReleaseVersion } from './version-utils';
 
 import {
   INCOMPLETE_DISCLAIMER_COMPILING,
   INCOMPLETE_DISCLAIMER_NONCOMPILING,
+  TargetName,
 } from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-require-imports
@@ -49,7 +50,7 @@ const ANN_INTERNAL = '@software.amazon.jsii.Internal';
  * directories.
  */
 export class JavaBuilder extends JvmAggregateBuilder {
-  public constructor(modules: JsiiModule[], options: BuildOptions) {
+  public constructor(modules: readonly JsiiModule[], options: BuildOptions) {
     super('java', modules, options);
   }
 
@@ -60,24 +61,24 @@ export class JavaBuilder extends JvmAggregateBuilder {
     // Need any old module object to make a target to be able to invoke build, though none of its settings
     // will be used.
     const target = this.makeTargetForModule(this.modules[0]);
-    const tempOutputDir = await Scratch.make(async (dir) => {
+    const tempOutputDir = await Scratch.make((dir) => {
       logging.debug(`Building Java code to ${dir}`);
-      await target.build(tempSourceDir.directory, dir);
+      return target.build(tempSourceDir.directory, dir);
     });
     scratchDirs.push(tempOutputDir);
 
-    await this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object);
+    return this.copyOutArtifacts(tempOutputDir.directory, tempSourceDir.object);
   }
 
   protected async generateAdditionalAggregateFiles(
     tmpDir: string,
-    ret: TemporaryPackage[],
+    ret: readonly TemporaryPackage[],
   ): Promise<void> {
     await this.generateAggregatePom(
       tmpDir,
       ret.map((m) => m.relativeSourceDir),
     );
-    await this.generateMavenSettingsForLocalDeps(tmpDir);
+    return this.generateMavenSettingsForLocalDeps(tmpDir).then(() => void null);
   }
 
   private async generateAggregatePom(where: string, moduleNames: string[]) {
@@ -110,7 +111,7 @@ export class JavaBuilder extends JvmAggregateBuilder {
       .end({ pretty: true });
 
     logging.debug(`Generated ${where}/pom.xml`);
-    await fs.writeFile(path.join(where, 'pom.xml'), aggregatePom);
+    return fs.writeFile(path.join(where, 'pom.xml'), aggregatePom);
   }
 
   /**
@@ -875,7 +876,7 @@ class JavaGenerator extends Generator {
      */
     function makeVersion(version: string, suffix?: string): string {
       if (!suffix) {
-        return version;
+        return toReleaseVersion(version, TargetName.JAVA);
       }
       if (!suffix.startsWith('-') && !suffix.startsWith('.')) {
         throw new Error(
@@ -2519,10 +2520,10 @@ class JavaGenerator extends Generator {
       return this.getNativeName(depMod, name.join('.'), mod);
     }
 
-    const { packageName, typeName } = this.toNativeName(
-      this.assembly,
-      this.assembly.types![fqn],
-    );
+    const { packageName, typeName } =
+      fqn === this.assembly.name
+        ? this.toNativeName(this.assembly)
+        : this.toNativeName(this.assembly, this.assembly.types![fqn]);
     const className =
       typeName && binaryName ? typeName.replace('.', '$') : typeName;
     return `${packageName}${className ? `.${className}` : ''}`;
@@ -2543,7 +2544,9 @@ class JavaGenerator extends Generator {
     return `${javaPackage}${tail ? `.${tail}` : ''}`;
   }
 
-  private toNativeName(assm: spec.Assembly): { packageName: string };
+  private toNativeName(
+    assm: spec.Assembly,
+  ): { packageName: string; typeName: undefined };
   private toNativeName(
     assm: spec.Assembly,
     type: spec.Type,
