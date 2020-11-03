@@ -31,12 +31,13 @@ setuptools.setup(
     },
     install_requires=[
         "attrs~=20.1",
-        "cattrs~=1.0",
+        "cattrs~=1.0.0 ; python_version < '3.7'",
+        "cattrs~=1.1.0 ; python_version >= '3.7'",
         "importlib_resources ; python_version < '3.7'",
         "python-dateutil",
         "typing_extensions~=3.7",
     ],
-    python_requires=">=3.6",
+    python_requires="~=3.6",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
