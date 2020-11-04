@@ -104,6 +104,8 @@ export function renderSymbolDocumentation(
     case spec.Stability.External:
       tag('external', '');
       break;
+    default:
+      tag('stability', docs.stability);
   }
 
   for (const [k, v] of Object.entries(docs.custom ?? {})) {

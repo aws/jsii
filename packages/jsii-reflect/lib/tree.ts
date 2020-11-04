@@ -412,20 +412,22 @@ function describeStability(
   thing: Documentable,
   options: TypeSystemTreeOptions,
 ) {
-  if (!options.stabilities) {
+  if (!options.stabilities || thing.docs.stability == null) {
     return '';
   }
 
   switch (thing.docs.stability) {
     case Stability.Stable:
       return ` (${colors.green('stable')})`;
+    case Stability.External:
+      return ` (${colors.green('external')})`;
     case Stability.Experimental:
       return ` (${colors.yellow('experimental')})`;
     case Stability.Deprecated:
       return ` (${colors.red('deprecated')})`;
+    default:
+      return '';
   }
-
-  return '';
 }
 
 function maybeStatic(mem: Property | Method) {

@@ -52,7 +52,7 @@ export class DotNetDocGenerator {
         const paramName = this.nameutils
           .convertParameterName(param.name)
           .replace(/^@/, '');
-        this.emitXmlDoc('param', param.docs?.summary || '', {
+        this.emitXmlDoc('param', param.docs?.summary ?? '', {
           attributes: { name: paramName },
         });
       });
@@ -132,7 +132,7 @@ export class DotNetDocGenerator {
     if (docs.subclassable) {
       emitDocAttribute('subclassable', '');
     }
-    for (const [k, v] of Object.entries(docs.custom || {})) {
+    for (const [k, v] of Object.entries(docs.custom ?? {})) {
       const extraSpace = k === 'link' ? ' ' : ''; // Extra space for '@link' to keep unit tests happy
       emitDocAttribute(k, v + extraSpace);
     }

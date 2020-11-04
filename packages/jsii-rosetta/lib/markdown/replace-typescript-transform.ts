@@ -31,7 +31,7 @@ export class ReplaceTypeScriptTransform extends ReplaceCodeTransform {
         parseKeyValueList(languageParts.slice(1)),
       );
 
-      return replacer(tsSnippet) || block;
+      return replacer(tsSnippet) ?? block;
     });
 
     this.wherePrefix = wherePrefix;

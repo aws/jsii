@@ -1560,7 +1560,7 @@ class JavaGenerator extends Generator {
         forMarshalling: true,
       })}.class`,
       javaTypes: this.toJavaTypes(property.type, { covariant: true }),
-      immutable: property.immutable || false,
+      immutable: property.immutable ?? false,
       inherited,
     };
   }
@@ -2252,7 +2252,7 @@ class JavaGenerator extends Generator {
       const method = doc as spec.Method;
       if (method.parameters) {
         for (const param of method.parameters) {
-          const summary = param.docs?.summary || undefined;
+          const summary = param.docs?.summary;
           tagLines.push(paramJavadoc(param.name, param.optional, summary));
         }
       }
