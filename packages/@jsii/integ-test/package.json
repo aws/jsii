@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
-    "@types/fs-extra": "^8.1.1",
+    "@types/fs-extra": "^9.0.3",
     "@types/jest": "^26.0.15",
     "@types/node": "^10.17.44",
     "@types/tar": "^4.0.3",
