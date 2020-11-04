@@ -443,23 +443,41 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     node: ts.TemplateExpression,
     renderer: JavaRenderer,
   ): OTree {
-    const result = new Array<string>();
-    let first = true;
+    let template = '';
+    const parameters = new Array<OTree>();
 
     if (node.head.rawText) {
-      result.push(`"${quoteStringLiteral(node.head.rawText)}"`);
-      first = false;
+      template += node.head.rawText;
     }
 
     for (const span of node.templateSpans) {
-      result.push(`${first ? '' : ' + '}${renderer.textOf(span.expression)}`);
-      first = false;
+      template += '%s';
+      parameters.push(
+        renderer
+          .updateContext({
+            convertPropertyToGetter: true,
+            identifierAsString: false,
+          })
+          .convert(span.expression),
+      );
       if (span.literal.rawText) {
-        result.push(` + "${quoteStringLiteral(span.literal.rawText)}"`);
+        template += span.literal.rawText;
       }
     }
 
-    return new OTree(result);
+    if (parameters.length === 0) {
+      return new OTree([`"${quoteStringLiteral(template)}"`]);
+    }
+
+    return new OTree([
+      'String.format(',
+      `"${quoteStringLiteral(template)}"`,
+      ...parameters.reduce(
+        (list, element) => list.concat(', ', element),
+        new Array<string | OTree>(),
+      ),
+      ')',
+    ]);
   }
 
   public asExpression(node: ts.AsExpression, renderer: JavaRenderer): OTree {
