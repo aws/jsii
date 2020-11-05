@@ -1,30 +1,30 @@
 public class BaseDeeperStruct {
-    private int a;
-    public int getA() {
+    private Number a;
+    public Number getA() {
         return this.a;
     }
-    public BaseDeeperStruct a(int a) {
+    public BaseDeeperStruct a(Number a) {
         this.a = a;
         return this;
     }
 }
 public class DeeperStruct extends BaseDeeperStruct {
-    private int b;
-    public int getB() {
+    private Number b;
+    public Number getB() {
         return this.b;
     }
-    public DeeperStruct b(int b) {
+    public DeeperStruct b(Number b) {
         this.b = b;
         return this;
     }
 }
 
 public class OuterStruct {
-    private int foo;
-    public int getFoo() {
+    private Number foo;
+    public Number getFoo() {
         return this.foo;
     }
-    public OuterStruct foo(int foo) {
+    public OuterStruct foo(Number foo) {
         this.foo = foo;
         return this;
     }
@@ -38,7 +38,7 @@ public class OuterStruct {
     }
 }
 
-public void foo(int x, OuterStruct outer) {
+public void foo(Number x, OuterStruct outer) {
 }
 
 foo(25, new OuterStruct().foo(3).deeper(new DeeperStruct()

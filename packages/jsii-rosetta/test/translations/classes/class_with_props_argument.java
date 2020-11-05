@@ -7,11 +7,11 @@ public class MyClassProps {
         this.prop1 = prop1;
         return this;
     }
-    private int prop2;
-    public int getProp2() {
+    private Number prop2;
+    public Number getProp2() {
         return this.prop2;
     }
-    public MyClassProps prop2(int prop2) {
+    public MyClassProps prop2(Number prop2) {
         this.prop2 = prop2;
         return this;
     }

@@ -72,6 +72,15 @@ interface JavaContext {
    * @default false
    */
   readonly stringLiteralAsIdentifier?: boolean;
+
+  /**
+   * Used to denote that a type is being rendered in a position where a generic
+   * type parameter is expected, so only reference types are valid (not
+   * primitives).
+   *
+   * @default false
+   */
+  readonly requiresReferenceType?: boolean;
 }
 
 /**
@@ -885,7 +894,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       return `Map<String, ${this.renderType(
         owningNode,
         mapValuesType,
-        renderer,
+        renderer.updateContext({ requiresReferenceType: true }),
         'Object',
       )}>`;
     }
@@ -904,10 +913,14 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     }
 
     switch (typeScriptBuiltInType) {
+      case 'boolean':
+        return renderer.currentContext.requiresReferenceType
+          ? 'Boolean'
+          : 'boolean';
+      case 'number':
+        return 'Number';
       case 'string':
         return 'String';
-      case 'number':
-        return 'int';
       case 'any':
         return 'Object';
       default:
