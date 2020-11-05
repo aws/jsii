@@ -1,0 +1,3178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defaults 1`] = `
+"[4massemblies[24m
+ ├─┬ [32mjsii-calc[39m
+ │ └─┬ [4msubmodules[24m
+ │   ├── [32mDerivedClassHasNoProperties[39m
+ │   ├── [32mInterfaceInNamespaceIncludesClasses[39m
+ │   ├── [32mInterfaceInNamespaceOnlyInterface[39m
+ │   ├── [32mPythonSelf[39m
+ │   ├── [32mcomposition[39m
+ │   └─┬ [32msubmodule[39m
+ │     └─┬ [4msubmodules[24m
+ │       ├── [32mback_references[39m
+ │       ├── [32mchild[39m
+ │       ├── [32misolated[39m
+ │       ├─┬ [32mnested_submodule[39m
+ │       │ └─┬ [4msubmodules[24m
+ │       │   └── [32mdeeplyNested[39m
+ │       ├── [32mparam[39m
+ │       └── [32mreturnsparam[39m
+ ├── [32m@scope/jsii-calc-base[39m
+ ├── [32m@scope/jsii-calc-base-of-base[39m
+ └─┬ [32m@scope/jsii-calc-lib[39m
+   └─┬ [4msubmodules[24m
+     └── [32msubmodule[39m
+"
+`;
+
+exports[`inheritance 1`] = `
+"[4massemblies[24m
+ ├─┬ [32mjsii-calc[39m
+ │ └─┬ [4msubmodules[24m
+ │   ├── [32mDerivedClassHasNoProperties[39m
+ │   ├── [32mInterfaceInNamespaceIncludesClasses[39m
+ │   ├── [32mInterfaceInNamespaceOnlyInterface[39m
+ │   ├── [32mPythonSelf[39m
+ │   ├── [32mcomposition[39m
+ │   └─┬ [32msubmodule[39m
+ │     └─┬ [4msubmodules[24m
+ │       ├── [32mback_references[39m
+ │       ├── [32mchild[39m
+ │       ├── [32misolated[39m
+ │       ├─┬ [32mnested_submodule[39m
+ │       │ └─┬ [4msubmodules[24m
+ │       │   └── [32mdeeplyNested[39m
+ │       ├── [32mparam[39m
+ │       └── [32mreturnsparam[39m
+ ├── [32m@scope/jsii-calc-base[39m
+ ├── [32m@scope/jsii-calc-base-of-base[39m
+ └─┬ [32m@scope/jsii-calc-lib[39m
+   └─┬ [4msubmodules[24m
+     └── [32msubmodule[39m
+"
+`;
+
+exports[`members 1`] = `
+"[4massemblies[24m
+ ├─┬ [32mjsii-calc[39m
+ │ └─┬ [4msubmodules[24m
+ │   ├── [32mDerivedClassHasNoProperties[39m
+ │   ├── [32mInterfaceInNamespaceIncludesClasses[39m
+ │   ├── [32mInterfaceInNamespaceOnlyInterface[39m
+ │   ├── [32mPythonSelf[39m
+ │   ├── [32mcomposition[39m
+ │   └─┬ [32msubmodule[39m
+ │     └─┬ [4msubmodules[24m
+ │       ├── [32mback_references[39m
+ │       ├── [32mchild[39m
+ │       ├── [32misolated[39m
+ │       ├─┬ [32mnested_submodule[39m
+ │       │ └─┬ [4msubmodules[24m
+ │       │   └── [32mdeeplyNested[39m
+ │       ├── [32mparam[39m
+ │       └── [32mreturnsparam[39m
+ ├── [32m@scope/jsii-calc-base[39m
+ ├── [32m@scope/jsii-calc-base-of-base[39m
+ └─┬ [32m@scope/jsii-calc-lib[39m
+   └─┬ [4msubmodules[24m
+     └── [32msubmodule[39m
+"
+`;
+
+exports[`showAll 1`] = `
+"[4massemblies[24m
+ ├─┬ [32mjsii-calc[39m
+ │ ├─┬ [4mdependencies[24m
+ │ │ ├── @scope/jsii-calc-base
+ │ │ ├── @scope/jsii-calc-base-of-base
+ │ │ └── @scope/jsii-calc-lib
+ │ ├─┬ [4msubmodules[24m
+ │ │ ├─┬ [32mDerivedClassHasNoProperties[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   ├─┬ [90mclass[39m [36mBase[39m
+ │ │ │   │ └─┬ [4mmembers[24m
+ │ │ │   │   ├── <initializer>() [90minitializer[39m
+ │ │ │   │   └─┬ prop [90mproperty[39m
+ │ │ │   │     └── [4mtype[24m: string
+ │ │ │   └─┬ [90mclass[39m [36mDerived[39m
+ │ │ │     ├── [4mbase[24m: Base
+ │ │ │     └─┬ [4mmembers[24m
+ │ │ │       └── <initializer>() [90minitializer[39m
+ │ │ ├─┬ [32mInterfaceInNamespaceIncludesClasses[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   ├─┬ [90mclass[39m [36mFoo[39m
+ │ │ │   │ └─┬ [4mmembers[24m
+ │ │ │   │   ├── <initializer>() [90minitializer[39m
+ │ │ │   │   └─┬ bar [90mproperty[39m
+ │ │ │   │     └── [4mtype[24m: Optional<string>
+ │ │ │   └─┬ [90minterface[39m [36mHello[39m
+ │ │ │     └─┬ [4mmembers[24m
+ │ │ │       └─┬ foo [90mproperty[39m
+ │ │ │         ├── [3mabstract[23m
+ │ │ │         ├── [3mimmutable[23m
+ │ │ │         └── [4mtype[24m: number
+ │ │ ├─┬ [32mInterfaceInNamespaceOnlyInterface[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   └─┬ [90minterface[39m [36mHello[39m
+ │ │ │     └─┬ [4mmembers[24m
+ │ │ │       └─┬ foo [90mproperty[39m
+ │ │ │         ├── [3mabstract[23m
+ │ │ │         ├── [3mimmutable[23m
+ │ │ │         └── [4mtype[24m: number
+ │ │ ├─┬ [32mPythonSelf[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   ├─┬ [90mclass[39m [36mClassWithSelf[39m
+ │ │ │   │ └─┬ [4mmembers[24m
+ │ │ │   │   ├─┬ <initializer>(self) [90minitializer[39m
+ │ │ │   │   │ └─┬ [4mparameters[24m
+ │ │ │   │   │   └─┬ self
+ │ │ │   │   │     └── [4mtype[24m: string
+ │ │ │   │   ├─┬ method(self) [90mmethod[39m
+ │ │ │   │   │ ├─┬ [4mparameters[24m
+ │ │ │   │   │ │ └─┬ self
+ │ │ │   │   │ │   └── [4mtype[24m: number
+ │ │ │   │   │ └── [4mreturns[24m: string
+ │ │ │   │   └─┬ self [90mproperty[39m
+ │ │ │   │     ├── [3mimmutable[23m
+ │ │ │   │     └── [4mtype[24m: string
+ │ │ │   ├─┬ [90mclass[39m [36mClassWithSelfKwarg[39m
+ │ │ │   │ └─┬ [4mmembers[24m
+ │ │ │   │   ├─┬ <initializer>(props) [90minitializer[39m
+ │ │ │   │   │ └─┬ [4mparameters[24m
+ │ │ │   │   │   └─┬ props
+ │ │ │   │   │     └── [4mtype[24m: jsii-calc.PythonSelf.StructWithSelf
+ │ │ │   │   └─┬ props [90mproperty[39m
+ │ │ │   │     ├── [3mimmutable[23m
+ │ │ │   │     └── [4mtype[24m: jsii-calc.PythonSelf.StructWithSelf
+ │ │ │   ├─┬ [90minterface[39m [36mIInterfaceWithSelf[39m
+ │ │ │   │ └─┬ [4mmembers[24m
+ │ │ │   │   └─┬ method(self) [90mmethod[39m
+ │ │ │   │     ├── [3mabstract[23m
+ │ │ │   │     ├─┬ [4mparameters[24m
+ │ │ │   │     │ └─┬ self
+ │ │ │   │     │   └── [4mtype[24m: number
+ │ │ │   │     └── [4mreturns[24m: string
+ │ │ │   └─┬ [90minterface[39m [36mStructWithSelf[39m
+ │ │ │     └─┬ [4mmembers[24m
+ │ │ │       └─┬ self [90mproperty[39m
+ │ │ │         ├── [3mabstract[23m
+ │ │ │         ├── [3mimmutable[23m
+ │ │ │         └── [4mtype[24m: string
+ │ │ ├─┬ [32mcomposition[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   ├─┬ [90mclass[39m [36mCompositeOperation[39m
+ │ │ │   │ ├── [4mbase[24m: Operation
+ │ │ │   │ └─┬ [4mmembers[24m
+ │ │ │   │   ├── <initializer>() [90minitializer[39m
+ │ │ │   │   ├─┬ toString() [90mmethod[39m
+ │ │ │   │   │ └── [4mreturns[24m: string
+ │ │ │   │   ├─┬ expression [90mproperty[39m
+ │ │ │   │   │ ├── [3mabstract[23m
+ │ │ │   │   │ ├── [3mimmutable[23m
+ │ │ │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │ │ │   │   ├─┬ value [90mproperty[39m
+ │ │ │   │   │ ├── [3mimmutable[23m
+ │ │ │   │   │ └── [4mtype[24m: number
+ │ │ │   │   ├─┬ decorationPostfixes [90mproperty[39m
+ │ │ │   │   │ └── [4mtype[24m: Array<string>
+ │ │ │   │   ├─┬ decorationPrefixes [90mproperty[39m
+ │ │ │   │   │ └── [4mtype[24m: Array<string>
+ │ │ │   │   └─┬ stringStyle [90mproperty[39m
+ │ │ │   │     └── [4mtype[24m: jsii-calc.composition.CompositeOperation.CompositionStringStyle
+ │ │ │   └─┬ [90menum[39m [36mCompositionStringStyle[39m
+ │ │ │     ├── NORMAL
+ │ │ │     └── DECORATED
+ │ │ └─┬ [32msubmodule[39m
+ │ │   ├─┬ [4msubmodules[24m
+ │ │   │ ├─┬ [32mback_references[39m
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   └─┬ [90minterface[39m [36mMyClassReference[39m
+ │ │   │ │     └─┬ [4mmembers[24m
+ │ │   │ │       └─┬ reference [90mproperty[39m
+ │ │   │ │         ├── [3mabstract[23m
+ │ │   │ │         ├── [3mimmutable[23m
+ │ │   │ │         └── [4mtype[24m: jsii-calc.submodule.MyClass
+ │ │   │ ├─┬ [32mchild[39m
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   ├─┬ [90mclass[39m [36mInnerClass[39m
+ │ │   │ │   │ └─┬ [4mmembers[24m
+ │ │   │ │   │   ├── <initializer>() [90minitializer[39m
+ │ │   │ │   │   └─┬ [90mstatic[39m staticProp [90mproperty[39m
+ │ │   │ │   │     ├── [3mconst[23m
+ │ │   │ │   │     ├── [3mimmutable[23m
+ │ │   │ │   │     ├── [3mstatic[23m
+ │ │   │ │   │     └── [4mtype[24m: jsii-calc.submodule.child.SomeStruct
+ │ │   │ │   ├─┬ [90mclass[39m [36mOuterClass[39m
+ │ │   │ │   │ └─┬ [4mmembers[24m
+ │ │   │ │   │   ├── <initializer>() [90minitializer[39m
+ │ │   │ │   │   └─┬ innerClass [90mproperty[39m
+ │ │   │ │   │     ├── [3mimmutable[23m
+ │ │   │ │   │     └── [4mtype[24m: jsii-calc.submodule.child.InnerClass
+ │ │   │ │   ├─┬ [90minterface[39m [36mKwargsProps[39m
+ │ │   │ │   │ ├─┬ [4minterfaces[24m
+ │ │   │ │   │ │ └── SomeStruct
+ │ │   │ │   │ └─┬ [4mmembers[24m
+ │ │   │ │   │   └─┬ extra [90mproperty[39m
+ │ │   │ │   │     ├── [3mabstract[23m
+ │ │   │ │   │     ├── [3mimmutable[23m
+ │ │   │ │   │     └── [4mtype[24m: Optional<string>
+ │ │   │ │   ├─┬ [90minterface[39m [36mSomeStruct[39m
+ │ │   │ │   │ └─┬ [4mmembers[24m
+ │ │   │ │   │   └─┬ prop [90mproperty[39m
+ │ │   │ │   │     ├── [3mabstract[23m
+ │ │   │ │   │     ├── [3mimmutable[23m
+ │ │   │ │   │     └── [4mtype[24m: jsii-calc.submodule.child.SomeEnum
+ │ │   │ │   ├─┬ [90minterface[39m [36mStructure[39m
+ │ │   │ │   │ └─┬ [4mmembers[24m
+ │ │   │ │   │   └─┬ bool [90mproperty[39m
+ │ │   │ │   │     ├── [3mabstract[23m
+ │ │   │ │   │     ├── [3mimmutable[23m
+ │ │   │ │   │     └── [4mtype[24m: boolean
+ │ │   │ │   ├─┬ [90menum[39m [36mAwesomeness[39m
+ │ │   │ │   │ └── AWESOME
+ │ │   │ │   ├─┬ [90menum[39m [36mGoodness[39m
+ │ │   │ │   │ ├── PRETTY_GOOD
+ │ │   │ │   │ ├── REALLY_GOOD
+ │ │   │ │   │ └── AMAZINGLY_GOOD
+ │ │   │ │   └─┬ [90menum[39m [36mSomeEnum[39m
+ │ │   │ │     └── SOME
+ │ │   │ ├─┬ [32misolated[39m
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   └─┬ [90mclass[39m [36mKwargs[39m
+ │ │   │ │     └─┬ [4mmembers[24m
+ │ │   │ │       └─┬ [90mstatic[39m method(props) [90mmethod[39m
+ │ │   │ │         ├── [3mstatic[23m
+ │ │   │ │         ├─┬ [4mparameters[24m
+ │ │   │ │         │ └─┬ props
+ │ │   │ │         │   └── [4mtype[24m: Optional<jsii-calc.submodule.child.KwargsProps>
+ │ │   │ │         └── [4mreturns[24m: boolean
+ │ │   │ ├─┬ [32mnested_submodule[39m
+ │ │   │ │ ├─┬ [4msubmodules[24m
+ │ │   │ │ │ └─┬ [32mdeeplyNested[39m
+ │ │   │ │ │   └─┬ [4mtypes[24m
+ │ │   │ │ │     └─┬ [90minterface[39m [36mINamespaced[39m
+ │ │   │ │ │       └─┬ [4mmembers[24m
+ │ │   │ │ │         └─┬ definedAt [90mproperty[39m
+ │ │   │ │ │           ├── [3mabstract[23m
+ │ │   │ │ │           ├── [3mimmutable[23m
+ │ │   │ │ │           └── [4mtype[24m: string
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   └─┬ [90mclass[39m [36mNamespaced[39m
+ │ │   │ │     ├── [4minterfaces[24m: INamespaced
+ │ │   │ │     └─┬ [4mmembers[24m
+ │ │   │ │       ├─┬ definedAt [90mproperty[39m
+ │ │   │ │       │ ├── [3mimmutable[23m
+ │ │   │ │       │ └── [4mtype[24m: string
+ │ │   │ │       └─┬ goodness [90mproperty[39m
+ │ │   │ │         ├── [3mabstract[23m
+ │ │   │ │         ├── [3mimmutable[23m
+ │ │   │ │         └── [4mtype[24m: jsii-calc.submodule.child.Goodness
+ │ │   │ ├─┬ [32mparam[39m
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   └─┬ [90minterface[39m [36mSpecialParameter[39m
+ │ │   │ │     └─┬ [4mmembers[24m
+ │ │   │ │       └─┬ value [90mproperty[39m
+ │ │   │ │         ├── [3mabstract[23m
+ │ │   │ │         ├── [3mimmutable[23m
+ │ │   │ │         └── [4mtype[24m: string
+ │ │   │ └─┬ [32mreturnsparam[39m
+ │ │   │   └─┬ [4mtypes[24m
+ │ │   │     └─┬ [90mclass[39m [36mReturnsSpecialParameter[39m
+ │ │   │       └─┬ [4mmembers[24m
+ │ │   │         ├── <initializer>() [90minitializer[39m
+ │ │   │         └─┬ returnsSpecialParam() [90mmethod[39m
+ │ │   │           └── [4mreturns[24m: jsii-calc.submodule.param.SpecialParameter
+ │ │   └─┬ [4mtypes[24m
+ │ │     └─┬ [90mclass[39m [36mMyClass[39m
+ │ │       ├── [4minterfaces[24m: INamespaced
+ │ │       └─┬ [4mmembers[24m
+ │ │         ├─┬ <initializer>(props) [90minitializer[39m
+ │ │         │ └─┬ [4mparameters[24m
+ │ │         │   └─┬ props
+ │ │         │     └── [4mtype[24m: jsii-calc.submodule.child.SomeStruct
+ │ │         ├─┬ methodWithSpecialParam(param) [90mmethod[39m
+ │ │         │ ├─┬ [4mparameters[24m
+ │ │         │ │ └─┬ param
+ │ │         │ │   └── [4mtype[24m: jsii-calc.submodule.param.SpecialParameter
+ │ │         │ └── [4mreturns[24m: string
+ │ │         ├─┬ awesomeness [90mproperty[39m
+ │ │         │ ├── [3mimmutable[23m
+ │ │         │ └── [4mtype[24m: jsii-calc.submodule.child.Awesomeness
+ │ │         ├─┬ definedAt [90mproperty[39m
+ │ │         │ ├── [3mimmutable[23m
+ │ │         │ └── [4mtype[24m: string
+ │ │         ├─┬ goodness [90mproperty[39m
+ │ │         │ ├── [3mimmutable[23m
+ │ │         │ └── [4mtype[24m: jsii-calc.submodule.child.Goodness
+ │ │         ├─┬ props [90mproperty[39m
+ │ │         │ ├── [3mimmutable[23m
+ │ │         │ └── [4mtype[24m: jsii-calc.submodule.child.SomeStruct
+ │ │         └─┬ allTypes [90mproperty[39m
+ │ │           └── [4mtype[24m: Optional<jsii-calc.AllTypes>
+ │ └─┬ [4mtypes[24m
+ │   ├─┬ [90mclass[39m [36mAbstractClass[39m
+ │   │ ├── [4mbase[24m: AbstractClassBase
+ │   │ ├── [4minterfaces[24m: IInterfaceImplementedByAbstractClass
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ abstractMethod(name) [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ name
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ nonAbstractMethod() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: number
+ │   │   └─┬ propFromInterface [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mAbstractClassBase[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ abstractProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mAbstractClassReturner[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ giveMeAbstract() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: jsii-calc.AbstractClass
+ │   │   ├─┬ giveMeInterface() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: jsii-calc.IInterfaceImplementedByAbstractClass
+ │   │   └─┬ returnAbstractFromProperty [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: jsii-calc.AbstractClassBase
+ │   ├─┬ [90mclass[39m [36mAbstractSuite[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ someMethod(str) [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mprotected[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ str
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ workItAll(seed) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ seed
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ property [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mprotected[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mAdd[39m
+ │   │ ├── [4mbase[24m: BinaryOperation
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(lhs,rhs) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ lhs
+ │   │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   │   └─┬ rhs
+ │   │   │     └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   ├─┬ toString() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ value [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90mclass[39m [36mAllTypes[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ anyIn(inp) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ inp
+ │   │   │ │   └── [4mtype[24m: any
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ anyOut() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ enumMethod(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: jsii-calc.StringEnum
+ │   │   │ └── [4mreturns[24m: jsii-calc.StringEnum
+ │   │   ├─┬ enumPropertyValue [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: number
+ │   │   ├─┬ anyArrayProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Array<any>
+ │   │   ├─┬ anyMapProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Map<string => any>
+ │   │   ├─┬ anyProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: any
+ │   │   ├─┬ arrayProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Array<string>
+ │   │   ├─┬ booleanProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: boolean
+ │   │   ├─┬ dateProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: date
+ │   │   ├─┬ enumProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: jsii-calc.AllTypesEnum
+ │   │   ├─┬ jsonProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: json
+ │   │   ├─┬ mapProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Map<string => @scope/jsii-calc-lib.Number>
+ │   │   ├─┬ numberProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: number
+ │   │   ├─┬ stringProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ unionArrayProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Array<number | @scope/jsii-calc-lib.NumericValue>
+ │   │   ├─┬ unionMapProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Map<string => string | number | @scope/jsii-calc-lib.Number>
+ │   │   ├─┬ unionProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string | number | jsii-calc.Multiply | @scope/jsii-calc-lib.Number
+ │   │   ├─┬ unknownArrayProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Array<any>
+ │   │   ├─┬ unknownMapProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Map<string => any>
+ │   │   ├─┬ unknownProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: any
+ │   │   └─┬ optionalEnumValue [90mproperty[39m
+ │   │     └── [4mtype[24m: Optional<jsii-calc.StringEnum>
+ │   ├─┬ [90mclass[39m [36mAllowedMethodNames[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ getBar(_p1,_p2) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ ├─┬ _p1
+ │   │   │ │ │ └── [4mtype[24m: string
+ │   │   │ │ └─┬ _p2
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ getFoo(withParam) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ withParam
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ setBar(_x,_y,_z) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ ├─┬ _x
+ │   │   │ │ │ └── [4mtype[24m: string
+ │   │   │ │ ├─┬ _y
+ │   │   │ │ │ └── [4mtype[24m: number
+ │   │   │ │ └─┬ _z
+ │   │   │ │   └── [4mtype[24m: boolean
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ setFoo(_x,_y) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ ├─┬ _x
+ │   │     │ │ └── [4mtype[24m: string
+ │   │     │ └─┬ _y
+ │   │     │   └── [4mtype[24m: number
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mAmbiguousParameters[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(scope,props) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ scope
+ │   │   │   │ └── [4mtype[24m: jsii-calc.Bell
+ │   │   │   └─┬ props
+ │   │   │     └── [4mtype[24m: jsii-calc.StructParameterType
+ │   │   ├─┬ props [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: jsii-calc.StructParameterType
+ │   │   └─┬ scope [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: jsii-calc.Bell
+ │   ├─┬ [90mclass[39m [36mAnonymousImplementationProvider[39m
+ │   │ ├── [4minterfaces[24m: IAnonymousImplementationProvider
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ provideAsClass() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: jsii-calc.Implementation
+ │   │   └─┬ provideAsInterface() [90mmethod[39m
+ │   │     └── [4mreturns[24m: jsii-calc.IAnonymouslyImplementMe
+ │   ├─┬ [90mclass[39m [36mAsyncVirtualMethods[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ callMe() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: Promise<number>
+ │   │   ├─┬ callMe2() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: Promise<number>
+ │   │   ├─┬ callMeDoublePromise() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: Promise<number>
+ │   │   ├─┬ dontOverrideMe() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: number
+ │   │   ├─┬ overrideMe(mult) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ mult
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: Promise<number>
+ │   │   └─┬ overrideMeToo() [90mmethod[39m
+ │   │     └── [4mreturns[24m: Promise<number>
+ │   ├─┬ [90mclass[39m [36mAugmentableClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ methodOne() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ methodTwo() [90mmethod[39m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mBaseJsii976[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └── <initializer>() [90minitializer[39m
+ │   ├─┬ [90mclass[39m [36mBell[39m
+ │   │ ├── [4minterfaces[24m: IBell
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ ring() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ rung [90mproperty[39m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90mclass[39m [36mBinaryOperation[39m
+ │   │ ├── [4mbase[24m: Operation
+ │   │ ├── [4minterfaces[24m: IFriendly
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(lhs,rhs) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ lhs
+ │   │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   │   └─┬ rhs
+ │   │   │     └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   ├─┬ hello() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ lhs [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   └─┬ rhs [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   ├─┬ [90mclass[39m [36mBurriedAnonymousObject[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ check() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   └─┬ giveItBack(value) [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ value
+ │   │     │   └── [4mtype[24m: any
+ │   │     └── [4mreturns[24m: any
+ │   ├─┬ [90mclass[39m [36mCalculator[39m
+ │   │ ├── [4mbase[24m: CompositeOperation
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(props) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ props
+ │   │   │     └── [4mtype[24m: Optional<jsii-calc.CalculatorProps>
+ │   │   ├─┬ add(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ mul(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ neg() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ pow(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ readUnionValue() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: number
+ │   │   ├─┬ expression [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   ├─┬ operationsLog [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Array<@scope/jsii-calc-lib.NumericValue>
+ │   │   ├─┬ operationsMap [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Map<string => Array<@scope/jsii-calc-lib.NumericValue>>
+ │   │   ├─┬ curr [90mproperty[39m
+ │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   ├─┬ maxValue [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Optional<number>
+ │   │   └─┬ unionProperty [90mproperty[39m
+ │   │     └── [4mtype[24m: Optional<jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power>
+ │   ├─┬ [90mclass[39m [36mClassThatImplementsTheInternalInterface[39m
+ │   │ ├── [4minterfaces[24m: INonInternalInterface
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ a [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ b [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ c [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ d [90mproperty[39m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mClassThatImplementsThePrivateInterface[39m
+ │   │ ├── [4minterfaces[24m: INonInternalInterface
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ a [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ b [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ c [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ e [90mproperty[39m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mClassWithCollections[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(map,array) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ map
+ │   │   │   │ └── [4mtype[24m: Map<string => string>
+ │   │   │   └─┬ array
+ │   │   │     └── [4mtype[24m: Array<string>
+ │   │   ├─┬ [90mstatic[39m createAList() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: Array<string>
+ │   │   ├─┬ [90mstatic[39m createAMap() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: Map<string => string>
+ │   │   ├─┬ [90mstatic[39m staticArray [90mproperty[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: Array<string>
+ │   │   ├─┬ [90mstatic[39m staticMap [90mproperty[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: Map<string => string>
+ │   │   ├─┬ array [90mproperty[39m
+ │   │   │ └── [4mtype[24m: Array<string>
+ │   │   └─┬ map [90mproperty[39m
+ │   │     └── [4mtype[24m: Map<string => string>
+ │   ├─┬ [90mclass[39m [36mClassWithDocs[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └── <initializer>() [90minitializer[39m
+ │   ├─┬ [90mclass[39m [36mClassWithJavaReservedWords[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(int) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ int
+ │   │   │     └── [4mtype[24m: string
+ │   │   ├─┬ import(assert) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ assert
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ int [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mClassWithMutableObjectLiteralProperty[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ mutableObject [90mproperty[39m
+ │   │     └── [4mtype[24m: jsii-calc.IMutableObjectLiteral
+ │   ├─┬ [90mclass[39m [36mClassWithPrivateConstructorAndAutomaticProperties[39m
+ │   │ ├── [4minterfaces[24m: IInterfaceWithProperties
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ [90mstatic[39m create(readOnlyString,readWriteString) [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ ├─┬ readOnlyString
+ │   │   │ │ │ └── [4mtype[24m: string
+ │   │   │ │ └─┬ readWriteString
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties
+ │   │   ├─┬ readOnlyString [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ readWriteString [90mproperty[39m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mConfusingToJackson[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ [90mstatic[39m makeInstance() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.ConfusingToJackson
+ │   │   ├─┬ [90mstatic[39m makeStructInstance() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.ConfusingToJacksonStruct
+ │   │   └─┬ unionProperty [90mproperty[39m
+ │   │     └── [4mtype[24m: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
+ │   ├─┬ [90mclass[39m [36mConstructorPassesThisOut[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ <initializer>(consumer) [90minitializer[39m
+ │   │     └─┬ [4mparameters[24m
+ │   │       └─┬ consumer
+ │   │         └── [4mtype[24m: jsii-calc.PartiallyInitializedThisConsumer
+ │   ├─┬ [90mclass[39m [36mConstructors[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ [90mstatic[39m hiddenInterface() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.IPublicInterface
+ │   │   ├─┬ [90mstatic[39m hiddenInterfaces() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: Array<jsii-calc.IPublicInterface>
+ │   │   ├─┬ [90mstatic[39m hiddenSubInterfaces() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: Array<jsii-calc.IPublicInterface>
+ │   │   ├─┬ [90mstatic[39m makeClass() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.PublicClass
+ │   │   ├─┬ [90mstatic[39m makeInterface() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.IPublicInterface
+ │   │   ├─┬ [90mstatic[39m makeInterface2() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.IPublicInterface2
+ │   │   └─┬ [90mstatic[39m makeInterfaces() [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mreturns[24m: Array<jsii-calc.IPublicInterface>
+ │   ├─┬ [90mclass[39m [36mConsumePureInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(delegate) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ delegate
+ │   │   │     └── [4mtype[24m: jsii-calc.IStructReturningDelegate
+ │   │   └─┬ workItBaby() [90mmethod[39m
+ │   │     └── [4mreturns[24m: jsii-calc.StructB
+ │   ├─┬ [90mclass[39m [36mConsumerCanRingBell[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ [90mstatic[39m staticImplementedByObjectLiteral(ringer) [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ ringer
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IBellRinger
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   ├─┬ [90mstatic[39m staticImplementedByPrivateClass(ringer) [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ ringer
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IBellRinger
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   ├─┬ [90mstatic[39m staticImplementedByPublicClass(ringer) [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ ringer
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IBellRinger
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   ├─┬ [90mstatic[39m staticWhenTypedAsClass(ringer) [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ ringer
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IConcreteBellRinger
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   ├─┬ implementedByObjectLiteral(ringer) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ ringer
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IBellRinger
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   ├─┬ implementedByPrivateClass(ringer) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ ringer
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IBellRinger
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   ├─┬ implementedByPublicClass(ringer) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ ringer
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IBellRinger
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   └─┬ whenTypedAsClass(ringer) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ ringer
+ │   │     │   └── [4mtype[24m: jsii-calc.IConcreteBellRinger
+ │   │     └── [4mreturns[24m: boolean
+ │   ├─┬ [90mclass[39m [36mConsumersOfThisCrazyTypeSystem[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ consumeAnotherPublicInterface(obj) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ obj
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IAnotherPublicInterface
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ consumeNonInternalInterface(obj) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ obj
+ │   │     │   └── [4mtype[24m: jsii-calc.INonInternalInterface
+ │   │     └── [4mreturns[24m: any
+ │   ├─┬ [90mclass[39m [36mDataRenderer[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ render(data) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ data
+ │   │   │ │   └── [4mtype[24m: Optional<@scope/jsii-calc-lib.MyFirstStruct>
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ renderArbitrary(data) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ data
+ │   │   │ │   └── [4mtype[24m: Map<string => any>
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ renderMap(map) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ map
+ │   │     │   └── [4mtype[24m: Map<string => any>
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90mclass[39m [36mDefaultedConstructorArgument[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(arg1,arg2,arg3) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ arg1
+ │   │   │   │ └── [4mtype[24m: Optional<number>
+ │   │   │   ├─┬ arg2
+ │   │   │   │ └── [4mtype[24m: Optional<string>
+ │   │   │   └─┬ arg3
+ │   │   │     └── [4mtype[24m: Optional<date>
+ │   │   ├─┬ arg1 [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: number
+ │   │   ├─┬ arg3 [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: date
+ │   │   └─┬ arg2 [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90mclass[39m [36mDemonstrate982[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ [90mstatic[39m takeThis() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.ChildStruct982
+ │   │   └─┬ [90mstatic[39m takeThisToo() [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mreturns[24m: jsii-calc.ParentStruct982
+ │   ├─┬ [90mclass[39m [36mDeprecatedClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── [4mtype[24m: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── [4mtype[24m: Optional<number>
+ │   │   ├─┬ method() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ readonlyProperty [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ mutableProperty [90mproperty[39m
+ │   │     └── [4mtype[24m: Optional<number>
+ │   ├─┬ [90mclass[39m [36mDisappointingCollectionSource[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ [90mstatic[39m maybeList [90mproperty[39m
+ │   │   │ ├── [3mconst[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: Optional<Array<string>>
+ │   │   └─┬ [90mstatic[39m maybeMap [90mproperty[39m
+ │   │     ├── [3mconst[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mtype[24m: Optional<Map<string => number>>
+ │   ├─┬ [90mclass[39m [36mDoNotOverridePrivates[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ changePrivatePropertyValue(newValue) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ newValue
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ privateMethodValue() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ privatePropertyValue() [90mmethod[39m
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90mclass[39m [36mDoNotRecognizeAnyAsOptional[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ method(_requiredAny,_optionalAny,_optionalString) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ ├─┬ _requiredAny
+ │   │     │ │ └── [4mtype[24m: any
+ │   │     │ ├─┬ _optionalAny
+ │   │     │ │ └── [4mtype[24m: any
+ │   │     │ └─┬ _optionalString
+ │   │     │   └── [4mtype[24m: Optional<string>
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mDocumentedClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ greet(greetee) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ greetee
+ │   │   │ │   └── [4mtype[24m: Optional<jsii-calc.Greetee>
+ │   │   │ └── [4mreturns[24m: number
+ │   │   └─┬ hola() [90mmethod[39m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mDontComplainAboutVariadicAfterOptional[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ optionalAndVariadic(optional,things) [90mmethod[39m
+ │   │     ├── [3mvariadic[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ ├─┬ optional
+ │   │     │ │ └── [4mtype[24m: Optional<string>
+ │   │     │ └─┬ things
+ │   │     │   ├── [4mtype[24m: string
+ │   │     │   └── [3mvariadic[23m
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90mclass[39m [36mDoubleTrouble[39m
+ │   │ ├── [4minterfaces[24m: IFriendlyRandomGenerator
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ hello() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ next() [90mmethod[39m
+ │   │     └── [4mreturns[24m: number
+ │   ├─┬ [90mclass[39m [36mDynamicPropertyBearer[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(valueStore) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ valueStore
+ │   │   │     └── [4mtype[24m: string
+ │   │   ├─┬ dynamicProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ valueStore [90mproperty[39m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mDynamicPropertyBearerChild[39m
+ │   │ ├── [4mbase[24m: DynamicPropertyBearer
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(originalValue) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ originalValue
+ │   │   │     └── [4mtype[24m: string
+ │   │   ├─┬ overrideValue(newValue) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ newValue
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ originalValue [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mEntropy[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(clock) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ clock
+ │   │   │     └── [4mtype[24m: jsii-calc.IWallClock
+ │   │   ├─┬ increase() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ repeat(word) [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ word
+ │   │     │   └── [4mtype[24m: string
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90mclass[39m [36mEnumDispenser[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ [90mstatic[39m randomIntegerLikeEnum() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.AllTypesEnum
+ │   │   └─┬ [90mstatic[39m randomStringLikeEnum() [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mreturns[24m: jsii-calc.StringEnum
+ │   ├─┬ [90mclass[39m [36mEraseUndefinedHashValues[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ [90mstatic[39m doesKeyExist(opts,key) [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ ├─┬ opts
+ │   │   │ │ │ └── [4mtype[24m: jsii-calc.EraseUndefinedHashValuesOptions
+ │   │   │ │ └─┬ key
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   ├─┬ [90mstatic[39m prop1IsNull() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: Map<string => any>
+ │   │   └─┬ [90mstatic[39m prop2IsUndefined() [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mreturns[24m: Map<string => any>
+ │   ├─┬ [90mclass[39m [36mExperimentalClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── [4mtype[24m: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── [4mtype[24m: Optional<number>
+ │   │   ├─┬ method() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ readonlyProperty [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ mutableProperty [90mproperty[39m
+ │   │     └── [4mtype[24m: Optional<number>
+ │   ├─┬ [90mclass[39m [36mExportedBaseClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(success) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ success
+ │   │   │     └── [4mtype[24m: boolean
+ │   │   └─┬ success [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90mclass[39m [36mExternalClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── [4mtype[24m: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── [4mtype[24m: Optional<number>
+ │   │   ├─┬ method() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ readonlyProperty [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ mutableProperty [90mproperty[39m
+ │   │     └── [4mtype[24m: Optional<number>
+ │   ├─┬ [90mclass[39m [36mGiveMeStructs[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ derivedToFirst(derived) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ derived
+ │   │   │ │   └── [4mtype[24m: jsii-calc.DerivedStruct
+ │   │   │ └── [4mreturns[24m: @scope/jsii-calc-lib.MyFirstStruct
+ │   │   ├─┬ readDerivedNonPrimitive(derived) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ derived
+ │   │   │ │   └── [4mtype[24m: jsii-calc.DerivedStruct
+ │   │   │ └── [4mreturns[24m: jsii-calc.DoubleTrouble
+ │   │   ├─┬ readFirstNumber(first) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ first
+ │   │   │ │   └── [4mtype[24m: @scope/jsii-calc-lib.MyFirstStruct
+ │   │   │ └── [4mreturns[24m: number
+ │   │   └─┬ structLiteral [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: @scope/jsii-calc-lib.StructWithOnlyOptionals
+ │   ├─┬ [90mclass[39m [36mGreetingAugmenter[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ betterGreeting(friendly) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ friendly
+ │   │     │   └── [4mtype[24m: @scope/jsii-calc-lib.IFriendly
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90mclass[39m [36mImplementInternalInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ prop [90mproperty[39m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mImplementation[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ value [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90mclass[39m [36mImplementsInterfaceWithInternal[39m
+ │   │ ├── [4minterfaces[24m: IInterfaceWithInternal
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ visible() [90mmethod[39m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mImplementsInterfaceWithInternalSubclass[39m
+ │   │ ├── [4mbase[24m: ImplementsInterfaceWithInternal
+ │   │ └─┬ [4mmembers[24m
+ │   │   └── <initializer>() [90minitializer[39m
+ │   ├─┬ [90mclass[39m [36mImplementsPrivateInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ private [90mproperty[39m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mInbetweenClass[39m
+ │   │ ├── [4mbase[24m: PublicClass
+ │   │ ├── [4minterfaces[24m: IPublicInterface2
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ ciao() [90mmethod[39m
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90mclass[39m [36mInterfaceCollections[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ [90mstatic[39m listOfInterfaces() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: Array<jsii-calc.IBell>
+ │   │   ├─┬ [90mstatic[39m listOfStructs() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: Array<jsii-calc.StructA>
+ │   │   ├─┬ [90mstatic[39m mapOfInterfaces() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: Map<string => jsii-calc.IBell>
+ │   │   └─┬ [90mstatic[39m mapOfStructs() [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mreturns[24m: Map<string => jsii-calc.StructA>
+ │   ├─┬ [90mclass[39m [36mInterfacesMaker[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ [90mstatic[39m makeInterfaces(count) [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ count
+ │   │     │   └── [4mtype[24m: number
+ │   │     └── [4mreturns[24m: Array<@scope/jsii-calc-lib.IDoublable>
+ │   ├─┬ [90mclass[39m [36mIsomorphism[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ myself() [90mmethod[39m
+ │   │     └── [4mreturns[24m: jsii-calc.Isomorphism
+ │   ├─┬ [90mclass[39m [36mJSII417Derived[39m
+ │   │ ├── [4mbase[24m: JSII417PublicBaseOfBase
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(property) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ property
+ │   │   │     └── [4mtype[24m: string
+ │   │   ├─┬ bar() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ baz() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ property [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     ├── [3mprotected[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mJSII417PublicBaseOfBase[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ [90mstatic[39m makeInstance() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.JSII417PublicBaseOfBase
+ │   │   ├─┬ foo() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ hasRoot [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90mclass[39m [36mJSObjectLiteralForInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ giveMeFriendly() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: @scope/jsii-calc-lib.IFriendly
+ │   │   └─┬ giveMeFriendlyGenerator() [90mmethod[39m
+ │   │     └── [4mreturns[24m: jsii-calc.IFriendlyRandomGenerator
+ │   ├─┬ [90mclass[39m [36mJSObjectLiteralToNative[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ returnLiteral() [90mmethod[39m
+ │   │     └── [4mreturns[24m: jsii-calc.JSObjectLiteralToNativeClass
+ │   ├─┬ [90mclass[39m [36mJSObjectLiteralToNativeClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ propA [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ propB [90mproperty[39m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90mclass[39m [36mJavaReservedWords[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ abstract() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ assert() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ boolean() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ break() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ byte() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ case() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ catch() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ char() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ class() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ const() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ continue() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ default() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ do() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ double() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ else() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ enum() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ extends() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ false() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ final() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ finally() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ float() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ for() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ goto() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ if() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ implements() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ import() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ instanceof() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ int() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ interface() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ long() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ native() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ new() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ null() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ package() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ private() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ protected() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ public() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ return() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ short() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ static() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ strictfp() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ super() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ switch() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ synchronized() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ this() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ throw() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ throws() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ transient() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ true() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ try() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ void() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ volatile() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ while [90mproperty[39m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mJsii487Derived[39m
+ │   │ ├── [4minterfaces[24m: IJsii487External2,IJsii487External
+ │   │ └─┬ [4mmembers[24m
+ │   │   └── <initializer>() [90minitializer[39m
+ │   ├─┬ [90mclass[39m [36mJsii496Derived[39m
+ │   │ ├── [4minterfaces[24m: IJsii496
+ │   │ └─┬ [4mmembers[24m
+ │   │   └── <initializer>() [90minitializer[39m
+ │   ├─┬ [90mclass[39m [36mJsiiAgent[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ [90mstatic[39m value [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90mclass[39m [36mJsonFormatter[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ [90mstatic[39m anyArray() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyBooleanFalse() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyBooleanTrue() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyDate() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyEmptyString() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyFunction() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyHash() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyNull() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyNumber() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyRef() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyString() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyUndefined() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   ├─┬ [90mstatic[39m anyZero() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   └─┬ [90mstatic[39m stringify(value) [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ value
+ │   │     │   └── [4mtype[24m: any
+ │   │     └── [4mreturns[24m: Optional<string>
+ │   ├─┬ [90mclass[39m [36mLevelOne[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(props) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ props
+ │   │   │     └── [4mtype[24m: jsii-calc.LevelOneProps
+ │   │   └─┬ props [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: jsii-calc.LevelOneProps
+ │   ├─┬ [90mclass[39m [36mMethodNamedProperty[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ property() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ elite [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90mclass[39m [36mMultiply[39m
+ │   │ ├── [4mbase[24m: BinaryOperation
+ │   │ ├── [4minterfaces[24m: IFriendlier,IRandomNumberGenerator
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(lhs,rhs) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ lhs
+ │   │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   │   └─┬ rhs
+ │   │   │     └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   ├─┬ farewell() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ goodbye() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ next() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: number
+ │   │   ├─┬ toString() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ value [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90mclass[39m [36mNegate[39m
+ │   │ ├── [4mbase[24m: UnaryOperation
+ │   │ ├── [4minterfaces[24m: IFriendlier
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(operand) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ operand
+ │   │   │     └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   ├─┬ farewell() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ goodbye() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ hello() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ toString() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ value [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90mclass[39m [36mNestedClassInstance[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ [90mstatic[39m makeInstance() [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mreturns[24m: @scope/jsii-calc-lib.submodule.NestingClass.NestedClass
+ │   ├─┬ [90mclass[39m [36mNodeStandardLibrary[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ cryptoSha256() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ fsReadFile() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: Promise<string>
+ │   │   ├─┬ fsReadFileSync() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ osPlatform [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mNullShouldBeTreatedAsUndefined[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(_param1,optional) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ _param1
+ │   │   │   │ └── [4mtype[24m: string
+ │   │   │   └─┬ optional
+ │   │   │     └── [4mtype[24m: any
+ │   │   ├─┬ giveMeUndefined(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: any
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ giveMeUndefinedInsideAnObject(input) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ input
+ │   │   │ │   └── [4mtype[24m: jsii-calc.NullShouldBeTreatedAsUndefinedData
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ verifyPropertyIsUndefined() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ changeMeToUndefined [90mproperty[39m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90mclass[39m [36mNumberGenerator[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(generator) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ generator
+ │   │   │     └── [4mtype[24m: jsii-calc.IRandomNumberGenerator
+ │   │   ├─┬ isSameGenerator(gen) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ gen
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IRandomNumberGenerator
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   ├─┬ nextTimes100() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: number
+ │   │   └─┬ generator [90mproperty[39m
+ │   │     └── [4mtype[24m: jsii-calc.IRandomNumberGenerator
+ │   ├─┬ [90mclass[39m [36mObjectRefsInCollections[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ sumFromArray(values) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ values
+ │   │   │ │   └── [4mtype[24m: Array<@scope/jsii-calc-lib.NumericValue>
+ │   │   │ └── [4mreturns[24m: number
+ │   │   └─┬ sumFromMap(values) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ values
+ │   │     │   └── [4mtype[24m: Map<string => @scope/jsii-calc-lib.NumericValue>
+ │   │     └── [4mreturns[24m: number
+ │   ├─┬ [90mclass[39m [36mObjectWithPropertyProvider[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ [90mstatic[39m provide() [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mreturns[24m: jsii-calc.IObjectWithProperty
+ │   ├─┬ [90mclass[39m [36mOld[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ doAThing() [90mmethod[39m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mOptionalArgumentInvoker[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(delegate) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ delegate
+ │   │   │     └── [4mtype[24m: jsii-calc.IInterfaceWithOptionalMethodArguments
+ │   │   ├─┬ invokeWithOptional() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ invokeWithoutOptional() [90mmethod[39m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mOptionalConstructorArgument[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(arg1,arg2,arg3) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ arg1
+ │   │   │   │ └── [4mtype[24m: number
+ │   │   │   ├─┬ arg2
+ │   │   │   │ └── [4mtype[24m: string
+ │   │   │   └─┬ arg3
+ │   │   │     └── [4mtype[24m: Optional<date>
+ │   │   ├─┬ arg1 [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: number
+ │   │   ├─┬ arg2 [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ arg3 [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<date>
+ │   ├─┬ [90mclass[39m [36mOptionalStructConsumer[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(optionalStruct) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ optionalStruct
+ │   │   │     └── [4mtype[24m: Optional<jsii-calc.OptionalStruct>
+ │   │   ├─┬ parameterWasUndefined [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: boolean
+ │   │   └─┬ fieldValue [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90mclass[39m [36mOverridableProtectedMember[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ overrideMe() [90mmethod[39m
+ │   │   │ ├── [3mprotected[23m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ switchModes() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ valueFromProtected() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ overrideReadOnly [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ ├── [3mprotected[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ overrideReadWrite [90mproperty[39m
+ │   │     ├── [3mprotected[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mOverrideReturnsObject[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ test(obj) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ obj
+ │   │     │   └── [4mtype[24m: jsii-calc.IReturnsNumber
+ │   │     └── [4mreturns[24m: number
+ │   ├─┬ [90mclass[39m [36mPartiallyInitializedThisConsumer[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ consumePartiallyInitializedThis(obj,dt,ev) [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ ├─┬ obj
+ │   │     │ │ └── [4mtype[24m: jsii-calc.ConstructorPassesThisOut
+ │   │     │ ├─┬ dt
+ │   │     │ │ └── [4mtype[24m: date
+ │   │     │ └─┬ ev
+ │   │     │   └── [4mtype[24m: jsii-calc.AllTypesEnum
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90mclass[39m [36mPolymorphism[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ sayHello(friendly) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ friendly
+ │   │     │   └── [4mtype[24m: @scope/jsii-calc-lib.IFriendly
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90mclass[39m [36mPower[39m
+ │   │ ├── [4mbase[24m: CompositeOperation
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(base,pow) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ base
+ │   │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   │   └─┬ pow
+ │   │   │     └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   ├─┬ base [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   ├─┬ expression [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   └─┬ pow [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   ├─┬ [90mclass[39m [36mPropertyNamedProperty[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ property [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ yetAnoterOne [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90mclass[39m [36mPublicClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ hello() [90mmethod[39m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mPythonReservedWords[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ and() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ as() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ assert() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ async() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ await() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ break() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ class() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ continue() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ def() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ del() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ elif() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ else() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ except() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ finally() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ for() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ from() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ global() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ if() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ import() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ in() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ is() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ lambda() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ nonlocal() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ not() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ or() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ pass() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ raise() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ return() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ try() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ while() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ with() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ yield() [90mmethod[39m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mReferenceEnumFromScopedPackage[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ loadFoo() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: Optional<@scope/jsii-calc-lib.EnumFromScopedModule>
+ │   │   ├─┬ saveFoo(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: @scope/jsii-calc-lib.EnumFromScopedModule
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ foo [90mproperty[39m
+ │   │     └── [4mtype[24m: Optional<@scope/jsii-calc-lib.EnumFromScopedModule>
+ │   ├─┬ [90mclass[39m [36mReturnsPrivateImplementationOfInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ privateImplementation [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: jsii-calc.IPrivatelyImplemented
+ │   ├─┬ [90mclass[39m [36mRootStructValidator[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ [90mstatic[39m validate(struct) [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ struct
+ │   │     │   └── [4mtype[24m: jsii-calc.RootStruct
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mRuntimeTypeChecking[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ methodWithDefaultedArguments(arg1,arg2,arg3) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ ├─┬ arg1
+ │   │   │ │ │ └── [4mtype[24m: Optional<number>
+ │   │   │ │ ├─┬ arg2
+ │   │   │ │ │ └── [4mtype[24m: Optional<string>
+ │   │   │ │ └─┬ arg3
+ │   │   │ │   └── [4mtype[24m: Optional<date>
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ methodWithOptionalAnyArgument(arg) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ arg
+ │   │   │ │   └── [4mtype[24m: any
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ methodWithOptionalArguments(arg1,arg2,arg3) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ ├─┬ arg1
+ │   │     │ │ └── [4mtype[24m: number
+ │   │     │ ├─┬ arg2
+ │   │     │ │ └── [4mtype[24m: string
+ │   │     │ └─┬ arg3
+ │   │     │   └── [4mtype[24m: Optional<date>
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mSingleInstanceTwoTypes[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ interface1() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: jsii-calc.InbetweenClass
+ │   │   └─┬ interface2() [90mmethod[39m
+ │   │     └── [4mreturns[24m: jsii-calc.IPublicInterface
+ │   ├─┬ [90mclass[39m [36mSingletonInt[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ isSingletonInt(value) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ value
+ │   │     │   └── [4mtype[24m: number
+ │   │     └── [4mreturns[24m: boolean
+ │   ├─┬ [90mclass[39m [36mSingletonString[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ isSingletonString(value) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ value
+ │   │     │   └── [4mtype[24m: string
+ │   │     └── [4mreturns[24m: boolean
+ │   ├─┬ [90mclass[39m [36mSomeTypeJsii976[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ [90mstatic[39m returnAnonymous() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: any
+ │   │   └─┬ [90mstatic[39m returnReturn() [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mreturns[24m: jsii-calc.IReturnJsii976
+ │   ├─┬ [90mclass[39m [36mStableClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── [4mtype[24m: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── [4mtype[24m: Optional<number>
+ │   │   ├─┬ method() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ readonlyProperty [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ mutableProperty [90mproperty[39m
+ │   │     └── [4mtype[24m: Optional<number>
+ │   ├─┬ [90mclass[39m [36mStaticContext[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ [90mstatic[39m canAccessStaticContext() [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   └─┬ [90mstatic[39m staticVariable [90mproperty[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90mclass[39m [36mStatics[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(value) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ value
+ │   │   │     └── [4mtype[24m: string
+ │   │   ├─┬ [90mstatic[39m staticMethod(name) [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ name
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ justMethod() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ [90mstatic[39m BAR [90mproperty[39m
+ │   │   │ ├── [3mconst[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: number
+ │   │   ├─┬ [90mstatic[39m ConstObj [90mproperty[39m
+ │   │   │ ├── [3mconst[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: jsii-calc.DoubleTrouble
+ │   │   ├─┬ [90mstatic[39m Foo [90mproperty[39m
+ │   │   │ ├── [3mconst[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ [90mstatic[39m zooBar [90mproperty[39m
+ │   │   │ ├── [3mconst[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: Map<string => string>
+ │   │   ├─┬ [90mstatic[39m instance [90mproperty[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: jsii-calc.Statics
+ │   │   ├─┬ [90mstatic[39m nonConstStatic [90mproperty[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: number
+ │   │   └─┬ value [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mStripInternal[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ youSeeMe [90mproperty[39m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mStructPassing[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ [90mstatic[39m howManyVarArgsDidIPass(_positional,inputs) [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ ├── [3mvariadic[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ ├─┬ _positional
+ │   │   │ │ │ └── [4mtype[24m: number
+ │   │   │ │ └─┬ inputs
+ │   │   │ │   ├── [4mtype[24m: jsii-calc.TopLevelStruct
+ │   │   │ │   └── [3mvariadic[23m
+ │   │   │ └── [4mreturns[24m: number
+ │   │   └─┬ [90mstatic[39m roundTrip(_positional,input) [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ ├─┬ _positional
+ │   │     │ │ └── [4mtype[24m: number
+ │   │     │ └─┬ input
+ │   │     │   └── [4mtype[24m: jsii-calc.TopLevelStruct
+ │   │     └── [4mreturns[24m: jsii-calc.TopLevelStruct
+ │   ├─┬ [90mclass[39m [36mStructUnionConsumer[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ [90mstatic[39m isStructA(struct) [90mmethod[39m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ struct
+ │   │   │ │   └── [4mtype[24m: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   └─┬ [90mstatic[39m isStructB(struct) [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ struct
+ │   │     │   └── [4mtype[24m: jsii-calc.StructA | jsii-calc.StructB
+ │   │     └── [4mreturns[24m: boolean
+ │   ├─┬ [90mclass[39m [36mSum[39m
+ │   │ ├── [4mbase[24m: CompositeOperation
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ expression [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   └─┬ parts [90mproperty[39m
+ │   │     └── [4mtype[24m: Array<@scope/jsii-calc-lib.NumericValue>
+ │   ├─┬ [90mclass[39m [36mSupportsNiceJavaBuilder[39m
+ │   │ ├── [4mbase[24m: SupportsNiceJavaBuilderWithRequiredProps
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(id,defaultBar,props,rest) [90minitializer[39m
+ │   │   │ ├── [3mvariadic[23m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ id
+ │   │   │   │ └── [4mtype[24m: number
+ │   │   │   ├─┬ defaultBar
+ │   │   │   │ └── [4mtype[24m: Optional<number>
+ │   │   │   ├─┬ props
+ │   │   │   │ └── [4mtype[24m: Optional<jsii-calc.SupportsNiceJavaBuilderProps>
+ │   │   │   └─┬ rest
+ │   │   │     ├── [4mtype[24m: string
+ │   │   │     └── [3mvariadic[23m
+ │   │   ├─┬ id [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: number
+ │   │   └─┬ rest [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Array<string>
+ │   ├─┬ [90mclass[39m [36mSupportsNiceJavaBuilderWithRequiredProps[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(id,props) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   ├─┬ id
+ │   │   │   │ └── [4mtype[24m: number
+ │   │   │   └─┬ props
+ │   │   │     └── [4mtype[24m: jsii-calc.SupportsNiceJavaBuilderProps
+ │   │   ├─┬ bar [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: number
+ │   │   ├─┬ id [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: number
+ │   │   └─┬ propId [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90mclass[39m [36mSyncVirtualMethods[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ callerIsAsync() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: Promise<number>
+ │   │   ├─┬ callerIsMethod() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: number
+ │   │   ├─┬ modifyOtherProperty(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ modifyValueOfTheProperty(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ readA() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: number
+ │   │   ├─┬ retrieveOtherProperty() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ retrieveReadOnlyProperty() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ retrieveValueOfTheProperty() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ virtualMethod(n) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ n
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: number
+ │   │   ├─┬ writeA(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ readonlyProperty [90mproperty[39m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ a [90mproperty[39m
+ │   │   │ └── [4mtype[24m: number
+ │   │   ├─┬ callerIsProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: number
+ │   │   ├─┬ otherProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ theProperty [90mproperty[39m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ valueOfOtherProperty [90mproperty[39m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90mclass[39m [36mThrower[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ throwError() [90mmethod[39m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mUmaskCheck[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ [90mstatic[39m mode() [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     └── [4mreturns[24m: number
+ │   ├─┬ [90mclass[39m [36mUnaryOperation[39m
+ │   │ ├── [4mbase[24m: Operation
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(operand) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ operand
+ │   │   │     └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   │   └─┬ operand [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: @scope/jsii-calc-lib.NumericValue
+ │   ├─┬ [90mclass[39m [36mUpcasingReflectable[39m
+ │   │ ├── [4minterfaces[24m: IReflectable
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(delegate) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ delegate
+ │   │   │     └── [4mtype[24m: Map<string => any>
+ │   │   ├─┬ [90mstatic[39m reflector [90mproperty[39m
+ │   │   │ ├── [3mconst[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ ├── [3mstatic[23m
+ │   │   │ └── [4mtype[24m: @scope/jsii-calc-lib.submodule.Reflector
+ │   │   └─┬ entries [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Array<@scope/jsii-calc-lib.submodule.ReflectableEntry>
+ │   ├─┬ [90mclass[39m [36mUseBundledDependency[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ value() [90mmethod[39m
+ │   │     └── [4mreturns[24m: any
+ │   ├─┬ [90mclass[39m [36mUseCalcBase[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ hello() [90mmethod[39m
+ │   │     └── [4mreturns[24m: @scope/jsii-calc-base.Base
+ │   ├─┬ [90mclass[39m [36mUsesInterfaceWithProperties[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(obj) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ obj
+ │   │   │     └── [4mtype[24m: jsii-calc.IInterfaceWithProperties
+ │   │   ├─┬ justRead() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ readStringAndNumber(ext) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ ext
+ │   │   │ │   └── [4mtype[24m: jsii-calc.IInterfaceWithPropertiesExtension
+ │   │   │ └── [4mreturns[24m: string
+ │   │   ├─┬ writeAndRead(value) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ value
+ │   │   │ │   └── [4mtype[24m: string
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ obj [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: jsii-calc.IInterfaceWithProperties
+ │   ├─┬ [90mclass[39m [36mVariadicInvoker[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(method) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ method
+ │   │   │     └── [4mtype[24m: jsii-calc.VariadicMethod
+ │   │   └─┬ asArray(values) [90mmethod[39m
+ │   │     ├── [3mvariadic[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ values
+ │   │     │   ├── [4mtype[24m: number
+ │   │     │   └── [3mvariadic[23m
+ │   │     └── [4mreturns[24m: Array<number>
+ │   ├─┬ [90mclass[39m [36mVariadicMethod[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(prefix) [90minitializer[39m
+ │   │   │ ├── [3mvariadic[23m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ prefix
+ │   │   │     ├── [4mtype[24m: number
+ │   │   │     └── [3mvariadic[23m
+ │   │   └─┬ asArray(first,others) [90mmethod[39m
+ │   │     ├── [3mvariadic[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ ├─┬ first
+ │   │     │ │ └── [4mtype[24m: number
+ │   │     │ └─┬ others
+ │   │     │   ├── [4mtype[24m: number
+ │   │     │   └── [3mvariadic[23m
+ │   │     └── [4mreturns[24m: Array<number>
+ │   ├─┬ [90mclass[39m [36mVirtualMethodPlayground[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ overrideMeAsync(index) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ index
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: Promise<number>
+ │   │   ├─┬ overrideMeSync(index) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ index
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: number
+ │   │   ├─┬ parallelSumAsync(count) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ count
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: Promise<number>
+ │   │   ├─┬ serialSumAsync(count) [90mmethod[39m
+ │   │   │ ├─┬ [4mparameters[24m
+ │   │   │ │ └─┬ count
+ │   │   │ │   └── [4mtype[24m: number
+ │   │   │ └── [4mreturns[24m: Promise<number>
+ │   │   └─┬ sumSync(count) [90mmethod[39m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ count
+ │   │     │   └── [4mtype[24m: number
+ │   │     └── [4mreturns[24m: number
+ │   ├─┬ [90mclass[39m [36mVoidCallback[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   ├─┬ callMe() [90mmethod[39m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ overrideMe() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mprotected[23m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ methodWasCalled [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90mclass[39m [36mWithPrivatePropertyInConstructor[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ <initializer>(privateField) [90minitializer[39m
+ │   │   │ └─┬ [4mparameters[24m
+ │   │   │   └─┬ privateField
+ │   │   │     └── [4mtype[24m: Optional<string>
+ │   │   └─┬ success [90mproperty[39m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90minterface[39m [36mCalculatorProps[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ initialValue [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<number>
+ │   │   └─┬ maximumValue [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<number>
+ │   ├─┬ [90minterface[39m [36mChildStruct982[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── ParentStruct982
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ bar [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90minterface[39m [36mConfusingToJacksonStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ unionProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<@scope/jsii-calc-lib.IFriendly | Array<@scope/jsii-calc-lib.IFriendly | jsii-calc.AbstractClass>>
+ │   ├─┬ [90minterface[39m [36mDeprecatedStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ readonlyProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mDerivedStruct[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── MyFirstStruct
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ anotherRequired [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: date
+ │   │   ├─┬ bool [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: boolean
+ │   │   ├─┬ nonPrimitive [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: jsii-calc.DoubleTrouble
+ │   │   ├─┬ anotherOptional [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<Map<string => @scope/jsii-calc-lib.NumericValue>>
+ │   │   ├─┬ optionalAny [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: any
+ │   │   └─┬ optionalArray [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<Array<string>>
+ │   ├─┬ [90minterface[39m [36mDiamondInheritanceBaseLevelStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ baseLevelProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mDiamondInheritanceFirstMidLevelStruct[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── DiamondInheritanceBaseLevelStruct
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ firstMidLevelProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mDiamondInheritanceSecondMidLevelStruct[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── DiamondInheritanceBaseLevelStruct
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ secondMidLevelProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mDiamondInheritanceTopLevelStruct[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ ├── DiamondInheritanceFirstMidLevelStruct
+ │   │ │ └── DiamondInheritanceSecondMidLevelStruct
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ topLevelProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mEraseUndefinedHashValuesOptions[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ option1 [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<string>
+ │   │   └─┬ option2 [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90minterface[39m [36mExperimentalStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ readonlyProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mExtendsInternalInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ boom [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: boolean
+ │   │   └─┬ prop [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mExternalStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ readonlyProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mGreetee[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ name [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90minterface[39m [36mIAnonymousImplementationProvider[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ provideAsClass() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: jsii-calc.Implementation
+ │   │   └─┬ provideAsInterface() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: jsii-calc.IAnonymouslyImplementMe
+ │   ├─┬ [90minterface[39m [36mIAnonymouslyImplementMe[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ verb() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ value [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90minterface[39m [36mIAnotherPublicInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ a [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mIBell[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ ring() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90minterface[39m [36mIBellRinger[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ yourTurn(bell) [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ bell
+ │   │     │   └── [4mtype[24m: jsii-calc.IBell
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90minterface[39m [36mIConcreteBellRinger[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ yourTurn(bell) [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ bell
+ │   │     │   └── [4mtype[24m: jsii-calc.Bell
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90minterface[39m [36mIDeprecatedInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ method() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ mutableProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: Optional<number>
+ │   ├─┬ [90minterface[39m [36mIExperimentalInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ method() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ mutableProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: Optional<number>
+ │   ├─┬ [90minterface[39m [36mIExtendsPrivateInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ moreThings [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Array<string>
+ │   │   └─┬ private [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mIExternalInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ method() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ mutableProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: Optional<number>
+ │   ├─┬ [90minterface[39m [36mIFriendlier[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── IFriendly
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ farewell() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: string
+ │   │   └─┬ goodbye() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90minterface[39m [36mIFriendlyRandomGenerator[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ ├── IRandomNumberGenerator
+ │   │ │ └── IFriendly
+ │   │ └── [4mmembers[24m
+ │   ├─┬ [90minterface[39m [36mIInterfaceImplementedByAbstractClass[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ propFromInterface [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mIInterfaceThatShouldNotBeADataType[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── IInterfaceWithMethods
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ otherValue [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mIInterfaceWithInternal[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ visible() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90minterface[39m [36mIInterfaceWithMethods[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ doThings() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ value [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mIInterfaceWithOptionalMethodArguments[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ hello(arg1,arg2) [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ ├─┬ arg1
+ │   │     │ │ └── [4mtype[24m: string
+ │   │     │ └─┬ arg2
+ │   │     │   └── [4mtype[24m: Optional<number>
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90minterface[39m [36mIInterfaceWithProperties[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ readOnlyString [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ readWriteString [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mIInterfaceWithPropertiesExtension[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── IInterfaceWithProperties
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ foo [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90minterface[39m [36mIJSII417Derived[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── IJSII417PublicBaseOfBase
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ bar() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   ├─┬ baz() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ property [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mIJSII417PublicBaseOfBase[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ foo() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ hasRoot [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90minterface[39m [36mIJsii487External[39m
+ │   │ └── [4mmembers[24m
+ │   ├─┬ [90minterface[39m [36mIJsii487External2[39m
+ │   │ └── [4mmembers[24m
+ │   ├─┬ [90minterface[39m [36mIJsii496[39m
+ │   │ └── [4mmembers[24m
+ │   ├─┬ [90minterface[39m [36mIMutableObjectLiteral[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ value [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mINonInternalInterface[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── IAnotherPublicInterface
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ b [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ c [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mIObjectWithProperty[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ wasSet() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: boolean
+ │   │   └─┬ property [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mIOptionalMethod[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ optional() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: Optional<string>
+ │   ├─┬ [90minterface[39m [36mIPrivatelyImplemented[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ success [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90minterface[39m [36mIPublicInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ bye() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90minterface[39m [36mIPublicInterface2[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ ciao() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90minterface[39m [36mIRandomNumberGenerator[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ next() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: number
+ │   ├─┬ [90minterface[39m [36mIReturnJsii976[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ foo [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90minterface[39m [36mIReturnsNumber[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ obtainNumber() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: @scope/jsii-calc-lib.IDoublable
+ │   │   └─┬ numberProp [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: @scope/jsii-calc-lib.Number
+ │   ├─┬ [90minterface[39m [36mIStableInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ method() [90mmethod[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ └── [4mreturns[24m: void
+ │   │   └─┬ mutableProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mtype[24m: Optional<number>
+ │   ├─┬ [90minterface[39m [36mIStructReturningDelegate[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ returnStruct() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: jsii-calc.StructB
+ │   ├─┬ [90minterface[39m [36mIWallClock[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ iso8601Now() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: string
+ │   ├─┬ [90minterface[39m [36mImplictBaseOfBase[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── BaseProps
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ goo [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: date
+ │   ├─┬ [90minterface[39m [36mPropBooleanValue[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ value [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90minterface[39m [36mPropProperty[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ prop [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: jsii-calc.LevelOne.PropBooleanValue
+ │   ├─┬ [90minterface[39m [36mLevelOneProps[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ prop [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: jsii-calc.LevelOne.PropProperty
+ │   ├─┬ [90minterface[39m [36mLoadBalancedFargateServiceProps[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ containerPort [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<number>
+ │   │   ├─┬ cpu [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<string>
+ │   │   ├─┬ memoryMiB [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<string>
+ │   │   ├─┬ publicLoadBalancer [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<boolean>
+ │   │   └─┬ publicTasks [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<boolean>
+ │   ├─┬ [90minterface[39m [36mNestedStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ numberProp [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: number
+ │   ├─┬ [90minterface[39m [36mNullShouldBeTreatedAsUndefinedData[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ arrayWithThreeElementsAndUndefinedAsSecondArgument [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Array<any>
+ │   │   └─┬ thisShouldBeUndefined [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: any
+ │   ├─┬ [90minterface[39m [36mOptionalStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ field [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90minterface[39m [36mParentStruct982[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ foo [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mRootStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ stringProp [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ nestedStruct [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<jsii-calc.NestedStruct>
+ │   ├─┬ [90minterface[39m [36mSecondLevelStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ deeperRequiredProp [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ deeperOptionalProp [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90minterface[39m [36mSmellyStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ property [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ yetAnoterOne [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: boolean
+ │   ├─┬ [90minterface[39m [36mStableStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ readonlyProperty [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   ├─┬ [90minterface[39m [36mStructA[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ requiredString [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ optionalNumber [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<number>
+ │   │   └─┬ optionalString [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90minterface[39m [36mStructB[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ requiredString [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ optionalBoolean [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<boolean>
+ │   │   └─┬ optionalStructA [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<jsii-calc.StructA>
+ │   ├─┬ [90minterface[39m [36mStructParameterType[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ scope [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   └─┬ props [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<boolean>
+ │   ├─┬ [90minterface[39m [36mStructWithJavaReservedWords[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ default [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ assert [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<string>
+ │   │   ├─┬ result [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: Optional<string>
+ │   │   └─┬ that [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90minterface[39m [36mSupportsNiceJavaBuilderProps[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ bar [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: number
+ │   │   └─┬ id [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90minterface[39m [36mTopLevelStruct[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ required [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string
+ │   │   ├─┬ secondLevel [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: number | jsii-calc.SecondLevelStruct
+ │   │   └─┬ optional [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string>
+ │   ├─┬ [90minterface[39m [36mUnionProperties[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├─┬ bar [90mproperty[39m
+ │   │   │ ├── [3mabstract[23m
+ │   │   │ ├── [3mimmutable[23m
+ │   │   │ └── [4mtype[24m: string | number | jsii-calc.AllTypes
+ │   │   └─┬ foo [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: Optional<string | number>
+ │   ├─┬ [90menum[39m [36mAllTypesEnum[39m
+ │   │ ├── MY_ENUM_VALUE
+ │   │ ├── YOUR_ENUM_VALUE
+ │   │ └── THIS_IS_GREAT
+ │   ├─┬ [90menum[39m [36mDeprecatedEnum[39m
+ │   │ ├── OPTION_A
+ │   │ └── OPTION_B
+ │   ├─┬ [90menum[39m [36mExperimentalEnum[39m
+ │   │ ├── OPTION_A
+ │   │ └── OPTION_B
+ │   ├─┬ [90menum[39m [36mExternalEnum[39m
+ │   │ ├── OPTION_A
+ │   │ └── OPTION_B
+ │   ├─┬ [90menum[39m [36mSingletonIntEnum[39m
+ │   │ └── SINGLETON_INT
+ │   ├─┬ [90menum[39m [36mSingletonStringEnum[39m
+ │   │ └── SINGLETON_STRING
+ │   ├─┬ [90menum[39m [36mStableEnum[39m
+ │   │ ├── OPTION_A
+ │   │ └── OPTION_B
+ │   └─┬ [90menum[39m [36mStringEnum[39m
+ │     ├── A
+ │     ├── B
+ │     └── C
+ ├─┬ [32m@scope/jsii-calc-base[39m
+ │ ├─┬ [4mdependencies[24m
+ │ │ └── @scope/jsii-calc-base-of-base
+ │ └─┬ [4mtypes[24m
+ │   ├─┬ [90mclass[39m [36mBase[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ typeName() [90mmethod[39m
+ │   │     └── [4mreturns[24m: any
+ │   ├─┬ [90minterface[39m [36mBaseProps[39m
+ │   │ ├─┬ [4minterfaces[24m
+ │   │ │ └── VeryBaseProps
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ bar [90mproperty[39m
+ │   │     ├── [3mabstract[23m
+ │   │     ├── [3mimmutable[23m
+ │   │     └── [4mtype[24m: string
+ │   └─┬ [90minterface[39m [36mIBaseInterface[39m
+ │     ├─┬ [4minterfaces[24m
+ │     │ └── IVeryBaseInterface
+ │     └─┬ [4mmembers[24m
+ │       └─┬ bar() [90mmethod[39m
+ │         ├── [3mabstract[23m
+ │         └── [4mreturns[24m: void
+ ├─┬ [32m@scope/jsii-calc-base-of-base[39m
+ │ └─┬ [4mtypes[24m
+ │   ├─┬ [90mclass[39m [36mStaticConsumer[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ [90mstatic[39m consume(_args) [90mmethod[39m
+ │   │     ├── [3mstatic[23m
+ │   │     ├── [3mvariadic[23m
+ │   │     ├─┬ [4mparameters[24m
+ │   │     │ └─┬ _args
+ │   │     │   ├── [4mtype[24m: any
+ │   │     │   └── [3mvariadic[23m
+ │   │     └── [4mreturns[24m: void
+ │   ├─┬ [90mclass[39m [36mVery[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   ├── <initializer>() [90minitializer[39m
+ │   │   └─┬ hey() [90mmethod[39m
+ │   │     └── [4mreturns[24m: number
+ │   ├─┬ [90minterface[39m [36mIVeryBaseInterface[39m
+ │   │ └─┬ [4mmembers[24m
+ │   │   └─┬ foo() [90mmethod[39m
+ │   │     ├── [3mabstract[23m
+ │   │     └── [4mreturns[24m: void
+ │   └─┬ [90minterface[39m [36mVeryBaseProps[39m
+ │     └─┬ [4mmembers[24m
+ │       └─┬ foo [90mproperty[39m
+ │         ├── [3mabstract[23m
+ │         ├── [3mimmutable[23m
+ │         └── [4mtype[24m: @scope/jsii-calc-base-of-base.Very
+ └─┬ [32m@scope/jsii-calc-lib[39m
+   ├─┬ [4mdependencies[24m
+   │ ├── @scope/jsii-calc-base
+   │ └── @scope/jsii-calc-base-of-base
+   ├─┬ [4msubmodules[24m
+   │ └─┬ [32msubmodule[39m
+   │   └─┬ [4mtypes[24m
+   │     ├─┬ [90mclass[39m [36mNestingClass[39m
+   │     │ └── [4mmembers[24m
+   │     ├─┬ [90mclass[39m [36mNestedClass[39m
+   │     │ └─┬ [4mmembers[24m
+   │     │   ├── <initializer>() [90minitializer[39m
+   │     │   └─┬ property [90mproperty[39m
+   │     │     ├── [3mimmutable[23m
+   │     │     └── [4mtype[24m: string
+   │     ├─┬ [90mclass[39m [36mReflector[39m
+   │     │ └─┬ [4mmembers[24m
+   │     │   ├── <initializer>() [90minitializer[39m
+   │     │   └─┬ asMap(reflectable) [90mmethod[39m
+   │     │     ├─┬ [4mparameters[24m
+   │     │     │ └─┬ reflectable
+   │     │     │   └── [4mtype[24m: @scope/jsii-calc-lib.submodule.IReflectable
+   │     │     └── [4mreturns[24m: Map<string => any>
+   │     ├─┬ [90minterface[39m [36mIReflectable[39m
+   │     │ └─┬ [4mmembers[24m
+   │     │   └─┬ entries [90mproperty[39m
+   │     │     ├── [3mabstract[23m
+   │     │     ├── [3mimmutable[23m
+   │     │     └── [4mtype[24m: Array<@scope/jsii-calc-lib.submodule.ReflectableEntry>
+   │     ├─┬ [90minterface[39m [36mNestedStruct[39m
+   │     │ └─┬ [4mmembers[24m
+   │     │   └─┬ name [90mproperty[39m
+   │     │     ├── [3mabstract[23m
+   │     │     ├── [3mimmutable[23m
+   │     │     └── [4mtype[24m: string
+   │     └─┬ [90minterface[39m [36mReflectableEntry[39m
+   │       └─┬ [4mmembers[24m
+   │         ├─┬ key [90mproperty[39m
+   │         │ ├── [3mabstract[23m
+   │         │ ├── [3mimmutable[23m
+   │         │ └── [4mtype[24m: string
+   │         └─┬ value [90mproperty[39m
+   │           ├── [3mabstract[23m
+   │           ├── [3mimmutable[23m
+   │           └── [4mtype[24m: any
+   └─┬ [4mtypes[24m
+     ├─┬ [90mclass[39m [36mNumber[39m
+     │ ├── [4mbase[24m: NumericValue
+     │ ├── [4minterfaces[24m: IDoublable
+     │ └─┬ [4mmembers[24m
+     │   ├─┬ <initializer>(value) [90minitializer[39m
+     │   │ └─┬ [4mparameters[24m
+     │   │   └─┬ value
+     │   │     └── [4mtype[24m: number
+     │   ├─┬ doubleValue [90mproperty[39m
+     │   │ ├── [3mimmutable[23m
+     │   │ └── [4mtype[24m: number
+     │   └─┬ value [90mproperty[39m
+     │     ├── [3mimmutable[23m
+     │     └── [4mtype[24m: number
+     ├─┬ [90mclass[39m [36mNumericValue[39m
+     │ ├── [4mbase[24m: Base
+     │ └─┬ [4mmembers[24m
+     │   ├── <initializer>() [90minitializer[39m
+     │   ├─┬ toString() [90mmethod[39m
+     │   │ └── [4mreturns[24m: string
+     │   └─┬ value [90mproperty[39m
+     │     ├── [3mabstract[23m
+     │     ├── [3mimmutable[23m
+     │     └── [4mtype[24m: number
+     ├─┬ [90mclass[39m [36mOperation[39m
+     │ ├── [4mbase[24m: NumericValue
+     │ └─┬ [4mmembers[24m
+     │   ├── <initializer>() [90minitializer[39m
+     │   └─┬ toString() [90mmethod[39m
+     │     ├── [3mabstract[23m
+     │     └── [4mreturns[24m: string
+     ├─┬ [90minterface[39m [36mIDoublable[39m
+     │ └─┬ [4mmembers[24m
+     │   └─┬ doubleValue [90mproperty[39m
+     │     ├── [3mabstract[23m
+     │     ├── [3mimmutable[23m
+     │     └── [4mtype[24m: number
+     ├─┬ [90minterface[39m [36mIFriendly[39m
+     │ └─┬ [4mmembers[24m
+     │   └─┬ hello() [90mmethod[39m
+     │     ├── [3mabstract[23m
+     │     └── [4mreturns[24m: string
+     ├─┬ [90minterface[39m [36mIThreeLevelsInterface[39m
+     │ ├─┬ [4minterfaces[24m
+     │ │ └── IBaseInterface
+     │ └─┬ [4mmembers[24m
+     │   └─┬ baz() [90mmethod[39m
+     │     ├── [3mabstract[23m
+     │     └── [4mreturns[24m: void
+     ├─┬ [90minterface[39m [36mMyFirstStruct[39m
+     │ └─┬ [4mmembers[24m
+     │   ├─┬ anumber [90mproperty[39m
+     │   │ ├── [3mabstract[23m
+     │   │ ├── [3mimmutable[23m
+     │   │ └── [4mtype[24m: number
+     │   ├─┬ astring [90mproperty[39m
+     │   │ ├── [3mabstract[23m
+     │   │ ├── [3mimmutable[23m
+     │   │ └── [4mtype[24m: string
+     │   └─┬ firstOptional [90mproperty[39m
+     │     ├── [3mabstract[23m
+     │     ├── [3mimmutable[23m
+     │     └── [4mtype[24m: Optional<Array<string>>
+     ├─┬ [90minterface[39m [36mStructWithOnlyOptionals[39m
+     │ └─┬ [4mmembers[24m
+     │   ├─┬ optional1 [90mproperty[39m
+     │   │ ├── [3mabstract[23m
+     │   │ ├── [3mimmutable[23m
+     │   │ └── [4mtype[24m: Optional<string>
+     │   ├─┬ optional2 [90mproperty[39m
+     │   │ ├── [3mabstract[23m
+     │   │ ├── [3mimmutable[23m
+     │   │ └── [4mtype[24m: Optional<number>
+     │   └─┬ optional3 [90mproperty[39m
+     │     ├── [3mabstract[23m
+     │     ├── [3mimmutable[23m
+     │     └── [4mtype[24m: Optional<boolean>
+     └─┬ [90menum[39m [36mEnumFromScopedModule[39m
+       ├── VALUE1
+       └── VALUE2
+"
+`;
+
+exports[`signatures 1`] = `
+"[4massemblies[24m
+ ├─┬ [32mjsii-calc[39m
+ │ └─┬ [4msubmodules[24m
+ │   ├── [32mDerivedClassHasNoProperties[39m
+ │   ├── [32mInterfaceInNamespaceIncludesClasses[39m
+ │   ├── [32mInterfaceInNamespaceOnlyInterface[39m
+ │   ├── [32mPythonSelf[39m
+ │   ├── [32mcomposition[39m
+ │   └─┬ [32msubmodule[39m
+ │     └─┬ [4msubmodules[24m
+ │       ├── [32mback_references[39m
+ │       ├── [32mchild[39m
+ │       ├── [32misolated[39m
+ │       ├─┬ [32mnested_submodule[39m
+ │       │ └─┬ [4msubmodules[24m
+ │       │   └── [32mdeeplyNested[39m
+ │       ├── [32mparam[39m
+ │       └── [32mreturnsparam[39m
+ ├── [32m@scope/jsii-calc-base[39m
+ ├── [32m@scope/jsii-calc-base-of-base[39m
+ └─┬ [32m@scope/jsii-calc-lib[39m
+   └─┬ [4msubmodules[24m
+     └── [32msubmodule[39m
+"
+`;
+
+exports[`types 1`] = `
+"[4massemblies[24m
+ ├─┬ [32mjsii-calc[39m
+ │ ├─┬ [4msubmodules[24m
+ │ │ ├─┬ [32mDerivedClassHasNoProperties[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   ├── [90mclass[39m [36mBase[39m
+ │ │ │   └── [90mclass[39m [36mDerived[39m
+ │ │ ├─┬ [32mInterfaceInNamespaceIncludesClasses[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   ├── [90mclass[39m [36mFoo[39m
+ │ │ │   └── [90minterface[39m [36mHello[39m
+ │ │ ├─┬ [32mInterfaceInNamespaceOnlyInterface[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   └── [90minterface[39m [36mHello[39m
+ │ │ ├─┬ [32mPythonSelf[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   ├── [90mclass[39m [36mClassWithSelf[39m
+ │ │ │   ├── [90mclass[39m [36mClassWithSelfKwarg[39m
+ │ │ │   ├── [90minterface[39m [36mIInterfaceWithSelf[39m
+ │ │ │   └── [90minterface[39m [36mStructWithSelf[39m
+ │ │ ├─┬ [32mcomposition[39m
+ │ │ │ └─┬ [4mtypes[24m
+ │ │ │   ├── [90mclass[39m [36mCompositeOperation[39m
+ │ │ │   └── [90menum[39m [36mCompositionStringStyle[39m
+ │ │ └─┬ [32msubmodule[39m
+ │ │   ├─┬ [4msubmodules[24m
+ │ │   │ ├─┬ [32mback_references[39m
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   └── [90minterface[39m [36mMyClassReference[39m
+ │ │   │ ├─┬ [32mchild[39m
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   ├── [90mclass[39m [36mInnerClass[39m
+ │ │   │ │   ├── [90mclass[39m [36mOuterClass[39m
+ │ │   │ │   ├── [90minterface[39m [36mKwargsProps[39m
+ │ │   │ │   ├── [90minterface[39m [36mSomeStruct[39m
+ │ │   │ │   ├── [90minterface[39m [36mStructure[39m
+ │ │   │ │   ├── [90menum[39m [36mAwesomeness[39m
+ │ │   │ │   ├── [90menum[39m [36mGoodness[39m
+ │ │   │ │   └── [90menum[39m [36mSomeEnum[39m
+ │ │   │ ├─┬ [32misolated[39m
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   └── [90mclass[39m [36mKwargs[39m
+ │ │   │ ├─┬ [32mnested_submodule[39m
+ │ │   │ │ ├─┬ [4msubmodules[24m
+ │ │   │ │ │ └─┬ [32mdeeplyNested[39m
+ │ │   │ │ │   └─┬ [4mtypes[24m
+ │ │   │ │ │     └── [90minterface[39m [36mINamespaced[39m
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   └── [90mclass[39m [36mNamespaced[39m
+ │ │   │ ├─┬ [32mparam[39m
+ │ │   │ │ └─┬ [4mtypes[24m
+ │ │   │ │   └── [90minterface[39m [36mSpecialParameter[39m
+ │ │   │ └─┬ [32mreturnsparam[39m
+ │ │   │   └─┬ [4mtypes[24m
+ │ │   │     └── [90mclass[39m [36mReturnsSpecialParameter[39m
+ │ │   └─┬ [4mtypes[24m
+ │ │     └── [90mclass[39m [36mMyClass[39m
+ │ └─┬ [4mtypes[24m
+ │   ├── [90mclass[39m [36mAbstractClass[39m
+ │   ├── [90mclass[39m [36mAbstractClassBase[39m
+ │   ├── [90mclass[39m [36mAbstractClassReturner[39m
+ │   ├── [90mclass[39m [36mAbstractSuite[39m
+ │   ├── [90mclass[39m [36mAdd[39m
+ │   ├── [90mclass[39m [36mAllTypes[39m
+ │   ├── [90mclass[39m [36mAllowedMethodNames[39m
+ │   ├── [90mclass[39m [36mAmbiguousParameters[39m
+ │   ├── [90mclass[39m [36mAnonymousImplementationProvider[39m
+ │   ├── [90mclass[39m [36mAsyncVirtualMethods[39m
+ │   ├── [90mclass[39m [36mAugmentableClass[39m
+ │   ├── [90mclass[39m [36mBaseJsii976[39m
+ │   ├── [90mclass[39m [36mBell[39m
+ │   ├── [90mclass[39m [36mBinaryOperation[39m
+ │   ├── [90mclass[39m [36mBurriedAnonymousObject[39m
+ │   ├── [90mclass[39m [36mCalculator[39m
+ │   ├── [90mclass[39m [36mClassThatImplementsTheInternalInterface[39m
+ │   ├── [90mclass[39m [36mClassThatImplementsThePrivateInterface[39m
+ │   ├── [90mclass[39m [36mClassWithCollections[39m
+ │   ├── [90mclass[39m [36mClassWithDocs[39m
+ │   ├── [90mclass[39m [36mClassWithJavaReservedWords[39m
+ │   ├── [90mclass[39m [36mClassWithMutableObjectLiteralProperty[39m
+ │   ├── [90mclass[39m [36mClassWithPrivateConstructorAndAutomaticProperties[39m
+ │   ├── [90mclass[39m [36mConfusingToJackson[39m
+ │   ├── [90mclass[39m [36mConstructorPassesThisOut[39m
+ │   ├── [90mclass[39m [36mConstructors[39m
+ │   ├── [90mclass[39m [36mConsumePureInterface[39m
+ │   ├── [90mclass[39m [36mConsumerCanRingBell[39m
+ │   ├── [90mclass[39m [36mConsumersOfThisCrazyTypeSystem[39m
+ │   ├── [90mclass[39m [36mDataRenderer[39m
+ │   ├── [90mclass[39m [36mDefaultedConstructorArgument[39m
+ │   ├── [90mclass[39m [36mDemonstrate982[39m
+ │   ├── [90mclass[39m [36mDeprecatedClass[39m
+ │   ├── [90mclass[39m [36mDisappointingCollectionSource[39m
+ │   ├── [90mclass[39m [36mDoNotOverridePrivates[39m
+ │   ├── [90mclass[39m [36mDoNotRecognizeAnyAsOptional[39m
+ │   ├── [90mclass[39m [36mDocumentedClass[39m
+ │   ├── [90mclass[39m [36mDontComplainAboutVariadicAfterOptional[39m
+ │   ├── [90mclass[39m [36mDoubleTrouble[39m
+ │   ├── [90mclass[39m [36mDynamicPropertyBearer[39m
+ │   ├── [90mclass[39m [36mDynamicPropertyBearerChild[39m
+ │   ├── [90mclass[39m [36mEntropy[39m
+ │   ├── [90mclass[39m [36mEnumDispenser[39m
+ │   ├── [90mclass[39m [36mEraseUndefinedHashValues[39m
+ │   ├── [90mclass[39m [36mExperimentalClass[39m
+ │   ├── [90mclass[39m [36mExportedBaseClass[39m
+ │   ├── [90mclass[39m [36mExternalClass[39m
+ │   ├── [90mclass[39m [36mGiveMeStructs[39m
+ │   ├── [90mclass[39m [36mGreetingAugmenter[39m
+ │   ├── [90mclass[39m [36mImplementInternalInterface[39m
+ │   ├── [90mclass[39m [36mImplementation[39m
+ │   ├── [90mclass[39m [36mImplementsInterfaceWithInternal[39m
+ │   ├── [90mclass[39m [36mImplementsInterfaceWithInternalSubclass[39m
+ │   ├── [90mclass[39m [36mImplementsPrivateInterface[39m
+ │   ├── [90mclass[39m [36mInbetweenClass[39m
+ │   ├── [90mclass[39m [36mInterfaceCollections[39m
+ │   ├── [90mclass[39m [36mInterfacesMaker[39m
+ │   ├── [90mclass[39m [36mIsomorphism[39m
+ │   ├── [90mclass[39m [36mJSII417Derived[39m
+ │   ├── [90mclass[39m [36mJSII417PublicBaseOfBase[39m
+ │   ├── [90mclass[39m [36mJSObjectLiteralForInterface[39m
+ │   ├── [90mclass[39m [36mJSObjectLiteralToNative[39m
+ │   ├── [90mclass[39m [36mJSObjectLiteralToNativeClass[39m
+ │   ├── [90mclass[39m [36mJavaReservedWords[39m
+ │   ├── [90mclass[39m [36mJsii487Derived[39m
+ │   ├── [90mclass[39m [36mJsii496Derived[39m
+ │   ├── [90mclass[39m [36mJsiiAgent[39m
+ │   ├── [90mclass[39m [36mJsonFormatter[39m
+ │   ├── [90mclass[39m [36mLevelOne[39m
+ │   ├── [90mclass[39m [36mMethodNamedProperty[39m
+ │   ├── [90mclass[39m [36mMultiply[39m
+ │   ├── [90mclass[39m [36mNegate[39m
+ │   ├── [90mclass[39m [36mNestedClassInstance[39m
+ │   ├── [90mclass[39m [36mNodeStandardLibrary[39m
+ │   ├── [90mclass[39m [36mNullShouldBeTreatedAsUndefined[39m
+ │   ├── [90mclass[39m [36mNumberGenerator[39m
+ │   ├── [90mclass[39m [36mObjectRefsInCollections[39m
+ │   ├── [90mclass[39m [36mObjectWithPropertyProvider[39m
+ │   ├── [90mclass[39m [36mOld[39m
+ │   ├── [90mclass[39m [36mOptionalArgumentInvoker[39m
+ │   ├── [90mclass[39m [36mOptionalConstructorArgument[39m
+ │   ├── [90mclass[39m [36mOptionalStructConsumer[39m
+ │   ├── [90mclass[39m [36mOverridableProtectedMember[39m
+ │   ├── [90mclass[39m [36mOverrideReturnsObject[39m
+ │   ├── [90mclass[39m [36mPartiallyInitializedThisConsumer[39m
+ │   ├── [90mclass[39m [36mPolymorphism[39m
+ │   ├── [90mclass[39m [36mPower[39m
+ │   ├── [90mclass[39m [36mPropertyNamedProperty[39m
+ │   ├── [90mclass[39m [36mPublicClass[39m
+ │   ├── [90mclass[39m [36mPythonReservedWords[39m
+ │   ├── [90mclass[39m [36mReferenceEnumFromScopedPackage[39m
+ │   ├── [90mclass[39m [36mReturnsPrivateImplementationOfInterface[39m
+ │   ├── [90mclass[39m [36mRootStructValidator[39m
+ │   ├── [90mclass[39m [36mRuntimeTypeChecking[39m
+ │   ├── [90mclass[39m [36mSingleInstanceTwoTypes[39m
+ │   ├── [90mclass[39m [36mSingletonInt[39m
+ │   ├── [90mclass[39m [36mSingletonString[39m
+ │   ├── [90mclass[39m [36mSomeTypeJsii976[39m
+ │   ├── [90mclass[39m [36mStableClass[39m
+ │   ├── [90mclass[39m [36mStaticContext[39m
+ │   ├── [90mclass[39m [36mStatics[39m
+ │   ├── [90mclass[39m [36mStripInternal[39m
+ │   ├── [90mclass[39m [36mStructPassing[39m
+ │   ├── [90mclass[39m [36mStructUnionConsumer[39m
+ │   ├── [90mclass[39m [36mSum[39m
+ │   ├── [90mclass[39m [36mSupportsNiceJavaBuilder[39m
+ │   ├── [90mclass[39m [36mSupportsNiceJavaBuilderWithRequiredProps[39m
+ │   ├── [90mclass[39m [36mSyncVirtualMethods[39m
+ │   ├── [90mclass[39m [36mThrower[39m
+ │   ├── [90mclass[39m [36mUmaskCheck[39m
+ │   ├── [90mclass[39m [36mUnaryOperation[39m
+ │   ├── [90mclass[39m [36mUpcasingReflectable[39m
+ │   ├── [90mclass[39m [36mUseBundledDependency[39m
+ │   ├── [90mclass[39m [36mUseCalcBase[39m
+ │   ├── [90mclass[39m [36mUsesInterfaceWithProperties[39m
+ │   ├── [90mclass[39m [36mVariadicInvoker[39m
+ │   ├── [90mclass[39m [36mVariadicMethod[39m
+ │   ├── [90mclass[39m [36mVirtualMethodPlayground[39m
+ │   ├── [90mclass[39m [36mVoidCallback[39m
+ │   ├── [90mclass[39m [36mWithPrivatePropertyInConstructor[39m
+ │   ├── [90minterface[39m [36mCalculatorProps[39m
+ │   ├── [90minterface[39m [36mChildStruct982[39m
+ │   ├── [90minterface[39m [36mConfusingToJacksonStruct[39m
+ │   ├── [90minterface[39m [36mDeprecatedStruct[39m
+ │   ├── [90minterface[39m [36mDerivedStruct[39m
+ │   ├── [90minterface[39m [36mDiamondInheritanceBaseLevelStruct[39m
+ │   ├── [90minterface[39m [36mDiamondInheritanceFirstMidLevelStruct[39m
+ │   ├── [90minterface[39m [36mDiamondInheritanceSecondMidLevelStruct[39m
+ │   ├── [90minterface[39m [36mDiamondInheritanceTopLevelStruct[39m
+ │   ├── [90minterface[39m [36mEraseUndefinedHashValuesOptions[39m
+ │   ├── [90minterface[39m [36mExperimentalStruct[39m
+ │   ├── [90minterface[39m [36mExtendsInternalInterface[39m
+ │   ├── [90minterface[39m [36mExternalStruct[39m
+ │   ├── [90minterface[39m [36mGreetee[39m
+ │   ├── [90minterface[39m [36mIAnonymousImplementationProvider[39m
+ │   ├── [90minterface[39m [36mIAnonymouslyImplementMe[39m
+ │   ├── [90minterface[39m [36mIAnotherPublicInterface[39m
+ │   ├── [90minterface[39m [36mIBell[39m
+ │   ├── [90minterface[39m [36mIBellRinger[39m
+ │   ├── [90minterface[39m [36mIConcreteBellRinger[39m
+ │   ├── [90minterface[39m [36mIDeprecatedInterface[39m
+ │   ├── [90minterface[39m [36mIExperimentalInterface[39m
+ │   ├── [90minterface[39m [36mIExtendsPrivateInterface[39m
+ │   ├── [90minterface[39m [36mIExternalInterface[39m
+ │   ├── [90minterface[39m [36mIFriendlier[39m
+ │   ├── [90minterface[39m [36mIFriendlyRandomGenerator[39m
+ │   ├── [90minterface[39m [36mIInterfaceImplementedByAbstractClass[39m
+ │   ├── [90minterface[39m [36mIInterfaceThatShouldNotBeADataType[39m
+ │   ├── [90minterface[39m [36mIInterfaceWithInternal[39m
+ │   ├── [90minterface[39m [36mIInterfaceWithMethods[39m
+ │   ├── [90minterface[39m [36mIInterfaceWithOptionalMethodArguments[39m
+ │   ├── [90minterface[39m [36mIInterfaceWithProperties[39m
+ │   ├── [90minterface[39m [36mIInterfaceWithPropertiesExtension[39m
+ │   ├── [90minterface[39m [36mIJSII417Derived[39m
+ │   ├── [90minterface[39m [36mIJSII417PublicBaseOfBase[39m
+ │   ├── [90minterface[39m [36mIJsii487External[39m
+ │   ├── [90minterface[39m [36mIJsii487External2[39m
+ │   ├── [90minterface[39m [36mIJsii496[39m
+ │   ├── [90minterface[39m [36mIMutableObjectLiteral[39m
+ │   ├── [90minterface[39m [36mINonInternalInterface[39m
+ │   ├── [90minterface[39m [36mIObjectWithProperty[39m
+ │   ├── [90minterface[39m [36mIOptionalMethod[39m
+ │   ├── [90minterface[39m [36mIPrivatelyImplemented[39m
+ │   ├── [90minterface[39m [36mIPublicInterface[39m
+ │   ├── [90minterface[39m [36mIPublicInterface2[39m
+ │   ├── [90minterface[39m [36mIRandomNumberGenerator[39m
+ │   ├── [90minterface[39m [36mIReturnJsii976[39m
+ │   ├── [90minterface[39m [36mIReturnsNumber[39m
+ │   ├── [90minterface[39m [36mIStableInterface[39m
+ │   ├── [90minterface[39m [36mIStructReturningDelegate[39m
+ │   ├── [90minterface[39m [36mIWallClock[39m
+ │   ├── [90minterface[39m [36mImplictBaseOfBase[39m
+ │   ├── [90minterface[39m [36mPropBooleanValue[39m
+ │   ├── [90minterface[39m [36mPropProperty[39m
+ │   ├── [90minterface[39m [36mLevelOneProps[39m
+ │   ├── [90minterface[39m [36mLoadBalancedFargateServiceProps[39m
+ │   ├── [90minterface[39m [36mNestedStruct[39m
+ │   ├── [90minterface[39m [36mNullShouldBeTreatedAsUndefinedData[39m
+ │   ├── [90minterface[39m [36mOptionalStruct[39m
+ │   ├── [90minterface[39m [36mParentStruct982[39m
+ │   ├── [90minterface[39m [36mRootStruct[39m
+ │   ├── [90minterface[39m [36mSecondLevelStruct[39m
+ │   ├── [90minterface[39m [36mSmellyStruct[39m
+ │   ├── [90minterface[39m [36mStableStruct[39m
+ │   ├── [90minterface[39m [36mStructA[39m
+ │   ├── [90minterface[39m [36mStructB[39m
+ │   ├── [90minterface[39m [36mStructParameterType[39m
+ │   ├── [90minterface[39m [36mStructWithJavaReservedWords[39m
+ │   ├── [90minterface[39m [36mSupportsNiceJavaBuilderProps[39m
+ │   ├── [90minterface[39m [36mTopLevelStruct[39m
+ │   ├── [90minterface[39m [36mUnionProperties[39m
+ │   ├── [90menum[39m [36mAllTypesEnum[39m
+ │   ├── [90menum[39m [36mDeprecatedEnum[39m
+ │   ├── [90menum[39m [36mExperimentalEnum[39m
+ │   ├── [90menum[39m [36mExternalEnum[39m
+ │   ├── [90menum[39m [36mSingletonIntEnum[39m
+ │   ├── [90menum[39m [36mSingletonStringEnum[39m
+ │   ├── [90menum[39m [36mStableEnum[39m
+ │   └── [90menum[39m [36mStringEnum[39m
+ ├─┬ [32m@scope/jsii-calc-base[39m
+ │ └─┬ [4mtypes[24m
+ │   ├── [90mclass[39m [36mBase[39m
+ │   ├── [90minterface[39m [36mBaseProps[39m
+ │   └── [90minterface[39m [36mIBaseInterface[39m
+ ├─┬ [32m@scope/jsii-calc-base-of-base[39m
+ │ └─┬ [4mtypes[24m
+ │   ├── [90mclass[39m [36mStaticConsumer[39m
+ │   ├── [90mclass[39m [36mVery[39m
+ │   ├── [90minterface[39m [36mIVeryBaseInterface[39m
+ │   └── [90minterface[39m [36mVeryBaseProps[39m
+ └─┬ [32m@scope/jsii-calc-lib[39m
+   ├─┬ [4msubmodules[24m
+   │ └─┬ [32msubmodule[39m
+   │   └─┬ [4mtypes[24m
+   │     ├── [90mclass[39m [36mNestingClass[39m
+   │     ├── [90mclass[39m [36mNestedClass[39m
+   │     ├── [90mclass[39m [36mReflector[39m
+   │     ├── [90minterface[39m [36mIReflectable[39m
+   │     ├── [90minterface[39m [36mNestedStruct[39m
+   │     └── [90minterface[39m [36mReflectableEntry[39m
+   └─┬ [4mtypes[24m
+     ├── [90mclass[39m [36mNumber[39m
+     ├── [90mclass[39m [36mNumericValue[39m
+     ├── [90mclass[39m [36mOperation[39m
+     ├── [90minterface[39m [36mIDoublable[39m
+     ├── [90minterface[39m [36mIFriendly[39m
+     ├── [90minterface[39m [36mIThreeLevelsInterface[39m
+     ├── [90minterface[39m [36mMyFirstStruct[39m
+     ├── [90minterface[39m [36mStructWithOnlyOptionals[39m
+     └── [90menum[39m [36mEnumFromScopedModule[39m
+"
+`;
