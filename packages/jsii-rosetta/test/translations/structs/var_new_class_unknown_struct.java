@@ -1,3 +1,3 @@
-var vpc = Vpc.Builder.create(this, "Something")
+final Object vpc = Vpc.Builder.create(this, "Something")
         .argument(5)
         .build();

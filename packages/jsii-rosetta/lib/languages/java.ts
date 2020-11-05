@@ -333,6 +333,21 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return this.renderBlock(renderer.convertAll(node.statements));
   }
 
+  public variableDeclarationList(
+    node: ts.VariableDeclarationList,
+    context: JavaRenderer,
+  ): OTree {
+    const isConstant =
+      (ts.getCombinedNodeFlags(node) & ts.NodeFlags.Const) !== 0;
+    const declarations = context.convertAll(node.declarations);
+    return new OTree(
+      [],
+      isConstant
+        ? declarations.map((decl) => new OTree(['final ', decl]))
+        : declarations,
+    );
+  }
+
   public variableDeclaration(
     node: ts.VariableDeclaration,
     renderer: JavaRenderer,
@@ -342,16 +357,17 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       (node.initializer && renderer.typeOfExpression(node.initializer));
 
     const renderedType = type
-      ? this.renderType(node, type, renderer, 'var')
-      : 'var';
+      ? this.renderType(node, type, renderer, 'Object')
+      : 'Object';
 
     return new OTree(
       [
         renderedType,
         ' ',
         renderer.convert(node.name),
-        ' = ',
-        renderer.convert(node.initializer),
+        ...(node.initializer
+          ? [' = ', renderer.convert(node.initializer)]
+          : []),
         ';',
       ],
       [],

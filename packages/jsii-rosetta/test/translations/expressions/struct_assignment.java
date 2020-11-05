@@ -9,4 +9,4 @@ public class Test {
     }
 }
 
-Test x = new Test().key("value");
+final Test x = new Test().key("value");
