@@ -153,14 +153,19 @@ export class Kernel {
       }
 
       const result = cp.spawnSync(
-        process.execPath,
-        [
-          ...process.execArgv,
-          '--',
-          path.join(packageDir, scriptPath),
-          ...(req.args ?? []),
-        ],
-        { encoding: 'utf-8' },
+        path.join(packageDir, scriptPath),
+        req.args ?? [],
+        {
+          encoding: 'utf-8',
+          env: {
+            ...process.env,
+            // Make sure the current NODE_OPTIONS are honored if we shell out to node
+            NODE_OPTIONS: process.execArgv.join(' '),
+            // Make sure "this" node is ahead of $PATH just in case
+            PATH: `${path.dirname(process.execPath)}:${process.env.PATH}`,
+          },
+          shell: true,
+        },
       );
 
       return {

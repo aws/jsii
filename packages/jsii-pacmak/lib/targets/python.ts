@@ -1695,7 +1695,7 @@ class Package {
       mod.emit(code, context);
       code.closeFile(filename);
 
-      Array.prototype.push.apply(scripts, mod.emitBinScripts(code));
+      scripts.push(...mod.emitBinScripts(code));
     }
 
     // Handle our package data.

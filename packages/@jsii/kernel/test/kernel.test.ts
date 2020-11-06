@@ -2140,6 +2140,9 @@ defineTest('invokeBinScript() return output', (sandbox) => {
   });
 
   expect(result.stdout).toEqual('Hello World!\n');
+  expect(result.stderr).toEqual('');
+  expect(result.status).toEqual(0);
+  expect(result.signal).toBeNull();
 });
 
 // =================================================================================================

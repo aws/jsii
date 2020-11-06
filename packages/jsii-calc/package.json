@@ -15,7 +15,7 @@
     "url": "https://github.com/aws/jsii/issues"
   },
   "bin": {
-    "calc": "bin/calc"
+    "calc": "bin/run"
   },
   "repository": {
     "type": "git",
