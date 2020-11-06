@@ -44,6 +44,9 @@ export interface ProjectInfo {
   readonly targets: spec.AssemblyTargets;
   readonly metadata?: { [key: string]: any };
   readonly jsiiVersionFormat: 'short' | 'full';
+  readonly diagnostics?: {
+    readonly [code: string]: 'error' | 'warning' | 'suggestion' | 'message';
+  };
   readonly description?: string;
   readonly homepage?: string;
   readonly contributors?: readonly spec.Person[];
@@ -215,6 +218,7 @@ export async function loadProjectInfo(
       outDir: pkg.jsii?.tsc?.outDir,
       rootDir: pkg.jsii?.tsc?.rootDir,
     },
+    diagnostics: pkg.jsii?.diagnostics,
   };
 }
 
