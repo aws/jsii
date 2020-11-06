@@ -1,5 +1,5 @@
-import * as reflect from 'jsii-reflect';
 import { Stability } from '@jsii/spec';
+import * as reflect from 'jsii-reflect';
 
 export interface ComparisonOptions {
   /**

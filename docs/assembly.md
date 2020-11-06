@@ -6,14 +6,14 @@ it represents. This serves as a reference for front-end language implementors.
 
 ## Schema
 
-`.jsii` assemblies are JSON-formatted documents. The specification is mastered
+`.jsii` assemblies are JSON-formatted documents. The specification is hosted
 under the [`jsii-spec`](../packages/jsii-spec) package. Refer to the inline
 documentation in the [`spec.ts`](../packages/jsii-spec/lib/spec.ts) file for
 more information about the general content of the assembly documents.
 
 The most important part of the assembly documentation, which is described in
 detail in this document, is the `types` map, which contains the descriptions of
-all types declared by the `.jsii` assembly. It is a map from `jsii` fully
+all types declared by the `.jsii` assembly. It is a map from `jsii` fully-
 qualified type names to a type specification.
 
 All `boolean` attributes in the document specification are optional, and are
@@ -81,7 +81,7 @@ Attribute    | Type        | Description
 `kind`       |`'interface'`|Discriminator to identify interfaces
 `assembly`   |`string`     |The name of the assembly this interface is a part of
 `fqn`        |`string`     |The fully-qualified name of the interface
-`interfaces` |`string[]`   |The fully-qualified names of interfaces extended by this inteface
+`interfaces` |`string[]`   |The fully-qualified names of interfaces extended by this interface
 `methods`    |`Method[]`   |The [methods] declared by this interface
 `name`       |`string`     |The simple name of the interface
 `properties` |`Property[]` |The [properties] declared by this interface
@@ -95,22 +95,22 @@ Attribute    | Type        | Description
 * They cannot be extended by interfaces that are not *structs*
 * They cannot be implemented by *classes*
 
-Unlike regular *interfaes*, `jsii` *struct* names are not required to have
+Unlike regular *interfaces*, `jsii` *struct* names are not required to have
 any particular prefix.
 
 Since those are immutable, pure data objects, the `jsii-runtime` exchanges
 instances of those *by value*, instead of *by reference*, allowing to save
 cross-language communication overhead when working with the data.
 
-Attribute    | Type        | Description
--------------|-------------|----------------------------------------------------
-`kind`       |`'inteface'` |Discriminator to identify interfaces
-`datatype`   |`true`       |Indicates a *struct* / *data type* declaration
-`assembly`   |`string`     |The name of the assembly this struct is a part of
-`fqn`        |`string`     |The fully-qualified name of the struct
-`interfaces` |`string[]`   |The fully-qualified names of *struct* extended by this *struct*
-`name`       |`string`     |The simple name of the struct
-`properties` |`Property[]` |The [properties] declared by this struct (all `readonly`)
+Attribute    | Type         | Description
+-------------|--------------|----------------------------------------------------
+`kind`       |`'interface'` |Discriminator to identify interfaces
+`datatype`   |`true`        |Indicates a *struct* / *data type* declaration
+`assembly`   |`string`      |The name of the assembly this struct is a part of
+`fqn`        |`string`      |The fully-qualified name of the struct
+`interfaces` |`string[]`    |The fully-qualified names of *struct* extended by this *struct*
+`name`       |`string`      |The simple name of the struct
+`properties` |`Property[]`  |The [properties] declared by this struct (all `readonly`)
 
 #### Enums
 
@@ -180,5 +180,5 @@ Properties that are `const` must have a `name` that is `UPPER_SNAKE_CASED`. They
 represent constants similar to [Enum Members], which can be proactively resolved
 by the `jsii` runtimes.
 
-Proeprties that are `static` cannot feature the `overrides` attribute, as
+Properties that are `static` cannot feature the `overrides` attribute, as
 `static` members are not inherited.

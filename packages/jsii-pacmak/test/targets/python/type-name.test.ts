@@ -6,6 +6,7 @@ import {
   SchemaVersion,
   TypeReference,
 } from '@jsii/spec';
+
 import {
   toTypeName,
   NamingContext,

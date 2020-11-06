@@ -1,7 +1,8 @@
-import * as fs from 'fs';
 import * as jsii from '@jsii/spec';
+import * as fs from 'fs';
 import * as path from 'path';
 import { promisify } from 'util';
+
 import { Assembly } from './assembly';
 import { ClassType } from './class';
 import { EnumType } from './enum';

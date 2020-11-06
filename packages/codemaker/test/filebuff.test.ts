@@ -1,6 +1,7 @@
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
+
 import FileBuffer from '../lib/filebuff';
 
 test('file buffer', async () => {

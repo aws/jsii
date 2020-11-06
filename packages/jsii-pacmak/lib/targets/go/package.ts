@@ -1,21 +1,18 @@
 import { CodeMaker } from 'codemaker';
-import { Assembly } from 'jsii-reflect';
+import { Assembly, Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
 import { join } from 'path';
-import { ReadmeFile } from './readme-file';
-import { Type, Submodule as JsiiSubmodule } from 'jsii-reflect';
+
 import { EmitContext } from './emit-context';
+import { ReadmeFile } from './readme-file';
+import {
+  JSII_RT_ALIAS,
+  JSII_RT_MODULE_NAME,
+  JSII_INIT_PACKAGE,
+  JSII_INIT_FUNC,
+  JSII_INIT_ALIAS,
+} from './runtime';
 import { GoClass, GoType, Enum, Interface, Struct } from './types';
 import { findTypeInTree, goPackageName, flatMap } from './util';
-
-// JSII go runtime module name
-const JSII_MODULE_NAME = 'github.com/aws-cdk/jsii/jsii-experimental';
-
-// Jsii initializer package name
-export const JSII_INIT_PACKAGE = 'jsii';
-// Function to initialize a jsii-generated module
-export const JSII_INIT_FUNC = 'Initialize';
-// Alias used for the jsii init
-export const JSII_INIT_ALIAS = '_init_';
 
 /*
  * Package represents a single `.go` source file within a package. This can be the root package file or a submodule
@@ -77,7 +74,7 @@ export abstract class Package {
         const moduleName = pack.root.moduleName;
         const prefix = moduleName !== '' ? `${moduleName}/` : '';
         const rootPackageName = pack.root.packageName;
-        const suffix = pack.filePath !== '' ? `/${pack.filePath}` : '';
+        const suffix = pack.filePath !== '' ? `/${pack.filePath}` : ``;
         return `${prefix}${rootPackageName}${suffix}`;
       }),
     );
@@ -112,9 +109,25 @@ export abstract class Package {
     code.line();
   }
 
+  protected get usesRuntimePackage(): boolean {
+    return (
+      this.types.some((type) => type.usesRuntimePackage) ||
+      this.submodules.some((sub) => sub.usesRuntimePackage)
+    );
+  }
+
+  protected get usesInitPackage(): boolean {
+    return (
+      this.types.some((type) => type.usesInitPackage) ||
+      this.submodules.some((sub) => sub.usesInitPackage)
+    );
+  }
+
   private emitImports(code: CodeMaker) {
     code.open('import (');
-    code.line(`"${JSII_MODULE_NAME}"`);
+    if (this.usesRuntimePackage) {
+      code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
+    }
 
     for (const packageName of this.dependencyImports) {
       // If the module is the same as the current one being written, don't emit an import statement
@@ -123,9 +136,11 @@ export abstract class Package {
       }
     }
 
-    code.line(
-      `${JSII_INIT_ALIAS} "${this.root.moduleName}/${this.root.packageName}/${JSII_INIT_PACKAGE}"`,
-    );
+    if (this.usesInitPackage) {
+      code.line(
+        `${JSII_INIT_ALIAS} "${this.root.moduleName}/${this.root.packageName}/${JSII_INIT_PACKAGE}"`,
+      );
+    }
 
     code.close(')');
     code.line();
@@ -220,7 +235,7 @@ export class RootPackage extends Package {
     code.line('package jsii');
     code.line();
     code.open('import (');
-    code.line(`rt "${JSII_MODULE_NAME}"`);
+    code.line(`rt "${JSII_RT_MODULE_NAME}"`);
     code.line('"sync"');
     if (dependencies.length > 0) {
       code.line('// Initialization endpoints of dependencies');
@@ -261,11 +276,12 @@ export class RootPackage extends Package {
  * InternalPackage refers to any go package within a given JSII module.
  */
 export class InternalPackage extends Package {
-  public readonly pkg: Package;
+  public readonly parent: Package;
 
-  public constructor(root: Package, pkg: Package, assembly: JsiiSubmodule) {
+  public constructor(root: Package, parent: Package, assembly: JsiiSubmodule) {
     const packageName = goPackageName(assembly.name);
-    const filePath = pkg === root ? packageName : pkg.filePath;
+    const filePath =
+      parent === root ? packageName : `${parent.filePath}/${packageName}`;
 
     super(
       assembly.types,
@@ -276,6 +292,6 @@ export class InternalPackage extends Package {
       root,
     );
 
-    this.pkg = pkg;
+    this.parent = parent;
   }
 }

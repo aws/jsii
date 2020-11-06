@@ -21,6 +21,9 @@ func (o override) isOverride() {
 	return
 }
 
+// FQN represents a fully-qualified type name in the jsii type system.
+type FQN string
+
 type MethodOverride struct {
 	override
 
@@ -78,6 +81,10 @@ func (r kernelResponder) isResponse() {
 	return
 }
 
+type objref struct {
+	JsiiInstanceId string `json:"$jsii.byref"`
+}
+
 type LoadRequest struct {
 	kernelRequester
 
@@ -94,106 +101,109 @@ type LoadResponse struct {
 	Types    float64 `json:"types"`
 }
 
-type CreateRequest struct {
+type createRequest struct {
 	kernelRequester
 
-	Api        string     `json:"api"`
-	Fqn        string     `json:"fqn"`
-	Interfaces []string   `json:"interfaces"`
-	Args       []Any      `json:"args"`
-	Overrides  []Override `json:"overrides"`
+	Api        string        `json:"api"`
+	Fqn        FQN           `json:"fqn"`
+	Interfaces []FQN         `json:"interfaces"`
+	Args       []interface{} `json:"args"`
+	Overrides  []Override    `json:"overrides"`
 }
 
 // TODO extends AnnotatedObjRef?
-type CreateResponse struct {
+type createResponse struct {
 	kernelResponder
+
+	JsiiInstanceId string `json:"$jsii.byref"`
 }
 
 type DelRequest struct {
 	kernelRequester
 
-	Api string `json:"api"`
-	// Objref   ObjRef
+	Api    string `json:"api"`
+	Objref objref `json:"objref"`
 }
 
 type DelResponse struct {
 	kernelResponder
 }
 
-type GetRequest struct {
+type getRequest struct {
 	kernelRequester
 
-	Api      string  `json:"api"`
-	Property *string `json:"property"`
-	// Objref   ObjRef
+	Api      string `json:"api"`
+	Property string `json:"property"`
+	Objref   objref `json:"objref"`
 }
 
-type StaticGetRequest struct {
+type staticGetRequest struct {
 	kernelRequester
 
-	Api      string  `json:"api"`
-	Fqn      *string `json:"fqn"`
-	Property *string `json:"property"`
+	Api      string `json:"api"`
+	Fqn      FQN    `json:"fqn"`
+	Property string `json:"property"`
 }
-type GetResponse struct {
+
+type getResponse struct {
 	kernelResponder
 
-	Value Any `json:"value"`
+	Value interface{} `json:"value"`
 }
 
-type StaticSetRequest struct {
+type setRequest struct {
 	kernelRequester
 
-	Api      string  `json:"api"`
-	Fqn      *string `json:"fqn"`
-	Property *string `json:"property"`
-	Value    Any     `json:"value"`
+	Api      string      `json:"api"`
+	Property string      `json:"property"`
+	Value    interface{} `json:"value"`
+	Objref   objref      `json:"objref"`
 }
 
-type SetRequest struct {
+type staticSetRequest struct {
 	kernelRequester
 
-	Api      string  `json:"api"`
-	Property *string `json:"property"`
-	Value    Any     `json:"value"`
-	// Objref   ObjRef
+	Api      string      `json:"api"`
+	Fqn      FQN         `json:"fqn"`
+	Property string      `json:"property"`
+	Value    interface{} `json:"value"`
 }
 
-type SetResponse struct {
+type setResponse struct {
 	kernelResponder
 }
 
-type StaticInvokeRequest struct {
+type staticInvokeRequest struct {
 	kernelRequester
 
-	Api    string  `json:"api"`
-	Fqn    *string `json:"fqn"`
-	Method *string `json:"method"`
-	Args   []Any   `json:"args"`
+	Api    string        `json:"api"`
+	Fqn    FQN           `json:"fqn"`
+	Method string        `json:"method"`
+	Args   []interface{} `json:"args"`
 }
 
-type InvokeRequest struct {
+type invokeRequest struct {
 	kernelRequester
 
-	Api    string  `json:"api"`
-	Method *string `json:"method"`
-	Args   []Any   `json:"args"`
-	// Objref ObjRef
+	Api    string        `json:"api"`
+	Method string        `json:"method"`
+	Args   []interface{} `json:"args"`
+	Objref objref        `json:"objref"`
 }
 
-type InvokeResponse struct {
+type invokeResponse struct {
 	kernelResponder
 
-	Result Any `json:result`
+	Result interface{} `json:"result"`
 }
 
 type BeginRequest struct {
 	kernelRequester
 
-	Api    string  `json:"api"`
-	Method *string `json:"method"`
-	Args   []Any   `json:"args"`
-	// Objref   ObjRef
+	Api    string        `json:"api"`
+	Method *string       `json:"method"`
+	Args   []interface{} `json:"args"`
+	Objref objref        `json:"objref"`
 }
 
 type BeginResponse struct {
@@ -212,7 +222,7 @@ type EndRequest struct {
 type EndResponse struct {
 	kernelResponder
 
-	Result Any `json:"result"`
+	Result interface{} `json:"result"`
 }
 
 type CallbacksRequest struct {
@@ -230,10 +240,10 @@ type CallbacksResponse struct {
 type CompleteRequest struct {
 	kernelRequester
 
-	Api    string  `json:"api"`
-	Cbid   *string `json:"cbid"`
-	Err    *string `json:"err"`
-	Result Any     `json:"result"`
+	Api    string      `json:"api"`
+	Cbid   *string     `json:"cbid"`
+	Err    *string     `json:"err"`
+	Result interface{} `json:"result"`
 }
 
 type CompleteResponse struct {
@@ -278,13 +288,13 @@ type InitOkResponse struct {
 type Callback struct {
 	Cbid   *string       `json:"cbid"`
 	Cookie *string       `json:"cookie"`
-	Invoke InvokeRequest `json:"invoke"`
-	Get    GetRequest    `json:"get"`
-	Set    SetRequest    `json:"set"`
+	Invoke invokeRequest `json:"invoke"`
+	Get    getRequest    `json:"get"`
+	Set    setRequest    `json:"set"`
 }
 
 type OkayResponse struct {
-	Ok Any `json:"ok"`
+	Ok interface{} `json:"ok"`
 }
 
 type ErrorResponse struct {
@@ -296,6 +306,26 @@ type ErrorResponse struct {
 // is required in order to avoid infinite recursion.
 func (r *LoadResponse) UnmarshalJSON(data []byte) error {
 	type response LoadResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
+func (r *createResponse) UnmarshalJSON(data []byte) error {
+	type response createResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
+func (r *invokeResponse) UnmarshalJSON(data []byte) error {
+	type response invokeResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
+func (r *getResponse) UnmarshalJSON(data []byte) error {
+	type response getResponse
+	return unmarshalKernelResponse(data, (*response)(r))
+}
+
+func (r *setResponse) UnmarshalJSON(data []byte) error {
+	type response setResponse
 	return unmarshalKernelResponse(data, (*response)(r))
 }
 
@@ -313,5 +343,6 @@ func unmarshalKernelResponse(data []byte, resstruct interface{}) error {
 		return errors.New(string(errmessage))
 	}
 
-	return json.Unmarshal(data, resstruct)
+	err := json.Unmarshal(response["ok"], resstruct)
+	return err
 }

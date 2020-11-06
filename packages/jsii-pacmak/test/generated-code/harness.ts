@@ -2,15 +2,14 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
-import { TargetName } from '../../lib/targets';
-import { shell } from '../../lib/util';
 
-const PACMAK_CLI = path.resolve(__dirname, '..', '..', 'bin', 'jsii-pacmak');
+import { pacmak, TargetName } from '../../lib';
+import { shell } from '../../lib/util';
 
 const FILE = Symbol('file');
 const MISSING = Symbol('missing');
 const TARBALL = Symbol('tarball');
-const TREE = Symbol('tree');
+export const TREE = Symbol('tree');
 
 // Custom serializers so we can see the source without escape sequences
 expect.addSnapshotSerializer({
@@ -68,15 +67,15 @@ export function verifyGeneratedCodeFor(
 
       expect({ [TREE]: checkTree(outDir) }).toMatchSnapshot('<outDir>/');
 
-      if (targetName !== 'python') {
+      if (targetName !== TargetName.PYTHON) {
         return Promise.resolve();
       }
-      return runMypy(path.join(outDir, 'python'));
+      return runMypy(path.join(outDir, targetName));
     });
   }
 }
 
-function checkTree(
+export function checkTree(
   file: string,
   root: string = file,
 ): TreeStructure | undefined {
@@ -132,20 +131,13 @@ async function runPacmak(
   outdir: string,
 ): Promise<void> {
   return expect(
-    shell(
-      process.execPath,
-      [
-        ...process.execArgv,
-        JSON.stringify(PACMAK_CLI),
-        `--code-only`,
-        `--no-fingerprint`,
-        `--outdir=${JSON.stringify(outdir)}`,
-        `--target=${JSON.stringify(targetName)}`,
-        '--',
-        JSON.stringify(root),
-      ],
-      { cwd: root },
-    ),
+    pacmak({
+      codeOnly: true,
+      fingerprint: false,
+      inputDirectories: [root],
+      outputDirectory: outdir,
+      targets: [targetName],
+    }),
   ).resolves.not.toThrowError();
 }
 

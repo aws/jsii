@@ -1,0 +1,1891 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/ 1`] = `
+<root>
+ ┣━ 📁 dotnet
+ ┃  ┗━ 📁 Com.Acme.Foo
+ ┃     ┣━ 📄 AssemblyInfo.cs
+ ┃     ┣━ 📁 Com
+ ┃     ┃  ┗━ 📁 Acme
+ ┃     ┃     ┗━ 📁 Foo
+ ┃     ┃        ┗━ 📁 Internal
+ ┃     ┃           ┗━ 📁 DependencyResolution
+ ┃     ┃              ┗━ 📄 Anchor.cs
+ ┃     ┣━ 📄 Com.Acme.Foo.csproj
+ ┃     ┗━ 📄 foo-1.2.3.tgz
+ ┣━ 📁 go
+ ┃  ┗━ 📁 foo
+ ┃     ┣━ 📄 foo.go
+ ┃     ┗━ 📁 jsii
+ ┃        ┣━ 📄 jsii.go
+ ┃        ┗━ 📄 tarball.embedded.go
+ ┣━ 📁 java
+ ┃  ┣━ 📄 pom.xml
+ ┃  ┗━ 📁 src
+ ┃     ┗━ 📁 main
+ ┃        ┣━ 📁 java
+ ┃        ┃  ┗━ 📁 com
+ ┃        ┃     ┗━ 📁 acme
+ ┃        ┃        ┗━ 📁 foo
+ ┃        ┃           ┗━ 📄 $Module.java
+ ┃        ┗━ 📁 resources
+ ┃           ┗━ 📁 com
+ ┃              ┗━ 📁 acme
+ ┃                 ┗━ 📁 foo
+ ┃                    ┣━ 📄 $Module.txt
+ ┃                    ┗━ 📄 foo@1.2.3.jsii.tgz
+ ┣━ 📁 js
+ ┃  ┗━ 📄 foo@1.2.3.jsii.tgz
+ ┗━ 📁 python
+    ┣━ 📄 MANIFEST.in
+    ┣━ 📄 pyproject.toml
+    ┣━ 📄 README.md
+    ┣━ 📄 setup.py
+    ┗━ 📁 src
+       ┗━ 📁 foo
+          ┗━ 📁 _jsii
+             ┣━ 📄 __init__.py
+             ┗━ 📄 foo@1.2.3.jsii.tgz
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/AssemblyInfo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+[assembly: JsiiAssembly("foo", "1.2.3", "foo-1.2.3.tgz")]
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`] = `
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Package Identification -->
+    <Description>Test assembly: foo</Description>
+    <PackageId>Com.Acme.Foo</PackageId>
+    <PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
+    <PackageVersion>1.2.3</PackageVersion>
+    <!-- Additional Metadata -->
+    <Authors>Test</Authors>
+    <Language>en-US</Language>
+    <ProjectUrl>https://test.nope/foo</ProjectUrl>
+    <RepositoryUrl>foo.nope.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <!-- Build Configuration -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <Nullable>enable</Nullable>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="foo-1.2.3.tgz" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Com.Acme.Bar" Version="[2.0.0-rc.42,3.0.0)" />
+  </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>0612,0618</NoWarn>
+  </PropertyGroup>
+</Project>
+
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com/Acme/Foo/Internal/DependencyResolution/Anchor.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Com.Acme.Foo.Internal.DependencyResolution
+{
+    public sealed class Anchor
+    {
+        public Anchor()
+        {
+            new Com.Acme.Bar.Internal.DependencyResolution.Anchor();
+        }
+    }
+}
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/foo-1.2.3.tgz 1`] = `dotnet/Com.Acme.Foo/foo-1.2.3.tgz is a tarball`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/foo.go 1`] = `
+// Test assembly: foo
+package foo
+
+import (
+)
+
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`] = `
+package jsii
+
+import (
+	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	"sync"
+	// Initialization endpoints of dependencies
+	bar "/bar/jsii"
+)
+
+var once sync.Once
+
+// Initialize performs the necessary work for the enclosing
+// module to be loaded in the jsii kernel.
+func Initialize() {
+	once.Do(func(){
+		// Ensure all dependencies are initialized
+		bar.Initialize()
+
+		// Load this library into the kernel
+		rt.Load("foo", "1.2.3", tarball)
+	})
+}
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/tarball.embedded.go 1`] = `go/foo/jsii/tarball.embedded.go embeds a tarball`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>\${project.groupId}:\${project.artifactId}</name>
+  <description>Test assembly: foo</description>
+  <url>https://test.nope/foo</url>
+  <licenses/>
+  <developers>
+    <developer>
+      <name>Test</name>
+      <roles>
+        <role>test</role>
+      </roles>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:foo.nope.git</connection>
+    <url>foo.nope.git</url>
+  </scm>
+  <groupId>com.acme</groupId>
+  <artifactId>foo</artifactId>
+  <version>1.2.3</version>
+  <packaging>jar</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.acme</groupId>
+      <artifactId>bar</artifactId>
+      <version>[2.0.0-rc.42,3.0.0)</version>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.jsii</groupId>
+      <artifactId>jsii-runtime</artifactId>
+      <version>[0.0.0,0.0.1)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>[16.0.3,20.0.0)</version>
+    </dependency>
+    <dependency>
+      <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>[1.3.2,1.4.0)</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <failOnError>false</failOnError>
+          <show>protected</show>
+          <sourceFileExcludes>
+            <exclude>**/$Module.java</exclude>
+          </sourceFileExcludes>
+          <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
+          <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0-M3</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.6</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/src/main/java/com/acme/foo/$Module.java 1`] = `
+package com.acme.foo;
+
+import static java.util.Arrays.asList;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+
+import java.nio.charset.StandardCharsets;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import software.amazon.jsii.JsiiModule;
+
+@software.amazon.jsii.Internal
+public final class $Module extends JsiiModule {
+    private static final Map<String, String> MODULE_TYPES = load();
+
+    private static Map<String, String> load() {
+        final Map<String, String> result = new HashMap<>();
+        final ClassLoader cl = $Module.class.getClassLoader();
+        try (final InputStream is = cl.getResourceAsStream("com/acme/foo/$Module.txt");
+             final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);
+             final BufferedReader br = new BufferedReader(rd)) {
+            br.lines()
+              .filter(line -> !line.trim().isEmpty())
+              .forEach(line ->  {
+                final String[] parts = line.split("=", 2);
+                final String fqn = parts[0];
+                final String className = parts[1];
+                result.put(fqn, className);
+            });
+        }
+        catch (final IOException exception) {
+            throw new UncheckedIOException(exception);
+        }
+        return result;
+    }
+
+    private final Map<String, Class<?>> cache = new HashMap<>();
+
+    public $Module() {
+        super("foo", "1.2.3", $Module.class, "foo@1.2.3.jsii.tgz");
+    }
+
+    @Override
+    public List<Class<? extends JsiiModule>> getDependencies() {
+        return asList(com.acme.bar.$Module.class);
+    }
+
+    @Override
+    protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
+        if (!MODULE_TYPES.containsKey(fqn)) {
+            throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        }
+        String className = MODULE_TYPES.get(fqn);
+        if (!this.cache.containsKey(className)) {
+            this.cache.put(className, this.findClass(className));
+        }
+        return this.cache.get(className);
+    }
+
+    private Class<?> findClass(final String binaryName) {
+        try {
+            return Class.forName(binaryName);
+        }
+        catch (final ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+}
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/src/main/resources/com/acme/foo/$Module.txt 1`] = ``;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/src/main/resources/com/acme/foo/foo@1.2.3.jsii.tgz 1`] = `java/src/main/resources/com/acme/foo/foo@1.2.3.jsii.tgz is a tarball`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/js/foo@1.2.3.jsii.tgz 1`] = `js/foo@1.2.3.jsii.tgz is a tarball`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/MANIFEST.in 1`] = `
+include pyproject.toml
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/README.md 1`] = `
+
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
+[build-system]
+requires = ["setuptools~=49.3", "wheel~=0.34"]
+build-backend = "setuptools.build_meta"
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/setup.py 1`] = `
+import json
+import setuptools
+
+kwargs = json.loads(
+    """
+{
+    "name": "foo",
+    "version": "1.2.3",
+    "description": "Test assembly: foo",
+    "license": "UNLICENSED",
+    "url": "https://test.nope/foo",
+    "long_description_content_type": "text/markdown",
+    "author": "Test",
+    "bdist_wheel": {
+        "universal": true
+    },
+    "project_urls": {
+        "Source": "foo.nope.git"
+    },
+    "package_dir": {
+        "": "src"
+    },
+    "packages": [
+        "foo._jsii"
+    ],
+    "package_data": {
+        "foo._jsii": [
+            "foo@1.2.3.jsii.tgz"
+        ]
+    },
+    "python_requires": ">=3.6",
+    "install_requires": [
+        "bar>=2.0.0.rc42, <3.0.0",
+        "jsii>=1337.42.1337, <1338.0.0",
+        "publication>=0.0.3"
+    ],
+    "classifiers": [
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Typing :: Typed"
+    ],
+    "scripts": []
+}
+"""
+)
+
+with open("README.md", encoding="utf8") as fp:
+    kwargs["long_description"] = fp.read()
+
+
+setuptools.setup(**kwargs)
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/src/foo/_jsii/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+import bar._jsii
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "foo", "1.2.3", __name__[0:-6], "foo@1.2.3.jsii.tgz"
+)
+
+__all__ = [
+    "__jsii_assembly__",
+]
+
+publication.publish()
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/python/src/foo/_jsii/foo@1.2.3.jsii.tgz 1`] = `python/src/foo/_jsii/foo@1.2.3.jsii.tgz is a tarball`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/ 1`] = `
+<root>
+ ┣━ 📁 dotnet
+ ┃  ┗━ 📁 Com.Acme.Foo
+ ┃     ┣━ 📄 AssemblyInfo.cs
+ ┃     ┣━ 📁 Com
+ ┃     ┃  ┗━ 📁 Acme
+ ┃     ┃     ┗━ 📁 Foo
+ ┃     ┃        ┗━ 📁 Internal
+ ┃     ┃           ┗━ 📁 DependencyResolution
+ ┃     ┃              ┗━ 📄 Anchor.cs
+ ┃     ┣━ 📄 Com.Acme.Foo.csproj
+ ┃     ┗━ 📄 foo-1.2.3.tgz
+ ┣━ 📁 go
+ ┃  ┗━ 📁 foo
+ ┃     ┣━ 📄 foo.go
+ ┃     ┗━ 📁 jsii
+ ┃        ┣━ 📄 jsii.go
+ ┃        ┗━ 📄 tarball.embedded.go
+ ┣━ 📁 java
+ ┃  ┣━ 📄 pom.xml
+ ┃  ┗━ 📁 src
+ ┃     ┗━ 📁 main
+ ┃        ┣━ 📁 java
+ ┃        ┃  ┗━ 📁 com
+ ┃        ┃     ┗━ 📁 acme
+ ┃        ┃        ┗━ 📁 foo
+ ┃        ┃           ┗━ 📄 $Module.java
+ ┃        ┗━ 📁 resources
+ ┃           ┗━ 📁 com
+ ┃              ┗━ 📁 acme
+ ┃                 ┗━ 📁 foo
+ ┃                    ┣━ 📄 $Module.txt
+ ┃                    ┗━ 📄 foo@1.2.3.jsii.tgz
+ ┣━ 📁 js
+ ┃  ┗━ 📄 foo@1.2.3.jsii.tgz
+ ┗━ 📁 python
+    ┣━ 📄 MANIFEST.in
+    ┣━ 📄 pyproject.toml
+    ┣━ 📄 README.md
+    ┣━ 📄 setup.py
+    ┗━ 📁 src
+       ┗━ 📁 foo
+          ┗━ 📁 _jsii
+             ┣━ 📄 __init__.py
+             ┗━ 📄 foo@1.2.3.jsii.tgz
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/AssemblyInfo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+[assembly: JsiiAssembly("foo", "1.2.3", "foo-1.2.3.tgz")]
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`] = `
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Package Identification -->
+    <Description>Test assembly: foo</Description>
+    <PackageId>Com.Acme.Foo</PackageId>
+    <PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
+    <PackageVersion>1.2.3</PackageVersion>
+    <!-- Additional Metadata -->
+    <Authors>Test</Authors>
+    <Language>en-US</Language>
+    <ProjectUrl>https://test.nope/foo</ProjectUrl>
+    <RepositoryUrl>foo.nope.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <!-- Build Configuration -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <Nullable>enable</Nullable>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="foo-1.2.3.tgz" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+    <PackageReference Include="Com.Acme.Bar" Version="[4.5.6-pre.1337,5.0.0)" />
+  </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>0612,0618</NoWarn>
+  </PropertyGroup>
+</Project>
+
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/Com/Acme/Foo/Internal/DependencyResolution/Anchor.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Com.Acme.Foo.Internal.DependencyResolution
+{
+    public sealed class Anchor
+    {
+        public Anchor()
+        {
+            new Com.Acme.Bar.Internal.DependencyResolution.Anchor();
+        }
+    }
+}
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/foo-1.2.3.tgz 1`] = `dotnet/Com.Acme.Foo/foo-1.2.3.tgz is a tarball`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/foo.go 1`] = `
+// Test assembly: foo
+package foo
+
+import (
+)
+
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 1`] = `
+package jsii
+
+import (
+	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	"sync"
+	// Initialization endpoints of dependencies
+	bar "/bar/jsii"
+)
+
+var once sync.Once
+
+// Initialize performs the necessary work for the enclosing
+// module to be loaded in the jsii kernel.
+func Initialize() {
+	once.Do(func(){
+		// Ensure all dependencies are initialized
+		bar.Initialize()
+
+		// Load this library into the kernel
+		rt.Load("foo", "1.2.3", tarball)
+	})
+}
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/tarball.embedded.go 1`] = `go/foo/jsii/tarball.embedded.go embeds a tarball`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>\${project.groupId}:\${project.artifactId}</name>
+  <description>Test assembly: foo</description>
+  <url>https://test.nope/foo</url>
+  <licenses/>
+  <developers>
+    <developer>
+      <name>Test</name>
+      <roles>
+        <role>test</role>
+      </roles>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:foo.nope.git</connection>
+    <url>foo.nope.git</url>
+  </scm>
+  <groupId>com.acme</groupId>
+  <artifactId>foo</artifactId>
+  <version>1.2.3</version>
+  <packaging>jar</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.acme</groupId>
+      <artifactId>bar</artifactId>
+      <version>[4.5.6-pre.1337,5.0.0)</version>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.jsii</groupId>
+      <artifactId>jsii-runtime</artifactId>
+      <version>[0.0.0,0.0.1)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>[16.0.3,20.0.0)</version>
+    </dependency>
+    <dependency>
+      <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>[1.3.2,1.4.0)</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <failOnError>false</failOnError>
+          <show>protected</show>
+          <sourceFileExcludes>
+            <exclude>**/$Module.java</exclude>
+          </sourceFileExcludes>
+          <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
+          <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0-M3</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.6</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/src/main/java/com/acme/foo/$Module.java 1`] = `
+package com.acme.foo;
+
+import static java.util.Arrays.asList;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+
+import java.nio.charset.StandardCharsets;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import software.amazon.jsii.JsiiModule;
+
+@software.amazon.jsii.Internal
+public final class $Module extends JsiiModule {
+    private static final Map<String, String> MODULE_TYPES = load();
+
+    private static Map<String, String> load() {
+        final Map<String, String> result = new HashMap<>();
+        final ClassLoader cl = $Module.class.getClassLoader();
+        try (final InputStream is = cl.getResourceAsStream("com/acme/foo/$Module.txt");
+             final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);
+             final BufferedReader br = new BufferedReader(rd)) {
+            br.lines()
+              .filter(line -> !line.trim().isEmpty())
+              .forEach(line ->  {
+                final String[] parts = line.split("=", 2);
+                final String fqn = parts[0];
+                final String className = parts[1];
+                result.put(fqn, className);
+            });
+        }
+        catch (final IOException exception) {
+            throw new UncheckedIOException(exception);
+        }
+        return result;
+    }
+
+    private final Map<String, Class<?>> cache = new HashMap<>();
+
+    public $Module() {
+        super("foo", "1.2.3", $Module.class, "foo@1.2.3.jsii.tgz");
+    }
+
+    @Override
+    public List<Class<? extends JsiiModule>> getDependencies() {
+        return asList(com.acme.bar.$Module.class);
+    }
+
+    @Override
+    protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
+        if (!MODULE_TYPES.containsKey(fqn)) {
+            throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        }
+        String className = MODULE_TYPES.get(fqn);
+        if (!this.cache.containsKey(className)) {
+            this.cache.put(className, this.findClass(className));
+        }
+        return this.cache.get(className);
+    }
+
+    private Class<?> findClass(final String binaryName) {
+        try {
+            return Class.forName(binaryName);
+        }
+        catch (final ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+}
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/src/main/resources/com/acme/foo/$Module.txt 1`] = ``;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/src/main/resources/com/acme/foo/foo@1.2.3.jsii.tgz 1`] = `java/src/main/resources/com/acme/foo/foo@1.2.3.jsii.tgz is a tarball`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/js/foo@1.2.3.jsii.tgz 1`] = `js/foo@1.2.3.jsii.tgz is a tarball`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/MANIFEST.in 1`] = `
+include pyproject.toml
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/README.md 1`] = `
+
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
+[build-system]
+requires = ["setuptools~=49.3", "wheel~=0.34"]
+build-backend = "setuptools.build_meta"
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/setup.py 1`] = `
+import json
+import setuptools
+
+kwargs = json.loads(
+    """
+{
+    "name": "foo",
+    "version": "1.2.3",
+    "description": "Test assembly: foo",
+    "license": "UNLICENSED",
+    "url": "https://test.nope/foo",
+    "long_description_content_type": "text/markdown",
+    "author": "Test",
+    "bdist_wheel": {
+        "universal": true
+    },
+    "project_urls": {
+        "Source": "foo.nope.git"
+    },
+    "package_dir": {
+        "": "src"
+    },
+    "packages": [
+        "foo._jsii"
+    ],
+    "package_data": {
+        "foo._jsii": [
+            "foo@1.2.3.jsii.tgz"
+        ]
+    },
+    "python_requires": ">=3.6",
+    "install_requires": [
+        "bar>=4.5.6.dev1337, <5.0.0",
+        "jsii>=1337.42.1337, <1338.0.0",
+        "publication>=0.0.3"
+    ],
+    "classifiers": [
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Typing :: Typed"
+    ],
+    "scripts": []
+}
+"""
+)
+
+with open("README.md", encoding="utf8") as fp:
+    kwargs["long_description"] = fp.read()
+
+
+setuptools.setup(**kwargs)
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/src/foo/_jsii/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+import bar._jsii
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "foo", "1.2.3", __name__[0:-6], "foo@1.2.3.jsii.tgz"
+)
+
+__all__ = [
+    "__jsii_assembly__",
+]
+
+publication.publish()
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/python/src/foo/_jsii/foo@1.2.3.jsii.tgz 1`] = `python/src/foo/_jsii/foo@1.2.3.jsii.tgz is a tarball`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/ 1`] = `
+<root>
+ ┣━ 📁 dotnet
+ ┃  ┗━ 📁 Com.Acme.Foo
+ ┃     ┣━ 📄 AssemblyInfo.cs
+ ┃     ┣━ 📁 Com
+ ┃     ┃  ┗━ 📁 Acme
+ ┃     ┃     ┗━ 📁 Foo
+ ┃     ┃        ┗━ 📁 Internal
+ ┃     ┃           ┗━ 📁 DependencyResolution
+ ┃     ┃              ┗━ 📄 Anchor.cs
+ ┃     ┣━ 📄 Com.Acme.Foo.csproj
+ ┃     ┗━ 📄 foo-2.0.0-rc.42.tgz
+ ┣━ 📁 go
+ ┃  ┗━ 📁 foo
+ ┃     ┣━ 📄 foo.go
+ ┃     ┗━ 📁 jsii
+ ┃        ┣━ 📄 jsii.go
+ ┃        ┗━ 📄 tarball.embedded.go
+ ┣━ 📁 java
+ ┃  ┣━ 📄 pom.xml
+ ┃  ┗━ 📁 src
+ ┃     ┗━ 📁 main
+ ┃        ┣━ 📁 java
+ ┃        ┃  ┗━ 📁 com
+ ┃        ┃     ┗━ 📁 acme
+ ┃        ┃        ┗━ 📁 foo
+ ┃        ┃           ┗━ 📄 $Module.java
+ ┃        ┗━ 📁 resources
+ ┃           ┗━ 📁 com
+ ┃              ┗━ 📁 acme
+ ┃                 ┗━ 📁 foo
+ ┃                    ┣━ 📄 $Module.txt
+ ┃                    ┗━ 📄 foo@2.0.0-rc.42.jsii.tgz
+ ┣━ 📁 js
+ ┃  ┗━ 📄 foo@2.0.0-rc.42.jsii.tgz
+ ┗━ 📁 python
+    ┣━ 📄 MANIFEST.in
+    ┣━ 📄 pyproject.toml
+    ┣━ 📄 README.md
+    ┣━ 📄 setup.py
+    ┗━ 📁 src
+       ┗━ 📁 foo
+          ┗━ 📁 _jsii
+             ┣━ 📄 __init__.py
+             ┗━ 📄 foo@2.0.0-rc.42.jsii.tgz
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/AssemblyInfo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+[assembly: JsiiAssembly("foo", "2.0.0-rc.42", "foo-2.0.0-rc.42.tgz")]
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`] = `
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Package Identification -->
+    <Description>Test assembly: foo</Description>
+    <PackageId>Com.Acme.Foo</PackageId>
+    <PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
+    <PackageVersion>2.0.0-rc.42</PackageVersion>
+    <!-- Additional Metadata -->
+    <Authors>Test</Authors>
+    <Language>en-US</Language>
+    <ProjectUrl>https://test.nope/foo</ProjectUrl>
+    <RepositoryUrl>foo.nope.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <!-- Build Configuration -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <Nullable>enable</Nullable>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="foo-2.0.0-rc.42.tgz" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+  </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>0612,0618</NoWarn>
+  </PropertyGroup>
+</Project>
+
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/Com/Acme/Foo/Internal/DependencyResolution/Anchor.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Com.Acme.Foo.Internal.DependencyResolution
+{
+    public sealed class Anchor
+    {
+        public Anchor()
+        {
+        }
+    }
+}
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/dotnet/Com.Acme.Foo/foo-2.0.0-rc.42.tgz 1`] = `dotnet/Com.Acme.Foo/foo-2.0.0-rc.42.tgz is a tarball`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/go/foo/foo.go 1`] = `
+// Test assembly: foo
+package foo
+
+import (
+)
+
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`] = `
+package jsii
+
+import (
+	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	"sync"
+)
+
+var once sync.Once
+
+// Initialize performs the necessary work for the enclosing
+// module to be loaded in the jsii kernel.
+func Initialize() {
+	once.Do(func(){
+		// Load this library into the kernel
+		rt.Load("foo", "2.0.0-rc.42", tarball)
+	})
+}
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/go/foo/jsii/tarball.embedded.go 1`] = `go/foo/jsii/tarball.embedded.go embeds a tarball`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>\${project.groupId}:\${project.artifactId}</name>
+  <description>Test assembly: foo</description>
+  <url>https://test.nope/foo</url>
+  <licenses/>
+  <developers>
+    <developer>
+      <name>Test</name>
+      <roles>
+        <role>test</role>
+      </roles>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:foo.nope.git</connection>
+    <url>foo.nope.git</url>
+  </scm>
+  <groupId>com.acme</groupId>
+  <artifactId>foo</artifactId>
+  <version>2.0.0-rc.42</version>
+  <packaging>jar</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>software.amazon.jsii</groupId>
+      <artifactId>jsii-runtime</artifactId>
+      <version>[0.0.0,0.0.1)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>[16.0.3,20.0.0)</version>
+    </dependency>
+    <dependency>
+      <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>[1.3.2,1.4.0)</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <failOnError>false</failOnError>
+          <show>protected</show>
+          <sourceFileExcludes>
+            <exclude>**/$Module.java</exclude>
+          </sourceFileExcludes>
+          <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
+          <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0-M3</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.6</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/java/src/main/java/com/acme/foo/$Module.java 1`] = `
+package com.acme.foo;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+
+import java.nio.charset.StandardCharsets;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import software.amazon.jsii.JsiiModule;
+
+@software.amazon.jsii.Internal
+public final class $Module extends JsiiModule {
+    private static final Map<String, String> MODULE_TYPES = load();
+
+    private static Map<String, String> load() {
+        final Map<String, String> result = new HashMap<>();
+        final ClassLoader cl = $Module.class.getClassLoader();
+        try (final InputStream is = cl.getResourceAsStream("com/acme/foo/$Module.txt");
+             final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);
+             final BufferedReader br = new BufferedReader(rd)) {
+            br.lines()
+              .filter(line -> !line.trim().isEmpty())
+              .forEach(line ->  {
+                final String[] parts = line.split("=", 2);
+                final String fqn = parts[0];
+                final String className = parts[1];
+                result.put(fqn, className);
+            });
+        }
+        catch (final IOException exception) {
+            throw new UncheckedIOException(exception);
+        }
+        return result;
+    }
+
+    private final Map<String, Class<?>> cache = new HashMap<>();
+
+    public $Module() {
+        super("foo", "2.0.0-rc.42", $Module.class, "foo@2.0.0-rc.42.jsii.tgz");
+    }
+
+    @Override
+    protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
+        if (!MODULE_TYPES.containsKey(fqn)) {
+            throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        }
+        String className = MODULE_TYPES.get(fqn);
+        if (!this.cache.containsKey(className)) {
+            this.cache.put(className, this.findClass(className));
+        }
+        return this.cache.get(className);
+    }
+
+    private Class<?> findClass(final String binaryName) {
+        try {
+            return Class.forName(binaryName);
+        }
+        catch (final ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+}
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/java/src/main/resources/com/acme/foo/$Module.txt 1`] = ``;
+
+exports[`foo@2.0.0-rc.42: <outDir>/java/src/main/resources/com/acme/foo/foo@2.0.0-rc.42.jsii.tgz 1`] = `java/src/main/resources/com/acme/foo/foo@2.0.0-rc.42.jsii.tgz is a tarball`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/js/foo@2.0.0-rc.42.jsii.tgz 1`] = `js/foo@2.0.0-rc.42.jsii.tgz is a tarball`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/python/MANIFEST.in 1`] = `
+include pyproject.toml
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/python/README.md 1`] = `
+
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/python/pyproject.toml 1`] = `
+[build-system]
+requires = ["setuptools~=49.3", "wheel~=0.34"]
+build-backend = "setuptools.build_meta"
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/python/setup.py 1`] = `
+import json
+import setuptools
+
+kwargs = json.loads(
+    """
+{
+    "name": "foo",
+    "version": "2.0.0.rc42",
+    "description": "Test assembly: foo",
+    "license": "UNLICENSED",
+    "url": "https://test.nope/foo",
+    "long_description_content_type": "text/markdown",
+    "author": "Test",
+    "bdist_wheel": {
+        "universal": true
+    },
+    "project_urls": {
+        "Source": "foo.nope.git"
+    },
+    "package_dir": {
+        "": "src"
+    },
+    "packages": [
+        "foo._jsii"
+    ],
+    "package_data": {
+        "foo._jsii": [
+            "foo@2.0.0-rc.42.jsii.tgz"
+        ]
+    },
+    "python_requires": ">=3.6",
+    "install_requires": [
+        "jsii>=1337.42.1337, <1338.0.0",
+        "publication>=0.0.3"
+    ],
+    "classifiers": [
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Typing :: Typed"
+    ],
+    "scripts": []
+}
+"""
+)
+
+with open("README.md", encoding="utf8") as fp:
+    kwargs["long_description"] = fp.read()
+
+
+setuptools.setup(**kwargs)
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/python/src/foo/_jsii/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "foo", "2.0.0-rc.42", __name__[0:-6], "foo@2.0.0-rc.42.jsii.tgz"
+)
+
+__all__ = [
+    "__jsii_assembly__",
+]
+
+publication.publish()
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/python/src/foo/_jsii/foo@2.0.0-rc.42.jsii.tgz 1`] = `python/src/foo/_jsii/foo@2.0.0-rc.42.jsii.tgz is a tarball`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/ 1`] = `
+<root>
+ ┣━ 📁 dotnet
+ ┃  ┗━ 📁 Com.Acme.Foo
+ ┃     ┣━ 📄 AssemblyInfo.cs
+ ┃     ┣━ 📁 Com
+ ┃     ┃  ┗━ 📁 Acme
+ ┃     ┃     ┗━ 📁 Foo
+ ┃     ┃        ┗━ 📁 Internal
+ ┃     ┃           ┗━ 📁 DependencyResolution
+ ┃     ┃              ┗━ 📄 Anchor.cs
+ ┃     ┣━ 📄 Com.Acme.Foo.csproj
+ ┃     ┗━ 📄 foo-4.5.6-pre.1337.tgz
+ ┣━ 📁 go
+ ┃  ┗━ 📁 foo
+ ┃     ┣━ 📄 foo.go
+ ┃     ┗━ 📁 jsii
+ ┃        ┣━ 📄 jsii.go
+ ┃        ┗━ 📄 tarball.embedded.go
+ ┣━ 📁 java
+ ┃  ┣━ 📄 pom.xml
+ ┃  ┗━ 📁 src
+ ┃     ┗━ 📁 main
+ ┃        ┣━ 📁 java
+ ┃        ┃  ┗━ 📁 com
+ ┃        ┃     ┗━ 📁 acme
+ ┃        ┃        ┗━ 📁 foo
+ ┃        ┃           ┗━ 📄 $Module.java
+ ┃        ┗━ 📁 resources
+ ┃           ┗━ 📁 com
+ ┃              ┗━ 📁 acme
+ ┃                 ┗━ 📁 foo
+ ┃                    ┣━ 📄 $Module.txt
+ ┃                    ┗━ 📄 foo@4.5.6-pre.1337.jsii.tgz
+ ┣━ 📁 js
+ ┃  ┗━ 📄 foo@4.5.6-pre.1337.jsii.tgz
+ ┗━ 📁 python
+    ┣━ 📄 MANIFEST.in
+    ┣━ 📄 pyproject.toml
+    ┣━ 📄 README.md
+    ┣━ 📄 setup.py
+    ┗━ 📁 src
+       ┗━ 📁 foo
+          ┗━ 📁 _jsii
+             ┣━ 📄 __init__.py
+             ┗━ 📄 foo@4.5.6-pre.1337.jsii.tgz
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/AssemblyInfo.cs 1`] = `
+using Amazon.JSII.Runtime.Deputy;
+
+[assembly: JsiiAssembly("foo", "4.5.6-pre.1337", "foo-4.5.6-pre.1337.tgz")]
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/Com.Acme.Foo.csproj 1`] = `
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Package Identification -->
+    <Description>Test assembly: foo</Description>
+    <PackageId>Com.Acme.Foo</PackageId>
+    <PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
+    <PackageVersion>4.5.6-pre.1337</PackageVersion>
+    <!-- Additional Metadata -->
+    <Authors>Test</Authors>
+    <Language>en-US</Language>
+    <ProjectUrl>https://test.nope/foo</ProjectUrl>
+    <RepositoryUrl>foo.nope.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <!-- Build Configuration -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <Nullable>enable</Nullable>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="foo-4.5.6-pre.1337.tgz" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[1337.42.1337,1338.0.0)" />
+  </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>0612,0618</NoWarn>
+  </PropertyGroup>
+</Project>
+
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/Com/Acme/Foo/Internal/DependencyResolution/Anchor.cs 1`] = `
+#pragma warning disable CS0672,CS0809,CS1591
+
+namespace Com.Acme.Foo.Internal.DependencyResolution
+{
+    public sealed class Anchor
+    {
+        public Anchor()
+        {
+        }
+    }
+}
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/dotnet/Com.Acme.Foo/foo-4.5.6-pre.1337.tgz 1`] = `dotnet/Com.Acme.Foo/foo-4.5.6-pre.1337.tgz is a tarball`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/foo.go 1`] = `
+// Test assembly: foo
+package foo
+
+import (
+)
+
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 1`] = `
+package jsii
+
+import (
+	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	"sync"
+)
+
+var once sync.Once
+
+// Initialize performs the necessary work for the enclosing
+// module to be loaded in the jsii kernel.
+func Initialize() {
+	once.Do(func(){
+		// Load this library into the kernel
+		rt.Load("foo", "4.5.6-pre.1337", tarball)
+	})
+}
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/jsii/tarball.embedded.go 1`] = `go/foo/jsii/tarball.embedded.go embeds a tarball`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>\${project.groupId}:\${project.artifactId}</name>
+  <description>Test assembly: foo</description>
+  <url>https://test.nope/foo</url>
+  <licenses/>
+  <developers>
+    <developer>
+      <name>Test</name>
+      <roles>
+        <role>test</role>
+      </roles>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:foo.nope.git</connection>
+    <url>foo.nope.git</url>
+  </scm>
+  <groupId>com.acme</groupId>
+  <artifactId>foo</artifactId>
+  <version>4.5.6-pre.1337</version>
+  <packaging>jar</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>software.amazon.jsii</groupId>
+      <artifactId>jsii-runtime</artifactId>
+      <version>[0.0.0,0.0.1)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>[16.0.3,20.0.0)</version>
+    </dependency>
+    <dependency>
+      <!-- Provides @javax.annotation.Generated for JDKs >= 9 -->
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>[1.3.2,1.4.0)</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <failOnError>false</failOnError>
+          <show>protected</show>
+          <sourceFileExcludes>
+            <exclude>**/$Module.java</exclude>
+          </sourceFileExcludes>
+          <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
+          <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0-M3</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.6</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/java/src/main/java/com/acme/foo/$Module.java 1`] = `
+package com.acme.foo;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+
+import java.nio.charset.StandardCharsets;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import software.amazon.jsii.JsiiModule;
+
+@software.amazon.jsii.Internal
+public final class $Module extends JsiiModule {
+    private static final Map<String, String> MODULE_TYPES = load();
+
+    private static Map<String, String> load() {
+        final Map<String, String> result = new HashMap<>();
+        final ClassLoader cl = $Module.class.getClassLoader();
+        try (final InputStream is = cl.getResourceAsStream("com/acme/foo/$Module.txt");
+             final Reader rd = new InputStreamReader(is, StandardCharsets.UTF_8);
+             final BufferedReader br = new BufferedReader(rd)) {
+            br.lines()
+              .filter(line -> !line.trim().isEmpty())
+              .forEach(line ->  {
+                final String[] parts = line.split("=", 2);
+                final String fqn = parts[0];
+                final String className = parts[1];
+                result.put(fqn, className);
+            });
+        }
+        catch (final IOException exception) {
+            throw new UncheckedIOException(exception);
+        }
+        return result;
+    }
+
+    private final Map<String, Class<?>> cache = new HashMap<>();
+
+    public $Module() {
+        super("foo", "4.5.6-pre.1337", $Module.class, "foo@4.5.6-pre.1337.jsii.tgz");
+    }
+
+    @Override
+    protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
+        if (!MODULE_TYPES.containsKey(fqn)) {
+            throw new ClassNotFoundException("Unknown JSII type: " + fqn);
+        }
+        String className = MODULE_TYPES.get(fqn);
+        if (!this.cache.containsKey(className)) {
+            this.cache.put(className, this.findClass(className));
+        }
+        return this.cache.get(className);
+    }
+
+    private Class<?> findClass(final String binaryName) {
+        try {
+            return Class.forName(binaryName);
+        }
+        catch (final ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+}
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/java/src/main/resources/com/acme/foo/$Module.txt 1`] = ``;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/java/src/main/resources/com/acme/foo/foo@4.5.6-pre.1337.jsii.tgz 1`] = `java/src/main/resources/com/acme/foo/foo@4.5.6-pre.1337.jsii.tgz is a tarball`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/js/foo@4.5.6-pre.1337.jsii.tgz 1`] = `js/foo@4.5.6-pre.1337.jsii.tgz is a tarball`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/python/MANIFEST.in 1`] = `
+include pyproject.toml
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/python/README.md 1`] = `
+
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/python/pyproject.toml 1`] = `
+[build-system]
+requires = ["setuptools~=49.3", "wheel~=0.34"]
+build-backend = "setuptools.build_meta"
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/python/setup.py 1`] = `
+import json
+import setuptools
+
+kwargs = json.loads(
+    """
+{
+    "name": "foo",
+    "version": "4.5.6.dev1337",
+    "description": "Test assembly: foo",
+    "license": "UNLICENSED",
+    "url": "https://test.nope/foo",
+    "long_description_content_type": "text/markdown",
+    "author": "Test",
+    "bdist_wheel": {
+        "universal": true
+    },
+    "project_urls": {
+        "Source": "foo.nope.git"
+    },
+    "package_dir": {
+        "": "src"
+    },
+    "packages": [
+        "foo._jsii"
+    ],
+    "package_data": {
+        "foo._jsii": [
+            "foo@4.5.6-pre.1337.jsii.tgz"
+        ]
+    },
+    "python_requires": ">=3.6",
+    "install_requires": [
+        "jsii>=1337.42.1337, <1338.0.0",
+        "publication>=0.0.3"
+    ],
+    "classifiers": [
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Typing :: Typed"
+    ],
+    "scripts": []
+}
+"""
+)
+
+with open("README.md", encoding="utf8") as fp:
+    kwargs["long_description"] = fp.read()
+
+
+setuptools.setup(**kwargs)
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/python/src/foo/_jsii/__init__.py 1`] = `
+import abc
+import builtins
+import datetime
+import enum
+import typing
+
+import jsii
+import publication
+import typing_extensions
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "foo", "4.5.6-pre.1337", __name__[0:-6], "foo@4.5.6-pre.1337.jsii.tgz"
+)
+
+__all__ = [
+    "__jsii_assembly__",
+]
+
+publication.publish()
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/python/src/foo/_jsii/foo@4.5.6-pre.1337.jsii.tgz 1`] = `python/src/foo/_jsii/foo@4.5.6-pre.1337.jsii.tgz is a tarball`;

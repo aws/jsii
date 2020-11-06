@@ -1,12 +1,14 @@
 import { CodeMaker } from 'codemaker';
 import * as fs from 'fs-extra';
-import * as path from 'path';
-import { Documentation } from './go/documentation';
 import { Assembly } from 'jsii-reflect';
 import { Rosetta } from 'jsii-rosetta';
-import { JSII_INIT_PACKAGE, RootPackage } from './go/package';
+import * as path from 'path';
+
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
+import { Documentation } from './go/documentation';
+import { RootPackage } from './go/package';
+import { JSII_INIT_PACKAGE } from './go/runtime';
 import { goPackageName } from './go/util';
 
 export class Golang extends Target {

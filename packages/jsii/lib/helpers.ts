@@ -6,11 +6,12 @@
  * well put it in one reusable place.
  */
 
-import * as fs from 'fs-extra';
 import * as spec from '@jsii/spec';
+import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import { DiagnosticCategory } from 'typescript';
+
 import { Compiler } from './compiler';
 import { loadProjectInfo, ProjectInfo } from './project-info';
 
@@ -76,7 +77,7 @@ export async function compileJsiiForTest(
       console.error(error.messageText);
       // logDiagnostic() doesn't work out of the box, so console.error() it is.
     }
-    if (errors.length > 0) {
+    if (errors.length > 0 || emitResult.emitSkipped) {
       throw new Error('There were compiler errors');
     }
     const assembly = await fs.readJSON('.jsii', { encoding: 'utf-8' });

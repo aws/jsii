@@ -14,7 +14,7 @@ will need a number of tools.
 We have built a Docker image with all the required tools, which we are using for
 our own CI/CD: the ["superchain" image][superchain] from.
 
-[superchain]: https://github.com/aws/jsii/blob/master/superchain/Dockerfile
+[superchain]: https://github.com/aws/jsii/blob/main/superchain/Dockerfile
 
 The image can be built for local usage, too:
 
@@ -63,7 +63,7 @@ in your development environment.
 
 The project is managed as a [monorepo] using [lerna].
 
-[monorepo]: https://github.com/babel/babel/blob/master/doc/design/monorepo.md
+[monorepo]: https://github.com/babel/babel/blob/main/doc/design/monorepo.md
 [lerna]: https://github.com/lerna/lerna
 
 1. Check out this respository and change directory to its root.
@@ -163,7 +163,7 @@ example to work from.
 ## Releasing
 ### The `jsii/superchain` Docker image
 
-Upon merging new changes to the `master` branch, the `jsii/superchain:nightly`
+Upon merging new changes to the `main` branch, the `jsii/superchain:nightly`
 image will be released by TravisCI after a last validation build.
 
 Upon making a new `jsii` release (when the GitHub release entry - and its

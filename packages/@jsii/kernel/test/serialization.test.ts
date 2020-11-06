@@ -1,4 +1,5 @@
 import { CANONICAL_ANY, OptionalValue, PrimitiveType } from '@jsii/spec';
+
 import { TOKEN_REF } from '../lib/api';
 import { ObjectTable } from '../lib/objects';
 import {
