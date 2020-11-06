@@ -3352,7 +3352,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     "url": "https://aws.amazon.com"
   },
   "bin": {
-    "calc": "bin/calc"
+    "calc": "bin/run"
   },
   "bundled": {
     "@fixtures/jsii-calc-bundled": "^0.19.0"
@@ -17576,7 +17576,7 @@ exports[`Generated code for "jsii-calc": <outDir>/dotnet/Amazon.JSII.Tests.Calcu
     }
   },
   "version": "0.0.0",
-  "fingerprint": "QHc8YZS13IljwCQpg6AZlBxIZvkAbfnCFh6Vi+e0Cgg="
+  "fingerprint": "PsDmaHKd+MyoFC39pwTAIqvsyQeBHe7VCf6CtDe7TbY="
 }
 
 `;
