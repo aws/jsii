@@ -44,9 +44,7 @@ export interface ProjectInfo {
   readonly targets: spec.AssemblyTargets;
   readonly metadata?: { [key: string]: any };
   readonly jsiiVersionFormat: 'short' | 'full';
-  readonly diagnostics?: {
-    readonly [code: string]: 'error' | 'warning' | 'suggestion' | 'message';
-  };
+  readonly diagnostics?: { readonly [code: string]: string };
   readonly description?: string;
   readonly homepage?: string;
   readonly contributors?: readonly spec.Person[];
