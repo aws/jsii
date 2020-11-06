@@ -58,9 +58,6 @@
         "module": "scope.jsii_calc_base_of_base"
       }
     },
-    "versionFormat": "short",
-    "diagnostics": {
-      "a": "b"
-    }
+    "versionFormat": "short"
   }
 }
