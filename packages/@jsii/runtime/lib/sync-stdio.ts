@@ -2,9 +2,9 @@ import * as fs from 'fs';
 
 import { sleep } from './sleep';
 
-const STDIN_FD = openStdIO('/dev/stdin');
-const STDOUT_FD = openStdIO('/dev/stdout');
-const STDERR_FD = openStdIO('/dev/stderr');
+const STDIN_FD = (process.stdin as any).fd ?? 0;
+const STDOUT_FD = (process.stdout as any).fd ?? 1;
+const STDERR_FD = (process.stderr as any).fd ?? 2;
 
 const INPUT_BUFFER_SIZE = 1_048_576; // 1MiB (aka: 1024 * 1024), not related to max line length
 
@@ -105,49 +105,6 @@ function readSync(
         default:
           throw error;
       }
-    }
-  }
-}
-
-/**
- * Attempts to re-open a standard I/O descriptor through its pseudo-file path, in blocking mode.
- * There are many ways this could fail:
- * - The file could not exist (always the case on Windows)
- * - The file could be a Socket (so it cannot be "opened" like this)
- * - Etc...
- *
- * In cases where the file cannot be re-opened, this function falls back to the standard file
- * descriptor numbers corresponding to the path, however they are not guaranteed to be opened in
- * blocking mode (in fact, they are almost certainly going to be opend with `O_NONBLOCK`), and as a
- * consequence, code using those FDs must be ready to handle symptoms of non-blocking IO (retrying
- * on `EAGAIN` errors, catching `EOF` errors and handling them correctly).
- *
- * @param path the pseudo-file path to the standard I/O descriptor.
- *
- * @returns an open file descriptor, which might be the default file descriptor corresponding to the
- *          provided `path` (if that path does not exist, or somehow could not be re-opened).
- */
-function openStdIO(path: '/dev/stdin' | '/dev/stdout' | '/dev/stderr'): number {
-  const options =
-    path === '/dev/stdin'
-      ? fs.constants.O_RDONLY
-      : fs.constants.O_APPEND | fs.constants.O_WRONLY;
-  try {
-    return fs.openSync(
-      path,
-      options | fs.constants.O_DIRECT | fs.constants.O_SYNC,
-    );
-  } catch {
-    switch (path) {
-      case '/dev/stdin':
-        return (process.stdin as any).fd ?? 0;
-      case '/dev/stdout':
-        return (process.stdout as any).fd ?? 1;
-      case '/dev/stderr':
-        return (process.stderr as any).fd ?? 2;
-      default:
-        // This is unreachable unless something super weird happened, but compiler needs it!
-        throw new Error(`Unexpected path for a standard IO: ${path as string}`);
     }
   }
 }
