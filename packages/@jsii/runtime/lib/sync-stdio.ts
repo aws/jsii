@@ -68,7 +68,7 @@ export class SyncStdio {
 
 /**
  * A patched up implementation of `fs.readSync` that works around the quirks associated with
- * synchronous I/O invoolving `STDIN`, `STDOUT` and `STDERR` on NodeJS, where this is all expected
+ * synchronous I/O involving `STDIN`, `STDOUT` and `STDERR` on NodeJS, where this is all expected
  * to be asynchronous and hence has some "interesting" behavior in certain particular cases.
  *
  * @param fd        the file descriptor to read from (typically 0 / STDIN)
