@@ -6,12 +6,10 @@ const STDIN_FD = openStdIO('/dev/stdin');
 const STDOUT_FD = openStdIO('/dev/stdout');
 const STDERR_FD = openStdIO('/dev/stderr');
 
-const INPUT_BUFFER_SIZE = 1024 * 1024; // not related to max line length
-
-const EMPTY_BUFFER = Buffer.alloc(0);
+const INPUT_BUFFER_SIZE = 1_048_576; // 1MiB (aka: 1024 * 1024), not related to max line length
 
 export class SyncStdio {
-  private bufferedData = EMPTY_BUFFER;
+  private bufferedData = Buffer.alloc(0);
 
   public writeErrorLine(line: string) {
     this.writeBuffer(Buffer.from(`${line}\n`), STDERR_FD);
