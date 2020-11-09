@@ -76,6 +76,7 @@ export class SyncStdio {
         if (e.code !== 'EAGAIN') {
           throw e;
         }
+        sleep(50 /*ms*/);
       }
     }
   }
