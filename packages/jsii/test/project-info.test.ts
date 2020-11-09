@@ -3,6 +3,7 @@ import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
+import * as ts from 'typescript';
 
 import { loadProjectInfo } from '../lib/project-info';
 import { VERSION } from '../lib/version';
@@ -203,6 +204,58 @@ describe('loadProjectInfo', () => {
         info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
       },
     ));
+
+  describe('_loadDiagnostics', () => {
+    test('diagnostic categories are correctly detected', () => {
+      return _withTestProject(
+        async (projectRoot) => {
+          const info = await loadProjectInfo(projectRoot, {
+            fixPeerDependencies: false,
+          });
+          expect(info.diagnostics).toBeDefined();
+          const diagnostics = info.diagnostics!;
+          expect(Object.keys(diagnostics).sort()).toEqual([
+            'diagCode1',
+            'diagCode2',
+            'diagCode3',
+            'diagCode4',
+          ]);
+          expect(diagnostics.diagCode1).toEqual(ts.DiagnosticCategory.Error);
+          expect(diagnostics.diagCode2).toEqual(ts.DiagnosticCategory.Warning);
+          expect(diagnostics.diagCode3).toEqual(
+            ts.DiagnosticCategory.Suggestion,
+          );
+          expect(diagnostics.diagCode4).toEqual(ts.DiagnosticCategory.Message);
+        },
+        (info) => {
+          const diagnostics = {
+            diagCode1: 'error',
+            diagCode2: 'warning',
+            diagCode3: 'suggestion',
+            diagCode4: 'message',
+          };
+          info.jsii.diagnostics = diagnostics;
+        },
+      );
+    });
+
+    test('invalid category is rejected', () => {
+      return _withTestProject(
+        (projectRoot) =>
+          expect(
+            loadProjectInfo(projectRoot, {
+              fixPeerDependencies: false,
+            }),
+          ).rejects.toThrow(/Invalid category/),
+        (info) => {
+          const diagnostics = {
+            diagCode1: 'invalid-category',
+          };
+          info.jsii.diagnostics = diagnostics;
+        },
+      );
+    });
+  });
 });
 
 const TEST_DEP_ASSEMBLY: spec.Assembly = {
