@@ -234,7 +234,7 @@ describe('loadProjectInfo', () => {
             diagCode3: 'suggestion',
             diagCode4: 'message',
           };
-          info.diagnostics = diagnostics;
+          info.jsii.diagnostics = diagnostics;
         },
       );
     });
@@ -251,7 +251,7 @@ describe('loadProjectInfo', () => {
           const diagnostics = {
             diagCode1: 'invalid-category',
           };
-          info.diagnostics = diagnostics;
+          info.jsii.diagnostics = diagnostics;
         },
       );
     });
