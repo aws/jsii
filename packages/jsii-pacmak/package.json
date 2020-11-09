@@ -66,7 +66,7 @@
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.4.3",
+    "ts-jest": "^26.4.4",
     "typescript": "~3.9.7"
   },
   "keywords": [
