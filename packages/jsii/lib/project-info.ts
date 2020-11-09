@@ -467,11 +467,16 @@ function mergeMetadata(
   }
 }
 
-function _loadDiagnostics(entries: {
+function _loadDiagnostics(entries?: {
   [key: string]: string;
-}): {
-  [key: string]: ts.DiagnosticCategory;
-} {
+}):
+  | {
+      [key: string]: ts.DiagnosticCategory;
+    }
+  | undefined {
+  if (entries === undefined || Object.keys(entries).length === 0) {
+    return undefined;
+  }
   const result: { [key: string]: ts.DiagnosticCategory } = {};
   for (const code of Object.keys(entries)) {
     let category: ts.DiagnosticCategory;
