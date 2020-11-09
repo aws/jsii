@@ -817,10 +817,11 @@ export type DiagnosticMessageFormatter = (
   ...args: any[]
 ) => JsiiDiagnostic['messageText'];
 
-export function configureCategories(records: { [code: string]: string }) {
-  for (const [code, level] of Object.entries(records)) {
+export function configureCategories(records: {
+  [code: string]: ts.DiagnosticCategory;
+}) {
+  for (const [code, category] of Object.entries(records)) {
     const diagCode = Code.lookup(diagnosticCode(code));
-    const category = diagnosticCategory(level);
     if (!diagCode) {
       throw new Error(`Unrecognized diagnostic code '${code}'`);
     }
@@ -828,30 +829,15 @@ export function configureCategories(records: { [code: string]: string }) {
   }
 }
 
-function diagnosticCategory(str: string): ts.DiagnosticCategory {
-  switch (str.trim().toLowerCase()) {
-    case 'error':
-      return ts.DiagnosticCategory.Error;
-    case 'warning':
-      return ts.DiagnosticCategory.Warning;
-    case 'suggestion':
-      return ts.DiagnosticCategory.Suggestion;
-    case 'message':
-      return ts.DiagnosticCategory.Message;
-    default:
-      throw new Error(`Unrecognized diagnostic category '${str}'`);
-  }
-}
-
 function diagnosticCode(str: string): string | number {
   if (str.toLowerCase().startsWith('jsii')) {
-    const num = +str.slice(4);
-    if (Number.isNaN(num)) {
-      throw new Error(
-        `Invalid diagnostic code ${str}. A number must follow code that starts with 'JSII'`,
-      );
+    const re = /^JSII(\d+)$/i.exec(str);
+    if (re) {
+      return parseInt(re[1], 10);
     }
-    return num;
+    throw new Error(
+      `Invalid diagnostic code ${str}. A number must follow code that starts with 'JSII'`,
+    );
   }
   return str;
 }

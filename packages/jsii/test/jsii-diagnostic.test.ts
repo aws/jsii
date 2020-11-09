@@ -1,5 +1,6 @@
-import { Code, configureCategories } from '../lib/jsii-diagnostic';
 import { DiagnosticCategory } from 'typescript';
+
+import { Code, configureCategories } from '../lib/jsii-diagnostic';
 
 describe('jsii diagnostics', () => {
   describe('configureCategories', () => {
@@ -10,21 +11,21 @@ describe('jsii diagnostics', () => {
 
     test('diagnostic by name', () => {
       configureCategories({
-        'metadata/package-json-missing-description': 'error',
+        'metadata/package-json-missing-description': DiagnosticCategory.Error,
       });
       expect(Code.lookup(1)!.category).toEqual(DiagnosticCategory.Error);
     });
 
     test('diagnostic by code', () => {
       configureCategories({
-        JSII1: 'error',
+        JSII1: DiagnosticCategory.Error,
       });
       expect(Code.lookup(1)!.category).toEqual(DiagnosticCategory.Error);
     });
 
     test('diagnostic by code zero prefixed', () => {
       configureCategories({
-        JSII001: 'error',
+        JSII001: DiagnosticCategory.Error,
       });
       expect(Code.lookup(1)!.category).toEqual(DiagnosticCategory.Error);
     });
@@ -32,7 +33,7 @@ describe('jsii diagnostics', () => {
     test('invalid diagnostic code - NaN', () => {
       expect(() => {
         configureCategories({
-          JSIIPP: 'error',
+          JSIIPP: DiagnosticCategory.Error,
         });
       }).toThrow(/number must follow code/);
     });
@@ -40,7 +41,7 @@ describe('jsii diagnostics', () => {
     test('invalid diagnostic code - number', () => {
       expect(() => {
         configureCategories({
-          JSII77778888: 'error',
+          JSII77778888: DiagnosticCategory.Error,
         });
       }).toThrow(/Unrecognized diagnostic code/);
     });
@@ -48,17 +49,9 @@ describe('jsii diagnostics', () => {
     test('invalid diagnostic code - string', () => {
       expect(() => {
         configureCategories({
-          'invalid/does-not-exist': 'error',
+          'invalid/does-not-exist': DiagnosticCategory.Error,
         });
       }).toThrow(/Unrecognized diagnostic code/);
-    });
-
-    test('invalid category', () => {
-      expect(() => {
-        configureCategories({
-          JSII1: 'invalid',
-        });
-      }).toThrow(/Unrecognized diagnostic category/);
     });
   });
 });
