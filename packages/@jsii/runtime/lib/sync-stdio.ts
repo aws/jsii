@@ -8,13 +8,28 @@ import { sleep } from './sleep';
 // `EAGAIN` errors). Notably, Windows does not offer the `/dev/std{in,out,err}` interfaces, so we
 // must still be able to handle unexpected non-blocking-ness.
 const STDIN_FD = fs.existsSync('/dev/stdin')
-  ? fs.openSync('/dev/stdin', fs.constants.O_RDONLY | fs.constants.O_SYNC)
+  ? fs.openSync(
+      '/dev/stdin',
+      fs.constants.O_DIRECT | fs.constants.O_RDONLY | fs.constants.O_SYNC,
+    )
   : 0;
 const STDOUT_FD = fs.existsSync('/dev/stdout')
-  ? fs.openSync('/dev/stdout', fs.constants.O_WRONLY | fs.constants.O_SYNC)
+  ? fs.openSync(
+      '/dev/stdout',
+      fs.constants.O_APPEND |
+        fs.constants.O_DIRECT |
+        fs.constants.O_WRONLY |
+        fs.constants.O_SYNC,
+    )
   : 1;
 const STDERR_FD = fs.existsSync('/dev/stderr')
-  ? fs.openSync('/dev/stderr', fs.constants.O_WRONLY | fs.constants.O_SYNC)
+  ? fs.openSync(
+      '/dev/stderr',
+      fs.constants.O_APPEND |
+        fs.constants.O_DIRECT |
+        fs.constants.O_WRONLY |
+        fs.constants.O_SYNC,
+    )
   : 2;
 
 const INPUT_BUFFER_SIZE = 1024 * 1024; // not related to max line length
