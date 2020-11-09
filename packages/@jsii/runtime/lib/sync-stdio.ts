@@ -111,6 +111,16 @@ function readSync(
 
 /**
  * Attempts to re-open a standard I/O descriptor through its pseudo-file path, in blocking mode.
+ * There are many ways this could fail:
+ * - The file could not exist (always the case on Windows)
+ * - The file could be a Socket (so it cannot be "opened" like this)
+ * - Etc...
+ *
+ * In cases where the file cannot be re-opened, this function falls back to the standard file
+ * descriptor numbers corresponding to the path, however they are not guaranteed to be opened in
+ * blocking mode (in fact, they are almost certainly going to be opend with `O_NONBLOCK`), and as a
+ * consequence, code using those FDs must be ready to handle symptoms of non-blocking IO (retrying
+ * on `EAGAIN` errors, catching `EOF` errors and handling them correctly).
  *
  * @param path the pseudo-file path to the standard I/O descriptor.
  *
