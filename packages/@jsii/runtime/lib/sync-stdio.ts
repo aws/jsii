@@ -2,35 +2,9 @@ import * as fs from 'fs';
 
 import { sleep } from './sleep';
 
-// When possible (i.e: we are on a UNIX system where `/dev/std{in,out,err}` pseudo-files exist), we
-// will re-open those streams in synchronous mode, because `node` might otherwise turn those to
-// `O_NONBLOCK` under our feet, causing vast inefficiencies later on (as we must busy-poll around
-// `EAGAIN` errors). Notably, Windows does not offer the `/dev/std{in,out,err}` interfaces, so we
-// must still be able to handle unexpected non-blocking-ness.
-const STDIN_FD = fs.existsSync('/dev/stdin')
-  ? fs.openSync(
-      '/dev/stdin',
-      fs.constants.O_DIRECT | fs.constants.O_RDONLY | fs.constants.O_SYNC,
-    )
-  : 0;
-const STDOUT_FD = fs.existsSync('/dev/stdout')
-  ? fs.openSync(
-      '/dev/stdout',
-      fs.constants.O_APPEND |
-        fs.constants.O_DIRECT |
-        fs.constants.O_WRONLY |
-        fs.constants.O_SYNC,
-    )
-  : 1;
-const STDERR_FD = fs.existsSync('/dev/stderr')
-  ? fs.openSync(
-      '/dev/stderr',
-      fs.constants.O_APPEND |
-        fs.constants.O_DIRECT |
-        fs.constants.O_WRONLY |
-        fs.constants.O_SYNC,
-    )
-  : 2;
+const STDIN_FD = openStdIO('/dev/stdin');
+const STDOUT_FD = openStdIO('/dev/stdout');
+const STDERR_FD = openStdIO('/dev/stderr');
 
 const INPUT_BUFFER_SIZE = 1024 * 1024; // not related to max line length
 
@@ -133,6 +107,39 @@ function readSync(
         default:
           throw error;
       }
+    }
+  }
+}
+
+/**
+ * Attempts to re-open a standard I/O descriptor through its pseudo-file path, in blocking mode.
+ *
+ * @param path the pseudo-file path to the standard I/O descriptor.
+ *
+ * @returns an open file descriptor, which might be the default file descriptor corresponding to the
+ *          provided `path` (if that path does not exist, or somehow could not be re-opened).
+ */
+function openStdIO(path: '/dev/stdin' | '/dev/stdout' | '/dev/stderr'): number {
+  const options =
+    path === '/dev/stdin'
+      ? fs.constants.O_RDONLY
+      : fs.constants.O_APPEND | fs.constants.O_WRONLY;
+  try {
+    return fs.openSync(
+      path,
+      options | fs.constants.O_DIRECT | fs.constants.O_SYNC,
+    );
+  } catch {
+    switch (path) {
+      case '/dev/stdin':
+        return (process.stdin as any).fd ?? 0;
+      case '/dev/stdout':
+        return (process.stdout as any).fd ?? 1;
+      case '/dev/stderr':
+        return (process.stderr as any).fd ?? 2;
+      default:
+        // This is unreachable unless something super weird happened, but compiler needs it!
+        throw new Error(`Unexpected path for a standard IO: ${path as string}`);
     }
   }
 }
