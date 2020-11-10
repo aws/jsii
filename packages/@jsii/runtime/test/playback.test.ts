@@ -41,17 +41,19 @@ function createRecords(): string {
     [
       ...process.execArgv,
       require.resolve('jest/bin/jest'),
-      '--coverage=false',
+      '--no-coverage',
+      '--runInBand',
       'test/kernel.test.ts',
     ],
     {
-      env: { ...process.env, JSII_RECORD: records, JSII_NOSTACK: '1' },
-      stdio: ['inherit', 'pipe', 'pipe'],
       cwd: path.resolve(
         require.resolve('@jsii/kernel/test/kernel.test.js'),
         '..',
         '..',
       ),
+      env: { ...process.env, JSII_RECORD: records, JSII_NOSTACK: '1' },
+      stdio: ['inherit', 'pipe', 'pipe'],
+      timeout: 60_000, // 1 minute
     },
   );
 
