@@ -415,37 +415,39 @@ export class AstRenderer<C> {
 
     const precede: OTree[] = [];
     for (const range of leadingRanges) {
+      let trivia: OTree | undefined = undefined;
       switch (range.type) {
         case 'other':
-          precede.push(
-            new OTree(
-              [
-                repeatNewlines(
-                  this.sourceFile.text.substring(range.pos, range.end),
-                ),
-              ],
-              [],
-              {
-                renderOnce: `ws-${range.pos}`,
-              },
-            ),
+          trivia = new OTree(
+            [
+              repeatNewlines(
+                this.sourceFile.text.substring(range.pos, range.end),
+              ),
+            ],
+            [],
+            {
+              renderOnce: `ws-${range.pos}`,
+            },
           );
           break;
         case 'linecomment':
         case 'blockcomment':
-          precede.push(
-            this.handler.commentRange(
-              commentSyntaxFromCommentRange(
-                commentRangeFromTextRange(range),
-                this,
-              ),
+          trivia = this.handler.commentRange(
+            commentSyntaxFromCommentRange(
+              commentRangeFromTextRange(range),
               this,
             ),
+            this,
           );
           break;
 
         case 'directive':
           break;
+      }
+      if (trivia != null) {
+        // Set spans on comments to make sure their visibility is toggled correctly.
+        trivia.setSpan(range.pos, range.end);
+        precede.push(trivia);
       }
     }
 

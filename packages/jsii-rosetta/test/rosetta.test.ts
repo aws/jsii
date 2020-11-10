@@ -8,7 +8,7 @@ import {
   DEFAULT_TABLET_NAME,
 } from '../lib';
 import { TargetLanguage } from '../lib/languages';
-import { fakeAssembly } from './jsii/assemblies.test';
+import { fakeAssembly } from './jsii/fake-assembly';
 
 const SAMPLE_CODE: TypeScriptSnippet = {
   visibleSource: 'callThisFunction();',
