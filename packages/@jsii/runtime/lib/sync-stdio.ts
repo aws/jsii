@@ -2,9 +2,14 @@ import * as fs from 'fs';
 
 import { sleep } from './sleep';
 
-const STDIN_FD = (process.stdin as any).fd ?? 0;
-const STDOUT_FD = (process.stdout as any).fd ?? 1;
-const STDERR_FD = (process.stderr as any).fd ?? 2;
+// Note: the `process.std{in,out,err}.fd` is not part of the `@types/node` declarations, because
+// those cannot model how those fields are guaranteed to be absent within the context of worker
+// threads. The should be present here, but since we must resort to `as any`, we take the extra
+// precaution of defaulting if those values are not present.
+
+const STDIN_FD: number = (process.stdin as any).fd ?? 0;
+const STDOUT_FD: number = (process.stdout as any).fd ?? 1;
+const STDERR_FD: number = (process.stderr as any).fd ?? 2;
 
 const INPUT_BUFFER_SIZE = 1_048_576; // 1MiB (aka: 1024 * 1024), not related to max line length
 
