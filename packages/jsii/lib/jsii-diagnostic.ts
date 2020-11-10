@@ -816,3 +816,28 @@ export class JsiiDiagnostic implements ts.Diagnostic {
 export type DiagnosticMessageFormatter = (
   ...args: any[]
 ) => JsiiDiagnostic['messageText'];
+
+export function configureCategories(records: {
+  [code: string]: ts.DiagnosticCategory;
+}) {
+  for (const [code, category] of Object.entries(records)) {
+    const diagCode = Code.lookup(diagnosticCode(code));
+    if (!diagCode) {
+      throw new Error(`Unrecognized diagnostic code '${code}'`);
+    }
+    diagCode.category = category;
+  }
+}
+
+function diagnosticCode(str: string): string | number {
+  if (str.toLowerCase().startsWith('jsii')) {
+    const re = /^JSII(\d+)$/i.exec(str);
+    if (re) {
+      return parseInt(re[1], 10);
+    }
+    throw new Error(
+      `Invalid diagnostic code ${str}. A number must follow code that starts with 'JSII'`,
+    );
+  }
+  return str;
+}

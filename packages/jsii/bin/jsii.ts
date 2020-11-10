@@ -4,6 +4,7 @@ import * as process from 'process';
 import * as yargs from 'yargs';
 
 import { Compiler } from '../lib/compiler';
+import { configureCategories } from '../lib/jsii-diagnostic';
 import { loadProjectInfo } from '../lib/project-info';
 import * as utils from '../lib/utils';
 import { VERSION } from '../lib/version';
@@ -75,6 +76,8 @@ const warningTypes = Object.keys(enabledWarnings);
 
     enabledWarnings[key] = false;
   }
+
+  configureCategories(projectInfo.diagnostics ?? {});
 
   const compiler = new Compiler({
     projectInfo,
