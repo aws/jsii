@@ -46,8 +46,8 @@ export abstract class GoStruct extends GoType {
 
     // Flatten any inherited properties on the struct
     this.properties = Object.values(this.type.getProperties(true))
-      .map((prop) => new GoProperty(this, prop))
-      .filter((prop) => !prop.static);
+      .filter((prop) => !prop.static)
+      .map((prop) => new GoProperty(this, prop));
 
     this.interfaceName = `${this.name}${STRUCT_INTERFACE_SUFFIX}`;
   }

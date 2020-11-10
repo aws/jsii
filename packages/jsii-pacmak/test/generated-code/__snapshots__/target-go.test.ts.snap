@@ -95,10 +95,18 @@ type BaseProps struct {
 }
 
 func (b *BaseProps) GetFoo() scopejsiicalcbaseofbase.Very {
+	_jsii_.Get(
+		b,
+		"foo",
+	)
 	return b.Foo
 }
 
 func (b *BaseProps) GetBar() string {
+	_jsii_.Get(
+		b,
+		"bar",
+	)
 	return b.Bar
 }
 
@@ -222,6 +230,10 @@ type VeryBaseProps struct {
 }
 
 func (v *VeryBaseProps) GetFoo() Very {
+	_jsii_.Get(
+		v,
+		"foo",
+	)
 	return v.Foo
 }
 
@@ -346,14 +358,26 @@ type MyFirstStruct struct {
 }
 
 func (m *MyFirstStruct) GetAnumber() float64 {
+	_jsii_.Get(
+		m,
+		"anumber",
+	)
 	return m.Anumber
 }
 
 func (m *MyFirstStruct) GetAstring() string {
+	_jsii_.Get(
+		m,
+		"astring",
+	)
 	return m.Astring
 }
 
 func (m *MyFirstStruct) GetFirstOptional() []string {
+	_jsii_.Get(
+		m,
+		"firstOptional",
+	)
 	return m.FirstOptional
 }
 
@@ -380,10 +404,18 @@ type Number struct {
 }
 
 func (n *Number) GetValue() float64 {
+	_jsii_.Get(
+		n,
+		"value",
+	)
 	return n.Value
 }
 
 func (n *Number) GetDoubleValue() float64 {
+	_jsii_.Get(
+		n,
+		"doubleValue",
+	)
 	return n.DoubleValue
 }
 
@@ -441,6 +473,10 @@ type NumericValue struct {
 }
 
 func (n *NumericValue) GetValue() float64 {
+	_jsii_.Get(
+		n,
+		"value",
+	)
 	return n.Value
 }
 
@@ -497,6 +533,10 @@ type Operation struct {
 }
 
 func (o *Operation) GetValue() float64 {
+	_jsii_.Get(
+		o,
+		"value",
+	)
 	return o.Value
 }
 
@@ -558,14 +598,26 @@ type StructWithOnlyOptionals struct {
 }
 
 func (s *StructWithOnlyOptionals) GetOptional1() string {
+	_jsii_.Get(
+		s,
+		"optional1",
+	)
 	return s.Optional1
 }
 
 func (s *StructWithOnlyOptionals) GetOptional2() float64 {
+	_jsii_.Get(
+		s,
+		"optional2",
+	)
 	return s.Optional2
 }
 
 func (s *StructWithOnlyOptionals) GetOptional3() bool {
+	_jsii_.Get(
+		s,
+		"optional3",
+	)
 	return s.Optional3
 }
 
@@ -611,6 +663,10 @@ type NestedClass struct {
 }
 
 func (n *NestedClass) GetProperty() string {
+	_jsii_.Get(
+		n,
+		"property",
+	)
 	return n.Property
 }
 
@@ -645,6 +701,10 @@ type NestedStruct struct {
 }
 
 func (n *NestedStruct) GetName() string {
+	_jsii_.Get(
+		n,
+		"name",
+	)
 	return n.Name
 }
 
@@ -666,10 +726,18 @@ type ReflectableEntry struct {
 }
 
 func (r *ReflectableEntry) GetKey() string {
+	_jsii_.Get(
+		r,
+		"key",
+	)
 	return r.Key
 }
 
 func (r *ReflectableEntry) GetValue() _jsii_.Any {
+	_jsii_.Get(
+		r,
+		"value",
+	)
 	return r.Value
 }
 
@@ -819,22 +887,42 @@ type CompositeOperation struct {
 }
 
 func (c *CompositeOperation) GetValue() float64 {
+	_jsii_.Get(
+		c,
+		"value",
+	)
 	return c.Value
 }
 
 func (c *CompositeOperation) GetExpression() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		c,
+		"expression",
+	)
 	return c.Expression
 }
 
 func (c *CompositeOperation) GetDecorationPostfixes() []string {
+	_jsii_.Get(
+		c,
+		"decorationPostfixes",
+	)
 	return c.DecorationPostfixes
 }
 
 func (c *CompositeOperation) GetDecorationPrefixes() []string {
+	_jsii_.Get(
+		c,
+		"decorationPrefixes",
+	)
 	return c.DecorationPrefixes
 }
 
 func (c *CompositeOperation) GetStringStyle() CompositionStringStyle {
+	_jsii_.Get(
+		c,
+		"stringStyle",
+	)
 	return c.StringStyle
 }
 
@@ -853,14 +941,29 @@ func NewCompositeOperation() CompositeOperationIface {
 }
 
 func (c *CompositeOperation) SetDecorationPostfixes(val []string) {
+	_jsii_.Set(
+		c,
+		"decorationPostfixes",
+		val,
+	)
 	c.DecorationPostfixes = val
 }
 
 func (c *CompositeOperation) SetDecorationPrefixes(val []string) {
+	_jsii_.Set(
+		c,
+		"decorationPrefixes",
+		val,
+	)
 	c.DecorationPrefixes = val
 }
 
 func (c *CompositeOperation) SetStringStyle(val CompositionStringStyle) {
+	_jsii_.Set(
+		c,
+		"stringStyle",
+		val,
+	)
 	c.StringStyle = val
 }
 
@@ -917,6 +1020,10 @@ type Base struct {
 }
 
 func (b *Base) GetProp() string {
+	_jsii_.Get(
+		b,
+		"prop",
+	)
 	return b.Prop
 }
 
@@ -935,6 +1042,11 @@ func NewBase() BaseIface {
 }
 
 func (b *Base) SetProp(val string) {
+	_jsii_.Set(
+		b,
+		"prop",
+		val,
+	)
 	b.Prop = val
 }
 
@@ -950,6 +1062,10 @@ type Derived struct {
 }
 
 func (d *Derived) GetProp() string {
+	_jsii_.Get(
+		d,
+		"prop",
+	)
 	return d.Prop
 }
 
@@ -968,6 +1084,11 @@ func NewDerived() DerivedIface {
 }
 
 func (d *Derived) SetProp(val string) {
+	_jsii_.Set(
+		d,
+		"prop",
+		val,
+	)
 	d.Prop = val
 }
 
@@ -994,6 +1115,10 @@ type Foo struct {
 }
 
 func (f *Foo) GetBar() string {
+	_jsii_.Get(
+		f,
+		"bar",
+	)
 	return f.Bar
 }
 
@@ -1012,6 +1137,11 @@ func NewFoo() FooIface {
 }
 
 func (f *Foo) SetBar(val string) {
+	_jsii_.Set(
+		f,
+		"bar",
+		val,
+	)
 	f.Bar = val
 }
 
@@ -1026,6 +1156,10 @@ type Hello struct {
 }
 
 func (h *Hello) GetFoo() float64 {
+	_jsii_.Get(
+		h,
+		"foo",
+	)
 	return h.Foo
 }
 
@@ -1050,6 +1184,10 @@ type Hello struct {
 }
 
 func (h *Hello) GetFoo() float64 {
+	_jsii_.Get(
+		h,
+		"foo",
+	)
 	return h.Foo
 }
 
@@ -1119,10 +1257,18 @@ type AbstractClass struct {
 }
 
 func (a *AbstractClass) GetAbstractProperty() string {
+	_jsii_.Get(
+		a,
+		"abstractProperty",
+	)
 	return a.AbstractProperty
 }
 
 func (a *AbstractClass) GetPropFromInterface() string {
+	_jsii_.Get(
+		a,
+		"propFromInterface",
+	)
 	return a.PropFromInterface
 }
 
@@ -1173,6 +1319,10 @@ type AbstractClassBase struct {
 }
 
 func (a *AbstractClassBase) GetAbstractProperty() string {
+	_jsii_.Get(
+		a,
+		"abstractProperty",
+	)
 	return a.AbstractProperty
 }
 
@@ -1203,6 +1353,10 @@ type AbstractClassReturner struct {
 }
 
 func (a *AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBase {
+	_jsii_.Get(
+		a,
+		"returnAbstractFromProperty",
+	)
 	return a.ReturnAbstractFromProperty
 }
 
@@ -1256,6 +1410,10 @@ type AbstractSuite struct {
 }
 
 func (a *AbstractSuite) GetProperty() string {
+	_jsii_.Get(
+		a,
+		"property",
+	)
 	return a.Property
 }
 
@@ -1274,6 +1432,11 @@ func NewAbstractSuite() AbstractSuiteIface {
 }
 
 func (a *AbstractSuite) SetProperty(val string) {
+	_jsii_.Set(
+		a,
+		"property",
+		val,
+	)
 	a.Property = val
 }
 
@@ -1322,14 +1485,26 @@ type Add struct {
 }
 
 func (a *Add) GetValue() float64 {
+	_jsii_.Get(
+		a,
+		"value",
+	)
 	return a.Value
 }
 
 func (a *Add) GetLhs() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		a,
+		"lhs",
+	)
 	return a.Lhs
 }
 
 func (a *Add) GetRhs() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		a,
+		"rhs",
+	)
 	return a.Rhs
 }
 
@@ -1453,78 +1628,154 @@ type AllTypes struct {
 }
 
 func (a *AllTypes) GetEnumPropertyValue() float64 {
+	_jsii_.Get(
+		a,
+		"enumPropertyValue",
+	)
 	return a.EnumPropertyValue
 }
 
 func (a *AllTypes) GetAnyArrayProperty() []_jsii_.Any {
+	_jsii_.Get(
+		a,
+		"anyArrayProperty",
+	)
 	return a.AnyArrayProperty
 }
 
 func (a *AllTypes) GetAnyMapProperty() map[string]_jsii_.Any {
+	_jsii_.Get(
+		a,
+		"anyMapProperty",
+	)
 	return a.AnyMapProperty
 }
 
 func (a *AllTypes) GetAnyProperty() _jsii_.Any {
+	_jsii_.Get(
+		a,
+		"anyProperty",
+	)
 	return a.AnyProperty
 }
 
 func (a *AllTypes) GetArrayProperty() []string {
+	_jsii_.Get(
+		a,
+		"arrayProperty",
+	)
 	return a.ArrayProperty
 }
 
 func (a *AllTypes) GetBooleanProperty() bool {
+	_jsii_.Get(
+		a,
+		"booleanProperty",
+	)
 	return a.BooleanProperty
 }
 
 func (a *AllTypes) GetDateProperty() string {
+	_jsii_.Get(
+		a,
+		"dateProperty",
+	)
 	return a.DateProperty
 }
 
 func (a *AllTypes) GetEnumProperty() AllTypesEnum {
+	_jsii_.Get(
+		a,
+		"enumProperty",
+	)
 	return a.EnumProperty
 }
 
 func (a *AllTypes) GetJsonProperty() map[string]_jsii_.Any {
+	_jsii_.Get(
+		a,
+		"jsonProperty",
+	)
 	return a.JsonProperty
 }
 
 func (a *AllTypes) GetMapProperty() map[string]scopejsiicalclib.Number {
+	_jsii_.Get(
+		a,
+		"mapProperty",
+	)
 	return a.MapProperty
 }
 
 func (a *AllTypes) GetNumberProperty() float64 {
+	_jsii_.Get(
+		a,
+		"numberProperty",
+	)
 	return a.NumberProperty
 }
 
 func (a *AllTypes) GetStringProperty() string {
+	_jsii_.Get(
+		a,
+		"stringProperty",
+	)
 	return a.StringProperty
 }
 
 func (a *AllTypes) GetUnionArrayProperty() []_jsii_.Any {
+	_jsii_.Get(
+		a,
+		"unionArrayProperty",
+	)
 	return a.UnionArrayProperty
 }
 
 func (a *AllTypes) GetUnionMapProperty() map[string]_jsii_.Any {
+	_jsii_.Get(
+		a,
+		"unionMapProperty",
+	)
 	return a.UnionMapProperty
 }
 
 func (a *AllTypes) GetUnionProperty() _jsii_.Any {
+	_jsii_.Get(
+		a,
+		"unionProperty",
+	)
 	return a.UnionProperty
 }
 
 func (a *AllTypes) GetUnknownArrayProperty() []_jsii_.Any {
+	_jsii_.Get(
+		a,
+		"unknownArrayProperty",
+	)
 	return a.UnknownArrayProperty
 }
 
 func (a *AllTypes) GetUnknownMapProperty() map[string]_jsii_.Any {
+	_jsii_.Get(
+		a,
+		"unknownMapProperty",
+	)
 	return a.UnknownMapProperty
 }
 
 func (a *AllTypes) GetUnknownProperty() _jsii_.Any {
+	_jsii_.Get(
+		a,
+		"unknownProperty",
+	)
 	return a.UnknownProperty
 }
 
 func (a *AllTypes) GetOptionalEnumValue() StringEnum {
+	_jsii_.Get(
+		a,
+		"optionalEnumValue",
+	)
 	return a.OptionalEnumValue
 }
 
@@ -1543,74 +1794,164 @@ func NewAllTypes() AllTypesIface {
 }
 
 func (a *AllTypes) SetAnyArrayProperty(val []_jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"anyArrayProperty",
+		val,
+	)
 	a.AnyArrayProperty = val
 }
 
 func (a *AllTypes) SetAnyMapProperty(val map[string]_jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"anyMapProperty",
+		val,
+	)
 	a.AnyMapProperty = val
 }
 
 func (a *AllTypes) SetAnyProperty(val _jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"anyProperty",
+		val,
+	)
 	a.AnyProperty = val
 }
 
 func (a *AllTypes) SetArrayProperty(val []string) {
+	_jsii_.Set(
+		a,
+		"arrayProperty",
+		val,
+	)
 	a.ArrayProperty = val
 }
 
 func (a *AllTypes) SetBooleanProperty(val bool) {
+	_jsii_.Set(
+		a,
+		"booleanProperty",
+		val,
+	)
 	a.BooleanProperty = val
 }
 
 func (a *AllTypes) SetDateProperty(val string) {
+	_jsii_.Set(
+		a,
+		"dateProperty",
+		val,
+	)
 	a.DateProperty = val
 }
 
 func (a *AllTypes) SetEnumProperty(val AllTypesEnum) {
+	_jsii_.Set(
+		a,
+		"enumProperty",
+		val,
+	)
 	a.EnumProperty = val
 }
 
 func (a *AllTypes) SetJsonProperty(val map[string]_jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"jsonProperty",
+		val,
+	)
 	a.JsonProperty = val
 }
 
 func (a *AllTypes) SetMapProperty(val map[string]scopejsiicalclib.Number) {
+	_jsii_.Set(
+		a,
+		"mapProperty",
+		val,
+	)
 	a.MapProperty = val
 }
 
 func (a *AllTypes) SetNumberProperty(val float64) {
+	_jsii_.Set(
+		a,
+		"numberProperty",
+		val,
+	)
 	a.NumberProperty = val
 }
 
 func (a *AllTypes) SetStringProperty(val string) {
+	_jsii_.Set(
+		a,
+		"stringProperty",
+		val,
+	)
 	a.StringProperty = val
 }
 
 func (a *AllTypes) SetUnionArrayProperty(val []_jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"unionArrayProperty",
+		val,
+	)
 	a.UnionArrayProperty = val
 }
 
 func (a *AllTypes) SetUnionMapProperty(val map[string]_jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"unionMapProperty",
+		val,
+	)
 	a.UnionMapProperty = val
 }
 
 func (a *AllTypes) SetUnionProperty(val _jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"unionProperty",
+		val,
+	)
 	a.UnionProperty = val
 }
 
 func (a *AllTypes) SetUnknownArrayProperty(val []_jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"unknownArrayProperty",
+		val,
+	)
 	a.UnknownArrayProperty = val
 }
 
 func (a *AllTypes) SetUnknownMapProperty(val map[string]_jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"unknownMapProperty",
+		val,
+	)
 	a.UnknownMapProperty = val
 }
 
 func (a *AllTypes) SetUnknownProperty(val _jsii_.Any) {
+	_jsii_.Set(
+		a,
+		"unknownProperty",
+		val,
+	)
 	a.UnknownProperty = val
 }
 
 func (a *AllTypes) SetOptionalEnumValue(val StringEnum) {
+	_jsii_.Set(
+		a,
+		"optionalEnumValue",
+		val,
+	)
 	a.OptionalEnumValue = val
 }
 
@@ -1733,10 +2074,18 @@ type AmbiguousParameters struct {
 }
 
 func (a *AmbiguousParameters) GetProps() StructParameterType {
+	_jsii_.Get(
+		a,
+		"props",
+	)
 	return a.Props
 }
 
 func (a *AmbiguousParameters) GetScope() Bell {
+	_jsii_.Get(
+		a,
+		"scope",
+	)
 	return a.Scope
 }
 
@@ -1971,6 +2320,10 @@ type Bell struct {
 }
 
 func (b *Bell) GetRung() bool {
+	_jsii_.Get(
+		b,
+		"rung",
+	)
 	return b.Rung
 }
 
@@ -1989,6 +2342,11 @@ func NewBell() BellIface {
 }
 
 func (b *Bell) SetRung(val bool) {
+	_jsii_.Set(
+		b,
+		"rung",
+		val,
+	)
 	b.Rung = val
 }
 
@@ -2026,14 +2384,26 @@ type BinaryOperation struct {
 }
 
 func (b *BinaryOperation) GetValue() float64 {
+	_jsii_.Get(
+		b,
+		"value",
+	)
 	return b.Value
 }
 
 func (b *BinaryOperation) GetLhs() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		b,
+		"lhs",
+	)
 	return b.Lhs
 }
 
 func (b *BinaryOperation) GetRhs() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		b,
+		"rhs",
+	)
 	return b.Rhs
 }
 
@@ -2198,42 +2568,82 @@ type Calculator struct {
 }
 
 func (c *Calculator) GetValue() float64 {
+	_jsii_.Get(
+		c,
+		"value",
+	)
 	return c.Value
 }
 
 func (c *Calculator) GetExpression() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		c,
+		"expression",
+	)
 	return c.Expression
 }
 
 func (c *Calculator) GetDecorationPostfixes() []string {
+	_jsii_.Get(
+		c,
+		"decorationPostfixes",
+	)
 	return c.DecorationPostfixes
 }
 
 func (c *Calculator) GetDecorationPrefixes() []string {
+	_jsii_.Get(
+		c,
+		"decorationPrefixes",
+	)
 	return c.DecorationPrefixes
 }
 
 func (c *Calculator) GetStringStyle() composition.CompositionStringStyle {
+	_jsii_.Get(
+		c,
+		"stringStyle",
+	)
 	return c.StringStyle
 }
 
 func (c *Calculator) GetOperationsLog() []scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		c,
+		"operationsLog",
+	)
 	return c.OperationsLog
 }
 
 func (c *Calculator) GetOperationsMap() map[string][]scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		c,
+		"operationsMap",
+	)
 	return c.OperationsMap
 }
 
 func (c *Calculator) GetCurr() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		c,
+		"curr",
+	)
 	return c.Curr
 }
 
 func (c *Calculator) GetMaxValue() float64 {
+	_jsii_.Get(
+		c,
+		"maxValue",
+	)
 	return c.MaxValue
 }
 
 func (c *Calculator) GetUnionProperty() _jsii_.Any {
+	_jsii_.Get(
+		c,
+		"unionProperty",
+	)
 	return c.UnionProperty
 }
 
@@ -2253,26 +2663,56 @@ func NewCalculator(props CalculatorProps) CalculatorIface {
 }
 
 func (c *Calculator) SetDecorationPostfixes(val []string) {
+	_jsii_.Set(
+		c,
+		"decorationPostfixes",
+		val,
+	)
 	c.DecorationPostfixes = val
 }
 
 func (c *Calculator) SetDecorationPrefixes(val []string) {
+	_jsii_.Set(
+		c,
+		"decorationPrefixes",
+		val,
+	)
 	c.DecorationPrefixes = val
 }
 
 func (c *Calculator) SetStringStyle(val composition.CompositionStringStyle) {
+	_jsii_.Set(
+		c,
+		"stringStyle",
+		val,
+	)
 	c.StringStyle = val
 }
 
 func (c *Calculator) SetCurr(val scopejsiicalclib.NumericValue) {
+	_jsii_.Set(
+		c,
+		"curr",
+		val,
+	)
 	c.Curr = val
 }
 
 func (c *Calculator) SetMaxValue(val float64) {
+	_jsii_.Set(
+		c,
+		"maxValue",
+		val,
+	)
 	c.MaxValue = val
 }
 
 func (c *Calculator) SetUnionProperty(val _jsii_.Any) {
+	_jsii_.Set(
+		c,
+		"unionProperty",
+		val,
+	)
 	c.UnionProperty = val
 }
 
@@ -2367,10 +2807,18 @@ type CalculatorProps struct {
 }
 
 func (c *CalculatorProps) GetInitialValue() float64 {
+	_jsii_.Get(
+		c,
+		"initialValue",
+	)
 	return c.InitialValue
 }
 
 func (c *CalculatorProps) GetMaximumValue() float64 {
+	_jsii_.Get(
+		c,
+		"maximumValue",
+	)
 	return c.MaximumValue
 }
 
@@ -2388,10 +2836,18 @@ type ChildStruct982 struct {
 }
 
 func (c *ChildStruct982) GetFoo() string {
+	_jsii_.Get(
+		c,
+		"foo",
+	)
 	return c.Foo
 }
 
 func (c *ChildStruct982) GetBar() float64 {
+	_jsii_.Get(
+		c,
+		"bar",
+	)
 	return c.Bar
 }
 
@@ -2419,18 +2875,34 @@ type ClassThatImplementsTheInternalInterface struct {
 }
 
 func (c *ClassThatImplementsTheInternalInterface) GetA() string {
+	_jsii_.Get(
+		c,
+		"a",
+	)
 	return c.A
 }
 
 func (c *ClassThatImplementsTheInternalInterface) GetB() string {
+	_jsii_.Get(
+		c,
+		"b",
+	)
 	return c.B
 }
 
 func (c *ClassThatImplementsTheInternalInterface) GetC() string {
+	_jsii_.Get(
+		c,
+		"c",
+	)
 	return c.C
 }
 
 func (c *ClassThatImplementsTheInternalInterface) GetD() string {
+	_jsii_.Get(
+		c,
+		"d",
+	)
 	return c.D
 }
 
@@ -2449,18 +2921,38 @@ func NewClassThatImplementsTheInternalInterface() ClassThatImplementsTheInternal
 }
 
 func (c *ClassThatImplementsTheInternalInterface) SetA(val string) {
+	_jsii_.Set(
+		c,
+		"a",
+		val,
+	)
 	c.A = val
 }
 
 func (c *ClassThatImplementsTheInternalInterface) SetB(val string) {
+	_jsii_.Set(
+		c,
+		"b",
+		val,
+	)
 	c.B = val
 }
 
 func (c *ClassThatImplementsTheInternalInterface) SetC(val string) {
+	_jsii_.Set(
+		c,
+		"c",
+		val,
+	)
 	c.C = val
 }
 
 func (c *ClassThatImplementsTheInternalInterface) SetD(val string) {
+	_jsii_.Set(
+		c,
+		"d",
+		val,
+	)
 	c.D = val
 }
 
@@ -2487,18 +2979,34 @@ type ClassThatImplementsThePrivateInterface struct {
 }
 
 func (c *ClassThatImplementsThePrivateInterface) GetA() string {
+	_jsii_.Get(
+		c,
+		"a",
+	)
 	return c.A
 }
 
 func (c *ClassThatImplementsThePrivateInterface) GetB() string {
+	_jsii_.Get(
+		c,
+		"b",
+	)
 	return c.B
 }
 
 func (c *ClassThatImplementsThePrivateInterface) GetC() string {
+	_jsii_.Get(
+		c,
+		"c",
+	)
 	return c.C
 }
 
 func (c *ClassThatImplementsThePrivateInterface) GetE() string {
+	_jsii_.Get(
+		c,
+		"e",
+	)
 	return c.E
 }
 
@@ -2517,18 +3025,38 @@ func NewClassThatImplementsThePrivateInterface() ClassThatImplementsThePrivateIn
 }
 
 func (c *ClassThatImplementsThePrivateInterface) SetA(val string) {
+	_jsii_.Set(
+		c,
+		"a",
+		val,
+	)
 	c.A = val
 }
 
 func (c *ClassThatImplementsThePrivateInterface) SetB(val string) {
+	_jsii_.Set(
+		c,
+		"b",
+		val,
+	)
 	c.B = val
 }
 
 func (c *ClassThatImplementsThePrivateInterface) SetC(val string) {
+	_jsii_.Set(
+		c,
+		"c",
+		val,
+	)
 	c.C = val
 }
 
 func (c *ClassThatImplementsThePrivateInterface) SetE(val string) {
+	_jsii_.Set(
+		c,
+		"e",
+		val,
+	)
 	c.E = val
 }
 
@@ -2547,10 +3075,18 @@ type ClassWithCollections struct {
 }
 
 func (c *ClassWithCollections) GetArray() []string {
+	_jsii_.Get(
+		c,
+		"array",
+	)
 	return c.Array
 }
 
 func (c *ClassWithCollections) GetMap() map[string]string {
+	_jsii_.Get(
+		c,
+		"map",
+	)
 	return c.Map
 }
 
@@ -2569,10 +3105,20 @@ func NewClassWithCollections(map_ map[string]string, array []string) ClassWithCo
 }
 
 func (c *ClassWithCollections) SetArray(val []string) {
+	_jsii_.Set(
+		c,
+		"array",
+		val,
+	)
 	c.Array = val
 }
 
 func (c *ClassWithCollections) SetMap(val map[string]string) {
+	_jsii_.Set(
+		c,
+		"map",
+		val,
+	)
 	c.Map = val
 }
 
@@ -2679,6 +3225,10 @@ type ClassWithJavaReservedWords struct {
 }
 
 func (c *ClassWithJavaReservedWords) GetInt() string {
+	_jsii_.Get(
+		c,
+		"int",
+	)
 	return c.Int
 }
 
@@ -2719,6 +3269,10 @@ type ClassWithMutableObjectLiteralProperty struct {
 }
 
 func (c *ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjectLiteral {
+	_jsii_.Get(
+		c,
+		"mutableObject",
+	)
 	return c.MutableObject
 }
 
@@ -2737,6 +3291,11 @@ func NewClassWithMutableObjectLiteralProperty() ClassWithMutableObjectLiteralPro
 }
 
 func (c *ClassWithMutableObjectLiteralProperty) SetMutableObject(val IMutableObjectLiteral) {
+	_jsii_.Set(
+		c,
+		"mutableObject",
+		val,
+	)
 	c.MutableObject = val
 }
 
@@ -2756,15 +3315,28 @@ type ClassWithPrivateConstructorAndAutomaticProperties struct {
 }
 
 func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() string {
+	_jsii_.Get(
+		c,
+		"readOnlyString",
+	)
 	return c.ReadOnlyString
 }
 
 func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() string {
+	_jsii_.Get(
+		c,
+		"readWriteString",
+	)
 	return c.ReadWriteString
 }
 
 
 func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(val string) {
+	_jsii_.Set(
+		c,
+		"readWriteString",
+		val,
+	)
 	c.ReadWriteString = val
 }
 
@@ -2795,11 +3367,20 @@ type ConfusingToJackson struct {
 }
 
 func (c *ConfusingToJackson) GetUnionProperty() _jsii_.Any {
+	_jsii_.Get(
+		c,
+		"unionProperty",
+	)
 	return c.UnionProperty
 }
 
 
 func (c *ConfusingToJackson) SetUnionProperty(val _jsii_.Any) {
+	_jsii_.Set(
+		c,
+		"unionProperty",
+		val,
+	)
 	c.UnionProperty = val
 }
 
@@ -2838,6 +3419,10 @@ type ConfusingToJacksonStruct struct {
 }
 
 func (c *ConfusingToJacksonStruct) GetUnionProperty() _jsii_.Any {
+	_jsii_.Get(
+		c,
+		"unionProperty",
+	)
 	return c.UnionProperty
 }
 
@@ -3240,14 +3825,26 @@ type DefaultedConstructorArgument struct {
 }
 
 func (d *DefaultedConstructorArgument) GetArg1() float64 {
+	_jsii_.Get(
+		d,
+		"arg1",
+	)
 	return d.Arg1
 }
 
 func (d *DefaultedConstructorArgument) GetArg3() string {
+	_jsii_.Get(
+		d,
+		"arg3",
+	)
 	return d.Arg3
 }
 
 func (d *DefaultedConstructorArgument) GetArg2() string {
+	_jsii_.Get(
+		d,
+		"arg2",
+	)
 	return d.Arg2
 }
 
@@ -3332,10 +3929,18 @@ type DeprecatedClass struct {
 }
 
 func (d *DeprecatedClass) GetReadonlyProperty() string {
+	_jsii_.Get(
+		d,
+		"readonlyProperty",
+	)
 	return d.ReadonlyProperty
 }
 
 func (d *DeprecatedClass) GetMutableProperty() float64 {
+	_jsii_.Get(
+		d,
+		"mutableProperty",
+	)
 	return d.MutableProperty
 }
 
@@ -3354,6 +3959,11 @@ func NewDeprecatedClass(readonlyString string, mutableNumber float64) Deprecated
 }
 
 func (d *DeprecatedClass) SetMutableProperty(val float64) {
+	_jsii_.Set(
+		d,
+		"mutableProperty",
+		val,
+	)
 	d.MutableProperty = val
 }
 
@@ -3389,6 +3999,10 @@ type DeprecatedStruct struct {
 }
 
 func (d *DeprecatedStruct) GetReadonlyProperty() string {
+	_jsii_.Get(
+		d,
+		"readonlyProperty",
+	)
 	return d.ReadonlyProperty
 }
 
@@ -3428,38 +4042,74 @@ type DerivedStruct struct {
 }
 
 func (d *DerivedStruct) GetAnumber() float64 {
+	_jsii_.Get(
+		d,
+		"anumber",
+	)
 	return d.Anumber
 }
 
 func (d *DerivedStruct) GetAstring() string {
+	_jsii_.Get(
+		d,
+		"astring",
+	)
 	return d.Astring
 }
 
 func (d *DerivedStruct) GetFirstOptional() []string {
+	_jsii_.Get(
+		d,
+		"firstOptional",
+	)
 	return d.FirstOptional
 }
 
 func (d *DerivedStruct) GetAnotherRequired() string {
+	_jsii_.Get(
+		d,
+		"anotherRequired",
+	)
 	return d.AnotherRequired
 }
 
 func (d *DerivedStruct) GetBool() bool {
+	_jsii_.Get(
+		d,
+		"bool",
+	)
 	return d.Bool
 }
 
 func (d *DerivedStruct) GetNonPrimitive() DoubleTrouble {
+	_jsii_.Get(
+		d,
+		"nonPrimitive",
+	)
 	return d.NonPrimitive
 }
 
 func (d *DerivedStruct) GetAnotherOptional() map[string]scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		d,
+		"anotherOptional",
+	)
 	return d.AnotherOptional
 }
 
 func (d *DerivedStruct) GetOptionalAny() _jsii_.Any {
+	_jsii_.Get(
+		d,
+		"optionalAny",
+	)
 	return d.OptionalAny
 }
 
 func (d *DerivedStruct) GetOptionalArray() []string {
+	_jsii_.Get(
+		d,
+		"optionalArray",
+	)
 	return d.OptionalArray
 }
 
@@ -3475,6 +4125,10 @@ type DiamondInheritanceBaseLevelStruct struct {
 }
 
 func (d *DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
+	_jsii_.Get(
+		d,
+		"baseLevelProperty",
+	)
 	return d.BaseLevelProperty
 }
 
@@ -3492,10 +4146,18 @@ type DiamondInheritanceFirstMidLevelStruct struct {
 }
 
 func (d *DiamondInheritanceFirstMidLevelStruct) GetBaseLevelProperty() string {
+	_jsii_.Get(
+		d,
+		"baseLevelProperty",
+	)
 	return d.BaseLevelProperty
 }
 
 func (d *DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string {
+	_jsii_.Get(
+		d,
+		"firstMidLevelProperty",
+	)
 	return d.FirstMidLevelProperty
 }
 
@@ -3513,10 +4175,18 @@ type DiamondInheritanceSecondMidLevelStruct struct {
 }
 
 func (d *DiamondInheritanceSecondMidLevelStruct) GetBaseLevelProperty() string {
+	_jsii_.Get(
+		d,
+		"baseLevelProperty",
+	)
 	return d.BaseLevelProperty
 }
 
 func (d *DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() string {
+	_jsii_.Get(
+		d,
+		"secondMidLevelProperty",
+	)
 	return d.SecondMidLevelProperty
 }
 
@@ -3538,18 +4208,34 @@ type DiamondInheritanceTopLevelStruct struct {
 }
 
 func (d *DiamondInheritanceTopLevelStruct) GetBaseLevelProperty() string {
+	_jsii_.Get(
+		d,
+		"baseLevelProperty",
+	)
 	return d.BaseLevelProperty
 }
 
 func (d *DiamondInheritanceTopLevelStruct) GetFirstMidLevelProperty() string {
+	_jsii_.Get(
+		d,
+		"firstMidLevelProperty",
+	)
 	return d.FirstMidLevelProperty
 }
 
 func (d *DiamondInheritanceTopLevelStruct) GetSecondMidLevelProperty() string {
+	_jsii_.Get(
+		d,
+		"secondMidLevelProperty",
+	)
 	return d.SecondMidLevelProperty
 }
 
 func (d *DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
+	_jsii_.Get(
+		d,
+		"topLevelProperty",
+	)
 	return d.TopLevelProperty
 }
 
@@ -3819,10 +4505,18 @@ type DynamicPropertyBearer struct {
 }
 
 func (d *DynamicPropertyBearer) GetDynamicProperty() string {
+	_jsii_.Get(
+		d,
+		"dynamicProperty",
+	)
 	return d.DynamicProperty
 }
 
 func (d *DynamicPropertyBearer) GetValueStore() string {
+	_jsii_.Get(
+		d,
+		"valueStore",
+	)
 	return d.ValueStore
 }
 
@@ -3841,10 +4535,20 @@ func NewDynamicPropertyBearer(valueStore string) DynamicPropertyBearerIface {
 }
 
 func (d *DynamicPropertyBearer) SetDynamicProperty(val string) {
+	_jsii_.Set(
+		d,
+		"dynamicProperty",
+		val,
+	)
 	d.DynamicProperty = val
 }
 
 func (d *DynamicPropertyBearer) SetValueStore(val string) {
+	_jsii_.Set(
+		d,
+		"valueStore",
+		val,
+	)
 	d.ValueStore = val
 }
 
@@ -3866,14 +4570,26 @@ type DynamicPropertyBearerChild struct {
 }
 
 func (d *DynamicPropertyBearerChild) GetDynamicProperty() string {
+	_jsii_.Get(
+		d,
+		"dynamicProperty",
+	)
 	return d.DynamicProperty
 }
 
 func (d *DynamicPropertyBearerChild) GetValueStore() string {
+	_jsii_.Get(
+		d,
+		"valueStore",
+	)
 	return d.ValueStore
 }
 
 func (d *DynamicPropertyBearerChild) GetOriginalValue() string {
+	_jsii_.Get(
+		d,
+		"originalValue",
+	)
 	return d.OriginalValue
 }
 
@@ -3892,10 +4608,20 @@ func NewDynamicPropertyBearerChild(originalValue string) DynamicPropertyBearerCh
 }
 
 func (d *DynamicPropertyBearerChild) SetDynamicProperty(val string) {
+	_jsii_.Set(
+		d,
+		"dynamicProperty",
+		val,
+	)
 	d.DynamicProperty = val
 }
 
 func (d *DynamicPropertyBearerChild) SetValueStore(val string) {
+	_jsii_.Set(
+		d,
+		"valueStore",
+		val,
+	)
 	d.ValueStore = val
 }
 
@@ -4059,10 +4785,18 @@ type EraseUndefinedHashValuesOptions struct {
 }
 
 func (e *EraseUndefinedHashValuesOptions) GetOption1() string {
+	_jsii_.Get(
+		e,
+		"option1",
+	)
 	return e.Option1
 }
 
 func (e *EraseUndefinedHashValuesOptions) GetOption2() string {
+	_jsii_.Get(
+		e,
+		"option2",
+	)
 	return e.Option2
 }
 
@@ -4085,10 +4819,18 @@ type ExperimentalClass struct {
 }
 
 func (e *ExperimentalClass) GetReadonlyProperty() string {
+	_jsii_.Get(
+		e,
+		"readonlyProperty",
+	)
 	return e.ReadonlyProperty
 }
 
 func (e *ExperimentalClass) GetMutableProperty() float64 {
+	_jsii_.Get(
+		e,
+		"mutableProperty",
+	)
 	return e.MutableProperty
 }
 
@@ -4107,6 +4849,11 @@ func NewExperimentalClass(readonlyString string, mutableNumber float64) Experime
 }
 
 func (e *ExperimentalClass) SetMutableProperty(val float64) {
+	_jsii_.Set(
+		e,
+		"mutableProperty",
+		val,
+	)
 	e.MutableProperty = val
 }
 
@@ -4142,6 +4889,10 @@ type ExperimentalStruct struct {
 }
 
 func (e *ExperimentalStruct) GetReadonlyProperty() string {
+	_jsii_.Get(
+		e,
+		"readonlyProperty",
+	)
 	return e.ReadonlyProperty
 }
 
@@ -4157,6 +4908,10 @@ type ExportedBaseClass struct {
 }
 
 func (e *ExportedBaseClass) GetSuccess() bool {
+	_jsii_.Get(
+		e,
+		"success",
+	)
 	return e.Success
 }
 
@@ -4187,10 +4942,18 @@ type ExtendsInternalInterface struct {
 }
 
 func (e *ExtendsInternalInterface) GetBoom() bool {
+	_jsii_.Get(
+		e,
+		"boom",
+	)
 	return e.Boom
 }
 
 func (e *ExtendsInternalInterface) GetProp() string {
+	_jsii_.Get(
+		e,
+		"prop",
+	)
 	return e.Prop
 }
 
@@ -4210,10 +4973,18 @@ type ExternalClass struct {
 }
 
 func (e *ExternalClass) GetReadonlyProperty() string {
+	_jsii_.Get(
+		e,
+		"readonlyProperty",
+	)
 	return e.ReadonlyProperty
 }
 
 func (e *ExternalClass) GetMutableProperty() float64 {
+	_jsii_.Get(
+		e,
+		"mutableProperty",
+	)
 	return e.MutableProperty
 }
 
@@ -4232,6 +5003,11 @@ func NewExternalClass(readonlyString string, mutableNumber float64) ExternalClas
 }
 
 func (e *ExternalClass) SetMutableProperty(val float64) {
+	_jsii_.Set(
+		e,
+		"mutableProperty",
+		val,
+	)
 	e.MutableProperty = val
 }
 
@@ -4263,6 +5039,10 @@ type ExternalStruct struct {
 }
 
 func (e *ExternalStruct) GetReadonlyProperty() string {
+	_jsii_.Get(
+		e,
+		"readonlyProperty",
+	)
 	return e.ReadonlyProperty
 }
 
@@ -4281,6 +5061,10 @@ type GiveMeStructs struct {
 }
 
 func (g *GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionals {
+	_jsii_.Get(
+		g,
+		"structLiteral",
+	)
 	return g.StructLiteral
 }
 
@@ -4344,6 +5128,10 @@ type Greetee struct {
 }
 
 func (g *Greetee) GetName() string {
+	_jsii_.Get(
+		g,
+		"name",
+	)
 	return g.Name
 }
 
@@ -4587,6 +5375,10 @@ type ImplementInternalInterface struct {
 }
 
 func (i *ImplementInternalInterface) GetProp() string {
+	_jsii_.Get(
+		i,
+		"prop",
+	)
 	return i.Prop
 }
 
@@ -4605,6 +5397,11 @@ func NewImplementInternalInterface() ImplementInternalInterfaceIface {
 }
 
 func (i *ImplementInternalInterface) SetProp(val string) {
+	_jsii_.Set(
+		i,
+		"prop",
+		val,
+	)
 	i.Prop = val
 }
 
@@ -4619,6 +5416,10 @@ type Implementation struct {
 }
 
 func (i *Implementation) GetValue() float64 {
+	_jsii_.Get(
+		i,
+		"value",
+	)
 	return i.Value
 }
 
@@ -4714,6 +5515,10 @@ type ImplementsPrivateInterface struct {
 }
 
 func (i *ImplementsPrivateInterface) GetPrivate() string {
+	_jsii_.Get(
+		i,
+		"private",
+	)
 	return i.Private
 }
 
@@ -4732,6 +5537,11 @@ func NewImplementsPrivateInterface() ImplementsPrivateInterfaceIface {
 }
 
 func (i *ImplementsPrivateInterface) SetPrivate(val string) {
+	_jsii_.Set(
+		i,
+		"private",
+		val,
+	)
 	i.Private = val
 }
 
@@ -4750,14 +5560,26 @@ type ImplictBaseOfBase struct {
 }
 
 func (i *ImplictBaseOfBase) GetFoo() scopejsiicalcbaseofbase.Very {
+	_jsii_.Get(
+		i,
+		"foo",
+	)
 	return i.Foo
 }
 
 func (i *ImplictBaseOfBase) GetBar() string {
+	_jsii_.Get(
+		i,
+		"bar",
+	)
 	return i.Bar
 }
 
 func (i *ImplictBaseOfBase) GetGoo() string {
+	_jsii_.Get(
+		i,
+		"goo",
+	)
 	return i.Goo
 }
 
@@ -4940,10 +5762,18 @@ type Jsii417Derived struct {
 }
 
 func (j *Jsii417Derived) GetHasRoot() bool {
+	_jsii_.Get(
+		j,
+		"hasRoot",
+	)
 	return j.HasRoot
 }
 
 func (j *Jsii417Derived) GetProperty() string {
+	_jsii_.Get(
+		j,
+		"property",
+	)
 	return j.Property
 }
 
@@ -5015,6 +5845,10 @@ type Jsii417PublicBaseOfBase struct {
 }
 
 func (j *Jsii417PublicBaseOfBase) GetHasRoot() bool {
+	_jsii_.Get(
+		j,
+		"hasRoot",
+	)
 	return j.HasRoot
 }
 
@@ -5147,10 +5981,18 @@ type JsObjectLiteralToNativeClass struct {
 }
 
 func (j *JsObjectLiteralToNativeClass) GetPropA() string {
+	_jsii_.Get(
+		j,
+		"propA",
+	)
 	return j.PropA
 }
 
 func (j *JsObjectLiteralToNativeClass) GetPropB() float64 {
+	_jsii_.Get(
+		j,
+		"propB",
+	)
 	return j.PropB
 }
 
@@ -5169,10 +6011,20 @@ func NewJsObjectLiteralToNativeClass() JsObjectLiteralToNativeClassIface {
 }
 
 func (j *JsObjectLiteralToNativeClass) SetPropA(val string) {
+	_jsii_.Set(
+		j,
+		"propA",
+		val,
+	)
 	j.PropA = val
 }
 
 func (j *JsObjectLiteralToNativeClass) SetPropB(val float64) {
+	_jsii_.Set(
+		j,
+		"propB",
+		val,
+	)
 	j.PropB = val
 }
 
@@ -5240,6 +6092,10 @@ type JavaReservedWords struct {
 }
 
 func (j *JavaReservedWords) GetWhile() string {
+	_jsii_.Get(
+		j,
+		"while",
+	)
 	return j.While
 }
 
@@ -5258,6 +6114,11 @@ func NewJavaReservedWords() JavaReservedWordsIface {
 }
 
 func (j *JavaReservedWords) SetWhile(val string) {
+	_jsii_.Set(
+		j,
+		"while",
+		val,
+	)
 	j.While = val
 }
 
@@ -6048,6 +6909,10 @@ type LevelOne struct {
 }
 
 func (l *LevelOne) GetProps() LevelOneProps {
+	_jsii_.Get(
+		l,
+		"props",
+	)
 	return l.Props
 }
 
@@ -6076,6 +6941,10 @@ type PropBooleanValue struct {
 }
 
 func (p *PropBooleanValue) GetValue() bool {
+	_jsii_.Get(
+		p,
+		"value",
+	)
 	return p.Value
 }
 
@@ -6091,6 +6960,10 @@ type PropProperty struct {
 }
 
 func (p *PropProperty) GetProp() PropBooleanValue {
+	_jsii_.Get(
+		p,
+		"prop",
+	)
 	return p.Prop
 }
 
@@ -6106,6 +6979,10 @@ type LevelOneProps struct {
 }
 
 func (l *LevelOneProps) GetProp() PropProperty {
+	_jsii_.Get(
+		l,
+		"prop",
+	)
 	return l.Prop
 }
 
@@ -6161,22 +7038,42 @@ type LoadBalancedFargateServiceProps struct {
 }
 
 func (l *LoadBalancedFargateServiceProps) GetContainerPort() float64 {
+	_jsii_.Get(
+		l,
+		"containerPort",
+	)
 	return l.ContainerPort
 }
 
 func (l *LoadBalancedFargateServiceProps) GetCpu() string {
+	_jsii_.Get(
+		l,
+		"cpu",
+	)
 	return l.Cpu
 }
 
 func (l *LoadBalancedFargateServiceProps) GetMemoryMiB() string {
+	_jsii_.Get(
+		l,
+		"memoryMiB",
+	)
 	return l.MemoryMiB
 }
 
 func (l *LoadBalancedFargateServiceProps) GetPublicLoadBalancer() bool {
+	_jsii_.Get(
+		l,
+		"publicLoadBalancer",
+	)
 	return l.PublicLoadBalancer
 }
 
 func (l *LoadBalancedFargateServiceProps) GetPublicTasks() bool {
+	_jsii_.Get(
+		l,
+		"publicTasks",
+	)
 	return l.PublicTasks
 }
 
@@ -6193,6 +7090,10 @@ type MethodNamedProperty struct {
 }
 
 func (m *MethodNamedProperty) GetElite() float64 {
+	_jsii_.Get(
+		m,
+		"elite",
+	)
 	return m.Elite
 }
 
@@ -6250,14 +7151,26 @@ type Multiply struct {
 }
 
 func (m *Multiply) GetValue() float64 {
+	_jsii_.Get(
+		m,
+		"value",
+	)
 	return m.Value
 }
 
 func (m *Multiply) GetLhs() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		m,
+		"lhs",
+	)
 	return m.Lhs
 }
 
 func (m *Multiply) GetRhs() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		m,
+		"rhs",
+	)
 	return m.Rhs
 }
 
@@ -6364,10 +7277,18 @@ type Negate struct {
 }
 
 func (n *Negate) GetValue() float64 {
+	_jsii_.Get(
+		n,
+		"value",
+	)
 	return n.Value
 }
 
 func (n *Negate) GetOperand() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		n,
+		"operand",
+	)
 	return n.Operand
 }
 
@@ -6472,6 +7393,10 @@ type NestedStruct struct {
 }
 
 func (n *NestedStruct) GetNumberProp() float64 {
+	_jsii_.Get(
+		n,
+		"numberProp",
+	)
 	return n.NumberProp
 }
 
@@ -6492,6 +7417,10 @@ type NodeStandardLibrary struct {
 }
 
 func (n *NodeStandardLibrary) GetOsPlatform() string {
+	_jsii_.Get(
+		n,
+		"osPlatform",
+	)
 	return n.OsPlatform
 }
 
@@ -6558,6 +7487,10 @@ type NullShouldBeTreatedAsUndefined struct {
 }
 
 func (n *NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
+	_jsii_.Get(
+		n,
+		"changeMeToUndefined",
+	)
 	return n.ChangeMeToUndefined
 }
 
@@ -6576,6 +7509,11 @@ func NewNullShouldBeTreatedAsUndefined(_param1 string, optional _jsii_.Any) Null
 }
 
 func (n *NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
+	_jsii_.Set(
+		n,
+		"changeMeToUndefined",
+		val,
+	)
 	n.ChangeMeToUndefined = val
 }
 
@@ -6622,10 +7560,18 @@ type NullShouldBeTreatedAsUndefinedData struct {
 }
 
 func (n *NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []_jsii_.Any {
+	_jsii_.Get(
+		n,
+		"arrayWithThreeElementsAndUndefinedAsSecondArgument",
+	)
 	return n.ArrayWithThreeElementsAndUndefinedAsSecondArgument
 }
 
 func (n *NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() _jsii_.Any {
+	_jsii_.Get(
+		n,
+		"thisShouldBeUndefined",
+	)
 	return n.ThisShouldBeUndefined
 }
 
@@ -6645,6 +7591,10 @@ type NumberGenerator struct {
 }
 
 func (n *NumberGenerator) GetGenerator() IRandomNumberGenerator {
+	_jsii_.Get(
+		n,
+		"generator",
+	)
 	return n.Generator
 }
 
@@ -6663,6 +7613,11 @@ func NewNumberGenerator(generator IRandomNumberGenerator) NumberGeneratorIface {
 }
 
 func (n *NumberGenerator) SetGenerator(val IRandomNumberGenerator) {
+	_jsii_.Set(
+		n,
+		"generator",
+		val,
+	)
 	n.Generator = val
 }
 
@@ -6846,14 +7801,26 @@ type OptionalConstructorArgument struct {
 }
 
 func (o *OptionalConstructorArgument) GetArg1() float64 {
+	_jsii_.Get(
+		o,
+		"arg1",
+	)
 	return o.Arg1
 }
 
 func (o *OptionalConstructorArgument) GetArg2() string {
+	_jsii_.Get(
+		o,
+		"arg2",
+	)
 	return o.Arg2
 }
 
 func (o *OptionalConstructorArgument) GetArg3() string {
+	_jsii_.Get(
+		o,
+		"arg3",
+	)
 	return o.Arg3
 }
 
@@ -6882,6 +7849,10 @@ type OptionalStruct struct {
 }
 
 func (o *OptionalStruct) GetField() string {
+	_jsii_.Get(
+		o,
+		"field",
+	)
 	return o.Field
 }
 
@@ -6899,10 +7870,18 @@ type OptionalStructConsumer struct {
 }
 
 func (o *OptionalStructConsumer) GetParameterWasUndefined() bool {
+	_jsii_.Get(
+		o,
+		"parameterWasUndefined",
+	)
 	return o.ParameterWasUndefined
 }
 
 func (o *OptionalStructConsumer) GetFieldValue() string {
+	_jsii_.Get(
+		o,
+		"fieldValue",
+	)
 	return o.FieldValue
 }
 
@@ -6938,10 +7917,18 @@ type OverridableProtectedMember struct {
 }
 
 func (o *OverridableProtectedMember) GetOverrideReadOnly() string {
+	_jsii_.Get(
+		o,
+		"overrideReadOnly",
+	)
 	return o.OverrideReadOnly
 }
 
 func (o *OverridableProtectedMember) GetOverrideReadWrite() string {
+	_jsii_.Get(
+		o,
+		"overrideReadWrite",
+	)
 	return o.OverrideReadWrite
 }
 
@@ -6960,6 +7947,11 @@ func NewOverridableProtectedMember() OverridableProtectedMemberIface {
 }
 
 func (o *OverridableProtectedMember) SetOverrideReadWrite(val string) {
+	_jsii_.Set(
+		o,
+		"overrideReadWrite",
+		val,
+	)
 	o.OverrideReadWrite = val
 }
 
@@ -7040,6 +8032,10 @@ type ParentStruct982 struct {
 }
 
 func (p *ParentStruct982) GetFoo() string {
+	_jsii_.Get(
+		p,
+		"foo",
+	)
 	return p.Foo
 }
 
@@ -7148,30 +8144,58 @@ type Power struct {
 }
 
 func (p *Power) GetValue() float64 {
+	_jsii_.Get(
+		p,
+		"value",
+	)
 	return p.Value
 }
 
 func (p *Power) GetExpression() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		p,
+		"expression",
+	)
 	return p.Expression
 }
 
 func (p *Power) GetDecorationPostfixes() []string {
+	_jsii_.Get(
+		p,
+		"decorationPostfixes",
+	)
 	return p.DecorationPostfixes
 }
 
 func (p *Power) GetDecorationPrefixes() []string {
+	_jsii_.Get(
+		p,
+		"decorationPrefixes",
+	)
 	return p.DecorationPrefixes
 }
 
 func (p *Power) GetStringStyle() composition.CompositionStringStyle {
+	_jsii_.Get(
+		p,
+		"stringStyle",
+	)
 	return p.StringStyle
 }
 
 func (p *Power) GetBase() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		p,
+		"base",
+	)
 	return p.Base
 }
 
 func (p *Power) GetPow() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		p,
+		"pow",
+	)
 	return p.Pow
 }
 
@@ -7191,14 +8215,29 @@ func NewPower(base scopejsiicalclib.NumericValue, pow scopejsiicalclib.NumericVa
 }
 
 func (p *Power) SetDecorationPostfixes(val []string) {
+	_jsii_.Set(
+		p,
+		"decorationPostfixes",
+		val,
+	)
 	p.DecorationPostfixes = val
 }
 
 func (p *Power) SetDecorationPrefixes(val []string) {
+	_jsii_.Set(
+		p,
+		"decorationPrefixes",
+		val,
+	)
 	p.DecorationPrefixes = val
 }
 
 func (p *Power) SetStringStyle(val composition.CompositionStringStyle) {
+	_jsii_.Set(
+		p,
+		"stringStyle",
+		val,
+	)
 	p.StringStyle = val
 }
 
@@ -7238,10 +8277,18 @@ type PropertyNamedProperty struct {
 }
 
 func (p *PropertyNamedProperty) GetProperty() string {
+	_jsii_.Get(
+		p,
+		"property",
+	)
 	return p.Property
 }
 
 func (p *PropertyNamedProperty) GetYetAnoterOne() bool {
+	_jsii_.Get(
+		p,
+		"yetAnoterOne",
+	)
 	return p.YetAnoterOne
 }
 
@@ -7679,6 +8726,10 @@ type ReferenceEnumFromScopedPackage struct {
 }
 
 func (r *ReferenceEnumFromScopedPackage) GetFoo() scopejsiicalclib.EnumFromScopedModule {
+	_jsii_.Get(
+		r,
+		"foo",
+	)
 	return r.Foo
 }
 
@@ -7697,6 +8748,11 @@ func NewReferenceEnumFromScopedPackage() ReferenceEnumFromScopedPackageIface {
 }
 
 func (r *ReferenceEnumFromScopedPackage) SetFoo(val scopejsiicalclib.EnumFromScopedModule) {
+	_jsii_.Set(
+		r,
+		"foo",
+		val,
+	)
 	r.Foo = val
 }
 
@@ -7737,6 +8793,10 @@ type ReturnsPrivateImplementationOfInterface struct {
 }
 
 func (r *ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPrivatelyImplemented {
+	_jsii_.Get(
+		r,
+		"privateImplementation",
+	)
 	return r.PrivateImplementation
 }
 
@@ -7772,10 +8832,18 @@ type RootStruct struct {
 }
 
 func (r *RootStruct) GetStringProp() string {
+	_jsii_.Get(
+		r,
+		"stringProp",
+	)
 	return r.StringProp
 }
 
 func (r *RootStruct) GetNestedStruct() NestedStruct {
+	_jsii_.Get(
+		r,
+		"nestedStruct",
+	)
 	return r.NestedStruct
 }
 
@@ -7868,10 +8936,18 @@ type SecondLevelStruct struct {
 }
 
 func (s *SecondLevelStruct) GetDeeperRequiredProp() string {
+	_jsii_.Get(
+		s,
+		"deeperRequiredProp",
+	)
 	return s.DeeperRequiredProp
 }
 
 func (s *SecondLevelStruct) GetDeeperOptionalProp() string {
+	_jsii_.Get(
+		s,
+		"deeperOptionalProp",
+	)
 	return s.DeeperOptionalProp
 }
 
@@ -7999,10 +9075,18 @@ type SmellyStruct struct {
 }
 
 func (s *SmellyStruct) GetProperty() string {
+	_jsii_.Get(
+		s,
+		"property",
+	)
 	return s.Property
 }
 
 func (s *SmellyStruct) GetYetAnoterOne() bool {
+	_jsii_.Get(
+		s,
+		"yetAnoterOne",
+	)
 	return s.YetAnoterOne
 }
 
@@ -8067,10 +9151,18 @@ type StableClass struct {
 }
 
 func (s *StableClass) GetReadonlyProperty() string {
+	_jsii_.Get(
+		s,
+		"readonlyProperty",
+	)
 	return s.ReadonlyProperty
 }
 
 func (s *StableClass) GetMutableProperty() float64 {
+	_jsii_.Get(
+		s,
+		"mutableProperty",
+	)
 	return s.MutableProperty
 }
 
@@ -8089,6 +9181,11 @@ func NewStableClass(readonlyString string, mutableNumber float64) StableClassIfa
 }
 
 func (s *StableClass) SetMutableProperty(val float64) {
+	_jsii_.Set(
+		s,
+		"mutableProperty",
+		val,
+	)
 	s.MutableProperty = val
 }
 
@@ -8120,6 +9217,10 @@ type StableStruct struct {
 }
 
 func (s *StableStruct) GetReadonlyProperty() string {
+	_jsii_.Get(
+		s,
+		"readonlyProperty",
+	)
 	return s.ReadonlyProperty
 }
 
@@ -8178,6 +9279,10 @@ type Statics struct {
 }
 
 func (s *Statics) GetValue() string {
+	_jsii_.Get(
+		s,
+		"value",
+	)
 	return s.Value
 }
 
@@ -8312,6 +9417,10 @@ type StripInternal struct {
 }
 
 func (s *StripInternal) GetYouSeeMe() string {
+	_jsii_.Get(
+		s,
+		"youSeeMe",
+	)
 	return s.YouSeeMe
 }
 
@@ -8330,6 +9439,11 @@ func NewStripInternal() StripInternalIface {
 }
 
 func (s *StripInternal) SetYouSeeMe(val string) {
+	_jsii_.Set(
+		s,
+		"youSeeMe",
+		val,
+	)
 	s.YouSeeMe = val
 }
 
@@ -8349,14 +9463,26 @@ type StructA struct {
 }
 
 func (s *StructA) GetRequiredString() string {
+	_jsii_.Get(
+		s,
+		"requiredString",
+	)
 	return s.RequiredString
 }
 
 func (s *StructA) GetOptionalNumber() float64 {
+	_jsii_.Get(
+		s,
+		"optionalNumber",
+	)
 	return s.OptionalNumber
 }
 
 func (s *StructA) GetOptionalString() string {
+	_jsii_.Get(
+		s,
+		"optionalString",
+	)
 	return s.OptionalString
 }
 
@@ -8377,14 +9503,26 @@ type StructB struct {
 }
 
 func (s *StructB) GetRequiredString() string {
+	_jsii_.Get(
+		s,
+		"requiredString",
+	)
 	return s.RequiredString
 }
 
 func (s *StructB) GetOptionalBoolean() bool {
+	_jsii_.Get(
+		s,
+		"optionalBoolean",
+	)
 	return s.OptionalBoolean
 }
 
 func (s *StructB) GetOptionalStructA() StructA {
+	_jsii_.Get(
+		s,
+		"optionalStructA",
+	)
 	return s.OptionalStructA
 }
 
@@ -8405,10 +9543,18 @@ type StructParameterType struct {
 }
 
 func (s *StructParameterType) GetScope() string {
+	_jsii_.Get(
+		s,
+		"scope",
+	)
 	return s.Scope
 }
 
 func (s *StructParameterType) GetProps() bool {
+	_jsii_.Get(
+		s,
+		"props",
+	)
 	return s.Props
 }
 
@@ -8508,18 +9654,34 @@ type StructWithJavaReservedWords struct {
 }
 
 func (s *StructWithJavaReservedWords) GetDefault() string {
+	_jsii_.Get(
+		s,
+		"default",
+	)
 	return s.Default
 }
 
 func (s *StructWithJavaReservedWords) GetAssert() string {
+	_jsii_.Get(
+		s,
+		"assert",
+	)
 	return s.Assert
 }
 
 func (s *StructWithJavaReservedWords) GetResult() string {
+	_jsii_.Get(
+		s,
+		"result",
+	)
 	return s.Result
 }
 
 func (s *StructWithJavaReservedWords) GetThat() string {
+	_jsii_.Get(
+		s,
+		"that",
+	)
 	return s.That
 }
 
@@ -8560,26 +9722,50 @@ type Sum struct {
 }
 
 func (s *Sum) GetValue() float64 {
+	_jsii_.Get(
+		s,
+		"value",
+	)
 	return s.Value
 }
 
 func (s *Sum) GetExpression() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		s,
+		"expression",
+	)
 	return s.Expression
 }
 
 func (s *Sum) GetDecorationPostfixes() []string {
+	_jsii_.Get(
+		s,
+		"decorationPostfixes",
+	)
 	return s.DecorationPostfixes
 }
 
 func (s *Sum) GetDecorationPrefixes() []string {
+	_jsii_.Get(
+		s,
+		"decorationPrefixes",
+	)
 	return s.DecorationPrefixes
 }
 
 func (s *Sum) GetStringStyle() composition.CompositionStringStyle {
+	_jsii_.Get(
+		s,
+		"stringStyle",
+	)
 	return s.StringStyle
 }
 
 func (s *Sum) GetParts() []scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		s,
+		"parts",
+	)
 	return s.Parts
 }
 
@@ -8598,18 +9784,38 @@ func NewSum() SumIface {
 }
 
 func (s *Sum) SetDecorationPostfixes(val []string) {
+	_jsii_.Set(
+		s,
+		"decorationPostfixes",
+		val,
+	)
 	s.DecorationPostfixes = val
 }
 
 func (s *Sum) SetDecorationPrefixes(val []string) {
+	_jsii_.Set(
+		s,
+		"decorationPrefixes",
+		val,
+	)
 	s.DecorationPrefixes = val
 }
 
 func (s *Sum) SetStringStyle(val composition.CompositionStringStyle) {
+	_jsii_.Set(
+		s,
+		"stringStyle",
+		val,
+	)
 	s.StringStyle = val
 }
 
 func (s *Sum) SetParts(val []scopejsiicalclib.NumericValue) {
+	_jsii_.Set(
+		s,
+		"parts",
+		val,
+	)
 	s.Parts = val
 }
 
@@ -8653,18 +9859,34 @@ type SupportsNiceJavaBuilder struct {
 }
 
 func (s *SupportsNiceJavaBuilder) GetBar() float64 {
+	_jsii_.Get(
+		s,
+		"bar",
+	)
 	return s.Bar
 }
 
 func (s *SupportsNiceJavaBuilder) GetId() float64 {
+	_jsii_.Get(
+		s,
+		"id",
+	)
 	return s.Id
 }
 
 func (s *SupportsNiceJavaBuilder) GetPropId() string {
+	_jsii_.Get(
+		s,
+		"propId",
+	)
 	return s.PropId
 }
 
 func (s *SupportsNiceJavaBuilder) GetRest() []string {
+	_jsii_.Get(
+		s,
+		"rest",
+	)
 	return s.Rest
 }
 
@@ -8699,10 +9921,18 @@ type SupportsNiceJavaBuilderProps struct {
 }
 
 func (s *SupportsNiceJavaBuilderProps) GetBar() float64 {
+	_jsii_.Get(
+		s,
+		"bar",
+	)
 	return s.Bar
 }
 
 func (s *SupportsNiceJavaBuilderProps) GetId() string {
+	_jsii_.Get(
+		s,
+		"id",
+	)
 	return s.Id
 }
 
@@ -8724,14 +9954,26 @@ type SupportsNiceJavaBuilderWithRequiredProps struct {
 }
 
 func (s *SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
+	_jsii_.Get(
+		s,
+		"bar",
+	)
 	return s.Bar
 }
 
 func (s *SupportsNiceJavaBuilderWithRequiredProps) GetId() float64 {
+	_jsii_.Get(
+		s,
+		"id",
+	)
 	return s.Id
 }
 
 func (s *SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
+	_jsii_.Get(
+		s,
+		"propId",
+	)
 	return s.PropId
 }
 
@@ -8785,26 +10027,50 @@ type SyncVirtualMethods struct {
 }
 
 func (s *SyncVirtualMethods) GetReadonlyProperty() string {
+	_jsii_.Get(
+		s,
+		"readonlyProperty",
+	)
 	return s.ReadonlyProperty
 }
 
 func (s *SyncVirtualMethods) GetA() float64 {
+	_jsii_.Get(
+		s,
+		"a",
+	)
 	return s.A
 }
 
 func (s *SyncVirtualMethods) GetCallerIsProperty() float64 {
+	_jsii_.Get(
+		s,
+		"callerIsProperty",
+	)
 	return s.CallerIsProperty
 }
 
 func (s *SyncVirtualMethods) GetOtherProperty() string {
+	_jsii_.Get(
+		s,
+		"otherProperty",
+	)
 	return s.OtherProperty
 }
 
 func (s *SyncVirtualMethods) GetTheProperty() string {
+	_jsii_.Get(
+		s,
+		"theProperty",
+	)
 	return s.TheProperty
 }
 
 func (s *SyncVirtualMethods) GetValueOfOtherProperty() string {
+	_jsii_.Get(
+		s,
+		"valueOfOtherProperty",
+	)
 	return s.ValueOfOtherProperty
 }
 
@@ -8823,22 +10089,47 @@ func NewSyncVirtualMethods() SyncVirtualMethodsIface {
 }
 
 func (s *SyncVirtualMethods) SetA(val float64) {
+	_jsii_.Set(
+		s,
+		"a",
+		val,
+	)
 	s.A = val
 }
 
 func (s *SyncVirtualMethods) SetCallerIsProperty(val float64) {
+	_jsii_.Set(
+		s,
+		"callerIsProperty",
+		val,
+	)
 	s.CallerIsProperty = val
 }
 
 func (s *SyncVirtualMethods) SetOtherProperty(val string) {
+	_jsii_.Set(
+		s,
+		"otherProperty",
+		val,
+	)
 	s.OtherProperty = val
 }
 
 func (s *SyncVirtualMethods) SetTheProperty(val string) {
+	_jsii_.Set(
+		s,
+		"theProperty",
+		val,
+	)
 	s.TheProperty = val
 }
 
 func (s *SyncVirtualMethods) SetValueOfOtherProperty(val string) {
+	_jsii_.Set(
+		s,
+		"valueOfOtherProperty",
+		val,
+	)
 	s.ValueOfOtherProperty = val
 }
 
@@ -8999,14 +10290,26 @@ type TopLevelStruct struct {
 }
 
 func (t *TopLevelStruct) GetRequired() string {
+	_jsii_.Get(
+		t,
+		"required",
+	)
 	return t.Required
 }
 
 func (t *TopLevelStruct) GetSecondLevel() _jsii_.Any {
+	_jsii_.Get(
+		t,
+		"secondLevel",
+	)
 	return t.SecondLevel
 }
 
 func (t *TopLevelStruct) GetOptional() string {
+	_jsii_.Get(
+		t,
+		"optional",
+	)
 	return t.Optional
 }
 
@@ -9052,10 +10355,18 @@ type UnaryOperation struct {
 }
 
 func (u *UnaryOperation) GetValue() float64 {
+	_jsii_.Get(
+		u,
+		"value",
+	)
 	return u.Value
 }
 
 func (u *UnaryOperation) GetOperand() scopejsiicalclib.NumericValue {
+	_jsii_.Get(
+		u,
+		"operand",
+	)
 	return u.Operand
 }
 
@@ -9108,10 +10419,18 @@ type UnionProperties struct {
 }
 
 func (u *UnionProperties) GetBar() _jsii_.Any {
+	_jsii_.Get(
+		u,
+		"bar",
+	)
 	return u.Bar
 }
 
 func (u *UnionProperties) GetFoo() _jsii_.Any {
+	_jsii_.Get(
+		u,
+		"foo",
+	)
 	return u.Foo
 }
 
@@ -9129,6 +10448,10 @@ type UpcasingReflectable struct {
 }
 
 func (u *UpcasingReflectable) GetEntries() []submodule.ReflectableEntry {
+	_jsii_.Get(
+		u,
+		"entries",
+	)
 	return u.Entries
 }
 
@@ -9236,6 +10559,10 @@ type UsesInterfaceWithProperties struct {
 }
 
 func (u *UsesInterfaceWithProperties) GetObj() IInterfaceWithProperties {
+	_jsii_.Get(
+		u,
+		"obj",
+	)
 	return u.Obj
 }
 
@@ -9451,6 +10778,10 @@ type VoidCallback struct {
 }
 
 func (v *VoidCallback) GetMethodWasCalled() bool {
+	_jsii_.Get(
+		v,
+		"methodWasCalled",
+	)
 	return v.MethodWasCalled
 }
 
@@ -9500,6 +10831,10 @@ type WithPrivatePropertyInConstructor struct {
 }
 
 func (w *WithPrivatePropertyInConstructor) GetSuccess() bool {
+	_jsii_.Get(
+		w,
+		"success",
+	)
 	return w.Success
 }
 
@@ -9540,6 +10875,10 @@ type ClassWithSelf struct {
 }
 
 func (c *ClassWithSelf) GetSelf() string {
+	_jsii_.Get(
+		c,
+		"self",
+	)
 	return c.Self
 }
 
@@ -9579,6 +10918,10 @@ type ClassWithSelfKwarg struct {
 }
 
 func (c *ClassWithSelfKwarg) GetProps() StructWithSelf {
+	_jsii_.Get(
+		c,
+		"props",
+	)
 	return c.Props
 }
 
@@ -9611,6 +10954,10 @@ type StructWithSelf struct {
 }
 
 func (s *StructWithSelf) GetSelf() string {
+	_jsii_.Get(
+		s,
+		"self",
+	)
 	return s.Self
 }
 
@@ -9636,6 +10983,10 @@ type MyClassReference struct {
 }
 
 func (m *MyClassReference) GetReference() submodule.MyClass {
+	_jsii_.Get(
+		m,
+		"reference",
+	)
 	return m.Reference
 }
 
@@ -9708,10 +11059,18 @@ type KwargsProps struct {
 }
 
 func (k *KwargsProps) GetProp() SomeEnum {
+	_jsii_.Get(
+		k,
+		"prop",
+	)
 	return k.Prop
 }
 
 func (k *KwargsProps) GetExtra() string {
+	_jsii_.Get(
+		k,
+		"extra",
+	)
 	return k.Extra
 }
 
@@ -9730,6 +11089,10 @@ type OuterClass struct {
 }
 
 func (o *OuterClass) GetInnerClass() InnerClass {
+	_jsii_.Get(
+		o,
+		"innerClass",
+	)
 	return o.InnerClass
 }
 
@@ -9764,6 +11127,10 @@ type SomeStruct struct {
 }
 
 func (s *SomeStruct) GetProp() SomeEnum {
+	_jsii_.Get(
+		s,
+		"prop",
+	)
 	return s.Prop
 }
 
@@ -9779,6 +11146,10 @@ type Structure struct {
 }
 
 func (s *Structure) GetBool() bool {
+	_jsii_.Get(
+		s,
+		"bool",
+	)
 	return s.Bool
 }
 
@@ -9852,10 +11223,18 @@ type Namespaced struct {
 }
 
 func (n *Namespaced) GetDefinedAt() string {
+	_jsii_.Get(
+		n,
+		"definedAt",
+	)
 	return n.DefinedAt
 }
 
 func (n *Namespaced) GetGoodness() child.Goodness {
+	_jsii_.Get(
+		n,
+		"goodness",
+	)
 	return n.Goodness
 }
 
@@ -9880,6 +11259,10 @@ type SpecialParameter struct {
 }
 
 func (s *SpecialParameter) GetValue() string {
+	_jsii_.Get(
+		s,
+		"value",
+	)
 	return s.Value
 }
 
@@ -9966,22 +11349,42 @@ type MyClass struct {
 }
 
 func (m *MyClass) GetAwesomeness() child.Awesomeness {
+	_jsii_.Get(
+		m,
+		"awesomeness",
+	)
 	return m.Awesomeness
 }
 
 func (m *MyClass) GetDefinedAt() string {
+	_jsii_.Get(
+		m,
+		"definedAt",
+	)
 	return m.DefinedAt
 }
 
 func (m *MyClass) GetGoodness() child.Goodness {
+	_jsii_.Get(
+		m,
+		"goodness",
+	)
 	return m.Goodness
 }
 
 func (m *MyClass) GetProps() child.SomeStruct {
+	_jsii_.Get(
+		m,
+		"props",
+	)
 	return m.Props
 }
 
 func (m *MyClass) GetAllTypes() jsiicalc.AllTypes {
+	_jsii_.Get(
+		m,
+		"allTypes",
+	)
 	return m.AllTypes
 }
 
@@ -10000,6 +11403,11 @@ func NewMyClass(props child.SomeStruct) MyClassIface {
 }
 
 func (m *MyClass) SetAllTypes(val jsiicalc.AllTypes) {
+	_jsii_.Set(
+		m,
+		"allTypes",
+		val,
+	)
 	m.AllTypes = val
 }
 

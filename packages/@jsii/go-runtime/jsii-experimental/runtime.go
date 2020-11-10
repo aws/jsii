@@ -96,7 +96,7 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, returns interface{
 	}
 }
 
-func Get(property string, obj interface{}) {
+func Get(obj interface{}, property string) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -109,7 +109,9 @@ func Get(property string, obj interface{}) {
 	_, err := client.get(getRequest{
 		Api:      "get",
 		Property: property,
-		Objref:   objref{JsiiInstanceId: refid},
+		Objref: objref{
+			JsiiInstanceId: refid,
+		},
 	})
 
 	if err != nil {
@@ -133,7 +135,7 @@ func StaticGet(fqn FQN, property string) {
 	}
 }
 
-func Set(property string, value, obj interface{}) {
+func Set(obj interface{}, property string, value interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -146,7 +148,10 @@ func Set(property string, value, obj interface{}) {
 	_, err := client.set(setRequest{
 		Api:      "set",
 		Property: property,
-		Objref:   objref{JsiiInstanceId: refid},
+		Value:    value,
+		Objref: objref{
+			JsiiInstanceId: refid,
+		},
 	})
 
 	if err != nil {

@@ -2,7 +2,7 @@ import { toPascalCase } from 'codemaker';
 import { Method, Parameter, Property } from 'jsii-reflect';
 
 import { EmitContext } from '../emit-context';
-import { emitInitialization } from '../runtime';
+import { GetProperty, SetProperty } from '../runtime';
 import { substituteReservedWords } from '../util';
 
 import { GoClass, GoStruct, Interface, Struct, GoTypeRef } from './index';
@@ -62,6 +62,10 @@ export class GoProperty implements GoTypeMember {
     );
   }
 
+  public get instanceArg(): string {
+    return this.parent.name.substring(0, 1).toLowerCase();
+  }
+
   public emitStructMember(context: EmitContext) {
     const docs = this.property.docs;
     if (docs) {
@@ -101,9 +105,7 @@ export class GoProperty implements GoTypeMember {
       }()${` ${this.returnType}`}`,
     );
 
-    if (this.property.static) {
-      emitInitialization(code);
-    }
+    new GetProperty(this).emit(code);
 
     if (this.parent.name === this.returnType) {
       code.line(`return *${instanceArg}.${this.name}`);
@@ -124,9 +126,7 @@ export class GoProperty implements GoTypeMember {
         `func (${instanceArg} *${receiver}) Set${this.name}(val ${this.returnType})`,
       );
 
-      if (this.property.static) {
-        emitInitialization(code);
-      }
+      new SetProperty(this).emit(code);
 
       if (this.parent.name === this.returnType) {
         code.line(`${instanceArg}.${this.name} = &val`);
