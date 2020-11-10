@@ -74,6 +74,10 @@ function readSync(
   length: number,
   position: number | null = null,
 ): number {
+  // We are using a `while (true)` here to avoid recursively re-entering the function, in order to
+  // avoid thrashing memory with stack frames, when we are more likely to face `EAGAIN` on systems
+  // with low resources (near memory limit and/or high load).
+  //
   // eslint-disable-next-line no-constant-condition
   while (true) {
     try {
@@ -83,11 +87,9 @@ function readSync(
         // HACK: node may set O_NONBLOCK on it's STDIN depending on what kind of input it is made
         // of (see https://github.com/nodejs/help/issues/2663). When STDIN has O_NONBLOCK, calls may
         // result in EAGAIN. In such cases, the call should be retried until it succeeds. This kind
-        // of polling will result in horrible CPU thrashing, but there does not seem to be a way to
-        // force a O_SYNC access to STDIN in a reliable way within node.
-        // In order to make this stop we need to either stop depending on synchronous reads, or to
-        // provision our own communication channel that can reliably be synchronous. This work is
-        // "tracked" at https://github.com/aws/aws-cdk/issues/5187
+        // of polling could result in horrible CPU thrashing: while we can sleep between two
+        // attempts, sleeping too much would slow everything to a crawl, and not enough would cause
+        // significant wasting of CPU cycles.
         case 'EAGAIN':
           // Keep trying until it no longer says EAGAIN. We'll be waiting a little before retrying
           // in order to avoid thrashing the CPU like there is no tomorrow. This is not entirely

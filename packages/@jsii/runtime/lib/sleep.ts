@@ -2,7 +2,7 @@
 const array = new Int32Array(new SharedArrayBuffer(4));
 
 /**
- * Sleeps for a set amount of time, syncrhonously.
+ * Sleeps for a set amount of time, synchronously.
  *
  * @param time the amount of time to wait, in milliseconds.
  */
