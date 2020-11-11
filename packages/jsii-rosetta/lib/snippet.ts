@@ -66,16 +66,16 @@ export function completeSource(snippet: TypeScriptSnippet) {
 function parametersFromSourceDirectives(
   source: string,
 ): [string, Record<string, string>] {
-  const [firstLine, rest] = source.split('\n', 2);
+  const [firstLine, ...rest] = source.split('\n');
   // Also extract parameters from an initial line starting with '/// ' (getting rid of that line).
-  const m = /\/\/\/(.*)$/.exec(firstLine);
+  const m = /[/]{3}(.*)$/.exec(firstLine);
   if (m) {
     const paramClauses = m[1]
       .trim()
       .split(' ')
       .map((s) => s.trim())
       .filter((s) => s !== '');
-    return [rest, parseKeyValueList(paramClauses)];
+    return [rest.join('\n'), parseKeyValueList(paramClauses)];
   }
 
   return [source, {}];

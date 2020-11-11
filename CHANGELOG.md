@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.1](https://github.com/aws/jsii/compare/v1.14.0...v1.14.1) (2020-11-04)
+
+
+### Bug Fixes
+
+* **python:** update `cattrs` dependency specification ([#2212](https://github.com/aws/jsii/issues/2212)) ([d7731f9](https://github.com/aws/jsii/commit/d7731f997a95ec2e41d4fcf027695bb5267a7514)), closes [aws/aws-cdk#11219](https://github.com/aws/aws-cdk/issues/11219)
+
 ## [1.14.0](https://github.com/aws/jsii/compare/v1.13.0...v1.14.0) (2020-10-29)
 
 

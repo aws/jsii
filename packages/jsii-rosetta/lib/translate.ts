@@ -44,7 +44,8 @@ export function translateTypeScript(
  */
 export class Translator {
   private readonly compiler = new TypeScriptCompiler();
-  public readonly diagnostics: ts.Diagnostic[] = [];
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  #diagnostics: readonly ts.Diagnostic[] = [];
 
   public constructor(private readonly includeCompilerDiagnostics: boolean) {}
 
@@ -69,9 +70,15 @@ export class Translator {
       snippet.addTranslatedSource(lang, translated);
     }
 
-    this.diagnostics.push(...translator.diagnostics);
+    this.#diagnostics = ts.sortAndDeduplicateDiagnostics(
+      this.#diagnostics.concat(translator.diagnostics),
+    );
 
     return snippet;
+  }
+
+  public get diagnostics(): readonly ts.Diagnostic[] {
+    return Array.from(this.#diagnostics);
   }
 
   /**
@@ -107,7 +114,7 @@ export interface SnippetTranslatorOptions extends AstRendererOptions {
 
 export interface TranslateResult {
   translation: string;
-  diagnostics: ts.Diagnostic[];
+  diagnostics: readonly ts.Diagnostic[];
 }
 
 /**
@@ -163,8 +170,10 @@ export class SnippetTranslator {
     return renderTree(converted, { visibleSpans: this.visibleSpans });
   }
 
-  public get diagnostics() {
-    return [...this.compileDiagnostics, ...this.translateDiagnostics];
+  public get diagnostics(): readonly ts.Diagnostic[] {
+    return ts.sortAndDeduplicateDiagnostics(
+      this.compileDiagnostics.concat(this.translateDiagnostics),
+    );
   }
 }
 
@@ -172,7 +181,7 @@ export class SnippetTranslator {
  * Hide diagnostics that are rosetta-sourced if they are reported against a non-visible span
  */
 function filterVisibleDiagnostics(
-  diags: ts.Diagnostic[],
+  diags: readonly ts.Diagnostic[],
   visibleSpans: Span[],
 ): ts.Diagnostic[] {
   return diags.filter(

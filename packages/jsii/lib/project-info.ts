@@ -4,6 +4,7 @@ import * as log4js from 'log4js';
 import * as path from 'path';
 import * as semver from 'semver';
 import { intersect } from 'semver-intersect';
+import * as ts from 'typescript';
 
 import { parsePerson, parseRepository } from './utils';
 
@@ -44,6 +45,7 @@ export interface ProjectInfo {
   readonly targets: spec.AssemblyTargets;
   readonly metadata?: { [key: string]: any };
   readonly jsiiVersionFormat: 'short' | 'full';
+  readonly diagnostics?: { readonly [code: string]: ts.DiagnosticCategory };
   readonly description?: string;
   readonly homepage?: string;
   readonly contributors?: readonly spec.Person[];
@@ -215,6 +217,7 @@ export async function loadProjectInfo(
       outDir: pkg.jsii?.tsc?.outDir,
       rootDir: pkg.jsii?.tsc?.rootDir,
     },
+    diagnostics: _loadDiagnostics(pkg.jsii?.diagnostics),
   };
 }
 
@@ -462,4 +465,40 @@ function mergeMetadata(
     }
     return result;
   }
+}
+
+function _loadDiagnostics(entries?: {
+  [key: string]: string;
+}):
+  | {
+      [key: string]: ts.DiagnosticCategory;
+    }
+  | undefined {
+  if (entries === undefined || Object.keys(entries).length === 0) {
+    return undefined;
+  }
+  const result: { [key: string]: ts.DiagnosticCategory } = {};
+  for (const code of Object.keys(entries)) {
+    let category: ts.DiagnosticCategory;
+    switch (entries[code].trim().toLowerCase()) {
+      case 'error':
+        category = ts.DiagnosticCategory.Error;
+        break;
+      case 'warning':
+        category = ts.DiagnosticCategory.Warning;
+        break;
+      case 'suggestion':
+        category = ts.DiagnosticCategory.Suggestion;
+        break;
+      case 'message':
+        category = ts.DiagnosticCategory.Message;
+        break;
+      default:
+        throw new Error(
+          `Invalid category '${entries[code]}' for code '${code}'`,
+        );
+    }
+    result[code] = category;
+  }
+  return result;
 }
