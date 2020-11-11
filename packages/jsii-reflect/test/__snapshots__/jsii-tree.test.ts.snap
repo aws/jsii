@@ -1712,10 +1712,10 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (stable)
  │   │   └─┬ youSeeMe property (stable)
  │   │     └── type: string
- │   ├─┬ class StructPassing
+ │   ├─┬ class StructPassing (external)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ static howManyVarArgsDidIPass(_positional,inputs) method
+ │   │   ├── <initializer>() initializer (external)
+ │   │   ├─┬ static howManyVarArgsDidIPass(_positional,inputs) method (external)
  │   │   │ ├── static
  │   │   │ ├── variadic
  │   │   │ ├─┬ parameters
@@ -1725,7 +1725,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ │   ├── type: jsii-calc.TopLevelStruct
  │   │   │ │   └── variadic
  │   │   │ └── returns: number
- │   │   └─┬ static roundTrip(_positional,input) method
+ │   │   └─┬ static roundTrip(_positional,input) method (external)
  │   │     ├── static
  │   │     ├─┬ parameters
  │   │     │ ├─┬ _positional

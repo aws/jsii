@@ -15,7 +15,7 @@ export function findTypeInTree(
   }
 
   return module.submodules.reduce((accum: GoType | undefined, sm) => {
-    return accum || findTypeInTree(sm, fqn);
+    return accum ?? findTypeInTree(sm, fqn);
   }, undefined);
 }
 

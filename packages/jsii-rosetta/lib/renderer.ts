@@ -160,7 +160,7 @@ export class AstRenderer<C> {
    */
   public typeOfExpression(node: ts.Expression): ts.Type {
     return (
-      this.typeChecker.getContextualType(node) ||
+      this.typeChecker.getContextualType(node) ??
       this.typeChecker.getTypeAtLocation(node)
     );
   }

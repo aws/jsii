@@ -130,6 +130,7 @@ export function toReleaseVersion(
           );
       }
     case TargetName.DOTNET:
+    case TargetName.GO:
     case TargetName.JAVA:
     case TargetName.JAVASCRIPT:
       // Not touching - the NPM version number should be usable as-is

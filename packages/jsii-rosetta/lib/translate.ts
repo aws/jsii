@@ -130,7 +130,7 @@ export class SnippetTranslator {
     snippet: TypeScriptSnippet,
     private readonly options: SnippetTranslatorOptions = {},
   ) {
-    const compiler = options.compiler || new TypeScriptCompiler();
+    const compiler = options.compiler ?? new TypeScriptCompiler();
     const source = completeSource(snippet);
 
     const fakeCurrentDirectory =
