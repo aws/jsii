@@ -43,13 +43,13 @@
     "@types/jest-expect-message": "^1.0.3",
     "@types/node": "^10.17.44",
     "@types/tar": "^4.0.3",
-    "eslint": "^7.12.1",
+    "eslint": "^7.13.0",
     "jest": "^26.6.3",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.4.3",
+    "ts-jest": "^26.4.4",
     "typescript": "~3.9.7"
   }
 }
