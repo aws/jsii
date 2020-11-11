@@ -4284,7 +4284,7 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * final Calculator calculator = new Calculator();
+ * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
  * System.out.println(calculator.expression.getValue());
@@ -4296,7 +4296,7 @@ package software.amazon.jsii.tests.calculator;
  * <p>
  * <blockquote><pre>{@code
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * final Calculator calculator = new Calculator();
+ * Calculator calculator = new Calculator();
  * calculator.add(5);
  * calculator.mul(3);
  * System.out.println(calculator.expression.getValue());}</pre></blockquote>
@@ -19808,7 +19808,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
  * <p>
  * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
- * final Calculator calculator = new Calculator();
+ * Calculator calculator = new Calculator();
  * </pre></blockquote>
  * <p>
  * Then call some operations:
@@ -19823,7 +19823,7 @@ exports[`Generated code for "jsii-calc": <outDir>/java/src/main/java/software/am
  * <blockquote><pre>
  * // Example automatically generated. See https://github.com/aws/jsii/issues/826
  * /* This is totes a magic comment in here, just you wait! *{@literal /}
- * final String foo = "bar";
+ * String foo = "bar";
  * </pre></blockquote>
  */
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
