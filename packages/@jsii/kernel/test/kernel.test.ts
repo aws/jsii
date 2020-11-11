@@ -2216,7 +2216,7 @@ async function preparePackage(module: string, useCache = true) {
     });
     const stdout = new Array<Buffer>();
     child.stdout.on('data', (chunk) => stdout.push(Buffer.from(chunk)));
-    child.once('exit', (code, signal) => {
+    child.once('close', (code, signal) => {
       if (code === 0) {
         return ok();
       }

@@ -1,4 +1,5 @@
 import * as spec from '@jsii/spec';
+import * as cp from 'child_process';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
@@ -9,7 +10,6 @@ import * as api from './api';
 import { TOKEN_REF } from './api';
 import { ObjectTable, tagJsiiConstructor } from './objects';
 import * as wire from './serialization';
-import * as cp from 'child_process';
 
 export class Kernel {
   /**
