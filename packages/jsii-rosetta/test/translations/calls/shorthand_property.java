@@ -1,2 +1,2 @@
-final String foo = "hello";
+String foo = "hello";
 callFunction(Map.of("foo", foo));

@@ -1,1 +1,1 @@
-final String x = "some string";
+String x = "some string";

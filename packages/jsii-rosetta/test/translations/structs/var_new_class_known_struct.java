@@ -1,2 +1,2 @@
-final Vpc vpc = new Vpc(this, "Something", new VpcProps()
+Vpc vpc = new Vpc(this, "Something", new VpcProps()
         .argument(5));

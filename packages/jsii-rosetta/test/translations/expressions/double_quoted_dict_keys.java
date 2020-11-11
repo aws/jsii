@@ -1,1 +1,1 @@
-final Map<String, String> x = Map.of("key", "value");
+Map<String, String> x = Map.of("key", "value");

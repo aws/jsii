@@ -1,1 +1,1 @@
-final Object x = someObject.getSomeAttribute();
+Object x = someObject.getSomeAttribute();

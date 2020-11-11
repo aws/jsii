@@ -342,21 +342,6 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return this.renderBlock(renderer.convertAll(node.statements));
   }
 
-  public variableDeclarationList(
-    node: ts.VariableDeclarationList,
-    context: JavaRenderer,
-  ): OTree {
-    const isConstant =
-      (ts.getCombinedNodeFlags(node) & ts.NodeFlags.Const) !== 0;
-    const declarations = context.convertAll(node.declarations);
-    return new OTree(
-      [],
-      isConstant
-        ? declarations.map((decl) => new OTree(['final ', decl]))
-        : declarations,
-    );
-  }
-
   public variableDeclaration(
     node: ts.VariableDeclaration,
     renderer: JavaRenderer,
@@ -737,7 +722,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(
       [],
       [
-        renderer.updateContext({ identifierAsString: true }).convert(name),
+        renderer
+          .updateContext({
+            identifierAsString: !ts.isComputedPropertyName(name),
+          })
+          .convert(name),
         ', ',
         renderer.updateContext({ inKeyValueList: false }).convert(initializer),
       ],
