@@ -135,7 +135,9 @@ class MyClass {
 ```
 
 The example will be inserted at the location marked as `/// here` and
-will have access to `module`, `obj` and `this`.
+will have access to `module`, `obj` and `this`. Any `import` statements found
+in the example will automatically be hoisted at the top of the fixture, where
+they are guaranteed to be syntactically valid.
 
 The default file loaded as a fixture is called `rosetta/default.ts-fixture`
 in the package directory (if it exists).

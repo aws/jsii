@@ -10,12 +10,12 @@ export interface File {
 }
 
 export function printDiagnostics(
-  diags: ts.Diagnostic[],
+  diags: readonly ts.Diagnostic[],
   stream: NodeJS.WritableStream,
 ) {
-  ts.sortAndDeduplicateDiagnostics(diags).forEach((d) =>
-    printDiagnostic(d, stream),
-  );
+  for (const diag of diags) {
+    printDiagnostic(diag, stream);
+  }
 }
 
 export function printDiagnostic(
