@@ -4,7 +4,7 @@ pull_request_rules:
   - name: label core
     actions:
       label:
-        add: [ contribution/core ]
+        add: [contribution/core]
     conditions:
       - author~=^(eladb|RomainMuller|garnaat|nija-at|shivlaks|skinny85|rix0rrr|NGL321|Jerry-AWS|SomayaB|MrArnoldPalmer|NetaNir|iliapolo|njlynch)$
       - -label~="contribution/core"
@@ -25,9 +25,9 @@ pull_request_rules:
       - -merged
       - -closed
       - -approved-reviews-by~=author
-      - "#approved-reviews-by>=1"
-      - "#review-requested=0"
-      - "#changes-requested-reviews-by=0"
+      - '#approved-reviews-by>=1'
+      - '#review-requested=0'
+      - '#changes-requested-reviews-by=0'
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
       # Docker image validation
@@ -45,10 +45,11 @@ pull_request_rules:
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6, 3.7, and 3.8
+      # One test for Python 3.6 through 3.9
       - status-success~=^Test \(.* python 3\.6[ )].*$
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
+      - status-success~=^Test \(.* python 3\.9[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (squash)
     actions:
@@ -73,9 +74,9 @@ pull_request_rules:
       - -merged
       - -closed
       - -approved-reviews-by~=author
-      - "#approved-reviews-by>=1"
-      - "#review-requested=0"
-      - "#changes-requested-reviews-by=0"
+      - '#approved-reviews-by>=1'
+      - '#review-requested=0'
+      - '#changes-requested-reviews-by=0'
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
       # Docker image validation
@@ -93,10 +94,11 @@ pull_request_rules:
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6, 3.7, and 3.8
+      # One test for Python 3.6 through 3.9
       - status-success~=^Test \(.* python 3\.6[ )].*$
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
+      - status-success~=^Test \(.* python 3\.9[ )].*$
 
   - name: Synchronize that PR to upstream and merge it (no-squash)
     actions:
@@ -121,9 +123,9 @@ pull_request_rules:
       - -merged
       - -closed
       - -approved-reviews-by~=author
-      - "#approved-reviews-by>=1"
-      - "#review-requested=0"
-      - "#changes-requested-reviews-by=0"
+      - '#approved-reviews-by>=1'
+      - '#review-requested=0'
+      - '#changes-requested-reviews-by=0'
       - status-success~=AWS CodeBuild us-east-1
       - status-success=Semantic Pull Request
       # Docker image validation
@@ -141,10 +143,11 @@ pull_request_rules:
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
-      # One test for Python 3.6, 3.7, and 3.8
+      # One test for Python 3.6 through 3.9
       - status-success~=^Test \(.* python 3\.6[ )].*$
       - status-success~=^Test \(.* python 3\.7[ )].*$
       - status-success~=^Test \(.* python 3\.8[ )].*$
+      - status-success~=^Test \(.* python 3\.9[ )].*$
 
   - name: Clean branch up
     actions:
