@@ -12,37 +12,48 @@ beforeAll(() =>
 
 test('defaults', () => {
   const stream = new StringWriter();
-  new TypeSystemTree(typeSystem).printTree(stream);
+  new TypeSystemTree(typeSystem, { colors: false }).printTree(stream);
   expect(stream.stringContent).toMatchSnapshot();
 });
 
 test('showAll', () => {
   const stream = new StringWriter();
-  new TypeSystemTree(typeSystem, { showAll: true }).printTree(stream);
+  new TypeSystemTree(typeSystem, { colors: false, showAll: true }).printTree(
+    stream,
+  );
   expect(stream.stringContent).toMatchSnapshot();
 });
 
 test('types', () => {
   const stream = new StringWriter();
-  new TypeSystemTree(typeSystem, { types: true }).printTree(stream);
+  new TypeSystemTree(typeSystem, { colors: false, types: true }).printTree(
+    stream,
+  );
   expect(stream.stringContent).toMatchSnapshot();
 });
 
 test('members', () => {
   const stream = new StringWriter();
-  new TypeSystemTree(typeSystem, { members: true }).printTree(stream);
+  new TypeSystemTree(typeSystem, { colors: false, members: true }).printTree(
+    stream,
+  );
   expect(stream.stringContent).toMatchSnapshot();
 });
 
 test('inheritance', () => {
   const stream = new StringWriter();
-  new TypeSystemTree(typeSystem, { inheritance: true }).printTree(stream);
+  new TypeSystemTree(typeSystem, {
+    colors: false,
+    inheritance: true,
+  }).printTree(stream);
   expect(stream.stringContent).toMatchSnapshot();
 });
 
 test('signatures', () => {
   const stream = new StringWriter();
-  new TypeSystemTree(typeSystem, { signatures: true }).printTree(stream);
+  new TypeSystemTree(typeSystem, { colors: false, signatures: true }).printTree(
+    stream,
+  );
   expect(stream.stringContent).toMatchSnapshot();
 });
 
