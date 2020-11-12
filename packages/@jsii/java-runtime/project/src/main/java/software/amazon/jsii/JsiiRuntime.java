@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static software.amazon.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
@@ -184,7 +185,7 @@ public final class JsiiRuntime {
             if (childProcess != null) {
                 // Wait for the child process to complete
                 try {
-                    childProcess.waitFor();
+                    childProcess.waitFor(5, TimeUnit.SECONDS);
                 } catch (final InterruptedException ie) {
                     throw new RuntimeException(ie);
                 }
