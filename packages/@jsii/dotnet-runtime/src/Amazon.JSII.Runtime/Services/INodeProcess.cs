@@ -8,5 +8,7 @@ namespace Amazon.JSII.Runtime.Services
         TextWriter StandardInput { get; }
 
         TextReader StandardOutput { get; }
+
+        TextReader StandardError { get; }
     }
 }

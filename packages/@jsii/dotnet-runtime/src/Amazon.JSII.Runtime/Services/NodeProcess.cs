@@ -38,7 +38,8 @@ namespace Amazon.JSII.Runtime.Services
                     StandardInputEncoding = utf8,
                     RedirectStandardOutput = true,
                     StandardOutputEncoding = utf8,
-                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    StandardErrorEncoding = utf8
                 }
             };
 
@@ -62,23 +63,18 @@ namespace Amazon.JSII.Runtime.Services
             _process.Start();
         }
 
-        ~NodeProcess() {
-            ((IDisposable)this).Dispose();
-        }
-
         public TextWriter StandardInput => _process.StandardInput;
 
         public TextReader StandardOutput => _process.StandardOutput;
 
+        public TextReader StandardError => _process.StandardError;
+
         void IDisposable.Dispose()
         {
-            StandardInput.Close();
-            _process.WaitForExit(5_000);
+            StandardInput.Dispose();
+            StandardOutput.Dispose();
+            StandardError.Dispose();
             _process.Dispose();
-
-            // If Dispose() is called manually, there is no need to run the finalizer anymore, since
-            // this only calls Dispose(). So we inform the GC about this.
-            GC.SuppressFinalize(this);
         }
 
         /// <summary>

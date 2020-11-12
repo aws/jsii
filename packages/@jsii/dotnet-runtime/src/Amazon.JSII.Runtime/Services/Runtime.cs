@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Amazon.JSII.Runtime.Services
 {
@@ -9,6 +10,10 @@ namespace Amazon.JSII.Runtime.Services
         public Runtime(INodeProcess nodeProcess)
         {
             _nodeProcess = nodeProcess ?? throw new ArgumentNullException(nameof(nodeProcess));
+            if (Environment.GetEnvironmentVariable("JSII_DEBUG") != null)
+            {
+                Task.Run(() => RedirectStandardError());
+            }
         }
 
         public string ReadResponse()
@@ -16,7 +21,8 @@ namespace Amazon.JSII.Runtime.Services
             var response = _nodeProcess.StandardOutput.ReadLine();
             if (string.IsNullOrEmpty(response))
             {
-                throw new JsiiException("Child process exited unexpectedly!");
+                var errorMessage = _nodeProcess.StandardError.ReadToEnd();
+                throw new JsiiException("Child process exited unexpectedly: " + errorMessage);
             }
 
             return response;
@@ -36,6 +42,14 @@ namespace Amazon.JSII.Runtime.Services
 
             _nodeProcess.StandardInput.WriteLine(request);
             _nodeProcess.StandardInput.Flush();
+        }
+
+        private void RedirectStandardError()
+        {
+            while (true)
+            {
+                Console.Error.WriteLine(_nodeProcess.StandardError.ReadLine());
+            }
         }
     }
 }
