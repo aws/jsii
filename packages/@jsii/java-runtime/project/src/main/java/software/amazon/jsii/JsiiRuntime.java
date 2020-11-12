@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UncheckedIOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -30,11 +31,6 @@ public final class JsiiRuntime {
     private static final String VERSION_BUILD_PART_REGEX = "\\+[a-z0-9]+$";
 
     /**
-     * True to print server traces to STDERR.
-     */
-    private static boolean traceEnabled = false;
-
-    /**
      *
      */
     static final ThreadLocal<MessageInspector> messageInspector = new ThreadLocal<>();
@@ -50,11 +46,6 @@ public final class JsiiRuntime {
     private Process childProcess;
 
     /**
-     * Child's standard error.
-     */
-    private BufferedReader stderr;
-
-    /**
      * Child's standard output.
      */
     private BufferedReader stdout;
@@ -68,6 +59,11 @@ public final class JsiiRuntime {
      * Handler for synchronous callbacks. Must be set using setCallbackHandler.
      */
     private JsiiCallbackHandler callbackHandler;
+
+    /**
+     * The JVM shutdown hook registered by this instance, if any.
+     */
+    private Thread shutdownHook;
 
     /**
      * The main API of this class. Sends a JSON request to jsii-runtime and returns the JSON response.
@@ -178,45 +174,51 @@ public final class JsiiRuntime {
         }
     }
 
-    public void terminate() throws InterruptedException, IOException {
-        if (stderr != null) {
-            stderr.close();
-            stderr = null;
-        }
+    synchronized void terminate() {
+        try {
+            if (stdin != null) {
+                stdin.close();
+                stdin = null;
+            }
 
-        if (stdout != null) {
-            stdout.close();
-            stdout = null;
-        }
+            if (childProcess != null) {
+                // Wait for the child process to complete
+                try {
+                    childProcess.waitFor();
+                } catch (final InterruptedException ie) {
+                    throw new RuntimeException(ie);
+                }
+                childProcess = null;
+            }
 
-        if (stdin != null) {
-            stdin.close();
-            stdin = null;
-        }
+            if (stdout != null) {
+                stdout.close();
+                stdout = null;
+            }
 
-        if (childProcess != null) {
-            // Wait for the child process to complete
-            childProcess.waitFor();
-            childProcess = null;
+            if (this.shutdownHook != null) {
+                Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
+                this.shutdownHook = null;
+            }
+        } catch (final IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
     }
 
     /**
      * Starts jsii-server as a child process if it is not already started.
      */
-    private void startRuntimeIfNeeded() {
+    private synchronized void startRuntimeIfNeeded() {
         if (childProcess != null) {
             return;
         }
 
         // If JSII_DEBUG is set, enable traces.
         String jsiiDebug = System.getenv("JSII_DEBUG");
-        if (jsiiDebug != null
+        boolean traceEnabled = jsiiDebug != null
                 && !jsiiDebug.isEmpty()
                 && !jsiiDebug.equalsIgnoreCase("false")
-                && !jsiiDebug.equalsIgnoreCase("0")) {
-            traceEnabled = true;
-        }
+                && !jsiiDebug.equalsIgnoreCase("0");
 
         // If JSII_RUNTIME is set, use it to find the jsii-server executable
         // otherwise, we default to "jsii-runtime" from PATH.
@@ -229,7 +231,10 @@ public final class JsiiRuntime {
             System.err.println("jsii-runtime: " + jsiiRuntimeExecutable);
         }
 
-        ProcessBuilder pb = new ProcessBuilder("node", jsiiRuntimeExecutable);
+        ProcessBuilder pb = new ProcessBuilder("node", jsiiRuntimeExecutable)
+            .redirectInput(ProcessBuilder.Redirect.PIPE)
+            .redirectOutput(ProcessBuilder.Redirect.PIPE)
+            .redirectError(ProcessBuilder.Redirect.INHERIT);
 
         if (traceEnabled) {
             pb.environment().put("JSII_DEBUG", "1");
@@ -239,27 +244,21 @@ public final class JsiiRuntime {
 
         try {
             this.childProcess = pb.start();
+            this.shutdownHook = new Thread(this::terminate, "Terminate jsii client");
+            Runtime.getRuntime().addShutdownHook(this.shutdownHook);
         } catch (IOException e) {
             throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)", e);
         }
 
         OutputStreamWriter stdinStream = new OutputStreamWriter(this.childProcess.getOutputStream(), StandardCharsets.UTF_8);
         InputStreamReader stdoutStream = new InputStreamReader(this.childProcess.getInputStream(), StandardCharsets.UTF_8);
-        InputStreamReader stderrStream = new InputStreamReader(this.childProcess.getErrorStream(), StandardCharsets.UTF_8);
 
-        this.stderr = new BufferedReader(stderrStream);
         this.stdout = new BufferedReader(stdoutStream);
         this.stdin = new BufferedWriter(stdinStream);
 
         handshake();
 
         this.client = new JsiiClient(this);
-
-        // if trace is enabled, start a thread that continuously reads from the child process's
-        // STDERR and prints to my STDERR.
-        if (traceEnabled) {
-            startPipeErrorStreamThread();
-        }
     }
 
     /**
@@ -286,8 +285,7 @@ public final class JsiiRuntime {
         try {
             String responseLine = this.stdout.readLine();
             if (responseLine == null) {
-                String error = this.stderr.lines().collect(Collectors.joining("\n\t"));
-                throw new JsiiException("Child process exited unexpectedly: " + error);
+                throw new JsiiException("Child process exited unexpectedly!");
             }
             final JsonNode response = JsiiObjectMapper.INSTANCE.readTree(responseLine);
             JsiiRuntime.notifyInspector(response, MessageInspector.MessageType.Response);
@@ -295,28 +293,6 @@ public final class JsiiRuntime {
         } catch (IOException e) {
             throw new JsiiException("Unable to read reply from jsii-runtime: " + e.toString(), e);
         }
-    }
-
-    /**
-     * Starts a thread that pipes STDERR from the child process to our STDERR.
-     */
-    private void startPipeErrorStreamThread() {
-        Thread daemon = new Thread(() -> {
-            while (true) {
-                try {
-                    String line = stderr.readLine();
-                    System.err.println(line);
-                    if (line == null) {
-                        break;
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        daemon.setDaemon(true);
-        daemon.start();
     }
 
     /**
@@ -329,13 +305,6 @@ public final class JsiiRuntime {
             throw new JsiiException("Client not created");
         }
         return this.client;
-    }
-
-    /**
-     * Prints jsii-server traces to STDERR.
-     */
-    public static void enableTrace() {
-        traceEnabled = true;
     }
 
     /**
