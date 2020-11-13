@@ -13,6 +13,8 @@ namespace Amazon.JSII.Runtime.Services
     {
         readonly Process _process;
         readonly ILogger _logger;
+
+        private bool _disposed = false;
         private const string JsiiRuntime = "JSII_RUNTIME";
         private const string JsiiDebug = "JSII_DEBUG";
         private const string JsiiAgent = "JSII_AGENT";
@@ -67,6 +69,7 @@ namespace Amazon.JSII.Runtime.Services
 
         void IDisposable.Dispose()
         {
+            if (_disposed) return;
             StandardInput.Close();
             _process.WaitForExit(5_000);
             _process.Dispose();
@@ -74,6 +77,9 @@ namespace Amazon.JSII.Runtime.Services
             // If Dispose() is called manually, there is no need to run the finalizer anymore, since
             // this only calls Dispose(). So we inform the GC about this.
             GC.SuppressFinalize(this);
+
+            // Record that this NodeProcess was disposed of.
+            _disposed = true;
         }
 
         /// <summary>
