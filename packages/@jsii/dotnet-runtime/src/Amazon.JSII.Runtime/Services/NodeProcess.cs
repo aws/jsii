@@ -77,10 +77,17 @@ namespace Amazon.JSII.Runtime.Services
             // Closing the jsii Kernel's STDIN is how we instruct it to shut down
             StandardInput.Close();
             // Give the kernel 5 seconds to clean up after itself
-            _process.WaitForExit(5_000);
-
-            // Dispose of the process (terminating it if needed)
-            _process.Dispose();
+            if (!_process.WaitForExit(5_000)) {
+                try
+                {
+                    // Kill the child process if needed
+                    _process.Kill();
+                } catch (InvalidOperationException)
+                {
+                    // Ignore, this means the process had already exited, possibly "just after"
+                    // the timeout of the above WaitForExit.
+                }
+            }
             // Record that this NodeProcess was disposed of.
             Disposed = true;
 
@@ -93,7 +100,7 @@ namespace Amazon.JSII.Runtime.Services
         {
             if (Disposed)
             {
-                throw new InvalidOperationException($"This {nameof(NodeProcess)} was already Disposed of!");
+                throw new ObjectDisposedException($"Cannot access a disposed {nameof(NodeProcess)}");
             }
             return value;
         }
