@@ -95,7 +95,7 @@ namespace Amazon.JSII.Runtime.Services
                     // the timeout of the above WaitForExit.
                 }
             }
-            _process.Dispose();
+            _process.Close();
             // Record that this NodeProcess was disposed of.
             Disposed = true;
 
