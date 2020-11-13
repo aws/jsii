@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Logging;
@@ -14,11 +15,12 @@ namespace Amazon.JSII.Runtime.Services
         readonly Process _process;
         readonly ILogger _logger;
 
-        private bool _disposed = false;
         private const string JsiiRuntime = "JSII_RUNTIME";
         private const string JsiiDebug = "JSII_DEBUG";
         private const string JsiiAgent = "JSII_AGENT";
         private const string JsiiAgentVersionString = "DotNet/{0}/{1}/{2}";
+
+        private bool Disposed = false;
 
         public NodeProcess(IJsiiRuntimeProvider jsiiRuntimeProvider, ILoggerFactory loggerFactory)
         {
@@ -63,13 +65,15 @@ namespace Amazon.JSII.Runtime.Services
             ((IDisposable)this).Dispose();
         }
 
-        public TextWriter StandardInput => _process.StandardInput;
+        public TextWriter StandardInput => AssertNotDisposed(_process.StandardInput);
 
-        public TextReader StandardOutput => _process.StandardOutput;
+        public TextReader StandardOutput => AssertNotDisposed(_process.StandardOutput);
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void IDisposable.Dispose()
         {
-            if (_disposed) return;
+            if (Disposed) return;
+
             StandardInput.Close();
             _process.WaitForExit(5_000);
             _process.Dispose();
@@ -79,7 +83,16 @@ namespace Amazon.JSII.Runtime.Services
             GC.SuppressFinalize(this);
 
             // Record that this NodeProcess was disposed of.
-            _disposed = true;
+            Disposed = true;
+        }
+
+        private T AssertNotDisposed<T>(T value)
+        {
+            if (Disposed)
+            {
+                throw new InvalidOperationException($"This {nameof(NodeProcess)} was already Disposed of!");
+            }
+            return value;
         }
 
         /// <summary>
