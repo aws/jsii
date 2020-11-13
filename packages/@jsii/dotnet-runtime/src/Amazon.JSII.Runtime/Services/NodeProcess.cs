@@ -65,25 +65,28 @@ namespace Amazon.JSII.Runtime.Services
             ((IDisposable)this).Dispose();
         }
 
-        public TextWriter StandardInput => AssertNotDisposed(_process.StandardInput);
+        public TextWriter StandardInput => AssertNotDisposed(_process).StandardInput;
 
-        public TextReader StandardOutput => AssertNotDisposed(_process.StandardOutput);
+        public TextReader StandardOutput => AssertNotDisposed(_process).StandardOutput;
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         void IDisposable.Dispose()
         {
             if (Disposed) return;
 
+            // Closing the jsii Kernel's STDIN is how we instruct it to shut down
             StandardInput.Close();
+            // Give the kernel 5 seconds to clean up after itself
             _process.WaitForExit(5_000);
+
+            // Dispose of the process (terminating it if needed)
             _process.Dispose();
-
-            // If Dispose() is called manually, there is no need to run the finalizer anymore, since
-            // this only calls Dispose(). So we inform the GC about this.
-            GC.SuppressFinalize(this);
-
             // Record that this NodeProcess was disposed of.
             Disposed = true;
+
+            // If Dispose() was called manually, there is no need to run the finalizer anymore,
+            // since it only calls Dispose(). So we inform the GC about this.
+            GC.SuppressFinalize(this);
         }
 
         private T AssertNotDisposed<T>(T value)
