@@ -74,6 +74,13 @@ namespace Amazon.JSII.Runtime.Services
         {
             if (Disposed) return;
 
+            // If the child process has already exited, we simply need to dispose of it
+            if (_process.HasExited)
+            {
+                _process.Dispose();
+                Disposed = true;
+            }
+
             // Closing the jsii Kernel's STDIN is how we instruct it to shut down
             StandardInput.Close();
             // Give the kernel 5 seconds to clean up after itself
@@ -88,6 +95,7 @@ namespace Amazon.JSII.Runtime.Services
                     // the timeout of the above WaitForExit.
                 }
             }
+            _process.Dispose();
             // Record that this NodeProcess was disposed of.
             Disposed = true;
 
