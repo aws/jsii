@@ -32,76 +32,80 @@ namespace Amazon.JSII.Runtime.Services
                 runtimePath = jsiiRuntimeProvider.JsiiRuntimePath;
 
             var utf8 = new UTF8Encoding(false /* no BOM */);
-            _process = new Process
+            var startInfo = new ProcessStartInfo
             {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "node",
-                    Arguments = $"--max-old-space-size=4096 {runtimePath}",
-                    RedirectStandardInput = true,
-                    StandardInputEncoding = utf8,
-                    RedirectStandardOutput = true,
-                    StandardOutputEncoding = utf8,
-                    UseShellExecute = false,
-                }
+                FileName = "node",
+                Arguments = $"--max-old-space-size=4096 {runtimePath}",
+                RedirectStandardInput = true,
+                StandardInputEncoding = utf8,
+                RedirectStandardOutput = true,
+                StandardOutputEncoding = utf8,
+                UseShellExecute = false,
             };
 
             var assemblyVersion = GetAssemblyFileVersion();
-            _process.StartInfo.EnvironmentVariables.Add(JsiiAgent,
+            startInfo.EnvironmentVariables.Add(JsiiAgent,
                 string.Format(CultureInfo.InvariantCulture, JsiiAgentVersionString, Environment.Version,
                     assemblyVersion.Item1, assemblyVersion.Item2));
 
             var debug = Environment.GetEnvironmentVariable(JsiiDebug);
-            if (!string.IsNullOrWhiteSpace(debug) && !_process.StartInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
-                _process.StartInfo.EnvironmentVariables.Add(JsiiDebug, debug);
+            if (!string.IsNullOrWhiteSpace(debug) && !startInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
+                startInfo.EnvironmentVariables.Add(JsiiDebug, debug);
 
             _logger.LogDebug("Starting jsii runtime...");
-            _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
+            _logger.LogDebug($"{startInfo.FileName} {startInfo.Arguments}");
 
-            _process.Start();
+            _process = Process.Start(startInfo);
+
+            StandardInput = _process.StandardInput;
+            StandardOutput = _process.StandardOutput;
         }
 
         ~NodeProcess() {
             ((IDisposable)this).Dispose();
         }
 
-        public TextWriter StandardInput => AssertNotDisposed(_process).StandardInput;
+        public TextWriter StandardInput { get; }
 
-        public TextReader StandardOutput => AssertNotDisposed(_process).StandardOutput;
+        public TextReader StandardOutput { get; }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         void IDisposable.Dispose()
         {
             if (Disposed) return;
 
+            // There is no need to run the finalizer anymore, since it only calls Dispose().
+            Disposed = true;
+            GC.SuppressFinalize(this);
+
             // If the child process has already exited, we simply need to dispose of it
             if (_process.HasExited)
             {
                 _process.Dispose();
-                Disposed = true;
+                return;
             }
 
             // Closing the jsii Kernel's STDIN is how we instruct it to shut down
             StandardInput.Close();
-            // Give the kernel 5 seconds to clean up after itself
-            if (!_process.WaitForExit(5_000)) {
-                try
-                {
+
+            try
+            {
+                // Give the kernel 5 seconds to clean up after itself
+                if (!_process.WaitForExit(5_000)) {
                     // Kill the child process if needed
                     _process.Kill();
-                } catch (InvalidOperationException)
-                {
-                    // Ignore, this means the process had already exited, possibly "just after"
-                    // the timeout of the above WaitForExit.
                 }
             }
-            _process.Close();
-            // Record that this NodeProcess was disposed of.
-            Disposed = true;
-
-            // If Dispose() was called manually, there is no need to run the finalizer anymore,
-            // since it only calls Dispose(). So we inform the GC about this.
-            GC.SuppressFinalize(this);
+            catch (InvalidOperationException)
+            {
+                // This means the process had already exited, because it was faster to clean up
+                // than we were to process it's termination. We still re-check if the process has
+                // exited and re-throw if not (meaning it was a different issue).
+                if (!_process.HasExited)
+                {
+                    throw;
+                }
+            }
         }
 
         private T AssertNotDisposed<T>(T value)
@@ -130,5 +134,8 @@ namespace Amazon.JSII.Runtime.Services
                 assemblyFileVersionAttribute?.Version ?? "Unknown"
             );
         }
+
+        /// Windows and UNIX have different conventions for how to signal EOF.
+        private static char EOF = Environment.OSVersion.Platform == PlatformID.Win32NT ? '\x1A' : '\x04';
     }
 }
