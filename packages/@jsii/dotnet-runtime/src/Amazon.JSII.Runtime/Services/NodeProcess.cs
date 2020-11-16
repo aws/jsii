@@ -128,8 +128,5 @@ namespace Amazon.JSII.Runtime.Services
                 assemblyFileVersionAttribute?.Version ?? "Unknown"
             );
         }
-
-        /// Windows and UNIX have different conventions for how to signal EOF.
-        private static char EOF = Environment.OSVersion.Platform == PlatformID.Win32NT ? '\x1A' : '\x04';
     }
 }
