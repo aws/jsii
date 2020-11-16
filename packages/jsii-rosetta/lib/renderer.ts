@@ -340,6 +340,9 @@ export class AstRenderer<C> {
     if (ts.isPropertyDeclaration(tree)) {
       return visitor.propertyDeclaration(tree, this);
     }
+    if (ts.isComputedPropertyName(tree)) {
+      return visitor.computedPropertyName(tree.expression, this);
+    }
     if (ts.isMethodDeclaration(tree)) {
       return visitor.methodDeclaration(tree, this);
     }
@@ -541,6 +544,7 @@ export interface AstHandler<C> {
     node: ts.PropertyDeclaration,
     context: AstRenderer<C>,
   ): OTree;
+  computedPropertyName(node: ts.Expression, context: AstRenderer<C>): OTree;
   methodDeclaration(node: ts.MethodDeclaration, context: AstRenderer<C>): OTree;
   interfaceDeclaration(
     node: ts.InterfaceDeclaration,

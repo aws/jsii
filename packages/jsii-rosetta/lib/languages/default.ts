@@ -323,6 +323,13 @@ export abstract class DefaultVisitor<C> implements AstHandler<C> {
     return this.notImplemented(node, context);
   }
 
+  public computedPropertyName(
+    node: ts.Expression,
+    context: AstRenderer<C>,
+  ): OTree {
+    return context.convert(node);
+  }
+
   public methodDeclaration(
     node: ts.MethodDeclaration,
     context: AstRenderer<C>,

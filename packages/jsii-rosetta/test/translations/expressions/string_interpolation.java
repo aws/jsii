@@ -1,3 +1,3 @@
 String x = "world";
 String y = "well";
-System.out.println("Hello, " + x + ", it works " + y + "!");
+System.out.println(String.format("Hello, %s, it works %s!", x, y));
