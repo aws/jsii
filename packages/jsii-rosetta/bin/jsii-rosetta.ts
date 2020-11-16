@@ -108,6 +108,12 @@ function main() {
             type: 'boolean',
             describe: 'Fail if there are compilation errors',
             default: false,
+          })
+          .option('validate-assemblies', {
+            type: 'boolean',
+            describe:
+              'Whether to validate loaded assemblies or not (this can be slow)',
+            default: false,
           }),
       wrapHandler(async (args) => {
         // Easiest way to get a fixed working directory (for sources) in is to
@@ -126,6 +132,7 @@ function main() {
         const result = await extractSnippets(absAssemblies, {
           outputFile: absOutput,
           includeCompilerDiagnostics: args.compile,
+          validateAssemblies: args['validate-assemblies'],
           only: args.include,
         });
 
