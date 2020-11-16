@@ -72,6 +72,15 @@ interface JavaContext {
    * @default false
    */
   readonly stringLiteralAsIdentifier?: boolean;
+
+  /**
+   * Used to denote that a type is being rendered in a position where a generic
+   * type parameter is expected, so only reference types are valid (not
+   * primitives).
+   *
+   * @default false
+   */
+  readonly requiresReferenceType?: boolean;
 }
 
 /**
@@ -342,16 +351,17 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       (node.initializer && renderer.typeOfExpression(node.initializer));
 
     const renderedType = type
-      ? this.renderType(node, type, renderer, 'var')
-      : 'var';
+      ? this.renderType(node, type, renderer, 'Object')
+      : 'Object';
 
     return new OTree(
       [
         renderedType,
         ' ',
         renderer.convert(node.name),
-        ' = ',
-        renderer.convert(node.initializer),
+        ...(node.initializer
+          ? [' = ', renderer.convert(node.initializer)]
+          : []),
         ';',
       ],
       [],
@@ -443,23 +453,41 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     node: ts.TemplateExpression,
     renderer: JavaRenderer,
   ): OTree {
-    const result = new Array<string>();
-    let first = true;
+    let template = '';
+    const parameters = new Array<OTree>();
 
     if (node.head.rawText) {
-      result.push(`"${quoteStringLiteral(node.head.rawText)}"`);
-      first = false;
+      template += node.head.rawText;
     }
 
     for (const span of node.templateSpans) {
-      result.push(`${first ? '' : ' + '}${renderer.textOf(span.expression)}`);
-      first = false;
+      template += '%s';
+      parameters.push(
+        renderer
+          .updateContext({
+            convertPropertyToGetter: true,
+            identifierAsString: false,
+          })
+          .convert(span.expression),
+      );
       if (span.literal.rawText) {
-        result.push(` + "${quoteStringLiteral(span.literal.rawText)}"`);
+        template += span.literal.rawText;
       }
     }
 
-    return new OTree(result);
+    if (parameters.length === 0) {
+      return new OTree([`"${quoteStringLiteral(template)}"`]);
+    }
+
+    return new OTree([
+      'String.format(',
+      `"${quoteStringLiteral(template)}"`,
+      ...parameters.reduce(
+        (list, element) => list.concat(', ', element),
+        new Array<string | OTree>(),
+      ),
+      ')',
+    ]);
   }
 
   public asExpression(node: ts.AsExpression, renderer: JavaRenderer): OTree {
@@ -694,7 +722,11 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     return new OTree(
       [],
       [
-        renderer.updateContext({ identifierAsString: true }).convert(name),
+        renderer
+          .updateContext({
+            identifierAsString: !ts.isComputedPropertyName(name),
+          })
+          .convert(name),
         ', ',
         renderer.updateContext({ inKeyValueList: false }).convert(initializer),
       ],
@@ -851,7 +883,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
       return `Map<String, ${this.renderType(
         owningNode,
         mapValuesType,
-        renderer,
+        renderer.updateContext({ requiresReferenceType: true }),
         'Object',
       )}>`;
     }
@@ -870,10 +902,14 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     }
 
     switch (typeScriptBuiltInType) {
+      case 'boolean':
+        return renderer.currentContext.requiresReferenceType
+          ? 'Boolean'
+          : 'boolean';
+      case 'number':
+        return 'Number';
       case 'string':
         return 'String';
-      case 'number':
-        return 'int';
       case 'any':
         return 'Object';
       default:
