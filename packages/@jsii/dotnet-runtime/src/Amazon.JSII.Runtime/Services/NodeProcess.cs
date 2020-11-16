@@ -55,6 +55,11 @@ namespace Amazon.JSII.Runtime.Services
             _logger.LogDebug("Starting jsii runtime...");
             _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
 
+            // Registering shutdown hook to have JS process gracefully terminate.
+            AppDomain.CurrentDomain.ProcessExit += (snd, evt) => {
+                ((IDisposable)this).Dispose();
+            };
+
             _process.Start();
         }
 
