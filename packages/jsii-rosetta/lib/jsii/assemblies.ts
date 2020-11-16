@@ -19,28 +19,32 @@ export interface LoadedAssembly {
 /**
  * Load assemblies by filename or directory
  */
-export async function loadAssemblies(assemblyLocations: string[]) {
-  const ret: LoadedAssembly[] = [];
-  for (const loc of assemblyLocations) {
-    const stat = await fs.stat(loc); // eslint-disable-line no-await-in-loop
+export async function loadAssemblies(
+  assemblyLocations: readonly string[],
+  validateAssemblies: boolean,
+): Promise<readonly LoadedAssembly[]> {
+  return Promise.all(assemblyLocations.map(loadAssembly));
+
+  async function loadAssembly(location: string): Promise<LoadedAssembly> {
+    const stat = await fs.stat(location);
     if (stat.isDirectory()) {
-      ret.push({
-        assembly: await loadAssemblyFromFile(path.join(loc, '.jsii')), // eslint-disable-line no-await-in-loop
-        directory: loc,
-      });
-    } else {
-      ret.push({
-        assembly: await loadAssemblyFromFile(loc), // eslint-disable-line no-await-in-loop
-        directory: path.dirname(loc),
-      });
+      return loadAssembly(path.join(location, '.jsii'));
     }
+    return {
+      assembly: await loadAssemblyFromFile(location, validateAssemblies),
+      directory: path.dirname(location),
+    };
   }
-  return ret;
 }
 
-async function loadAssemblyFromFile(filename: string) {
+async function loadAssemblyFromFile(
+  filename: string,
+  validate: boolean,
+): Promise<spec.Assembly> {
   const contents = await fs.readJSON(filename, { encoding: 'utf-8' });
-  return spec.validateAssembly(contents);
+  return validate
+    ? spec.validateAssembly(contents)
+    : (contents as spec.Assembly);
 }
 
 export type AssemblySnippetSource =
@@ -116,7 +120,7 @@ function removeSlashes(x: string) {
 }
 
 export function* allTypeScriptSnippets(
-  assemblies: Array<{ assembly: spec.Assembly; directory: string }>,
+  assemblies: readonly LoadedAssembly[],
 ): IterableIterator<TypeScriptSnippet> {
   for (const assembly of assemblies) {
     for (const source of allSnippetSources(assembly.assembly)) {
