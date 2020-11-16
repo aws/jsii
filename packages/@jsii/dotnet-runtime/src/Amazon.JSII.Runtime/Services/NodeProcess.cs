@@ -61,10 +61,6 @@ namespace Amazon.JSII.Runtime.Services
             StandardOutput = _process.StandardOutput;
         }
 
-        ~NodeProcess() {
-            ((IDisposable)this).Dispose();
-        }
-
         public TextWriter StandardInput { get; }
 
         public TextReader StandardOutput { get; }
@@ -74,9 +70,7 @@ namespace Amazon.JSII.Runtime.Services
         {
             if (Disposed) return;
 
-            // There is no need to run the finalizer anymore, since it only calls Dispose().
             Disposed = true;
-            GC.SuppressFinalize(this);
 
             // If the child process has already exited, we simply need to dispose of it
             if (_process.HasExited)
