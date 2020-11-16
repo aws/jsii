@@ -45,6 +45,9 @@
     "jsii": {
       "pacmak": {
         "hasDefaultInterfaces": false
+      },
+      "rosetta": {
+        "strict": true
       }
     }
   },
@@ -164,5 +167,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "5eEZgTecKzEaeEs7p70e7+fyVMKVp/Qt5h9Hk0yvWAE="
+  "fingerprint": "F9tU1Iv94F6IXwyru+WBj8ZFoLXV68trXOYxDlBYC7U="
 }

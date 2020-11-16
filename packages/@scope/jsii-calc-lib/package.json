@@ -72,6 +72,13 @@
     "tsc": {
       "outDir": "build"
     },
-    "versionFormat": "short"
+    "versionFormat": "short",
+    "metadata": {
+      "jsii": {
+        "rosetta": {
+          "strict": true
+        }
+      }
+    }
   }
 }

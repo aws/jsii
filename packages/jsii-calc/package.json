@@ -87,6 +87,11 @@
       "jsii:number": 1337,
       "jsii:object": {
         "string": "yes!"
+      },
+      "jsii": {
+        "rosetta": {
+          "strict": true
+        }
       }
     },
     "versionFormat": "short"

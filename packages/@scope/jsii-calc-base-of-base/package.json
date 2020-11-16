@@ -58,6 +58,13 @@
         "module": "scope.jsii_calc_base_of_base"
       }
     },
-    "versionFormat": "short"
+    "versionFormat": "short",
+    "metadata": {
+      "jsii": {
+        "rosetta": {
+          "strict": true
+        }
+      }
+    }
   }
 }

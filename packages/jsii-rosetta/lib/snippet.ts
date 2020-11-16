@@ -21,6 +21,13 @@ export interface TypeScriptSnippet {
    * Parameters for the conversion
    */
   readonly parameters?: Record<string, string>;
+
+  /**
+   * Whether this snippet must be processed as if `--strict` was always supplied.
+   *
+   * @default false
+   */
+  readonly strict?: boolean;
 }
 
 /**
@@ -31,8 +38,9 @@ export interface TypeScriptSnippet {
 export function typeScriptSnippetFromSource(
   typeScriptSource: string,
   where: string,
+  strict: boolean,
   parameters: Record<string, string> = {},
-) {
+): TypeScriptSnippet {
   const [source, sourceParameters] = parametersFromSourceDirectives(
     typeScriptSource,
   );
@@ -40,6 +48,7 @@ export function typeScriptSnippetFromSource(
     visibleSource: source.trimRight(),
     where,
     parameters: Object.assign({}, parameters, sourceParameters),
+    strict,
   };
 }
 

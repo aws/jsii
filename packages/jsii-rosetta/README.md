@@ -24,6 +24,32 @@ If the samples don't compile or don't have full type information:
 - Object literals are used both to represent structs as well as to represent dictionaries, and without type information
   it's impossible to determine which is which.
 
+### Enforcing Compilability
+
+Package owners can enable enforcement of compiling code sample by setting the `jsii.rosetta.strict` assembly metadata
+entry to `true`:
+
+```js
+/// package.json
+{
+  // ...
+  "jsii": {
+    // ...
+    "metadata": {
+      "jsii": {
+        "rosetta": {
+          "strict": true
+        }
+      }
+    }
+    // ...
+  },
+  // ...
+}
+```
+
+This effectively enables the `--strict` option when translating code samples from the assembly.
+
 ## Hiding code from samples
 
 In order to make examples compile, boilerplate code may need to be added that detracts from the example at hand (such as

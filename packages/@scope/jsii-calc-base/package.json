@@ -46,6 +46,9 @@
       "jsii": {
         "pacmak": {
           "hasDefaultInterfaces": false
+        },
+        "rosetta": {
+          "strict": true
         }
       }
     },
