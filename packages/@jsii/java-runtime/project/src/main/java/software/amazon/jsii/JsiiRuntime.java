@@ -187,6 +187,7 @@ public final class JsiiRuntime {
 
     synchronized void terminate() {
         try {
+            // The jsii Kernel process exists after having reached EOF on it's STDIN, so we close it first:
             if (stdin != null) {
                 stdin.close();
                 stdin = null;
@@ -195,7 +196,9 @@ public final class JsiiRuntime {
             if (childProcess != null) {
                 // Wait for the child process to complete
                 try {
+                    // Giving the process up to 5 seconds to clean up and exit
                     if (!childProcess.waitFor(5, TimeUnit.SECONDS)) {
+                        // If it's still not done, forcibly terminate it at this point.
                         childProcess.destroy();
                     }
                 } catch (final InterruptedException ie) {
@@ -204,16 +207,19 @@ public final class JsiiRuntime {
                 childProcess = null;
             }
 
+            // Cleaning up stdout (ensuring buffers are flushed, etc...)
             if (stdout != null) {
                 stdout.close();
                 stdout = null;
             }
 
+            // Cleaning up stderr (ensuring buffers are flushed, etc...)
             if (stderr != null) {
                 stderr.close();
                 stderr = null;
             }
 
+            // We shut down already, no need for the shutdown hook anymore
             if (this.shutdownHook != null) {
                 Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
                 this.shutdownHook = null;
