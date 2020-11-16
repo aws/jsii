@@ -28,7 +28,7 @@ export async function extractSnippets(
   assemblyLocations: string[],
   options: ExtractOptions,
 ): Promise<ExtractResult> {
-  const only = options.only || [];
+  const only = options.only ?? [];
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(assemblyLocations);
@@ -95,7 +95,7 @@ async function translateAll(
   try {
     const worker = await import('worker_threads');
 
-    return workerBasedTranslateAll(
+    return await workerBasedTranslateAll(
       worker,
       snippets,
       includeCompilerDiagnostics,

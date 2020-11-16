@@ -519,7 +519,7 @@ export const SERIALIZERS: { [k: string]: Serializer } = {
         ? [expectedType.fqn]
         : undefined;
       const jsiiType =
-        jsiiTypeFqn(value) ||
+        jsiiTypeFqn(value) ??
         (spec.isClassType(expectedType) ? expectedType.fqn : 'Object');
 
       return host.objects.registerObject(value, jsiiType, interfaces);

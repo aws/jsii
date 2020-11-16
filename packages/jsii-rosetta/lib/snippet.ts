@@ -57,7 +57,7 @@ export function updateParameters(
  * Get the complete (compilable) source of a snippet
  */
 export function completeSource(snippet: TypeScriptSnippet) {
-  return snippet.completeSource || snippet.visibleSource;
+  return snippet.completeSource ?? snippet.visibleSource;
 }
 
 /**

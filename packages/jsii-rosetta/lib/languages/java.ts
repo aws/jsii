@@ -826,7 +826,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     heritageKeyword: ts.SyntaxKind,
     outputKeyword: string,
   ): Array<OTree | string | undefined> {
-    const heritageClause = (node.heritageClauses || []).find(
+    const heritageClause = (node.heritageClauses ?? []).find(
       (hc) => hc.token === heritageKeyword,
     );
     const superTypes = heritageClause
@@ -843,7 +843,7 @@ export class JavaVisitor extends DefaultVisitor<JavaContext> {
     fallback?: string,
   ): string {
     fallback =
-      fallback ||
+      fallback ??
       (typeNode
         ? lastElement(renderer.textOf(typeNode).split('.')) // remove any namespace prefixes
         : 'Object');
