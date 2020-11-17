@@ -20,9 +20,11 @@ export function typeWithoutUndefinedUnion(
   return remaining[0];
 }
 
-export function builtInTypeName(type: ts.Type): string | undefined {
-  const map: { [k: number]: string } = {
+type BuiltInType = 'any' | 'boolean' | 'number' | 'string';
+export function builtInTypeName(type: ts.Type): BuiltInType | undefined {
+  const map: { readonly [k: number]: BuiltInType } = {
     [ts.TypeFlags.Any]: 'any',
+    [ts.TypeFlags.Unknown]: 'any',
     [ts.TypeFlags.Boolean]: 'boolean',
     [ts.TypeFlags.Number]: 'number',
     [ts.TypeFlags.String]: 'string',
@@ -84,7 +86,7 @@ export function mapElementType(
         }
         return undefined;
       });
-      return typeIfSame(initializerTypes);
+      return typeIfSame([...initializerTypes, type.getStringIndexType()]);
     }
   }
 

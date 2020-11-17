@@ -18,6 +18,7 @@ export interface ExtractResult {
 export interface ExtractOptions {
   outputFile: string;
   includeCompilerDiagnostics: boolean;
+  validateAssemblies: boolean;
   only?: string[];
 }
 
@@ -31,7 +32,10 @@ export async function extractSnippets(
   const only = options.only ?? [];
 
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
-  const assemblies = await loadAssemblies(assemblyLocations);
+  const assemblies = await loadAssemblies(
+    assemblyLocations,
+    options.validateAssemblies,
+  );
 
   let snippets = allTypeScriptSnippets(assemblies);
   if (only.length > 0) {

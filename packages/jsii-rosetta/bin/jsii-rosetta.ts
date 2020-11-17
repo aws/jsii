@@ -109,6 +109,12 @@ function main() {
             describe: 'Fail if there are compilation errors',
             default: false,
           })
+          .option('validate-assemblies', {
+            type: 'boolean',
+            describe:
+              'Whether to validate loaded assemblies or not (this can be slow)',
+            default: false,
+          })
           .option('strict', {
             alias: 'S',
             type: 'boolean',
@@ -142,6 +148,7 @@ function main() {
         const result = await extractSnippets(absAssemblies, {
           outputFile: absOutput,
           includeCompilerDiagnostics: !!args.compile,
+          validateAssemblies: args['validate-assemblies'],
           only: args.include,
         });
 
