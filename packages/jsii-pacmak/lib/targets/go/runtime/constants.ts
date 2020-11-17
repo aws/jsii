@@ -35,10 +35,3 @@ export const JSII_OVERRIDE = `${JSII_RT_ALIAS}.Override`;
 export const JSII_ANY = `${JSII_RT_ALIAS}.Any`;
 // Jsii FQN type
 export const JSII_FQN = `${JSII_RT_ALIAS}.FQN`;
-
-// NOOP type returns
-export const NOOP_RETURN_MAP: { [type: string]: string } = {
-  float64: '0.0',
-  string: '"NOOP_RETURN_STRING"',
-  bool: 'true',
-};

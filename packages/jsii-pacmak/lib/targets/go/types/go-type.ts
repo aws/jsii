@@ -8,14 +8,16 @@ import { GoTypeRef } from './go-type-reference';
 import { GoProperty } from './type-member';
 
 // String appended to all go GoStruct Interfaces
-const STRUCT_INTERFACE_SUFFIX = 'Iface';
+export const INTERFACE_TYPE_SUFFIX = 'Iface';
 
 export abstract class GoType {
   public readonly name: string;
   public readonly fqn: string;
+  public readonly interfaceName: string;
 
   public constructor(public pkg: Package, public type: Type) {
     this.name = toPascalCase(type.name);
+    this.interfaceName = this.name;
     this.fqn = type.fqn;
   }
 
@@ -49,7 +51,7 @@ export abstract class GoStruct extends GoType {
       .filter((prop) => !prop.static)
       .map((prop) => new GoProperty(this, prop));
 
-    this.interfaceName = `${this.name}${STRUCT_INTERFACE_SUFFIX}`;
+    this.interfaceName = `${this.name}${INTERFACE_TYPE_SUFFIX}`;
   }
 
   // `emit` needs to generate both a Go interface and a struct, as well as the Getter methods on the struct
