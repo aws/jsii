@@ -612,7 +612,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
           renderer
             .updateContext({
               propertyOrMethod: false,
-              identifierAsString: true,
+              identifierAsString: !ts.isComputedPropertyName(key),
             })
             .convert(key),
           ', ',

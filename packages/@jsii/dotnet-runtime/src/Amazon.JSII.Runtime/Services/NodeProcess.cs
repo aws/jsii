@@ -55,6 +55,11 @@ namespace Amazon.JSII.Runtime.Services
             _logger.LogDebug("Starting jsii runtime...");
             _logger.LogDebug($"{startInfo.FileName} {startInfo.Arguments}");
 
+            // Registering shutdown hook to have JS process gracefully terminate.
+            AppDomain.CurrentDomain.ProcessExit += (snd, evt) => {
+                ((IDisposable)this).Dispose();
+            };
+
             _process = Process.Start(startInfo);
 
             StandardInput = _process.StandardInput;
@@ -100,15 +105,6 @@ namespace Amazon.JSII.Runtime.Services
                     throw;
                 }
             }
-        }
-
-        private T AssertNotDisposed<T>(T value)
-        {
-            if (Disposed)
-            {
-                throw new ObjectDisposedException($"Cannot access a disposed {nameof(NodeProcess)}");
-            }
-            return value;
         }
 
         /// <summary>

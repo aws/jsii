@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UncheckedIOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -59,6 +60,11 @@ public final class JsiiRuntime {
      * Handler for synchronous callbacks. Must be set using setCallbackHandler.
      */
     private JsiiCallbackHandler callbackHandler;
+
+    /**
+     * The JVM shutdown hook registered by this instance, if any.
+     */
+    private Thread shutdownHook;
 
     /**
      * The main API of this class. Sends a JSON request to jsii-runtime and returns the JSON response.
@@ -169,30 +175,54 @@ public final class JsiiRuntime {
         }
     }
 
-    public void terminate() throws InterruptedException, IOException {
-         if (stdin != null) {
-            stdin.close();
-            stdin = null;
-        }
-
-        if (childProcess != null) {
-            // Wait for the child process to complete
-            if (!childProcess.waitFor(5, TimeUnit.SECONDS)) {
-                childProcess.destroy();
+    synchronized void terminate() {
+        try {
+            // The jsii Kernel process exists after having reached EOF on it's STDIN, so we close it first:
+            if (stdin != null) {
+                stdin.close();
+                stdin = null;
             }
-            childProcess = null;
-        }
 
-        if (stdout != null) {
-            stdout.close();
-            stdout = null;
+            if (childProcess != null) {
+                // Wait for the child process to complete
+                try {
+                    // Giving the process up to 5 seconds to clean up and exit
+                    if (!childProcess.waitFor(5, TimeUnit.SECONDS)) {
+                        // If it's still not done, forcibly terminate it at this point.
+                        childProcess.destroy();
+                    }
+                } catch (final InterruptedException ie) {
+                    throw new RuntimeException(ie);
+                }
+                childProcess = null;
+            }
+
+            // Cleaning up stdout (ensuring buffers are flushed, etc...)
+            if (stdout != null) {
+                stdout.close();
+                stdout = null;
+            }
+
+            // Cleaning up stderr (ensuring buffers are flushed, etc...)
+            if (stderr != null) {
+                stderr.close();
+                stderr = null;
+            }
+
+            // We shut down already, no need for the shutdown hook anymore
+            if (this.shutdownHook != null) {
+                Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
+                this.shutdownHook = null;
+            }
+        } catch (final IOException ioe) {
+            throw new UncheckedIOException(ioe);
         }
     }
 
     /**
      * Starts jsii-server as a child process if it is not already started.
      */
-    private void startRuntimeIfNeeded() {
+    private synchronized void startRuntimeIfNeeded() {
         if (childProcess != null) {
             return;
         }
@@ -228,6 +258,8 @@ public final class JsiiRuntime {
 
         try {
             this.childProcess = pb.start();
+            this.shutdownHook = new Thread(this::terminate, "Terminate jsii client");
+            Runtime.getRuntime().addShutdownHook(this.shutdownHook);
         } catch (IOException e) {
             throw new JsiiException("Cannot find the 'jsii-runtime' executable (JSII_RUNTIME or PATH)", e);
         }
