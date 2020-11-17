@@ -20,7 +20,12 @@ class PrimitiveMapper {
   public constructor(private readonly name: string) {}
 
   public get goPrimitive(): string {
-    return this.MAP[this.name] ?? this.name;
+    const val = this.MAP[this.name];
+    if (!val) {
+      log.debug(`Unmapped primitive type: ${this.name}`);
+    }
+
+    return val ?? this.name;
   }
 }
 
@@ -33,10 +38,6 @@ export class GoTypeRef {
     public readonly reference: TypeReference,
   ) {}
 
-  public isPrimitive() {
-    return Boolean(this.reference.primitive);
-  }
-
   public get type(): GoType | undefined {
     if (this.reference.fqn) {
       return this.root.findType(this.reference.fqn);
@@ -45,15 +46,12 @@ export class GoTypeRef {
     return undefined;
   }
 
-  public get primitiveType(): string | undefined {
+  public get primitiveType() {
     if (this.reference.primitive) {
-      const val = new PrimitiveMapper(this.reference.primitive).goPrimitive;
-      if (!val) {
-        console.log(this.reference.primitive);
-      }
+      return new PrimitiveMapper(this.reference.primitive).goPrimitive;
     }
 
-    return;
+    return undefined;
   }
 
   public get interfaceName() {
