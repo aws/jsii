@@ -3,6 +3,7 @@ import { CodeMaker } from 'codemaker';
 import {
   Rosetta,
   Translation,
+  enforcesStrictMode,
   typeScriptSnippetFromSource,
   markDownToXmlDoc,
 } from 'jsii-rosetta';
@@ -24,7 +25,11 @@ export class DotNetDocGenerator {
   private readonly code: CodeMaker;
   private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  public constructor(code: CodeMaker, private readonly rosetta: Rosetta) {
+  public constructor(
+    code: CodeMaker,
+    private readonly rosetta: Rosetta,
+    private readonly assembly: spec.Assembly,
+  ) {
     this.code = code;
   }
 
@@ -156,7 +161,11 @@ export class DotNetDocGenerator {
   }
 
   private convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const snippet = typeScriptSnippetFromSource(
+      example,
+      'example',
+      enforcesStrictMode(this.assembly),
+    );
     const translated = this.rosetta.translateSnippet(snippet, 'csharp');
     if (!translated) {
       return example;
@@ -168,6 +177,7 @@ export class DotNetDocGenerator {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
       'csharp',
+      enforcesStrictMode(this.assembly),
       (trans) => ({
         language: trans.language,
         source: this.prefixDisclaimer(trans),

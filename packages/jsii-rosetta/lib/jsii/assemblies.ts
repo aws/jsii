@@ -10,6 +10,7 @@ import {
   updateParameters,
   SnippetParameters,
 } from '../snippet';
+import { enforcesStrictMode } from '../strict';
 
 export interface LoadedAssembly {
   assembly: spec.Assembly;
@@ -123,7 +124,7 @@ export function* allTypeScriptSnippets(
   assemblies: readonly LoadedAssembly[],
 ): IterableIterator<TypeScriptSnippet> {
   for (const { assembly, directory } of assemblies) {
-    const strict = assembly.metadata?.jsii?.rosetta?.strict === true;
+    const strict = enforcesStrictMode(assembly);
     for (const source of allSnippetSources(assembly)) {
       switch (source.type) {
         case 'literal':
