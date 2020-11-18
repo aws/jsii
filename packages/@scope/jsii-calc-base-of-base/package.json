@@ -30,7 +30,7 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
-    "@types/node": "^10.17.44",
+    "@types/node": "^10.17.45",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
