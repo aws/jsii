@@ -9,8 +9,9 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	defer jsii.Close()
-	os.Exit(m.Run())
+	status := m.Run()
+	jsii.Close()
+	os.Exit(status)
 }
 
 func TestCalculator(t *testing.T) {

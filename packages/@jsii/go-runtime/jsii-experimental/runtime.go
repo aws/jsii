@@ -82,7 +82,7 @@ func Invoke(obj interface{}, method string, args []interface{}, returns bool, re
 	}
 
 	if returns {
-		castSetToPtr(returnsPtr, res.Result)
+		castAndSetToPtr(returnsPtr, res.Result)
 	}
 }
 
@@ -101,7 +101,7 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, returns bool, retu
 	}
 
 	if returns {
-		castSetToPtr(returnsPtr, res.Result)
+		castAndSetToPtr(returnsPtr, res.Result)
 	}
 }
 
@@ -127,7 +127,7 @@ func Get(obj interface{}, property string, returnsPtr interface{}) {
 		panic(err)
 	}
 
-	castSetToPtr(returnsPtr, res.Value)
+	castAndSetToPtr(returnsPtr, res.Value)
 }
 
 func StaticGet(fqn FQN, property string, returnsPtr interface{}) {
@@ -143,7 +143,7 @@ func StaticGet(fqn FQN, property string, returnsPtr interface{}) {
 		panic(err)
 	}
 
-	castSetToPtr(returnsPtr, res.Value)
+	castAndSetToPtr(returnsPtr, res.Value)
 }
 
 func Set(obj interface{}, property string, value interface{}) {
@@ -207,11 +207,11 @@ func castValToRef(data interface{}) (objref, bool) {
 	return ref, ok
 }
 
-// castSetToPtr accepts a pointer to any type and attempts to cast the value
+// castAndSetToPtr accepts a pointer to any type and attempts to cast the value
 // argument to be the same type. Then it sets the value of the pointer element
 // to be the newly casted data. This is used to cast payloads from JSII to
 // expected return types for Get and Invoke functions.
-func castSetToPtr(ptr interface{}, data interface{}) {
+func castAndSetToPtr(ptr interface{}, data interface{}) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
 	val := reflect.ValueOf(data)
 	ptrVal.Set(val)
