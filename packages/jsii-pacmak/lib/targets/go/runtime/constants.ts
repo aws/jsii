@@ -23,7 +23,7 @@ export const JSII_GET_FUNC = `${JSII_RT_ALIAS}.Get`;
 export const JSII_SGET_FUNC = `${JSII_RT_ALIAS}.StaticGet`;
 
 // JSII set request
-export const JSII_SET_FUNC = `${JSII_RT_ALIAS}.Get`;
+export const JSII_SET_FUNC = `${JSII_RT_ALIAS}.Set`;
 
 // JSII static set request
 export const JSII_SSET_FUNC = `${JSII_RT_ALIAS}.StaticSet`;

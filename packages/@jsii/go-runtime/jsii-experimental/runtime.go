@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"reflect"
 	"regexp"
 )
 
@@ -38,7 +39,7 @@ func Load(name string, version string, tarball []byte) {
 
 // Create will construct a new JSII object within the kernel runtime. This is
 // called by jsii object constructors.
-func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override, returns interface{}) {
+func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override, returnsPtr interface{}) {
 	client := getClient()
 	res, err := client.create(createRequest{
 		Api:        "create",
@@ -52,12 +53,12 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 		panic(err)
 	}
 
-	client.objects[returns] = res.JsiiInstanceId
+	client.objects[returnsPtr] = res.JsiiInstanceId
 }
 
 // Invoke will call a method on a jsii class instance. The response should be
 // decoded into the expected return type for the method being called.
-func Invoke(obj interface{}, method string, args []interface{}, returns interface{}) {
+func Invoke(obj interface{}, method string, args []interface{}, returns bool, returnsPtr interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -67,7 +68,7 @@ func Invoke(obj interface{}, method string, args []interface{}, returns interfac
 		panic("No Object Found")
 	}
 
-	_, err := client.invoke(invokeRequest{
+	res, err := client.invoke(invokeRequest{
 		Api:    "invoke",
 		Method: method,
 		Args:   args,
@@ -79,12 +80,16 @@ func Invoke(obj interface{}, method string, args []interface{}, returns interfac
 	if err != nil {
 		panic(err)
 	}
+
+	if returns {
+		castAndSetToPtr(returnsPtr, res.Result)
+	}
 }
 
-func InvokeStatic(fqn FQN, method string, args []interface{}, returns interface{}) {
+func InvokeStatic(fqn FQN, method string, args []interface{}, returns bool, returnsPtr interface{}) {
 	client := getClient()
 
-	_, err := client.sinvoke(staticInvokeRequest{
+	res, err := client.sinvoke(staticInvokeRequest{
 		Api:    "sinvoke",
 		Fqn:    fqn,
 		Method: method,
@@ -94,9 +99,13 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, returns interface{
 	if err != nil {
 		panic(err)
 	}
+
+	if returns {
+		castAndSetToPtr(returnsPtr, res.Result)
+	}
 }
 
-func Get(property string, obj interface{}) {
+func Get(obj interface{}, property string, returnsPtr interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -106,23 +115,25 @@ func Get(property string, obj interface{}) {
 		panic("No Object Found")
 	}
 
-	_, err := client.get(getRequest{
+	res, err := client.get(getRequest{
 		Api:      "get",
 		Property: property,
-		Objref:   objref{JsiiInstanceId: refid},
+		Objref: objref{
+			JsiiInstanceId: refid,
+		},
 	})
 
 	if err != nil {
 		panic(err)
 	}
 
-	// Do we need to return Value from getResponse?
+	castAndSetToPtr(returnsPtr, res.Value)
 }
 
-func StaticGet(fqn FQN, property string) {
+func StaticGet(fqn FQN, property string, returnsPtr interface{}) {
 	client := getClient()
 
-	_, err := client.sget(staticGetRequest{
+	res, err := client.sget(staticGetRequest{
 		Api:      "sget",
 		Fqn:      fqn,
 		Property: property,
@@ -131,9 +142,11 @@ func StaticGet(fqn FQN, property string) {
 	if err != nil {
 		panic(err)
 	}
+
+	castAndSetToPtr(returnsPtr, res.Value)
 }
 
-func Set(property string, value, obj interface{}) {
+func Set(obj interface{}, property string, value interface{}) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -146,7 +159,10 @@ func Set(property string, value, obj interface{}) {
 	_, err := client.set(setRequest{
 		Api:      "set",
 		Property: property,
-		Objref:   objref{JsiiInstanceId: refid},
+		Value:    value,
+		Objref: objref{
+			JsiiInstanceId: refid,
+		},
 	})
 
 	if err != nil {
@@ -167,6 +183,38 @@ func StaticSet(fqn FQN, property string, value interface{}) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func castValToRef(data interface{}) (objref, bool) {
+	ref := objref{}
+	ok := false
+	dataVal := reflect.ValueOf(data)
+
+	if dataVal.Kind() == reflect.Map {
+		for _, k := range dataVal.MapKeys() {
+			// Finding values type requires extracting from reflect.Value
+			// otherwise .Kind() returns `interface{}`
+			v := reflect.ValueOf(dataVal.MapIndex(k).Interface())
+
+			if k.Kind() == reflect.String && k.String() == "$jsii.byref" && v.Kind() == reflect.String {
+				ref.JsiiInstanceId = v.String()
+				ok = true
+			}
+
+		}
+	}
+
+	return ref, ok
+}
+
+// castAndSetToPtr accepts a pointer to any type and attempts to cast the value
+// argument to be the same type. Then it sets the value of the pointer element
+// to be the newly casted data. This is used to cast payloads from JSII to
+// expected return types for Get and Invoke functions.
+func castAndSetToPtr(ptr interface{}, data interface{}) {
+	ptrVal := reflect.ValueOf(ptr).Elem()
+	val := reflect.ValueOf(data)
+	ptrVal.Set(val)
 }
 
 // Close finalizes the runtime process, signalling the end of the execution to
