@@ -127,6 +127,10 @@ module foo
 
 go 1.15
 
+require (
+	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	bar v2.0.0-rc.42
+)
 
 `;
 
@@ -620,6 +624,10 @@ module foo
 
 go 1.15
 
+require (
+	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	bar v4.5.6-pre.1337
+)
 
 `;
 
@@ -1111,6 +1119,9 @@ module foo
 
 go 1.15
 
+require (
+	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+)
 
 `;
 
@@ -1581,6 +1592,9 @@ module foo
 
 go 1.15
 
+require (
+	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+)
 
 `;
 
