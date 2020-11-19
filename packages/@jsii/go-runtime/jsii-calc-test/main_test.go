@@ -5,6 +5,7 @@ import (
 	"github.com/aws-cdk/jsii/jsii-experimental"
 	"math"
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -54,24 +55,25 @@ func TestCalculator(t *testing.T) {
 	})
 }
 
-// func TestUpcasingReflectable(t *testing.T) {
-// 	delegate := make(map[string]interface{})
-// 	key, val := "key1", "value1"
-// 	delegate[key] = val
-// 	upReflectable := calc.NewUpcasingReflectable(delegate)
-// 	entries := upReflectable.GetEntries()
+func TestUpcasingReflectable(t *testing.T) {
+	delegate := make(map[string]interface{})
+	key, val := "key1", "value1"
+	delegate[key] = val
+	upReflectable := calc.NewUpcasingReflectable(delegate)
+	entries := upReflectable.GetEntries()
 
-// 	if len(entries) != 1 {
-// 		t.Errorf("Entries expected to have length of: 1; Actual: %d", len(entries))
-// 	}
+	if len(entries) != 1 {
+		t.Errorf("Entries expected to have length of: 1; Actual: %d", len(entries))
+	}
 
-// 	entry := entries[0]
+	entry := entries[0]
+	upperKey := strings.ToUpper(key)
+	actualKey, actualVal := entry.GetKey(), entry.GetValue()
+	if actualKey != upperKey {
+		t.Errorf("Expected Key: %s; Received Key: %s", upperKey, actualKey)
+	}
 
-// 	// t.Logf("Pointer entry obj: %s\n", entry)
-// 	// t.Logf("Pointer entry addr: %p\n", entry)
-// 	actualKey, actualVal := entry.GetKey(), entry.GetValue()
-// 	if actualKey != key || actualVal != val {
-// 		t.Errorf("Expected Key: %s; Received Key: %s", key, actualKey)
-// 		t.Errorf("Expected Value: %s; Received Value: %s", val, actualVal)
-// 	}
-// }
+	if actualVal != val {
+		t.Errorf("Expected Value: %s; Received Value: %s", val, actualVal)
+	}
+}

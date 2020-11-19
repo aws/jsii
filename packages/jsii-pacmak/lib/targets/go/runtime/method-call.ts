@@ -1,7 +1,11 @@
 import { CodeMaker } from 'codemaker';
 
 import { GoMethod } from '../types';
-import { JSII_INVOKE_FUNC, JSII_SINVOKE_FUNC } from './constants';
+import {
+  JSII_INVOKE_FUNC,
+  JSII_SINVOKE_FUNC,
+  JSII_IMPL_MAP_TYPE,
+} from './constants';
 import { slugify, emitInitialization } from './util';
 
 export class MethodCall {
@@ -17,6 +21,7 @@ export class MethodCall {
 
   private emitDynamic(code: CodeMaker) {
     code.line(`var ${this.returnVarName} ${this.concreteReturnType}`);
+    code.line(`${this.implMapVar} := make(${JSII_IMPL_MAP_TYPE})`);
     code.open(`${JSII_INVOKE_FUNC}(`);
 
     const returnsArg = this.parent.returnsRef
@@ -28,6 +33,7 @@ export class MethodCall {
     code.line(`${this.argsString},`);
     code.line(`${this.returnsVal ? 'true' : 'false'},`);
     code.line(`${returnsArg},`);
+    code.line(`${this.implMapVar},`);
 
     code.close(`)`);
 
@@ -39,6 +45,7 @@ export class MethodCall {
   private emitStatic(code: CodeMaker) {
     emitInitialization(code);
     code.line(`var ${this.returnVarName} ${this.concreteReturnType}`);
+    code.line(`${this.implMapVar} := make(${JSII_IMPL_MAP_TYPE})`);
 
     code.open(`${JSII_SINVOKE_FUNC}(`);
 
@@ -47,6 +54,7 @@ export class MethodCall {
     code.line(`${this.argsString},`);
     code.line(`${this.returnsVal ? 'true' : 'false'},`);
     code.line(`&${this.returnVarName},`);
+    code.line(`${this.implMapVar},`);
 
     code.close(`)`);
 
@@ -58,6 +66,13 @@ export class MethodCall {
   private get returnVarName(): string {
     return slugify(
       'returns',
+      this.parent.parameters.map((p) => p.name),
+    );
+  }
+
+  private get implMapVar(): string {
+    return slugify(
+      'implMap',
       this.parent.parameters.map((p) => p.name),
     );
   }

@@ -13,6 +13,10 @@ export class Struct extends GoStruct {
   }
 
   public get usesRuntimePackage(): boolean {
-    return false;
+    return this.properties.some((p) => p.usesRuntimePackage);
+  }
+
+  public get usesReflectionPackage() {
+    return this.properties.some((p) => p.usesReflectionPackage);
   }
 }

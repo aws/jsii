@@ -44,8 +44,9 @@ package scopejsiicalcbase
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+	"reflect"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
 )
 
 // Class interface
@@ -73,12 +74,14 @@ func NewBase() BaseIface {
 
 func (b *Base) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		b,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -97,20 +100,25 @@ type BaseProps struct {
 
 func (b *BaseProps) GetFoo() scopejsiicalcbaseofbase.VeryIface {
 	var returns scopejsiicalcbaseofbase.VeryIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalcbaseofbase.VeryIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalcbaseofbase.Very)(nil)).Elem()
 	_jsii_.Get(
 		b,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (b *BaseProps) GetBar() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		b,
 		"bar",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -125,23 +133,27 @@ type IBaseInterface struct {}
 
 func (i *IBaseInterface) Foo() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"foo",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *IBaseInterface) Bar() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"bar",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -188,6 +200,7 @@ package scopejsiicalcbaseofbase
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
+	"reflect"
 )
 
 type IVeryBaseInterfaceIface interface {
@@ -198,12 +211,14 @@ type IVeryBaseInterface struct {}
 
 func (i *IVeryBaseInterface) Foo() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"foo",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -218,12 +233,14 @@ type StaticConsumer struct {
 func StaticConsumer_Consume(_args interface{}) {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"@scope/jsii-calc-base-of-base.StaticConsumer",
 		"consume",
 		[]interface{}{_args},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -253,12 +270,14 @@ func NewVery() VeryIface {
 
 func (v *Very) Hey() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"hey",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -275,10 +294,13 @@ type VeryBaseProps struct {
 
 func (v *VeryBaseProps) GetFoo() VeryIface {
 	var returns VeryIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*VeryIface)(nil)).Elem()] = reflect.TypeOf((*Very)(nil)).Elem()
 	_jsii_.Get(
 		v,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -335,9 +357,10 @@ package scopejsiicalclib
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
 // Check that enums from \\@scoped packages can be references.
@@ -362,10 +385,12 @@ type IDoublable struct {}
 
 func (i *IDoublable) GetDoubleValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"doubleValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -385,12 +410,14 @@ type IFriendly struct {}
 
 func (i *IFriendly) Hello() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"hello",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -411,34 +438,40 @@ type IThreeLevelsInterface struct {}
 
 func (i *IThreeLevelsInterface) Foo() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"foo",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *IThreeLevelsInterface) Bar() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"bar",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *IThreeLevelsInterface) Baz() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"baz",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -466,30 +499,37 @@ type MyFirstStruct struct {
 
 func (m *MyFirstStruct) GetAnumber() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		m,
 		"anumber",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *MyFirstStruct) GetAstring() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		m,
 		"astring",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *MyFirstStruct) GetFirstOptional() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		m,
 		"firstOptional",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -518,20 +558,24 @@ type Number struct {
 
 func (n *Number) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *Number) GetDoubleValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"doubleValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -553,24 +597,28 @@ func NewNumber(value float64) NumberIface {
 
 func (n *Number) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *Number) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -593,10 +641,12 @@ type NumericValue struct {
 
 func (n *NumericValue) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -617,24 +667,28 @@ func NewNumericValue() NumericValueIface {
 
 func (n *NumericValue) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *NumericValue) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -657,10 +711,12 @@ type Operation struct {
 
 func (o *Operation) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		o,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -681,24 +737,28 @@ func NewOperation() OperationIface {
 
 func (o *Operation) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (o *Operation) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -726,30 +786,36 @@ type StructWithOnlyOptionals struct {
 
 func (s *StructWithOnlyOptionals) GetOptional1() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"optional1",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructWithOnlyOptionals) GetOptional2() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"optional2",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructWithOnlyOptionals) GetOptional3() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"optional3",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -764,6 +830,7 @@ package submodule
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+	"reflect"
 )
 
 // Deprecated.
@@ -776,10 +843,13 @@ type IReflectable struct {}
 
 func (i *IReflectable) GetEntries() []ReflectableEntryIface {
 	var returns []ReflectableEntryIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*ReflectableEntryIface)(nil)).Elem()] = reflect.TypeOf((*ReflectableEntry)(nil)).Elem()
 	_jsii_.Get(
 		i,
 		"entries",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -809,10 +879,12 @@ type NestedClass struct {
 
 func (n *NestedClass) GetProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"property",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -849,10 +921,12 @@ type NestedStruct struct {
 
 func (n *NestedStruct) GetName() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"name",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -876,20 +950,24 @@ type ReflectableEntry struct {
 
 func (r *ReflectableEntry) GetKey() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		r,
 		"key",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (r *ReflectableEntry) GetValue() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		r,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -920,12 +998,14 @@ func NewReflector() ReflectorIface {
 
 func (r *Reflector) AsMap(reflectable IReflectableIface) map[string]interface{} {
 	var returns map[string]interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		r,
 		"asMap",
 		[]interface{}{reflectable},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1005,8 +1085,9 @@ package composition
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 // Class interface
@@ -1042,50 +1123,64 @@ type CompositeOperation struct {
 
 func (c *CompositeOperation) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *CompositeOperation) GetExpression() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"expression",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *CompositeOperation) GetDecorationPostfixes() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"decorationPostfixes",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *CompositeOperation) GetDecorationPrefixes() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"decorationPrefixes",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *CompositeOperation) GetStringStyle() CompositionStringStyle {
 	var returns CompositionStringStyle
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*CompositionStringStyle)(nil)).Elem()] = reflect.TypeOf((*CompositionStringStyle)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"stringStyle",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1130,24 +1225,28 @@ func (c *CompositeOperation) SetStringStyle(val CompositionStringStyle) {
 
 func (c *CompositeOperation) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *CompositeOperation) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1184,10 +1283,12 @@ type Base struct {
 
 func (b *Base) GetProp() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		b,
 		"prop",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1227,10 +1328,12 @@ type Derived struct {
 
 func (d *Derived) GetProp() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"prop",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1281,10 +1384,12 @@ type Foo struct {
 
 func (f *Foo) GetBar() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		f,
 		"bar",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1323,10 +1428,12 @@ type Hello struct {
 
 func (h *Hello) GetFoo() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		h,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1339,6 +1446,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/interfaceinnamespa
 package interfaceinnamespaceonlyinterface
 
 import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 // HelloIface is the public interface for the custom type Hello
@@ -1353,10 +1461,12 @@ type Hello struct {
 
 func (h *Hello) GetFoo() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		h,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1403,12 +1513,13 @@ package jsiicalc
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/composition"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/submodule"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -1428,20 +1539,24 @@ type AbstractClass struct {
 
 func (a *AbstractClass) GetAbstractProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"abstractProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AbstractClass) GetPropFromInterface() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"propFromInterface",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1462,24 +1577,28 @@ func NewAbstractClass() AbstractClassIface {
 
 func (a *AbstractClass) AbstractMethod(name string) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"abstractMethod",
 		[]interface{}{name},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AbstractClass) NonAbstractMethod() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"nonAbstractMethod",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1496,10 +1615,12 @@ type AbstractClassBase struct {
 
 func (a *AbstractClassBase) GetAbstractProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"abstractProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1532,10 +1653,13 @@ type AbstractClassReturner struct {
 
 func (a *AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBaseIface {
 	var returns AbstractClassBaseIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*AbstractClassBaseIface)(nil)).Elem()] = reflect.TypeOf((*AbstractClassBase)(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"returnAbstractFromProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1556,24 +1680,28 @@ func NewAbstractClassReturner() AbstractClassReturnerIface {
 
 func (a *AbstractClassReturner) GiveMeAbstract() AbstractClassIface {
 	var returns *AbstractClass
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"giveMeAbstract",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AbstractClassReturner) GiveMeInterface() IInterfaceImplementedByAbstractClassIface {
 	var returns *IInterfaceImplementedByAbstractClass
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"giveMeInterface",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -1593,10 +1721,12 @@ type AbstractSuite struct {
 
 func (a *AbstractSuite) GetProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"property",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1625,24 +1755,28 @@ func (a *AbstractSuite) SetProperty(val string) {
 
 func (a *AbstractSuite) SomeMethod(str string) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"someMethod",
 		[]interface{}{str},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AbstractSuite) WorkItAll(seed string) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"workItAll",
 		[]interface{}{seed},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1671,30 +1805,38 @@ type Add struct {
 
 func (a *Add) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *Add) GetLhs() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"lhs",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *Add) GetRhs() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"rhs",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1716,36 +1858,42 @@ func NewAdd(lhs scopejsiicalclib.NumericValueIface, rhs scopejsiicalclib.Numeric
 
 func (a *Add) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *Add) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *Add) Hello() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"hello",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -1823,190 +1971,238 @@ type AllTypes struct {
 
 func (a *AllTypes) GetEnumPropertyValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"enumPropertyValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetAnyArrayProperty() []interface{} {
 	var returns []interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*interface{})(nil)).Elem()] = reflect.TypeOf((*interface{})(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"anyArrayProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetAnyMapProperty() map[string]interface{} {
 	var returns map[string]interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*interface{})(nil)).Elem()] = reflect.TypeOf((*interface{})(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"anyMapProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetAnyProperty() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"anyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetArrayProperty() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"arrayProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetBooleanProperty() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"booleanProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetDateProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"dateProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetEnumProperty() AllTypesEnum {
 	var returns AllTypesEnum
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*AllTypesEnum)(nil)).Elem()] = reflect.TypeOf((*AllTypesEnum)(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"enumProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetJsonProperty() map[string]interface{} {
 	var returns map[string]interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"jsonProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetMapProperty() map[string]scopejsiicalclib.NumberIface {
 	var returns map[string]scopejsiicalclib.NumberIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumberIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.Number)(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"mapProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetNumberProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"numberProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetStringProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"stringProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetUnionArrayProperty() []interface{} {
 	var returns []interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*interface{})(nil)).Elem()] = reflect.TypeOf((*interface{})(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"unionArrayProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetUnionMapProperty() map[string]interface{} {
 	var returns map[string]interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*interface{})(nil)).Elem()] = reflect.TypeOf((*interface{})(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"unionMapProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetUnionProperty() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"unionProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetUnknownArrayProperty() []interface{} {
 	var returns []interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*interface{})(nil)).Elem()] = reflect.TypeOf((*interface{})(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"unknownArrayProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetUnknownMapProperty() map[string]interface{} {
 	var returns map[string]interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*interface{})(nil)).Elem()] = reflect.TypeOf((*interface{})(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"unknownMapProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetUnknownProperty() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		a,
 		"unknownProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) GetOptionalEnumValue() StringEnum {
 	var returns StringEnum
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*StringEnum)(nil)).Elem()] = reflect.TypeOf((*StringEnum)(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"optionalEnumValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -2171,35 +2367,41 @@ func (a *AllTypes) SetOptionalEnumValue(val StringEnum) {
 
 func (a *AllTypes) AnyIn(inp interface{}) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"anyIn",
 		[]interface{}{inp},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (a *AllTypes) AnyOut() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"anyOut",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllTypes) EnumMethod(value StringEnum) StringEnum {
 	var returns StringEnum
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"enumMethod",
 		[]interface{}{value},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -2239,46 +2441,54 @@ func NewAllowedMethodNames() AllowedMethodNamesIface {
 
 func (a *AllowedMethodNames) GetBar(_p1 string, _p2 float64) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"getBar",
 		[]interface{}{_p1, _p2},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (a *AllowedMethodNames) GetFoo(withParam string) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"getFoo",
 		[]interface{}{withParam},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AllowedMethodNames) SetBar(_x string, _y float64, _z bool) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"setBar",
 		[]interface{}{_x, _y, _z},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (a *AllowedMethodNames) SetFoo(_x string, _y float64) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"setFoo",
 		[]interface{}{_x, _y},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -2296,20 +2506,26 @@ type AmbiguousParameters struct {
 
 func (a *AmbiguousParameters) GetProps() StructParameterTypeIface {
 	var returns StructParameterTypeIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*StructParameterTypeIface)(nil)).Elem()] = reflect.TypeOf((*StructParameterType)(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"props",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AmbiguousParameters) GetScope() BellIface {
 	var returns BellIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*BellIface)(nil)).Elem()] = reflect.TypeOf((*Bell)(nil)).Elem()
 	_jsii_.Get(
 		a,
 		"scope",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -2354,24 +2570,28 @@ func NewAnonymousImplementationProvider() AnonymousImplementationProviderIface {
 
 func (a *AnonymousImplementationProvider) ProvideAsClass() ImplementationIface {
 	var returns *Implementation
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"provideAsClass",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AnonymousImplementationProvider) ProvideAsInterface() IAnonymouslyImplementMeIface {
 	var returns *IAnonymouslyImplementMe
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"provideAsInterface",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -2405,72 +2625,84 @@ func NewAsyncVirtualMethods() AsyncVirtualMethodsIface {
 
 func (a *AsyncVirtualMethods) CallMe() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"callMe",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AsyncVirtualMethods) CallMe2() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"callMe2",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AsyncVirtualMethods) CallMeDoublePromise() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"callMeDoublePromise",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AsyncVirtualMethods) DontOverrideMe() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"dontOverrideMe",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AsyncVirtualMethods) OverrideMe(mult float64) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"overrideMe",
 		[]interface{}{mult},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (a *AsyncVirtualMethods) OverrideMeToo() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"overrideMeToo",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -2500,23 +2732,27 @@ func NewAugmentableClass() AugmentableClassIface {
 
 func (a *AugmentableClass) MethodOne() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"methodOne",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (a *AugmentableClass) MethodTwo() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		a,
 		"methodTwo",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -2556,10 +2792,12 @@ type Bell struct {
 
 func (b *Bell) GetRung() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		b,
 		"rung",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -2588,12 +2826,14 @@ func (b *Bell) SetRung(val bool) {
 
 func (b *Bell) Ring() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		b,
 		"ring",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -2622,30 +2862,38 @@ type BinaryOperation struct {
 
 func (b *BinaryOperation) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		b,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (b *BinaryOperation) GetLhs() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		b,
 		"lhs",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (b *BinaryOperation) GetRhs() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		b,
 		"rhs",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -2667,36 +2915,42 @@ func NewBinaryOperation(lhs scopejsiicalclib.NumericValueIface, rhs scopejsiical
 
 func (b *BinaryOperation) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		b,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (b *BinaryOperation) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		b,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (b *BinaryOperation) Hello() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		b,
 		"hello",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -2727,24 +2981,28 @@ func NewBurriedAnonymousObject() BurriedAnonymousObjectIface {
 
 func (b *BurriedAnonymousObject) Check() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		b,
 		"check",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (b *BurriedAnonymousObject) GiveItBack(value interface{}) interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		b,
 		"giveItBack",
 		[]interface{}{value},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -2817,100 +3075,127 @@ type Calculator struct {
 
 func (c *Calculator) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) GetExpression() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"expression",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) GetDecorationPostfixes() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"decorationPostfixes",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) GetDecorationPrefixes() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"decorationPrefixes",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) GetStringStyle() composition.CompositionStringStyle {
 	var returns composition.CompositionStringStyle
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem()] = reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"stringStyle",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) GetOperationsLog() []scopejsiicalclib.NumericValueIface {
 	var returns []scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"operationsLog",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) GetOperationsMap() map[string][]scopejsiicalclib.NumericValueIface {
 	var returns map[string][]scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*[]scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*[]scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"operationsMap",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) GetCurr() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"curr",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) GetMaxValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"maxValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) GetUnionProperty() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"unionProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -2980,80 +3265,94 @@ func (c *Calculator) SetUnionProperty(val interface{}) {
 
 func (c *Calculator) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *Calculator) Add(value float64) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"add",
 		[]interface{}{value},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (c *Calculator) Mul(value float64) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"mul",
 		[]interface{}{value},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (c *Calculator) Neg() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"neg",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (c *Calculator) Pow(value float64) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"pow",
 		[]interface{}{value},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (c *Calculator) ReadUnionValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"readUnionValue",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3077,20 +3376,24 @@ type CalculatorProps struct {
 
 func (c *CalculatorProps) GetInitialValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"initialValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *CalculatorProps) GetMaximumValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"maximumValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3110,20 +3413,24 @@ type ChildStruct982 struct {
 
 func (c *ChildStruct982) GetFoo() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ChildStruct982) GetBar() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"bar",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3153,40 +3460,48 @@ type ClassThatImplementsTheInternalInterface struct {
 
 func (c *ClassThatImplementsTheInternalInterface) GetA() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"a",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ClassThatImplementsTheInternalInterface) GetB() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"b",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ClassThatImplementsTheInternalInterface) GetC() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"c",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ClassThatImplementsTheInternalInterface) GetD() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"d",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3261,40 +3576,48 @@ type ClassThatImplementsThePrivateInterface struct {
 
 func (c *ClassThatImplementsThePrivateInterface) GetA() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"a",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ClassThatImplementsThePrivateInterface) GetB() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"b",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ClassThatImplementsThePrivateInterface) GetC() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"c",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ClassThatImplementsThePrivateInterface) GetE() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"e",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3361,20 +3684,26 @@ type ClassWithCollections struct {
 
 func (c *ClassWithCollections) GetArray() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"array",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ClassWithCollections) GetMap() map[string]string {
 	var returns map[string]string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"map",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3412,12 +3741,14 @@ func (c *ClassWithCollections) SetMap(val map[string]string) {
 func ClassWithCollections_CreateAList() []string {
 	_init_.Initialize()
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ClassWithCollections",
 		"createAList",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3425,12 +3756,14 @@ func ClassWithCollections_CreateAList() []string {
 func ClassWithCollections_CreateAMap() map[string]string {
 	_init_.Initialize()
 	var returns map[string]string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ClassWithCollections",
 		"createAMap",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3438,10 +3771,13 @@ func ClassWithCollections_CreateAMap() map[string]string {
 func ClassWithCollections_StaticArray() []string {
 	_init_.Initialize()
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.StaticGet(
 		"jsii-calc.ClassWithCollections",
 		"staticArray",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3458,10 +3794,13 @@ func ClassWithCollections_SetStaticArray(val []string) {
 func ClassWithCollections_StaticMap() map[string]string {
 	_init_.Initialize()
 	var returns map[string]string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.StaticGet(
 		"jsii-calc.ClassWithCollections",
 		"staticMap",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3517,10 +3856,12 @@ type ClassWithJavaReservedWords struct {
 
 func (c *ClassWithJavaReservedWords) GetInt() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"int",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3541,12 +3882,14 @@ func NewClassWithJavaReservedWords(int string) ClassWithJavaReservedWordsIface {
 
 func (c *ClassWithJavaReservedWords) Import(assert string) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"import",
 		[]interface{}{assert},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3564,10 +3907,13 @@ type ClassWithMutableObjectLiteralProperty struct {
 
 func (c *ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjectLiteralIface {
 	var returns IMutableObjectLiteralIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*IMutableObjectLiteralIface)(nil)).Elem()] = reflect.TypeOf((*IMutableObjectLiteral)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"mutableObject",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3611,20 +3957,24 @@ type ClassWithPrivateConstructorAndAutomaticProperties struct {
 
 func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"readOnlyString",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"readWriteString",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3641,12 +3991,14 @@ func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(v
 func ClassWithPrivateConstructorAndAutomaticProperties_Create(readOnlyString string, readWriteString string) ClassWithPrivateConstructorAndAutomaticPropertiesIface {
 	_init_.Initialize()
 	var returns *ClassWithPrivateConstructorAndAutomaticProperties
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
 		"create",
 		[]interface{}{readOnlyString, readWriteString},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3667,10 +4019,12 @@ type ConfusingToJackson struct {
 
 func (c *ConfusingToJackson) GetUnionProperty() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"unionProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3687,12 +4041,14 @@ func (c *ConfusingToJackson) SetUnionProperty(val interface{}) {
 func ConfusingToJackson_MakeInstance() ConfusingToJacksonIface {
 	_init_.Initialize()
 	var returns *ConfusingToJackson
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ConfusingToJackson",
 		"makeInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3700,12 +4056,14 @@ func ConfusingToJackson_MakeInstance() ConfusingToJacksonIface {
 func ConfusingToJackson_MakeStructInstance() ConfusingToJacksonStructIface {
 	_init_.Initialize()
 	var returns *ConfusingToJacksonStruct
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ConfusingToJackson",
 		"makeStructInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3722,10 +4080,12 @@ type ConfusingToJacksonStruct struct {
 
 func (c *ConfusingToJacksonStruct) GetUnionProperty() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"unionProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3776,12 +4136,14 @@ func NewConstructors() ConstructorsIface {
 func Constructors_HiddenInterface() IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns *IPublicInterface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"hiddenInterface",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3789,12 +4151,14 @@ func Constructors_HiddenInterface() IPublicInterfaceIface {
 func Constructors_HiddenInterfaces() []IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns []IPublicInterfaceIface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"hiddenInterfaces",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3802,12 +4166,14 @@ func Constructors_HiddenInterfaces() []IPublicInterfaceIface {
 func Constructors_HiddenSubInterfaces() []IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns []IPublicInterfaceIface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"hiddenSubInterfaces",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3815,12 +4181,14 @@ func Constructors_HiddenSubInterfaces() []IPublicInterfaceIface {
 func Constructors_MakeClass() PublicClassIface {
 	_init_.Initialize()
 	var returns *PublicClass
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"makeClass",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3828,12 +4196,14 @@ func Constructors_MakeClass() PublicClassIface {
 func Constructors_MakeInterface() IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns *IPublicInterface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"makeInterface",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3841,12 +4211,14 @@ func Constructors_MakeInterface() IPublicInterfaceIface {
 func Constructors_MakeInterface2() IPublicInterface2Iface {
 	_init_.Initialize()
 	var returns *IPublicInterface2
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"makeInterface2",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3854,12 +4226,14 @@ func Constructors_MakeInterface2() IPublicInterface2Iface {
 func Constructors_MakeInterfaces() []IPublicInterfaceIface {
 	_init_.Initialize()
 	var returns []IPublicInterfaceIface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"makeInterfaces",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3888,12 +4262,14 @@ func NewConsumePureInterface(delegate IStructReturningDelegateIface) ConsumePure
 
 func (c *ConsumePureInterface) WorkItBaby() StructBIface {
 	var returns *StructB
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"workItBaby",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -3930,12 +4306,14 @@ func NewConsumerCanRingBell() ConsumerCanRingBellIface {
 func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRingerIface) bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ConsumerCanRingBell",
 		"staticImplementedByObjectLiteral",
 		[]interface{}{ringer},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3943,12 +4321,14 @@ func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRingerIfac
 func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRingerIface) bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ConsumerCanRingBell",
 		"staticImplementedByPrivateClass",
 		[]interface{}{ringer},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3956,12 +4336,14 @@ func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRingerIface
 func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRingerIface) bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ConsumerCanRingBell",
 		"staticImplementedByPublicClass",
 		[]interface{}{ringer},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -3969,60 +4351,70 @@ func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRingerIface)
 func ConsumerCanRingBell_StaticWhenTypedAsClass(ringer IConcreteBellRingerIface) bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ConsumerCanRingBell",
 		"staticWhenTypedAsClass",
 		[]interface{}{ringer},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ConsumerCanRingBell) ImplementedByObjectLiteral(ringer IBellRingerIface) bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"implementedByObjectLiteral",
 		[]interface{}{ringer},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ConsumerCanRingBell) ImplementedByPrivateClass(ringer IBellRingerIface) bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"implementedByPrivateClass",
 		[]interface{}{ringer},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ConsumerCanRingBell) ImplementedByPublicClass(ringer IBellRingerIface) bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"implementedByPublicClass",
 		[]interface{}{ringer},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ConsumerCanRingBell) WhenTypedAsClass(ringer IConcreteBellRingerIface) bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"whenTypedAsClass",
 		[]interface{}{ringer},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4052,24 +4444,28 @@ func NewConsumersOfThisCrazyTypeSystem() ConsumersOfThisCrazyTypeSystemIface {
 
 func (c *ConsumersOfThisCrazyTypeSystem) ConsumeAnotherPublicInterface(obj IAnotherPublicInterfaceIface) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"consumeAnotherPublicInterface",
 		[]interface{}{obj},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (c *ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface(obj INonInternalInterfaceIface) interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"consumeNonInternalInterface",
 		[]interface{}{obj},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4101,36 +4497,42 @@ func NewDataRenderer() DataRendererIface {
 
 func (d *DataRenderer) Render(data scopejsiicalclib.MyFirstStructIface) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"render",
 		[]interface{}{data},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DataRenderer) RenderArbitrary(data map[string]interface{}) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"renderArbitrary",
 		[]interface{}{data},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DataRenderer) RenderMap(map_ map[string]interface{}) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"renderMap",
 		[]interface{}{map_},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4151,30 +4553,36 @@ type DefaultedConstructorArgument struct {
 
 func (d *DefaultedConstructorArgument) GetArg1() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"arg1",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DefaultedConstructorArgument) GetArg3() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"arg3",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DefaultedConstructorArgument) GetArg2() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"arg2",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4221,12 +4629,14 @@ func NewDemonstrate982() Demonstrate982Iface {
 func Demonstrate982_TakeThis() ChildStruct982Iface {
 	_init_.Initialize()
 	var returns *ChildStruct982
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Demonstrate982",
 		"takeThis",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4234,12 +4644,14 @@ func Demonstrate982_TakeThis() ChildStruct982Iface {
 func Demonstrate982_TakeThisToo() ParentStruct982Iface {
 	_init_.Initialize()
 	var returns *ParentStruct982
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Demonstrate982",
 		"takeThisToo",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4263,20 +4675,24 @@ type DeprecatedClass struct {
 
 func (d *DeprecatedClass) GetReadonlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"readonlyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DeprecatedClass) GetMutableProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"mutableProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4305,12 +4721,14 @@ func (d *DeprecatedClass) SetMutableProperty(val float64) {
 
 func (d *DeprecatedClass) Method() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"method",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -4337,10 +4755,12 @@ type DeprecatedStruct struct {
 
 func (d *DeprecatedStruct) GetReadonlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"readonlyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4382,90 +4802,112 @@ type DerivedStruct struct {
 
 func (d *DerivedStruct) GetAnumber() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"anumber",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DerivedStruct) GetAstring() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"astring",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DerivedStruct) GetFirstOptional() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		d,
 		"firstOptional",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DerivedStruct) GetAnotherRequired() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"anotherRequired",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DerivedStruct) GetBool() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"bool",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DerivedStruct) GetNonPrimitive() DoubleTroubleIface {
 	var returns DoubleTroubleIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*DoubleTroubleIface)(nil)).Elem()] = reflect.TypeOf((*DoubleTrouble)(nil)).Elem()
 	_jsii_.Get(
 		d,
 		"nonPrimitive",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DerivedStruct) GetAnotherOptional() map[string]scopejsiicalclib.NumericValueIface {
 	var returns map[string]scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		d,
 		"anotherOptional",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DerivedStruct) GetOptionalAny() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"optionalAny",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DerivedStruct) GetOptionalArray() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		d,
 		"optionalArray",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4483,10 +4925,12 @@ type DiamondInheritanceBaseLevelStruct struct {
 
 func (d *DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"baseLevelProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4506,20 +4950,24 @@ type DiamondInheritanceFirstMidLevelStruct struct {
 
 func (d *DiamondInheritanceFirstMidLevelStruct) GetBaseLevelProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"baseLevelProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"firstMidLevelProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4539,20 +4987,24 @@ type DiamondInheritanceSecondMidLevelStruct struct {
 
 func (d *DiamondInheritanceSecondMidLevelStruct) GetBaseLevelProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"baseLevelProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"secondMidLevelProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4576,40 +5028,48 @@ type DiamondInheritanceTopLevelStruct struct {
 
 func (d *DiamondInheritanceTopLevelStruct) GetBaseLevelProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"baseLevelProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DiamondInheritanceTopLevelStruct) GetFirstMidLevelProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"firstMidLevelProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DiamondInheritanceTopLevelStruct) GetSecondMidLevelProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"secondMidLevelProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"topLevelProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4629,10 +5089,13 @@ type DisappointingCollectionSource struct {
 func DisappointingCollectionSource_MaybeList() []string {
 	_init_.Initialize()
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.StaticGet(
 		"jsii-calc.DisappointingCollectionSource",
 		"maybeList",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4640,10 +5103,13 @@ func DisappointingCollectionSource_MaybeList() []string {
 func DisappointingCollectionSource_MaybeMap() map[string]float64 {
 	_init_.Initialize()
 	var returns map[string]float64
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*float64)(nil)).Elem()] = reflect.TypeOf((*float64)(nil)).Elem()
 	_jsii_.StaticGet(
 		"jsii-calc.DisappointingCollectionSource",
 		"maybeMap",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4674,35 +5140,41 @@ func NewDoNotOverridePrivates() DoNotOverridePrivatesIface {
 
 func (d *DoNotOverridePrivates) ChangePrivatePropertyValue(newValue string) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"changePrivatePropertyValue",
 		[]interface{}{newValue},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (d *DoNotOverridePrivates) PrivateMethodValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"privateMethodValue",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DoNotOverridePrivates) PrivatePropertyValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"privatePropertyValue",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4732,12 +5204,14 @@ func NewDoNotRecognizeAnyAsOptional() DoNotRecognizeAnyAsOptionalIface {
 
 func (d *DoNotRecognizeAnyAsOptional) Method(_requiredAny interface{}, _optionalAny interface{}, _optionalString string) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"method",
 		[]interface{}{_requiredAny, _optionalAny, _optionalString},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -4772,24 +5246,28 @@ func NewDocumentedClass() DocumentedClassIface {
 
 func (d *DocumentedClass) Greet(greetee GreeteeIface) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"greet",
 		[]interface{}{greetee},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DocumentedClass) Hola() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"hola",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -4817,12 +5295,14 @@ func NewDontComplainAboutVariadicAfterOptional() DontComplainAboutVariadicAfterO
 
 func (d *DontComplainAboutVariadicAfterOptional) OptionalAndVariadic(optional string, things string) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"optionalAndVariadic",
 		[]interface{}{optional, things},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4855,24 +5335,28 @@ func NewDoubleTrouble() DoubleTroubleIface {
 
 func (d *DoubleTrouble) Hello() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"hello",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DoubleTrouble) Next() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"next",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4894,20 +5378,24 @@ type DynamicPropertyBearer struct {
 
 func (d *DynamicPropertyBearer) GetDynamicProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"dynamicProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DynamicPropertyBearer) GetValueStore() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"valueStore",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -4961,30 +5449,36 @@ type DynamicPropertyBearerChild struct {
 
 func (d *DynamicPropertyBearerChild) GetDynamicProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"dynamicProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DynamicPropertyBearerChild) GetValueStore() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"valueStore",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (d *DynamicPropertyBearerChild) GetOriginalValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		d,
 		"originalValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5021,12 +5515,14 @@ func (d *DynamicPropertyBearerChild) SetValueStore(val string) {
 
 func (d *DynamicPropertyBearerChild) OverrideValue(newValue string) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		d,
 		"overrideValue",
 		[]interface{}{newValue},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5058,24 +5554,28 @@ func NewEntropy(clock IWallClockIface) EntropyIface {
 
 func (e *Entropy) Increase() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		e,
 		"increase",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (e *Entropy) Repeat(word string) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		e,
 		"repeat",
 		[]interface{}{word},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5091,12 +5591,14 @@ type EnumDispenser struct {
 func EnumDispenser_RandomIntegerLikeEnum() AllTypesEnum {
 	_init_.Initialize()
 	var returns AllTypesEnum
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.EnumDispenser",
 		"randomIntegerLikeEnum",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5104,12 +5606,14 @@ func EnumDispenser_RandomIntegerLikeEnum() AllTypesEnum {
 func EnumDispenser_RandomStringLikeEnum() StringEnum {
 	_init_.Initialize()
 	var returns StringEnum
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.EnumDispenser",
 		"randomStringLikeEnum",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5138,12 +5642,14 @@ func NewEraseUndefinedHashValues() EraseUndefinedHashValuesIface {
 func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptionsIface, key string) bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.EraseUndefinedHashValues",
 		"doesKeyExist",
 		[]interface{}{opts, key},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5151,12 +5657,14 @@ func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptionsI
 func EraseUndefinedHashValues_Prop1IsNull() map[string]interface{} {
 	_init_.Initialize()
 	var returns map[string]interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.EraseUndefinedHashValues",
 		"prop1IsNull",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5164,12 +5672,14 @@ func EraseUndefinedHashValues_Prop1IsNull() map[string]interface{} {
 func EraseUndefinedHashValues_Prop2IsUndefined() map[string]interface{} {
 	_init_.Initialize()
 	var returns map[string]interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.EraseUndefinedHashValues",
 		"prop2IsUndefined",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5188,20 +5698,24 @@ type EraseUndefinedHashValuesOptions struct {
 
 func (e *EraseUndefinedHashValuesOptions) GetOption1() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"option1",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (e *EraseUndefinedHashValuesOptions) GetOption2() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"option2",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5226,20 +5740,24 @@ type ExperimentalClass struct {
 
 func (e *ExperimentalClass) GetReadonlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"readonlyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (e *ExperimentalClass) GetMutableProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"mutableProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5268,12 +5786,14 @@ func (e *ExperimentalClass) SetMutableProperty(val float64) {
 
 func (e *ExperimentalClass) Method() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		e,
 		"method",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -5300,10 +5820,12 @@ type ExperimentalStruct struct {
 
 func (e *ExperimentalStruct) GetReadonlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"readonlyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5321,10 +5843,12 @@ type ExportedBaseClass struct {
 
 func (e *ExportedBaseClass) GetSuccess() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"success",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5357,20 +5881,24 @@ type ExtendsInternalInterface struct {
 
 func (e *ExtendsInternalInterface) GetBoom() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"boom",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (e *ExtendsInternalInterface) GetProp() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"prop",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5392,20 +5920,24 @@ type ExternalClass struct {
 
 func (e *ExternalClass) GetReadonlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"readonlyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (e *ExternalClass) GetMutableProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"mutableProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5434,12 +5966,14 @@ func (e *ExternalClass) SetMutableProperty(val float64) {
 
 func (e *ExternalClass) Method() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		e,
 		"method",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -5462,10 +5996,12 @@ type ExternalStruct struct {
 
 func (e *ExternalStruct) GetReadonlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		e,
 		"readonlyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5486,10 +6022,13 @@ type GiveMeStructs struct {
 
 func (g *GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOptionalsIface {
 	var returns scopejsiicalclib.StructWithOnlyOptionalsIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.StructWithOnlyOptionalsIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.StructWithOnlyOptionals)(nil)).Elem()
 	_jsii_.Get(
 		g,
 		"structLiteral",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5510,36 +6049,42 @@ func NewGiveMeStructs() GiveMeStructsIface {
 
 func (g *GiveMeStructs) DerivedToFirst(derived DerivedStructIface) scopejsiicalclib.MyFirstStructIface {
 	var returns *scopejsiicalclib.MyFirstStruct
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		g,
 		"derivedToFirst",
 		[]interface{}{derived},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
 
 func (g *GiveMeStructs) ReadDerivedNonPrimitive(derived DerivedStructIface) DoubleTroubleIface {
 	var returns *DoubleTrouble
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		g,
 		"readDerivedNonPrimitive",
 		[]interface{}{derived},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
 
 func (g *GiveMeStructs) ReadFirstNumber(first scopejsiicalclib.MyFirstStructIface) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		g,
 		"readFirstNumber",
 		[]interface{}{first},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5558,10 +6103,12 @@ type Greetee struct {
 
 func (g *Greetee) GetName() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		g,
 		"name",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5591,12 +6138,14 @@ func NewGreetingAugmenter() GreetingAugmenterIface {
 
 func (g *GreetingAugmenter) BetterGreeting(friendly scopejsiicalclib.IFriendlyIface) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		g,
 		"betterGreeting",
 		[]interface{}{friendly},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5611,24 +6160,28 @@ type IAnonymousImplementationProvider struct {}
 
 func (i *IAnonymousImplementationProvider) ProvideAsClass() ImplementationIface {
 	var returns *Implementation
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"provideAsClass",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IAnonymousImplementationProvider) ProvideAsInterface() IAnonymouslyImplementMeIface {
 	var returns *IAnonymouslyImplementMe
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"provideAsInterface",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -5642,22 +6195,26 @@ type IAnonymouslyImplementMe struct {}
 
 func (i *IAnonymouslyImplementMe) Verb() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"verb",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IAnonymouslyImplementMe) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5670,10 +6227,12 @@ type IAnotherPublicInterface struct {}
 
 func (i *IAnotherPublicInterface) GetA() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"a",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5694,12 +6253,14 @@ type IBell struct {}
 
 func (i *IBell) Ring() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"ring",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -5712,12 +6273,14 @@ type IBellRinger struct {}
 
 func (i *IBellRinger) YourTurn(bell IBellIface) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"yourTurn",
 		[]interface{}{bell},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -5730,12 +6293,14 @@ type IConcreteBellRinger struct {}
 
 func (i *IConcreteBellRinger) YourTurn(bell BellIface) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"yourTurn",
 		[]interface{}{bell},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -5751,21 +6316,25 @@ type IDeprecatedInterface struct {}
 
 func (i *IDeprecatedInterface) Method() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"method",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *IDeprecatedInterface) GetMutableProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"mutableProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5790,21 +6359,25 @@ type IExperimentalInterface struct {}
 
 func (i *IExperimentalInterface) Method() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"method",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *IExperimentalInterface) GetMutableProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"mutableProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5826,20 +6399,25 @@ type IExtendsPrivateInterface struct {}
 
 func (i *IExtendsPrivateInterface) GetMoreThings() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		i,
 		"moreThings",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IExtendsPrivateInterface) GetPrivate() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"private",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5861,21 +6439,25 @@ type IExternalInterface struct {}
 
 func (i *IExternalInterface) Method() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"method",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *IExternalInterface) GetMutableProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"mutableProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5903,36 +6485,42 @@ type IFriendlier struct {}
 
 func (i *IFriendlier) Hello() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"hello",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IFriendlier) Farewell() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"farewell",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IFriendlier) Goodbye() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"goodbye",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5946,24 +6534,28 @@ type IFriendlyRandomGenerator struct {}
 
 func (i *IFriendlyRandomGenerator) Next() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"next",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IFriendlyRandomGenerator) Hello() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"hello",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5977,10 +6569,12 @@ type IInterfaceImplementedByAbstractClass struct {}
 
 func (i *IInterfaceImplementedByAbstractClass) GetPropFromInterface() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"propFromInterface",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -5995,31 +6589,37 @@ type IInterfaceThatShouldNotBeADataType struct {}
 
 func (i *IInterfaceThatShouldNotBeADataType) DoThings() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"doThings",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *IInterfaceThatShouldNotBeADataType) GetValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IInterfaceThatShouldNotBeADataType) GetOtherValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"otherValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6032,12 +6632,14 @@ type IInterfaceWithInternal struct {}
 
 func (i *IInterfaceWithInternal) Visible() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"visible",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -6050,21 +6652,25 @@ type IInterfaceWithMethods struct {}
 
 func (i *IInterfaceWithMethods) DoThings() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"doThings",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *IInterfaceWithMethods) GetValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6078,12 +6684,14 @@ type IInterfaceWithOptionalMethodArguments struct {}
 
 func (i *IInterfaceWithOptionalMethodArguments) Hello(arg1 string, arg2 float64) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"hello",
 		[]interface{}{arg1, arg2},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -6096,20 +6704,24 @@ type IInterfaceWithProperties struct {}
 
 func (i *IInterfaceWithProperties) GetReadOnlyString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"readOnlyString",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IInterfaceWithProperties) GetReadWriteString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"readWriteString",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6131,20 +6743,24 @@ type IInterfaceWithPropertiesExtension struct {}
 
 func (i *IInterfaceWithPropertiesExtension) GetReadOnlyString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"readOnlyString",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IInterfaceWithPropertiesExtension) GetReadWriteString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"readWriteString",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6159,10 +6775,12 @@ func (i *IInterfaceWithPropertiesExtension) SetReadWriteString(val string) {
 
 func (i *IInterfaceWithPropertiesExtension) GetFoo() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6186,53 +6804,63 @@ type Ijsii417Derived struct {}
 
 func (i *Ijsii417Derived) Foo() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"foo",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *Ijsii417Derived) Bar() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"bar",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *Ijsii417Derived) Baz() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"baz",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *Ijsii417Derived) GetHasRoot() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"hasRoot",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *Ijsii417Derived) GetProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"property",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6246,21 +6874,25 @@ type Ijsii417PublicBaseOfBase struct {}
 
 func (i *Ijsii417PublicBaseOfBase) Foo() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"foo",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *Ijsii417PublicBaseOfBase) GetHasRoot() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"hasRoot",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6288,10 +6920,12 @@ type IMutableObjectLiteral struct {}
 
 func (i *IMutableObjectLiteral) GetValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6314,10 +6948,12 @@ type INonInternalInterface struct {}
 
 func (i *INonInternalInterface) GetA() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"a",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6332,10 +6968,12 @@ func (i *INonInternalInterface) SetA(val string) {
 
 func (i *INonInternalInterface) GetB() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"b",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6350,10 +6988,12 @@ func (i *INonInternalInterface) SetB(val string) {
 
 func (i *INonInternalInterface) GetC() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"c",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6376,22 +7016,26 @@ type IObjectWithProperty struct {}
 
 func (i *IObjectWithProperty) WasSet() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"wasSet",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IObjectWithProperty) GetProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"property",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6413,12 +7057,14 @@ type IOptionalMethod struct {}
 
 func (i *IOptionalMethod) Optional() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"optional",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6431,10 +7077,12 @@ type IPrivatelyImplemented struct {}
 
 func (i *IPrivatelyImplemented) GetSuccess() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"success",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6447,12 +7095,14 @@ type IPublicInterface struct {}
 
 func (i *IPublicInterface) Bye() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"bye",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6465,12 +7115,14 @@ type IPublicInterface2 struct {}
 
 func (i *IPublicInterface2) Ciao() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"ciao",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6487,12 +7139,14 @@ type IRandomNumberGenerator struct {}
 
 func (i *IRandomNumberGenerator) Next() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"next",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6506,10 +7160,12 @@ type IReturnJsii976 struct {}
 
 func (i *IReturnJsii976) GetFoo() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6523,22 +7179,27 @@ type IReturnsNumber struct {}
 
 func (i *IReturnsNumber) ObtainNumber() scopejsiicalclib.IDoublableIface {
 	var returns *scopejsiicalclib.IDoublable
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"obtainNumber",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *IReturnsNumber) GetNumberProp() scopejsiicalclib.NumberIface {
 	var returns scopejsiicalclib.NumberIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumberIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.Number)(nil)).Elem()
 	_jsii_.Get(
 		i,
 		"numberProp",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6552,21 +7213,25 @@ type IStableInterface struct {}
 
 func (i *IStableInterface) Method() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"method",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *IStableInterface) GetMutableProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"mutableProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6588,12 +7253,14 @@ type IStructReturningDelegate struct {}
 
 func (i *IStructReturningDelegate) ReturnStruct() StructBIface {
 	var returns *StructB
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"returnStruct",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -6608,12 +7275,14 @@ type IWallClock struct {}
 
 func (i *IWallClock) Iso8601Now() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"iso8601Now",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6631,10 +7300,12 @@ type ImplementInternalInterface struct {
 
 func (i *ImplementInternalInterface) GetProp() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"prop",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6673,10 +7344,12 @@ type Implementation struct {
 
 func (i *Implementation) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6720,12 +7393,14 @@ func NewImplementsInterfaceWithInternal() ImplementsInterfaceWithInternalIface {
 
 func (i *ImplementsInterfaceWithInternal) Visible() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"visible",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -6754,12 +7429,14 @@ func NewImplementsInterfaceWithInternalSubclass() ImplementsInterfaceWithInterna
 
 func (i *ImplementsInterfaceWithInternalSubclass) Visible() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"visible",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -6776,10 +7453,12 @@ type ImplementsPrivateInterface struct {
 
 func (i *ImplementsPrivateInterface) GetPrivate() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"private",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6822,30 +7501,37 @@ type ImplictBaseOfBase struct {
 
 func (i *ImplictBaseOfBase) GetFoo() scopejsiicalcbaseofbase.VeryIface {
 	var returns scopejsiicalcbaseofbase.VeryIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalcbaseofbase.VeryIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalcbaseofbase.Very)(nil)).Elem()
 	_jsii_.Get(
 		i,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *ImplictBaseOfBase) GetBar() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"bar",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (i *ImplictBaseOfBase) GetGoo() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"goo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6877,23 +7563,27 @@ func NewInbetweenClass() InbetweenClassIface {
 
 func (i *InbetweenClass) Hello() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"hello",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (i *InbetweenClass) Ciao() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"ciao",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6912,12 +7602,14 @@ type InterfaceCollections struct {
 func InterfaceCollections_ListOfInterfaces() []IBellIface {
 	_init_.Initialize()
 	var returns []IBellIface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.InterfaceCollections",
 		"listOfInterfaces",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6925,12 +7617,14 @@ func InterfaceCollections_ListOfInterfaces() []IBellIface {
 func InterfaceCollections_ListOfStructs() []StructAIface {
 	_init_.Initialize()
 	var returns []StructAIface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.InterfaceCollections",
 		"listOfStructs",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6938,12 +7632,14 @@ func InterfaceCollections_ListOfStructs() []StructAIface {
 func InterfaceCollections_MapOfInterfaces() map[string]IBellIface {
 	_init_.Initialize()
 	var returns map[string]IBellIface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.InterfaceCollections",
 		"mapOfInterfaces",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6951,12 +7647,14 @@ func InterfaceCollections_MapOfInterfaces() map[string]IBellIface {
 func InterfaceCollections_MapOfStructs() map[string]StructAIface {
 	_init_.Initialize()
 	var returns map[string]StructAIface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.InterfaceCollections",
 		"mapOfStructs",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -6973,12 +7671,14 @@ type InterfacesMaker struct {
 func InterfacesMaker_MakeInterfaces(count float64) []scopejsiicalclib.IDoublableIface {
 	_init_.Initialize()
 	var returns []scopejsiicalclib.IDoublableIface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.InterfacesMaker",
 		"makeInterfaces",
 		[]interface{}{count},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -7011,12 +7711,14 @@ func NewIsomorphism() IsomorphismIface {
 
 func (i *Isomorphism) Myself() IsomorphismIface {
 	var returns *Isomorphism
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"myself",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -7038,20 +7740,24 @@ type Jsii417Derived struct {
 
 func (j *Jsii417Derived) GetHasRoot() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		j,
 		"hasRoot",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (j *Jsii417Derived) GetProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		j,
 		"property",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -7073,46 +7779,54 @@ func NewJsii417Derived(property string) Jsii417DerivedIface {
 func Jsii417Derived_MakeInstance() Jsii417PublicBaseOfBaseIface {
 	_init_.Initialize()
 	var returns *Jsii417PublicBaseOfBase
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JSII417Derived",
 		"makeInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (j *Jsii417Derived) Foo() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"foo",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *Jsii417Derived) Bar() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"bar",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *Jsii417Derived) Baz() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"baz",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -7129,10 +7843,12 @@ type Jsii417PublicBaseOfBase struct {
 
 func (j *Jsii417PublicBaseOfBase) GetHasRoot() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		j,
 		"hasRoot",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -7154,24 +7870,28 @@ func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBaseIface {
 func Jsii417PublicBaseOfBase_MakeInstance() Jsii417PublicBaseOfBaseIface {
 	_init_.Initialize()
 	var returns *Jsii417PublicBaseOfBase
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JSII417PublicBaseOfBase",
 		"makeInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (j *Jsii417PublicBaseOfBase) Foo() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"foo",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -7200,24 +7920,28 @@ func NewJsObjectLiteralForInterface() JsObjectLiteralForInterfaceIface {
 
 func (j *JsObjectLiteralForInterface) GiveMeFriendly() scopejsiicalclib.IFriendlyIface {
 	var returns *scopejsiicalclib.IFriendly
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"giveMeFriendly",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
 
 func (j *JsObjectLiteralForInterface) GiveMeFriendlyGenerator() IFriendlyRandomGeneratorIface {
 	var returns *IFriendlyRandomGenerator
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"giveMeFriendlyGenerator",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -7246,12 +7970,14 @@ func NewJsObjectLiteralToNative() JsObjectLiteralToNativeIface {
 
 func (j *JsObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNativeClassIface {
 	var returns *JsObjectLiteralToNativeClass
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"returnLiteral",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -7272,20 +7998,24 @@ type JsObjectLiteralToNativeClass struct {
 
 func (j *JsObjectLiteralToNativeClass) GetPropA() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		j,
 		"propA",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (j *JsObjectLiteralToNativeClass) GetPropB() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		j,
 		"propB",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -7385,10 +8115,12 @@ type JavaReservedWords struct {
 
 func (j *JavaReservedWords) GetWhile() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		j,
 		"while",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -7417,573 +8149,677 @@ func (j *JavaReservedWords) SetWhile(val string) {
 
 func (j *JavaReservedWords) Abstract() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"abstract",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Assert() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"assert",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Boolean() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"boolean",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Break() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"break",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Byte() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"byte",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Case() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"case",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Catch() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"catch",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Char() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"char",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Class() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"class",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Const() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"const",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Continue() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"continue",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Default() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"default",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Do() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"do",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Double() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"double",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Else() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"else",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Enum() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"enum",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Extends() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"extends",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) False() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"false",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Final() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"final",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Finally() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"finally",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Float() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"float",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) For() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"for",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Goto() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"goto",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) If() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"if",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Implements() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"implements",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Import() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"import",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Instanceof() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"instanceof",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Int() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"int",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Interface() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"interface",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Long() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"long",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Native() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"native",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) New() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"new",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Null() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"null",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Package() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"package",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Private() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"private",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Protected() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"protected",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Public() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"public",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Return() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"return",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Short() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"short",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Static() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"static",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Strictfp() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"strictfp",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Super() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"super",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Switch() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"switch",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Synchronized() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"synchronized",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) This() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"this",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Throw() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"throw",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Throws() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"throws",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Transient() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"transient",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) True() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"true",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Try() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"try",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Void() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"void",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (j *JavaReservedWords) Volatile() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		j,
 		"volatile",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -8057,10 +8893,12 @@ func NewJsiiAgent() JsiiAgentIface {
 func JsiiAgent_Value() string {
 	_init_.Initialize()
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.StaticGet(
 		"jsii-calc.JsiiAgent",
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8079,12 +8917,14 @@ type JsonFormatter struct {
 func JsonFormatter_AnyArray() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyArray",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8092,12 +8932,14 @@ func JsonFormatter_AnyArray() interface{} {
 func JsonFormatter_AnyBooleanFalse() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyBooleanFalse",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8105,12 +8947,14 @@ func JsonFormatter_AnyBooleanFalse() interface{} {
 func JsonFormatter_AnyBooleanTrue() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyBooleanTrue",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8118,12 +8962,14 @@ func JsonFormatter_AnyBooleanTrue() interface{} {
 func JsonFormatter_AnyDate() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyDate",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8131,12 +8977,14 @@ func JsonFormatter_AnyDate() interface{} {
 func JsonFormatter_AnyEmptyString() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyEmptyString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8144,12 +8992,14 @@ func JsonFormatter_AnyEmptyString() interface{} {
 func JsonFormatter_AnyFunction() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyFunction",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8157,12 +9007,14 @@ func JsonFormatter_AnyFunction() interface{} {
 func JsonFormatter_AnyHash() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyHash",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8170,12 +9022,14 @@ func JsonFormatter_AnyHash() interface{} {
 func JsonFormatter_AnyNull() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyNull",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8183,12 +9037,14 @@ func JsonFormatter_AnyNull() interface{} {
 func JsonFormatter_AnyNumber() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyNumber",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8196,12 +9052,14 @@ func JsonFormatter_AnyNumber() interface{} {
 func JsonFormatter_AnyRef() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyRef",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8209,12 +9067,14 @@ func JsonFormatter_AnyRef() interface{} {
 func JsonFormatter_AnyString() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8222,12 +9082,14 @@ func JsonFormatter_AnyString() interface{} {
 func JsonFormatter_AnyUndefined() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyUndefined",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8235,12 +9097,14 @@ func JsonFormatter_AnyUndefined() interface{} {
 func JsonFormatter_AnyZero() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"anyZero",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8248,12 +9112,14 @@ func JsonFormatter_AnyZero() interface{} {
 func JsonFormatter_Stringify(value interface{}) string {
 	_init_.Initialize()
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.JsonFormatter",
 		"stringify",
 		[]interface{}{value},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8271,10 +9137,13 @@ type LevelOne struct {
 
 func (l *LevelOne) GetProps() LevelOnePropsIface {
 	var returns LevelOnePropsIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*LevelOnePropsIface)(nil)).Elem()] = reflect.TypeOf((*LevelOneProps)(nil)).Elem()
 	_jsii_.Get(
 		l,
 		"props",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8305,10 +9174,12 @@ type PropBooleanValue struct {
 
 func (p *PropBooleanValue) GetValue() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		p,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8326,10 +9197,13 @@ type PropProperty struct {
 
 func (p *PropProperty) GetProp() PropBooleanValueIface {
 	var returns PropBooleanValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*PropBooleanValueIface)(nil)).Elem()] = reflect.TypeOf((*PropBooleanValue)(nil)).Elem()
 	_jsii_.Get(
 		p,
 		"prop",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8347,10 +9221,13 @@ type LevelOneProps struct {
 
 func (l *LevelOneProps) GetProp() PropPropertyIface {
 	var returns PropPropertyIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*PropPropertyIface)(nil)).Elem()] = reflect.TypeOf((*PropProperty)(nil)).Elem()
 	_jsii_.Get(
 		l,
 		"prop",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8408,50 +9285,60 @@ type LoadBalancedFargateServiceProps struct {
 
 func (l *LoadBalancedFargateServiceProps) GetContainerPort() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		l,
 		"containerPort",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (l *LoadBalancedFargateServiceProps) GetCpu() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		l,
 		"cpu",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (l *LoadBalancedFargateServiceProps) GetMemoryMiB() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		l,
 		"memoryMiB",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (l *LoadBalancedFargateServiceProps) GetPublicLoadBalancer() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		l,
 		"publicLoadBalancer",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (l *LoadBalancedFargateServiceProps) GetPublicTasks() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		l,
 		"publicTasks",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8470,10 +9357,12 @@ type MethodNamedProperty struct {
 
 func (m *MethodNamedProperty) GetElite() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		m,
 		"elite",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8494,12 +9383,14 @@ func NewMethodNamedProperty() MethodNamedPropertyIface {
 
 func (m *MethodNamedProperty) Property() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		m,
 		"property",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8534,30 +9425,38 @@ type Multiply struct {
 
 func (m *Multiply) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		m,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *Multiply) GetLhs() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		m,
 		"lhs",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *Multiply) GetRhs() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		m,
 		"rhs",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8579,72 +9478,84 @@ func NewMultiply(lhs scopejsiicalclib.NumericValueIface, rhs scopejsiicalclib.Nu
 
 func (m *Multiply) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		m,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *Multiply) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		m,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *Multiply) Hello() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		m,
 		"hello",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *Multiply) Farewell() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		m,
 		"farewell",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *Multiply) Goodbye() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		m,
 		"goodbye",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *Multiply) Next() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		m,
 		"next",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8672,20 +9583,25 @@ type Negate struct {
 
 func (n *Negate) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *Negate) GetOperand() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		n,
 		"operand",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8706,60 +9622,70 @@ func NewNegate(operand scopejsiicalclib.NumericValueIface) NegateIface {
 
 func (n *Negate) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *Negate) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *Negate) Farewell() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"farewell",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *Negate) Goodbye() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"goodbye",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *Negate) Hello() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"hello",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8775,12 +9701,14 @@ type NestedClassInstance struct {
 func NestedClassInstance_MakeInstance() submodule.NestedClassIface {
 	_init_.Initialize()
 	var returns *submodule.NestedClass
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.NestedClassInstance",
 		"makeInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8798,10 +9726,12 @@ type NestedStruct struct {
 
 func (n *NestedStruct) GetNumberProp() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"numberProp",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8824,10 +9754,12 @@ type NodeStandardLibrary struct {
 
 func (n *NodeStandardLibrary) GetOsPlatform() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"osPlatform",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8848,36 +9780,42 @@ func NewNodeStandardLibrary() NodeStandardLibraryIface {
 
 func (n *NodeStandardLibrary) CryptoSha256() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"cryptoSha256",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *NodeStandardLibrary) FsReadFile() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"fsReadFile",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *NodeStandardLibrary) FsReadFileSync() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"fsReadFileSync",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8899,10 +9837,12 @@ type NullShouldBeTreatedAsUndefined struct {
 
 func (n *NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"changeMeToUndefined",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -8931,34 +9871,40 @@ func (n *NullShouldBeTreatedAsUndefined) SetChangeMeToUndefined(val string) {
 
 func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined(value interface{}) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"giveMeUndefined",
 		[]interface{}{value},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefinedInsideAnObject(input NullShouldBeTreatedAsUndefinedDataIface) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"giveMeUndefinedInsideAnObject",
 		[]interface{}{input},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"verifyPropertyIsUndefined",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -8976,20 +9922,25 @@ type NullShouldBeTreatedAsUndefinedData struct {
 
 func (n *NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefinedAsSecondArgument() []interface{} {
 	var returns []interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*interface{})(nil)).Elem()] = reflect.TypeOf((*interface{})(nil)).Elem()
 	_jsii_.Get(
 		n,
 		"arrayWithThreeElementsAndUndefinedAsSecondArgument",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"thisShouldBeUndefined",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9011,10 +9962,13 @@ type NumberGenerator struct {
 
 func (n *NumberGenerator) GetGenerator() IRandomNumberGeneratorIface {
 	var returns IRandomNumberGeneratorIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*IRandomNumberGeneratorIface)(nil)).Elem()] = reflect.TypeOf((*IRandomNumberGenerator)(nil)).Elem()
 	_jsii_.Get(
 		n,
 		"generator",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9043,24 +9997,28 @@ func (n *NumberGenerator) SetGenerator(val IRandomNumberGeneratorIface) {
 
 func (n *NumberGenerator) IsSameGenerator(gen IRandomNumberGeneratorIface) bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"isSameGenerator",
 		[]interface{}{gen},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *NumberGenerator) NextTimes100() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		n,
 		"nextTimes100",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9091,24 +10049,28 @@ func NewObjectRefsInCollections() ObjectRefsInCollectionsIface {
 
 func (o *ObjectRefsInCollections) SumFromArray(values []scopejsiicalclib.NumericValueIface) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"sumFromArray",
 		[]interface{}{values},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (o *ObjectRefsInCollections) SumFromMap(values map[string]scopejsiicalclib.NumericValueIface) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"sumFromMap",
 		[]interface{}{values},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9124,12 +10086,14 @@ type ObjectWithPropertyProvider struct {
 func ObjectWithPropertyProvider_Provide() IObjectWithPropertyIface {
 	_init_.Initialize()
 	var returns *IObjectWithProperty
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.ObjectWithPropertyProvider",
 		"provide",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9160,12 +10124,14 @@ func NewOld() OldIface {
 
 func (o *Old) DoAThing() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"doAThing",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -9194,23 +10160,27 @@ func NewOptionalArgumentInvoker(delegate IInterfaceWithOptionalMethodArgumentsIf
 
 func (o *OptionalArgumentInvoker) InvokeWithOptional() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"invokeWithOptional",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (o *OptionalArgumentInvoker) InvokeWithoutOptional() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"invokeWithoutOptional",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -9230,30 +10200,36 @@ type OptionalConstructorArgument struct {
 
 func (o *OptionalConstructorArgument) GetArg1() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		o,
 		"arg1",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (o *OptionalConstructorArgument) GetArg2() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		o,
 		"arg2",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (o *OptionalConstructorArgument) GetArg3() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		o,
 		"arg3",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9284,10 +10260,12 @@ type OptionalStruct struct {
 
 func (o *OptionalStruct) GetField() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		o,
 		"field",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9307,20 +10285,24 @@ type OptionalStructConsumer struct {
 
 func (o *OptionalStructConsumer) GetParameterWasUndefined() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		o,
 		"parameterWasUndefined",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (o *OptionalStructConsumer) GetFieldValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		o,
 		"fieldValue",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9358,20 +10340,24 @@ type OverridableProtectedMember struct {
 
 func (o *OverridableProtectedMember) GetOverrideReadOnly() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		o,
 		"overrideReadOnly",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (o *OverridableProtectedMember) GetOverrideReadWrite() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		o,
 		"overrideReadWrite",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9400,35 +10386,41 @@ func (o *OverridableProtectedMember) SetOverrideReadWrite(val string) {
 
 func (o *OverridableProtectedMember) OverrideMe() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"overrideMe",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (o *OverridableProtectedMember) SwitchModes() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"switchModes",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (o *OverridableProtectedMember) ValueFromProtected() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"valueFromProtected",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9457,12 +10449,14 @@ func NewOverrideReturnsObject() OverrideReturnsObjectIface {
 
 func (o *OverrideReturnsObject) Test(obj IReturnsNumberIface) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		o,
 		"test",
 		[]interface{}{obj},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9480,10 +10474,12 @@ type ParentStruct982 struct {
 
 func (p *ParentStruct982) GetFoo() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		p,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9513,12 +10509,14 @@ func NewPartiallyInitializedThisConsumer() PartiallyInitializedThisConsumerIface
 
 func (p *PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis(obj ConstructorPassesThisOutIface, dt string, ev AllTypesEnum) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"consumePartiallyInitializedThis",
 		[]interface{}{obj, dt, ev},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9547,12 +10545,14 @@ func NewPolymorphism() PolymorphismIface {
 
 func (p *Polymorphism) SayHello(friendly scopejsiicalclib.IFriendlyIface) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"sayHello",
 		[]interface{}{friendly},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9596,70 +10596,90 @@ type Power struct {
 
 func (p *Power) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		p,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (p *Power) GetExpression() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		p,
 		"expression",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (p *Power) GetDecorationPostfixes() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		p,
 		"decorationPostfixes",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (p *Power) GetDecorationPrefixes() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		p,
 		"decorationPrefixes",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (p *Power) GetStringStyle() composition.CompositionStringStyle {
 	var returns composition.CompositionStringStyle
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem()] = reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem()
 	_jsii_.Get(
 		p,
 		"stringStyle",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (p *Power) GetBase() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		p,
 		"base",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (p *Power) GetPow() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		p,
 		"pow",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9705,24 +10725,28 @@ func (p *Power) SetStringStyle(val composition.CompositionStringStyle) {
 
 func (p *Power) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (p *Power) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9742,20 +10766,24 @@ type PropertyNamedProperty struct {
 
 func (p *PropertyNamedProperty) GetProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		p,
 		"property",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (p *PropertyNamedProperty) GetYetAnoterOne() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		p,
 		"yetAnoterOne",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -9798,12 +10826,14 @@ func NewPublicClass() PublicClassIface {
 
 func (p *PublicClass) Hello() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"hello",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -9862,353 +10892,417 @@ func NewPythonReservedWords() PythonReservedWordsIface {
 
 func (p *PythonReservedWords) And() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"and",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) As() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"as",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Assert() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"assert",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Async() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"async",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Await() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"await",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Break() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"break",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Class() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"class",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Continue() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"continue",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Def() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"def",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Del() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"del",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Elif() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"elif",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Else() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"else",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Except() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"except",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Finally() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"finally",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) For() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"for",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) From() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"from",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Global() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"global",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) If() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"if",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Import() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"import",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) In() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"in",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Is() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"is",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Lambda() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"lambda",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Nonlocal() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"nonlocal",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Not() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"not",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Or() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"or",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Pass() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"pass",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Raise() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"raise",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Return() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"return",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Try() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"try",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) While() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"while",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) With() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"with",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (p *PythonReservedWords) Yield() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		p,
 		"yield",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -10228,10 +11322,13 @@ type ReferenceEnumFromScopedPackage struct {
 
 func (r *ReferenceEnumFromScopedPackage) GetFoo() scopejsiicalclib.EnumFromScopedModule {
 	var returns scopejsiicalclib.EnumFromScopedModule
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.EnumFromScopedModule)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.EnumFromScopedModule)(nil)).Elem()
 	_jsii_.Get(
 		r,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10260,24 +11357,28 @@ func (r *ReferenceEnumFromScopedPackage) SetFoo(val scopejsiicalclib.EnumFromSco
 
 func (r *ReferenceEnumFromScopedPackage) LoadFoo() scopejsiicalclib.EnumFromScopedModule {
 	var returns scopejsiicalclib.EnumFromScopedModule
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		r,
 		"loadFoo",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (r *ReferenceEnumFromScopedPackage) SaveFoo(value scopejsiicalclib.EnumFromScopedModule) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		r,
 		"saveFoo",
 		[]interface{}{value},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -10298,10 +11399,13 @@ type ReturnsPrivateImplementationOfInterface struct {
 
 func (r *ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPrivatelyImplementedIface {
 	var returns IPrivatelyImplementedIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*IPrivatelyImplementedIface)(nil)).Elem()] = reflect.TypeOf((*IPrivatelyImplemented)(nil)).Elem()
 	_jsii_.Get(
 		r,
 		"privateImplementation",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10339,20 +11443,25 @@ type RootStruct struct {
 
 func (r *RootStruct) GetStringProp() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		r,
 		"stringProp",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (r *RootStruct) GetNestedStruct() NestedStructIface {
 	var returns NestedStructIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*NestedStructIface)(nil)).Elem()] = reflect.TypeOf((*NestedStruct)(nil)).Elem()
 	_jsii_.Get(
 		r,
 		"nestedStruct",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10369,12 +11478,14 @@ type RootStructValidator struct {
 func RootStructValidator_Validate(struct_ RootStructIface) {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.RootStructValidator",
 		"validate",
 		[]interface{}{struct_},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -10404,34 +11515,40 @@ func NewRuntimeTypeChecking() RuntimeTypeCheckingIface {
 
 func (r *RuntimeTypeChecking) MethodWithDefaultedArguments(arg1 float64, arg2 string, arg3 string) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		r,
 		"methodWithDefaultedArguments",
 		[]interface{}{arg1, arg2, arg3},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (r *RuntimeTypeChecking) MethodWithOptionalAnyArgument(arg interface{}) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		r,
 		"methodWithOptionalAnyArgument",
 		[]interface{}{arg},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (r *RuntimeTypeChecking) MethodWithOptionalArguments(arg1 float64, arg2 string, arg3 string) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		r,
 		"methodWithOptionalArguments",
 		[]interface{}{arg1, arg2, arg3},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -10451,20 +11568,24 @@ type SecondLevelStruct struct {
 
 func (s *SecondLevelStruct) GetDeeperRequiredProp() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"deeperRequiredProp",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SecondLevelStruct) GetDeeperOptionalProp() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"deeperOptionalProp",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10500,24 +11621,28 @@ func NewSingleInstanceTwoTypes() SingleInstanceTwoTypesIface {
 
 func (s *SingleInstanceTwoTypes) Interface1() InbetweenClassIface {
 	var returns *InbetweenClass
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"interface1",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SingleInstanceTwoTypes) Interface2() IPublicInterfaceIface {
 	var returns *IPublicInterface
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"interface2",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -10536,12 +11661,14 @@ type SingletonInt struct {
 
 func (s *SingletonInt) IsSingletonInt(value float64) bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"isSingletonInt",
 		[]interface{}{value},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10567,12 +11694,14 @@ type SingletonString struct {
 
 func (s *SingletonString) IsSingletonString(value string) bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"isSingletonString",
 		[]interface{}{value},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10598,20 +11727,24 @@ type SmellyStruct struct {
 
 func (s *SmellyStruct) GetProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"property",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SmellyStruct) GetYetAnoterOne() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"yetAnoterOne",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10641,12 +11774,14 @@ func NewSomeTypeJsii976() SomeTypeJsii976Iface {
 func SomeTypeJsii976_ReturnAnonymous() interface{} {
 	_init_.Initialize()
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.SomeTypeJsii976",
 		"returnAnonymous",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10654,12 +11789,14 @@ func SomeTypeJsii976_ReturnAnonymous() interface{} {
 func SomeTypeJsii976_ReturnReturn() IReturnJsii976Iface {
 	_init_.Initialize()
 	var returns *IReturnJsii976
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.SomeTypeJsii976",
 		"returnReturn",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10680,20 +11817,24 @@ type StableClass struct {
 
 func (s *StableClass) GetReadonlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"readonlyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StableClass) GetMutableProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"mutableProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10722,12 +11863,14 @@ func (s *StableClass) SetMutableProperty(val float64) {
 
 func (s *StableClass) Method() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"method",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -10750,10 +11893,12 @@ type StableStruct struct {
 
 func (s *StableStruct) GetReadonlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"readonlyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10773,12 +11918,14 @@ type StaticContext struct {
 func StaticContext_CanAccessStaticContext() bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.StaticContext",
 		"canAccessStaticContext",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10786,10 +11933,12 @@ func StaticContext_CanAccessStaticContext() bool {
 func StaticContext_StaticVariable() bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.StaticGet(
 		"jsii-calc.StaticContext",
 		"staticVariable",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10816,10 +11965,12 @@ type Statics struct {
 
 func (s *Statics) GetValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10841,12 +11992,14 @@ func NewStatics(value string) StaticsIface {
 func Statics_StaticMethod(name string) string {
 	_init_.Initialize()
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.Statics",
 		"staticMethod",
 		[]interface{}{name},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10854,10 +12007,12 @@ func Statics_StaticMethod(name string) string {
 func Statics_Bar() float64 {
 	_init_.Initialize()
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.StaticGet(
 		"jsii-calc.Statics",
 		"BAR",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10865,10 +12020,13 @@ func Statics_Bar() float64 {
 func Statics_ConstObj() DoubleTroubleIface {
 	_init_.Initialize()
 	var returns DoubleTroubleIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*DoubleTroubleIface)(nil)).Elem()] = reflect.TypeOf((*DoubleTrouble)(nil)).Elem()
 	_jsii_.StaticGet(
 		"jsii-calc.Statics",
 		"ConstObj",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10876,10 +12034,12 @@ func Statics_ConstObj() DoubleTroubleIface {
 func Statics_Foo() string {
 	_init_.Initialize()
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.StaticGet(
 		"jsii-calc.Statics",
 		"Foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10887,10 +12047,13 @@ func Statics_Foo() string {
 func Statics_ZooBar() map[string]string {
 	_init_.Initialize()
 	var returns map[string]string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.StaticGet(
 		"jsii-calc.Statics",
 		"zooBar",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10898,10 +12061,13 @@ func Statics_ZooBar() map[string]string {
 func Statics_Instance() StaticsIface {
 	_init_.Initialize()
 	var returns StaticsIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*StaticsIface)(nil)).Elem()] = reflect.TypeOf((*Statics)(nil)).Elem()
 	_jsii_.StaticGet(
 		"jsii-calc.Statics",
 		"instance",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10918,10 +12084,12 @@ func Statics_SetInstance(val StaticsIface) {
 func Statics_NonConstStatic() float64 {
 	_init_.Initialize()
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.StaticGet(
 		"jsii-calc.Statics",
 		"nonConstStatic",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10937,12 +12105,14 @@ func Statics_SetNonConstStatic(val float64) {
 
 func (s *Statics) JustMethod() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"justMethod",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -10968,10 +12138,12 @@ type StripInternal struct {
 
 func (s *StripInternal) GetYouSeeMe() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"youSeeMe",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11015,30 +12187,36 @@ type StructA struct {
 
 func (s *StructA) GetRequiredString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"requiredString",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructA) GetOptionalNumber() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"optionalNumber",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructA) GetOptionalString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"optionalString",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11061,30 +12239,37 @@ type StructB struct {
 
 func (s *StructB) GetRequiredString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"requiredString",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructB) GetOptionalBoolean() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"optionalBoolean",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructB) GetOptionalStructA() StructAIface {
 	var returns StructAIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*StructAIface)(nil)).Elem()] = reflect.TypeOf((*StructA)(nil)).Elem()
 	_jsii_.Get(
 		s,
 		"optionalStructA",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11107,20 +12292,24 @@ type StructParameterType struct {
 
 func (s *StructParameterType) GetScope() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"scope",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructParameterType) GetProps() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"props",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11151,12 +12340,14 @@ func NewStructPassing() StructPassingIface {
 func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelStructIface) float64 {
 	_init_.Initialize()
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.StructPassing",
 		"howManyVarArgsDidIPass",
 		[]interface{}{_positional, inputs},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11164,12 +12355,14 @@ func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelSt
 func StructPassing_RoundTrip(_positional float64, input TopLevelStructIface) TopLevelStructIface {
 	_init_.Initialize()
 	var returns *TopLevelStruct
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.StructPassing",
 		"roundTrip",
 		[]interface{}{_positional, input},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11185,12 +12378,14 @@ type StructUnionConsumer struct {
 func StructUnionConsumer_IsStructA(struct_ interface{}) bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.StructUnionConsumer",
 		"isStructA",
 		[]interface{}{struct_},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11198,12 +12393,14 @@ func StructUnionConsumer_IsStructA(struct_ interface{}) bool {
 func StructUnionConsumer_IsStructB(struct_ interface{}) bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.StructUnionConsumer",
 		"isStructB",
 		[]interface{}{struct_},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11226,40 +12423,48 @@ type StructWithJavaReservedWords struct {
 
 func (s *StructWithJavaReservedWords) GetDefault() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"default",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructWithJavaReservedWords) GetAssert() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"assert",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructWithJavaReservedWords) GetResult() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"result",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *StructWithJavaReservedWords) GetThat() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"that",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11302,60 +12507,77 @@ type Sum struct {
 
 func (s *Sum) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *Sum) GetExpression() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		s,
 		"expression",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *Sum) GetDecorationPostfixes() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		s,
 		"decorationPostfixes",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *Sum) GetDecorationPrefixes() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		s,
 		"decorationPrefixes",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *Sum) GetStringStyle() composition.CompositionStringStyle {
 	var returns composition.CompositionStringStyle
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem()] = reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem()
 	_jsii_.Get(
 		s,
 		"stringStyle",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *Sum) GetParts() []scopejsiicalclib.NumericValueIface {
 	var returns []scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		s,
 		"parts",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11408,24 +12630,28 @@ func (s *Sum) SetParts(val []scopejsiicalclib.NumericValueIface) {
 
 func (s *Sum) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *Sum) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11449,40 +12675,49 @@ type SupportsNiceJavaBuilder struct {
 
 func (s *SupportsNiceJavaBuilder) GetBar() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"bar",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SupportsNiceJavaBuilder) GetId() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"id",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SupportsNiceJavaBuilder) GetPropId() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"propId",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SupportsNiceJavaBuilder) GetRest() []string {
 	var returns []string
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*string)(nil)).Elem()] = reflect.TypeOf((*string)(nil)).Elem()
 	_jsii_.Get(
 		s,
 		"rest",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11519,20 +12754,24 @@ type SupportsNiceJavaBuilderProps struct {
 
 func (s *SupportsNiceJavaBuilderProps) GetBar() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"bar",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SupportsNiceJavaBuilderProps) GetId() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"id",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11556,30 +12795,36 @@ type SupportsNiceJavaBuilderWithRequiredProps struct {
 
 func (s *SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"bar",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SupportsNiceJavaBuilderWithRequiredProps) GetId() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"id",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"propId",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11635,60 +12880,72 @@ type SyncVirtualMethods struct {
 
 func (s *SyncVirtualMethods) GetReadonlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"readonlyProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) GetA() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"a",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) GetCallerIsProperty() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"callerIsProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) GetOtherProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"otherProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) GetTheProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"theProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) GetValueOfOtherProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"valueOfOtherProperty",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11749,118 +13006,138 @@ func (s *SyncVirtualMethods) SetValueOfOtherProperty(val string) {
 
 func (s *SyncVirtualMethods) CallerIsAsync() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"callerIsAsync",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) CallerIsMethod() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"callerIsMethod",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) ModifyOtherProperty(value string) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"modifyOtherProperty",
 		[]interface{}{value},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (s *SyncVirtualMethods) ModifyValueOfTheProperty(value string) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"modifyValueOfTheProperty",
 		[]interface{}{value},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (s *SyncVirtualMethods) ReadA() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"readA",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) RetrieveOtherProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"retrieveOtherProperty",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) RetrieveReadOnlyProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"retrieveReadOnlyProperty",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) RetrieveValueOfTheProperty() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"retrieveValueOfTheProperty",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) VirtualMethod(n float64) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"virtualMethod",
 		[]interface{}{n},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (s *SyncVirtualMethods) WriteA(value float64) {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		s,
 		"writeA",
 		[]interface{}{value},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -11888,12 +13165,14 @@ func NewThrower() ThrowerIface {
 
 func (t *Thrower) ThrowError() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		t,
 		"throwError",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -11916,30 +13195,36 @@ type TopLevelStruct struct {
 
 func (t *TopLevelStruct) GetRequired() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		t,
 		"required",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (t *TopLevelStruct) GetSecondLevel() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		t,
 		"secondLevel",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (t *TopLevelStruct) GetOptional() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		t,
 		"optional",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11959,12 +13244,14 @@ type UmaskCheck struct {
 func UmaskCheck_Mode() float64 {
 	_init_.Initialize()
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.UmaskCheck",
 		"mode",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -11988,20 +13275,25 @@ type UnaryOperation struct {
 
 func (u *UnaryOperation) GetValue() float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		u,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (u *UnaryOperation) GetOperand() scopejsiicalclib.NumericValueIface {
 	var returns scopejsiicalclib.NumericValueIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem()] = reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem()
 	_jsii_.Get(
 		u,
 		"operand",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12022,24 +13314,28 @@ func NewUnaryOperation(operand scopejsiicalclib.NumericValueIface) UnaryOperatio
 
 func (u *UnaryOperation) TypeName() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		u,
 		"typeName",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (u *UnaryOperation) ToString() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		u,
 		"toString",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12058,20 +13354,24 @@ type UnionProperties struct {
 
 func (u *UnionProperties) GetBar() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		u,
 		"bar",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (u *UnionProperties) GetFoo() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		u,
 		"foo",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12091,10 +13391,13 @@ type UpcasingReflectable struct {
 
 func (u *UpcasingReflectable) GetEntries() []submodule.ReflectableEntryIface {
 	var returns []submodule.ReflectableEntryIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*submodule.ReflectableEntryIface)(nil)).Elem()] = reflect.TypeOf((*submodule.ReflectableEntry)(nil)).Elem()
 	_jsii_.Get(
 		u,
 		"entries",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12116,10 +13419,13 @@ func NewUpcasingReflectable(delegate map[string]interface{}) UpcasingReflectable
 func UpcasingReflectable_Reflector() submodule.ReflectorIface {
 	_init_.Initialize()
 	var returns submodule.ReflectorIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*submodule.ReflectorIface)(nil)).Elem()] = reflect.TypeOf((*submodule.Reflector)(nil)).Elem()
 	_jsii_.StaticGet(
 		"jsii-calc.UpcasingReflectable",
 		"reflector",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12148,12 +13454,14 @@ func NewUseBundledDependency() UseBundledDependencyIface {
 
 func (u *UseBundledDependency) Value() interface{} {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		u,
 		"value",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12183,12 +13491,14 @@ func NewUseCalcBase() UseCalcBaseIface {
 
 func (u *UseCalcBase) Hello() scopejsiicalcbase.BaseIface {
 	var returns *scopejsiicalcbase.Base
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		u,
 		"hello",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -12208,10 +13518,13 @@ type UsesInterfaceWithProperties struct {
 
 func (u *UsesInterfaceWithProperties) GetObj() IInterfaceWithPropertiesIface {
 	var returns IInterfaceWithPropertiesIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*IInterfaceWithPropertiesIface)(nil)).Elem()] = reflect.TypeOf((*IInterfaceWithProperties)(nil)).Elem()
 	_jsii_.Get(
 		u,
 		"obj",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12232,36 +13545,42 @@ func NewUsesInterfaceWithProperties(obj IInterfaceWithPropertiesIface) UsesInter
 
 func (u *UsesInterfaceWithProperties) JustRead() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		u,
 		"justRead",
 		[]interface{}{},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (u *UsesInterfaceWithProperties) ReadStringAndNumber(ext IInterfaceWithPropertiesExtensionIface) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		u,
 		"readStringAndNumber",
 		[]interface{}{ext},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (u *UsesInterfaceWithProperties) WriteAndRead(value string) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		u,
 		"writeAndRead",
 		[]interface{}{value},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12290,12 +13609,14 @@ func NewVariadicInvoker(method VariadicMethodIface) VariadicInvokerIface {
 
 func (v *VariadicInvoker) AsArray(values float64) []float64 {
 	var returns []float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"asArray",
 		[]interface{}{values},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12324,12 +13645,14 @@ func NewVariadicMethod(prefix float64) VariadicMethodIface {
 
 func (v *VariadicMethod) AsArray(first float64, others float64) []float64 {
 	var returns []float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"asArray",
 		[]interface{}{first, others},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12362,60 +13685,70 @@ func NewVirtualMethodPlayground() VirtualMethodPlaygroundIface {
 
 func (v *VirtualMethodPlayground) OverrideMeAsync(index float64) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"overrideMeAsync",
 		[]interface{}{index},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (v *VirtualMethodPlayground) OverrideMeSync(index float64) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"overrideMeSync",
 		[]interface{}{index},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (v *VirtualMethodPlayground) ParallelSumAsync(count float64) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"parallelSumAsync",
 		[]interface{}{count},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (v *VirtualMethodPlayground) SerialSumAsync(count float64) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"serialSumAsync",
 		[]interface{}{count},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (v *VirtualMethodPlayground) SumSync(count float64) float64 {
 	var returns float64
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"sumSync",
 		[]interface{}{count},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12439,10 +13772,12 @@ type VoidCallback struct {
 
 func (v *VoidCallback) GetMethodWasCalled() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		v,
 		"methodWasCalled",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12463,23 +13798,27 @@ func NewVoidCallback() VoidCallbackIface {
 
 func (v *VoidCallback) CallMe() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"callMe",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
 func (v *VoidCallback) OverrideMe() {
 	var returns interface{}
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		v,
 		"overrideMe",
 		[]interface{}{},
 		false,
 		&returns,
+		implMap,
 	)
 }
 
@@ -12496,10 +13835,12 @@ type WithPrivatePropertyInConstructor struct {
 
 func (w *WithPrivatePropertyInConstructor) GetSuccess() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		w,
 		"success",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12527,6 +13868,7 @@ package pythonself
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 )
 
 // Class interface
@@ -12542,10 +13884,12 @@ type ClassWithSelf struct {
 
 func (c *ClassWithSelf) GetSelf() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		c,
 		"self",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12566,12 +13910,14 @@ func NewClassWithSelf(self string) ClassWithSelfIface {
 
 func (c *ClassWithSelf) Method(self float64) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		c,
 		"method",
 		[]interface{}{self},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12588,10 +13934,13 @@ type ClassWithSelfKwarg struct {
 
 func (c *ClassWithSelfKwarg) GetProps() StructWithSelfIface {
 	var returns StructWithSelfIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*StructWithSelfIface)(nil)).Elem()] = reflect.TypeOf((*StructWithSelf)(nil)).Elem()
 	_jsii_.Get(
 		c,
 		"props",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12618,12 +13967,14 @@ type IInterfaceWithSelf struct {}
 
 func (i *IInterfaceWithSelf) Method(self float64) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		i,
 		"method",
 		[]interface{}{self},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12640,10 +13991,12 @@ type StructWithSelf struct {
 
 func (s *StructWithSelf) GetSelf() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"self",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12656,6 +14009,8 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/backrefe
 package backreferences
 
 import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule"
 )
 
@@ -12671,10 +14026,13 @@ type MyClassReference struct {
 
 func (m *MyClassReference) GetReference() submodule.MyClassIface {
 	var returns submodule.MyClassIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*submodule.MyClassIface)(nil)).Elem()] = reflect.TypeOf((*submodule.MyClass)(nil)).Elem()
 	_jsii_.Get(
 		m,
 		"reference",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12689,6 +14047,7 @@ package child
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 )
 
 type Awesomeness string
@@ -12729,10 +14088,13 @@ func NewInnerClass() InnerClassIface {
 func InnerClass_StaticProp() SomeStructIface {
 	_init_.Initialize()
 	var returns SomeStructIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*SomeStructIface)(nil)).Elem()] = reflect.TypeOf((*SomeStruct)(nil)).Elem()
 	_jsii_.StaticGet(
 		"jsii-calc.submodule.child.InnerClass",
 		"staticProp",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12751,20 +14113,25 @@ type KwargsProps struct {
 
 func (k *KwargsProps) GetProp() SomeEnum {
 	var returns SomeEnum
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*SomeEnum)(nil)).Elem()] = reflect.TypeOf((*SomeEnum)(nil)).Elem()
 	_jsii_.Get(
 		k,
 		"prop",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (k *KwargsProps) GetExtra() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		k,
 		"extra",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12785,10 +14152,13 @@ type OuterClass struct {
 
 func (o *OuterClass) GetInnerClass() InnerClassIface {
 	var returns InnerClassIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*InnerClassIface)(nil)).Elem()] = reflect.TypeOf((*InnerClass)(nil)).Elem()
 	_jsii_.Get(
 		o,
 		"innerClass",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12825,10 +14195,13 @@ type SomeStruct struct {
 
 func (s *SomeStruct) GetProp() SomeEnum {
 	var returns SomeEnum
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*SomeEnum)(nil)).Elem()] = reflect.TypeOf((*SomeEnum)(nil)).Elem()
 	_jsii_.Get(
 		s,
 		"prop",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12846,10 +14219,12 @@ type Structure struct {
 
 func (s *Structure) GetBool() bool {
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"bool",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12876,12 +14251,14 @@ type Kwargs struct {
 func Kwargs_Method(props child.KwargsPropsIface) bool {
 	_init_.Initialize()
 	var returns bool
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.InvokeStatic(
 		"jsii-calc.submodule.isolated.Kwargs",
 		"method",
 		[]interface{}{props},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12904,10 +14281,12 @@ type INamespaced struct {}
 
 func (i *INamespaced) GetDefinedAt() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		i,
 		"definedAt",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12920,6 +14299,7 @@ package nestedsubmodule
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/child"
 )
@@ -12939,20 +14319,25 @@ type Namespaced struct {
 
 func (n *Namespaced) GetDefinedAt() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		n,
 		"definedAt",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (n *Namespaced) GetGoodness() child.Goodness {
 	var returns child.Goodness
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*child.Goodness)(nil)).Elem()] = reflect.TypeOf((*child.Goodness)(nil)).Elem()
 	_jsii_.Get(
 		n,
 		"goodness",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12965,6 +14350,7 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/param/pa
 package param
 
 import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 // SpecialParameterIface is the public interface for the custom type SpecialParameter
@@ -12979,10 +14365,12 @@ type SpecialParameter struct {
 
 func (s *SpecialParameter) GetValue() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		s,
 		"value",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -12996,8 +14384,9 @@ package returnsparam
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
 )
 
 // Class interface
@@ -13024,12 +14413,14 @@ func NewReturnsSpecialParameter() ReturnsSpecialParameterIface {
 
 func (r *ReturnsSpecialParameter) ReturnsSpecialParam() param.SpecialParameterIface {
 	var returns *param.SpecialParameter
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		r,
 		"returnsSpecialParam",
 		[]interface{}{},
 		true,
 		returns,
+		implMap,
 	)
 	return returns
 }
@@ -13042,11 +14433,12 @@ package submodule
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/child"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -13072,50 +14464,64 @@ type MyClass struct {
 
 func (m *MyClass) GetAwesomeness() child.Awesomeness {
 	var returns child.Awesomeness
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*child.Awesomeness)(nil)).Elem()] = reflect.TypeOf((*child.Awesomeness)(nil)).Elem()
 	_jsii_.Get(
 		m,
 		"awesomeness",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *MyClass) GetDefinedAt() string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Get(
 		m,
 		"definedAt",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *MyClass) GetGoodness() child.Goodness {
 	var returns child.Goodness
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*child.Goodness)(nil)).Elem()] = reflect.TypeOf((*child.Goodness)(nil)).Elem()
 	_jsii_.Get(
 		m,
 		"goodness",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *MyClass) GetProps() child.SomeStructIface {
 	var returns child.SomeStructIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*child.SomeStructIface)(nil)).Elem()] = reflect.TypeOf((*child.SomeStruct)(nil)).Elem()
 	_jsii_.Get(
 		m,
 		"props",
 		&returns,
+		implMap,
 	)
 	return returns
 }
 
 func (m *MyClass) GetAllTypes() jsiicalc.AllTypesIface {
 	var returns jsiicalc.AllTypesIface
+	implMap := make(map[reflect.Type]reflect.Type)
+	implMap[reflect.TypeOf((*jsiicalc.AllTypesIface)(nil)).Elem()] = reflect.TypeOf((*jsiicalc.AllTypes)(nil)).Elem()
 	_jsii_.Get(
 		m,
 		"allTypes",
 		&returns,
+		implMap,
 	)
 	return returns
 }
@@ -13144,12 +14550,14 @@ func (m *MyClass) SetAllTypes(val jsiicalc.AllTypesIface) {
 
 func (m *MyClass) MethodWithSpecialParam(param param.SpecialParameterIface) string {
 	var returns string
+	implMap := make(map[reflect.Type]reflect.Type)
 	_jsii_.Invoke(
 		m,
 		"methodWithSpecialParam",
 		[]interface{}{param},
 		true,
 		&returns,
+		implMap,
 	)
 	return returns
 }

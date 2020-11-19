@@ -87,6 +87,14 @@ export abstract class Package {
     return findTypeInTree(this, fqn);
   }
 
+  public get importPath(): string {
+    const moduleName = this.root.moduleName;
+    const prefix = moduleName !== '' ? `${moduleName}/` : '';
+    const rootPackageName = this.root.packageName;
+    const suffix = this.filePath !== '' ? `/${this.filePath}` : '';
+    return `${prefix}${rootPackageName}${suffix}`;
+  }
+
   public emit(context: EmitContext): void {
     const { code } = context;
     code.openFile(this.file);
@@ -123,10 +131,27 @@ export abstract class Package {
     );
   }
 
+  protected get usesReflectionPackage(): boolean {
+    return (
+      this.types.some((type) => type.usesReflectionPackage) ||
+      this.submodules.some((sub) => sub.usesReflectionPackage)
+    );
+  }
+
   private emitImports(code: CodeMaker) {
     code.open('import (');
     if (this.usesRuntimePackage) {
       code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
+    }
+
+    if (this.usesInitPackage) {
+      code.line(
+        `${JSII_INIT_ALIAS} "${this.root.moduleName}/${this.root.packageName}/${JSII_INIT_PACKAGE}"`,
+      );
+    }
+
+    if (this.usesReflectionPackage) {
+      code.line(`"reflect"`);
     }
 
     for (const packageName of this.dependencyImports) {
@@ -134,12 +159,6 @@ export abstract class Package {
       if (packageName !== this.packageName) {
         code.line(`"${packageName}"`);
       }
-    }
-
-    if (this.usesInitPackage) {
-      code.line(
-        `${JSII_INIT_ALIAS} "${this.root.moduleName}/${this.root.packageName}/${JSII_INIT_PACKAGE}"`,
-      );
     }
 
     code.close(')');
@@ -188,6 +207,7 @@ export class RootPackage extends Package {
   public emit(context: EmitContext): void {
     super.emit(context);
     this.emitJsiiPackage(context);
+    // this.emitTypeMapPackage(context);
     this.readme?.emit(context);
   }
 
@@ -245,10 +265,12 @@ export class RootPackage extends Package {
         );
       }
     }
+
     code.close(')');
     code.line();
     code.line('var once sync.Once');
     code.line();
+
     code.line(
       `// ${JSII_INIT_FUNC} performs the necessary work for the enclosing`,
     );
@@ -268,6 +290,7 @@ export class RootPackage extends Package {
     );
     code.close('})');
     code.close('}');
+
     code.closeFile(file);
   }
 }

@@ -84,6 +84,13 @@ export class GoClass extends GoStruct {
     );
   }
 
+  public get usesReflectionPackage() {
+    return (
+      this.properties.some((p) => p.usesReflectionPackage) ||
+      this.methods.some((m) => m.usesReflectionPackage)
+    );
+  }
+
   protected emitInterface(context: EmitContext): void {
     const { code } = context;
     code.line('// Class interface'); // FIXME for debugging
@@ -240,6 +247,10 @@ export class ClassMethod extends GoMethod {
 
   public get instanceArg(): string {
     return this.parent.name.substring(0, 1).toLowerCase();
+  }
+
+  public get usesReflectionPackage() {
+    return Boolean(this.reference?.scopedImplMap(this.parent.pkg).length);
   }
 }
 

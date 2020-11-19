@@ -6,6 +6,7 @@ import {
   JSII_SET_FUNC,
   JSII_SGET_FUNC,
   JSII_SSET_FUNC,
+  JSII_IMPL_MAP_TYPE,
 } from './constants';
 import { slugify, emitInitialization } from './util';
 
@@ -14,12 +15,24 @@ export class GetProperty {
 
   public emit(code: CodeMaker) {
     const resultVar = slugify('returns', [this.parent.instanceArg]);
+    const implMapVar = slugify('implMap', [this.parent.instanceArg]);
     code.line(`var ${resultVar} ${this.parent.returnType}`);
+    code.line(`${implMapVar} := make(${JSII_IMPL_MAP_TYPE})`);
+
+    const implMap =
+      this.parent.reference?.scopedImplMap(this.parent.parent.pkg) ?? [];
+    if (implMap.length) {
+      const [interfaceName, structName] = implMap;
+      code.line(
+        `${implMapVar}[reflect.TypeOf((*${interfaceName})(nil)).Elem()] = reflect.TypeOf((*${structName})(nil)).Elem()`,
+      );
+    }
 
     code.open(`${JSII_GET_FUNC}(`);
     code.line(`${this.parent.instanceArg},`);
     code.line(`"${this.parent.property.name}",`);
     code.line(`&${resultVar},`);
+    code.line(`${implMapVar},`);
     code.close(`)`);
 
     code.line(`return ${resultVar}`);
@@ -44,12 +57,24 @@ export class StaticGetProperty {
   public emit(code: CodeMaker) {
     emitInitialization(code);
     const resultVar = slugify('returns', []);
+    const implMapVar = slugify('implMap', [this.parent.instanceArg]);
     code.line(`var ${resultVar} ${this.parent.returnType}`);
+    code.line(`${implMapVar} := make(${JSII_IMPL_MAP_TYPE})`);
+
+    const implMap =
+      this.parent.reference?.scopedImplMap(this.parent.parent.pkg) ?? [];
+    if (implMap.length) {
+      const [interfaceName, structName] = implMap;
+      code.line(
+        `${implMapVar}[reflect.TypeOf((*${interfaceName})(nil)).Elem()] = reflect.TypeOf((*${structName})(nil)).Elem()`,
+      );
+    }
 
     code.open(`${JSII_SGET_FUNC}(`);
     code.line(`"${this.parent.parent.fqn}",`);
     code.line(`"${this.parent.property.name}",`);
     code.line(`&${resultVar},`);
+    code.line(`${implMapVar},`);
     code.close(`)`);
 
     code.line(`return ${resultVar}`);
