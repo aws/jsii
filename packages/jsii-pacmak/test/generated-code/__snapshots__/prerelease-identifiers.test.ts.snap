@@ -16,6 +16,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/ 1`] = `
  ┣━ 📁 go
  ┃  ┗━ 📁 foo
  ┃     ┣━ 📄 foo.go
+ ┃     ┣━ 📄 go.mod
  ┃     ┗━ 📁 jsii
  ┃        ┣━ 📄 jsii.go
  ┃        ┗━ 📄 tarball.embedded.go
@@ -117,6 +118,14 @@ package foo
 
 import (
 )
+
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/go.mod 1`] = `
+module foo
+
+go 1.15
 
 
 `;
@@ -500,6 +509,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/ 1`] = `
  ┣━ 📁 go
  ┃  ┗━ 📁 foo
  ┃     ┣━ 📄 foo.go
+ ┃     ┣━ 📄 go.mod
  ┃     ┗━ 📁 jsii
  ┃        ┣━ 📄 jsii.go
  ┃        ┗━ 📄 tarball.embedded.go
@@ -601,6 +611,14 @@ package foo
 
 import (
 )
+
+
+`;
+
+exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/go.mod 1`] = `
+module foo
+
+go 1.15
 
 
 `;
@@ -984,6 +1002,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/ 1`] = `
  ┣━ 📁 go
  ┃  ┗━ 📁 foo
  ┃     ┣━ 📄 foo.go
+ ┃     ┣━ 📄 go.mod
  ┃     ┗━ 📁 jsii
  ┃        ┣━ 📄 jsii.go
  ┃        ┗━ 📄 tarball.embedded.go
@@ -1083,6 +1102,14 @@ package foo
 
 import (
 )
+
+
+`;
+
+exports[`foo@2.0.0-rc.42: <outDir>/go/foo/go.mod 1`] = `
+module foo
+
+go 1.15
 
 
 `;
@@ -1445,6 +1472,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/ 1`] = `
  ┣━ 📁 go
  ┃  ┗━ 📁 foo
  ┃     ┣━ 📄 foo.go
+ ┃     ┣━ 📄 go.mod
  ┃     ┗━ 📁 jsii
  ┃        ┣━ 📄 jsii.go
  ┃        ┗━ 📄 tarball.embedded.go
@@ -1544,6 +1572,14 @@ package foo
 
 import (
 )
+
+
+`;
+
+exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/go.mod 1`] = `
+module foo
+
+go 1.15
 
 
 `;
