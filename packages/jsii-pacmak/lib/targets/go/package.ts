@@ -207,7 +207,6 @@ export class RootPackage extends Package {
   public emit(context: EmitContext): void {
     super.emit(context);
     this.emitJsiiPackage(context);
-    // this.emitTypeMapPackage(context);
     this.readme?.emit(context);
   }
 

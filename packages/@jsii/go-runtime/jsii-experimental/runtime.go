@@ -43,10 +43,11 @@ func Load(name string, version string, tarball []byte) {
 // called by jsii object constructors.
 func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override, returnsPtr interface{}) {
 	client := getClient()
+
 	res, err := client.create(createRequest{
 		Api:        "create",
 		Fqn:        fqn,
-		Args:       args,
+		Args:       castPtrsToRef(args),
 		Interfaces: interfaces,
 		Overrides:  overrides,
 	})
@@ -73,7 +74,7 @@ func Invoke(obj interface{}, method string, args []interface{}, returns bool, re
 	res, err := client.invoke(invokeRequest{
 		Api:    "invoke",
 		Method: method,
-		Args:   args,
+		Args:   castPtrsToRef(args),
 		Objref: objref{
 			JsiiInstanceId: refid,
 		},
@@ -95,7 +96,7 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, returns bool, retu
 		Api:    "sinvoke",
 		Fqn:    fqn,
 		Method: method,
-		Args:   args,
+		Args:   castPtrsToRef(args),
 	})
 
 	if err != nil {
@@ -161,7 +162,7 @@ func Set(obj interface{}, property string, value interface{}) {
 	_, err := client.set(setRequest{
 		Api:      "set",
 		Property: property,
-		Value:    value,
+		Value:    castPtrToRef(value),
 		Objref: objref{
 			JsiiInstanceId: refid,
 		},
@@ -207,6 +208,43 @@ func castValToRef(data interface{}) (objref, bool) {
 	}
 
 	return ref, ok
+}
+
+// Accepts pointers to structs that implement interfaces and searches for an
+// existing object reference in the client. If it exists, it casts it to an
+// objref for the runtime. Recursively casts types that may contain nested
+// object references.
+func castPtrToRef(data interface{}) interface{} {
+	client := getClient()
+	dataVal := reflect.ValueOf(data)
+
+	if dataVal.Kind() == reflect.Ptr {
+		valref, valHasRef := client.findObjectRef(data)
+		if valHasRef {
+			return objref{JsiiInstanceId: valref}
+		}
+	} else if dataVal.Kind() == reflect.Slice {
+		refs := make([]interface{}, dataVal.Len())
+		for i := 0; i < dataVal.Len(); i++ {
+			refs[i] = dataVal.Index(i).Interface()
+		}
+		return refs
+	}
+
+	return data
+}
+
+// Casts slice of data into new slice of data with pointers to interfaces
+// converted to objrefs. This is useful for casting arguments to methods and
+// constructors to data that can be serialized before being passed over the
+// wire.
+func castPtrsToRef(args []interface{}) []interface{} {
+	argRefs := make([]interface{}, len(args))
+	for i, arg := range args {
+		argRefs[i] = castPtrToRef(arg)
+	}
+
+	return argRefs
 }
 
 // castAndSetToPtr accepts a pointer to any type and attempts to cast the value
