@@ -4,10 +4,22 @@ exports[`Generated code for "@scope/jsii-calc-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
     ┗━ 📁 scopejsiicalcbase
+       ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
        ┃  ┗━ 📄 tarball.embedded.go
        ┗━ 📄 scopejsiicalcbase.go
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/go.mod 1`] = `
+module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase
+
+go 1.15
+
+require (
+	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase
+)
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base": <outDir>/go/scopejsiicalcbase/jsii/jsii.go 1`] = `
@@ -152,10 +164,19 @@ exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
     ┗━ 📁 scopejsiicalcbaseofbase
+       ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
        ┃  ┗━ 📄 tarball.embedded.go
        ┗━ 📄 scopejsiicalcbaseofbase.go
+`;
+
+exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/go.mod 1`] = `
+module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase
+
+go 1.15
+
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-base-of-base": <outDir>/go/scopejsiicalcbaseofbase/jsii/jsii.go 1`] = `
@@ -291,12 +312,25 @@ exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/ 1`] = `
 <root>
  ┗━ 📁 go
     ┗━ 📁 scopejsiicalclib
+       ┣━ 📄 go.mod
        ┣━ 📁 jsii
        ┃  ┣━ 📄 jsii.go
        ┃  ┗━ 📄 tarball.embedded.go
        ┣━ 📄 scopejsiicalclib.go
        ┗━ 📁 submodule
           ┗━ 📄 submodule.go
+`;
+
+exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/go.mod 1`] = `
+module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib
+
+go 1.15
+
+require (
+	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase
+	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase
+)
+
 `;
 
 exports[`Generated code for "@scope/jsii-calc-lib": <outDir>/go/scopejsiicalclib/jsii/jsii.go 1`] = `
@@ -941,6 +975,7 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
        ┃  ┗━ 📄 composition.go
        ┣━ 📁 derivedclasshasnoproperties
        ┃  ┗━ 📄 derivedclasshasnoproperties.go
+       ┣━ 📄 go.mod
        ┣━ 📁 interfaceinnamespaceincludesclasses
        ┃  ┗━ 📄 interfaceinnamespaceincludesclasses.go
        ┣━ 📁 interfaceinnamespaceonlyinterface
@@ -1257,6 +1292,21 @@ func (d *Derived) SetProp(val string) {
 	)
 }
 
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/go.mod 1`] = `
+module github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc
+
+go 1.15
+
+require (
+	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib
+	github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/composition
+	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase
+	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase
+	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/submodule
+)
 
 `;
 
