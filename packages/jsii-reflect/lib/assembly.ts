@@ -30,6 +30,13 @@ export class Assembly extends ModuleLike {
   }
 
   /**
+   * The version of the jsii compiler that was used to produce this Assembly.
+   */
+  public get jsiiVersion(): string {
+    return this.spec.jsiiVersion;
+  }
+
+  /**
    * The name of the assembly
    */
   public get name(): string {
