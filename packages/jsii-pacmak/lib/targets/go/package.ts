@@ -168,6 +168,7 @@ export abstract class Package {
  */
 export class RootPackage extends Package {
   public readonly assembly: Assembly;
+  public readonly version: string;
   private readonly readme?: ReadmeFile;
 
   public constructor(assembly: Assembly) {
@@ -184,6 +185,7 @@ export class RootPackage extends Package {
     );
 
     this.assembly = assembly;
+    this.version = assembly.version;
 
     if (this.assembly.readme?.markdown) {
       this.readme = new ReadmeFile(
@@ -209,8 +211,8 @@ export class RootPackage extends Package {
     code.line();
     code.open('require (');
     code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
-    for (const packageName of this.dependencyImports) {
-      code.line(`${packageName}`);
+    for (const dep of this.packageDependencies) {
+      code.line(`${dep.goModuleName} v${dep.version}`);
     }
     code.close(')');
     code.closeFile(GOMOD_FILENAME);
