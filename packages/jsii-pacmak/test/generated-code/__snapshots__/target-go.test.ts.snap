@@ -17,6 +17,7 @@ module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase
 go 1.15
 
 require (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase
 )
 
@@ -176,6 +177,9 @@ module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase
 
 go 1.15
 
+require (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+)
 
 `;
 
@@ -327,6 +331,7 @@ module github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib
 go 1.15
 
 require (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase
 )
@@ -1301,6 +1306,7 @@ module github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc
 go 1.15
 
 require (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib
 	github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/composition
 	github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase

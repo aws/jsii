@@ -207,13 +207,12 @@ export class RootPackage extends Package {
     code.line();
     code.line(`go ${GO_VERSION}`);
     code.line();
-    if (this.dependencyImports.size !== 0) {
-      code.open('require (');
-      for (const packageName of this.dependencyImports) {
-        code.line(`${packageName}`);
-      }
-      code.close(')');
+    code.open('require (');
+    code.line(`${JSII_RT_ALIAS} "${JSII_RT_MODULE_NAME}"`);
+    for (const packageName of this.dependencyImports) {
+      code.line(`${packageName}`);
     }
+    code.close(')');
     code.closeFile(GOMOD_FILENAME);
   }
 
