@@ -88,6 +88,10 @@ export class Interface extends GoType {
     );
   }
 
+  public get usesReflectionPackage(): boolean {
+    return this.properties.length > 0 || this.methods.length > 0;
+  }
+
   public get extends(): GoTypeRef[] {
     return this.type.getInterfaces(true).map((iface) => {
       return new GoTypeRef(this.pkg.root, iface.reference);

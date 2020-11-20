@@ -8,6 +8,11 @@ import (
 	"regexp"
 )
 
+// Maps interface types to their concrete implementation structs. Used by
+// `castAndSetToPtr` to instantiate a concrete type that implements the
+// the interface as dictated by the type of the &returnsPtr value.
+type implementationMap = map[reflect.Type]reflect.Type
+
 // Load ensures a npm package is loaded in the jsii kernel.
 func Load(name string, version string, tarball []byte) {
 	client := getClient()
@@ -41,10 +46,11 @@ func Load(name string, version string, tarball []byte) {
 // called by jsii object constructors.
 func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override, returnsPtr interface{}) {
 	client := getClient()
+
 	res, err := client.create(createRequest{
 		Api:        "create",
 		Fqn:        fqn,
-		Args:       args,
+		Args:       castPtrsToRef(args),
 		Interfaces: interfaces,
 		Overrides:  overrides,
 	})
@@ -58,7 +64,7 @@ func Create(fqn FQN, args []interface{}, interfaces []FQN, overrides []Override,
 
 // Invoke will call a method on a jsii class instance. The response should be
 // decoded into the expected return type for the method being called.
-func Invoke(obj interface{}, method string, args []interface{}, returns bool, returnsPtr interface{}) {
+func Invoke(obj interface{}, method string, args []interface{}, returns bool, returnsPtr interface{}, implMap implementationMap) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -71,7 +77,7 @@ func Invoke(obj interface{}, method string, args []interface{}, returns bool, re
 	res, err := client.invoke(invokeRequest{
 		Api:    "invoke",
 		Method: method,
-		Args:   args,
+		Args:   castPtrsToRef(args),
 		Objref: objref{
 			JsiiInstanceId: refid,
 		},
@@ -82,18 +88,18 @@ func Invoke(obj interface{}, method string, args []interface{}, returns bool, re
 	}
 
 	if returns {
-		castAndSetToPtr(returnsPtr, res.Result)
+		castAndSetToPtr(returnsPtr, res.Result, implMap)
 	}
 }
 
-func InvokeStatic(fqn FQN, method string, args []interface{}, returns bool, returnsPtr interface{}) {
+func InvokeStatic(fqn FQN, method string, args []interface{}, returns bool, returnsPtr interface{}, implMap implementationMap) {
 	client := getClient()
 
 	res, err := client.sinvoke(staticInvokeRequest{
 		Api:    "sinvoke",
 		Fqn:    fqn,
 		Method: method,
-		Args:   args,
+		Args:   castPtrsToRef(args),
 	})
 
 	if err != nil {
@@ -101,11 +107,11 @@ func InvokeStatic(fqn FQN, method string, args []interface{}, returns bool, retu
 	}
 
 	if returns {
-		castAndSetToPtr(returnsPtr, res.Result)
+		castAndSetToPtr(returnsPtr, res.Result, implMap)
 	}
 }
 
-func Get(obj interface{}, property string, returnsPtr interface{}) {
+func Get(obj interface{}, property string, returnsPtr interface{}, implMap implementationMap) {
 	client := getClient()
 
 	// Find reference to class instance in client
@@ -127,10 +133,10 @@ func Get(obj interface{}, property string, returnsPtr interface{}) {
 		panic(err)
 	}
 
-	castAndSetToPtr(returnsPtr, res.Value)
+	castAndSetToPtr(returnsPtr, res.Value, implMap)
 }
 
-func StaticGet(fqn FQN, property string, returnsPtr interface{}) {
+func StaticGet(fqn FQN, property string, returnsPtr interface{}, implMap implementationMap) {
 	client := getClient()
 
 	res, err := client.sget(staticGetRequest{
@@ -143,7 +149,7 @@ func StaticGet(fqn FQN, property string, returnsPtr interface{}) {
 		panic(err)
 	}
 
-	castAndSetToPtr(returnsPtr, res.Value)
+	castAndSetToPtr(returnsPtr, res.Value, implMap)
 }
 
 func Set(obj interface{}, property string, value interface{}) {
@@ -159,7 +165,7 @@ func Set(obj interface{}, property string, value interface{}) {
 	_, err := client.set(setRequest{
 		Api:      "set",
 		Property: property,
-		Value:    value,
+		Value:    castPtrToRef(value),
 		Objref: objref{
 			JsiiInstanceId: refid,
 		},
@@ -207,14 +213,72 @@ func castValToRef(data interface{}) (objref, bool) {
 	return ref, ok
 }
 
+// Accepts pointers to structs that implement interfaces and searches for an
+// existing object reference in the client. If it exists, it casts it to an
+// objref for the runtime. Recursively casts types that may contain nested
+// object references.
+func castPtrToRef(data interface{}) interface{} {
+	client := getClient()
+	dataVal := reflect.ValueOf(data)
+
+	if dataVal.Kind() == reflect.Ptr {
+		valref, valHasRef := client.findObjectRef(data)
+		if valHasRef {
+			return objref{JsiiInstanceId: valref}
+		}
+	} else if dataVal.Kind() == reflect.Slice {
+		refs := make([]interface{}, dataVal.Len())
+		for i := 0; i < dataVal.Len(); i++ {
+			refs[i] = dataVal.Index(i).Interface()
+		}
+		return refs
+	}
+
+	return data
+}
+
+// Casts slice of data into new slice of data with pointers to interfaces
+// converted to objrefs. This is useful for casting arguments to methods and
+// constructors to data that can be serialized before being passed over the
+// wire.
+func castPtrsToRef(args []interface{}) []interface{} {
+	argRefs := make([]interface{}, len(args))
+	for i, arg := range args {
+		argRefs[i] = castPtrToRef(arg)
+	}
+
+	return argRefs
+}
+
 // castAndSetToPtr accepts a pointer to any type and attempts to cast the value
 // argument to be the same type. Then it sets the value of the pointer element
 // to be the newly casted data. This is used to cast payloads from JSII to
 // expected return types for Get and Invoke functions.
-func castAndSetToPtr(ptr interface{}, data interface{}) {
+func castAndSetToPtr(ptr interface{}, data interface{}, implMap implementationMap) {
 	ptrVal := reflect.ValueOf(ptr).Elem()
-	val := reflect.ValueOf(data)
-	ptrVal.Set(val)
+	dataVal := reflect.ValueOf(data)
+
+	ref, isRef := castValToRef(data)
+
+	if ptrVal.Kind() == reflect.Slice && dataVal.Kind() == reflect.Slice {
+		// If return type is a slice, recursively cast elements
+		for i := 0; i < dataVal.Len(); i++ {
+			innerType := ptrVal.Type().Elem()
+			inner := reflect.New(innerType)
+
+			castAndSetToPtr(inner.Interface(), dataVal.Index(i).Interface(), implMap)
+			ptrVal.Set(reflect.Append(ptrVal, inner.Elem()))
+		}
+	} else if isRef {
+		// If return data is JSII object references, add to objects table.
+		concreteType := implMap[ptrVal.Type()]
+		ptrVal.Set(reflect.New(concreteType))
+		client := getClient()
+		client.objects[ptrVal.Interface()] = ref.JsiiInstanceId
+	} else {
+		val := reflect.ValueOf(data)
+		ptrVal.Set(val)
+	}
 }
 
 // Close finalizes the runtime process, signalling the end of the execution to

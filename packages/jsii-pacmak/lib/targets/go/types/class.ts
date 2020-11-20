@@ -84,6 +84,10 @@ export class GoClass extends GoStruct {
     );
   }
 
+  public get usesReflectionPackage(): boolean {
+    return this.properties.length > 0 || this.methods.length > 0;
+  }
+
   protected emitInterface(context: EmitContext): void {
     const { code } = context;
     code.line('// Class interface'); // FIXME for debugging

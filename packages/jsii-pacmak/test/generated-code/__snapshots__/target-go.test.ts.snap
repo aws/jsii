@@ -57,8 +57,9 @@ package scopejsiicalcbase
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase/jsii"
+	"reflect"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
 )
 
 // Class interface
@@ -92,6 +93,7 @@ func (b *Base) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -114,6 +116,9 @@ func (b *BaseProps) GetFoo() scopejsiicalcbaseofbase.VeryIface {
 		b,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalcbaseofbase.VeryIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalcbaseofbase.Very)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -124,6 +129,7 @@ func (b *BaseProps) GetBar() string {
 		b,
 		"bar",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -144,6 +150,7 @@ func (i *IBaseInterface) Foo() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -155,6 +162,7 @@ func (i *IBaseInterface) Bar() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -213,6 +221,7 @@ package scopejsiicalcbaseofbase
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase/jsii"
+	"reflect"
 )
 
 type IVeryBaseInterfaceIface interface {
@@ -229,6 +238,7 @@ func (i *IVeryBaseInterface) Foo() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -249,6 +259,7 @@ func StaticConsumer_Consume(_args interface{}) {
 		[]interface{}{_args},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -284,6 +295,7 @@ func (v *Very) Hey() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -304,6 +316,9 @@ func (v *VeryBaseProps) GetFoo() VeryIface {
 		v,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*VeryIface)(nil)).Elem(): reflect.TypeOf((*Very)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -374,9 +389,10 @@ package scopejsiicalclib
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
 )
 
 // Check that enums from \\@scoped packages can be references.
@@ -405,6 +421,7 @@ func (i *IDoublable) GetDoubleValue() float64 {
 		i,
 		"doubleValue",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -430,6 +447,7 @@ func (i *IFriendly) Hello() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -456,6 +474,7 @@ func (i *IThreeLevelsInterface) Foo() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -467,6 +486,7 @@ func (i *IThreeLevelsInterface) Bar() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -478,6 +498,7 @@ func (i *IThreeLevelsInterface) Baz() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -509,6 +530,7 @@ func (m *MyFirstStruct) GetAnumber() float64 {
 		m,
 		"anumber",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -519,6 +541,7 @@ func (m *MyFirstStruct) GetAstring() string {
 		m,
 		"astring",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -529,6 +552,9 @@ func (m *MyFirstStruct) GetFirstOptional() []string {
 		m,
 		"firstOptional",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -561,6 +587,7 @@ func (n *Number) GetValue() float64 {
 		n,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -571,6 +598,7 @@ func (n *Number) GetDoubleValue() float64 {
 		n,
 		"doubleValue",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -598,6 +626,7 @@ func (n *Number) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -610,6 +639,7 @@ func (n *Number) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -636,6 +666,7 @@ func (n *NumericValue) GetValue() float64 {
 		n,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -662,6 +693,7 @@ func (n *NumericValue) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -674,6 +706,7 @@ func (n *NumericValue) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -700,6 +733,7 @@ func (o *Operation) GetValue() float64 {
 		o,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -726,6 +760,7 @@ func (o *Operation) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -738,6 +773,7 @@ func (o *Operation) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -769,6 +805,7 @@ func (s *StructWithOnlyOptionals) GetOptional1() string {
 		s,
 		"optional1",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -779,6 +816,7 @@ func (s *StructWithOnlyOptionals) GetOptional2() float64 {
 		s,
 		"optional2",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -789,6 +827,7 @@ func (s *StructWithOnlyOptionals) GetOptional3() bool {
 		s,
 		"optional3",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -803,6 +842,7 @@ package submodule
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/jsii"
+	"reflect"
 )
 
 // Deprecated.
@@ -819,6 +859,9 @@ func (i *IReflectable) GetEntries() []ReflectableEntryIface {
 		i,
 		"entries",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*ReflectableEntryIface)(nil)).Elem(): reflect.TypeOf((*ReflectableEntry)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -852,6 +895,7 @@ func (n *NestedClass) GetProperty() string {
 		n,
 		"property",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -892,6 +936,7 @@ func (n *NestedStruct) GetName() string {
 		n,
 		"name",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -919,6 +964,7 @@ func (r *ReflectableEntry) GetKey() string {
 		r,
 		"key",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -929,6 +975,7 @@ func (r *ReflectableEntry) GetValue() interface{} {
 		r,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -965,6 +1012,9 @@ func (r *Reflector) AsMap(reflectable IReflectableIface) map[string]interface{} 
 		[]interface{}{reflectable},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1045,8 +1095,9 @@ package composition
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
+	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
 )
 
 // Class interface
@@ -1086,6 +1137,7 @@ func (c *CompositeOperation) GetValue() float64 {
 		c,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1096,6 +1148,9 @@ func (c *CompositeOperation) GetExpression() scopejsiicalclib.NumericValueIface 
 		c,
 		"expression",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1106,6 +1161,9 @@ func (c *CompositeOperation) GetDecorationPostfixes() []string {
 		c,
 		"decorationPostfixes",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1116,6 +1174,9 @@ func (c *CompositeOperation) GetDecorationPrefixes() []string {
 		c,
 		"decorationPrefixes",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1126,6 +1187,9 @@ func (c *CompositeOperation) GetStringStyle() CompositionStringStyle {
 		c,
 		"stringStyle",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*CompositionStringStyle)(nil)).Elem(): reflect.TypeOf((*CompositionStringStyle)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1176,6 +1240,7 @@ func (c *CompositeOperation) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1188,6 +1253,7 @@ func (c *CompositeOperation) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1209,6 +1275,7 @@ package derivedclasshasnoproperties
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 )
 
 // Class interface
@@ -1228,6 +1295,7 @@ func (b *Base) GetProp() string {
 		b,
 		"prop",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1271,6 +1339,7 @@ func (d *Derived) GetProp() string {
 		d,
 		"prop",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1320,6 +1389,7 @@ package interfaceinnamespaceincludesclasses
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 )
 
 // Class interface
@@ -1339,6 +1409,7 @@ func (f *Foo) GetBar() string {
 		f,
 		"bar",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1381,6 +1452,7 @@ func (h *Hello) GetFoo() float64 {
 		h,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1393,6 +1465,8 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/interfaceinnamespa
 package interfaceinnamespaceonlyinterface
 
 import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	"reflect"
 )
 
 // HelloIface is the public interface for the custom type Hello
@@ -1411,6 +1485,7 @@ func (h *Hello) GetFoo() float64 {
 		h,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1457,12 +1532,13 @@ package jsiicalc
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/composition"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbaseofbase"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalcbase"
 	"github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib/submodule"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -1486,6 +1562,7 @@ func (a *AbstractClass) GetAbstractProperty() string {
 		a,
 		"abstractProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1496,6 +1573,7 @@ func (a *AbstractClass) GetPropFromInterface() string {
 		a,
 		"propFromInterface",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1522,6 +1600,7 @@ func (a *AbstractClass) AbstractMethod(name string) string {
 		[]interface{}{name},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1534,6 +1613,7 @@ func (a *AbstractClass) NonAbstractMethod() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1554,6 +1634,7 @@ func (a *AbstractClassBase) GetAbstractProperty() string {
 		a,
 		"abstractProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1590,6 +1671,9 @@ func (a *AbstractClassReturner) GetReturnAbstractFromProperty() AbstractClassBas
 		a,
 		"returnAbstractFromProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*AbstractClassBaseIface)(nil)).Elem(): reflect.TypeOf((*AbstractClassBase)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1609,25 +1693,31 @@ func NewAbstractClassReturner() AbstractClassReturnerIface {
 }
 
 func (a *AbstractClassReturner) GiveMeAbstract() AbstractClassIface {
-	var returns *AbstractClass
+	var returns AbstractClassIface
 	_jsii_.Invoke(
 		a,
 		"giveMeAbstract",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*AbstractClassIface)(nil)).Elem(): reflect.TypeOf((*AbstractClass)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func (a *AbstractClassReturner) GiveMeInterface() IInterfaceImplementedByAbstractClassIface {
-	var returns *IInterfaceImplementedByAbstractClass
+	var returns IInterfaceImplementedByAbstractClassIface
 	_jsii_.Invoke(
 		a,
 		"giveMeInterface",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IInterfaceImplementedByAbstractClassIface)(nil)).Elem(): reflect.TypeOf((*IInterfaceImplementedByAbstractClass)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1651,6 +1741,7 @@ func (a *AbstractSuite) GetProperty() string {
 		a,
 		"property",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1685,6 +1776,7 @@ func (a *AbstractSuite) SomeMethod(str string) string {
 		[]interface{}{str},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1697,6 +1789,7 @@ func (a *AbstractSuite) WorkItAll(seed string) string {
 		[]interface{}{seed},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1729,6 +1822,7 @@ func (a *Add) GetValue() float64 {
 		a,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1739,6 +1833,9 @@ func (a *Add) GetLhs() scopejsiicalclib.NumericValueIface {
 		a,
 		"lhs",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1749,6 +1846,9 @@ func (a *Add) GetRhs() scopejsiicalclib.NumericValueIface {
 		a,
 		"rhs",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1776,6 +1876,7 @@ func (a *Add) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1788,6 +1889,7 @@ func (a *Add) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1800,6 +1902,7 @@ func (a *Add) Hello() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1881,6 +1984,7 @@ func (a *AllTypes) GetEnumPropertyValue() float64 {
 		a,
 		"enumPropertyValue",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1891,6 +1995,9 @@ func (a *AllTypes) GetAnyArrayProperty() []interface{} {
 		a,
 		"anyArrayProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1901,6 +2008,9 @@ func (a *AllTypes) GetAnyMapProperty() map[string]interface{} {
 		a,
 		"anyMapProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1911,6 +2021,7 @@ func (a *AllTypes) GetAnyProperty() interface{} {
 		a,
 		"anyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1921,6 +2032,9 @@ func (a *AllTypes) GetArrayProperty() []string {
 		a,
 		"arrayProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1931,6 +2045,7 @@ func (a *AllTypes) GetBooleanProperty() bool {
 		a,
 		"booleanProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1941,6 +2056,7 @@ func (a *AllTypes) GetDateProperty() string {
 		a,
 		"dateProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1951,6 +2067,9 @@ func (a *AllTypes) GetEnumProperty() AllTypesEnum {
 		a,
 		"enumProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*AllTypesEnum)(nil)).Elem(): reflect.TypeOf((*AllTypesEnum)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1961,6 +2080,7 @@ func (a *AllTypes) GetJsonProperty() map[string]interface{} {
 		a,
 		"jsonProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1971,6 +2091,9 @@ func (a *AllTypes) GetMapProperty() map[string]scopejsiicalclib.NumberIface {
 		a,
 		"mapProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumberIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.Number)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -1981,6 +2104,7 @@ func (a *AllTypes) GetNumberProperty() float64 {
 		a,
 		"numberProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -1991,6 +2115,7 @@ func (a *AllTypes) GetStringProperty() string {
 		a,
 		"stringProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2001,6 +2126,9 @@ func (a *AllTypes) GetUnionArrayProperty() []interface{} {
 		a,
 		"unionArrayProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2011,6 +2139,9 @@ func (a *AllTypes) GetUnionMapProperty() map[string]interface{} {
 		a,
 		"unionMapProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2021,6 +2152,7 @@ func (a *AllTypes) GetUnionProperty() interface{} {
 		a,
 		"unionProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2031,6 +2163,9 @@ func (a *AllTypes) GetUnknownArrayProperty() []interface{} {
 		a,
 		"unknownArrayProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2041,6 +2176,9 @@ func (a *AllTypes) GetUnknownMapProperty() map[string]interface{} {
 		a,
 		"unknownMapProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2051,6 +2189,7 @@ func (a *AllTypes) GetUnknownProperty() interface{} {
 		a,
 		"unknownProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2061,6 +2200,9 @@ func (a *AllTypes) GetOptionalEnumValue() StringEnum {
 		a,
 		"optionalEnumValue",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StringEnum)(nil)).Elem(): reflect.TypeOf((*StringEnum)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2231,6 +2373,7 @@ func (a *AllTypes) AnyIn(inp interface{}) {
 		[]interface{}{inp},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -2242,6 +2385,7 @@ func (a *AllTypes) AnyOut() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2254,6 +2398,9 @@ func (a *AllTypes) EnumMethod(value StringEnum) StringEnum {
 		[]interface{}{value},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StringEnum)(nil)).Elem(): reflect.TypeOf((*StringEnum)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2299,6 +2446,7 @@ func (a *AllowedMethodNames) GetBar(_p1 string, _p2 float64) {
 		[]interface{}{_p1, _p2},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -2310,6 +2458,7 @@ func (a *AllowedMethodNames) GetFoo(withParam string) string {
 		[]interface{}{withParam},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2322,6 +2471,7 @@ func (a *AllowedMethodNames) SetBar(_x string, _y float64, _z bool) {
 		[]interface{}{_x, _y, _z},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -2333,6 +2483,7 @@ func (a *AllowedMethodNames) SetFoo(_x string, _y float64) {
 		[]interface{}{_x, _y},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -2354,6 +2505,9 @@ func (a *AmbiguousParameters) GetProps() StructParameterTypeIface {
 		a,
 		"props",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StructParameterTypeIface)(nil)).Elem(): reflect.TypeOf((*StructParameterType)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2364,6 +2518,9 @@ func (a *AmbiguousParameters) GetScope() BellIface {
 		a,
 		"scope",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*BellIface)(nil)).Elem(): reflect.TypeOf((*Bell)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2407,25 +2564,31 @@ func NewAnonymousImplementationProvider() AnonymousImplementationProviderIface {
 }
 
 func (a *AnonymousImplementationProvider) ProvideAsClass() ImplementationIface {
-	var returns *Implementation
+	var returns ImplementationIface
 	_jsii_.Invoke(
 		a,
 		"provideAsClass",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*ImplementationIface)(nil)).Elem(): reflect.TypeOf((*Implementation)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func (a *AnonymousImplementationProvider) ProvideAsInterface() IAnonymouslyImplementMeIface {
-	var returns *IAnonymouslyImplementMe
+	var returns IAnonymouslyImplementMeIface
 	_jsii_.Invoke(
 		a,
 		"provideAsInterface",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IAnonymouslyImplementMeIface)(nil)).Elem(): reflect.TypeOf((*IAnonymouslyImplementMe)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2465,6 +2628,7 @@ func (a *AsyncVirtualMethods) CallMe() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2477,6 +2641,7 @@ func (a *AsyncVirtualMethods) CallMe2() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2489,6 +2654,7 @@ func (a *AsyncVirtualMethods) CallMeDoublePromise() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2501,6 +2667,7 @@ func (a *AsyncVirtualMethods) DontOverrideMe() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2513,6 +2680,7 @@ func (a *AsyncVirtualMethods) OverrideMe(mult float64) float64 {
 		[]interface{}{mult},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2525,6 +2693,7 @@ func (a *AsyncVirtualMethods) OverrideMeToo() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2560,6 +2729,7 @@ func (a *AugmentableClass) MethodOne() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -2571,6 +2741,7 @@ func (a *AugmentableClass) MethodTwo() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -2614,6 +2785,7 @@ func (b *Bell) GetRung() bool {
 		b,
 		"rung",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2648,6 +2820,7 @@ func (b *Bell) Ring() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -2680,6 +2853,7 @@ func (b *BinaryOperation) GetValue() float64 {
 		b,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2690,6 +2864,9 @@ func (b *BinaryOperation) GetLhs() scopejsiicalclib.NumericValueIface {
 		b,
 		"lhs",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2700,6 +2877,9 @@ func (b *BinaryOperation) GetRhs() scopejsiicalclib.NumericValueIface {
 		b,
 		"rhs",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2727,6 +2907,7 @@ func (b *BinaryOperation) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2739,6 +2920,7 @@ func (b *BinaryOperation) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2751,6 +2933,7 @@ func (b *BinaryOperation) Hello() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2787,6 +2970,7 @@ func (b *BurriedAnonymousObject) Check() bool {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2799,6 +2983,7 @@ func (b *BurriedAnonymousObject) GiveItBack(value interface{}) interface{} {
 		[]interface{}{value},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2875,6 +3060,7 @@ func (c *Calculator) GetValue() float64 {
 		c,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2885,6 +3071,9 @@ func (c *Calculator) GetExpression() scopejsiicalclib.NumericValueIface {
 		c,
 		"expression",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2895,6 +3084,9 @@ func (c *Calculator) GetDecorationPostfixes() []string {
 		c,
 		"decorationPostfixes",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2905,6 +3097,9 @@ func (c *Calculator) GetDecorationPrefixes() []string {
 		c,
 		"decorationPrefixes",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2915,6 +3110,9 @@ func (c *Calculator) GetStringStyle() composition.CompositionStringStyle {
 		c,
 		"stringStyle",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem(): reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2925,6 +3123,9 @@ func (c *Calculator) GetOperationsLog() []scopejsiicalclib.NumericValueIface {
 		c,
 		"operationsLog",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2935,6 +3136,9 @@ func (c *Calculator) GetOperationsMap() map[string][]scopejsiicalclib.NumericVal
 		c,
 		"operationsMap",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*[]scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*[]scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2945,6 +3149,9 @@ func (c *Calculator) GetCurr() scopejsiicalclib.NumericValueIface {
 		c,
 		"curr",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -2955,6 +3162,7 @@ func (c *Calculator) GetMaxValue() float64 {
 		c,
 		"maxValue",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -2965,6 +3173,7 @@ func (c *Calculator) GetUnionProperty() interface{} {
 		c,
 		"unionProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3040,6 +3249,7 @@ func (c *Calculator) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3052,6 +3262,7 @@ func (c *Calculator) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3064,6 +3275,7 @@ func (c *Calculator) Add(value float64) {
 		[]interface{}{value},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -3075,6 +3287,7 @@ func (c *Calculator) Mul(value float64) {
 		[]interface{}{value},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -3086,6 +3299,7 @@ func (c *Calculator) Neg() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -3097,6 +3311,7 @@ func (c *Calculator) Pow(value float64) {
 		[]interface{}{value},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -3108,6 +3323,7 @@ func (c *Calculator) ReadUnionValue() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3135,6 +3351,7 @@ func (c *CalculatorProps) GetInitialValue() float64 {
 		c,
 		"initialValue",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3145,6 +3362,7 @@ func (c *CalculatorProps) GetMaximumValue() float64 {
 		c,
 		"maximumValue",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3168,6 +3386,7 @@ func (c *ChildStruct982) GetFoo() string {
 		c,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3178,6 +3397,7 @@ func (c *ChildStruct982) GetBar() float64 {
 		c,
 		"bar",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3211,6 +3431,7 @@ func (c *ClassThatImplementsTheInternalInterface) GetA() string {
 		c,
 		"a",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3221,6 +3442,7 @@ func (c *ClassThatImplementsTheInternalInterface) GetB() string {
 		c,
 		"b",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3231,6 +3453,7 @@ func (c *ClassThatImplementsTheInternalInterface) GetC() string {
 		c,
 		"c",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3241,6 +3464,7 @@ func (c *ClassThatImplementsTheInternalInterface) GetD() string {
 		c,
 		"d",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3319,6 +3543,7 @@ func (c *ClassThatImplementsThePrivateInterface) GetA() string {
 		c,
 		"a",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3329,6 +3554,7 @@ func (c *ClassThatImplementsThePrivateInterface) GetB() string {
 		c,
 		"b",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3339,6 +3565,7 @@ func (c *ClassThatImplementsThePrivateInterface) GetC() string {
 		c,
 		"c",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3349,6 +3576,7 @@ func (c *ClassThatImplementsThePrivateInterface) GetE() string {
 		c,
 		"e",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3419,6 +3647,9 @@ func (c *ClassWithCollections) GetArray() []string {
 		c,
 		"array",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3429,6 +3660,9 @@ func (c *ClassWithCollections) GetMap() map[string]string {
 		c,
 		"map",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3472,6 +3706,9 @@ func ClassWithCollections_CreateAList() []string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3485,6 +3722,9 @@ func ClassWithCollections_CreateAMap() map[string]string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3496,6 +3736,9 @@ func ClassWithCollections_StaticArray() []string {
 		"jsii-calc.ClassWithCollections",
 		"staticArray",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3516,6 +3759,9 @@ func ClassWithCollections_StaticMap() map[string]string {
 		"jsii-calc.ClassWithCollections",
 		"staticMap",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3575,6 +3821,7 @@ func (c *ClassWithJavaReservedWords) GetInt() string {
 		c,
 		"int",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3601,6 +3848,7 @@ func (c *ClassWithJavaReservedWords) Import(assert string) string {
 		[]interface{}{assert},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3622,6 +3870,9 @@ func (c *ClassWithMutableObjectLiteralProperty) GetMutableObject() IMutableObjec
 		c,
 		"mutableObject",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IMutableObjectLiteralIface)(nil)).Elem(): reflect.TypeOf((*IMutableObjectLiteral)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3669,6 +3920,7 @@ func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadOnlyString() 
 		c,
 		"readOnlyString",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3679,6 +3931,7 @@ func (c *ClassWithPrivateConstructorAndAutomaticProperties) GetReadWriteString()
 		c,
 		"readWriteString",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3694,13 +3947,16 @@ func (c *ClassWithPrivateConstructorAndAutomaticProperties) SetReadWriteString(v
 
 func ClassWithPrivateConstructorAndAutomaticProperties_Create(readOnlyString string, readWriteString string) ClassWithPrivateConstructorAndAutomaticPropertiesIface {
 	_init_.Initialize()
-	var returns *ClassWithPrivateConstructorAndAutomaticProperties
+	var returns ClassWithPrivateConstructorAndAutomaticPropertiesIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
 		"create",
 		[]interface{}{readOnlyString, readWriteString},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*ClassWithPrivateConstructorAndAutomaticPropertiesIface)(nil)).Elem(): reflect.TypeOf((*ClassWithPrivateConstructorAndAutomaticProperties)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3725,6 +3981,7 @@ func (c *ConfusingToJackson) GetUnionProperty() interface{} {
 		c,
 		"unionProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3740,26 +3997,32 @@ func (c *ConfusingToJackson) SetUnionProperty(val interface{}) {
 
 func ConfusingToJackson_MakeInstance() ConfusingToJacksonIface {
 	_init_.Initialize()
-	var returns *ConfusingToJackson
+	var returns ConfusingToJacksonIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.ConfusingToJackson",
 		"makeInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*ConfusingToJacksonIface)(nil)).Elem(): reflect.TypeOf((*ConfusingToJackson)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func ConfusingToJackson_MakeStructInstance() ConfusingToJacksonStructIface {
 	_init_.Initialize()
-	var returns *ConfusingToJacksonStruct
+	var returns ConfusingToJacksonStructIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.ConfusingToJackson",
 		"makeStructInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*ConfusingToJacksonStructIface)(nil)).Elem(): reflect.TypeOf((*ConfusingToJacksonStruct)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3780,6 +4043,7 @@ func (c *ConfusingToJacksonStruct) GetUnionProperty() interface{} {
 		c,
 		"unionProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -3829,13 +4093,16 @@ func NewConstructors() ConstructorsIface {
 
 func Constructors_HiddenInterface() IPublicInterfaceIface {
 	_init_.Initialize()
-	var returns *IPublicInterface
+	var returns IPublicInterfaceIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"hiddenInterface",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IPublicInterfaceIface)(nil)).Elem(): reflect.TypeOf((*IPublicInterface)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3849,6 +4116,9 @@ func Constructors_HiddenInterfaces() []IPublicInterfaceIface {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IPublicInterfaceIface)(nil)).Elem(): reflect.TypeOf((*IPublicInterface)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3862,45 +4132,57 @@ func Constructors_HiddenSubInterfaces() []IPublicInterfaceIface {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IPublicInterfaceIface)(nil)).Elem(): reflect.TypeOf((*IPublicInterface)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func Constructors_MakeClass() PublicClassIface {
 	_init_.Initialize()
-	var returns *PublicClass
+	var returns PublicClassIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"makeClass",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*PublicClassIface)(nil)).Elem(): reflect.TypeOf((*PublicClass)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func Constructors_MakeInterface() IPublicInterfaceIface {
 	_init_.Initialize()
-	var returns *IPublicInterface
+	var returns IPublicInterfaceIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"makeInterface",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IPublicInterfaceIface)(nil)).Elem(): reflect.TypeOf((*IPublicInterface)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func Constructors_MakeInterface2() IPublicInterface2Iface {
 	_init_.Initialize()
-	var returns *IPublicInterface2
+	var returns IPublicInterface2Iface
 	_jsii_.InvokeStatic(
 		"jsii-calc.Constructors",
 		"makeInterface2",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IPublicInterface2Iface)(nil)).Elem(): reflect.TypeOf((*IPublicInterface2)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3914,6 +4196,9 @@ func Constructors_MakeInterfaces() []IPublicInterfaceIface {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IPublicInterfaceIface)(nil)).Elem(): reflect.TypeOf((*IPublicInterface)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3941,13 +4226,16 @@ func NewConsumePureInterface(delegate IStructReturningDelegateIface) ConsumePure
 }
 
 func (c *ConsumePureInterface) WorkItBaby() StructBIface {
-	var returns *StructB
+	var returns StructBIface
 	_jsii_.Invoke(
 		c,
 		"workItBaby",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StructBIface)(nil)).Elem(): reflect.TypeOf((*StructB)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -3990,6 +4278,7 @@ func ConsumerCanRingBell_StaticImplementedByObjectLiteral(ringer IBellRingerIfac
 		[]interface{}{ringer},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4003,6 +4292,7 @@ func ConsumerCanRingBell_StaticImplementedByPrivateClass(ringer IBellRingerIface
 		[]interface{}{ringer},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4016,6 +4306,7 @@ func ConsumerCanRingBell_StaticImplementedByPublicClass(ringer IBellRingerIface)
 		[]interface{}{ringer},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4029,6 +4320,7 @@ func ConsumerCanRingBell_StaticWhenTypedAsClass(ringer IConcreteBellRingerIface)
 		[]interface{}{ringer},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4041,6 +4333,7 @@ func (c *ConsumerCanRingBell) ImplementedByObjectLiteral(ringer IBellRingerIface
 		[]interface{}{ringer},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4053,6 +4346,7 @@ func (c *ConsumerCanRingBell) ImplementedByPrivateClass(ringer IBellRingerIface)
 		[]interface{}{ringer},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4065,6 +4359,7 @@ func (c *ConsumerCanRingBell) ImplementedByPublicClass(ringer IBellRingerIface) 
 		[]interface{}{ringer},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4077,6 +4372,7 @@ func (c *ConsumerCanRingBell) WhenTypedAsClass(ringer IConcreteBellRingerIface) 
 		[]interface{}{ringer},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4112,6 +4408,7 @@ func (c *ConsumersOfThisCrazyTypeSystem) ConsumeAnotherPublicInterface(obj IAnot
 		[]interface{}{obj},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4124,6 +4421,7 @@ func (c *ConsumersOfThisCrazyTypeSystem) ConsumeNonInternalInterface(obj INonInt
 		[]interface{}{obj},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4161,6 +4459,7 @@ func (d *DataRenderer) Render(data scopejsiicalclib.MyFirstStructIface) string {
 		[]interface{}{data},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4173,6 +4472,7 @@ func (d *DataRenderer) RenderArbitrary(data map[string]interface{}) string {
 		[]interface{}{data},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4185,6 +4485,7 @@ func (d *DataRenderer) RenderMap(map_ map[string]interface{}) string {
 		[]interface{}{map_},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4209,6 +4510,7 @@ func (d *DefaultedConstructorArgument) GetArg1() float64 {
 		d,
 		"arg1",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4219,6 +4521,7 @@ func (d *DefaultedConstructorArgument) GetArg3() string {
 		d,
 		"arg3",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4229,6 +4532,7 @@ func (d *DefaultedConstructorArgument) GetArg2() string {
 		d,
 		"arg2",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4274,26 +4578,32 @@ func NewDemonstrate982() Demonstrate982Iface {
 
 func Demonstrate982_TakeThis() ChildStruct982Iface {
 	_init_.Initialize()
-	var returns *ChildStruct982
+	var returns ChildStruct982Iface
 	_jsii_.InvokeStatic(
 		"jsii-calc.Demonstrate982",
 		"takeThis",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*ChildStruct982Iface)(nil)).Elem(): reflect.TypeOf((*ChildStruct982)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func Demonstrate982_TakeThisToo() ParentStruct982Iface {
 	_init_.Initialize()
-	var returns *ParentStruct982
+	var returns ParentStruct982Iface
 	_jsii_.InvokeStatic(
 		"jsii-calc.Demonstrate982",
 		"takeThisToo",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*ParentStruct982Iface)(nil)).Elem(): reflect.TypeOf((*ParentStruct982)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -4321,6 +4631,7 @@ func (d *DeprecatedClass) GetReadonlyProperty() string {
 		d,
 		"readonlyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4331,6 +4642,7 @@ func (d *DeprecatedClass) GetMutableProperty() float64 {
 		d,
 		"mutableProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4365,6 +4677,7 @@ func (d *DeprecatedClass) Method() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -4395,6 +4708,7 @@ func (d *DeprecatedStruct) GetReadonlyProperty() string {
 		d,
 		"readonlyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4440,6 +4754,7 @@ func (d *DerivedStruct) GetAnumber() float64 {
 		d,
 		"anumber",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4450,6 +4765,7 @@ func (d *DerivedStruct) GetAstring() string {
 		d,
 		"astring",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4460,6 +4776,9 @@ func (d *DerivedStruct) GetFirstOptional() []string {
 		d,
 		"firstOptional",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -4470,6 +4789,7 @@ func (d *DerivedStruct) GetAnotherRequired() string {
 		d,
 		"anotherRequired",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4480,6 +4800,7 @@ func (d *DerivedStruct) GetBool() bool {
 		d,
 		"bool",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4490,6 +4811,9 @@ func (d *DerivedStruct) GetNonPrimitive() DoubleTroubleIface {
 		d,
 		"nonPrimitive",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*DoubleTroubleIface)(nil)).Elem(): reflect.TypeOf((*DoubleTrouble)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -4500,6 +4824,9 @@ func (d *DerivedStruct) GetAnotherOptional() map[string]scopejsiicalclib.Numeric
 		d,
 		"anotherOptional",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -4510,6 +4837,7 @@ func (d *DerivedStruct) GetOptionalAny() interface{} {
 		d,
 		"optionalAny",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4520,6 +4848,9 @@ func (d *DerivedStruct) GetOptionalArray() []string {
 		d,
 		"optionalArray",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -4541,6 +4872,7 @@ func (d *DiamondInheritanceBaseLevelStruct) GetBaseLevelProperty() string {
 		d,
 		"baseLevelProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4564,6 +4896,7 @@ func (d *DiamondInheritanceFirstMidLevelStruct) GetBaseLevelProperty() string {
 		d,
 		"baseLevelProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4574,6 +4907,7 @@ func (d *DiamondInheritanceFirstMidLevelStruct) GetFirstMidLevelProperty() strin
 		d,
 		"firstMidLevelProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4597,6 +4931,7 @@ func (d *DiamondInheritanceSecondMidLevelStruct) GetBaseLevelProperty() string {
 		d,
 		"baseLevelProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4607,6 +4942,7 @@ func (d *DiamondInheritanceSecondMidLevelStruct) GetSecondMidLevelProperty() str
 		d,
 		"secondMidLevelProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4634,6 +4970,7 @@ func (d *DiamondInheritanceTopLevelStruct) GetBaseLevelProperty() string {
 		d,
 		"baseLevelProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4644,6 +4981,7 @@ func (d *DiamondInheritanceTopLevelStruct) GetFirstMidLevelProperty() string {
 		d,
 		"firstMidLevelProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4654,6 +4992,7 @@ func (d *DiamondInheritanceTopLevelStruct) GetSecondMidLevelProperty() string {
 		d,
 		"secondMidLevelProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4664,6 +5003,7 @@ func (d *DiamondInheritanceTopLevelStruct) GetTopLevelProperty() string {
 		d,
 		"topLevelProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4687,6 +5027,9 @@ func DisappointingCollectionSource_MaybeList() []string {
 		"jsii-calc.DisappointingCollectionSource",
 		"maybeList",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -4698,6 +5041,9 @@ func DisappointingCollectionSource_MaybeMap() map[string]float64 {
 		"jsii-calc.DisappointingCollectionSource",
 		"maybeMap",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*float64)(nil)).Elem(): reflect.TypeOf((*float64)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -4734,6 +5080,7 @@ func (d *DoNotOverridePrivates) ChangePrivatePropertyValue(newValue string) {
 		[]interface{}{newValue},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -4745,6 +5092,7 @@ func (d *DoNotOverridePrivates) PrivateMethodValue() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4757,6 +5105,7 @@ func (d *DoNotOverridePrivates) PrivatePropertyValue() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4792,6 +5141,7 @@ func (d *DoNotRecognizeAnyAsOptional) Method(_requiredAny interface{}, _optional
 		[]interface{}{_requiredAny, _optionalAny, _optionalString},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -4832,6 +5182,7 @@ func (d *DocumentedClass) Greet(greetee GreeteeIface) float64 {
 		[]interface{}{greetee},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4844,6 +5195,7 @@ func (d *DocumentedClass) Hola() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -4877,6 +5229,7 @@ func (d *DontComplainAboutVariadicAfterOptional) OptionalAndVariadic(optional st
 		[]interface{}{optional, things},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4915,6 +5268,7 @@ func (d *DoubleTrouble) Hello() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4927,6 +5281,7 @@ func (d *DoubleTrouble) Next() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4952,6 +5307,7 @@ func (d *DynamicPropertyBearer) GetDynamicProperty() string {
 		d,
 		"dynamicProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -4962,6 +5318,7 @@ func (d *DynamicPropertyBearer) GetValueStore() string {
 		d,
 		"valueStore",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5019,6 +5376,7 @@ func (d *DynamicPropertyBearerChild) GetDynamicProperty() string {
 		d,
 		"dynamicProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5029,6 +5387,7 @@ func (d *DynamicPropertyBearerChild) GetValueStore() string {
 		d,
 		"valueStore",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5039,6 +5398,7 @@ func (d *DynamicPropertyBearerChild) GetOriginalValue() string {
 		d,
 		"originalValue",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5081,6 +5441,7 @@ func (d *DynamicPropertyBearerChild) OverrideValue(newValue string) string {
 		[]interface{}{newValue},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5118,6 +5479,7 @@ func (e *Entropy) Increase() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5130,6 +5492,7 @@ func (e *Entropy) Repeat(word string) string {
 		[]interface{}{word},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5151,6 +5514,9 @@ func EnumDispenser_RandomIntegerLikeEnum() AllTypesEnum {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*AllTypesEnum)(nil)).Elem(): reflect.TypeOf((*AllTypesEnum)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -5164,6 +5530,9 @@ func EnumDispenser_RandomStringLikeEnum() StringEnum {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StringEnum)(nil)).Elem(): reflect.TypeOf((*StringEnum)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -5198,6 +5567,7 @@ func EraseUndefinedHashValues_DoesKeyExist(opts EraseUndefinedHashValuesOptionsI
 		[]interface{}{opts, key},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5211,6 +5581,9 @@ func EraseUndefinedHashValues_Prop1IsNull() map[string]interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -5224,6 +5597,9 @@ func EraseUndefinedHashValues_Prop2IsUndefined() map[string]interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -5246,6 +5622,7 @@ func (e *EraseUndefinedHashValuesOptions) GetOption1() string {
 		e,
 		"option1",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5256,6 +5633,7 @@ func (e *EraseUndefinedHashValuesOptions) GetOption2() string {
 		e,
 		"option2",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5284,6 +5662,7 @@ func (e *ExperimentalClass) GetReadonlyProperty() string {
 		e,
 		"readonlyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5294,6 +5673,7 @@ func (e *ExperimentalClass) GetMutableProperty() float64 {
 		e,
 		"mutableProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5328,6 +5708,7 @@ func (e *ExperimentalClass) Method() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -5358,6 +5739,7 @@ func (e *ExperimentalStruct) GetReadonlyProperty() string {
 		e,
 		"readonlyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5379,6 +5761,7 @@ func (e *ExportedBaseClass) GetSuccess() bool {
 		e,
 		"success",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5415,6 +5798,7 @@ func (e *ExtendsInternalInterface) GetBoom() bool {
 		e,
 		"boom",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5425,6 +5809,7 @@ func (e *ExtendsInternalInterface) GetProp() string {
 		e,
 		"prop",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5450,6 +5835,7 @@ func (e *ExternalClass) GetReadonlyProperty() string {
 		e,
 		"readonlyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5460,6 +5846,7 @@ func (e *ExternalClass) GetMutableProperty() float64 {
 		e,
 		"mutableProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5494,6 +5881,7 @@ func (e *ExternalClass) Method() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -5520,6 +5908,7 @@ func (e *ExternalStruct) GetReadonlyProperty() string {
 		e,
 		"readonlyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5544,6 +5933,9 @@ func (g *GiveMeStructs) GetStructLiteral() scopejsiicalclib.StructWithOnlyOption
 		g,
 		"structLiteral",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.StructWithOnlyOptionalsIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.StructWithOnlyOptionals)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -5563,25 +5955,31 @@ func NewGiveMeStructs() GiveMeStructsIface {
 }
 
 func (g *GiveMeStructs) DerivedToFirst(derived DerivedStructIface) scopejsiicalclib.MyFirstStructIface {
-	var returns *scopejsiicalclib.MyFirstStruct
+	var returns scopejsiicalclib.MyFirstStructIface
 	_jsii_.Invoke(
 		g,
 		"derivedToFirst",
 		[]interface{}{derived},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.MyFirstStructIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.MyFirstStruct)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func (g *GiveMeStructs) ReadDerivedNonPrimitive(derived DerivedStructIface) DoubleTroubleIface {
-	var returns *DoubleTrouble
+	var returns DoubleTroubleIface
 	_jsii_.Invoke(
 		g,
 		"readDerivedNonPrimitive",
 		[]interface{}{derived},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*DoubleTroubleIface)(nil)).Elem(): reflect.TypeOf((*DoubleTrouble)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -5594,6 +5992,7 @@ func (g *GiveMeStructs) ReadFirstNumber(first scopejsiicalclib.MyFirstStructIfac
 		[]interface{}{first},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5616,6 +6015,7 @@ func (g *Greetee) GetName() string {
 		g,
 		"name",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5651,6 +6051,7 @@ func (g *GreetingAugmenter) BetterGreeting(friendly scopejsiicalclib.IFriendlyIf
 		[]interface{}{friendly},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5664,25 +6065,31 @@ type IAnonymousImplementationProviderIface interface {
 type IAnonymousImplementationProvider struct {}
 
 func (i *IAnonymousImplementationProvider) ProvideAsClass() ImplementationIface {
-	var returns *Implementation
+	var returns ImplementationIface
 	_jsii_.Invoke(
 		i,
 		"provideAsClass",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*ImplementationIface)(nil)).Elem(): reflect.TypeOf((*Implementation)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func (i *IAnonymousImplementationProvider) ProvideAsInterface() IAnonymouslyImplementMeIface {
-	var returns *IAnonymouslyImplementMe
+	var returns IAnonymouslyImplementMeIface
 	_jsii_.Invoke(
 		i,
 		"provideAsInterface",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IAnonymouslyImplementMeIface)(nil)).Elem(): reflect.TypeOf((*IAnonymouslyImplementMe)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -5702,6 +6109,7 @@ func (i *IAnonymouslyImplementMe) Verb() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5712,6 +6120,7 @@ func (i *IAnonymouslyImplementMe) GetValue() float64 {
 		i,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5728,6 +6137,7 @@ func (i *IAnotherPublicInterface) GetA() string {
 		i,
 		"a",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5754,6 +6164,7 @@ func (i *IBell) Ring() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -5772,6 +6183,7 @@ func (i *IBellRinger) YourTurn(bell IBellIface) {
 		[]interface{}{bell},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -5790,6 +6202,7 @@ func (i *IConcreteBellRinger) YourTurn(bell BellIface) {
 		[]interface{}{bell},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -5811,6 +6224,7 @@ func (i *IDeprecatedInterface) Method() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -5820,6 +6234,7 @@ func (i *IDeprecatedInterface) GetMutableProperty() float64 {
 		i,
 		"mutableProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5850,6 +6265,7 @@ func (i *IExperimentalInterface) Method() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -5859,6 +6275,7 @@ func (i *IExperimentalInterface) GetMutableProperty() float64 {
 		i,
 		"mutableProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5884,6 +6301,9 @@ func (i *IExtendsPrivateInterface) GetMoreThings() []string {
 		i,
 		"moreThings",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -5894,6 +6314,7 @@ func (i *IExtendsPrivateInterface) GetPrivate() string {
 		i,
 		"private",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5921,6 +6342,7 @@ func (i *IExternalInterface) Method() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -5930,6 +6352,7 @@ func (i *IExternalInterface) GetMutableProperty() float64 {
 		i,
 		"mutableProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5963,6 +6386,7 @@ func (i *IFriendlier) Hello() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5975,6 +6399,7 @@ func (i *IFriendlier) Farewell() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -5987,6 +6412,7 @@ func (i *IFriendlier) Goodbye() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6006,6 +6432,7 @@ func (i *IFriendlyRandomGenerator) Next() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6018,6 +6445,7 @@ func (i *IFriendlyRandomGenerator) Hello() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6035,6 +6463,7 @@ func (i *IInterfaceImplementedByAbstractClass) GetPropFromInterface() string {
 		i,
 		"propFromInterface",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6055,6 +6484,7 @@ func (i *IInterfaceThatShouldNotBeADataType) DoThings() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6064,6 +6494,7 @@ func (i *IInterfaceThatShouldNotBeADataType) GetValue() string {
 		i,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6074,6 +6505,7 @@ func (i *IInterfaceThatShouldNotBeADataType) GetOtherValue() string {
 		i,
 		"otherValue",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6092,6 +6524,7 @@ func (i *IInterfaceWithInternal) Visible() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6110,6 +6543,7 @@ func (i *IInterfaceWithMethods) DoThings() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6119,6 +6553,7 @@ func (i *IInterfaceWithMethods) GetValue() string {
 		i,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6138,6 +6573,7 @@ func (i *IInterfaceWithOptionalMethodArguments) Hello(arg1 string, arg2 float64)
 		[]interface{}{arg1, arg2},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6154,6 +6590,7 @@ func (i *IInterfaceWithProperties) GetReadOnlyString() string {
 		i,
 		"readOnlyString",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6164,6 +6601,7 @@ func (i *IInterfaceWithProperties) GetReadWriteString() string {
 		i,
 		"readWriteString",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6189,6 +6627,7 @@ func (i *IInterfaceWithPropertiesExtension) GetReadOnlyString() string {
 		i,
 		"readOnlyString",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6199,6 +6638,7 @@ func (i *IInterfaceWithPropertiesExtension) GetReadWriteString() string {
 		i,
 		"readWriteString",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6217,6 +6657,7 @@ func (i *IInterfaceWithPropertiesExtension) GetFoo() float64 {
 		i,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6246,6 +6687,7 @@ func (i *Ijsii417Derived) Foo() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6257,6 +6699,7 @@ func (i *Ijsii417Derived) Bar() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6268,6 +6711,7 @@ func (i *Ijsii417Derived) Baz() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6277,6 +6721,7 @@ func (i *Ijsii417Derived) GetHasRoot() bool {
 		i,
 		"hasRoot",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6287,6 +6732,7 @@ func (i *Ijsii417Derived) GetProperty() string {
 		i,
 		"property",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6306,6 +6752,7 @@ func (i *Ijsii417PublicBaseOfBase) Foo() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6315,6 +6762,7 @@ func (i *Ijsii417PublicBaseOfBase) GetHasRoot() bool {
 		i,
 		"hasRoot",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6346,6 +6794,7 @@ func (i *IMutableObjectLiteral) GetValue() string {
 		i,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6372,6 +6821,7 @@ func (i *INonInternalInterface) GetA() string {
 		i,
 		"a",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6390,6 +6840,7 @@ func (i *INonInternalInterface) GetB() string {
 		i,
 		"b",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6408,6 +6859,7 @@ func (i *INonInternalInterface) GetC() string {
 		i,
 		"c",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6436,6 +6888,7 @@ func (i *IObjectWithProperty) WasSet() bool {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6446,6 +6899,7 @@ func (i *IObjectWithProperty) GetProperty() string {
 		i,
 		"property",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6473,6 +6927,7 @@ func (i *IOptionalMethod) Optional() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6489,6 +6944,7 @@ func (i *IPrivatelyImplemented) GetSuccess() bool {
 		i,
 		"success",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6507,6 +6963,7 @@ func (i *IPublicInterface) Bye() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6525,6 +6982,7 @@ func (i *IPublicInterface2) Ciao() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6547,6 +7005,7 @@ func (i *IRandomNumberGenerator) Next() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6564,6 +7023,7 @@ func (i *IReturnJsii976) GetFoo() float64 {
 		i,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6576,13 +7036,16 @@ type IReturnsNumberIface interface {
 type IReturnsNumber struct {}
 
 func (i *IReturnsNumber) ObtainNumber() scopejsiicalclib.IDoublableIface {
-	var returns *scopejsiicalclib.IDoublable
+	var returns scopejsiicalclib.IDoublableIface
 	_jsii_.Invoke(
 		i,
 		"obtainNumber",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.IDoublableIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.IDoublable)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -6593,6 +7056,9 @@ func (i *IReturnsNumber) GetNumberProp() scopejsiicalclib.NumberIface {
 		i,
 		"numberProp",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumberIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.Number)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -6612,6 +7078,7 @@ func (i *IStableInterface) Method() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6621,6 +7088,7 @@ func (i *IStableInterface) GetMutableProperty() float64 {
 		i,
 		"mutableProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6641,13 +7109,16 @@ type IStructReturningDelegateIface interface {
 type IStructReturningDelegate struct {}
 
 func (i *IStructReturningDelegate) ReturnStruct() StructBIface {
-	var returns *StructB
+	var returns StructBIface
 	_jsii_.Invoke(
 		i,
 		"returnStruct",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StructBIface)(nil)).Elem(): reflect.TypeOf((*StructB)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -6668,6 +7139,7 @@ func (i *IWallClock) Iso8601Now() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6689,6 +7161,7 @@ func (i *ImplementInternalInterface) GetProp() string {
 		i,
 		"prop",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6731,6 +7204,7 @@ func (i *Implementation) GetValue() float64 {
 		i,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6780,6 +7254,7 @@ func (i *ImplementsInterfaceWithInternal) Visible() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6814,6 +7289,7 @@ func (i *ImplementsInterfaceWithInternalSubclass) Visible() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6834,6 +7310,7 @@ func (i *ImplementsPrivateInterface) GetPrivate() string {
 		i,
 		"private",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6880,6 +7357,9 @@ func (i *ImplictBaseOfBase) GetFoo() scopejsiicalcbaseofbase.VeryIface {
 		i,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalcbaseofbase.VeryIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalcbaseofbase.Very)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -6890,6 +7370,7 @@ func (i *ImplictBaseOfBase) GetBar() string {
 		i,
 		"bar",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6900,6 +7381,7 @@ func (i *ImplictBaseOfBase) GetGoo() string {
 		i,
 		"goo",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6937,6 +7419,7 @@ func (i *InbetweenClass) Hello() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -6948,6 +7431,7 @@ func (i *InbetweenClass) Ciao() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -6972,6 +7456,9 @@ func InterfaceCollections_ListOfInterfaces() []IBellIface {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IBellIface)(nil)).Elem(): reflect.TypeOf((*IBell)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -6985,6 +7472,9 @@ func InterfaceCollections_ListOfStructs() []StructAIface {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StructAIface)(nil)).Elem(): reflect.TypeOf((*StructA)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -6998,6 +7488,9 @@ func InterfaceCollections_MapOfInterfaces() map[string]IBellIface {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IBellIface)(nil)).Elem(): reflect.TypeOf((*IBell)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -7011,6 +7504,9 @@ func InterfaceCollections_MapOfStructs() map[string]StructAIface {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StructAIface)(nil)).Elem(): reflect.TypeOf((*StructA)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -7033,6 +7529,9 @@ func InterfacesMaker_MakeInterfaces(count float64) []scopejsiicalclib.IDoublable
 		[]interface{}{count},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.IDoublableIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.IDoublable)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -7064,13 +7563,16 @@ func NewIsomorphism() IsomorphismIface {
 }
 
 func (i *Isomorphism) Myself() IsomorphismIface {
-	var returns *Isomorphism
+	var returns IsomorphismIface
 	_jsii_.Invoke(
 		i,
 		"myself",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IsomorphismIface)(nil)).Elem(): reflect.TypeOf((*Isomorphism)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -7096,6 +7598,7 @@ func (j *Jsii417Derived) GetHasRoot() bool {
 		j,
 		"hasRoot",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -7106,6 +7609,7 @@ func (j *Jsii417Derived) GetProperty() string {
 		j,
 		"property",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -7126,13 +7630,16 @@ func NewJsii417Derived(property string) Jsii417DerivedIface {
 
 func Jsii417Derived_MakeInstance() Jsii417PublicBaseOfBaseIface {
 	_init_.Initialize()
-	var returns *Jsii417PublicBaseOfBase
+	var returns Jsii417PublicBaseOfBaseIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.JSII417Derived",
 		"makeInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*Jsii417PublicBaseOfBaseIface)(nil)).Elem(): reflect.TypeOf((*Jsii417PublicBaseOfBase)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -7145,6 +7652,7 @@ func (j *Jsii417Derived) Foo() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7156,6 +7664,7 @@ func (j *Jsii417Derived) Bar() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7167,6 +7676,7 @@ func (j *Jsii417Derived) Baz() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7187,6 +7697,7 @@ func (j *Jsii417PublicBaseOfBase) GetHasRoot() bool {
 		j,
 		"hasRoot",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -7207,13 +7718,16 @@ func NewJsii417PublicBaseOfBase() Jsii417PublicBaseOfBaseIface {
 
 func Jsii417PublicBaseOfBase_MakeInstance() Jsii417PublicBaseOfBaseIface {
 	_init_.Initialize()
-	var returns *Jsii417PublicBaseOfBase
+	var returns Jsii417PublicBaseOfBaseIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.JSII417PublicBaseOfBase",
 		"makeInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*Jsii417PublicBaseOfBaseIface)(nil)).Elem(): reflect.TypeOf((*Jsii417PublicBaseOfBase)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -7226,6 +7740,7 @@ func (j *Jsii417PublicBaseOfBase) Foo() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7253,25 +7768,31 @@ func NewJsObjectLiteralForInterface() JsObjectLiteralForInterfaceIface {
 }
 
 func (j *JsObjectLiteralForInterface) GiveMeFriendly() scopejsiicalclib.IFriendlyIface {
-	var returns *scopejsiicalclib.IFriendly
+	var returns scopejsiicalclib.IFriendlyIface
 	_jsii_.Invoke(
 		j,
 		"giveMeFriendly",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.IFriendlyIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.IFriendly)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func (j *JsObjectLiteralForInterface) GiveMeFriendlyGenerator() IFriendlyRandomGeneratorIface {
-	var returns *IFriendlyRandomGenerator
+	var returns IFriendlyRandomGeneratorIface
 	_jsii_.Invoke(
 		j,
 		"giveMeFriendlyGenerator",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IFriendlyRandomGeneratorIface)(nil)).Elem(): reflect.TypeOf((*IFriendlyRandomGenerator)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -7299,13 +7820,16 @@ func NewJsObjectLiteralToNative() JsObjectLiteralToNativeIface {
 }
 
 func (j *JsObjectLiteralToNative) ReturnLiteral() JsObjectLiteralToNativeClassIface {
-	var returns *JsObjectLiteralToNativeClass
+	var returns JsObjectLiteralToNativeClassIface
 	_jsii_.Invoke(
 		j,
 		"returnLiteral",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*JsObjectLiteralToNativeClassIface)(nil)).Elem(): reflect.TypeOf((*JsObjectLiteralToNativeClass)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -7330,6 +7854,7 @@ func (j *JsObjectLiteralToNativeClass) GetPropA() string {
 		j,
 		"propA",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -7340,6 +7865,7 @@ func (j *JsObjectLiteralToNativeClass) GetPropB() float64 {
 		j,
 		"propB",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -7443,6 +7969,7 @@ func (j *JavaReservedWords) GetWhile() string {
 		j,
 		"while",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -7477,6 +8004,7 @@ func (j *JavaReservedWords) Abstract() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7488,6 +8016,7 @@ func (j *JavaReservedWords) Assert() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7499,6 +8028,7 @@ func (j *JavaReservedWords) Boolean() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7510,6 +8040,7 @@ func (j *JavaReservedWords) Break() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7521,6 +8052,7 @@ func (j *JavaReservedWords) Byte() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7532,6 +8064,7 @@ func (j *JavaReservedWords) Case() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7543,6 +8076,7 @@ func (j *JavaReservedWords) Catch() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7554,6 +8088,7 @@ func (j *JavaReservedWords) Char() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7565,6 +8100,7 @@ func (j *JavaReservedWords) Class() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7576,6 +8112,7 @@ func (j *JavaReservedWords) Const() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7587,6 +8124,7 @@ func (j *JavaReservedWords) Continue() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7598,6 +8136,7 @@ func (j *JavaReservedWords) Default() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7609,6 +8148,7 @@ func (j *JavaReservedWords) Do() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7620,6 +8160,7 @@ func (j *JavaReservedWords) Double() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7631,6 +8172,7 @@ func (j *JavaReservedWords) Else() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7642,6 +8184,7 @@ func (j *JavaReservedWords) Enum() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7653,6 +8196,7 @@ func (j *JavaReservedWords) Extends() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7664,6 +8208,7 @@ func (j *JavaReservedWords) False() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7675,6 +8220,7 @@ func (j *JavaReservedWords) Final() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7686,6 +8232,7 @@ func (j *JavaReservedWords) Finally() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7697,6 +8244,7 @@ func (j *JavaReservedWords) Float() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7708,6 +8256,7 @@ func (j *JavaReservedWords) For() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7719,6 +8268,7 @@ func (j *JavaReservedWords) Goto() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7730,6 +8280,7 @@ func (j *JavaReservedWords) If() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7741,6 +8292,7 @@ func (j *JavaReservedWords) Implements() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7752,6 +8304,7 @@ func (j *JavaReservedWords) Import() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7763,6 +8316,7 @@ func (j *JavaReservedWords) Instanceof() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7774,6 +8328,7 @@ func (j *JavaReservedWords) Int() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7785,6 +8340,7 @@ func (j *JavaReservedWords) Interface() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7796,6 +8352,7 @@ func (j *JavaReservedWords) Long() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7807,6 +8364,7 @@ func (j *JavaReservedWords) Native() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7818,6 +8376,7 @@ func (j *JavaReservedWords) New() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7829,6 +8388,7 @@ func (j *JavaReservedWords) Null() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7840,6 +8400,7 @@ func (j *JavaReservedWords) Package() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7851,6 +8412,7 @@ func (j *JavaReservedWords) Private() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7862,6 +8424,7 @@ func (j *JavaReservedWords) Protected() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7873,6 +8436,7 @@ func (j *JavaReservedWords) Public() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7884,6 +8448,7 @@ func (j *JavaReservedWords) Return() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7895,6 +8460,7 @@ func (j *JavaReservedWords) Short() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7906,6 +8472,7 @@ func (j *JavaReservedWords) Static() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7917,6 +8484,7 @@ func (j *JavaReservedWords) Strictfp() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7928,6 +8496,7 @@ func (j *JavaReservedWords) Super() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7939,6 +8508,7 @@ func (j *JavaReservedWords) Switch() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7950,6 +8520,7 @@ func (j *JavaReservedWords) Synchronized() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7961,6 +8532,7 @@ func (j *JavaReservedWords) This() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7972,6 +8544,7 @@ func (j *JavaReservedWords) Throw() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7983,6 +8556,7 @@ func (j *JavaReservedWords) Throws() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -7994,6 +8568,7 @@ func (j *JavaReservedWords) Transient() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -8005,6 +8580,7 @@ func (j *JavaReservedWords) True() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -8016,6 +8592,7 @@ func (j *JavaReservedWords) Try() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -8027,6 +8604,7 @@ func (j *JavaReservedWords) Void() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -8038,6 +8616,7 @@ func (j *JavaReservedWords) Volatile() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -8115,6 +8694,7 @@ func JsiiAgent_Value() string {
 		"jsii-calc.JsiiAgent",
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8139,6 +8719,7 @@ func JsonFormatter_AnyArray() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8152,6 +8733,7 @@ func JsonFormatter_AnyBooleanFalse() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8165,6 +8747,7 @@ func JsonFormatter_AnyBooleanTrue() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8178,6 +8761,7 @@ func JsonFormatter_AnyDate() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8191,6 +8775,7 @@ func JsonFormatter_AnyEmptyString() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8204,6 +8789,7 @@ func JsonFormatter_AnyFunction() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8217,6 +8803,7 @@ func JsonFormatter_AnyHash() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8230,6 +8817,7 @@ func JsonFormatter_AnyNull() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8243,6 +8831,7 @@ func JsonFormatter_AnyNumber() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8256,6 +8845,7 @@ func JsonFormatter_AnyRef() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8269,6 +8859,7 @@ func JsonFormatter_AnyString() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8282,6 +8873,7 @@ func JsonFormatter_AnyUndefined() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8295,6 +8887,7 @@ func JsonFormatter_AnyZero() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8308,6 +8901,7 @@ func JsonFormatter_Stringify(value interface{}) string {
 		[]interface{}{value},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8329,6 +8923,9 @@ func (l *LevelOne) GetProps() LevelOnePropsIface {
 		l,
 		"props",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*LevelOnePropsIface)(nil)).Elem(): reflect.TypeOf((*LevelOneProps)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -8363,6 +8960,7 @@ func (p *PropBooleanValue) GetValue() bool {
 		p,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8384,6 +8982,9 @@ func (p *PropProperty) GetProp() PropBooleanValueIface {
 		p,
 		"prop",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*PropBooleanValueIface)(nil)).Elem(): reflect.TypeOf((*PropBooleanValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -8405,6 +9006,9 @@ func (l *LevelOneProps) GetProp() PropPropertyIface {
 		l,
 		"prop",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*PropPropertyIface)(nil)).Elem(): reflect.TypeOf((*PropProperty)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -8466,6 +9070,7 @@ func (l *LoadBalancedFargateServiceProps) GetContainerPort() float64 {
 		l,
 		"containerPort",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8476,6 +9081,7 @@ func (l *LoadBalancedFargateServiceProps) GetCpu() string {
 		l,
 		"cpu",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8486,6 +9092,7 @@ func (l *LoadBalancedFargateServiceProps) GetMemoryMiB() string {
 		l,
 		"memoryMiB",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8496,6 +9103,7 @@ func (l *LoadBalancedFargateServiceProps) GetPublicLoadBalancer() bool {
 		l,
 		"publicLoadBalancer",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8506,6 +9114,7 @@ func (l *LoadBalancedFargateServiceProps) GetPublicTasks() bool {
 		l,
 		"publicTasks",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8528,6 +9137,7 @@ func (m *MethodNamedProperty) GetElite() float64 {
 		m,
 		"elite",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8554,6 +9164,7 @@ func (m *MethodNamedProperty) Property() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8592,6 +9203,7 @@ func (m *Multiply) GetValue() float64 {
 		m,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8602,6 +9214,9 @@ func (m *Multiply) GetLhs() scopejsiicalclib.NumericValueIface {
 		m,
 		"lhs",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -8612,6 +9227,9 @@ func (m *Multiply) GetRhs() scopejsiicalclib.NumericValueIface {
 		m,
 		"rhs",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -8639,6 +9257,7 @@ func (m *Multiply) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8651,6 +9270,7 @@ func (m *Multiply) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8663,6 +9283,7 @@ func (m *Multiply) Hello() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8675,6 +9296,7 @@ func (m *Multiply) Farewell() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8687,6 +9309,7 @@ func (m *Multiply) Goodbye() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8699,6 +9322,7 @@ func (m *Multiply) Next() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8730,6 +9354,7 @@ func (n *Negate) GetValue() float64 {
 		n,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8740,6 +9365,9 @@ func (n *Negate) GetOperand() scopejsiicalclib.NumericValueIface {
 		n,
 		"operand",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -8766,6 +9394,7 @@ func (n *Negate) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8778,6 +9407,7 @@ func (n *Negate) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8790,6 +9420,7 @@ func (n *Negate) Farewell() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8802,6 +9433,7 @@ func (n *Negate) Goodbye() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8814,6 +9446,7 @@ func (n *Negate) Hello() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8828,13 +9461,16 @@ type NestedClassInstance struct {
 
 func NestedClassInstance_MakeInstance() submodule.NestedClassIface {
 	_init_.Initialize()
-	var returns *submodule.NestedClass
+	var returns submodule.NestedClassIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.NestedClassInstance",
 		"makeInstance",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*submodule.NestedClassIface)(nil)).Elem(): reflect.TypeOf((*submodule.NestedClass)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -8856,6 +9492,7 @@ func (n *NestedStruct) GetNumberProp() float64 {
 		n,
 		"numberProp",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8882,6 +9519,7 @@ func (n *NodeStandardLibrary) GetOsPlatform() string {
 		n,
 		"osPlatform",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8908,6 +9546,7 @@ func (n *NodeStandardLibrary) CryptoSha256() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8920,6 +9559,7 @@ func (n *NodeStandardLibrary) FsReadFile() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8932,6 +9572,7 @@ func (n *NodeStandardLibrary) FsReadFileSync() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8957,6 +9598,7 @@ func (n *NullShouldBeTreatedAsUndefined) GetChangeMeToUndefined() string {
 		n,
 		"changeMeToUndefined",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -8991,6 +9633,7 @@ func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefined(value interface{}) {
 		[]interface{}{value},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9002,6 +9645,7 @@ func (n *NullShouldBeTreatedAsUndefined) GiveMeUndefinedInsideAnObject(input Nul
 		[]interface{}{input},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9013,6 +9657,7 @@ func (n *NullShouldBeTreatedAsUndefined) VerifyPropertyIsUndefined() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9034,6 +9679,9 @@ func (n *NullShouldBeTreatedAsUndefinedData) GetArrayWithThreeElementsAndUndefin
 		n,
 		"arrayWithThreeElementsAndUndefinedAsSecondArgument",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*interface{})(nil)).Elem(): reflect.TypeOf((*interface{})(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -9044,6 +9692,7 @@ func (n *NullShouldBeTreatedAsUndefinedData) GetThisShouldBeUndefined() interfac
 		n,
 		"thisShouldBeUndefined",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9069,6 +9718,9 @@ func (n *NumberGenerator) GetGenerator() IRandomNumberGeneratorIface {
 		n,
 		"generator",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IRandomNumberGeneratorIface)(nil)).Elem(): reflect.TypeOf((*IRandomNumberGenerator)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -9103,6 +9755,7 @@ func (n *NumberGenerator) IsSameGenerator(gen IRandomNumberGeneratorIface) bool 
 		[]interface{}{gen},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9115,6 +9768,7 @@ func (n *NumberGenerator) NextTimes100() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9151,6 +9805,7 @@ func (o *ObjectRefsInCollections) SumFromArray(values []scopejsiicalclib.Numeric
 		[]interface{}{values},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9163,6 +9818,7 @@ func (o *ObjectRefsInCollections) SumFromMap(values map[string]scopejsiicalclib.
 		[]interface{}{values},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9177,13 +9833,16 @@ type ObjectWithPropertyProvider struct {
 
 func ObjectWithPropertyProvider_Provide() IObjectWithPropertyIface {
 	_init_.Initialize()
-	var returns *IObjectWithProperty
+	var returns IObjectWithPropertyIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.ObjectWithPropertyProvider",
 		"provide",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IObjectWithPropertyIface)(nil)).Elem(): reflect.TypeOf((*IObjectWithProperty)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -9220,6 +9879,7 @@ func (o *Old) DoAThing() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9254,6 +9914,7 @@ func (o *OptionalArgumentInvoker) InvokeWithOptional() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9265,6 +9926,7 @@ func (o *OptionalArgumentInvoker) InvokeWithoutOptional() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9288,6 +9950,7 @@ func (o *OptionalConstructorArgument) GetArg1() float64 {
 		o,
 		"arg1",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9298,6 +9961,7 @@ func (o *OptionalConstructorArgument) GetArg2() string {
 		o,
 		"arg2",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9308,6 +9972,7 @@ func (o *OptionalConstructorArgument) GetArg3() string {
 		o,
 		"arg3",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9342,6 +10007,7 @@ func (o *OptionalStruct) GetField() string {
 		o,
 		"field",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9365,6 +10031,7 @@ func (o *OptionalStructConsumer) GetParameterWasUndefined() bool {
 		o,
 		"parameterWasUndefined",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9375,6 +10042,7 @@ func (o *OptionalStructConsumer) GetFieldValue() string {
 		o,
 		"fieldValue",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9416,6 +10084,7 @@ func (o *OverridableProtectedMember) GetOverrideReadOnly() string {
 		o,
 		"overrideReadOnly",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9426,6 +10095,7 @@ func (o *OverridableProtectedMember) GetOverrideReadWrite() string {
 		o,
 		"overrideReadWrite",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9460,6 +10130,7 @@ func (o *OverridableProtectedMember) OverrideMe() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9472,6 +10143,7 @@ func (o *OverridableProtectedMember) SwitchModes() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9483,6 +10155,7 @@ func (o *OverridableProtectedMember) ValueFromProtected() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9517,6 +10190,7 @@ func (o *OverrideReturnsObject) Test(obj IReturnsNumberIface) float64 {
 		[]interface{}{obj},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9538,6 +10212,7 @@ func (p *ParentStruct982) GetFoo() string {
 		p,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9573,6 +10248,7 @@ func (p *PartiallyInitializedThisConsumer) ConsumePartiallyInitializedThis(obj C
 		[]interface{}{obj, dt, ev},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9607,6 +10283,7 @@ func (p *Polymorphism) SayHello(friendly scopejsiicalclib.IFriendlyIface) string
 		[]interface{}{friendly},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9654,6 +10331,7 @@ func (p *Power) GetValue() float64 {
 		p,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9664,6 +10342,9 @@ func (p *Power) GetExpression() scopejsiicalclib.NumericValueIface {
 		p,
 		"expression",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -9674,6 +10355,9 @@ func (p *Power) GetDecorationPostfixes() []string {
 		p,
 		"decorationPostfixes",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -9684,6 +10368,9 @@ func (p *Power) GetDecorationPrefixes() []string {
 		p,
 		"decorationPrefixes",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -9694,6 +10381,9 @@ func (p *Power) GetStringStyle() composition.CompositionStringStyle {
 		p,
 		"stringStyle",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem(): reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -9704,6 +10394,9 @@ func (p *Power) GetBase() scopejsiicalclib.NumericValueIface {
 		p,
 		"base",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -9714,6 +10407,9 @@ func (p *Power) GetPow() scopejsiicalclib.NumericValueIface {
 		p,
 		"pow",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -9765,6 +10461,7 @@ func (p *Power) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9777,6 +10474,7 @@ func (p *Power) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9800,6 +10498,7 @@ func (p *PropertyNamedProperty) GetProperty() string {
 		p,
 		"property",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9810,6 +10509,7 @@ func (p *PropertyNamedProperty) GetYetAnoterOne() bool {
 		p,
 		"yetAnoterOne",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -9858,6 +10558,7 @@ func (p *PublicClass) Hello() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9922,6 +10623,7 @@ func (p *PythonReservedWords) And() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9933,6 +10635,7 @@ func (p *PythonReservedWords) As() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9944,6 +10647,7 @@ func (p *PythonReservedWords) Assert() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9955,6 +10659,7 @@ func (p *PythonReservedWords) Async() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9966,6 +10671,7 @@ func (p *PythonReservedWords) Await() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9977,6 +10683,7 @@ func (p *PythonReservedWords) Break() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9988,6 +10695,7 @@ func (p *PythonReservedWords) Class() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -9999,6 +10707,7 @@ func (p *PythonReservedWords) Continue() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10010,6 +10719,7 @@ func (p *PythonReservedWords) Def() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10021,6 +10731,7 @@ func (p *PythonReservedWords) Del() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10032,6 +10743,7 @@ func (p *PythonReservedWords) Elif() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10043,6 +10755,7 @@ func (p *PythonReservedWords) Else() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10054,6 +10767,7 @@ func (p *PythonReservedWords) Except() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10065,6 +10779,7 @@ func (p *PythonReservedWords) Finally() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10076,6 +10791,7 @@ func (p *PythonReservedWords) For() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10087,6 +10803,7 @@ func (p *PythonReservedWords) From() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10098,6 +10815,7 @@ func (p *PythonReservedWords) Global() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10109,6 +10827,7 @@ func (p *PythonReservedWords) If() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10120,6 +10839,7 @@ func (p *PythonReservedWords) Import() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10131,6 +10851,7 @@ func (p *PythonReservedWords) In() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10142,6 +10863,7 @@ func (p *PythonReservedWords) Is() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10153,6 +10875,7 @@ func (p *PythonReservedWords) Lambda() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10164,6 +10887,7 @@ func (p *PythonReservedWords) Nonlocal() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10175,6 +10899,7 @@ func (p *PythonReservedWords) Not() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10186,6 +10911,7 @@ func (p *PythonReservedWords) Or() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10197,6 +10923,7 @@ func (p *PythonReservedWords) Pass() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10208,6 +10935,7 @@ func (p *PythonReservedWords) Raise() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10219,6 +10947,7 @@ func (p *PythonReservedWords) Return() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10230,6 +10959,7 @@ func (p *PythonReservedWords) Try() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10241,6 +10971,7 @@ func (p *PythonReservedWords) While() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10252,6 +10983,7 @@ func (p *PythonReservedWords) With() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10263,6 +10995,7 @@ func (p *PythonReservedWords) Yield() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10286,6 +11019,9 @@ func (r *ReferenceEnumFromScopedPackage) GetFoo() scopejsiicalclib.EnumFromScope
 		r,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.EnumFromScopedModule)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.EnumFromScopedModule)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -10320,6 +11056,9 @@ func (r *ReferenceEnumFromScopedPackage) LoadFoo() scopejsiicalclib.EnumFromScop
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.EnumFromScopedModule)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.EnumFromScopedModule)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -10332,6 +11071,7 @@ func (r *ReferenceEnumFromScopedPackage) SaveFoo(value scopejsiicalclib.EnumFrom
 		[]interface{}{value},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10356,6 +11096,9 @@ func (r *ReturnsPrivateImplementationOfInterface) GetPrivateImplementation() IPr
 		r,
 		"privateImplementation",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IPrivatelyImplementedIface)(nil)).Elem(): reflect.TypeOf((*IPrivatelyImplemented)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -10397,6 +11140,7 @@ func (r *RootStruct) GetStringProp() string {
 		r,
 		"stringProp",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10407,6 +11151,9 @@ func (r *RootStruct) GetNestedStruct() NestedStructIface {
 		r,
 		"nestedStruct",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*NestedStructIface)(nil)).Elem(): reflect.TypeOf((*NestedStruct)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -10429,6 +11176,7 @@ func RootStructValidator_Validate(struct_ RootStructIface) {
 		[]interface{}{struct_},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10464,6 +11212,7 @@ func (r *RuntimeTypeChecking) MethodWithDefaultedArguments(arg1 float64, arg2 st
 		[]interface{}{arg1, arg2, arg3},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10475,6 +11224,7 @@ func (r *RuntimeTypeChecking) MethodWithOptionalAnyArgument(arg interface{}) {
 		[]interface{}{arg},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10486,6 +11236,7 @@ func (r *RuntimeTypeChecking) MethodWithOptionalArguments(arg1 float64, arg2 str
 		[]interface{}{arg1, arg2, arg3},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10509,6 +11260,7 @@ func (s *SecondLevelStruct) GetDeeperRequiredProp() string {
 		s,
 		"deeperRequiredProp",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10519,6 +11271,7 @@ func (s *SecondLevelStruct) GetDeeperOptionalProp() string {
 		s,
 		"deeperOptionalProp",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10553,25 +11306,31 @@ func NewSingleInstanceTwoTypes() SingleInstanceTwoTypesIface {
 }
 
 func (s *SingleInstanceTwoTypes) Interface1() InbetweenClassIface {
-	var returns *InbetweenClass
+	var returns InbetweenClassIface
 	_jsii_.Invoke(
 		s,
 		"interface1",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*InbetweenClassIface)(nil)).Elem(): reflect.TypeOf((*InbetweenClass)(nil)).Elem(),
+		},
 	)
 	return returns
 }
 
 func (s *SingleInstanceTwoTypes) Interface2() IPublicInterfaceIface {
-	var returns *IPublicInterface
+	var returns IPublicInterfaceIface
 	_jsii_.Invoke(
 		s,
 		"interface2",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IPublicInterfaceIface)(nil)).Elem(): reflect.TypeOf((*IPublicInterface)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -10596,6 +11355,7 @@ func (s *SingletonInt) IsSingletonInt(value float64) bool {
 		[]interface{}{value},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10627,6 +11387,7 @@ func (s *SingletonString) IsSingletonString(value string) bool {
 		[]interface{}{value},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10656,6 +11417,7 @@ func (s *SmellyStruct) GetProperty() string {
 		s,
 		"property",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10666,6 +11428,7 @@ func (s *SmellyStruct) GetYetAnoterOne() bool {
 		s,
 		"yetAnoterOne",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10701,19 +11464,23 @@ func SomeTypeJsii976_ReturnAnonymous() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
 
 func SomeTypeJsii976_ReturnReturn() IReturnJsii976Iface {
 	_init_.Initialize()
-	var returns *IReturnJsii976
+	var returns IReturnJsii976Iface
 	_jsii_.InvokeStatic(
 		"jsii-calc.SomeTypeJsii976",
 		"returnReturn",
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IReturnJsii976Iface)(nil)).Elem(): reflect.TypeOf((*IReturnJsii976)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -10738,6 +11505,7 @@ func (s *StableClass) GetReadonlyProperty() string {
 		s,
 		"readonlyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10748,6 +11516,7 @@ func (s *StableClass) GetMutableProperty() float64 {
 		s,
 		"mutableProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10782,6 +11551,7 @@ func (s *StableClass) Method() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -10808,6 +11578,7 @@ func (s *StableStruct) GetReadonlyProperty() string {
 		s,
 		"readonlyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10833,6 +11604,7 @@ func StaticContext_CanAccessStaticContext() bool {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10844,6 +11616,7 @@ func StaticContext_StaticVariable() bool {
 		"jsii-calc.StaticContext",
 		"staticVariable",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10874,6 +11647,7 @@ func (s *Statics) GetValue() string {
 		s,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10901,6 +11675,7 @@ func Statics_StaticMethod(name string) string {
 		[]interface{}{name},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10912,6 +11687,7 @@ func Statics_Bar() float64 {
 		"jsii-calc.Statics",
 		"BAR",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10923,6 +11699,9 @@ func Statics_ConstObj() DoubleTroubleIface {
 		"jsii-calc.Statics",
 		"ConstObj",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*DoubleTroubleIface)(nil)).Elem(): reflect.TypeOf((*DoubleTrouble)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -10934,6 +11713,7 @@ func Statics_Foo() string {
 		"jsii-calc.Statics",
 		"Foo",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10945,6 +11725,9 @@ func Statics_ZooBar() map[string]string {
 		"jsii-calc.Statics",
 		"zooBar",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -10956,6 +11739,9 @@ func Statics_Instance() StaticsIface {
 		"jsii-calc.Statics",
 		"instance",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StaticsIface)(nil)).Elem(): reflect.TypeOf((*Statics)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -10976,6 +11762,7 @@ func Statics_NonConstStatic() float64 {
 		"jsii-calc.Statics",
 		"nonConstStatic",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -10997,6 +11784,7 @@ func (s *Statics) JustMethod() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11026,6 +11814,7 @@ func (s *StripInternal) GetYouSeeMe() string {
 		s,
 		"youSeeMe",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11073,6 +11862,7 @@ func (s *StructA) GetRequiredString() string {
 		s,
 		"requiredString",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11083,6 +11873,7 @@ func (s *StructA) GetOptionalNumber() float64 {
 		s,
 		"optionalNumber",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11093,6 +11884,7 @@ func (s *StructA) GetOptionalString() string {
 		s,
 		"optionalString",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11119,6 +11911,7 @@ func (s *StructB) GetRequiredString() string {
 		s,
 		"requiredString",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11129,6 +11922,7 @@ func (s *StructB) GetOptionalBoolean() bool {
 		s,
 		"optionalBoolean",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11139,6 +11933,9 @@ func (s *StructB) GetOptionalStructA() StructAIface {
 		s,
 		"optionalStructA",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StructAIface)(nil)).Elem(): reflect.TypeOf((*StructA)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -11165,6 +11962,7 @@ func (s *StructParameterType) GetScope() string {
 		s,
 		"scope",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11175,6 +11973,7 @@ func (s *StructParameterType) GetProps() bool {
 		s,
 		"props",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11211,19 +12010,23 @@ func StructPassing_HowManyVarArgsDidIPass(_positional float64, inputs TopLevelSt
 		[]interface{}{_positional, inputs},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
 
 func StructPassing_RoundTrip(_positional float64, input TopLevelStructIface) TopLevelStructIface {
 	_init_.Initialize()
-	var returns *TopLevelStruct
+	var returns TopLevelStructIface
 	_jsii_.InvokeStatic(
 		"jsii-calc.StructPassing",
 		"roundTrip",
 		[]interface{}{_positional, input},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*TopLevelStructIface)(nil)).Elem(): reflect.TypeOf((*TopLevelStruct)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -11245,6 +12048,7 @@ func StructUnionConsumer_IsStructA(struct_ interface{}) bool {
 		[]interface{}{struct_},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11258,6 +12062,7 @@ func StructUnionConsumer_IsStructB(struct_ interface{}) bool {
 		[]interface{}{struct_},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11284,6 +12089,7 @@ func (s *StructWithJavaReservedWords) GetDefault() string {
 		s,
 		"default",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11294,6 +12100,7 @@ func (s *StructWithJavaReservedWords) GetAssert() string {
 		s,
 		"assert",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11304,6 +12111,7 @@ func (s *StructWithJavaReservedWords) GetResult() string {
 		s,
 		"result",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11314,6 +12122,7 @@ func (s *StructWithJavaReservedWords) GetThat() string {
 		s,
 		"that",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11360,6 +12169,7 @@ func (s *Sum) GetValue() float64 {
 		s,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11370,6 +12180,9 @@ func (s *Sum) GetExpression() scopejsiicalclib.NumericValueIface {
 		s,
 		"expression",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -11380,6 +12193,9 @@ func (s *Sum) GetDecorationPostfixes() []string {
 		s,
 		"decorationPostfixes",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -11390,6 +12206,9 @@ func (s *Sum) GetDecorationPrefixes() []string {
 		s,
 		"decorationPrefixes",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -11400,6 +12219,9 @@ func (s *Sum) GetStringStyle() composition.CompositionStringStyle {
 		s,
 		"stringStyle",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem(): reflect.TypeOf((*composition.CompositionStringStyle)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -11410,6 +12232,9 @@ func (s *Sum) GetParts() []scopejsiicalclib.NumericValueIface {
 		s,
 		"parts",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -11468,6 +12293,7 @@ func (s *Sum) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11480,6 +12306,7 @@ func (s *Sum) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11507,6 +12334,7 @@ func (s *SupportsNiceJavaBuilder) GetBar() float64 {
 		s,
 		"bar",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11517,6 +12345,7 @@ func (s *SupportsNiceJavaBuilder) GetId() float64 {
 		s,
 		"id",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11527,6 +12356,7 @@ func (s *SupportsNiceJavaBuilder) GetPropId() string {
 		s,
 		"propId",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11537,6 +12367,9 @@ func (s *SupportsNiceJavaBuilder) GetRest() []string {
 		s,
 		"rest",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*string)(nil)).Elem(): reflect.TypeOf((*string)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -11577,6 +12410,7 @@ func (s *SupportsNiceJavaBuilderProps) GetBar() float64 {
 		s,
 		"bar",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11587,6 +12421,7 @@ func (s *SupportsNiceJavaBuilderProps) GetId() string {
 		s,
 		"id",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11614,6 +12449,7 @@ func (s *SupportsNiceJavaBuilderWithRequiredProps) GetBar() float64 {
 		s,
 		"bar",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11624,6 +12460,7 @@ func (s *SupportsNiceJavaBuilderWithRequiredProps) GetId() float64 {
 		s,
 		"id",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11634,6 +12471,7 @@ func (s *SupportsNiceJavaBuilderWithRequiredProps) GetPropId() string {
 		s,
 		"propId",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11693,6 +12531,7 @@ func (s *SyncVirtualMethods) GetReadonlyProperty() string {
 		s,
 		"readonlyProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11703,6 +12542,7 @@ func (s *SyncVirtualMethods) GetA() float64 {
 		s,
 		"a",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11713,6 +12553,7 @@ func (s *SyncVirtualMethods) GetCallerIsProperty() float64 {
 		s,
 		"callerIsProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11723,6 +12564,7 @@ func (s *SyncVirtualMethods) GetOtherProperty() string {
 		s,
 		"otherProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11733,6 +12575,7 @@ func (s *SyncVirtualMethods) GetTheProperty() string {
 		s,
 		"theProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11743,6 +12586,7 @@ func (s *SyncVirtualMethods) GetValueOfOtherProperty() string {
 		s,
 		"valueOfOtherProperty",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11809,6 +12653,7 @@ func (s *SyncVirtualMethods) CallerIsAsync() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11821,6 +12666,7 @@ func (s *SyncVirtualMethods) CallerIsMethod() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11833,6 +12679,7 @@ func (s *SyncVirtualMethods) ModifyOtherProperty(value string) {
 		[]interface{}{value},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -11844,6 +12691,7 @@ func (s *SyncVirtualMethods) ModifyValueOfTheProperty(value string) {
 		[]interface{}{value},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -11855,6 +12703,7 @@ func (s *SyncVirtualMethods) ReadA() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11867,6 +12716,7 @@ func (s *SyncVirtualMethods) RetrieveOtherProperty() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11879,6 +12729,7 @@ func (s *SyncVirtualMethods) RetrieveReadOnlyProperty() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11891,6 +12742,7 @@ func (s *SyncVirtualMethods) RetrieveValueOfTheProperty() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11903,6 +12755,7 @@ func (s *SyncVirtualMethods) VirtualMethod(n float64) float64 {
 		[]interface{}{n},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11915,6 +12768,7 @@ func (s *SyncVirtualMethods) WriteA(value float64) {
 		[]interface{}{value},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -11948,6 +12802,7 @@ func (t *Thrower) ThrowError() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -11974,6 +12829,7 @@ func (t *TopLevelStruct) GetRequired() string {
 		t,
 		"required",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11984,6 +12840,7 @@ func (t *TopLevelStruct) GetSecondLevel() interface{} {
 		t,
 		"secondLevel",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -11994,6 +12851,7 @@ func (t *TopLevelStruct) GetOptional() string {
 		t,
 		"optional",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12019,6 +12877,7 @@ func UmaskCheck_Mode() float64 {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12046,6 +12905,7 @@ func (u *UnaryOperation) GetValue() float64 {
 		u,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12056,6 +12916,9 @@ func (u *UnaryOperation) GetOperand() scopejsiicalclib.NumericValueIface {
 		u,
 		"operand",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalclib.NumericValueIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalclib.NumericValue)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12082,6 +12945,7 @@ func (u *UnaryOperation) TypeName() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12094,6 +12958,7 @@ func (u *UnaryOperation) ToString() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12116,6 +12981,7 @@ func (u *UnionProperties) GetBar() interface{} {
 		u,
 		"bar",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12126,6 +12992,7 @@ func (u *UnionProperties) GetFoo() interface{} {
 		u,
 		"foo",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12149,6 +13016,9 @@ func (u *UpcasingReflectable) GetEntries() []submodule.ReflectableEntryIface {
 		u,
 		"entries",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*submodule.ReflectableEntryIface)(nil)).Elem(): reflect.TypeOf((*submodule.ReflectableEntry)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12174,6 +13044,9 @@ func UpcasingReflectable_Reflector() submodule.ReflectorIface {
 		"jsii-calc.UpcasingReflectable",
 		"reflector",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*submodule.ReflectorIface)(nil)).Elem(): reflect.TypeOf((*submodule.Reflector)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12208,6 +13081,7 @@ func (u *UseBundledDependency) Value() interface{} {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12236,13 +13110,16 @@ func NewUseCalcBase() UseCalcBaseIface {
 }
 
 func (u *UseCalcBase) Hello() scopejsiicalcbase.BaseIface {
-	var returns *scopejsiicalcbase.Base
+	var returns scopejsiicalcbase.BaseIface
 	_jsii_.Invoke(
 		u,
 		"hello",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*scopejsiicalcbase.BaseIface)(nil)).Elem(): reflect.TypeOf((*scopejsiicalcbase.Base)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12266,6 +13143,9 @@ func (u *UsesInterfaceWithProperties) GetObj() IInterfaceWithPropertiesIface {
 		u,
 		"obj",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*IInterfaceWithPropertiesIface)(nil)).Elem(): reflect.TypeOf((*IInterfaceWithProperties)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12292,6 +13172,7 @@ func (u *UsesInterfaceWithProperties) JustRead() string {
 		[]interface{}{},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12304,6 +13185,7 @@ func (u *UsesInterfaceWithProperties) ReadStringAndNumber(ext IInterfaceWithProp
 		[]interface{}{ext},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12316,6 +13198,7 @@ func (u *UsesInterfaceWithProperties) WriteAndRead(value string) string {
 		[]interface{}{value},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12350,6 +13233,9 @@ func (v *VariadicInvoker) AsArray(values float64) []float64 {
 		[]interface{}{values},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*float64)(nil)).Elem(): reflect.TypeOf((*float64)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12384,6 +13270,9 @@ func (v *VariadicMethod) AsArray(first float64, others float64) []float64 {
 		[]interface{}{first, others},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*float64)(nil)).Elem(): reflect.TypeOf((*float64)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12422,6 +13311,7 @@ func (v *VirtualMethodPlayground) OverrideMeAsync(index float64) float64 {
 		[]interface{}{index},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12434,6 +13324,7 @@ func (v *VirtualMethodPlayground) OverrideMeSync(index float64) float64 {
 		[]interface{}{index},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12446,6 +13337,7 @@ func (v *VirtualMethodPlayground) ParallelSumAsync(count float64) float64 {
 		[]interface{}{count},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12458,6 +13350,7 @@ func (v *VirtualMethodPlayground) SerialSumAsync(count float64) float64 {
 		[]interface{}{count},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12470,6 +13363,7 @@ func (v *VirtualMethodPlayground) SumSync(count float64) float64 {
 		[]interface{}{count},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12497,6 +13391,7 @@ func (v *VoidCallback) GetMethodWasCalled() bool {
 		v,
 		"methodWasCalled",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12523,6 +13418,7 @@ func (v *VoidCallback) CallMe() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -12534,6 +13430,7 @@ func (v *VoidCallback) OverrideMe() {
 		[]interface{}{},
 		false,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 }
 
@@ -12554,6 +13451,7 @@ func (w *WithPrivatePropertyInConstructor) GetSuccess() bool {
 		w,
 		"success",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12581,6 +13479,7 @@ package pythonself
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 )
 
 // Class interface
@@ -12600,6 +13499,7 @@ func (c *ClassWithSelf) GetSelf() string {
 		c,
 		"self",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12626,6 +13526,7 @@ func (c *ClassWithSelf) Method(self float64) string {
 		[]interface{}{self},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12646,6 +13547,9 @@ func (c *ClassWithSelfKwarg) GetProps() StructWithSelfIface {
 		c,
 		"props",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*StructWithSelfIface)(nil)).Elem(): reflect.TypeOf((*StructWithSelf)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12678,6 +13582,7 @@ func (i *IInterfaceWithSelf) Method(self float64) string {
 		[]interface{}{self},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12698,6 +13603,7 @@ func (s *StructWithSelf) GetSelf() string {
 		s,
 		"self",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12710,6 +13616,8 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/backrefe
 package backreferences
 
 import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule"
 )
 
@@ -12729,6 +13637,9 @@ func (m *MyClassReference) GetReference() submodule.MyClassIface {
 		m,
 		"reference",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*submodule.MyClassIface)(nil)).Elem(): reflect.TypeOf((*submodule.MyClass)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12743,6 +13654,7 @@ package child
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 )
 
 type Awesomeness string
@@ -12787,6 +13699,9 @@ func InnerClass_StaticProp() SomeStructIface {
 		"jsii-calc.submodule.child.InnerClass",
 		"staticProp",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*SomeStructIface)(nil)).Elem(): reflect.TypeOf((*SomeStruct)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12809,6 +13724,9 @@ func (k *KwargsProps) GetProp() SomeEnum {
 		k,
 		"prop",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*SomeEnum)(nil)).Elem(): reflect.TypeOf((*SomeEnum)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12819,6 +13737,7 @@ func (k *KwargsProps) GetExtra() string {
 		k,
 		"extra",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12843,6 +13762,9 @@ func (o *OuterClass) GetInnerClass() InnerClassIface {
 		o,
 		"innerClass",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*InnerClassIface)(nil)).Elem(): reflect.TypeOf((*InnerClass)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12883,6 +13805,9 @@ func (s *SomeStruct) GetProp() SomeEnum {
 		s,
 		"prop",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*SomeEnum)(nil)).Elem(): reflect.TypeOf((*SomeEnum)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -12904,6 +13829,7 @@ func (s *Structure) GetBool() bool {
 		s,
 		"bool",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12936,6 +13862,7 @@ func Kwargs_Method(props child.KwargsPropsIface) bool {
 		[]interface{}{props},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12948,6 +13875,7 @@ package deeplynested
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	"reflect"
 )
 
 type INamespacedIface interface {
@@ -12962,6 +13890,7 @@ func (i *INamespaced) GetDefinedAt() string {
 		i,
 		"definedAt",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -12974,6 +13903,7 @@ package nestedsubmodule
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/child"
 )
@@ -12997,6 +13927,7 @@ func (n *Namespaced) GetDefinedAt() string {
 		n,
 		"definedAt",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -13007,6 +13938,9 @@ func (n *Namespaced) GetGoodness() child.Goodness {
 		n,
 		"goodness",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*child.Goodness)(nil)).Elem(): reflect.TypeOf((*child.Goodness)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -13019,6 +13953,8 @@ exports[`Generated code for "jsii-calc": <outDir>/go/jsiicalc/submodule/param/pa
 package param
 
 import (
+	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	"reflect"
 )
 
 // SpecialParameterIface is the public interface for the custom type SpecialParameter
@@ -13037,6 +13973,7 @@ func (s *SpecialParameter) GetValue() string {
 		s,
 		"value",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -13050,8 +13987,9 @@ package returnsparam
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
-	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
 	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
+	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
 )
 
 // Class interface
@@ -13077,13 +14015,16 @@ func NewReturnsSpecialParameter() ReturnsSpecialParameterIface {
 }
 
 func (r *ReturnsSpecialParameter) ReturnsSpecialParam() param.SpecialParameterIface {
-	var returns *param.SpecialParameter
+	var returns param.SpecialParameterIface
 	_jsii_.Invoke(
 		r,
 		"returnsSpecialParam",
 		[]interface{}{},
 		true,
-		returns,
+		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*param.SpecialParameterIface)(nil)).Elem(): reflect.TypeOf((*param.SpecialParameter)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -13096,11 +14037,12 @@ package submodule
 
 import (
 	_jsii_ "github.com/aws-cdk/jsii/jsii-experimental"
+	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
+	"reflect"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/nestedsubmodule/deeplynested"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/child"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc"
 	"github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
-	_init_ "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/jsii"
 )
 
 // Class interface
@@ -13130,6 +14072,9 @@ func (m *MyClass) GetAwesomeness() child.Awesomeness {
 		m,
 		"awesomeness",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*child.Awesomeness)(nil)).Elem(): reflect.TypeOf((*child.Awesomeness)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -13140,6 +14085,7 @@ func (m *MyClass) GetDefinedAt() string {
 		m,
 		"definedAt",
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
@@ -13150,6 +14096,9 @@ func (m *MyClass) GetGoodness() child.Goodness {
 		m,
 		"goodness",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*child.Goodness)(nil)).Elem(): reflect.TypeOf((*child.Goodness)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -13160,6 +14109,9 @@ func (m *MyClass) GetProps() child.SomeStructIface {
 		m,
 		"props",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*child.SomeStructIface)(nil)).Elem(): reflect.TypeOf((*child.SomeStruct)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -13170,6 +14122,9 @@ func (m *MyClass) GetAllTypes() jsiicalc.AllTypesIface {
 		m,
 		"allTypes",
 		&returns,
+		map[reflect.Type]reflect.Type{
+			reflect.TypeOf((*jsiicalc.AllTypesIface)(nil)).Elem(): reflect.TypeOf((*jsiicalc.AllTypes)(nil)).Elem(),
+		},
 	)
 	return returns
 }
@@ -13204,6 +14159,7 @@ func (m *MyClass) MethodWithSpecialParam(param param.SpecialParameterIface) stri
 		[]interface{}{param},
 		true,
 		&returns,
+		map[reflect.Type]reflect.Type{},
 	)
 	return returns
 }
