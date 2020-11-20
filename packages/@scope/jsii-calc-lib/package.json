@@ -39,7 +39,7 @@
     "@scope/jsii-calc-base-of-base": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.45",
+    "@types/node": "^10.17.46",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
