@@ -1,12 +1,13 @@
-import {CodeMaker} from 'codemaker';
-import {JSII_IMPL_MAP_TYPE} from './constants';
-import {GoTypeMember} from "../types";
+import { CodeMaker } from 'codemaker';
+
+import { GoTypeMember, ImplementationMap } from '../types';
+import { JSII_IMPL_MAP_TYPE } from './constants';
 
 export abstract class FunctionCall {
   public constructor(public readonly parent: GoTypeMember) {}
 
-  protected get implMap(): string[] {
-    return this.parent.reference?.scopedImplMap(this.parent.parent.pkg) ?? [];
+  protected get implMap(): ImplementationMap | void {
+    return this.parent.reference?.scopedImplMap(this.parent.parent.pkg);
   }
 
   /**
@@ -14,15 +15,17 @@ export abstract class FunctionCall {
    * cast data to expected return type.
    */
   protected emitImplMapVal(code: CodeMaker) {
-    if (this.implMap.length) {
-      const [interfaceName, structName] = this.implMap;
+    if (this.implMap) {
+      const { interfaceName, structName } = this.implMap;
       code.open(`${JSII_IMPL_MAP_TYPE}{`);
 
       // `reflect.TypeOf((*SomeType)(nil)).Elem()` is a reliable way to create
       // an instance of reflect.Type for any type. `(*SomeInterface)(nil)`
       // creates a "zero value" with the type `SomeInterface` which otherwise
       // has no way to instantiate.
-      code.line(`reflect.TypeOf((*${interfaceName})(nil)).Elem(): reflect.TypeOf((*${structName})(nil)).Elem(),`);
+      code.line(
+        `reflect.TypeOf((*${interfaceName})(nil)).Elem(): reflect.TypeOf((*${structName})(nil)).Elem(),`,
+      );
       code.close('},');
     } else {
       code.line(`${JSII_IMPL_MAP_TYPE}{},`);

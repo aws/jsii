@@ -1,17 +1,14 @@
 import { CodeMaker } from 'codemaker';
 
 import { GoMethod } from '../types';
-import {
-  JSII_INVOKE_FUNC,
-  JSII_SINVOKE_FUNC,
-} from './constants';
-import { slugify, emitInitialization } from './util';
+import { JSII_INVOKE_FUNC, JSII_SINVOKE_FUNC } from './constants';
 import { FunctionCall } from './function-call';
+import { slugify, emitInitialization } from './util';
 
 export class MethodCall extends FunctionCall {
   private _returnVarName = '';
   public constructor(public readonly parent: GoMethod) {
-    super(parent)
+    super(parent);
   }
 
   public emit(code: CodeMaker) {

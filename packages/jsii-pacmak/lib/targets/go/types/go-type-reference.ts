@@ -30,10 +30,31 @@ class PrimitiveMapper {
   }
 }
 
+/**
+ * TypeMap used to recursively resolve interfaces in nested types for use in
+ * resolving scoped type names and implementation maps.
+ */
+type TypeMap =
+  | { readonly type: 'primitive'; readonly value: string }
+  | { readonly type: 'array'; readonly value: GoTypeRef }
+  | { readonly type: 'map'; readonly value: GoTypeRef }
+  | { readonly type: 'union'; readonly value: readonly GoTypeRef[] }
+  | { readonly type: 'interface'; readonly value: GoTypeRef }
+  | { readonly type: 'void' };
+
+/**
+ * Maps interface to concrete struct for use in implementation maps
+ */
+export interface ImplementationMap {
+  interfaceName: string;
+  structName: string;
+}
+
 /*
  * Accepts a JSII TypeReference and Go Package and can resolve the GoType within the module tree.
  */
 export class GoTypeRef {
+  private _typeMap?: TypeMap;
   public constructor(
     public readonly root: Package,
     public readonly reference: TypeReference,
@@ -71,6 +92,13 @@ export class GoTypeRef {
     return this.reference.void;
   }
 
+  public get typeMap(): TypeMap {
+    if (!this._typeMap) {
+      this._typeMap = this.buildTypeMap(this);
+    }
+    return this._typeMap;
+  }
+
   /*
    * Return the name of a type for reference from the `Package` passed in
    */
@@ -86,43 +114,51 @@ export class GoTypeRef {
     return this.scopedTypeName(this.typeMap, scope, false, true);
   }
 
-  public get typeMap(): TypeMap {
-    return this.buildTypeMap(this);
-  }
-
   private buildTypeMap(ref: GoTypeRef): TypeMap {
     if (ref.primitiveType) {
-      return { primitive: ref.primitiveType };
+      return { type: 'primitive', value: ref.primitiveType };
     } else if (ref.reference.arrayOfType) {
-      return { array: new GoTypeRef(this.root, ref.reference.arrayOfType) };
+      return {
+        type: 'array',
+        value: new GoTypeRef(this.root, ref.reference.arrayOfType),
+      };
     } else if (ref.reference.mapOfType) {
-      return { map: new GoTypeRef(this.root, ref.reference.mapOfType) };
+      return {
+        type: 'map',
+        value: new GoTypeRef(this.root, ref.reference.mapOfType),
+      };
     } else if (ref.reference.unionOfTypes) {
       return {
-        union: ref.reference.unionOfTypes.map(
+        type: 'union',
+        value: ref.reference.unionOfTypes.map(
           (typeRef) => new GoTypeRef(this.root, typeRef),
         ),
       };
     } else if (ref.reference.void) {
-      return { void: true };
+      return { type: 'void' };
     }
 
-    return { interface: ref };
+    return { type: 'interface', value: ref };
   }
 
   /**
    * Builds a map of interface to concrete types. This is passed to the runtime
    * so that return types of interfaces can correctly be constructucted.
    */
-  public scopedImplMap(scope: Package) {
-    const nextRef =
-      this.typeMap.array ?? this.typeMap.map ?? this.typeMap.interface;
-
-    if (nextRef) {
-      return [nextRef.scopedInterfaceName(scope), nextRef.scopedName(scope)];
+  public scopedImplMap(scope: Package): ImplementationMap | void {
+    if (
+      this.typeMap.type === 'array' ||
+      this.typeMap.type === 'map' ||
+      this.typeMap.type === 'interface'
+    ) {
+      const { value } = this.typeMap;
+      return {
+        interfaceName: value.scopedInterfaceName(scope),
+        structName: value.scopedName(scope),
+      };
     }
 
-    return [];
+    return undefined;
   }
 
   private scopedTypeName(
@@ -131,53 +167,38 @@ export class GoTypeRef {
     asInterface: boolean,
     asRef = false,
   ): string {
-    if (typeMap.primitive) {
-      return typeMap.primitive;
-    } else if (typeMap.array || typeMap.map) {
-      const prefix = typeMap.array ? '[]' : 'map[string]';
+    if (typeMap.type === 'primitive') {
+      return typeMap.value;
+    } else if (typeMap.type === 'array' || typeMap.type === 'map') {
+      const prefix = typeMap.type === 'array' ? '[]' : 'map[string]';
       const innerName =
-        this.scopedTypeName(
-          (typeMap.array ?? typeMap.map!).typeMap,
-          scope,
-          asInterface,
-          asRef,
-        ) ?? 'interface{}';
+        this.scopedTypeName(typeMap.value.typeMap, scope, asInterface, asRef) ??
+        'interface{}';
       return `${prefix}${innerName}`;
-    } else if (typeMap.interface) {
+    } else if (typeMap.type === 'interface') {
       const prefix = asRef ? '*' : '';
       const baseName = asInterface
-        ? typeMap.interface.interfaceName
-        : typeMap.interface.name;
+        ? typeMap.value.interfaceName
+        : typeMap.value.name;
       // type is defined in the same scope as the current one, no namespace required
-      if (scope.packageName === typeMap.interface.namespace && baseName) {
+      if (scope.packageName === typeMap.value.namespace && baseName) {
         // if the current scope is the same as the types scope, return without a namespace
         return `${prefix}${baseName}`;
       }
 
       // type is defined in another module and requires a namespace and import
       if (baseName) {
-        return `${prefix}${typeMap.interface.namespace}.${baseName}`;
+        return `${prefix}${typeMap.value.namespace}.${baseName}`;
       }
-    } else if (typeMap.union) {
+    } else if (typeMap.type === 'union') {
       return 'interface{}';
-    } else if (typeMap.void) {
+    } else if (typeMap.type === 'void') {
       return '';
     }
 
     // type isn't handled
-    log.warn(
-      `Type ${typeMap.interface?.name} does not resolve to a known Go type. It is being mapped to "interface{}".`,
+    throw new Error(
+      `Type ${typeMap.value?.name} does not resolve to a known Go type. It is being mapped to "interface{}".`,
     );
-
-    return 'interface{}';
   }
-}
-
-interface TypeMap {
-  primitive?: string;
-  array?: GoTypeRef;
-  map?: GoTypeRef;
-  union?: GoTypeRef[];
-  void?: boolean;
-  interface?: GoTypeRef;
 }

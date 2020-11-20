@@ -7,8 +7,8 @@ import {
   JSII_SGET_FUNC,
   JSII_SSET_FUNC,
 } from './constants';
+import { FunctionCall } from './function-call';
 import { slugify, emitInitialization } from './util';
-import {FunctionCall} from './function-call';
 
 export class GetProperty extends FunctionCall {
   public constructor(public readonly parent: GoProperty) {
