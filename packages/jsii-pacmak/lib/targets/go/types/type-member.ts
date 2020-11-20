@@ -18,7 +18,6 @@ export interface GoTypeMember {
 
   usesInitPackage: boolean;
   usesRuntimePackage: boolean;
-  usesReflectionPackage: boolean;
 }
 
 /*
@@ -50,10 +49,6 @@ export class GoProperty implements GoTypeMember {
 
   public get usesRuntimePackage() {
     return true;
-  }
-
-  public get usesReflectionPackage() {
-    return Boolean(this.reference?.scopedImplMap(this.parent.pkg).length);
   }
 
   public get static(): boolean {
@@ -157,7 +152,6 @@ export abstract class GoMethod implements GoTypeMember {
   public abstract emit(context: EmitContext): void;
   public abstract get usesInitPackage(): boolean;
   public abstract get usesRuntimePackage(): boolean;
-  public abstract get usesReflectionPackage(): boolean;
 
   public get returnsRef(): boolean {
     if (

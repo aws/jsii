@@ -17,6 +17,6 @@ export class Struct extends GoStruct {
   }
 
   public get usesReflectionPackage() {
-    return this.properties.some((p) => p.usesReflectionPackage);
+    return this.properties.length > 0;
   }
 }

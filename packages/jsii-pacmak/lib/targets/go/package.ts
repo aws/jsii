@@ -94,14 +94,6 @@ export abstract class Package {
     return findTypeInTree(this, fqn);
   }
 
-  public get importPath(): string {
-    const moduleName = this.root.moduleName;
-    const prefix = moduleName !== '' ? `${moduleName}/` : '';
-    const rootPackageName = this.root.packageName;
-    const suffix = this.filePath !== '' ? `/${this.filePath}` : '';
-    return `${prefix}${rootPackageName}${suffix}`;
-  }
-
   public emit(context: EmitContext): void {
     const { code } = context;
 

@@ -70,6 +70,10 @@ export abstract class GoStruct extends GoType {
     return this.properties.some((p) => p.usesRuntimePackage);
   }
 
+  public get usesReflectionPackage(): boolean {
+    return this.properties.length > 0;
+  }
+
   protected emitInterface(context: EmitContext): void {
     const { code } = context;
     code.line(

@@ -84,11 +84,8 @@ export class GoClass extends GoStruct {
     );
   }
 
-  public get usesReflectionPackage() {
-    return (
-      this.properties.some((p) => p.usesReflectionPackage) ||
-      this.methods.some((m) => m.usesReflectionPackage)
-    );
+  public get usesReflectionPackage(): boolean {
+    return this.properties.length > 0 || this.methods.length > 0;
   }
 
   protected emitInterface(context: EmitContext): void {
@@ -247,10 +244,6 @@ export class ClassMethod extends GoMethod {
 
   public get instanceArg(): string {
     return this.parent.name.substring(0, 1).toLowerCase();
-  }
-
-  public get usesReflectionPackage() {
-    return Boolean(this.reference?.scopedImplMap(this.parent.pkg).length);
   }
 }
 

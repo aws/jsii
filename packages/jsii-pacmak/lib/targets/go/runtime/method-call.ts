@@ -4,12 +4,15 @@ import { GoMethod } from '../types';
 import {
   JSII_INVOKE_FUNC,
   JSII_SINVOKE_FUNC,
-  JSII_IMPL_MAP_TYPE,
 } from './constants';
 import { slugify, emitInitialization } from './util';
+import { FunctionCall } from './function-call';
 
-export class MethodCall {
-  public constructor(public readonly parent: GoMethod) {}
+export class MethodCall extends FunctionCall {
+  private _returnVarName = '';
+  public constructor(public readonly parent: GoMethod) {
+    super(parent)
+  }
 
   public emit(code: CodeMaker) {
     if (this.inStatic) {
@@ -20,20 +23,15 @@ export class MethodCall {
   }
 
   private emitDynamic(code: CodeMaker) {
-    code.line(`var ${this.returnVarName} ${this.concreteReturnType}`);
-    code.line(`${this.implMapVar} := make(${JSII_IMPL_MAP_TYPE})`);
+    code.line(`var ${this.returnVarName} ${this.returnType}`);
     code.open(`${JSII_INVOKE_FUNC}(`);
-
-    const returnsArg = this.parent.returnsRef
-      ? this.returnVarName
-      : `&${this.returnVarName}`;
 
     code.line(`${this.parent.instanceArg},`);
     code.line(`"${this.parent.method.name}",`);
     code.line(`${this.argsString},`);
     code.line(`${this.returnsVal ? 'true' : 'false'},`);
-    code.line(`${returnsArg},`);
-    code.line(`${this.implMapVar},`);
+    code.line(`&${this.returnVarName},`);
+    this.emitImplMapVal(code);
 
     code.close(`)`);
 
@@ -44,8 +42,7 @@ export class MethodCall {
 
   private emitStatic(code: CodeMaker) {
     emitInitialization(code);
-    code.line(`var ${this.returnVarName} ${this.concreteReturnType}`);
-    code.line(`${this.implMapVar} := make(${JSII_IMPL_MAP_TYPE})`);
+    code.line(`var ${this.returnVarName} ${this.returnType}`);
 
     code.open(`${JSII_SINVOKE_FUNC}(`);
 
@@ -54,7 +51,7 @@ export class MethodCall {
     code.line(`${this.argsString},`);
     code.line(`${this.returnsVal ? 'true' : 'false'},`);
     code.line(`&${this.returnVarName},`);
-    code.line(`${this.implMapVar},`);
+    this.emitImplMapVal(code);
 
     code.close(`)`);
 
@@ -64,29 +61,13 @@ export class MethodCall {
   }
 
   private get returnVarName(): string {
-    return slugify(
-      'returns',
-      this.parent.parameters.map((p) => p.name),
-    );
-  }
-
-  private get implMapVar(): string {
-    return slugify(
-      'implMap',
-      this.parent.parameters.map((p) => p.name),
-    );
-  }
-
-  private get returnsVal(): boolean {
-    return Boolean(this.parent.reference && !this.parent.reference.void);
-  }
-
-  private get concreteReturnType(): string | undefined {
-    if (this.returnsVal) {
-      return this.parent.concreteReturnType;
+    if (this._returnVarName === '') {
+      this._returnVarName = slugify(
+        'returns',
+        this.parent.parameters.map((p) => p.name),
+      );
     }
-
-    return 'interface{}';
+    return this._returnVarName;
   }
 
   private get inStatic(): boolean {

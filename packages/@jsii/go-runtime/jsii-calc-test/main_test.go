@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	calc "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc"
+        returnsParam "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/returnsparam"
+        param "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
 	calclib "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/aws-cdk/jsii/jsii-experimental"
 	"math"
@@ -152,4 +154,14 @@ func TestAllTypes(t *testing.T) {
 			t.Errorf("Expected type: %s; Actual type: %s", "map[string]string", actualVal.Type())
 		}
 	})
+}
+
+func TestReturnsSpecialParam(t *testing.T) {
+  retSpecialParam := returnsParam.NewReturnsSpecialParameter()
+  val := retSpecialParam.ReturnsSpecialParam()
+  expected := reflect.TypeOf(&param.SpecialParameter{})
+  actual := reflect.TypeOf(val)
+  if actual != expected {
+    t.Errorf("Expected type: %s; Actual: %s", expected, actual)
+  }
 }

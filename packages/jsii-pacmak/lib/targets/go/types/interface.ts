@@ -88,11 +88,8 @@ export class Interface extends GoType {
     );
   }
 
-  public get usesReflectionPackage() {
-    return (
-      this.properties.some((p) => p.usesReflectionPackage) ||
-      this.methods.some((m) => m.usesReflectionPackage)
-    );
+  public get usesReflectionPackage(): boolean {
+    return this.properties.length > 0 || this.methods.length > 0;
   }
 
   public get extends(): GoTypeRef[] {
@@ -189,9 +186,5 @@ class InterfaceMethod extends GoMethod {
 
   private get returnTypeString(): string {
     return this.reference?.void ? '' : ` ${this.returnType}`;
-  }
-
-  public get usesReflectionPackage() {
-    return Boolean(this.reference?.scopedImplMap(this.parent.pkg).length);
   }
 }

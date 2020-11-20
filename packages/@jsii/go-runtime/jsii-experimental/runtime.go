@@ -8,6 +8,9 @@ import (
 	"regexp"
 )
 
+// Maps interface types to their concrete implementation structs. Used by
+// `castAndSetToPtr` to instantiate a concrete type that implements the
+// the interface as dictated by the type of the &returnsPtr value.
 type implementationMap = map[reflect.Type]reflect.Type
 
 // Load ensures a npm package is loaded in the jsii kernel.
