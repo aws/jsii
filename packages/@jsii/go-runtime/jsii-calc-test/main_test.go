@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
+	calc "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc"
+	calclib "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
+	"github.com/aws-cdk/jsii/jsii-experimental"
 	"math"
 	"os"
 	"reflect"
 	"strings"
 	"testing"
-	calc "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc"
-	calclib "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
-	"github.com/aws-cdk/jsii/jsii-experimental"
 )
 
 func TestMain(m *testing.M) {
@@ -18,23 +18,25 @@ func TestMain(m *testing.M) {
 	os.Exit(status)
 }
 
-func initCalculator() calc.CalculatorIface {
-	calculatorProps := calc.CalculatorProps{InitialValue: float64(10), MaximumValue: math.MaxFloat64}
+// Only uses first argument as initial value. This is just a convenience for
+// tests that want to assert against the initialValue
+func initCalculator(initialValue float64) calc.CalculatorIface {
+	calculatorProps := calc.CalculatorProps{InitialValue: initialValue, MaximumValue: math.MaxFloat64}
 	return calc.NewCalculator(&calculatorProps)
 }
 
 func TestCalculator(t *testing.T) {
 	// Object creation
 	t.Run("Object creation", func(t *testing.T) {
-		calculator := initCalculator()
+		calculator := initCalculator(0)
 		if reflect.ValueOf(calculator).IsZero() {
 			t.Errorf("Expected calculator object to be valid")
 		}
 	})
 
 	t.Run("Property access", func(t *testing.T) {
-		calculator := initCalculator()
 		expected := float64(10)
+		calculator := initCalculator(expected)
 		actual := calculator.GetValue()
 		if actual != expected {
 			t.Errorf("Expected: %f; Actual %f;", expected, actual)
@@ -42,7 +44,7 @@ func TestCalculator(t *testing.T) {
 	})
 
 	t.Run("Property mutation", func(t *testing.T) {
-		calculator := initCalculator()
+		calculator := initCalculator(float64(0))
 		var newVal float64 = 12345
 		currentProps := calclib.NewNumber(newVal)
 		calculator.SetCurr(currentProps)
@@ -54,7 +56,7 @@ func TestCalculator(t *testing.T) {
 
 	t.Run("Method with side effect", func(t *testing.T) {
 		initial, factor := float64(10), float64(3)
-		calculator := calc.NewCalculator(&calc.CalculatorProps{InitialValue: initial, MaximumValue: math.MaxFloat64})
+		calculator := initCalculator(initial)
 		calculator.Mul(factor)
 		expectedProduct := initial * factor
 		actualProduct := calculator.GetValue()
@@ -63,8 +65,8 @@ func TestCalculator(t *testing.T) {
 		}
 	})
 
-	t.Run("Method with interface{} return type", func(t *testing.T) {
-		calculator := initCalculator()
+	t.Run("Method returning interface{} has embedded data", func(t *testing.T) {
+		calculator := initCalculator(0)
 		expectedTypeName := "Calculator"
 		actualTypeName := calculator.TypeName()
 		// JSII tells us this return value is an "any" type. Therefore the
@@ -81,13 +83,12 @@ func TestCalculator(t *testing.T) {
 	})
 
 	t.Run("Method with args and string return type", func(t *testing.T) {
-		calculator := initCalculator()
+		calculator := initCalculator(0)
 		lhs, rhs := 10, 3
 		calculator.SetCurr(calc.NewMultiply(
 			calclib.NewNumber(float64(lhs)),
 			calclib.NewNumber(float64(rhs)),
 		))
-		// expectedString := "(10 * 3)"
 		expectedString := fmt.Sprintf("(%d * %d)", lhs, rhs)
 		actualString := calculator.ToString()
 		if actualString != expectedString {
