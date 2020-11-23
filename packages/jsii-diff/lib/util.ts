@@ -56,9 +56,10 @@ export async function downloadNpmPackage<T>(
         throw new Error(`NPM fetch failed: ${e}. Please try again.`);
       }
       LOG.warn(`NPM package ${pkg} does not exist.`);
-      return { success: false, reason: 'no_such_package' } as NpmDownloadResult<
-        T
-      >;
+      return {
+        success: false,
+        reason: 'no_such_package',
+      } as NpmDownloadResult<T>;
     }
 
     const pkgDir = trimVersionString(pkg);

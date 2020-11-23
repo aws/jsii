@@ -33,7 +33,7 @@
     "@types/node": "^10.17.46",
     "@types/tar": "^4.0.4",
     "eslint": "^7.14.0",
-    "prettier": "^2.1.2",
+    "prettier": "^2.2.0",
     "typescript": "~3.9.7"
   }
 }

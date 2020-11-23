@@ -29,7 +29,7 @@
     "jest-config": "^26.6.3",
     "jest-expect-message": "^1.0.2",
     "lerna": "^3.22.1",
-    "prettier": "^2.1.2",
+    "prettier": "^2.2.0",
     "standard-version": "^9.0.0",
     "ts-jest": "^26.4.4",
     "ts-node": "^9.0.0",
