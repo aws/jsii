@@ -10,6 +10,7 @@ import {
   updateParameters,
   SnippetParameters,
 } from '../snippet';
+import { enforcesStrictMode } from '../strict';
 
 export interface LoadedAssembly {
   assembly: spec.Assembly;
@@ -122,14 +123,15 @@ function removeSlashes(x: string) {
 export function* allTypeScriptSnippets(
   assemblies: readonly LoadedAssembly[],
 ): IterableIterator<TypeScriptSnippet> {
-  for (const assembly of assemblies) {
-    for (const source of allSnippetSources(assembly.assembly)) {
+  for (const { assembly, directory } of assemblies) {
+    const strict = enforcesStrictMode(assembly);
+    for (const source of allSnippetSources(assembly)) {
       switch (source.type) {
         case 'literal':
           const snippet = updateParameters(
-            typeScriptSnippetFromSource(source.source, source.where),
+            typeScriptSnippetFromSource(source.source, source.where, strict),
             {
-              [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory,
+              [SnippetParameters.$PROJECT_DIRECTORY]: directory,
             },
           );
           yield fixturize(snippet);
@@ -138,9 +140,10 @@ export function* allTypeScriptSnippets(
           for (const snippet of extractTypescriptSnippetsFromMarkdown(
             source.markdown,
             source.where,
+            strict,
           )) {
             const withDirectory = updateParameters(snippet, {
-              [SnippetParameters.$PROJECT_DIRECTORY]: assembly.directory,
+              [SnippetParameters.$PROJECT_DIRECTORY]: directory,
             });
             yield fixturize(withDirectory);
           }

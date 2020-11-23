@@ -6,6 +6,7 @@ import * as reflect from 'jsii-reflect';
 import {
   Translation,
   Rosetta,
+  enforcesStrictMode,
   typeScriptSnippetFromSource,
 } from 'jsii-rosetta';
 import * as path from 'path';
@@ -2114,7 +2115,11 @@ class PythonGenerator extends Generator {
   }
 
   public convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const snippet = typeScriptSnippetFromSource(
+      example,
+      'example',
+      enforcesStrictMode(this.assembly),
+    );
     const translated = this.rosetta.translateSnippet(snippet, 'python');
     if (!translated) {
       return example;
@@ -2126,6 +2131,7 @@ class PythonGenerator extends Generator {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
       'python',
+      enforcesStrictMode(this.assembly),
       (trans) => ({
         language: trans.language,
         source: this.prefixDisclaimer(trans),

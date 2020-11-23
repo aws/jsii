@@ -38,8 +38,28 @@ export function printDiagnostic(
   stream.write(message);
 }
 
-export function isErrorDiagnostic(diag: ts.Diagnostic) {
-  return diag.category === ts.DiagnosticCategory.Error;
+const StrictBrand = Symbol('strict');
+interface MaybeStrictDiagnostic {
+  readonly [StrictBrand]?: boolean;
+}
+
+export function annotateStrictDiagnostic(diag: ts.Diagnostic) {
+  Object.defineProperty(diag, StrictBrand, {
+    configurable: false,
+    enumerable: false,
+    value: true,
+    writable: false,
+  });
+}
+
+export function isErrorDiagnostic(
+  diag: ts.Diagnostic,
+  { onlyStrict }: { readonly onlyStrict: boolean },
+): boolean {
+  return (
+    diag.category === ts.DiagnosticCategory.Error &&
+    (!onlyStrict || !!(diag as MaybeStrictDiagnostic)[StrictBrand])
+  );
 }
 
 /**
