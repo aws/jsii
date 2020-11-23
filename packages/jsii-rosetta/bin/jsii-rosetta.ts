@@ -165,7 +165,7 @@ function main() {
             isErrorDiagnostic(diag, { onlyStrict: !args.fail }),
           )
         ) {
-          process.exit(1);
+          process.exitCode = 1;
         }
       }),
     )
@@ -212,7 +212,8 @@ function main() {
           console.error(
             `The package in ${args.PACKAGE} does not have a jsii configuration! You can set it up using jsii-config.`,
           );
-          return process.exit(1);
+          process.exitCode = 1;
+          return Promise.resolve();
         }
         if (packageJson.jsii.metadata?.jsii?.rosetta?.strict) {
           // Nothing to do - it's already configured, so we assert idempotent success!
