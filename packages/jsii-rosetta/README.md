@@ -48,7 +48,8 @@ entry to `true`:
 }
 ```
 
-This effectively enables the `--strict` option when translating code samples from the assembly.
+This effectively enables the `--strict` option (which is equivalent to setting `--compile` and `--fail`, causing
+`jsii-rosetta` to exit in error if any code sample fails to compile) when translating code samples from the assembly.
 
 ## Hiding code from samples
 
