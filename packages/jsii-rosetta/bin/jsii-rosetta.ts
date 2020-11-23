@@ -130,8 +130,6 @@ function main() {
           args.fail = args.f = true;
         }
 
-        console.error(args);
-
         // Easiest way to get a fixed working directory (for sources) in is to
         // chdir, since underneath the in-memory layer we're using a regular TS
         // compilerhost. Have to make all file references absolute before we chdir
