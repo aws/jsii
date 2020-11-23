@@ -203,12 +203,6 @@ public final class JsiiRuntime {
                 stdout = null;
             }
 
-            // Cleaning up stderr (ensuring buffers are flushed, etc...)
-            if (stderr != null) {
-                stderr.close();
-                stderr = null;
-            }
-
             // We shut down already, no need for the shutdown hook anymore
             if (this.shutdownHook != null) {
                 Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
