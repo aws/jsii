@@ -20,22 +20,26 @@ export interface TranslateMarkdownOptions extends AstRendererOptions {
 export function translateMarkdown(
   markdown: File,
   visitor: AstHandler<any>,
-  { languageIdentifier = '', strict = false }: TranslateMarkdownOptions = {},
+  opts: TranslateMarkdownOptions = {},
 ): TranslateResult {
   const translator = new Translator(false);
 
   const translatedMarkdown = transformMarkdown(
     markdown.contents,
     new MarkdownRenderer(),
-    new ReplaceTypeScriptTransform(markdown.fileName, strict, (tsSnippet) => {
-      const translated = translator
-        .translatorFor(tsSnippet)
-        .renderUsing(visitor);
-      return {
-        language: languageIdentifier,
-        source: translated,
-      };
-    }),
+    new ReplaceTypeScriptTransform(
+      markdown.fileName,
+      opts.strict ?? false,
+      (tsSnippet) => {
+        const translated = translator
+          .translatorFor(tsSnippet)
+          .renderUsing(visitor);
+        return {
+          language: opts.languageIdentifier ?? '',
+          source: translated,
+        };
+      },
+    ),
   );
 
   return {
