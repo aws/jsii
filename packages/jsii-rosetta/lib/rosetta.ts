@@ -157,12 +157,13 @@ export class Rosetta {
   public translateSnippetsInMarkdown(
     markdown: string,
     targetLang: TargetLanguage,
+    strict: boolean,
     translationToCodeBlock: (x: Translation) => CodeBlock = id,
   ): string {
     return transformMarkdown(
       markdown,
       new MarkdownRenderer(),
-      new ReplaceTypeScriptTransform('markdown', (tsSnip) => {
+      new ReplaceTypeScriptTransform('markdown', strict, (tsSnip) => {
         const translated = this.translateSnippet(tsSnip, targetLang);
         if (!translated) {
           return undefined;
