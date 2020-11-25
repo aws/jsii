@@ -81,6 +81,9 @@ rules:
   '@typescript-eslint/no-for-in-array':
     - error
 
+  '@typescript-eslint/no-misused-promises':
+    - error
+
   '@typescript-eslint/no-require-imports':
     - error
 
@@ -110,6 +113,10 @@ rules:
   '@typescript-eslint/prefer-for-of':
     - error
 
+  '@typescript-eslint/prefer-nullish-coalescing':
+    - error
+    - ignoreMixedLogicalExpressions: true
+
   '@typescript-eslint/prefer-readonly':
     - error
 
@@ -125,6 +132,13 @@ rules:
       allowNullish: true
 
   '@typescript-eslint/require-await':
+    - error
+
+  '@typescript-eslint/return-await':
+    - error
+    - 'in-try-catch'
+
+  '@typescript-eslint/switch-exhaustiveness-check':
     - error
 
   'complexity':

@@ -1,3 +1,5 @@
+import * as process from 'process';
+
 import * as packageInfo from '../package.json';
 import { KernelHost } from './host';
 import { InputOutput } from './in-out';

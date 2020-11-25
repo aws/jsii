@@ -35,17 +35,20 @@
     "@scope/jsii-calc-base-of-base": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.44",
+    "@types/node": "^10.17.46",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.1.2"
+    "prettier": "^2.2.0"
   },
   "jsii": {
     "metadata": {
       "jsii": {
         "pacmak": {
           "hasDefaultInterfaces": false
+        },
+        "rosetta": {
+          "strict": true
         }
       }
     },

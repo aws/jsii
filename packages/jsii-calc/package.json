@@ -49,12 +49,12 @@
     "@scope/jsii-calc-lib": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.17.44",
-    "eslint": "^7.12.1",
+    "@types/node": "^10.17.46",
+    "eslint": "^7.14.0",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.1.2"
+    "prettier": "^2.2.0"
   },
   "jsii": {
     "outdir": "dist",
@@ -87,6 +87,11 @@
       "jsii:number": 1337,
       "jsii:object": {
         "string": "yes!"
+      },
+      "jsii": {
+        "rosetta": {
+          "strict": true
+        }
       }
     },
     "versionFormat": "short"

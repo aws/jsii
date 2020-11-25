@@ -48,7 +48,7 @@
     "semver": "^7.3.2",
     "spdx-license-list": "^6.3.0",
     "xmlbuilder": "^15.1.1",
-    "yargs": "^16.1.0"
+    "yargs": "^16.1.1"
   },
   "devDependencies": {
     "@jsii/dotnet-runtime": "^0.0.0",
@@ -58,15 +58,15 @@
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.15",
-    "@types/node": "^10.17.44",
+    "@types/node": "^10.17.46",
     "@types/semver": "^7.3.4",
-    "@types/yargs": "^15.0.9",
-    "eslint": "^7.12.1",
-    "jest": "^26.6.1",
+    "@types/yargs": "^15.0.10",
+    "eslint": "^7.14.0",
+    "jest": "^26.6.3",
     "jsii-build-tools": "^0.0.0",
     "jsii-calc": "^0.0.0",
-    "prettier": "^2.1.2",
-    "ts-jest": "^26.4.3",
+    "prettier": "^2.2.0",
+    "ts-jest": "^26.4.4",
     "typescript": "~3.9.7"
   },
   "keywords": [

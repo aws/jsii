@@ -498,13 +498,9 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
     node: ts.PropertyAssignment,
     context: PythonVisitorContext,
   ): OTree {
-    let before = '"';
-    let mid = '": ';
-
-    if (context.currentContext.renderObjectLiteralAsKeywords) {
-      before = '';
-      mid = '=';
-    }
+    const mid = context.currentContext.renderObjectLiteralAsKeywords
+      ? '='
+      : ': ';
 
     // node.name is either an identifier or a string literal. The string literal
     // needs to be converted differently.
@@ -517,9 +513,16 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
       },
     );
 
+    // If this isn't a computed property, we must quote the key (unless it's rendered as a keyword)
+    if (
+      !context.currentContext.renderObjectLiteralAsKeywords &&
+      !ts.isComputedPropertyName(node.name)
+    ) {
+      name = new OTree(['"', name, '"']);
+    }
+
     return new OTree(
       [
-        before,
         name,
         mid,
         context

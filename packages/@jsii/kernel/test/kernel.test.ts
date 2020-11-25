@@ -95,7 +95,7 @@ defineTest.skip = function (
       });
       expect(result.result).toBe(0o644);
 
-      return closeRecording(kernel);
+      return await closeRecording(kernel);
     } finally {
       // Restore the original umask
       process.umask(originalUmask);

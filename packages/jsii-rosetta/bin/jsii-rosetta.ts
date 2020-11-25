@@ -108,8 +108,28 @@ function main() {
             type: 'boolean',
             describe: 'Fail if there are compilation errors',
             default: false,
+          })
+          .option('validate-assemblies', {
+            type: 'boolean',
+            describe:
+              'Whether to validate loaded assemblies or not (this can be slow)',
+            default: false,
+          })
+          .option('strict', {
+            alias: 'S',
+            type: 'boolean',
+            describe:
+              'Require all code samples compile, and fail if one does not. Strict mode always enables --compile and --fail',
+            default: false,
           }),
       wrapHandler(async (args) => {
+        // `--strict` is short for `--compile --fail`, and we'll override those even if they're set to `false`, such as
+        // using `--no-(compile|fail)`, because yargs does not quite give us a better option that does not hurt CX.
+        if (args.strict) {
+          args.compile = args.c = true;
+          args.fail = args.f = true;
+        }
+
         // Easiest way to get a fixed working directory (for sources) in is to
         // chdir, since underneath the in-memory layer we're using a regular TS
         // compilerhost. Have to make all file references absolute before we chdir
@@ -125,7 +145,8 @@ function main() {
 
         const result = await extractSnippets(absAssemblies, {
           outputFile: absOutput,
-          includeCompilerDiagnostics: args.compile,
+          includeCompilerDiagnostics: !!args.compile,
+          validateAssemblies: args['validate-assemblies'],
           only: args.include,
         });
 
@@ -137,8 +158,12 @@ function main() {
           );
         }
 
-        if (result.diagnostics.some(isErrorDiagnostic) && args.fail) {
-          process.exit(1);
+        if (
+          result.diagnostics.some((diag) =>
+            isErrorDiagnostic(diag, { onlyStrict: !args.fail }),
+          )
+        ) {
+          process.exitCode = 1;
         }
       }),
     )
@@ -163,6 +188,42 @@ function main() {
           .demandOption('TABLET'),
       wrapHandler(async (args) => {
         await readTablet(args.TABLET, args.KEY, args.LANGUAGE);
+      }),
+    )
+    .command(
+      'configure-strict [PACKAGE]',
+      "Enables strict mode for a package's assembly",
+      (command) =>
+        command.positional('PACKAGE', {
+          type: 'string',
+          describe: 'The path to the package to configure',
+          required: false,
+          default: '.',
+          normalize: true,
+        }),
+      wrapHandler(async (args) => {
+        const packageJsonPath = (await fs.stat(args.PACKAGE)).isDirectory()
+          ? path.join(args.PACKAGE, 'package.json')
+          : args.PACKAGE;
+        const packageJson = await fs.readJson(packageJsonPath);
+        if (packageJson.jsii == null) {
+          console.error(
+            `The package in ${args.PACKAGE} does not have a jsii configuration! You can set it up using jsii-config.`,
+          );
+          process.exitCode = 1;
+          return Promise.resolve();
+        }
+        if (packageJson.jsii.metadata?.jsii?.rosetta?.strict) {
+          // Nothing to do - it's already configured, so we assert idempotent success!
+          return Promise.resolve();
+        }
+        const md = (packageJson.jsii.metadata =
+          packageJson.jsii.metadata ?? {});
+        const mdJsii = (md.jsii = md.jsii ?? {});
+        const mdRosetta = (mdJsii.rosetta = mdJsii.rosetta ?? {});
+        mdRosetta.strict = true;
+
+        return fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
       }),
     )
     .demandCommand()
@@ -241,7 +302,11 @@ function renderResult(result: TranslateResult) {
   if (result.diagnostics.length > 0) {
     printDiagnostics(result.diagnostics, process.stderr);
 
-    if (result.diagnostics.some(isErrorDiagnostic)) {
+    if (
+      result.diagnostics.some((diag) =>
+        isErrorDiagnostic(diag, { onlyStrict: false }),
+      )
+    ) {
       process.exit(1);
     }
   }
