@@ -54,7 +54,7 @@ export class SyncStdio {
           throw e;
         }
         // Sleep 50 milliseconds or until the stream has drained
-        sleep(50 /*ms*/, new Promise((ok) => process.stdin.once('drain', ok)));
+        sleep(50 /*ms*/, new Promise((ok) => process.stdout.once('drain', ok)));
       }
     }
   }
