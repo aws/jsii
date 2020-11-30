@@ -1525,7 +1525,7 @@ class PythonModule implements PythonType {
             ')',
           );
           code.closeFile(script_file);
-          scripts.push(script_file);
+          scripts.push(script_file.replace(/\\/g, '/'));
         }
       }
     }
