@@ -168,7 +168,7 @@ function toBracketNotation(
         const version = set[0].semver.raw;
         if (!version && range.raw === '>=0.0.0') {
           // Case where version is '*'
-          return `[0.0.0,]`;
+          return `[0.0.0,)`;
         }
         switch (set[0].operator || '=') {
           // "[version]" => means exactly version
@@ -176,16 +176,16 @@ function toBracketNotation(
             return `[${addSuffix(version)}]`;
           // "(version,]" => means greater than version
           case '>':
-            return `(${addSuffix(version)},]`;
+            return `(${addSuffix(version)},)`;
           // "[version,]" => means greater than or equal to that version
           case '>=':
-            return `[${addSuffix(version)},]`;
+            return `[${addSuffix(version)},)`;
           // "[,version)" => means less than version
           case '<':
-            return `[,${addSuffix(version, !semver)})`;
+            return `(,${addSuffix(version, !semver)})`;
           // "[,version]" => means less than or equal to version
           case '<=':
-            return `[,${addSuffix(version)}]`;
+            return `(,${addSuffix(version)}]`;
         }
       } else if (set.length === 2) {
         const nugetRange = toBracketRange(set[0], set[1]);
