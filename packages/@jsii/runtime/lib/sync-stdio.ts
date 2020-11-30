@@ -53,7 +53,8 @@ export class SyncStdio {
         if (e.code !== 'EAGAIN') {
           throw e;
         }
-        sleep(50 /*ms*/);
+        // Sleep 50 milliseconds or until the stream has drained
+        sleep(50 /*ms*/, new Promise((ok) => process.stdin.once('drain', ok)));
       }
     }
   }
@@ -97,9 +98,12 @@ function readSync(
         // significant wasting of CPU cycles.
         case 'EAGAIN':
           // Keep trying until it no longer says EAGAIN. We'll be waiting a little before retrying
-          // in order to avoid thrashing the CPU like there is no tomorrow. This is not entirely
-          // ideal, but it has to do.
-          sleep(50 /*ms*/);
+          // in order to avoid thrashing the CPU like there is no tomorrow. Waits 50 milliseconds or
+          // until the stream notifies it became readable again.
+          sleep(
+            50 /*ms*/,
+            new Promise((ok) => process.stdin.once('readable', ok)),
+          );
           break;
 
         // HACK: in Windows, when STDIN (aka FD#0) is wired to a socket (as is the case when started
