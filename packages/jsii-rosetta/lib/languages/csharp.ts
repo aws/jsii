@@ -218,7 +218,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     opts: { isConstructor?: boolean } = {},
   ): OTree {
     const methodName = opts.isConstructor
-      ? renderer.currentContext.currentClassName || 'MyClass'
+      ? renderer.currentContext.currentClassName ?? 'MyClass'
       : renderer.updateContext({ propertyOrMethod: true }).convert(node.name);
     const returnType = opts.isConstructor
       ? ''
@@ -612,7 +612,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
           renderer
             .updateContext({
               propertyOrMethod: false,
-              identifierAsString: true,
+              identifierAsString: !ts.isComputedPropertyName(key),
             })
             .convert(key),
           ', ',
@@ -841,7 +841,7 @@ export class CSharpVisitor extends DefaultVisitor<CSharpLanguageContext> {
     renderer: CSharpRenderer,
   ) {
     const heritage = flat(
-      Array.from(node.heritageClauses || []).map((h) => Array.from(h.types)),
+      Array.from(node.heritageClauses ?? []).map((h) => Array.from(h.types)),
     ).map((t) => renderer.convert(t.expression));
 
     return heritage.length > 0

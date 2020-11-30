@@ -30,11 +30,11 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "devDependencies": {
-    "@types/node": "^10.17.44",
+    "@types/node": "^10.17.47",
     "jsii": "^0.0.0",
     "jsii-build-tools": "^0.0.0",
     "jsii-rosetta": "^0.0.0",
-    "prettier": "^2.1.2"
+    "prettier": "^2.2.1"
   },
   "jsii": {
     "outdir": "dist",
@@ -58,6 +58,13 @@
         "module": "scope.jsii_calc_base_of_base"
       }
     },
-    "versionFormat": "short"
+    "versionFormat": "short",
+    "metadata": {
+      "jsii": {
+        "rosetta": {
+          "strict": true
+        }
+      }
+    }
   }
 }

@@ -7,6 +7,6 @@ public class A {
         this(a, 3);
     }
 
-    public A(String a, int b) {
+    public A(String a, Number b) {
     }
 }

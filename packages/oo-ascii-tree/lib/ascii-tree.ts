@@ -23,7 +23,7 @@ export class AsciiTree {
   /**
    * Prints the tree to an output stream.
    */
-  public printTree(output: NodeJS.WritableStream = process.stdout) {
+  public printTree(output: Printer = process.stdout) {
     let ancestorsPrefix = '';
 
     for (const parent of this.ancestors) {
@@ -160,3 +160,5 @@ export class AsciiTree {
     return [...this.parent.ancestors, this.parent];
   }
 }
+
+export type Printer = Pick<NodeJS.WritableStream, 'write'>;

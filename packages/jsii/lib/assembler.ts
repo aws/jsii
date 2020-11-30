@@ -174,10 +174,10 @@ export class Assembler implements Emitter {
       schema: spec.SchemaVersion.LATEST,
       name: this.projectInfo.name,
       version: this.projectInfo.version,
-      description: this.projectInfo.description || this.projectInfo.name,
+      description: this.projectInfo.description ?? this.projectInfo.name,
       license: this.projectInfo.license,
       keywords: this.projectInfo.keywords,
-      homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
+      homepage: this.projectInfo.homepage ?? this.projectInfo.repository.url,
       author: this.projectInfo.author,
       contributors: this.projectInfo.contributors && [
         ...this.projectInfo.contributors,
@@ -1953,7 +1953,8 @@ export class Assembler implements Emitter {
       static: _isStatic(symbol) || undefined,
       locationInModule: this.declarationLocation(declaration),
     };
-    method.variadic = method.parameters?.some((p) => !!p.variadic) || undefined;
+    method.variadic =
+      method.parameters?.some((p) => !!p.variadic) === true ? true : undefined;
 
     this._verifyConsecutiveOptionals(declaration, method.parameters);
 
@@ -2021,8 +2022,7 @@ export class Assembler implements Emitter {
     if (reservingLanguages) {
       this._diagnostics.push(
         JsiiDiagnostic.JSII_5018_RESERVED_WORD.create(
-          ts.getNameOfDeclaration(symbol.valueDeclaration) ||
-            symbol.valueDeclaration,
+          _nameOrDeclarationNode(symbol),
           symbol.name,
           reservingLanguages,
         ),

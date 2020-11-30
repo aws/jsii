@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/aws/jsii/compare/v1.14.1...v1.15.0) (2020-11-25)
+
+
+### Features
+
+* **dotnet,java:** finalize kernel process on VM shutdown ([#2247](https://github.com/aws/jsii/issues/2247)) ([29b2262](https://github.com/aws/jsii/commit/29b226281c71e62049f72a9418011925e17dc615)), closes [#2100](https://github.com/aws/jsii/issues/2100)
+* **go:** generate go.mod files ([#2265](https://github.com/aws/jsii/issues/2265)) ([4164eb5](https://github.com/aws/jsii/commit/4164eb53e8b5dbbe54e6a727ad77b92f3a325196)), closes [#2090](https://github.com/aws/jsii/issues/2090)
+* **go:** Runtime arg type casting ([8ba6aa9](https://github.com/aws/jsii/commit/8ba6aa90e7e45743da5deac70bb05ccabe58a403))
+* **go:** Runtime interface type casting ([bfce93d](https://github.com/aws/jsii/commit/bfce93d9d3552591e96f7dc2a687ee636b451c95))
+* **jsii:** configure diagnostics in package.json ([#2233](https://github.com/aws/jsii/issues/2233)) ([2bbef1f](https://github.com/aws/jsii/commit/2bbef1fb13efe27261b85a8bcc445f4c2e7caf3a))
+* **rosetta:** hoist imports above fixtures ([#2211](https://github.com/aws/jsii/issues/2211)) ([66e2ac8](https://github.com/aws/jsii/commit/66e2ac874295db7a25b2aa414da7f34047c14741))
+* **rosetta:** make assembly validation opt-in ([#2252](https://github.com/aws/jsii/issues/2252)) ([302dbb9](https://github.com/aws/jsii/commit/302dbb9d07d13823f24dd4b27f3cba7421038c53))
+* **rosetta:** support "strict" assemblies ([#2253](https://github.com/aws/jsii/issues/2253)) ([6cbde78](https://github.com/aws/jsii/commit/6cbde789fb02e77bac645e8d4091789eb778e829))
+* **rosetta:** support computed properties ([#2230](https://github.com/aws/jsii/issues/2230)) ([80b3aae](https://github.com/aws/jsii/commit/80b3aae22c5fae5963d79aeb915317357cc363f6))
+
+
+### Bug Fixes
+
+* **go:** generate concrete structs for behavioral interfaces ([#2257](https://github.com/aws/jsii/issues/2257)) ([6da0870](https://github.com/aws/jsii/commit/6da0870844ec9d37131e7727e408af34d32e1c32))
+* **go:** Method call return reference an implMap ([af5b27b](https://github.com/aws/jsii/commit/af5b27bdd387acd9076a1649a55f2a1f6808b0dc))
+* **python:** update `cattrs` dependency specification ([#2212](https://github.com/aws/jsii/issues/2212)) ([4f2836b](https://github.com/aws/jsii/commit/4f2836bed7c72d5e502f352ec4c0df232f9c5d69)), closes [aws/aws-cdk#11219](https://github.com/aws/aws-cdk/issues/11219)
+* **runtime:** "Error: EOF: end of file, read" on Windows ([#2238](https://github.com/aws/jsii/issues/2238)) ([1453ed3](https://github.com/aws/jsii/commit/1453ed34736917b54cfc212b2fa5e381714d1654))
+
 ## [1.14.1](https://github.com/aws/jsii/compare/v1.14.0...v1.14.1) (2020-11-04)
 
 

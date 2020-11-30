@@ -17,7 +17,7 @@ import {
   TypeScriptCompiler,
   CompilationResult,
 } from './typescript/ts-compiler';
-import { File } from './util';
+import { annotateStrictDiagnostic, File } from './util';
 
 export function translateTypeScript(
   source: File,
@@ -130,7 +130,7 @@ export class SnippetTranslator {
     snippet: TypeScriptSnippet,
     private readonly options: SnippetTranslatorOptions = {},
   ) {
-    const compiler = options.compiler || new TypeScriptCompiler();
+    const compiler = options.compiler ?? new TypeScriptCompiler();
     const source = completeSource(snippet);
 
     const fakeCurrentDirectory =
@@ -145,14 +145,19 @@ export class SnippetTranslator {
     this.visibleSpans = calculateVisibleSpans(source);
 
     // This makes it about 5x slower, so only do it on demand
-    if (options.includeCompilerDiagnostics) {
+    if (options.includeCompilerDiagnostics || snippet.strict) {
       const program = this.compilation.program;
-      this.compileDiagnostics.push(
+      const diagnostics = [
         ...program.getGlobalDiagnostics(),
         ...program.getSyntacticDiagnostics(this.compilation.rootFile),
         ...program.getDeclarationDiagnostics(this.compilation.rootFile),
         ...program.getSemanticDiagnostics(this.compilation.rootFile),
-      );
+      ];
+      if (snippet.strict) {
+        // In a strict assembly, so we'll need to brand all diagnostics here...
+        diagnostics.forEach(annotateStrictDiagnostic);
+      }
+      this.compileDiagnostics.push(...diagnostics);
     }
   }
 

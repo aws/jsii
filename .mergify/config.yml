@@ -42,6 +42,9 @@ pull_request_rules:
       - status-success~=^Test \(.* node 10 .*$
       - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      # One test for each supported dotnet version
+      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
+      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
@@ -91,6 +94,9 @@ pull_request_rules:
       - status-success~=^Test \(.* node 10 .*$
       - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      # One test for each supported dotnet version
+      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
+      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$
@@ -140,6 +146,9 @@ pull_request_rules:
       - status-success~=^Test \(.* node 10 .*$
       - status-success~=^Test \(.* node 12 .*$
       - status-success~=^Test \(.* node 14 .*$
+      # One test for each supported dotnet version
+      - status-success~=^Test \(.* dotnet 3\.1\.x .*$
+      - status-success~=^Test \(.* dotnet 5\.0\.x .*$
       # One test for Java 8 and 11
       - status-success~=^Test \(.* java 8 .*$
       - status-success~=^Test \(.* java 11 .*$

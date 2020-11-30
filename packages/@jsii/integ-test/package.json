@@ -30,10 +30,10 @@
     "@types/dotenv": "^8.2.0",
     "@types/fs-extra": "^8.1.1",
     "@types/jest": "^26.0.15",
-    "@types/node": "^10.17.44",
-    "@types/tar": "^4.0.3",
-    "eslint": "^7.13.0",
-    "prettier": "^2.1.2",
+    "@types/node": "^10.17.47",
+    "@types/tar": "^4.0.4",
+    "eslint": "^7.14.0",
+    "prettier": "^2.2.1",
     "typescript": "~3.9.7"
   }
 }

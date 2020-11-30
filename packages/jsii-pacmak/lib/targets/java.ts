@@ -7,6 +7,7 @@ import {
   Rosetta,
   typeScriptSnippetFromSource,
   Translation,
+  enforcesStrictMode,
   markDownToJavaDoc,
 } from 'jsii-rosetta';
 import * as path from 'path';
@@ -1560,7 +1561,7 @@ class JavaGenerator extends Generator {
         forMarshalling: true,
       })}.class`,
       javaTypes: this.toJavaTypes(property.type, { covariant: true }),
-      immutable: property.immutable || false,
+      immutable: property.immutable ?? false,
       inherited,
     };
   }
@@ -2252,7 +2253,7 @@ class JavaGenerator extends Generator {
       const method = doc as spec.Method;
       if (method.parameters) {
         for (const param of method.parameters) {
-          const summary = param.docs?.summary || undefined;
+          const summary = param.docs?.summary;
           tagLines.push(paramJavadoc(param.name, param.optional, summary));
         }
       }
@@ -2823,7 +2824,11 @@ class JavaGenerator extends Generator {
   }
 
   private convertExample(example: string): string {
-    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const snippet = typeScriptSnippetFromSource(
+      example,
+      'example',
+      enforcesStrictMode(this.assembly),
+    );
     const translated = this.rosetta.translateSnippet(snippet, 'java');
     if (!translated) {
       return example;
@@ -2835,6 +2840,7 @@ class JavaGenerator extends Generator {
     return this.rosetta.translateSnippetsInMarkdown(
       markdown,
       'java',
+      enforcesStrictMode(this.assembly),
       (trans) => ({
         language: trans.language,
         source: this.prefixDisclaimer(trans),

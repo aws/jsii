@@ -777,9 +777,7 @@ export class JsiiDiagnostic implements ts.Diagnostic {
   public readonly start: number | undefined;
   public readonly length: number | undefined;
 
-  public readonly relatedInformation = new Array<
-    ts.DiagnosticRelatedInformation
-  >();
+  public readonly relatedInformation = new Array<ts.DiagnosticRelatedInformation>();
 
   /**
    * Creates a new `JsiiDiagnostic` with the provided properties.
