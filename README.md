@@ -485,6 +485,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://harimenon.com/"><img src="https://avatars2.githubusercontent.com/u/171072?v=4" width="100px;" alt=""/><br /><sub><b>Hari Pachuveetil</b></sub></a><br /><a href="#blog-floydpink" title="Blogposts">📝</a></td>
     <td align="center"><a href="https://github.com/deccy-mcc"><img src="https://avatars0.githubusercontent.com/u/45844893?v=4" width="100px;" alt=""/><br /><sub><b>deccy-mcc</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Adeccy-mcc+label%3Abug" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/majasb"><img src="https://avatars2.githubusercontent.com/u/142510?v=4" width="100px;" alt=""/><br /><sub><b>Maja S Bratseth</b></sub></a><br /><a href="https://github.com/aws/jsii/issues?q=author%3Amajasb+label%3Abug" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
