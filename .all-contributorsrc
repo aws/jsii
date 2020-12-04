@@ -982,6 +982,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "majasb",
+      "name": "Maja S Bratseth",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/142510?v=4",
+      "profile": "https://github.com/majasb",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
