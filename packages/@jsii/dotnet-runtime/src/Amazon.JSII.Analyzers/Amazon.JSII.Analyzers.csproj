@@ -7,13 +7,15 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageIcon>icon.png</PackageIcon>
+
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" PrivateAssets="all" />
         <PackageReference Include="Microsoft.CodeQuality.Analyzers" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.NetCore.Analyzers" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
@@ -21,7 +23,7 @@
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="../../../../../logo/png/128x128.png" Pack="true" PackagePath="icon.png" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <AdditionalFiles Include="AnalyzerReleases.Shipped.md" />
         <AdditionalFiles Include="AnalyzerReleases.Unshipped.md" />
