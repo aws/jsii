@@ -9,6 +9,10 @@ export function isReservedName(name: string): string[] | undefined {
   if (PYTHON_RESERVED.has(name)) {
     reserved.push('Python');
   }
+
+  if (GO_RESERVED.has(name)) {
+    reserved.push('Go');
+  }
   return reserved.length > 0 ? reserved : undefined;
 }
 
@@ -183,4 +187,72 @@ export const PYTHON_RESERVED = new Set([
   'in',
   'raise',
   'self',
+]);
+
+export const GO_RESERVED = new Set([
+  'break',
+  'case',
+  'chan',
+  'const',
+  'continue',
+  'default',
+  'defer',
+  'else',
+  'fallthrough',
+  'for',
+  'func',
+  'go',
+  'goto',
+  'if',
+  'import',
+  'interface',
+  'map',
+  'package',
+  'range',
+  'return',
+  'select',
+  'struct',
+  'switch',
+  'type',
+  'var',
+  // constants
+  'true',
+  'false',
+  'iota',
+  'nil',
+  // types
+  'int',
+  'int8',
+  'int16',
+  'int32',
+  'int64',
+  'uint',
+  'uint8',
+  'uint16',
+  'uint32',
+  'uint64',
+  'uintptr',
+  'float32',
+  'float64',
+  'complex128',
+  'complex64',
+  'bool',
+  'rune',
+  'byte',
+  'string',
+  'error',
+  // functions
+  'make',
+  'len',
+  'cap',
+  'new',
+  'append',
+  'copy',
+  'close',
+  'delete',
+  'complex',
+  'real',
+  'imag',
+  'panic',
+  'recover',
 ]);
