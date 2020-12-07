@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/aws/jsii/compare/v1.15.0...v1.16.0) (2020-12-07)
+
+
+### Bug Fixes
+
+* **java:** exception is logged when Java VM is shutting down ([#2305](https://github.com/aws/jsii/issues/2305)) ([8e1e7bd](https://github.com/aws/jsii/commit/8e1e7bd2a038dc0e3eb6f0b3f9c616da4caa464d)), closes [#2303](https://github.com/aws/jsii/issues/2303)
+* **runtime:** excessive latency introduced by sleep ([#2298](https://github.com/aws/jsii/issues/2298)) ([1a94b85](https://github.com/aws/jsii/commit/1a94b859dbde4e002b4b3c04dfedf3ba97804962)), closes [#2284](https://github.com/aws/jsii/issues/2284)
+
 ## [1.15.0](https://github.com/aws/jsii/compare/v1.14.1...v1.15.0) (2020-11-25)
 
 
