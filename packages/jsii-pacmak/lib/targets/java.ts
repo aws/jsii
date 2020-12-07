@@ -1037,7 +1037,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.apache.maven.plugins',
                       artifactId: 'maven-javadoc-plugin',
-                      version: '3.1.1',
+                      version: '3.2.0',
                       executions: {
                         execution: {
                           id: 'attach-javadocs',
@@ -1080,7 +1080,7 @@ class JavaGenerator extends Generator {
                     {
                       groupId: 'org.codehaus.mojo',
                       artifactId: 'versions-maven-plugin',
-                      version: '2.7',
+                      version: '2.8.1',
                       configuration: {
                         generateBackupPoms: false,
                       },
