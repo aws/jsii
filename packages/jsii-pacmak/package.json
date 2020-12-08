@@ -40,7 +40,7 @@
     "@jsii/spec": "^0.0.0",
     "clone": "^2.1.2",
     "codemaker": "^0.0.0",
-    "commonmark": "^0.29.2",
+    "commonmark": "^0.29.3",
     "escape-string-regexp": "^4.0.0",
     "fs-extra": "^9.0.1",
     "jsii-reflect": "^0.0.0",
