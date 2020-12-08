@@ -1,14 +1,19 @@
-import { spawnSync, SpawnOptions } from 'child_process';
+import {
+  exec as cpExec,
+  spawnSync,
+  SpawnOptions,
+  SpawnSyncReturns,
+} from 'child_process';
+import { promisify } from 'util';
 
 export function runCommand(
   command: string,
   args: readonly string[],
   opts: SpawnOptions = {},
-): void {
+): SpawnSyncReturns<Buffer> {
   const result = spawnSync(command, args, {
     ...opts,
     shell: process.platform === 'win32',
-    stdio: 'inherit',
   });
   if (result.error) {
     throw result.error;
@@ -22,4 +27,7 @@ export function runCommand(
       }: ${command} ${args.join(' ')}`,
     );
   }
+  return result;
 }
+
+export const exec = promisify(cpExec);

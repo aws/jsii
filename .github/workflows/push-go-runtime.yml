@@ -1,0 +1,72 @@
+# Workflows pertaining to the jsii/superchain Docker image
+name: Push Jsii Runtime Go
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  push-go-runtime:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+      - name: Set up Node 10
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: '10'
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Dependencies
+        run: |-
+          # TypeScript project dependencies
+          yarn install --frozen-lockfile
+      - name: Align Versions
+        run: |-
+          ./scripts/align-version.sh
+      - name: Build dependencies
+        run: |-
+          yarn build \
+          --scope codemaker \
+          --scope @jsii/spec \
+          --scope @jsii/kernel \
+          --scope @jsii/runtime
+      - name: Build
+        run: |-
+          yarn build \
+          --scope @jsii/go-runtime
+      - name: Build Repo Directory
+        id: build-repo-dir
+        working-directory: $GITHUB_WORKSPACE/packages/@jsii/go-runtime
+        env:
+          JSII_RUNTIME_REPO_NAME: ${{ secrets.JSII_RUNTIME_REPO_NAME }}
+          JSII_RUNTIME_REPO_USERNAME: ${{ secrets.JSII_RUNTIME_REPO_USERNAME }}
+          JSII_RUNTIME_REPO_TOKEN: ${{ secrets.AUTO_APPROVE_GITHUB_TOKEN }}
+        run: |-
+          REPO_DIR=$(mktemp -d)
+          npx ts-node ./build-tools/build-repo-dir.ts $REPO_DIR
+          echo "::set-output name=repodir::$REPO_DIR"
+      - name: Check for changes
+        id: check-for-changes
+        run: |-
+          # Change directory manually as using `working-directory` doesn't seem to support using outputs from the previous step
+          cd ${{ steps.build-repo-dir.outputs.repodir }}
+          git fetch --depth=1 --quiet origin main
+          git add .
+          # Check for modifications in tracked files
+          changed=$(git diff --name-only origin/main)
+          if [-z "$changed"]; then
+            echo "::set-output name=result::false"
+          else
+            echo "::set-output name=result::true"
+          fi
+      - name: Commit and Push
+        if: steps.check-for-changes.outputs.result == 'true'
+        run: |-
+          message=$(git log -1 --format=%s)
+          cd ${{ steps.build-repo-dir.outputs.repodir }}
+          git commit -m $message
+          git push origin main

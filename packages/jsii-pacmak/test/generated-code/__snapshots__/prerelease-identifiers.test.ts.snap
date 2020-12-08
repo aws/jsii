@@ -128,7 +128,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	github.com/aws/jsii-runtime-go v1337.42.1337
 	bar v2.0.0-rc.42
 )
 
@@ -138,7 +138,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`]
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
 	bar "/bar/jsii"
@@ -625,7 +625,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	github.com/aws/jsii-runtime-go v1337.42.1337
 	bar v4.5.6-pre.1337
 )
 
@@ -635,7 +635,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 	// Initialization endpoints of dependencies
 	bar "/bar/jsii"
@@ -1120,7 +1120,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	github.com/aws/jsii-runtime-go v1337.42.1337
 )
 
 `;
@@ -1129,7 +1129,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/go/foo/jsii/jsii.go 1`] = `
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 )
 
@@ -1593,7 +1593,7 @@ module foo
 go 1.15
 
 require (
-	github.com/aws-cdk/jsii/jsii-experimental v1337.42.1337
+	github.com/aws/jsii-runtime-go v1337.42.1337
 )
 
 `;
@@ -1602,7 +1602,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/go/foo/jsii/jsii.go 1`] = `
 package jsii
 
 import (
-	rt "github.com/aws-cdk/jsii/jsii-experimental"
+	rt "github.com/aws/jsii-runtime-go"
 	"sync"
 )
 
