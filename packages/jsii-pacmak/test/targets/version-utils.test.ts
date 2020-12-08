@@ -46,30 +46,30 @@ const examples: Record<
 
   // Less usual ranges
   '>0.1.2': {
-    maven: '(0.1.2,]',
-    nuget: '(0.1.2,]',
+    maven: '(0.1.2,)',
+    nuget: '(0.1.2,)',
     python: '>0.1.2',
   },
   '>=0.1.2': {
-    maven: '[0.1.2,]',
-    nuget: '[0.1.2,]',
+    maven: '[0.1.2,)',
+    nuget: '[0.1.2,)',
     python: '>=0.1.2',
   },
   '<0.1.2': {
-    maven: '[,0.1.2)',
-    nuget: '[,0.1.2)',
+    maven: '(,0.1.2)',
+    nuget: '(,0.1.2)',
     python: '<0.1.2',
   },
   '<=0.1.2': {
-    maven: '[,0.1.2]',
-    nuget: '[,0.1.2]',
+    maven: '(,0.1.2]',
+    nuget: '(,0.1.2]',
     python: '<=0.1.2',
   },
 
   // Somewhat unusual ranges
   '*': {
-    maven: '[0.0.0,]',
-    nuget: '[0.0.0,]',
+    maven: '[0.0.0,)',
+    nuget: '[0.0.0,)',
     python: '>=0.0.0',
   },
   '1.2.*': {

@@ -198,7 +198,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,0.0.1)</version>
+      <version>(,0.0.1)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -254,7 +254,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -296,7 +296,7 @@ exports[`foo@1.2.3 depends on bar@^2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.8.1</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>
@@ -695,7 +695,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,0.0.1)</version>
+      <version>(,0.0.1)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -751,7 +751,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -793,7 +793,7 @@ exports[`foo@1.2.3 depends on bar@^4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.8.1</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>
@@ -1179,7 +1179,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,0.0.1)</version>
+      <version>(,0.0.1)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -1235,7 +1235,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -1277,7 +1277,7 @@ exports[`foo@2.0.0-rc.42: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.8.1</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>
@@ -1652,7 +1652,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>[0.0.0,0.0.1)</version>
+      <version>(,0.0.1)</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
@@ -1708,7 +1708,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -1750,7 +1750,7 @@ exports[`foo@4.5.6-pre.1337: <outDir>/java/pom.xml 1`] = `
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.8.1</version>
         <configuration>
           <generateBackupPoms>false</generateBackupPoms>
         </configuration>

@@ -982,6 +982,42 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "ThomasSteinbach",
+      "name": "Thomas Steinbach",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1683246?v=4",
+      "profile": "https://github.com/ThomasSteinbach",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Ophirr33",
+      "name": "Ty Coghlan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15920577?v=4",
+      "profile": "https://ty.coghlan.dev/",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "slotnick",
+      "name": "Dave Slotnick",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/918175?v=4",
+      "profile": "https://github.com/slotnick",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "majasb",
+      "name": "Maja S Bratseth",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/142510?v=4",
+      "profile": "https://github.com/majasb",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoType": "github",
