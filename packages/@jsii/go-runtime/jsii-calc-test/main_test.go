@@ -2,17 +2,16 @@ package main
 
 import (
 	"fmt"
-	"math"
-	"os"
-	"reflect"
-	"strings"
-	"testing"
-
 	calc "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc"
 	param "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/param"
 	returnsParam "github.com/aws-cdk/jsii/jsii-calc/go/jsiicalc/submodule/returnsparam"
 	calclib "github.com/aws-cdk/jsii/jsii-calc/go/scopejsiicalclib"
 	"github.com/aws/jsii-runtime-go"
+	"math"
+	"os"
+	"reflect"
+	"strings"
+	"testing"
 )
 
 func TestMain(m *testing.M) {
