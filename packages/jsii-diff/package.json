@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.17",
+    "@types/jest": "^26.0.18",
     "@types/jest-expect-message": "^1.0.3",
     "@types/node": "^10.17.48",
     "@types/tar-fs": "^2.0.0",
