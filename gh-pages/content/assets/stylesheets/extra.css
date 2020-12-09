@@ -1,0 +1,101 @@
+:root {
+  --amazon-orange: #ff9900;
+  --amazon-squid-ink: #232f3e;
+
+  --md-primary-bg-color: white;
+  --md-primary-fg-color: var(--amazon-squid-ink);
+  --md-accent-fg-color: var(--amazon-orange);
+
+  --md-default-fg-color--light: #606060;
+  --md-default-fg-color--lighter: #909090;
+  --md-default-fg-color--lightest: #c0c0c0;
+}
+
+:root > * {
+  /* Code color shades */
+  --md-code-fg-color: #c9d1d9;
+  --md-code-bg-color: #0d1117;
+
+  /* Code highlighting color shades */
+  --md-code-hl-color: rgba(187, 128, 9, 0.25);
+  --md-code-hl-number-color: #56d364;
+  --md-code-hl-special-color: #388bfd;
+  --md-code-hl-function-color: #d2a8ff;
+  --md-code-hl-constant-color: #79c0ff;
+  --md-code-hl-keyword-color: #ff7b72;
+  --md-code-hl-string-color: #a5d6ff;
+  --md-code-hl-name-color: #d2a8ff;
+  --md-code-hl-operator-color: #79c0ff;
+  --md-code-hl-punctuation-color: #c9d1d9;
+  --md-code-hl-comment-color: #8b949e;
+  --md-code-hl-generic-color: #c9d1d9;
+  --md-code-hl-variable-color: #ffa657;
+
+  /* Typeset color shades */
+  --md-typeset-color: var(--md-primary-fg-color);
+  --md-typeset-a-color: var(--md-accent-fg-color);
+
+  /* Typeset `mark` color shades */
+  --md-typeset-mark-color: #f00;
+
+  /* Typeset `del` and `ins` color shades */
+  --md-typeset-del-color: rgba(218, 54, 51, 0.15);
+  --md-typeset-ins-color: rgba(35, 134, 54, 0.15);
+
+  /* Footer color shades */
+  --md-footer-fg-color: white;
+  --md-footer-fg-color--light: var(--md-default-fg-color--lighter);
+  --md-footer-fg-color--lighter: var(--md-default-fg-color--lightest);
+  --md-footer-bg-color: var(--amazon-squid-ink);
+  --md-footer-bg-color--dark: var(--amazon-squid-ink);
+}
+
+@font-face {
+  font-family: 'AmazonEmber';
+  src: url('/assets/typefaces/AmazonEmberDisplay_Rg.ttf') format('truetype'),
+    url('/assets/typefaces/AmazonEmberDisplay_Bd.ttf') format('truetype'),
+    url('/assets/typefaces/AmazonEmberDisplay_He.ttf') format('truetype'),
+    url('/assets/typefaces/AmazonEmberDisplay_Lt.ttf') format('truetype'),
+    url('/assets/typefaces/AmazonEmberDisplay_Md.ttf') format('truetype');
+}
+
+body {
+  font-family: 'AmazonEmber';
+}
+
+.md-logo img {
+  width: auto !important;
+}
+
+/* Custom look for highlighted lines */
+.highlight .hll {
+  box-shadow: inset 2px 0 0 #bb8009;
+  border-collapse: collapse;
+}
+
+/* Custom look for console session rendering */
+.highlight .gp {
+  color: var(--md-code-hl-special-color);
+}
+.highlight .go {
+  color: var(--md-code-hl-comment-color);
+}
+
+/* Custom look for arbitrary names */
+.highlight .nx {
+  color: var(--md-code-hl-name-color);
+}
+
+/* Fixing up <code> rendering in some contexts */
+.md-typeset code {
+  padding: 3px;
+}
+
+.md-typeset h1 code,
+.md-typeset h2 code,
+.md-typeset h3 code,
+.md-typeset h4 code,
+.md-typeset h5 code,
+.md-typeset h6 code {
+  color: var(--md-default-fg-color--light);
+}

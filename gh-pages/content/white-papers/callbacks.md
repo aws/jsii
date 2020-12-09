@@ -15,10 +15,11 @@ The _jsii kernel_ allows _foreign_ code to register overrides for the following 
 - Overriding a class' non-static member
 - Implementing an abstract member (including interface members)
 
-> :bulb: It is possible for _foreign_ code to override a class' constructor, but those cannot be registered in the _jsii
-> kernel_ as it cannot trigger instantiation of a _foreign_ class directly. _Foreign_ constructors always delegate to
-> the **JavaScript** constructor, which is happens via the [`create`][kernel.create] operation, during which overrides
-> are registered.
+!!! info
+    It is possible for _foreign_ code to override a class' constructor, but those cannot be registered in the _jsii
+    kernel_ as it cannot trigger instantiation of a _foreign_ class directly. _Foreign_ constructors always delegate to
+    the **JavaScript** constructor, which is happens via the [`create`][kernel.create] operation, during which overrides
+    are registered.
 
 All cases where _foreign_ code should be executed in lieu of **JavaScript** code must be identified and declared
 properly, as the _jsii kernel_ otherwise has no way to determine a _foreign_ implementation exists.
@@ -41,20 +42,22 @@ Each override declaration may optionally include a `cookie`: this string will no
 any way, and will simply be passed back passed back with any request to invoke the overridden member's foreign
 implementation.
 
-> :bulb: It is possible to register overrides to members that do not formally exist on a type. Since the _jsii kernel_
-> has no type information available for those, it will handle them as follows:
->
-> - Method overrides are assumed to have the following signature:
->   ```ts
->   overridden(...args: any[]): any
->   ```
-> - Property overrides are assumed to be `any`-valued and mutable
->
-> :warning: This should generally be avoided as it can result in incoherent data serialization happening when the _jsii
-> kernel_ receives and returns values.
+!!! info
+    It is possible to register overrides to members that do not formally exist on a type. Since the _jsii kernel_ has no
+    type information available for those, it will handle them as follows:
 
-[kernel.create]: ../specifications/3-kernel-api.md#creating-objects
-[kernel.create.overrides]: ../specifications/3-kernel-api.md#overrides
+    - Method overrides are assumed to have the following signature:
+      ```ts
+      overridden(...args: any[]): any
+      ```
+    - Property overrides are assumed to be `any`-valued and mutable
+
+    !!! danger
+        This should generally be avoided as it can result in incoherent data serialization happening when the _jsii
+        kernel_ receives and returns values.
+
+[kernel.create]: ../specification/3-kernel-api.md#creating-objects
+[kernel.create.overrides]: ../specification/3-kernel-api.md#overrides
 
 ## Invoking Overrides
 
@@ -72,7 +75,7 @@ corresponding implementation (for example, using reflection).
 When needed, the _original_ **JavaScript** implementation can be delegated to (many languages refer to this as
 `super(...)` or some similar idiom).
 
-[kernel.callback]: ../specifications/3-kernel-api.md#a-note-about-callbacks
+[kernel.callback]: ../specification/3-kernel-api.md#a-note-about-callbacks
 
 ### Example
 
@@ -151,4 +154,4 @@ The schematized exchange between the _jsii runtime library_ and the _jsii kernem
 ## See Also
 
 - [The _jsii_ runtime architecture](../runtime-architecture.md)
-- [The _jsii_ kernel API](../specifications/3-kernel-api.md)
+- [The _jsii_ kernel API](../specification/3-kernel-api.md)
