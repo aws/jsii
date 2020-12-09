@@ -19,6 +19,7 @@ import { JsiiDiagnostic } from './jsii-diagnostic';
 import * as literate from './literate';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
+import { RuntimeTypeInfoInjector } from './runtime-info';
 import { TsCommentReplacer } from './ts-comment-replacer';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
@@ -33,8 +34,7 @@ const LOG = log4js.getLogger('jsii/assembler');
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
  */
 export class Assembler implements Emitter {
-  public readonly commentReplacer = new TsCommentReplacer();
-
+  private readonly commentReplacer = new TsCommentReplacer();
   private readonly mainFile: string;
 
   private _diagnostics = new Array<JsiiDiagnostic>();
@@ -44,6 +44,13 @@ export class Assembler implements Emitter {
   /** Map of Symbol to namespace export Symbol */
   private readonly _submoduleMap = new Map<ts.Symbol, ts.Symbol>();
   private readonly _submodules = new Map<ts.Symbol, SubmoduleSpec>();
+
+  private readonly projectVersion: string;
+  // Map of nodes to types for exported class types. Used by the RuntimeTypeInfoInjector
+  private readonly classTypesMap = new Map<
+    ts.ClassDeclaration,
+    spec.TypeBase
+  >();
 
   /**
    * @param projectInfo information about the package being assembled
@@ -74,10 +81,33 @@ export class Assembler implements Emitter {
     }
 
     this.mainFile = path.resolve(projectInfo.projectRoot, mainFile);
+    this.projectVersion = projectInfo.version;
   }
 
   private get _typeChecker(): ts.TypeChecker {
     return this.program.getTypeChecker();
+  }
+
+  public makeTransformers(): ts.CustomTransformers {
+    const commentTransformers = this.commentReplacer.makeTransformers();
+    const runtimeTypeTransformer = new RuntimeTypeInfoInjector(
+      this.projectVersion,
+      this.classTypesMap,
+    ).makeTransformers();
+    return {
+      before: [
+        ...(commentTransformers.before ?? []),
+        ...(runtimeTypeTransformer.before ?? []),
+      ],
+      after: [
+        ...(commentTransformers.after ?? []),
+        ...(runtimeTypeTransformer.after ?? []),
+      ],
+      afterDeclarations: [
+        ...(commentTransformers.afterDeclarations ?? []),
+        ...(runtimeTypeTransformer.afterDeclarations ?? []),
+      ],
+    };
   }
 
   /**
@@ -829,6 +859,9 @@ export class Assembler implements Emitter {
         this._typeChecker.getTypeAtLocation(node),
         context,
       );
+      if (jsiiType) {
+        this.classTypesMap.set(node, jsiiType);
+      }
     } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) {
       // export interface Name { ... }
       this._validateHeritageClauses(node.heritageClauses);

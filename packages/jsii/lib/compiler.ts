@@ -260,7 +260,7 @@ export class Compiler implements Emitter {
       undefined,
       undefined,
       undefined,
-      assembler.commentReplacer.makeTransformers(),
+      assembler.makeTransformers(),
     );
     diagnostics.push(...emit.diagnostics);
 
