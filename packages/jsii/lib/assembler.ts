@@ -21,6 +21,7 @@ import * as bindings from './node-bindings';
 import { ProjectInfo } from './project-info';
 import { isReservedName } from './reserved-words';
 import { DeprecatedRemover } from './transforms/deprecated-remover';
+import { RuntimeTypeInfoInjector } from './transforms/runtime-info';
 import { TsCommentReplacer } from './transforms/ts-comment-replacer';
 import { combinedTransformers } from './transforms/utils';
 import { Validator } from './validator';
@@ -37,6 +38,7 @@ const LOG = log4js.getLogger('jsii/assembler');
  */
 export class Assembler implements Emitter {
   private readonly commentReplacer = new TsCommentReplacer();
+  private readonly runtimeTypeInfoInjector: RuntimeTypeInfoInjector;
   private readonly deprecatedRemover?: DeprecatedRemover;
 
   private readonly mainFile: string;
@@ -92,11 +94,15 @@ export class Assembler implements Emitter {
     }
 
     this.mainFile = path.resolve(projectInfo.projectRoot, mainFile);
+    this.runtimeTypeInfoInjector = new RuntimeTypeInfoInjector(
+      projectInfo.version,
+    );
   }
 
   public get customTransformers(): ts.CustomTransformers {
     return combinedTransformers(
       this.deprecatedRemover?.customTransformers ?? {},
+      this.runtimeTypeInfoInjector.makeTransformers(),
       this.commentReplacer.makeTransformers(),
     );
   }
@@ -891,6 +897,9 @@ export class Assembler implements Emitter {
         this._typeChecker.getTypeAtLocation(node),
         context,
       );
+      if (jsiiType) {
+        this.registerExportedClassFqn(node, jsiiType.fqn);
+      }
     } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) {
       // export interface Name { ... }
       this._validateHeritageClauses(node.heritageClauses);
@@ -2572,6 +2581,14 @@ export class Assembler implements Emitter {
         delete current.optional;
       }
     }
+  }
+
+  /**
+   * Updates the runtime type info with the fully-qualified name for the current class definition.
+   * Used by the runtime type info injector to add this information to the compiled file.
+   */
+  private registerExportedClassFqn(clazz: ts.ClassDeclaration, fqn: string) {
+    this.runtimeTypeInfoInjector.registerClassFqn(clazz, fqn);
   }
 
   /**
