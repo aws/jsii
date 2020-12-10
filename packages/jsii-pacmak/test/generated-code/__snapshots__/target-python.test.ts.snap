@@ -86,7 +86,8 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.9",
         "Typing :: Typed",
         "License :: OSI Approved"
-    ]
+    ],
+    "scripts": []
 }
 """
 )
@@ -333,7 +334,8 @@ kwargs = json.loads(
         "Programming Language :: Python :: 3.9",
         "Typing :: Typed",
         "License :: OSI Approved"
-    ]
+    ],
+    "scripts": []
 }
 """
 )
@@ -576,7 +578,8 @@ kwargs = json.loads(
         "Typing :: Typed",
         "Development Status :: 7 - Inactive",
         "License :: OSI Approved"
-    ]
+    ],
+    "scripts": []
 }
 """
 )
@@ -1287,6 +1290,8 @@ exports[`Generated code for "jsii-calc": <outDir>/ 1`] = `
           ┣━ 📄 __init__.py
           ┣━ 📁 _jsii
           ┃  ┣━ 📄 __init__.py
+          ┃  ┣━ 📁 bin
+          ┃  ┃  ┗━ 📄 calc
           ┃  ┗━ 📄 jsii-calc@0.0.0.jsii.tgz
           ┣━ 📁 composition
           ┃  ┗━ 📄 __init__.py
@@ -1429,6 +1434,9 @@ kwargs = json.loads(
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved",
         "Test :: Classifier :: Is Dummy"
+    ],
+    "scripts": [
+        "src/jsii_calc/_jsii/bin/calc"
     ]
 }
 """
@@ -8745,6 +8753,20 @@ __all__ = [
 ]
 
 publication.publish()
+
+`;
+
+exports[`Generated code for "jsii-calc": <outDir>/python/src/jsii_calc/_jsii/bin/calc 1`] = `
+#!/usr/bin/env python
+
+import jsii
+import sys
+
+__jsii_assembly__ = jsii.JSIIAssembly.load(
+    "jsii-calc", "0.0.0", "jsii_calc", "jsii-calc@0.0.0.jsii.tgz"
+)
+
+__jsii_assembly__.invokeBinScript("jsii-calc", "calc", sys.argv[1:])
 
 `;
 

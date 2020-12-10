@@ -1483,6 +1483,56 @@ class PythonModule implements PythonType {
   }
 
   /**
+   * Emit the bin scripts if bin section defined.
+   */
+  public emitBinScripts(code: CodeMaker): string[] {
+    const scripts = new Array<string>();
+    if (this.loadAssembly) {
+      if (this.assembly.bin != null) {
+        for (const name of Object.keys(this.assembly.bin)) {
+          const script_file = path.join(
+            'src',
+            pythonModuleNameToFilename(this.pythonName),
+            'bin',
+            name,
+          );
+          code.openFile(script_file);
+          code.line('#!/usr/bin/env python');
+          code.line();
+          code.line('import jsii');
+          code.line('import sys');
+          code.line();
+          emitList(
+            code,
+            '__jsii_assembly__ = jsii.JSIIAssembly.load(',
+            [
+              JSON.stringify(this.assembly.name),
+              JSON.stringify(this.assembly.version),
+              JSON.stringify(this.pythonName.replace('._jsii', '')),
+              `${JSON.stringify(this.assemblyFilename)}`,
+            ],
+            ')',
+          );
+          code.line();
+          emitList(
+            code,
+            '__jsii_assembly__.invokeBinScript(',
+            [
+              JSON.stringify(this.assembly.name),
+              JSON.stringify(name),
+              'sys.argv[1:]',
+            ],
+            ')',
+          );
+          code.closeFile(script_file);
+          scripts.push(script_file.replace(/\\/g, '/'));
+        }
+      }
+    }
+    return scripts;
+  }
+
+  /**
    * Emit the README as module docstring if this is the entry point module (it loads the assembly)
    */
   private emitModuleDocumentation(code: CodeMaker) {
@@ -1635,6 +1685,8 @@ class Package {
       a.pythonName.localeCompare(b.pythonName),
     );
 
+    const scripts = new Array<string>();
+
     // Iterate over all of our modules, and write them out to disk.
     for (const mod of modules) {
       const filename = path.join(
@@ -1646,6 +1698,8 @@ class Package {
       code.openFile(filename);
       mod.emit(code, context);
       code.closeFile(filename);
+
+      scripts.push(...mod.emitBinScripts(code));
     }
 
     // Handle our package data.
@@ -1725,6 +1779,7 @@ class Package {
         'Programming Language :: Python :: 3.9',
         'Typing :: Typed',
       ],
+      scripts,
     };
 
     switch (this.metadata.docs?.stability) {

@@ -38,6 +38,8 @@ from ..types import (
     GetResponse,
     InvokeRequest,
     InvokeResponse,
+    InvokeScriptRequest,
+    InvokeScriptResponse,
     SetRequest,
     SetResponse,
     StaticGetRequest,
@@ -157,6 +159,10 @@ class _NodeProcess:
         self._serializer.register_unstructure_hook(
             LoadRequest,
             _with_api_key("load", self._serializer.unstructure_attrs_asdict),
+        )
+        self._serializer.register_unstructure_hook(
+            InvokeScriptRequest,
+            _with_api_key("invokeBinScript", self._serializer.unstructure_attrs_asdict),
         )
         self._serializer.register_unstructure_hook(
             CreateRequest,
@@ -342,6 +348,9 @@ class ProcessProvider(BaseProvider):
 
     def load(self, request: LoadRequest) -> LoadResponse:
         return self._process.send(request, LoadResponse)
+
+    def invokeBinScript(self, request: InvokeScriptRequest) -> InvokeScriptResponse:
+        return self._process.send(request, InvokeScriptResponse)
 
     def create(self, request: CreateRequest) -> CreateResponse:
         return self._process.send(request, CreateResponse)
