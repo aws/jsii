@@ -102,9 +102,13 @@ kbd {
   width: auto !important;
 }
 
+.md-tabs__link--active {
+  box-shadow: inset 0 -2px 0 0 var(--amazon-orange);
+}
+
 /* Custom look for highlighted lines */
 .highlight .hll {
-  box-shadow: inset 2px 0 0 #bb8009;
+  box-shadow: inset 4px 0 0 var(--amazon-orange);
   border-collapse: collapse;
 }
 

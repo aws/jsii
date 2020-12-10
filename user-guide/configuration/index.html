@@ -1016,39 +1016,39 @@ optional in the standard <a href="https://docs.npmjs.com/files/package.json">pac
 <thead>
 <tr>
 <th>Field</th>
-<th>Required</th>
+<th align="center">Required</th>
 <th>Extensions</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>author</code></td>
-<td>Required</td>
+<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"/></svg></span></td>
 <td><code>author.organization</code></td>
 </tr>
 <tr>
 <td><code>license</code></td>
-<td>Required</td>
+<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"/></svg></span></td>
 <td></td>
 </tr>
 <tr>
 <td><code>main</code></td>
-<td>Required</td>
+<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"/></svg></span></td>
 <td></td>
 </tr>
 <tr>
 <td><code>repository</code></td>
-<td>Required</td>
+<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"/></svg></span></td>
 <td></td>
 </tr>
 <tr>
 <td><code>stability</code></td>
-<td></td>
+<td align="center"></td>
 <td>The field itself is an extension</td>
 </tr>
 <tr>
 <td><code>types</code></td>
-<td>Required</td>
+<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"/></svg></span></td>
 <td></td>
 </tr>
 </tbody>
@@ -1109,14 +1109,54 @@ maintainer, the generic interpretation for those on packages is:</p>
 <h2 id="the-jsii-section">The <code>jsii</code> section</h2>
 <p>In order to configure the behavior of <code>jsii</code>, the <code>package.json</code> file must include a <code>jsii</code> section that can contain the
 following entries:</p>
-<p>| Field               | Type       | Required | Default                         |
-| ------------------- | ---------- | -------- | ------------------------------- | ------ |
-| <code>excludeTypescript</code> | <code>string[]</code> |          | <em>none</em>                          |
-| <code>metadata</code>          | <code>object</code>   |          | <em>none</em>                          |
-| <code>projectReferences</code> | <code>boolean</code>  |          | <code>true</code>                          |
-| <code>targets</code>           | <code>object</code>   | Required |
-| <code>tsc</code>               | <code>object</code>   |          | <code>{ outDir: '.', rootDir: '.' }</code> |
-| <code>versionFormat</code>     | <code>short     | full</code>    |                                 | <code>full</code> |</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th align="center">Required</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>excludeTypescript</code></td>
+<td><code>string[]</code></td>
+<td align="center"></td>
+<td><em>none</em></td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>object</code></td>
+<td align="center"></td>
+<td><em>none</em></td>
+</tr>
+<tr>
+<td><code>projectReferences</code></td>
+<td><code>boolean</code></td>
+<td align="center"></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>targets</code></td>
+<td><code>object</code></td>
+<td align="center"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm16.28-2.72a.75.75 0 00-1.06-1.06l-5.97 5.97-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6.5-6.5z"/></svg></span></td>
+<td></td>
+</tr>
+<tr>
+<td><code>tsc</code></td>
+<td><code>object</code></td>
+<td align="center"></td>
+<td><code>{ outDir: '.', rootDir: '.' }</code></td>
+</tr>
+<tr>
+<td><code>versionFormat</code></td>
+<td><code>short | full</code></td>
+<td align="center"></td>
+<td><code>full</code></td>
+</tr>
+</tbody>
+</table>
 <h3 id="excludetypescript"><code>excludeTypescript</code></h3>
 <p>By default, <code>jsii</code> will include <em>all</em> <code>*.ts</code> files (except <code>.d.ts</code> files) in the <code>TypeScript</code> compiler input. This can
 be problematic for example when the package's build or test procedure generates <code>.ts</code> files that cannot be compiled with

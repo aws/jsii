@@ -694,21 +694,32 @@ suited for development and build tools, as opposed to performance-sensitive or r
 <p>By compiling our source module using <code>jsii</code>, we can now package it as modules in one of the supported target languages.
 Each target module has the exact same API as the source. This allows users of that target language to use <code>HelloJsii</code>
 like any other class:</p>
-<ul>
-<li>In <strong>C#</strong>
-  <div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">greeter</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Greeter</span><span class="p">();</span>
+<div class="tabbed-set" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">C#</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">greeter</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Greeter</span><span class="p">();</span>
 <span class="n">greeter</span><span class="p">.</span><span class="n">Greet</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">);</span> <span class="c1">// =&gt; Hello, World!</span>
-</code></pre></div></li>
-<li>In <strong>Java</strong>
-  <div class="highlight"><pre><span></span><code><span class="kd">final</span> <span class="n">Greeter</span> <span class="n">greeter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Greeter</span><span class="p">();</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Go</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nx">greeter</span> <span class="o">:=</span> <span class="nx">NewGreeter</span><span class="p">()</span>
+<span class="nx">greeter</span><span class="p">.</span><span class="nx">Greet</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">)</span> <span class="c1">// =&gt; Hello, World!</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Java</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="kd">final</span> <span class="n">Greeter</span> <span class="n">greeter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Greeter</span><span class="p">();</span>
 <span class="n">greeter</span><span class="p">.</span><span class="na">greet</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">);</span> <span class="c1">// =&gt; Hello, World!</span>
-</code></pre></div></li>
-<li>In <strong>Python</strong>:
-  <div class="highlight"><pre><span></span><code><span class="n">greeter</span> <span class="o">=</span> <span class="n">Greeter</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">JavaScript</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="n">greeter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Greeter</span><span class="p">();</span>
+<span class="n">greeter</span><span class="p">.</span><span class="na">greet</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">);</span> <span class="c1">// =&gt; Hello, World!</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Python</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">greeter</span> <span class="o">=</span> <span class="n">Greeter</span><span class="p">()</span>
 <span class="n">greeter</span><span class="o">.</span><span class="n">greet</span><span class="p">(</span><span class="s2">&quot;World&quot;</span><span class="p">);</span> <span class="c1"># =&gt; Hello, World!</span>
-</code></pre></div></li>
-<li>... and more to come!</li>
-</ul>
+</code></pre></div>
+</div>
+</div>
                 
                   
                     

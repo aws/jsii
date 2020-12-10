@@ -389,9 +389,66 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Set Up
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" class="md-nav__link md-nav__link--active">
       Set Up
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-new-npm-package" class="md-nav__link">
+    Creating a new npm package
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-mandatory-metadata" class="md-nav__link">
+    Adding mandatory metadata
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-jsii-configuration" class="md-nav__link">
+    Setting up the jsii configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-dependencies" class="md-nav__link">
+    Install Dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-up-essential-scripts" class="md-nav__link">
+    Set up essential scripts
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -605,6 +662,49 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-new-npm-package" class="md-nav__link">
+    Creating a new npm package
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-mandatory-metadata" class="md-nav__link">
+    Adding mandatory metadata
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-jsii-configuration" class="md-nav__link">
+    Setting up the jsii configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-dependencies" class="md-nav__link">
+    Install Dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-up-essential-scripts" class="md-nav__link">
+    Set up essential scripts
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -621,6 +721,7 @@
                 
                 
                 <h1 id="set-up">Set Up</h1>
+<h2 id="creating-a-new-npm-package">Creating a new <em>npm</em> package</h2>
 <p>Start by creating a new empty <em>npm</em> package:</p>
 <div class="highlight"><pre><span></span><code><span class="gp">#</span> mkdir project-name
 <span class="gp">#</span> <span class="nb">cd</span> project-name
@@ -640,6 +741,7 @@
 <span class="go">  &quot;license&quot;: &quot;ISC&quot;</span>
 <span class="go">}</span>
 </code></pre></div>
+<h2 id="adding-mandatory-metadata">Adding mandatory metadata</h2>
 <p>Then, add the mandatory information to the new <code>package.json</code> file that was created. Specifically, <em>jsii modules</em> must
 have an <code>author</code> and <code>repository</code> setting (those are necessary to generate <em>valid</em> libraries for certain distribution
 points, such as <em>Maven Central</em>):</p>
@@ -662,6 +764,7 @@ points, such as <em>Maven Central</em>):</p>
 </span>  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;ISC&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
+<h2 id="setting-up-the-jsii-configuration">Setting up the <em>jsii</em> configuration</h2>
 <p>Finish up the configuration by running <code>jsii-config</code>, and letting the assistant guide you through the process:</p>
 <div class="highlight"><pre><span></span><code><span class="gp">#</span> npx jsii-config
 <span class="go">? Target Languages (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection)</span>
@@ -671,11 +774,10 @@ points, such as <em>Maven Central</em>):</p>
 <span class="go">...</span>
 <span class="go">Success!</span>
 </code></pre></div>
+<h2 id="install-dependencies">Install Dependencies</h2>
 <p>Now, you're ready to install the basic tools into the packages' dependency closure. The exact instructions depend on the
 <strong>JavaScript</strong> package manager you want to be using:</p>
-<ul>
-<li>Using <code>yarn</code>:</li>
-</ul>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">yarn</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="gp">#</span> yarn add -D jsii jsii-pacmak
 <span class="go">yarn add v1.22.10</span>
 <span class="go">info No lockfile found.</span>
@@ -687,9 +789,8 @@ points, such as <em>Maven Central</em>):</p>
 <span class="go">success Saved 66 new dependencies.</span>
 <span class="go">...</span>
 </code></pre></div>
-<ul>
-<li>Using <code>npm</code>:</li>
-</ul>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">npm</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="gp">#</span> npm install --save-dev jsii jsii-pacmak
 
 <span class="go">added 107 packages, and audited 107 packages in 4s</span>
@@ -699,6 +800,9 @@ points, such as <em>Maven Central</em>):</p>
 
 <span class="go">found 0 vulnerabilities</span>
 </code></pre></div>
+</div>
+</div>
+<h2 id="set-up-essential-scripts">Set up essential scripts</h2>
 <p>Finally, you might want to configure convenience scripts in your <code>package.json</code> file in order to facilitate working with
 your project:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -709,7 +813,7 @@ your project:</p>
   <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
 <span class="hll">    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;jsii&quot;</span><span class="p">,</span>
 </span><span class="hll">    <span class="nt">&quot;build:watch&quot;</span><span class="p">:</span> <span class="s2">&quot;jsii --watch&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;pacmak&quot;</span><span class="p">:</span> <span class="s2">&quot;jsii-pacmak&quot;</span>
+</span><span class="hll">    <span class="nt">&quot;package&quot;</span><span class="p">:</span> <span class="s2">&quot;jsii-pacmak&quot;</span>
 </span>  <span class="p">},</span>
   <span class="nt">&quot;keywords&quot;</span><span class="p">:</span> <span class="p">[]</span>
   <span class="err">//</span> <span class="err">...</span>
@@ -720,28 +824,20 @@ your project:</p>
 <thead>
 <tr>
 <th>Script</th>
-<th>Use with <code>npm</code></th>
-<th>Use with <code>yarn</code></th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>build</code></td>
-<td><code>npm run build</code></td>
-<td><code>yarn build</code></td>
 <td>Compiles the project</td>
 </tr>
 <tr>
 <td><code>build:watch</code></td>
-<td><code>npm run build:watch</code></td>
-<td><code>yarn build:watch</code></td>
 <td>Watches for file changes and recompiles as needed</td>
 </tr>
 <tr>
-<td><code>pacmak</code></td>
-<td><code>npm run pacmak</code></td>
-<td><code>yarn pacmak</code></td>
+<td><code>package</code></td>
 <td>Generates libraries for all languages</td>
 </tr>
 </tbody>
