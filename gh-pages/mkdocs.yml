@@ -1,0 +1,66 @@
+site_name: The jsii reference
+site_description: jsii allows code in any language to naturally interact with JavaScript classes.
+repo_name: aws/jsii
+repo_url: https://github.com/aws/jsii
+site_url: https://aws.github.io/jsii/
+edit_uri: edit/main/gh-pages/content/
+copyright: Copyright &copy; 2020 Amazon Web Services, Inc.
+
+docs_dir: content
+extra_css:
+  - assets/stylesheets/extra.css
+
+nav:
+  - Home:
+      - index.md
+      - features.md
+      - toolchain.md
+      - runtime-architecture.md
+  - User Guide:
+      - user-guide/prerequisites.md
+      - Quick Start:
+          - user-guide/set-up.md
+          - user-guide/write-code.md
+      - user-guide/typescript-restrictions.md
+      - user-guide/configuration.md
+  - Specification:
+      - specification/1-introduction.md
+      - The jsii type system: specification/2-type-system.md
+      - The jsii kernel API: specification/3-kernel-api.md
+      - specification/4-standard-compliance-suite.md
+      - specification/5-new-language-intake.md
+  - White Papers:
+      - .jsii Assemblies: white-papers/assembly.md
+      - white-papers/callbacks.md
+      - white-papers/language-implementation.md
+
+theme:
+  name: material
+  font: false
+  logo: assets/images/logo.png
+  icon:
+    logo: fontawesome/brands/aws
+    repo: fontawesome/brands/github
+  favicon: assets/images/favicon.png
+  palette:
+    scheme: default
+  features:
+    - navigation.expand
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+plugins:
+  - git-revision-date
+  - search

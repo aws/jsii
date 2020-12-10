@@ -11,6 +11,8 @@ from ..types import (
     GetResponse,
     InvokeRequest,
     InvokeResponse,
+    InvokeScriptRequest,
+    InvokeScriptResponse,
     DeleteRequest,
     DeleteResponse,
     SetRequest,
@@ -43,6 +45,10 @@ class BaseProvider(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def load(self, request: LoadRequest) -> LoadResponse:
+        ...
+
+    @abc.abstractmethod
+    def invokeBinScript(self, request: InvokeScriptRequest) -> InvokeScriptResponse:
         ...
 
     @abc.abstractmethod

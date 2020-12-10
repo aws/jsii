@@ -200,6 +200,7 @@ export class Assembler implements Emitter {
       docs,
       readme,
       jsiiVersion,
+      bin: this.projectInfo.bin,
       fingerprint: '<TBD>',
     };
 

@@ -1,4 +1,4 @@
-# Configuration
+# Configuration Reference
 
 The configuration for `jsii` is recorded in the `package.json` file, which is the standard package manifest for NPM
 packages. This document describes the constraints and extensions `jsii` adds to the [package.json schema].
@@ -7,7 +7,7 @@ packages. This document describes the constraints and extensions `jsii` adds to 
 
 ## jsii-config
 
-Use [jsii-config](../packages/jsii-config) to aid in configuring a new jsii module.
+Use [jsii-config](https://github.com/aws/jsii/tree/main/packages/jsii-config) to aid in configuring a new jsii module.
 
 ## Additional Requirements & Extensions
 
@@ -17,14 +17,14 @@ optional in the standard [package.json schema] are required by `jsii`.
 For example, Maven Central requires packages to carry [sufficient metadata], such as _developer information_ and
 _license_, in order to be valid for publishing.
 
-| Field        | Required | Extensions                       |
-| ------------ | -------- | -------------------------------- |
-| `author`     | Required | `author.organization`            |
-| `license`    | Required |
-| `main`       | Required |
-| `repository` | Required |
-| `stability`  |          | The field itself is an extension |
-| `types`      | Required |
+| Field        | Required                        | Extensions                       |
+| ------------ |:-------------------------------:| -------------------------------- |
+| `author`     | :octicons-check-circle-fill-24: | `author.organization`            |
+| `license`    | :octicons-check-circle-fill-24: |                                  |
+| `main`       | :octicons-check-circle-fill-24: |                                  |
+| `repository` | :octicons-check-circle-fill-24: |                                  |
+| `stability`  |                                 | The field itself is an extension |
+| `types`      | :octicons-check-circle-fill-24: |                                  |
 
 [sufficient metadata]: https://central.sonatype.org/pages/requirements.html#sufficient-metadata
 
@@ -84,11 +84,11 @@ exported from the `types` file.
 
 ### Package-level API Stability
 
-The [`.jsii` assembly document](./assembly.md) allows representing API stability levels on individual API elements. The
-default value set for API elements for which a stability declaration is not found can be configured using the
-`stability` field of the `package.json` file. It can be set to one of the following values: `experimental`, `stable`,
-`deprecated` and `external`. While the exact semantic value of those fields is defined by the package maintainer, the
-generic interpretation for those on packages is:
+The [`.jsii` assembly document](../white-papers/assembly.md) allows representing API stability levels on individual API
+elements. The default value set for API elements for which a stability declaration is not found can be configured using
+the `stability` field of the `package.json` file. It can be set to one of the following values: `experimental`,
+`stable`, `deprecated` and `external`. While the exact semantic value of those fields is defined by the package
+maintainer, the generic interpretation for those on packages is:
 
 - `experimental` - the package is not yet ready for production usage, as it is still in the early stages of its
   development.
@@ -104,14 +104,14 @@ generic interpretation for those on packages is:
 In order to configure the behavior of `jsii`, the `package.json` file must include a `jsii` section that can contain the
 following entries:
 
-| Field               | Type       | Required | Default                         |
-| ------------------- | ---------- | -------- | ------------------------------- |
-| `excludeTypescript` | `string[]` |          | _none_                          |
-| `metadata`          | `object`   |          | _none_                          |
-| `projectReferences` | `boolean`  |          | `true`                          |
-| `targets`           | `object`   | Required |
-| `tsc`               | `object`   |          | `{ outDir: '.', rootDir: '.' }` |
-| `versionFormat`     | `short     | full`    |                                 | `full` |
+| Field               | Type           | Required                        | Default                         |
+| ------------------- | -------------- |:-------------------------------:| ------------------------------- |
+| `excludeTypescript` | `string[]`     |                                 | _none_                          |
+| `metadata`          | `object`       |                                 | _none_                          |
+| `projectReferences` | `boolean`      |                                 | `true`                          |
+| `targets`           | `object`       | :octicons-check-circle-fill-24: |                                 |
+| `tsc`               | `object`       |                                 | `{ outDir: '.', rootDir: '.' }` |
+| `versionFormat`     | `short | full` |                                 | `full`                          |
 
 ### `excludeTypescript`
 
@@ -125,8 +125,9 @@ excluded from the `TypeScript` compiler input.
 ### `metadata`
 
 The `metadata` section can be used to record additional metadata as key-value pairs that will be recorded as-is into the
-`.jsii` assembly file. That metadata can later be inspected using [`jsii-reflect`](../packages/jsii-reflect) utilities,
-for example.
+`.jsii` assembly file. That metadata can later be inspected using [`jsii-reflect`][jsii-reflect] utilities, for example.
+
+[jsii-reflect]: https://github.com/aws/jsii/tree/main/packages/jsii-reflect
 
 ### `targets`
 
@@ -155,6 +156,7 @@ The `python` target requires two configuration entries:
     - `Programming Language :: Python :: 3.6`
     - `Programming Language :: Python :: 3.7`
     - `Programming Language :: Python :: 3.8`
+    - `Programming Language :: Python :: 3.9`
 
 Example:
 
@@ -331,13 +333,11 @@ generation problems.
 
 ### Diagnostics
 
-JSII produces a number of diagnostic information. These have been categorized
-into "error", "warning", "suggestion" and "message", by default. Diagnostics
-categorized as "error" will fail the jsii compiler and the rest will be
-printed to console.
+JSII produces a number of diagnostic information. These have been categorized into "error", "warning", "suggestion" and
+"message", by default. Diagnostics categorized as "error" will fail the jsii compiler and the rest will be printed to
+console.
 
-These can be re-configured to a different category under the `diagnostics` key
-as so - 
+These can be re-configured to a different category under the `diagnostics` key as so -
 
 ```js
 "jsii": {
@@ -351,11 +351,11 @@ as so -
 }
 ```
 
-As noted in the example above, the diagnostic code can be the human readable
-string, or the numeric code prefixed with `JSII`.
+As noted in the example above, the diagnostic code can be the human readable string, or the numeric code prefixed with
+`JSII`.
 
 The full list of diagnostic codes can be found in
-[`jsii-diagnostic.ts`](./lib/jsii-diagnostic.ts).
+[`jsii-diagnostic.ts`](https://github.com/aws/jsii/tree/main/packages/jsii/lib/jsii-diagnostic.ts).
 
 ## Dependency considerations
 

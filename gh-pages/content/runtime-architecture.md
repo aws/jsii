@@ -42,7 +42,10 @@ A simplified representation of the execution environment of an application using
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+## Serialization Strategy
+
 The initialization workflow can be described as:
+
 1. The *host* (**Java**, **.NET**, ...) application starts on its own runtime
     (JVM, .NET Runtime, ...)
 2. When the *host* code encounters a *jsii* entity for the first time (creating

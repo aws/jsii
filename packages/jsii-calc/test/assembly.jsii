@@ -7,6 +7,9 @@
     ],
     "url": "https://aws.amazon.com"
   },
+  "bin": {
+    "calc": "bin/run"
+  },
   "bundled": {
     "@fixtures/jsii-calc-bundled": "^0.19.0"
   },
@@ -14342,5 +14345,5 @@
     }
   },
   "version": "0.0.0",
-  "fingerprint": "55ZmA4GbUYPUmTXM2oFDEND8/Yk2Vzw1FThRWEOigAM="
+  "fingerprint": "XfCnzPEGbEJR6hhBX8zWyFzWJP2wH9ztW2ZcW6Wdb+4="
 }
