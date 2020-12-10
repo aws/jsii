@@ -2,7 +2,8 @@ site_name: The jsii reference
 site_description: jsii allows code in any language to naturally interact with JavaScript classes.
 repo_name: aws/jsii
 repo_url: https://github.com/aws/jsii
-edit_uri: edit/mainline/gh-pages/content
+site_url: https://aws.github.io/jsii/
+edit_uri: edit/main/gh-pages/content/
 copyright: Copyright &copy; 2020 Amazon Web Services, Inc.
 
 docs_dir: content
