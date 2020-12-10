@@ -45,13 +45,13 @@
     "sort-json": "^2.0.0",
     "spdx-license-list": "^6.3.0",
     "typescript": "~3.9.7",
-    "yargs": "^16.1.1"
+    "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@types/clone": "^2.1.0",
     "@types/deep-equal": "^1.0.1",
     "@types/fs-extra": "^8.1.1",
-    "@types/jest": "^26.0.16",
+    "@types/jest": "^26.0.18",
     "@types/jest-expect-message": "^1.0.3",
     "@types/node": "^10.17.48",
     "@types/semver": "^7.3.4",

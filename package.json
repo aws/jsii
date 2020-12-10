@@ -16,11 +16,11 @@
   },
   "devDependencies": {
     "@jest/types": "^26.6.2",
-    "@typescript-eslint/eslint-plugin": "^4.9.0",
-    "@typescript-eslint/parser": "^4.9.0",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
     "all-contributors-cli": "^6.19.0",
     "eslint": "^7.15.0",
-    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-prettier": "^7.0.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-import-resolver-typescript": "^2.3.0",
     "eslint-plugin-import": "^2.22.1",
@@ -32,7 +32,7 @@
     "prettier": "^2.2.1",
     "standard-version": "^9.0.0",
     "ts-jest": "^26.4.4",
-    "ts-node": "^9.1.0",
+    "ts-node": "^9.1.1",
     "typescript": "~3.9.7"
   },
   "repository": {

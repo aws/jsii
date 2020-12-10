@@ -30,7 +30,7 @@
     "jsii-calc": "^0.0.0",
     "jsii-pacmak": "^0.0.0",
     "prettier": "^2.2.1",
-    "ts-node": "^9.1.0",
+    "ts-node": "^9.1.1",
     "typescript": "~3.9.7"
   }
 }
