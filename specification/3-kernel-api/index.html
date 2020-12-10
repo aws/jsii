@@ -1,0 +1,1466 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="jsii allows code in any language to naturally interact with JavaScript classes.">
+      
+      
+      
+        <link rel="canonical" href="https://aws.github.io/jsii/specification/3-kernel-api/">
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>The jsii kernel API - The jsii reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-jsii-kernel-api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-header-nav__button md-logo" aria-label="The jsii reference">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            The jsii reference
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              The jsii kernel API
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/aws/jsii/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../user-guide/prerequisites/" class="md-tabs__link">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+        
+      
+      <a href="../1-introduction/" class="md-tabs__link md-tabs__link--active">
+        Specification
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../white-papers/assembly/" class="md-tabs__link">
+        White Papers
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    The jsii reference
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/aws/jsii/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../features/" class="md-nav__link">
+      Features
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../toolchain/" class="md-nav__link">
+      Toolchain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../runtime-architecture/" class="md-nav__link">
+      Runtime Architecture
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    <label class="md-nav__link" for="nav-2">
+      User Guide
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        User Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/prerequisites/" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
+    <label class="md-nav__link" for="nav-2-2">
+      Quick Start
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Quick Start" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        <span class="md-nav__icon md-icon"></span>
+        Quick Start
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/set-up/" class="md-nav__link">
+      Set Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/write-code/" class="md-nav__link">
+      Write Code
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/typescript-restrictions/" class="md-nav__link">
+      TypeScript Restrictions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/configuration/" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    <label class="md-nav__link" for="nav-3">
+      Specification
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Specification" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Specification
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../1-introduction/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../2-type-system/" class="md-nav__link">
+      The jsii type system
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        The jsii kernel API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      The jsii kernel API
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    Errors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization-the-hello-message" class="md-nav__link">
+    Initialization - the hello message
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-kernel-api" class="md-nav__link">
+    General Kernel API
+  </a>
+  
+    <nav class="md-nav" aria-label="General Kernel API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-jsii-assemblies-into-the-kernel" class="md-nav__link">
+    Loading jsii assemblies into the Kernel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtaining-naming-information-for-loaded-assemblies" class="md-nav__link">
+    Obtaining naming information for loaded assemblies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtaining-statistics-about-the-kernel-usage" class="md-nav__link">
+    Obtaining statistics about the Kernel usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-objects" class="md-nav__link">
+    Creating objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-interfaces" class="md-nav__link">
+    Additional Interfaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overrides" class="md-nav__link">
+    Overrides
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-note-about-callbacks" class="md-nav__link">
+    A note about callbacks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destroying-objects" class="md-nav__link">
+    Destroying Objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invoking-methods-and-static-methods" class="md-nav__link">
+    Invoking methods (and static methods)
+  </a>
+  
+    <nav class="md-nav" aria-label="Invoking methods (and static methods)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-method-invocation" class="md-nav__link">
+    Asynchronous method invocation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invoking-getters-and-static-getters" class="md-nav__link">
+    Invoking getters (and static getters)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invoking-setters-and-static-setters" class="md-nav__link">
+    Invoking setters (and static setters)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../4-standard-compliance-suite/" class="md-nav__link">
+      Standard Compliance Suite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../5-new-language-intake/" class="md-nav__link">
+      New Language Intake
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <label class="md-nav__link" for="nav-4">
+      White Papers
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="White Papers" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        White Papers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../white-papers/assembly/" class="md-nav__link">
+      .jsii Assemblies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../white-papers/callbacks/" class="md-nav__link">
+      Callbacks and Overrides
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../white-papers/language-implementation/" class="md-nav__link">
+      Language Implementation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    Errors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization-the-hello-message" class="md-nav__link">
+    Initialization - the hello message
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-kernel-api" class="md-nav__link">
+    General Kernel API
+  </a>
+  
+    <nav class="md-nav" aria-label="General Kernel API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-jsii-assemblies-into-the-kernel" class="md-nav__link">
+    Loading jsii assemblies into the Kernel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtaining-naming-information-for-loaded-assemblies" class="md-nav__link">
+    Obtaining naming information for loaded assemblies
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtaining-statistics-about-the-kernel-usage" class="md-nav__link">
+    Obtaining statistics about the Kernel usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-objects" class="md-nav__link">
+    Creating objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-interfaces" class="md-nav__link">
+    Additional Interfaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overrides" class="md-nav__link">
+    Overrides
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-note-about-callbacks" class="md-nav__link">
+    A note about callbacks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destroying-objects" class="md-nav__link">
+    Destroying Objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invoking-methods-and-static-methods" class="md-nav__link">
+    Invoking methods (and static methods)
+  </a>
+  
+    <nav class="md-nav" aria-label="Invoking methods (and static methods)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-method-invocation" class="md-nav__link">
+    Asynchronous method invocation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invoking-getters-and-static-getters" class="md-nav__link">
+    Invoking getters (and static getters)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invoking-setters-and-static-setters" class="md-nav__link">
+    Invoking setters (and static setters)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/specification/3-kernel-api.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="the-jsii-kernel-api">The <em>jsii</em> kernel API</h1>
+<p>This document describes the API for the <code>@jsii/kernel</code> module, which is to be used by all <em>host</em> libraries. It provides
+the fundamental features necessary for <em>host</em> processes to interact with the original module's code.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, <code>@jsii/kernel</code> contains the bulk of the logic, however a separate <code>@jsii/runtime</code> package owns the
+dialogue between the <em>host</em> and <em>kernel</em> processes. The <code>@jsii/runtime</code> is a very thin glue layer and it will
+eventually be merged into <code>@jsii/kernel</code>.</p>
+</div>
+<h2 id="errors">Errors</h2>
+<p>Most of the calls described in this document may result in an error being raised. It is the responsibility of the <em>host</em>
+runtime library to deal with such errors correctly: action retries, propagate the error to the <em>host</em> app's code, and so
+on.</p>
+<p>Error responses are signaled by the <code>error</code> key:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">ErrorResponse</span> <span class="p">{</span>
+  <span class="cm">/** A simple message describing what happened. */</span>
+  <span class="nx">message</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** Whenever possible, the stack trace of the error. */</span>
+  <span class="nx">stack?</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Where possible, the <em>host</em> runtime libraries should make sure to affix their own stack trace information where relevant
+to the <em>kernel</em> process's stack trace when such errors are propagated to <em>host</em> app's code, in order to offer as much
+relevant context information as possible.</p>
+<h2 id="initialization-the-hello-message">Initialization - the <code>hello</code> message</h2>
+<p>The <em>host</em> library is responsible for spawning the <code>node</code> process that will run the original module's code. This <code>node</code>
+process runs the <code>@jsii/kernel</code> application, and API messages are exchanged via the <code>node</code> processes' standard input and
+output pipes.</p>
+<p>Upon initialization, the <code>@jsii/kernel</code> process introduces itself to the <em>host</em> application by emitting a single JSON
+message:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="c1">// The package name@version of the @jsii/kernel in use</span>
+  <span class="s2">&quot;hello&quot;</span><span class="o">:</span> <span class="s2">&quot;@jsii/runtime@0.21.1&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Any additional key present on the <code>hello</code> message will be silently ignored by a <em>host</em> library that does not know how to
+process it, ensuring forward compatibility of this message, if and when new attributes are added.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the future, this message may be augmented with additional keys to enable feature negotiation between the <em>host</em>
+application and the <code>@jsii/kernel</code>.</p>
+</div>
+<h2 id="general-kernel-api">General Kernel API</h2>
+<p>Once the <code>hello</code> handshake is complete, a sequence of request and responses are exchanged with the <code>@jsii/kernel</code>.
+Requests take the form of JSON-encoded messages that all follow the following pattern:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Request</span> <span class="p">{</span>
+  <span class="cm">/**</span>
+<span class="cm">   * This field discriminates the various request types.</span>
+<span class="cm">   */</span>
+  <span class="nx">api</span><span class="o">:</span>
+    <span class="o">|</span> <span class="s1">&#39;load&#39;</span> <span class="c1">// Loading jsii assemblies into the Kernel</span>
+    <span class="o">|</span> <span class="s1">&#39;naming&#39;</span> <span class="c1">// Obtaining naming information for loaded assemblies</span>
+    <span class="o">|</span> <span class="s1">&#39;stats&#39;</span> <span class="c1">// Obtaining statistics about the Kernel usage</span>
+    <span class="o">|</span> <span class="s1">&#39;create&#39;</span> <span class="c1">// Creating objects</span>
+    <span class="o">|</span> <span class="s1">&#39;del&#39;</span> <span class="c1">// Destroying objects</span>
+    <span class="o">|</span> <span class="s1">&#39;invoke&#39;</span>
+    <span class="o">|</span> <span class="s1">&#39;sinvoke&#39;</span> <span class="c1">// Invoking methods (and static methods)</span>
+    <span class="o">|</span> <span class="s1">&#39;get&#39;</span>
+    <span class="o">|</span> <span class="s1">&#39;sget&#39;</span> <span class="c1">// Invoking getters (and static getters)</span>
+    <span class="o">|</span> <span class="s1">&#39;set&#39;</span>
+    <span class="o">|</span> <span class="s1">&#39;sset&#39;</span> <span class="c1">// Invoking setters (and static setters)</span>
+    <span class="o">|</span> <span class="s1">&#39;begin&#39;</span>
+    <span class="o">|</span> <span class="s1">&#39;end&#39;</span><span class="p">;</span> <span class="c1">// Asynchronous method invocation</span>
+
+  <span class="c1">// ... request-type specific fields ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="loading-jsii-assemblies-into-the-kernel">Loading <em>jsii</em> assemblies into the Kernel</h3>
+<p>Before any <em>jsii</em> type can be used, the assembly that provides it must be loaded into the kernel. Similarly, all
+dependencies of a given <em>jsii</em> module must have been loaded into the kernel before the module itself can be loaded (the
+<code>@jsii/kernel</code> does not perform any kind of dependency resolution).</p>
+<p>Loading new assemblies into the <code>@jsii/kernel</code> is done using the <code>load</code> API:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">LoadRequest</span> <span class="p">{</span>
+  <span class="cm">/** The name of the assembly being loaded */</span>
+  <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** The version of the assembly being loaded */</span>
+  <span class="nx">version</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** The local path to the npm package for the assembly */</span>
+  <span class="nx">tarball</span>: <span class="kt">string</span><span class="p">;</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;load&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The response to the <code>load</code> call provides some high-level information pertaining to the loaded assembly, which may be
+used by the <em>host</em> app to validate the result of the operation:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">LoadResponse</span> <span class="p">{</span>
+  <span class="cm">/** The name of the assembly that was just loaded */</span>
+  <span class="nx">assembly</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** The number of types the assembly declared */</span>
+  <span class="nx">types</span>: <span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Once a module is loaded, all the types it declares immediately become available.</p>
+<h3 id="obtaining-naming-information-for-loaded-assemblies">Obtaining naming information for loaded assemblies</h3>
+<p>In certain cases, <em>host</em> runtime libraries may need to obtain naming information from assemblies in order to determine
+the translation table from a <em>jsii</em> fully-qualified name to a <em>host</em>-native name. This can be retrieved using the
+<code>naming</code> call:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">NamingRequest</span> <span class="p">{</span>
+  <span class="cm">/** The name of the assembly for which naming is requested */</span>
+  <span class="nx">assembly</span>: <span class="kt">string</span><span class="p">;</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;naming&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In response to the <code>naming</code> call, the <code>@jsii/kernel</code> returns the configuration block for each language supported by the
+named <code>assembly</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">NamingResponse</span> <span class="p">{</span>
+  <span class="cm">/** The naming information for the requested assembly. */</span>
+  <span class="nx">naming</span><span class="o">:</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * For each language, provides the jsii configuration block. The content of</span>
+<span class="cm">     * this configuration block is specified by each language implementation.</span>
+<span class="cm">     */</span>
+    <span class="p">[</span><span class="nx">language</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="nx">any</span> <span class="p">};</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="obtaining-statistics-about-the-kernel-usage">Obtaining statistics about the Kernel usage</h3>
+<p>The <code>stats</code> call can be used to obtain information about the current <code>Kernel</code> instance, which can be leveraged by unit
+tests or in order to produce metrics for tracking the health of a long-running <em>jsii</em> app.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StatsRequest</span> <span class="p">{</span>
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;stats&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The response to the <code>stats</code> call contains synthetic information about the current state of the <code>Kernel</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StatsResponse</span> <span class="p">{</span>
+  <span class="cm">/** The number of object reference currently tracked by the Kernel */</span>
+  <span class="nx">objectCount</span>: <span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="creating-objects">Creating objects</h3>
+<p>Most <em>jsii</em> workflows start with creating instances of objects. This can mean creating a pure <strong>JavaScript</strong> object,
+instantiating a sub-class of some <strong>JavaScript</strong> class, or even creating a pure-<em>host</em> instance that implements a
+collection of <em>behavioral interfaces</em>.</p>
+<p>Creating objects is achieved using the <code>create</code> API, which accepts the following parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CreateRequest</span> <span class="p">{</span>
+  <span class="cm">/** The jsii fully qualified name of the class */</span>
+  <span class="nx">fqn</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** Any arguments to provide to the constructor */</span>
+  <span class="nx">args?</span>: <span class="kt">any</span><span class="p">[];</span>
+  <span class="cm">/** Additional interfaces implemented in the host app */</span>
+  <span class="nx">interfaces?</span>: <span class="kt">string</span><span class="p">[];</span>
+  <span class="cm">/** Any methods or property overridden in the host app */</span>
+  <span class="nx">overrides?</span>: <span class="kt">Override</span><span class="p">[];</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;create&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The response to the object call is a decorated <code>ObjectReference</code> object (which is a common parameter to other calls in
+the <code>@jsii/kernel</code> API, used to refer to a particular instance):</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">ObjectReference</span> <span class="p">{</span>
+  <span class="cm">/** A handle that uniquely idenfies an instance */</span>
+  <span class="s1">&#39;$jsii.byref&#39;</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">CreateResponse</span> <span class="kr">extends</span> <span class="nx">ObjectReference</span> <span class="p">{</span>
+  <span class="cm">/** The list of interfaces implemented by the instance */</span>
+  <span class="s1">&#39;$jsii.interfaces&#39;</span><span class="o">?:</span> <span class="kt">string</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The value of the <code>'$jsii.byref'</code> field of the <code>ObjectReference</code> type is formatted in the following way:</p>
+<div class="highlight"><pre><span></span><code>@aws-cdk/core.Stack@10003
+└────────┬────────┘ └─┬─┘
+         │            └─ Opaque numeric identifier
+         └─ Object instance&#39;s base class&#39; jsii fully qualified name
+</code></pre></div>
+<p>The first part of the reference identifier can have the special un-qualified value <code>Object</code> to denote the absence of a
+<em>jsii</em>-known base class (for example when the object <em>only</em> implements a <em>jsii</em> interface).</p>
+<h4 id="additional-interfaces">Additional Interfaces</h4>
+<p>Sometimes, the <em>host</em> app will extend a <em>jsii</em> class and implement new <em>jsii</em> interfaces that were not present on the
+original type. Such interfaces must be declared by providing their <em>jsii</em> fully qualified name as an entry in the
+<code>interfaces</code> list.</p>
+<p>Providing interfaces in this list that are implicitly present from another delcaration (either because they are already
+implemented by the class denoted by the <code>fqn</code> field, or because another entry in the <code>interfaces</code> list extends it) is
+valid, but not necessary. The <code>@jsii/kernel</code> is responsible for correctly handling redundant declarations.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>While declared <code>interfaces</code> may contain redundant declarations of members already declared by other <code>interfaces</code> or
+by the type denoted by <code>fqn</code>, undefined behavior results if any such declaration is not identical to the others
+(e.g: property <code>foo</code> declared with type <code>boolean</code> on one of the <code>interfaces</code>, and with type <code>string</code> on another).</p>
+</div>
+<h4 id="overrides">Overrides</h4>
+<p>For any method that is implemented or overridden from the <em>host</em> app, the <code>create</code> call must specify an <code>override</code>
+entry. This will inform the Kernel that calls to these methods must be relayed to the <em>host</em> app for execution, instead
+of executing the original library's version.</p>
+<p>An optional <code>cookie</code> string can be provided. This string will be recorded on the <strong>Javascript</strong> proxying implementation,
+and will be provided to the <strong>host</strong> app with any <em>callback</em> request. This information can be used, for example, to
+improve the performance of implementation lookups in the <em>host</em> app, where the necessary reflection calls would
+otherwise be prohibitively expensive.</p>
+<p>Override declarations adhere to the following schema:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">MethodOverride</span> <span class="p">{</span>
+  <span class="cm">/** The name of the overridden method */</span>
+  <span class="nx">method</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** An arbitrary override cookie string */</span>
+  <span class="nx">cookie?</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">PropertyOverride</span> <span class="p">{</span>
+  <span class="cm">/** The name of the overridden property */</span>
+  <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** An arbitrary override cookie string */</span>
+  <span class="nx">cookie?</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">type</span> <span class="nx">Override</span> <span class="o">=</span> <span class="nx">MethodOverride</span> <span class="o">|</span> <span class="nx">PropertyOverride</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="a-note-about-callbacks">A note about callbacks</h4>
+<p>All <code>@jsii/runtime</code> calls that interact with object instances (that is, any call except for <code>load</code>, <code>naming</code> and
+<code>stats</code>; as well as the <code>del</code> call since <em>jsii</em> does not support customized destructors or finalizers) may result in the
+need to execute code that is defined in the <em>host</em> app, when the code path traverses a method or property that was
+implemented or overridden in the <em>host</em> app.</p>
+<p>Such cases will result in a callback request substituting itself to the response of the original call being made;
+execution of which will resume once the callback response is provided.</p>
+<p>A callback request is sent from the <code>@jsii/kernel</code>'s <code>node</code> process to the <em>host</em> app and has the following schema:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CallbackRequest</span> <span class="p">{</span>
+  <span class="cm">/** Callback requests are identified by the presence of the `callback` key */</span>
+  <span class="nx">callback</span>: <span class="kt">Callback</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
+  <span class="cm">/** A unique identifier for this callback request */</span>
+  <span class="nx">cbid</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** The object on which the callback must be executed */</span>
+  <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
+  <span class="cm">/** The callback cookie, if one was specified */</span>
+  <span class="nx">cookie?</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">InvokeCallback</span> <span class="kr">extends</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
+  <span class="cm">/** The name of the host method to be invoked */</span>
+  <span class="nx">method</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">GetCallback</span> <span class="kr">extends</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
+  <span class="cm">/** The name of the property to be read */</span>
+  <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">SetCallback</span> <span class="kr">extends</span> <span class="nx">CallbackBase</span> <span class="p">{</span>
+  <span class="cm">/** The name of the property to be written to */</span>
+  <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** The value to be set */</span>
+  <span class="nx">value</span>: <span class="kt">any</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">type</span> <span class="nx">Callback</span> <span class="o">=</span> <span class="nx">InvokeCallback</span> <span class="o">|</span> <span class="nx">GetCallback</span> <span class="o">|</span> <span class="nx">SetCallback</span><span class="p">;</span>
+</code></pre></div>
+<p>In order to fulfill the callback request, the <em>host</em> app may need to perform futher API calls (loading new assemblies,
+creating new instances, invoking methods - including delegating to the <code>super</code> implementation, ...). Such calls will
+behave as they otherwise would (including the possible introduction of further callback requests).</p>
+<p>Once the <em>host</em> app has fulfilled the request, it must signal the result of that execution back to the <code>@jsii/kernel</code>
+process by using the <code>complete</code> call:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CompleteBase</span> <span class="p">{</span>
+  <span class="cm">/** The callback ID from the corresponding request */</span>
+  <span class="nx">cbid</span>: <span class="kt">string</span><span class="p">;</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="sb">`complete`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">CallbackSuccess</span> <span class="kr">extends</span> <span class="nx">CompleteBase</span> <span class="p">{</span>
+  <span class="cm">/** The result of the execution (`undefined` if void) */</span>
+  <span class="nx">result</span>: <span class="kt">any</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">CallbackFailure</span> <span class="kr">extends</span> <span class="nx">CompleteBase</span> <span class="p">{</span>
+  <span class="cm">/** The error that was raised during fulfillment */</span>
+  <span class="nx">err</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">type</span> <span class="nx">CompleteRequest</span> <span class="o">=</span> <span class="nx">CallbackSuccess</span> <span class="o">|</span> <span class="nx">CallbackFailure</span><span class="p">;</span>
+</code></pre></div>
+<p>As discussed earlier, the response to the <code>complete</code> call is the result of resuming execution of the code path that
+triggered the callback request. This may be another callback request, or the final result of that call.</p>
+<p>The <code>callbacks</code> call may be used to determine the list of all outstanding callback requests:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CallbacksRequest</span> <span class="p">{</span>
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;callbacks&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This call results in a list of outstanding callbacks:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">CallbacksResponse</span> <span class="p">{</span>
+  <span class="cm">/** The list of outstanding callback requests */</span>
+  <span class="nx">callbacks</span>: <span class="kt">Callback</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="destroying-objects">Destroying Objects</h3>
+<p>Once the <em>host</em> app no longer needs a particular object, it can be discarded. This can happen for example when the
+<em>host</em> reference to an object is garbage collected or freed. In order to allow the <strong>JavaScript</strong> process to also
+reclaim the associated memory footprint, the <code>del</code> API must be used:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">DelRequest</span> <span class="p">{</span>
+  <span class="cm">/** The object reference that can be released */</span>
+  <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;del&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Failure to use the <code>del</code> API will result in memory leakage as the <strong>JavaScript</strong> process accumulates garbage in its
+Kernel instance. This can eventually result in a <em>Javascript heap out of memory</em> error, and the abnormal termination
+of the <code>node</code> process, and consequently of the <em>host</em> app.</p>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>The existing <em>host</em> runtime libraries do not implement this behavior!</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>There is currently no provision for the <code>node</code> process to inform the <em>host</em> app about object references it dropped.
+This mechanism is necessary in order to support garbage collection of resources that involve <em>host</em>-implemented code
+(in such cases, the <em>host</em> app must hold on to any instance it passed to <strong>JavaScript</strong> until it is no longer
+reachable from there).</p>
+</div>
+<p>Upon successfully deleting an object reference, the <code>@jsii/kernel</code> will return an empty response object:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">DelResponse</span> <span class="p">{}</span>
+</code></pre></div>
+<h3 id="invoking-methods-and-static-methods">Invoking methods (and static methods)</h3>
+<p>Invoking methods is done via the <code>invoke</code> call:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">InvokeRequest</span> <span class="p">{</span>
+  <span class="cm">/** The object reference on which a method is invoked */</span>
+  <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
+  <span class="cm">/** The name of the method being invoked */</span>
+  <span class="nx">method</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** Any arguments passed to the method invocation */</span>
+  <span class="nx">args?</span>: <span class="kt">any</span><span class="p">[];</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;invoke&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Static method invocations do not have a receiving instance, and instead are implemented by way of the <code>sinvoke</code> call:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">StaticInvokeRequest</span> <span class="p">{</span>
+  <span class="cm">/** The jsii fully qualified name of the declaring type */</span>
+  <span class="nx">fqn</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** The name of the static method being invoked */</span>
+  <span class="nx">method</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** Any arguments passed to the method invocation */</span>
+  <span class="nx">args?</span>: <span class="kt">any</span><span class="p">[];</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;sinvoke&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Note that, unlike in certain programming languages such as <strong>Java</strong>, it is illegal to attempt invoking a static method
+on the static type of some instance using the <code>invoke</code> call. All static invocations <em>must</em> be done using <code>sinvoke</code>.</p>
+<p>Both the <code>invoke</code> and <code>sinvoke</code> calls result in the same response:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">InvokeResponse</span> <span class="p">{</span>
+  <span class="cm">/** The result of the method invocation. */</span>
+  <span class="nx">result</span>: <span class="kt">any</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>When the method's return type is <code>void</code>, the <code>result</code> value should typically be <code>undefined</code>, however it may not be ??
+(<strong>TypeScript</strong> may in certain circumstances allow returning a value from a <code>void</code> method): the <em>host</em> app should ignore
+such values.</p>
+<h4 id="asynchronous-method-invocation">Asynchronous method invocation</h4>
+<p>The <code>invoke</code> call can only be used to invoke <em>synchronous</em> methods. In order to invoke <em>asynchronous</em> methods, the
+<code>begin</code> and <code>end</code> calls must be used instead. Once the <em>host</em> app has entered an asynchronous workflow (after it makes
+the first <code>begin</code> call), and until it has completed all asynchronous operations (after all <code>begin</code> class are matched
+with an <code>end</code> call), no <em>synchronous</em> operation (including synchronous callbacks) may be initiated.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">BeginRequest</span> <span class="p">{</span>
+  <span class="cm">/** The object reference on which an asynchronous method is invoked */</span>
+  <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
+  <span class="cm">/** The name of the method being invoked */</span>
+  <span class="nx">method</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** Any arguments passed to the method invocation */</span>
+  <span class="nx">args?</span>: <span class="kt">any</span><span class="p">[];</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;begin&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>There is no static form of this call. Should there be one?</p>
+</div>
+<p>The <code>begin</code> call results in a promise being made:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">BeginResponse</span> <span class="p">{</span>
+  <span class="cm">/**</span>
+<span class="cm">   * An opaque string that uniquely idenfies the promised result of this</span>
+<span class="cm">   * invocation.</span>
+<span class="cm">   */</span>
+  <span class="nx">promiseid</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Whenever the <em>host</em> app needs to obtain the promised value (possibly in a blocking way), it makes the corresponding
+<code>end</code> call:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">EndRequest</span> <span class="p">{</span>
+  <span class="cm">/** The promiseid that was returned from the corresponding `begin` call. */</span>
+  <span class="nx">promiseid</span>: <span class="kt">string</span><span class="p">;</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;end&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This will result in the promise being awaited and then resolved:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">EndResponse</span> <span class="p">{</span>
+  <span class="cm">/** The resolved value of the promise */</span>
+  <span class="nx">result</span>: <span class="kt">any</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>All <code>begin</code> calls must be matched with an <code>end</code> call. Failure to do so may result in unhandled promise rejections
+that might cause the application to terminate in certain environments.</p>
+</div>
+<h3 id="invoking-getters-and-static-getters">Invoking getters (and static getters)</h3>
+<p>In order to obtain the value of properties, the <code>get</code> call is used:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">GetRequest</span> <span class="p">{</span>
+  <span class="cm">/** The object reference on which a poperty is read */</span>
+  <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
+  <span class="cm">/** The name of the property being read */</span>
+  <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;get&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>When operating on static properties, or in order to obtain the value of <code>enum</code> constants, the <code>sget</code> API must be used
+instead:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">StaticGetRequest</span> <span class="p">{</span>
+  <span class="cm">/** The jsii fully qualified name of the declaring type */</span>
+  <span class="nx">fqn</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
+  <span class="cm">/** The name of the property being read */</span>
+  <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;sget&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Both the <code>get</code> and <code>sget</code> calls result in the same response:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">GetResponse</span> <span class="p">{</span>
+  <span class="cm">/** The value of the property. */</span>
+  <span class="nx">result</span>: <span class="kt">any</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="invoking-setters-and-static-setters">Invoking setters (and static setters)</h3>
+<p>In order to change the value of a property, the <code>set</code> call is used:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">SetRequest</span> <span class="p">{</span>
+  <span class="cm">/** The object reference on which a poperty is written to */</span>
+  <span class="nx">objref</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
+  <span class="cm">/** The name of the property being written to */</span>
+  <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** The value that is written to the property */</span>
+  <span class="nx">value</span>: <span class="kt">any</span><span class="p">;</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;set&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>When operating on static properties, the <code>sset</code> API must be used instead:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">StaticSetRequest</span> <span class="p">{</span>
+  <span class="cm">/** The jsii fully qualified name of the declaring type */</span>
+  <span class="nx">fqn</span>: <span class="kt">ObjectReference</span><span class="p">;</span>
+  <span class="cm">/** The name of the property being written to */</span>
+  <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="cm">/** The value that is written to the property */</span>
+  <span class="nx">value</span>: <span class="kt">any</span><span class="p">;</span>
+
+  <span class="c1">// The discriminator</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="s1">&#39;sset&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Both the <code>set</code> and <code>sset</code> calls result in the same response, which is an empty object:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">SetResponse</span> <span class="p">{}</span>
+</code></pre></div>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: 2020-12-10
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../2-type-system/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                The jsii type system
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../4-standard-compliance-suite/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Standard Compliance Suite
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Amazon Web Services, Inc.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.expand', 'navigation.instant', 'navigation.sections', 'navigation.tabs'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

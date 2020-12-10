@@ -1,0 +1,1709 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="jsii allows code in any language to naturally interact with JavaScript classes.">
+      
+      
+      
+        <link rel="canonical" href="https://aws.github.io/jsii/specification/4-standard-compliance-suite/">
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>Standard Compliance Suite - The jsii reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#standard-compliance-suite" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-header-nav__button md-logo" aria-label="The jsii reference">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            The jsii reference
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Standard Compliance Suite
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/aws/jsii/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../user-guide/prerequisites/" class="md-tabs__link">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+        
+      
+      <a href="../1-introduction/" class="md-tabs__link md-tabs__link--active">
+        Specification
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../white-papers/assembly/" class="md-tabs__link">
+        White Papers
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    The jsii reference
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/aws/jsii/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../features/" class="md-nav__link">
+      Features
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../toolchain/" class="md-nav__link">
+      Toolchain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../runtime-architecture/" class="md-nav__link">
+      Runtime Architecture
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    <label class="md-nav__link" for="nav-2">
+      User Guide
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        User Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/prerequisites/" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
+    <label class="md-nav__link" for="nav-2-2">
+      Quick Start
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Quick Start" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        <span class="md-nav__icon md-icon"></span>
+        Quick Start
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/set-up/" class="md-nav__link">
+      Set Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/write-code/" class="md-nav__link">
+      Write Code
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/typescript-restrictions/" class="md-nav__link">
+      TypeScript Restrictions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/configuration/" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    <label class="md-nav__link" for="nav-3">
+      Specification
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Specification" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Specification
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../1-introduction/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../2-type-system/" class="md-nav__link">
+      The jsii type system
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../3-kernel-api/" class="md-nav__link">
+      The jsii kernel API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Standard Compliance Suite
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Standard Compliance Suite
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    Goal
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+    Format
+  </a>
+  
+    <nav class="md-nav" aria-label="Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#categories" class="md-nav__link">
+    Categories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-case" class="md-nav__link">
+    Test Case
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compliance" class="md-nav__link">
+    Compliance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-suite" class="md-nav__link">
+    Test Suite
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Suite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#legacy" class="md-nav__link">
+    Legacy
+  </a>
+  
+    <nav class="md-nav" aria-label="Legacy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-unions-are-correctly-disambiguated-by-the-kernel" class="md-nav__link">
+    Type Unions are correctly disambiguated by the Kernel
+  </a>
+  
+    <nav class="md-nav" aria-label="Type Unions are correctly disambiguated by the Kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partially-initialized-object-consumption" class="md-nav__link">
+    Partially initialized object consumption
+  </a>
+  
+    <nav class="md-nav" aria-label="Partially initialized object consumption">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_1" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_1" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    Interfaces
+  </a>
+  
+    <nav class="md-nav" aria-label="Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#host-app-can-implement-an-interface-from-scratch" class="md-nav__link">
+    Host app can implement an interface "from scratch"
+  </a>
+  
+    <nav class="md-nav" aria-label="Host app can implement an interface "from scratch"">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_2" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_2" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs-keyword-arguments" class="md-nav__link">
+    Structs &amp; Keyword Arguments
+  </a>
+  
+    <nav class="md-nav" aria-label="Structs &amp; Keyword Arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ambiguous-arguments-are-handled-correctly" class="md-nav__link">
+    Ambiguous arguments are handled correctly
+  </a>
+  
+    <nav class="md-nav" aria-label="Ambiguous arguments are handled correctly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_3" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_3" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collections" class="md-nav__link">
+    Collections
+  </a>
+  
+    <nav class="md-nav" aria-label="Collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#struct-elements-of-list-are-deserialized-to-the-correct-apparent-type" class="md-nav__link">
+    Struct elements of List are deserialized to the correct apparent type
+  </a>
+  
+    <nav class="md-nav" aria-label="Struct elements of List are deserialized to the correct apparent type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_4" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_4" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#struct-elements-of-map-are-deserialized-to-the-correct-apparent-type" class="md-nav__link">
+    Struct elements of Map are deserialized to the correct apparent type
+  </a>
+  
+    <nav class="md-nav" aria-label="Struct elements of Map are deserialized to the correct apparent type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_5" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_5" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../5-new-language-intake/" class="md-nav__link">
+      New Language Intake
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <label class="md-nav__link" for="nav-4">
+      White Papers
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="White Papers" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        White Papers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../white-papers/assembly/" class="md-nav__link">
+      .jsii Assemblies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../white-papers/callbacks/" class="md-nav__link">
+      Callbacks and Overrides
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../white-papers/language-implementation/" class="md-nav__link">
+      Language Implementation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    Goal
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+    Format
+  </a>
+  
+    <nav class="md-nav" aria-label="Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#categories" class="md-nav__link">
+    Categories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-case" class="md-nav__link">
+    Test Case
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compliance" class="md-nav__link">
+    Compliance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-suite" class="md-nav__link">
+    Test Suite
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Suite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#legacy" class="md-nav__link">
+    Legacy
+  </a>
+  
+    <nav class="md-nav" aria-label="Legacy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-unions-are-correctly-disambiguated-by-the-kernel" class="md-nav__link">
+    Type Unions are correctly disambiguated by the Kernel
+  </a>
+  
+    <nav class="md-nav" aria-label="Type Unions are correctly disambiguated by the Kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partially-initialized-object-consumption" class="md-nav__link">
+    Partially initialized object consumption
+  </a>
+  
+    <nav class="md-nav" aria-label="Partially initialized object consumption">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_1" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_1" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    Interfaces
+  </a>
+  
+    <nav class="md-nav" aria-label="Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#host-app-can-implement-an-interface-from-scratch" class="md-nav__link">
+    Host app can implement an interface "from scratch"
+  </a>
+  
+    <nav class="md-nav" aria-label="Host app can implement an interface "from scratch"">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_2" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_2" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structs-keyword-arguments" class="md-nav__link">
+    Structs &amp; Keyword Arguments
+  </a>
+  
+    <nav class="md-nav" aria-label="Structs &amp; Keyword Arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ambiguous-arguments-are-handled-correctly" class="md-nav__link">
+    Ambiguous arguments are handled correctly
+  </a>
+  
+    <nav class="md-nav" aria-label="Ambiguous arguments are handled correctly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_3" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_3" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collections" class="md-nav__link">
+    Collections
+  </a>
+  
+    <nav class="md-nav" aria-label="Collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#struct-elements-of-list-are-deserialized-to-the-correct-apparent-type" class="md-nav__link">
+    Struct elements of List are deserialized to the correct apparent type
+  </a>
+  
+    <nav class="md-nav" aria-label="Struct elements of List are deserialized to the correct apparent type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_4" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_4" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#struct-elements-of-map-are-deserialized-to-the-correct-apparent-type" class="md-nav__link">
+    Struct elements of Map are deserialized to the correct apparent type
+  </a>
+  
+    <nav class="md-nav" aria-label="Struct elements of Map are deserialized to the correct apparent type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference-implementation_5" class="md-nav__link">
+    Reference Implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-trace_5" class="md-nav__link">
+    Kernel Trace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/specification/4-standard-compliance-suite.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="standard-compliance-suite">Standard Compliance Suite</h1>
+<h2 id="goal">Goal</h2>
+<p>The goal of the standard compliance suite is to be a normative description of the behaviors that all language runtime
+implementations (<em>host runtime library</em> in combination with <em>code generation</em>) must implement. This description takes
+the form of a collection of test cases that must be re-implemented in each <em>host</em> language, so that compliance can be
+asserted.</p>
+<p>Since the goal of <em>jsii</em> is to expose a single Object-Oriented API to multiple programming languages, it is important to
+ensure the behavior is consistent across all of them. This can be achieved by making sure that the interactions between
+the <em>host</em> and <em>kernel</em> processes are the same for a given use-case.</p>
+<h2 id="format">Format</h2>
+<p>In order to assert whether a new runtime implementation is correct, a formal compliance test suite is defined, that all
+language runtimes must fully implement before they can be deemed eligible for General Availability.</p>
+<p>This document describes these tests, as well as a general approach for ensuring conformance requirements are met in a
+systematic manner.</p>
+<h3 id="categories">Categories</h3>
+<p>Test cases in the standard compliance suite are grouped by categories, which help implementors direct their effort in
+the early stages of the implementation of new language bindings. Each category is declared in an <code>H3</code> title (a line that
+starts with <code>###</code>) within the [<code>## Test Suite</code>] title. A description of the category immediately follows the opening
+title. The category ends with the end of the document, or whenever another <code>H2</code> title is reached.</p>
+<h3 id="test-case">Test Case</h3>
+<p>Within a category title, test cases are delimited by <code>H4</code> (<code>####</code>) titles, which correspond to the test case name. The
+test case name should be kept concise (ideally within 75 characters) and try to be as descriptive as possible.</p>
+<p>Immediately after the <code>H4</code> title is an English language description of the test case that explains the property the test
+is designed to validate in as much detail as possible. As much as possible, test case descriptions should be
+self-sufficient.</p>
+<p>After the attributes table, a <strong>TypeScript</strong> block of code describes the canonical form of the test. It includes any
+type declaration that is used by the test (so the code example is self-contained). Assertions performed by the test
+should be written in the form of [<code>jest</code>] expectations.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>The assertion code is intended as a formal representation of the tests' normative procedure. It is not currently
+executed against the <em>kernel</em>, but this could be achieved in the future. Additionally, we might be able to
+automatically transliterate the tests to other languages using [<code>jsii-rosetta</code>].</p>
+</div>
+<p>Finally, another code block details the sequence of messages that should be exchanged between the <em>host</em> and <code>node</code>
+processes during the execution of the test case, such that implementations can assert coherent behavior.</p>
+<p>Initial messages corresponding to the <code>hello</code> and <code>load</code> calls can be omitted at the beginning of the kernel trace.
+Those messages are typically identical across tests and there is little value in asserting around those. However, any
+<code>load</code> call happening after the first call that is neither the <code>hello</code> message or another <code>load</code> call <strong>must</strong> be
+included.</p>
+<p>The dialogue is the sequence of JSON formatted messages, from the perspective of the <em>host</em> app, using the following
+notation:</p>
+<ul>
+<li>Messages sent by the <em>host</em> runtime to the <code>node</code> process:
+  <div class="highlight"><pre><span></span><code>&gt; { &quot;api&quot;: &quot;foo&quot; }
+</code></pre></div></li>
+<li>Messages received by the <em>host</em> runtime from the <code>node</code> process:
+  <div class="highlight"><pre><span></span><code>&lt; { &quot;result&quot;: &quot;bar&quot; }
+</code></pre></div></li>
+<li>Comments to improve readability of the trace:
+  <div class="highlight"><pre><span></span><code># Comment continues until the end of the line
+</code></pre></div></li>
+<li>Blank lines can be added to logically group trace elements</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Is there a need to support some form of a capture mechanism to provision for non-deterministic results, or
+non-normative elements such as the exact Object IDs issued for created instances?</p>
+</div>
+<details class="example"><summary>Show Template</summary><p>Below is the template markdown to copy-paste when introducing a new test case in the compliance suite. New tests should
+always be added at the very end of the category they belong to, right after the last test in said category.</p>
+<div class="highlight"><pre><span></span><code><span class="gu">### Test Category</span>
+
+<span class="gu">#### Test Case Name</span>
+
+A short english language description of what property this test verifies. The description should include enough detail
+for a reader to be able to understand the test without having to search for any additional information. Prefer a long,
+unambiguous description to a terse one that could be subject to interpretation.
+
+&lt;details&gt;&lt;summary&gt;Show test&lt;/summary&gt;
+
+<span class="gu">##### Reference Implementation</span>
+
+<span class="sb">```ts</span>
+<span class="c1">// GIVEN</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+  <span class="cm">/* ... */</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">().</span><span class="nx">bar</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bar</span><span class="p">.</span><span class="nx">baz</span><span class="p">).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+<span class="sb">```</span>
+
+<span class="gu">##### Reference Kernel Messaging</span>
+
+<span class="sb">```</span>
+<span class="sb">## You can omit the initial hello/load messages</span>
+<span class="sb"># &lt; { &quot;hello&quot;: &quot;@jsii/runtime@1.2.3&quot; }</span>
+<span class="sb"># &gt; { &quot;load&quot;: { &quot;name&quot;: &quot;test-case-001&quot;, &quot;version&quot;: &quot;1.2.3&quot;, &quot;tarball&quot;: &quot;/tmp/jsii-kernel-test/lib.tgz&quot; } }</span>
+<span class="sb"># &lt; { &quot;assembly&quot;: &quot;test-case-001&quot;, &quot;types&quot;: 3 }</span>
+<span class="sb">```</span>
+
+&lt;/details&gt;
+</code></pre></div>
+</details>
+<h2 id="compliance">Compliance</h2>
+<p>In order to be able to assert compliance of language binding libraries to the standard test suite, implementations are
+responsible for providing a test harness (typically as part of the runtime library) that can produce a standardized test
+report in the form of a JSON document that follows the following schema:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">TestReport</span> <span class="p">{</span>
+  <span class="cm">/** The report is broken down by test category, using the name as-is */</span>
+  <span class="p">[</span><span class="nx">category</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
+    <span class="cm">/** For each test in the category, using its name as-is */</span>
+    <span class="p">[</span><span class="nx">test</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
+      <span class="cm">/** Whether the test passed or failed */</span>
+      <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;PASS&#39;</span> <span class="o">|</span> <span class="s1">&#39;FAIL&#39;</span><span class="p">;</span>
+      <span class="cm">/** The kernel messages captured during the test */</span>
+      <span class="nx">kernelTrace</span>: <span class="kt">Array</span><span class="o">&lt;</span><span class="nx">KernelMessage</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="p">};</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">KernelMessage</span> <span class="p">{</span>
+  <span class="cm">/** The direction the message was sent (Host -&gt; Kernel / Kernel -&gt; Host) */</span>
+  <span class="nx">direction</span><span class="o">:</span> <span class="s1">&#39;FromKernel&#39;</span> <span class="o">|</span> <span class="s1">&#39;ToKernel&#39;</span><span class="p">;</span>
+  <span class="cm">/** The message, as a JSON object */</span>
+  <span class="nx">message</span><span class="o">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="nx">unknown</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The <code>@jsii/compliance</code> package provides the necessary tools to consume such a test report, together with the Markdown
+document describing the compliance suite, and procuces a report describing compliance test coverage as well as
+information about any non-conformant test result.</p>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>The <code>@jsii/compliance</code> tool does not exist yet.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Should a "somewhat standard" format such as XUnit test report be used instead of rolling our own JSON document?</p>
+</div>
+<h2 id="test-suite">Test Suite</h2>
+<h3 id="legacy">Legacy</h3>
+<p>This section is due to contain all compliance tests that were implemented before the <em>jsii specification</em> was initially
+written. They are going to be gradually replaced by more focused tests with better descriptions.</p>
+<h4 id="type-unions-are-correctly-disambiguated-by-the-kernel">Type Unions are correctly disambiguated by the Kernel</h4>
+<p>In certain cases, two or more types in a <em>Type Union</em> can overlap in such a way that they are all valid structural types
+for the value. Statically typed languages however will not be satisfied with structural typing only, and require the
+correct declared type to be preserved.</p>
+<details class="example"><summary>Show test</summary><h5 id="reference-implementation">Reference Implementation</h5>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">BluePill</span> <span class="p">{</span>
+  <span class="nx">readonly</span> <span class="nx">offeredTo</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="nx">readonly</span> <span class="nx">makesYouForgetTheMatrix?</span>: <span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">RedPill</span> <span class="p">{</span>
+  <span class="nx">readonly</span> <span class="nx">offeredTo</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="nx">readonly</span> <span class="nx">makesYouExitTheMatrix?</span>: <span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Morpheus</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">isBlue</span><span class="p">(</span><span class="nx">pill</span>: <span class="kt">BluePill</span> <span class="o">|</span> <span class="nx">RedPill</span><span class="p">)</span><span class="o">:</span> <span class="nx">pill</span> <span class="nx">is</span> <span class="nx">BluePill</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="nx">1</span>:
+        <span class="kt">return</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">);</span>
+      <span class="k">case</span> <span class="nx">2</span>:
+        <span class="kt">return</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;makesYouForgetTheMatrix&#39;</span><span class="p">);</span>
+      <span class="k">default</span><span class="o">:</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">isRed</span><span class="p">(</span><span class="nx">pill</span>: <span class="kt">BluePill</span> <span class="o">|</span> <span class="nx">RedPill</span><span class="p">)</span><span class="o">:</span> <span class="nx">pill</span> <span class="nx">is</span> <span class="nx">RedPill</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">keys</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">pill</span><span class="p">));</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="nx">1</span>:
+        <span class="kt">return</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">);</span>
+      <span class="k">case</span> <span class="nx">2</span>:
+        <span class="kt">return</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;offeredTo&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;makesYouExitTheMatrix&#39;</span><span class="p">);</span>
+      <span class="k">default</span><span class="o">:</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="kr">private</span> <span class="kr">constructor</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Neo</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">tookBlue</span>: <span class="kt">boolean</span><span class="p">;</span>
+  <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">tookRed</span>: <span class="kt">boolean</span><span class="p">;</span>
+
+  <span class="kr">public</span> <span class="kr">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">pill</span>: <span class="kt">BluePill</span> <span class="o">|</span> <span class="nx">RedPill</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">tookBlue</span> <span class="o">=</span> <span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span> <span class="o">==</span> <span class="s1">&#39;Neo&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isBlue</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">tookRed</span> <span class="o">=</span> <span class="nx">pill</span><span class="p">.</span><span class="nx">offeredTo</span> <span class="o">==</span> <span class="s1">&#39;Neo&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">Morpheus</span><span class="p">.</span><span class="nx">isRed</span><span class="p">(</span><span class="nx">pill</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kr">const</span> <span class="nx">bluePillA</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;not Neo&#39;</span> <span class="p">});</span>
+<span class="kr">const</span> <span class="nx">bluePillB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;Neo&#39;</span><span class="p">,</span> <span class="nx">makesYouForgetTheMatrix</span>: <span class="kt">true</span> <span class="p">});</span>
+<span class="kr">const</span> <span class="nx">redPillA</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;not Neo&#39;</span> <span class="p">});</span>
+<span class="kr">const</span> <span class="nx">redPillB</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Neo</span><span class="p">({</span> <span class="nx">offeredTo</span><span class="o">:</span> <span class="s1">&#39;Neo&#39;</span><span class="p">,</span> <span class="nx">makesYouExitTheMatrix</span>: <span class="kt">true</span> <span class="p">});</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">pill</span> <span class="k">instanceof</span> <span class="nx">BluePill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookBlue</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookRed</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillB</span><span class="p">.</span><span class="nx">pill</span> <span class="k">instanceof</span> <span class="nx">BluePill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookBlue</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookRed</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">redPillA</span><span class="p">.</span><span class="nx">pill</span> <span class="k">instanceof</span> <span class="nx">RedPill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookBlue</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookRed</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+
+<span class="nx">expect</span><span class="p">(</span><span class="nx">redPillB</span><span class="p">.</span><span class="nx">pill</span> <span class="k">instanceof</span> <span class="nx">RedPill</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookBlue</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">bluePillA</span><span class="p">.</span><span class="nx">tookRed</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+</code></pre></div>
+<h5 id="kernel-trace">Kernel Trace</h5>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+</details>
+<h4 id="partially-initialized-object-consumption">Partially initialized object consumption</h4>
+<p>When a constructor passes <code>this</code> out from <strong>JavaScript</strong> to the <em>host</em> app, the reference must be correctly identified
+and passed across.</p>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>The .NET Runtime does not currently honor object identity, meaning that despite the same object reference is
+returned twice, two distinct proxies exist for it in the <em>host</em> .NET app.</p>
+<p>Generally speaking, using pure object identity on <em>jsii</em> language front-ends is dangerous, as certain statically
+typed language will require the runtime to have different instances for different static types a given object
+reference is surfaced as. It may be necessary to introduce a helper akin to <code>Jsii.isSameObject(a, b)</code> to enable
+identity predicates to be used. Other helper functions may be necessary, too, such as one to obtain a "consistent"
+object hash for instances in Java (so they can be safely used with <code>HashMap</code>, ...).</p>
+</div>
+<details class="example"><summary>Show test</summary><h5 id="reference-implementation_1">Reference Implementation</h5>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="kr">export</span> <span class="kr">abstract</span> <span class="kr">class</span> <span class="nx">PartiallyInitializedThisConsumer</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kr">abstract</span> <span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span>: <span class="kt">ConstructorPassesThisOut</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ConstructorPassesThisOut</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kr">constructor</span><span class="p">(</span><span class="nx">consumer</span>: <span class="kt">PartiallyInitializedThisConsumer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">consumer</span><span class="p">.</span><span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kr">class</span> <span class="nx">MyConsumer</span> <span class="kr">extends</span> <span class="nx">PartiallyInitializedThisConsumer</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="nx">obj?</span>: <span class="kt">ConstructorPassesThisOut</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+  <span class="kr">public</span> <span class="nx">consumePartiallyInitializedThis</span><span class="p">(</span><span class="nx">obj</span>: <span class="kt">ConstructorPassesThisOut</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyConsumer</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">object</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ConstructorPassesThisOut</span><span class="p">(</span><span class="nx">consumer</span><span class="p">);</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">obj</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
+</code></pre></div>
+<h5 id="kernel-trace_1">Kernel Trace</h5>
+<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
+# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
+# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+
+&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;test.PartiallyInitializedThisConsumer&quot;,&quot;args&quot;:[],&quot;overrides&quot;:[{&quot;method&quot;:&quot;consumePartiallyInitializedThis&quot;}],&quot;interfaces&quot;:[]}
+&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;test.PartiallyInitializedThisConsumer@10000&quot;}}
+&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;test.ConstructorPassesThisOut&quot;,&quot;args&quot;:[{&quot;$jsii.byref&quot;:&quot;test.PartiallyInitializedThisConsumer@10000&quot;,&quot;$jsii.interfaces&quot;:[]}],&quot;overrides&quot;:[],&quot;interfaces&quot;:[]}
+&lt; {&quot;callback&quot;:{&quot;cbid&quot;:&quot;jsii::callback::20000&quot;,&quot;invoke&quot;:{&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;test.PartiallyInitializedThisConsumer@10000&quot;},&quot;method&quot;:&quot;consumePartiallyInitializedThis&quot;,&quot;args&quot;:[{&quot;$jsii.byref&quot;:&quot;test.ConstructorPassesThisOut@10001&quot;}]}}}
+&gt; {&quot;complete&quot;:{&quot;api&quot;:&quot;complete&quot;,&quot;cbid&quot;:&quot;jsii::callback::20000&quot;}}
+&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;test.ConstructorPassesThisOut@10001&quot;}}
+</code></pre></div>
+</details>
+<h3 id="interfaces">Interfaces</h3>
+<p>Tests in this section ensure correct behavior of <em>behavioral interfaces</em>.</p>
+<h4 id="host-app-can-implement-an-interface-from-scratch">Host app can implement an interface "from scratch"</h4>
+<p>It is possible for a "pure" host interface implementation to be passed across the language boundary, it's methods and
+properties can be used by <strong>JavaScript</strong> code within the Kernel process.</p>
+<div class="admonition bug">
+<p class="admonition-title">Bug</p>
+<p>The .NET Runtime currently requires that pure interfaces implementations extend from
+<code>Amazon.JSII.Rutime.Deputy.DepytyBase</code>.</p>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">Bug</p>
+<p>The Python Runtime currently expects a somewhat un-pythonic way to implement interfaces, which requires decorating
+the implementing class with <code>@jsii.implements("implemented-type.JsiiInterfaceFQN")</code>.</p>
+</div>
+<details class="example"><summary>Show test</summary><h5 id="reference-implementation_2">Reference Implementation</h5>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IBehavioralInterface</span> <span class="p">{</span>
+  <span class="nx">methodCall</span><span class="p">()</span><span class="o">:</span> <span class="kt">string</span><span class="p">;</span>
+  <span class="nx">readonly</span> <span class="nx">property</span>: <span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">InterfaceConsumer</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">iface</span>: <span class="kt">IBehavioralInterface</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="kr">public</span> <span class="nx">composeResult() {</span>
+    <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iface</span><span class="p">.</span><span class="nx">methodCall</span><span class="p">()</span><span class="si">}</span><span class="sb"> / </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">iface</span><span class="p">.</span><span class="nx">property</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kr">class</span> <span class="nx">Implementation</span> <span class="kr">implements</span> <span class="nx">IBehavioralInterface</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">property</span> <span class="o">=</span> <span class="mi">1337</span><span class="p">;</span>
+  <span class="kr">public</span> <span class="nx">methodCall() {</span>
+    <span class="k">return</span> <span class="s1">&#39;Hello!&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">impl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Implementation</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InterfaceConsumer</span><span class="p">(</span><span class="nx">impl</span><span class="p">);</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">consumer</span><span class="p">.</span><span class="nx">composeResult</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Hello! / 1337&#39;</span><span class="p">);</span>
+</code></pre></div>
+<h5 id="kernel-trace_2">Kernel Trace</h5>
+<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
+# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
+# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+
+&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;Object&quot;,&quot;args&quot;:[],&quot;overrides&quot;:[{&quot;method&quot;:&quot;methodCall&quot;},{&quot;property&quot;:&quot;property&quot;}],&quot;interfaces&quot;:[&quot;test.IBehavioralInterface&quot;]}
+&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.IBehavioralInterface&quot;]}}
+&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;test.InterfaceConsumer&quot;,&quot;args&quot;:[{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[]}],&quot;overrides&quot;:[],&quot;interfaces&quot;:[]}
+&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;test.InterfaceConsumer@10001&quot;}}
+&gt; {&quot;api&quot;:&quot;invoke&quot;,&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;test.InterfaceConsumer@10001&quot;},&quot;method&quot;:&quot;composeResult&quot;,&quot;args&quot;:[]}
+&lt; {&quot;callback&quot;:{&quot;cbid&quot;:&quot;jsii::callback::20000&quot;,&quot;invoke&quot;:{&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.IBehavioralInterface&quot;]},&quot;method&quot;:&quot;methodCall&quot;,&quot;args&quot;:[]}}}
+&gt; {&quot;complete&quot;:{&quot;api&quot;:&quot;complete&quot;,&quot;cbid&quot;:&quot;jsii::callback::20000&quot;,&quot;result&quot;:&quot;Hello!&quot;}}
+&lt; {&quot;callback&quot;:{&quot;cbid&quot;:&quot;jsii::callback::20001&quot;,&quot;get&quot;:{&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.IBehavioralInterface&quot;]},&quot;property&quot;:&quot;property&quot;}}}
+&gt; {&quot;complete&quot;:{&quot;api&quot;:&quot;complete&quot;,&quot;cbid&quot;:&quot;jsii::callback::20001&quot;,&quot;result&quot;:1337.0}}
+&lt; {&quot;ok&quot;:{&quot;result&quot;:&quot;Hello! / 1337&quot;}}
+</code></pre></div>
+</details>
+<h3 id="structs-keyword-arguments">Structs &amp; Keyword Arguments</h3>
+<h4 id="ambiguous-arguments-are-handled-correctly">Ambiguous arguments are handled correctly</h4>
+<p>When a method accepts both a positional parameter named <code>foo</code> and a struct parameter with a property named <code>foo</code>, the
+respective values are passed in the correct parameter location when calling into the <strong>JavaScript</strong> code.</p>
+<details class="example"><summary>Show test</summary><h5 id="reference-implementation_3">Reference Implementation</h5>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
+  <span class="nx">readonly</span> <span class="nx">foo</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ClassType</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kr">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">foo</span>: <span class="kt">number</span><span class="p">,</span> <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">opts</span>: <span class="kt">StructType</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClassType</span><span class="p">(</span><span class="s1">&#39;Bazinga!&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">foo</span>: <span class="kt">1337</span> <span class="p">});</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">result</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1337</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">result</span><span class="p">.</span><span class="nx">opts</span><span class="p">.</span><span class="nx">foo</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Bazinga!&#39;</span><span class="p">);</span>
+</code></pre></div>
+<h5 id="kernel-trace_3">Kernel Trace</h5>
+<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
+# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
+# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+
+&gt; {&quot;api&quot;:&quot;create&quot;,&quot;fqn&quot;:&quot;test.ClassType&quot;,&quot;args&quot;:[1337.0,{&quot;$jsii.struct&quot;:{&quot;fqn&quot;:&quot;test.StructType&quot;,&quot;data&quot;:{&quot;foo&quot;:&quot;Bazinga!&quot;}}}],&quot;overrides&quot;:[],&quot;interfaces&quot;:[]}
+&lt; {&quot;ok&quot;:{&quot;$jsii.byref&quot;:&quot;test.ClassType@10000&quot;}}
+&gt; {&quot;api&quot;:&quot;get&quot;,&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;test.ClassType@10000&quot;},&quot;property&quot;:&quot;foo&quot;}
+&lt; {&quot;ok&quot;:{&quot;value&quot;:1337}}
+&gt; {&quot;api&quot;:&quot;get&quot;,&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;test.ClassType@10000&quot;},&quot;property&quot;:&quot;opts&quot;}
+&lt; {&quot;ok&quot;:{&quot;value&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10001&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.StructType&quot;]}}}
+&gt; {&quot;api&quot;:&quot;get&quot;,&quot;objref&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10001&quot;},&quot;property&quot;:&quot;foo&quot;}
+&lt; {&quot;ok&quot;:{&quot;value&quot;:&quot;Bazinga!&quot;}}
+</code></pre></div>
+</details>
+<h3 id="collections">Collections</h3>
+<p>Tests in this section ensure correct behavior of collections (<code>List</code> and <code>Map</code>).</p>
+<h4 id="struct-elements-of-list-are-deserialized-to-the-correct-apparent-type">Struct elements of <code>List</code> are deserialized to the correct apparent type</h4>
+<p>When the declared element type of a <code>List</code> is a <em>struct</em>, the resulting list must contain elements of the correct static
+type. This is a requirement for statically typed languages such as Java where type parameters are reified.</p>
+<details class="example"><summary>Show test</summary><h5 id="reference-implementation_4">Reference Implementation</h5>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
+  <span class="nx">readonly</span> <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">StructProvider</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">provide</span><span class="p">()</span><span class="o">:</span> <span class="nx">StructType</span><span class="p">[]</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[{</span> <span class="nx">property</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span> <span class="p">}];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kr">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">StructProvider</span><span class="p">.</span><span class="nx">provide</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBeGreaterThan</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">item</span> <span class="k">of</span> <span class="nx">items</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">item</span> <span class="k">instanceof</span> <span class="nx">StructType</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="kernel-trace_4">Kernel Trace</h5>
+<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
+# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
+# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+
+&gt; {&quot;api&quot;:&quot;sinvoke&quot;,&quot;fqn&quot;:&quot;test.StructProvider&quot;,&quot;method&quot;:&quot;provide&quot;,&quot;args&quot;:[]}
+&lt; {&quot;ok&quot;:{&quot;result&quot;:[{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.StructType&quot;]}]}}
+</code></pre></div>
+</details>
+<h4 id="struct-elements-of-map-are-deserialized-to-the-correct-apparent-type">Struct elements of <code>Map</code> are deserialized to the correct apparent type</h4>
+<p>When the declared element type of a <code>Map</code> is a <em>struct</em>, the resulting list must contain elements of the correct static
+type. This is a requirement for statically typed languages such as Java where type parameters are reified.</p>
+<details class="example"><summary>Show test</summary><h5 id="reference-implementation_5">Reference Implementation</h5>
+<div class="highlight"><pre><span></span><code><span class="c1">// GIVEN</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">StructType</span> <span class="p">{</span>
+  <span class="nx">readonly</span> <span class="nx">property</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">StructProvider</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kr">static</span> <span class="nx">provide</span><span class="p">()</span><span class="o">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">key</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="nx">StructType</span> <span class="p">}</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="p">{</span> <span class="nx">property</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span> <span class="p">}</span> <span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// WHEN</span>
+<span class="kr">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">StructProvider</span><span class="p">.</span><span class="nx">provide</span><span class="p">();</span>
+
+<span class="c1">// THEN</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBeGreaterThan</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">item</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">values</span><span class="p">(</span><span class="nx">items</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">item</span> <span class="k">instanceof</span> <span class="nx">StructType</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="kernel-trace_5">Kernel Trace</h5>
+<div class="highlight"><pre><span></span><code># &lt; {&quot;hello&quot;:&quot;@jsii/runtime@...&quot;}
+# &gt; {&quot;api&quot;:&quot;load&quot;,&quot;name&quot;:&quot;...&quot;,&quot;version&quot;:&quot;...&quot;,&quot;tarball&quot;:&quot;...&quot;}
+# &lt; {&quot;ok&quot;:{&quot;assembly&quot;:&quot;...&quot;,&quot;types&quot;:2}}
+
+&gt; {&quot;api&quot;:&quot;sinvoke&quot;,&quot;fqn&quot;:&quot;test.StructProvider&quot;,&quot;method&quot;:&quot;provide&quot;,&quot;args&quot;:[]}
+&lt; {&quot;ok&quot;:{&quot;result&quot;:{&quot;$jsii.map&quot;:{&quot;foo&quot;:{&quot;$jsii.byref&quot;:&quot;Object@10000&quot;,&quot;$jsii.interfaces&quot;:[&quot;test.StructType&quot;]}}}}}
+</code></pre></div>
+</details>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: 2020-12-10
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../3-kernel-api/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                The jsii kernel API
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../5-new-language-intake/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                New Language Intake
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Amazon Web Services, Inc.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.expand', 'navigation.instant', 'navigation.sections', 'navigation.tabs'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

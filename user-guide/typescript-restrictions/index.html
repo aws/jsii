@@ -1,0 +1,1359 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="jsii allows code in any language to naturally interact with JavaScript classes.">
+      
+      
+      
+        <link rel="canonical" href="https://aws.github.io/jsii/user-guide/typescript-restrictions/">
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>TypeScript Restrictions - The jsii reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#typescript-restrictions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-header-nav__button md-logo" aria-label="The jsii reference">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            The jsii reference
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              TypeScript Restrictions
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/aws/jsii/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+        
+      
+      <a href="../prerequisites/" class="md-tabs__link md-tabs__link--active">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../specification/1-introduction/" class="md-tabs__link">
+        Specification
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../white-papers/assembly/" class="md-tabs__link">
+        White Papers
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    The jsii reference
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/aws/jsii/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../features/" class="md-nav__link">
+      Features
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../toolchain/" class="md-nav__link">
+      Toolchain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../runtime-architecture/" class="md-nav__link">
+      Runtime Architecture
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    <label class="md-nav__link" for="nav-2">
+      User Guide
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        User Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../prerequisites/" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
+    <label class="md-nav__link" for="nav-2-2">
+      Quick Start
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Quick Start" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        <span class="md-nav__icon md-icon"></span>
+        Quick Start
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../set-up/" class="md-nav__link">
+      Set Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../write-code/" class="md-nav__link">
+      Write Code
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        TypeScript Restrictions
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      TypeScript Restrictions
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming" class="md-nav__link">
+    Naming
+  </a>
+  
+    <nav class="md-nav" aria-label="Naming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-members" class="md-nav__link">
+    Class Members
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    Interfaces
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inheritance" class="md-nav__link">
+    Inheritance
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    Structs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#member-visibility" class="md-nav__link">
+    Member Visibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#covariant-overrides-parameter-list-changes" class="md-nav__link">
+    Covariant Overrides &amp; Parameter List Changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameterized-types-aka-generics" class="md-nav__link">
+    Parameterized Types (aka: Generics)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+    <label class="md-nav__link" for="nav-3">
+      Specification
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Specification" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Specification
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/1-introduction/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/2-type-system/" class="md-nav__link">
+      The jsii type system
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/3-kernel-api/" class="md-nav__link">
+      The jsii kernel API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/4-standard-compliance-suite/" class="md-nav__link">
+      Standard Compliance Suite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/5-new-language-intake/" class="md-nav__link">
+      New Language Intake
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <label class="md-nav__link" for="nav-4">
+      White Papers
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="White Papers" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        White Papers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../white-papers/assembly/" class="md-nav__link">
+      .jsii Assemblies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../white-papers/callbacks/" class="md-nav__link">
+      Callbacks and Overrides
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../white-papers/language-implementation/" class="md-nav__link">
+      Language Implementation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    Dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming" class="md-nav__link">
+    Naming
+  </a>
+  
+    <nav class="md-nav" aria-label="Naming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-members" class="md-nav__link">
+    Class Members
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    Interfaces
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inheritance" class="md-nav__link">
+    Inheritance
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    Structs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#member-visibility" class="md-nav__link">
+    Member Visibility
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#covariant-overrides-parameter-list-changes" class="md-nav__link">
+    Covariant Overrides &amp; Parameter List Changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameterized-types-aka-generics" class="md-nav__link">
+    Parameterized Types (aka: Generics)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/user-guide/typescript-restrictions.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="typescript-restrictions">TypeScript Restrictions</h1>
+<p>Since the API exported by <em>jsii modules</em> will be represented in a variety of other languages, certain restrictions are
+enforced by the <code>jsii</code> compiler.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Since those restrictions are solely intended to ensure the exported API can be represented in other languages, they
+do not apply to any internal declarations such as <code class="highlight"><span class="kr">private</span></code> members and declarations annotated with the
+<code class="highlight"><span class="cm">/** @internal */</span></code> tag.</p>
+</div>
+<h2 id="dependencies">Dependencies</h2>
+<p>A <em>jsii module</em> can declare dependencies on any other <em>jsii module</em> by adding entries in the <code>dependencies</code> key in the
+<code>package.json</code> file. Since most other platforms do not support multiple different versions of the same library to
+coexist in the same closure, it is recommended to also declare all such dependencies as <code>peerDependencies</code>.</p>
+<p>Occasionally, a dependency on a <em>non-jsii module</em> is useful. Since such dependencies do not have generated bindings in
+all the supported languages, they must be bundled with the <em>jsii module</em> that depends on them, by adding the library
+into the <code>bundleDependencies</code> array in <code>package.json</code>. The API of the <em>jsii module</em> can not expose any type from bundled
+dependencies, since those types would not be available in other languages.</p>
+<blockquote>
+<p>For more information on <code>package.json</code> file contents, refer to the <a href="https://docs.npmjs.com/cli/v6/configuring-npm/package-json">npm documentation</a>.</p>
+</blockquote>
+<h2 id="metadata">Metadata</h2>
+<blockquote>
+<p>For more information on <code>package.json</code> file contents, refer to the <a href="https://docs.npmjs.com/cli/v6/configuring-npm/package-json">npm documentation</a>.</p>
+</blockquote>
+<h2 id="naming">Naming</h2>
+<h3 id="class-members">Class Members</h3>
+<p>Members of <em>classes</em> cannot share the same <em>PascalCased</em> representation as the declaring <em>class</em> itself, as this results
+in invalid <strong>C#</strong> code:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+<span class="hll">  <span class="c1">// 💥 Illegal property name</span>
+</span><span class="hll">  <span class="kr">public</span> <span class="nx">foo</span>: <span class="kt">string</span><span class="p">;</span>
+</span><span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Bar</span> <span class="p">{</span>
+<span class="hll">  <span class="c1">// 💥 Illegal method name</span>
+</span><span class="hll">  <span class="kr">public</span> <span class="nx">bar</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span><span class="p">}</span>
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Due to existing usage, this restriction is only enforced when <code>jsii</code> is invoked with the <code>--strict</code> option. The
+generated <strong>C#</strong> class name will receive a <code>_</code> suffix if any of it's members conflict, which is a breaking change to
+existing <strong>.NET</strong> consumers when a conflicting member is introduced after the initial release.</p>
+</div>
+<h3 id="interfaces">Interfaces</h3>
+<p>The <code>jsii</code> type model distinguishes two kinds of <em>interfaces</em>:</p>
+<ul>
+<li><em>Behavioral interfaces</em>, which can declare methods and properties</li>
+<li><em>Structs</em>, which are immutable pure data entities, and can consequently only declare <code class="highlight"><span class="nx">readonly</span></code> properties</li>
+</ul>
+<p>A name convention is used to distinguish between these two: <em>behavioral interfaces</em> must have a name that starts with a
+<code>I</code> prefix, while <em>structs</em> must not have such a prefix.</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * Since there is no `I` prefix, Foo is considered to be a struct.</span>
+<span class="cm"> */</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Foo</span> <span class="p">{</span>
+<span class="hll">  <span class="c1">// 💥 Structs are not allowed to declare methods</span>
+</span><span class="hll">  <span class="nx">foo</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span><span class="p">;</span>
+</span><span class="hll">  <span class="c1">// 💥 Structs are not allowed to declare mutable properties</span>
+</span><span class="hll">  <span class="nx">mutableProperty</span>: <span class="kt">number</span><span class="p">;</span>
+</span>  <span class="c1">// ✅ Structs can declare immutable properties</span>
+  <span class="nx">readonly</span> <span class="nx">immutableProperty</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Since there is an `I` prefix, IFoo is considered to be a behavioral interface.</span>
+<span class="cm"> */</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IFoo</span> <span class="p">{</span>
+  <span class="c1">// ✅ Behavioral interfaces can declare methods</span>
+  <span class="nx">foo</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span><span class="p">;</span>
+  <span class="c1">// ✅ Behavioral interfaces can declare mutable properties</span>
+  <span class="nx">mutableProperty</span>: <span class="kt">number</span><span class="p">;</span>
+  <span class="c1">// ✅ Behavioral interfaces can declare immutable properties</span>
+  <span class="nx">readonly</span> <span class="nx">immutableProperty</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<h3 id="structs">Structs</h3>
+<p>As <em>structs</em> are pure data entities, they can only be extended by other <em>structs</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Struct</span> <span class="p">{</span> <span class="cm">/* ...readonly properties... */</span> <span class="p">}</span>
+
+<span class="hll"><span class="c1">// 💥 Structs cannot be extended by behavioral interfaces</span>
+</span><span class="hll"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IBehavioralInterface</span> <span class="kr">extends</span> <span class="nx">Struct</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span>
+<span class="hll"><span class="c1">// 💥 Structs cannot be implemented by classes</span>
+</span><span class="hll"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">ConcreteType</span> <span class="kr">implements</span> <span class="nx">Struct</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span>
+<span class="c1">// ✅ Structs can extend other structs</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">SuperStruct</span> <span class="kr">extends</span> <span class="nx">Struct</span> <span class="p">{</span> <span class="cm">/* ...readonly properties */</span> <span class="p">}</span>
+</code></pre></div>
+<h3 id="member-visibility">Member Visibility</h3>
+<p>The <strong>C#</strong> language does not allow overriding members to change the visibility of the overridden declaration, even if
+the updated visibility is more permissive. As a consequence, overridden members are required to retain the same
+visibility as their parents.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>This makes changing the visibility of a <code class="highlight"><span class="kr">protected</span></code> member to <code class="highlight"><span class="kr">public</span></code> is a breaking change in <code>jsii</code>
+libraries!</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">class</span> <span class="nx">Base</span> <span class="p">{</span>
+  <span class="kr">protected</span> <span class="nx">method</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Subclass</span> <span class="kr">extends</span> <span class="nx">Base</span> <span class="p">{</span>
+<span class="hll">  <span class="c1">// 💥 Illegal change of visibility from protected to public</span>
+</span><span class="hll">  <span class="kr">public</span> <span class="nx">method</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span><span class="p">}</span>
+</code></pre></div>
+<h3 id="covariant-overrides-parameter-list-changes">Covariant Overrides &amp; Parameter List Changes</h3>
+<p>In <strong>TypeScript</strong>, overriding members can have a signature that differs from the overridden member as long as the new
+signature is compatible with the parent. This is however not supported as:</p>
+<ul>
+<li><strong>Java</strong> and <strong>C#</strong> do not support omitting parameters when overriding or implementing a member</li>
+<li><strong>C#</strong> does not support overriding or implementing a member using covariant parameter or return types</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>C# 9</strong> introduces support for covariant return types, which would allow relaxing this restriction, however <code>jsii</code>
+must build code targetting the <code>.NET Core 3.1</code> runtime, which only supports <strong>C# 8</strong>. Once <code>.NET Core 3.1</code> becimes
+end-of-life, this may change.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="kr">export</span> <span class="kr">class</span> <span class="nx">Base</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="nx">method</span><span class="p">(</span><span class="nx">param</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="nx">any</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Child</span> <span class="kr">extends</span> <span class="nx">Base</span> <span class="p">{</span>
+<span class="hll">  <span class="c1">// 💥 Parameter signatures do not match</span>
+</span><span class="hll">  <span class="kr">public</span> <span class="nx">method</span><span class="p">()</span><span class="o">:</span> <span class="nx">any</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span>
+<span class="hll">  <span class="c1">// 💥 Parameter types do not match, even though they are covariant</span>
+</span><span class="hll">  <span class="kr">public</span> <span class="nx">method</span><span class="p">(</span><span class="nx">param</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">any</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span>
+<span class="hll">  <span class="c1">// 💥 Return type does not match, even though it is covariant</span>
+</span><span class="hll">  <span class="kr">public</span> <span class="nx">method</span><span class="p">(</span><span class="nx">param</span>: <span class="kt">any</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+</span><span class="p">}</span>
+</code></pre></div>
+<h2 id="parameterized-types-aka-generics">Parameterized Types (aka: Generics)</h2>
+<p>Parameterized types are not consistently supported in all supported target languages. <strong>Go</strong> does not currently support
+generics, and the differences in generic semantics between <strong>TypeScript</strong>, <strong>C#</strong> and <strong>Java</strong> make it difficult to
+correctly represent such types in all those languages. As a consequence, <code>jsii</code> does not support declaring parameterized
+types.</p>
+<p>Only certain <em>built-in</em> parameterized types can be used in <code>jsii</code> modules:
+- <code>Array&lt;T&gt;</code>, which is equivalent to <code>T[]</code>
+- <code>Record&lt;string, T&gt;</code>, which is equivalent to <code>{ [key: string]: T }</code>
+- <code>Promise&lt;T&gt;</code>, which is the return type of any <em>asynchronous</em> method</p>
+<div class="highlight"><pre><span></span><code><span class="hll"><span class="c1">// 💥 Parameterized types cannot be introduced</span>
+</span><span class="hll"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Parameterized</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span>
+</span><span class="hll">  <span class="nx">readonly</span> <span class="nx">value</span>: <span class="kt">T</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IAsyncFooMaker</span> <span class="p">{</span>
+  <span class="c1">// ✅ Asynchronous methods must return promises</span>
+  <span class="nx">makeFoo</span><span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Foo</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="c1">// ✅ Arrays are supported</span>
+  <span class="nx">makeFoos</span><span class="p">(</span><span class="nx">count</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Foo</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h1 id="soft-reserved-words">Soft-Reserved Words</h1>
+<p>In order to guarantee a consistent developer experience across all supported languages, <code>jsii</code> emits warnings whenever
+a declaration is named after any target language's <em>reserved words</em>, as those will need renaming in target languages:</p>
+<table>
+<thead>
+<tr>
+<th><strong>C#</strong></th>
+<th><strong>Java</strong></th>
+<th><strong>Python</strong></th>
+<th><strong>Go</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>abstract</code></td>
+<td><code>abstract</code></td>
+<td><code>False</code></td>
+<td><code>break</code></td>
+</tr>
+<tr>
+<td><code>base</code></td>
+<td><code>assert</code></td>
+<td><code>None</code></td>
+<td><code>case</code></td>
+</tr>
+<tr>
+<td><code>bool</code></td>
+<td><code>boolean</code></td>
+<td><code>True</code></td>
+<td><code>chan</code></td>
+</tr>
+<tr>
+<td><code>byte</code></td>
+<td><code>byte</code></td>
+<td><code>and</code></td>
+<td><code>const</code></td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td><code>char</code></td>
+<td><code>assert</code></td>
+<td><code>continue</code></td>
+</tr>
+<tr>
+<td><code>checked</code></td>
+<td><code>double</code></td>
+<td><code>def</code></td>
+<td><code>default</code></td>
+</tr>
+<tr>
+<td><code>decimal</code></td>
+<td><code>final</code></td>
+<td><code>del</code></td>
+<td><code>defer</code></td>
+</tr>
+<tr>
+<td><code>delegate</code></td>
+<td><code>float</code></td>
+<td><code>elif</code></td>
+<td><code>else</code></td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td><code>goto</code></td>
+<td><code>except</code></td>
+<td><code>fallthrough</code></td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td><code>int</code></td>
+<td><code>from</code></td>
+<td><code>for</code></td>
+</tr>
+<tr>
+<td><code>explicit</code></td>
+<td><code>long</code></td>
+<td><code>global</code></td>
+<td><code>func</code></td>
+</tr>
+<tr>
+<td><code>extern</code></td>
+<td><code>native</code></td>
+<td><code>is</code></td>
+<td><code>go</code></td>
+</tr>
+<tr>
+<td><code>fixed</code></td>
+<td><code>short</code></td>
+<td><code>lambda</code></td>
+<td><code>goto</code></td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td><code>strictfp</code></td>
+<td><code>nonlocal</code></td>
+<td><code>if</code></td>
+</tr>
+<tr>
+<td><code>foreach</code></td>
+<td><code>synchronized</code></td>
+<td><code>not</code></td>
+<td><code>import</code></td>
+</tr>
+<tr>
+<td><code>goto</code></td>
+<td><code>throws</code></td>
+<td><code>or</code></td>
+<td><code>interface</code></td>
+</tr>
+<tr>
+<td><code>implicit</code></td>
+<td><code>transient</code></td>
+<td><code>pass</code></td>
+<td><code>map</code></td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>volatile</code></td>
+<td><code>raise</code></td>
+<td><code>package</code></td>
+</tr>
+<tr>
+<td><code>internal</code></td>
+<td></td>
+<td></td>
+<td><code>range</code></td>
+</tr>
+<tr>
+<td><code>is</code></td>
+<td></td>
+<td></td>
+<td><code>return</code></td>
+</tr>
+<tr>
+<td><code>lock</code></td>
+<td></td>
+<td></td>
+<td><code>select</code></td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td></td>
+<td></td>
+<td><code>struct</code></td>
+</tr>
+<tr>
+<td><code>namespace</code></td>
+<td></td>
+<td></td>
+<td><code>switch</code></td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td></td>
+<td></td>
+<td><code>type</code></td>
+</tr>
+<tr>
+<td><code>operator</code></td>
+<td></td>
+<td></td>
+<td><code>var</code></td>
+</tr>
+<tr>
+<td><code>out</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>override</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>readonly</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ref</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>sbyte</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>sealed</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>short</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>sizeof</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>stackalloc</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>struct</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>uint</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ulong</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>unchecked</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>unsafe</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ushort</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>using</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>virtual</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>volatile</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The list of reserved words is derived from <a href="https://github.com/aws/jsii/tree/main/packages/jsii/lib/reserved-words.ts"><code>jsii/lib/reserved-words.ts</code></a>.</p>
+</div>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: 2020-12-10
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../write-code/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Write Code
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../configuration/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Configuration Reference
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Amazon Web Services, Inc.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.expand', 'navigation.instant', 'navigation.sections', 'navigation.tabs'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

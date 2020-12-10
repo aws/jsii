@@ -1,0 +1,1004 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="jsii allows code in any language to naturally interact with JavaScript classes.">
+      
+      
+      
+        <link rel="canonical" href="https://aws.github.io/jsii/white-papers/language-implementation/">
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>Language Implementation - The jsii reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#language-implementation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-header-nav__button md-logo" aria-label="The jsii reference">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            The jsii reference
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Language Implementation
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/aws/jsii/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../user-guide/prerequisites/" class="md-tabs__link">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../specification/1-introduction/" class="md-tabs__link">
+        Specification
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+        
+      
+      <a href="../assembly/" class="md-tabs__link md-tabs__link--active">
+        White Papers
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://aws.github.io/jsii/" title="The jsii reference" class="md-nav__button md-logo" aria-label="The jsii reference">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    The jsii reference
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/aws/jsii/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/jsii
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../features/" class="md-nav__link">
+      Features
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../toolchain/" class="md-nav__link">
+      Toolchain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../runtime-architecture/" class="md-nav__link">
+      Runtime Architecture
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    <label class="md-nav__link" for="nav-2">
+      User Guide
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        User Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/prerequisites/" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
+    <label class="md-nav__link" for="nav-2-2">
+      Quick Start
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Quick Start" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        <span class="md-nav__icon md-icon"></span>
+        Quick Start
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/set-up/" class="md-nav__link">
+      Set Up
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/write-code/" class="md-nav__link">
+      Write Code
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/typescript-restrictions/" class="md-nav__link">
+      TypeScript Restrictions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/configuration/" class="md-nav__link">
+      Configuration Reference
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+    <label class="md-nav__link" for="nav-3">
+      Specification
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Specification" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Specification
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/1-introduction/" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/2-type-system/" class="md-nav__link">
+      The jsii type system
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/3-kernel-api/" class="md-nav__link">
+      The jsii kernel API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/4-standard-compliance-suite/" class="md-nav__link">
+      Standard Compliance Suite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../specification/5-new-language-intake/" class="md-nav__link">
+      New Language Intake
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    <label class="md-nav__link" for="nav-4">
+      White Papers
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="White Papers" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        White Papers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../assembly/" class="md-nav__link">
+      .jsii Assemblies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../callbacks/" class="md-nav__link">
+      Callbacks and Overrides
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Language Implementation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Language Implementation
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#foreword" class="md-nav__link">
+    Foreword
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scoping-planning" class="md-nav__link">
+    Scoping &amp; Planning
+  </a>
+  
+    <nav class="md-nav" aria-label="Scoping &amp; Planning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-proposition-rfc" class="md-nav__link">
+    Language Proposition RFC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-generation" class="md-nav__link">
+    Code Generation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-library" class="md-nav__link">
+    Host Library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-packaging" class="md-nav__link">
+    Building &amp; Packaging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developer-preview" class="md-nav__link">
+    Developer Preview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-availability" class="md-nav__link">
+    General Availability
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#foreword" class="md-nav__link">
+    Foreword
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scoping-planning" class="md-nav__link">
+    Scoping &amp; Planning
+  </a>
+  
+    <nav class="md-nav" aria-label="Scoping &amp; Planning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-proposition-rfc" class="md-nav__link">
+    Language Proposition RFC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-generation" class="md-nav__link">
+    Code Generation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-library" class="md-nav__link">
+    Host Library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-packaging" class="md-nav__link">
+    Building &amp; Packaging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developer-preview" class="md-nav__link">
+    Developer Preview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-availability" class="md-nav__link">
+    General Availability
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws/jsii/edit/main/gh-pages/content/white-papers/language-implementation.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="language-implementation">Language Implementation</h1>
+<p>This handbook provides an overview of the process that should be followed when looking to implement support for a new
+programming language in <em>jsii</em>. It attempts to provide a step-by-step procedure, while drawing the reader's attention on
+points that have been found to cause problems in the past.</p>
+<h2 id="foreword">Foreword</h2>
+<p>Implementing a new language in <em>jsii</em> is not just a matter of implementing code generation. Mapping the <em><a href="../../specification/2-type-system/">jsii type
+system</a></em> to a new programming language means finding how to represent an API originally designed in TypeScript to a form
+that is as idiomatic as possible in the new language. This is a craft that often requires trial and error, and the best
+(if not only) way to validate a proposal is to put it in front of users and seek feedback. As a consequence, this
+endeavor should be expected to span months, not weeks.</p>
+<h2 id="scoping-planning">Scoping &amp; Planning</h2>
+<p>The first step of most successful projects is to start by scoping work out and establishing a baseline plan to execute
+on. For contributors not yet familiar with <em>jsii</em>, the <a href="../../specification/1-introduction/">specification</a> document is a great place to start. In
+particular, the <a href="../../specification/5-new-language-intake/">New Language Intake</a> document provides a high-level view of the recommended process for implementing
+new language support.</p>
+<p>The work of implementing support for a new language involves many different components:</p>
+<ul>
+<li>The [<code>jsii</code>] compiler emits warnings when a language's reserved words are used to name types, methods or properties;
+  as this will later require slugification or escaping in the generated code - usually resulting in a degraded developer
+  experience.</li>
+<li>The [<code>jsii-pacmak</code>] tool includes code generators for all supported languages, and a new implementation must be
+  provided for the new language.</li>
+<li>Code generation usually requires specific configuration to be provided in order to be able to generate valid packages
+  (for example, the <strong>Java</strong> code generator requires a base java package to generate into, as well as a Maven group and
+  artifact ID for the package). The [<code>jsii-config</code>] tool needs to be updated with support generating a configuration
+  block with the required entries for the new code generator.</li>
+<li>[<code>jsii-rosetta</code>] tool translates <strong>TypeScript</strong> example code found in the original documentation into the new target
+  language. A new translation implementation needs to be added for the new language.</li>
+<li>Building and publishing infrastructure elements are provided by [<code>aws-delivlib</code>] to make it easier for <em>jsii</em> users to
+  publish their libraries to all supported package registries.</li>
+</ul>
+<h3 id="language-proposition-rfc">Language Proposition RFC</h3>
+<p>The recommended way to formalize the initial plan is to write it into an RFC hosted in the <a href="https://github.com/awslabs/aws-cdk-rfcs#readme">CDK RFC repository</a>. Enough
+time has to be spent considering the requirements in order to get the work scoped and planned well, ensuring smooth
+execution.</p>
+<p>An additional benefit of following the RFC process is that it makes it easier to track learnings accumulated through the
+implementation process, as those will be tracked as comments or iterations on the RFC document.</p>
+<p>It is possible (and sometimes desirable) to start prototyping code-generation for the new language, as this can
+highlight implementation challenges that need to be discussed in the RFC document. In any case, examples of the API
+signatures that are expected to be rendered allow early feedback to be provided by possible future users, and still
+helps identify challenges.</p>
+<p>The following questions should be answered as early as possible in the process, to avoid surprises later on that result
+in significant re-engineering effort:</p>
+<ul>
+<li>What do the generated APIs look like, for the typical API idioms?</li>
+<li><em>Classes</em> (constructors, properties, methods, inheritance strategy, abstract members, ...)<ul>
+<li>The <a href="https://github.com/aws/aws-cdk">AWS CDK</a> (one of the main consumers of <em>jsii</em>) uses specific patterns to offer a better experience in many
+  programming languages. For example, constructor signatures where the last argument is a <em>jsii struct</em> allows for
+  keyword argument lifting in <strong>Python</strong>, and convenient <code>Builder</code> APIs in <strong>Java</strong>.</li>
+</ul>
+</li>
+<li><em>Enums</em></li>
+<li><em>Interfaces</em> and <em>Structs</em> (properties, methods, inheritance strategy, implementation, ...). In particular, how are
+    new optional properties handled (those are not considered breaking change within the <a href="../../specification/2-type-system/">jsii type system</a>).</li>
+<li><em>Structs</em> (properties, inheritance strategy, implementation, ...)</li>
+<li>What information is needed in order for the code-generator to produce artifacts? What should the configuration block
+  look like?</li>
+<li>What is the standard way to publish packages for the new language?</li>
+<li>Are there any requirements (code signature, special metadata, ...) that need to be implemented in order to publish
+    valid packages?</li>
+<li>How are dependencies modeled? If <a href="https://semver.org">semantic versioning</a> is not the norm, what is the strategy to correctly represent
+    semantic version ranges?</li>
+<li>What are the toolchain and platform requirements?</li>
+<li>For example, <strong>Java</strong> requires an OpenJDK 8 distribution and <code>maven</code>, <strong>Python</strong> requires <code>python</code> 3.6 or above,
+    etc...</li>
+</ul>
+<h2 id="code-generation">Code Generation</h2>
+<p>First, implement a first version of the code generation for the new language before getting too far into the
+<em><a href="#host-library">host library</a></em> implementation. This top-down approach ensures the requirements for the lower level
+parts of the implementation are well-defined before they are implemented (reducing the chances that significant re-work
+has to be done), and enables using the <a href="../../specification/4-standard-compliance-suite/">Standard Compliance Suite</a> to ensure the overall implementation is <em>correct</em>
+according to the <a href="../../specification/1-introduction/">specification</a> (since the code necessary to implement the test cases will be available right from the
+start).</p>
+<p>This work happens within the [<code>jsii-pacmak</code>] package.</p>
+<p>Focus initially on the API signatures before getting into their implementation. The first version may even throw a <em>not
+implemented</em> exception when called.</p>
+<p>The [<code>jsii-calc</code>] package, can be used as a sample consuming library which uses <em>jsii</em> to generate code in all target
+languages. Start by making sure a decent API is generated from this package and its dependencies, and use those to
+implement the tests from the <a href="../../specification/4-standard-compliance-suite/">Standard Compliance Suite</a>. You'll also get a feeling for whether the generated code
+achieves a good developer experience or not.</p>
+<h2 id="host-library">Host Library</h2>
+<p>Now that we are generating "empty shell" APIs that represent the necessary entities to back the <a href="../../specification/4-standard-compliance-suite/">Standard Compliance
+Suite</a> tests, start implementing the <em>host library</em> and update the code generator until all the tests pass. It is
+possible to publish artifacts even when tests in the suite are failing. As soon as basic features are working, work on
+<a href="#building-and-packaging">Building and Packaging</a> can start, so early feedback can be gathered.</p>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>A standard architecture for the <em>host library</em> has not been documented yet. Upcoming language implementations should
+contribute to this process by documenting a general architecture that should be implementable in any programming
+languages (and thus, abstracting away language specificities).</p>
+</div>
+<h2 id="building-packaging">Building &amp; Packaging</h2>
+<p>The necessary toolchains should be added to he [<code>jsii/superchain</code>] Docker image, so that the [<code>jsii-pacmak</code>] generation
+can be changed to support building ready to publish artifacts instead of just code.</p>
+<p>Before publishing any artifacts, ensure all packages (the <em>host library</em> as well as generated artifacts) are designated
+as <em>experimental</em> (e.g: <strong>Python</strong> packages were annotated with the <code>Development Status :: 4 - Beta</code> trove classifier on
+PyPI, and <strong>NuGet</strong> packages were published with a pre-release version such as <code>1.2.3-pre</code>).</p>
+<p>Additionally, [<code>aws-delivlib</code>] needs to be augmented to support publishing artifacts to the language's package
+repository.</p>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>The package publishing is being extracted from [<code>aws-delivlib</code>] into a standalone library, currently hosted at
+<a href="https://github.com/eladb/jsii-release"><code>eladb/jsii-release</code></a>.</p>
+</div>
+<h2 id="documentation">Documentation</h2>
+<p>Before releasing the new language support to <em>Developer Preview</em>, basic documentation needs to be produced to explain
+how to configure a <em>jsii</em> project to support the new language, and any peculiarities in working with libraries generated
+by [<code>jsii-pacmak</code>] for this language.</p>
+<p>Support for example code translation should also be built into [<code>jsii-rosetta</code>].</p>
+<h2 id="developer-preview">Developer Preview</h2>
+<p>Once the full <a href="../../specification/4-standard-compliance-suite/">Standard Compliance Suite</a> passes (possibly with the exception of certain fringy features), and the
+documentation covering all aspects of using the language bindings have been produced, the new language can be released
+to <em>Developer Preview</em>.</p>
+<p>It is recommended that new languages stay in <em>Developer Preview</em> for a minimum of 4 weeks, ideally until they have
+received sufficient usage to have built confidence that there are no major usability concerns: once out of <em>Developer
+Preview</em>, it will no longer be possible to introduce breaking changes to the generated code in order to address
+usability issues or bugs.</p>
+<p>In order to improve the chances of catching usability issues, focused user experience studies will be conducted with an
+audience composed of developers with varied degrees of experience with the new language.</p>
+<div class="admonition bug">
+<p class="admonition-title">Unimplemented</p>
+<p>A user experience template will be provided to ensure coverage of critical aspects of the experience. Any critical
+user experience issue (for example, issues that required breaking changes to the generated code) discovered but not
+covered in the template should be added to the template so that subsequent language implementations do not fall to
+the same problem.</p>
+</div>
+<h2 id="general-availability">General Availability</h2>
+<p>Once the new language has been in <em>Developer Preview</em> without any significant usability issues or bugs for a sufficient
+amount of time and is used in real-world use-cases such as for <a href="https://github.com/aws/aws-cdk">AWS CDK</a> applications, it becomes a candidate to be
+declared <em>Generally Available</em>. At this point, breaking changes are no longer possible on the generated code.</p>
+<!-- ######################### External References ######################### -->
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      Last update: 2020-12-10
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../callbacks/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Callbacks and Overrides
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Amazon Web Services, Inc.
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.expand', 'navigation.instant', 'navigation.sections', 'navigation.tabs'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
